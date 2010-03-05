@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.NoMetadataColumns;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -30,7 +32,6 @@ import javax.swing.DefaultListModel;
  * @version 2009-08-06
  */
 public final class ListModelNoMetadata extends DefaultListModel {
-
     private static final long serialVersionUID = -1610826692746882410L;
 
     public ListModelNoMetadata() {

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
@@ -33,20 +34,12 @@ public final class AppFileFilters {
      * Filter of all computable image file formats
      */
     public static final RegexFileFilter ACCEPTED_IMAGE_FILENAME_FILTER =
-            new RegexFileFilter(
-            ".*\\.[cC][rR][wW];" +
-            ".*\\.[cC][rR]2;" +
-            ".*\\.[dD][cC][rR];" +
-            ".*\\.[dD][nN][gG];" +
-            ".*\\.[jJ][pP][gG];" +
-            ".*\\.[jJ][pP][eE][gG];" +
-            ".*\\.[mM][rR][wW];" +
-            ".*\\.[nN][eE][fF];" +
-            ".*\\.[tT][hH][mM];" +
-            ".*\\.[tT][iI][fF];" +
-            ".*\\.[tT][iI][fF][fF];",
-            ";");
+        new RegexFileFilter(".*\\.[cC][rR][wW];" + ".*\\.[cC][rR]2;"
+                            + ".*\\.[dD][cC][rR];" + ".*\\.[dD][nN][gG];"
+                            + ".*\\.[jJ][pP][gG];" + ".*\\.[jJ][pP][eE][gG];"
+                            + ".*\\.[mM][rR][wW];" + ".*\\.[nN][eE][fF];"
+                            + ".*\\.[tT][hH][mM];" + ".*\\.[tT][iI][fF];"
+                            + ".*\\.[tT][iI][fF][fF];", ";");
 
-    private AppFileFilters() {
-    }
+    private AppFileFilters() {}
 }

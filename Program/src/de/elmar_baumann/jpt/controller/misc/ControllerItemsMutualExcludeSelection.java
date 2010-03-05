@@ -17,17 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+
 import java.util.List;
-import javax.swing.JList;
-import javax.swing.JTree;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.JList;
+import javax.swing.JTree;
 
 /**
  * Kontrolliert eine Gruppe von Lists und Trees, von denen nur bei einem Tree
@@ -39,11 +42,10 @@ import javax.swing.event.TreeSelectionListener;
  */
 public final class ControllerItemsMutualExcludeSelection
         implements TreeSelectionListener, ListSelectionListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final List<JTree> trees = appPanel.getSelectionTrees();
-    private final List<JList> lists = appPanel.getSelectionLists();
-    private boolean listen = true;
+    private final AppPanel    appPanel = GUI.INSTANCE.getAppPanel();
+    private final List<JTree> trees    = appPanel.getSelectionTrees();
+    private final List<JList> lists    = appPanel.getSelectionLists();
+    private boolean           listen   = true;
 
     public ControllerItemsMutualExcludeSelection() {
         listen();
@@ -53,6 +55,7 @@ public final class ControllerItemsMutualExcludeSelection
         for (JTree tree : trees) {
             tree.addTreeSelectionListener(this);
         }
+
         for (JList list : lists) {
             list.addListSelectionListener(this);
         }
@@ -61,7 +64,8 @@ public final class ControllerItemsMutualExcludeSelection
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         Object o = e.getSource();
-        if (listen && e.isAddedPath() && o instanceof JTree) {
+
+        if (listen && e.isAddedPath() && (o instanceof JTree)) {
             handleTreeSelected((JTree) o);
         }
     }
@@ -69,8 +73,10 @@ public final class ControllerItemsMutualExcludeSelection
     @Override
     public void valueChanged(ListSelectionEvent e) {
         Object o = e.getSource();
-        if (listen && !e.getValueIsAdjusting() && o instanceof JList) {
+
+        if (listen &&!e.getValueIsAdjusting() && (o instanceof JList)) {
             JList list = (JList) o;
+
             if (list.getSelectedIndex() >= 0) {
                 handleListSelected(list);
             }
@@ -89,21 +95,25 @@ public final class ControllerItemsMutualExcludeSelection
 
     private void clearSelectionOtherLists(JList list) {
         listen = false;
+
         for (JList aList : lists) {
-            if (aList != list && !aList.isSelectionEmpty()) {
+            if ((aList != list) &&!aList.isSelectionEmpty()) {
                 aList.clearSelection();
             }
         }
+
         listen = true;
     }
 
     private void clearSelectionOtherTrees(JTree tree) {
         listen = false;
+
         for (JTree aTree : trees) {
-            if (aTree != tree && aTree.getSelectionCount() > 0) {
+            if ((aTree != tree) && (aTree.getSelectionCount() > 0)) {
                 aTree.clearSelection();
             }
         }
+
         listen = true;
     }
 

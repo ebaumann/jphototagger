@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -32,15 +33,11 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2010-01-01
  */
 public final class ColumnExifLens extends Column {
-
     public static final ColumnExifLens INSTANCE = new ColumnExifLens();
 
     private ColumnExifLens() {
-        super(
-            TableExif.INSTANCE,
-            "exif_lens",
-            DataType.STRING);
-
-        setDescription(JptBundle.INSTANCE.getString("ColumnExifLens.Description"));
+        super(TableExif.INSTANCE, "exif_lens", DataType.STRING);
+        setDescription(
+            JptBundle.INSTANCE.getString("ColumnExifLens.Description"));
     }
 }

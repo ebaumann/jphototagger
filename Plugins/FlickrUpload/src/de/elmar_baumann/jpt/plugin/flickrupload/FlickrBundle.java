@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.plugin.flickrupload;
 
 /**
@@ -26,7 +27,6 @@ package de.elmar_baumann.jpt.plugin.flickrupload;
  * @version 2010-02-14
  */
 final class FlickrBundle extends de.elmar_baumann.lib.resource.Bundle {
-
     public static final FlickrBundle INSTANCE = new FlickrBundle();
 
     private FlickrBundle() {

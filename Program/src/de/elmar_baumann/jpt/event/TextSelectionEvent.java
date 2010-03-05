@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 /**
@@ -26,7 +27,6 @@ package de.elmar_baumann.jpt.event;
  * @version 2009-06-26
  */
 public final class TextSelectionEvent {
-
     private final String text;
 
     /**

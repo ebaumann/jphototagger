@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -33,15 +34,13 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-08-27
  */
 public final class ColumnExifIsoSpeedRatings extends Column {
-
-    public static final ColumnExifIsoSpeedRatings INSTANCE = new ColumnExifIsoSpeedRatings();
+    public static final ColumnExifIsoSpeedRatings INSTANCE =
+        new ColumnExifIsoSpeedRatings();
 
     private ColumnExifIsoSpeedRatings() {
-        super(
-            TableExif.INSTANCE,
-            "exif_iso_speed_ratings",
-            DataType.SMALLINT);
-
-        setDescription(JptBundle.INSTANCE.getString("ColumnExifIsoSpeedRatings.Description"));
+        super(TableExif.INSTANCE, "exif_iso_speed_ratings", DataType.SMALLINT);
+        setDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnExifIsoSpeedRatings.Description"));
     }
 }

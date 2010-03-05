@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -25,14 +26,18 @@ import de.elmar_baumann.jpt.data.RenameTemplate;
 import de.elmar_baumann.jpt.database.DatabaseRenameTemplates;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import javax.swing.Icon;
+
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.Icon;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -44,17 +49,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version 2010-03-02
  */
 public final class RenameTemplatesExporter implements Exporter {
-
-    public static final FileFilter              FILE_FILTER   = new FileNameExtensionFilter(JptBundle.INSTANCE.getString("RenameTemplatesExporter.DisplayName.FileFilter"), "xml");
-    public static final RenameTemplatesExporter INSTANCE      = new RenameTemplatesExporter();
+    public static final FileFilter FILE_FILTER =
+        new FileNameExtensionFilter(
+            JptBundle.INSTANCE.getString(
+                "RenameTemplatesExporter.DisplayName.FileFilter"), "xml");
+    public static final RenameTemplatesExporter INSTANCE =
+        new RenameTemplatesExporter();
 
     @Override
     public void exportFile(File file) {
-        if (file == null) throw new NullPointerException("file == null");
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
 
         file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+
         try {
-            Set<RenameTemplate> templates = DatabaseRenameTemplates.INSTANCE.getAll();
+            Set<RenameTemplate> templates =
+                DatabaseRenameTemplates.INSTANCE.getAll();
+
             XmlObjectExporter.export(new CollectionWrapper(templates), file);
         } catch (Exception ex) {
             AppLogger.logSevere(RenameTemplatesExporter.class, ex);
@@ -68,7 +81,8 @@ public final class RenameTemplatesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("RenameTemplatesExporter.DisplayName");
+        return JptBundle.INSTANCE.getString(
+            "RenameTemplatesExporter.DisplayName");
     }
 
     @Override
@@ -83,13 +97,12 @@ public final class RenameTemplatesExporter implements Exporter {
 
     @XmlRootElement
     public static class CollectionWrapper {
-
         @XmlElementWrapper(name = "RenameTemplates")
         @XmlElement(type = RenameTemplate.class)
-        private final ArrayList<RenameTemplate> collection = new ArrayList<RenameTemplate>();
+        private final ArrayList<RenameTemplate> collection =
+            new ArrayList<RenameTemplate>();
 
-        public CollectionWrapper() {
-        }
+        public CollectionWrapper() {}
 
         public CollectionWrapper(Collection<RenameTemplate> collection) {
             this.collection.addAll(collection);
@@ -100,6 +113,6 @@ public final class RenameTemplatesExporter implements Exporter {
         }
     }
 
-    private RenameTemplatesExporter() {
-    }
+
+    private RenameTemplatesExporter() {}
 }

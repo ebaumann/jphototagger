@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.xmp;
 
 /**
@@ -26,9 +27,9 @@ package de.elmar_baumann.jpt.image.metadata.xmp;
  * @version 2010-01-27
  */
 public enum Namespace {
-
     LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
     ;
+
     private final String uri;
     private final String prefix;
 

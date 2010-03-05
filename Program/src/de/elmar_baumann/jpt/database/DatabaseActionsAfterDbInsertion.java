@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Program;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,12 +39,10 @@ import java.util.List;
  * @version 2009-06-07
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
-
     public static final DatabaseActionsAfterDbInsertion INSTANCE =
-            new DatabaseActionsAfterDbInsertion();
+        new DatabaseActionsAfterDbInsertion();
 
-    private DatabaseActionsAfterDbInsertion() {
-    }
+    private DatabaseActionsAfterDbInsertion() {}
 
     /**
      * Inserts a new action. Prevoius You should call
@@ -52,19 +53,18 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return true if inserted
      */
     public boolean insert(Program action, int order) {
-        int countAffectedRows = 0;
-        Connection connection = null;
-        PreparedStatement stmt = null;
+        int               countAffectedRows = 0;
+        Connection        connection        = null;
+        PreparedStatement stmt              = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                    "INSERT INTO actions_after_db_insertion" +
-                    " (" +
-                    "id_programs" +    // -- 1 --
-                    ", action_order" + // -- 2 --
-                    ")" +
-                    " VALUES (?, ?)");
+                "INSERT INTO actions_after_db_insertion" + " (" + "id_programs"
+                +    // -- 1 --
+                ", action_order" +    // -- 2 --
+                    ")" + " VALUES (?, ?)");
             stmt.setLong(1, action.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
@@ -77,6 +77,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             close(stmt);
             free(connection);
         }
+
         return countAffectedRows == 1;
     }
 
@@ -87,14 +88,15 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return true if deleted
      */
     public boolean delete(Program action) {
-        int countAffectedRows = 0;
-        Connection connection = null;
-        PreparedStatement stmt = null;
+        int               countAffectedRows = 0;
+        Connection        connection        = null;
+        PreparedStatement stmt              = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                    "DELETE FROM actions_after_db_insertion WHERE id_programs = ?");
+                "DELETE FROM actions_after_db_insertion WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -106,6 +108,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             close(stmt);
             free(connection);
         }
+
         return countAffectedRows == 1;
     }
 
@@ -115,25 +118,30 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return programs sorted ascending by their order
      */
     public List<Program> getAll() {
-        List<Program> programs = new LinkedList<Program>();
-        Connection connection = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+        List<Program> programs   = new LinkedList<Program>();
+        Connection    connection = null;
+        Statement     stmt       = null;
+        ResultSet     rs         = null;
+
         try {
             connection = getConnection();
-            stmt = connection.createStatement();
-            String sql = "SELECT" +
-                    " id_programs" + // -- 1 --
-                    " FROM actions_after_db_insertion" +
-                    " ORDER BY action_order ASC";
+            stmt       = connection.createStatement();
+
+            String sql = "SELECT" + " id_programs" +    // -- 1 --
+                " FROM actions_after_db_insertion" + " ORDER BY action_order ASC";
+
             logFinest(sql);
             rs = stmt.executeQuery(sql);
+
             while (rs.next()) {
-                long idProgram = rs.getLong(1);
-                Program program =
-                        DatabasePrograms.INSTANCE.find(idProgram);
+                long    idProgram = rs.getLong(1);
+                Program program   = DatabasePrograms.INSTANCE.find(idProgram);
+
                 if (program == null) {
-                    AppLogger.logWarning(getClass(), "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist", idProgram);
+                    AppLogger.logWarning(
+                        getClass(),
+                        "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist",
+                        idProgram);
                 } else {
                     programs.add(program);
                 }
@@ -144,6 +152,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return programs;
     }
 
@@ -154,19 +163,19 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return true if the action exists
      */
     public boolean exists(Program action) {
-        boolean exists = false;
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        boolean           exists     = false;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
         try {
             connection = getConnection();
-            stmt = connection.prepareStatement("SELECT" +
-                    " COUNT(*) " + // -- 1 --
-                    " FROM actions_after_db_insertion" +
-                    " WHERE id_programs = ?");
+            stmt       = connection.prepareStatement("SELECT" + " COUNT(*) " +    // -- 1 --
+                " FROM actions_after_db_insertion" + " WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
             rs = stmt.executeQuery();
+
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -176,6 +185,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return exists;
     }
 
@@ -189,25 +199,28 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return            true if reordered all actions
      */
     public boolean setOrder(List<Program> actions, int startIndex) {
-        Connection connection = null;
-        boolean allReordered = false;
-        PreparedStatement stmt = null;
+        Connection        connection   = null;
+        boolean           allReordered = false;
+        PreparedStatement stmt         = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                    "UPDATE actions_after_db_insertion" +
-                    " SET" +
-                    " action_order = ?" + // -- 1 --
-                    " WHERE id_programs = ?");
-            int index = startIndex;
+                "UPDATE actions_after_db_insertion" + " SET"
+                + " action_order = ?" +    // -- 1 --
+                " WHERE id_programs = ?");
+
+            int index         = startIndex;
             int countAffected = 0;
+
             for (Program action : actions) {
                 stmt.setInt(1, index++);
                 stmt.setLong(2, action.getId());
                 logFiner(stmt);
                 countAffected += stmt.executeUpdate();
             }
+
             connection.commit();
             allReordered = countAffected == actions.size();
         } catch (Exception ex) {
@@ -217,6 +230,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             close(stmt);
             free(connection);
         }
+
         return allReordered;
     }
 }

@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.helper.FavoritesHelper;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -38,7 +41,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2008-09-23
  */
 public final class ControllerDeleteFavorite extends ControllerFavorite {
-
     public ControllerDeleteFavorite() {
         listenToActionsOf(PopupMenuFavorites.INSTANCE.getItemDeleteFavorite());
     }
@@ -50,7 +52,8 @@ public final class ControllerDeleteFavorite extends ControllerFavorite {
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuFavorites.INSTANCE.getItemDeleteFavorite();
+        return evt.getSource()
+               == PopupMenuFavorites.INSTANCE.getItemDeleteFavorite();
     }
 
     @Override
@@ -60,6 +63,7 @@ public final class ControllerDeleteFavorite extends ControllerFavorite {
 
     @Override
     protected void action(DefaultMutableTreeNode node) {
+
         // ignore
     }
 }

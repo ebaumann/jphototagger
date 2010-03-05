@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.iptc;
 
 import java.util.Comparator;
@@ -36,25 +37,29 @@ import java.util.Comparator;
  * @see     IptcEntry
  */
 public final class IptcEntryComparator implements Comparator<IptcEntry> {
-
-    public static final IptcEntryComparator INSTANCE = new IptcEntryComparator();
+    public static final IptcEntryComparator INSTANCE =
+        new IptcEntryComparator();
 
     @Override
     public int compare(IptcEntry o1, IptcEntry o2) {
         if (o1.getRecordNumber() < o2.getRecordNumber()) {
             return -1;
         }
+
         if (o1.getRecordNumber() > o2.getRecordNumber()) {
             return +1;
         }
+
         if (o1.getRecordNumber() == o2.getRecordNumber()) {
             if (o1.getDataSetNumber() < o2.getDataSetNumber()) {
                 return -1;
             }
+
             if (o1.getDataSetNumber() > o2.getDataSetNumber()) {
                 return +1;
             }
         }
+
         return o1.getData().compareTo(o2.getData());
     }
 

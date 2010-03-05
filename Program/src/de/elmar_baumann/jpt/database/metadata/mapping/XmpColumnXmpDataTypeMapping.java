@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.mapping;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -25,20 +26,27 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreCountrycode;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpIptc4xmpcoreCountrycode;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopAuthorsposition;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopCaptionwriter;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopInstructions;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,34 +59,54 @@ import java.util.Map;
  * @version 2008-09-20
  */
 public final class XmpColumnXmpDataTypeMapping {
-
     private static final Map<Column, XmpValueType> XMP_VALUE_TYPE_OF_COLUMN =
-            new HashMap<Column, XmpValueType>();
+        new HashMap<Column, XmpValueType>();
 
     static {
+
         // Not copied into other XMP from
         // data de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata when
         // XmpValueType.SEQ_PROPER_NAME
-        //XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.SEQ_PROPER_NAME);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE                     , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE                 , XmpValueType.LANG_ALT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE                      , XmpValueType.LANG_ALT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE             , XmpValueType.BAG_TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE                       , XmpValueType.LANG_ALT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE          , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE       , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE      , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE        , XmpValueType.PROPER_NAME);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCity.INSTANCE                 , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCountry.INSTANCE              , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCredit.INSTANCE               , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE             , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopInstructions.INSTANCE         , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE               , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopState.INSTANCE                , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpRating.INSTANCE                        , XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE       , XmpValueType.TEXT);
+        // XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.SEQ_PROPER_NAME);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE,
+                                     XmpValueType.LANG_ALT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE,
+                                     XmpValueType.LANG_ALT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE,
+                                     XmpValueType.BAG_TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE,
+                                     XmpValueType.LANG_ALT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(
+            ColumnXmpPhotoshopAuthorsposition.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
+                                     XmpValueType.PROPER_NAME);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCity.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCountry.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCredit.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopInstructions.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopState.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(
+            ColumnXmpPhotoshopTransmissionReference.INSTANCE,
+            XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpRating.INSTANCE,
+                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
+                                     XmpValueType.TEXT);
     }
 
     /**
@@ -90,22 +118,26 @@ public final class XmpColumnXmpDataTypeMapping {
          * Name einer Person oder Organisation, Unicode-String
          */
         PROPER_NAME,
+
         /**
          * Unicode-String
          */
         TEXT,
+
         /**
          * Array mit Unicode-Strings in geordneter Reihenfolge,
          * wobei die Reihenfolge der Elemente keine Bedeutung hat; in
          * Schema Definitions ein <code>bag</code>
          */
         BAG_TEXT,
+
         /**
          * Array mit Namen von Personen oder Organisationen als Unicode-Strings
          * in geordneter Reihenfolge, wobei die Reihenfolge von Bedeutung ist;
          * in Schema Definitions eine <code>seq</code>
          */
         SEQ_PROPER_NAME,
+
         /**
          * Array mit Sprachalternativen als Unicode-Strings in geordneter
          * Reihenfolge, wobei eine Anwendung eine bestimmte der Alternativen
@@ -132,11 +164,13 @@ public final class XmpColumnXmpDataTypeMapping {
      */
     public static boolean isArray(Column column) {
         XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
+
         if (valueType != null) {
-            return valueType.equals(XmpValueType.BAG_TEXT) ||
-                    valueType.equals(XmpValueType.LANG_ALT) ||
-                    valueType.equals(XmpValueType.SEQ_PROPER_NAME);
+            return valueType.equals(XmpValueType.BAG_TEXT)
+                   || valueType.equals(XmpValueType.LANG_ALT)
+                   || valueType.equals(XmpValueType.SEQ_PROPER_NAME);
         }
+
         return false;
     }
 
@@ -149,8 +183,10 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return  true, wenn der Spaltenwert für eine alternative Sprache gilt
      */
     public static boolean isLanguageAlternative(Column xmpColumn) {
-        XmpValueType type = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
-        return type != null && type.equals(XmpValueType.LANG_ALT);
+        XmpValueType type =
+            XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
+
+        return (type != null) && type.equals(XmpValueType.LANG_ALT);
     }
 
     /**
@@ -161,13 +197,14 @@ public final class XmpColumnXmpDataTypeMapping {
      */
     public static boolean isText(Column column) {
         XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
+
         if (valueType != null) {
-            return valueType.equals(XmpValueType.TEXT) ||
-                    valueType.equals(XmpValueType.PROPER_NAME);
+            return valueType.equals(XmpValueType.TEXT)
+                   || valueType.equals(XmpValueType.PROPER_NAME);
         }
+
         return false;
     }
 
-    private XmpColumnXmpDataTypeMapping() {
-    }
+    private XmpColumnXmpDataTypeMapping() {}
 }

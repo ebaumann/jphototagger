@@ -17,16 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import com.imagero.reader.AbstractImageReader;
-import de.elmar_baumann.jpt.resource.JptBundle;
+
 import de.elmar_baumann.jpt.resource.ImageProperties;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
-import de.elmar_baumann.lib.system.SystemUtil;
-import de.elmar_baumann.lib.util.Version;
 import de.elmar_baumann.lib.dialog.SystemOutputDialog;
+import de.elmar_baumann.lib.system.SystemUtil;
 import de.elmar_baumann.lib.util.CommandLineParser;
+import de.elmar_baumann.lib.util.Version;
 
 /**
  * Initializes the application.
@@ -42,18 +44,23 @@ import de.elmar_baumann.lib.util.CommandLineParser;
  * @version 2009-06-11
  */
 public final class AppInit {
-
-    public static final AppInit               INSTANCE          = new AppInit();
-    private             AppCommandLineOptions commandLineOptions;
-    private volatile    boolean               init;
+    public static final AppInit   INSTANCE = new AppInit();
+    private AppCommandLineOptions commandLineOptions;
+    private volatile boolean      init;
 
     public void init(String[] args) {
         synchronized (this) {
             assert !init;
-            if (init) return;
+
+            if (init) {
+                return;
+            }
+
             init = true;
         }
-        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
+
+        this.commandLineOptions =
+            new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
         init();
     }
 
@@ -72,15 +79,20 @@ public final class AppInit {
     }
 
     private void hideSplashScreen() {
-        if (!commandLineOptions.isShowSplashScreen()) return;
+        if (!commandLineOptions.isShowSplashScreen()) {
+            return;
+        }
 
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("AppInit.Info.SplashScreen.InitGui"));
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("AppInit.Info.SplashScreen.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
         SplashScreen.INSTANCE.close();
     }
 
     private void showSplashScreen() {
-        if (!commandLineOptions.isShowSplashScreen()) return;
+        if (!commandLineOptions.isShowSplashScreen()) {
+            return;
+        }
 
         SplashScreen.INSTANCE.init();
         SplashScreen.INSTANCE.setProgress(50);
@@ -97,14 +109,13 @@ public final class AppInit {
     }
 
     private static void lock() {
-        if (!AppLock.lock() && !AppLock.forceLock()) {
+        if (!AppLock.lock() &&!AppLock.forceLock()) {
             System.exit(1);
         }
     }
 
     private static void showMainWindow() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 new AppFrame().setVisible(true);
@@ -115,16 +126,17 @@ public final class AppInit {
     private static void checkJavaVersion() {
         Version javaVersion = SystemUtil.getJavaVersion();
 
-        if (javaVersion != null && javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0) {
+        if ((javaVersion != null)
+                && (javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0)) {
             errorMessageJavaVersion(javaVersion);
             System.exit(2);
         }
     }
 
     private static void errorMessageJavaVersion(Version javaVersion) {
-        MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion, AppInfo.MIN_JAVA_VERSION);
+        MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion,
+                               AppInfo.MIN_JAVA_VERSION);
     }
 
-    private AppInit() {
-    }
+    private AppInit() {}
 }

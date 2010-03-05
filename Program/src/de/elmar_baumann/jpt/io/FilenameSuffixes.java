@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
 /**
@@ -37,6 +38,5 @@ public final class FilenameSuffixes {
      */
     public static final String JPT_KEYWORDS = "xml";
 
-    private FilenameSuffixes() {
-    }
+    private FilenameSuffixes() {}
 }

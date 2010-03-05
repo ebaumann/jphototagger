@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -29,12 +30,15 @@ import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -50,12 +54,8 @@ import javax.swing.tree.TreeNode;
  * @author  Elmar Baumann
  * @version 2009-07-15
  */
-public class ControllerAddKeywordsToEditPanel
-        extends    ControllerKeywords
-        implements ActionListener, 
-                   KeyListener
-    {
-
+public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
+        implements ActionListener, KeyListener {
     public ControllerAddKeywordsToEditPanel(KeywordsPanel panel) {
         super(panel);
     }
@@ -80,40 +80,52 @@ public class ControllerAddKeywordsToEditPanel
     }
 
     private void addToEditPanel(List<String> keywordNames) {
-        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        JPanel             panel      = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        EditMetadataPanels editPanels =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        JPanel panel =
+            editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
-            EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
+            EditRepeatableTextEntryPanel editPanel =
+                (EditRepeatableTextEntryPanel) panel;
 
             if (editPanel.isEditable()) {
                 for (String keywordName : keywordNames) {
                     editPanel.addText(keywordName);
                 }
+
                 KeywordsHelper.addHighlightKeywords(keywordNames);
                 editPanels.checkSaveOnChanges();
             } else {
-                MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.EditDisabled");
+                MessageDisplayer.error(
+                    null,
+                    "ControllerAddKeywordsToEditPanel.Error.EditDisabled");
             }
         } else {
-            MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.NoEditPanel");
+            MessageDisplayer.error(
+                null, "ControllerAddKeywordsToEditPanel.Error.NoEditPanel");
         }
     }
 
-    private void addParentKeywords(DefaultMutableTreeNode node, List<String> keywords) {
-
+    private void addParentKeywords(DefaultMutableTreeNode node,
+                                   List<String> keywords) {
         Object userObject = node.getUserObject();
 
         if (userObject instanceof Keyword) {
             Keyword keyword = (Keyword) userObject;
+
             if (keyword.isReal()) {
                 keywords.add(keyword.getName());
             }
         }
+
         TreeNode parent = node.getParent();
-        if (parent == null || getHKPanel().getTree().getModel().getRoot().equals(parent)) {
+
+        if ((parent == null)
+                || getHKPanel().getTree().getModel().getRoot().equals(parent)) {
             return;
         }
+
         if (parent instanceof DefaultMutableTreeNode) {
             addParentKeywords((DefaultMutableTreeNode) parent, keywords);
         }

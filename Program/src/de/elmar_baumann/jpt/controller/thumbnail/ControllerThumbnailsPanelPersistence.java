@@ -17,22 +17,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.comparator.ComparatorFilesNoSort;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -42,16 +46,17 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-15
  */
 public final class ControllerThumbnailsPanelPersistence
-        implements ThumbnailsPanelListener,
-                   AppExitListener
-    {
-
-    private static final String          KEY_SELECTED_FILES                         = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
-    private static final String          KEY_SORT                                   = "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort";
-    private static final String          KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition";
-    private volatile     boolean         propertiesRead;
-    private final        ThumbnailsPanel thumbnailsPanel                            = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private              List<File>      persistentSelectedFiles                    = new ArrayList<File>();
+        implements ThumbnailsPanelListener, AppExitListener {
+    private static final String KEY_SELECTED_FILES =
+        "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
+    private static final String KEY_SORT =
+        "de.elmar_baumann.jpt.view.controller.ControllerThumbnailsPanelPersistence.Sort";
+    private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
+        "de.elmar_baumann.jpt.view.panels.controller.ViewportViewPosition";
+    private volatile boolean      propertiesRead;
+    private final ThumbnailsPanel thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private List<File> persistentSelectedFiles = new ArrayList<File>();
 
     public ControllerThumbnailsPanelPersistence() {
         listen();
@@ -75,33 +80,42 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void checkFirstChange() {
         synchronized (this) {
-            if (propertiesRead) return;
+            if (propertiesRead) {
+                return;
+            }
+
             propertiesRead = true;
         }
+
         readSelectedFilesFromProperties();
         readViewportViewPositionFromProperties();
     }
 
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringCollection(
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
-                KEY_SELECTED_FILES);
+            FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
+            KEY_SELECTED_FILES);
         UserSettings.INSTANCE.writeToFile();
     }
 
     private void readSelectedFilesFromProperties() {
         List<Integer> indices = new ArrayList<Integer>();
+
         for (File file : persistentSelectedFiles) {
             int index = thumbnailsPanel.getIndexOf(file);
+
             if (index >= 0) {
                 indices.add(index);
             }
         }
+
         thumbnailsPanel.setSelected(indices);
     }
 
     private void readProperties() {
-        persistentSelectedFiles = FileUtil.getAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
+        persistentSelectedFiles = FileUtil.getAsFiles(
+            UserSettings.INSTANCE.getSettings().getStringCollection(
+                KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 
@@ -112,8 +126,10 @@ public final class ControllerThumbnailsPanelPersistence
 
     public void setFileSortComparator(Comparator<File> cmp) {
         Class<?> sortClass = cmp.getClass();
+
         if (!sortClass.equals(ComparatorFilesNoSort.class)) {
-            UserSettings.INSTANCE.getSettings().set(sortClass.getName(), KEY_SORT);
+            UserSettings.INSTANCE.getSettings().set(sortClass.getName(),
+                    KEY_SORT);
         }
     }
 
@@ -127,28 +143,33 @@ public final class ControllerThumbnailsPanelPersistence
     public static Comparator<File> getFileSortComparator() {
         if (UserSettings.INSTANCE.getProperties().containsKey(KEY_SORT)) {
             try {
-                String className = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
-                return (Comparator<File>) Class.forName(className).newInstance();
+                String className =
+                    UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
+
+                return (Comparator<File>) Class.forName(
+                    className).newInstance();
             } catch (Exception ex) {
-                AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
+                AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class,
+                                    ex);
             }
         }
+
         return FileSort.NAMES_ASCENDING.getComparator();
     }
 
     private void readViewportViewPositionFromProperties() {
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 try {
+
                     // Waiting until TN panel size was calculated
                     Thread.sleep(2000);
                 } catch (Exception ex) {
                     AppLogger.logSevere(getClass(), ex);
                 }
-                SwingUtilities.invokeLater(new Runnable() {
 
+                SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         UserSettings.INSTANCE.getSettings().applySettings(
@@ -167,8 +188,8 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void writeViewportViewPositionToProperties() {
         UserSettings.INSTANCE.getSettings().set(
-                GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
-                KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
+            GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
+            KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
         UserSettings.INSTANCE.writeToFile();
     }
 }

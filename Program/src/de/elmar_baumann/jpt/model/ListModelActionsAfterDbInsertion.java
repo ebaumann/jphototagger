@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -26,8 +27,10 @@ import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.lib.componentutil.ListUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -41,10 +44,8 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann
  * @version 2009-06-07
  */
-public final class ListModelActionsAfterDbInsertion
-        extends    DefaultListModel
+public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         implements DatabaseProgramsListener {
-
     private static final long serialVersionUID = -6490813457178023686L;
 
     public ListModelActionsAfterDbInsertion() {
@@ -54,7 +55,10 @@ public final class ListModelActionsAfterDbInsertion
 
     public void insert(Program action) {
         assert action.isAction() : action;
-        if (!contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.insert(action, getSize())) {
+
+        if (!contains(action)
+                && DatabaseActionsAfterDbInsertion.INSTANCE.insert(action,
+                    getSize())) {
             addElement(action);
         } else {
             errorMessageInsert(action);
@@ -74,34 +78,40 @@ public final class ListModelActionsAfterDbInsertion
     }
 
     public boolean canMoveUp(int index) {
-        return index > 0 && index < getSize();
+        return (index > 0) && (index < getSize());
     }
 
     public boolean canMoveDown(int index) {
-        return index >= 0 && index < getSize() - 1;
+        return (index >= 0) && (index < getSize() - 1);
     }
 
     private List<Program> getActions() {
-        Object[] array = toArray();
+        Object[]      array   = toArray();
         List<Program> actions = new ArrayList<Program>(array.length);
+
         for (Object o : array) {
             actions.add((Program) o);
         }
+
         return actions;
     }
 
     private void swapElements(int indexFirstElement, int indexSecondElement) {
-        if (ListUtil.swapModelElements(this, indexFirstElement, indexSecondElement)) {
+        if (ListUtil.swapModelElements(this, indexFirstElement,
+                                       indexSecondElement)) {
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
-            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(getActions(), 0)) {
+
+            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(
+                    getActions(), 0)) {
                 errorMessageSwap(indexFirstElement);
             }
         }
     }
 
     public void delete(Program action) {
-        if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.delete(action)) {
+        if (contains(action)
+                && DatabaseActionsAfterDbInsertion.INSTANCE.delete(action)) {
             removeElement(action);
         } else {
             errorMessageDelete(action);
@@ -109,7 +119,9 @@ public final class ListModelActionsAfterDbInsertion
     }
 
     private void addElements() {
-        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        List<Program> actions =
+            DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+
         for (Program action : actions) {
             addElement(action);
         }
@@ -118,27 +130,36 @@ public final class ListModelActionsAfterDbInsertion
     @Override
     public void actionPerformed(DatabaseProgramsEvent event) {
         DatabaseProgramsEvent.Type eventType = event.getType();
-        Program program = event.getProgram();
-        int index = indexOf(program);
-        boolean contains = index >= 0;
-        if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED) && contains) {
+        Program                    program   = event.getProgram();
+        int                        index     = indexOf(program);
+        boolean                    contains  = index >= 0;
+
+        if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED)
+                && contains) {
             removeElementAt(index);
             fireIntervalRemoved(this, index, index);
-        } else if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_UPDATED) && contains) {
+        } else if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_UPDATED)
+                   && contains) {
             set(index, program);
             fireContentsChanged(this, index, index);
         }
     }
 
     private void errorMessageDelete(Program action) {
-        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Remove", action);
+        MessageDisplayer.error(null,
+                               "ListModelActionsAfterDbInsertion.Error.Remove",
+                               action);
     }
 
     private void errorMessageSwap(int indexFirstElement) {
-        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Swap", (Program) get(indexFirstElement));
+        MessageDisplayer.error(null,
+                               "ListModelActionsAfterDbInsertion.Error.Swap",
+                               (Program) get(indexFirstElement));
     }
 
     private void errorMessageInsert(Program action) {
-        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Add", action);
+        MessageDisplayer.error(null,
+                               "ListModelActionsAfterDbInsertion.Error.Add",
+                               action);
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util.help;
 
 /**
@@ -30,9 +31,8 @@ package de.elmar_baumann.lib.util.help;
  * @version 2008-10-02
  */
 public final class HelpPage {
-
-    private String url;
-    private String title;
+    private String   url;
+    private String   title;
     private HelpNode parent;
 
     /**
@@ -50,8 +50,9 @@ public final class HelpPage {
      * @param title  title
      */
     public void setTitle(String title) {
-        if (title == null)
+        if (title == null) {
             throw new NullPointerException("title == null");
+        }
 
         this.title = title;
     }
@@ -71,8 +72,9 @@ public final class HelpPage {
      * @param url  URL
      */
     public void setUrl(String url) {
-        if (url == null)
+        if (url == null) {
             throw new NullPointerException("url == null");
+        }
 
         this.url = url;
     }
@@ -92,8 +94,9 @@ public final class HelpPage {
      * @param parent  parent
      */
     void setParent(HelpNode parent) {
-        if (parent == null)
+        if (parent == null) {
             throw new NullPointerException("parent == null");
+        }
 
         this.parent = parent;
     }

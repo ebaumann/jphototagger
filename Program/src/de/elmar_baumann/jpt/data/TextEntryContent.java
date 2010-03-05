@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+
 import java.awt.Component;
 import java.awt.event.MouseListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +35,11 @@ import java.util.List;
  * @version 2008-10-29
  */
 public final class TextEntryContent implements TextEntry {
-
     private String text;
     private Column column;
 
     public TextEntryContent(String text, Column column) {
-        this.text = text;
+        this.text   = text;
         this.column = column;
     }
 
@@ -61,6 +63,7 @@ public final class TextEntryContent implements TextEntry {
      */
     @Override
     public void focus() {
+
         // ignore
     }
 
@@ -69,12 +72,11 @@ public final class TextEntryContent implements TextEntry {
      * @param editable true if editable
      */
     @Override
-    public void setEditable(boolean editable) {
-    }
+    public void setEditable(boolean editable) {}
 
     @Override
     public boolean isEmpty() {
-        return text == null || text.isEmpty();
+        return (text == null) || text.isEmpty();
     }
 
     /**
@@ -82,6 +84,7 @@ public final class TextEntryContent implements TextEntry {
      */
     @Override
     public void setAutocomplete() {
+
         // ignore
     }
 
@@ -102,6 +105,7 @@ public final class TextEntryContent implements TextEntry {
      */
     @Override
     public void setDirty(boolean dirty) {
+
         // ignore
     }
 
@@ -118,6 +122,7 @@ public final class TextEntryContent implements TextEntry {
     @Override
     public void empty(boolean dirty) {
         text = "";
+
         // ignore dirty
     }
 
@@ -128,11 +133,13 @@ public final class TextEntryContent implements TextEntry {
 
     @Override
     public void addMouseListenerToInputComponents(MouseListener l) {
+
         // ignore
     }
 
     @Override
     public void removeMouseListenerFromInputComponents(MouseListener l) {
+
         // ignore
     }
 }

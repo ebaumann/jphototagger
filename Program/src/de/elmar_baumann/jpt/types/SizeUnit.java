@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 /**
@@ -26,16 +27,14 @@ package de.elmar_baumann.jpt.types;
  * @version 2009-07-16
  */
 public enum SizeUnit {
-
-    BYTE(1, "B"),
-    KILO_BYTE(1024, "KB"),
-    MEGA_BYTE(1024 * 1024, "MB"),
+    BYTE(1, "B"), KILO_BYTE(1024, "KB"), MEGA_BYTE(1024 * 1024, "MB"),
     GIGA_BYTE(1024 * 1024 * 1024, "GB");
-    private final long bytes;
+
+    private final long   bytes;
     private final String string;
 
     private SizeUnit(long bytes, String string) {
-        this.bytes = bytes;
+        this.bytes  = bytes;
         this.string = string;
     }
 
@@ -44,11 +43,11 @@ public enum SizeUnit {
     }
 
     public static SizeUnit unit(long size) {
-        return size >= GIGA_BYTE.bytes
+        return (size >= GIGA_BYTE.bytes)
                ? GIGA_BYTE
-               : size >= MEGA_BYTE.bytes
+               : (size >= MEGA_BYTE.bytes)
                  ? MEGA_BYTE
-                 : size >= KILO_BYTE.bytes
+                 : (size >= KILO_BYTE.bytes)
                    ? KILO_BYTE
                    : BYTE;
     }

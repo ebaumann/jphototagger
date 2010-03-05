@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.exporter.Exporter;
 import de.elmar_baumann.jpt.importer.Importer;
+
 import java.awt.Component;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -32,22 +35,28 @@ import javax.swing.JList;
  * @author  Elmar Baumann
  * @version 2008-11-04
  */
-public final class ListCellRendererKeywordImExport extends DefaultListCellRenderer {
-
+public final class ListCellRendererKeywordImExport
+        extends DefaultListCellRenderer {
     private static final long serialVersionUID = -2640679743272527934L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value,
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
+                           index, isSelected, cellHasFocus);
+
         if (value instanceof Importer) {
             Importer importer = (Importer) value;
+
             label.setText(importer.getDisplayName());
             label.setIcon(importer.getIcon());
         } else if (value instanceof Exporter) {
             Exporter exporter = (Exporter) value;
+
             label.setText(exporter.getDisplayName());
             label.setIcon(exporter.getIcon());
         }
+
         return label;
     }
 }

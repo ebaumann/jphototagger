@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -25,9 +26,11 @@ import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.exporter.ProgramsExporter;
 import de.elmar_baumann.jpt.exporter.ProgramsExporter.CollectionWrapper;
+
 import java.io.File;
-import javax.swing.Icon;
+
 import javax.swing.filechooser.FileFilter;
+import javax.swing.Icon;
 
 /**
  *
@@ -36,15 +39,14 @@ import javax.swing.filechooser.FileFilter;
  * @version 2010-03-02
  */
 public final class ProgramsImporter implements Importer {
-
     public static final ProgramsImporter INSTANCE = new ProgramsImporter();
 
     @Override
     public void importFile(File file) {
         try {
-            ProgramsExporter.CollectionWrapper wrapper = (CollectionWrapper)
-                    XmlObjectImporter.importObject(
-                          file, ProgramsExporter.CollectionWrapper.class);
+            ProgramsExporter.CollectionWrapper wrapper =
+                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    ProgramsExporter.CollectionWrapper.class);
 
             for (Program program : wrapper.getCollection()) {
                 if (!DatabasePrograms.INSTANCE.exists(program)) {
@@ -76,6 +78,5 @@ public final class ProgramsImporter implements Importer {
         return ProgramsExporter.INSTANCE.getDefaultFilename();
     }
 
-    private ProgramsImporter() {
-    }
+    private ProgramsImporter() {}
 }

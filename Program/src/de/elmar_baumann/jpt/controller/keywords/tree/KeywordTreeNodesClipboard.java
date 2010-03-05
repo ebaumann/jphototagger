@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -30,14 +32,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-09-10
  */
 public final class KeywordTreeNodesClipboard {
+    public enum Action { COPY, MOVE, UNKNOWN }
 
-    public enum Action {
-        COPY, MOVE, UNKNOWN
-    }
-
-    public static final KeywordTreeNodesClipboard INSTANCE = new KeywordTreeNodesClipboard();
-    private Action                                            action   = Action.UNKNOWN;
-    private final List<DefaultMutableTreeNode>                nodes    = new ArrayList<DefaultMutableTreeNode>();
+    public static final KeywordTreeNodesClipboard INSTANCE =
+        new KeywordTreeNodesClipboard();
+    private Action                             action = Action.UNKNOWN;
+    private final List<DefaultMutableTreeNode> nodes  =
+        new ArrayList<DefaultMutableTreeNode>();
 
     public boolean isEmpty() {
         return nodes.size() <= 0;
@@ -76,6 +77,5 @@ public final class KeywordTreeNodesClipboard {
         return action.equals(Action.COPY);
     }
 
-    private KeywordTreeNodesClipboard() {
-    }
+    private KeywordTreeNodesClipboard() {}
 }

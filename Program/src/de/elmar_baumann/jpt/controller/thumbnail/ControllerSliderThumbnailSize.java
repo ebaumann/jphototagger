@@ -17,24 +17,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+
 import java.awt.AWTEvent;
-import java.awt.Toolkit;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
+import java.awt.Toolkit;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
 
 /**
  * Controls the slider which changes the size of the thumbnails
@@ -43,21 +46,23 @@ import javax.swing.event.ChangeListener;
  * @version 2008-10-12
  */
 public final class ControllerSliderThumbnailSize
-        implements AWTEventListener,
-                   ChangeListener,
-                   ThumbnailsPanelListener,
+        implements AWTEventListener, ChangeListener, ThumbnailsPanelListener,
                    UserSettingsListener {
-
-    private final        AppPanel        appPanel                  = GUI.INSTANCE.getAppPanel();
-    private final        ThumbnailsPanel thumbnailsPanel           = appPanel.getPanelThumbnails();
-    private final        JSlider         slider                    = appPanel.getSliderThumbnailSize();
-    private static final int             STEP_WIDTH                = 1;
-    private static final int             LARGER_STEP_WIDTH         = 10;
-    private static final int             MIN_MAGINFICATION_PERCENT = 10;
-    private static final int             MAX_MAGINFICATION_PERCENT = 100;
-    private static final String          KEY_SLIDER_VALUE          = "de.elmar_baumann.jpt.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
-    private              int             currentValue              = 100;
-    private              int             maxThumbnailWidth         = UserSettings.INSTANCE.getMaxThumbnailWidth();
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel thumbnailsPanel =
+        appPanel.getPanelThumbnails();
+    private final JSlider       slider                    =
+        appPanel.getSliderThumbnailSize();
+    private static final int    STEP_WIDTH                = 1;
+    private static final int    LARGER_STEP_WIDTH         = 10;
+    private static final int    MIN_MAGINFICATION_PERCENT = 10;
+    private static final int    MAX_MAGINFICATION_PERCENT = 100;
+    private static final String KEY_SLIDER_VALUE          =
+        "de.elmar_baumann.jpt.controller.thumbnail.ControllerSliderThumbnailSize."
+        + "SliderValue";
+    private int currentValue      = 100;
+    private int maxThumbnailWidth =
+        UserSettings.INSTANCE.getMaxThumbnailWidth();
 
     public ControllerSliderThumbnailSize() {
         initSlider();
@@ -68,7 +73,8 @@ public final class ControllerSliderThumbnailSize
         thumbnailsPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
         UserSettings.INSTANCE.addUserSettingsListener(this);
-        Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK);
+        Toolkit.getDefaultToolkit().addAWTEventListener(this,
+                AWTEvent.KEY_EVENT_MASK);
     }
 
     private void initSlider() {
@@ -88,7 +94,8 @@ public final class ControllerSliderThumbnailSize
 
     @Override
     public void eventDispatched(AWTEvent awtEvent) {
-        KeyEvent keyEvent = (KeyEvent)awtEvent;
+        KeyEvent keyEvent = (KeyEvent) awtEvent;
+
         if (keyEvent.getID() == KeyEvent.KEY_PRESSED) {
             keyPressed(keyEvent);
         }
@@ -112,13 +119,16 @@ public final class ControllerSliderThumbnailSize
 
     private void addToSliderValue(int increment) {
         int value    = slider.getValue();
-        int newValue = Math.min(Math.max(value + increment, MIN_MAGINFICATION_PERCENT), MAX_MAGINFICATION_PERCENT);
+        int newValue =
+            Math.min(Math.max(value + increment, MIN_MAGINFICATION_PERCENT),
+                     MAX_MAGINFICATION_PERCENT);
 
         slider.setValue(newValue);
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
+
         // ignore
     }
 
@@ -137,8 +147,9 @@ public final class ControllerSliderThumbnailSize
 
     private void handleSliderMoved() {
         int value = slider.getValue();
+
         // value % STEP_WIDTH == 0 is not necessary as long as STEP_WIDTH == 1
-        if (/* value % STEP_WIDTH == 0 && */value != currentValue) {
+        if ( /* value % STEP_WIDTH == 0 && */value != currentValue) {
             currentValue = value;
             writeProperties();
             setThumbnailWidth();
@@ -146,7 +157,9 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void readProperties() {
-        Integer value = UserSettings.INSTANCE.getSettings().getInt(KEY_SLIDER_VALUE);
+        Integer value =
+            UserSettings.INSTANCE.getSettings().getInt(KEY_SLIDER_VALUE);
+
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
         }
@@ -154,11 +167,11 @@ public final class ControllerSliderThumbnailSize
 
     private void setThumbnailWidth() {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-                int width = (int) ((double) maxThumbnailWidth *
-                        ((double) currentValue / 100.0));
+                int width = (int) ((double) maxThumbnailWidth
+                                   * ((double) currentValue / 100.0));
+
                 thumbnailsPanel.setThumbnailWidth(width);
             }
         });

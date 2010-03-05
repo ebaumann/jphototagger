@@ -17,13 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.resource;
 
 import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * Manages <em>one</em> {@link ResourceBundle}.
@@ -44,19 +46,21 @@ import java.util.logging.Logger;
  * @version 2010-02-14
  */
 public class Bundle {
-
     private final ResourceBundle bundle;
 
     /**
      * Constructor initializing the {@link ResourceBundle} with a specific
      * path.
-     * 
+     *
      * @param path path, e.g. <code>"de/elmar_baumann/lib/resource/properties/Bundle"</code>
      *             if in that package at least one file <code>Bundle.properties</code>
      *             does exist
      */
     public Bundle(String path) {
-        if (path == null) throw new NullPointerException("path == null");
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
+
         bundle = ResourceBundle.getBundle(path);
     }
 
@@ -72,13 +76,19 @@ public class Bundle {
      * @throws       NullPointerException if <code>key</code> is null
      */
     public String getString(String key, Object... params) {
-        if (key == null) throw new NullPointerException("key == null");
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         try {
             String s = bundle.getString(key);
+
             return MessageFormat.format(s, params);
         } catch (Exception ex) {
-            Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null,
+                             ex);
         }
+
         return "?" + key + "?";
     }
 

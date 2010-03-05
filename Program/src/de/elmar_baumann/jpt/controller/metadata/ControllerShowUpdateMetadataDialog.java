@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.view.dialogs.UpdateMetadataOfDirectoriesDialog;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,8 +32,8 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann
  * @version 2008-09-25
  */
-public final class ControllerShowUpdateMetadataDialog implements ActionListener {
-
+public final class ControllerShowUpdateMetadataDialog
+        implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         showDialog();

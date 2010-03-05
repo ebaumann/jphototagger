@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
@@ -27,13 +28,15 @@ import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
-import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionsListener;
+import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplatesListener;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JLabel;
 
 /**
@@ -44,15 +47,12 @@ import javax.swing.JLabel;
  * @version 2008-09-17
  */
 public final class DatabaseTotalRecordCountListener
-        implements DatabaseImageFilesListener,
-                   DatabaseProgramsListener,
+        implements DatabaseImageFilesListener, DatabaseProgramsListener,
                    DatabaseImageCollectionsListener,
-                   DatabaseMetadataTemplatesListener
-        {
-
+                   DatabaseMetadataTemplatesListener {
     private final DatabaseStatistics db     = DatabaseStatistics.INSTANCE;
     private final List<JLabel>       labels = new ArrayList<JLabel>();
-    private       boolean            listen = false;
+    private boolean                  listen = false;
 
     public DatabaseTotalRecordCountListener() {
         listen();
@@ -116,6 +116,7 @@ public final class DatabaseTotalRecordCountListener
     private void setCount() {
         if (listen) {
             long count = db.getTotalRecordCount();
+
             setLabels(count);
         }
     }

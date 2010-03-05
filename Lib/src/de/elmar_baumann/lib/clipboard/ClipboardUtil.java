@@ -17,16 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.clipboard;
 
-import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.datatransfer.TransferableFileCollection;
-import java.awt.Toolkit;
+import de.elmar_baumann.lib.datatransfer.TransferUtil;
+
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.Toolkit;
+
 import java.io.File;
+
 import java.util.List;
 
 /**
@@ -39,10 +43,11 @@ import java.util.List;
  * @version 2008-10-26
  */
 public final class ClipboardUtil {
-
     private static final DataFlavor STRING_FLAVOR    = DataFlavor.stringFlavor;
-    private static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
-    private static final DataFlavor URI_LIST_FLAVOR  = TransferUtil.getUriListFlavor();
+    private static final DataFlavor FILE_LIST_FLAVOR =
+        DataFlavor.javaFileListFlavor;
+    private static final DataFlavor URI_LIST_FLAVOR =
+        TransferUtil.getUriListFlavor();
 
     /**
      * Copies files to the system clipboard.
@@ -50,10 +55,15 @@ public final class ClipboardUtil {
      * @param files  files
      * @param owner  owner of the clipboard, can be null
      */
-    public static void copyToSystemClipboard(List<File> files, ClipboardOwner owner) {
-        if (files == null) throw new NullPointerException("files == null");
+    public static void copyToSystemClipboard(List<File> files,
+            ClipboardOwner owner) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
 
-        copyToClipboard(files, Toolkit.getDefaultToolkit().getSystemClipboard(), owner);
+        copyToClipboard(files,
+                        Toolkit.getDefaultToolkit().getSystemClipboard(),
+                        owner);
     }
 
     /**
@@ -63,9 +73,15 @@ public final class ClipboardUtil {
      * @param clipboard  clipboard
      * @param owner      owner of the clipboard, can be null
      */
-    public static void copyToClipboard(List<File> files, Clipboard clipboard, ClipboardOwner owner) {
-        if (files     == null) throw new NullPointerException("files == null");
-        if (clipboard == null) throw new NullPointerException("clipboard == null");
+    public static void copyToClipboard(List<File> files, Clipboard clipboard,
+                                       ClipboardOwner owner) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
+        if (clipboard == null) {
+            throw new NullPointerException("clipboard == null");
+        }
 
         clipboard.setContents(new TransferableFileCollection(files), owner);
     }
@@ -76,10 +92,14 @@ public final class ClipboardUtil {
      * @param delimiter delimiter
      * @return          list of files or null if no files in the clipboard
      */
-    public static List<File> getFilesFromSystemClipboard(TransferUtil.FilenameDelimiter delimiter) {
-        if (delimiter == null) throw new NullPointerException("delimiter == null");
+    public static List<File> getFilesFromSystemClipboard(
+            TransferUtil.FilenameDelimiter delimiter) {
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
 
-        return getFilesFromClipboard(Toolkit.getDefaultToolkit().getSystemClipboard(), delimiter);
+        return getFilesFromClipboard(
+            Toolkit.getDefaultToolkit().getSystemClipboard(), delimiter);
     }
 
     /**
@@ -90,9 +110,15 @@ public final class ClipboardUtil {
      * @return                      list of files or null if no files in the
      *                              clipboard
      */
-    public static List<File> getFilesFromClipboard(Clipboard clipboard, TransferUtil.FilenameDelimiter delimiter) {
-        if (clipboard == null) throw new NullPointerException("files == null");
-        if (delimiter == null) throw new NullPointerException("delimiter == null");
+    public static List<File> getFilesFromClipboard(Clipboard clipboard,
+            TransferUtil.FilenameDelimiter delimiter) {
+        if (clipboard == null) {
+            throw new NullPointerException("files == null");
+        }
+
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
 
         List<File>   files        = null;
         DataFlavor[] flavors      = clipboard.getAvailableDataFlavors();
@@ -100,14 +126,16 @@ public final class ClipboardUtil {
 
         if (TransferUtil.isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
             return TransferUtil.getFilesFromJavaFileList(transferable);
-        } else if (TransferUtil.isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
+        } else if (TransferUtil.isDataFlavorSupported(flavors,
+                URI_LIST_FLAVOR)) {
             return TransferUtil.getFilesFromUriList(transferable);
         } else if (TransferUtil.isDataFlavorSupported(flavors, STRING_FLAVOR)) {
-            return TransferUtil.getFilesFromTokenString(transferable, delimiter);
+            return TransferUtil.getFilesFromTokenString(transferable,
+                    delimiter);
         }
+
         return files;
     }
 
-    private ClipboardUtil() {
-    }
+    private ClipboardUtil() {}
 }

@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.resource;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.util.ResourceBundle;
 
 /**
@@ -30,15 +32,14 @@ import java.util.ResourceBundle;
  * @version 2008-09-05
  */
 public final class Translation {
-
-    private static final String         PATH_PREFIX = "de/elmar_baumann/jpt/resource/properties/";
-    private              ResourceBundle bundle;
+    private static final String PATH_PREFIX =
+        "de/elmar_baumann/jpt/resource/properties/";
+    private ResourceBundle bundle;
 
     public Translation(String propertiesFileBasename) {
         try {
-
-            bundle = ResourceBundle.getBundle(PATH_PREFIX + propertiesFileBasename);
-
+            bundle = ResourceBundle.getBundle(PATH_PREFIX
+                                              + propertiesFileBasename);
         } catch (Exception ex) {
             AppLogger.logSevere(Translation.class, ex);
         }
@@ -55,11 +56,10 @@ public final class Translation {
     public String translate(String string) {
         try {
             return bundle.getString(string);
-
         } catch (Exception ex) {
-
             AppLogger.logSevere(Translation.class, ex);
         }
+
         return string;
     }
 
@@ -76,12 +76,10 @@ public final class Translation {
     public String translate(String string, String alternate) {
         try {
             return bundle.getString(string);
-
         } catch (Exception ex) {
-
             AppLogger.logSevere(Translation.class, ex);
-
         }
+
         return alternate;
     }
 }

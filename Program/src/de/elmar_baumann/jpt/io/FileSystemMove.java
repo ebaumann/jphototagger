@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
-import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.FileSystemEvent;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +41,6 @@ import java.util.List;
  * @version 2008-10-20
  */
 public final class FileSystemMove extends FileSystem implements Runnable {
-
     private final List<File> sourceFiles = new ArrayList<File>();
     private final List<File> targetFiles = new ArrayList<File>();
     private final boolean    renameIfTargetFileExists;
@@ -52,18 +54,12 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      * @param renameIfTargetFileExists renaming automatically the file if the
      *                                 target file exists
      */
-    public FileSystemMove(
-            List<File> sourceFiles,
-            File       targetDirectory,
-            boolean    renameIfTargetFileExists
-            ) {
+    public FileSystemMove(List<File> sourceFiles, File targetDirectory,
+                          boolean renameIfTargetFileExists) {
         this.sourceFiles.clear();
-
         this.sourceFiles.addAll(sourceFiles);
-
         this.targetDirectory          = targetDirectory;
         this.renameIfTargetFileExists = renameIfTargetFileExists;
-
         setTargetFiles();
     }
 
@@ -76,85 +72,86 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      * @param renameIfTargetFileExists renaming automatically the file if the
      *                                 target file exists
      */
-    public FileSystemMove(
-            List<File> sourceFiles,
-            List<File> targetFiles,
-            boolean    renameIfTargetFileExists
-            ) {
+    public FileSystemMove(List<File> sourceFiles, List<File> targetFiles,
+                          boolean renameIfTargetFileExists) {
         this.targetDirectory = new File("");
-
         this.sourceFiles.clear();
         this.targetFiles.clear();
-
         this.sourceFiles.addAll(sourceFiles);
         this.targetFiles.addAll(targetFiles);
-
         this.renameIfTargetFileExists = renameIfTargetFileExists;
     }
 
     private void setTargetFiles() {
         targetFiles.clear();
+
         for (File sourceFile : sourceFiles) {
-            targetFiles.add(new File(
-                    targetDirectory.getAbsolutePath() +
-                    File.separator +
-                    sourceFile.getName()));
+            targetFiles.add(new File(targetDirectory.getAbsolutePath()
+                                     + File.separator + sourceFile.getName()));
         }
     }
 
     @Override
     public void run() {
-        int size = sourceFiles.size();
-
+        int           size          = sourceFiles.size();
         ProgressEvent progressEvent = new ProgressEvent(this, 0, size, 0, "");
+
         notifyProgressListenerStarted(progressEvent);
+
         boolean stop = progressEvent.isStop();
 
-        for (int i = 0; !stop && i < size; i++) {
+        for (int i = 0; !stop && (i < size); i++) {
             File sourceFile = sourceFiles.get(i);
             File targetFile = getTargetFile(targetFiles.get(i));
 
             if (checkExists(sourceFile, targetFile)) {
                 boolean moved = sourceFile.renameTo(targetFile);
+
                 checkMoved(moved, sourceFile, targetFile);
             }
+
             progressEvent.setValue(i + 1);
             progressEvent.setInfo(new Pair<File, File>(sourceFile, targetFile));
             notifyProgressListenerPerformed(progressEvent);
             stop = progressEvent.isStop();
         }
+
         notifyProgressListenerEnded(progressEvent);
     }
 
     private File getTargetFile(File file) {
         File targetFile = file;
+
         if (renameIfTargetFileExists && targetFile.exists()) {
             targetFile = FileUtil.getNotExistingFile(targetFile);
         }
+
         return targetFile;
     }
 
     private boolean checkExists(File sourceFile, File targetFile) {
         boolean exists = targetFile.exists();
+
         if (exists) {
-            notifyError(FileSystemError.MOVE_RENAME_EXISTS, sourceFile, targetFile);
+            notifyError(FileSystemError.MOVE_RENAME_EXISTS, sourceFile,
+                        targetFile);
         }
+
         return !exists;
     }
 
     private void checkMoved(boolean moved, File sourceFile, File targetFile) {
         if (moved) {
-            notifyFileSystemListenersPerformed(FileSystemEvent.Type.MOVE, sourceFile, targetFile);
+            notifyFileSystemListenersPerformed(FileSystemEvent.Type.MOVE,
+                                               sourceFile, targetFile);
         } else {
             notifyError(FileSystemError.UNKNOWN, sourceFile, targetFile);
         }
     }
 
-    private synchronized void notifyError(FileSystemError error, File sourceFile, File targetFile) {
-        notifyFileSystemListenersFailed(
-                FileSystemEvent.Type.MOVE,
-                error,
-                sourceFile,
-                targetFile);
+    private synchronized void notifyError(FileSystemError error,
+            File sourceFile, File targetFile) {
+        notifyFileSystemListenersFailed(FileSystemEvent.Type.MOVE, error,
+                                        sourceFile, targetFile);
     }
 }

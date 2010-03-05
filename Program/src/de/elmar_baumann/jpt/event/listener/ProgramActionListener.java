@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener;
 
 import de.elmar_baumann.jpt.event.ProgramEvent;
@@ -27,6 +28,5 @@ import de.elmar_baumann.jpt.event.ProgramEvent;
  * @version 2008-11-06
  */
 public interface ProgramActionListener {
-
     public void actionPerformed(ProgramEvent evt);
 }

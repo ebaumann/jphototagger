@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+
 import java.nio.ByteOrder;
 
 /**
@@ -33,7 +35,6 @@ import java.nio.ByteOrder;
  * @version 2009-04-04
  */
 public final class ExifLong {
-
     private final int value;
 
     /**
@@ -46,11 +47,8 @@ public final class ExifLong {
      *         negativ
      */
     public ExifLong(byte[] rawValue, ByteOrder byteOrder) {
-
         Ensure.length(rawValue, byteCount());
-
         value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
-
         Ensure.positive(value);
     }
 
@@ -87,10 +85,13 @@ public final class ExifLong {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
 
-        if (obj == null) return false;
-
-        if (getClass() != obj.getClass()) return false;
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
 
         final ExifLong other = (ExifLong) obj;
 
@@ -99,7 +100,6 @@ public final class ExifLong {
 
     @Override
     public int hashCode() {
-
         final int hash = 7;
 
         return 71 * hash + this.value;

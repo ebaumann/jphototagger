@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,108 +38,55 @@ import java.util.List;
  * @version 2008-11-06
  */
 final class UpdateTablesInsertColumns {
-
-    private final        UpdateTablesMessages messages       = UpdateTablesMessages.INSTANCE;
-    private final        List<ColumnInfo>     missingColumns = new ArrayList<ColumnInfo>();
-    private static final List<ColumnInfo>     columns        = new ArrayList<ColumnInfo>();
+    private final UpdateTablesMessages    messages       =
+        UpdateTablesMessages.INSTANCE;
+    private final List<ColumnInfo>        missingColumns =
+        new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo> columns        =
+        new ArrayList<ColumnInfo>();
 
     static {
-        columns.add(new ColumnInfo(
-                "programs",
-                "parameters_after_filename",
-                "BINARY",
-                null));
-        columns.add(new ColumnInfo(
-                "programs",
-                "action",
-                "BOOLEAN",
-                new IndexOfColumn(
-                    "programs",
-                    "action",
-                    "idx_programs_action",
-                    false)));
-        columns.add(new ColumnInfo(
-                "programs",
-                "input_before_execute",
-                "BOOLEAN",
-                null));
-        columns.add(new ColumnInfo(
-                "programs",
-                "input_before_execute_per_file",
-                "BOOLEAN",
-                null));
-        columns.add(new ColumnInfo(
-                "programs",
-                "single_file_processing",
-                "BOOLEAN",
-                null));
-        columns.add(new ColumnInfo(
-                "programs",
-                "change_file",
-                "BOOLEAN",
-                null));
-        columns.add(new ColumnInfo(
-                "programs",
-                "use_pattern",
-                "BOOLEAN",
-                null));
-        columns.add(new ColumnInfo(
-                "programs",
-                "pattern",
-                "BINARY",
-                null));
-        columns.add(new ColumnInfo(
-                "hierarchical_subjects",
-                "real",
-                "BOOLEAN",
-                new IndexOfColumn(
-                    "hierarchical_subjects",
-                    "real",
-                    "idx_hierarchical_subjects_real",
-                    false)));
-        columns.add(new ColumnInfo(
-                "xmp",
-                "rating",
-                "BIGINT",
-                null));
-        columns.add(new ColumnInfo(
-                "xmp",
-                "iptc4xmpcore_datecreated",
-                "VARCHAR_IGNORECASE(32)",
-                new IndexOfColumn(
-                    "xmp",
-                    "iptc4xmpcore_datecreated",
-                    "idx_iptc4xmpcore_datecreated",
-                    false)));
-        columns.add(new ColumnInfo(
-                "metadata_edit_templates",
-                "rating",
-                "BINARY",
-                null));
-        columns.add(new ColumnInfo(
-                "metadata_edit_templates",
-                "iptc4xmpcore_datecreated",
-                "BINARY",
-                null));
-        columns.add(new ColumnInfo(
-                "exif",
-                "exif_lens",
-                "VARCHAR_IGNORECASE(256)",
-                new IndexOfColumn(
-                    "exif",
-                    "exif_lens",
-                    "idx_exif_lens",
-                    false)));
-        columns.add(new ColumnInfo(
-                "saved_searches",
-                "search_type",
-                "SMALLINT",
-                null));
+        columns.add(new ColumnInfo("programs", "parameters_after_filename",
+                                   "BINARY", null));
+        columns.add(new ColumnInfo("programs", "action", "BOOLEAN",
+                                   new IndexOfColumn("programs", "action",
+                                       "idx_programs_action", false)));
+        columns.add(new ColumnInfo("programs", "input_before_execute",
+                                   "BOOLEAN", null));
+        columns.add(new ColumnInfo("programs", "input_before_execute_per_file",
+                                   "BOOLEAN", null));
+        columns.add(new ColumnInfo("programs", "single_file_processing",
+                                   "BOOLEAN", null));
+        columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN", null));
+        columns.add(new ColumnInfo("programs", "use_pattern", "BOOLEAN", null));
+        columns.add(new ColumnInfo("programs", "pattern", "BINARY", null));
+        columns.add(new ColumnInfo("hierarchical_subjects", "real", "BOOLEAN",
+                                   new IndexOfColumn("hierarchical_subjects",
+                                       "real",
+                                       "idx_hierarchical_subjects_real",
+                                       false)));
+        columns.add(new ColumnInfo("xmp", "rating", "BIGINT", null));
+        columns.add(new ColumnInfo("xmp", "iptc4xmpcore_datecreated",
+                                   "VARCHAR_IGNORECASE(32)",
+                                   new IndexOfColumn("xmp",
+                                       "iptc4xmpcore_datecreated",
+                                       "idx_iptc4xmpcore_datecreated", false)));
+        columns.add(new ColumnInfo("metadata_edit_templates", "rating",
+                                   "BINARY", null));
+        columns.add(new ColumnInfo("metadata_edit_templates",
+                                   "iptc4xmpcore_datecreated", "BINARY", null));
+        columns.add(new ColumnInfo("exif", "exif_lens",
+                                   "VARCHAR_IGNORECASE(256)",
+                                   new IndexOfColumn("exif", "exif_lens",
+                                       "idx_exif_lens", false)));
+        columns.add(new ColumnInfo("saved_searches", "search_type", "SMALLINT",
+                                   null));
     }
 
     void update(Connection connection) throws SQLException {
         fixBugs(connection);
         setColumns(connection);
+
         if (missingColumns.size() > 0) {
             addColumns(connection);
         }
@@ -144,28 +94,38 @@ final class UpdateTablesInsertColumns {
 
     private void setColumns(Connection connection) throws SQLException {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
+
         missingColumns.clear();
+
         for (ColumnInfo info : columns) {
-            if (!dbMeta.existsColumn(connection, info.getTableName(), info.getColumnName())) {
+            if (!dbMeta.existsColumn(connection, info.getTableName(),
+                                     info.getColumnName())) {
                 missingColumns.add(info);
             }
         }
     }
 
     private void addColumns(Connection connection) throws SQLException {
-        messages.message(JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info.update"));
+        messages.message(
+            JptBundle.INSTANCE.getString(
+                "UpdateTablesInsertColumns.Info.update"));
+
         for (ColumnInfo info : missingColumns) {
             addColumn(connection, info);
         }
     }
 
-    private void addColumn(Connection connection, ColumnInfo info) throws SQLException {
+    private void addColumn(Connection connection, ColumnInfo info)
+            throws SQLException {
         setMessage(info.getTableName(), info.getColumnName());
+
         Statement stmt = null;
+
         try {
             stmt = connection.createStatement();
-            stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN " +
-                    info.getColumnName() + " " + info.getDataType());
+            stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN "
+                         + info.getColumnName() + " " + info.getDataType());
+
             if (info.getIndex() != null) {
                 stmt.execute(info.getIndex().getSql());
             }
@@ -175,39 +135,57 @@ final class UpdateTablesInsertColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info", tableName, columnName));
+        messages.message(
+            JptBundle.INSTANCE.getString(
+                "UpdateTablesInsertColumns.Info", tableName, columnName));
     }
 
     private void fixBugs(Connection connection) throws SQLException {
         fixBugsMetaDataTemplates(connection);
     }
 
-    private void fixBugsMetaDataTemplates(Connection connection) throws SQLException {
+    private void fixBugsMetaDataTemplates(Connection connection)
+            throws SQLException {
         final String tableName  = "metadata_edit_templates";
         final String columnName = "rating";
-        if (!DatabaseMetadata.INSTANCE.existsColumn(connection, tableName, columnName)) {
+
+        if (!DatabaseMetadata.INSTANCE.existsColumn(connection, tableName,
+                columnName)) {
             return;
         }
-        List<DatabaseMetadata.ColumnInfo> infos = DatabaseMetadata.INSTANCE.getColumnInfo(connection, tableName, columnName);
+
+        List<DatabaseMetadata.ColumnInfo> infos =
+            DatabaseMetadata.INSTANCE.getColumnInfo(connection, tableName,
+                columnName);
         boolean hasInfo = infos.size() == 1;
-        assert  hasInfo : infos.size();
+
+        assert hasInfo : infos.size();
+
         if (hasInfo) {
             DatabaseMetadata.ColumnInfo info    = infos.get(0);
-            boolean                     typeOk  = info.DATA_TYPE == java.sql.Types.BINARY;
+            boolean                     typeOk  = info.DATA_TYPE
+                                                  == java.sql.Types.BINARY;
             boolean                     indexOk = info.ORDINAL_POSITION == 21;
             boolean                     isOk    = typeOk && indexOk;
+
             if (!isOk) {
-                messages.message(JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates", tableName, columnName));
+                messages.message(
+                    JptBundle.INSTANCE.getString(
+                        "UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates",
+                        tableName, columnName));
                 dropColumn(connection, tableName, columnName);
             }
         }
     }
 
-    void dropColumn(Connection connection, String tableName, String columnName) throws SQLException {
+    void dropColumn(Connection connection, String tableName, String columnName)
+            throws SQLException {
         Statement stmt = null;
+
         try {
             stmt = connection.createStatement();
-            stmt.executeUpdate("ALTER TABLE " + tableName + " DROP "+columnName);
+            stmt.executeUpdate("ALTER TABLE " + tableName + " DROP "
+                               + columnName);
         } finally {
             Database.close(stmt);
         }

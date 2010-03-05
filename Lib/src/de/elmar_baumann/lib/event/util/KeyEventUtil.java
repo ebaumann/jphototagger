@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.event.util;
 
 import java.awt.event.KeyEvent;
@@ -41,10 +42,12 @@ public final class KeyEventUtil {
      * @return true if insert
      */
     public static boolean isCopy(KeyEvent e) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
 
-        return e.getKeyCode() == KeyEvent.VK_C &&
-               e.getModifiers() == KeyEvent.CTRL_MASK;
+        return (e.getKeyCode() == KeyEvent.VK_C)
+               && (e.getModifiers() == KeyEvent.CTRL_MASK);
     }
 
     /**
@@ -55,10 +58,12 @@ public final class KeyEventUtil {
      * @return true if insert
      */
     public static boolean isCut(KeyEvent e) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
 
-        return e.getKeyCode() == KeyEvent.VK_X &&
-               e.getModifiers() == KeyEvent.CTRL_MASK;
+        return (e.getKeyCode() == KeyEvent.VK_X)
+               && (e.getModifiers() == KeyEvent.CTRL_MASK);
     }
 
     /**
@@ -69,10 +74,12 @@ public final class KeyEventUtil {
      * @return true if insert
      */
     public static boolean isPaste(KeyEvent e) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
 
-        return e.getKeyCode() == KeyEvent.VK_V &&
-               e.getModifiers() == KeyEvent.CTRL_MASK;
+        return (e.getKeyCode() == KeyEvent.VK_V)
+               && (e.getModifiers() == KeyEvent.CTRL_MASK);
     }
 
     /**
@@ -84,10 +91,12 @@ public final class KeyEventUtil {
      * @return         true that key plus control are both pressed
      */
     public static boolean isControl(KeyEvent e, int keyCode) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
 
-        return e.getKeyCode() == keyCode &&
-               e.getModifiers() == KeyEvent.CTRL_MASK;
+        return (e.getKeyCode() == keyCode)
+               && (e.getModifiers() == KeyEvent.CTRL_MASK);
     }
 
     /**
@@ -99,10 +108,13 @@ public final class KeyEventUtil {
      * @return         true that key plus control are both pressed
      */
     public static boolean isControlAlt(KeyEvent e, int keyCode) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
 
-        return e.getKeyCode() == keyCode &&
-               e.getModifiers() == (KeyEvent.ALT_MASK | KeyEvent.CTRL_MASK);
+        return (e.getKeyCode() == keyCode)
+               && (e.getModifiers()
+                   == (KeyEvent.ALT_MASK | KeyEvent.CTRL_MASK));
     }
 
     /**
@@ -117,12 +129,13 @@ public final class KeyEventUtil {
      * @return   true if the Shift key was down
      */
     public static boolean isShiftDown(KeyEvent e) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
 
-        return e.getModifiers() == KeyEvent.SHIFT_MASK ||
-               e.getModifiers() == KeyEvent.SHIFT_DOWN_MASK;
+        return (e.getModifiers() == KeyEvent.SHIFT_MASK)
+               || (e.getModifiers() == KeyEvent.SHIFT_DOWN_MASK);
     }
 
-    private KeyEventUtil() {
-    }
+    private KeyEventUtil() {}
 }

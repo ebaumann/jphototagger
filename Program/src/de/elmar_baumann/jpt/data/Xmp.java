@@ -17,23 +17,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
+
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpRepeatableValues;
+import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.lib.generics.Pair;
-import java.util.List;
-import java.util.HashMap;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,11 +48,10 @@ import java.util.Map;
  * @version 2008-08-22
  */
 public final class Xmp implements TextEntryListener {
+    private final Map<Column, Object> valueOfColumn = new HashMap<Column,
+                                                          Object>();
 
-    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
-
-    public Xmp() {
-    }
+    public Xmp() {}
 
     public Xmp(Xmp other) {
         set(other);
@@ -76,13 +79,17 @@ public final class Xmp implements TextEntryListener {
     public void textChanged(Column xmpColumn, String oldText, String newText) {
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
             Object o = valueOfColumn.get(xmpColumn);
+
             if (o == null) {
                 Collection<Object> collection = new ArrayList<Object>();
+
                 collection.add(newText);
                 valueOfColumn.put(xmpColumn, collection);
             } else if (o instanceof Collection<?>) {
-                @SuppressWarnings("unchecked")
-                Collection<? super Object> collection = (Collection<? super Object>) o;
+                @SuppressWarnings(
+                    "unchecked") Collection<? super Object> collection =
+                        (Collection<? super Object>) o;
+
                 collection.remove(oldText);
                 collection.add(newText);
             }
@@ -94,8 +101,9 @@ public final class Xmp implements TextEntryListener {
     public void setMetaDataTemplate(MetadataTemplate template) {
         for (Table xmpTable : XmpTables.get()) {
             for (Column column : xmpTable.getColumns()) {
-                if (!column.isPrimaryKey() && !column.isForeignKey()) {
-                    valueOfColumn.put(column, template.getValueOfColumn(column));
+                if (!column.isPrimaryKey() &&!column.isForeignKey()) {
+                    valueOfColumn.put(column,
+                                      template.getValueOfColumn(column));
                 }
             }
         }
@@ -104,7 +112,11 @@ public final class Xmp implements TextEntryListener {
     @SuppressWarnings("element-type-mismatch")
     public boolean containsValue(Column column, Object value) {
         Object o = valueOfColumn.get(column);
-        if (o == null) return false;
+
+        if (o == null) {
+            return false;
+        }
+
         if (o instanceof Collection<?>) {
             return ((Collection<?>) o).contains(value);
         } else {
@@ -119,68 +131,94 @@ public final class Xmp implements TextEntryListener {
 
         /** Replace existing XMP values with existing IPTC values */
         REPLACE_EXISTING_VALUES,
+
         /**
          * Don't replace existing XMP values with existing IPTC values but
          * add IPTC values to repeatable XMP values
          */
         DONT_CHANGE_EXISTING_VALUES
-    };
+    }
 
+    ;
     public void setIptc(Iptc iptc, SetIptc options) {
         if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             clear();
         }
-        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getAllPairs();
+
+        List<Pair<IPTCEntryMeta, Column>> mappings =
+            IptcXmpMapping.getAllPairs();
+
         for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
-            Column         xmpColumn    = mappingPair.getSecond();
-            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
-            Object         iptcValue    = iptc.getValue(iptcEntryMeta);
+            Column        xmpColumn     = mappingPair.getSecond();
+            IPTCEntryMeta iptcEntryMeta =
+                IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
+            Object iptcValue = iptc.getValue(iptcEntryMeta);
+
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
-                    String iptcString = (String) iptcValue;
-                    boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) || getValue(xmpColumn) == null;
+                    String  iptcString = (String) iptcValue;
+                    boolean isSet      =
+                        options.equals(SetIptc.REPLACE_EXISTING_VALUES)
+                        || (getValue(xmpColumn) == null);
+
                     if (isSet) {
                         iptcString = formatIptcDate(xmpColumn, iptcString);
                         setValue(xmpColumn, iptcString);
                     }
                 } else if (iptcValue instanceof Collection<?>) {
-                    @SuppressWarnings("unchecked")
-                    Collection<?> collection = (Collection<?>) iptcValue;
+                    @SuppressWarnings("unchecked") Collection<?> collection =
+                        (Collection<?>) iptcValue;
+
                     if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
                         for (Object o : collection) {
                             setValue(xmpColumn, o);
                         }
                     } else if (!collection.isEmpty()) {
-                        boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) || getValue(xmpColumn) == null;
+                        boolean isSet =
+                            options.equals(SetIptc.REPLACE_EXISTING_VALUES)
+                            || (getValue(xmpColumn) == null);
+
                         if (isSet) {
                             int i = 0;
+
                             for (Object value : collection) {
-                                if (i++ == 0) setValue(xmpColumn, value);
+                                if (i++ == 0) {
+                                    setValue(xmpColumn, value);
+                                }
                             }
                         }
                     }
                 } else {
-                    AppLogger.logWarning(Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);
+                    AppLogger.logWarning(Xmp.class, "Xmp.Error.SetIptc",
+                                         iptcValue, xmpColumn);
                 }
             }
         }
     }
 
     private String formatIptcDate(Column xmpColumn, String iptcString) {
-        if (iptcString == null) return null;
-        if (xmpColumn.equals(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) && iptcString.length() == 8) {
-            if (iptcString.contains("-")) return iptcString;
-            return        iptcString.substring(0, 4) +
-                    "-" + iptcString.substring(4, 6) +
-                    "-" + iptcString.substring(6);
+        if (iptcString == null) {
+            return null;
         }
+
+        if (xmpColumn.equals(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)
+                && (iptcString.length() == 8)) {
+            if (iptcString.contains("-")) {
+                return iptcString;
+            }
+
+            return iptcString.substring(0, 4) + "-"
+                   + iptcString.substring(4, 6) + "-" + iptcString.substring(6);
+        }
+
         return iptcString;
     }
 
     public Object getValue(Column xmpColumn) {
         Object o = valueOfColumn.get(xmpColumn);
-        return o instanceof List<?>
-               ? new ArrayList<Object>((List<?>) o) // Returning a copy
+
+        return (o instanceof List<?>)
+               ? new ArrayList<Object>((List<?>) o)    // Returning a copy
                : o;
     }
 
@@ -204,14 +242,17 @@ public final class Xmp implements TextEntryListener {
      * @param value     value not null
      */
     public void removeValue(Column xmpColumn, Object value) {
-        Object o = valueOfColumn.get(xmpColumn);
+        Object  o      = valueOfColumn.get(xmpColumn);
         boolean remove = true;
+
         if (o instanceof Collection<?>) {
-            @SuppressWarnings("unchecked")
-            Collection<?> collection = (Collection<?>) o;
+            @SuppressWarnings("unchecked") Collection<?> collection =
+                (Collection<?>) o;
+
             collection.remove(value);
             remove = collection.isEmpty();
         }
+
         if (remove) {
             valueOfColumn.remove(xmpColumn);
         }
@@ -224,44 +265,63 @@ public final class Xmp implements TextEntryListener {
     public boolean isEmpty() {
         for (Column column : valueOfColumn.keySet()) {
             Object o = valueOfColumn.get(column);
+
             if (o instanceof String) {
                 String string = (String) o;
-                if (!string.trim().isEmpty()) return false;
+
+                if (!string.trim().isEmpty()) {
+                    return false;
+                }
             } else if (o instanceof List<?>) {
                 List<?> list = (List<?>) o;
-                if (!list.isEmpty()) return false;
+
+                if (!list.isEmpty()) {
+                    return false;
+                }
             } else if (o != null) {
                 return false;
             }
         }
+
         return true;
     }
 
     @SuppressWarnings("unchecked")
     private Collection<? super Object> collectionReferenceOf(Column column) {
         Object o = valueOfColumn.get(column);
-        return o instanceof Collection<?>
+
+        return (o instanceof Collection<?>)
                ? (Collection<? super Object>) o
                : null;
     }
 
     private void addToCollection(Column column, Object value) {
-        if (value == null) return;
+        if (value == null) {
+            return;
+        }
+
         Collection<? super Object> collection = collectionReferenceOf(column);
+
         if (collection == null) {
             collection = new ArrayList<Object>();
             valueOfColumn.put(column, collection);
         }
+
         if (!collection.contains(value)) {
             collection.add(value);
         }
     }
 
     public void set(Xmp xmp) {
-        if (xmp == this) return;
+        if (xmp == this) {
+            return;
+        }
+
         valueOfColumn.clear();
+
         for (Column column : xmp.valueOfColumn.keySet()) {
             Object o = xmp.valueOfColumn.get(column);
+
             if (o instanceof Collection<?>) {
                 valueOfColumn.put(column, new ArrayList<Object>((List<?>) o));
             } else if (o != null) {

@@ -17,12 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 
 /**
  * Formats EXIF metadata fields in ASCII format.
@@ -31,12 +32,10 @@ import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
  * @version 2009-06-10
  */
 public final class ExifFormatterAscii extends ExifFormatter {
-
     public static final ExifFormatterAscii INSTANCE = new ExifFormatterAscii();
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifDataType(exifTag, ExifDataType.ASCII);
 
         return ExifAscii.decode(exifTag.rawValue());

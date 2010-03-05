@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.savedsearches;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -29,17 +30,14 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-09-17
  */
 public final class ColumnSavedSearchesName extends Column {
-
-    public static final ColumnSavedSearchesName INSTANCE = new ColumnSavedSearchesName();
+    public static final ColumnSavedSearchesName INSTANCE =
+        new ColumnSavedSearchesName();
 
     private ColumnSavedSearchesName() {
-        super(
-            TableSavedSearches.INSTANCE,
-            "name",
-            DataType.STRING);
-
+        super(TableSavedSearches.INSTANCE, "name", DataType.STRING);
         setLength(32);
-        setDescription(JptBundle.INSTANCE.getString("ColumnSavedSearchesName.Description"));
+        setDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnSavedSearchesName.Description"));
     }
-
 }

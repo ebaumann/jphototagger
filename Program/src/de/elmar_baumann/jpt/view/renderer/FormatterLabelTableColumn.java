@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.TableIcons;
+
 import javax.swing.JLabel;
 
 /**
@@ -42,6 +44,5 @@ public final class FormatterLabelTableColumn {
         label.setText(column.getDescription());
     }
 
-    protected FormatterLabelTableColumn() {
-    }
+    protected FormatterLabelTableColumn() {}
 }

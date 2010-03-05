@@ -17,13 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.programs;
 
 import de.elmar_baumann.jpt.data.Program;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.StartPrograms;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,16 +38,15 @@ import java.awt.event.ActionListener;
  * @version 2008-09-10
  */
 public final class ControllerOpenFilesWithOtherApp implements ActionListener {
-
     private final PopupMenuThumbnails popupMenu;
-    private final ThumbnailsPanel thumbnailsPanel;
-    private final StartPrograms executor;
+    private final ThumbnailsPanel     thumbnailsPanel;
+    private final StartPrograms       executor;
 
     public ControllerOpenFilesWithOtherApp() {
         popupMenu = PopupMenuThumbnails.INSTANCE;
         listen();
         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-        executor = new StartPrograms(null);
+        executor        = new StartPrograms(null);
     }
 
     private void listen() {

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
@@ -25,13 +26,15 @@ import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.FavoritePropertiesDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
-import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
@@ -47,11 +50,12 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerInsertFavorite
         implements ActionListener, KeyListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree tree = appPanel.getTreeFavorites();
+    private final AppPanel             appPanel         =
+        GUI.INSTANCE.getAppPanel();
+    private final JTree                tree             =
+        appPanel.getTreeFavorites();
     private final PopupMenuDirectories popupDirectories =
-            PopupMenuDirectories.INSTANCE;
+        PopupMenuDirectories.INSTANCE;
 
     public ControllerInsertFavorite() {
         listen();
@@ -59,7 +63,7 @@ public final class ControllerInsertFavorite
 
     private void listen() {
         PopupMenuFavorites.INSTANCE.getItemInsertFavorite().addActionListener(
-                this);
+            this);
         popupDirectories.getItemAddToFavorites().addActionListener(this);
         tree.addKeyListener(this);
     }
@@ -77,31 +81,37 @@ public final class ControllerInsertFavorite
     }
 
     private String getDirectoryName(Object o) {
-        String directoryName = null;
+        String  directoryName    = null;
         boolean isAddToFavorites =
-                popupDirectories.getItemAddToFavorites().equals(o);
+            popupDirectories.getItemAddToFavorites().equals(o);
+
         if (isAddToFavorites) {
             directoryName = popupDirectories.getDirectoryName();
         }
+
         return directoryName;
     }
 
     private void insertFavorite(final String directoryName) {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 FavoritePropertiesDialog dialog =
-                        new FavoritePropertiesDialog();
+                    new FavoritePropertiesDialog();
+
                 if (directoryName != null) {
                     dialog.setDirectoryName(directoryName);
                     dialog.setEnabledButtonChooseDirectory(false);
                 }
+
                 dialog.setVisible(true);
+
                 if (dialog.accepted()) {
-                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
-                    model.insert(new Favorite(
-                            dialog.getFavoriteName(), dialog.getDirectoryName(), -1));
+                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(
+                                                   TreeModelFavorites.class);
+
+                    model.insert(new Favorite(dialog.getFavoriteName(),
+                                              dialog.getDirectoryName(), -1));
                 }
             }
         });
@@ -109,11 +119,13 @@ public final class ControllerInsertFavorite
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

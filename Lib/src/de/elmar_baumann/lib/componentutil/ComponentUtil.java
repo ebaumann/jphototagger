@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.Color;
@@ -26,8 +27,10 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Window;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.UIManager;
 
 /**
@@ -47,8 +50,9 @@ public final class ComponentUtil {
      * @param component  component
      */
     public static void forceRepaint(Component component) {
-        if (component == null)
+        if (component == null) {
             throw new NullPointerException("component == null");
+        }
 
         component.invalidate();
         component.validate();
@@ -62,9 +66,10 @@ public final class ComponentUtil {
      */
     public static void centerScreen(Window window) {
         Dimension screenDimension = window.getToolkit().getScreenSize();
-        Rectangle frameBounds = window.getBounds();
+        Rectangle frameBounds     = window.getBounds();
+
         window.setLocation((screenDimension.width - frameBounds.width) / 2,
-                (screenDimension.height - frameBounds.height) / 2);
+                           (screenDimension.height - frameBounds.height) / 2);
     }
 
     /**
@@ -99,7 +104,9 @@ public final class ComponentUtil {
     public static Frame getFrameWithIcon() {
         List<Frame> frames = findFramesWithIcons();
 
-        return frames.size() == 0 ? null : frames.get(0);
+        return (frames.size() == 0)
+               ? null
+               : frames.get(0);
     }
 
     /**
@@ -113,8 +120,13 @@ public final class ComponentUtil {
      * @return          found elements or empty list
      */
     public static <T> List<T> getAllOf(Container container, Class<T> clazz) {
-        if (container == null) throw new NullPointerException("container == null");
-        if (clazz == null)     throw new NullPointerException("clazz == null");
+        if (container == null) {
+            throw new NullPointerException("container == null");
+        }
+
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
 
         List<T> components = new ArrayList<T>();
 
@@ -124,24 +136,23 @@ public final class ComponentUtil {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> void addAllOf(Container container, Class<T> clazz, List<T> all) {
-        int     count      = container.getComponentCount();
+    private static <T> void addAllOf(Container container, Class<T> clazz,
+                                     List<T> all) {
+        int count = container.getComponentCount();
 
         if (container.getClass().equals(clazz)) {
-            all.add((T)container);
+            all.add((T) container);
         }
 
         for (int i = 0; i < count; i++) {
             Component component = container.getComponent(i);
 
             if (component instanceof Container) {
-                addAllOf((Container) component, clazz, all); // Recursive
-            }
-            else if (component.getClass().equals(clazz)) {
+                addAllOf((Container) component, clazz, all);    // Recursive
+            } else if (component.getClass().equals(clazz)) {
                 all.add((T) component);
             }
         }
-
     }
 
     /**
@@ -154,11 +165,15 @@ public final class ComponentUtil {
      * @param  propertyKey property key
      * @return             color or null
      */
+
     //
     //
     public static Color getUiColor(String propertyKey) {
         Color col = UIManager.getColor(propertyKey);
-        return col == null ? null : new Color(col.getRGB());
+
+        return (col == null)
+               ? null
+               : new Color(col.getRGB());
     }
 
     /**
@@ -170,9 +185,9 @@ public final class ComponentUtil {
         if (!window.isVisible()) {
             window.setVisible(true);
         }
+
         window.toFront();
     }
 
-    private ComponentUtil() {
-    }
+    private ComponentUtil() {}
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
@@ -30,7 +31,6 @@ import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
  * @version 2009-04-04
  */
 public final class ExifByte {
-
     private final int value;
 
     /**
@@ -42,11 +42,8 @@ public final class ExifByte {
      *         equals to {@link #byteCount()} or negativ
      */
     public ExifByte(byte[] rawValue) {
-
         Ensure.length(rawValue, byteCount());
-
         value = (int) rawValue[0];
-
         Ensure.positive(value);
     }
 

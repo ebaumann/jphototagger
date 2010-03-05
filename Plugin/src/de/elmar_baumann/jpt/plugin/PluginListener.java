@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.plugin;
 
 /**
@@ -25,6 +26,5 @@ package de.elmar_baumann.jpt.plugin;
  * @version 2009-08-27
  */
 public interface PluginListener {
-
     public void action(PluginEvent event);
 }

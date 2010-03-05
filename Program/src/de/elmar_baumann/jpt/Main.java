@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt;
 
 import de.elmar_baumann.jpt.app.AppInit;
@@ -28,11 +29,9 @@ import de.elmar_baumann.jpt.app.AppInit;
  * @version 2008-02-17
  */
 public final class Main {
-
     public static void main(String[] args) {
         AppInit.INSTANCE.init(args);
     }
 
-    private Main() {
-    }
+    private Main() {}
 }

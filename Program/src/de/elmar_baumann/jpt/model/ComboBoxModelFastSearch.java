@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
+
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -35,9 +37,8 @@ import javax.swing.DefaultComboBoxModel;
  * @version 2009-08-31
  */
 public final class ComboBoxModelFastSearch extends DefaultComboBoxModel {
-
-    public static final  String ALL_DEFINED_COLUMNS = "AllDefined";
-    private static final long   serialVersionUID    = -705435864208734028L;
+    public static final String ALL_DEFINED_COLUMNS = "AllDefined";
+    private static final long  serialVersionUID    = -705435864208734028L;
 
     public ComboBoxModelFastSearch() {
         addElements();
@@ -45,6 +46,7 @@ public final class ComboBoxModelFastSearch extends DefaultComboBoxModel {
 
     private void addElements() {
         addElement(ALL_DEFINED_COLUMNS);
+
         for (Column column : FastSearchColumns.get()) {
             addElement(column);
         }

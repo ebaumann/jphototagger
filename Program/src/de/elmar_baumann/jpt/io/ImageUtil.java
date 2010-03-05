@@ -17,19 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppFileFilters;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.helper.FilesystemDatabaseUpdater;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -59,7 +62,6 @@ public final class ImageUtil {
      * @return       image files of that files
      */
     public static List<File> getImageFiles(Collection<? extends File> files) {
-
         List<File> imageFiles = new ArrayList<File>(files.size());
 
         for (File file : files) {
@@ -67,19 +69,21 @@ public final class ImageUtil {
                 imageFiles.add(file);
             }
         }
+
         return imageFiles;
     }
 
     public enum ConfirmOverwrite {
-        YES,
-        NO;
+        YES, NO;
 
         public boolean yes() {
             return this.equals(YES);
         }
 
         public static ConfirmOverwrite fromBoolean(boolean b) {
-            return b ? YES : NO;
+            return b
+                   ? YES
+                   : NO;
         }
     }
 
@@ -91,11 +95,13 @@ public final class ImageUtil {
      * @param confirm         {@link ConfirmOverwrite#YES} if the user must
      *                        confirm overwrite existing files
      */
-    public static void copyImageFiles(
-            List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
-
-        if (confirm.yes() &&
-            !confirmFileAction("ImageUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+    public static void copyImageFiles(List<File> sourceFiles,
+                                      File targetDirectory,
+                                      ConfirmOverwrite confirm) {
+        if (confirm.yes()
+                &&!confirmFileAction("ImageUtil.Confirm.Copy",
+                                     sourceFiles.size(),
+                                     targetDirectory.getAbsolutePath())) {
             return;
         }
 
@@ -104,9 +110,7 @@ public final class ImageUtil {
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
         dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
-
         addProgressListener(dialog);
-
         dialog.copy(true, UserSettings.INSTANCE.getCopyMoveFilesOptions());
     }
 
@@ -118,11 +122,13 @@ public final class ImageUtil {
      * @param confirm         {@link ConfirmOverwrite#YES} if the user must
      *                        confirm overwrite existing files
      */
-    public static void moveImageFiles(
-            List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
-
-        if (confirm.yes() &&
-            !confirmFileAction("ImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+    public static void moveImageFiles(List<File> sourceFiles,
+                                      File targetDirectory,
+                                      ConfirmOverwrite confirm) {
+        if (confirm.yes()
+                &&!confirmFileAction("ImageUtil.Confirm.Move",
+                                     sourceFiles.size(),
+                                     targetDirectory.getAbsolutePath())) {
             return;
         }
 
@@ -130,58 +136,54 @@ public final class ImageUtil {
 
         dialog.setTargetDirectory(targetDirectory);
         dialog.setSourceFiles(sourceFiles);
-
         addProgressListener(dialog);
-
         dialog.setVisible(true);
     }
 
-    private static boolean confirmFileAction(String bundleKey, int size, String absolutePath) {
-        return MessageDisplayer.confirmYesNo(null, bundleKey, size, absolutePath);
+    private static boolean confirmFileAction(String bundleKey, int size,
+            String absolutePath) {
+        return MessageDisplayer.confirmYesNo(null, bundleKey, size,
+                absolutePath);
     }
 
-    private synchronized static void addProgressListener(MoveToDirectoryDialog dialog) {
-
+    private synchronized static void addProgressListener(
+            MoveToDirectoryDialog dialog) {
         dialog.addProgressListener(new ProgressListener() {
-
             @Override
             public void progressStarted(ProgressEvent evt) {
+
                 // ignore
             }
-
             @Override
             public void progressPerformed(ProgressEvent evt) {
+
                 // ignore
             }
-
             @Override
             public void progressEnded(ProgressEvent evt) {
                 GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
             }
         });
-
     }
 
-    private synchronized static void addProgressListener(CopyToDirectoryDialog dialog) {
-
+    private synchronized static void addProgressListener(
+            CopyToDirectoryDialog dialog) {
         dialog.addProgressListener(new ProgressListener() {
-
             @Override
             public void progressStarted(ProgressEvent evt) {
+
                 // ignore
             }
-
             @Override
             public void progressPerformed(ProgressEvent evt) {
+
                 // ignore
             }
-
             @Override
             public void progressEnded(ProgressEvent evt) {
                 GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
             }
         });
-
     }
 
     /**
@@ -197,22 +199,23 @@ public final class ImageUtil {
         List<File> files = new ArrayList<File>(imageFiles.size() * 2);
 
         for (File imageFile : imageFiles) {
-
-            if (imageFile != null && isImageFile(imageFile)) {
-
+            if ((imageFile != null) && isImageFile(imageFile)) {
                 files.add(imageFile);
 
-                String sidecarFilename = XmpMetadata.getSidecarFilename(imageFile.getAbsolutePath());
-                File   sidecarFile     = sidecarFilename == null ? null : new File(sidecarFilename);
+                String sidecarFilename =
+                    XmpMetadata.getSidecarFilename(imageFile.getAbsolutePath());
+                File sidecarFile = (sidecarFilename == null)
+                                   ? null
+                                   : new File(sidecarFilename);
 
                 if (sidecarFile != null) {
                     files.add(sidecarFile);
                 }
             }
         }
+
         return files;
     }
 
-    private ImageUtil() {
-    }
+    private ImageUtil() {}
 }

@@ -17,34 +17,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.data.Xmp;
-import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.data.Program;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
+import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
+import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.listener.UpdateMetadataCheckListener;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent.Type;
-import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
-import de.elmar_baumann.jpt.event.listener.UpdateMetadataCheckListener;
-import de.elmar_baumann.jpt.event.listener.ProgressListener;
-import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
-import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.Image;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,15 +64,20 @@ import java.util.Set;
  * @version 2008-10-05
  */
 public final class InsertImageFilesIntoDatabase extends Thread {
-
-    private final        DatabaseImageFiles                           db                      = DatabaseImageFiles.INSTANCE;
-    private final        ProgressListenerSupport                      progressListenerSupport = new ProgressListenerSupport();
-    private final        ListenerSupport<UpdateMetadataCheckListener> updateListenerSupport   = new ListenerSupport<UpdateMetadataCheckListener>();
-    private              ProgressEvent                                progressEvent           = new ProgressEvent(this, null);
-    private static final Image                                        ERROR_THUMBNAIL         = IconUtil.getIconImage(JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.ErrorThumbnailPath"));
-    private final        List<String>                                 imageFilenames;
-    private final        Set<Insert>                                  what                    = new HashSet<Insert>();
-    private              boolean                                      stop;
+    private final DatabaseImageFiles      db                      =
+        DatabaseImageFiles.INSTANCE;
+    private final ProgressListenerSupport progressListenerSupport =
+        new ProgressListenerSupport();
+    private final ListenerSupport<UpdateMetadataCheckListener> updateListenerSupport =
+        new ListenerSupport<UpdateMetadataCheckListener>();
+    private ProgressEvent      progressEvent   = new ProgressEvent(this, null);
+    private static final Image ERROR_THUMBNAIL =
+        IconUtil.getIconImage(
+            JptBundle.INSTANCE.getString(
+                "InsertImageFilesIntoDatabase.ErrorThumbnailPath"));
+    private final List<String> imageFilenames;
+    private final Set<Insert>  what = new HashSet<Insert>();
+    private boolean            stop;
 
     /**
      * Metadata to insert.
@@ -76,7 +86,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         /**
          * Insert or update EXIF, thumbnail and XMP against these rules:
-         * 
+         *
          * <ul>
          * <li>Update EXIF, if the image file's file system last modified
          *     timestamp is not equal to it's database timestamp
@@ -116,15 +126,16 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      *                       inserted or updated
      * @param what           metadata to insert
      */
-    public InsertImageFilesIntoDatabase(List<String> imageFilenames, Insert... what) {
-
+    public InsertImageFilesIntoDatabase(List<String> imageFilenames,
+            Insert... what) {
         this.imageFilenames = new ArrayList<String>(imageFilenames);
 
         for (Insert ins : what) {
             this.what.add(ins);
         }
 
-        setName("Inserting image files into database @ " + getClass().getSimpleName());
+        setName("Inserting image files into database @ "
+                + getClass().getSimpleName());
     }
 
     @Override
@@ -134,7 +145,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         notifyStarted();
 
-        for (index = 0; !isInterrupted() && !stop && index < count; index++) {
+        for (index = 0; !isInterrupted() &&!stop && (index < count); index++) {
             String imageFilename = imageFilenames.get(index);
 
             // Notify before inserting to enable progress listeners displaying the current image filename
@@ -142,6 +153,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
             if (checkExists(imageFilename)) {
                 ImageFile imageFile = getImageFile(imageFilename);
+
                 if (isUpdate(imageFile)) {
                     setExifDateToXmpDateCreated(imageFile);
                     logInsertImageFile(imageFile);
@@ -150,13 +162,13 @@ public final class InsertImageFilesIntoDatabase extends Thread {
                 }
             }
         }
+
         notifyEnded(index);
     }
 
     private boolean isUpdate(ImageFile imageFile) {
-        return imageFile.getExif() != null ||
-                imageFile.getXmp() != null ||
-                imageFile.getThumbnail() != null;
+        return (imageFile.getExif() != null) || (imageFile.getXmp() != null)
+               || (imageFile.getThumbnail() != null);
     }
 
     private ImageFile getImageFile(String imageFilename) {
@@ -169,21 +181,25 @@ public final class InsertImageFilesIntoDatabase extends Thread {
             imageFile.addInsertIntoDb(Insert.THUMBNAIL);
             createAndSetThumbnail(imageFile);
         }
+
         if (isUpdateXmp(imageFilename)) {
             imageFile.addInsertIntoDb(Insert.XMP);
             setXmp(imageFile);
         }
+
         if (isUpdateExif(imageFilename)) {
             imageFile.addInsertIntoDb(Insert.EXIF);
             setExif(imageFile);
         }
+
         return imageFile;
     }
 
     private boolean isUpdateThumbnail(String imageFilename) {
-        return what.contains(Insert.THUMBNAIL) ||
-               what.contains(Insert.OUT_OF_DATE) &&
-                    (!existsThumbnail(imageFilename) || !isThumbnailUpToDate(imageFilename));
+        return what.contains(Insert.THUMBNAIL)
+               || (what.contains(Insert.OUT_OF_DATE)
+                   && (!existsThumbnail(imageFilename)
+                       ||!isThumbnailUpToDate(imageFilename)));
     }
 
     private boolean existsThumbnail(String imageFilename) {
@@ -191,13 +207,15 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean isUpdateExif(String imageFilename) {
-        return what.contains(Insert.EXIF) ||
-               (what.contains(Insert.OUT_OF_DATE) && !isImageFileUpToDate(imageFilename));
+        return what.contains(Insert.EXIF)
+               || (what.contains(Insert.OUT_OF_DATE)
+                   &&!isImageFileUpToDate(imageFilename));
     }
 
     private boolean isUpdateXmp(String imageFilename) {
-        return what.contains(Insert.XMP) ||
-               (what.contains(Insert.OUT_OF_DATE) && !isXmpUpToDate(imageFilename));
+        return what.contains(Insert.XMP)
+               || (what.contains(Insert.OUT_OF_DATE)
+                   &&!isXmpUpToDate(imageFilename));
     }
 
     private boolean isImageFileUpToDate(String imageFilename) {
@@ -208,8 +226,12 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean isThumbnailUpToDate(String imageFilename) {
-        File tnFile = PersistentThumbnails.getThumbnailFileOfImageFile(imageFilename);
-        if (tnFile == null || !tnFile.exists()) return false;
+        File tnFile =
+            PersistentThumbnails.getThumbnailFileOfImageFile(imageFilename);
+
+        if ((tnFile == null) ||!tnFile.exists()) {
+            return false;
+        }
 
         long lastModifiedTn  = tnFile.lastModified();
         long lastModifiedImg = FileUtil.getLastModified(imageFilename);
@@ -220,12 +242,14 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private boolean isXmpUpToDate(String imageFilename) {
         String sidecarFileName = XmpMetadata.getSidecarFilename(imageFilename);
 
-        return sidecarFileName == null
-               ? UserSettings.INSTANCE.isScanForEmbeddedXmp() && isEmbeddedXmpUpToDate(imageFilename)
+        return (sidecarFileName == null)
+               ? UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                 && isEmbeddedXmpUpToDate(imageFilename)
                : isXmpSidecarFileUpToDate(imageFilename, sidecarFileName);
     }
 
-    private boolean isXmpSidecarFileUpToDate(String imageFilename, String sidecarFilename) {
+    private boolean isXmpSidecarFileUpToDate(String imageFilename,
+            String sidecarFilename) {
         long dbTime   = db.getLastModifiedXmp(imageFilename);
         long fileTime = FileUtil.getLastModified(sidecarFilename);
 
@@ -236,21 +260,26 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         long dbTime   = db.getLastModifiedXmp(imageFilename);
         long fileTime = FileUtil.getLastModified(imageFilename);
 
-        if (dbTime == fileTime) return true;
+        if (dbTime == fileTime) {
+            return true;
+        }
 
-        boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename) != null; // slow if large image file whitout XMP
+        boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFilename)
+                                 != null;    // slow if large image file whitout XMP
 
-        if (!hasEmbeddedXmp) { // Avoid unneccesary 2nd calls
+        if (!hasEmbeddedXmp) {    // Avoid unneccesary 2nd calls
             db.setLastModifiedXmp(imageFilename, fileTime);
         }
+
         return !hasEmbeddedXmp;
     }
 
     private void createAndSetThumbnail(ImageFile imageFile) {
-        File   file      = imageFile.getFile();
-        Image  thumbnail = ThumbnailUtil.getThumbnail(file);
+        File  file      = imageFile.getFile();
+        Image thumbnail = ThumbnailUtil.getThumbnail(file);
 
         imageFile.setThumbnail(thumbnail);
+
         if (thumbnail == null) {
             errorMessageNullThumbnail(file.getAbsolutePath());
             imageFile.setThumbnail(ERROR_THUMBNAIL);
@@ -259,7 +288,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
     private void setExif(ImageFile imageFile) {
         Exif exif = ExifMetadata.getExif(imageFile.getFile());
-        if (exif != null && !exif.isEmpty()) {
+
+        if ((exif != null) &&!exif.isEmpty()) {
             imageFile.setExif(exif);
         } else {
             imageFile.setExif(null);
@@ -269,13 +299,15 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private void setXmp(ImageFile imageFile) {
         String imageFilename = imageFile.getFilename();
         Xmp    xmp           = XmpMetadata.hasImageASidecarFile(imageFilename)
-                                   ? XmpMetadata.getXmpFromSidecarFileOf(imageFilename)
-                                   : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                                   ? XmpMetadata.getEmbeddedXmp(imageFilename)
-                                   : null;
+                               ? XmpMetadata.getXmpFromSidecarFileOf(
+                                   imageFilename)
+                               : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                                 ? XmpMetadata.getEmbeddedXmp(imageFilename)
+                                 : null;
 
         writeSidecarFileIfNotExists(imageFilename, xmp);
-        if (xmp != null && !xmp.isEmpty()) {
+
+        if ((xmp != null) &&!xmp.isEmpty()) {
             imageFile.setXmp(xmp);
         }
     }
@@ -284,52 +316,63 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         Exif    exif              = imageFile.getExif();
         Xmp     xmp               = imageFile.getXmp();
         boolean hasExif           = exif != null;
-        boolean hasXmp            = xmp  != null;
-        boolean hasXmpDateCreated = hasXmp  && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-        boolean hasExifDate       = hasExif && exif.getDateTimeOriginal() != null;
+        boolean hasXmp            = xmp != null;
+        boolean hasXmpDateCreated =
+            hasXmp && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        boolean hasExifDate = hasExif && (exif.getDateTimeOriginal() != null);
 
-        if (hasXmpDateCreated || !hasXmp || !hasExif || !hasExifDate) return;
+        if (hasXmpDateCreated ||!hasXmp ||!hasExif ||!hasExifDate) {
+            return;
+        }
 
-        xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, exif.getXmpDateCreated());
+        xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
+                     exif.getXmpDateCreated());
 
-        File sidecarFile = new File(XmpMetadata.suggestSidecarFilename(imageFile.getFilename()));
+        File sidecarFile = new File(
+                               XmpMetadata.suggestSidecarFilename(
+                                   imageFile.getFilename()));
+
         if (sidecarFile.canWrite()) {
-            XmpMetadata.writeXmpToSidecarFile( xmp, sidecarFile.getAbsolutePath());
-            xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
+            XmpMetadata.writeXmpToSidecarFile(xmp,
+                                              sidecarFile.getAbsolutePath());
+            xmp.setValue(ColumnXmpLastModified.INSTANCE,
+                         sidecarFile.lastModified());
         }
     }
 
     private void writeSidecarFileIfNotExists(String imageFilename, Xmp xmp) {
-        if ( xmp != null &&
-            !XmpMetadata.hasImageASidecarFile(imageFilename) &&
-             XmpMetadata.canWriteSidecarFileForImageFile(imageFilename)) {
-
-            String sidecarFilename = XmpMetadata.suggestSidecarFilename(imageFilename);
+        if ((xmp != null) &&!XmpMetadata.hasImageASidecarFile(imageFilename)
+                && XmpMetadata.canWriteSidecarFileForImageFile(imageFilename)) {
+            String sidecarFilename =
+                XmpMetadata.suggestSidecarFilename(imageFilename);
 
             XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename);
         }
     }
 
     private void runActionsAfterInserting(ImageFile imageFile) {
-
-        if (!isRunActionsAfterInserting(imageFile)) return;
+        if (!isRunActionsAfterInserting(imageFile)) {
+            return;
+        }
 
         File          imgFile = imageFile.getFile();
-        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        List<Program> actions =
+            DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
 
         for (Program action : actions) {
             StartPrograms programStarter = new StartPrograms(null);
 
-            programStarter.startProgram(action, Collections.singletonList(imgFile));
+            programStarter.startProgram(action,
+                                        Collections.singletonList(imgFile));
         }
     }
 
     private boolean isRunActionsAfterInserting(ImageFile imageFile) {
-
         UserSettings settings = UserSettings.INSTANCE;
 
-        return settings.isExecuteActionsAfterImageChangeInDbAlways() ||
-               settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp() && imageFile.getXmp() != null;
+        return settings.isExecuteActionsAfterImageChangeInDbAlways()
+               || (settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp()
+                   && (imageFile.getXmp() != null));
     }
 
     /**
@@ -345,7 +388,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      *
      * @param listener listener
      */
-    public void addUpdateMetadataCheckListener(UpdateMetadataCheckListener listener) {
+    public void addUpdateMetadataCheckListener(
+            UpdateMetadataCheckListener listener) {
         updateListenerSupport.add(listener);
     }
 
@@ -355,13 +399,16 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * @param listener action listener
      * @see   #addUpdateMetadataCheckListener(UpdateMetadataCheckListener)
      */
-    public void removeUpdateMetadataCheckListener(UpdateMetadataCheckListener listener) {
+    public void removeUpdateMetadataCheckListener(
+            UpdateMetadataCheckListener listener) {
         updateListenerSupport.remove(listener);
     }
 
     private void notifyUpdateMetadataCheckListener(Type type, String filename) {
-        UpdateMetadataCheckEvent         event     = new UpdateMetadataCheckEvent(type, filename);
-        Set<UpdateMetadataCheckListener> listeners = updateListenerSupport.get();
+        UpdateMetadataCheckEvent event = new UpdateMetadataCheckEvent(type,
+                                             filename);
+        Set<UpdateMetadataCheckListener> listeners =
+            updateListenerSupport.get();
 
         synchronized (listeners) {
             for (UpdateMetadataCheckListener listener : listeners) {
@@ -408,37 +455,58 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void errorMessageNullThumbnail(String filename) {
-        AppLogger.logWarning(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename);
+        AppLogger.logWarning(
+            InsertImageFilesIntoDatabase.class,
+            "InsertImageFilesIntoDatabase.Error.NullThumbnail", filename);
     }
 
     private void informationMessagePerformed(String filename) {
-        AppLogger.logFinest(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.CheckImageForModifications", filename);
+        AppLogger.logFinest(
+            InsertImageFilesIntoDatabase.class,
+            "InsertImageFilesIntoDatabase.Info.CheckImageForModifications",
+            filename);
     }
 
     private void informationMessageEnded(int filecount) {
-        AppLogger.logInfo(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished", filecount);
+        AppLogger.logInfo(
+            InsertImageFilesIntoDatabase.class,
+            "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished",
+            filecount);
     }
 
     private boolean checkExists(String imageFilename) {
         if (!FileUtil.existsFile(imageFilename)) {
-            AppLogger.logInfo(getClass(), "InsertImageFilesIntoDatabase.Error.ImageFileDoesNotExist", imageFilename);
+            AppLogger.logInfo(
+                getClass(),
+                "InsertImageFilesIntoDatabase.Error.ImageFileDoesNotExist",
+                imageFilename);
+
             return false;
         }
+
         return true;
     }
 
     private void logInsertImageFile(ImageFile data) {
-        Object[] params = {
-            data.getFile().getAbsolutePath(),
-            data.getExif() == null
-            ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
-            data.getXmp() == null
-            ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
-            data.getThumbnail() == null
-            ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
-        AppLogger.logInfo(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert", params);
+        Object[] params = { data.getFile().getAbsolutePath(),
+                            (data.getExif() == null)
+                            ? JptBundle.INSTANCE.getString(
+                                "InsertImageFilesIntoDatabase.Info.StartInsert.No")
+                            : JptBundle.INSTANCE.getString(
+                                "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
+                            (data.getXmp() == null)
+                            ? JptBundle.INSTANCE.getString(
+                                "InsertImageFilesIntoDatabase.Info.StartInsert.No")
+                            : JptBundle.INSTANCE.getString(
+                                "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"),
+                            (data.getThumbnail() == null)
+                            ? JptBundle.INSTANCE.getString(
+                                "InsertImageFilesIntoDatabase.Info.StartInsert.No")
+                            : JptBundle.INSTANCE.getString(
+                                "InsertImageFilesIntoDatabase.Info.StartInsert.Yes") };
+
+        AppLogger.logInfo(InsertImageFilesIntoDatabase.class,
+                          "InsertImageFilesIntoDatabase.Info.StartInsert",
+                          params);
     }
 }

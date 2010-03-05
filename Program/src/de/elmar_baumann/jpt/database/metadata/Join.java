@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
 import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
+
 import java.util.List;
 
 /**
@@ -36,9 +38,8 @@ public final class Join {
      * Type of a SQL join - only the currently used types.
      */
     public enum Type {
+        INNER("INNER JOIN"), LEFT("LEFT JOIN");
 
-        INNER("INNER JOIN"),
-        LEFT("LEFT JOIN");
         private final String string;
 
         private Type(String string) {
@@ -61,8 +62,10 @@ public final class Join {
      * @param tablenames Namen der Tabellen
      * @return           JOIN-Statement
      */
-    public static String getSqlFilesExifJoin(Type type, List<String> tablenames) {
-        return " files " + type.toString() + " exif on files.id = exif.id_files";
+    public static String getSqlFilesExifJoin(Type type,
+            List<String> tablenames) {
+        return " files " + type.toString()
+               + " exif on files.id = exif.id_files";
     }
 
     /**
@@ -78,19 +81,18 @@ public final class Join {
      */
     public static String getSqlFilesXmpJoin(Type typeFiles, Type typeXmp,
             List<String> tablenames) {
-        StringBuilder sb = new StringBuilder(" files " + typeFiles.toString() +
-                " xmp on files.id = xmp.id_files");
+        StringBuilder sb = new StringBuilder(" files " + typeFiles.toString()
+                               + " xmp on files.id = xmp.id_files");
 
         for (String tablename : tablenames) {
-            if (tablename.startsWith("xmp") && !tablename.equals("xmp")) {
-                sb.append(" " + typeXmp.toString() + " " + tablename +
-                        " ON xmp.id = " + tablename + ".id_xmp");
+            if (tablename.startsWith("xmp") &&!tablename.equals("xmp")) {
+                sb.append(" " + typeXmp.toString() + " " + tablename
+                          + " ON xmp.id = " + tablename + ".id_xmp");
             }
         }
 
         return sb.toString();
     }
 
-    private Join() {
-    }
+    private Join() {}
 }

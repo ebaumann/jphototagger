@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
+
 import java.awt.Font;
+
 import javax.swing.JLabel;
 
 /**
@@ -30,8 +33,7 @@ import javax.swing.JLabel;
  * @version 2008-09-14
  */
 public class FormatterLabelMetadata {
-
-    private Font headerFont = null;
+    private Font headerFont  = null;
     private Font contentFont = null;
 
     /**
@@ -80,35 +82,36 @@ public class FormatterLabelMetadata {
      */
     protected void setIsStoredInDatabaseColors(JLabel cellLabel,
             boolean isSelected) {
-        cellLabel.setForeground(
-                isSelected
-                ? AppLookAndFeel.getTableSelectionForeground()
-                : AppLookAndFeel.getTableStoredInDatabaseForeground());
-        cellLabel.setBackground(
-                isSelected
-                ? AppLookAndFeel.getTableSelectionBackground()
-                : AppLookAndFeel.getTableStoredInDatabaseBackground());
+        cellLabel.setForeground(isSelected
+                                ? AppLookAndFeel.getTableSelectionForeground()
+                                : AppLookAndFeel
+                                    .getTableStoredInDatabaseForeground());
+        cellLabel.setBackground(isSelected
+                                ? AppLookAndFeel.getTableSelectionBackground()
+                                : AppLookAndFeel
+                                    .getTableStoredInDatabaseBackground());
     }
 
     protected void setIsExifMakerNoteColors(JLabel cellLabel,
             boolean isSelected) {
-        cellLabel.setForeground(
-                isSelected
-                ? AppLookAndFeel.getTableSelectionForeground()
-                : AppLookAndFeel.getTableExifMakerNoteForeground());
-        cellLabel.setBackground(
-                isSelected
-                ? AppLookAndFeel.getTableSelectionBackground()
-                : AppLookAndFeel.getTableExifMakerNoteBackground());
+        cellLabel.setForeground(isSelected
+                                ? AppLookAndFeel.getTableSelectionForeground()
+                                : AppLookAndFeel
+                                    .getTableExifMakerNoteForeground());
+        cellLabel.setBackground(isSelected
+                                ? AppLookAndFeel.getTableSelectionBackground()
+                                : AppLookAndFeel
+                                    .getTableExifMakerNoteBackground());
     }
 
     private void initFonts(JLabel cellLabel) {
         if (headerFont == null) {
             Font cellFont = cellLabel.getFont();
-            headerFont = new Font(
-                    cellFont.getName(), Font.BOLD, cellFont.getSize());
-            contentFont = new Font(
-                    cellFont.getName(), Font.PLAIN, cellFont.getSize());
+
+            headerFont = new Font(cellFont.getName(), Font.BOLD,
+                                  cellFont.getSize());
+            contentFont = new Font(cellFont.getName(), Font.PLAIN,
+                                   cellFont.getSize());
         }
     }
 }

@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.Color;
 
 /**
@@ -29,14 +31,15 @@ import java.awt.Color;
  * @version 2008-09-09
  */
 public final class ThumbnailFlag {
-
-    private final Color  color;
-    private final String string;
-
-    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND = new ThumbnailFlag(Color.RED, JptBundle.INSTANCE.getString("ThumbnailFlag.Error.FileNotFound"));
+    private final Color               color;
+    private final String              string;
+    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND =
+        new ThumbnailFlag(
+            Color.RED,
+            JptBundle.INSTANCE.getString("ThumbnailFlag.Error.FileNotFound"));
 
     public ThumbnailFlag(Color color, String string) {
-        this.color = color;
+        this.color  = color;
         this.string = string;
     }
 
@@ -57,24 +60,36 @@ public final class ThumbnailFlag {
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final ThumbnailFlag other = (ThumbnailFlag) obj;
-        if (this.color != other.color && (this.color == null || !this.color.equals(other.color))) {
+
+        if ((this.color != other.color)
+                && ((this.color == null) ||!this.color.equals(other.color))) {
             return false;
         }
-        if (this.string == null || !this.string.equals(other.string)) {
+
+        if ((this.string == null) ||!this.string.equals(other.string)) {
             return false;
         }
+
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 71 * hash + (this.color != null ? this.color.hashCode() : 0);
-        hash = 71 * hash + (this.string != null ? this.string.hashCode() : 0);
+
+        hash = 71 * hash + ((this.color != null)
+                            ? this.color.hashCode()
+                            : 0);
+        hash = 71 * hash + ((this.string != null)
+                            ? this.string.hashCode()
+                            : 0);
+
         return hash;
     }
 }

@@ -17,19 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.selections
+    .AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
+import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Suggest;
@@ -38,28 +40,31 @@ import de.elmar_baumann.lib.componentutil.Autocomplete;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -71,26 +76,24 @@ import javax.swing.event.ListSelectionEvent;
  * @author  Elmar Baumann
  * @version 2008-09-18
  */
-public final class EditRepeatableTextEntryPanel
-        extends    JPanel
-        implements TextEntry,
-                   ActionListener,
-                   DocumentListener,
-                   ListDataListener,
-                   DatabaseImageFilesListener
-    {
-
-    private static final long                     serialVersionUID         = -5581799743101447535L;
-    private              String                   bundleKeyPosRenameDialog;
-    private final        DefaultListModel         model                    = new DefaultListModel();
-    private transient    Column                   column                   = ColumnXmpDcSubjectsSubject.INSTANCE;
-    private              boolean                  editable                 = true;
-    private              boolean                  dirty                    = false;
-    private              Suggest                  suggest;
-    private              boolean                  ignoreIntervalAdded;
-    private transient    TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
-    private              Autocomplete             autocomplete;
-    private              Color                    editBackground;
+public final class EditRepeatableTextEntryPanel extends JPanel
+        implements TextEntry, ActionListener, DocumentListener,
+                   ListDataListener, DatabaseImageFilesListener {
+    private static final long                  serialVersionUID =
+        -5581799743101447535L;
+    private String                             bundleKeyPosRenameDialog;
+    private final DefaultListModel             model    =
+        new DefaultListModel();
+    private transient Column                   column   =
+        ColumnXmpDcSubjectsSubject.INSTANCE;
+    private boolean                            editable = true;
+    private boolean                            dirty    = false;
+    private Suggest                            suggest;
+    private boolean                            ignoreIntervalAdded;
+    private transient TextEntryListenerSupport textEntryListenerSupport =
+        new TextEntryListenerSupport();
+    private Autocomplete autocomplete;
+    private Color        editBackground;
 
     public EditRepeatableTextEntryPanel() {
         initComponents();
@@ -125,25 +128,33 @@ public final class EditRepeatableTextEntryPanel
     @Override
     public void setAutocomplete() {
         synchronized (this) {
-            if (autocomplete != null) return;
+            if (autocomplete != null) {
+                return;
+            }
         }
+
         autocomplete = new Autocomplete();
         autocomplete.setTransferFocusForward(false);
         autocomplete.decorate(
-                textAreaInput,
-                AutoCompleteDataOfColumn.INSTANCE.get(column).get());
+            textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
     }
 
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (autocomplete == null) return;
-        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) return; // Do not remove autocomplete data
+        if (autocomplete == null) {
+            return;
+        }
+
+        if (event.getType().equals(
+                DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
+            return;    // Do not remove autocomplete data
+        }
 
         ImageFile imageFile = event.getImageFile();
 
-        if (imageFile != null && imageFile.getXmp() != null) {
-            AutocompleteHelper.addAutocompleteData(
-                    column, autocomplete, imageFile.getXmp());
+        if ((imageFile != null) && (imageFile.getXmp() != null)) {
+            AutocompleteHelper.addAutocompleteData(column, autocomplete,
+                    imageFile.getXmp());
         }
     }
 
@@ -164,10 +175,12 @@ public final class EditRepeatableTextEntryPanel
      */
     public Collection<String> getRepeatableText() {
         List<String> texts = new ArrayList<String>(model.size());
-        int size = model.getSize();
+        int          size  = model.getSize();
+
         for (int i = 0; i < size; i++) {
             texts.add(model.get(i).toString());
         }
+
         return texts;
     }
 
@@ -178,8 +191,10 @@ public final class EditRepeatableTextEntryPanel
      */
     public void setSuggest(Suggest suggest) {
         this.suggest = suggest;
-        buttonSuggestion.setEnabled(editable && suggest != null);
-        buttonSuggestion.setToolTipText(suggest == null ? "" : suggest.getDescription());
+        buttonSuggestion.setEnabled(editable && (suggest != null));
+        buttonSuggestion.setToolTipText((suggest == null)
+                                        ? ""
+                                        : suggest.getDescription());
     }
 
     /**
@@ -235,7 +250,11 @@ public final class EditRepeatableTextEntryPanel
 
     public void removeText(String text) {
         assert editable : "Edit is not enabled!";
-        if (!editable) return;
+
+        if (!editable) {
+            return;
+        }
+
         model.removeElement(text);
         notifyTextRemoved(column, text);
         dirty = true;
@@ -249,7 +268,11 @@ public final class EditRepeatableTextEntryPanel
      */
     public void addText(String text) {
         assert editable : "Edit is not enabled!";
-        if (!editable) return;
+
+        if (!editable) {
+            return;
+        }
+
         addToList(Collections.singleton(text));
         dirty = true;
     }
@@ -267,7 +290,9 @@ public final class EditRepeatableTextEntryPanel
      */
     private void handleTextFieldKeyReleased(KeyEvent evt) {
         JComponent component = (JComponent) evt.getSource();
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER && component.getInputVerifier().verify(component)) {
+
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)
+                && component.getInputVerifier().verify(component)) {
             addInputToList();
         } else {
             setEnabledButtons();
@@ -303,19 +328,22 @@ public final class EditRepeatableTextEntryPanel
      * Removes from the list all selected elements.
      */
     private void removeSelectedElements() {
-        if (list.getSelectedIndex() >= 0 && confirmRemoveSelectedItems()) {
+        if ((list.getSelectedIndex() >= 0) && confirmRemoveSelectedItems()) {
             Object[] values = list.getSelectedValues();
+
             for (Object value : values) {
                 model.removeElement(value);
                 notifyTextRemoved(column, value.toString());
                 dirty = true;
             }
+
             ComponentUtil.forceRepaint(getParent().getParent());
         }
     }
 
     private boolean confirmRemoveSelectedItems() {
-        return MessageDisplayer.confirmYesNo(this, "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
+        return MessageDisplayer.confirmYesNo(this,
+                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
     }
 
     @Override
@@ -324,8 +352,12 @@ public final class EditRepeatableTextEntryPanel
         textAreaInput.setEditable(editable);
         buttonAddInput.setEnabled(editable);
         buttonRemoveSelection.setEnabled(editable);
-        buttonSuggestion.setEnabled(editable && suggest != null);
-        Color background = editable ? editBackground : getBackground();
+        buttonSuggestion.setEnabled(editable && (suggest != null));
+
+        Color background = editable
+                           ? editBackground
+                           : getBackground();
+
         list.setBackground(background);
         textAreaInput.setBackground(background);
     }
@@ -361,8 +393,10 @@ public final class EditRepeatableTextEntryPanel
     }
 
     private void setEnabledButtons() {
-        buttonAddInput.setEnabled(editable && !textAreaInput.getText().isEmpty());
-        buttonRemoveSelection.setEnabled(editable && list.getSelectedIndex() >= 0);
+        buttonAddInput.setEnabled(editable
+                                  &&!textAreaInput.getText().isEmpty());
+        buttonRemoveSelection.setEnabled(editable
+                                         && (list.getSelectedIndex() >= 0));
     }
 
     @Override
@@ -387,6 +421,7 @@ public final class EditRepeatableTextEntryPanel
      */
     @Override
     public void insertUpdate(DocumentEvent e) {
+
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
         dirty = true;
@@ -400,6 +435,7 @@ public final class EditRepeatableTextEntryPanel
      */
     @Override
     public void removeUpdate(DocumentEvent e) {
+
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
         dirty = true;
@@ -413,6 +449,7 @@ public final class EditRepeatableTextEntryPanel
      */
     @Override
     public void changedUpdate(DocumentEvent e) {
+
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
         dirty = true;
@@ -431,42 +468,58 @@ public final class EditRepeatableTextEntryPanel
 
     private void suggestText() {
         String trimmedInput = textAreaInput.getText().trim();
-        if (suggest != null && !trimmedInput.isEmpty()) {
+
+        if ((suggest != null) &&!trimmedInput.isEmpty()) {
             addToList(suggest.suggest(trimmedInput));
         }
     }
 
     private int addToList(Collection<String> texts) {
-        if (!column.getInputVerifier().verify(textAreaInput)) return 0;
+        if (!column.getInputVerifier().verify(textAreaInput)) {
+            return 0;
+        }
+
         ignoreIntervalAdded = true;
+
         int countAdded = 0;
+
         for (String text : texts) {
             String trimmedText = text.trim();
-            if (!trimmedText.isEmpty() && !model.contains(trimmedText)) {
+
+            if (!trimmedText.isEmpty() &&!model.contains(trimmedText)) {
                 model.addElement(trimmedText);
                 countAdded++;
                 notifyTextAdded(column, trimmedText);
             }
         }
+
         if (countAdded > 0) {
             if (getParent() != null) {
                 ComponentUtil.forceRepaint(getParent());
+
                 if (getParent().getParent() != null) {
                     ComponentUtil.forceRepaint(getParent().getParent());
                 }
             }
-            if (autocomplete != null) {
-                AutocompleteHelper.addAutocompleteData(column, autocomplete, texts);
-            }
 
+            if (autocomplete != null) {
+                AutocompleteHelper.addAutocompleteData(column, autocomplete,
+                        texts);
+            }
         }
+
         ignoreIntervalAdded = false;
+
         return countAdded;
     }
 
     private void renameSelectedListItems() {
         int[] selIndices = list.getSelectedIndices();
-        if (!checkSelected(selIndices.length)) return;
+
+        if (!checkSelected(selIndices.length)) {
+            return;
+        }
+
         for (int selIndex : selIndices) {
             renameListItem(selIndex);
         }
@@ -476,21 +529,31 @@ public final class EditRepeatableTextEntryPanel
         boolean ready   = false;
         String  oldName = model.getElementAt(index).toString();
         String  newName = null;
+
         do {
             bundleKeyPosRenameDialog = getClass().getName();
-            newName = MessageDisplayer.input("EditRepeatableTextEntryPanel.Input.RenameListItem", oldName, bundleKeyPosRenameDialog);
+            newName                  = MessageDisplayer.input(
+                "EditRepeatableTextEntryPanel.Input.RenameListItem", oldName,
+                bundleKeyPosRenameDialog);
             ready = newName == null;
-            if (newName != null && newName.trim().equalsIgnoreCase(oldName)) {
-                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.SameNames");
+
+            if ((newName != null) && newName.trim().equalsIgnoreCase(oldName)) {
+                ready = !MessageDisplayer.confirmYesNo(list,
+                        "EditRepeatableTextEntryPanel.Confirm.SameNames");
                 newName = null;
-            } else if (newName != null && ListUtil.containsString(list.getModel(), newName.trim())) {
-                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.NameExists", newName);
+            } else if ((newName != null)
+                       && ListUtil.containsString(list.getModel(),
+                           newName.trim())) {
+                ready = !MessageDisplayer.confirmYesNo(list,
+                        "EditRepeatableTextEntryPanel.Confirm.NameExists",
+                        newName);
                 newName = null;
-            } else if (newName != null && !newName.trim().isEmpty()) {
-                ready = true;
+            } else if ((newName != null) &&!newName.trim().isEmpty()) {
+                ready   = true;
                 newName = newName.trim();
             }
         } while (!ready);
+
         if (newName != null) {
             model.set(index, newName);
             dirty = true;
@@ -500,9 +563,12 @@ public final class EditRepeatableTextEntryPanel
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select");
+            MessageDisplayer.error(this,
+                                   "EditRepeatableTextEntryPanel.Error.Select");
+
             return false;
         }
+
         return true;
     }
 
@@ -522,16 +588,21 @@ public final class EditRepeatableTextEntryPanel
         textEntryListenerSupport.notifyTextAdded(column, addedText);
     }
 
-    private void notifyTextChanged(Column column, String oldText, String newText) {
+    private void notifyTextChanged(Column column, String oldText,
+                                   String newText) {
         textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
     }
 
     @Override
     public void intervalAdded(ListDataEvent e) {
-        if (ignoreIntervalAdded) return;
+        if (ignoreIntervalAdded) {
+            return;
+        }
+
         // drop
         int index0 = e.getIndex0();
         int index1 = e.getIndex1();
+
         for (int i = index0; i <= index1; i++) {
             notifyTextAdded(column, model.get(i).toString());
             dirty = true;
@@ -550,94 +621,109 @@ public final class EditRepeatableTextEntryPanel
 
     @Override
     public List<Component> getInputComponents() {
-        return Arrays.asList(
-                (Component) list,
-                (Component) buttonRemoveSelection,
-                (Component) buttonAddInput,
-                (Component) buttonSuggestion,
-                (Component) textAreaInput
-                );
+        return Arrays.asList((Component) list,
+                             (Component) buttonRemoveSelection,
+                             (Component) buttonAddInput,
+                             (Component) buttonSuggestion,
+                             (Component) textAreaInput);
     }
 
     @Override
-    public synchronized void addMouseListenerToInputComponents(MouseListener l) {
+    public synchronized void addMouseListenerToInputComponents(
+            MouseListener l) {
         List<Component> inputComponents = getInputComponents();
+
         for (Component component : inputComponents) {
             component.addMouseListener(l);
         }
     }
 
     @Override
-    public synchronized void removeMouseListenerFromInputComponents(MouseListener l) {
+    public synchronized void removeMouseListenerFromInputComponents(
+            MouseListener l) {
         List<Component> inputComponents = getInputComponents();
+
         for (Component component : inputComponents) {
             component.removeMouseListener(l);
         }
     }
 
-    /** This method is called from within the constructor to
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenuList = new javax.swing.JPopupMenu();
-        menuItemRename = new javax.swing.JMenuItem();
-        menuItemRemove = new javax.swing.JMenuItem();
-        labelPrompt = new javax.swing.JLabel();
-        scrollPaneList = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
-        panelButtons = new javax.swing.JPanel();
+        popupMenuList         = new javax.swing.JPopupMenu();
+        menuItemRename        = new javax.swing.JMenuItem();
+        menuItemRemove        = new javax.swing.JMenuItem();
+        labelPrompt           = new javax.swing.JLabel();
+        scrollPaneList        = new javax.swing.JScrollPane();
+        list                  = new javax.swing.JList();
+        panelButtons          = new javax.swing.JPanel();
         buttonRemoveSelection = new javax.swing.JButton();
-        buttonAddInput = new javax.swing.JButton();
-        buttonSuggestion = new javax.swing.JButton();
-        scrollPaneTextArea = new javax.swing.JScrollPane();
-        textAreaInput = new javax.swing.JTextArea();
+        buttonAddInput        = new javax.swing.JButton();
+        buttonSuggestion      = new javax.swing.JButton();
+        scrollPaneTextArea    = new javax.swing.JScrollPane();
+        textAreaInput         = new javax.swing.JTextArea();
+        menuItemRename.setAccelerator(
+            javax.swing.KeyStroke.getKeyStroke(
+                java.awt.event.KeyEvent.VK_F2, 0));
 
-        menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
-        menuItemRename.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
+        java.util.ResourceBundle bundle =
+            java.util.ResourceBundle.getBundle(
+                "de/elmar_baumann/jpt/resource/properties/Bundle");    // NOI18N
+
+        menuItemRename.setText(
+            bundle.getString(
+                "EditRepeatableTextEntryPanel.menuItemRename.text"));    // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
             }
         });
         popupMenuList.add(menuItemRename);
-
-        menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemove.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
+        menuItemRemove.setAccelerator(
+            javax.swing.KeyStroke.getKeyStroke(
+                java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemRemove.setText(
+            bundle.getString(
+                "EditRepeatableTextEntryPanel.menuItemRemove.text"));    // NOI18N
         menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveActionPerformed(evt);
             }
         });
         popupMenuList.add(menuItemRemove);
-
         setLayout(new java.awt.GridBagLayout());
-
-        labelPrompt.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(
+            JptBundle.INSTANCE.getString(
+                "EditRepeatableTextEntryPanel.labelPrompt.text"));    // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints        = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx  = 0;
+        gridBagConstraints.gridy  = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         add(labelPrompt, gridBagConstraints);
-
         scrollPaneList.setMinimumSize(new java.awt.Dimension(22, 44));
-
         list.setModel(model);
-        list.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
+        list.setToolTipText(
+            JptBundle.INSTANCE.getString(
+                "EditRepeatableTextEntryPanel.list.toolTipText"));    // NOI18N
         list.setCellRenderer(new ListCellRendererKeywordsEdit());
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
         list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         list.setVisibleRowCount(-1);
-        list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        list.addListSelectionListener(
+            new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listValueChanged(evt);
             }
@@ -648,33 +734,39 @@ public final class EditRepeatableTextEntryPanel
             }
         });
         scrollPaneList.setViewportView(list);
-        list.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropList());
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        list.setTransferHandler(
+            new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropList());
+        gridBagConstraints         = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx   = 0;
+        gridBagConstraints.gridy   = 1;
+        gridBagConstraints.fill    = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(scrollPaneList, gridBagConstraints);
-
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
-
         buttonRemoveSelection.setMnemonic('-');
-        buttonRemoveSelection.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
-        buttonRemoveSelection.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
+        buttonRemoveSelection.setText(
+            JptBundle.INSTANCE.getString(
+                "EditRepeatableTextEntryPanel.buttonRemoveSelection.text"));    // NOI18N
+        buttonRemoveSelection.setToolTipText(
+            JptBundle.INSTANCE.getString(
+                "EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText"));    // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
         buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
+        buttonRemoveSelection.addActionListener(
+            new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSelectionActionPerformed(evt);
             }
         });
         panelButtons.add(buttonRemoveSelection);
-
         buttonAddInput.setMnemonic('+');
-        buttonAddInput.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
-        buttonAddInput.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
+        buttonAddInput.setText(
+            JptBundle.INSTANCE.getString(
+                "EditRepeatableTextEntryPanel.buttonAddInput.text"));    // NOI18N
+        buttonAddInput.setToolTipText(
+            JptBundle.INSTANCE.getString(
+                "EditRepeatableTextEntryPanel.buttonAddInput.toolTipText"));    // NOI18N
         buttonAddInput.setContentAreaFilled(false);
         buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
@@ -683,9 +775,10 @@ public final class EditRepeatableTextEntryPanel
             }
         });
         panelButtons.add(buttonAddInput);
-
         buttonSuggestion.setMnemonic('k');
-        buttonSuggestion.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
+        buttonSuggestion.setText(
+            JptBundle.INSTANCE.getString(
+                "EditRepeatableTextEntryPanel.buttonSuggestion.text"));    // NOI18N
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
         buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -695,19 +788,18 @@ public final class EditRepeatableTextEntryPanel
             }
         });
         panelButtons.add(buttonSuggestion);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints            = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx      = 1;
+        gridBagConstraints.gridy      = 1;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 1, 2);
+        gridBagConstraints.anchor     = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.insets     = new java.awt.Insets(0, 2, 1, 2);
         add(panelButtons, gridBagConstraints);
-
-        scrollPaneTextArea.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneTextArea.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrollPaneTextArea.setHorizontalScrollBarPolicy(
+            javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneTextArea.setVerticalScrollBarPolicy(
+            javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         scrollPaneTextArea.setMinimumSize(new java.awt.Dimension(7, 18));
-
         textAreaInput.setColumns(20);
         textAreaInput.setRows(1);
         textAreaInput.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -719,64 +811,66 @@ public final class EditRepeatableTextEntryPanel
             }
         });
         scrollPaneTextArea.setViewportView(textAreaInput);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints         = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx   = 0;
+        gridBagConstraints.gridy   = 2;
+        gridBagConstraints.fill    = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        gridBagConstraints.insets  = new java.awt.Insets(2, 0, 0, 0);
         add(scrollPaneTextArea, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }    // </editor-fold>//GEN-END:initComponents
 
-private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddInputActionPerformed
-    handleButtonAddInputActionPerformed();
-}//GEN-LAST:event_buttonAddInputActionPerformed
+    private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddInputActionPerformed
+        handleButtonAddInputActionPerformed();
+    }    // GEN-LAST:event_buttonAddInputActionPerformed
 
-private void buttonRemoveSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSelectionActionPerformed
-    handleButtonRemoveInputActionPerformed();
-}//GEN-LAST:event_buttonRemoveSelectionActionPerformed
+    private void buttonRemoveSelectionActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRemoveSelectionActionPerformed
+        handleButtonRemoveInputActionPerformed();
+    }    // GEN-LAST:event_buttonRemoveSelectionActionPerformed
 
-private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
-    handleListValueChanged(evt);
-}//GEN-LAST:event_listValueChanged
+    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {    // GEN-FIRST:event_listValueChanged
+        handleListValueChanged(evt);
+    }    // GEN-LAST:event_listValueChanged
 
-private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
-    handleListKeyPressed(evt);
-}//GEN-LAST:event_listKeyPressed
+    private void listKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_listKeyPressed
+        handleListKeyPressed(evt);
+    }    // GEN-LAST:event_listKeyPressed
 
-private void buttonSuggestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSuggestionActionPerformed
-    suggestText();
-}//GEN-LAST:event_buttonSuggestionActionPerformed
+    private void buttonSuggestionActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSuggestionActionPerformed
+        suggestText();
+    }    // GEN-LAST:event_buttonSuggestionActionPerformed
 
-private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRenameActionPerformed
-    renameSelectedListItems();
-}//GEN-LAST:event_menuItemRenameActionPerformed
+    private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_menuItemRenameActionPerformed
+        renameSelectedListItems();
+    }    // GEN-LAST:event_menuItemRenameActionPerformed
 
-private void menuItemRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemoveActionPerformed
-    removeSelectedElements();
-}//GEN-LAST:event_menuItemRemoveActionPerformed
+    private void menuItemRemoveActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_menuItemRemoveActionPerformed
+        removeSelectedElements();
+    }    // GEN-LAST:event_menuItemRemoveActionPerformed
 
-private void textAreaInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaInputKeyReleased
-    handleTextFieldKeyReleased(evt);
-}//GEN-LAST:event_textAreaInputKeyReleased
+    private void textAreaInputKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textAreaInputKeyReleased
+        handleTextFieldKeyReleased(evt);
+    }    // GEN-LAST:event_textAreaInputKeyReleased
 
-private void textAreaInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaInputKeyPressed
-    suggestText(evt);
-}//GEN-LAST:event_textAreaInputKeyPressed
+    private void textAreaInputKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textAreaInputKeyPressed
+        suggestText(evt);
+    }    // GEN-LAST:event_textAreaInputKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAddInput;
-    private javax.swing.JButton buttonRemoveSelection;
-    private javax.swing.JButton buttonSuggestion;
-    private javax.swing.JLabel labelPrompt;
-    private javax.swing.JList list;
-    private javax.swing.JMenuItem menuItemRemove;
-    private javax.swing.JMenuItem menuItemRename;
-    private javax.swing.JPanel panelButtons;
-    private javax.swing.JPopupMenu popupMenuList;
+    private javax.swing.JButton     buttonAddInput;
+    private javax.swing.JButton     buttonRemoveSelection;
+    private javax.swing.JButton     buttonSuggestion;
+    private javax.swing.JLabel      labelPrompt;
+    private javax.swing.JList       list;
+    private javax.swing.JMenuItem   menuItemRemove;
+    private javax.swing.JMenuItem   menuItemRename;
+    private javax.swing.JPanel      panelButtons;
+    private javax.swing.JPopupMenu  popupMenuList;
     private javax.swing.JScrollPane scrollPaneList;
     private javax.swing.JScrollPane scrollPaneTextArea;
-    public javax.swing.JTextArea textAreaInput;
+    public javax.swing.JTextArea    textAreaInput;
+
     // End of variables declaration//GEN-END:variables
 }

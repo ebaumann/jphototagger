@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.event.listener.FilenameFormatListener;
+
 import java.io.File;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,12 +34,11 @@ import java.util.Set;
  * @version 2008-10-13
  */
 public abstract class FilenameFormat {
-
-    private File file;
-    private File prevFile;
-    private String format;
+    private File                              file;
+    private File                              prevFile;
+    private String                            format;
     private final Set<FilenameFormatListener> listeners =
-            new HashSet<FilenameFormatListener>();
+        new HashSet<FilenameFormatListener>();
 
     /**
      * Returns a format string.
@@ -63,7 +65,7 @@ public abstract class FilenameFormat {
      */
     public void setFile(File file) {
         this.prevFile = this.file;
-        this.file = file;
+        this.file     = file;
     }
 
     /**
@@ -88,8 +90,7 @@ public abstract class FilenameFormat {
      * Tells that the next file will be renamed. This implementation does
      * nothing.
      */
-    public void next() {
-    }
+    public void next() {}
 
     /**
      * Returns wheter the format will change.

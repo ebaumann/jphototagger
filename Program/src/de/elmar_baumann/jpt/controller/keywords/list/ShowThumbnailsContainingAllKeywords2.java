@@ -17,16 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,18 +42,21 @@ import java.util.Set;
  * @version 2009-09-02
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
-
-    private final DatabaseImageFiles      db              = DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanels editPanels      = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-    private final List<List<String>>      keywordLists;
+    private final DatabaseImageFiles db              =
+        DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel    thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final EditMetadataPanels editPanels =
+        GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+    private final List<List<String>> keywordLists;
 
     /**
      * Creates a new instance of this class.
      *
      * @param keywordLists all keywords a image must have to be displayed
      */
-    public ShowThumbnailsContainingAllKeywords2(List<List<String>> keywordLists) {
+    public ShowThumbnailsContainingAllKeywords2(
+            List<List<String>> keywordLists) {
         this.keywordLists = deepCopy(keywordLists);
     }
 
@@ -63,13 +68,17 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     private void setFilesToThumbnailsPanel() {
         Set<String> filenames = getFilenamesOfKeywords();
+
         ControllerSortThumbnails.setLastSort();
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
+        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                                 Content.KEYWORD);
     }
 
     private Set<String> getFilenamesOfKeywords() {
         Set<String> filenames = new HashSet<String>();
+
         for (List<String> keywords : keywordLists) {
+
             // Faster when using 2 different DB queries if only 1 keyword is
             // selected
             if (keywords.size() == 1) {
@@ -80,17 +89,22 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
                 filenames.addAll(db.getFilenamesOfAllDcSubjects(keywords));
             }
         }
+
         return filenames;
     }
 
     private void setTitle(List<String> keywords) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString("ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
+            JptBundle.INSTANCE.getString(
+                "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keywords.Path",
+                Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString("ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keyword", keyword));
+            JptBundle.INSTANCE.getString(
+                "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keyword",
+                keyword));
     }
 
     private void setMetadataEditable() {
@@ -101,9 +115,11 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     private List<List<String>> deepCopy(List<List<String>> kwLists) {
         List<List<String>> copy = new ArrayList<List<String>>(kwLists.size());
+
         for (List<String> kwList : kwLists) {
             copy.add(new ArrayList<String>(kwList));
         }
+
         return copy;
     }
 }

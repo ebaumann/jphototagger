@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
@@ -34,11 +37,11 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-22
  */
 public final class ControllerEmptyMetadata implements ActionListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JButton buttonEmpty = appPanel.getButtonEmptyMetadata();
-    private final EditMetadataPanels editPanels =
-            appPanel.getEditMetadataPanels();
+    private final AppPanel           appPanel    = GUI.INSTANCE.getAppPanel();
+    private final JButton            buttonEmpty =
+        appPanel.getButtonEmptyMetadata();
+    private final EditMetadataPanels editPanels  =
+        appPanel.getEditMetadataPanels();
 
     public ControllerEmptyMetadata() {
         listen();
@@ -51,7 +54,6 @@ public final class ControllerEmptyMetadata implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 editPanels.emptyPanels(true);

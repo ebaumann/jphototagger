@@ -17,19 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.collections.TableCollectionNames;
 import de.elmar_baumann.jpt.database.metadata.collections.TableCollections;
 import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
 import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
 import de.elmar_baumann.jpt.database.metadata.savedsearches.TableSavedSearches;
+import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.database.metadata.xmp.TableXmpDcSubjects;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.Icon;
 
 /**
@@ -39,24 +42,29 @@ import javax.swing.Icon;
  * @version 2008-09-13
  */
 public final class TableIcons {
-
-    private static final Icon             ICON_UNDEFINED        = AppLookAndFeel.getIcon("icon_table_undefined.png");
-    private static final Icon             ICON_FILES            = AppLookAndFeel.getIcon("icon_file.png");
-    private static final Icon             ICON_EXIF             = AppLookAndFeel.getIcon("icon_exif.png");
-    private static final Icon             ICON_XMP              = AppLookAndFeel.getIcon("icon_xmp.png");
-    private static final Icon             ICON_IMAGE_COLLECTION = AppLookAndFeel.getIcon("icon_imagecollection.png");
-    private static final Icon             ICON_SAVED_SEARCH     = AppLookAndFeel.getIcon("icon_search.png");
-    private static final Map<Table, Icon> ICON_OF_TABLE         = new HashMap<Table, Icon>();
-
+    private static final Icon ICON_UNDEFINED =
+        AppLookAndFeel.getIcon("icon_table_undefined.png");
+    private static final Icon ICON_FILES =
+        AppLookAndFeel.getIcon("icon_file.png");
+    private static final Icon ICON_EXIF =
+        AppLookAndFeel.getIcon("icon_exif.png");
+    private static final Icon ICON_XMP              =
+        AppLookAndFeel.getIcon("icon_xmp.png");
+    private static final Icon ICON_IMAGE_COLLECTION =
+        AppLookAndFeel.getIcon("icon_imagecollection.png");
+    private static final Icon ICON_SAVED_SEARCH =
+        AppLookAndFeel.getIcon("icon_search.png");
+    private static final Map<Table, Icon> ICON_OF_TABLE = new HashMap<Table,
+                                                              Icon>();
 
     static {
-        ICON_OF_TABLE.put(TableExif.INSTANCE           , ICON_EXIF);
-        ICON_OF_TABLE.put(TableFiles.INSTANCE          , ICON_FILES);
-        ICON_OF_TABLE.put(TableXmp.INSTANCE            , ICON_XMP);
-        ICON_OF_TABLE.put(TableXmpDcSubjects.INSTANCE  , ICON_XMP);
-        ICON_OF_TABLE.put(TableCollections.INSTANCE    , ICON_IMAGE_COLLECTION);
+        ICON_OF_TABLE.put(TableExif.INSTANCE, ICON_EXIF);
+        ICON_OF_TABLE.put(TableFiles.INSTANCE, ICON_FILES);
+        ICON_OF_TABLE.put(TableXmp.INSTANCE, ICON_XMP);
+        ICON_OF_TABLE.put(TableXmpDcSubjects.INSTANCE, ICON_XMP);
+        ICON_OF_TABLE.put(TableCollections.INSTANCE, ICON_IMAGE_COLLECTION);
         ICON_OF_TABLE.put(TableCollectionNames.INSTANCE, ICON_IMAGE_COLLECTION);
-        ICON_OF_TABLE.put(TableSavedSearches.INSTANCE  , ICON_SAVED_SEARCH);
+        ICON_OF_TABLE.put(TableSavedSearches.INSTANCE, ICON_SAVED_SEARCH);
     }
 
     /**
@@ -68,9 +76,11 @@ public final class TableIcons {
      */
     public static Icon getIcon(Table table) {
         Icon icon = ICON_OF_TABLE.get(table);
-        return icon == null ? ICON_UNDEFINED : icon;
+
+        return (icon == null)
+               ? ICON_UNDEFINED
+               : icon;
     }
 
-    private TableIcons() {
-    }
+    private TableIcons() {}
 }

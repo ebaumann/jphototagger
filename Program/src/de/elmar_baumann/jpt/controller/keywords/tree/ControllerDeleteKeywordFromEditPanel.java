@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -28,10 +29,13 @@ import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.EditRepeatableTextEntryPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.util.List;
+
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -43,15 +47,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * Also listens to key events and does the same if Ctrl+D was pressed.
  *
- * @author  Martin Pohlack 
+ * @author  Martin Pohlack
  * @version 2009-07-26
  */
-public class ControllerDeleteKeywordFromEditPanel
-        extends    ControllerKeywords
-        implements ActionListener,
-                   KeyListener
-    {
-
+public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords
+        implements ActionListener, KeyListener {
     public ControllerDeleteKeywordFromEditPanel(KeywordsPanel panel) {
         super(panel);
     }
@@ -77,21 +77,27 @@ public class ControllerDeleteKeywordFromEditPanel
     }
 
     private void removeFromEditPanel(String keyword) {
-        EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        JPanel             panel      = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        EditMetadataPanels editPanels =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        JPanel panel =
+            editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
-            EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
+            EditRepeatableTextEntryPanel editPanel =
+                (EditRepeatableTextEntryPanel) panel;
 
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
                 editPanels.checkSaveOnChanges();
                 KeywordsHelper.removeHighlightKeyword(keyword);
             } else {
-                MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.EditDisabled");
+                MessageDisplayer.error(
+                    null,
+                    "ControllerDeleteKeywordFromEditPanel.Error.EditDisabled");
             }
         } else {
-            MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.NoEditPanel");
+            MessageDisplayer.error(
+                null, "ControllerDeleteKeywordFromEditPanel.Error.NoEditPanel");
         }
     }
 
@@ -105,6 +111,7 @@ public class ControllerDeleteKeywordFromEditPanel
                 return keyword.getName();
             }
         }
+
         return null;
     }
 }

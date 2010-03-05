@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 /**
@@ -26,18 +27,13 @@ package de.elmar_baumann.jpt.app.update.tables;
  * @version 2008-11-06
  */
 public final class IndexOfColumn {
-
     private final String  tableName;
     private final String  columnName;
     private final String  indexName;
     private final boolean unique;
 
-    IndexOfColumn(
-            String  tableName,
-            String  columnName,
-            String  indexName,
-            boolean unique
-            ) {
+    IndexOfColumn(String tableName, String columnName, String indexName,
+                  boolean unique) {
         this.tableName  = tableName;
         this.columnName = columnName;
         this.indexName  = indexName;
@@ -45,9 +41,9 @@ public final class IndexOfColumn {
     }
 
     String getSql() {
-        return "CREATE" +
-            (unique ? " UNIQUE INDEX " : " INDEX ") +
-            indexName + " ON " + tableName +
-            " (" + columnName + ")";
+        return "CREATE" + (unique
+                           ? " UNIQUE INDEX "
+                           : " INDEX ") + indexName + " ON " + tableName + " ("
+                                        + columnName + ")";
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util.logging;
 
 /**
@@ -27,7 +28,6 @@ package de.elmar_baumann.lib.util.logging;
  * @version 1.0 2008-08-04
  */
 public final class FrameLogfileRecord {
-
     private String className;
     private String methodName;
     private String line;
@@ -112,18 +112,20 @@ public final class FrameLogfileRecord {
      * @throws  NullPointerException if substring is null
      */
     boolean contains(String substring) {
-        if (substring == null)
+        if (substring == null) {
             throw new NullPointerException("substring == null");
+        }
 
-        return containsSubstring(getLine(), substring) ||
-            containsSubstring(getClassName(), substring) ||
-            containsSubstring(getMethodName(), substring);
+        return containsSubstring(getLine(), substring)
+               || containsSubstring(getClassName(), substring)
+               || containsSubstring(getMethodName(), substring);
     }
 
     private boolean containsSubstring(String string, String substring) {
         if (string == null) {
             return false;
         }
+
         return string.toLowerCase().contains(substring.toLowerCase());
     }
 }

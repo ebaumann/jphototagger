@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+
 import java.awt.Component;
 import java.awt.event.MouseListener;
+
 import java.util.List;
 
 /**
@@ -31,7 +34,6 @@ import java.util.List;
  * @version 2008-09-18
  */
 public interface TextEntry {
-
     public String getText();
 
     public void setText(String text);

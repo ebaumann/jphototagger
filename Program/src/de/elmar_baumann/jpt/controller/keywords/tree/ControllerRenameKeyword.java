@@ -17,23 +17,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.dialog.InputDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -47,11 +51,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann
  * @version 2009-07-12
  */
-public class ControllerRenameKeyword
-        extends    ControllerKeywords
-        implements ActionListener,
-                   KeyListener
-    {
+public class ControllerRenameKeyword extends ControllerKeywords
+        implements ActionListener, KeyListener {
     private final DatabaseKeywords db = DatabaseKeywords.INSTANCE;
 
     public ControllerRenameKeyword(KeywordsPanel _panel) {
@@ -76,43 +77,54 @@ public class ControllerRenameKeyword
         if (userObject instanceof Keyword) {
             renameKeyword(node, (Keyword) userObject);
         } else {
-            MessageDisplayer.error(null, "ControllerRenameKeyword.Error.Node", node);
+            MessageDisplayer.error(null, "ControllerRenameKeyword.Error.Node",
+                                   node);
         }
     }
 
     private void renameKeyword(DefaultMutableTreeNode node, Keyword keyword) {
         String newName = getName(keyword, db, getHKPanel().getTree());
-        if (newName != null && !newName.trim().isEmpty()) {
-            TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+
+        if ((newName != null) &&!newName.trim().isEmpty()) {
+            TreeModelKeywords model =
+                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
             keyword.setName(newName);
             model.changed(node, keyword);
         }
     }
 
-    static String getName(Keyword keyword, DatabaseKeywords database, JTree tree) {
+    static String getName(Keyword keyword, DatabaseKeywords database,
+                          JTree tree) {
         String      newName = null;
         String      oldName = keyword.getName();
         boolean     input   = true;
-        InputDialog dlg     = new InputDialog(InputHelperDialog.INSTANCE,
-                                      JptBundle.INSTANCE.getString("ControllerRenameKeyword.Input.Name", oldName),
-                                      oldName,
-                                      UserSettings.INSTANCE.getProperties(),
-                                      ControllerRenameKeyword.class.getName());
+        InputDialog dlg     =
+            new InputDialog(
+                InputHelperDialog.INSTANCE,
+                JptBundle.INSTANCE.getString(
+                    "ControllerRenameKeyword.Input.Name", oldName), oldName,
+                        UserSettings.INSTANCE.getProperties(),
+                        ControllerRenameKeyword.class.getName());
 
-        while (input && newName == null) {
+        while (input && (newName == null)) {
             dlg.setVisible(true);
             newName = dlg.getInput();
-            input = false;
+            input   = false;
 
-            if (dlg.isAccepted() && newName != null && !newName.trim().isEmpty()) {
-                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(), newName.trim(), keyword.isReal());
+            if (dlg.isAccepted() && (newName != null)
+                    &&!newName.trim().isEmpty()) {
+                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(),
+                                        newName.trim(), keyword.isReal());
+
                 if (database.hasParentChildWithEqualName(s)) {
                     newName = null;
-                    input = MessageDisplayer.confirmYesNo(null, "ControllerRenameKeyword.Confirm.Exists", s);
+                    input   = MessageDisplayer.confirmYesNo(null,
+                            "ControllerRenameKeyword.Confirm.Exists", s);
                 }
             }
         }
+
         return newName;
     }
 }

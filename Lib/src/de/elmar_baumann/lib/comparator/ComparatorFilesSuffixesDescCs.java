@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.comparator;
 
-import de.elmar_baumann.lib.util.ClassEquality;
 import de.elmar_baumann.lib.generics.Pair;
+import de.elmar_baumann.lib.util.ClassEquality;
+
 import java.io.File;
 import java.io.Serializable;
+
 import java.util.Comparator;
 
 /**
@@ -31,17 +34,14 @@ import java.util.Comparator;
  * @author  Elmar Baumann
  * @version 2009-12-14
  */
-public final class ComparatorFilesSuffixesDescCs
-        extends    ClassEquality
-        implements Comparator<File>,
-                   Serializable
-    {
+public final class ComparatorFilesSuffixesDescCs extends ClassEquality
+        implements Comparator<File>, Serializable {
     private static final long serialVersionUID = 8024613319134189366L;
 
     @Override
     public int compare(File leftFile, File rightFile) {
-
-        Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile, rightFile, false);
+        Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile,
+                                            rightFile, false);
 
         return suffixes.getFirst().compareTo(suffixes.getSecond()) * -1;
     }

@@ -17,19 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif;
 
 import com.imagero.reader.ImageReader;
-import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.jpeg.JpegReader;
+import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.tiff.EXIF;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
+
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.types.FileType;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -49,17 +52,15 @@ public final class ExifMetadata {
      * @return           EXIF entries or null if errors occured
      */
     public static ExifTags getExifTags(File imageFile) {
-
-        if (imageFile == null || !imageFile.exists()) return null;
+        if ((imageFile == null) ||!imageFile.exists()) {
+            return null;
+        }
 
         ExifTags exifTags = new ExifTags();
 
         try {
-
             addExifTags(imageFile, exifTags);
-
         } catch (Exception ex) {
-
             AppLogger.logSevere(ExifMetadata.class, ex);
         }
 
@@ -68,45 +69,43 @@ public final class ExifMetadata {
         return exifTags;
     }
 
-    private static void addExifTags(File imageFile, ExifTags exifTags) throws IOException {
-
+    private static void addExifTags(File imageFile, ExifTags exifTags)
+            throws IOException {
         ImageReader imageReader = null;
 
         if (FileType.isJpegFile(imageFile.getName())) {
-
-            AppLogger.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.JPEG.Info", imageFile);
-
+            AppLogger.logInfo(ExifMetadata.class,
+                              "ExifMetadata.AddIFDEntries.JPEG.Info",
+                              imageFile);
             imageReader = new JpegReader(imageFile);
             addAllExifTags((JpegReader) imageReader, exifTags);
-
         } else {
-
-            AppLogger.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.TIFF.Info", imageFile);
-
+            AppLogger.logInfo(ExifMetadata.class,
+                              "ExifMetadata.AddIFDEntries.TIFF.Info",
+                              imageFile);
             imageReader = new TiffReader(imageFile);
 
             int count = ((TiffReader) imageReader).getIFDCount();
 
             // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
             for (int i = 0; i < count; i++) {
-                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), IfdType.EXIF, exifTags);
+                addTagsOfIfd(((TiffReader) imageReader).getIFD(i),
+                             IfdType.EXIF, exifTags);
             }
         }
+
         close(imageReader);
     }
 
-    private static void addAllExifTags(JpegReader jpegReader, ExifTags exifTags) {
-
+    private static void addAllExifTags(JpegReader jpegReader,
+                                       ExifTags exifTags) {
         IFDEntry[][] allIfdEntries = MetadataUtils.getExif(jpegReader);
 
         if (allIfdEntries != null) {
-
             for (int i = 0; i < allIfdEntries.length; i++) {
-
                 IFDEntry[] currentIfdEntry = allIfdEntries[i];
 
                 for (int j = 0; j < currentIfdEntry.length; j++) {
-
                     IFDEntry entry = currentIfdEntry[j];
 
                     exifTags.addExifTag(new ExifTag(entry, IfdType.EXIF));
@@ -122,62 +121,75 @@ public final class ExifMetadata {
     }
 
     public enum IfdType {
-        EXIF,
-        GPS,
-        INTEROPERABILITY,
-        MAKER_NOTE,
-        UNDEFINED,
+        EXIF, GPS, INTEROPERABILITY, MAKER_NOTE, UNDEFINED,
         ;
     }
 
-    private static void addTagsOfIfd(
-            ImageFileDirectory ifd,
-            IfdType            ifdType,
-            ExifTags           exifTags
-            ) {
-
+    private static void addTagsOfIfd(ImageFileDirectory ifd, IfdType ifdType,
+                                     ExifTags exifTags) {
         if (!ifdType.equals(IfdType.UNDEFINED)) {
             addExifTags(ifd, ifdType, exifTags);
         }
 
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory subIfd = ifd.getIFDAt(i);
-            addTagsOfIfd(subIfd, IfdType.UNDEFINED, exifTags); // recursive
+
+            addTagsOfIfd(subIfd, IfdType.UNDEFINED, exifTags);    // recursive
         }
 
         ImageFileDirectory exifIFD = ifd.getExifIFD();
+
         if (exifIFD != null) {
-            addTagsOfIfd(exifIFD, IfdType.EXIF, exifTags); // recursive
+            addTagsOfIfd(exifIFD, IfdType.EXIF, exifTags);    // recursive
         }
 
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
+
         if (gpsIFD != null) {
-            addTagsOfIfd(gpsIFD, IfdType.GPS, exifTags); // recursive
+            addTagsOfIfd(gpsIFD, IfdType.GPS, exifTags);    // recursive
         }
 
         ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
+
         if (interoperabilityIFD != null) {
-            addTagsOfIfd(interoperabilityIFD, IfdType.INTEROPERABILITY, exifTags); // recursive
+            addTagsOfIfd(interoperabilityIFD, IfdType.INTEROPERABILITY,
+                         exifTags);    // recursive
         }
     }
 
-    private static void addExifTags(ImageFileDirectory ifd, IfdType ifdType, ExifTags exifTags) {
-
+    private static void addExifTags(ImageFileDirectory ifd, IfdType ifdType,
+                                    ExifTags exifTags) {
         int entryCount = ifd.getEntryCount();
 
         for (int i = 0; i < entryCount; i++) {
-
             IFDEntry ifdEntry = ifd.getEntryAt(i);
 
             if (ifdEntry != null) {
-
                 ExifTag exifTag = new ExifTag(ifdEntry, ifdType);
+
                 switch (ifdType) {
-                    case EXIF            : exifTags.addExifTag(exifTag)            ; break;
-                    case GPS             : exifTags.addGpsTag(exifTag)             ; break;
-                    case INTEROPERABILITY: exifTags.addInteroperabilityTag(exifTag); break;
-                    case MAKER_NOTE      : exifTags.addMakerNoteTag(exifTag)       ; break;
-                    default              : assert(false);
+                case EXIF :
+                    exifTags.addExifTag(exifTag);
+
+                    break;
+
+                case GPS :
+                    exifTags.addGpsTag(exifTag);
+
+                    break;
+
+                case INTEROPERABILITY :
+                    exifTags.addInteroperabilityTag(exifTag);
+
+                    break;
+
+                case MAKER_NOTE :
+                    exifTags.addMakerNoteTag(exifTag);
+
+                    break;
+
+                default :
+                    assert(false);
                 }
             }
         }
@@ -204,10 +216,9 @@ public final class ExifMetadata {
      *         modification time of the file will be returned
      */
     public static long timestampDateTimeOriginal(File imageFile) {
-
         Exif exif = getExif(imageFile);
 
-        if (exif == null || exif.getDateTimeOriginal() == null) {
+        if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
             return imageFile.lastModified();
         }
 
@@ -227,16 +238,15 @@ public final class ExifMetadata {
      *         modification time of the file will be returned
      */
     public static long timestampDateTimeOriginalDb(File imageFile) {
+        Exif exif =
+            DatabaseImageFiles.INSTANCE.getExifOf(imageFile.getAbsolutePath());
 
-        Exif exif = DatabaseImageFiles.INSTANCE.getExifOf(imageFile.getAbsolutePath());
-
-        if (exif == null || exif.getDateTimeOriginal() == null) {
+        if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
             return imageFile.lastModified();
         }
 
         return exif.getDateTimeOriginal().getTime();
     }
 
-    private ExifMetadata() {
-    }
+    private ExifMetadata() {}
 }

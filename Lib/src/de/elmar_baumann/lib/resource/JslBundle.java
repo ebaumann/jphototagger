@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.resource;
 
 /**
@@ -25,7 +26,6 @@ package de.elmar_baumann.lib.resource;
  * @author Elmar Baumann
  */
 public final class JslBundle extends Bundle {
-
     public static final JslBundle INSTANCE = new JslBundle();
 
     private JslBundle() {

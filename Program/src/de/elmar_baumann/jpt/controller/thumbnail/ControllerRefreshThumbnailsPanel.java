@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -33,9 +36,8 @@ import javax.swing.SwingUtilities;
  * @version 2008-09-25
  */
 public final class ControllerRefreshThumbnailsPanel implements ActionListener {
-
     private final ThumbnailsPanel thumbnailspanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerRefreshThumbnailsPanel() {
         listen();
@@ -52,7 +54,6 @@ public final class ControllerRefreshThumbnailsPanel implements ActionListener {
 
     private void refresh() {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 thumbnailspanel.refresh();

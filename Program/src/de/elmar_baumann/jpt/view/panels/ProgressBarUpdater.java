@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.ProgressEvent;
+
 import javax.swing.JProgressBar;
 
 /**
@@ -30,9 +32,8 @@ import javax.swing.JProgressBar;
  * @version 2009-12-18
  */
 public final class ProgressBarUpdater implements ProgressListener {
-
-    private final String       progressBarString;
-    private       JProgressBar progressBar;
+    private final String progressBarString;
+    private JProgressBar progressBar;
 
     /**
      *
@@ -43,20 +44,27 @@ public final class ProgressBarUpdater implements ProgressListener {
     }
 
     private void getProgressBar() {
-        if (progressBar != null) return;
+        if (progressBar != null) {
+            return;
+        }
+
         progressBar = ProgressBar.INSTANCE.getResource(this);
     }
 
     private void updateProgressBar(ProgressEvent evt) {
         getProgressBar();
+
         if (progressBar != null) {
             progressBar.setMinimum(evt.getMinimum());
             progressBar.setMaximum(evt.getMaximum());
             progressBar.setValue(evt.getValue());
-            if (progressBarString != null && !progressBar.isStringPainted()) {
+
+            if ((progressBarString != null) &&!progressBar.isStringPainted()) {
                 progressBar.setStringPainted(true);
             }
-            if (progressBarString != null && !progressBarString.equals(progressBar.getString())) {
+
+            if ((progressBarString != null)
+                    &&!progressBarString.equals(progressBar.getString())) {
                 progressBar.setString(progressBarString);
             }
         }
@@ -75,12 +83,15 @@ public final class ProgressBarUpdater implements ProgressListener {
     @Override
     public synchronized void progressEnded(ProgressEvent evt) {
         updateProgressBar(evt);
+
         if (progressBar != null) {
             if (progressBar.isStringPainted()) {
                 progressBar.setString("");
             }
+
             progressBar.setValue(0);
         }
+
         ProgressBar.INSTANCE.releaseResource(this);
         progressBar = null;
     }

@@ -17,23 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
+
 import java.awt.Component;
 import java.awt.Container;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.swing.filechooser.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTree;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -55,10 +60,14 @@ public class ViewUtil {
      */
     public static File getSelectedFile(JTree tree) {
         TreePath path = tree.getSelectionPath();
+
         if (path != null) {
             Object o = path.getLastPathComponent();
+
             if (o instanceof DefaultMutableTreeNode) {
-                Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
+                Object userObject =
+                    ((DefaultMutableTreeNode) o).getUserObject();
+
                 if (userObject instanceof File) {
                     return (File) userObject;
                 } else if (userObject instanceof Favorite) {
@@ -66,6 +75,7 @@ public class ViewUtil {
                 }
             }
         }
+
         return null;
     }
 
@@ -75,30 +85,38 @@ public class ViewUtil {
      * @return directory or null if no directory is selected
      */
     public static File getSelectedDirectoryFromFavoriteDirectories() {
-        JTree tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
-        Object o = tree.getLastSelectedPathComponent();
+        JTree  tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+        Object o    = tree.getLastSelectedPathComponent();
+
         if (o instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
-            Object userObject = node.getUserObject();
+            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) o;
+            Object                 userObject = node.getUserObject();
+
             if (userObject instanceof Favorite) {
                 Favorite favoriteDirectory = (Favorite) userObject;
+
                 return new File(favoriteDirectory.getDirectoryName());
             } else if (userObject instanceof File) {
                 return (File) userObject;
             }
         }
+
         return null;
     }
 
-    public static void setDisplayedMnemonicsToLabels(Container container, Character... exclude) {
-        List<JLabel>    labels     = ComponentUtil.getAllOf(container, JLabel.class);
-        List<Character> mnemonics  = new ArrayList<Character>(labels.size());
-        final char      invalidMn  = '\0';
+    public static void setDisplayedMnemonicsToLabels(Container container,
+            Character... exclude) {
+        List<JLabel>    labels    = ComponentUtil.getAllOf(container,
+                                        JLabel.class);
+        List<Character> mnemonics = new ArrayList<Character>(labels.size());
+        final char      invalidMn = '\0';
 
         Collections.addAll(mnemonics, exclude);
 
         for (JLabel label : labels) {
-            char mnemonic = MnemonicUtil.getNotExistingMnemonicChar(label.getText(), mnemonics);
+            char mnemonic =
+                MnemonicUtil.getNotExistingMnemonicChar(label.getText(),
+                    mnemonics);
 
             if (mnemonic != invalidMn) {
                 label.setDisplayedMnemonic(mnemonic);
@@ -107,22 +125,35 @@ public class ViewUtil {
         }
     }
 
-    public static File chooseFile(String keyCurrentDir, FileFilter filter, Component parent) {
-        String       prevCurrentDir = UserSettings.INSTANCE.getSettings().getString(keyCurrentDir);
-        File         currentDir     = new File(prevCurrentDir.isEmpty() ? UserSettings.INSTANCE.getSettingsDirectoryName() : prevCurrentDir);
-        JFileChooser fc             = new JFileChooser(currentDir);
+    public static File chooseFile(String keyCurrentDir, FileFilter filter,
+                                  Component parent) {
+        String prevCurrentDir =
+            UserSettings.INSTANCE.getSettings().getString(keyCurrentDir);
+        File currentDir = new File(prevCurrentDir.isEmpty()
+                                   ? UserSettings.INSTANCE
+                                       .getSettingsDirectoryName()
+                                   : prevCurrentDir);
+        JFileChooser fc = new JFileChooser(currentDir);
 
-        if (filter != null) fc.setFileFilter(filter);
-        if (parent == null) parent = GUI.INSTANCE.getAppFrame();
+        if (filter != null) {
+            fc.setFileFilter(filter);
+        }
+
+        if (parent == null) {
+            parent = GUI.INSTANCE.getAppFrame();
+        }
 
         if (fc.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
             File selFile = fc.getSelectedFile();
-            UserSettings.INSTANCE.getSettings().set(selFile.getAbsolutePath(), keyCurrentDir);
+
+            UserSettings.INSTANCE.getSettings().set(selFile.getAbsolutePath(),
+                    keyCurrentDir);
+
             return selFile;
         }
+
         return null;
     }
 
-    private ViewUtil() {
-    }
+    private ViewUtil() {}
 }

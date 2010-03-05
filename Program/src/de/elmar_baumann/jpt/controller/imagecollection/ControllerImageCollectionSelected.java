@@ -17,25 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
-import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
+import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.util.List;
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JList;
+import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.
@@ -45,13 +48,14 @@ import javax.swing.event.ListSelectionListener;
  * @author  Elmar Baumann
  * @version 2008-10-05
  */
-public final class ControllerImageCollectionSelected implements
-        ListSelectionListener, RefreshListener {
-
-    private final AppPanel           appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel    thumbnailsPanel = appPanel.getPanelThumbnails();
-    private final EditMetadataPanels editPanels      = appPanel.getEditMetadataPanels();
-    private final JList              list            = appPanel.getListImageCollections();
+public final class ControllerImageCollectionSelected
+        implements ListSelectionListener, RefreshListener {
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel thumbnailsPanel =
+        appPanel.getPanelThumbnails();
+    private final EditMetadataPanels editPanels =
+        appPanel.getEditMetadataPanels();
+    private final JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
         listen();
@@ -78,37 +82,48 @@ public final class ControllerImageCollectionSelected implements
 
     private void showImageCollection(final ThumbnailsPanel.Settings settings) {
         Thread thread = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 Object selectedValue = list.getSelectedValue();
+
                 if (selectedValue != null) {
                     showImageCollection(selectedValue.toString(), settings);
                 } else {
-                    AppLogger.logWarning(ControllerImageCollectionSelected.class, "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
+                    AppLogger.logWarning(
+                        ControllerImageCollectionSelected.class,
+                        "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
                 }
+
                 setMetadataEditable();
             }
         });
-        thread.setName("Image collection selected @ " + getClass().getSimpleName());
+
+        thread.setName("Image collection selected @ "
+                       + getClass().getSimpleName());
         thread.start();
     }
 
-    private void showImageCollection(final String collectionName, final ThumbnailsPanel.Settings settings) {
+    private void showImageCollection(final String collectionName,
+                                     final ThumbnailsPanel.Settings settings) {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-                List<String> filenames = DatabaseImageCollections.INSTANCE
-                        .getFilenamesOf(collectionName);
+                List<String> filenames =
+                    DatabaseImageCollections.INSTANCE.getFilenamesOf(
+                        collectionName);
+
                 setTitle();
-                thumbnailsPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
-                thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.IMAGE_COLLECTION);
+                thumbnailsPanel.setFileSortComparator(
+                    FileSort.NO_SORT.getComparator());
+                thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                                         Content.IMAGE_COLLECTION);
                 thumbnailsPanel.apply(settings);
             }
-
             private void setTitle() {
-                GUI.INSTANCE.getAppFrame().setTitle(JptBundle.INSTANCE.getString("ControllerImageCollectionSelected.AppFrame.Title.Collection", collectionName));
+                GUI.INSTANCE.getAppFrame().setTitle(
+                    JptBundle.INSTANCE.getString(
+                        "ControllerImageCollectionSelected.AppFrame.Title.Collection",
+                        collectionName));
             }
         });
     }

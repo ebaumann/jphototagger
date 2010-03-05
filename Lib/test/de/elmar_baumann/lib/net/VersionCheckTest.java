@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.net;
 
 import de.elmar_baumann.lib.util.Version;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -32,17 +35,13 @@ import static org.junit.Assert.*;
  * @version 2010/01/05
  */
 public class VersionCheckTest {
-
-    public VersionCheckTest() {
-    }
+    public VersionCheckTest() {}
 
     @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+    public static void setUpClass() throws Exception {}
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+    public static void tearDownClass() throws Exception {}
 
     /**
      * Test of existsNewer method, of class NetVersion.
@@ -50,17 +49,17 @@ public class VersionCheckTest {
      */
     @Test
     public void testExistsNewer() throws Exception {
-
         System.out.println("existsNewer");
 
-        final String urlHtml = "http://localhost/fotografie/tipps/computer/lightroom/imagemetadataviewer.html";
+        final String urlHtml =
+            "http://localhost/fotografie/tipps/computer/lightroom/imagemetadataviewer.html";
         final String versionDelimiter = ".";
-
-        Version compareToVersion = new Version(0, 7, 2);
-        boolean expResult        = true;
-        boolean result           = compareToVersion.compareTo(NetVersion.getOverHttp(urlHtml, versionDelimiter)) < 0;
+        Version      compareToVersion = new Version(0, 7, 2);
+        boolean      expResult        = true;
+        boolean      result           =
+            compareToVersion.compareTo(NetVersion.getOverHttp(urlHtml,
+                versionDelimiter)) < 0;
 
         assertEquals(expResult, result);
     }
-
 }

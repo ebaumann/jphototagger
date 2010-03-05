@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.resource;
 
 import java.util.logging.Level;
@@ -46,11 +47,12 @@ import java.util.logging.Logger;
  * @version   2008-09-16
  */
 public class MutualExcludedResource<T> {
-
     private T       resource = null;
     private boolean locked   = false;
     private Object  owner    = null;
-    private Logger  logger   = Logger.getLogger(MutualExcludedResource.class.getName());
+    private Logger  logger   =
+        Logger.getLogger(MutualExcludedResource.class.getName());
+
     /**
      * Returns, whether a resource can be used: It exists (is not null)
      * and it is not locked.
@@ -58,7 +60,7 @@ public class MutualExcludedResource<T> {
      * @return true, if the resource can be used
      */
     public synchronized boolean isAvailable() {
-        return !isLocked() && resource != null;
+        return !isLocked() && (resource != null);
     }
 
     /**
@@ -74,14 +76,23 @@ public class MutualExcludedResource<T> {
      * @see #isAvailable()
      */
     public synchronized T getResource(Object owner) {
-        if (owner == null) throw new NullPointerException("owner == null");
+        if (owner == null) {
+            throw new NullPointerException("owner == null");
+        }
 
         if (isAvailable()) {
             setLocked(true);
             setOwner(owner);
-            logger.log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
+            logger.log(
+                Level.FINEST,
+                JslBundle.INSTANCE.getString(
+                    "MutualExcludedResource.Info.Get",
+                    resource.getClass().getSimpleName(),
+                    owner.getClass().getSimpleName(), owner.hashCode()));
+
             return resource;
         }
+
         return null;
     }
 
@@ -94,14 +105,23 @@ public class MutualExcludedResource<T> {
      *         {@link #isAvailable()} returns <code>true</code>.
      */
     public synchronized boolean releaseResource(Object owner) {
-        if (owner == null) throw new NullPointerException("o == null");
+        if (owner == null) {
+            throw new NullPointerException("o == null");
+        }
 
-        if (isLocked() && owner != null && owner == getOwner()) {
+        if (isLocked() && (owner != null) && (owner == getOwner())) {
             this.owner = null;
             setLocked(false);
-            logger.log(Level.FINEST, JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release", resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode()));
+            logger.log(
+                Level.FINEST,
+                JslBundle.INSTANCE.getString(
+                    "MutualExcludedResource.Info.Release",
+                    resource.getClass().getSimpleName(),
+                    owner.getClass().getSimpleName(), owner.hashCode()));
+
             return true;
         }
+
         return false;
     }
 
@@ -112,7 +132,9 @@ public class MutualExcludedResource<T> {
      * @param resource resource
      */
     protected synchronized void setResource(T resource) {
-        if (resource == null) throw new NullPointerException("resource == null");
+        if (resource == null) {
+            throw new NullPointerException("resource == null");
+        }
 
         this.resource = resource;
     }
@@ -155,6 +177,5 @@ public class MutualExcludedResource<T> {
         return owner;
     }
 
-    protected MutualExcludedResource() {
-    }
+    protected MutualExcludedResource() {}
 }

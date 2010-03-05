@@ -1,7 +1,7 @@
 package de.elmar_baumann.lib.thirdparty;
 
-// Code: http://stackoverflow.com/questions/1507780/searching-for-a-sequence-of-bytes-in-a-binary-file-with-java
-// "Master"-Source?: http://www.fmi.uni-sofia.bg/fmi/logic/vboutchkova/sources/KMPMatch_java.html
+//Code: http://stackoverflow.com/questions/1507780/searching-for-a-sequence-of-bytes-in-a-binary-file-with-java
+//"Master"-Source?: http://www.fmi.uni-sofia.bg/fmi/logic/vboutchkova/sources/KMPMatch_java.html
 
 /**
  * The Knuth-Morris-Pratt Algorithm for Pattern Matching modified for comparing
@@ -19,21 +19,26 @@ public final class KMPMatch {
      */
     public static int indexOf(byte[] data, byte[] pattern) {
         int[] failure = computeFailure(pattern);
+        int   j       = 0;
 
-        int j = 0;
-        if (data.length == 0) return -1;
+        if (data.length == 0) {
+            return -1;
+        }
 
         for (int i = 0; i < data.length; i++) {
-            while (j > 0 && pattern[j] != data[i]) {
+            while ((j > 0) && (pattern[j] != data[i])) {
                 j = failure[j - 1];
             }
+
             if (pattern[j] == data[i]) {
                 j++;
             }
+
             if (j == pattern.length) {
                 return i - pattern.length + 1;
             }
         }
+
         return -1;
     }
 
@@ -43,21 +48,22 @@ public final class KMPMatch {
      */
     private static int[] computeFailure(byte[] pattern) {
         int[] failure = new int[pattern.length];
+        int   j       = 0;
 
-        int j = 0;
         for (int i = 1; i < pattern.length; i++) {
-            while (j > 0 && pattern[j] != pattern[i]) {
+            while ((j > 0) && (pattern[j] != pattern[i])) {
                 j = failure[j - 1];
             }
+
             if (pattern[j] == pattern[i]) {
                 j++;
             }
+
             failure[i] = j;
         }
 
         return failure;
     }
 
-    private KMPMatch() {
-    }
- }
+    private KMPMatch() {}
+}

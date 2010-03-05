@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -38,7 +41,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-06-30
  */
 public final class ControllerRefreshDirectoryTree extends ControllerDirectory {
-
     public ControllerRefreshDirectoryTree() {
         listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemRefresh());
     }
@@ -50,11 +52,13 @@ public final class ControllerRefreshDirectoryTree extends ControllerDirectory {
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemRefresh();
+        return evt.getSource()
+               == PopupMenuDirectories.INSTANCE.getItemRefresh();
     }
 
     @Override
     protected void action(DefaultMutableTreeNode node) {
-        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).update();
+        ModelFactory.INSTANCE.getModel(
+            TreeModelAllSystemDirectories.class).update();
     }
 }

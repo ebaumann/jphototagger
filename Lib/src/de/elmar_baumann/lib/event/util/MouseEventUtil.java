@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.event.util;
 
 import java.awt.event.MouseEvent;
@@ -42,10 +43,11 @@ public final class MouseEventUtil {
      * @return true if the right mouse button is down
      */
     public static boolean isPopupTrigger(MouseEvent e) {
-        if (e == null)
+        if (e == null) {
             throw new NullPointerException("e == null");
+        }
 
-        return e.isPopupTrigger() || e.getModifiers() == 4;
+        return e.isPopupTrigger() || (e.getModifiers() == 4);
     }
 
     /**
@@ -56,8 +58,9 @@ public final class MouseEventUtil {
      * @return true, if the user clicked twice or more often
      */
     public static boolean isDoubleClick(MouseEvent e) {
-        if (e == null)
+        if (e == null) {
             throw new NullPointerException("e == null");
+        }
 
         return e.getClickCount() >= 2;
     }
@@ -69,12 +72,12 @@ public final class MouseEventUtil {
      * @return true if the left mouse button was clicked
      */
     public static boolean isLeftClick(MouseEvent e) {
-        if (e == null)
+        if (e == null) {
             throw new NullPointerException("e == null");
+        }
 
         return e.getButton() == MouseEvent.BUTTON1;
     }
 
-    private MouseEventUtil() {
-    }
+    private MouseEventUtil() {}
 }

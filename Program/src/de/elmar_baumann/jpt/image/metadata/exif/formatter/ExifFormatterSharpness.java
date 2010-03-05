@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,10 +35,10 @@ import java.util.Map;
  * @version 2009-06-10
  */
 public final class ExifFormatterSharpness extends ExifFormatter {
-
-    public static final  ExifFormatterSharpness INSTANCE              = new ExifFormatterSharpness();
-    private static final Map<Integer, String>   EXIF_KEY_OF_SHARPNESS = new HashMap<Integer, String>();
-
+    public static final ExifFormatterSharpness INSTANCE =
+        new ExifFormatterSharpness();
+    private static final Map<Integer, String> EXIF_KEY_OF_SHARPNESS =
+        new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_SHARPNESS.put(0, "SharpnessNormal");
@@ -44,23 +46,23 @@ public final class ExifFormatterSharpness extends ExifFormatter {
         EXIF_KEY_OF_SHARPNESS.put(2, "SharpnessHard");
     }
 
-    private ExifFormatterSharpness() {
-    }
+    private ExifFormatterSharpness() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.SHARPNESS);
 
         if (ExifShort.byteCount() == exifTag.rawValue().length) {
-
-            ExifShort es    = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int       value = es.value();
+            ExifShort es = new ExifShort(exifTag.rawValue(),
+                                         exifTag.byteOrder());
+            int value = es.value();
 
             if (EXIF_KEY_OF_SHARPNESS.containsKey(value)) {
-                return translate(IfdType.EXIF, EXIF_KEY_OF_SHARPNESS.get(value));
+                return translate(IfdType.EXIF,
+                                 EXIF_KEY_OF_SHARPNESS.get(value));
             }
         }
+
         return "?";
     }
 }

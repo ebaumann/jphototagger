@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 import java.util.ArrayList;
@@ -29,9 +30,8 @@ import java.util.List;
  * @version 2009-08-14
  */
 public final class ContentUtil {
-
     private static final List<Content> CONTENT_IS_A_FILESYSTEM_DIRECTORY =
-            new ArrayList<Content>();
+        new ArrayList<Content>();
 
     static {
         CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(Content.DIRECTORY);
@@ -48,6 +48,5 @@ public final class ContentUtil {
         return CONTENT_IS_A_FILESYSTEM_DIRECTORY.contains(content);
     }
 
-    private ContentUtil() {
-    }
+    private ContentUtil() {}
 }

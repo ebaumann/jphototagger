@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -25,10 +26,13 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -38,14 +42,14 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann
  * @version 2008-09-10
  */
-public final class ControllerDeleteThumbnailsFromDatabase implements
-        ActionListener {
-
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu =
-            PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+public final class ControllerDeleteThumbnailsFromDatabase
+        implements ActionListener {
+    private final DatabaseImageFiles  db              =
+        DatabaseImageFiles.INSTANCE;
+    private final PopupMenuThumbnails popupMenu       =
+        PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();
@@ -63,16 +67,18 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
     private void deleteSelectedThumbnails() {
         if (confirmDelete()) {
             SwingUtilities.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
-                    List<String> files = FileUtil.getAsFilenames(
+                    List<String> files =
+                        FileUtil.getAsFilenames(
                             thumbnailsPanel.getSelectedFiles());
-                    int countFiles = files.size();
+                    int countFiles   = files.size();
                     int countDeleted = db.delete(files);
+
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
                     }
+
                     repaint(files);
                     thumbnailsPanel.repaint();
                 }
@@ -82,20 +88,28 @@ public final class ControllerDeleteThumbnailsFromDatabase implements
 
     private void repaint(final List<String> filenames) {
         List<String> deleted = new ArrayList<String>(filenames.size());
+
         for (String filename : filenames) {
             if (!db.exists(filename)) {
                 deleted.add(filename);
             }
         }
+
         thumbnailsPanel.remove(FileUtil.getAsFiles(deleted));
     }
 
     private boolean confirmDelete() {
-        return MessageDisplayer.confirmYesNo(null, "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
-                thumbnailsPanel.getSelectionCount());
+        return MessageDisplayer.confirmYesNo(
+            null,
+            "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
+            thumbnailsPanel.getSelectionCount());
     }
 
-    private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
-        MessageDisplayer.error(null, "ControllerDeleteThumbnailsFromDatabase.Error.DeleteSelectedFiles", countFiles, countDeleted);
+    private void errorMessageDeleteImageFiles(int countFiles,
+            int countDeleted) {
+        MessageDisplayer.error(
+            null,
+            "ControllerDeleteThumbnailsFromDatabase.Error.DeleteSelectedFiles",
+            countFiles, countDeleted);
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import java.util.HashSet;
@@ -30,7 +31,6 @@ import java.util.Set;
  * @version 2010-01-12
  */
 public class ListenerSupport<T> {
-
     protected final Set<T> listeners = new HashSet<T>();
 
     public void add(T listener) {

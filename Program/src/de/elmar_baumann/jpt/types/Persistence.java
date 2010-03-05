@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 /**
@@ -26,7 +27,6 @@ package de.elmar_baumann.jpt.types;
  * @version 2008-11-01
  */
 public interface Persistence {
-
     public void readProperties();
 
     public void writeProperties();

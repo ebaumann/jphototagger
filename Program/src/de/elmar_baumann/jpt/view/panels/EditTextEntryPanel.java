@@ -17,29 +17,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.selections
+    .AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
-import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
+import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseListener;
+
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JPanel;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.JPanel;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
@@ -47,20 +52,17 @@ import javax.swing.event.DocumentListener;
  * @author  Elmar Baumann
  * @version 2008-09-18
  */
-public final class EditTextEntryPanel
-        extends    JPanel
-        implements TextEntry,
-                   DocumentListener,
-                   DatabaseImageFilesListener
-    {
-
-    private static final Color                    EDITABLE_COLOR           = Color.WHITE;
-    private static final long                     serialVersionUID         = -6455550547873630461L;
-    private transient    Column                   column;
-    private              boolean                  dirty                    = false;
-    private              boolean                  editable;
-    private transient    TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
-    private              Autocomplete             autocomplete;
+public final class EditTextEntryPanel extends JPanel
+        implements TextEntry, DocumentListener, DatabaseImageFilesListener {
+    private static final Color                 EDITABLE_COLOR   = Color.WHITE;
+    private static final long                  serialVersionUID =
+        -6455550547873630461L;
+    private transient Column                   column;
+    private boolean                            dirty = false;
+    private boolean                            editable;
+    private transient TextEntryListenerSupport textEntryListenerSupport =
+        new TextEntryListenerSupport();
+    private Autocomplete autocomplete;
 
     public EditTextEntryPanel() {
         column = ColumnXmpDcTitle.INSTANCE;
@@ -125,24 +127,32 @@ public final class EditTextEntryPanel
     @Override
     public void setAutocomplete() {
         synchronized (this) {
-            if (autocomplete != null) return;
+            if (autocomplete != null) {
+                return;
+            }
         }
+
         autocomplete = new Autocomplete();
         autocomplete.decorate(
-                textAreaEdit,
-                AutoCompleteDataOfColumn.INSTANCE.get(column).get());
+            textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
     }
 
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (autocomplete == null) return;
-        if (event.getType().equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) return; // Do not remove autocomplete data
+        if (autocomplete == null) {
+            return;
+        }
+
+        if (event.getType().equals(
+                DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
+            return;    // Do not remove autocomplete data
+        }
 
         ImageFile imageFile = event.getImageFile();
 
-        if (imageFile != null && imageFile.getXmp() != null) {
-            AutocompleteHelper.addAutocompleteData(
-                    column, autocomplete, imageFile.getXmp());
+        if ((imageFile != null) && (imageFile.getXmp() != null)) {
+            AutocompleteHelper.addAutocompleteData(column, autocomplete,
+                    imageFile.getXmp());
         }
     }
 
@@ -161,7 +171,9 @@ public final class EditTextEntryPanel
     public void setEditable(boolean editable) {
         this.editable = editable;
         textAreaEdit.setEditable(editable);
-        textAreaEdit.setBackground(editable? EDITABLE_COLOR : getBackground());
+        textAreaEdit.setBackground(editable
+                                   ? EDITABLE_COLOR
+                                   : getBackground());
     }
 
     @Override
@@ -195,73 +207,81 @@ public final class EditTextEntryPanel
         textEntryListenerSupport.remove(listener);
     }
 
-    private void notifyTextChanged(Column column, String oldText, String newText) {
+    private void notifyTextChanged(Column column, String oldText,
+                                   String newText) {
         textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
     }
 
     @Override
     public List<Component> getInputComponents() {
-        return Arrays.asList((Component)textAreaEdit);
+        return Arrays.asList((Component) textAreaEdit);
     }
 
     @Override
-    public synchronized void addMouseListenerToInputComponents(MouseListener l) {
+    public synchronized void addMouseListenerToInputComponents(
+            MouseListener l) {
         List<Component> inputComponents = getInputComponents();
+
         for (Component component : inputComponents) {
             component.addMouseListener(l);
         }
     }
 
     @Override
-    public synchronized void removeMouseListenerFromInputComponents(MouseListener l) {
+    public synchronized void removeMouseListenerFromInputComponents(
+            MouseListener l) {
         List<Component> inputComponents = getInputComponents();
+
         for (Component component : inputComponents) {
             component.removeMouseListener(l);
         }
     }
 
-    /** This method is called from within the constructor to
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPrompt = new javax.swing.JLabel();
-        scrollPane = new javax.swing.JScrollPane();
+        labelPrompt  = new javax.swing.JLabel();
+        scrollPane   = new javax.swing.JScrollPane();
         textAreaEdit = new javax.swing.JTextArea();
-
         setLayout(new java.awt.GridBagLayout());
-
-        labelPrompt.setText(JptBundle.INSTANCE.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(
+            JptBundle.INSTANCE.getString(
+                "EditTextEntryPanel.labelPrompt.text"));    // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints         = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx   = 0;
+        gridBagConstraints.gridy   = 0;
+        gridBagConstraints.anchor  = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
-
         textAreaEdit.setColumns(1);
         textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
         textAreaEdit.setWrapStyleWord(true);
         scrollPane.setViewportView(textAreaEdit);
-        textAreaEdit.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        textAreaEdit.setTransferHandler(
+            new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
+        gridBagConstraints         = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx   = 0;
+        gridBagConstraints.gridy   = 1;
+        gridBagConstraints.fill    = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 0.5;
         add(scrollPane, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }    // </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labelPrompt;
+    private javax.swing.JLabel      labelPrompt;
     private javax.swing.JScrollPane scrollPane;
-    public javax.swing.JTextArea textAreaEdit;
+    public javax.swing.JTextArea    textAreaEdit;
+
     // End of variables declaration//GEN-END:variables
 }

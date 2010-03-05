@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
@@ -32,53 +33,54 @@ import java.util.StringTokenizer;
  * @version 2010-01-26
  */
 public final class CollectionUtil {
-
     private static final String EMPTY_STRING = "";
 
     /**
      * Inserts into an ascending sorted list an element.
-     * 
+     *
      * Preconditions: The element has to implement the {@link Comparable}
      * interface and the list have to be sorted ascending. Both conditions will
      * not be checked: At runtime a class cast exception will be thrown
      * if the element does not implement the comparable interface and and if the
      * list is not sorted, the element can't be insert sorted.
-     * 
+     *
      * @param <T>     element type
      * @param list
      * @param element
      */
     @SuppressWarnings("unchecked")
     public static <T> void binaryInsert(LinkedList<? super T> list, T element) {
-            assert element instanceof Comparable<?>;
+        assert element instanceof Comparable<?>;
 
-            int size  = list.size();
-            int low   = 0;
-            int high  = size - 1;
-            int index = size;
-            int cmp   = 1;
+        int size  = list.size();
+        int low   = 0;
+        int high  = size - 1;
+        int index = size;
+        int cmp   = 1;
 
-            while (low <= high && cmp > 0) {
-                int                    mid    = (low + high) >>> 1;
-                Comparable<? super T>  midVal = (Comparable<? super T>) list.get(mid);
+        while ((low <= high) && (cmp > 0)) {
+            int                   mid    = (low + high) >>> 1;
+            Comparable<? super T> midVal =
+                (Comparable<? super T>) list.get(mid);
 
-                cmp = midVal.compareTo(element);
+            cmp = midVal.compareTo(element);
 
-                if (cmp < 0) {
-                    low   = mid + 1;
-                } else if (cmp > 0) {
-                    high = mid - 1;
-                }
+            if (cmp < 0) {
+                low = mid + 1;
+            } else if (cmp > 0) {
+                high = mid - 1;
             }
+        }
 
-            for (int i = low; i >= 0 && i < size && index == size; i++) {
-                Comparable<? super T>  elt = (Comparable<? super T>) list.get(i);
-                if (elt.compareTo(element) >= 0) {
-                    index = i;
-                }
+        for (int i = low; (i >= 0) && (i < size) && (index == size); i++) {
+            Comparable<? super T> elt = (Comparable<? super T>) list.get(i);
+
+            if (elt.compareTo(element) >= 0) {
+                index = i;
             }
+        }
 
-            list.add(index, element);
+        list.add(index, element);
     }
 
     /**
@@ -91,7 +93,9 @@ public final class CollectionUtil {
      * @return      list of strings
      */
     public static List<String> toStringList(Collection<?> coll) {
-        if (coll == null) throw new NullPointerException("coll == null");
+        if (coll == null) {
+            throw new NullPointerException("coll == null");
+        }
 
         List<String> list = new ArrayList<String>(coll.size());
 
@@ -121,15 +125,24 @@ public final class CollectionUtil {
      *                  <code>"I", "like", "ice"</code>.
      * @return          List of strings
      */
-    public static List<String> stringTokenToList(String string, String delimiter) {
-        if (string    == null) throw new NullPointerException("string == null");
-        if (delimiter == null) throw new NullPointerException("delimiter == null");
+    public static List<String> stringTokenToList(String string,
+            String delimiter) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
 
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
-        List<String>    list      = new ArrayList<String>(tokenizer.countTokens());
+        List<String>    list      =
+            new ArrayList<String>(tokenizer.countTokens());
+
         while (tokenizer.hasMoreTokens()) {
             list.add(tokenizer.nextToken());
         }
+
         return list;
     }
 
@@ -153,15 +166,23 @@ public final class CollectionUtil {
      * @throws          NumberFormatException if the string contains a not empty
      *                  token that can't parsed as an integer
      */
-    public static List<Integer> integerTokenToList(String string, String delimiter) {
-        if (string    == null) throw new NullPointerException("string == null");
-        if (delimiter == null) throw new NullPointerException("delimiter == null");
+    public static List<Integer> integerTokenToList(String string,
+            String delimiter) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
 
         List<Integer>   integerList = new ArrayList<Integer>();
         StringTokenizer tokenizer   = new StringTokenizer(string, delimiter);
+
         while (tokenizer.hasMoreTokens()) {
             integerList.add(Integer.parseInt(tokenizer.nextToken()));
         }
+
         return integerList;
     }
 
@@ -173,7 +194,7 @@ public final class CollectionUtil {
      * @return true if the index is valid
      */
     public static boolean isValidIndex(List<?> list, int index) {
-        return index >= 0 && index < list.size();
+        return (index >= 0) && (index < list.size());
     }
 
     /**
@@ -186,10 +207,11 @@ public final class CollectionUtil {
      * @param src    source collection to get elements from
      * @param target target collection to put elements into
      */
-    public static <T> void addNotContainedElements(
-            Collection<? extends T> src, Collection<? super T> target) {
-
-        if (src == target) return;
+    public static <T> void addNotContainedElements(Collection<? extends T> src,
+            Collection<? super T> target) {
+        if (src == target) {
+            return;
+        }
 
         for (T t : src) {
             if (!target.contains(t)) {
@@ -208,20 +230,22 @@ public final class CollectionUtil {
      *                             a collection's element
      * @return                     token string
      */
-    public static String toTokenString(
-            Collection<? extends Object> collection,
-            String                       delimiter,
-            String                       delimiterReplacement
-            ) {
+    public static String toTokenString(Collection<? extends Object> collection,
+                                       String delimiter,
+                                       String delimiterReplacement) {
         StringBuilder tokenString = new StringBuilder();
         int           index       = 0;
+
         for (Object o : collection) {
-            tokenString.append((index++ == 0 ? EMPTY_STRING : delimiter));
-            tokenString.append(o.toString().replace(delimiter, delimiterReplacement));
+            tokenString.append(((index++ == 0)
+                                ? EMPTY_STRING
+                                : delimiter));
+            tokenString.append(o.toString().replace(delimiter,
+                    delimiterReplacement));
         }
+
         return tokenString.toString();
     }
 
-    private CollectionUtil() {
-    }
+    private CollectionUtil() {}
 }

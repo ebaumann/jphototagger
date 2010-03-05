@@ -17,12 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util.help;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Stack;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Node in the applications help file tree structure. A node is a chapter
@@ -36,10 +37,9 @@ import java.util.List;
  * @version 2008-10-05
  */
 public final class HelpNode {
-
-    private String title;
+    private String       title;
     private List<Object> children = new ArrayList<Object>();
-    private HelpNode parent;
+    private HelpNode     parent;
 
     /**
      * Rerturns the chapter's title.
@@ -56,8 +56,9 @@ public final class HelpNode {
      * @param title tile
      */
     public void setTitle(String title) {
-        if (title == null)
+        if (title == null) {
             throw new NullPointerException("title == null");
+        }
 
         this.title = title;
     }
@@ -68,8 +69,9 @@ public final class HelpNode {
      * @param page help page
      */
     public void addPage(HelpPage page) {
-        if (page == null)
+        if (page == null) {
             throw new NullPointerException("page == null");
+        }
 
         page.setParent(this);
         children.add(page);
@@ -81,8 +83,9 @@ public final class HelpNode {
      * @param chapter chapter
      */
     public void addNode(HelpNode chapter) {
-        if (chapter == null)
+        if (chapter == null) {
             throw new NullPointerException("chapter == null");
+        }
 
         chapter.parent = this;
         children.add(chapter);
@@ -107,8 +110,9 @@ public final class HelpNode {
      * @throws IndexOutOfBoundsException if {@code index < 0}
      */
     public Object getChild(int index) {
-        if (index < 0)
+        if (index < 0) {
             throw new IndexOutOfBoundsException("index < 0: " + index);
+        }
 
         return children.get(index);
     }
@@ -120,8 +124,9 @@ public final class HelpNode {
      * @return index or -1 if the child does not exist
      */
     public int getIndexOfChild(Object child) {
-        if (child == null)
+        if (child == null) {
             throw new NullPointerException("child == null");
+        }
 
         return children.indexOf(child);
     }
@@ -142,25 +147,36 @@ public final class HelpNode {
      * @return path or null if a page with the URL doesn't exist
      */
     public Object[] getPagePath(String url) {
-        if (url == null)
+        if (url == null) {
             throw new NullPointerException("url == null");
+        }
 
         List<Object> found = new ArrayList<Object>();
+
         findPath(url, found);
-        return found.size() > 0 ? found.toArray() : null;
+
+        return (found.size() > 0)
+               ? found.toArray()
+               : null;
     }
 
     private void findPath(String url, List<Object> found) {
-        if (url == null)
+        if (url == null) {
             throw new NullPointerException("url == null");
-        if (found == null)
+        }
+
+        if (found == null) {
             throw new NullPointerException("found == null");
+        }
 
         int size = children.size();
-        for (int i = 0; found.size() <= 0 && i < size; i++) {
+
+        for (int i = 0; (found.size() <= 0) && (i < size); i++) {
             Object child = children.get(i);
+
             if (child instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) child;
+
                 if (helpPage.getUrl().equals(url)) {
                     found.addAll(getPagePath(helpPage));
                 }
@@ -171,17 +187,23 @@ public final class HelpNode {
     }
 
     private Stack<Object> getPagePath(HelpPage helpPage) {
-        if (helpPage == null)
+        if (helpPage == null) {
             throw new NullPointerException("helpPage == null");
+        }
 
         Stack<Object> path = new Stack<Object>();
+
         path.push(helpPage);
+
         HelpNode p = helpPage.getParent();
+
         while (p != null) {
             path.push(p);
             p = p.parent;
         }
+
         Collections.reverse(path);
+
         return path;
     }
 }

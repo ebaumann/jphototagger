@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
@@ -28,10 +29,13 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
@@ -42,15 +46,18 @@ import javax.swing.tree.TreeCellRenderer;
  * @author  Elmar Baumann
  * @version 2009-07-23
  */
-public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelListener {
-
-    private final ThumbnailsPanel    tnPanel      = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db           = DatabaseImageFiles.INSTANCE;
-    private final AppPanel           appPanel     = GUI.INSTANCE.getAppPanel();
-    private final KeywordsPanel      appHkPanel   = appPanel.getPanelEditKeywords();
-    private final KeywordsPanel      dlgHkPanel   = InputHelperDialog.INSTANCE.getPanelKeywords();
-    private final JTree              treeAppPanel = appHkPanel.getTree();
-    private final JTree              treeDialog   = dlgHkPanel.getTree();
+public final class ControllerHighlightKeywordsTree
+        implements ThumbnailsPanelListener {
+    private final ThumbnailsPanel tnPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles db         = DatabaseImageFiles.INSTANCE;
+    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
+    private final KeywordsPanel      appHkPanel =
+        appPanel.getPanelEditKeywords();
+    private final KeywordsPanel      dlgHkPanel =
+        InputHelperDialog.INSTANCE.getPanelKeywords();
+    private final JTree treeAppPanel = appHkPanel.getTree();
+    private final JTree treeDialog   = dlgHkPanel.getTree();
 
     public ControllerHighlightKeywordsTree() {
         listen();
@@ -63,11 +70,16 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
     @Override
     public void thumbnailsSelectionChanged() {
         removeKeywords();
+
         if (tnPanel.getSelectionCount() == 1) {
             List<File> selFile = tnPanel.getSelectedFiles();
+
             assert selFile.size() == 1;
-            if (selFile.size() == 1 && hasSidecarFile(selFile)) {
-                Collection<String> keywords = db.getDcSubjectsOf(selFile.get(0).getAbsolutePath());
+
+            if ((selFile.size() == 1) && hasSidecarFile(selFile)) {
+                Collection<String> keywords =
+                    db.getDcSubjectsOf(selFile.get(0).getAbsolutePath());
+
                 setKeywords(treeAppPanel, keywords);
                 setKeywords(treeDialog, keywords);
             }
@@ -76,6 +88,7 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
 
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer r = tree.getCellRenderer();
+
         if (r instanceof TreeCellRendererKeywords) {
             ((TreeCellRendererKeywords) r).setSelImgKeywords(keywords);
             tree.repaint();
@@ -88,12 +101,16 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
     }
 
     private boolean hasSidecarFile(List<File> selFile) {
-        assert selFile.size() == 1 : "Size < 1: " + selFile.size() + " - " + selFile;
-        return XmpMetadata.hasImageASidecarFile(selFile.get(0).getAbsolutePath());
+        assert selFile.size() == 1 :
+               "Size < 1: " + selFile.size() + " - " + selFile;
+
+        return XmpMetadata.hasImageASidecarFile(
+            selFile.get(0).getAbsolutePath());
     }
 
     @Override
     public void thumbnailsChanged() {
+
         // ignore
     }
 }

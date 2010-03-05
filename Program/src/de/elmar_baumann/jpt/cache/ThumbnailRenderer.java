@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
 import java.awt.Image;
@@ -33,5 +34,7 @@ import java.awt.Image;
  * @version 2009-08-17
  */
 public interface ThumbnailRenderer {
-    public Image getRenderedThumbnail(Image scaled, RenderedThumbnailCacheIndirection rtci, boolean dummy);
+    public Image getRenderedThumbnail(Image scaled,
+                                      RenderedThumbnailCacheIndirection rtci,
+                                      boolean dummy);
 }

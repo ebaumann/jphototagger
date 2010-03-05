@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -31,20 +33,17 @@ import static org.junit.Assert.*;
  * @version 2010/03/01
  */
 public class RenameTemplateTest {
-
-    public RenameTemplateTest() {
-    }
+    public RenameTemplateTest() {}
 
     @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+    public static void setUpClass() throws Exception {}
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+    public static void tearDownClass() throws Exception {}
 
     public static RenameTemplate createTemplate() {
         RenameTemplate template = new RenameTemplate();
+
         template.setDateDelimiter("DateDelimiter");
         template.setDelimiter1("Delimiter1");
         template.setDelimiter2("Delimiter2");
@@ -59,18 +58,19 @@ public class RenameTemplateTest {
         template.setTextAtBegin("TextAtBegin");
         template.setTextAtEnd("TextAtEnd");
         template.setTextInTheMiddle("TextInTheMiddle");
+
         return template;
     }
 
     @Test
     public void testSetOther() {
         System.out.println("set");
-        
-        RenameTemplate other = createTemplate();
+
+        RenameTemplate other    = createTemplate();
         RenameTemplate template = new RenameTemplate();
+
         template.set(other);
         assertEqualsCreated(template);
-
         other = new RenameTemplate(createTemplate());
         assertEqualsCreated(template);
     }
@@ -80,6 +80,7 @@ public class RenameTemplateTest {
         System.out.println("testSetter");
 
         RenameTemplate template = createTemplate();
+
         assertEqualsCreated(template);
     }
 

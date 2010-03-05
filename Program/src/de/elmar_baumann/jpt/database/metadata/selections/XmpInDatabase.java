@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import java.util.HashSet;
@@ -29,9 +30,8 @@ import java.util.Set;
  * @version 2008-09-14
  */
 public final class XmpInDatabase {
-
     private static final Set<String> STORED_PATHS_PREFIXES =
-            new HashSet<String>();
+        new HashSet<String>();
 
     static {
         STORED_PATHS_PREFIXES.add("dc:creator");
@@ -68,6 +68,7 @@ public final class XmpInDatabase {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -81,6 +82,5 @@ public final class XmpInDatabase {
         return new HashSet<String>(STORED_PATHS_PREFIXES);
     }
 
-    private XmpInDatabase() {
-    }
+    private XmpInDatabase() {}
 }

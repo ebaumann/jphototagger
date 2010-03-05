@@ -1,29 +1,32 @@
 /*
  * JPhotoTagger tags and finds images fast.
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.lang.reflect.Method;
 
 /**
@@ -94,8 +97,7 @@ public abstract class Controller implements ActionListener, KeyListener {
         }
     }
 
-    protected Controller() {
-    }
+    protected Controller() {}
 
     /**
      * Adds all objects with action events to listen to.
@@ -105,7 +107,9 @@ public abstract class Controller implements ActionListener, KeyListener {
     protected void listenToActionsOf(Object... objects) {
         for (Object object : objects) {
             try {
-                Method m = object.getClass().getMethod("addActionListener", ActionListener.class);
+                Method m = object.getClass().getMethod("addActionListener",
+                               ActionListener.class);
+
                 m.invoke(object, this);
             } catch (Exception ex) {
                 AppLogger.logSevere(Controller.class, ex);
@@ -121,7 +125,9 @@ public abstract class Controller implements ActionListener, KeyListener {
     protected void listenToKeyEventsOf(Object... objects) {
         for (Object object : objects) {
             try {
-                Method m = object.getClass().getMethod("addKeyListener", KeyListener.class);
+                Method m = object.getClass().getMethod("addKeyListener",
+                               KeyListener.class);
+
                 m.invoke(object, this);
             } catch (Exception ex) {
                 AppLogger.logSevere(Controller.class, ex);
@@ -131,11 +137,13 @@ public abstract class Controller implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

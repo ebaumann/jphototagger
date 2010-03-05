@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -33,15 +34,12 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-08-27
  */
 public final class ColumnExifFocalLength extends Column {
-
-    public static final ColumnExifFocalLength INSTANCE = new ColumnExifFocalLength();
+    public static final ColumnExifFocalLength INSTANCE =
+        new ColumnExifFocalLength();
 
     private ColumnExifFocalLength() {
-        super(
-            TableExif.INSTANCE,
-            "exif_focal_length",
-            DataType.REAL);
-
-        setDescription(JptBundle.INSTANCE.getString("ColumnExifFocalLength.Description"));
+        super(TableExif.INSTANCE, "exif_focal_length", DataType.REAL);
+        setDescription(
+            JptBundle.INSTANCE.getString("ColumnExifFocalLength.Description"));
     }
 }

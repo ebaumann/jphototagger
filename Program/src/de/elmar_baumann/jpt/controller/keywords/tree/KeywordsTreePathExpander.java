@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -31,12 +33,11 @@ import javax.swing.tree.TreePath;
  * @version 2009-07-31
  */
 public final class KeywordsTreePathExpander {
-
     public static void expand(JTree tree, DefaultMutableTreeNode node) {
         TreePath path = new TreePath(node.getPath());
+
         tree.expandPath(path);
     }
 
-    private KeywordsTreePathExpander() {
-    }
+    private KeywordsTreePathExpander() {}
 }

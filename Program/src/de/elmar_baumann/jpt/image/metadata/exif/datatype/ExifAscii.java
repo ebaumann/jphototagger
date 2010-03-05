@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 /**
@@ -27,7 +28,6 @@ package de.elmar_baumann.jpt.image.metadata.exif.datatype;
  * @version 2009-04-04
  */
 public final class ExifAscii {
-
     private final String value;
 
     public ExifAscii(byte[] rawValue) {
@@ -41,11 +41,12 @@ public final class ExifAscii {
      * @return          decoded value
      */
     public static String decode(byte[] rawValue) {
-
         String nullTerminatedValue = new String(rawValue);
         int    length              = nullTerminatedValue.length();
 
-        return length > 0 ? nullTerminatedValue.substring(0, length - 1) : "";
+        return (length > 0)
+               ? nullTerminatedValue.substring(0, length - 1)
+               : "";
     }
 
     public static ExifDataType dataType() {
@@ -58,17 +59,33 @@ public final class ExifAscii {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
         final ExifAscii other = (ExifAscii) obj;
-        if ((this.value == null) ? (other.value != null) : !this.value.equals(other.value)) return false;
+
+        if ((this.value == null)
+            ? (other.value != null)
+            : !this.value.equals(other.value)) {
+            return false;
+        }
+
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + (this.value != null ? this.value.hashCode() : 0);
+
+        hash = 37 * hash + ((this.value != null)
+                            ? this.value.hashCode()
+                            : 0);
+
         return hash;
     }
 

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -30,6 +31,7 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,10 +42,10 @@ import java.util.List;
  * @version 2008-07-29
  */
 public final class FastSearchColumns {
-
     private static final List<Column> COLUMNS = new ArrayList<Column>();
 
     static {
+
         // XMP
         COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
         COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
@@ -51,10 +53,12 @@ public final class FastSearchColumns {
         COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);
         COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         COLUMNS.add(ColumnXmpDcRights.INSTANCE);
+
         // EXIF
         COLUMNS.add(ColumnExifFocalLength.INSTANCE);
         COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
         COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
+
         // Files
         COLUMNS.add(ColumnFilesFilename.INSTANCE);
     }
@@ -63,6 +67,5 @@ public final class FastSearchColumns {
         return new ArrayList<Column>(COLUMNS);
     }
 
-    private FastSearchColumns() {
-    }
+    private FastSearchColumns() {}
 }

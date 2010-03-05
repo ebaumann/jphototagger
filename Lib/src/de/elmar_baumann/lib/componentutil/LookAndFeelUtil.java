@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.UIManager;
 
 /**
@@ -43,10 +45,10 @@ public final class LookAndFeelUtil {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
-            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE,
+                             null, ex);
         }
     }
 
-    private LookAndFeelUtil() {
-    }
+    private LookAndFeelUtil() {}
 }

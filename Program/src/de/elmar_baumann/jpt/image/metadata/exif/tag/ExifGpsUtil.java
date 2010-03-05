@@ -17,15 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
+
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
+
 import java.util.Locale;
 
 /**
@@ -35,23 +38,20 @@ import java.util.Locale;
  * @version 2009-03-31
  */
 public final class ExifGpsUtil {
-
     public static double degrees(ExifDegrees degrees) {
-        return ExifDatatypeUtil.toDouble(degrees.degrees()) +
-               ExifDatatypeUtil.toDouble(degrees.minutes()) / 60 +
-               ExifDatatypeUtil.toDouble(degrees.seconds()) / 3600;
+        return ExifDatatypeUtil.toDouble(degrees.degrees())
+               + ExifDatatypeUtil.toDouble(degrees.minutes()) / 60
+               + ExifDatatypeUtil.toDouble(degrees.seconds()) / 3600;
     }
 
     public static double secondsOfMinutes(ExifRational minutes) {
-
-        double doubleMinutes = ExifDatatypeUtil.toDouble(minutes);
+        double doubleMinutes  = ExifDatatypeUtil.toDouble(minutes);
         double integerMinutes = ExifDatatypeUtil.toLong(minutes);
 
         return (doubleMinutes - integerMinutes) * 60;
     }
 
     public static String degreesToString(ExifDegrees degrees) {
-
         MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''");
         double        deg = ExifDatatypeUtil.toDouble(degrees.degrees());
         double        min = ExifDatatypeUtil.toDouble(degrees.minutes());
@@ -64,77 +64,84 @@ public final class ExifGpsUtil {
 
         DecimalFormat dfDegMin = new DecimalFormat("#");
         DecimalFormat dfSec    = new DecimalFormat("#.##");
-
-        Object[] params = {dfDegMin.format(deg), dfDegMin.format(min), dfSec.format(sec)};
+        Object[]      params   = { dfDegMin.format(deg), dfDegMin.format(min),
+                                   dfSec.format(sec) };
 
         return msg.format(params);
     }
 
-    public static String googleMapsUrl(ExifGpsLongitude longitude, ExifGpsLatitude latitude) {
-
-        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
-        DecimalFormat df  = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+    public static String googleMapsUrl(ExifGpsLongitude longitude,
+                                       ExifGpsLatitude latitude) {
+        MessageFormat msg =
+            new MessageFormat(
+                "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
+        DecimalFormat df =
+            (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
 
         df.applyPattern("#.########");
 
-        double latititudeValue = degrees(latitude.degrees());
-        double longitudeValue  = degrees(longitude.degrees());
-
-        Object[] params = {df.format(latititudeValue), df.format(longitudeValue)};
+        double   latititudeValue = degrees(latitude.degrees());
+        double   longitudeValue  = degrees(longitude.degrees());
+        Object[] params          = { df.format(latititudeValue),
+                                     df.format(longitudeValue) };
 
         return msg.format(params);
     }
 
     public static ExifGpsMetadata gpsMetadata(ExifTags exifTags) {
-
         ExifGpsMetadata gpsMetaData = new ExifGpsMetadata();
 
-        setGpsLatitude (gpsMetaData, exifTags);
+        setGpsLatitude(gpsMetaData, exifTags);
         setGpsLongitude(gpsMetaData, exifTags);
-        setGpsAltitude (gpsMetaData, exifTags);
+        setGpsAltitude(gpsMetaData, exifTags);
 
         return gpsMetaData;
     }
 
-    private static void setGpsAltitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
+    private static void setGpsAltitude(ExifGpsMetadata gpsMetaData,
+                                       ExifTags exifTags) {
+        ExifTag tagAltitudeRef =
+            exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE_REF.value());
+        ExifTag tagAltitude =
+            exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE.value());
 
-        ExifTag tagAltitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE_REF.value());
-        ExifTag tagAltitude    = exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE.value());
-
-        if (tagAltitudeRef != null && tagAltitude != null) {
-            gpsMetaData.setAltitude(new ExifGpsAltitude(
-                    tagAltitudeRef.rawValue(),
-                    tagAltitude   .rawValue(),
-                    tagAltitude   .byteOrder()));
+        if ((tagAltitudeRef != null) && (tagAltitude != null)) {
+            gpsMetaData.setAltitude(
+                new ExifGpsAltitude(
+                    tagAltitudeRef.rawValue(), tagAltitude.rawValue(),
+                    tagAltitude.byteOrder()));
         }
     }
 
-    private static void setGpsLatitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
+    private static void setGpsLatitude(ExifGpsMetadata gpsMetaData,
+                                       ExifTags exifTags) {
+        ExifTag tagLatitudeRef =
+            exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE_REF.value());
+        ExifTag tagLatitude =
+            exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE.value());
 
-        ExifTag tagLatitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE_REF.value());
-        ExifTag tagLatitude    = exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE.value());
-
-        if (tagLatitudeRef != null && tagLatitude != null) {
-            gpsMetaData.setLatitude(new ExifGpsLatitude(
-                    tagLatitudeRef.rawValue(),
-                    tagLatitude   .rawValue(),
-                    tagLatitude   .byteOrder()));
+        if ((tagLatitudeRef != null) && (tagLatitude != null)) {
+            gpsMetaData.setLatitude(
+                new ExifGpsLatitude(
+                    tagLatitudeRef.rawValue(), tagLatitude.rawValue(),
+                    tagLatitude.byteOrder()));
         }
     }
 
-    private static void setGpsLongitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
+    private static void setGpsLongitude(ExifGpsMetadata gpsMetaData,
+            ExifTags exifTags) {
+        ExifTag tagLongitudeRef =
+            exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE_REF.value());
+        ExifTag tagLongitude =
+            exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE.value());
 
-        ExifTag tagLongitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE_REF.value());
-        ExifTag tagLongitude    = exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE.value());
-
-        if (tagLongitudeRef != null && tagLongitude != null) {
-            gpsMetaData.setLongitude(new ExifGpsLongitude(
-                    tagLongitudeRef.rawValue(),
-                    tagLongitude    .rawValue(),
-                    tagLongitude    .byteOrder()));
+        if ((tagLongitudeRef != null) && (tagLongitude != null)) {
+            gpsMetaData.setLongitude(
+                new ExifGpsLongitude(
+                    tagLongitudeRef.rawValue(), tagLongitude.rawValue(),
+                    tagLongitude.byteOrder()));
         }
     }
 
-    private ExifGpsUtil() {
-    }
+    private ExifGpsUtil() {}
 }

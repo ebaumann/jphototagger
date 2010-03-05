@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
+
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+
 import javax.swing.TransferHandler.TransferSupport;
 
 /**
@@ -31,36 +34,50 @@ import javax.swing.TransferHandler.TransferSupport;
  * @version 2009-08-14
  */
 public final class Flavor {
-
     private final class KEYWORDS_TREE {}
+
 
     private final class IMAGE_COLLECTION {}
 
+
     private final class KEYWORDS_LIST {}
+
 
     private final class METADATA_TEMPLATES {}
 
+
     private final class THUMBNAILS_PANEL {}
+
 
     /**
      * {@link DataFlavor#javaFileListFlavor}
      */
-    public static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
+    public static final DataFlavor FILE_LIST_FLAVOR =
+        DataFlavor.javaFileListFlavor;
 
     /**
      * {@link TransferUtil#getUriListFlavor()}
      */
-    public static final DataFlavor URI_LIST           = TransferUtil.getUriListFlavor();
-    public static final DataFlavor KEYWORDS_TREE      = new DataFlavor(KEYWORDS_TREE.class     , null);
-    public static final DataFlavor KEYWORDS_LIST      = new DataFlavor(KEYWORDS_LIST.class     , null);
-    public static final DataFlavor THUMBNAILS_PANEL   = new DataFlavor(THUMBNAILS_PANEL.class  , null);
-    public static final DataFlavor IMAGE_COLLECTION   = new DataFlavor(IMAGE_COLLECTION.class  , null);
-    public static final DataFlavor METADATA_TEMPLATES = new DataFlavor(METADATA_TEMPLATES.class, null);
+    public static final DataFlavor URI_LIST      =
+        TransferUtil.getUriListFlavor();
+    public static final DataFlavor KEYWORDS_TREE =
+        new DataFlavor(KEYWORDS_TREE.class, null);
+    public static final DataFlavor KEYWORDS_LIST =
+        new DataFlavor(KEYWORDS_LIST.class, null);
+    public static final DataFlavor THUMBNAILS_PANEL =
+        new DataFlavor(THUMBNAILS_PANEL.class, null);
+    public static final DataFlavor IMAGE_COLLECTION =
+        new DataFlavor(IMAGE_COLLECTION.class, null);
+    public static final DataFlavor METADATA_TEMPLATES =
+        new DataFlavor(METADATA_TEMPLATES.class, null);
+
     /**
      * Contains {@link DataFlavor#javaFileListFlavor} and
      * {@link TransferUtil#getUriListFlavor()}.
      */
-    static final DataFlavor[] FILE_FLAVORS = new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST};
+    static final DataFlavor[] FILE_FLAVORS = new DataFlavor[] {
+                                                 FILE_LIST_FLAVOR,
+            URI_LIST };
 
     /**
      * Returns whether a transferable supports the data flavor
@@ -102,6 +119,5 @@ public final class Flavor {
         return transferSupport.isDataFlavorSupported(KEYWORDS_TREE);
     }
 
-    private Flavor() {
-    }
+    private Flavor() {}
 }

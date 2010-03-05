@@ -17,15 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.metadata;
 
-import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import de.elmar_baumann.jpt.UserSettings;
+import com.adobe.xmp.XMPConst;
+
 import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.database.metadata.selections.MetadataTableModels;
 import de.elmar_baumann.jpt.data.SelectedFile;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
+import de.elmar_baumann.jpt.database.metadata.selections.MetadataTableModels;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
@@ -33,13 +34,16 @@ import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.model.TableModelExif;
 import de.elmar_baumann.jpt.model.TableModelIptc;
 import de.elmar_baumann.jpt.model.TableModelXmp;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.TableUtil;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,6 +53,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
@@ -65,19 +70,16 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-05
  */
 public final class ControllerShowMetadata
-        implements DatabaseImageFilesListener,
-                   ThumbnailsPanelListener
-    {
-
-    private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
-    private final AppPanel                     appPanel                  = GUI.INSTANCE.getAppPanel();
-    private final MetadataTableModels          metadataTableModels       = new MetadataTableModels();
+        implements DatabaseImageFilesListener, ThumbnailsPanelListener {
+    private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel =
+        new HashMap<TableModelXmp, String[]>();
+    private final AppPanel            appPanel            =
+        GUI.INSTANCE.getAppPanel();
+    private final MetadataTableModels metadataTableModels =
+        new MetadataTableModels();
 
     private enum Metadata {
-
-        EXIF,
-        XMP,
-        IPTC;
+        EXIF, XMP, IPTC;
 
         public static Set<Metadata> getAll() {
             return new HashSet<Metadata>(Arrays.asList(values()));
@@ -96,16 +98,26 @@ public final class ControllerShowMetadata
     }
 
     private void initMetadatModels() {
-        metadataTableModels.setIptcTableModel                ((TableModelIptc) appPanel.getTableIptc()                .getModel());
-        metadataTableModels.setExifTableModel                ((TableModelExif) appPanel.getTableExif()                .getModel());
-        metadataTableModels.setXmpTableModelDc               ((TableModelXmp)  appPanel.getTableXmpDc()               .getModel());
-        metadataTableModels.setXmpTableModelExif             ((TableModelXmp)  appPanel.getTableXmpExif()             .getModel());
-        metadataTableModels.setXmpTableModelIptc             ((TableModelXmp)  appPanel.getTableXmpIptc()             .getModel());
-        metadataTableModels.setXmpTableModelLightroom        ((TableModelXmp)  appPanel.getTableXmpLightroom()        .getModel());
-        metadataTableModels.setXmpTableModelPhotoshop        ((TableModelXmp)  appPanel.getTableXmpPhotoshop()        .getModel());
-        metadataTableModels.setXmpTableModelTiff             ((TableModelXmp)  appPanel.getTableXmpTiff()             .getModel());
-        metadataTableModels.setXmpTableModelCameraRawSettings((TableModelXmp)  appPanel.getTableXmpCameraRawSettings().getModel());
-        metadataTableModels.setXmpTableModelXap              ((TableModelXmp)  appPanel.getTableXmpXap()              .getModel());
+        metadataTableModels.setIptcTableModel(
+            (TableModelIptc) appPanel.getTableIptc().getModel());
+        metadataTableModels.setExifTableModel(
+            (TableModelExif) appPanel.getTableExif().getModel());
+        metadataTableModels.setXmpTableModelDc(
+            (TableModelXmp) appPanel.getTableXmpDc().getModel());
+        metadataTableModels.setXmpTableModelExif(
+            (TableModelXmp) appPanel.getTableXmpExif().getModel());
+        metadataTableModels.setXmpTableModelIptc(
+            (TableModelXmp) appPanel.getTableXmpIptc().getModel());
+        metadataTableModels.setXmpTableModelLightroom(
+            (TableModelXmp) appPanel.getTableXmpLightroom().getModel());
+        metadataTableModels.setXmpTableModelPhotoshop(
+            (TableModelXmp) appPanel.getTableXmpPhotoshop().getModel());
+        metadataTableModels.setXmpTableModelTiff(
+            (TableModelXmp) appPanel.getTableXmpTiff().getModel());
+        metadataTableModels.setXmpTableModelCameraRawSettings(
+            (TableModelXmp) appPanel.getTableXmpCameraRawSettings().getModel());
+        metadataTableModels.setXmpTableModelXap(
+            (TableModelXmp) appPanel.getTableXmpXap().getModel());
 
         List<JTable>       xmpTables      = appPanel.getXmpTables();
         Set<TableModelXmp> xmpTableModels = new HashSet<TableModelXmp>();
@@ -113,43 +125,48 @@ public final class ControllerShowMetadata
         for (JTable xmpTable : xmpTables) {
             xmpTableModels.add((TableModelXmp) xmpTable.getModel());
         }
+
         metadataTableModels.setXmpTableModels(xmpTableModels);
     }
 
     private void initNamespacesOfXmpTableModelMap() {
         namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelDc(),
-                new String[]{XMPConst.NS_DC, XMPConst.NS_DC_DEPRECATED});
-        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelExif(),
-                new String[]{
-                    XMPConst.NS_EXIF,
-                    XMPConst.NS_EXIF_AUX
-                });
-        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelIptc(),
-                new String[]{XMPConst.NS_IPTCCORE});
+                                      new String[] { XMPConst.NS_DC,
+                XMPConst.NS_DC_DEPRECATED });
         namespacesOfXmpTableModel.put(
-                metadataTableModels.getXmpTableModelLightroom(),
-                new String[]{"http://ns.adobe.com/lightroom/1.0/"});
+            metadataTableModels.getXmpTableModelExif(),
+            new String[] { XMPConst.NS_EXIF,
+                           XMPConst.NS_EXIF_AUX });
         namespacesOfXmpTableModel.put(
-                metadataTableModels.getXmpTableModelPhotoshop(),
-                new String[]{XMPConst.NS_PHOTOSHOP});
-        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelTiff(),
-                new String[]{XMPConst.NS_TIFF});
-        namespacesOfXmpTableModel.put(metadataTableModels.
-                getXmpTableModelCameraRawSettings(),
-                new String[]{
-                    XMPConst.NS_CAMERARAW,
-                    "http://ns.adobe.com/camera-raw-saved-settings/1.0/"
-                });
-        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelXap(),
-                new String[]{XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS});
+            metadataTableModels.getXmpTableModelIptc(),
+            new String[] { XMPConst.NS_IPTCCORE });
+        namespacesOfXmpTableModel.put(
+            metadataTableModels.getXmpTableModelLightroom(),
+            new String[] { "http://ns.adobe.com/lightroom/1.0/" });
+        namespacesOfXmpTableModel.put(
+            metadataTableModels.getXmpTableModelPhotoshop(),
+            new String[] { XMPConst.NS_PHOTOSHOP });
+        namespacesOfXmpTableModel.put(
+            metadataTableModels.getXmpTableModelTiff(),
+            new String[] { XMPConst.NS_TIFF });
+        namespacesOfXmpTableModel.put(
+            metadataTableModels.getXmpTableModelCameraRawSettings(),
+            new String[] { XMPConst.NS_CAMERARAW,
+                           "http://ns.adobe.com/camera-raw-saved-settings/1.0/" });
+        namespacesOfXmpTableModel.put(
+            metadataTableModels.getXmpTableModelXap(),
+            new String[] { XMPConst.NS_XMP,
+                           XMPConst.NS_XMP_RIGHTS });
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
         final ThumbnailsPanel panel = appPanel.getPanelThumbnails();
+
         if (panel.getSelectionCount() == 1) {
             SwingUtilities.invokeLater(
-                    new ShowMetadata(panel.getSelectedFiles().get(0), Metadata.getAll()));
+                new ShowMetadata(
+                    panel.getSelectedFiles().get(0), Metadata.getAll()));
         } else {
             appPanel.getButtonIptcToXmp().setEnabled(false);
             appPanel.getButtonExifToXmp().setEnabled(false);
@@ -159,6 +176,7 @@ public final class ControllerShowMetadata
 
     @Override
     public void thumbnailsChanged() {
+
         // ignore
     }
 
@@ -166,30 +184,40 @@ public final class ControllerShowMetadata
     public void actionPerformed(DatabaseImageFilesEvent event) {
         if (isShowMetadata(event.getType())) {
             ImageFile imageFile = event.getImageFile();
-            showUpdates(imageFile.getFile(), getMetadataToShowAfterDbChange(imageFile));
+
+            showUpdates(imageFile.getFile(),
+                        getMetadataToShowAfterDbChange(imageFile));
         }
     }
 
     private boolean isShowMetadata(DatabaseImageFilesEvent.Type eventType) {
-        return eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED) ||
-               eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED) ||
-               eventType.equals(DatabaseImageFilesEvent.Type.XMP_UPDATED);
+        return eventType
+            .equals(DatabaseImageFilesEvent.Type
+                .IMAGEFILE_INSERTED) || eventType
+                    .equals(DatabaseImageFilesEvent.Type
+                        .IMAGEFILE_UPDATED) || eventType
+                            .equals(DatabaseImageFilesEvent.Type.XMP_UPDATED);
     }
 
     private Set<Metadata> getMetadataToShowAfterDbChange(ImageFile imageFile) {
         Set<Metadata> metadata = new HashSet<Metadata>();
+
         if (imageFile.isInsertExifIntoDb()) {
             metadata.add(Metadata.EXIF);
         }
+
         if (imageFile.isInsertXmpIntoDb()) {
             metadata.add(Metadata.XMP);
         }
+
         return metadata;
     }
 
     private void showUpdates(File file, Set<Metadata> metadata) {
         if (appPanel.getPanelThumbnails().getSelectionCount() == 1) {
-            File selectedFile = appPanel.getPanelThumbnails().getSelectedFiles().get(0);
+            File selectedFile =
+                appPanel.getPanelThumbnails().getSelectedFiles().get(0);
+
             if (file.equals(selectedFile)) {
                 SwingUtilities.invokeLater(new ShowMetadata(file, metadata));
             }
@@ -197,19 +225,20 @@ public final class ControllerShowMetadata
     }
 
     private class RemoveAllMetadata implements Runnable {
-
         @Override
         public void run() {
             Set<Metadata> allMetadata = Metadata.getAll();
+
             removeMetadataFromTables(allMetadata);
             repaintMetadataTables(allMetadata);
             appPanel.getLabelMetadataFilename().setText(
-                    JptBundle.INSTANCE.getString("ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
+                JptBundle.INSTANCE.getString(
+                    "ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
         }
     }
 
-    private class ShowMetadata implements Runnable {
 
+    private class ShowMetadata implements Runnable {
         private final File          file;
         private final Set<Metadata> metadata;
 
@@ -221,21 +250,27 @@ public final class ControllerShowMetadata
         @Override
         public void run() {
             removeMetadataFromTables(metadata);
+
             if (metadata.contains(Metadata.EXIF)) {
                 metadataTableModels.getExifTableModel().setFile(file);
             }
+
             if (metadata.contains(Metadata.IPTC)) {
                 metadataTableModels.getIptcTableModel().setFile(file);
             }
+
             appPanel.getButtonIptcToXmp().setEnabled(hasIptcData());
             appPanel.getButtonExifToXmp().setEnabled(hasExifData());
+
             if (metadata.contains(Metadata.XMP)) {
                 setXmpModels(file.getAbsolutePath());
             }
-            appPanel.getLabelMetadataFilename().setText(file.getName() +
-                    (XmpMetadata.hasImageASidecarFile(file.getAbsolutePath())
-                        ? ""
-                        : JptBundle.INSTANCE.getString("ControllerShowMetadata.Embedded")));
+
+            appPanel.getLabelMetadataFilename().setText(file.getName()
+                    + (XmpMetadata.hasImageASidecarFile(file.getAbsolutePath())
+                       ? ""
+                       : JptBundle.INSTANCE.getString(
+                           "ControllerShowMetadata.Embedded")));
             resizeMetadataTables(metadata);
             repaintMetadataTables(metadata);
         }
@@ -244,9 +279,11 @@ public final class ControllerShowMetadata
             if (metadata.contains(Metadata.EXIF)) {
                 resizeTables(Collections.singleton(appPanel.getTableExif()));
             }
+
             if (metadata.contains(Metadata.IPTC)) {
                 resizeTables(Collections.singleton(appPanel.getTableIptc()));
             }
+
             if (metadata.contains(Metadata.XMP)) {
                 resizeTables(appPanel.getXmpTables());
             }
@@ -260,39 +297,48 @@ public final class ControllerShowMetadata
 
         private void setXmpModels(String filename) {
             List<XMPPropertyInfo> allInfos = null;
-            File                   selFile = new File(filename);
+            File                  selFile  = new File(filename);
+
             synchronized (SelectedFile.INSTANCE) {
                 if (SelectedFile.INSTANCE.getFile().equals(selFile)) {
                     allInfos = SelectedFile.INSTANCE.getPropertyInfos();
                 }
             }
+
             if (allInfos == null) {
-                String sidecarFilename = XmpMetadata.getSidecarFilename(filename);
-                allInfos = sidecarFilename != null
-                               ? XmpMetadata.getPropertyInfosOfSidecarFile(new File(sidecarFilename))
-                               : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                               ? XmpMetadata.getEmbeddedPropertyInfos(filename)
-                               : null
-                               ;
+                String sidecarFilename =
+                    XmpMetadata.getSidecarFilename(filename);
+
+                allInfos = (sidecarFilename != null)
+                           ? XmpMetadata.getPropertyInfosOfSidecarFile(
+                               new File(sidecarFilename))
+                           : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                             ? XmpMetadata.getEmbeddedPropertyInfos(filename)
+                             : null;
                 SelectedFile.INSTANCE.setFile(selFile, allInfos);
             }
+
             if (allInfos != null) {
-                for (TableModelXmp model : metadataTableModels.getXmpTableModels()) {
-                    setPropertyInfosToXmpTableModel(filename, model, allInfos, namespacesOfXmpTableModel.get(model));
+                for (TableModelXmp model :
+                        metadataTableModels.getXmpTableModels()) {
+                    setPropertyInfosToXmpTableModel(
+                        filename, model, allInfos,
+                        namespacesOfXmpTableModel.get(model));
                 }
             }
         }
 
-        private void setPropertyInfosToXmpTableModel(
-                String                filename,
-                TableModelXmp         model,
-                List<XMPPropertyInfo> allInfos, 
-                String[]              namespaces
-                ) {
+        private void setPropertyInfosToXmpTableModel(String filename,
+                TableModelXmp model, List<XMPPropertyInfo> allInfos,
+                String[] namespaces) {
             List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
+
             for (int index = 0; index < namespaces.length; index++) {
-                infos.addAll(XmpMetadata.filterPropertyInfosOfNamespace(allInfos, namespaces[index]));
+                infos.addAll(
+                    XmpMetadata.filterPropertyInfosOfNamespace(
+                        allInfos, namespaces[index]));
             }
+
             model.setPropertyInfosOfFile(filename, infos);
         }
 
@@ -305,13 +351,16 @@ public final class ControllerShowMetadata
         }
     }
 
+
     private void repaintMetadataTables(Set<Metadata> metadata) {
         if (metadata.contains(Metadata.EXIF)) {
             repaintTables(Collections.singleton(appPanel.getTableExif()));
         }
+
         if (metadata.contains(Metadata.IPTC)) {
             repaintTables(Collections.singleton(appPanel.getTableIptc()));
         }
+
         if (metadata.contains(Metadata.XMP)) {
             repaintTables(appPanel.getXmpTables());
         }
@@ -325,13 +374,16 @@ public final class ControllerShowMetadata
 
     private void removeMetadataFromTables(Set<Metadata> metadata) {
         if (metadata.contains(Metadata.XMP)) {
-            for (TableModelXmp model : metadataTableModels.getXmpTableModels()) {
+            for (TableModelXmp model : metadataTableModels
+                    .getXmpTableModels()) {
                 model.removeAllRows();
             }
         }
+
         if (metadata.contains(Metadata.IPTC)) {
             metadataTableModels.getIptcTableModel().removeAllElements();
         }
+
         if (metadata.contains(Metadata.EXIF)) {
             metadataTableModels.getExifTableModel().removeAllElements();
         }

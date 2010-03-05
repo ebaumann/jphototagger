@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io.filefilter;
 
 import java.io.File;
+
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -39,23 +42,24 @@ public final class DirectoryFilter implements java.io.FileFilter {
     /**
      * Instance which accepts hidden files.
      */
-    public static final  DirectoryFilter  ACCEPT_HIDDEN_FILES = new DirectoryFilter(Option.ACCEPT_HIDDEN_FILES);
+    public static final DirectoryFilter ACCEPT_HIDDEN_FILES =
+        new DirectoryFilter(Option.ACCEPT_HIDDEN_FILES);
 
     /**
      * Instance which rejects hidden files.
      */
-    public static final  DirectoryFilter NO_OPTIONS           = new DirectoryFilter(Option.NO_OPTION);
-
-    private static final FileSystemView  FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
-    private final        List<Option>    options;
+    public static final DirectoryFilter NO_OPTIONS =
+        new DirectoryFilter(Option.NO_OPTION);
+    private static final FileSystemView FILE_SYSTEM_VIEW =
+        FileSystemView.getFileSystemView();
+    private final List<Option> options;
 
     public enum Option {
 
         /**
          * Accepting hidden files (Default: Do not accept hidden files)
          */
-        ACCEPT_HIDDEN_FILES,
-        NO_OPTION
+        ACCEPT_HIDDEN_FILES, NO_OPTION
         ;
     }
 
@@ -65,7 +69,9 @@ public final class DirectoryFilter implements java.io.FileFilter {
      * @param options  options
      */
     public DirectoryFilter(Option... options) {
-        if (options == null) throw new NullPointerException("options == null");
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
 
         this.options = Arrays.asList(options);
     }
@@ -73,9 +79,10 @@ public final class DirectoryFilter implements java.io.FileFilter {
     @Override
     public boolean accept(File file) {
         boolean isDirectory = file.isDirectory();
+
         return options.contains(Option.ACCEPT_HIDDEN_FILES)
                ? isDirectory
-               : isDirectory && !FILE_SYSTEM_VIEW.isHiddenFile(file);
+               : isDirectory &&!FILE_SYSTEM_VIEW.isHiddenFile(file);
     }
 
     /**
@@ -84,7 +91,8 @@ public final class DirectoryFilter implements java.io.FileFilter {
      * @param  description  description
      * @return file filter
      */
-    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
+    public javax.swing.filechooser.FileFilter forFileChooser(
+            String description) {
         return new FileChooserFilter(this, description);
     }
 }

@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.image.metadata.xmp;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,10 +45,16 @@ import java.util.logging.Logger;
  * @version 2007-11-08
  */
 public final class XmpFileReader {
-
-    private static final byte[] XMP_PACKET_MARKER = {0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65, 0x67, 0x69, 0x6E, 0x3D }; // "<?xpacket begin="
-    private static final byte[] XMP_BEGIN_MARKER  = { 0x3C, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61 };                                    // "<x:xmpmeta"
-    private static final byte[] XMP_END_MARKER    = { 0x3C, 0x2F, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61, 0x3E };                        // "</x:xmpmeta>"
+    private static final byte[] XMP_PACKET_MARKER = {
+        0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65,
+        0x67, 0x69, 0x6E, 0x3D
+    };    // "<?xpacket begin="
+    private static final byte[] XMP_BEGIN_MARKER = {
+        0x3C, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61
+    };    // "<x:xmpmeta"
+    private static final byte[] XMP_END_MARKER   = {
+        0x3C, 0x2F, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61, 0x3E
+    };    // "</x:xmpmeta>"
 
     /**
      * Liest eine Datei und liefert einen String mit den XMP-Informationen.
@@ -65,50 +73,73 @@ public final class XmpFileReader {
      *                 ein Eingabefehler aufgetreten ist
      */
     public static String readFile(String filename) {
-        if (filename == null) throw new NullPointerException("filename == null");
+        if (filename == null) {
+            throw new NullPointerException("filename == null");
+        }
 
         RandomAccessFile file = null;
+
         try {
             file = new RandomAccessFile(filename, "r");
             file.getChannel().lock(0, Long.MAX_VALUE, true);
+
             int xmpPacketStartIndex = getMatchIndex(file, 0, XMP_PACKET_MARKER);
+
             if (xmpPacketStartIndex >= 0) {
-                int xmpStartIndex = getMatchIndex(file, xmpPacketStartIndex + XMP_PACKET_MARKER.length, XMP_BEGIN_MARKER);
+                int xmpStartIndex =
+                    getMatchIndex(file,
+                                  xmpPacketStartIndex
+                                  + XMP_PACKET_MARKER.length, XMP_BEGIN_MARKER);
+
                 if (xmpStartIndex > 0) {
-                    int xmpEndIndex = getMatchIndex(file, xmpStartIndex + XMP_BEGIN_MARKER.length, XMP_END_MARKER);
+                    int xmpEndIndex =
+                        getMatchIndex(file,
+                                      xmpStartIndex + XMP_BEGIN_MARKER.length,
+                                      XMP_END_MARKER);
+
                     if (xmpEndIndex > 0) {
+
                         // file will be closed in finally
                         return getXmp(filename, xmpStartIndex, xmpEndIndex);
                     }
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE,
+                             null, ex);
         } finally {
             closeFile(file);
         }
+
         return null;
     }
 
-    private static String getXmp(String filename, int xmpStartIndex, int xmpEndIndex) {
-        assert xmpStartIndex >= 0 && xmpStartIndex <= xmpEndIndex : xmpStartIndex;
+    private static String getXmp(String filename, int xmpStartIndex,
+                                 int xmpEndIndex) {
+        assert (xmpStartIndex >= 0) && (xmpStartIndex <= xmpEndIndex) :
+                xmpStartIndex;
         assert xmpEndIndex >= xmpStartIndex : xmpEndIndex;
 
         RandomAccessFile file = null;
+
         try {
             file = new RandomAccessFile(filename, "r");
             file.seek(xmpStartIndex);
-            int count = xmpEndIndex - xmpStartIndex + XMP_END_MARKER.length;
-            byte[] bytes = new byte[count];
-            int bytesRead = file.read(bytes, 0, count);
+
+            int    count     = xmpEndIndex - xmpStartIndex
+                               + XMP_END_MARKER.length;
+            byte[] bytes     = new byte[count];
+            int    bytesRead = file.read(bytes, 0, count);
+
             // file will be closed in finally
             return new String(bytes, 0, bytesRead, "UTF-8");
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(
-                    Level.SEVERE, null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE,
+                             null, ex);
         } finally {
             closeFile(file);
         }
+
         return null;
     }
 
@@ -119,28 +150,39 @@ public final class XmpFileReader {
      * @return         true, wenn die Datei XMP-Informationen enthält
      */
     public static boolean existsXmp(String filename) {
-        if (filename == null) throw new NullPointerException("filename == null");
+        if (filename == null) {
+            throw new NullPointerException("filename == null");
+        }
 
         BufferedReader bufferedReader = null;
+
         try {
             bufferedReader = new BufferedReader(new FileReader(filename));
+
             String line;
+
             do {
                 line = bufferedReader.readLine();
-                if (line != null && line.indexOf("<?xpacket begin") >= 0) {
+
+                if ((line != null) && (line.indexOf("<?xpacket begin") >= 0)) {
+
                     // reader will be closed in finally
                     return true;
                 }
             } while (line != null);
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE,
+                             null, ex);
         } finally {
             closeReader(bufferedReader);
         }
+
         return false;
     }
 
-    private static int getMatchIndex(RandomAccessFile file, int startAtOffset, byte[] pattern) throws IOException {
+    private static int getMatchIndex(RandomAccessFile file, int startAtOffset,
+                                     byte[] pattern)
+            throws IOException {
         assert startAtOffset >= 0;
 
         long    fileLength     = file.length();
@@ -152,34 +194,43 @@ public final class XmpFileReader {
         byte[]  buffer         = new byte[bufferSize];
         long    bytesToRead    = fileLength - startAtOffset + 1;
 
-        for (int offset = startAtOffset; offset < fileLength;) {
-            bytesToRead = offset + bufferSize > fileLength
+        for (int offset = startAtOffset; offset < fileLength; ) {
+            bytesToRead = (offset + bufferSize > fileLength)
                           ? fileLength - offset + 1
                           : bufferSize;
             file.seek(offset);
+
             int bytesRead = file.read(buffer, 0, (int) bytesToRead);
+
             for (int index = 0; index < bytesRead; index++) {
                 byteRead = buffer[index];
-                if (!patternMatches && matchCount <= 0 && byteRead == pattern[0]) {
-                    matchCount = 1;
-                    startOffset = offset;
+
+                if (!patternMatches && (matchCount <= 0)
+                        && (byteRead == pattern[0])) {
+                    matchCount     = 1;
+                    startOffset    = offset;
                     patternMatches = matchCount == pattern.length;
                 }
-                if (!patternMatches && matchCount > 0 && offset > startOffset) {
+
+                if (!patternMatches && (matchCount > 0)
+                        && (offset > startOffset)) {
                     if (byteRead == pattern[matchCount]) {
                         matchCount++;
                         patternMatches = matchCount == pattern.length;
                     } else {
-                        matchCount = -1;
+                        matchCount  = -1;
                         startOffset = -1;
                     }
                 }
+
                 if (patternMatches) {
                     return startOffset;
                 }
+
                 offset++;
             }
         }
+
         return -1;
     }
 
@@ -188,8 +239,8 @@ public final class XmpFileReader {
             try {
                 file.close();
             } catch (Exception ex) {
-                Logger.getLogger(XmpFileReader.class.getName()).
-                        log(Level.SEVERE, null, ex);
+                Logger.getLogger(XmpFileReader.class.getName()).log(
+                    Level.SEVERE, null, ex);
             }
         }
     }
@@ -199,11 +250,11 @@ public final class XmpFileReader {
             try {
                 bufferedReader.close();
             } catch (Exception ex) {
-                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(XmpFileReader.class.getName()).log(
+                    Level.SEVERE, null, ex);
             }
         }
     }
 
-    private XmpFileReader() {
-    }
+    private XmpFileReader() {}
 }

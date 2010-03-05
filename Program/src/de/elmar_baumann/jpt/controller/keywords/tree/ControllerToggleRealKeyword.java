@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -26,10 +27,13 @@ import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.util.List;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -39,12 +43,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Martin Pohlack
  * @version 2009-07-13
  */
-public class ControllerToggleRealKeyword
-        extends    ControllerKeywords
-        implements ActionListener,
-                   KeyListener
-    {
-
+public class ControllerToggleRealKeyword extends ControllerKeywords
+        implements ActionListener, KeyListener {
     public ControllerToggleRealKeyword(KeywordsPanel panel) {
         super(panel);
     }
@@ -63,14 +63,18 @@ public class ControllerToggleRealKeyword
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
         DefaultMutableTreeNode node       = nodes.get(0);
         Object                 userObject = node.getUserObject();
+
         if (userObject instanceof Keyword) {
             Keyword           keyword = (Keyword) userObject;
-            TreeModelKeywords model   = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+            TreeModelKeywords model   =
+                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
             keyword.setReal(!keyword.isReal());
             model.changed(node, keyword);
         } else {
-            MessageDisplayer.error(null, "ControllerToggleRealKeyword.Error.Node", node);
+            MessageDisplayer.error(null,
+                                   "ControllerToggleRealKeyword.Error.Node",
+                                   node);
         }
     }
 }

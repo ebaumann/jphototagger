@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.util.help.HelpIndexParser;
-import de.elmar_baumann.lib.util.help.HelpPage;
 import de.elmar_baumann.lib.util.help.HelpNode;
+import de.elmar_baumann.lib.util.help.HelpPage;
+
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -38,7 +40,6 @@ import javax.swing.tree.TreePath;
  * @version 2008-10-02
  */
 public final class TreeModelHelpContents implements TreeModel {
-
     private HelpNode root = new HelpNode();
 
     @Override
@@ -68,16 +69,19 @@ public final class TreeModelHelpContents implements TreeModel {
 
     @Override
     public void valueForPathChanged(TreePath path, Object newValue) {
+
         // Nothing to bei done
     }
 
     @Override
     public void addTreeModelListener(TreeModelListener l) {
+
         // Nothing to bei done
     }
 
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
+
         // Nothing to bei done
     }
 
@@ -87,14 +91,17 @@ public final class TreeModelHelpContents implements TreeModel {
      * @param url  URL of the XML file for the class
      */
     public TreeModelHelpContents(String url) {
-        if (url == null) throw new NullPointerException("url == null");
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
 
         parse(url);
     }
 
     private void parse(String url) {
+        HelpNode rootNode =
+            HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
 
-        HelpNode rootNode = HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
         if (rootNode != null) {
             root = rootNode;
         }

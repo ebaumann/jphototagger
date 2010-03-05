@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.metadata.Column;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -34,11 +37,9 @@ import java.util.Set;
  * @version 2008-10-21
  */
 public final class DatabaseContent extends Database {
-
     public static final DatabaseContent INSTANCE = new DatabaseContent();
 
-    private DatabaseContent() {
-    }
+    private DatabaseContent() {}
 
     /**
      * Liefert den Inhalt einer ganzen Tabellenspalte.
@@ -47,22 +48,22 @@ public final class DatabaseContent extends Database {
      * @return Werte DISTINCT
      */
     public Set<String> getDistinctValuesOf(Column column) {
-        Set<String> content = new LinkedHashSet<String>();
-        Connection connection = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+        Set<String> content    = new LinkedHashSet<String>();
+        Connection  connection = null;
+        Statement   stmt       = null;
+        ResultSet   rs         = null;
+
         try {
             connection = getConnection();
+
             String columnName = column.getName();
+
             stmt = connection.createStatement();
-            String sql =
-                    "SELECT DISTINCT " +
-                    columnName +
-                    " FROM " +
-                    column.getTable().getName() +
-                    " WHERE " +
-                    columnName +
-                    " IS NOT NULL";
+
+            String sql = "SELECT DISTINCT " + columnName + " FROM "
+                         + column.getTable().getName() + " WHERE " + columnName
+                         + " IS NOT NULL";
+
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
@@ -76,6 +77,7 @@ public final class DatabaseContent extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return content;
     }
 
@@ -87,9 +89,11 @@ public final class DatabaseContent extends Database {
      */
     public Set<String> getDistinctValuesOf(Set<Column> columns) {
         Set<String> content = new LinkedHashSet<String>();
+
         for (Column column : columns) {
             content.addAll(getDistinctValuesOf(column));
         }
+
         return content;
     }
 }

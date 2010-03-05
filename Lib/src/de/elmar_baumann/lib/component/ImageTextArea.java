@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.component;
 
 import de.elmar_baumann.lib.image.util.IconUtil;
-import java.awt.Graphics;
-import java.awt.Image;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.Graphics;
+import java.awt.Image;
+
 import javax.swing.JTextArea;
 
 /**
@@ -42,11 +45,10 @@ import javax.swing.JTextArea;
  * @version 2009-12-30
  */
 public final class ImageTextArea extends JTextArea implements KeyListener {
-
-    private static final long    serialVersionUID = -3386009175292905714L;
-    private              Image   image;
-    private              boolean paintImage;
-    protected            String  imagePath;
+    private static final long serialVersionUID = -3386009175292905714L;
+    private Image             image;
+    private boolean           paintImage;
+    protected String          imagePath;
 
     public ImageTextArea() {
         addKeyListener(this);
@@ -67,11 +69,9 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
      * @param imagePath path, e.g. <code>"/com/mydomain/myproject/res/search.png"</code>
      */
     public void setImagePath(String imagePath) {
-
         this.imagePath = imagePath;
         image          = IconUtil.getIconImage(imagePath);
         paintImage     = image != null;
-
         setOpaque(false);
     }
 
@@ -81,46 +81,46 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
      * @param image image
      */
     public void setImage(Image image) {
-
         this.image     = image;
         this.imagePath = null;
         paintImage     = image != null;
-
         setOpaque(false);
     }
 
     @Override
-    public void paintComponent (Graphics g) {
+    public void paintComponent(Graphics g) {
         drawImage(g);
         super.paintComponent(g);
     }
 
     private void drawImage(Graphics g) {
-
         if (paintImage) {
-
             int imgHeight  = image.getHeight(this);
             int thisHeight = getHeight();
-            int imgY       = imgHeight >= thisHeight ? 0 : (int) (((double)(thisHeight - imgHeight)) / 2.0 + 0.5);
+            int imgY       = (imgHeight >= thisHeight)
+                             ? 0
+                             : (int) (((double) (thisHeight - imgHeight)) / 2.0
+                                      + 0.5);
 
             g.drawImage(image, 0, imgY, this);
-
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        paintImage = getDocument().getLength() <= 0 && e.getKeyChar() < 20;
+        paintImage = (getDocument().getLength() <= 0) && (e.getKeyChar() < 20);
         setOpaque(!paintImage);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

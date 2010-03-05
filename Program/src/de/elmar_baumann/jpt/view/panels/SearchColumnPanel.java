@@ -17,33 +17,37 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.lib.thirdparty.DateChooserDialog;
 import de.elmar_baumann.jpt.data.SavedSearchPanel;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.selections.ColumnIds;
 import de.elmar_baumann.jpt.database.metadata.Comparator;
+import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.FormatterFactory;
 import de.elmar_baumann.jpt.database.metadata.Operator;
-import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.selections.AdvancedSearchColumns;
+import de.elmar_baumann.jpt.database.metadata.selections.ColumnIds;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
-import de.elmar_baumann.jpt.event.SearchEvent;
-import de.elmar_baumann.jpt.event.listener.SearchListener;
 import de.elmar_baumann.jpt.event.listener.impl.SearchListenerSupport;
+import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.renderer.ListCellRendererTableColumns;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+import de.elmar_baumann.lib.thirdparty.DateChooserDialog;
+
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.KeyEvent;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -57,18 +61,23 @@ import javax.swing.JToggleButton;
  * @version 2008-10-05
  */
 public final class SearchColumnPanel extends javax.swing.JPanel {
-
-    private static final    long                         serialVersionUID      = -2063583386957538525L;
-    private static final    String                       SEL_LEFT_BRACKET      = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
-    private static final    String                       NOT_SEL_LEFT_BRACKET  = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
-    private static final    String                       SEL_RIGHT_BRACKET     = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
-    private static final    String                       NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
-    private final transient SearchListenerSupport        listenerSupport       = new SearchListenerSupport();
-    private final           ListCellRendererTableColumns columnRenderer        = new ListCellRendererTableColumns();
-    private                 boolean                      isOperatorsEnabled    = true;
-    private                 boolean                      listenToActions       = true;
-    private                 boolean                      isFirst;
-    private                 boolean                      changed;
+    private static final long   serialVersionUID = -2063583386957538525L;
+    private static final String SEL_LEFT_BRACKET =
+        "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
+    private static final String NOT_SEL_LEFT_BRACKET =
+        "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
+    private static final String SEL_RIGHT_BRACKET =
+        "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
+    private static final String NOT_SEL_RIGHT_BRACKET =
+        "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
+    private final transient SearchListenerSupport listenerSupport =
+        new SearchListenerSupport();
+    private final ListCellRendererTableColumns columnRenderer =
+        new ListCellRendererTableColumns();
+    private boolean isOperatorsEnabled = true;
+    private boolean listenToActions    = true;
+    private boolean isFirst;
+    private boolean changed;
 
     public SearchColumnPanel() {
         initComponents();
@@ -110,13 +119,11 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     public void removeFirst() {
-
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
         setSize(panel1, toggleButtonBracketLeft1.getPreferredSize());
         setSize(panel2, comboBoxOperators.getPreferredSize());
-
         remove(comboBoxOperators);
         remove(toggleButtonBracketLeft1);
 
@@ -125,11 +132,9 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gbc.fill  = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         add(panel1, gbc);
-
         gbc.gridx  = 1;
         gbc.insets = new Insets(0, 6, 0, 0);
         add(panel2, gbc);
-
         ComponentUtil.forceRepaint(this);
     }
 
@@ -141,7 +146,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void setFormatter() {
         textFieldValue.setFormatterFactory(
-                FormatterFactory.getFormatterFactory(getColumn()));
+            FormatterFactory.getFormatterFactory(getColumn()));
     }
 
     private void setInputVerifier() {
@@ -154,7 +159,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void checkKey(KeyEvent evt) {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            listenerSupport.notifyListeners(new SearchEvent(SearchEvent.Type.START));
+            listenerSupport.notifyListeners(
+                new SearchEvent(SearchEvent.Type.START));
         }
     }
 
@@ -162,12 +168,15 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         if (toggleButtonBracketLeft2.isSelected()) {
             toggleButtonBracketLeft1.setSelected(false);
         }
+
         if (toggleButtonBracketLeft1.isSelected()) {
             toggleButtonBracketLeft2.setSelected(false);
         }
-        toggleButtonBracketLeft1.setEnabled(
-                isOperatorsEnabled && !toggleButtonBracketLeft2.isSelected());
-        toggleButtonBracketLeft2.setEnabled(!toggleButtonBracketLeft1.isSelected());
+
+        toggleButtonBracketLeft1.setEnabled(isOperatorsEnabled
+                &&!toggleButtonBracketLeft2.isSelected());
+        toggleButtonBracketLeft2.setEnabled(
+            !toggleButtonBracketLeft1.isSelected());
         setToggleButtonsText();
     }
 
@@ -181,15 +190,13 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         boolean sel   = tb.isSelected();
         boolean right = !left;
 
-        tb.setText(
-                left && sel
-                ? SEL_LEFT_BRACKET
-                : left && !sel
-                ? NOT_SEL_LEFT_BRACKET
-                : right && sel
-                ? SEL_RIGHT_BRACKET
-                : NOT_SEL_RIGHT_BRACKET
-                );
+        tb.setText((left && sel)
+                   ? SEL_LEFT_BRACKET
+                   : (left &&!sel)
+                     ? NOT_SEL_LEFT_BRACKET
+                     : (right && sel)
+                       ? SEL_RIGHT_BRACKET
+                       : NOT_SEL_RIGHT_BRACKET);
     }
 
     /**
@@ -216,7 +223,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setComboboxSelIndices() {
-        listenToActions  = false;
+        listenToActions = false;
         comboBoxOperators.setSelectedIndex(0);
         comboBoxColumns.setSelectedIndex(0);
         comboBoxComparators.setSelectedIndex(0);
@@ -234,12 +241,15 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public int getCountOpenBrackets() {
         int count = 0;
+
         if (toggleButtonBracketLeft1.isSelected()) {
             count++;
         }
+
         if (toggleButtonBracketLeft2.isSelected()) {
             count++;
         }
+
         return count;
     }
 
@@ -250,9 +260,11 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public int getCountClosedBrackets() {
         int count = 0;
+
         if (toggleButtonBracketRight.isSelected()) {
             count++;
         }
+
         return count;
     }
 
@@ -262,10 +274,10 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      * @return true, wenn ein gültiger SQL-String geliefert werden kann
      */
     public boolean hasSql() {
-        return comboBoxOperators.getModel().getSelectedItem() != null &&
-               comboBoxColumns.getModel().getSelectedItem() != null &&
-               comboBoxComparators.getModel().getSelectedItem() != null &&
-               !textFieldValue.getText().trim().isEmpty();
+        return (comboBoxOperators.getModel().getSelectedItem() != null)
+               && (comboBoxColumns.getModel().getSelectedItem() != null)
+               && (comboBoxComparators.getModel().getSelectedItem() != null)
+               &&!textFieldValue.getText().trim().isEmpty();
     }
 
     /**
@@ -277,23 +289,36 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public String getSqlString() {
         if (hasSql()) {
-            Operator   relation = (Operator) comboBoxOperators.getModel().getSelectedItem();
-            Column     column   = (Column) comboBoxColumns.getModel().getSelectedItem();
-            Comparator operator = (Comparator) comboBoxComparators.getModel().getSelectedItem();
-
+            Operator relation =
+                (Operator) comboBoxOperators.getModel().getSelectedItem();
+            Column column =
+                (Column) comboBoxColumns.getModel().getSelectedItem();
+            Comparator operator =
+                (Comparator) comboBoxComparators.getModel().getSelectedItem();
             StringBuffer buffer = new StringBuffer();
-            buffer.append(toggleButtonBracketLeft1.isSelected() ? " (" : "");
+
+            buffer.append(toggleButtonBracketLeft1.isSelected()
+                          ? " ("
+                          : "");
+
             if (!isFirst) {
                 buffer.append(" " + relation.toSqlString());
             }
-            buffer.append(toggleButtonBracketLeft2.isSelected() ? " (" : "");
-            buffer.append(" " + column.getTable().getName() + "." + column.getName());
+
+            buffer.append(toggleButtonBracketLeft2.isSelected()
+                          ? " ("
+                          : "");
+            buffer.append(" " + column.getTable().getName() + "."
+                          + column.getName());
             buffer.append(" " + operator.toSqlString());
             buffer.append(" ?");
-            buffer.append(toggleButtonBracketRight.isSelected() ? ")" : "");
+            buffer.append(toggleButtonBracketRight.isSelected()
+                          ? ")"
+                          : "");
 
             return buffer.toString();
         }
+
         return null;
     }
 
@@ -314,9 +339,11 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public Column getSelectedColumn() {
         Object item = comboBoxColumns.getModel().getSelectedItem();
-        if (item != null && item instanceof Column) {
+
+        if ((item != null) && (item instanceof Column)) {
             return (Column) item;
         }
+
         return null;
     }
 
@@ -327,7 +354,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public boolean isColumnSelected() {
         Object item = comboBoxColumns.getModel().getSelectedItem();
-        return item != null && item instanceof Column;
+
+        return (item != null) && (item instanceof Column);
     }
 
     /**
@@ -337,19 +365,32 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public SavedSearchPanel getSavedSearchData() {
         listenToActions = false;
+
         SavedSearchPanel savedSearchPanel = new SavedSearchPanel();
-        savedSearchPanel.setBracketRightSelected(toggleButtonBracketRight.isSelected());
-        savedSearchPanel.setColumnId(ColumnIds.getId((Column) comboBoxColumns.getModel().getSelectedItem()));
-        savedSearchPanel.setComparatorId(((Comparator) comboBoxComparators.getModel().getSelectedItem()).getId());
-        savedSearchPanel.setBracketLeft1Selected(toggleButtonBracketLeft1.isSelected());
-        savedSearchPanel.setBracketLeft2Selected(toggleButtonBracketLeft2.isSelected());
-        savedSearchPanel.setOperatorId(((Operator) comboBoxOperators.getModel().getSelectedItem()).getId());
+
+        savedSearchPanel.setBracketRightSelected(
+            toggleButtonBracketRight.isSelected());
+        savedSearchPanel.setColumnId(
+            ColumnIds.getId(
+                (Column) comboBoxColumns.getModel().getSelectedItem()));
+        savedSearchPanel
+            .setComparatorId(((Comparator) comboBoxComparators.getModel()
+                .getSelectedItem()).getId());
+        savedSearchPanel.setBracketLeft1Selected(
+            toggleButtonBracketLeft1.isSelected());
+        savedSearchPanel.setBracketLeft2Selected(
+            toggleButtonBracketLeft2.isSelected());
+        savedSearchPanel
+            .setOperatorId(((Operator) comboBoxOperators.getModel()
+                .getSelectedItem()).getId());
 
         String value = textFieldValue.getText();
+
         savedSearchPanel.setValue(value.isEmpty()
                                   ? null
                                   : value);
         listenToActions = true;
+
         return savedSearchPanel;
     }
 
@@ -360,15 +401,23 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     public void setSavedSearchPanel(SavedSearchPanel savedSearchPanel) {
         listenToActions = false;
-        toggleButtonBracketRight.setSelected(savedSearchPanel.isBracketRightSelected());
-        comboBoxColumns         .getModel().setSelectedItem(ColumnIds.getColumn(savedSearchPanel.getColumnId()));
-        comboBoxComparators     .getModel().setSelectedItem(Comparator.get(savedSearchPanel.getComparatorId()));
-        toggleButtonBracketLeft1           .setSelected    (savedSearchPanel.isBracketLeft1Selected());
-        toggleButtonBracketLeft2           .setSelected    (savedSearchPanel.isBracketLeft2Selected());
-        comboBoxOperators       .getModel().setSelectedItem(Operator.get(savedSearchPanel.getOperatorId()));
+        toggleButtonBracketRight.setSelected(
+            savedSearchPanel.isBracketRightSelected());
+        comboBoxColumns.getModel().setSelectedItem(
+            ColumnIds.getColumn(savedSearchPanel.getColumnId()));
+        comboBoxComparators.getModel().setSelectedItem(
+            Comparator.get(savedSearchPanel.getComparatorId()));
+        toggleButtonBracketLeft1.setSelected(
+            savedSearchPanel.isBracketLeft1Selected());
+        toggleButtonBracketLeft2.setSelected(
+            savedSearchPanel.isBracketLeft2Selected());
+        comboBoxOperators.getModel().setSelectedItem(
+            Operator.get(savedSearchPanel.getOperatorId()));
+
         if (savedSearchPanel.hasValue()) {
             textFieldValue.setText(savedSearchPanel.getValue());
         }
+
         setToggleButtonsText();
         listenToActions = true;
     }
@@ -394,11 +443,15 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setDate() {
-        GregorianCalendar cal = DateChooserDialog.showDialog(this, AppLookAndFeel.getAppIcons());
+        GregorianCalendar cal = DateChooserDialog.showDialog(this,
+                                    AppLookAndFeel.getAppIcons());
+
         if (cal != null) {
             String year  = Integer.toString(cal.get(Calendar.YEAR));
-            String month = getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
-            String day   = getDateFormatted(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+            String month =
+                getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
+            String day = getDateFormatted(
+                             Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
 
             textFieldValue.setText(year + "-" + month + "-" + day);
             setChanged(true);
@@ -409,6 +462,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         if (dayOrMonth.length() < 2) {
             return "0" + dayOrMonth;
         }
+
         return dayOrMonth;
     }
 
@@ -426,6 +480,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void handleTaggleButtonBracketLeft2ActionPerformed() {
         setToggleButtonsTexts(toggleButtonBracketLeft2, true);
+
         if (listenToActions) {
             checkToggleButtons();
             setChanged(true);
@@ -434,6 +489,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void handleTaggleButtonBracketLeftActionPerformed() {
         setToggleButtonsTexts(toggleButtonBracketLeft1, true);
+
         if (listenToActions) {
             checkToggleButtons();
             setChanged(true);
@@ -457,141 +513,150 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void setEnabledCalendarButton() {
         buttonCalendar.setEnabled(
-                comboBoxColumns.getModel().getSelectedItem().equals(ColumnExifDateTimeOriginal.INSTANCE));
+            comboBoxColumns.getModel().getSelectedItem().equals(
+                ColumnExifDateTimeOriginal.INSTANCE));
     }
 
     private void showInputHelpers() {
-        if (listenToActions && getColumn().equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (listenToActions
+                && getColumn().equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
             GUI.INSTANCE.getAppFrame().getMenuItemInputHelper().doClick();
         }
     }
 
-    /** This method is called from within the constructor to
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         toggleButtonBracketLeft1 = new javax.swing.JToggleButton();
-        comboBoxOperators = new javax.swing.JComboBox();
+        comboBoxOperators        = new javax.swing.JComboBox();
         toggleButtonBracketLeft2 = new javax.swing.JToggleButton();
-        comboBoxColumns = new javax.swing.JComboBox();
-        comboBoxComparators = new javax.swing.JComboBox();
-        textFieldValue = new javax.swing.JFormattedTextField();
+        comboBoxColumns          = new javax.swing.JComboBox();
+        comboBoxComparators      = new javax.swing.JComboBox();
+        textFieldValue           = new javax.swing.JFormattedTextField();
         textFieldValue.setTransferHandler(new TransferHandlerDropEdit());
         toggleButtonBracketRight = new javax.swing.JToggleButton();
-        buttonCalendar = new javax.swing.JButton();
-
+        buttonCalendar           = new javax.swing.JButton();
         setLayout(new java.awt.GridBagLayout());
-
         toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft1.setText("(");
-        toggleButtonBracketLeft1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketLeft1.setBorder(
+            javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketLeft1.setContentAreaFilled(false);
         toggleButtonBracketLeft1.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
+        toggleButtonBracketLeft1.addActionListener(
+            new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft1ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints       = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.fill  = java.awt.GridBagConstraints.VERTICAL;
         add(toggleButtonBracketLeft1, gridBagConstraints);
-
         comboBoxOperators.setModel(new DefaultComboBoxModel(Operator.values()));
-        comboBoxOperators.addActionListener(new java.awt.event.ActionListener() {
+        comboBoxOperators.addActionListener(
+            new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxOperatorsActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints        = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx  = 1;
+        gridBagConstraints.gridy  = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxOperators, gridBagConstraints);
-
         toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft2.setText("(");
-        toggleButtonBracketLeft2.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketLeft2.setBorder(
+            javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketLeft2.setContentAreaFilled(false);
         toggleButtonBracketLeft2.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
+        toggleButtonBracketLeft2.addActionListener(
+            new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft2ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.ipadx = 2;
+        gridBagConstraints        = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx  = 2;
+        gridBagConstraints.gridy  = 0;
+        gridBagConstraints.fill   = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx  = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
-
-        comboBoxColumns.setModel(new DefaultComboBoxModel(AdvancedSearchColumns.get().toArray()));
+        comboBoxColumns.setModel(
+            new DefaultComboBoxModel(AdvancedSearchColumns.get().toArray()));
         comboBoxColumns.setRenderer(columnRenderer);
         comboBoxColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxColumnsActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints        = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx  = 3;
+        gridBagConstraints.gridy  = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxColumns, gridBagConstraints);
-
-        comboBoxComparators.setModel(new DefaultComboBoxModel(Comparator.values()));
-        comboBoxComparators.addActionListener(new java.awt.event.ActionListener() {
+        comboBoxComparators.setModel(
+            new DefaultComboBoxModel(Comparator.values()));
+        comboBoxComparators.addActionListener(
+            new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxComparatorsActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints        = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx  = 4;
+        gridBagConstraints.gridy  = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxComparators, gridBagConstraints);
-
-        textFieldValue.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+        textFieldValue.setFocusLostBehavior(
+            javax.swing.JFormattedTextField.PERSIST);
         textFieldValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textFieldValueKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints         = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx   = 5;
+        gridBagConstraints.gridy   = 0;
+        gridBagConstraints.fill    = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets  = new java.awt.Insets(0, 6, 0, 0);
         add(textFieldValue, gridBagConstraints);
-
         toggleButtonBracketRight.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketRight.setText(")");
-        toggleButtonBracketRight.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketRight.setBorder(
+            javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketRight.setContentAreaFilled(false);
         toggleButtonBracketRight.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {
+        toggleButtonBracketRight.addActionListener(
+            new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketRightActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.ipadx = 2;
+        gridBagConstraints        = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx  = 6;
+        gridBagConstraints.gridy  = 0;
+        gridBagConstraints.fill   = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx  = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
-
-        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_calendar.png"))); // NOI18N
+        buttonCalendar.setIcon(
+            new javax.swing.ImageIcon(
+                getClass().getResource(
+                    "/de/elmar_baumann/jpt/resource/icons/icon_calendar.png")));    // NOI18N
         buttonCalendar.setMnemonic('1');
         buttonCalendar.setPreferredSize(new java.awt.Dimension(16, 16));
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
@@ -599,53 +664,61 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
                 buttonCalendarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints        = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx  = 7;
+        gridBagConstraints.gridy  = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(buttonCalendar, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }    // </editor-fold>//GEN-END:initComponents
 
-private void toggleButtonBracketLeft1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft1ActionPerformed
-    handleTaggleButtonBracketLeftActionPerformed();
-}//GEN-LAST:event_toggleButtonBracketLeft1ActionPerformed
+    private void toggleButtonBracketLeft1ActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonBracketLeft1ActionPerformed
+        handleTaggleButtonBracketLeftActionPerformed();
+    }    // GEN-LAST:event_toggleButtonBracketLeft1ActionPerformed
 
-private void toggleButtonBracketLeft2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft2ActionPerformed
-    handleTaggleButtonBracketLeft2ActionPerformed();
-}//GEN-LAST:event_toggleButtonBracketLeft2ActionPerformed
+    private void toggleButtonBracketLeft2ActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonBracketLeft2ActionPerformed
+        handleTaggleButtonBracketLeft2ActionPerformed();
+    }    // GEN-LAST:event_toggleButtonBracketLeft2ActionPerformed
 
-private void buttonCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalendarActionPerformed
-    handleButtonCalendarActionPerformed();
-}//GEN-LAST:event_buttonCalendarActionPerformed
+    private void buttonCalendarActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCalendarActionPerformed
+        handleButtonCalendarActionPerformed();
+    }    // GEN-LAST:event_buttonCalendarActionPerformed
 
-private void comboBoxOperatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxOperatorsActionPerformed
-    setChanged();
-}//GEN-LAST:event_comboBoxOperatorsActionPerformed
+    private void comboBoxOperatorsActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxOperatorsActionPerformed
+        setChanged();
+    }    // GEN-LAST:event_comboBoxOperatorsActionPerformed
 
-private void comboBoxColumnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxColumnsActionPerformed
-    handleColumnChanged();
-}//GEN-LAST:event_comboBoxColumnsActionPerformed
+    private void comboBoxColumnsActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxColumnsActionPerformed
+        handleColumnChanged();
+    }    // GEN-LAST:event_comboBoxColumnsActionPerformed
 
-private void comboBoxComparatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxComparatorsActionPerformed
-    setChanged();
-}//GEN-LAST:event_comboBoxComparatorsActionPerformed
+    private void comboBoxComparatorsActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxComparatorsActionPerformed
+        setChanged();
+    }    // GEN-LAST:event_comboBoxComparatorsActionPerformed
 
-private void toggleButtonBracketRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketRightActionPerformed
-    setToggleButtonsTexts(toggleButtonBracketRight, false);
-    setChanged();
-}//GEN-LAST:event_toggleButtonBracketRightActionPerformed
+    private void toggleButtonBracketRightActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonBracketRightActionPerformed
+        setToggleButtonsTexts(toggleButtonBracketRight, false);
+        setChanged();
+    }    // GEN-LAST:event_toggleButtonBracketRightActionPerformed
 
-private void textFieldValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldValueKeyTyped
-    handleTextFieldValueKeyTyped(evt);
-}//GEN-LAST:event_textFieldValueKeyTyped
+    private void textFieldValueKeyTyped(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldValueKeyTyped
+        handleTextFieldValueKeyTyped(evt);
+    }    // GEN-LAST:event_textFieldValueKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCalendar;
-    private javax.swing.JComboBox comboBoxColumns;
-    private javax.swing.JComboBox comboBoxComparators;
-    private javax.swing.JComboBox comboBoxOperators;
+    private javax.swing.JButton             buttonCalendar;
+    private javax.swing.JComboBox           comboBoxColumns;
+    private javax.swing.JComboBox           comboBoxComparators;
+    private javax.swing.JComboBox           comboBoxOperators;
     private javax.swing.JFormattedTextField textFieldValue;
-    private javax.swing.JToggleButton toggleButtonBracketLeft1;
-    private javax.swing.JToggleButton toggleButtonBracketLeft2;
-    private javax.swing.JToggleButton toggleButtonBracketRight;
+    private javax.swing.JToggleButton       toggleButtonBracketLeft1;
+    private javax.swing.JToggleButton       toggleButtonBracketLeft2;
+    private javax.swing.JToggleButton       toggleButtonBracketRight;
+
     // End of variables declaration//GEN-END:variables
 }

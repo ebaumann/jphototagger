@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 /**
@@ -37,6 +38,5 @@ public final class MathUtil {
         return value - java.lang.Math.floor(value) == 0;
     }
 
-    private MathUtil() {
-    }
+    private MathUtil() {}
 }

@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.lang.reflect.Field;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,13 +44,17 @@ public final class ColumnUtil {
      */
     public static List<Column> columnKeysToColumns(List<String> columnKeys) {
         List<Column> columns = new ArrayList<Column>();
+
         for (String key : columnKeys) {
             try {
-                if (!key.contains("ColumnXmpPhotoshopCategory") &&
-                    !key.contains("ColumnXmpPhotoshopSupplementalcategories")) {
-                    Class<?> cl = Class.forName(key);
-                    @SuppressWarnings("unchecked")
-                    Field field = cl.getField("INSTANCE");
+                if (!key.contains("ColumnXmpPhotoshopCategory")
+                        &&!key.contains(
+                            "ColumnXmpPhotoshopSupplementalcategories")) {
+                    Class<?>                             cl    =
+                        Class.forName(key);
+                    @SuppressWarnings("unchecked") Field field =
+                        cl.getField("INSTANCE");
+
                     if (field.get(null) instanceof Column) {
                         columns.add((Column) field.get(null));
                     }
@@ -56,6 +63,7 @@ public final class ColumnUtil {
                 AppLogger.logSevere(ColumnUtil.class, ex);
             }
         }
+
         return columns;
     }
 
@@ -67,9 +75,11 @@ public final class ColumnUtil {
      */
     public static List<String> getDescriptionsOfColumns(List<Column> columns) {
         List<String> text = new ArrayList<String>();
+
         for (Column column : columns) {
             text.add(column.getDescription());
         }
+
         return text;
     }
 

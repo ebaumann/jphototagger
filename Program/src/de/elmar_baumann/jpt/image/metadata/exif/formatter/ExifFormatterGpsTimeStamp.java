@@ -17,14 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.nio.ByteOrder;
+
 import java.text.DateFormat;
+
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -35,30 +39,31 @@ import java.util.Calendar;
  * @version 2009-06-10
  */
 public final class ExifFormatterGpsTimeStamp extends ExifFormatter {
+    public static final ExifFormatterGpsTimeStamp INSTANCE =
+        new ExifFormatterGpsTimeStamp();
 
-    public static final ExifFormatterGpsTimeStamp INSTANCE = new ExifFormatterGpsTimeStamp();
-
-    private ExifFormatterGpsTimeStamp() {
-    }
+    private ExifFormatterGpsTimeStamp() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_TIME_STAMP);
 
         ByteOrder byteOrder = exifTag.byteOrder();
         byte[]    rawValue  = exifTag.rawValue();
 
-        if (rawValue.length != 24) return new String(rawValue);
+        if (rawValue.length != 24) {
+            return new String(rawValue);
+        }
 
-        ExifRational hours   = new ExifRational(Arrays.copyOfRange(rawValue,  0,  8), byteOrder);
-        ExifRational minutes = new ExifRational(Arrays.copyOfRange(rawValue,  8, 16), byteOrder);
-        ExifRational seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
-
-        int h = (int) ExifDatatypeUtil.toLong(hours);
-        int m = (int) ExifDatatypeUtil.toLong(minutes);
-        int s = (int) ExifDatatypeUtil.toLong(seconds);
-
+        ExifRational hours = new ExifRational(Arrays.copyOfRange(rawValue, 0,
+                                 8), byteOrder);
+        ExifRational minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8,
+                                   16), byteOrder);
+        ExifRational seconds = new ExifRational(Arrays.copyOfRange(rawValue,
+                                   16, 24), byteOrder);
+        int      h   = (int) ExifDatatypeUtil.toLong(hours);
+        int      m   = (int) ExifDatatypeUtil.toLong(minutes);
+        int      s   = (int) ExifDatatypeUtil.toLong(seconds);
         Calendar cal = Calendar.getInstance();
 
         cal.set(2009, 4, 3, h, m, s);

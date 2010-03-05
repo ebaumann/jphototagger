@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.DatabaseContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.lib.util.CollectionUtil;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,10 +40,9 @@ import java.util.StringTokenizer;
  * @version 2008-09-10
  */
 public final class AutoCompleteData {
-
-    private final DatabaseContent    db     = DatabaseContent.INSTANCE;
+    private final DatabaseContent    db = DatabaseContent.INSTANCE;
     private final Set<Column>        columns;
-    private final LinkedList<String> words  = new LinkedList<String>();
+    private final LinkedList<String> words = new LinkedList<String>();
 
     /**
      * Creates a new instance of this class.
@@ -61,18 +62,22 @@ public final class AutoCompleteData {
             for (String wd : wordsOf(word)) {
                 if (Collections.binarySearch(words, wd) < 0) {
                     CollectionUtil.binaryInsert(words, wd);
+
                     return true;
                 }
             }
         }
+
         return false;
     }
 
     private List<String> wordsOf(Collection<String> strings) {
         List<String> wordsOf = new ArrayList<String>(strings.size());
+
         for (String string : strings) {
             wordsOf.addAll(wordsOf(string));
         }
+
         return wordsOf;
     }
 
@@ -83,6 +88,7 @@ public final class AutoCompleteData {
         while (st.hasMoreTokens()) {
             wordsOf.add(st.nextToken().trim());
         }
+
         return wordsOf;
     }
 

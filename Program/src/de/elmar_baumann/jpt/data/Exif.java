@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import java.sql.Date;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -29,10 +31,9 @@ import java.text.SimpleDateFormat;
  * @version 2008-08-27
  */
 public final class Exif {
-
     private Date   dateTimeOriginal;
-    private double focalLength       = -1;
-    private short  isoSpeedRatings   = -1;
+    private double focalLength     = -1;
+    private short  isoSpeedRatings = -1;
     private String recordingEquipment;
     private String lens;
 
@@ -42,9 +43,9 @@ public final class Exif {
      * @return date or null if not defined
      */
     public Date getDateTimeOriginal() {
-        return dateTimeOriginal == null
-                ? null
-                : new Date(dateTimeOriginal.getTime());
+        return (dateTimeOriginal == null)
+               ? null
+               : new Date(dateTimeOriginal.getTime());
     }
 
     /**
@@ -107,9 +108,12 @@ public final class Exif {
      * @param recordingEquipment camera
      */
     public void setRecordingEquipment(String recordingEquipment) {
+
         // Bugfix imagero: If first byte of RAW data is 0, then the returned string is "0"
-        this.recordingEquipment = recordingEquipment == null || recordingEquipment.equals("0")
-                    ? null : recordingEquipment;
+        this.recordingEquipment = ((recordingEquipment == null)
+                                   || recordingEquipment.equals("0"))
+                                  ? null
+                                  : recordingEquipment;
     }
 
     public String getLens() {
@@ -121,15 +125,15 @@ public final class Exif {
     }
 
     public String getXmpDateCreated() {
-        if (dateTimeOriginal == null) return "";
+        if (dateTimeOriginal == null) {
+            return "";
+        }
 
         return new SimpleDateFormat("yyyy-MM-dd").format(dateTimeOriginal);
     }
 
     public boolean isEmpty() {
-        return dateTimeOriginal == null &&
-                focalLength < 0 &&
-                isoSpeedRatings < 0 &&
-                recordingEquipment == null;
+        return (dateTimeOriginal == null) && (focalLength < 0)
+               && (isoSpeedRatings < 0) && (recordingEquipment == null);
     }
 }

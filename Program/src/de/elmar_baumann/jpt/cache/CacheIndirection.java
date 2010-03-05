@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
 import java.io.File;
@@ -28,7 +29,7 @@ import java.io.File;
  * @version 2009-07-18
  */
 public abstract class CacheIndirection {
-    public int usageTime;
+    public int  usageTime;
     public File file;
 
     public CacheIndirection(File _file) {

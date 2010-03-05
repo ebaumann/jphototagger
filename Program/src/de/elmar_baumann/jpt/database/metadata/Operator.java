@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -30,20 +31,18 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 public enum Operator {
 
     /** Verknüpfung zweier Spalten mit AND */
-    AND(0,
-    "AND",
-    JptBundle.INSTANCE.getString("Operator.And")),
+    AND(0, "AND", JptBundle.INSTANCE.getString("Operator.And")),
+
     /** Verknüpfung zweier Spalten mit OR */
-    OR(1,
-    "OR",
-    JptBundle.INSTANCE.getString("Operator.Or")),;
-    private final int id;
+    OR(1, "OR", JptBundle.INSTANCE.getString("Operator.Or")),;
+
+    private final int    id;
     private final String sqlString;
     private final String localizedString;
 
     private Operator(int id, String sqlString, String localizedString) {
-        this.id = id;
-        this.sqlString = sqlString;
+        this.id              = id;
+        this.sqlString       = sqlString;
         this.localizedString = localizedString;
     }
 
@@ -68,6 +67,7 @@ public enum Operator {
                 return operator;
             }
         }
+
         return null;
     }
 

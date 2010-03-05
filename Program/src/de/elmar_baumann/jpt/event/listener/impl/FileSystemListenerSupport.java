@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.event.FileSystemEvent;
@@ -27,10 +28,9 @@ import de.elmar_baumann.jpt.event.listener.FileSystemListener;
  * @author  Elmar Baumann
  * @version 2008-10-18
  */
-public final class FileSystemListenerSupport extends ListenerSupport<FileSystemListener> {
-
+public final class FileSystemListenerSupport
+        extends ListenerSupport<FileSystemListener> {
     public void notifyListeners(FileSystemEvent event) {
-
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
                 listener.actionPerformed(event);

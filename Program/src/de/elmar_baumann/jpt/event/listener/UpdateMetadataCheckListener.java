@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener;
 
 import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
@@ -28,6 +29,5 @@ import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
  * @version 2009-08-06
  */
 public interface UpdateMetadataCheckListener {
-
     public void actionPerformed(UpdateMetadataCheckEvent evt);
 }

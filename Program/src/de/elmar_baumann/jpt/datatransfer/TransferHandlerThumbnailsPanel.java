@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -30,19 +31,23 @@ import de.elmar_baumann.jpt.io.ImageUtil.ConfirmOverwrite;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.ContentUtil;
-import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+import de.elmar_baumann.jpt.view.ViewUtil;
+import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
-import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import de.elmar_baumann.lib.io.FileUtil;
-import java.awt.Point;
+
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.Point;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JTree;
@@ -60,19 +65,18 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2008-10-24
  */
 public final class TransferHandlerThumbnailsPanel extends TransferHandler {
-
     private static final long serialVersionUID = 1831860682951562565L;
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
+        ThumbnailsPanel tnPanel =
+            (ThumbnailsPanel) transferSupport.getComponent();
 
-        ThumbnailsPanel tnPanel = (ThumbnailsPanel) transferSupport.getComponent();
-
-        return metadataTransferred(transferSupport) ||
-               isImageCollection(tnPanel) ||
-               !transferSupport.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL) &&
-               canImportFiles(tnPanel) &&
-               Flavor.hasFiles(transferSupport.getTransferable());
+        return metadataTransferred(transferSupport)
+               || isImageCollection(tnPanel)
+               ||(!transferSupport.isDataFlavorSupported(
+                   Flavor.THUMBNAILS_PANEL) && canImportFiles(tnPanel)
+                       && Flavor.hasFiles(transferSupport.getTransferable()));
     }
 
     private boolean canImportFiles(ThumbnailsPanel tnPanel) {
@@ -80,25 +84,33 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private boolean metadataTransferred(TransferSupport transferSupport) {
-        boolean dropOverSelectedThumbnail = isDropOverSelectedThumbnail(transferSupport);
-        boolean isThumbnailPos            = isThumbnailPos(transferSupport);
-        return  (Flavor.hasKeywordsFromList(transferSupport) ||
-                 Flavor.hasKeywordsFromTree(transferSupport)) && isThumbnailPos ||
-                 Flavor.hasMetadataTemplate(transferSupport)  && dropOverSelectedThumbnail;
+        boolean dropOverSelectedThumbnail =
+            isDropOverSelectedThumbnail(transferSupport);
+        boolean isThumbnailPos = isThumbnailPos(transferSupport);
+
+        return (Flavor.hasKeywordsFromList(
+            transferSupport) || Flavor.hasKeywordsFromTree(
+            transferSupport)) && isThumbnailPos || (Flavor.hasMetadataTemplate(
+                transferSupport) && dropOverSelectedThumbnail);
     }
 
     @Override
     protected Transferable createTransferable(JComponent c) {
         return new TransferableObject(
-                ImageUtil.addSidecarFiles(((ThumbnailsPanel) c).getSelectedFiles()),
-                getFlavors(c));
+            ImageUtil.addSidecarFiles(
+                ((ThumbnailsPanel) c).getSelectedFiles()), getFlavors(c));
     }
 
     private java.awt.datatransfer.DataFlavor[] getFlavors(JComponent c) {
-        return ((ThumbnailsPanel) c).getContent().equals(Content.IMAGE_COLLECTION)
-                ? new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR, Flavor.URI_LIST, Flavor.IMAGE_COLLECTION }
-                : new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR, Flavor.URI_LIST }
-        ;
+        return ((ThumbnailsPanel) c).getContent().equals(
+            Content.IMAGE_COLLECTION)
+               ? new java.awt.datatransfer.DataFlavor[] {
+                   Flavor.THUMBNAILS_PANEL,
+                   Flavor.FILE_LIST_FLAVOR, Flavor.URI_LIST,
+                   Flavor.IMAGE_COLLECTION }
+               : new java.awt.datatransfer.DataFlavor[] {
+                   Flavor.THUMBNAILS_PANEL,
+                   Flavor.FILE_LIST_FLAVOR, Flavor.URI_LIST };
     }
 
     @Override
@@ -108,22 +120,29 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
+        if (!transferSupport.isDrop()) {
+            return false;
+        }
 
-        if (!transferSupport.isDrop()) return false;
-
-        ThumbnailsPanel panel          = (ThumbnailsPanel) transferSupport.getComponent();
-        boolean         imagesSelected = panel.getSelectionCount() > 0;
+        ThumbnailsPanel panel =
+            (ThumbnailsPanel) transferSupport.getComponent();
+        boolean imagesSelected = panel.getSelectionCount() > 0;
 
         if (metadataTransferred(transferSupport)) {
             insertMetadata(transferSupport);
+
             return true;
         }
+
         if (imagesSelected && isImageCollection(panel)) {
             moveSelectedImages(transferSupport, panel);
+
             return true;
         }
+
         if (importFiles(getCurrentDirectory(), transferSupport)) {
             panel.refresh();
+
             return true;
         }
 
@@ -136,54 +155,58 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     protected void exportDone(JComponent c, Transferable data, int action) {
+
         // ignore, moving removes files from source directory
     }
 
-    private void moveSelectedImages(TransferSupport transferSupport, ThumbnailsPanel panel) {
-
+    private void moveSelectedImages(TransferSupport transferSupport,
+                                    ThumbnailsPanel panel) {
         Point dropPoint = transferSupport.getDropLocation().getDropPoint();
 
-        panel.moveSelectedToIndex(panel.getImageMoveDropIndex(dropPoint.x, dropPoint.y));
+        panel.moveSelectedToIndex(panel.getImageMoveDropIndex(dropPoint.x,
+                dropPoint.y));
 
         String imageCollectionName = getImageCollectionName();
 
         if (imageCollectionName != null) {
-            DatabaseImageCollections.INSTANCE.insert(
-                    imageCollectionName,
+            DatabaseImageCollections.INSTANCE.insert(imageCollectionName,
                     FileUtil.getAsFilenames(panel.getFiles()));
         }
     }
 
     private String getImageCollectionName() {
-        JList  listImageCollections = GUI.INSTANCE.getAppPanel().getListImageCollections();
-        Object selElement           = null;
-        int    selIndex             = listImageCollections.getSelectedIndex();
+        JList listImageCollections =
+            GUI.INSTANCE.getAppPanel().getListImageCollections();
+        Object selElement = null;
+        int    selIndex   = listImageCollections.getSelectedIndex();
 
         if (selIndex >= 0) {
             selElement = listImageCollections.getModel().getElementAt(selIndex);
         }
 
-        return selElement == null
-                ? null
-                : selElement.toString();
+        return (selElement == null)
+               ? null
+               : selElement.toString();
     }
 
     private boolean insertMetadata(TransferSupport transferSupport) {
-        Transferable t                         = transferSupport.getTransferable();
-        boolean      dropOverSelectedThumbnail = isDropOverSelectedThumbnail(transferSupport);
-        String       imageFilename             = getImageFilename(transferSupport);
+        Transferable t                         =
+            transferSupport.getTransferable();
+        boolean      dropOverSelectedThumbnail =
+            isDropOverSelectedThumbnail(transferSupport);
+        String imageFilename = getImageFilename(transferSupport);
 
         if (Flavor.hasKeywordsFromList(transferSupport)) {
-
-            importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t), dropOverSelectedThumbnail, imageFilename);
-
+            importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t),
+                          dropOverSelectedThumbnail, imageFilename);
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
-
             for (DefaultMutableTreeNode node : Support.getKeywordNodes(t)) {
                 if (dropOverSelectedThumbnail) {
                     KeywordsHelper.addKeywordsToEditPanel(node);
                 } else {
-                    KeywordsHelper.saveKeywordsToImageFile(KeywordsHelper.getKeywordStrings(node, true), imageFilename);
+                    KeywordsHelper.saveKeywordsToImageFile(
+                        KeywordsHelper.getKeywordStrings(node, true),
+                        imageFilename);
                 }
             }
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
@@ -191,22 +214,30 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         } else {
             return false;
         }
+
         return true;
     }
 
-    public void importStrings(DataFlavor dataFlavor, Object[] strings, boolean dropOverSelectedThumbnail, String imageFilename) {
-        if (strings == null || strings.length <= 0) return;
+    public void importStrings(DataFlavor dataFlavor, Object[] strings,
+                              boolean dropOverSelectedThumbnail,
+                              String imageFilename) {
+        if ((strings == null) || (strings.length <= 0)) {
+            return;
+        }
 
         List<String> keywords = new ArrayList<String>(strings.length);
+
         for (Object o : strings) {
             keywords.add(o.toString());
         }
 
         if (dropOverSelectedThumbnail) {
-            EditMetadataPanels editPanels = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-            Column                 column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
-                                                    ? ColumnXmpDcSubjectsSubject.INSTANCE
-                                                    : null;
+            EditMetadataPanels editPanels =
+                GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            Column column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
+                            ? ColumnXmpDcSubjectsSubject.INSTANCE
+                            : null;
+
             for (String keyword : keywords) {
                 editPanels.addText(column, keyword);
             }
@@ -215,26 +246,33 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         }
     }
 
-    public boolean isDropOverSelectedThumbnail(TransferSupport transferSupport) {
-        Point           p     = transferSupport.getDropLocation().getDropPoint();
-        ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
+    public boolean isDropOverSelectedThumbnail(
+            TransferSupport transferSupport) {
+        Point           p     =
+            transferSupport.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel =
+            (ThumbnailsPanel) transferSupport.getComponent();
 
         return panel.isSelected(panel.getImageMoveDropIndex(p.x, p.y));
     }
 
     private boolean isThumbnailPos(TransferSupport transferSupport) {
-        Point           p     = transferSupport.getDropLocation().getDropPoint();
-        ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
-
+        Point           p     =
+            transferSupport.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel =
+            (ThumbnailsPanel) transferSupport.getComponent();
         int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
+
         return (panel.isIndex(index));
     }
 
     private String getImageFilename(TransferSupport transferSupport) {
-        Point           p     = transferSupport.getDropLocation().getDropPoint();
-        ThumbnailsPanel panel = (ThumbnailsPanel) transferSupport.getComponent();
-
+        Point           p     =
+            transferSupport.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel =
+            (ThumbnailsPanel) transferSupport.getComponent();
         int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
+
         if (panel.isIndex(index)) {
             return panel.getFile(index).getAbsolutePath();
         } else {
@@ -242,27 +280,33 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         }
     }
 
-    private boolean importFiles(File targetDir, TransferSupport transferSupport) {
+    private boolean importFiles(File targetDir,
+                                TransferSupport transferSupport) {
+        if (targetDir == null) {
+            return false;
+        }
 
-        if (targetDir == null) return false;
-
-        List<File> srcFiles   = TransferUtil.getFiles(transferSupport.getTransferable(), FilenameDelimiter.EMPTY);
-        int        dropAction = transferSupport.getDropAction();
+        List<File> srcFiles =
+            TransferUtil.getFiles(transferSupport.getTransferable(),
+                                  FilenameDelimiter.EMPTY);
+        int dropAction = transferSupport.getDropAction();
 
         if (dropAction == TransferHandler.COPY) {
-            ImageUtil.copyImageFiles(
-                    ImageUtil.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
+            ImageUtil.copyImageFiles(ImageUtil.getImageFiles(srcFiles),
+                                     targetDir, ConfirmOverwrite.YES);
+
             return true;
         } else if (dropAction == TransferHandler.MOVE) {
-            ImageUtil.moveImageFiles(
-                    ImageUtil.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
+            ImageUtil.moveImageFiles(ImageUtil.getImageFiles(srcFiles),
+                                     targetDir, ConfirmOverwrite.YES);
+
             return true;
         }
+
         return false;
     }
 
     private File getCurrentDirectory() {
-
         JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
         JTree treeFavorites   = GUI.INSTANCE.getAppPanel().getTreeFavorites();
 
@@ -277,17 +321,17 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     private void importMetadataTemplate(TransferSupport transferSupport) {
         try {
-            Object[] selTemplates = (Object[]) transferSupport
-                                        .getTransferable()
-                                        .getTransferData(Flavor.METADATA_TEMPLATES);
+            Object[] selTemplates =
+                (Object[]) transferSupport.getTransferable().getTransferData(
+                    Flavor.METADATA_TEMPLATES);
 
-            if (selTemplates == null) return;
+            if (selTemplates == null) {
+                return;
+            }
 
             assert selTemplates.length == 1;
-
             GUI.INSTANCE.getAppPanel().getEditMetadataPanels()
-                    .setMetadataTemplate((MetadataTemplate)selTemplates[0]);
-
+                .setMetadataTemplate((MetadataTemplate) selTemplates[0]);
         } catch (Exception ex) {
             AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
         }

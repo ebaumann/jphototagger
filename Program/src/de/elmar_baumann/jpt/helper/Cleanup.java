@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -46,8 +47,10 @@ public final class Cleanup {
         ScheduledTasks.INSTANCE.stopCurrentTasks();
         AutomaticTask.INSTANCE.stopCurrentTask();
         UserTasks.INSTANCE.stopCurrentTasks();
-        boolean sleep = ScheduledTasks.INSTANCE.getCount() > 0 ||
-                UserTasks.INSTANCE.getCount() > 0;
+
+        boolean sleep = (ScheduledTasks.INSTANCE.getCount() > 0)
+                        || (UserTasks.INSTANCE.getCount() > 0);
+
         if (sleep) {
             sleep();
         }
@@ -55,6 +58,7 @@ public final class Cleanup {
 
     private static void sleep() {
         try {
+
             // Let the tasks a little bit time to complete until they can interrupt
             Thread.sleep(MILLISECONDS_SLEEP);
         } catch (Exception ex) {
@@ -62,6 +66,5 @@ public final class Cleanup {
         }
     }
 
-    private Cleanup() {
-    }
+    private Cleanup() {}
 }

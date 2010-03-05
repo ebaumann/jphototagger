@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -39,9 +42,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-06-19
  */
 public final class ControllerCreateDirectory extends ControllerDirectory {
-
     public ControllerCreateDirectory() {
-        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemCreateDirectory());
+        listenToActionsOf(
+            PopupMenuDirectories.INSTANCE.getItemCreateDirectory());
     }
 
     @Override
@@ -51,12 +54,13 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemCreateDirectory();
+        return evt.getSource()
+               == PopupMenuDirectories.INSTANCE.getItemCreateDirectory();
     }
 
     @Override
     protected void action(DefaultMutableTreeNode node) {
-        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).
-                                                        createDirectoryIn(node);
+        ModelFactory.INSTANCE.getModel(
+            TreeModelAllSystemDirectories.class).createDirectoryIn(node);
     }
 }

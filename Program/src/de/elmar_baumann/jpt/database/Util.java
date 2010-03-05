@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 import java.util.List;
 
 /**
@@ -40,13 +42,23 @@ public final class Util {
      */
     public static String getParamsInParentheses(int count) {
         assert count > 0 : "Count has to be > 0: " + count;
-        if (count <= 0) return "";
-        StringBuilder sb = new StringBuilder(count * 2);
-        sb.append("(");
-        for (int i = 0; i < count; i++) {
-            sb.append((i == 0 ? "" : ",") + "?");
+
+        if (count <= 0) {
+            return "";
         }
+
+        StringBuilder sb = new StringBuilder(count * 2);
+
+        sb.append("(");
+
+        for (int i = 0; i < count; i++) {
+            sb.append(((i == 0)
+                       ? ""
+                       : ",") + "?");
+        }
+
         sb.append(")");
+
         return sb.toString();
     }
 
@@ -61,15 +73,21 @@ public final class Util {
      *                be the parameter <code>1 + offset</code>.
      * @throws        SQLException
      */
-    static void setStringParams(PreparedStatement stmt, List<? extends String> params, int offset) throws SQLException {
+    static void setStringParams(PreparedStatement stmt,
+                                List<? extends String> params, int offset)
+            throws SQLException {
         assert offset >= 0 : "Negative offset: " + offset;
-        if (offset < 0) return;
+
+        if (offset < 0) {
+            return;
+        }
+
         int size = params.size();
+
         for (int i = 0; i < size; i++) {
             stmt.setString(i + 1 + offset, params.get(i));
         }
     }
 
-    private Util() {
-    }
+    private Util() {}
 }

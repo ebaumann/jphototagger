@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 import de.elmar_baumann.jpt.io.FileSystemError;
+
 import java.io.File;
 
 /**
@@ -29,18 +31,14 @@ import java.io.File;
  * @version 2008-10-20
  */
 public final class FileSystemEvent {
-
     public enum Type {
-        COPY,
-        DELETE,
-        MOVE,
-        RENAME
+        COPY, DELETE, MOVE, RENAME
     }
 
-    private final Type            type;
-    private final File            source;
-    private final File            target;
-    private       FileSystemError error;
+    private final Type      type;
+    private final File      source;
+    private final File      target;
+    private FileSystemError error;
 
     public FileSystemEvent(Type type, File source, File target) {
         this.type   = type;

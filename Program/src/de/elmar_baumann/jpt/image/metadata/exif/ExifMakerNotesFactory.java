@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif;
 
 import de.elmar_baumann.jpt.image.metadata.exif.formatter.canon.CanonMakerNotes;
 import de.elmar_baumann.jpt.image.metadata.exif.formatter.nikon.NikonMakerNotes;
+
 import java.io.File;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,8 +34,8 @@ import java.util.Map;
  * @version 2010-01-13
  */
 public final class ExifMakerNotesFactory {
-
-    private static final Map<String, ExifMakerNotes> makerNotesOfMake = new HashMap<String, ExifMakerNotes>();
+    private static final Map<String, ExifMakerNotes> makerNotesOfMake =
+        new HashMap<String, ExifMakerNotes>();
 
     static {
         makerNotesOfMake.put("nikon", new NikonMakerNotes());
@@ -40,12 +43,14 @@ public final class ExifMakerNotesFactory {
     }
 
     static void add(File file, ExifTags exifTags) {
+        ExifTag makerNoteTag =
+            exifTags.exifTagById(ExifTag.Id.MAKER_NOTE.value());
+        ExifTag makeTag = exifTags.exifTagById(ExifTag.Id.MAKE.value());
+        String  make    = (makeTag == null)
+                          ? null
+                          : makeTag.stringValue().toLowerCase();
 
-        ExifTag makerNoteTag = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE.value());
-        ExifTag makeTag      = exifTags.exifTagById(ExifTag.Id.MAKE.value());
-        String  make         = makeTag == null ? null : makeTag.stringValue().toLowerCase();
-
-        if (makeTag != null && makerNoteTag != null) {
+        if ((makeTag != null) && (makerNoteTag != null)) {
             for (String mk : makerNotesOfMake.keySet()) {
                 if (make.contains(mk)) {
                     makerNotesOfMake.get(mk).add(file, exifTags, makerNoteTag);
@@ -54,6 +59,5 @@ public final class ExifMakerNotesFactory {
         }
     }
 
-    private ExifMakerNotesFactory() {
-    }
+    private ExifMakerNotesFactory() {}
 }

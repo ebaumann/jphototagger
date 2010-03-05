@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Column.DataType;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.InputVerifierNumberRange;
+
 import javax.swing.InputVerifier;
 
 /**
@@ -32,19 +34,15 @@ import javax.swing.InputVerifier;
  * @version 2009-07-31
  */
 public final class ColumnXmpRating extends Column {
-
     public static final ColumnXmpRating INSTANCE = new ColumnXmpRating();
 
     private ColumnXmpRating() {
-        super(
-                TableXmp.INSTANCE,
-                "rating",
-                DataType.BIGINT);
-
+        super(TableXmp.INSTANCE, "rating", DataType.BIGINT);
         setLength(1);
-
-        setDescription(JptBundle.INSTANCE.getString("ColumnXmpRating.Description"));
-        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpRating.LongerDescription"));
+        setDescription(
+            JptBundle.INSTANCE.getString("ColumnXmpRating.Description"));
+        setLongerDescription(
+            JptBundle.INSTANCE.getString("ColumnXmpRating.LongerDescription"));
     }
 
     /**

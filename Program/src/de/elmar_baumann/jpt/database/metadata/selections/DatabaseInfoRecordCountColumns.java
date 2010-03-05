@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -31,19 +32,25 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopAuthorsposition;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopCaptionwriter;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCredit;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopInstructions;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,9 +61,7 @@ import java.util.List;
  * @version 2008-11-08
  */
 public final class DatabaseInfoRecordCountColumns {
-
     private static final List<Column> COLUMNS = new ArrayList<Column>();
-
 
     static {
         COLUMNS.add(ColumnFilesFilename.INSTANCE);
@@ -89,6 +94,5 @@ public final class DatabaseInfoRecordCountColumns {
         return new ArrayList<Column>(COLUMNS);
     }
 
-    private DatabaseInfoRecordCountColumns() {
-    }
+    private DatabaseInfoRecordCountColumns() {}
 }

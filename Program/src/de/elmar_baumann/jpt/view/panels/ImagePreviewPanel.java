@@ -1,22 +1,23 @@
 /*
  * JPhotoTagger tags and finds images fast.
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.app.AppFileFilters;
@@ -25,18 +26,22 @@ import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.io.filefilter.FileChooserFilter;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
 import java.io.File;
 import java.io.FileFilter;
+
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
-// Code based on http://www.javalobby.org/java/forums/t49462.html
+//Code based on http://www.javalobby.org/java/forums/t49462.html
 
 /**
  *
@@ -44,15 +49,15 @@ import javax.swing.JPanel;
  * @author  Elmar Baumann
  * @version 2010-02-28
  */
-public class ImagePreviewPanel extends JPanel implements PropertyChangeListener {
-
-    private static final long  serialVersionUID = 574676806606408192L;
-    private static final int   SIZE             = 155;
-    private static final int   PADDING          = 5;
-    private              int   width;
-    private              int   height;
-    private              Image image;
-    private              Color bg;
+public class ImagePreviewPanel extends JPanel
+        implements PropertyChangeListener {
+    private static final long serialVersionUID = 574676806606408192L;
+    private static final int  SIZE             = 155;
+    private static final int  PADDING          = 5;
+    private int               width;
+    private int               height;
+    private Image             image;
+    private Color             bg;
 
     public ImagePreviewPanel() {
         setPreferredSize(new Dimension(SIZE, -1));
@@ -61,13 +66,17 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
 
     @Override
     public void propertyChange(PropertyChangeEvent e) {
-        if (!e.getPropertyName().equals(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) return;
+        if (!e.getPropertyName().equals(
+                JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) {
+            return;
+        }
 
         File selFile = (File) e.getNewValue();
 
-        if (selFile == null || !ImageUtil.isImageFile(selFile)) {
+        if ((selFile == null) ||!ImageUtil.isImageFile(selFile)) {
             image = null;
             repaint();
+
             return;
         }
 
@@ -76,6 +85,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
         if (image == null) {
             image = ThumbnailUtil.getThumbnailFromJavaImageIo(selFile, SIZE);
         }
+
         if (image == null) {
             image = ThumbnailUtil.getThumbnailFromImagero(selFile, SIZE);
         }
@@ -83,12 +93,14 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
         if (image != null) {
             scaleImage();
         }
+
         repaint();
     }
 
     private void scaleImage() {
         width  = image.getWidth(this);
         height = image.getHeight(this);
+
         double ratio = 1.0;
 
         /*
@@ -119,21 +131,24 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     public void paintComponent(Graphics g) {
         g.setColor(bg);
         g.fillRect(0, 0, SIZE, getHeight());
+
         if (image != null) {
             g.drawImage(image, getWidth() / 2 - width / 2 + PADDING,
-                               getHeight() / 2 - height / 2, this);
+                        getHeight() / 2 - height / 2, this);
         }
     }
-    
+
     public javax.swing.filechooser.FileFilter getFileFilter() {
         return ImageFileFilter.forFileChooser();
     }
 
     private static class ImageFileFilter implements FileFilter {
-
-        private static final String          DESCRIPTION = JptBundle.INSTANCE.getString("ImagePreviewPanel.ImageFileFilter.Description");
-        private static final RegexFileFilter FILE_FILTER = AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
-        private static final ImageFileFilter INSTANCE    = new ImageFileFilter();
+        private static final String DESCRIPTION =
+            JptBundle.INSTANCE.getString(
+                "ImagePreviewPanel.ImageFileFilter.Description");
+        private static final RegexFileFilter FILE_FILTER =
+            AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
+        private static final ImageFileFilter INSTANCE = new ImageFileFilter();
 
         @Override
         public boolean accept(File path) {
@@ -144,10 +159,6 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
             return new FileChooserFilter(INSTANCE, DESCRIPTION);
         }
 
-    private ImageFileFilter() {
-    }
-
-
+        private ImageFileFilter() {}
     }
 }
-

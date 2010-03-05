@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,8 +32,8 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann
  * @version 2008-09-25
  */
-public final class ControllerShowAdvancedSearchDialog implements ActionListener {
-
+public final class ControllerShowAdvancedSearchDialog
+        implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         showDialog();

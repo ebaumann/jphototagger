@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.collections;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -30,15 +31,13 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-09-07
  */
 public final class ColumnCollectionsSequenceNumber extends Column {
-
-    public static final ColumnCollectionsSequenceNumber INSTANCE = new ColumnCollectionsSequenceNumber();
+    public static final ColumnCollectionsSequenceNumber INSTANCE =
+        new ColumnCollectionsSequenceNumber();
 
     private ColumnCollectionsSequenceNumber() {
-        super(
-            TableCollections.INSTANCE,
-            "sequence_number",
-            DataType.INTEGER);
-
-        setDescription(JptBundle.INSTANCE.getString("ColumnCollectionsSequenceNumber.Description"));
+        super(TableCollections.INSTANCE, "sequence_number", DataType.INTEGER);
+        setDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnCollectionsSequenceNumber.Description"));
     }
 }

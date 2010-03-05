@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import javax.swing.ComboBoxModel;
@@ -44,15 +45,22 @@ public final class ComboBoxUtil {
      * @see            #getItem(ComboBoxModel, String)
      */
     public static boolean hasItem(ComboBoxModel comboBox, String string) {
-        if (comboBox == null) throw new NullPointerException("comboBox == null");
-        if (string   == null) throw new NullPointerException("string == null");
+        if (comboBox == null) {
+            throw new NullPointerException("comboBox == null");
+        }
+
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
 
         for (int index = 0; index < comboBox.getSize(); index++) {
             Object currentItem = comboBox.getElementAt(index);
+
             if (currentItem.equals(string)) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -66,15 +74,22 @@ public final class ComboBoxUtil {
      * @see                 #hasItem(ComboBoxModel, String)
      */
     public static Object getItem(ComboBoxModel comboBoxModel, String string) {
-        if (comboBoxModel == null) throw new NullPointerException("comboBoxModel == null");
-        if (string        == null) throw new NullPointerException("string == null");
+        if (comboBoxModel == null) {
+            throw new NullPointerException("comboBoxModel == null");
+        }
+
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
 
         for (int index = 0; index < comboBoxModel.getSize(); index++) {
             Object currentItem = comboBoxModel.getElementAt(index);
+
             if (currentItem.equals(string)) {
                 return currentItem;
             }
         }
+
         return null;
     }
 
@@ -87,12 +102,17 @@ public final class ComboBoxUtil {
      * @param model  model
      * @param string string to select
      */
-    public static void selectString(final ComboBoxModel model, final String string) {
-        if (model  == null) throw new NullPointerException("model == null");
-        if (string == null) throw new NullPointerException("string == null");
+    public static void selectString(final ComboBoxModel model,
+                                    final String string) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
 
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 int    size    = model.getSize();
@@ -100,10 +120,13 @@ public final class ComboBoxUtil {
 
                 for (int i = 0; i < size; i++) {
                     Object element = model.getElementAt(i);
-                    if (element instanceof String && ((String) element).equals(string)) {
+
+                    if ((element instanceof String)
+                            && ((String) element).equals(string)) {
                         if (element != selItem) {
                             model.setSelectedItem(element);
                         }
+
                         return;
                     }
                 }
@@ -111,6 +134,5 @@ public final class ComboBoxUtil {
         });
     }
 
-    private ComboBoxUtil() {
-    }
+    private ComboBoxUtil() {}
 }

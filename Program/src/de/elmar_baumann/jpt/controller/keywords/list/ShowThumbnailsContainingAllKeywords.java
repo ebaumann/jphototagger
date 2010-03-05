@@ -17,16 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.list;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -39,10 +41,12 @@ import java.util.Set;
  * @version 2009-09-02
  */
 public final class ShowThumbnailsContainingAllKeywords implements Runnable {
-
-    private final DatabaseImageFiles       db              = DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel          thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanels       editPanels      = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+    private final DatabaseImageFiles db              =
+        DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel    thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final EditMetadataPanels editPanels =
+        GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
     private final ThumbnailsPanel.Settings tnPanelSettings;
     private final List<String>             keywords;
 
@@ -52,9 +56,10 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
      * @param keywords all keywords a image must have to be displayed
      * @param settings
      */
-    public ShowThumbnailsContainingAllKeywords(List<String> keywords, ThumbnailsPanel.Settings settings) {
-        this.keywords     = new ArrayList<String>(keywords);
-        tnPanelSettings   = settings;
+    public ShowThumbnailsContainingAllKeywords(List<String> keywords,
+            ThumbnailsPanel.Settings settings) {
+        this.keywords   = new ArrayList<String>(keywords);
+        tnPanelSettings = settings;
     }
 
     @Override
@@ -65,33 +70,43 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private void setFilesToThumbnailsPanel() {
         Set<String> filenames = getFilenamesOfKeywords();
+
         if (filenames != null) {
             ControllerSortThumbnails.setLastSort();
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.KEYWORD);
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                                     Content.KEYWORD);
             thumbnailsPanel.apply(tnPanelSettings);
         }
     }
 
     private Set<String> getFilenamesOfKeywords() {
+
         // Faster than using 2 different DB queries if only 1 keyword is selected
         if (keywords.size() == 1) {
             setTitle(keywords.get(0));
+
             return db.getFilenamesOfDcSubject(keywords.get(0));
         } else if (keywords.size() > 1) {
             setTitle(keywords);
+
             return db.getFilenamesOfAllDcSubjects(keywords);
         }
+
         return null;
     }
 
     private void setTitle(List<String> keywords) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString("ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
+            JptBundle.INSTANCE.getString(
+                "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keywords.Path",
+                Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString("ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keyword", keyword));
+            JptBundle.INSTANCE.getString(
+                "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keyword",
+                keyword));
     }
 
     private void setMetadataEditable() {

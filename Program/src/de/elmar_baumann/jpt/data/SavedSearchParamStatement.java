@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
+
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,29 +38,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearchParamStatement {
-
-    private String name;
-    private String sql;
-    
+    private String       name;
+    private String       sql;
     @XmlElementWrapper(name = "SavedSearchParamStatementValues")
     @XmlElement(type = String.class)
     private List<String> values;
+    private boolean      query;
 
-    private boolean query;
-
-    public SavedSearchParamStatement() {
-    }
+    public SavedSearchParamStatement() {}
 
     public SavedSearchParamStatement(SavedSearchParamStatement other) {
         set(other);
     }
 
     public void set(SavedSearchParamStatement other) {
-        if (other == this) return;
+        if (other == this) {
+            return;
+        }
 
         this.name   = other.name;
         this.sql    = other.sql;
-        this.values = other.values == null ? null : new ArrayList<String>(other.values);
+        this.values = (other.values == null)
+                      ? null
+                      : new ArrayList<String>(other.values);
         this.query  = other.query;
     }
 
@@ -87,24 +89,31 @@ public final class SavedSearchParamStatement {
     }
 
     public List<String> getValues() {
-        return values == null ? null : new ArrayList<String>(values);
+        return (values == null)
+               ? null
+               : new ArrayList<String>(values);
     }
 
     public void setValues(List<String> values) {
-        this.values = values == null ? null : new ArrayList<String>(values);
+        this.values = (values == null)
+                      ? null
+                      : new ArrayList<String>(values);
     }
 
     public ParamStatement createParamStatement() {
         ParamStatement stmt = null;
+
         if (!sql.isEmpty()) {
             stmt = new ParamStatement();
             stmt.setSql(sql);
             stmt.setIsQuery(query);
             stmt.setName(name);
+
             if (values != null) {
                 stmt.setValues(values.toArray());
             }
         }
+
         return stmt;
     }
 
@@ -113,17 +122,24 @@ public final class SavedSearchParamStatement {
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final SavedSearchParamStatement other = (SavedSearchParamStatement) obj;
+
         return this.name.equals(other.name);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + (this.name != null ? this.name.hashCode() : 0);
+
+        hash = 79 * hash + ((this.name != null)
+                            ? this.name.hashCode()
+                            : 0);
+
         return hash;
     }
 }

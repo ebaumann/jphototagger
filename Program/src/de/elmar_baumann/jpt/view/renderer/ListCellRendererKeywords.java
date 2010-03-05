@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
+
 import java.awt.Component;
+
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -32,20 +35,24 @@ import javax.swing.JList;
  * @version 2008-10-25
  */
 public final class ListCellRendererKeywords extends ListCellRendererExt {
-
-    private static final Icon ICON             = AppLookAndFeel.getIcon("icon_keyword.png");
+    private static final Icon ICON             =
+        AppLookAndFeel.getIcon("icon_keyword.png");
     private static final long serialVersionUID = 8358358177217506189L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value,
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
+                           index, isSelected, cellHasFocus);
+
         setColors(index, isSelected, label);
         label.setIcon(ICON);
+
         return label;
     }
 
     @Override
     public void setTempSelectionRow(int index) {
-        tempSelRow= index;
+        tempSelRow = index;
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.list;
 
 import java.util.List;
@@ -28,19 +29,19 @@ import java.util.List;
  * @version 2009-12-21
  */
 final class Util {
-
     public static String keywordPathString(List<String> keywords) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb    = new StringBuilder();
+        int           index = 0;
 
-        int index = 0;
         for (String keyword : keywords) {
-            sb.append(index++ == 0 ? "" : " / ");
+            sb.append((index++ == 0)
+                      ? ""
+                      : " / ");
             sb.append(keyword);
         }
 
         return sb.toString();
     }
 
-    private Util() {
-    }
+    private Util() {}
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -24,8 +25,10 @@ import de.elmar_baumann.jpt.comparator.ComparatorStringAscending;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.ListUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -36,27 +39,34 @@ import javax.swing.DefaultListModel;
  * @version 2008-10-05
  */
 public final class ListModelImageCollections extends DefaultListModel {
-
-    private static final List<String> SPECIAL_COLLECTIONS = new ArrayList<String>();
-    private static final long         serialVersionUID    = -929229489709109467L;
+    private static final List<String> SPECIAL_COLLECTIONS =
+        new ArrayList<String>();
+    private static final long serialVersionUID = -929229489709109467L;
 
     /**
      * Name of the image collection which contains the previous imported
      * image files
      */
-    public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT = JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
+    public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT =
+        JptBundle.INSTANCE.getString(
+            "ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
 
     /**
      * Name of the image collection which contains picked images
      */
-    public static final String NAME_IMAGE_COLLECTION_PICKED      = JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
+    public static final String NAME_IMAGE_COLLECTION_PICKED =
+        JptBundle.INSTANCE.getString(
+            "ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
 
     /**
      * Name of the image collection which contains rejected images
      */
-    public static final String NAME_IMAGE_COLLECTION_REJECTED    = JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
+    public static final String NAME_IMAGE_COLLECTION_REJECTED =
+        JptBundle.INSTANCE.getString(
+            "ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
 
     static {
+
         // Order of appearance
         SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_PREV_IMPORT);
         SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_PICKED);
@@ -68,28 +78,35 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     public void fireContentsChanged(int index) {
-        if (index >= 0 && index < size()) {
+        if ((index >= 0) && (index < size())) {
             fireContentsChanged(this, index, index);
         }
     }
 
     public void rename(String oldName, String newName) {
-        if (!checkIsNotSpecialCollection(newName, "ListModelImageCollections.Error.RenameSpecialCollection"))
+        if (!checkIsNotSpecialCollection(
+                newName,
+                "ListModelImageCollections.Error.RenameSpecialCollection")) {
             return;
+        }
+
         int index = indexOf(oldName);
+
         if (index >= 0) {
             remove(index);
             ListUtil.insertSorted(this, newName,
-                    ComparatorStringAscending.INSTANCE,
-                    getSpecialCollectionCount(),
-                    getSize() - 1);
+                                  ComparatorStringAscending.INSTANCE,
+                                  getSpecialCollectionCount(), getSize() - 1);
         }
     }
 
     private void addElements() {
-        DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
-        List<String> collections = db.getAll();
+        DatabaseImageCollections db          =
+            DatabaseImageCollections.INSTANCE;
+        List<String>             collections = db.getAll();
+
         addSpecialCollections();
+
         for (String collection : collections) {
             if (!isSpecialCollection(collection)) {
                 addElement(collection);
@@ -117,8 +134,11 @@ public final class ListModelImageCollections extends DefaultListModel {
      */
     public static boolean isSpecialCollection(String collectionName) {
         for (String collection : SPECIAL_COLLECTIONS) {
-            if (collection.equalsIgnoreCase(collectionName)) return true;
+            if (collection.equalsIgnoreCase(collectionName)) {
+                return true;
+            }
         }
+
         return false;
     }
 
@@ -134,12 +154,14 @@ public final class ListModelImageCollections extends DefaultListModel {
      * @return                true if everything is ok: the image collection is
      *                        <em>not</em> a special collection
      */
-    public static boolean checkIsNotSpecialCollection(String collectionName, String propertyKey) {
-
+    public static boolean checkIsNotSpecialCollection(String collectionName,
+            String propertyKey) {
         if (isSpecialCollection(collectionName)) {
             MessageDisplayer.warning(null, propertyKey, collectionName);
+
             return false;
         }
+
         return true;
     }
 }

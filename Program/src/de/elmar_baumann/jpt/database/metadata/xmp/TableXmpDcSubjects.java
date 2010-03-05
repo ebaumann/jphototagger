@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Table;
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.database.metadata.Table;
  * @version 2008-08-27
  */
 public final class TableXmpDcSubjects extends Table {
-
     public static final TableXmpDcSubjects INSTANCE = new TableXmpDcSubjects();
 
     private TableXmpDcSubjects() {

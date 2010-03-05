@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
@@ -29,13 +30,13 @@ import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
  * @version 2008-09-22
  */
 public final class EditMetadataPanelsEvent {
-
     public enum Type {
 
         /**
          * Bearbeiten wurde ermöglict
          */
         EDIT_ENABLED,
+
         /**
          * Bearbeiten wurde deaktiviert
          */
@@ -43,7 +44,7 @@ public final class EditMetadataPanelsEvent {
     }
 
     private final EditMetadataPanels source;
-    private final Type type;
+    private final Type               type;
 
     /**
      * Konstruktor.
@@ -53,7 +54,7 @@ public final class EditMetadataPanelsEvent {
      */
     public EditMetadataPanelsEvent(EditMetadataPanels source, Type type) {
         this.source = source;
-        this.type = type;
+        this.type   = type;
     }
 
     /**

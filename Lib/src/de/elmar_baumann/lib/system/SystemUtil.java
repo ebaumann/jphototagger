@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.system;
 
 import de.elmar_baumann.lib.util.Version;
-import java.util.StringTokenizer;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -38,21 +40,25 @@ public final class SystemUtil {
      * @return Version or null if not found
      */
     public static Version getJavaVersion() {
-        Version version = null;
-        String versionProperty = System.getProperty("java.version");
-        StringTokenizer tok = new StringTokenizer(versionProperty, ".");
+        Version         version         = null;
+        String          versionProperty = System.getProperty("java.version");
+        StringTokenizer tok             = new StringTokenizer(versionProperty,
+                                              ".");
+
         if (tok.countTokens() >= 2) {
             try {
                 int major = Integer.parseInt(tok.nextToken());
                 int minor = Integer.parseInt(tok.nextToken());
+
                 return new Version(major, minor);
             } catch (Exception ex) {
-                Logger.getLogger(SystemUtil.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SystemUtil.class.getName()).log(Level.SEVERE,
+                                 null, ex);
             }
         }
+
         return version;
     }
 
-    private SystemUtil() {
-    }
+    private SystemUtil() {}
 }

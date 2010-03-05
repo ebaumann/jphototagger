@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
@@ -25,9 +26,12 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.generics.Pair;
+
 import java.io.File;
+
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.JProgressBar;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -41,8 +45,8 @@ import javax.swing.tree.TreePath;
  * @version 2009-08-01
  */
 public abstract class KeywordsImporter implements Importer {
-
-    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
+    private static final String PROGRESSBAR_STRING =
+        JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
 
     /**
      * Returns all keyword paths to the leaf nodes.
@@ -80,16 +84,17 @@ public abstract class KeywordsImporter implements Importer {
     @Override
     public void importFile(File file) {
         Collection<List<Pair<String, Boolean>>> paths = getPaths(file);
+
         if (paths != null) {
             new ImportTask(paths).start();
         }
     }
 
     private static class ImportTask extends Thread {
-
         private final Collection<List<Pair<String, Boolean>>> paths;
-        private final TreeModel                               treeModel  = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        private       JProgressBar                            progressBar;
+        private final TreeModel                               treeModel =
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        private JProgressBar progressBar;
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             this.paths = paths;
@@ -97,30 +102,45 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void getProgressBar() {
-            if (progressBar != null) return;
+            if (progressBar != null) {
+                return;
+            }
+
             progressBar = ProgressBar.INSTANCE.getResource(this);
         }
 
         @Override
         public void run() {
             assert treeModel instanceof TreeModelKeywords : treeModel;
+
             if (treeModel instanceof TreeModelKeywords) {
                 TreeModelKeywords model = (TreeModelKeywords) treeModel;
+
                 updateProgressBar(0);
+
                 int progressValue = 0;
+
                 for (List<Pair<String, Boolean>> path : paths) {
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) model.getRoot();
+                    DefaultMutableTreeNode node =
+                        (DefaultMutableTreeNode) model.getRoot();
+
                     for (Pair<String, Boolean> keyword : path) {
-                        DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getFirst());
+                        DefaultMutableTreeNode existingNode =
+                            model.findChildByName(node, keyword.getFirst());
+
                         if (existingNode == null) {
-                            model.insert(node, keyword.getFirst(), keyword.getSecond());
-                            node = model.findChildByName(node, keyword.getFirst());
+                            model.insert(node, keyword.getFirst(),
+                                         keyword.getSecond());
+                            node = model.findChildByName(node,
+                                                         keyword.getFirst());
                         } else {
                             node = existingNode;
                         }
                     }
+
                     updateProgressBar(++progressValue);
                 }
+
                 releaseProgressBar();
                 expandRootSelHk();
             }
@@ -130,18 +150,22 @@ public abstract class KeywordsImporter implements Importer {
             JTree  tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
             Object root = tree.getModel().getRoot();
 
-            tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
+            tree.expandPath(
+                new TreePath(((DefaultMutableTreeNode) root).getPath()));
         }
 
         private void updateProgressBar(int value) {
             getProgressBar();
+
             if (progressBar != null) {
                 progressBar.setMinimum(0);
                 progressBar.setMaximum(paths.size());
                 progressBar.setValue(value);
+
                 if (!progressBar.isStringPainted()) {
                     progressBar.setStringPainted(true);
                 }
+
                 if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
                     progressBar.setString(PROGRESSBAR_STRING);
                 }
@@ -153,8 +177,10 @@ public abstract class KeywordsImporter implements Importer {
                 if (progressBar.isStringPainted()) {
                     progressBar.setString("");
                 }
+
                 progressBar.setValue(0);
             }
+
             ProgressBar.INSTANCE.releaseResource(this);
         }
     }

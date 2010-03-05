@@ -17,18 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
+import de.elmar_baumann.jpt.event.UserSettingsEvent;
 
 /**
  *
  * @author  Elmar Baumann
  * @version 2008-10-18
  */
-public final class UserSettingsListenerSupport extends ListenerSupport<UserSettingsListener> {
-
+public final class UserSettingsListenerSupport
+        extends ListenerSupport<UserSettingsListener> {
     public void notifyUserListeners(UserSettingsEvent evt) {
         synchronized (listeners) {
             for (UserSettingsListener l : listeners) {

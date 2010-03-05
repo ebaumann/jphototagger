@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
 import java.util.ArrayDeque;
@@ -29,8 +30,8 @@ import java.util.Deque;
  * @version 2009-07-18
  */
 public class WorkQueue<E> {
-    // fixme: maybe use better data structure here with efficient contains()
 
+    // fixme: maybe use better data structure here with efficient contains()
     Deque<E> queue = new ArrayDeque<E>();
 
     /**
@@ -41,8 +42,8 @@ public class WorkQueue<E> {
      * @param e
      */
     public synchronized void push(E e) {
-        queue.remove(e);  // maybe remove ...
-        queue.push(e);    // and insert at head again
+        queue.remove(e);    // maybe remove ...
+        queue.push(e);      // and insert at head again
         notify();
     }
 
@@ -54,7 +55,7 @@ public class WorkQueue<E> {
      * @param e
      */
     public synchronized void append(E e) {
-        if (! queue.contains(e)) {
+        if (!queue.contains(e)) {
             queue.add(e);    // append at end
             notify();
         }
@@ -70,6 +71,7 @@ public class WorkQueue<E> {
         while (queue.isEmpty()) {
             wait();
         }
+
         return queue.removeFirst();
     }
 
@@ -82,7 +84,6 @@ public class WorkQueue<E> {
     public synchronized E poll() {
         return queue.pollFirst();
     }
-
 
     /**
      * Remove an image from a queue.

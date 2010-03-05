@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
+
 import java.text.DateFormat;
+
 import javax.swing.InputVerifier;
 
 /**
@@ -31,20 +34,20 @@ import javax.swing.InputVerifier;
  * @version 2007-07-29
  */
 public class Column {
-
-    private       Table              table;
-    private final String             name;
-    private       String             description;
-    private       String             longerDescription;
-    private final DataType           dataType;
-    private       Column             references         = null;
-    private final boolean            isIgnoreCase       = true;
-    private final boolean            isIndexed          = true;
-    private       boolean            isUnique           = false;
-    private       boolean            isPrimaryKey       = false;
-    private       boolean            canBeNull          = true;
-    private       int                length             = 0;
-    private       ReferenceDirection referenceDirection = ReferenceDirection.BACKWARDS;
+    private Table              table;
+    private final String       name;
+    private String             description;
+    private String             longerDescription;
+    private final DataType     dataType;
+    private Column             references         = null;
+    private final boolean      isIgnoreCase       = true;
+    private final boolean      isIndexed          = true;
+    private boolean            isUnique           = false;
+    private boolean            isPrimaryKey       = false;
+    private boolean            canBeNull          = true;
+    private int                length             = 0;
+    private ReferenceDirection referenceDirection =
+        ReferenceDirection.BACKWARDS;
 
     /**
      * Typ der Spaltendaten.
@@ -53,42 +56,67 @@ public class Column {
 
         /** Binärdaten, Java-Typ: byte[] */
         BINARY,
+
         /** Datum, Java-Typ: java.sql.DATE */
         DATE,
+
         /** Ganzzahl, Java-Typ: int */
         INTEGER,
+
         /** Java-Typ: long */
         BIGINT,
+
         /** Realzahl, Java-Typ: double */
         REAL,
+
         /** kleine Ganzzahl, Java-Typ: short */
         SMALLINT,
+
         /** Zeichenkette variabler Länge, Java-Typ: java.lang.STRING */
         STRING
         ;
 
         public Object fromString(String string) {
             switch (this) {
-                case BINARY  : return string.getBytes();
-                case DATE    : return s2date(string);
-                case INTEGER : return Integer.parseInt(string);
-                case BIGINT  : return Long.parseLong(string);
-                case REAL    : return Double.parseDouble(string);
-                case SMALLINT: return Short.parseShort(string);
-                case STRING  : return string;
-                default      : return string;
+            case BINARY :
+                return string.getBytes();
+
+            case DATE :
+                return s2date(string);
+
+            case INTEGER :
+                return Integer.parseInt(string);
+
+            case BIGINT :
+                return Long.parseLong(string);
+
+            case REAL :
+                return Double.parseDouble(string);
+
+            case SMALLINT :
+                return Short.parseShort(string);
+
+            case STRING :
+                return string;
+
+            default :
+                return string;
             }
         }
 
         private Object s2date(String s) {
-             try {
-                 return new java.sql.Date(DateFormat.getInstance().parse(s).getTime());
-             } catch(Exception ex) {
-                 AppLogger.logSevere(Column.class, ex);
-             }
-             return s;
+            try {
+                return new java.sql.Date(
+                    DateFormat.getInstance().parse(s).getTime());
+            } catch (Exception ex) {
+                AppLogger.logSevere(Column.class, ex);
+            }
+
+            return s;
         }
-    };
+    }
+
+    ;
 
     /**
      * Richtung der Referenz.
@@ -100,6 +128,7 @@ public class Column {
          * n-Teil
          */
         BACKWARDS,
+
         /**
          * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
          * 1-Teil
@@ -123,9 +152,11 @@ public class Column {
     @Override
     public String toString() {
         String desc = getDescription();
+
         if (desc.isEmpty()) {
             return name;
         }
+
         return desc;
     }
 
@@ -133,17 +164,25 @@ public class Column {
     public boolean equals(Object o) {
         if (o instanceof Column) {
             Column other = (Column) o;
-            return getTable().equals(other.getTable()) &&
-                getName().equals(other.getName());
+
+            return getTable().equals(other.getTable())
+                   && getName().equals(other.getName());
         }
+
         return false;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + (this.getTable() != null ? this.getTable().hashCode() : 0);
-        hash = 83 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
+
+        hash = 83 * hash + ((this.getTable() != null)
+                            ? this.getTable().hashCode()
+                            : 0);
+        hash = 83 * hash + ((this.getName() != null)
+                            ? this.getName().hashCode()
+                            : 0);
+
         return hash;
     }
 
@@ -182,6 +221,7 @@ public class Column {
      */
     protected void setIsPrimaryKey(boolean isPrimaryKey) {
         this.isPrimaryKey = isPrimaryKey;
+
         if (isPrimaryKey) {
             canBeNull = false;
         }
@@ -388,7 +428,8 @@ public class Column {
      * @param referenceDirection Richtung der Referenz.
      *                           Default: BACKWARDS
      */
-    protected void setReferenceDirection(ReferenceDirection referenceDirection) {
+    protected void setReferenceDirection(
+            ReferenceDirection referenceDirection) {
         this.referenceDirection = referenceDirection;
     }
 }

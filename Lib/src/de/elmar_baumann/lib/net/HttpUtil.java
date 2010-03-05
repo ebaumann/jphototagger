@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.net;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -40,8 +42,8 @@ public final class HttpUtil {
      * @param  target      buffer for writing the content of <code>source</code>
      * @throws IOException on read/write errors
      */
-    public static void write(URL source, OutputStream target) throws IOException {
-
+    public static void write(URL source, OutputStream target)
+            throws IOException {
         HttpURLConnection   connection  = null;
         BufferedInputStream inputStream = null;
 
@@ -49,26 +51,27 @@ public final class HttpUtil {
             connection = (HttpURLConnection) source.openConnection();
             connection.setRequestProperty("Accept-Encoding", "zip, jar, exe");
             connection.connect();
+            inputStream = new BufferedInputStream(connection.getInputStream());
 
-            inputStream  = new BufferedInputStream(connection.getInputStream());
-
-            for (int singleByte = inputStream.read(); singleByte != -1; singleByte = inputStream.read()) {
+            for (int singleByte = inputStream.read(); singleByte != -1;
+                    singleByte = inputStream.read()) {
                 target.write(singleByte);
             }
         } finally {
             if (inputStream != null) {
                 inputStream.close();
             }
+
             if (target != null) {
                 target.flush();
                 target.close();
             }
+
             if (connection != null) {
                 connection.disconnect();
             }
         }
     }
 
-    private HttpUtil() {
-    }
+    private HttpUtil() {}
 }

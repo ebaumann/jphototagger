@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.actions;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,7 +37,6 @@ import java.awt.event.ActionListener;
  * @version 2008-11-06
  */
 public final class ControllerActionsShowDialog implements ActionListener {
-
     public ControllerActionsShowDialog() {
         listen();
     }

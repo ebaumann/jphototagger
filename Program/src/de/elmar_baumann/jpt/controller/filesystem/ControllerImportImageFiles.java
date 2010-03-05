@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.helper.ImportImageFiles;
 import de.elmar_baumann.jpt.resource.GUI;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,18 +32,17 @@ import java.awt.event.ActionListener;
  * @version 2008-10-19
  */
 public final class ControllerImportImageFiles implements ActionListener {
-
     public ControllerImportImageFiles() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemImportImageFiles().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemImportImageFiles()
+            .addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         ImportImageFiles.importFrom(null);
     }
-
 }

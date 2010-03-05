@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.tasks;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.lang.reflect.Method;
 
 /**
@@ -30,10 +32,10 @@ import java.lang.reflect.Method;
  * @version 2009-07-16
  */
 public final class AutomaticTask {
-
-    public static final AutomaticTask INSTANCE = new AutomaticTask();
-    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
-    private Runnable runnable;
+    public static final AutomaticTask INSTANCE                  =
+        new AutomaticTask();
+    private static final String       ALT_METHOD_NAME_INTERRUPT = "cancel";
+    private Runnable                  runnable;
 
     /**
      * Sets a new automatic task and calls {@link Thread#interrupt()} to the
@@ -65,40 +67,48 @@ public final class AutomaticTask {
     }
 
     private synchronized void interrupt(Runnable r) {
-        if (r == null) return;
+        if (r == null) {
+            return;
+        }
+
         Method methodCancel = null;
+
         if (hasCancelMethod(r)) {
             try {
-                methodCancel = r.getClass().getMethod(ALT_METHOD_NAME_INTERRUPT);
+                methodCancel =
+                    r.getClass().getMethod(ALT_METHOD_NAME_INTERRUPT);
                 methodCancel.invoke(r);
             } catch (Exception ex) {
                 AppLogger.logSevere(AutomaticTask.class, ex);
             }
         }
-        if (methodCancel == null && r instanceof Thread) {
+
+        if ((methodCancel == null) && (r instanceof Thread)) {
             ((Thread) r).interrupt();
         }
     }
 
     private boolean hasCancelMethod(Runnable runnable) {
         Method[] methods = runnable.getClass().getDeclaredMethods();
+
         for (Method method : methods) {
-            if (method.getName().equals(ALT_METHOD_NAME_INTERRUPT) &&
-                    method.getParameterTypes().length == 0) {
+            if (method.getName().equals(ALT_METHOD_NAME_INTERRUPT)
+                    && (method.getParameterTypes().length == 0)) {
                 return true;
             }
         }
+
         return false;
     }
 
     private void startTask(final Runnable runnable) {
         Thread t = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 runnable.run();
             }
         });
+
         t.setName(getName(runnable));
         t.start();
     }
@@ -107,9 +117,9 @@ public final class AutomaticTask {
         if (runnable instanceof Thread) {
             return ((Thread) runnable).getName();
         }
+
         return "Automatic task @ " + getClass().getName();
     }
 
-    private AutomaticTask() {
-    }
+    private AutomaticTask() {}
 }

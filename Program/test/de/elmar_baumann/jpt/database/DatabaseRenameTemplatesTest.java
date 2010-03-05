@@ -17,16 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.data.RenameTemplate;
 import de.elmar_baumann.jpt.data.RenameTemplateTest;
-import java.util.Set;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
+import java.util.Set;
 
 /**
  * Tests the Class {@link de.elmar_baumann. }.
@@ -37,20 +41,21 @@ import static org.junit.Assert.*;
 public class DatabaseRenameTemplatesTest {
     private final DatabaseRenameTemplates db = DatabaseRenameTemplates.INSTANCE;
 
-    public DatabaseRenameTemplatesTest() {
-    }
+    public DatabaseRenameTemplatesTest() {}
 
     @BeforeClass
     public static void setUpClass() throws Exception {
         SplashScreen.INSTANCE.init();
         ConnectionPool.INSTANCE.init();
         DatabaseTables.INSTANCE.createTables();
-        DatabaseRenameTemplates.INSTANCE.delete(RenameTemplateTest.createTemplate().getName());
+        DatabaseRenameTemplates.INSTANCE.delete(
+            RenameTemplateTest.createTemplate().getName());
     }
 
     @AfterClass
     public static void tearDownClass() throws Exception {
-        DatabaseRenameTemplates.INSTANCE.delete(RenameTemplateTest.createTemplate().getName());
+        DatabaseRenameTemplates.INSTANCE.delete(
+            RenameTemplateTest.createTemplate().getName());
         DatabaseRenameTemplates.INSTANCE.delete("New name");
         DatabaseMaintainance.INSTANCE.shutdown();
     }
@@ -61,8 +66,9 @@ public class DatabaseRenameTemplatesTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        
+
         RenameTemplate template = RenameTemplateTest.createTemplate();
+
         template.setId(null);
         db.insert(template);
         assertNotNull(template.getId());
@@ -80,11 +86,14 @@ public class DatabaseRenameTemplatesTest {
         System.out.println("update");
 
         RenameTemplate template = RenameTemplateTest.createTemplate();
+
         template.setId(null);
         db.insert(template);
         template.setName("New name");
         db.update(template);
+
         RenameTemplate tmpl = db.find(template.getName());
+
         assertEquals(template.getName(), tmpl.getName());
         db.delete("New name");
     }
@@ -97,6 +106,7 @@ public class DatabaseRenameTemplatesTest {
         System.out.println("delete");
 
         RenameTemplate template = RenameTemplateTest.createTemplate();
+
         template.setId(null);
         db.insert(template);
         db.delete(template.getName());
@@ -115,15 +125,15 @@ public class DatabaseRenameTemplatesTest {
 
         template1.setName("quaffel@buffel");
         template2.setName("XYZ@@yyy");
-
         template1.setId(null);
         db.insert(template1);
         template2.setId(null);
         db.insert(template2);
+
         Set<RenameTemplate> all = db.getAll();
+
         db.delete(template1.getName());
         db.delete(template2.getName());
-
         assertTrue(all.contains(template1));
         assertTrue(all.contains(template2));
     }
@@ -140,7 +150,6 @@ public class DatabaseRenameTemplatesTest {
         db.delete(template.getName());
         template.setId(null);
         db.insert(template);
-
         assertEquals(template.getName(), db.find(template.getName()).getName());
         db.delete(template.getName());
     }
@@ -157,7 +166,6 @@ public class DatabaseRenameTemplatesTest {
         db.delete(template.getName());
         template.setId(null);
         db.insert(template);
-
         assertTrue(db.exists(template.getName()));
         db.delete(template.getName());
     }

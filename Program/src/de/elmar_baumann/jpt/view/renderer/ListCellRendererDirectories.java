@@ -17,17 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.io.DirectoryInfo;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.Component;
+
 import java.io.File;
+
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * Benutzt vom ScanDirectoriesDialog, zeigt Systemordnericons vor
@@ -38,15 +42,18 @@ import javax.swing.filechooser.FileSystemView;
  * @see     de.elmar_baumann.jpt.view.dialogs.UpdateMetadataOfDirectoriesDialog
  */
 public final class ListCellRendererDirectories extends DefaultListCellRenderer {
-
-    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
-    private static final long           serialVersionUID = 1443237617540897116L;
+    private static final FileSystemView FILE_SYSTEM_VIEW =
+        FileSystemView.getFileSystemView();
+    private static final long serialVersionUID = 1443237617540897116L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value,
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
+                           index, isSelected, cellHasFocus);
         DirectoryInfo directoryInfo = (DirectoryInfo) value;
-        File dir = directoryInfo.getDirectory();
+        File          dir           = directoryInfo.getDirectory();
+
         if (dir.exists()) {
             synchronized (FILE_SYSTEM_VIEW) {
                 try {
@@ -56,11 +63,16 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
                 }
             }
         }
+
         label.setText(getLabelText(directoryInfo));
+
         return label;
     }
 
     private static String getLabelText(DirectoryInfo directoryInfo) {
-        return JptBundle.INSTANCE.getString("ListCellRendererDirectories.LabelText", directoryInfo.getDirectory().getAbsolutePath(), directoryInfo.getImageFileCount());
+        return JptBundle.INSTANCE.getString(
+            "ListCellRendererDirectories.LabelText",
+            directoryInfo.getDirectory().getAbsolutePath(),
+            directoryInfo.getImageFileCount());
     }
 }

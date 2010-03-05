@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 import de.elmar_baumann.jpt.data.ImageFile;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,35 +42,43 @@ public final class DatabaseImageFilesEvent {
          * An image file was deleted
          */
         IMAGEFILE_DELETED,
+
         /**
          * An image file was inserted
          */
         IMAGEFILE_INSERTED,
+
         /**
          * An image file was updated
          */
         IMAGEFILE_UPDATED,
+
         /**
          * A thumbnail was updated.<p>The only valid calls on the image file
          * returned by {@link #getImageFile()} are {@link ImageFile#getFile()}
          * and {@link ImageFile#getFilename()}, other methods may return null.
          */
         THUMBNAIL_UPDATED,
+
         /**
          * XMP metadata was updated
          */
         XMP_UPDATED,
+
         /**
          * EXIF metadata was updated. The only valid getter is
          * {@link ImageFile#getExif() } of {@link #getImageFile()} or
          *  {@link #getOldImageFile()}.
          */
         EXIF_UPDATED
-    };
-    private static final List<Type> TEXT_METADATA_EVENTS = new ArrayList<Type>(5);
-    private              ImageFile  imageFile;
-    private              ImageFile  oldImageFile;
-    private              Type       type;
+    }
+
+    ;
+    private static final List<Type> TEXT_METADATA_EVENTS =
+        new ArrayList<Type>(5);
+    private ImageFile imageFile;
+    private ImageFile oldImageFile;
+    private Type      type;
 
     static {
         TEXT_METADATA_EVENTS.add(Type.IMAGEFILE_DELETED);

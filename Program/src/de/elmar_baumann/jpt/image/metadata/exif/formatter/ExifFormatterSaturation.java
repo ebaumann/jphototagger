@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,10 +35,10 @@ import java.util.Map;
  * @version 2009-06-10
  */
 public final class ExifFormatterSaturation extends ExifFormatter {
-
-    public static final ExifFormatterSaturation INSTANCE            = new ExifFormatterSaturation();
-    private static final Map<Integer, String>   exifKeyOfSaturation = new HashMap<Integer, String>();
-
+    public static final ExifFormatterSaturation INSTANCE =
+        new ExifFormatterSaturation();
+    private static final Map<Integer, String> exifKeyOfSaturation =
+        new HashMap<Integer, String>();
 
     static {
         exifKeyOfSaturation.put(0, "SaturationNormal");
@@ -44,23 +46,22 @@ public final class ExifFormatterSaturation extends ExifFormatter {
         exifKeyOfSaturation.put(2, "SaturationHigh");
     }
 
-    private ExifFormatterSaturation() {
-    }
+    private ExifFormatterSaturation() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.SATURATION);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-
-            ExifShort es    = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int       value = es.value();
+            ExifShort es = new ExifShort(exifTag.rawValue(),
+                                         exifTag.byteOrder());
+            int value = es.value();
 
             if (exifKeyOfSaturation.containsKey(value)) {
                 return translate(IfdType.EXIF, exifKeyOfSaturation.get(value));
             }
         }
+
         return "?";
     }
 }

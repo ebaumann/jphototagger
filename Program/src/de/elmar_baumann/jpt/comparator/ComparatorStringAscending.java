@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.comparator;
 
 import java.text.Collator;
+
 import java.util.Comparator;
 
 /**
@@ -29,20 +31,18 @@ import java.util.Comparator;
  * @version 2008-11-05
  */
 public final class ComparatorStringAscending implements Comparator<String> {
-
-    public static final ComparatorStringAscending INSTANCE = new ComparatorStringAscending();
-    private final       Collator                  collator = Collator.getInstance();
+    public static final ComparatorStringAscending INSTANCE =
+        new ComparatorStringAscending();
+    private final Collator collator = Collator.getInstance();
 
     @Override
     public int compare(String s1, String s2) {
-
-        return s1 == null && s2 == null
-                ? 0
-                : s1 == null && s2 != null
-                ? -1
-                : s1 != null && s2 == null
-                ? 1
-                : collator.compare(s1, s2)
-               ;
+        return ((s1 == null) && (s2 == null))
+               ? 0
+               : ((s1 == null) && (s2 != null))
+                 ? -1
+                 : ((s1 != null) && (s2 == null))
+                   ? 1
+                   : collator.compare(s1, s2);
     }
 }

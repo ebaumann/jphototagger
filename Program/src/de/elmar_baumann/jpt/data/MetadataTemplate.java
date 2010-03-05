@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -32,9 +34,9 @@ import java.util.Set;
  * @version 2008-09-22
  */
 public final class MetadataTemplate {
-
     private String                        name;
-    private final HashMap<Column, Object> fieldOfColumn = new HashMap<Column, Object>();
+    private final HashMap<Column, Object> fieldOfColumn = new HashMap<Column,
+                                                              Object>();
 
     /**
      * Returns the template's name.
@@ -56,7 +58,7 @@ public final class MetadataTemplate {
      * @return true, wenn ein Name vorhanden ist
      */
     public boolean hasName() {
-        return name != null && !name.trim().isEmpty();
+        return (name != null) &&!name.trim().isEmpty();
     }
 
     /**
@@ -82,7 +84,9 @@ public final class MetadataTemplate {
 
     @Override
     public String toString() {
-        return name == null ? "" : name; // Never change that (will be used to find model items)!
+        return (name == null)
+               ? ""
+               : name;    // Never change that (will be used to find model items)!
     }
 
     @Override
@@ -90,29 +94,35 @@ public final class MetadataTemplate {
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final MetadataTemplate other = (MetadataTemplate) obj;
-        if (this.name == null || !this.name.equals(other.name)) {
+
+        if ((this.name == null) ||!this.name.equals(other.name)) {
             return false;
         }
+
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + (this.name != null
+
+        hash = 67 * hash + ((this.name != null)
                             ? this.name.hashCode()
                             : 0);
+
         return hash;
     }
 
     public void setXmp(Xmp xmp) {
         for (Table xmpTable : XmpTables.get()) {
             for (Column column : xmpTable.getColumns()) {
-                if (!column.isPrimaryKey() && ! column.isForeignKey()) {
+                if (!column.isPrimaryKey() &&!column.isForeignKey()) {
                     fieldOfColumn.put(column, xmp.getValue(column));
                 }
             }

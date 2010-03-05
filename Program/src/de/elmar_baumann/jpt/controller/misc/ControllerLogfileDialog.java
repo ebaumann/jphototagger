@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.app.AppLoggingSystem;
@@ -24,16 +25,19 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.ErrorListener;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.util.logging.XMLFormatter;
+
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
@@ -43,16 +47,18 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  * @version 2008-09-11
  */
-public final class ControllerLogfileDialog
-        extends    MouseAdapter
-        implements ActionListener,
-                   ErrorListener {
-
-    private static final long      MILLISECONDS_ERROR_DISPLAY = 4000;
-    private static final String    LABEL_ERROR_TOOLTIP_TEXT   = JptBundle.INSTANCE.getString("ControllerLogfileDialog.LabelErrorTooltipText");
-    private static final String    STATUSBAR_ERROR_TEXT       = JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
-    private final        JMenuItem itemShowDlg                = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
-    private final        JLabel    labelError                 = GUI.INSTANCE.getAppPanel().getLabelError();
+public final class ControllerLogfileDialog extends MouseAdapter
+        implements ActionListener, ErrorListener {
+    private static final long   MILLISECONDS_ERROR_DISPLAY = 4000;
+    private static final String LABEL_ERROR_TOOLTIP_TEXT   =
+        JptBundle.INSTANCE.getString(
+            "ControllerLogfileDialog.LabelErrorTooltipText");
+    private static final String STATUSBAR_ERROR_TEXT =
+        JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
+    private final JMenuItem itemShowDlg =
+        GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
+    private final JLabel labelError =
+        GUI.INSTANCE.getAppPanel().getLabelError();
 
     public ControllerLogfileDialog() {
         listen();
@@ -75,7 +81,8 @@ public final class ControllerLogfileDialog
 
     @Override
     public void error(ErrorEvent evt) {
-        GUI.INSTANCE.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT,
+                MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         itemShowDlg.setEnabled(true);
         labelError.setIcon(AppLookAndFeel.getIcon("icon_error12.png"));
         labelError.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);
@@ -87,12 +94,11 @@ public final class ControllerLogfileDialog
     }
 
     private void showLogfileDialog() {
-        LogfileDialog dialog = new LogfileDialog(
-                                    GUI.INSTANCE.getAppFrame(),
-                                    AppLoggingSystem.getCurrentLogfileName(),
-                                    XMLFormatter.class);
+        LogfileDialog dialog = new LogfileDialog(GUI.INSTANCE.getAppFrame(),
+                                   AppLoggingSystem.getCurrentLogfileName(),
+                                   XMLFormatter.class);
+
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
     }
-
 }

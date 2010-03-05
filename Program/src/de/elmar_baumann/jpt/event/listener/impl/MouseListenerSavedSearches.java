@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JList;
 
 /**
@@ -34,23 +37,26 @@ import javax.swing.JList;
  * @version 2008-08-31
  */
 public final class MouseListenerSavedSearches extends MouseAdapter {
-
     private final PopupMenuSavedSearches popupMenu =
-            PopupMenuSavedSearches.INSTANCE;
+        PopupMenuSavedSearches.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent e) {
         if (MouseEventUtil.isPopupTrigger(e)) {
-            int index = ListUtil.getItemIndex(e);
-            JList list = (JList) e.getSource();
+            int     index  = ListUtil.getItemIndex(e);
+            JList   list   = (JList) e.getSource();
             boolean isItem = index >= 0;
+
             if (isItem) {
                 Object element = list.getModel().getElementAt(index);
+
                 if (element instanceof SavedSearch) {
                     SavedSearch savedSearch = (SavedSearch) element;
+
                     popupMenu.setSavedSearch(savedSearch);
                 }
             }
+
             popupMenu.getItemEdit().setEnabled(isItem);
             popupMenu.getItemDelete().setEnabled(isItem);
             popupMenu.getItemRename().setEnabled(isItem);

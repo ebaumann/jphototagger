@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -29,15 +30,10 @@ import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesId;
  * @version 2008-08-27
  */
 public final class ColumnXmpIdFiles extends Column {
-
     public static final ColumnXmpIdFiles INSTANCE = new ColumnXmpIdFiles();
 
     private ColumnXmpIdFiles() {
-        super(
-            TableXmp.INSTANCE,
-            "id_files",
-            DataType.BIGINT);
-
+        super(TableXmp.INSTANCE, "id_files", DataType.BIGINT);
         setIsUnique(true);
         setCanBeNull(false);
         setReferences(ColumnFilesId.INSTANCE);

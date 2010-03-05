@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
@@ -24,9 +25,12 @@ import de.elmar_baumann.jpt.io.FileSystemDirectories;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import java.io.File;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -41,9 +45,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-06-19
  */
 public final class ControllerDeleteDirectory extends ControllerDirectory {
-
     public ControllerDeleteDirectory() {
-        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemDeleteDirectory());
+        listenToActionsOf(
+            PopupMenuDirectories.INSTANCE.getItemDeleteDirectory());
     }
 
     @Override
@@ -53,17 +57,19 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemDeleteDirectory();
+        return evt.getSource()
+               == PopupMenuDirectories.INSTANCE.getItemDeleteDirectory();
     }
 
     @Override
     protected void action(DefaultMutableTreeNode node) {
         File dir = getDirOfNode(node);
+
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
                 TreeFileSystemDirectories.removeFromTreeModel(
-                        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class),
-                        node);
+                    ModelFactory.INSTANCE.getModel(
+                        TreeModelAllSystemDirectories.class), node);
             }
         }
     }

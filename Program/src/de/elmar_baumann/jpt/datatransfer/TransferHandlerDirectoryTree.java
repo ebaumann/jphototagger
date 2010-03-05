@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.data.Favorite;
@@ -25,9 +26,13 @@ import de.elmar_baumann.jpt.io.ImageUtil.ConfirmOverwrite;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
+
 import java.awt.datatransfer.Transferable;
+
 import java.io.File;
+
 import java.util.List;
+
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
@@ -41,17 +46,16 @@ import javax.swing.tree.TreePath;
  * @version 2008-10-26
  */
 public final class TransferHandlerDirectoryTree extends TransferHandler {
-
     private static final long serialVersionUID = 667981391265349868L;
 
     @Override
     public boolean canImport(TransferSupport transferSupport) {
-
         if (!Flavor.hasFiles(transferSupport.getTransferable())) {
             return false;
         }
 
-        JTree.DropLocation dropLocation = (JTree.DropLocation) transferSupport.getDropLocation();
+        JTree.DropLocation dropLocation =
+            (JTree.DropLocation) transferSupport.getDropLocation();
 
         return dropLocation.getPath() != null;
     }
@@ -68,21 +72,26 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
-        if (!transferSupport.isDrop()) return false;
+        if (!transferSupport.isDrop()) {
+            return false;
+        }
 
         File       targetDirectory = getTargetDirectory(transferSupport);
-        List<File> sourceFiles     = TransferUtil.getFiles(transferSupport.getTransferable(), FilenameDelimiter.EMPTY);
+        List<File> sourceFiles     =
+            TransferUtil.getFiles(transferSupport.getTransferable(),
+                                  FilenameDelimiter.EMPTY);
 
-        if (targetDirectory != null && !sourceFiles.isEmpty()) {
-            handleDroppedFiles(
-                    transferSupport.getUserDropAction(), sourceFiles,
-                    targetDirectory);
+        if ((targetDirectory != null) &&!sourceFiles.isEmpty()) {
+            handleDroppedFiles(transferSupport.getUserDropAction(),
+                               sourceFiles, targetDirectory);
         }
+
         return true;
     }
 
     @Override
     protected void exportDone(JComponent c, Transferable data, int action) {
+
         // ignore, moving removes files from source directory
     }
 
@@ -94,26 +103,31 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
      * @param sourceFiles
      * @param targetDirectory  target directory
      */
-    public static void handleDroppedFiles(int dropAction, List<File> sourceFiles, File targetDirectory) {
-
+    public static void handleDroppedFiles(int dropAction,
+            List<File> sourceFiles, File targetDirectory) {
         List<File> imageFiles = IoUtil.filterImageFiles(sourceFiles);
 
-        if (imageFiles.isEmpty()) return;
+        if (imageFiles.isEmpty()) {
+            return;
+        }
 
         if (dropAction == COPY) {
-            ImageUtil.copyImageFiles(imageFiles, targetDirectory, ConfirmOverwrite.YES);
+            ImageUtil.copyImageFiles(imageFiles, targetDirectory,
+                                     ConfirmOverwrite.YES);
         } else if (dropAction == MOVE) {
-            ImageUtil.moveImageFiles(imageFiles, targetDirectory, ConfirmOverwrite.YES);
+            ImageUtil.moveImageFiles(imageFiles, targetDirectory,
+                                     ConfirmOverwrite.YES);
         }
     }
 
     private File getTargetDirectory(TransferSupport transferSupport) {
-
-        TreePath path    = ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
-        Object   selNode = path.getLastPathComponent();
+        TreePath path =
+            ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
+        Object selNode = path.getLastPathComponent();
 
         if (selNode instanceof DefaultMutableTreeNode) {
-            Object userObject = ((DefaultMutableTreeNode) selNode).getUserObject();
+            Object userObject =
+                ((DefaultMutableTreeNode) selNode).getUserObject();
 
             if (userObject instanceof File) {
                 return (File) userObject;
@@ -121,8 +135,9 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
                 return ((Favorite) userObject).getDirectory();
             }
         } else if (selNode instanceof File) {
-                return (File) selNode;
+            return (File) selNode;
         }
+
         return null;
     }
 }

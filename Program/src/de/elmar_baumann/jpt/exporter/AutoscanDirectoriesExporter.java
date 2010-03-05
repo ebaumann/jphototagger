@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -24,13 +25,17 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.swing.Icon;
+
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.Icon;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,18 +47,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version 2010-03-02
  */
 public final class AutoscanDirectoriesExporter implements Exporter {
-
-    public static final FileFilter                  FILE_FILTER = new FileNameExtensionFilter(JptBundle.INSTANCE.getString("AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
-    public static final AutoscanDirectoriesExporter INSTANCE    = new AutoscanDirectoriesExporter();
+    public static final FileFilter FILE_FILTER =
+        new FileNameExtensionFilter(
+            JptBundle.INSTANCE.getString(
+                "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
+    public static final AutoscanDirectoriesExporter INSTANCE =
+        new AutoscanDirectoriesExporter();
 
     @Override
     public void exportFile(File file) {
-        if (file == null) throw new NullPointerException("file == null");
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
 
         file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+
         try {
-            List<String> directories = DatabaseAutoscanDirectories.INSTANCE.getAll();
-            XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(directories)), file);
+            List<String> directories =
+                DatabaseAutoscanDirectories.INSTANCE.getAll();
+
+            XmlObjectExporter.export(
+                new CollectionWrapper(
+                    StringWrapper.getWrappedStrings(directories)), file);
         } catch (Exception ex) {
             AppLogger.logSevere(AutoscanDirectoriesExporter.class, ex);
         }
@@ -66,7 +81,8 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("AutoscanDirectoriesExporter.DisplayName");
+        return JptBundle.INSTANCE.getString(
+            "AutoscanDirectoriesExporter.DisplayName");
     }
 
     @Override
@@ -81,13 +97,12 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
     @XmlRootElement
     public static class CollectionWrapper {
-
         @XmlElementWrapper(name = "AutoscanDirectories")
         @XmlElement(type = StringWrapper.class)
-        private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
+        private final ArrayList<StringWrapper> collection =
+            new ArrayList<StringWrapper>();
 
-        public CollectionWrapper() {
-        }
+        public CollectionWrapper() {}
 
         public CollectionWrapper(Collection<StringWrapper> collection) {
             this.collection.addAll(collection);
@@ -98,6 +113,6 @@ public final class AutoscanDirectoriesExporter implements Exporter {
         }
     }
 
-    private AutoscanDirectoriesExporter() {
-    }
+
+    private AutoscanDirectoriesExporter() {}
 }

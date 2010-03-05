@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.plugin.flickrupload;
 
 import java.util.Properties;
@@ -28,13 +29,15 @@ import java.util.Properties;
  * @version 2010-02-15
  */
 public final class Settings {
-
-    private static final String     KEY_DC_DESCRIPTION     = "de.elmar_baumann.jpt.plugin.flickrupload.AddDcDescription";
-    private static final String     KEY_PHOTOSHOP_HEADLINE = "de.elmar_baumann.jpt.plugin.flickrupload.AddPhotoshopHeadline";
-    private static final String     KEY_DC_SUBJECTS        = "de.elmar_baumann.jpt.plugin.flickrupload.AddDcSubjects";
-    private static final String     VALUE_BOOLEAN_TRUE     = "1";
-    private static final String     VALUE_BOOLEAN_FALSE    = "0";
-    private final        Properties properties;
+    private static final String KEY_DC_DESCRIPTION =
+        "de.elmar_baumann.jpt.plugin.flickrupload.AddDcDescription";
+    private static final String KEY_PHOTOSHOP_HEADLINE =
+        "de.elmar_baumann.jpt.plugin.flickrupload.AddPhotoshopHeadline";
+    private static final String KEY_DC_SUBJECTS =
+        "de.elmar_baumann.jpt.plugin.flickrupload.AddDcSubjects";
+    private static final String VALUE_BOOLEAN_TRUE  = "1";
+    private static final String VALUE_BOOLEAN_FALSE = "0";
+    private final Properties    properties;
 
     public Settings(Properties properties) {
         this.properties = properties;
@@ -46,12 +49,10 @@ public final class Settings {
 
     public void setAddPhotoshopHeadline(boolean add) {
         setBoolean(add, KEY_PHOTOSHOP_HEADLINE);
-
     }
 
     public void setAddDcSubjects(boolean add) {
         setBoolean(add, KEY_DC_SUBJECTS);
-
     }
 
     public boolean isAddDcDescription() {
@@ -68,10 +69,13 @@ public final class Settings {
 
     private boolean isTrue(String key) {
         String value = properties.getProperty(key);
-        return value != null && value.equals(VALUE_BOOLEAN_TRUE);
+
+        return (value != null) && value.equals(VALUE_BOOLEAN_TRUE);
     }
 
     private void setBoolean(boolean b, String key) {
-        properties.setProperty(key, b ? VALUE_BOOLEAN_TRUE : VALUE_BOOLEAN_FALSE);
+        properties.setProperty(key, b
+                                    ? VALUE_BOOLEAN_TRUE
+                                    : VALUE_BOOLEAN_FALSE);
     }
 }

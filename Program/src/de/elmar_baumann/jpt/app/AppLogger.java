@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.text.MessageFormat;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,7 +47,6 @@ import java.util.logging.Logger;
  * @version 2008-11-11
  */
 public final class AppLogger {
-
     public static final String USE_STRING = "AppLog.UseString";
 
     /**
@@ -57,7 +59,8 @@ public final class AppLogger {
      *                  described in {@link MessageFormat}
      * @param params    optional params for the message string
      */
-    public static void logFinest(Class<?> c, String bundleKey, Object... params) {
+    public static void logFinest(Class<?> c, String bundleKey,
+                                 Object... params) {
         log(c, Level.FINEST, bundleKey, params);
     }
 
@@ -71,7 +74,8 @@ public final class AppLogger {
      *                  described in {@link MessageFormat}
      * @param params    optional params for the message string
      */
-    public static void logFiner(Class<?> c, String bundleKey, Object... params) {
+    public static void logFiner(Class<?> c, String bundleKey,
+                                Object... params) {
         log(c, Level.FINER, bundleKey, params);
     }
 
@@ -113,7 +117,8 @@ public final class AppLogger {
      *                  described in {@link MessageFormat}
      * @param params    optional params for the message string
      */
-    public static void logWarning(Class<?> c, String bundleKey, Object... params) {
+    public static void logWarning(Class<?> c, String bundleKey,
+                                  Object... params) {
         log(c, Level.WARNING, bundleKey, params);
         ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(bundleKey, c));
     }
@@ -128,14 +133,16 @@ public final class AppLogger {
     public static void logSevere(Class<?> c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
-        ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(ex.getMessage(), c));
+        ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(ex.getMessage(),
+                c));
     }
 
-    private static void log(Class<?> c, Level level, String bundleKey, Object... params) {
-        Logger.getLogger(c.getName()).log(level, JptBundle.INSTANCE.getString(bundleKey, params));
+    private static void log(Class<?> c, Level level, String bundleKey,
+                            Object... params) {
+        Logger.getLogger(c.getName()).log(level,
+                         JptBundle.INSTANCE.getString(bundleKey, params));
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
     }
 
-    private AppLogger() {
-    }
+    private AppLogger() {}
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 /**
@@ -25,9 +26,4 @@ package de.elmar_baumann.jpt.types;
  * @author  Elmar Baumann
  * @version 2009-02-19
  */
-public enum DeleteOption {
-
-        CONFIRM_DELETE,
-        MESSAGES_ON_FAILURES
-
-}
+public enum DeleteOption { CONFIRM_DELETE, MESSAGES_ON_FAILURES }

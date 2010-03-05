@@ -17,12 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
+
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,10 +37,9 @@ import javax.swing.table.DefaultTableModel;
  * @version 2008-10-05
  */
 public final class TableModelXmp extends DefaultTableModel {
-
-    private static final long                  serialVersionUID = -647814140321831383L;
-    private              List<XMPPropertyInfo> propertyInfos;
-    private              String                filename;
+    private static final long     serialVersionUID = -647814140321831383L;
+    private List<XMPPropertyInfo> propertyInfos;
+    private String                filename;
 
     public TableModelXmp() {
         setRowHeaders();
@@ -50,8 +53,9 @@ public final class TableModelXmp extends DefaultTableModel {
      *                       Inforation unwichtig ist
      * @param propertyInfos  Property-Infos
      */
-    public void setPropertyInfosOfFile(String filename, List<XMPPropertyInfo> propertyInfos) {
-        this.filename = filename;
+    public void setPropertyInfosOfFile(String filename,
+                                       List<XMPPropertyInfo> propertyInfos) {
+        this.filename      = filename;
         this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
         removeAllRows();
         addRows();
@@ -90,10 +94,12 @@ public final class TableModelXmp extends DefaultTableModel {
     }
 
     private void addRow(XMPPropertyInfo xmpPropertyInfo) {
-        String path = xmpPropertyInfo.getPath();
+        String path  = xmpPropertyInfo.getPath();
         Object value = xmpPropertyInfo.getValue();
-        if (path != null && value != null && !path.contains("Digest")) {
+
+        if ((path != null) && (value != null) &&!path.contains("Digest")) {
             List<XMPPropertyInfo> newRow = new ArrayList<XMPPropertyInfo>();
+
             newRow.add(xmpPropertyInfo);
             newRow.add(xmpPropertyInfo);
             super.addRow(newRow.toArray(new XMPPropertyInfo[newRow.size()]));

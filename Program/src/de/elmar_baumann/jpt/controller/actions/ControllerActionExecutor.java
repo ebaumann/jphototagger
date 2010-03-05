@@ -17,12 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.actions;
 
-import de.elmar_baumann.jpt.event.ProgramEvent;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
-import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.event.ProgramEvent;
 import de.elmar_baumann.jpt.helper.StartPrograms;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 
@@ -34,10 +35,11 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
  * @version 2008-11-06
  */
 public final class ControllerActionExecutor implements ProgramActionListener {
-
-    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final ActionsDialog   actionsDialog   = ActionsDialog.INSTANCE;
-    private final StartPrograms   programStarter  = new StartPrograms(actionsDialog.getProgressBar(this)); // no other executor expected
+    private final ThumbnailsPanel thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ActionsDialog actionsDialog  = ActionsDialog.INSTANCE;
+    private final StartPrograms programStarter =
+        new StartPrograms(actionsDialog.getProgressBar(this));    // no other executor expected
 
     public ControllerActionExecutor() {
         listen();
@@ -50,7 +52,8 @@ public final class ControllerActionExecutor implements ProgramActionListener {
     @Override
     public void actionPerformed(ProgramEvent evt) {
         if (evt.getType().equals(ProgramEvent.Type.PROGRAM_EXECUTED)) {
-            programStarter.startProgram(evt.getProgram(), thumbnailsPanel.getSelectedFiles());
+            programStarter.startProgram(evt.getProgram(),
+                                        thumbnailsPanel.getSelectedFiles());
         }
     }
 }

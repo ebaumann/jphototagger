@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.resource;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -29,16 +31,14 @@ import static org.junit.Assert.*;
  * @version 2009-01-31
  */
 public class MutualExcludedResourceTest {
-
-    public MutualExcludedResourceTest() {
-    }
+    public MutualExcludedResourceTest() {}
 
     private final class TestClass extends MutualExcludedResource<Object> {
-
         public TestClass() {
             setResource(new Object());
         }
     }
+
 
     /**
      * Test of isAvailable method, of class MutualExcludedResource.
@@ -62,9 +62,11 @@ public class MutualExcludedResourceTest {
         System.out.println("getResource");
 
         MutualExcludedResource<?> res = new TestClass();
+
         assertNotNull(res.getResource(this));
 
         Object o = new Object();
+
         assertNull(res.getResource(o));
         assertNull(res.getResource(this));
     }
@@ -77,7 +79,7 @@ public class MutualExcludedResourceTest {
         System.out.println("releaseResource");
 
         MutualExcludedResource<?> res = new TestClass();
-        Object o = new Object();
+        Object                    o   = new Object();
 
         res.getResource(this);
         assertFalse(res.releaseResource(o));
@@ -91,9 +93,7 @@ public class MutualExcludedResourceTest {
     @Test
     public void testSetResource() {
         System.out.println("setResource");
-
         final class TestClass2 extends MutualExcludedResource<Object> {
-
             @SuppressWarnings("unchecked")
             public TestClass2() {
                 assertFalse(isAvailable());
@@ -101,7 +101,6 @@ public class MutualExcludedResourceTest {
                 assertTrue(isAvailable());
             }
         }
-
         new TestClass2();
     }
 }

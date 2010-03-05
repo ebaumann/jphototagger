@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +33,8 @@ import java.util.List;
  * @version 2008-09-14
  */
 public final class ExifInDatabase {
-
-    private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD = new ArrayList<ExifTag.Id>();
-
+    private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD =
+        new ArrayList<ExifTag.Id>();
 
     static {
         STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.DATE_TIME_ORIGINAL);
@@ -62,17 +63,19 @@ public final class ExifInDatabase {
      * @param id      id
      * @return        true, falls gespeichert
      */
-
     public static boolean isInDatabase(IfdType ifdType, ExifTag.Id id) {
         if (id != null) {
             switch (ifdType) {
-                case EXIF: return STORED_TAG_IDS_EXIF_IFD.contains(id);
-                default  : return false;
+            case EXIF :
+                return STORED_TAG_IDS_EXIF_IFD.contains(id);
+
+            default :
+                return false;
             }
         }
+
         return false;
     }
 
-    private ExifInDatabase() {
-    }
+    private ExifInDatabase() {}
 }

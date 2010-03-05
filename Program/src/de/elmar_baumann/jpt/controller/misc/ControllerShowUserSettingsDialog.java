@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,7 +33,6 @@ import java.awt.event.ActionListener;
  * @version 2008-09-25
  */
 public final class ControllerShowUserSettingsDialog implements ActionListener {
-
     @Override
     public void actionPerformed(ActionEvent e) {
         showDialog();

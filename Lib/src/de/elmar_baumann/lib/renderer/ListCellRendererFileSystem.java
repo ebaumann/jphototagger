@@ -17,16 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.renderer;
 
 import java.awt.Component;
+
 import java.io.File;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * Renders an file specific icon for cell values that are an instance of
@@ -37,10 +41,10 @@ import javax.swing.filechooser.FileSystemView;
  * @version 2008-09-14
  */
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
-
-    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
-    private static final long           serialVersionUID = 7162791469100194476L;
-    private final        boolean        absolutePathName;
+    private static final FileSystemView FILE_SYSTEM_VIEW =
+        FileSystemView.getFileSystemView();
+    private static final long serialVersionUID = 7162791469100194476L;
+    private final boolean     absolutePathName;
 
     /**
      * Constructor.
@@ -54,21 +58,31 @@ public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value,
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
+                           index, isSelected, cellHasFocus);
+
         if (value instanceof File) {
             File file = (File) value;
+
             if (file.exists()) {
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
                         label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Exception ex) {
-                        Logger.getLogger(ListCellRendererFileSystem.class.getName()).log(Level.WARNING, null, ex);
+                        Logger.getLogger(
+                            ListCellRendererFileSystem.class.getName()).log(
+                            Level.WARNING, null, ex);
                     }
                 }
             }
-            label.setText(absolutePathName ? file.getAbsolutePath() : file.getName());
+
+            label.setText(absolutePathName
+                          ? file.getAbsolutePath()
+                          : file.getName());
         }
+
         return label;
     }
 }

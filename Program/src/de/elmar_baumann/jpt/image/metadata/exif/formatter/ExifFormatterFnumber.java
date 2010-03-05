@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -33,26 +35,25 @@ import java.text.NumberFormat;
  * @version 2009-06-10
  */
 public final class ExifFormatterFnumber extends ExifFormatter {
+    public static final ExifFormatterFnumber INSTANCE =
+        new ExifFormatterFnumber();
 
-    public static final ExifFormatterFnumber INSTANCE = new ExifFormatterFnumber();
-
-    private ExifFormatterFnumber() {
-    }
+    private ExifFormatterFnumber() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.F_NUMBER);
 
         if (ExifRational.byteCount() == exifTag.rawValue().length) {
-
-            ExifRational  fNumer = new ExifRational(exifTag.rawValue(), exifTag.byteOrder());
-            DecimalFormat df     = (DecimalFormat) NumberFormat.getNumberInstance();
+            ExifRational fNumer = new ExifRational(exifTag.rawValue(),
+                                      exifTag.byteOrder());
+            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.#");
 
             return df.format(ExifDatatypeUtil.toDouble(fNumer));
         }
+
         return "?";
     }
 }

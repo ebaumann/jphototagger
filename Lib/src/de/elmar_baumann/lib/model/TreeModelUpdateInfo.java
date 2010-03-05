@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.model;
 
 import de.elmar_baumann.lib.util.ArrayUtil;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.tree.TreeNode;
 
 /**
@@ -41,12 +44,10 @@ public final class TreeModelUpdateInfo {
      * @version 2009-06-14
      */
     public static class NodeAndChildIndices {
-
-        private TreeNode node;
+        private TreeNode      node;
         private List<Integer> childIndices = new ArrayList<Integer>();
 
-        public NodeAndChildIndices() {
-        }
+        public NodeAndChildIndices() {}
 
         /**
          * Constructor.
@@ -55,7 +56,7 @@ public final class TreeModelUpdateInfo {
          * @param  childIndices indices of that node's children
          */
         public NodeAndChildIndices(TreeNode node, List<Integer> childIndices) {
-            this.node = node;
+            this.node         = node;
             this.childIndices = childIndices;
         }
 
@@ -66,6 +67,7 @@ public final class TreeModelUpdateInfo {
          */
         public int[] getChildIndices() {
             Collections.sort(childIndices);
+
             return ArrayUtil.toIntArray(childIndices);
         }
 
@@ -97,6 +99,7 @@ public final class TreeModelUpdateInfo {
         }
     }
 
+
     /**
      * Update info of a node with one child.
      *
@@ -108,10 +111,9 @@ public final class TreeModelUpdateInfo {
      * @version 2009-06-14
      */
     public static class NodeAndChild {
-
         private TreeNode node;
-        private Object[] updatedChild = new Object[1];
-        private int[] updatedChildIndex = new int[1];
+        private Object[] updatedChild      = new Object[1];
+        private int[]    updatedChildIndex = new int[1];
 
         /**
          * Returns the index of updated child.
@@ -138,7 +140,7 @@ public final class TreeModelUpdateInfo {
          * @param index index of that child
          */
         public void setUpdatedChild(Object child, int index) {
-            updatedChild[0] = child;
+            updatedChild[0]      = child;
             updatedChildIndex[0] = index;
         }
 
@@ -161,6 +163,7 @@ public final class TreeModelUpdateInfo {
         }
     }
 
+
     /**
      * Contains multiple nodes with each can have multiple child indices.
      *
@@ -168,9 +171,8 @@ public final class TreeModelUpdateInfo {
      * @version 2009-06-14
      */
     public static class NodesAndChildIndices {
-
         private List<NodeAndChildIndices> info =
-                new ArrayList<TreeModelUpdateInfo.NodeAndChildIndices>();
+            new ArrayList<TreeModelUpdateInfo.NodeAndChildIndices>();
 
         /**
          * Adds as last element a new node when more than one children were
@@ -180,8 +182,9 @@ public final class TreeModelUpdateInfo {
          * @param childrenIndices indices of updated children
          */
         public void addNode(TreeNode node, int[] childrenIndices) {
-            info.add(new NodeAndChildIndices(node, ArrayUtil.toList(
-                    childrenIndices)));
+            info.add(
+                new NodeAndChildIndices(
+                    node, ArrayUtil.toList(childrenIndices)));
         }
 
         /**
@@ -191,8 +194,9 @@ public final class TreeModelUpdateInfo {
          * @param childIndex index of the updated child
          */
         public void addNode(TreeNode node, int childIndex) {
-            info.add(new NodeAndChildIndices(node, Arrays.asList(
-                    Integer.valueOf(childIndex))));
+            info.add(
+                new NodeAndChildIndices(
+                    node, Arrays.asList(Integer.valueOf(childIndex))));
         }
 
         public List<NodeAndChildIndices> getInfo() {

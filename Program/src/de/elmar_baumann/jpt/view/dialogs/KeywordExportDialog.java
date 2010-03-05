@@ -17,19 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.dialogs;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.exporter.Exporter;
 import de.elmar_baumann.jpt.model.ComboBoxModelKeywordsExporters;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.Settings;
+
 import java.awt.Container;
+
 import java.io.File;
+
 import javax.swing.JFileChooser;
 
 /**
@@ -39,16 +43,20 @@ import javax.swing.JFileChooser;
  * @version 2009-08-02
  */
 public class KeywordExportDialog extends Dialog {
-
-    private static final String                        KEY_PREV_EXPORT_FILE   = "KeywordExportDialog.PrevExportFile";
-    private static final long                          serialVersionUID       = 5431485480637999486L;
-    private              boolean                       accepted;
-    private              File                          file;
-    private              ComboBoxModelKeywordsExporters comboBoxModelExporter  = new ComboBoxModelKeywordsExporters();
-    private static final String                        KEY_SEL_EXPORTER_INDEX = "KeywordExportDialog.SelectedExporterIndex";
+    private static final String KEY_PREV_EXPORT_FILE =
+        "KeywordExportDialog.PrevExportFile";
+    private static final long              serialVersionUID =
+        5431485480637999486L;
+    private boolean                        accepted;
+    private File                           file;
+    private ComboBoxModelKeywordsExporters comboBoxModelExporter =
+        new ComboBoxModelKeywordsExporters();
+    private static final String KEY_SEL_EXPORTER_INDEX =
+        "KeywordExportDialog.SelectedExporterIndex";
 
     public KeywordExportDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.INSTANCE.getAppFrame(), true,
+              UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         MnemonicUtil.setMnemonics((Container) this);
@@ -56,7 +64,8 @@ public class KeywordExportDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.KeywordExportDialog"));
+        setHelpPageUrl(
+            JptBundle.INSTANCE.getString("Help.Url.KeywordExportDialog"));
     }
 
     /**
@@ -77,9 +86,16 @@ public class KeywordExportDialog extends Dialog {
      */
     public Exporter getExporter() {
         assert accepted : "Export was not accepted!";
-        if (!accepted) return null;
+
+        if (!accepted) {
+            return null;
+        }
+
         Object item = comboBoxExporter.getSelectedItem();
-        return item instanceof Exporter ? (Exporter) item : null;
+
+        return (item instanceof Exporter)
+               ? (Exporter) item
+               : null;
     }
 
     @Override
@@ -89,6 +105,7 @@ public class KeywordExportDialog extends Dialog {
         } else {
             writeProperties();
         }
+
         super.setVisible(visible);
     }
 
@@ -101,36 +118,49 @@ public class KeywordExportDialog extends Dialog {
      */
     public File getFile() {
         assert accepted : "Export was not accepted!";
-        if (!accepted) return null;
+
+        if (!accepted) {
+            return null;
+        }
+
         return file;
     }
 
     private void chooseFile() {
         Object selItem = comboBoxExporter.getSelectedItem();
+
         if (selItem instanceof Exporter) {
             JFileChooser fileChooser = new JFileChooser();
+
             if (file != null) {
                 fileChooser.setCurrentDirectory(file.getParentFile());
             }
+
             fileChooser.setFileFilter(((Exporter) selItem).getFileFilter());
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setDialogTitle(getTitle());
-            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+
+            if (fileChooser.showSaveDialog(this)
+                    == JFileChooser.APPROVE_OPTION) {
                 File selFile = fileChooser.getSelectedFile();
+
                 file = selFile;
                 labelFilename.setText(file.getAbsolutePath());
             }
+
             buttonExport.setEnabled(file != null);
         }
-
     }
 
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
+
         settings.applySelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
+
         File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
-        if (prevExpFile.getParentFile() != null &&
-                prevExpFile.getParentFile().isDirectory()) {
+
+        if ((prevExpFile.getParentFile() != null)
+                && prevExpFile.getParentFile().isDirectory()) {
             file = prevExpFile;
             labelFilename.setText(prevExpFile.getAbsolutePath());
             buttonExport.setEnabled(true);
@@ -139,8 +169,10 @@ public class KeywordExportDialog extends Dialog {
 
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
+
         settings.setSelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
-        if (file != null && file.isFile()) {
+
+        if ((file != null) && file.isFile()) {
             settings.set(file.getAbsolutePath(), KEY_PREV_EXPORT_FILE);
         }
     }
@@ -153,9 +185,16 @@ public class KeywordExportDialog extends Dialog {
     }
 
     private boolean checkOverwrite() {
-        if (file == null) return false;
-        if (!file.exists()) return true;
-        return MessageDisplayer.confirmYesNo(this, "KeywordExportDialog.Confirm.OverwriteFile", file);
+        if (file == null) {
+            return false;
+        }
+
+        if (!file.exists()) {
+            return true;
+        }
+
+        return MessageDisplayer.confirmYesNo(this,
+                "KeywordExportDialog.Confirm.OverwriteFile", file);
     }
 
     @Override
@@ -168,56 +207,64 @@ public class KeywordExportDialog extends Dialog {
         setVisible(false);
     }
 
-    /** This method is called from within the constructor to
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        labelFormat = new javax.swing.JLabel();
-        comboBoxExporter = new javax.swing.JComboBox();
+        labelFormat       = new javax.swing.JLabel();
+        comboBoxExporter  = new javax.swing.JComboBox();
         labelInfoFilename = new javax.swing.JLabel();
-        labelFilename = new javax.swing.JLabel();
-        buttonChooseFile = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
-        buttonExport = new javax.swing.JButton();
-
-        setTitle(JptBundle.INSTANCE.getString("KeywordExportDialog.title")); // NOI18N
+        labelFilename     = new javax.swing.JLabel();
+        buttonChooseFile  = new javax.swing.JButton();
+        buttonCancel      = new javax.swing.JButton();
+        buttonExport      = new javax.swing.JButton();
+        setTitle(JptBundle.INSTANCE.getString("KeywordExportDialog.title"));    // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-
         labelFormat.setLabelFor(comboBoxExporter);
-        labelFormat.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelFormat.text")); // NOI18N
-
+        labelFormat.setText(
+            JptBundle.INSTANCE.getString(
+                "KeywordExportDialog.labelFormat.text"));    // NOI18N
         comboBoxExporter.setModel(comboBoxModelExporter);
-        comboBoxExporter.setRenderer(new de.elmar_baumann.jpt.view.renderer.ListCellRendererKeywordImExport());
-
-        labelInfoFilename.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelInfoFilename.text")); // NOI18N
-
+        comboBoxExporter
+            .setRenderer(new de.elmar_baumann.jpt.view.renderer
+                .ListCellRendererKeywordImExport());
+        labelInfoFilename.setText(
+            JptBundle.INSTANCE.getString(
+                "KeywordExportDialog.labelInfoFilename.text"));    // NOI18N
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
-
-        buttonChooseFile.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(
+            JptBundle.INSTANCE.getString(
+                "KeywordExportDialog.buttonChooseFile.text"));    // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
         });
-
-        buttonCancel.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(
+            JptBundle.INSTANCE.getString(
+                "KeywordExportDialog.buttonCancel.text"));    // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
-
-        buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
-        buttonExport.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonExport.text")); // NOI18N
+        buttonExport.setIcon(
+            new javax.swing.ImageIcon(
+                getClass().getResource(
+                    "/de/elmar_baumann/jpt/resource/icons/icon_export.png")));    // NOI18N
+        buttonExport.setText(
+            JptBundle.INSTANCE.getString(
+                "KeywordExportDialog.buttonExport.text"));    // NOI18N
         buttonExport.setEnabled(false);
         buttonExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,81 +272,96 @@ public class KeywordExportDialog extends Dialog {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout =
+            new javax.swing.GroupLayout(getContentPane());
+
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelFormat)
-                            .addComponent(labelInfoFilename))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonChooseFile)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonExport)))
-                .addContainerGap())
-        );
+            layout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addContainerGap().addGroup(
+                    layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+                        layout.createSequentialGroup().addGroup(
+                            layout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                                labelFormat).addComponent(
+                                labelInfoFilename)).addPreferredGap(
+                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                                    layout.createParallelGroup(
+                                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                                        comboBoxExporter,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(
+                                            labelFilename,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                    343,
+                                                    Short.MAX_VALUE))).addGroup(
+                                                        javax.swing.GroupLayout.Alignment.TRAILING,
+                                                            layout.createSequentialGroup().addComponent(
+                                                                buttonChooseFile).addPreferredGap(
+                                                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
+                                                                        buttonCancel).addPreferredGap(
+                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
+                                                                                buttonExport))).addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelFormat)
-                    .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelInfoFilename)
-                    .addComponent(labelFilename))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonExport)
-                    .addComponent(buttonCancel)
-                    .addComponent(buttonChooseFile))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelFilename, labelInfoFilename});
-
+            layout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addContainerGap().addGroup(
+                    layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
+                        labelFormat).addComponent(
+                        comboBoxExporter,
+                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(
+                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                            layout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
+                                labelInfoFilename).addComponent(
+                                labelFilename)).addPreferredGap(
+                                    javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(
+                                    layout.createParallelGroup(
+                                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
+                                        buttonExport).addComponent(
+                                        buttonCancel).addComponent(
+                                        buttonChooseFile)).addContainerGap(
+                                            javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                Short.MAX_VALUE)));
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
+                        new java.awt.Component[] { labelFilename,
+                labelInfoFilename });
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }    // </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
         writeProperties();
-    }//GEN-LAST:event_formWindowClosing
+    }    // GEN-LAST:event_formWindowClosing
 
-    private void buttonExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportActionPerformed
+    private void buttonExportActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonExportActionPerformed
         handleExportActionPerformed();
-    }//GEN-LAST:event_buttonExportActionPerformed
+    }    // GEN-LAST:event_buttonExportActionPerformed
 
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCancelActionPerformed
         handleCancelActionPerformed();
-    }//GEN-LAST:event_buttonCancelActionPerformed
+    }    // GEN-LAST:event_buttonCancelActionPerformed
 
-    private void buttonChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
+    private void buttonChooseFileActionPerformed(
+            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseFileActionPerformed
         chooseFile();
-    }//GEN-LAST:event_buttonChooseFileActionPerformed
+    }    // GEN-LAST:event_buttonChooseFileActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-                KeywordExportDialog dialog =
-                        new KeywordExportDialog();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                KeywordExportDialog dialog = new KeywordExportDialog();
 
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -309,13 +371,15 @@ public class KeywordExportDialog extends Dialog {
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCancel;
-    private javax.swing.JButton buttonChooseFile;
-    private javax.swing.JButton buttonExport;
+    private javax.swing.JButton   buttonCancel;
+    private javax.swing.JButton   buttonChooseFile;
+    private javax.swing.JButton   buttonExport;
     private javax.swing.JComboBox comboBoxExporter;
-    private javax.swing.JLabel labelFilename;
-    private javax.swing.JLabel labelFormat;
-    private javax.swing.JLabel labelInfoFilename;
+    private javax.swing.JLabel    labelFilename;
+    private javax.swing.JLabel    labelFormat;
+    private javax.swing.JLabel    labelInfoFilename;
+
     // End of variables declaration//GEN-END:variables
 }

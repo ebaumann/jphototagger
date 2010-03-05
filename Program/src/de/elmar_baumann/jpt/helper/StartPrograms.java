@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -28,12 +29,15 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramInputParametersDialog;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+
 import javax.swing.JProgressBar;
 
 /**
@@ -43,8 +47,7 @@ import javax.swing.JProgressBar;
  * @version 2008-11-06
  */
 public final class StartPrograms {
-
-    private final JProgressBar progressBar;
+    private final JProgressBar   progressBar;
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
 
     /**
@@ -66,6 +69,7 @@ public final class StartPrograms {
     public void startProgram(Program program, List<File> imageFiles) {
         if (checkFilecount(imageFiles)) {
             Execute execute = new Execute(program, imageFiles);
+
             synchronized (this) {
                 if (queue.isEmpty()) {
                     execute.start();
@@ -79,112 +83,159 @@ public final class StartPrograms {
     private boolean checkFilecount(List<File> imageFiles) {
         if (imageFiles.size() <= 0) {
             MessageDisplayer.error(null, "StartPrograms.Error.Selection");
+
             return false;
         }
+
         return true;
     }
 
     private class Execute extends Thread {
-
-        private Program program;
-        private List<File> imageFiles;
-        ProgramInputParametersDialog dialog = new ProgramInputParametersDialog();
+        private Program              program;
+        private List<File>           imageFiles;
+        ProgramInputParametersDialog dialog =
+            new ProgramInputParametersDialog();
 
         public Execute(Program program, List<File> imageFiles) {
             this.imageFiles = new ArrayList<File>(imageFiles);
-            this.program = program;
-            setName("Executing program " + program.getAlias() + " @ " + getClass().getSimpleName());
+            this.program    = program;
+            setName("Executing program " + program.getAlias() + " @ "
+                    + getClass().getSimpleName());
         }
 
         @Override
         public void run() {
             initProgressBar();
+
             if (program.isUsePattern()) {
                 processPattern();
-            }
-            else if (program.isSingleFileProcessing()) {
+            } else if (program.isSingleFileProcessing()) {
                 processSingle();
             } else {
                 processAll();
             }
+
             updateDatabase();
             nextExecutor();
         }
 
         private void logCommand(String command) {
-            AppLogger.logInfo(StartPrograms.class, "StartPrograms.Info.ExecuteCommand", command);
+            AppLogger.logInfo(StartPrograms.class,
+                              "StartPrograms.Info.ExecuteCommand", command);
         }
 
         private void processPattern() {
             int count = 0;
+
             for (File file : imageFiles) {
                 String command = getProcessPatternCommand(file);
+
                 logCommand(command);
+
                 External.ProcessResult result = External.execute(command, true);
-                if (result == null || result.getExitValue() != 0) {
-                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
+
+                if ((result == null) || (result.getExitValue() != 0)) {
+                    AppLogger.logWarning(Execute.class,
+                                         "Execute.ExternalExcecute.Error",
+                                         command, (result == null)
+                                                  ? "?"
+                                                  : result.getErrorStream());
                 }
+
                 setValueToProgressBar(++count);
             }
         }
 
         private String getProcessPatternCommand(File file) {
-            return IoUtil.quoteForCommandLine(program.getFile()) +
-                    IoUtil.getDefaultCommandLineSeparator() +
-                    IoUtil.substitudePattern(file, program.getPattern());
+            return IoUtil.quoteForCommandLine(program.getFile())
+                   + IoUtil.getDefaultCommandLineSeparator()
+                   + IoUtil.substitudePattern(file, program.getPattern());
         }
 
         private void processAll() {
             String command = getProcessAllCommand();
+
             logCommand(command);
+
             External.ProcessResult result = External.execute(command, true);
-            if (result == null || result.getExitValue() != 0) {
-                AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
+
+            if ((result == null) || (result.getExitValue() != 0)) {
+                AppLogger.logWarning(Execute.class,
+                                     "Execute.ExternalExcecute.Error", command,
+                                     (result == null)
+                                     ? "?"
+                                     : result.getErrorStream());
             }
+
             setValueToProgressBar(imageFiles.size());
         }
 
         private String getProcessAllCommand() {
-            return IoUtil.quoteForCommandLine(program.getFile()) +
-                    IoUtil.getDefaultCommandLineSeparator() +
-                    program.getCommandlineParameters(imageFiles,
-                        getAdditionalParameters(JptBundle.INSTANCE.getString("StartPrograms.GetInput.Title"), 2),
-                        dialog.isParametersBeforeFilename());
+            return IoUtil.quoteForCommandLine(program.getFile())
+                   + IoUtil.getDefaultCommandLineSeparator()
+                   + program
+                       .getCommandlineParameters(
+                           imageFiles,
+                           getAdditionalParameters(
+                               JptBundle.INSTANCE
+                                   .getString(
+                                       "StartPrograms.GetInput.Title"), 2), dialog
+                                           .isParametersBeforeFilename());
         }
 
         private void processSingle() {
             int count = 0;
+
             for (File file : imageFiles) {
                 String command = getProcessSingleCommand(file, count);
+
                 logCommand(command);
+
                 External.ProcessResult result = External.execute(command, true);
-                if (result == null || result.getExitValue() != 0) {
-                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, result == null ? "?" : result.getErrorStream());
+
+                if ((result == null) || (result.getExitValue() != 0)) {
+                    AppLogger.logWarning(Execute.class,
+                                         "Execute.ExternalExcecute.Error",
+                                         command, (result == null)
+                                                  ? "?"
+                                                  : result.getErrorStream());
                 }
+
                 setValueToProgressBar(++count);
             }
         }
 
         private String getProcessSingleCommand(File file, int count) {
-            return IoUtil.quoteForCommandLine(program.getFile()) +
-                    IoUtil.getDefaultCommandLineSeparator() +
-                    program.getCommandlineParameters(
-                        Arrays.asList(file),
-                        getAdditionalParameters(file.getAbsolutePath(), count + 1),
-                        dialog.isParametersBeforeFilename());
+            return IoUtil.quoteForCommandLine(program.getFile())
+                   + IoUtil.getDefaultCommandLineSeparator()
+                   + program.getCommandlineParameters(
+                       Arrays.asList(file),
+                       getAdditionalParameters(
+                           file.getAbsolutePath(),
+                           count + 1), dialog.isParametersBeforeFilename());
         }
 
         private String getAdditionalParameters(String filename, int count) {
-            if (program.isUsePattern()) return "";
-            if (!program.isInputBeforeExecute()) return "";
-            if ((!program.isInputBeforeExecutePerFile() && count > 1)) return dialog.getParameters();
+            if (program.isUsePattern()) {
+                return "";
+            }
+
+            if (!program.isInputBeforeExecute()) {
+                return "";
+            }
+
+            if ((!program.isInputBeforeExecutePerFile() && (count > 1))) {
+                return dialog.getParameters();
+            }
 
             dialog.setProgram(program.getAlias());
             dialog.setFilename(filename);
             dialog.setVisible(true);
+
             if (dialog.accepted()) {
                 return dialog.getParameters();
             }
+
             return "";
         }
 
@@ -210,9 +261,12 @@ public final class StartPrograms {
 
         private void updateDatabase() {
             if (program.isChangeFile()) {
-                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                        FileUtil.getAbsolutePathnames(imageFiles), Insert.OUT_OF_DATE);
-                updater.run(); // no subsequent thread
+                InsertImageFilesIntoDatabase updater =
+                    new InsertImageFilesIntoDatabase(
+                        FileUtil.getAbsolutePathnames(imageFiles),
+                        Insert.OUT_OF_DATE);
+
+                updater.run();    // no subsequent thread
             }
         }
     }

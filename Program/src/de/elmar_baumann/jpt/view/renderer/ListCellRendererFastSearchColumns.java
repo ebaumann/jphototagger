@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections.ColumnIcons;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.Component;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -34,21 +37,30 @@ import javax.swing.JList;
  * @author  Elmar Baumann
  * @version 2009-08-31
  */
-public final class ListCellRendererFastSearchColumns extends DefaultListCellRenderer {
-
+public final class ListCellRendererFastSearchColumns
+        extends DefaultListCellRenderer {
     private static final long serialVersionUID = 8142413010742459250L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value,
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
+                           index, isSelected, cellHasFocus);
+
         if (value instanceof Column) {
             Column column = (Column) value;
+
             label.setText(column.getDescription());
             label.setIcon(ColumnIcons.getIcon(column));
-        } else if (value != null && value.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS)) {
-            label.setText(JptBundle.INSTANCE.getString("ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
+        } else if ((value != null)
+                   && value.equals(
+                       ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS)) {
+            label.setText(
+                JptBundle.INSTANCE.getString(
+                    "ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
             label.setIcon(null);
         }
+
         return label;
     }
 }

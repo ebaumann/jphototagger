@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-10-13
  */
 public final class FilenameFormatEmptyString extends FilenameFormat {
-
     @Override
     public String toString() {
         return JptBundle.INSTANCE.getString("FilenameFormatEmptyString.String");

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 /**
@@ -26,7 +27,6 @@ package de.elmar_baumann.jpt.event;
  * @version 2008-08-03
  */
 public final class ErrorEvent {
-
     private final String message;
     private final Object source;
 
@@ -38,7 +38,7 @@ public final class ErrorEvent {
      */
     public ErrorEvent(String message, Object source) {
         this.message = message;
-        this.source = source;
+        this.source  = source;
     }
 
     /**

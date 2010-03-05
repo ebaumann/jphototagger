@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.controller.keywords.tree.KeywordTreeNodesClipboard;
@@ -24,7 +25,9 @@ import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
+
 import java.awt.event.MouseEvent;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -40,8 +43,8 @@ import javax.swing.tree.TreePath;
  * @version 2009-07-29
  */
 public final class MouseListenerKeywordsTree extends MouseListenerTree {
-
-    private final PopupMenuKeywordsTree popupMenu = PopupMenuKeywordsTree.INSTANCE;
+    private final PopupMenuKeywordsTree popupMenu =
+        PopupMenuKeywordsTree.INSTANCE;
 
     public MouseListenerKeywordsTree() {
         listenExpandAllSubItems(popupMenu.getItemExpandAllSubitems(), true);
@@ -51,14 +54,15 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
+
         if (MouseEventUtil.isPopupTrigger(e)) {
             TreePath mouseCursorPath = TreeUtil.getTreePath(e);
-            boolean isHkNode =
-                    mouseCursorPath != null &&
-                    !TreeUtil.isRootItemPosition(e) &&
-                    mouseCursorPath.getLastPathComponent() instanceof DefaultMutableTreeNode;
+            boolean  isHkNode        =
+                (mouseCursorPath != null) &&!TreeUtil.isRootItemPosition(e)
+                && (mouseCursorPath.getLastPathComponent()
+                    instanceof DefaultMutableTreeNode);
+            JTree tree = (JTree) e.getSource();
 
-            JTree tree = (JTree)e.getSource();
             popupMenu.setTree(tree);
             setTreePathsToPopupMenu(tree, mouseCursorPath);
             setMenuItemsEnabled(isHkNode);
@@ -68,34 +72,37 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
     }
 
     private void setTreePathsToPopupMenu(JTree tree, TreePath mouseCursorPath) {
-
         popupMenu.setTreePath(mouseCursorPath);
+
         if (mouseCursorPath == null) {
             popupMenu.setTreePaths(null);
+
             return;
         }
-        
+
         TreePath[] selPaths = tree.getSelectionPaths();
-        popupMenu.setTreePaths(selPaths == null
-                ? new TreePath[] { mouseCursorPath }
-                : selPaths
-                );
+
+        popupMenu.setTreePaths((selPaths == null)
+                               ? new TreePath[] { mouseCursorPath }
+                               : selPaths);
     }
 
     private void setMenuItemsEnabled(boolean hkNode) {
-        popupMenu.getItemRemove()             .setEnabled(hkNode);
-        popupMenu.getItemRename()             .setEnabled(hkNode);
-        popupMenu.getItemToggleReal()         .setEnabled(hkNode);
-        popupMenu.getItemAddToEditPanel()     .setEnabled(hkNode);
+        popupMenu.getItemRemove().setEnabled(hkNode);
+        popupMenu.getItemRename().setEnabled(hkNode);
+        popupMenu.getItemToggleReal().setEnabled(hkNode);
+        popupMenu.getItemAddToEditPanel().setEnabled(hkNode);
         popupMenu.getItemRemoveFromEditPanel().setEnabled(hkNode);
-        popupMenu.getItemCut()                .setEnabled(hkNode);
-        popupMenu.getItemPaste()              .setEnabled(hkNode && !KeywordTreeNodesClipboard.INSTANCE.isEmpty());
-        popupMenu.getItemExpandAllSubitems()  .setEnabled(hkNode);
+        popupMenu.getItemCut().setEnabled(hkNode);
+        popupMenu.getItemPaste().setEnabled(hkNode
+                &&!KeywordTreeNodesClipboard.INSTANCE.isEmpty());
+        popupMenu.getItemExpandAllSubitems().setEnabled(hkNode);
         popupMenu.getItemCollapseAllSubitems().setEnabled(hkNode);
     }
 
     @Override
     protected void popupTrigger(JTree tree, TreePath path, int x, int y) {
+
         // ignore
     }
 }

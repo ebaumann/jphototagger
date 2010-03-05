@@ -17,16 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.util.Settings;
+
 import java.awt.Component;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.Frame;
+
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JRootPane;
@@ -40,15 +43,14 @@ import javax.swing.KeyStroke;
  * @version 2008-10-19
  */
 public class Dialog extends JDialog implements WindowListener {
-
-    private static final    long           serialVersionUID    = 847375186274302816L;
-    private transient       ActionListener actionListenerEscape;
-    private transient       ActionListener actionListenerHelp;
-    private                 String         helpContentsUrl     = "";
-    private                 String         helpPageUrl;
-    private transient       Settings       settings;
-    private                 String         settingsKey;
-    private transient final HelpBrowser    help                = HelpBrowser.INSTANCE;
+    private static final long           serialVersionUID = 847375186274302816L;
+    private transient ActionListener    actionListenerEscape;
+    private transient ActionListener    actionListenerHelp;
+    private String                      helpContentsUrl = "";
+    private String                      helpPageUrl;
+    private transient Settings          settings;
+    private String                      settingsKey;
+    private transient final HelpBrowser help = HelpBrowser.INSTANCE;
 
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);
@@ -78,7 +80,8 @@ public class Dialog extends JDialog implements WindowListener {
      * @param settingsKey  key for size and location or null if the class name
      *                     shall be the key
      */
-    public Dialog(Frame owner, boolean modal, Settings settings, String settingsKey) {
+    public Dialog(Frame owner, boolean modal, Settings settings,
+                  String settingsKey) {
         super(owner, modal);
         init(settings, settingsKey);
     }
@@ -91,7 +94,8 @@ public class Dialog extends JDialog implements WindowListener {
      * @param settingsKey  key for size and location or null if the class name
      *                     shall be the key
      */
-    public Dialog(JDialog owner, boolean modal, Settings settings, String settingsKey) {
+    public Dialog(JDialog owner, boolean modal, Settings settings,
+                  String settingsKey) {
         super(owner, modal);
         init(settings, settingsKey);
     }
@@ -136,7 +140,10 @@ public class Dialog extends JDialog implements WindowListener {
      * @see HelpBrowser#setContentsUrl(java.lang.String)
      */
     protected void setHelpContentsUrl(String url) {
-        if (url == null) throw new NullPointerException("url == null");
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
+
         helpContentsUrl = url;
     }
 
@@ -172,11 +179,15 @@ public class Dialog extends JDialog implements WindowListener {
      * @param url  URL to display
      */
     protected void help(String url) {
-        if (url == null) throw new NullPointerException("url == null");
-        if (help.getContentsUrl() == null ||
-           !help.getContentsUrl().equals(helpContentsUrl)) {
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
+
+        if ((help.getContentsUrl() == null)
+                ||!help.getContentsUrl().equals(helpContentsUrl)) {
             help.setContentsUrl(helpContentsUrl);
         }
+
         if (help.isVisible()) {
             help.showUrl(url);
             help.toFront();
@@ -201,6 +212,7 @@ public class Dialog extends JDialog implements WindowListener {
         } else {
             setSizeAndLocation();
         }
+
         super.setVisible(visible);
     }
 
@@ -218,7 +230,9 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     private void setSizeAndLocation() {
-        if (settings == null) return;
+        if (settings == null) {
+            return;
+        }
 
         String key = getSizeAndLocationKey();
 
@@ -227,7 +241,9 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     private void applySizeAndLocation() {
-        if (settings == null) return;
+        if (settings == null) {
+            return;
+        }
 
         String key = getSizeAndLocationKey();
 
@@ -236,31 +252,35 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     private String getSizeAndLocationKey() {
-        return settingsKey == null ? getClass().getName() : settingsKey;
+        return (settingsKey == null)
+               ? getClass().getName()
+               : settingsKey;
     }
 
     private void registerKeyboardActions() {
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         KeyStroke strokeHelp   = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
+
         for (Component component : getComponents()) {
             if (component instanceof JComponent) {
                 JComponent comp = (JComponent) component;
-                comp.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
-                comp.registerKeyboardAction(actionListenerHelp  , strokeHelp  , JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+                comp.registerKeyboardAction(actionListenerEscape, strokeEscape,
+                                            JComponent.WHEN_IN_FOCUSED_WINDOW);
+                comp.registerKeyboardAction(actionListenerHelp, strokeHelp,
+                                            JComponent.WHEN_IN_FOCUSED_WINDOW);
             }
         }
     }
 
     private void createActionListener() {
         actionListenerEscape = new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 escape();
             }
         };
         actionListenerHelp = new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 help();
@@ -274,8 +294,11 @@ public class Dialog extends JDialog implements WindowListener {
         KeyStroke strokeHelp   = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
         JRootPane pane         = new JRootPane();
 
-        pane.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
-        pane.registerKeyboardAction(actionListenerHelp  , strokeHelp  , JComponent.WHEN_IN_FOCUSED_WINDOW);
+        pane.registerKeyboardAction(actionListenerEscape, strokeEscape,
+                                    JComponent.WHEN_IN_FOCUSED_WINDOW);
+        pane.registerKeyboardAction(actionListenerHelp, strokeHelp,
+                                    JComponent.WHEN_IN_FOCUSED_WINDOW);
+
         return pane;
     }
 
@@ -286,31 +309,37 @@ public class Dialog extends JDialog implements WindowListener {
 
     @Override
     public void windowOpened(WindowEvent e) {
+
         // ignore
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
+
         // ignore
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
+
         // ignore
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
+
         // ignore
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
+
         // ignore
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
+
         // ignore
     }
 }

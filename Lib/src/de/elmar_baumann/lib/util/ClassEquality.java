@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 /**
@@ -30,11 +31,15 @@ package de.elmar_baumann.lib.util;
  * @version 2009-12-14
  */
 public class ClassEquality {
-
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
 
         return getClass().equals(obj.getClass());
     }

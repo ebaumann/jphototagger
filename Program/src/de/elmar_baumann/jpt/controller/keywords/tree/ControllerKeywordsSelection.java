@@ -17,18 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.controller.keywords.list.ShowThumbnailsContainingAllKeywords2;
+import de.elmar_baumann.jpt.controller.keywords.list
+    .ShowThumbnailsContainingAllKeywords2;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTree;
-import javax.swing.SwingUtilities;
+
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -41,9 +45,7 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerKeywordsSelection
         implements TreeSelectionListener {
-
-    private final JTree tree = GUI.INSTANCE.getAppPanel().
-            getTreeSelKeywords();
+    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
 
     public ControllerKeywordsSelection() {
         listen();
@@ -62,41 +64,48 @@ public final class ControllerKeywordsSelection
 
     private void showThumbnailsOfSelKeywords() {
         SwingUtilities.invokeLater(
-                new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
+            new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
     }
 
     private List<List<String>> getKeywordStringPaths() {
-        List<List<String>> keywordPaths = new ArrayList<List<String>>();
-        List<List<Keyword>> hkwp = getKeywordPaths();
+        List<List<String>>  keywordPaths = new ArrayList<List<String>>();
+        List<List<Keyword>> hkwp         = getKeywordPaths();
+
         for (List<Keyword> kws : hkwp) {
             List<String> stringKeywords = new ArrayList<String>();
+
             for (Keyword kw : kws) {
                 stringKeywords.add(kw.getName());
             }
+
             keywordPaths.add(stringKeywords);
         }
+
         return keywordPaths;
     }
 
     private List<List<Keyword>> getKeywordPaths() {
-        TreePath[] selPaths = tree.getSelectionPaths();
-        List<List<Keyword>> paths =
-                new ArrayList<List<Keyword>>();
+        TreePath[]          selPaths = tree.getSelectionPaths();
+        List<List<Keyword>> paths    = new ArrayList<List<Keyword>>();
+
         for (TreePath selPath : selPaths) {
             DefaultMutableTreeNode selNode =
-                    (DefaultMutableTreeNode) selPath.getLastPathComponent();
-            List<Keyword> kwPath =
-                    new ArrayList<Keyword>();
+                (DefaultMutableTreeNode) selPath.getLastPathComponent();
+            List<Keyword> kwPath = new ArrayList<Keyword>();
+
             for (Object userObject : selNode.getUserObjectPath()) {
                 if (userObject instanceof Keyword) {
                     Keyword kw = (Keyword) userObject;
+
                     if (kw.isReal()) {
                         kwPath.add(kw);
                     }
                 }
             }
+
             paths.add(kwPath);
         }
+
         return paths;
     }
 }

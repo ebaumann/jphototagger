@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.exporter;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -36,11 +39,13 @@ import javax.xml.bind.Marshaller;
  * @version 2010-03-02
  */
 public final class XmlObjectExporter {
-
-    public static void export(Object object, File file) throws JAXBException, IOException {
+    public static void export(Object object, File file)
+            throws JAXBException, IOException {
         Writer writer = createWriter(file);
 
-        if (writer == null) return;
+        if (writer == null) {
+            return;
+        }
 
         JAXBContext context    = JAXBContext.newInstance(object.getClass());
         Marshaller  marshaller = context.createMarshaller();
@@ -53,17 +58,24 @@ public final class XmlObjectExporter {
 
     private static Writer createWriter(File file) throws IOException {
         Writer writer = null;
+
         try {
-            writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+            writer = new OutputStreamWriter(new FileOutputStream(file),
+                                            "UTF-8");
         } catch (IOException ex) {
             close(writer);
+
             throw ex;
         }
+
         return writer;
     }
 
     private static void close(Writer writer) {
-        if (writer == null) return;
+        if (writer == null) {
+            return;
+        }
+
         try {
             writer.flush();
             writer.close();
@@ -72,6 +84,5 @@ public final class XmlObjectExporter {
         }
     }
 
-    private XmlObjectExporter() {
-    }
+    private XmlObjectExporter() {}
 }

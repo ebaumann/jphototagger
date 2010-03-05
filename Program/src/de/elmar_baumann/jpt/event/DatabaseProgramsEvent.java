@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 import de.elmar_baumann.jpt.data.Program;
@@ -32,14 +33,10 @@ public final class DatabaseProgramsEvent {
     /**
      * Event type.
      */
-    public enum Type {
+    public enum Type { PROGRAM_INSERTED, PROGRAM_DELETED, PROGRAM_UPDATED, }
 
-        PROGRAM_INSERTED,
-        PROGRAM_DELETED,
-        PROGRAM_UPDATED,
-    };
-
-    private Type type;
+    ;
+    private Type    type;
     private Program program;
 
     public DatabaseProgramsEvent(Type type) {

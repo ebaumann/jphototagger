@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io.filefilter;
 
 import java.io.File;
@@ -28,7 +29,6 @@ import java.io.File;
  * @version 2009-04-01
  */
 public final class ExecutableFileFilter implements java.io.FileFilter {
-
     @Override
     public boolean accept(File pathname) {
         return pathname.canExecute();
@@ -40,7 +40,8 @@ public final class ExecutableFileFilter implements java.io.FileFilter {
      * @param  description  description
      * @return file filter
      */
-    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
+    public javax.swing.filechooser.FileFilter forFileChooser(
+            String description) {
         return new FileChooserFilter(this, description);
     }
 }

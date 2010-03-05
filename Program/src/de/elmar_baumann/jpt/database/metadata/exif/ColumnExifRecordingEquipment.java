@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -34,16 +35,14 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-08-27
  */
 public final class ColumnExifRecordingEquipment extends Column {
-
-    public static final ColumnExifRecordingEquipment INSTANCE = new ColumnExifRecordingEquipment();
+    public static final ColumnExifRecordingEquipment INSTANCE =
+        new ColumnExifRecordingEquipment();
 
     private ColumnExifRecordingEquipment() {
-        super(
-            TableExif.INSTANCE,
-            "exif_recording_equipment",
-            DataType.STRING);
-
+        super(TableExif.INSTANCE, "exif_recording_equipment", DataType.STRING);
         setLength(125);
-        setDescription(JptBundle.INSTANCE.getString("ColumnExifRecordingEquipment.Description"));
+        setDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnExifRecordingEquipment.Description"));
     }
 }

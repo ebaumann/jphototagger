@@ -17,15 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.comparator;
 
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.lib.util.ClassEquality;
+
 import java.io.File;
 import java.io.Serializable;
+
 import java.text.Collator;
+
 import java.util.Comparator;
 
 /**
@@ -33,29 +37,32 @@ import java.util.Comparator;
  * @author  Elmar Baumann
  * @version 2009-12-16
  */
-public final class ComparatorXmpIptcLocationAsc
-        extends    ClassEquality
-        implements Comparator<File>,
-                   Serializable
-    {
-    private static final long serialVersionUID = -6946394073635783198L;
-
-    private transient Collator collator = Collator.getInstance();
+public final class ComparatorXmpIptcLocationAsc extends ClassEquality
+        implements Comparator<File>, Serializable {
+    private static final long  serialVersionUID = -6946394073635783198L;
+    private transient Collator collator         = Collator.getInstance();
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Xmp    xmpLeft  = DatabaseImageFiles.INSTANCE.getXmpOf(fileLeft.getAbsolutePath());
-        Xmp    xmpRight = DatabaseImageFiles.INSTANCE.getXmpOf(fileRight.getAbsolutePath());
-        Object locLeft  =  xmpLeft == null ? null : xmpLeft .getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        Object locRight = xmpRight == null ? null : xmpRight.getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        Xmp xmpLeft =
+            DatabaseImageFiles.INSTANCE.getXmpOf(fileLeft.getAbsolutePath());
+        Xmp xmpRight =
+            DatabaseImageFiles.INSTANCE.getXmpOf(fileRight.getAbsolutePath());
+        Object locLeft = (xmpLeft == null)
+                         ? null
+                         : xmpLeft.getValue(
+                             ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        Object locRight = (xmpRight == null)
+                          ? null
+                          : xmpRight.getValue(
+                              ColumnXmpIptc4xmpcoreLocation.INSTANCE);
 
-        return locLeft == null && locRight == null
-                ? 0
-                : locLeft == null && locRight != null
-                ? -1
-                : locLeft != null && locRight == null
-                ? 1
-                : collator.compare(locLeft, locRight)
-                ;
+        return ((locLeft == null) && (locRight == null))
+               ? 0
+               : ((locLeft == null) && (locRight != null))
+                 ? -1
+                 : ((locLeft != null) && (locRight == null))
+                   ? 1
+                   : collator.compare(locLeft, locRight);
     }
 }

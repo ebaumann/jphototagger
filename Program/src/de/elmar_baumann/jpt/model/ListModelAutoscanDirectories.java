@@ -17,13 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.jpt.event.DatabaseAutoscanDirectoriesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseAutoscanDirectoriesListener;
+
 import java.io.File;
+
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -35,8 +39,8 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
-public final class ListModelAutoscanDirectories extends DefaultListModel implements DatabaseAutoscanDirectoriesListener {
-
+public final class ListModelAutoscanDirectories extends DefaultListModel
+        implements DatabaseAutoscanDirectoriesListener {
     private static final long serialVersionUID = 5568827666022563702L;
 
     public ListModelAutoscanDirectories() {
@@ -45,9 +49,12 @@ public final class ListModelAutoscanDirectories extends DefaultListModel impleme
     }
 
     private void addElements() {
-        List<String> directoryNames = DatabaseAutoscanDirectories.INSTANCE.getAll();
+        List<String> directoryNames =
+            DatabaseAutoscanDirectories.INSTANCE.getAll();
+
         for (String directoryName : directoryNames) {
             File directory = new File(directoryName);
+
             if (directory.isDirectory() && directory.exists()) {
                 addElement(directory);
             }
@@ -58,7 +65,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel impleme
     public void actionPerformed(DatabaseAutoscanDirectoriesEvent evt) {
         File dir = new File(evt.getDirectoryName());
 
-        if (evt.isDirectoryInserted() && !contains(dir)) {
+        if (evt.isDirectoryInserted() &&!contains(dir)) {
             addElement(dir);
         } else if (evt.isDirectoryDeleted() && contains(dir)) {
             removeElement(dir);

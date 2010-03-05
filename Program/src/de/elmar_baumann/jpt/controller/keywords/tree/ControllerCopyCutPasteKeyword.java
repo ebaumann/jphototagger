@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.controller.keywords.tree.KeywordTreeNodesClipboard.Action;
+import de.elmar_baumann.jpt.controller.keywords.tree.KeywordTreeNodesClipboard
+    .Action;
 import de.elmar_baumann.jpt.datatransfer.Flavor;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerKeywordsTree;
 import de.elmar_baumann.jpt.factory.ModelFactory;
@@ -29,22 +31,26 @@ import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.util.ArrayList;
+
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-// The implementation can't paste the nodes to the system clipboard and let do
-// the work the panel's transfer handler, because the affected nodes when using
-// the popup menu may not be the selected nodes as expected by the panel's
-// transfer handler.
+//The implementation can't paste the nodes to the system clipboard and let do
+//the work the panel's transfer handler, because the affected nodes when using
+//the popup menu may not be the selected nodes as expected by the panel's
+//transfer handler.
+
 /**
  * Listens to the menu items {@link PopupMenuKeywordsTree#getItemCut()},
  * {@link PopupMenuKeywordsTree#getItemPaste()} and on action
@@ -57,9 +63,9 @@ import javax.swing.tree.TreePath;
  */
 public class ControllerCopyCutPasteKeyword
         implements ActionListener, KeyListener {
-
     private final KeywordsPanel         panel;
-    private final PopupMenuKeywordsTree popup     = PopupMenuKeywordsTree.INSTANCE;
+    private final PopupMenuKeywordsTree popup     =
+        PopupMenuKeywordsTree.INSTANCE;
     private final JMenuItem             itemCopy  = popup.getItemCopy();
     private final JMenuItem             itemCut   = popup.getItemCut();
     private final JMenuItem             itemPaste = popup.getItemPaste();
@@ -76,12 +82,13 @@ public class ControllerCopyCutPasteKeyword
     // Does not extend ControllerKeywords and using localAction
     // because listening to 2 actions: cut is only 1 line of code - too less
     // to implement a separate class
-
     @Override
     public void actionPerformed(ActionEvent e) {
         Object                 source            = e.getSource();
-        Object                 lastPathComponent = popup.getTreePath().getLastPathComponent();
-        DefaultMutableTreeNode node              = (DefaultMutableTreeNode) lastPathComponent;
+        Object                 lastPathComponent =
+            popup.getTreePath().getLastPathComponent();
+        DefaultMutableTreeNode node              =
+            (DefaultMutableTreeNode) lastPathComponent;
 
         if (source == itemCut) {
             KeywordTreeNodesClipboard.INSTANCE.setContent(node, Action.MOVE);
@@ -96,24 +103,28 @@ public class ControllerCopyCutPasteKeyword
     public void keyPressed(KeyEvent e) {
         assert e.getSource() instanceof JTree : e.getSource();
 
-        JTree tree = (JTree)e.getSource();
+        JTree tree = (JTree) e.getSource();
 
-        if (tree.isSelectionEmpty()) return;
+        if (tree.isSelectionEmpty()) {
+            return;
+        }
 
         if (KeyEventUtil.isCopy(e)) {
-            KeywordTreeNodesClipboard.INSTANCE.setContent(getFirstSelectedNode(tree), Action.COPY);
+            KeywordTreeNodesClipboard.INSTANCE.setContent(
+                getFirstSelectedNode(tree), Action.COPY);
         } else if (KeyEventUtil.isCut(e)) {
-            KeywordTreeNodesClipboard.INSTANCE.setContent(getFirstSelectedNode(tree), Action.MOVE);
+            KeywordTreeNodesClipboard.INSTANCE.setContent(
+                getFirstSelectedNode(tree), Action.MOVE);
         } else if (isPasteCopyFromClipBoard(e)) {
             pasteCopy(tree);
         }
     }
 
     private DefaultMutableTreeNode getFirstSelectedNode(JTree tree) {
-
         assert !tree.isSelectionEmpty();
 
-        return (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+        return (DefaultMutableTreeNode) tree.getSelectionPath()
+            .getLastPathComponent();
     }
 
     private void pasteMenuAction(DefaultMutableTreeNode node) {
@@ -125,15 +136,15 @@ public class ControllerCopyCutPasteKeyword
     }
 
     private void move(DefaultMutableTreeNode node) {
-        Transferable trans = new TransferableObject(
-                new ArrayList<DefaultMutableTreeNode>(KeywordTreeNodesClipboard.INSTANCE.getContent()),
-                Flavor.KEYWORDS_TREE);
+        Transferable trans =
+            new TransferableObject(
+                new ArrayList<DefaultMutableTreeNode>(
+                    KeywordTreeNodesClipboard.INSTANCE.getContent()), Flavor
+                        .KEYWORDS_TREE);
 
         TransferHandlerKeywordsTree.moveKeywords(
-                new TransferSupport(panel, trans),
-                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class),
-                node);
-
+            new TransferSupport(panel, trans),
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), node);
         KeywordTreeNodesClipboard.INSTANCE.empty();
     }
 
@@ -142,13 +153,19 @@ public class ControllerCopyCutPasteKeyword
 
         assert selPaths != null;
 
-        if (!ensureCopyToAll(selPaths.length)) return;
+        if (!ensureCopyToAll(selPaths.length)) {
+            return;
+        }
 
-        TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        TreeModelKeywords model =
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
-        for (DefaultMutableTreeNode node : KeywordTreeNodesClipboard.INSTANCE.getContent()) {
+        for (DefaultMutableTreeNode node :
+                KeywordTreeNodesClipboard.INSTANCE.getContent()) {
             for (TreePath selPath : selPaths) {
-                model.copySubtree(node, (DefaultMutableTreeNode) selPath.getLastPathComponent());
+                model.copySubtree(
+                    node,
+                    (DefaultMutableTreeNode) selPath.getLastPathComponent());
             }
         }
 
@@ -156,34 +173,43 @@ public class ControllerCopyCutPasteKeyword
     }
 
     private boolean ensureCopyToAll(int count) {
-        if (count < 1 ) return false;
-        if (count == 1) return true;
-        return MessageDisplayer.confirmYesNo(null, "ControllerCopyCutPasteKeyword.Confirm.CopyToAllSelected");
+        if (count < 1) {
+            return false;
+        }
+
+        if (count == 1) {
+            return true;
+        }
+
+        return MessageDisplayer.confirmYesNo(null,
+                "ControllerCopyCutPasteKeyword.Confirm.CopyToAllSelected");
     }
 
     private boolean isCopyFromClipBoard() {
-        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty() &&
-                KeywordTreeNodesClipboard.INSTANCE.isCopy();
+        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
+               && KeywordTreeNodesClipboard.INSTANCE.isCopy();
     }
 
     private boolean isMoveFromClipBoard() {
-        return  !KeywordTreeNodesClipboard.INSTANCE.isEmpty() &&
-                 KeywordTreeNodesClipboard.INSTANCE.isMove();
+        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
+               && KeywordTreeNodesClipboard.INSTANCE.isMove();
     }
 
     private boolean isPasteCopyFromClipBoard(KeyEvent e) {
-        return    !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
-                && KeyEventUtil.isPaste(e)
-                && KeywordTreeNodesClipboard.INSTANCE.isCopy();
+        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
+               && KeyEventUtil.isPaste(e)
+               && KeywordTreeNodesClipboard.INSTANCE.isCopy();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

@@ -17,23 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.controller.filesystem.ControllerDeleteFiles;
-import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.io.File;
+
 import java.util.List;
+
 import javax.swing.JList;
 import javax.swing.SwingUtilities;
 
@@ -48,13 +53,14 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerDeleteFromImageCollection
         implements ActionListener, KeyListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList list = appPanel.getListImageCollections();
-    private final PopupMenuThumbnails popupMenu =
-            PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final AppPanel            appPanel        =
+        GUI.INSTANCE.getAppPanel();
+    private final JList               list            =
+        appPanel.getListImageCollections();
+    private final PopupMenuThumbnails popupMenu       =
+        PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
         listen();
@@ -78,28 +84,31 @@ public final class ControllerDeleteFromImageCollection
     }
 
     private void delete() {
-        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION) &&
-                thumbnailsPanel.getSelectionCount() > 0) {
+        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)
+                && (thumbnailsPanel.getSelectionCount() > 0)) {
             deleteSelectedFilesFromImageCollection();
         }
     }
 
     private void deleteSelectedFilesFromImageCollection() {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 Object selectedValue = list.getSelectedValue();
+
                 if (selectedValue != null) {
                     List<File> selectedFiles =
-                            thumbnailsPanel.getSelectedFiles();
+                        thumbnailsPanel.getSelectedFiles();
+
                     if (ModifyImageCollections.deleteImagesFromCollection(
-                            selectedValue.toString(), FileUtil.getAsFilenames(
-                            selectedFiles))) {
+                            selectedValue.toString(),
+                            FileUtil.getAsFilenames(selectedFiles))) {
                         thumbnailsPanel.remove(selectedFiles);
                     }
                 } else {
-                    AppLogger.logWarning(ControllerDeleteFromImageCollection.class, "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull");
+                    AppLogger.logWarning(
+                        ControllerDeleteFromImageCollection.class,
+                        "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull");
                 }
             }
         });
@@ -107,11 +116,13 @@ public final class ControllerDeleteFromImageCollection
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

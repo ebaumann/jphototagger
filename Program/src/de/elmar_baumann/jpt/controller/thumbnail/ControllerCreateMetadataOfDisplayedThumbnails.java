@@ -17,17 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
-import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
+import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.tasks.AutomaticTask;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
 
@@ -47,9 +48,9 @@ import de.elmar_baumann.lib.io.FileUtil;
  */
 public final class ControllerCreateMetadataOfDisplayedThumbnails
         implements ThumbnailsPanelListener {
-
     private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel = appPanel.getPanelThumbnails();
+    private final ThumbnailsPanel thumbnailsPanel =
+        appPanel.getPanelThumbnails();
 
     public ControllerCreateMetadataOfDisplayedThumbnails() {
         listen();
@@ -65,18 +66,25 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
     }
 
     private synchronized void updateMetadata() {
-        AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
+        AppLogger.logInfo(
+            getClass(),
+            "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(thumbnailsPanel.getFiles()), Insert.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter =
+            new InsertImageFilesIntoDatabase(
+                FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),
+                Insert.OUT_OF_DATE);
 
-        inserter.addProgressListener(new ProgressBarUpdater(JptBundle.INSTANCE.getString("ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String")));
-
+        inserter.addProgressListener(
+            new ProgressBarUpdater(
+                JptBundle.INSTANCE.getString(
+                    "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String")));
         AutomaticTask.INSTANCE.setTask(inserter);
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
+
         // ignore
     }
 }

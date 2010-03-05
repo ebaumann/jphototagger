@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.model;
 
 import java.text.Collator;
+
 import java.util.Collections;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
@@ -32,13 +35,12 @@ import javax.swing.tree.MutableTreeNode;
  * @author  Elmar Baumann
  * @version 2009-07-02
  */
-public final class TreeNodeSortedChildren extends DefaultMutableTreeNode implements Comparable<Object> {
-
+public final class TreeNodeSortedChildren extends DefaultMutableTreeNode
+        implements Comparable<Object> {
     private static final long     serialVersionUID = 5429135948886700418L;
     private static final Collator collator         = Collator.getInstance();
 
-    public TreeNodeSortedChildren() {
-    }
+    public TreeNodeSortedChildren() {}
 
     public TreeNodeSortedChildren(Object userObject) {
         super(userObject);

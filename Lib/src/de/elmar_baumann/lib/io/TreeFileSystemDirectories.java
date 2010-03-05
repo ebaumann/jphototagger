@@ -17,13 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io;
 
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.resource.JslBundle;
+
 import java.io.File;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -52,13 +56,17 @@ public final class TreeFileSystemDirectories {
             if (confirmDelete(directory.getName())) {
                 try {
                     FileUtil.deleteDirectoryRecursive(directory);
+
                     return true;
                 } catch (Exception ex) {
                     errorMessageDelete(directory.getName());
-                    Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(
+                        TreeFileSystemDirectories.class.getName()).log(
+                        Level.SEVERE, null, ex);
                 }
             }
         }
+
         return false;
     }
 
@@ -73,19 +81,26 @@ public final class TreeFileSystemDirectories {
     public static File rename(File directory) {
         if (directory.isDirectory()) {
             String newDirectoryName = getNewName(directory);
-            if (newDirectoryName != null && !newDirectoryName.trim().isEmpty()) {
-                File newDirectory = new File(directory.getParentFile(), newDirectoryName);
+
+            if ((newDirectoryName != null)
+                    &&!newDirectoryName.trim().isEmpty()) {
+                File newDirectory = new File(directory.getParentFile(),
+                                             newDirectoryName);
+
                 if (checkDoesNotExist(newDirectory)) {
                     try {
                         if (directory.renameTo(newDirectory)) {
                             return newDirectory;
                         }
                     } catch (Exception ex) {
-                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(
+                            TreeFileSystemDirectories.class.getName()).log(
+                            Level.SEVERE, null, ex);
                     }
                 }
             }
         }
+
         return null;
     }
 
@@ -99,19 +114,25 @@ public final class TreeFileSystemDirectories {
     public static File createDirectoryIn(File parentDirectory) {
         if (parentDirectory.isDirectory()) {
             String subdirectoryName = getSubDirectoryName();
-            if (subdirectoryName != null && !subdirectoryName.trim().isEmpty()) {
+
+            if ((subdirectoryName != null)
+                    &&!subdirectoryName.trim().isEmpty()) {
                 File subdirectory = new File(parentDirectory, subdirectoryName);
+
                 if (checkDoesNotExist(subdirectory)) {
                     try {
                         if (subdirectory.mkdir()) {
                             return subdirectory;
                         }
                     } catch (Exception ex) {
-                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(
+                            TreeFileSystemDirectories.class.getName()).log(
+                            Level.SEVERE, null, ex);
                     }
                 }
             }
         }
+
         return null;
     }
 
@@ -125,9 +146,11 @@ public final class TreeFileSystemDirectories {
     public static DefaultMutableTreeNode getNodeOfLastPathComponent(
             TreePath path) {
         Object lastPathComponent = path.getLastPathComponent();
+
         if (lastPathComponent instanceof DefaultMutableTreeNode) {
             return (DefaultMutableTreeNode) lastPathComponent;
         }
+
         return null;
     }
 
@@ -141,10 +164,12 @@ public final class TreeFileSystemDirectories {
     public static File getFile(DefaultMutableTreeNode node) {
         if (node != null) {
             Object userObject = node.getUserObject();
+
             if (userObject instanceof File) {
                 return (File) userObject;
             }
         }
+
         return null;
     }
 
@@ -155,7 +180,8 @@ public final class TreeFileSystemDirectories {
      * @param model  model
      * @param node   updated node
      */
-    public static void updateInTreeModel(TreeModel model, MutableTreeNode node) {
+    public static void updateInTreeModel(TreeModel model,
+            MutableTreeNode node) {
         if (model instanceof DefaultTreeModel) {
             ((DefaultTreeModel) model).nodeChanged(node);
         }
@@ -171,11 +197,12 @@ public final class TreeFileSystemDirectories {
      *                   <code>DefaultMutableTreeNode</code> as the user object
      *                   of a {@link DefaultMutableTreeNode}
      */
-    public static void insertIntoTreeModel(
-            TreeModel model, DefaultMutableTreeNode parentNode, File file) {
+    public static void insertIntoTreeModel(TreeModel model,
+            DefaultMutableTreeNode parentNode, File file) {
         if (model instanceof DefaultTreeModel) {
-            ((DefaultTreeModel) model).insertNodeInto(new DefaultMutableTreeNode(
-                    file), parentNode, parentNode.getChildCount());
+            ((DefaultTreeModel) model).insertNodeInto(
+                new DefaultMutableTreeNode(file), parentNode,
+                parentNode.getChildCount());
         }
     }
 
@@ -187,7 +214,8 @@ public final class TreeFileSystemDirectories {
      * @param model model
      * @param node  node to delete
      */
-    public static void removeFromTreeModel(TreeModel model, MutableTreeNode node) {
+    public static void removeFromTreeModel(TreeModel model,
+            MutableTreeNode node) {
         if (model instanceof DefaultTreeModel) {
             ((DefaultTreeModel) model).removeNodeFromParent(node);
         }
@@ -200,8 +228,11 @@ public final class TreeFileSystemDirectories {
      * @return      new name or null if the user didn't input a name
      */
     public static String getNewName(File file) {
-        return JOptionPane.showInputDialog(ComponentUtil.getFrameWithIcon(),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Input.NewName", file), file.getName());
+        return JOptionPane.showInputDialog(
+            ComponentUtil.getFrameWithIcon(),
+            JslBundle.INSTANCE.getString(
+                "TreeFileSystemDirectories.Input.NewName",
+                file), file.getName());
     }
 
     /**
@@ -213,12 +244,20 @@ public final class TreeFileSystemDirectories {
      */
     public static boolean checkDoesNotExist(File file) {
         if (file.exists()) {
-            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                    JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists", file.getAbsolutePath()),
-                    JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane
+                .showMessageDialog(
+                    ComponentUtil.getFrameWithIcon(),
+                    JslBundle.INSTANCE
+                        .getString(
+                            "TreeFileSystemDirectories.Error.DirectoryAlreadyExists",
+                            file.getAbsolutePath()), JslBundle.INSTANCE
+                                .getString(
+                                    "TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"), JOptionPane
+                                        .ERROR_MESSAGE);
+
             return false;
         }
+
         return true;
     }
 
@@ -229,12 +268,16 @@ public final class TreeFileSystemDirectories {
      * @return true if the directory shall be deleted
      */
     public static boolean confirmDelete(String directoryName) {
-        return JOptionPane.showConfirmDialog(
+        return JOptionPane
+            .showConfirmDialog(
                 ComponentUtil.getFrameWithIcon(),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Confirm.Delete", directoryName),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Confirm.Delete.Title"),
-                JOptionPane.YES_NO_OPTION) ==
-                JOptionPane.YES_OPTION;
+                JslBundle.INSTANCE
+                    .getString(
+                        "TreeFileSystemDirectories.Confirm.Delete",
+                        directoryName), JslBundle.INSTANCE
+                            .getString(
+                                "TreeFileSystemDirectories.Confirm.Delete.Title"), JOptionPane
+                                    .YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
     /**
@@ -244,17 +287,24 @@ public final class TreeFileSystemDirectories {
      * @param directoryName name of the directory
      */
     public static void errorMessageDelete(String directoryName) {
-        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.Delete", directoryName),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.Delete.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        JOptionPane
+            .showMessageDialog(
+                ComponentUtil.getFrameWithIcon(),
+                JslBundle.INSTANCE
+                    .getString(
+                        "TreeFileSystemDirectories.Error.Delete",
+                        directoryName), JslBundle.INSTANCE
+                            .getString(
+                                "TreeFileSystemDirectories.Error.Delete.Title"), JOptionPane
+                                    .ERROR_MESSAGE);
     }
 
     private static String getSubDirectoryName() {
-        return JOptionPane.showInputDialog(ComponentUtil.getFrameWithIcon(),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Input.SubDirectoryName"));
+        return JOptionPane.showInputDialog(
+            ComponentUtil.getFrameWithIcon(),
+            JslBundle.INSTANCE.getString(
+                "TreeFileSystemDirectories.Input.SubDirectoryName"));
     }
 
-    private TreeFileSystemDirectories() {
-    }
+    private TreeFileSystemDirectories() {}
 }

@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 
 /**
  * Adds, removes and notifies {@link ProgressListener} instances.
@@ -28,7 +29,8 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
  * @author  Elmar Baumann
  * @version 2009-12-18
  */
-public final class ProgressListenerSupport extends ListenerSupport<ProgressListener> {
+public final class ProgressListenerSupport
+        extends ListenerSupport<ProgressListener> {
 
     /**
      * Calls on every added progress listener
@@ -37,12 +39,13 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
      * @param event progress event
      */
     public void notifyStarted(ProgressEvent event) {
-        synchronized(listeners) {
+        synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressStarted(event);
             }
         }
     }
+
     /**
      * Calls on every added progress listener
      * {@link ProgressListener#progressPerformed(de.elmar_baumann.jpt.event.ProgressEvent)}.
@@ -53,11 +56,13 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
      */
     public boolean notifyPerformed(ProgressEvent event) {
         boolean isStop = false;
-        synchronized(listeners) {
+
+        synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressPerformed(event);
             }
         }
+
         return isStop;
     }
 
@@ -68,7 +73,7 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
      * @param event progress event
      */
     public void notifyEnded(ProgressEvent event) {
-        synchronized(listeners) {
+        synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressEnded(event);
             }

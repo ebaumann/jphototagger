@@ -17,16 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.data.Timeline;
+
 import java.awt.Component;
+
 import java.io.File;
-import javax.swing.JTree;
+
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
@@ -37,57 +41,65 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * @version 2009-06-12
  */
 public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
-
-    private static final long           serialVersionUID  = 4280765256503091379L;
-    private final        FileSystemView fileSystemView    = FileSystemView.getFileSystemView();
-    private              int            tempSelRow  = -1;
+    private static final long    serialVersionUID = 4280765256503091379L;
+    private final FileSystemView fileSystemView   =
+        FileSystemView.getFileSystemView();
+    private int tempSelRow = -1;
 
     public TreeCellRendererFavorites() {
         setOpaque(true);
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value,
+            boolean sel, boolean expanded, boolean leaf, int row,
+            boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
+                                           row, hasFocus);
+
         DefaultMutableTreeNode node       = (DefaultMutableTreeNode) value;
         Object                 userObject = node.getUserObject();
+
         render(userObject, row);
+
         return this;
     }
 
     private void render(Object userObject, int row) {
         File file = null;
+
         if (userObject instanceof Favorite) {
             Favorite favoriteDirectory = (Favorite) userObject;
+
             file = favoriteDirectory.getDirectory();
             setText(favoriteDirectory.getName());
         } else if (userObject instanceof File) {
             file = (File) userObject;
             setText(getDirectoryName(file));
         }
+
         if (file != null) {
             if (file.exists()) {
                 synchronized (fileSystemView) {
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        AppLogger.logSevere(TreeCellRendererFavorites.class, ex);
+                        AppLogger.logSevere(TreeCellRendererFavorites.class,
+                                            ex);
                     }
                 }
             }
         }
+
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow  = row == tempSelRow;
 
-        setForeground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.getTreeSelectionForeground()
-                : AppLookAndFeel.getTreeTextForeground()
-                );
-
-        setBackground(isTempSelRow || selected && !tempSelExists
-                ? AppLookAndFeel.getTreeSelectionBackground()
-                : AppLookAndFeel.getTreeTextBackground()
-                );
+        setForeground((isTempSelRow || (selected &&!tempSelExists))
+                      ? AppLookAndFeel.getTreeSelectionForeground()
+                      : AppLookAndFeel.getTreeTextForeground());
+        setBackground((isTempSelRow || (selected &&!tempSelExists))
+                      ? AppLookAndFeel.getTreeSelectionBackground()
+                      : AppLookAndFeel.getTreeTextBackground());
     }
 
     private String getDirectoryName(File file) {
@@ -96,10 +108,12 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
         // Windows drive letters
         if (name.isEmpty()) {
             name = file.getAbsolutePath();
+
             if (name.endsWith("\\")) {
                 name = name.substring(0, name.length() - 2) + ":";
             }
         }
+
         return name;
     }
 

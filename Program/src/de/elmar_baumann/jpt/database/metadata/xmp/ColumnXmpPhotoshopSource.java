@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -30,17 +31,17 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-08-23
  */
 public final class ColumnXmpPhotoshopSource extends Column {
-
-    public static final ColumnXmpPhotoshopSource INSTANCE = new ColumnXmpPhotoshopSource();
+    public static final ColumnXmpPhotoshopSource INSTANCE =
+        new ColumnXmpPhotoshopSource();
 
     private ColumnXmpPhotoshopSource() {
-        super(
-            TableXmp.INSTANCE,
-            "photoshop_source",
-            DataType.STRING);
-
+        super(TableXmp.INSTANCE, "photoshop_source", DataType.STRING);
         setLength(32);
-        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopSource.Description"));
-        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopSource.LongerDescription"));
+        setDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnXmpPhotoshopSource.Description"));
+        setLongerDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnXmpPhotoshopSource.LongerDescription"));
     }
 }

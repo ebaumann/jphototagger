@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -31,40 +32,38 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 public enum Comparator {
 
     /** SQL-Operator "=" */
-    EQUALS(0,
-    "=",
-    JptBundle.INSTANCE.getString("Comparator.OperatorEquals")),
+    EQUALS(0, "=", JptBundle.INSTANCE.getString("Comparator.OperatorEquals")),
+
     /** SQL-Operator "LIKE" */
-    LIKE(1,
-    "LIKE",
-    JptBundle.INSTANCE.getString("Comparator.OperatorLike")),
+    LIKE(1, "LIKE", JptBundle.INSTANCE.getString("Comparator.OperatorLike")),
+
     /** SQL-Operator "<>" */
-    NOT_EQUALS(2,
-    "<>",
-    JptBundle.INSTANCE.getString("Comparator.OperatorNotEquals")),
+    NOT_EQUALS(2, "<>",
+               JptBundle.INSTANCE.getString("Comparator.OperatorNotEquals")),
+
     /** SQL-Operator ">" */
-    GREATER(3,
-    ">",
-    JptBundle.INSTANCE.getString("Comparator.OperatorGreaterThan")),
+    GREATER(3, ">",
+            JptBundle.INSTANCE.getString("Comparator.OperatorGreaterThan")),
+
     /** SQL-Operator ">=" */
-    GREATER_EQUALS(4,
-    ">=",
-    JptBundle.INSTANCE.getString("Comparator.OperatorGreaterEquals")),
+    GREATER_EQUALS(
+        4, ">=",
+        JptBundle.INSTANCE.getString("Comparator.OperatorGreaterEquals")),
+
     /** SQL-Operator "<" */
-    LOWER(5,
-    "<",
-    JptBundle.INSTANCE.getString("Comparator.OperatorLessThan")),
+    LOWER(5, "<", JptBundle.INSTANCE.getString("Comparator.OperatorLessThan")),
+
     /** SQL-Operator "<=" */
-    LOWER_EQUALS(6,
-    "<=",
-    JptBundle.INSTANCE.getString("Comparator.OperatorLessEquals"));
-    private final int id;
+    LOWER_EQUALS(6, "<=",
+                 JptBundle.INSTANCE.getString("Comparator.OperatorLessEquals"));
+
+    private final int    id;
     private final String sqlString;
     private final String localizedString;
 
     private Comparator(int id, String sqlString, String localizedString) {
-        this.id = id;
-        this.sqlString = sqlString;
+        this.id              = id;
+        this.sqlString       = sqlString;
         this.localizedString = localizedString;
     }
 
@@ -89,6 +88,7 @@ public enum Comparator {
                 return comparator;
             }
         }
+
         return null;
     }
 

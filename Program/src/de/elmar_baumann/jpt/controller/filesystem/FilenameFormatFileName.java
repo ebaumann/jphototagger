@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -28,12 +29,12 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-10-13
  */
 public final class FilenameFormatFileName extends FilenameFormat {
-
     @Override
     public String format() {
         String filename = getFile().getName();
-        int index = filename.lastIndexOf(".");
-        return index > 0
+        int    index    = filename.lastIndexOf(".");
+
+        return (index > 0)
                ? filename.substring(0, index)
                : filename;
     }

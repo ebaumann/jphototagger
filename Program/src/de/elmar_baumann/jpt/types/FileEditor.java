@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 import java.io.File;
@@ -28,7 +29,6 @@ import java.io.File;
  * @version 2009-05-22
  */
 public class FileEditor {
-
     private volatile boolean confirmOverwrite;
 
     public void setConfirmOverwrite(boolean overwrite) {
@@ -44,6 +44,5 @@ public class FileEditor {
      *
      * @param file  file to edit
      */
-    public void edit(File file) {
-    }
+    public void edit(File file) {}
 }

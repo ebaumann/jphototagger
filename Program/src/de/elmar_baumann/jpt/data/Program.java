@@ -17,14 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.io.IoUtil;
+
 import java.io.File;
+
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
+
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,28 +42,26 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Program {
+    @XmlTransient
+    private long                id     = Long.MIN_VALUE;
+    private static final String EMPTY  = "";
+    private boolean             action = false;
+    private File                file;
+    private String              alias;
+    private String              parametersBeforeFilename;
+    private String              parametersAfterFilename;
+    private String              pattern;
+    private boolean             usePattern;
+    private boolean             inputBeforeExecute        = false;
+    private boolean             inputBeforeExecutePerFile = false;
+    private boolean             singleFileProcessing      = false;
+    private boolean             changeFile                = false;
+    private int                 sequenceNumber            = Integer.MIN_VALUE;
 
-    @XmlTransient private long id = Long.MIN_VALUE;
-
-    private static final String  EMPTY                     = "";
-    private              boolean action                    = false;
-    private              File    file;
-    private              String  alias;
-    private              String  parametersBeforeFilename;
-    private              String  parametersAfterFilename;
-    private              String  pattern;
-    private              boolean usePattern;
-    private              boolean inputBeforeExecute        = false;
-    private              boolean inputBeforeExecutePerFile = false;
-    private              boolean singleFileProcessing      = false;
-    private              boolean changeFile                = false;
-    private              int     sequenceNumber            = Integer.MIN_VALUE;
-
-    public Program() {
-    }
+    public Program() {}
 
     public Program(File file, String alias) {
-        this.file = file;
+        this.file  = file;
         this.alias = alias;
     }
 
@@ -123,7 +125,8 @@ public final class Program {
         return inputBeforeExecutePerFile;
     }
 
-    public void setInputBeforeExecutePerFile(boolean inputBeforeExecutePerFile) {
+    public void setInputBeforeExecutePerFile(
+            boolean inputBeforeExecutePerFile) {
         this.inputBeforeExecutePerFile = inputBeforeExecutePerFile;
     }
 
@@ -167,27 +170,23 @@ public final class Program {
         this.usePattern = usePattern;
     }
 
-    public String getCommandlineParameters(
-            List<File> files,
-            String     additionalParameters,
-            boolean    additionalParametersBeforeFilenames
-            ) {
-        String sep = IoUtil.getDefaultCommandLineSeparator();
-
-        String parametersBefore = (parametersBeforeFilename == null
-                ? EMPTY
-                : parametersBeforeFilename) +
-                (additionalParametersBeforeFilenames
+    public String getCommandlineParameters(List<File> files,
+            String additionalParameters,
+            boolean additionalParametersBeforeFilenames) {
+        String sep              = IoUtil.getDefaultCommandLineSeparator();
+        String parametersBefore = ((parametersBeforeFilename == null)
+                                   ? EMPTY
+                                   : parametersBeforeFilename) + (additionalParametersBeforeFilenames
                 ? sep + additionalParameters
                 : EMPTY);
-        String parametersAfter = (parametersAfterFilename == null
-                ? EMPTY
-                : parametersAfterFilename) +
-                (additionalParametersBeforeFilenames
+        String parametersAfter = ((parametersAfterFilename == null)
+                                  ? EMPTY
+                                  : parametersAfterFilename) + (additionalParametersBeforeFilenames
                 ? EMPTY
                 : sep + additionalParameters);
 
-        return parametersBefore + sep + IoUtil.quoteForCommandLine(files) + sep + parametersAfter;
+        return parametersBefore + sep + IoUtil.quoteForCommandLine(files) + sep
+               + parametersAfter;
     }
 
     @Override
@@ -195,25 +194,31 @@ public final class Program {
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final Program other = (Program) obj;
+
         if (this.id != other.id) {
             return false;
         }
+
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
+
         hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+
         return hash;
     }
 
     @Override
     public String toString() {
-        return alias; // Never change that (will be used to find model items)!
+        return alias;    // Never change that (will be used to find model items)!
     }
 }

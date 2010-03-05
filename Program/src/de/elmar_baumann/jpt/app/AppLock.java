@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -33,8 +35,9 @@ import java.io.IOException;
  * @version 2008-10-10
  */
 public final class AppLock {
-
-    private static final String LOCKFILE_NAME = UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + AppInfo.PROJECT_NAME + ".lck";
+    private static final String LOCKFILE_NAME =
+        UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator
+        + AppInfo.PROJECT_NAME + ".lck";
 
     /**
      * Returns whether the application ist locked.
@@ -54,11 +57,13 @@ public final class AppLock {
         if (!isLocked()) {
             try {
                 FileUtil.ensureFileExists(LOCKFILE_NAME);
+
                 return true;
             } catch (IOException ex) {
                 AppLogger.logSevere(AppLock.class, ex);
             }
         }
+
         return false;
     }
 
@@ -71,6 +76,7 @@ public final class AppLock {
         if (isLocked()) {
             return new File(LOCKFILE_NAME).delete();
         }
+
         return true;
     }
 
@@ -84,27 +90,33 @@ public final class AppLock {
         if (confirmForceUnlock()) {
             return deleteLockFile() && lock();
         }
+
         return false;
     }
 
     private static boolean deleteLockFile() {
-        if (!FileUtil.existsFile(LOCKFILE_NAME)) return true;
+        if (!FileUtil.existsFile(LOCKFILE_NAME)) {
+            return true;
+        }
+
         if (new File(LOCKFILE_NAME).delete()) {
             return true;
         } else {
             errorMessageDelete();
+
             return false;
         }
     }
 
     private static boolean confirmForceUnlock() {
-        return MessageDisplayer.confirmYesNo(null, "AppLock.Error.LockFileExists", LOCKFILE_NAME);
+        return MessageDisplayer.confirmYesNo(null,
+                "AppLock.Error.LockFileExists", LOCKFILE_NAME);
     }
 
     private static void errorMessageDelete() {
-        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile", LOCKFILE_NAME);
+        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile",
+                               LOCKFILE_NAME);
     }
 
-    private AppLock() {
-    }
+    private AppLock() {}
 }

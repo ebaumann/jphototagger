@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.exporter;
 
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ import java.util.List;
  * @version 2009-08-01
  */
 public final class KeywordsExporters {
-
     private static final List<Exporter> exporters = new ArrayList<Exporter>();
 
     static {
@@ -46,6 +46,5 @@ public final class KeywordsExporters {
         return new ArrayList<Exporter>(exporters);
     }
 
-    private KeywordsExporters() {
-    }
+    private KeywordsExporters() {}
 }

@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.component;
 
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTextArea;
 
 /**
@@ -32,13 +34,13 @@ import javax.swing.JTextArea;
  * @version 2008-09-19
  */
 public final class TabOrEnterLeavingTextArea extends JTextArea {
-
     private static final long serialVersionUID = -6104921627665799043L;
 
     @Override
     protected void processComponentKeyEvent(KeyEvent e) {
-        if (e.getID() == KeyEvent.KEY_PRESSED && isLeave(e.getKeyCode())) {
+        if ((e.getID() == KeyEvent.KEY_PRESSED) && isLeave(e.getKeyCode())) {
             e.consume();
+
             if (e.isShiftDown()) {
                 transferFocusBackward();
             } else {
@@ -50,6 +52,6 @@ public final class TabOrEnterLeavingTextArea extends JTextArea {
     }
 
     private static boolean isLeave(int keyCode) {
-        return keyCode == KeyEvent.VK_TAB || keyCode == KeyEvent.VK_ENTER;
+        return (keyCode == KeyEvent.VK_TAB) || (keyCode == KeyEvent.VK_ENTER);
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import java.util.ArrayList;
@@ -30,14 +31,12 @@ import java.util.List;
  * @version 2008-10-05
  */
 public final class ParamStatement {
-
     private String   sql;
     private Object[] values;
     private boolean  isQuery;
     private String   name;
 
-    public ParamStatement() {
-    }
+    public ParamStatement() {}
 
     /**
      * Konstruktor.
@@ -47,13 +46,14 @@ public final class ParamStatement {
      * @param isQuery  true, wenn das Statement eine Abfrage ist
      * @param name     Name
      */
-    public ParamStatement(
-            String sql, Object[] values, boolean isQuery, String name) {
-
-        this.sql = sql;
-        this.values = values == null ? null : Arrays.copyOf(values, values.length);
+    public ParamStatement(String sql, Object[] values, boolean isQuery,
+                          String name) {
+        this.sql     = sql;
+        this.values  = (values == null)
+                       ? null
+                       : Arrays.copyOf(values, values.length);
         this.isQuery = isQuery;
-        this.name = name;
+        this.name    = name;
     }
 
     public String getSql() {
@@ -69,7 +69,7 @@ public final class ParamStatement {
      * @return parameter values or null
      */
     public Object[] getValues() {
-        return values == null
+        return (values == null)
                ? null
                : Arrays.copyOf(values, values.length);
     }
@@ -87,11 +87,16 @@ public final class ParamStatement {
     }
 
     public List<String> getValuesAsStringList() {
-        if (values == null) return new ArrayList<String>();
+        if (values == null) {
+            return new ArrayList<String>();
+        }
+
         List<String> list = new ArrayList<String>();
+
         for (int index = 0; index < values.length; index++) {
             list.add(values[index].toString());
         }
+
         return list;
     }
 
@@ -113,18 +118,24 @@ public final class ParamStatement {
 
     @Override
     public String toString() {
-        String sqlString = sql == null
+        String sqlString = (sql == null)
                            ? "Sql: null"
                            : "Sql: " + sql;
+
         return sqlString + " Values:" + getValuesString(" ");
     }
 
     private String getValuesString(String delimiter) {
-        if (getValues() == null) return "";
+        if (getValues() == null) {
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < getValues().length; i++) {
             sb.append(delimiter + getValues()[i].toString());
         }
+
         return sb.toString();
     }
 }

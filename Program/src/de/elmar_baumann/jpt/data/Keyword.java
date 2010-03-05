@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
+
 import java.io.Serializable;
 
 /**
@@ -32,12 +34,11 @@ import java.io.Serializable;
  * @version 2009-07-10
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {
-
-    private static final long    serialVersionUID = -8175948472921889128L;
-    private              Long    id;
-    private              Long    idParent;
-    private              String  name;
-    private              Boolean real             = true;
+    private static final long serialVersionUID = -8175948472921889128L;
+    private Long              id;
+    private Long              idParent;
+    private String            name;
+    private Boolean           real = true;
 
     /**
      * Creates a new instance of this class.
@@ -139,40 +140,56 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
         final Keyword other = (Keyword) obj;
-        if (this.id != other.id &&
-                (this.id == null || !this.id.equals(other.id))) return false;
+
+        if ((this.id != other.id)
+                && ((this.id == null) ||!this.id.equals(other.id))) {
+            return false;
+        }
+
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + (this.id != null
-                ? this.id.hashCode()
-                : 0);
-        hash =
-                59 * hash +
-                (this.idParent != null
-                ? this.idParent.hashCode()
-                : 0);
-        hash = 59 * hash + (this.name != null
-                ? this.name.hashCode()
-                : 0);
+
+        hash = 59 * hash + ((this.id != null)
+                            ? this.id.hashCode()
+                            : 0);
+        hash = 59 * hash + ((this.idParent != null)
+                            ? this.idParent.hashCode()
+                            : 0);
+        hash = 59 * hash + ((this.name != null)
+                            ? this.name.hashCode()
+                            : 0);
+
         return hash;
     }
 
     @Override
     public String toString() {
-        return name; // Never change that (will be used to find model items)!
+        return name;    // Never change that (will be used to find model items)!
     }
 
     @Override
     public int compareTo(Keyword o) {
-        if (o == null) return 1;
-        if (o == this) return 0;
+        if (o == null) {
+            return 1;
+        }
+
+        if (o == this) {
+            return 0;
+        }
+
         return o.getName().compareToIgnoreCase(name);
     }
 }

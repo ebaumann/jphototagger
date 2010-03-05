@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+
 import java.nio.ByteOrder;
+
 import java.util.Arrays;
 
 /**
@@ -32,7 +35,6 @@ import java.util.Arrays;
  * @see ExifLong
  */
 public final class ExifRational {
-
     private final int numerator;
     private final int denominator;
 
@@ -46,12 +48,13 @@ public final class ExifRational {
      *         negativ or if the denominator is zero
      */
     public ExifRational(byte[] rawValue, ByteOrder byteOrder) {
-
         Ensure.length(rawValue, byteCount());
-
-        numerator   = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
-        denominator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
-
+        numerator =
+            ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0,
+                4), byteOrder);
+        denominator =
+            ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4,
+                8), byteOrder);
         Ensure.positive(numerator, denominator);
         Ensure.noDivisionByZero(denominator);
     }
@@ -93,20 +96,22 @@ public final class ExifRational {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
 
-        if (obj == null) return false;
-
-        if (getClass() != obj.getClass()) return false;
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
 
         final ExifRational other = (ExifRational) obj;
 
-        return this.numerator   == other.numerator &&
-               this.denominator == other.denominator;
+        return (this.numerator == other.numerator)
+               && (this.denominator == other.denominator);
     }
 
     @Override
     public int hashCode() {
-
         int hash = 3;
 
         hash = 13 * hash + this.numerator;
@@ -117,6 +122,7 @@ public final class ExifRational {
 
     @Override
     public String toString() {
-        return Integer.toString(denominator) + "/" + Integer.toString(numerator);
+        return Integer.toString(denominator) + "/"
+               + Integer.toString(numerator);
     }
 }

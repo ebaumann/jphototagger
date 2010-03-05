@@ -17,15 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,12 +39,14 @@ import java.util.List;
  * @version 2009-09-11
  */
 final class UpdateTablesPrimaryKeys {
-
-    private final        UpdateTablesMessages messages                    = UpdateTablesMessages.INSTANCE;
-    private static final List<String>         TABLES_PRIMARY_KEYS_TO_DROP = new ArrayList<String>();
+    private final UpdateTablesMessages messages                    =
+        UpdateTablesMessages.INSTANCE;
+    private static final List<String>  TABLES_PRIMARY_KEYS_TO_DROP =
+        new ArrayList<String>();
 
     void update(Connection connection) throws SQLException {
-        messages.message(JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
+        messages.message(
+            JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
         dropPrimaryKeys(connection);
         messages.message("");
     }
@@ -50,16 +55,22 @@ final class UpdateTablesPrimaryKeys {
         DatabaseMetaData meta = connection.getMetaData();
         Statement        stmt = null;
         ResultSet        rs   = null;
+
         for (String table : TABLES_PRIMARY_KEYS_TO_DROP) {
             try {
-                rs = meta.getPrimaryKeys(connection.getCatalog(), null, table.toUpperCase());
+                rs = meta.getPrimaryKeys(connection.getCatalog(), null,
+                                         table.toUpperCase());
                 stmt = connection.createStatement();
+
                 boolean hasPk = false;
+
                 while (!hasPk && rs.next()) {
                     String pkName = rs.getString("PK_NAME");
+
                     if (pkName != null) {
                         hasPk = true;
-                        stmt.executeUpdate("alter table " + table + " drop primary key");
+                        stmt.executeUpdate("alter table " + table
+                                           + " drop primary key");
                     }
                 }
             } finally {

@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
@@ -33,13 +36,22 @@ import javax.swing.KeyStroke;
  * @version 2008-09-08
  */
 public final class PopupMenuImageCollections extends JPopupMenu {
-
-    private static final long                      serialVersionUID = -3446852358941591602L;
-    private final        JMenuItem                 itemDelete       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Delete"));
-    private final        JMenuItem                 itemRename       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Rename"));
-    private final        JMenuItem                 itemCreate       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Create"));
-    public               int                       itemIndex;
-    public static final  PopupMenuImageCollections INSTANCE         = new PopupMenuImageCollections();
+    private static final long serialVersionUID = -3446852358941591602L;
+    private final JMenuItem   itemDelete       =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuImageCollections.DisplayName.Action.Delete"));
+    private final JMenuItem itemRename =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuImageCollections.DisplayName.Action.Rename"));
+    private final JMenuItem itemCreate =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuImageCollections.DisplayName.Action.Create"));
+    public int                                    itemIndex;
+    public static final PopupMenuImageCollections INSTANCE =
+        new PopupMenuImageCollections();
 
     private PopupMenuImageCollections() {
         init();
@@ -77,8 +89,10 @@ public final class PopupMenuImageCollections extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
+                0));
         itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                InputEvent.CTRL_MASK));
     }
 }

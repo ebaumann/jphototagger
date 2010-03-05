@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
@@ -43,11 +44,15 @@ public final class RegexUtil {
      * @param pattern   pattern
      * @return All matching strings
      */
-    public static List<String> getMatches(Collection<String> strings, String pattern) {
-        if (strings == null)
+    public static List<String> getMatches(Collection<String> strings,
+            String pattern) {
+        if (strings == null) {
             throw new NullPointerException("strings == null");
-        if (pattern == null)
+        }
+
+        if (pattern == null) {
             throw new NullPointerException("pattern == null");
+        }
 
         List<String> stringsMatches = new ArrayList<String>();
 
@@ -56,8 +61,10 @@ public final class RegexUtil {
                 stringsMatches.add(string);
             }
         }
+
         return stringsMatches;
     }
+
     /**
      * Returns, whether a string matches at least one pattern in a collection
      * with regular expressions.
@@ -71,21 +78,24 @@ public final class RegexUtil {
      *         is invalid (as long as the elements in the list of string
      *         patterns don't match)
      */
-    public static boolean containsMatch(Collection<String> patterns, String string) {
-        if (patterns == null)
+    public static boolean containsMatch(Collection<String> patterns,
+            String string) {
+        if (patterns == null) {
             throw new NullPointerException("patterns == null");
-        if (string == null)
+        }
+
+        if (string == null) {
             throw new NullPointerException("string == null");
+        }
 
         for (String pattern : patterns) {
             if (string.matches(pattern)) {
                 return true;
             }
         }
+
         return false;
     }
 
-    private RegexUtil() {
-    }
-
+    private RegexUtil() {}
 }

@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import java.io.PrintStream;
+
 import java.nio.ByteBuffer;
 
 /**
@@ -28,10 +30,11 @@ import java.nio.ByteBuffer;
  * @version 2010-02-11
  */
 public final class ByteUtil {
-
     public static int toInt(byte b) {
         int i = b;
+
         i &= 0x000000FF;
+
         return i;
     }
 
@@ -43,9 +46,11 @@ public final class ByteUtil {
      */
     public static boolean[] getBits(byte b) {
         boolean[] bits = new boolean[8];
+
         for (int i = 0; i < bits.length; i++) {
             bits[i] = ((b & (1 << i)) != 0);
         }
+
         return bits;
     }
 
@@ -60,17 +65,25 @@ public final class ByteUtil {
      * @param out Ausgabe
      */
     public static void dumpBits(byte[] b, PrintStream out) {
-        if (b == null)
+        if (b == null) {
             throw new NullPointerException("b == null");
-        if (out == null)
+        }
+
+        if (out == null) {
             throw new NullPointerException("out == null");
+        }
 
         out.println();
+
         for (int i = 0; i < b.length; i++) {
             boolean[] bits = getBits(b[i]);
+
             for (int j = bits.length - 1; j >= 0; j--) {
-                out.print(bits[j] ? "1" : "0");
+                out.print(bits[j]
+                          ? "1"
+                          : "0");
             }
+
             out.print(" ");
         }
     }
@@ -88,9 +101,9 @@ public final class ByteUtil {
     public static int compareTo(byte[] a1, byte[] a2) {
         ByteBuffer buf1 = ByteBuffer.wrap(a1);
         ByteBuffer buf2 = ByteBuffer.wrap(a2);
+
         return buf1.compareTo(buf2);
     }
 
-    private ByteUtil() {
-    }
+    private ByteUtil() {}
 }

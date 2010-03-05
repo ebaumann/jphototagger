@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
+
 import java.io.File;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,16 +34,17 @@ import java.util.Set;
  * @version 2009-07-18
  */
 public abstract class Cache<CI extends CacheIndirection> {
-
-    static int currentAge = 0;
-    private static final int MAX_ENTRIES = 1500;
-    final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
+    static int                         currentAge      = 0;
+    private static final int           MAX_ENTRIES     = 1500;
+    final Set<ThumbnailUpdateListener> updateListeners =
+        new HashSet<ThumbnailUpdateListener>();
     protected WorkQueue<CI> workQueue = new WorkQueue<CI>();
+
     /**
      * Mapping from file to all kinds of cached data
      */
     protected final SoftCacheMap<CI> fileCache =
-            new SoftCacheMap<CI>(MAX_ENTRIES, workQueue);
+        new SoftCacheMap<CI>(MAX_ENTRIES, workQueue);
 
     Cache() {}
 
@@ -52,7 +56,8 @@ public abstract class Cache<CI extends CacheIndirection> {
         updateListeners.add(_listener);
     }
 
-    public void removeThumbnailUpdateListener(ThumbnailUpdateListener _listener) {
+    public void removeThumbnailUpdateListener(
+            ThumbnailUpdateListener _listener) {
         updateListeners.remove(_listener);
     }
 
@@ -62,15 +67,18 @@ public abstract class Cache<CI extends CacheIndirection> {
         if (fileCache.containsKey(file)) {
             return;
         }
+
         generateEntry(file, true);
     }
 
     public synchronized void updateFiles(File oldFile, File newFile) {
         CI sci = fileCache.remove(oldFile);
+
         if (sci != null) {
             sci.file = newFile;
             fileCache.put(newFile, sci);
         }
+
         notifyUpdate(oldFile);
     }
 

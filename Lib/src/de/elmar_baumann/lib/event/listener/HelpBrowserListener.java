@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.event.listener;
 
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
@@ -36,5 +37,4 @@ public interface HelpBrowserListener {
      * @param action  action
      */
     public void actionPerformed(HelpBrowserEvent action);
-
 }

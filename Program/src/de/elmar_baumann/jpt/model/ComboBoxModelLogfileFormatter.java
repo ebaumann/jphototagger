@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
+
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -34,7 +36,6 @@ import javax.swing.DefaultComboBoxModel;
  * @version 2008-09-17
  */
 public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
-
     private static final long serialVersionUID = -7817194934431355197L;
 
     public ComboBoxModelLogfileFormatter() {
@@ -42,6 +43,7 @@ public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
     }
 
     private void addElements() {
+
         // Wird die Reihenfolge verändert, stimmen die Benutzereinstellungen
         // nicht mehr, da diese den Index speichern
         addElement(XMLFormatter.class);

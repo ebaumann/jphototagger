@@ -17,20 +17,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.renderer;
 
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.image.util.IconUtil;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
 import de.elmar_baumann.lib.resource.JslBundle;
+
 import java.awt.Color;
 import java.awt.Component;
+
 import java.io.File;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.Icon;
 import javax.swing.JTree;
-import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
@@ -41,47 +46,67 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * @author  Elmar Baumann
  * @version 2008-07-23
  */
-public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellRenderer {
-
-    private static final long           serialVersionUID   = -1995225344254643215L;
-    private final        FileSystemView fileSystemView     = FileSystemView.getFileSystemView();
-    private              Icon           rootIcon           = IconUtil.getImageIcon("/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
-    private static final String         DISPLAY_NAME_ROOT  = JslBundle.INSTANCE.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
-    private              int            tempSelRow         = -1;
-    private static final Color TREE_SELECTION_FOREGROUND   = ComponentUtil.getUiColor("Tree.selectionForeground");
-    private static final Color TREE_SELECTION_BACKGROUND   = ComponentUtil.getUiColor("Tree.selectionBackground");
-    private static final Color TREE_TEXT_BACKGROUND        = ComponentUtil.getUiColor("Tree.textBackground");
-    private static final Color TREE_TEXT_FOREGROUND        = ComponentUtil.getUiColor("Tree.textForeground");
+public final class TreeCellRendererAllSystemDirectories
+        extends DefaultTreeCellRenderer {
+    private static final long    serialVersionUID = -1995225344254643215L;
+    private final FileSystemView fileSystemView   =
+        FileSystemView.getFileSystemView();
+    private Icon rootIcon =
+        IconUtil.getImageIcon(
+            "/de/elmar_baumann/lib/resource/icons/icon_workspace.png");
+    private static final String DISPLAY_NAME_ROOT =
+        JslBundle.INSTANCE.getString(
+            "TreeCellRendererAllSystemDirectories.DisplayName.Root");
+    private int                tempSelRow                = -1;
+    private static final Color TREE_SELECTION_FOREGROUND =
+        ComponentUtil.getUiColor("Tree.selectionForeground");
+    private static final Color TREE_SELECTION_BACKGROUND =
+        ComponentUtil.getUiColor("Tree.selectionBackground");
+    private static final Color TREE_TEXT_BACKGROUND =
+        ComponentUtil.getUiColor("Tree.textBackground");
+    private static final Color TREE_TEXT_FOREGROUND =
+        ComponentUtil.getUiColor("Tree.textForeground");
 
     public TreeCellRendererAllSystemDirectories() {
         setOpaque(true);
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value,
+            boolean sel, boolean expanded, boolean leaf, int row,
+            boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
+                                           row, hasFocus);
 
         if (value == tree.getModel().getRoot()) {
             setIcon(rootIcon);
             setText(DISPLAY_NAME_ROOT);
         } else if (value instanceof DefaultMutableTreeNode) {
-            File file = null;
-            Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
+            File   file       = null;
+            Object userObject =
+                ((DefaultMutableTreeNode) value).getUserObject();
+
             if (userObject instanceof File) {
                 file = (File) userObject;
             }
-            if (file != null && file.exists()) {
+
+            if ((file != null) && file.exists()) {
                 synchronized (fileSystemView) {
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        Logger.getLogger(TreeCellRendererAllSystemDirectories.class.getName()).log(Level.WARNING, null, ex);
+                        Logger.getLogger(
+                            TreeCellRendererAllSystemDirectories.class
+                                .getName()).log(Level.WARNING, null, ex);
                     }
                 }
+
                 setText(getDirectoryName(file));
             }
         }
+
         renderSelectionPopup(row, selected);
+
         return this;
     }
 
@@ -91,10 +116,12 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
         // Windows drive letters
         if (name.isEmpty()) {
             name = file.getAbsolutePath();
+
             if (name.endsWith("\\")) {
                 name = name.substring(0, name.length() - 2) + ":";
             }
         }
+
         return name;
     }
 
@@ -106,14 +133,11 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow  = row == tempSelRow;
 
-        setForeground(isTempSelRow || selected && !tempSelExists
-                ? TREE_SELECTION_FOREGROUND
-                : TREE_TEXT_FOREGROUND
-                );
-
-        setBackground(isTempSelRow || selected && !tempSelExists
-                ? TREE_SELECTION_BACKGROUND
-                : TREE_TEXT_BACKGROUND
-                );
+        setForeground((isTempSelRow || (selected &&!tempSelExists))
+                      ? TREE_SELECTION_FOREGROUND
+                      : TREE_TEXT_FOREGROUND);
+        setBackground((isTempSelRow || (selected &&!tempSelExists))
+                      ? TREE_SELECTION_BACKGROUND
+                      : TREE_TEXT_BACKGROUND);
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
@@ -25,11 +26,14 @@ import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.io.File;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -45,9 +49,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class ControllerFavoritesDeleteFilesystemFolder
         implements ActionListener, KeyListener {
-
     private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+    private final JTree              tree  =
+        GUI.INSTANCE.getAppPanel().getTreeFavorites();
 
     public ControllerFavoritesDeleteFilesystemFolder() {
         listen();
@@ -60,8 +64,9 @@ public final class ControllerFavoritesDeleteFilesystemFolder
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DELETE && !tree.isSelectionEmpty()) {
+        if ((e.getKeyCode() == KeyEvent.VK_DELETE) &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
+
             if (node instanceof DefaultMutableTreeNode) {
                 deleteDirectory((DefaultMutableTreeNode) node);
             }
@@ -70,29 +75,34 @@ public final class ControllerFavoritesDeleteFilesystemFolder
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        deleteDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(
+        deleteDirectory(
+            TreeFileSystemDirectories.getNodeOfLastPathComponent(
                 popup.getTreePath()));
     }
 
     private void deleteDirectory(DefaultMutableTreeNode node) {
-        File dir = node == null
+        File dir = (node == null)
                    ? null
                    : TreeFileSystemDirectories.getFile(node);
+
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
                 TreeFileSystemDirectories.removeFromTreeModel(
-                        ModelFactory.INSTANCE.getModel(TreeModelFavorites.class), node);
+                    ModelFactory.INSTANCE.getModel(TreeModelFavorites.class),
+                    node);
             }
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

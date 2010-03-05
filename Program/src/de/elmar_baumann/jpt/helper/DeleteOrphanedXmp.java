@@ -17,15 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
+import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.text.MessageFormat;
+
 import java.util.Set;
 
 /**
@@ -35,25 +38,27 @@ import java.util.Set;
  * @version 2008-10-05
  * @see     DatabaseImageFiles#deleteOrphanedXmp(de.elmar_baumann.jpt.event.listener.ProgressListener)
  */
-public final class DeleteOrphanedXmp
-        implements Runnable, ProgressListener {
-
-    private final    ProgressListenerSupport listenerSupport   = new ProgressListenerSupport();
-    private volatile boolean                 notifyProgressEnded;
-    private volatile boolean                 stop;
-    private volatile int                     countDeleted       = 0;
-    private          String                  startMessage;
-    private          String                  endMessage;
+public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
+    private final ProgressListenerSupport listenerSupport =
+        new ProgressListenerSupport();
+    private volatile boolean notifyProgressEnded;
+    private volatile boolean stop;
+    private volatile int     countDeleted = 0;
+    private String           startMessage;
+    private String           endMessage;
 
     @Override
     public void run() {
         setMessagesFiles();
         logDeleteRecords();
+
         DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+
         db.deleteNotExistingImageFiles(this);
+
         if (!stop) {
             setMessagesXmp();
-            notifyProgressEnded = true; // called before last action
+            notifyProgressEnded = true;    // called before last action
             db.deleteOrphanedXmp(this);
         }
     }
@@ -74,7 +79,6 @@ public final class DeleteOrphanedXmp
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-
         evt.setInfo(getStartMessage(evt));
 
         // Getting listeners to catch stop request
@@ -83,8 +87,9 @@ public final class DeleteOrphanedXmp
         synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressStarted(evt);
+
                 if (evt.isStop()) {
-                    stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+                    stop = true;    // stop = evt.isStop() can be wrong when more than 1 listener
                 }
             }
         }
@@ -99,8 +104,9 @@ public final class DeleteOrphanedXmp
         synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressPerformed(evt);
+
                 if (evt.isStop()) {
-                    stop = true; // stop = evt.isStop() can be wrong when more than 1 listener
+                    stop = true;    // stop = evt.isStop() can be wrong when more than 1 listener
                 }
             }
         }
@@ -110,30 +116,37 @@ public final class DeleteOrphanedXmp
     public void progressEnded(ProgressEvent evt) {
         countDeleted += (Integer) evt.getInfo();
         evt.setInfo(getEndMessage());
+
         if (stop || notifyProgressEnded) {
-                listenerSupport.notifyEnded(evt);
+            listenerSupport.notifyEnded(evt);
         }
     }
 
     private Object getStartMessage(ProgressEvent evt) {
-        return new MessageFormat(startMessage).format(new Object[]{evt.getMaximum()});
+        return new MessageFormat(startMessage).format(new Object[] {
+            evt.getMaximum() });
     }
 
     private Object getEndMessage() {
-        return new MessageFormat(endMessage).format(new Object[]{countDeleted});
+        return new MessageFormat(endMessage).format(new Object[] {
+            countDeleted });
     }
 
     private void logDeleteRecords() {
-        AppLogger.logInfo(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Info.StartRemove");
+        AppLogger.logInfo(DeleteOrphanedXmp.class,
+                          "DeleteOrphanedXmp.Info.StartRemove");
     }
 
     private void setMessagesFiles() {
-        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.Start");
-        endMessage   = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.End");
+        startMessage =
+            JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.Start");
+        endMessage =
+            JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.End");
     }
 
     private void setMessagesXmp() {
-        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.Start");
-        endMessage   = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.End");
+        startMessage =
+            JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.Start");
+        endMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.End");
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util.logging;
 
 import java.util.ArrayList;
@@ -30,20 +31,19 @@ import java.util.logging.Level;
  * @version 2008-10-05
  */
 public final class LogfileRecord {
-
-    private String date;
-    private Long millis;
-    private String sequence;
-    private String logger;
-    private Level level;
-    private String classname;
-    private String methodname;
-    private String thread;
-    private String message;
-    private String key;
-    private String catalog;
+    private String                 date;
+    private Long                   millis;
+    private String                 sequence;
+    private String                 logger;
+    private Level                  level;
+    private String                 classname;
+    private String                 methodname;
+    private String                 thread;
+    private String                 message;
+    private String                 key;
+    private String                 catalog;
     private ExceptionLogfileRecord exception;
-    private List<String> params;
+    private List<String>           params;
 
     /**
      * Liefert bei lokalisierten Nachrichten den Namen des Resource-Bundles
@@ -306,6 +306,7 @@ public final class LogfileRecord {
         if (params == null) {
             params = new ArrayList<String>();
         }
+
         params.add(param);
     }
 
@@ -410,25 +411,26 @@ public final class LogfileRecord {
      * @throws          NullPointerException if substring is null
      */
     public boolean contains(String substring) {
-        if (substring == null)
+        if (substring == null) {
             throw new NullPointerException("substring == null");
+        }
 
-        return containsSubstring(getMessage(), substring) ||
-            containsSubstring(getClassname(), substring) ||
-            containsSubstring(getMethodname(), substring) ||
-            containsSubstring(getDate(), substring) ||
-            containsSubstring(getLogger(), substring) ||
-            containsSubstring(getSequence(), substring) ||
-            containsSubstring(getThread(), substring) ||
-            (hasException()
-            ? getException().contains(substring)
-            : false);
+        return containsSubstring(getMessage(), substring)
+               || containsSubstring(getClassname(), substring)
+               || containsSubstring(getMethodname(), substring)
+               || containsSubstring(getDate(), substring)
+               || containsSubstring(getLogger(), substring)
+               || containsSubstring(getSequence(), substring)
+               || containsSubstring(getThread(), substring) || (hasException()
+                ? getException().contains(substring)
+                : false);
     }
 
     private boolean containsSubstring(String string, String substring) {
         if (string == null) {
             return false;
         }
+
         return string.toLowerCase().contains(substring.toLowerCase());
     }
 }

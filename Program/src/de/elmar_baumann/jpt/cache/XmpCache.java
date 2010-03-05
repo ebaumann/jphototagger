@@ -17,19 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
-import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
+import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.lib.generics.Pair;
+
 import java.io.File;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -39,9 +43,8 @@ import javax.swing.SwingUtilities;
  */
 public final class XmpCache extends Cache<XmpCacheIndirection>
         implements DatabaseImageFilesListener {
-
-    public static final XmpCache INSTANCE = new XmpCache();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    public static final XmpCache     INSTANCE = new XmpCache();
+    private final DatabaseImageFiles db       = DatabaseImageFiles.INSTANCE;
 
     private XmpCache() {
         db.addListener(this);
@@ -52,26 +55,27 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
     public void actionPerformed(DatabaseImageFilesEvent event) {
         if (DatabaseImageFilesEvent.Type.XMP_UPDATED == event.getType()) {
             File file = event.getImageFile().getFile();
+
             fileCache.remove(file);
             notifyUpdate(file);
         }
     }
 
     private static class XmpFetcher implements Runnable {
-
-        private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+        private final DatabaseImageFiles       db = DatabaseImageFiles.INSTANCE;
         private WorkQueue<XmpCacheIndirection> wq;
-        private XmpCache cache;
+        private XmpCache                       cache;
 
         XmpFetcher(WorkQueue<XmpCacheIndirection> _wq, XmpCache _cache) {
-            wq = _wq;
+            wq    = _wq;
             cache = _cache;
         }
 
         @Override
         public void run() {
             Collection<String> files = new HashSet<String>();
-            File file;
+            File               file;
+
             while (true) {
                 if (files.size() < 1) {
                     try {
@@ -81,46 +85,60 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
                     }
                 } else {
                     XmpCacheIndirection ci = wq.poll();
+
                     if (ci != null) {
                         file = ci.file;
                     } else {
                         file = null;
                     }
                 }
+
                 if (file != null) {
                     files.add(file.getAbsolutePath());
                 }
-                assert ! (file == null && files.size() == 0) : "Should not happen";
-                if (file == null || files.size() >= 64) {
+
+                assert !((file == null) && (files.size() == 0)) :
+                       "Should not happen";
+
+                if ((file == null) || (files.size() >= 64)) {
                     if (files.size() > 1) {
                         try {
+
                             // wait a bit to allow ThumbnailCache to get some disk bandwidth
                             Thread.sleep(10);
                         } catch (Exception ex) {}
                     }
+
                     List<Pair<String, Xmp>> res = db.getXmpOf(files);
+
                     // send updates to request results
                     for (Pair<String, Xmp> p : res) {
                         String temp = p.getFirst();
+
                         cache.update(p.getSecond(), new File(temp), true);
                         files.remove(temp);
                     }
+
                     // if we have files left, there was nothing in the DB, we
                     // fabricate clear xmp objects for them, in order not to
                     // have to ask the DB again
                     for (String f : files) {
                         Xmp xmp = new Xmp();
+
                         cache.update(xmp, new File(f), false);
                     }
+
                     files.clear();
                 }
             }
         }
     }
 
+
     /**
      * Interface for producers.
      */
+
     /**
      * Creates a new entry in the cache with the two keys index and filename.
      *
@@ -130,10 +148,13 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
      */
     @Override
     protected synchronized void generateEntry(File file, boolean prefetch) {
-        assert file != null: "Received request with null file";
+        assert file != null : "Received request with null file";
+
         XmpCacheIndirection ci = new XmpCacheIndirection(file);
+
         updateUsageTime(ci);
         fileCache.put(file, ci);
+
         if (prefetch) {
             workQueue.append(ci);
         } else {
@@ -141,21 +162,25 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
         }
     }
 
-    public synchronized void update(final Xmp xmp, final File file, boolean repaint) {
+    public synchronized void update(final Xmp xmp, final File file,
+                                    boolean repaint) {
         if (!fileCache.containsKey(file)) {
-            return;  // stale entry
+            return;    // stale entry
         }
+
         XmpCacheIndirection ci = fileCache.get(file);
+
         updateUsageTime(ci);
         ci.xmp = xmp;
         fileCache.maybeCleanupCache();
+
         if (repaint) {
             SwingUtilities.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
                     if (xmp.isEmpty()) {
-                        notifyUpdate(file, ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE);
+                        notifyUpdate(
+                            file, ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE);
                     } else {
                         notifyUpdate(file);
                     }
@@ -172,16 +197,21 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
      */
     public synchronized Xmp getXmp(File file) {
         XmpCacheIndirection ci = fileCache.get(file);
+
         if (ci == null) {
             generateEntry(file, false);
+
             return null;
         }
+
         updateUsageTime(ci);
 
         if (ci.xmp == null) {
             workQueue.push(ci);
+
             return null;
         }
+
         return ci.xmp;
     }
 

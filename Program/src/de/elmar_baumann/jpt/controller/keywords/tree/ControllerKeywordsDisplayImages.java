@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.data.Keyword;
@@ -25,8 +26,10 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.componentutil.ListUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JMenuItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -38,9 +41,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann
  * @version 2009-07-12
  */
-public class ControllerKeywordsDisplayImages
-        implements ActionListener {
-
+public class ControllerKeywordsDisplayImages implements ActionListener {
     private final PopupMenuKeywordsTree popup  = PopupMenuKeywordsTree.INSTANCE;
     private final JMenuItem             itemHk = popup.getItemDisplayImages();
     private final JMenuItem             itemKw = popup.getItemDisplayImagesKw();
@@ -57,8 +58,13 @@ public class ControllerKeywordsDisplayImages
     @Override
     public void actionPerformed(ActionEvent e) {
         Keyword keyword = getKeyword();
-        if (keyword == null) return;
+
+        if (keyword == null) {
+            return;
+        }
+
         Object source = e.getSource();
+
         if (source == itemHk) {
             showImages(keyword);
         } else if (source == itemKw) {
@@ -67,11 +73,14 @@ public class ControllerKeywordsDisplayImages
     }
 
     private Keyword getKeyword() {
-        DefaultMutableTreeNode node       = (DefaultMutableTreeNode) popup.getTreePath().getLastPathComponent();
-        Object                 userObject = node.getUserObject();
+        DefaultMutableTreeNode node =
+            (DefaultMutableTreeNode) popup.getTreePath().getLastPathComponent();
+        Object userObject = node.getUserObject();
+
         if (userObject instanceof Keyword) {
             return (Keyword) userObject;
         }
+
         return null;
     }
 

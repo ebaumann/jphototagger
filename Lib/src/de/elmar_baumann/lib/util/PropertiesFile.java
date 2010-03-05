@@ -17,16 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Properties;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Properties;
 
 /**
  * Reads from and writes to a file values of an
@@ -40,12 +43,11 @@ import java.util.logging.Logger;
  * @version 2008-10-05
  */
 public final class PropertiesFile {
-
-    private final String filename;
-    private final String domainName;
+    private final String     filename;
+    private final String     domainName;
     private final Properties properties;
-    private final String projectName;
-    private final String directoryName;
+    private final String     projectName;
+    private final String     directoryName;
 
     /**
      * Constructor.
@@ -71,20 +73,28 @@ public final class PropertiesFile {
      * @param properties   properties to retrieve values from a file and store
      *                     values in a file
      */
-    public PropertiesFile(String domainName, String projectName, String filename, Properties properties) {
-        if (domainName == null)
+    public PropertiesFile(String domainName, String projectName,
+                          String filename, Properties properties) {
+        if (domainName == null) {
             throw new NullPointerException("domainName == null");
-        if (projectName == null)
-            throw new NullPointerException("appName == null");
-        if (filename == null)
-            throw new NullPointerException("filename == null");
-        if (properties == null)
-            throw new NullPointerException("properties == null");
+        }
 
-        this.domainName = domainName;
-        this.projectName = projectName;
-        this.filename = filename;
-        this.properties = properties;
+        if (projectName == null) {
+            throw new NullPointerException("appName == null");
+        }
+
+        if (filename == null) {
+            throw new NullPointerException("filename == null");
+        }
+
+        if (properties == null) {
+            throw new NullPointerException("properties == null");
+        }
+
+        this.domainName    = domainName;
+        this.projectName   = projectName;
+        this.filename      = filename;
+        this.properties    = properties;
         this.directoryName = initGetDirectoryName();
     }
 
@@ -105,20 +115,24 @@ public final class PropertiesFile {
      */
     public void writeToFile() throws IOException {
         FileUtil.ensureDirectoryExists(directoryName);
+
         FileOutputStream out = null;
+
         try {
             out = new FileOutputStream(getPropertyFilePathName());
-            properties.store(out, "--- " + projectName + " persistent settings ---");
+            properties.store(out,
+                             "--- " + projectName + " persistent settings ---");
         } catch (Exception ex) {
-            Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE,
+                             null, ex);
         } finally {
             if (out != null) {
                 try {
                     out.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PropertiesFile.class.getName()).log(
+                        Level.SEVERE, null, ex);
                 }
-
             }
         }
     }
@@ -129,19 +143,23 @@ public final class PropertiesFile {
      */
     public void readFromFile() {
         String propertyFilename = getPropertyFilePathName();
+
         if (FileUtil.existsFile(new File(propertyFilename))) {
             FileInputStream in = null;
+
             try {
                 in = new FileInputStream(propertyFilename);
                 properties.load(in);
             } catch (Exception ex) {
-                Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PropertiesFile.class.getName()).log(
+                    Level.SEVERE, null, ex);
             } finally {
                 if (in != null) {
                     try {
                         in.close();
                     } catch (IOException ex) {
-                        Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(PropertiesFile.class.getName()).log(
+                            Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -154,6 +172,8 @@ public final class PropertiesFile {
 
     private String initGetDirectoryName() {
         String homeDir = System.getProperty("user.home");
-        return homeDir + File.separator + "." + domainName + File.separator + projectName;
+
+        return homeDir + File.separator + "." + domainName + File.separator
+               + projectName;
     }
 }

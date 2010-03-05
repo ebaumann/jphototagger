@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.generics.Pair;
+
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,20 +38,25 @@ import java.util.List;
  * @version 2008-11-06
  */
 final class UpdateTablesRenameColumns {
-
-    private final        UpdateTablesMessages               messages      = UpdateTablesMessages.INSTANCE;
-    private final        List<Pair<ColumnInfo, ColumnInfo>> renameColumns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
-    private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS       = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private final UpdateTablesMessages               messages      =
+        UpdateTablesMessages.INSTANCE;
+    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
+        new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS =
+        new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
 
     static {
-        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(
-                new ColumnInfo("programs", "parameters"                , null, null),
-                new ColumnInfo(null      , "parameters_before_filename", null, null)
-                ));
+        COLUMNS.add(new Pair<ColumnInfo,
+                             ColumnInfo>(new ColumnInfo("programs",
+                                 "parameters", null,
+                                 null), new ColumnInfo(null,
+                                     "parameters_before_filename", null,
+                                     null)));
     }
 
     void update(Connection connection) throws SQLException {
         setColumns(connection);
+
         if (renameColumns.size() > 0) {
             renameColumns(connection);
         }
@@ -56,32 +64,42 @@ final class UpdateTablesRenameColumns {
 
     private void setColumns(Connection connection) throws SQLException {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
+
         renameColumns.clear();
+
         for (Pair<ColumnInfo, ColumnInfo> info : COLUMNS) {
-            if (dbMeta.existsColumn(connection, info.getFirst().getTableName(), info.getFirst().getColumnName())) {
+            if (dbMeta.existsColumn(connection, info.getFirst().getTableName(),
+                                    info.getFirst().getColumnName())) {
                 renameColumns.add(info);
             }
         }
     }
 
     private void renameColumns(Connection connection) throws SQLException {
-        messages.message(JptBundle.INSTANCE.getString("UpdateTablesRenameColumns.Info.update"));
+        messages.message(
+            JptBundle.INSTANCE.getString(
+                "UpdateTablesRenameColumns.Info.update"));
+
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(connection, info);
         }
     }
 
-    private void renameColumn(Connection connection, Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
-        setMessage(info.getFirst().getTableName(), info.getFirst().getColumnName());
-        Database.execute(connection, "ALTER TABLE " +
-                info.getFirst().getTableName() +
-                " ALTER COLUMN " +
-                info.getFirst().getColumnName() +
-                " RENAME TO " +
-                info.getSecond().getColumnName());
+    private void renameColumn(Connection connection,
+                              Pair<ColumnInfo, ColumnInfo> info)
+            throws SQLException {
+        setMessage(info.getFirst().getTableName(),
+                   info.getFirst().getColumnName());
+        Database.execute(connection,
+                         "ALTER TABLE " + info.getFirst().getTableName()
+                         + " ALTER COLUMN " + info.getFirst().getColumnName()
+                         + " RENAME TO " + info.getSecond().getColumnName());
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(JptBundle.INSTANCE.getString("UpdateTablesRenameColumns.Info.RenameColumn", tableName, columnName));
+        messages.message(
+            JptBundle.INSTANCE.getString(
+                "UpdateTablesRenameColumns.Info.RenameColumn", tableName,
+                columnName));
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
@@ -24,9 +25,12 @@ import de.elmar_baumann.jpt.io.FileSystemDirectories;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
 import de.elmar_baumann.lib.model.TreeModelAllSystemDirectories;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import java.io.File;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -41,9 +45,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-06-19
  */
 public final class ControllerRenameDirectory extends ControllerDirectory {
-
     public ControllerRenameDirectory() {
-        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemRenameDirectory());
+        listenToActionsOf(
+            PopupMenuDirectories.INSTANCE.getItemRenameDirectory());
     }
 
     @Override
@@ -53,18 +57,22 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemRenameDirectory();
+        return evt.getSource()
+               == PopupMenuDirectories.INSTANCE.getItemRenameDirectory();
     }
 
     @Override
     protected void action(DefaultMutableTreeNode node) {
         File dir = getDirOfNode(node);
+
         if (dir != null) {
             File newDir = FileSystemDirectories.rename(dir);
+
             if (newDir != null) {
                 node.setUserObject(newDir);
                 TreeFileSystemDirectories.updateInTreeModel(
-                        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class), node);
+                    ModelFactory.INSTANCE.getModel(
+                        TreeModelAllSystemDirectories.class), node);
             }
         }
     }

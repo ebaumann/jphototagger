@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.data.Favorite;
@@ -25,8 +26,10 @@ import de.elmar_baumann.jpt.model.TreeModelFavorites;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -41,10 +44,9 @@ import javax.swing.tree.TreePath;
  * @version 2009-06-15
  */
 public final class ControllerMoveFavorite implements ActionListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree tree = appPanel.getTreeFavorites();
-    private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
+    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
+    private final JTree              tree     = appPanel.getTreeFavorites();
+    private final PopupMenuFavorites popup    = PopupMenuFavorites.INSTANCE;
 
     public ControllerMoveFavorite() {
         listen();
@@ -58,11 +60,11 @@ public final class ControllerMoveFavorite implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         boolean moveUp = popup.getItemMoveUp().equals(e.getSource());
+
         SwingUtilities.invokeLater(new MoveDir(moveUp));
     }
 
     private class MoveDir implements Runnable {
-
         private boolean up;
 
         public MoveDir(boolean up) {
@@ -80,26 +82,31 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         private Favorite getFavoriteDirectory() {
             TreePath selPath = tree.getSelectionPath();
+
             if (selPath != null) {
                 DefaultMutableTreeNode node =
-                        (DefaultMutableTreeNode) selPath.getLastPathComponent();
+                    (DefaultMutableTreeNode) selPath.getLastPathComponent();
                 Object userObject = node.getUserObject();
+
                 if (userObject instanceof Favorite) {
                     return (Favorite) userObject;
                 }
             }
+
             return null;
         }
 
         private void moveUp(Favorite dir) {
             if (dir != null) {
-                ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).moveUpFavorite(dir);
+                ModelFactory.INSTANCE.getModel(
+                    TreeModelFavorites.class).moveUpFavorite(dir);
             }
         }
 
         private void moveDown(Favorite dir) {
             if (dir != null) {
-                ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).moveDownFavorite(dir);
+                ModelFactory.INSTANCE.getModel(
+                    TreeModelFavorites.class).moveDownFavorite(dir);
             }
         }
     }

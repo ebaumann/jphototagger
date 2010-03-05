@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
@@ -35,7 +36,6 @@ import java.util.Set;
  * @version 2008-10-05
  */
 public final class SettingsHints {
-
     private final List<String> excludedKeys = new ArrayList<String>();
     private final Set<Option>  options      = new HashSet<Option>();
 
@@ -48,8 +48,7 @@ public final class SettingsHints {
         SET_TABBED_PANE_CONTENT,
     }
 
-    public SettingsHints() {
-    }
+    public SettingsHints() {}
 
     public SettingsHints(Option... options) {
         for (Option option : options) {
@@ -58,13 +57,17 @@ public final class SettingsHints {
     }
 
     public void addKeyToExclude(String key) {
-        if (key == null) throw new NullPointerException("key == null");
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
 
         excludedKeys.add(key);
     }
 
     boolean isSet(String key) {
-        if (key == null) throw new NullPointerException("key == null");
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
 
         return !excludedKeys.contains(key);
     }

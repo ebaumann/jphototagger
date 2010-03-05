@@ -17,14 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.comparator;
 
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.lib.util.ClassEquality;
+
 import java.io.File;
 import java.io.Serializable;
+
 import java.text.Collator;
+
 import java.util.Comparator;
 
 /**
@@ -32,29 +36,30 @@ import java.util.Comparator;
  * @author  Elmar Baumann
  * @version 2009-12-16
  */
-public final class ComparatorExifRecordingEquipmentAsc
-        extends    ClassEquality
-        implements Comparator<File>,
-                   Serializable
-    {
-    private static final long serialVersionUID = -7653829996215237671L;
-
-    private transient Collator collator = Collator.getInstance();
+public final class ComparatorExifRecordingEquipmentAsc extends ClassEquality
+        implements Comparator<File>, Serializable {
+    private static final long  serialVersionUID = -7653829996215237671L;
+    private transient Collator collator         = Collator.getInstance();
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Exif exifLeft    = DatabaseImageFiles.INSTANCE.getExifOf(fileLeft.getAbsolutePath());
-        Exif exifRight   = DatabaseImageFiles.INSTANCE.getExifOf(fileRight.getAbsolutePath());
-        String eqipLeft  = exifLeft  == null ? null : exifLeft .getRecordingEquipment();
-        String eqipRight = exifRight == null ? null : exifRight.getRecordingEquipment();
+        Exif exifLeft =
+            DatabaseImageFiles.INSTANCE.getExifOf(fileLeft.getAbsolutePath());
+        Exif exifRight =
+            DatabaseImageFiles.INSTANCE.getExifOf(fileRight.getAbsolutePath());
+        String eqipLeft  = (exifLeft == null)
+                           ? null
+                           : exifLeft.getRecordingEquipment();
+        String eqipRight = (exifRight == null)
+                           ? null
+                           : exifRight.getRecordingEquipment();
 
-        return eqipLeft == null && eqipRight == null
-                ? 0
-                : eqipLeft == null && eqipRight != null
-                ? -1
-                : eqipLeft != null && eqipRight == null
-                ? 1
-                : collator.compare(eqipLeft, eqipRight)
-                ;
+        return ((eqipLeft == null) && (eqipRight == null))
+               ? 0
+               : ((eqipLeft == null) && (eqipRight != null))
+                 ? -1
+                 : ((eqipLeft != null) && (eqipRight == null))
+                   ? 1
+                   : collator.compare(eqipLeft, eqipRight);
     }
 }

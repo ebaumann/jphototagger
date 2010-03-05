@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.resource;
 
 import com.imagero.util.R3;
@@ -27,23 +28,21 @@ import com.imagero.util.R3;
  * @version 2008-02-17
  */
 public final class ImageProperties implements R3 {
-
     @Override
     public final String[] get() {
         String[] s = new String[res.length];
+
         for (int i = 0; i < s.length; i++) {
             s[i] = res[i];
         }
 
         return s;
     }
-    private final String[] res = {
-        "rO0ABXVyAAJbQqzzF/gGCFTgAgAAeHAAAABurO0ABXQADUVsbWFyIEJhdW1hbm50",
-        "AApYTVAtVmlld2VydAAAdAAEbWV0YXQAF25vbi1jb21tZXJjaWFsIHVzZSBvbmx5",
-        "dAACbm9xAH4AAnQACDA1LjExLjA3dAAKMTAuMTAuMjEwNnQABDIuOTl1cQB+AAAA",
-        "AAAuMCwCFG0cderl/m4EJh5x2zEqI5nORpE/AhR3YHmZhUHoTfndNxTnrXQuQWve",
-        "0Q=="
-    ,}
-;
 
+    private final String[] res = { "rO0ABXVyAAJbQqzzF/gGCFTgAgAAeHAAAABurO0ABXQADUVsbWFyIEJhdW1hbm50",
+                                   "AApYTVAtVmlld2VydAAAdAAEbWV0YXQAF25vbi1jb21tZXJjaWFsIHVzZSBvbmx5",
+                                   "dAACbm9xAH4AAnQACDA1LjExLjA3dAAKMTAuMTAuMjEwNnQABDIuOTl1cQB+AAAA",
+                                   "AAAuMCwCFG0cderl/m4EJh5x2zEqI5nORpE/AhR3YHmZhUHoTfndNxTnrXQuQWve",
+                                   "0Q==", }
+    ;
 }

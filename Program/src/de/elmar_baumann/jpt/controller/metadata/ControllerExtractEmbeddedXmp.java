@@ -17,14 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.app.AppFileFilters;
-import de.elmar_baumann.jpt.resource.JptBundle;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ExtractEmbeddedXmp;
+import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.FileEditorDialog;
 import de.elmar_baumann.jpt.view.panels.FileEditorPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,14 +38,13 @@ import java.awt.event.ActionListener;
  * @version 2009-05-22
  */
 public final class ControllerExtractEmbeddedXmp implements ActionListener {
-
     public ControllerExtractEmbeddedXmp() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemExtractEmbeddedXmp().
-                addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemExtractEmbeddedXmp()
+            .addActionListener(this);
     }
 
     @Override
@@ -56,12 +57,17 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
         FileEditorPanel  panel  = dialog.getFileEditorPanel();
 
         panel.setEditor(new ExtractEmbeddedXmp());
-        panel.setTitle(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Title"));
-        panel.setDescription(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Description"));
-        panel.setDirChooserFileFilter(AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER);
+        panel.setTitle(
+            JptBundle.INSTANCE.getString(
+                "ControllerExtractEmbeddedXmp.Panel.Title"));
+        panel.setDescription(
+            JptBundle.INSTANCE.getString(
+                "ControllerExtractEmbeddedXmp.Panel.Description"));
+        panel.setDirChooserFileFilter(
+            AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER);
         panel.setSelectDirs(true);
-
-        dialog.setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ExtractEmbeddedXmp"));
+        dialog.setHelpPageUrl(
+            JptBundle.INSTANCE.getString("Help.Url.ExtractEmbeddedXmp"));
         dialog.setVisible(true);
     }
 }

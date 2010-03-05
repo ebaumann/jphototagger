@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.SplashScreen;
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.app.SplashScreen;
  * @version 2008-10-29
  */
 class UpdateTablesMessages {
-
     static final UpdateTablesMessages INSTANCE = new UpdateTablesMessages();
 
     void message(String message) {
@@ -43,6 +43,5 @@ class UpdateTablesMessages {
         SplashScreen.INSTANCE.setProgress(value);
     }
 
-    private UpdateTablesMessages() {
-    }
+    private UpdateTablesMessages() {}
 }

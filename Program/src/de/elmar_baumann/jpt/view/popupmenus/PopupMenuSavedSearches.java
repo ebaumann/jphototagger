@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
@@ -35,14 +38,28 @@ import javax.swing.KeyStroke;
  * @version 2008-08-31
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
-
-    private static final long                   serialVersionUID = 3540766100829834971L;
-    private final        JMenuItem              itemDelete       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"));
-    private final        JMenuItem              itemEdit         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Edit")  , AppLookAndFeel.getIcon("icon_edit.png"));
-    private final        JMenuItem              itemCreate       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.New"));
-    private final        JMenuItem              itemRename       = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"));
-    private transient    SavedSearch            savedSearch;
-    public static final  PopupMenuSavedSearches INSTANCE         = new PopupMenuSavedSearches();
+    private static final long serialVersionUID = 3540766100829834971L;
+    private final JMenuItem   itemDelete       =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuSavedSearches.DisplayName.Action.Delete"));
+    private final JMenuItem itemEdit =
+        new JMenuItem(
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuSavedSearches.DisplayName.Action.Edit"), AppLookAndFeel
+                        .getIcon("icon_edit.png"));
+    private final JMenuItem itemCreate =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuSavedSearches.DisplayName.Action.New"));
+    private final JMenuItem itemRename =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuSavedSearches.DisplayName.Action.Rename"));
+    private transient SavedSearch              savedSearch;
+    public static final PopupMenuSavedSearches INSTANCE =
+        new PopupMenuSavedSearches();
 
     private PopupMenuSavedSearches() {
         init();
@@ -95,9 +112,12 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-        itemEdit  .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
-        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                InputEvent.CTRL_MASK));
+        itemEdit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
+                InputEvent.CTRL_MASK));
+        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
+                0));
         itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
     }
 }

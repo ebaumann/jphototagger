@@ -17,16 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.data.SavedSearch;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ModifySavedSearches;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JList;
 
 /**
@@ -42,10 +45,10 @@ import javax.swing.JList;
  */
 public final class ControllerRenameSavedSearch
         implements ActionListener, KeyListener {
-
     private final PopupMenuSavedSearches actionPopup =
-            PopupMenuSavedSearches.INSTANCE;
-    private final JList list = GUI.INSTANCE.getAppPanel().getListSavedSearches();
+        PopupMenuSavedSearches.INSTANCE;
+    private final JList list =
+        GUI.INSTANCE.getAppPanel().getListSavedSearches();
 
     public ControllerRenameSavedSearch() {
         listen();
@@ -58,8 +61,9 @@ public final class ControllerRenameSavedSearch
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (isRename(e) && !list.isSelectionEmpty()) {
+        if (isRename(e) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
+
             if (value instanceof SavedSearch) {
                 ModifySavedSearches.rename((SavedSearch) value);
             }
@@ -81,11 +85,13 @@ public final class ControllerRenameSavedSearch
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

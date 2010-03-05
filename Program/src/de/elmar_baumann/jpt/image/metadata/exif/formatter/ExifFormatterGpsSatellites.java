@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 
 /**
@@ -30,15 +31,13 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
  * @version 2009-06-10
  */
 public final class ExifFormatterGpsSatellites extends ExifFormatter {
+    public static final ExifFormatterGpsSatellites INSTANCE =
+        new ExifFormatterGpsSatellites();
 
-    public static final ExifFormatterGpsSatellites INSTANCE = new ExifFormatterGpsSatellites();
-
-    private ExifFormatterGpsSatellites() {
-    }
+    private ExifFormatterGpsSatellites() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_SATELLITES);
 
         return ExifAscii.decode(exifTag.rawValue());

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 /**
@@ -25,15 +26,12 @@ package de.elmar_baumann.jpt.event;
  * @version 2010-02-07
  */
 public final class DatabaseSynonymsEvent {
-
     public enum Type {
-        WORD_DELETED,
-        WORD_UPDATED,
-        SYNONYM_DELETED,
-        SYNONYM_INSERTED,
+        WORD_DELETED, WORD_UPDATED, SYNONYM_DELETED, SYNONYM_INSERTED,
         SYNONYM_UPDATED,
-    };
+    }
 
+    ;
     private final Type type;
     private String     word;
     private String     oldWord;
