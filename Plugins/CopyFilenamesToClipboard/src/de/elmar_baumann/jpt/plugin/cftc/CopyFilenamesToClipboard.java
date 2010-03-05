@@ -1,6 +1,6 @@
 /*
- * CopyFilenamesToClipboard - plugin for JPhotoTagger
- * Copyright (C) 2009 by Elmar Baumann<eb@elmar-baumann.de>
+ * JPhotoTagger tags and finds images fast.
+ * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

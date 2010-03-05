@@ -1,5 +1,5 @@
 /*
- * JPhotoTagger tags and finds images fast
+ * JPhotoTagger tags and finds images fast.
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
