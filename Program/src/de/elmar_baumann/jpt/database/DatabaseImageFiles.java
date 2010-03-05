@@ -1390,7 +1390,8 @@ public final class DatabaseImageFiles extends Database {
      * E.g. If You are searching for an image with a tree AND a cloud AND
      * a car the list contains these three words.
      *
-     * Because it's faster, call {@link #getFilenamesOfDcSubject(java.lang.String)}
+     * Because it's faster, call
+     * {@link #getFilenamesOfDcSubject(java.lang.String, de.elmar_baumann.jpt.database.DatabaseImageFiles.DcSubjectOption[])}
      * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects
@@ -1432,7 +1433,8 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns all images which have at least one of subjects in a list.
      *
-     * Because it's faster, call {@link #getFilenamesOfDcSubject(java.lang.String)}
+     * Because it's faster, call
+     * {@link #getFilenamesOfDcSubject(java.lang.String, de.elmar_baumann.jpt.database.DatabaseImageFiles.DcSubjectOption[])}
      * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects
@@ -2090,8 +2092,10 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns the names of files without specific metadata.
      *
-     * @param   column column where it's table has to be either {@link de.elmar_baumann.jpt.database.metadata.exif.TableExif}
-     *                 or {@link TableXmp}
+     * @param   column column where it's table has to be either
+     *                 {@link de.elmar_baumann.jpt.database.metadata.exif.TableExif}
+     *                 or
+     *                 {@link de.elmar_baumann.jpt.database.metadata.xmp.TableXmp}
      * @return         names of files without metadata for that column
      */
     public List<String> getFilenamesWithoutMetadataIn(Column column) {
