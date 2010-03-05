@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.exporter.KeywordsExporters;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Elements are all implemented {@link }s retrieved through
+ * Elements are all implemented {@link Exporter}s retrieved through
  * {@link KeywordsExporters#getAll()}.
  *
  * @author  Elmar Baumann

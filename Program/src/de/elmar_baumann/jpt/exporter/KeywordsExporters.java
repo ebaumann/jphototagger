@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contains instances of all {@link KeywordExporter}
- * implementations.
+ * Contains instances of all {@link Exporter}s exporting keywords for external
+ * applications (<em>not</em> for JPhotoTagger).
  *
  * @author  Elmar Baumann
  * @version 2009-08-01
