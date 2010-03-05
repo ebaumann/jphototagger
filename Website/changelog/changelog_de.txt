@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.88 2010-03-05
+-----------------
+
+* 2 neue Menüpunkte unter "Hilfe": "Fehler melden" und "Wünsche melden": Startet
+ E-Mail-Programm mit ausgefülltem Empfänger und Betreff
+
 0.7.87 2010-03-04
 -----------------
 
