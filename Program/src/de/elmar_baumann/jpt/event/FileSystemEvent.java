@@ -25,7 +25,7 @@ import java.io.File;
 /**
  * Event in a file system.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-20
  */
 public final class FileSystemEvent {

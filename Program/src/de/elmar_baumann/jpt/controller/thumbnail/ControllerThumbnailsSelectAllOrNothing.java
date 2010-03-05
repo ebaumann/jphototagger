@@ -29,7 +29,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-28
  */
 public final class ControllerThumbnailsSelectAllOrNothing implements ActionListener {

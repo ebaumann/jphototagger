@@ -28,7 +28,7 @@ import de.elmar_baumann.lib.util.ByteUtil;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FLASH}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-10
  */
 public final class ExifFormatterFlash extends ExifFormatter {

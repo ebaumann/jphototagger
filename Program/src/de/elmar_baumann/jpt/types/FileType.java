@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.types;
 /**
  * Dateitypen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-31
  */
 public final class FileType {

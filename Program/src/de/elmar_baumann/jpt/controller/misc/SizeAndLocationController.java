@@ -31,7 +31,7 @@ import java.awt.event.WindowEvent;
  * <code>Component#addWindowListener(new SizeAndLocationController())</code> or
  * use a singleton instance rather than creation a new.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-14
  */
 public final class SizeAndLocationController extends WindowAdapter {

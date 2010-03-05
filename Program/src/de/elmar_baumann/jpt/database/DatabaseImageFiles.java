@@ -76,7 +76,7 @@ import java.util.Set;
 /**
  * Database containing metadata of image files.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-21
  */
 public final class DatabaseImageFiles extends Database {

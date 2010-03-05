@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDataType;
 /**
  * Checks conditions and throws Exceptions if not fullified.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-28
  */
 public final class Ensure {

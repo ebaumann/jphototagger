@@ -32,7 +32,7 @@ import javax.swing.DefaultListModel;
  * Elements are {@link String}s with all names of image collections retrieved
  * through {@link DatabaseImageCollections#getAll()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class ListModelImageCollections extends DefaultListModel {

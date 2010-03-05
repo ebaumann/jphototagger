@@ -45,7 +45,7 @@ import javax.swing.JToggleButton;
 
 /**
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public class DatabaseUpdatePanel extends JPanel implements ActionListener, ProgressListener {
 

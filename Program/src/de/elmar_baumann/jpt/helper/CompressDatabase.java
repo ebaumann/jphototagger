@@ -32,7 +32,7 @@ import java.io.File;
 /**
  * Compresses the database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-30
  */
 public final class CompressDatabase implements Runnable {

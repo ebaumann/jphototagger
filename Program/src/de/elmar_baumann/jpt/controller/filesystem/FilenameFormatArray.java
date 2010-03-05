@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Array of {@link FilenameFormat} objects.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-13
  */
 public final class FilenameFormatArray implements FilenameFormatListener {

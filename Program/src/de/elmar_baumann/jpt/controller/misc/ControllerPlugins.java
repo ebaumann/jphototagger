@@ -38,7 +38,7 @@ import javax.swing.JMenuItem;
  * Listens to items of {@link PopupMenuThumbnails#getMenuPlugins()} and sets
  * resources on action.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-27
  */
 public final class ControllerPlugins implements ActionListener {

@@ -25,7 +25,7 @@ import de.elmar_baumann.lib.event.HelpBrowserEvent;
  * Listens to actions of
  * {@link de.elmar_baumann.lib.dialog.HelpBrowser}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-04
  */
 public interface HelpBrowserListener {

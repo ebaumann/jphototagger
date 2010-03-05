@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class LogfileParser implements EntityResolver {

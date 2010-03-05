@@ -51,7 +51,7 @@ import javax.swing.event.MenuListener;
  *
  * Enables the menu items based on the content (when it's a single directory).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-27
  */
 public final class ControllerPasteFilesFromClipboard

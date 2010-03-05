@@ -43,7 +43,7 @@ import javax.swing.event.ChangeListener;
 /**
  * Dynamically adds panels of plugins ({@link Plugin#getSettingsPanel()}).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-27
  */
 public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener, Persistence {

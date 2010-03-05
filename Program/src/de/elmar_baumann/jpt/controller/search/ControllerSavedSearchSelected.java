@@ -41,7 +41,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ControllerSavedSearchSelected

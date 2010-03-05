@@ -24,7 +24,7 @@ import javax.swing.TransferHandler;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-26
  */
 public enum FileAction {

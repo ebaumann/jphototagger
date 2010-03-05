@@ -26,7 +26,7 @@ import java.io.File;
  * the hierarchy.  This usually means, that a local representation needs to
  * be updated or recreated.
  *
- * @author  Martin Pohlack  <martinp@gmx.de>
+ * @author  Martin Pohlack 
  * @version 2009-08-18
  */
 public final class ThumbnailUpdateEvent {

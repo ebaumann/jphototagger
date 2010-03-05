@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.types;
 /**
  * Token of a filename.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-19
  */
 public enum Filename {

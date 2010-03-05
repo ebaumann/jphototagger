@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * Contains keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-10
  */
 public final class DatabaseKeywords extends Database {

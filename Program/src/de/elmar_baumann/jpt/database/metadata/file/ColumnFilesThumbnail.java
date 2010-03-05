@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * Tabellenspalte <code>thumbnail</code> der Tabelle <code>files</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2007-07-29
  */
 public final class ColumnFilesThumbnail extends Column {

@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public enum FileSystemError {
 

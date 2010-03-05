@@ -45,7 +45,7 @@ import org.xml.sax.SAXException;
 /**
  * Imports Keywords exported by {@link KeywordsExporterJpt}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-10-11
  */
 public final class KeywordsImporterJpt extends KeywordsImporter implements EntityResolver {

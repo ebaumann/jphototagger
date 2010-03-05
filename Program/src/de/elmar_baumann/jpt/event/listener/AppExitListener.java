@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event.listener;
 /**
  * Listen to exiting the VM.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-15
  */
 public interface AppExitListener {

@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#METERING_MODE}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-10
  */
 public final class ExifFormatterMeteringMode extends ExifFormatter {

@@ -25,7 +25,7 @@ import java.util.Comparator;
 /**
  * Compares strings in ascending order.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-05
  */
 public final class ComparatorStringAscending implements Comparator<String> {

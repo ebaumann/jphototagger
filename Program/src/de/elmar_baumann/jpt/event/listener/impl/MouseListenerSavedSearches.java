@@ -30,7 +30,7 @@ import javax.swing.JList;
 /**
  * Beobachtet Mausklicks im JTree mit gespeicherten Suchen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-31
  */
 public final class MouseListenerSavedSearches extends MouseAdapter {

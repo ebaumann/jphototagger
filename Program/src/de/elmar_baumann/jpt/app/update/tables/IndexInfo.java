@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Information about an table index.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-11
  */
 public class IndexInfo {

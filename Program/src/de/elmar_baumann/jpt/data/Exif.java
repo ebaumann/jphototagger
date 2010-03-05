@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 /**
  * EXIF metadata or an image file.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-27
  */
 public final class Exif {

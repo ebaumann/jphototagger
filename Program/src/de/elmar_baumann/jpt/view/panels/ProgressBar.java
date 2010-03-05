@@ -26,7 +26,7 @@ import javax.swing.JProgressBar;
 /**
  * Synchronized access to {@link AppPanel#getProgressBar()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-16
  */
 public final class ProgressBar extends MutualExcludedResource<JProgressBar> {

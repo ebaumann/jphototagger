@@ -38,7 +38,7 @@ import javax.swing.event.ListSelectionListener;
  * and when an item was selected, sets files without metadata related to the
  * selected item to the thumbnails panel.
  *
- * @author  Elmar Baumann Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann Elmar Baumann
  * @version 2009-08-06
  */
 public final class ControllerNoMetadataItemSelected

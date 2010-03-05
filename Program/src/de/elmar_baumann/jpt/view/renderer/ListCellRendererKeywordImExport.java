@@ -29,7 +29,7 @@ import javax.swing.JList;
 /**
  * Renders lists with {@link Importer}s and {@link Exporter}s for keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-04
  */
 public final class ListCellRendererKeywordImExport extends DefaultListCellRenderer {

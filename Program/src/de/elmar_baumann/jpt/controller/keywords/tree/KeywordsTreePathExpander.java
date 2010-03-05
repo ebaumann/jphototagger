@@ -27,7 +27,7 @@ import javax.swing.tree.TreePath;
 /**
  * Expands the path of all {@link KeywordsPanel}s trees.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-31
  */
 public final class KeywordsTreePathExpander {

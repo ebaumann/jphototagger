@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * Spalte <code>photoshop_city</code> der Tabelle <code>xmp</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-23
  */
 public final class ColumnXmpPhotoshopCity extends Column {

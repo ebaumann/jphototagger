@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-02
  */
 public final class ImageCollectionsExporter implements Exporter {

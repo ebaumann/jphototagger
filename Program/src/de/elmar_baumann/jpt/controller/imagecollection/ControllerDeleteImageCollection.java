@@ -41,7 +41,7 @@ import javax.swing.SwingUtilities;
  * Also listens to the {@link JList}'s key events and deletes the selected image
  * collection when the keys <code>Ctrl+N</code> were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-00-10
  */
 public final class ControllerDeleteImageCollection

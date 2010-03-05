@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Drops unused columns.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-31
  */
 final class UpdateTablesDropColumns {

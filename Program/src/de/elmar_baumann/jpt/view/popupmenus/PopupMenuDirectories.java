@@ -32,7 +32,7 @@ import javax.swing.tree.TreePath;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-24
  */
 public final class PopupMenuDirectories extends JPopupMenu {

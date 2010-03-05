@@ -54,7 +54,7 @@ import javax.swing.JRadioButtonMenuItem;
 /**
  * The application's frame.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public final class AppFrame extends javax.swing.JFrame {
 

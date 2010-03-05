@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-07
  */
 public final class SynonymsExporter implements Exporter {

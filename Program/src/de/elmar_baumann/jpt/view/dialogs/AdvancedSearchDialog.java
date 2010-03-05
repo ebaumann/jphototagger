@@ -31,7 +31,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 /**
  * Nicht modaler Dialog für eine erweiterte Suche.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class AdvancedSearchDialog extends Dialog implements SearchListener {

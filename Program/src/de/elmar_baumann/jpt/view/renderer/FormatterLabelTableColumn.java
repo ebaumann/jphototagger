@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 /**
  * Renderd eine Tabellenspalte.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-17
  */
 public final class FormatterLabelTableColumn {

@@ -29,7 +29,7 @@ import javax.swing.DefaultListModel;
  * Elements are {@link MetadataTemplate}s retrieved through
  * {@link DatabaseMetadataTemplates#getAll()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-05
  */
 public final class ListModelMetadataTemplates

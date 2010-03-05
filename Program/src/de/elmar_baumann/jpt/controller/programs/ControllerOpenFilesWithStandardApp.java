@@ -33,7 +33,7 @@ import java.awt.event.ActionListener;
  * Controller für die Aktion: Dateien ausgewählter THUMBNAILS öffnen,
  * ausgelöst von {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-10
  */
 public final class ControllerOpenFilesWithStandardApp implements ActionListener {

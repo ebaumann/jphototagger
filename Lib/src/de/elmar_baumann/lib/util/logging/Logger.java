@@ -38,7 +38,7 @@ import java.util.logging.Level;
  * logger.logFiner(MyClass.class, Logger.USE_STRING, "For developers only");
  * }
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-11
  */
 public final class Logger {

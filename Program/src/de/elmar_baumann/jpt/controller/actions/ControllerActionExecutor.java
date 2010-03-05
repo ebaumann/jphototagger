@@ -30,7 +30,7 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
  * Executes actions of the dialog
  * {@link de.elmar_baumann.jpt.view.dialogs.ActionsDialog}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-06
  */
 public final class ControllerActionExecutor implements ProgramActionListener {

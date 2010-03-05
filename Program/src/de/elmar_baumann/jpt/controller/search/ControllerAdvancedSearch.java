@@ -45,7 +45,7 @@ import javax.swing.SwingUtilities;
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
  * eine Suche soll durchgeführt werden, ausgelöst vom Suchdialog.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ControllerAdvancedSearch

@@ -41,7 +41,7 @@ import javax.swing.JMenuItem;
  *
  * Enables or disables that menu items based on selection.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-26
  */
 public final class ControllerCopyOrCutFilesToClipboard

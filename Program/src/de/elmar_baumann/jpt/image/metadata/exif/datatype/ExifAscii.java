@@ -23,7 +23,7 @@ package de.elmar_baumann.jpt.image.metadata.exif.datatype;
  * EXIF data type ASCII as described in the standard: An 8-bit byte containing
  * one 7-bit ASCII code. The final byte is terminated with NULL.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-04-04
  */
 public final class ExifAscii {

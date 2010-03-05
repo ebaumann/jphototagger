@@ -32,7 +32,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Base class for directory controllers.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-19
  */
 abstract class ControllerDirectory extends Controller {

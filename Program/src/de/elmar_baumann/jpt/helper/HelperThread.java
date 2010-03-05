@@ -30,7 +30,7 @@ import javax.swing.JProgressBar;
  * Base class for helper threads managing progress listeners and providing a
  * progress bar.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-02
  */
 public abstract class HelperThread extends Thread {

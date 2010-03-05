@@ -27,7 +27,7 @@ import java.util.Set;
 /**
  * Format of a filename.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-13
  */
 public abstract class FilenameFormat {

@@ -26,7 +26,7 @@ import javax.swing.JMenuItem;
 /**
  * Helper Methods for Menus.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-23
  */
 public final class MenuUtil {

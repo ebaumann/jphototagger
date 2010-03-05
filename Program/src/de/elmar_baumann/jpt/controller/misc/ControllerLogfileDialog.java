@@ -40,7 +40,7 @@ import javax.swing.JMenuItem;
 /**
  * Kontrolliert die Aktion: Logfiledialog anzeigen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-11
  */
 public final class ControllerLogfileDialog

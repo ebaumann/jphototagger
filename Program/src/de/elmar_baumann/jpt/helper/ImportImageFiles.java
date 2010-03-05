@@ -48,7 +48,7 @@ import java.util.List;
  * into the {@link DatabaseImageFiles} and set as image collection
  * {@link ListModelImageCollections#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-24
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {

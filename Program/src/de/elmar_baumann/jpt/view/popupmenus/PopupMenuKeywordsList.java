@@ -32,7 +32,7 @@ import javax.swing.KeyStroke;
  * Popup menu for a keywords list, such as
  * {@link de.elmar_baumann.jpt.view.panels.KeywordsPanel#getList()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-07
  */
 public final class PopupMenuKeywordsList extends JPopupMenu {

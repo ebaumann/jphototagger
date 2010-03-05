@@ -25,7 +25,7 @@ import de.elmar_baumann.lib.util.ByteUtil;
  * The version of GPSInfoIFD. The version is given as 2.2.0.0. This tag is
  * mandatory when GPSInfo tag is present.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-03-17
  */
 public final class ExifGpsVersion {

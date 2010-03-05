@@ -26,7 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-10
  */
 public final class KeywordTreeNodesClipboard {

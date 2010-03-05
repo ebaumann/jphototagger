@@ -33,7 +33,7 @@ import javax.swing.filechooser.FileSystemView;
  * Benutzt vom ScanDirectoriesDialog, zeigt Systemordnericons vor
  * den Verzeichnisnamen an.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-07-25
  * @see     de.elmar_baumann.jpt.view.dialogs.UpdateMetadataOfDirectoriesDialog
  */

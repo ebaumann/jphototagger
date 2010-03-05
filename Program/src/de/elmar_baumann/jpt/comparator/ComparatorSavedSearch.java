@@ -27,7 +27,7 @@ import java.util.Comparator;
  * names ({@link de.elmar_baumann.jpt.data.SavedSearch#getName()})
  * will be compared.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-05
  */
 public final class ComparatorSavedSearch implements Comparator<SavedSearch> {

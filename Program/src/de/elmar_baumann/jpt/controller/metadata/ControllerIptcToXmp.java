@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Kontrolliert die Aktion: IPTC-Daten nach XMP schreiben.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-30
  */
 public final class ControllerIptcToXmp implements ActionListener {

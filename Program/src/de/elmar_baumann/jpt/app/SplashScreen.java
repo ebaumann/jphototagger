@@ -29,7 +29,7 @@ import java.awt.Rectangle;
 /**
  * The application's splashscreen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-23
  */
 public final class SplashScreen {

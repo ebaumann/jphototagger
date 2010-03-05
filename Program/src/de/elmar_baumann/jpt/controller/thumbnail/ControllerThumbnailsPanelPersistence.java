@@ -38,7 +38,7 @@ import javax.swing.SwingUtilities;
 /**
  * Applies persistent settings to the thumbnails panel.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-15
  */
 public final class ControllerThumbnailsPanelPersistence

@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
  * Beobachtet ein
  * {@link de.elmar_baumann.jpt.view.panels.EditMetadataPanels}.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public interface EditMetadataPanelsListener {
 

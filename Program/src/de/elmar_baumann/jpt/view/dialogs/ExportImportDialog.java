@@ -28,7 +28,7 @@ import de.elmar_baumann.lib.dialog.Dialog;
 
 /**
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public class ExportImportDialog extends Dialog implements ExportImportListener {
 

@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * Comparator einer Spaltensuche (vergleicht den Spaltenwert mit einem
  * Pattern).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-28
  */
 public enum Comparator {

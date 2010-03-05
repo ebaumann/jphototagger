@@ -41,7 +41,7 @@ import java.util.Set;
 
 /**
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public class ExportImportPanel extends javax.swing.JPanel implements SelectObjectsPanel.SelectionListener {
 

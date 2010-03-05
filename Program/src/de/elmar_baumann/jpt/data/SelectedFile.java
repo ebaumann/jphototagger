@@ -28,7 +28,7 @@ import java.util.List;
  * Contains information about the current selected file <em>only</em> when
  * <strong>one</strong> file is selected. Used for sharing data.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-07
  */
 public final class SelectedFile {

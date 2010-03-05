@@ -94,7 +94,7 @@ import javax.swing.JPanel;
 /**
  * Date Chooser Dialog.
  *
- * @author Knute Johnson, Elmar Baumann <eb@elmar-baumann.de>
+ * @author Knute Johnson, Elmar Baumann
  */
 public final class DateChooserDialog extends JComponent {
 

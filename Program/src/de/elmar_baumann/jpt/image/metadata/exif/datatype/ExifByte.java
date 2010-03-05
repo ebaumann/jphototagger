@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
  * An 8-bit unsigned integer.
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-04-04
  */
 public final class ExifByte {

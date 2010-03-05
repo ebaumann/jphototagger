@@ -31,7 +31,7 @@ import java.util.Comparator;
  * Der Name wird nicht verglichen, denn Recordnummer und Datensatznummer
  * identifizieren diesen eindeutig; er ist redundand.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-02-17
  * @see     IptcEntry
  */

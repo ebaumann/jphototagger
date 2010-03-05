@@ -51,7 +51,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Martin Pohlack <martinp@gmx.de>, Elmar Baumann <eb@elmar-baumann.de>
+ * @author Martin Pohlack
  * @version 2009-08-20
  */
 public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetListener {

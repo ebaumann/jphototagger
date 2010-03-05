@@ -31,7 +31,7 @@ import javax.swing.SwingUtilities;
 /**
  * Inserts, updates, deletes  saved searches into/from the model and database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-02-25
  */
 public final class ModifySavedSearches {

@@ -27,7 +27,7 @@ import java.util.Map;
  * Returns whether an {@link com.imagero.reader.iptc.IPTCEntryMeta} contains
  * repeatable values.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-02-20
  */
 public final class IptcRepeatableValues {

@@ -57,7 +57,7 @@ import java.util.StringTokenizer;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-21
  */
 public class DatabaseMetadataTemplates extends Database {

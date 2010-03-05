@@ -36,7 +36,7 @@ import java.util.Set;
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
  * specific keywords.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-02
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {

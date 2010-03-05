@@ -23,7 +23,7 @@ package de.elmar_baumann.jpt.comparator;
  * Compares numbers that can be null. If a number is null, it is always lesser
  * than a number that is not null.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-10
  */
 final class NumberCompare {

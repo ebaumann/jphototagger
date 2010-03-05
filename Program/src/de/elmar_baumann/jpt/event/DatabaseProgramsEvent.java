@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.data.Program;
 /**
  * Event in a database related to an program.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-19
  */
 public final class DatabaseProgramsEvent {

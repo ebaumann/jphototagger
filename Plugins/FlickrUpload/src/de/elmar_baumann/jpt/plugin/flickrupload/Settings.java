@@ -24,7 +24,7 @@ import java.util.Properties;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-02-15
  */
 public final class Settings {

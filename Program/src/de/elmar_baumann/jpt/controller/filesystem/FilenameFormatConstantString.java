@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 /**
  * Filename format that returns exactly a set string (formats nothing).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-13
  */
 public final class FilenameFormatConstantString extends FilenameFormat {

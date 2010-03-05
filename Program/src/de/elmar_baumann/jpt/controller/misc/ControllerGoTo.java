@@ -36,7 +36,7 @@ import javax.swing.JTextArea;
 /**
  * Controls the action: Go to ...
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-10
  */
 public final class ControllerGoTo implements ActionListener {

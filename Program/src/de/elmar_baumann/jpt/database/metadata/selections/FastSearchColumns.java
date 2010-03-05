@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Spalten für die Schnellsuche.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-07-29
  */
 public final class FastSearchColumns {

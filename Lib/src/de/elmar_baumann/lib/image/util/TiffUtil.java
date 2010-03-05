@@ -24,7 +24,7 @@ import java.nio.ByteOrder;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-03
  */
 public final class TiffUtil {

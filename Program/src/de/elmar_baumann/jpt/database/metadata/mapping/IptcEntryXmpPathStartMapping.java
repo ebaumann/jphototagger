@@ -33,7 +33,7 @@ import java.util.Map;
  * Das Adobe-SDK fügt bei mehrfach vorkommenden Properties einen Index in
  * eckigen Klammern an, weshalb es keine vollständige Abdeckung geben kann.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-19
  */
 public final class IptcEntryXmpPathStartMapping {

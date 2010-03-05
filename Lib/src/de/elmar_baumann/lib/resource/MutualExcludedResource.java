@@ -42,7 +42,7 @@ import java.util.logging.Logger;
  * not documentet that it can be null.
  *
  * @param <T> Type of resource
- * @author    Elmar Baumann <eb@elmar-baumann.de>
+ * @author    Elmar Baumann
  * @version   2008-09-16
  */
 public class MutualExcludedResource<T> {

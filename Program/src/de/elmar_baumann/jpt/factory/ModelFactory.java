@@ -51,7 +51,7 @@ import javax.swing.tree.TreeModel;
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-29
  */
 public final class ModelFactory {

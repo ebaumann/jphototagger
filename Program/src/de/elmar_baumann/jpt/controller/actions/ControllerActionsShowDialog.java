@@ -31,7 +31,7 @@ import java.awt.event.ActionListener;
  * when the menu item {@link AppFrame#getMenuItemActions()} was klicked or the
  * accelerator keys (F4) were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-06
  */
 public final class ControllerActionsShowDialog implements ActionListener {

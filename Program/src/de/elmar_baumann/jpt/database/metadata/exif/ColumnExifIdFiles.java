@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesId;
 /**
  * Spalte <code>id_files</code> der Tabelle <code>exif</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-27
  */
 public final class ColumnExifIdFiles extends Column {

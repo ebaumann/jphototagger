@@ -35,7 +35,7 @@ import javax.swing.JList;
 /**
  * 
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-07
  */
 public abstract class ControllerKeywords extends Controller {

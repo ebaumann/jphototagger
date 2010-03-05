@@ -40,7 +40,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-25
  */
 public final class ControllerKeywordItemSelected implements

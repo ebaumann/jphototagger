@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-07
  */
 public class ListCellRendererExt extends DefaultListCellRenderer {

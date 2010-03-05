@@ -39,7 +39,7 @@ import javax.swing.JProgressBar;
 /**
  * Executes in a thread programs which processes image files.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-06
  */
 public final class StartPrograms {

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Event in a database related to an image.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-15
  */
 public final class DatabaseImageFilesEvent {

@@ -30,7 +30,7 @@ import java.io.File;
 /**
  * Base class for file system actions. Provides registering and notifying listeners.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-20
  */
 public class FileSystem {

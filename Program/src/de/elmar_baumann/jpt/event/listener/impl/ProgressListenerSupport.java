@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
 /**
  * Adds, removes and notifies {@link ProgressListener} instances.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-18
  */
 public final class ProgressListenerSupport extends ListenerSupport<ProgressListener> {

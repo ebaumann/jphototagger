@@ -28,7 +28,7 @@ import java.awt.event.MouseEvent;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-24
  */
 public final class MouseEventUtil {

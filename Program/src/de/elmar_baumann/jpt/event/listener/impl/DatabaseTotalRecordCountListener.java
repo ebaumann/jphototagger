@@ -40,7 +40,7 @@ import javax.swing.JLabel;
  * Beobachtet Änderungen in der Datenbank und liefert die Anzahl aller Datensätze
  * danach.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-17
  */
 public final class DatabaseTotalRecordCountListener

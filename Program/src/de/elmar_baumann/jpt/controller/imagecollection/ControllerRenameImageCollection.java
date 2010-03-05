@@ -43,7 +43,7 @@ import javax.swing.SwingUtilities;
  * image collection when the keys <code>Ctrl+R</code> or <code>F2</code> were
  * pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-00-10
  */
 public final class ControllerRenameImageCollection

@@ -33,7 +33,7 @@ import static org.junit.Assert.*;
 /**
  * Tests the Class {@link de.elmar_baumann.lib.util.ArrayUtil}.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  * @version 2009-01-23
  */
 public class ArrayUtilTest {

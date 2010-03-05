@@ -29,7 +29,7 @@ import javax.swing.KeyStroke;
 /**
  * Popupmenü für den Tree mit Bildsammlungen.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-08
  */
 public final class PopupMenuImageCollections extends JPopupMenu {

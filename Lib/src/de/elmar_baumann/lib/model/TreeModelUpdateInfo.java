@@ -29,7 +29,7 @@ import javax.swing.tree.TreeNode;
 /**
  * Update information of a tree model.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-13
  */
 public final class TreeModelUpdateInfo {
@@ -37,7 +37,7 @@ public final class TreeModelUpdateInfo {
     /**
      * Contains a node and the indices of it's children
      *
-     * @author Elmar Baumann <eb@elmar-baumann.de>
+     * @author Elmar Baumann
      * @version 2009-06-14
      */
     public static class NodeAndChildIndices {
@@ -104,7 +104,7 @@ public final class TreeModelUpdateInfo {
      * {@link javax.swing.tree.DefaultTreeModel#nodesWereRemoved(javax.swing.tree.TreeNode, int[], java.lang.Object[])}
      * where the node is the not deleted parent.
      *
-     * @author Elmar Baumann <eb@elmar-baumann.de>
+     * @author Elmar Baumann
      * @version 2009-06-14
      */
     public static class NodeAndChild {
@@ -164,7 +164,7 @@ public final class TreeModelUpdateInfo {
     /**
      * Contains multiple nodes with each can have multiple child indices.
      *
-     * @author Elmar Baumann <eb@elmar-baumann.de>
+     * @author Elmar Baumann
      * @version 2009-06-14
      */
     public static class NodesAndChildIndices {

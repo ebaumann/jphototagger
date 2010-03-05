@@ -33,7 +33,7 @@ import javax.swing.tree.TreePath;
 /**
  * Behandelt Mauskereignisse in der Liste für Favoritenverzeichnisse.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-23
  */
 public final class MouseListenerFavorites extends MouseListenerTree {

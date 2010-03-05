@@ -44,7 +44,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to key events into the tree and renames the selected
  * keyword if the keys F2 or Ctrl+R were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-12
  */
 public class ControllerRenameKeyword

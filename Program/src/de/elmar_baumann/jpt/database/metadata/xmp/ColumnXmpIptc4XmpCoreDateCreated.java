@@ -35,7 +35,7 @@ import javax.swing.JComponent;
  * formatted as <code>YYYY</code> or <code>YYYY-MM</code> or
  * <code>YYYY-MM-DD</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-06
  */
 public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {

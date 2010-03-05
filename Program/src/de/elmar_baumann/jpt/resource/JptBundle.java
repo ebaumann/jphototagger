@@ -23,7 +23,7 @@ import de.elmar_baumann.lib.resource.Bundle;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-02
  */
 public final class JptBundle extends Bundle {

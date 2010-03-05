@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * All importers exporting JPhotoTagger data.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-03
  */
 public final class JptImporters {

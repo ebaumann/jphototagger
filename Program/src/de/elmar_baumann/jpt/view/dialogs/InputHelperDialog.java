@@ -33,7 +33,7 @@ import javax.swing.ListModel;
 /**
  * Dialog for input assistance.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2007-07-10
  */
 public class InputHelperDialog extends Dialog {

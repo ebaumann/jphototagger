@@ -58,7 +58,7 @@ import java.util.Set;
  * Datenbank eine ID abgespeichert werden, aus der eindeutig die Tabellenspalte
  * ermittelt werden kann.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-13
  */
 public final class ColumnIds {

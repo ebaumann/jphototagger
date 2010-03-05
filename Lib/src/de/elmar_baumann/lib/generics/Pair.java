@@ -25,7 +25,7 @@ package de.elmar_baumann.lib.generics;
  *
  * @param <A> first object
  * @param <B> second object
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-18
  */
 public class Pair<A, B> {

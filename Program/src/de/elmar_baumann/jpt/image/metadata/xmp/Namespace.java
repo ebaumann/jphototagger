@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.image.metadata.xmp;
 /**
  * Namespaces not existing in {@link com.adobe.xmp.XMPConst}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-27
  */
 public enum Namespace {

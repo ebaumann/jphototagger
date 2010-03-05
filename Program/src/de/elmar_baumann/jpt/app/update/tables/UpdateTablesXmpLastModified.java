@@ -32,7 +32,7 @@ import java.sql.Statement;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-29
  */
 final class UpdateTablesXmpLastModified {

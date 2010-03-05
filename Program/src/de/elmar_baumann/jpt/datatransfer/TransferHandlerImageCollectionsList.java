@@ -40,7 +40,7 @@ import javax.swing.TransferHandler;
  * list area hitted) if thumbnails are dropped on the list with image
  * collections.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-24
  */
 public final class TransferHandlerImageCollectionsList extends TransferHandler {

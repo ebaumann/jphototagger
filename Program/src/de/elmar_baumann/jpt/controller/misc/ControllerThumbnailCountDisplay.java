@@ -33,7 +33,7 @@ import javax.swing.event.ChangeListener;
 /**
  * Zeigt die Anzahl der Thumbnails an.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-25
  */
 public final class ControllerThumbnailCountDisplay

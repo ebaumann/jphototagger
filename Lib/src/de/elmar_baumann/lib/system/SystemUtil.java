@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-04-30
  */
 public final class SystemUtil {

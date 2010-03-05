@@ -26,7 +26,7 @@ import javax.swing.JComponent;
 /**
  * All added input verifiers must return true for a valid input.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-06
  */
 public final class InputVerifiersAnd extends InputVerifiers {

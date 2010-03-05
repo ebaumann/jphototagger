@@ -52,7 +52,7 @@ import java.util.StringTokenizer;
  * formats the raw values so that {@link ExifTag#stringValue()} returns a
  * displayable string and {@link ExifTag#name()} can be displayed as description.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-30
  */
 public final class NikonMakerNote {

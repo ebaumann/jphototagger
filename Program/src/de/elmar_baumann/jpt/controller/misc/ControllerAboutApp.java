@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
  * Kontrolliert die Aktion: Informationen über die Anwendung sollen angezeigt
  * werden.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-12
  */
 public final class ControllerAboutApp implements ActionListener {

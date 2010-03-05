@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * Übersetzt Strings. Die Übersetzungen stehen in einer locale-spezifischen
  * Properties-Datei.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-05
  */
 public final class Translation {

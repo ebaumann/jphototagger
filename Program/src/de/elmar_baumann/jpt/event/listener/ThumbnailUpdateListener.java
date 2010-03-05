@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 /**
  * Interface for receiving ThumbnailUpdateEvents
  *
- * @author  Martin Pohlack  <martinp@gmx.de>
+ * @author  Martin Pohlack 
  * @version 2009-08-18
  */
 public interface ThumbnailUpdateListener {

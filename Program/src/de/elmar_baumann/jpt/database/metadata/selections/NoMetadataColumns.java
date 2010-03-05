@@ -50,7 +50,7 @@ import java.util.List;
 /**
  * Columns to display in {@link AppPanel#getListNoMetadata()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-06
  */
 public final class NoMetadataColumns {

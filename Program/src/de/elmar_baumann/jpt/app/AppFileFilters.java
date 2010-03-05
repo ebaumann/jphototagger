@@ -24,7 +24,7 @@ import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 /**
  * Special file filters used in the application.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class AppFileFilters {

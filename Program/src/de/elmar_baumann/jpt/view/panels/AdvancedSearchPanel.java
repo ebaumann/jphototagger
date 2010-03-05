@@ -58,7 +58,7 @@ import java.util.Map;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  */
 public final class AdvancedSearchPanel extends javax.swing.JPanel
         implements SearchListener, Persistence {

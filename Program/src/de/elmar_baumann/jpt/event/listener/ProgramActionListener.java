@@ -23,7 +23,7 @@ import de.elmar_baumann.jpt.event.ProgramEvent;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-06
  */
 public interface ProgramActionListener {

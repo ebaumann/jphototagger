@@ -41,7 +41,7 @@ import javax.swing.tree.TreeCellRenderer;
  * <strong>setTempSelectionRow</strong> with an <strong>int</strong> as
  * parameter for the index.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-27
  */
 public final class TreeItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {

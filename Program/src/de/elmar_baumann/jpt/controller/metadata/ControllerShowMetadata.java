@@ -61,7 +61,7 @@ import javax.swing.SwingUtilities;
  * Listens also to the {@link DatabaseImageFiles} and refreshes the displayed
  * metadata of a file if that file was changed in the database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ControllerShowMetadata

@@ -31,7 +31,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-20
  */
 public abstract class ControllerFavorite extends Controller {

@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-19
  */
 public final class ControllerImportImageFiles implements ActionListener {

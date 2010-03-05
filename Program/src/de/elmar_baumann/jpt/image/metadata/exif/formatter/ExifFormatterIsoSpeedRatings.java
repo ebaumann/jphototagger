@@ -26,7 +26,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#ISO_SPEED_RATINGS}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-10
  */
 public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {

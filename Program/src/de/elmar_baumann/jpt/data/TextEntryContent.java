@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Text entry with text and column.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-29
  */
 public final class TextEntryContent implements TextEntry {

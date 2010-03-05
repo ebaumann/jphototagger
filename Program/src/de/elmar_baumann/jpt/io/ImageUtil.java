@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Utilities for images.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-14
  */
 public final class ImageUtil {

@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
  * Ereignis bei
  * {@link de.elmar_baumann.jpt.view.panels.EditMetadataPanels}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-22
  */
 public final class EditMetadataPanelsEvent {

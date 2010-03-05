@@ -31,7 +31,7 @@ import java.sql.ResultSet;
  * <code>DatabaseRegistry</code> because future releases could use it in a
  * different way too.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-28
  */
 public final class DatabaseApplicationProperties extends Database {

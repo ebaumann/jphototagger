@@ -26,7 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Compares tree nodes by their level to the root node.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-28
  */
 public final class ComparatorTreeNodeLevel

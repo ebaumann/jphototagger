@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * Alle elements are {@code XMPPropertyInfo} instances retrieved through
  * {@link #setPropertyInfosOfFile(java.lang.String, java.util.List)}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class TableModelXmp extends DefaultTableModel {

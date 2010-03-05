@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Utils for thumbnails embedded in EXIF metadata.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-10
  */
 public final class ExifThumbnailUtil {

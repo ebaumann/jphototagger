@@ -35,7 +35,7 @@ import java.util.Set;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-01
  */
 public final class DatabaseRenameTemplates extends Database {

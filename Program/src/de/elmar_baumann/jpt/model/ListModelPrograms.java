@@ -36,7 +36,7 @@ import javax.swing.DefaultListModel;
  * {@link de.elmar_baumann.jpt.data.Program#isAction()} is true, <em>or</em>
  * programs, where that method returns <code>false</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-16
  */
 public final class ListModelPrograms extends DefaultListModel implements DatabaseProgramsListener {

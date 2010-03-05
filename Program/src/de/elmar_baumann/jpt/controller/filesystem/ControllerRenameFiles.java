@@ -45,7 +45,7 @@ import javax.swing.SwingUtilities;
  * <code>F2</code> was pressed shows the {@link RenameDialog} to rename the
  * selected files.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-13
  */
 public final class ControllerRenameFiles

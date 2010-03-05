@@ -37,7 +37,7 @@ import javax.swing.table.TableCellRenderer;
  * Rendert Tabellen mit
  * {@link com.adobe.xmp.properties.XMPPropertyInfo}-Spaltenobjekten.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class TableCellRendererXmp extends FormatterLabelMetadata

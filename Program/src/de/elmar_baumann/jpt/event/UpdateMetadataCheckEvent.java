@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event;
 /**
  * Files will be checked whether their metadata shall be updated.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-06
  */
 public final class UpdateMetadataCheckEvent {

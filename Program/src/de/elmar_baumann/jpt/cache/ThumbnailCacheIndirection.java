@@ -24,7 +24,7 @@ import java.io.File;
 
 /**
  *
- * @author Martin Pohlack <martinp@gmx.de>
+ * @author Martin Pohlack
  * @version 2009-07-18
  */
 public class ThumbnailCacheIndirection extends CacheIndirection {

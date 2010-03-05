@@ -40,7 +40,7 @@ import javax.swing.event.PopupMenuListener;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-27
  */
 public final class ControllerMenuItemEnabler

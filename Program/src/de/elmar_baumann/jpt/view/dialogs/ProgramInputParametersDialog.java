@@ -28,7 +28,7 @@ import java.awt.Container;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  */
 public final class ProgramInputParametersDialog extends Dialog {
 

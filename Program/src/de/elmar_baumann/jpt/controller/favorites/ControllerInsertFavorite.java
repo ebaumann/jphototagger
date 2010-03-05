@@ -42,7 +42,7 @@ import javax.swing.SwingUtilities;
  * Also listens to the {@link JTree}'s key events and inserts a new favorite if
  * the keys <code>Ctrl+I</code> were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-23
  */
 public final class ControllerInsertFavorite

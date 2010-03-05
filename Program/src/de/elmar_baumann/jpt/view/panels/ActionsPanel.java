@@ -38,7 +38,7 @@ import javax.swing.JProgressBar;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  */
 public final class ActionsPanel extends javax.swing.JPanel {
 

@@ -29,7 +29,7 @@ import java.io.IOException;
  * {@link de.elmar_baumann.jpt.UserSettings#getSettingsDirectoryName()}
  * to get the setting's directory where the lock file will be created.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-10
  */
 public final class AppLock {

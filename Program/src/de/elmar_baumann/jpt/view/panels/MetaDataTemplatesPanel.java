@@ -31,7 +31,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  * 
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-05
  */
 public class MetaDataTemplatesPanel extends javax.swing.JPanel

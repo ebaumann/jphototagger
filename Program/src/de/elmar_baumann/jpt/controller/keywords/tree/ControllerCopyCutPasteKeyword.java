@@ -52,7 +52,7 @@ import javax.swing.tree.TreePath;
  *
  * The key action Ctrl+X and Ctrl+V are handled by the JTree.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-10
  */
 public class ControllerCopyCutPasteKeyword

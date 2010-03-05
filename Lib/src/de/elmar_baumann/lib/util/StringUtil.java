@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
 /**
  * Utils for strings.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-25
  */
 public final class StringUtil {

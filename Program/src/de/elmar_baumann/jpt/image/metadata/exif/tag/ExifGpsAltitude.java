@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * GPS altitude.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-03-17
  */
 public final class ExifGpsAltitude {

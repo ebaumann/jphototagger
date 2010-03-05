@@ -49,7 +49,7 @@ import javax.swing.JMenuItem;
  * {@link PopupMenuThumbnails#getItemReject()} and does the same as by the
  * key events <strong>P</strong> or <strong>R</strong>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-21
  */
 public final class ControllerPickReject implements ActionListener, KeyListener {

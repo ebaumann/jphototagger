@@ -44,7 +44,7 @@ import javax.swing.event.DocumentListener;
  * TAB or ENTER). If a completion is suggested, ENTER autocompletes (does not
  * transfer the focus).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-13
  */
 public final class Autocomplete implements DocumentListener, Serializable  {

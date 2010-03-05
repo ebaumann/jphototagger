@@ -33,7 +33,7 @@ import javax.swing.DefaultListModel;
  * Elements are {@link SavedSearch}es retrieved through
  * {@link DatabaseSavedSearches#getAll()}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-17
  */
 public final class ListModelSavedSearches extends DefaultListModel implements SearchListener {

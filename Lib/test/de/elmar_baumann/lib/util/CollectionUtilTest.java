@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public class CollectionUtilTest {
 

@@ -43,7 +43,7 @@ import javax.swing.tree.TreePath;
  * represents a directory. If a new item is selected, this controller sets the
  * files of the selected directory to the image file thumbnails panel.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ControllerDirectorySelected

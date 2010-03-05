@@ -41,7 +41,7 @@ import javax.swing.filechooser.FileSystemView;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-23
  */
 public class ImportImageFilesDialog extends Dialog {

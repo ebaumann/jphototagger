@@ -37,7 +37,7 @@ import javax.swing.JList;
  * Also listens to the {@link JList}'s key events and deletes a selected saved
  * search when the <code>Del</code> key was pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-10
  */
 public final class ControllerDeleteSavedSearch

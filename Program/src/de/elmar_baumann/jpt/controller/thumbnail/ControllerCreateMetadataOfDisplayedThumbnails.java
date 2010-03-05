@@ -42,7 +42,7 @@ import de.elmar_baumann.lib.io.FileUtil;
  * Runs as a {@link AutomaticTask}, that means if an other automatic task is
  * started, the update will be cancelled.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-29
  */
 public final class ControllerCreateMetadataOfDisplayedThumbnails

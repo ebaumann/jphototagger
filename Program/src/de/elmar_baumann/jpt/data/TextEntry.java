@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Text as value of a {@link Column}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-18
  */
 public interface TextEntry {

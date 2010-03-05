@@ -43,7 +43,7 @@ import javax.swing.Icon;
 /**
  * Icons of table columns.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-08-03
  */
 public final class ColumnIcons {

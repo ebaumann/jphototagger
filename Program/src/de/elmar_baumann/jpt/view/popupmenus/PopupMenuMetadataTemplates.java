@@ -33,7 +33,7 @@ import javax.swing.KeyStroke;
 /**
  * Popup menu for {@link MetadataTemplate}s.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-08
  */
 public final class PopupMenuMetadataTemplates extends JPopupMenu {

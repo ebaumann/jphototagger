@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  * Executes runnables serial: The next runnable will be executed when the
  * previous has finished.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-17
  */
 public final class SerialExecutor implements Executor {

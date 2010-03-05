@@ -27,7 +27,7 @@ import javax.swing.JComponent;
 /**
  * A collection of input verifiers.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-06
  */
 public class InputVerifiers extends InputVerifier {

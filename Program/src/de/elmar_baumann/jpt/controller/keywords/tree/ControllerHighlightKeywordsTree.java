@@ -39,7 +39,7 @@ import javax.swing.tree.TreeCellRenderer;
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
  * of a  {@link KeywordsPanel} the keywords of the selected image.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-23
  */
 public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelListener {

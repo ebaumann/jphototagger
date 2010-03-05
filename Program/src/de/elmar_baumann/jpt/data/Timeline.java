@@ -39,7 +39,7 @@ import javax.swing.tree.TreeModel;
  * {@link DefaultMutableTreeNode}. The nodes has user objects of the type
  * {@link java.util.Calendar}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-11
  */
 public final class Timeline {
@@ -378,7 +378,7 @@ public final class Timeline {
      *
      * Convention: Set the unknown parts to zero.
      * 
-     * @author Elmar Baumann <eb@elmar-baumann.de>
+     * @author Elmar Baumann
      */
     public static class Date implements Comparable<Date> {
         public int year;

@@ -38,7 +38,7 @@ import java.util.List;
  * their subdirectories if {@link UserSettings#isAutoscanIncludeSubdirectories()}
  * is true.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-10
  */
 public final class ScheduledTaskInsertImageFilesIntoDatabase {

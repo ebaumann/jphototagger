@@ -27,7 +27,7 @@ import javax.swing.JComboBox;
 /**
  * Panel for action sources (buttons) related to edit metadata.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  */
 public final class EditMetadataActionsPanel extends javax.swing.JPanel {
 

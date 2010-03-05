@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 /**
  * Formats a raw value of an EXIF tag (Generic raw value formatter).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-31
  */
 public interface ExifRawValueFormatter {

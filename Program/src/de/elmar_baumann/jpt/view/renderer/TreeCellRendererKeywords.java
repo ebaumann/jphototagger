@@ -35,7 +35,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * Renders items and text for nodes in the tree of the
  * {@link KeywordsPanel}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-12
  */
 public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {

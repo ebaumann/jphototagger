@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.database.metadata.Column.DataType;
 /**
  * Spalte <code>id_collectionnnames</code> der Tabelle <code>collections</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-07
  */
 public final class ColumnCollectionsIdCollectionNames extends Column {

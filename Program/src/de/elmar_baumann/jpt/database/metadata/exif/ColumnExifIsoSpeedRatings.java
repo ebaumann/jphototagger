@@ -29,7 +29,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * <li>EXIF Tag-ID: 34855 (Hex: 8827); EXIF-IFD: .</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-08-27
  */
 public final class ColumnExifIsoSpeedRatings extends Column {

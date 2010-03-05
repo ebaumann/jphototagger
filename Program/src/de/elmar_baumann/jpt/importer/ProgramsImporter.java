@@ -32,7 +32,7 @@ import javax.swing.filechooser.FileFilter;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-02
  */
 public final class ProgramsImporter implements Importer {

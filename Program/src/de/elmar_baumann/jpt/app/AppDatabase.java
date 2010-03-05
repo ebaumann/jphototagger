@@ -28,7 +28,7 @@ import java.sql.SQLException;
 /**
  * Initializes the application's database.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-11
  */
 public final class AppDatabase {

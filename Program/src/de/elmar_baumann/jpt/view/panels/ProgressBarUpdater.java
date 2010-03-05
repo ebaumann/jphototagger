@@ -26,7 +26,7 @@ import javax.swing.JProgressBar;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-18
  */
 public final class ProgressBarUpdater implements ProgressListener {

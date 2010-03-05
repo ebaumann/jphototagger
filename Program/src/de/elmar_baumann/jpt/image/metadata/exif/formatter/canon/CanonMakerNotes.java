@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-13
  */
 public final class CanonMakerNotes implements ExifMakerNotes {

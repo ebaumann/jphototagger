@@ -33,7 +33,7 @@ import javax.swing.filechooser.FileSystemView;
  * {@link java.io.File}. Uses
  * {@link javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-14
  */
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {

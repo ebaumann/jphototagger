@@ -42,7 +42,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * file system directory if the keys <code>Strg+R</code> or <code>F2</code> were
  * pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-19
  */
 public final class ControllerFavoritesRenameFilesystemFolder

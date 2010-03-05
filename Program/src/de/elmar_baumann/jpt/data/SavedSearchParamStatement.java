@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Data of a {@link de.elmar_baumann.jpt.data.ParamStatement}
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-12
  */
 @XmlRootElement

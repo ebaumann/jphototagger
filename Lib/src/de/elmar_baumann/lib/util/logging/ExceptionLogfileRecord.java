@@ -27,7 +27,7 @@ import java.util.List;
  * Ausnahme in einer Logdatei von  <code>java.util.logging.Logger</code>,
  * benutzt für Java-Exceptions und sonstigen Throwable-Objekten.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class ExceptionLogfileRecord {

@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.event;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-04
  */
 public final class DatabaseAutoscanDirectoriesEvent {

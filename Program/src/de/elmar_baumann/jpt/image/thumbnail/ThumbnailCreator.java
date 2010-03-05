@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.image.thumbnail;
 /**
  * How to create humbnails.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-09
  */
 public enum ThumbnailCreator {

@@ -61,7 +61,7 @@ import javax.swing.filechooser.FileSystemView;
 /**
  * Dialog for renaming filenames.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  */
 public final class RenameDialog extends Dialog implements ListDataListener {
 

@@ -26,7 +26,7 @@ import java.util.logging.Level;
 /**
  * Datensatz einer Logdatei, geschrieben von <code>java.util.logging.Logger</code>.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class LogfileRecord {

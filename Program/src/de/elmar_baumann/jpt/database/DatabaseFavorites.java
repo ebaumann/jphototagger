@@ -35,7 +35,7 @@ import java.util.Set;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-21
  */
 public final class DatabaseFavorites extends Database {

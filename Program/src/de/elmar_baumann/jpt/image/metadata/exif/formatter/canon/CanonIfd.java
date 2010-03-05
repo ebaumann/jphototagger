@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-01-12
  */
 public final class CanonIfd {

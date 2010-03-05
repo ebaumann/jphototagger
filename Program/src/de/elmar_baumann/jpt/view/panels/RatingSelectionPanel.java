@@ -46,7 +46,7 @@ import javax.swing.JPanel;
 /*
  * RatingSelectionPanel.java
  *
- * @author  Martin Pohlack  <martinp@gmx.de>
+ * @author  Martin Pohlack 
  * @version 2009-08-01
  */
 public class RatingSelectionPanel

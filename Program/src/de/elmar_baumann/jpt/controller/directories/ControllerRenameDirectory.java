@@ -37,7 +37,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listenes to the {@link JTree}'s key events and renames the selected
  * directory when the keys <code>Ctrl+R</code> or <code>F2</code> were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-19
  */
 public final class ControllerRenameDirectory extends ControllerDirectory {

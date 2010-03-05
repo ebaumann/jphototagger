@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.RefreshEvent;
 /**
  * Listens to the action: Refresh the contents.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-19
  */
 public interface RefreshListener {

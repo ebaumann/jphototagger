@@ -35,7 +35,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * {@link PopupMenuKeywordsTree#getItemDisplayImages()} and on
  * action displays images with the selected keyword.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-12
  */
 public class ControllerKeywordsDisplayImages

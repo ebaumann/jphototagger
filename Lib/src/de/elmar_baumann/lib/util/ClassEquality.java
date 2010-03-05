@@ -26,7 +26,7 @@ package de.elmar_baumann.lib.util;
  * <code>equals()</code>.
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-14
  */
 public class ClassEquality {

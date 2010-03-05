@@ -24,7 +24,7 @@ import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 /**
  * Listens to events in the database.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public interface DatabaseImageFilesListener {
 

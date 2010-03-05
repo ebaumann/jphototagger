@@ -38,7 +38,7 @@ import javax.swing.tree.TreePath;
  * Abstract root class for some controllers in this packages.  Contains some
  * common helper methods.
  *
- * @author  Martin Pohlack <martinp@gmx.de>
+ * @author  Martin Pohlack
  * @version 2009-08-13
  */
 public abstract class ControllerKeywords

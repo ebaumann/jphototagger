@@ -37,7 +37,7 @@ import javax.swing.JFileChooser;
  * Modal Dialog to change or define the properties of a program which can
  * be started within the application.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-11-04
  */
 public final class ProgramPropertiesDialog extends Dialog {

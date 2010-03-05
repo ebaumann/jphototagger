@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Informationen über ein Verzeichnis im Dateisystem.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann
  * @version 2008-10-05
  */
 public final class DirectoryInfo {

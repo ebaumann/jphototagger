@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Contains the EXIF metadata to display (show) to the user.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-10
  */
 public final class ExifTagsToDisplay {

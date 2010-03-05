@@ -57,7 +57,7 @@ import java.util.Map;
  * Gets and sets XMP metadata from image files and XMP sidecar files and to
  * XMP sidecar files.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>, Tobias Stening <info@swts.net>
+ * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
 public final class XmpMetadata {

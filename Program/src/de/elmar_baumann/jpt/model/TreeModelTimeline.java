@@ -44,7 +44,7 @@ import javax.swing.tree.DefaultTreeModel;
  * <li>All other user objects are {@link Date} objects</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-12
  */
 public final class TreeModelTimeline extends DefaultTreeModel implements DatabaseImageFilesListener {

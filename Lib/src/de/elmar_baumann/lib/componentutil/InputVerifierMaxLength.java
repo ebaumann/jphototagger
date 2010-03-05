@@ -29,7 +29,7 @@ import javax.swing.text.JTextComponent;
  * Verifies Input in a <code>JTextComponent</code> against a maximum allowed
  * length and displays an error message dialog on errors.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-28
  */
 public final class InputVerifierMaxLength extends InputVerifier {

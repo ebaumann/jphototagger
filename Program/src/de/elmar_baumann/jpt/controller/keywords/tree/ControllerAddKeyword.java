@@ -45,7 +45,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to key events into the tree and adds a new keyword below the
  * selected keyword if the keys Ctrl+N were pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-07-12
  */
 public class ControllerAddKeyword

@@ -40,7 +40,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to the {@link JTree}'s key events and deletes the selected
  * file system directory if the <code>DEL</code> key was pressed.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-30
  */
 public final class ControllerFavoritesDeleteFilesystemFolder

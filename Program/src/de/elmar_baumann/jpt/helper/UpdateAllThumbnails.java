@@ -35,7 +35,7 @@ import java.util.Set;
 /**
  * Updates all Thumbnails in the database with the current settings.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-10-12
  */
 public final class UpdateAllThumbnails

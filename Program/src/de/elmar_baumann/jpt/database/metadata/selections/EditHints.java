@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.database.metadata.selections;
 /**
  * Hinweise für Spalten, die bearbeitet werden können.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-18
  */
 public final class EditHints {

@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 /**
  * Provides access to GUI elements.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2008-09-29
  */
 public final class GUI {

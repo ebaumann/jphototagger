@@ -28,7 +28,7 @@ import java.util.Arrays;
  * A coordinate described in degrees (minutes and seconds are the 1/60 and
  * 1/3600 or a degree).
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-03-30
  */
 public final class ExifDegrees {

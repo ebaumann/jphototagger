@@ -30,7 +30,7 @@ import java.util.Comparator;
  * EXIF metadata. If an image file has no EXIF metadata it's last modification
  * file time will be used.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-12-15
  */
 public final class ComparatorExifDateTimeOriginalDesc

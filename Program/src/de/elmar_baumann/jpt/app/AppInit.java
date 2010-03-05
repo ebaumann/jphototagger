@@ -38,7 +38,7 @@ import de.elmar_baumann.lib.util.CommandLineParser;
  * <li>2: The Java version is too low</li>
  * </ul>
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-06-11
  */
 public final class AppInit {

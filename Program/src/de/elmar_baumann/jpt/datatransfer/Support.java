@@ -28,7 +28,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Support for data transfer.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009-09-08
  */
 public final class Support {

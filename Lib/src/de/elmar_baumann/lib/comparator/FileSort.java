@@ -25,7 +25,7 @@ import java.util.Comparator;
 /**
  * Sorting of files.
  *
- * @author Elmar Baumann <eb@elmar-baumann.de>
+ * @author Elmar Baumann
  */
 public enum FileSort {
 

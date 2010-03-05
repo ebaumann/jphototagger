@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.event.listener.TextEntryListener;
 /**
  * Support to add, remove and notify {@link TextEntryListener}s.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2009/07/20
  */
 public final class TextEntryListenerSupport extends ListenerSupport<TextEntryListener> {
