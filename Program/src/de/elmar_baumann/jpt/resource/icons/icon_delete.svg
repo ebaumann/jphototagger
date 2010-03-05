@@ -75,7 +75,7 @@
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
           </ns:Agent>
         </dc:publisher>
-        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:source>http://www.elmar-baumann.de/JPhotoTagger/</dc:source>
         <dc:coverage>computer program, icon</dc:coverage>
         <ns:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />

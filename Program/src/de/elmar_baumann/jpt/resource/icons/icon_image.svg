@@ -65,7 +65,7 @@
           </cc:Agent>
         </dc:publisher>
         <dc:identifier>de.elmar_baumann.jpt.resource.icons.icon_image.svg</dc:identifier>
-        <dc:source>http://kenai.com/projects/jphototagger</dc:source>
+        <dc:source>http://www.elmar-baumann.de/JPhotoTagger/</dc:source>
         <dc:subject>
           <rdf:Bag>
             <rdf:li>icon</rdf:li>
