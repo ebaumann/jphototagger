@@ -46,7 +46,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JSeparator;
+import javax.swing.JPopupMenu.Separator;
 import javax.swing.KeyStroke;
 
 /**
@@ -83,7 +83,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     private void addMenuItem() {
         itemEditSynonyms.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 InputEvent.CTRL_MASK | InputEvent.CTRL_MASK));
-        popupMenuEditPanel.add(new JSeparator());
+        popupMenuEditPanel.add(new Separator());
         popupMenuEditPanel.add(itemEditSynonyms);
     }
 

@@ -325,60 +325,60 @@ public final class AppFrame extends javax.swing.JFrame {
         menuFile = new javax.swing.JMenu();
         menuItemScanDirectory = new javax.swing.JMenuItem();
         menuItemMaintainDatabase = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JSeparator();
+        sep1 = new javax.swing.JPopupMenu.Separator();
         menuImportImageFiles = new javax.swing.JMenuItem();
-        jSeparator11 = new javax.swing.JSeparator();
+        sep2 = new javax.swing.JPopupMenu.Separator();
         menuExport = new javax.swing.JMenu();
         menuItemExportJptMisc = new javax.swing.JMenuItem();
         menuItemExportKeywords = new javax.swing.JMenuItem();
         menuImport = new javax.swing.JMenu();
         menuItemImportJptMisc = new javax.swing.JMenuItem();
         menuItemImportKeywords = new javax.swing.JMenuItem();
-        jSeparator4 = new javax.swing.JSeparator();
+        sep3 = new javax.swing.JPopupMenu.Separator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         menuItemSettings = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JSeparator();
+        sep4 = new javax.swing.JPopupMenu.Separator();
         menuItemSearch = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuSort = new javax.swing.JMenu();
         radioButtonMenuItemSortFilepathAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFilepathDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator26 = new javax.swing.JSeparator();
+        sep5 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortFilenameAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFilenameDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator2 = new javax.swing.JSeparator();
+        sep6 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator3 = new javax.swing.JSeparator();
+        sep7 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator15 = new javax.swing.JPopupMenu.Separator();
+        sep8 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortExifDateTimeOriginalAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortExifDateTimeOriginalDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator16 = new javax.swing.JPopupMenu.Separator();
+        sep9 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortExifIsoSpeedRatingAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortExifIsoSpeedRatingDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator17 = new javax.swing.JPopupMenu.Separator();
+        sep10 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortExifFocalLengthAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortExifFocalLengthDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator18 = new javax.swing.JPopupMenu.Separator();
+        sep11 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortExifRecordingEquipmentAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortExifRecordingEquipmentDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator22 = new javax.swing.JPopupMenu.Separator();
+        sep12 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortXmpIptcLocationAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortXmpIptcLocationDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator19 = new javax.swing.JPopupMenu.Separator();
+        sep13 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortXmpRatingAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortXmpRatingDescending = new javax.swing.JRadioButtonMenuItem();
-        jSeparator23 = new javax.swing.JPopupMenu.Separator();
+        sep14 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortNone = new javax.swing.JRadioButtonMenuItem();
-        jSeparator10 = new javax.swing.JSeparator();
+        sep15 = new javax.swing.JPopupMenu.Separator();
         checkBoxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
-        jSeparator7 = new javax.swing.JSeparator();
+        sep16 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
         menuItemGotoCollections = new javax.swing.JMenuItem();
@@ -386,9 +386,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywordsSel = new javax.swing.JMenuItem();
         menuItemGotoTimeline = new javax.swing.JMenuItem();
         menuItemGotoMiscMetadata = new javax.swing.JMenuItem();
-        jSeparator8 = new javax.swing.JSeparator();
+        sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
-        jSeparator9 = new javax.swing.JSeparator();
+        sep18 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoIptcMetadata = new javax.swing.JMenuItem();
         menuItemGotoExifMetadata = new javax.swing.JMenuItem();
         menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
@@ -400,18 +400,18 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
         menuItemSynonyms = new javax.swing.JMenuItem();
-        jSeparator20 = new javax.swing.JPopupMenu.Separator();
+        sep19 = new javax.swing.JPopupMenu.Separator();
         menuItemOutputWindow = new javax.swing.JMenuItem();
-        jSeparator21 = new javax.swing.JPopupMenu.Separator();
+        sep20 = new javax.swing.JPopupMenu.Separator();
         menuItemDisplayLogfile = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
         menuItemAcceleratorKeys = new javax.swing.JMenuItem();
-        jSeparator12 = new javax.swing.JSeparator();
+        sep21 = new javax.swing.JPopupMenu.Separator();
         menuItemSendBugMail = new javax.swing.JMenuItem();
         menuItemSendFeatureMail = new javax.swing.JMenuItem();
-        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        sep22 = new javax.swing.JPopupMenu.Separator();
         menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -428,13 +428,13 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png"))); // NOI18N
         menuItemMaintainDatabase.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
         menuFile.add(menuItemMaintainDatabase);
-        menuFile.add(jSeparator1);
+        menuFile.add(sep1);
 
         menuImportImageFiles.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuImportImageFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_card.png"))); // NOI18N
         menuImportImageFiles.setText(JptBundle.INSTANCE.getString("AppFrame.menuImportImageFiles.text")); // NOI18N
         menuFile.add(menuImportImageFiles);
-        menuFile.add(jSeparator11);
+        menuFile.add(sep2);
 
         menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_export.png"))); // NOI18N
         menuExport.setText(JptBundle.INSTANCE.getString("AppFrame.menuExport.text")); // NOI18N
@@ -464,7 +464,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuImport.add(menuItemImportKeywords);
 
         menuFile.add(menuImport);
-        menuFile.add(jSeparator4);
+        menuFile.add(sep3);
 
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_exit.png"))); // NOI18N
@@ -479,7 +479,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_settings.png"))); // NOI18N
         menuItemSettings.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSettings.text")); // NOI18N
         menuEdit.add(menuItemSettings);
-        menuEdit.add(jSeparator5);
+        menuEdit.add(sep4);
 
         menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_search.png"))); // NOI18N
@@ -500,7 +500,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortFilepathDescending);
         radioButtonMenuItemSortFilepathDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFilepathDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilepathDescending);
-        menuSort.add(jSeparator26);
+        menuSort.add(sep5);
 
         buttonGroupSort.add(radioButtonMenuItemSortFilenameAscending);
         radioButtonMenuItemSortFilenameAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
@@ -509,7 +509,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortFilenameDescending);
         radioButtonMenuItemSortFilenameDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameDescending);
-        menuSort.add(jSeparator2);
+        menuSort.add(sep6);
 
         buttonGroupSort.add(radioButtonMenuItemSortFileTypeAscending);
         radioButtonMenuItemSortFileTypeAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
@@ -518,7 +518,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortFileTypeDescending);
         radioButtonMenuItemSortFileTypeDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFileTypeDescending);
-        menuSort.add(jSeparator3);
+        menuSort.add(sep7);
 
         buttonGroupSort.add(radioButtonMenuItemSortLastModifiedAscending);
         radioButtonMenuItemSortLastModifiedAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
@@ -527,7 +527,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortLastModifiedDescending);
         radioButtonMenuItemSortLastModifiedDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
-        menuSort.add(jSeparator15);
+        menuSort.add(sep8);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifDateTimeOriginalAscending);
         radioButtonMenuItemSortExifDateTimeOriginalAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text")); // NOI18N
@@ -536,7 +536,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
         radioButtonMenuItemSortExifDateTimeOriginalDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
-        menuSort.add(jSeparator16);
+        menuSort.add(sep9);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifIsoSpeedRatingAscending);
         radioButtonMenuItemSortExifIsoSpeedRatingAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text")); // NOI18N
@@ -545,7 +545,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortExifIsoSpeedRatingDescending);
         radioButtonMenuItemSortExifIsoSpeedRatingDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifIsoSpeedRatingDescending);
-        menuSort.add(jSeparator17);
+        menuSort.add(sep10);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifFocalLengthAscending);
         radioButtonMenuItemSortExifFocalLengthAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text")); // NOI18N
@@ -554,7 +554,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortExifFocalLengthDescending);
         radioButtonMenuItemSortExifFocalLengthDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifFocalLengthDescending);
-        menuSort.add(jSeparator18);
+        menuSort.add(sep11);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifRecordingEquipmentAscending);
         radioButtonMenuItemSortExifRecordingEquipmentAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text")); // NOI18N
@@ -563,7 +563,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortExifRecordingEquipmentDescending);
         radioButtonMenuItemSortExifRecordingEquipmentDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifRecordingEquipmentDescending);
-        menuSort.add(jSeparator22);
+        menuSort.add(sep12);
 
         buttonGroupSort.add(radioButtonMenuItemSortXmpIptcLocationAscending);
         radioButtonMenuItemSortXmpIptcLocationAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text")); // NOI18N
@@ -572,7 +572,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortXmpIptcLocationDescending);
         radioButtonMenuItemSortXmpIptcLocationDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpIptcLocationDescending);
-        menuSort.add(jSeparator19);
+        menuSort.add(sep13);
 
         buttonGroupSort.add(radioButtonMenuItemSortXmpRatingAscending);
         radioButtonMenuItemSortXmpRatingAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpRatingAscending.text")); // NOI18N
@@ -581,7 +581,7 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort.add(radioButtonMenuItemSortXmpRatingDescending);
         radioButtonMenuItemSortXmpRatingDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpRatingDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpRatingDescending);
-        menuSort.add(jSeparator23);
+        menuSort.add(sep14);
 
         buttonGroupSort.add(radioButtonMenuItemSortNone);
         radioButtonMenuItemSortNone.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortNone.text")); // NOI18N
@@ -589,7 +589,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuSort.add(radioButtonMenuItemSortNone);
 
         menuView.add(menuSort);
-        menuView.add(jSeparator10);
+        menuView.add(sep15);
 
         checkBoxMenuItemKeywordOverlay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         checkBoxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
@@ -609,7 +609,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png"))); // NOI18N
         menuItemGotoEdit.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
         menuGoto.add(menuItemGotoEdit);
-        menuGoto.add(jSeparator7);
+        menuGoto.add(sep16);
 
         menuItemGotoDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_folder.png"))); // NOI18N
@@ -645,13 +645,13 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoMiscMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_misc_metadata.png"))); // NOI18N
         menuItemGotoMiscMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
-        menuGoto.add(jSeparator8);
+        menuGoto.add(sep17);
 
         menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
         menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_thumbnails.png"))); // NOI18N
         menuItemGotoThumbnailsPanel.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
         menuGoto.add(menuItemGotoThumbnailsPanel);
-        menuGoto.add(jSeparator9);
+        menuGoto.add(sep18);
 
         menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoIptcMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_iptc.png"))); // NOI18N
@@ -704,12 +704,12 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSynonyms.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         menuItemSynonyms.setText(bundle.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
         menuWindow.add(menuItemSynonyms);
-        menuWindow.add(jSeparator20);
+        menuWindow.add(sep19);
 
         menuItemOutputWindow.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
         menuWindow.add(menuItemOutputWindow);
-        menuWindow.add(jSeparator21);
+        menuWindow.add(sep20);
 
         menuItemDisplayLogfile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
@@ -732,7 +732,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyboard.png"))); // NOI18N
         menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
         menuHelp.add(menuItemAcceleratorKeys);
-        menuHelp.add(jSeparator12);
+        menuHelp.add(sep21);
 
         menuItemSendBugMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendBugMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendBugMail.text")); // NOI18N
@@ -741,7 +741,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSendFeatureMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendFeatureMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendFeatureMail.text")); // NOI18N
         menuHelp.add(menuItemSendFeatureMail);
-        menuHelp.add(jSeparator6);
+        menuHelp.add(sep22);
 
         menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"))); // NOI18N
         menuItemAbout.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemAbout.text")); // NOI18N
@@ -755,28 +755,6 @@ public final class AppFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSort;
     private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JPopupMenu.Separator jSeparator15;
-    private javax.swing.JPopupMenu.Separator jSeparator16;
-    private javax.swing.JPopupMenu.Separator jSeparator17;
-    private javax.swing.JPopupMenu.Separator jSeparator18;
-    private javax.swing.JPopupMenu.Separator jSeparator19;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPopupMenu.Separator jSeparator20;
-    private javax.swing.JPopupMenu.Separator jSeparator21;
-    private javax.swing.JPopupMenu.Separator jSeparator22;
-    private javax.swing.JPopupMenu.Separator jSeparator23;
-    private javax.swing.JSeparator jSeparator26;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JPopupMenu.Separator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuExport;
@@ -846,5 +824,27 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortXmpIptcLocationDescending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortXmpRatingAscending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortXmpRatingDescending;
+    private javax.swing.JPopupMenu.Separator sep1;
+    private javax.swing.JPopupMenu.Separator sep10;
+    private javax.swing.JPopupMenu.Separator sep11;
+    private javax.swing.JPopupMenu.Separator sep12;
+    private javax.swing.JPopupMenu.Separator sep13;
+    private javax.swing.JPopupMenu.Separator sep14;
+    private javax.swing.JPopupMenu.Separator sep15;
+    private javax.swing.JPopupMenu.Separator sep16;
+    private javax.swing.JPopupMenu.Separator sep17;
+    private javax.swing.JPopupMenu.Separator sep18;
+    private javax.swing.JPopupMenu.Separator sep19;
+    private javax.swing.JPopupMenu.Separator sep2;
+    private javax.swing.JPopupMenu.Separator sep20;
+    private javax.swing.JPopupMenu.Separator sep21;
+    private javax.swing.JPopupMenu.Separator sep22;
+    private javax.swing.JPopupMenu.Separator sep3;
+    private javax.swing.JPopupMenu.Separator sep4;
+    private javax.swing.JPopupMenu.Separator sep5;
+    private javax.swing.JPopupMenu.Separator sep6;
+    private javax.swing.JPopupMenu.Separator sep7;
+    private javax.swing.JPopupMenu.Separator sep8;
+    private javax.swing.JPopupMenu.Separator sep9;
     // End of variables declaration//GEN-END:variables
 }

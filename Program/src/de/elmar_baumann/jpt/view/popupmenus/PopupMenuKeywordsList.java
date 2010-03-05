@@ -28,7 +28,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JSeparator;
+import javax.swing.JPopupMenu.Separator;
 import javax.swing.KeyStroke;
 
 /**
@@ -101,9 +101,9 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     private void addItems() {
         add(itemRename);
         add(itemDelete);
-        add(new JSeparator());
+        add(new Separator());
         add(itemEditSynonyms);
-        add(new JSeparator());
+        add(new Separator());
         add(itemDisplayImages);
     }
 

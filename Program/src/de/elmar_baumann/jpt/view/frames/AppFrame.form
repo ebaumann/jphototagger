@@ -39,7 +39,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator1">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep1">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuImportImageFiles">
               <Properties>
@@ -54,7 +54,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator11">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep2">
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="menuExport">
               <Properties>
@@ -126,7 +126,7 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator4">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep3">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExit">
               <Properties>
@@ -163,7 +163,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator5">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep4">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSearch">
               <Properties>
@@ -217,7 +217,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JSeparator" name="jSeparator26">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep5">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFilenameAscending">
                   <Properties>
@@ -239,7 +239,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep6">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortFileTypeAscending">
                   <Properties>
@@ -261,7 +261,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JSeparator" name="jSeparator3">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep7">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortLastModifiedAscending">
                   <Properties>
@@ -283,7 +283,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep8">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifDateTimeOriginalAscending">
                   <Properties>
@@ -305,7 +305,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator16">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep9">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifIsoSpeedRatingAscending">
                   <Properties>
@@ -327,7 +327,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator17">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep10">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifFocalLengthAscending">
                   <Properties>
@@ -349,7 +349,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator18">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep11">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifRecordingEquipmentAscending">
                   <Properties>
@@ -371,7 +371,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator22">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep12">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortXmpIptcLocationAscending">
                   <Properties>
@@ -393,7 +393,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator19">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep13">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortXmpRatingAscending">
                   <Properties>
@@ -415,7 +415,7 @@
                     </Property>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator23">
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep14">
                 </MenuItem>
                 <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortNone">
                   <Properties>
@@ -430,7 +430,7 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator10">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep15">
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="checkBoxMenuItemKeywordOverlay">
               <Properties>
@@ -480,7 +480,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator7">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep16">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemGotoDirectories">
               <Properties>
@@ -573,7 +573,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator8">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep17">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemGotoThumbnailsPanel">
               <Properties>
@@ -588,7 +588,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator9">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep18">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemGotoIptcMetadata">
               <Properties>
@@ -722,7 +722,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep19">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemOutputWindow">
               <Properties>
@@ -734,7 +734,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator21">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep20">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemDisplayLogfile">
               <Properties>
@@ -789,7 +789,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator12">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep21">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSendBugMail">
               <Properties>
@@ -811,7 +811,7 @@
                 </Property>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator6">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep22">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemAbout">
               <Properties>

@@ -52,7 +52,7 @@ import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JSeparator;
+import javax.swing.JPopupMenu.Separator;
 import javax.swing.KeyStroke;
 
 /**
@@ -291,12 +291,12 @@ public final class PopupMenuThumbnails extends JPopupMenu
         menuRotateThumbnail.add(itemRotateThumbnai180);
         menuRotateThumbnail.add(itemRotateThumbnail270);
         add(menuRotateThumbnail);
-        add(new JSeparator());
+        add(new Separator());
         add(itemOpenFilesWithStandardApp);
         add(menuPrograms);
         add(menuActions);
         addPluginItems();
-        add(new JSeparator());
+        add(new Separator());
         menuRating.add(itemRating0);
         menuRating.add(itemRating1);
         menuRating.add(itemRating2);
@@ -313,7 +313,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         add(menuImageCollection);
         menuMetadata.add(itemCopyMetadata);
         menuMetadata.add(itemPasteMetadata);
-        menuMetadata.add(new JSeparator());
+        menuMetadata.add(new Separator());
         menuMetadata.add(itemIptcToXmp);
         menuMetadata.add(itemExifToXmp);
         add(menuMetadata);
@@ -321,13 +321,13 @@ public final class PopupMenuThumbnails extends JPopupMenu
         menuFsOps.add(itemCopyToClipboard);
         menuFsOps.add(itemCutToClipboard);
         menuFsOps.add(itemPasteFromClipboard);
-        menuFsOps.add(new JSeparator());
+        menuFsOps.add(new Separator());
         menuFsOps.add(itemFileSystemCopyToDirectory);
-        menuFsOps.add(new JSeparator());
+        menuFsOps.add(new Separator());
         menuFsOps.add(itemFileSystemRenameFiles);
         menuFsOps.add(itemFileSystemMoveFiles);
         menuFsOps.add(itemFileSystemDeleteFiles);
-        menuFsOps.add(new JSeparator());
+        menuFsOps.add(new Separator());
         menuFsOps.add(itemSelectAll);
         menuFsOps.add(itemSelectNothing);
         add(menuFsOps);
