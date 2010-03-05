@@ -44,11 +44,38 @@
 
         <h1>Coding guidelines [Start, will be continued]</h1>
 
-        <h2>Tabs</h2>
+        <h2>Code formatting</h2>
 
-        <p>Tabs shall be replaced (automatically) with white spaces. The
-            indentation of one tab is 4 white spaces.
+        <p>We try to follow the
+            <a href="http://java.sun.com/docs/codeconv/">Code Conventions for
+                the Java Programming Language</a>.
         </p>
+
+        <h2>Automizing code formatting</h2>
+
+        <p>The NetBeans IDE code formatter wraps long lines inappropriate.
+            I'm using the Non-Commercial Single User License of
+            <a href="http://www.jindent.com/">Jindent</a>. We can adjust and
+            share <a href="files/jindent.xjs">the exported settings</a>. If You
+            don't want to pay for the license, I can format the code.
+        </p>
+
+        <h2>How to start?</h2>
+
+        <p>Read the following pages (excerpts of JPhotoTagger's javadoc. On
+            package level documentation pages scroll down to the end of the
+            class list. <em>Don't follow the links whithin these pages to this
+            domain [404]!)</em>:
+        </p>
+
+        <ol>
+            <li><a href="files/package-summary-jpt.html">Some Implementation
+                    notes on JPhotoTagger</a></li>
+            <li><a href="files/package-summary-jpt.model.html">Models</a>
+            </li>
+            <li><a href="files/package-summary-jpt.controller.html">Controllers</a>
+            </li>
+        </ol>
 
         <h2>Logging</h2>
 
@@ -58,19 +85,10 @@
            <code>WARNING</code> and <code>SEVERE</code>.
         </p>
 
-        <p>The call <code>AppLogger.log...()</code> until the end of the
-           bundle key should be in the same line to enable easy automated
-           checks for missing bundle keys.
-        </p>
-
         <h2>Message-, input-, confirmation dialogs</h2>
 
         <p>For displaying messages, getting input and confirmation use
            the class <code>de.elmar_baumann.jpt.app.MessageDisplayer</code>.
-        </p>
-
-        <p>As described obove in <strong>Logging</strong>, the call until the
-            bundle key should be in the same line.
         </p>
 
         <h2>Internationalization</h2>
@@ -120,6 +138,10 @@
             That can be done automatically: <strong>Tools &gt; Options  &gt;
             Miscellaneous &gt; GUI Builder / Automatic Internationalization:
             On</strong>.
+        </p>
+
+        <p><strong>Author:</strong> Elmar Baumann, 2010-03-05.
+        <br /><strong>Status of this document:</strong> 2010-03-05
         </p>
 
     </div><!--content-->
