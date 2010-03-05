@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,10 +33,12 @@ import java.util.Map;
  * @version 2009-09-01
  */
 public final class AutoCompleteDataOfColumn {
-
-    public static final  AutoCompleteDataOfColumn      INSTANCE         = new AutoCompleteDataOfColumn();
-    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN   = new HashMap<Column, AutoCompleteData>();
-    private static final AutoCompleteData              FAST_SEARCH_DATA = new AutoCompleteData(FastSearchColumns.get());
+    public static final AutoCompleteDataOfColumn INSTANCE =
+        new AutoCompleteDataOfColumn();
+    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN =
+        new HashMap<Column, AutoCompleteData>();
+    private static final AutoCompleteData FAST_SEARCH_DATA =
+        new AutoCompleteData(FastSearchColumns.get());
 
     /**
      * Returns the autocomplete data of a specific column.
@@ -44,12 +48,15 @@ public final class AutoCompleteDataOfColumn {
      */
     public AutoCompleteData get(Column column) {
         assert column != null;
+
         synchronized (DATA_OF_COLUMN) {
             AutoCompleteData data = DATA_OF_COLUMN.get(column);
+
             if (data == null) {
                 data = new AutoCompleteData(Arrays.asList(column));
                 DATA_OF_COLUMN.put(column, data);
             }
+
             return data;
         }
     }
@@ -57,7 +64,11 @@ public final class AutoCompleteDataOfColumn {
     public boolean add(Column column, String word) {
         synchronized (DATA_OF_COLUMN) {
             AutoCompleteData data = DATA_OF_COLUMN.get(column);
-            if (data == null) return false;
+
+            if (data == null) {
+                return false;
+            }
+
             return data.add(word);
         }
     }
@@ -66,6 +77,5 @@ public final class AutoCompleteDataOfColumn {
         return FAST_SEARCH_DATA;
     }
 
-    private AutoCompleteDataOfColumn() {
-    }
+    private AutoCompleteDataOfColumn() {}
 }

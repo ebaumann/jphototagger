@@ -17,11 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util.logging;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Ausnahme in einer Logdatei von  <code>java.util.logging.Logger</code>,
@@ -31,8 +31,8 @@ import java.util.List;
  * @version 2008-10-05
  */
 public final class ExceptionLogfileRecord {
-
-    private final List<FrameLogfileRecord> logfileRecordFrames = new ArrayList<FrameLogfileRecord>();
+    private final List<FrameLogfileRecord> logfileRecordFrames =
+        new ArrayList<FrameLogfileRecord>();
     private String message;
 
     /**
@@ -51,8 +51,9 @@ public final class ExceptionLogfileRecord {
      * @throws NullPointerException if frame is null
      */
     public void addFrame(FrameLogfileRecord frame) {
-        if (frame == null)
+        if (frame == null) {
             throw new NullPointerException("frame == null");
+        }
 
         logfileRecordFrames.add(frame);
     }
@@ -93,16 +94,19 @@ public final class ExceptionLogfileRecord {
      * @throws NullPointerException if substring is null
      */
     boolean contains(String substring) {
-        if (substring == null)
+        if (substring == null) {
             throw new NullPointerException("substring == null");
+        }
 
         boolean contains = containsSubstring(getMessage(), substring);
-        int count = logfileRecordFrames.size();
-        int index = 0;
-        while (!contains && count < index) {
+        int     count    = logfileRecordFrames.size();
+        int     index    = 0;
+
+        while (!contains && (count < index)) {
             contains = logfileRecordFrames.get(index).contains(substring);
             index++;
         }
+
         return contains;
     }
 
@@ -110,6 +114,7 @@ public final class ExceptionLogfileRecord {
         if (string == null) {
             return false;
         }
+
         return string.toLowerCase().contains(substring.toLowerCase());
     }
 }

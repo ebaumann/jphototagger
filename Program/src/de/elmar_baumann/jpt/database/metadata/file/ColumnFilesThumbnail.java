@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.file;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -30,15 +31,12 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2007-07-29
  */
 public final class ColumnFilesThumbnail extends Column {
-
-    public static final ColumnFilesThumbnail INSTANCE = new ColumnFilesThumbnail();
+    public static final ColumnFilesThumbnail INSTANCE =
+        new ColumnFilesThumbnail();
 
     private ColumnFilesThumbnail() {
-        super(
-            TableFiles.INSTANCE,
-            "thumbnail",
-            DataType.BINARY);
-
-        setDescription(JptBundle.INSTANCE.getString("ColumnFilesThumbnail.Description"));
+        super(TableFiles.INSTANCE, "thumbnail", DataType.BINARY);
+        setDescription(
+            JptBundle.INSTANCE.getString("ColumnFilesThumbnail.Description"));
     }
 }

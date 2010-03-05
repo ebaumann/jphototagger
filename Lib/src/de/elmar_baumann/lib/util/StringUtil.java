@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ import java.util.StringTokenizer;
  * @version 2009-06-25
  */
 public final class StringUtil {
-
     private static final String WORD_DELIMITER = " \t\n\r";
 
     /**
@@ -58,10 +58,20 @@ public final class StringUtil {
      *                        continued at the next line
      * @return                lines
      */
-    public static List<String> wrapWords(String text, int maxCharsPerLine, String wordDelimiter) {
-        if (text == null           ) throw new NullPointerException("text == null");
-        if (maxCharsPerLine <= 0   ) throw new IllegalArgumentException("Invalid max chars per line: " + maxCharsPerLine);
-        if (wordDelimiter.isEmpty()) throw new IllegalArgumentException("Empty word delimiter string!");
+    public static List<String> wrapWords(String text, int maxCharsPerLine,
+            String wordDelimiter) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
+        if (maxCharsPerLine <= 0) {
+            throw new IllegalArgumentException("Invalid max chars per line: "
+                                               + maxCharsPerLine);
+        }
+
+        if (wordDelimiter.isEmpty()) {
+            throw new IllegalArgumentException("Empty word delimiter string!");
+        }
 
         List<String> lines                     = new ArrayList<String>();
         int          textLength                = text.length();
@@ -70,38 +80,45 @@ public final class StringUtil {
         int          currentLineBreakCharIndex = 0;
         int          prevLineBreakCharIndex    = 0;
         int          index                     = 0;
-        boolean end = text.isEmpty();
+        boolean      end                       = text.isEmpty();
+
         while (!end) {
             if (isWordDelimiter(text.charAt(index), wordDelimiter)) {
-                prevLineBreakCharIndex = currentLineBreakCharIndex;
+                prevLineBreakCharIndex    = currentLineBreakCharIndex;
                 currentLineBreakCharIndex = index;
             }
-            int lineCount = lines.size();
+
+            int lineCount     = lines.size();
             int maxBreakIndex = lineCount * maxCharsPerLine + maxCharsPerLine;
+
             if (index == maxBreakIndex) {
                 if (currentLineBreakCharIndex > lineBeginIndex) {
                     lineEndIndex = currentLineBreakCharIndex;
                 } else if (prevLineBreakCharIndex > lineBeginIndex) {
                     lineEndIndex = prevLineBreakCharIndex;
                 } else {
-                    lineEndIndex = lineBeginIndex == maxBreakIndex
+                    lineEndIndex = (lineBeginIndex == maxBreakIndex)
                                    ? maxBreakIndex + 1
                                    : maxBreakIndex;
                 }
+
                 lines.add(text.substring(lineBeginIndex, lineEndIndex));
-                lineBeginIndex = isWordDelimiter(text.charAt(
-                        lineEndIndex < textLength
+                lineBeginIndex = isWordDelimiter(text.charAt((lineEndIndex
+                        < textLength)
                         ? lineEndIndex
                         : textLength - 1), wordDelimiter)
                                  ? lineEndIndex + 1
                                  : lineEndIndex;
             }
+
             index++;
             end = index >= textLength;
         }
+
         if (lineBeginIndex <= textLength - 1) {
             lines.add(text.substring(lineBeginIndex, textLength));
         }
+
         return lines;
     }
 
@@ -109,8 +126,11 @@ public final class StringUtil {
         return wordDelimiter.contains(Character.toString(c));
     }
 
-    public static List<String> getTrimmed(Collection<? extends String> strings) {
-        if (strings == null) throw new NullPointerException("strings == null");
+    public static List<String> getTrimmed(
+            Collection<? extends String> strings) {
+        if (strings == null) {
+            throw new NullPointerException("strings == null");
+        }
 
         List<String> trimmedStrings = new ArrayList<String>(strings.size());
 
@@ -122,7 +142,9 @@ public final class StringUtil {
     }
 
     public static List<String> getWordsOf(String string) {
-        if (string == null) throw new NullPointerException("string == null");
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
 
         List<String>    words = new ArrayList<String>();
         StringTokenizer st    = new StringTokenizer(string, WORD_DELIMITER);
@@ -130,20 +152,27 @@ public final class StringUtil {
         while (st.hasMoreTokens()) {
             words.add(st.nextToken().trim());
         }
+
         return words;
     }
 
     public static boolean isIndex(String s, int index) {
-        if (s == null) throw new NullPointerException("s == null");
+        if (s == null) {
+            throw new NullPointerException("s == null");
+        }
 
-        return index >= 0 && index < s.length();
+        return (index >= 0) && (index < s.length());
     }
 
     public static boolean isSubstring(String s, int beginIndex, int endIndex) {
-        if (s == null) throw new NullPointerException("s == null");
+        if (s == null) {
+            throw new NullPointerException("s == null");
+        }
 
         int len = s.length();
-        return len > 0 && beginIndex >= 0 && endIndex >= beginIndex && endIndex <= len;
+
+        return (len > 0) && (beginIndex >= 0) && (endIndex >= beginIndex)
+               && (endIndex <= len);
     }
 
     /**
@@ -158,21 +187,33 @@ public final class StringUtil {
      * @throws          IllegalArgumentException if maxLength is less than 3
      */
     public static String getPrefixDotted(String s, int maxLength) {
-        if (s == null    ) throw new NullPointerException("s == null");
-        if (maxLength < 3) throw new IllegalArgumentException("Max length < 3: " + maxLength);
+        if (s == null) {
+            throw new NullPointerException("s == null");
+        }
+
+        if (maxLength < 3) {
+            throw new IllegalArgumentException("Max length < 3: " + maxLength);
+        }
 
         String prefix          = "...";
         int    stringLength    = s.length();
         int    prefixLength    = prefix.length();
         int    substringLength = maxLength - prefixLength;
 
-        if (stringLength <= maxLength      ) return s;
-        if (maxLength == prefixLength      ) return prefix;
-        if (stringLength <= substringLength) return prefix + "s";
+        if (stringLength <= maxLength) {
+            return s;
+        }
+
+        if (maxLength == prefixLength) {
+            return prefix;
+        }
+
+        if (stringLength <= substringLength) {
+            return prefix + "s";
+        }
 
         return prefix + s.substring(stringLength - substringLength);
     }
 
-    private StringUtil() {
-    }
+    private StringUtil() {}
 }

@@ -17,11 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Utils for arrays and array like objects.
@@ -45,15 +46,23 @@ public final class ArrayUtil {
      *                                              of objects is null
      */
     public static String[] toStringArray(Object[] objectArray) {
-        if (objectArray == null) throw new NullPointerException("array == null");
+        if (objectArray == null) {
+            throw new NullPointerException("array == null");
+        }
 
         String[] stringArray = new String[objectArray.length];
+
         for (int i = 0; i < objectArray.length; i++) {
-            if (objectArray[i] == null) throw new IllegalArgumentException("Element at index " + i + " is null");
+            if (objectArray[i] == null) {
+                throw new IllegalArgumentException("Element at index " + i
+                                                   + " is null");
+            }
 
             Object object = objectArray[i];
+
             stringArray[i] = object.toString();
         }
+
         return stringArray;
     }
 
@@ -67,9 +76,11 @@ public final class ArrayUtil {
     public static <T> int[] toIntArray(Collection<? extends Integer> c) {
         int[] array = new int[c.size()];
         int   index = 0;
+
         for (int el : c) {
             array[index++] = el;
         }
+
         return array;
     }
 
@@ -81,24 +92,35 @@ public final class ArrayUtil {
      */
     public static List<Integer> toList(int[] array) {
         List<Integer> list = new ArrayList<Integer>(array.length);
+
         for (int el : array) {
             list.add(el);
         }
+
         return list;
     }
 
     public static boolean byteArraysEquals(byte[] left, byte[] right) {
-        if (left == null)  throw new NullPointerException("Left byte array is null!");
-        if (right == null) throw new NullPointerException("Right byte array is null!");
+        if (left == null) {
+            throw new NullPointerException("Left byte array is null!");
+        }
 
-        if (left.length != right.length) return false;
+        if (right == null) {
+            throw new NullPointerException("Right byte array is null!");
+        }
+
+        if (left.length != right.length) {
+            return false;
+        }
 
         for (int i = 0; i < left.length; i++) {
-            if (left[i] != right[i]) return false;
+            if (left[i] != right[i]) {
+                return false;
+            }
         }
+
         return true;
     }
 
-    private ArrayUtil() {
-    }
+    private ArrayUtil() {}
 }

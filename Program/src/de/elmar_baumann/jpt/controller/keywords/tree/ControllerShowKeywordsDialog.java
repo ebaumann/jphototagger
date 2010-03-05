@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,16 +35,14 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann
  * @version 2009-07-30
  */
-public final class ControllerShowKeywordsDialog
-        implements ActionListener {
-
+public final class ControllerShowKeywordsDialog implements ActionListener {
     public ControllerShowKeywordsDialog() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemInputHelper().
-                addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemInputHelper().addActionListener(
+            this);
     }
 
     @Override

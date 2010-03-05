@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 /**
@@ -36,20 +37,23 @@ public final class UpdateMetadataCheckEvent {
          * Check will be started
          */
         CHECK_STARTED,
+
         /**
          * A file will be checked for update
          */
         CHECKING_FILE,
+
         /**
          * Check has been finished
          */
         CHECK_FINISHED,
     }
-    private final Type type;
+
+    private final Type   type;
     private final String imageFilename;
 
     public UpdateMetadataCheckEvent(Type type, String imageFilename) {
-        this.type = type;
+        this.type          = type;
         this.imageFilename = imageFilename;
     }
 

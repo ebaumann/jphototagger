@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 /**
@@ -26,18 +27,13 @@ package de.elmar_baumann.jpt.app.update.tables;
  * @version 2008-11-06
  */
 final class ColumnInfo {
-
     private final String        tableName;
     private final String        columnName;
     private final String        dataType;
     private final IndexOfColumn index;
 
-    public ColumnInfo(
-            String        tableName,
-            String        columnName,
-            String        dataType,
-            IndexOfColumn index
-            ) {
+    public ColumnInfo(String tableName, String columnName, String dataType,
+                      IndexOfColumn index) {
         this.tableName  = tableName;
         this.columnName = columnName;
         this.dataType   = dataType;

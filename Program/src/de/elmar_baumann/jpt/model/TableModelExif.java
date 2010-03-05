@@ -17,31 +17,36 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTagDisplayComparator;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTagsToDisplay;
 import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsUtil;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTagDisplayComparator;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTagsToDisplay;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTags;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.Translation;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.runtime.External;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -59,20 +64,22 @@ import javax.swing.table.DefaultTableModel;
  * @version 2008-10-05
  */
 public final class TableModelExif extends DefaultTableModel {
-
-    private static final long            serialVersionUID = -5656774233855745962L;
-    private              File            file;
-    private transient    ExifGpsMetadata exifGpsMetadata;
-    private transient    ExifTags        exifTags;
-    private static final Translation     TRANSLATION      = new Translation("ExifTagIdTagNameTranslations");
+    private static final long         serialVersionUID = -5656774233855745962L;
+    private File                      file;
+    private transient ExifGpsMetadata exifGpsMetadata;
+    private transient ExifTags        exifTags;
+    private static final Translation  TRANSLATION =
+        new Translation("ExifTagIdTagNameTranslations");
 
     public TableModelExif() {
         setRowHeaders();
     }
 
     private void setRowHeaders() {
-        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.1"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.2"));
+        addColumn(
+            JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.1"));
+        addColumn(
+            JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.2"));
     }
 
     /**
@@ -92,6 +99,7 @@ public final class TableModelExif extends DefaultTableModel {
     public void setFile(File file) {
         this.file = file;
         removeAllElements();
+
         try {
             setExifTags();
         } catch (Exception ex) {
@@ -104,14 +112,14 @@ public final class TableModelExif extends DefaultTableModel {
      */
     public void removeAllElements() {
         getDataVector().removeAllElements();
-
     }
 
     private void setExifTags() {
-
         exifTags = ExifMetadata.getExifTags(file);
 
-        if (exifTags == null) return;
+        if (exifTags == null) {
+            return;
+        }
 
         addExifTags(exifTags.getExifTags());
         addExifTags(exifTags.getInteroperabilityTags());
@@ -120,19 +128,16 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private void addExifTags(Collection<ExifTag> tags) {
-
         List<ExifTag> exifTagsToDisplay = ExifTagsToDisplay.get(tags);
 
         if (exifTagsToDisplay != null) {
-
-            Collections.sort(exifTagsToDisplay, ExifTagDisplayComparator.INSTANCE);
+            Collections.sort(exifTagsToDisplay,
+                             ExifTagDisplayComparator.INSTANCE);
 
             for (ExifTag exifTagToDisplay : exifTagsToDisplay) {
-
                 String value = exifTagToDisplay.stringValue();
 
                 if (value.length() > 0) {
-
                     addTableRow(exifTagToDisplay);
                 }
             }
@@ -143,36 +148,49 @@ public final class TableModelExif extends DefaultTableModel {
         exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags);
 
         if (exifGpsMetadata.latitude() != null) {
-
-            final String tagId   = Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
+            final String tagId =
+                Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
             final String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[]{tagName, exifGpsMetadata.latitude().localizedString()});
+            super.addRow(new Object[] { tagName,
+                                        exifGpsMetadata.latitude()
+                                            .localizedString() });
         }
+
         if (exifGpsMetadata.longitude() != null) {
-
-            final String tagId   = Integer.toString(ExifTag.Id.GPS_LONGITUDE.value());
+            final String tagId =
+                Integer.toString(ExifTag.Id.GPS_LONGITUDE.value());
             final String tagName = TRANSLATION.translate(tagId, tagId);
-            super.addRow(new Object[]{tagName, exifGpsMetadata.longitude().localizedString()});
+
+            super.addRow(new Object[] { tagName,
+                                        exifGpsMetadata.longitude()
+                                            .localizedString() });
         }
+
         if (exifGpsMetadata.altitude() != null) {
-
-            final String tagId   = Integer.toString(ExifTag.Id.GPS_ALTITUDE.value());
+            final String tagId =
+                Integer.toString(ExifTag.Id.GPS_ALTITUDE.value());
             final String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[]{tagName, exifGpsMetadata.altitude().localizedString()});
+            super.addRow(new Object[] { tagName,
+                                        exifGpsMetadata.altitude()
+                                            .localizedString() });
         }
-        if (exifGpsMetadata.longitude() != null && exifGpsMetadata.latitude() != null) {
 
-            final JButton button = new JButton(JptBundle.INSTANCE.getString("TableModelExif.Button.GoogleMaps"));
+        if ((exifGpsMetadata.longitude() != null)
+                && (exifGpsMetadata.latitude() != null)) {
+            final JButton button = new JButton(
+                                       JptBundle.INSTANCE.getString(
+                                           "TableModelExif.Button.GoogleMaps"));
 
             button.addActionListener(new GpsButtonListener());
-            super.addRow(new Object[]{exifGpsMetadata, button});
+            super.addRow(new Object[] { exifGpsMetadata, button });
         }
     }
 
     private void addTableRow(ExifTag exifTag) {
         List<ExifTag> row = new ArrayList<ExifTag>();
+
         row.add(exifTag);
         row.add(exifTag);
         super.addRow(row.toArray(new ExifTag[row.size()]));
@@ -184,13 +202,12 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private class GpsButtonListener implements ActionListener {
-
-        public GpsButtonListener() {
-        }
+        public GpsButtonListener() {}
 
         @Override
         public void actionPerformed(ActionEvent e) {
             String webBrowser = UserSettings.INSTANCE.getWebBrowser();
+
             if (checkWebBrowser(webBrowser)) {
                 startWebBrowser(webBrowser);
             }
@@ -200,29 +217,39 @@ public final class TableModelExif extends DefaultTableModel {
             if (webBrowser.length() <= 0) {
                 MessageDisplayer.error(null, "TableModelExif.Error.WebBrowser");
                 setWebBrowser();
+
                 return false;
             }
+
             return true;
         }
 
         private void setWebBrowser() {
             SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
+
             ComponentUtil.show(settingsDialog);
-            settingsDialog.selectTab(SettingsMiscPanel.Tab.EXTERNAL_APPLICATIONS);
+            settingsDialog.selectTab(
+                SettingsMiscPanel.Tab.EXTERNAL_APPLICATIONS);
         }
 
         private void startWebBrowser(String webBrowser) {
             if (exifGpsMetadata != null) {
-                String url = ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(), exifGpsMetadata.latitude());
+                String url =
+                    ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(),
+                                              exifGpsMetadata.latitude());
                 String cmd = "\"" + webBrowser + "\" \"" + url + "\"";
+
                 logExternalAppCommand(cmd);
+
                 External.ProcessResult result = External.execute(cmd, false);
+
                 assert result == null;
             }
         }
 
         private void logExternalAppCommand(String cmd) {
-            AppLogger.logFinest(GpsButtonListener.class, "TableModelExif.ExternalAppCommand", cmd);
+            AppLogger.logFinest(GpsButtonListener.class,
+                                "TableModelExif.ExternalAppCommand", cmd);
         }
     }
 }

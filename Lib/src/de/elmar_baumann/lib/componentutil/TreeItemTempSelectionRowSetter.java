@@ -17,18 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import java.lang.reflect.Method;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPopupMenu;
-import javax.swing.JTree;
+
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.JPopupMenu;
+import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
 /**
@@ -44,10 +49,11 @@ import javax.swing.tree.TreeCellRenderer;
  * @author  Elmar Baumann
  * @version 2009-07-27
  */
-public final class TreeItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
-
-    private final JTree tree;
-    private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
+public final class TreeItemTempSelectionRowSetter
+        implements MouseListener, PopupMenuListener {
+    private final JTree         tree;
+    private static final String TEMP_SEL_ROW_METHOD_NAME =
+        "setTempSelectionRow";
 
     /**
      * Creates a new instance.
@@ -70,22 +76,30 @@ public final class TreeItemTempSelectionRowSetter implements MouseListener, Popu
     public void mousePressed(MouseEvent e) {
         if (MouseEventUtil.isPopupTrigger(e)) {
             int index = tree.getRowForLocation(e.getX(), e.getY());
-            if (index < 0) return;
+
+            if (index < 0) {
+                return;
+            }
+
             setRowIndex(index);
         }
     }
 
     private void setRowIndex(int index) {
         TreeCellRenderer renderer = tree.getCellRenderer();
+
         if (hasMethod(renderer)) {
             try {
-                Method m = renderer.getClass().getMethod(
-                        TEMP_SEL_ROW_METHOD_NAME, int.class);
+                Method m =
+                    renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME,
+                                                  int.class);
+
                 m.invoke(renderer, index);
                 tree.repaint();
             } catch (Exception ex) {
-                Logger.getLogger(TreeItemTempSelectionRowSetter.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                Logger.getLogger(
+                    TreeItemTempSelectionRowSetter.class.getName()).log(
+                    Level.SEVERE, null, ex);
             }
         }
     }
@@ -94,42 +108,50 @@ public final class TreeItemTempSelectionRowSetter implements MouseListener, Popu
         for (Method method : renderer.getClass().getDeclaredMethods()) {
             if (method.getName().equals(TEMP_SEL_ROW_METHOD_NAME)) {
                 Class<?>[] parameterTypes = method.getParameterTypes();
-                if (parameterTypes.length == 1 &&
-                        parameterTypes[0].equals(int.class)) {
+
+                if ((parameterTypes.length == 1)
+                        && parameterTypes[0].equals(int.class)) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
         // ignore
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
         // ignore
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+
         // ignore
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+
         // ignore
     }
 
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
         // ignore
     }
 
     @Override
     public void popupMenuCanceled(PopupMenuEvent e) {
+
         // ignore
     }
 }

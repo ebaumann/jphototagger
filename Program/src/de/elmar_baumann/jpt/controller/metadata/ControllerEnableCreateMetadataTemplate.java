@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+
 import javax.swing.JButton;
 
 /**
@@ -29,10 +31,12 @@ import javax.swing.JButton;
  * @author  Elmar Baumann
  * @version 2010-01-22
  */
-public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsPanelListener {
-
-    private final ThumbnailsPanel thumbnailsPanel              = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JButton         buttonMetadataTemplateCreate = GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateCreate();
+public final class ControllerEnableCreateMetadataTemplate
+        implements ThumbnailsPanelListener {
+    private final ThumbnailsPanel thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JButton buttonMetadataTemplateCreate =
+        GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateCreate();
 
     public ControllerEnableCreateMetadataTemplate() {
         listen();
@@ -44,11 +48,13 @@ public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsP
 
     @Override
     public void thumbnailsSelectionChanged() {
-        buttonMetadataTemplateCreate.setEnabled(thumbnailsPanel.getSelectionCount() > 0);
+        buttonMetadataTemplateCreate.setEnabled(
+            thumbnailsPanel.getSelectionCount() > 0);
     }
 
     @Override
     public void thumbnailsChanged() {
+
         // ignore
     }
 }

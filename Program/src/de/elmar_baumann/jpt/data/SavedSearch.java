@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
+
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,18 +37,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearch {
-
     public enum Type {
+
         /**
          * Saved search was generated through dialog, search column panels
          */
-        PANELS      ((short)0),
+        PANELS((short) 0),
 
         /**
          * Saved search is a custom SQL Query
          */
-        CUSTOM_SQL  ((short)1),
+        CUSTOM_SQL((short) 1),
         ;
+
         private final short value;
 
         private Type(short value) {
@@ -59,29 +62,31 @@ public final class SavedSearch {
 
         public static Type fromValue(short value) {
             for (Type t : values()) {
-                if (t.getValue() == value) return t;
+                if (t.getValue() == value) {
+                    return t;
+                }
             }
+
             return null;
         }
     }
 
     private SavedSearchParamStatement paramStatement;
-
     @XmlElementWrapper(name = "SavedSearchPanels")
     @XmlElement(type = SavedSearchPanel.class)
-    private List<SavedSearchPanel> panels;
+    private List<SavedSearchPanel>    panels;
+    private Type                      type;
 
-    private Type type;
-
-    public SavedSearch() {
-    }
+    public SavedSearch() {}
 
     public SavedSearch(SavedSearch other) {
         set(other);
     }
 
     public void set(SavedSearch other) {
-        if (other == this) return;
+        if (other == this) {
+            return;
+        }
 
         paramStatement.set(other.paramStatement);
         panels = other.getDeepCopyPanels();
@@ -89,7 +94,7 @@ public final class SavedSearch {
     }
 
     public List<SavedSearchPanel> getPanels() {
-        return panels == null
+        return (panels == null)
                ? null
                : getDeepCopyPanels();
     }
@@ -106,11 +111,12 @@ public final class SavedSearch {
         if (panels == null) {
             panels = new ArrayList<SavedSearchPanel>();
         }
+
         panels.add(panel);
     }
 
     public SavedSearchParamStatement getParamStatement() {
-        return paramStatement == null
+        return (paramStatement == null)
                ? null
                : new SavedSearchParamStatement(paramStatement);
     }
@@ -132,11 +138,11 @@ public final class SavedSearch {
     }
 
     public boolean hasPanels() {
-        return panels != null && !panels.isEmpty();
+        return (panels != null) &&!panels.isEmpty();
     }
 
     public boolean isCustomSql() {
-        return type != null && type.equals(Type.CUSTOM_SQL);
+        return (type != null) && type.equals(Type.CUSTOM_SQL);
     }
 
     @Override
@@ -144,46 +150,59 @@ public final class SavedSearch {
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final SavedSearch other = (SavedSearch) obj;
+
         return paramStatement.equals(other.paramStatement);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + (this.paramStatement != null
+
+        hash = 19 * hash + ((this.paramStatement != null)
                             ? this.paramStatement.hashCode()
                             : 0);
+
         return hash;
     }
 
     public String getName() {
         String string = null;
+
         if (paramStatement != null) {
             string = paramStatement.getName();
         }
-        return (string == null
+
+        return ((string == null)
                 ? ""
                 : string);
     }
 
     public void setName(String name) {
-        if (paramStatement == null) return;
+        if (paramStatement == null) {
+            return;
+        }
+
         paramStatement.setName(name);
     }
 
     @Override
     public String toString() {
-        return getName(); // Never change that (will be used to find model items)!
+        return getName();    // Never change that (will be used to find model items)!
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {
-        if (panels == null) return null;
+        if (panels == null) {
+            return null;
+        }
 
-        List<SavedSearchPanel> copy = new ArrayList<SavedSearchPanel>(panels.size());
+        List<SavedSearchPanel> copy =
+            new ArrayList<SavedSearchPanel>(panels.size());
 
         for (SavedSearchPanel panel : panels) {
             copy.add(new SavedSearchPanel(panel));
@@ -195,6 +214,7 @@ public final class SavedSearch {
     private void setDeepCopyPanels(List<SavedSearchPanel> p) {
         if (p == null) {
             panels = null;
+
             return;
         }
 

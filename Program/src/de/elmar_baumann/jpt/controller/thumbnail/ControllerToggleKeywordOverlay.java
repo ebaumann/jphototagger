@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,9 +35,8 @@ import java.awt.event.ActionListener;
  * @version 2009-07-16
  */
 public final class ControllerToggleKeywordOverlay implements ActionListener {
-
     private static final String KEY_SHOW_METADATA_OVERLAY =
-            "UserSettings.ShowMetadataOverlay";
+        "UserSettings.ShowMetadataOverlay";
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerToggleKeywordOverlay() {
@@ -55,24 +56,30 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
 
     private void toggleKeywordOverlay() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-        boolean active = !appPanel.getPanelThumbnails().isKeywordsOverlay();
+        boolean  active   = !appPanel.getPanelThumbnails().isKeywordsOverlay();
+
         appPanel.getPanelThumbnails().setKeywordsOverlay(active);
         appFrame.getCheckBoxMenuItemKeywordOverlay().setSelected(active);
     }
 
     private void readPersistent() {
         UserSettings settings = UserSettings.INSTANCE;
+
         if (settings.getProperties().containsKey(KEY_SHOW_METADATA_OVERLAY)) {
             boolean wasSelected =
-                    settings.getSettings().getBoolean(KEY_SHOW_METADATA_OVERLAY);
-            appFrame.getCheckBoxMenuItemKeywordOverlay().setSelected(wasSelected);
+                settings.getSettings().getBoolean(KEY_SHOW_METADATA_OVERLAY);
+
+            appFrame.getCheckBoxMenuItemKeywordOverlay().setSelected(
+                wasSelected);
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().setKeywordsOverlay(
-                    wasSelected);
+                wasSelected);
         }
     }
 
     private void writePersistent() {
-        UserSettings.INSTANCE.getSettings().set(appFrame.getCheckBoxMenuItemKeywordOverlay().isSelected(), KEY_SHOW_METADATA_OVERLAY);
+        UserSettings.INSTANCE.getSettings().set(
+            appFrame.getCheckBoxMenuItemKeywordOverlay().isSelected(),
+            KEY_SHOW_METADATA_OVERLAY);
         UserSettings.INSTANCE.writeToFile();
     }
 }

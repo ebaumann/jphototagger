@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import de.elmar_baumann.lib.resource.JslBundle;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -35,10 +38,9 @@ import javax.swing.text.JTextComponent;
  * @version 2009-08-05
  */
 public final class InputVerifierNumberRange extends InputVerifier {
-
-    private final double  min;
-    private final double  max;
-    private       boolean message  = true;
+    private final double min;
+    private final double max;
+    private boolean      message = true;
 
     /**
      * Constructor.
@@ -48,7 +50,10 @@ public final class InputVerifierNumberRange extends InputVerifier {
      * @throws IllegalArgumentException if maximum is less than minimum
      */
     public InputVerifierNumberRange(double min, double max) {
-        if (max < min) throw new IllegalArgumentException("Maximum is less than minimum! " + max + " < " + min);
+        if (max < min) {
+            throw new IllegalArgumentException("Maximum is less than minimum! "
+                                               + max + " < " + min);
+        }
 
         this.min = min;
         this.max = max;
@@ -66,26 +71,35 @@ public final class InputVerifierNumberRange extends InputVerifier {
     @Override
     public boolean verify(JComponent component) {
         boolean lengthOk = lengthOk(component);
+
         if (!lengthOk) {
             errorMessage(component);
         }
+
         return lengthOk;
     }
 
     private boolean lengthOk(JComponent component) {
-
         String string = getString(component);
-        if (string.isEmpty()) return true;
+
+        if (string.isEmpty()) {
+            return true;
+        }
 
         Double value = toDouble(string);
-        if (value == null) return false;
-        return value >= min && value <= max;
+
+        if (value == null) {
+            return false;
+        }
+
+        return (value >= min) && (value <= max);
     }
 
     private String getString(JComponent component) {
         if (component instanceof JTextComponent) {
             return ((JTextComponent) component).getText().trim();
         }
+
         return "";
     }
 
@@ -95,15 +109,24 @@ public final class InputVerifierNumberRange extends InputVerifier {
         } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex);
         }
+
         return null;
     }
 
     private void errorMessage(JComponent input) {
-        if (!message) return;
-        JOptionPane.showMessageDialog(
+        if (!message) {
+            return;
+        }
+
+        JOptionPane
+            .showMessageDialog(
                 input,
-                JslBundle.INSTANCE.getString("InputVerifierNumberRange.ErrorMessage", min, max),
-                JslBundle.INSTANCE.getString("InputVerifierNumberRange.Error.Title"),
-                JOptionPane.ERROR_MESSAGE);
+                JslBundle.INSTANCE
+                    .getString(
+                        "InputVerifierNumberRange.ErrorMessage", min,
+                        max), JslBundle.INSTANCE
+                            .getString(
+                                "InputVerifierNumberRange.Error.Title"), JOptionPane
+                                    .ERROR_MESSAGE);
     }
 }

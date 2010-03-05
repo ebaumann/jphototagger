@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.net;
 
 import de.elmar_baumann.lib.util.Version;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -54,12 +57,9 @@ public final class NetVersion {
      * @throws IllegalArgumentException  if the version does not contain 2 up to
      *                                   4 integer numbers
      */
-    public static Version getOverHttp(
-            String  httpUrl,
-            String  versionDelimiter
-            )
-            throws MalformedURLException, IOException, NumberFormatException, IllegalArgumentException {
-
+    public static Version getOverHttp(String httpUrl, String versionDelimiter)
+            throws MalformedURLException, IOException, NumberFormatException,
+                   IllegalArgumentException {
         URL                   url = new URL(httpUrl);
         ByteArrayOutputStream os  = new ByteArrayOutputStream(10 * 1024);
 
@@ -69,18 +69,19 @@ public final class NetVersion {
         int    beginIndex = content.indexOf("<span class=\"version\">");
 
         if (beginIndex >= 0) {
-
             int endIndex = content.indexOf("</span>", beginIndex + 1);
 
-            if (endIndex <= beginIndex) return null;
+            if (endIndex <= beginIndex) {
+                return null;
+            }
 
-            String  versionString = content.substring(beginIndex + 22, endIndex);
+            String versionString = content.substring(beginIndex + 22, endIndex);
 
             return Version.parseVersion(versionString, versionDelimiter);
         }
+
         return null;
     }
 
-    private NetVersion() {
-    }
+    private NetVersion() {}
 }

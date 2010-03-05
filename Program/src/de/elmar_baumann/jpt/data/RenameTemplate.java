@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
-import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -51,8 +52,7 @@ public final class RenameTemplate {
     private String   textInTheMiddle;
     private String   textAtEnd;
 
-    public RenameTemplate() {
-    }
+    public RenameTemplate() {}
 
     public RenameTemplate(RenameTemplate other) {
         set(other);
@@ -194,17 +194,32 @@ public final class RenameTemplate {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
         final RenameTemplate other = (RenameTemplate) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) return false;
+
+        if ((this.id != other.id)
+                && ((this.id == null) ||!this.id.equals(other.id))) {
+            return false;
+        }
+
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 41 * hash + (this.id != null ? this.id.hashCode() : 0);
+
+        hash = 41 * hash + ((this.id != null)
+                            ? this.id.hashCode()
+                            : 0);
+
         return hash;
     }
 }

@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io.filefilter;
 
 import de.elmar_baumann.lib.resource.JslBundle;
+
 import java.io.File;
+
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -30,7 +33,6 @@ import javax.swing.filechooser.FileFilter;
  * @version 2009-04-01
  */
 public final class ExecutableFileChooserFileFilter extends FileFilter {
-
     @Override
     public boolean accept(File f) {
         return f.canExecute();
@@ -38,7 +40,7 @@ public final class ExecutableFileChooserFileFilter extends FileFilter {
 
     @Override
     public String getDescription() {
-        return JslBundle.INSTANCE.getString("ExecutableFileChooserFileFilter.Description");
+        return JslBundle.INSTANCE.getString(
+            "ExecutableFileChooserFileFilter.Description");
     }
-
 }

@@ -17,16 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.iptc;
 
-import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.iptc.IPTCConstants;
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import com.imagero.reader.MetadataUtils;
+
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Iptc;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,21 +51,30 @@ public final class IptcMetadata {
      */
     public static List<IptcEntry> getIptcEntries(File imageFile) {
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
-        if (imageFile != null && imageFile.exists()) {
+
+        if ((imageFile != null) && imageFile.exists()) {
             try {
-                AppLogger.logInfo(IptcMetadata.class, "IptcMetadata.Info.GetMetadata", imageFile);
-                IPTCEntryCollection collection = MetadataUtils.getIPTC(imageFile);
+                AppLogger.logInfo(IptcMetadata.class,
+                                  "IptcMetadata.Info.GetMetadata", imageFile);
+
+                IPTCEntryCollection collection =
+                    MetadataUtils.getIPTC(imageFile);
+
                 if (collection != null) {
-                    addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
+                    addEntries(
+                        collection.getEntries(
+                            IPTCConstants.RECORD_APPLICATION), metadata);
                 }
             } catch (Exception ex) {
                 AppLogger.logSevere(IptcMetadata.class, ex);
             }
         }
+
         return metadata;
     }
 
-    private static void addEntries(IPTCEntry[][] entries, List<IptcEntry> metadata) {
+    private static void addEntries(IPTCEntry[][] entries,
+                                   List<IptcEntry> metadata) {
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 addEntries(entries[i], metadata);
@@ -69,13 +82,16 @@ public final class IptcMetadata {
         }
     }
 
-    private static void addEntries(IPTCEntry[] entries, List<IptcEntry> metadata) {
+    private static void addEntries(IPTCEntry[] entries,
+                                   List<IptcEntry> metadata) {
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 IPTCEntry currentEntry = entries[i];
-                if (currentEntry != null && !isVersionInfo(currentEntry)) {
+
+                if ((currentEntry != null) &&!isVersionInfo(currentEntry)) {
                     IptcEntry newEntry = new IptcEntry(currentEntry);
-                    if (hasContent(newEntry) && !metadata.contains(newEntry)) {
+
+                    if (hasContent(newEntry) &&!metadata.contains(newEntry)) {
                         metadata.add(newEntry);
                     }
                 }
@@ -84,11 +100,12 @@ public final class IptcMetadata {
     }
 
     private static boolean hasContent(IptcEntry entry) {
-        return entry.getData() != null && !entry.getData().trim().isEmpty();
+        return (entry.getData() != null) &&!entry.getData().trim().isEmpty();
     }
 
     private static boolean isVersionInfo(IPTCEntry entry) {
-        return entry.getRecordNumber() == 2 && entry.getDataSetNumber() == 0;
+        return (entry.getRecordNumber() == 2)
+               && (entry.getDataSetNumber() == 0);
     }
 
     /**
@@ -98,13 +115,16 @@ public final class IptcMetadata {
      * @param  filter  filter
      * @return         filtered entries
      */
-    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries, IPTCEntryMeta filter) {
+    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries,
+            IPTCEntryMeta filter) {
         List<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
+
         for (IptcEntry entry : entries) {
             if (entry.getEntryMeta().equals(filter)) {
                 filteredEntries.add(entry);
             }
         }
+
         return filteredEntries;
     }
 
@@ -116,18 +136,21 @@ public final class IptcMetadata {
      *                   IPTC metadata or when errors occur
      */
     public static Iptc getIptc(File imageFile) {
-        Iptc iptc = null;
+        Iptc            iptc        = null;
         List<IptcEntry> iptcEntries = getIptcEntries(imageFile);
+
         if (iptcEntries.size() > 0) {
             iptc = new Iptc();
+
             for (IptcEntry iptcEntry : iptcEntries) {
                 IPTCEntryMeta iptcEntryMeta = iptcEntry.getEntryMeta();
+
                 iptc.setValue(iptcEntryMeta, iptcEntry.getData());
             }
         }
+
         return iptc;
     }
 
-    private IptcMetadata() {
-    }
+    private IptcMetadata() {}
 }

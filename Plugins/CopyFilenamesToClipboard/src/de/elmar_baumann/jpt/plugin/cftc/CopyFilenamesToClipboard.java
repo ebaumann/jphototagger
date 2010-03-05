@@ -17,19 +17,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.plugin.cftc;
 
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginEvent;
 import de.elmar_baumann.lib.resource.Bundle;
-import java.awt.Toolkit;
+
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+
 import java.io.File;
 import java.io.Serializable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPanel;
@@ -40,17 +45,20 @@ import javax.swing.JPanel;
  * @author  Elmar Baumann
  * @version 2009-08-27
  */
-public final class CopyFilenamesToClipboard extends Plugin implements Serializable {
+public final class CopyFilenamesToClipboard extends Plugin
+        implements Serializable {
+    private static final long  serialVersionUID       = 526527636923496736L;
+    public static final String KEY_FILENAME_DELIMITER =
+        CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
+    public static final String            DEFAULT_FILENAME_DELIMITER = "\n";
+    private final CopyAction              copyAction                 =
+        new CopyAction();
+    private String                        fileNameDelimiter          =
+        DEFAULT_FILENAME_DELIMITER;
+    private static final transient Bundle BUNDLE                     =
+        new Bundle("de/elmar_baumann/jpt/plugin/cftc/Bundle");
 
-    private static final           long       serialVersionUID           = 526527636923496736L;
-    public static final            String     KEY_FILENAME_DELIMITER     = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
-    public static final            String     DEFAULT_FILENAME_DELIMITER = "\n";
-    private final                  CopyAction copyAction                 = new CopyAction();
-    private                        String     fileNameDelimiter          = DEFAULT_FILENAME_DELIMITER;
-    private static final transient Bundle     BUNDLE                     = new Bundle("de/elmar_baumann/jpt/plugin/cftc/Bundle");
-
-    public CopyFilenamesToClipboard() {
-    }
+    public CopyFilenamesToClipboard() {}
 
     @Override
     public String getName() {
@@ -78,7 +86,6 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
     }
 
     private class CopyAction extends AbstractAction {
-
         private static final long serialVersionUID = 932072385600278529L;
 
         public CopyAction() {
@@ -89,33 +96,43 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
         public void actionPerformed(ActionEvent e) {
             notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
             setDelimiter();
-            StringBuilder sb = new StringBuilder();
-            int index = 0;
+
+            StringBuilder sb    = new StringBuilder();
+            int           index = 0;
+
             for (File file : getFiles()) {
-                sb.append((index++ == 0
+                sb.append(((index++ == 0)
                            ? ""
                            : fileNameDelimiter) + file.getAbsolutePath());
             }
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
+
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
+                new StringSelection(sb.toString()), null);
             notifyFinished();
         }
 
         private void notifyFinished() {
-            PluginEvent evt = new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
+            PluginEvent evt =
+                new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
+
             evt.setProcessedFiles(getFiles());
             notifyPluginListeners(evt);
         }
 
         private void setDelimiter() {
             Properties properties = getProperties();
+
             if (properties != null) {
-                String delimiter = properties.getProperty(KEY_FILENAME_DELIMITER);
+                String delimiter =
+                    properties.getProperty(KEY_FILENAME_DELIMITER);
+
                 if (delimiter != null) {
                     fileNameDelimiter = delimiter;
                 }
             }
         }
     }
+
 
     @Override
     public List<? extends Action> getActions() {

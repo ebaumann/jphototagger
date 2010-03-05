@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -29,15 +30,10 @@ import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesId;
  * @version 2008-08-27
  */
 public final class ColumnExifIdFiles extends Column {
-
     public static final ColumnExifIdFiles INSTANCE = new ColumnExifIdFiles();
 
     private ColumnExifIdFiles() {
-        super(
-            TableExif.INSTANCE,
-            "id_files",
-            DataType.BIGINT);
-
+        super(TableExif.INSTANCE, "id_files", DataType.BIGINT);
         setIsUnique(true);
         setCanBeNull(false);
         setReferences(ColumnFilesId.INSTANCE);

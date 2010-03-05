@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.lib.resource.MutualExcludedResource;
+
 import javax.swing.JProgressBar;
 
 /**
@@ -30,7 +32,6 @@ import javax.swing.JProgressBar;
  * @version 2009-06-16
  */
 public final class ProgressBar extends MutualExcludedResource<JProgressBar> {
-
     public static final ProgressBar INSTANCE = new ProgressBar();
 
     private ProgressBar() {

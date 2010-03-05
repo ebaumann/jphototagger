@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.iptc;
 
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import de.elmar_baumann.jpt.UserSettings;
+
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.UserSettings;
+
 import java.util.Arrays;
 
 /**
@@ -33,11 +36,10 @@ import java.util.Arrays;
  * @version 2008-02-17
  */
 public final class IptcEntry {
-
-    private final String name;
-    private final byte[] data;
-    private final int recordNumber;
-    private final int datasetNumber;
+    private final String        name;
+    private final byte[]        data;
+    private final int           recordNumber;
+    private final int           datasetNumber;
     private final IPTCEntryMeta entryMeta;
 
     /**
@@ -46,11 +48,11 @@ public final class IptcEntry {
      * @param entry IPTC-Eintrag
      */
     public IptcEntry(IPTCEntry entry) {
-        name = entry.getEntryMeta().getName();
-        data = Arrays.copyOf(entry.getData(), entry.getData().length);
-        recordNumber = entry.getRecordNumber();
+        name          = entry.getEntryMeta().getName();
+        data          = Arrays.copyOf(entry.getData(), entry.getData().length);
+        recordNumber  = entry.getRecordNumber();
         datasetNumber = entry.getDataSetNumber();
-        entryMeta = entry.getEntryMeta();
+        entryMeta     = entry.getEntryMeta();
     }
 
     /**
@@ -97,27 +99,33 @@ public final class IptcEntry {
     public boolean equals(Object o) {
         if (o instanceof IptcEntry) {
             IptcEntry otherEntry = (IptcEntry) o;
-            return recordNumber == otherEntry.recordNumber &&
-                datasetNumber == otherEntry.datasetNumber &&
-                getData().equals(otherEntry.getData());
+
+            return (recordNumber == otherEntry.recordNumber)
+                   && (datasetNumber == otherEntry.datasetNumber)
+                   && getData().equals(otherEntry.getData());
         }
+
         return false;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
+
         hash = 83 * hash + this.recordNumber;
         hash = 83 * hash + this.datasetNumber;
+
         return hash;
     }
 
     private String getEncodedData() {
         try {
-            return new String(data, UserSettings.INSTANCE.getIptcCharset()).trim();
+            return new String(data,
+                              UserSettings.INSTANCE.getIptcCharset()).trim();
         } catch (Exception ex) {
             AppLogger.logSevere(IptcEntry.class, ex);
         }
+
         return "";
     }
 }

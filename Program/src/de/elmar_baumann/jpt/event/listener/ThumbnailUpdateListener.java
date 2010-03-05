@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener;
 
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
@@ -24,10 +25,11 @@ import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 /**
  * Interface for receiving ThumbnailUpdateEvents
  *
- * @author  Martin Pohlack 
+ * @author  Martin Pohlack
  * @version 2009-08-18
  */
 public interface ThumbnailUpdateListener {
+
     /**
      * A corresponding event occured.
      *

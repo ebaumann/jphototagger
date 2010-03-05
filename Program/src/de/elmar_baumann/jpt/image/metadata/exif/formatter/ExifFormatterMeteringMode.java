@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,9 +35,10 @@ import java.util.Map;
  * @version 2009-06-10
  */
 public final class ExifFormatterMeteringMode extends ExifFormatter {
-
-    public static final  ExifFormatterMeteringMode INSTANCE                  = new ExifFormatterMeteringMode();
-    private static final Map<Integer, String>      EXIF_KEY_OF_METERING_MODE = new HashMap<Integer, String>();
+    public static final ExifFormatterMeteringMode INSTANCE =
+        new ExifFormatterMeteringMode();
+    private static final Map<Integer, String> EXIF_KEY_OF_METERING_MODE =
+        new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_METERING_MODE.put(0, "MeteringModeUnknown");
@@ -47,23 +50,23 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
         EXIF_KEY_OF_METERING_MODE.put(6, "MeteringModeSelective");
     }
 
-    private ExifFormatterMeteringMode() {
-    }
+    private ExifFormatterMeteringMode() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.METERING_MODE);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-
-            ExifShort es    = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int       value = es.value();
+            ExifShort es = new ExifShort(exifTag.rawValue(),
+                                         exifTag.byteOrder());
+            int value = es.value();
 
             if (EXIF_KEY_OF_METERING_MODE.containsKey(value)) {
-                return translate(IfdType.EXIF, EXIF_KEY_OF_METERING_MODE.get(value));
+                return translate(IfdType.EXIF,
+                                 EXIF_KEY_OF_METERING_MODE.get(value));
             }
         }
+
         return "?";
     }
 }

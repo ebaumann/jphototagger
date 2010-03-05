@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.tasks;
 
 import de.elmar_baumann.lib.concurrent.SerialExecutor;
+
 import java.util.concurrent.Executors;
 
 /**
@@ -30,9 +32,9 @@ import java.util.concurrent.Executors;
  * @version 2009-07-16
  */
 public final class UserTasks {
-
-    public static final UserTasks      INSTANCE = new UserTasks();
-    private final       SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
+    public static final UserTasks INSTANCE = new UserTasks();
+    private final SerialExecutor  executor =
+        new SerialExecutor(Executors.newCachedThreadPool());
 
     /**
      * Adds a new user task.
@@ -64,6 +66,5 @@ public final class UserTasks {
         executor.shutdown();
     }
 
-    private UserTasks() {
-    }
+    private UserTasks() {}
 }

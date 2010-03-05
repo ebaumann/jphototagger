@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.generics;
 
 import java.util.ArrayList;
@@ -43,14 +44,16 @@ public final class Util {
      */
     public static <A, B> List<? extends A> firstOfPairs(
             Collection<Pair<? extends A, ? extends B>> pairs) {
-
-        if (pairs == null)
+        if (pairs == null) {
             throw new NullPointerException("pairs == null");
+        }
 
         List<A> list = new ArrayList<A>(pairs.size());
+
         for (Pair<? extends A, ? extends B> pair : pairs) {
             list.add(pair.getFirst());
         }
+
         return list;
     }
 
@@ -66,17 +69,18 @@ public final class Util {
      */
     public static <A, B> List<? extends B> secondOfPairs(
             Collection<Pair<? extends A, ? extends B>> pairs) {
-
-        if (pairs == null)
+        if (pairs == null) {
             throw new NullPointerException("pairs == null");
+        }
 
         List<B> list = new ArrayList<B>(pairs.size());
+
         for (Pair<? extends A, ? extends B> pair : pairs) {
             list.add(pair.getSecond());
         }
+
         return list;
     }
 
-    private Util() {
-    }
+    private Util() {}
 }

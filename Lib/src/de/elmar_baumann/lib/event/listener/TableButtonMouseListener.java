@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.event.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -31,15 +33,17 @@ import javax.swing.SwingUtilities;
  * @version 2009-04-01
  */
 public final class TableButtonMouseListener implements MouseListener {
-
     private final JTable table;
 
     private void forwardEventToButton(MouseEvent e) {
         JButton button = getButton(e);
 
         if (button != null) {
-            MouseEvent mouseEvent = SwingUtilities.convertMouseEvent(table, e, button);
+            MouseEvent mouseEvent = SwingUtilities.convertMouseEvent(table, e,
+                                        button);
+
             button.dispatchEvent(mouseEvent);
+
             // This is necessary so that when a button is pressed and released
             // it gets rendered properly.  Otherwise, the button may still appear
             // pressed down when it has been released.
@@ -48,17 +52,19 @@ public final class TableButtonMouseListener implements MouseListener {
     }
 
     private JButton getButton(MouseEvent e) {
-        int row = e.getY() / table.getRowHeight();
+        int row    = e.getY() / table.getRowHeight();
         int column = table.getColumnModel().getColumnIndexAtX(e.getX());
 
-        if (row >= table.getRowCount() || row < 0 ||
-                column >= table.getColumnCount() || column < 0)
+        if ((row >= table.getRowCount()) || (row < 0)
+                || (column >= table.getColumnCount()) || (column < 0)) {
             return null;
+        }
 
         Object value = table.getValueAt(row, column);
 
-        if (value instanceof JButton)
+        if (value instanceof JButton) {
             return (JButton) value;
+        }
 
         return null;
     }
@@ -70,6 +76,7 @@ public final class TableButtonMouseListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         JButton button = getButton(e);
+
         if (button != null) {
             button.doClick();
         }

@@ -17,17 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns;
 import de.elmar_baumann.jpt.exporter.FileExcludePatternsExporter;
-import de.elmar_baumann.jpt.exporter.FileExcludePatternsExporter.CollectionWrapper;
+import de.elmar_baumann.jpt.exporter.FileExcludePatternsExporter
+    .CollectionWrapper;
 import de.elmar_baumann.jpt.exporter.StringWrapper;
+
 import java.io.File;
-import javax.swing.Icon;
+
 import javax.swing.filechooser.FileFilter;
+import javax.swing.Icon;
 
 /**
  *
@@ -36,19 +40,21 @@ import javax.swing.filechooser.FileFilter;
  * @version 2010-03-02
  */
 public final class FileExcludePatternsImporter implements Importer {
-
-    public static final FileExcludePatternsImporter INSTANCE = new FileExcludePatternsImporter();
+    public static final FileExcludePatternsImporter INSTANCE =
+        new FileExcludePatternsImporter();
 
     @Override
     public void importFile(File file) {
         try {
-            FileExcludePatternsExporter.CollectionWrapper wrapper = (CollectionWrapper)
-                    XmlObjectImporter.importObject(
-                          file, FileExcludePatternsExporter.CollectionWrapper.class);
+            FileExcludePatternsExporter.CollectionWrapper wrapper =
+                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    FileExcludePatternsExporter.CollectionWrapper.class);
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
-                if (!DatabaseFileExcludePatterns.INSTANCE.exists(stringWrapper.getString())) {
-                    DatabaseFileExcludePatterns.INSTANCE.insert(stringWrapper.getString());
+                if (!DatabaseFileExcludePatterns.INSTANCE.exists(
+                        stringWrapper.getString())) {
+                    DatabaseFileExcludePatterns.INSTANCE.insert(
+                        stringWrapper.getString());
                 }
             }
         } catch (Exception ex) {
@@ -76,6 +82,5 @@ public final class FileExcludePatternsImporter implements Importer {
         return FileExcludePatternsExporter.INSTANCE.getDefaultFilename();
     }
 
-    private FileExcludePatternsImporter() {
-    }
+    private FileExcludePatternsImporter() {}
 }

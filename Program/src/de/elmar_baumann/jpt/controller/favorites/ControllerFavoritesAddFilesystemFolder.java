@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.factory.ModelFactory;
@@ -25,10 +26,12 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -46,9 +49,9 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerFavoritesAddFilesystemFolder
         implements ActionListener, KeyListener {
-
     private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+    private final JTree              tree  =
+        GUI.INSTANCE.getAppPanel().getTreeFavorites();
 
     public ControllerFavoritesAddFilesystemFolder() {
         listen();
@@ -61,10 +64,13 @@ public final class ControllerFavoritesAddFilesystemFolder
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_N) && !tree.isSelectionEmpty()) {
+        if (KeyEventUtil.isControl(e, KeyEvent.VK_N)
+                &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
+
             if (node instanceof DefaultMutableTreeNode) {
                 DefaultMutableTreeNode pathNode = (DefaultMutableTreeNode) node;
+
                 createDirectory(new TreePath(pathNode.getPath()));
             }
         }
@@ -76,17 +82,22 @@ public final class ControllerFavoritesAddFilesystemFolder
     }
 
     private void createDirectory(TreePath path) {
-        TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
-        model.createNewDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(path));
+        TreeModelFavorites model =
+            ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
+
+        model.createNewDirectory(
+            TreeFileSystemDirectories.getNodeOfLastPathComponent(path));
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

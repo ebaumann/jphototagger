@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 /**
@@ -36,8 +37,9 @@ public final class FileType {
      */
     public static boolean isJpegFile(String filename) {
         String filenameLowercase = filename.toLowerCase();
-        return filenameLowercase.endsWith(".jpg") ||
-            filenameLowercase.endsWith(".jpeg");
+
+        return filenameLowercase.endsWith(".jpg")
+               || filenameLowercase.endsWith(".jpeg");
     }
 
     /**
@@ -48,14 +50,14 @@ public final class FileType {
      * @return         true, wenn die Datei eine RAW-Datei ist
      */
     public static boolean isRawFile(String filename) {
-        String filenameLowerCase = filename.toLowerCase();
-        boolean isCommonImageFile =
-            filenameLowerCase.endsWith("tif") ||
-            filenameLowerCase.endsWith("tiff") ||
-            filenameLowerCase.endsWith("jpg") ||
-            filenameLowerCase.endsWith("jpeg") ||
-            filenameLowerCase.endsWith("gif") ||
-            filenameLowerCase.endsWith("png");
+        String  filenameLowerCase = filename.toLowerCase();
+        boolean isCommonImageFile = filenameLowerCase.endsWith("tif")
+                                    || filenameLowerCase.endsWith("tiff")
+                                    || filenameLowerCase.endsWith("jpg")
+                                    || filenameLowerCase.endsWith("jpeg")
+                                    || filenameLowerCase.endsWith("gif")
+                                    || filenameLowerCase.endsWith("png");
+
         return !isCommonImageFile;
     }
 

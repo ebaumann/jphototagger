@@ -17,14 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ServiceLoader;
 
 /**
  * Looks for implementations of a Java service.
@@ -47,13 +48,11 @@ public final class Lookup {
      *               if no class implements that service
      */
     public static <T> T lookup(Class<T> clazz) {
-
         Iterator<T> services = ServiceLoader.load(clazz).iterator();
 
         return services.hasNext()
                ? services.next()
                : null;
-
     }
 
     /**
@@ -65,7 +64,6 @@ public final class Lookup {
      *               class implements that service
      */
     public static <T> Collection<? extends T> lookupAll(Class<T> clazz) {
-
         Collection<T> result = new ArrayList<T>();
 
         try {
@@ -73,13 +71,12 @@ public final class Lookup {
                 result.add(service);
             }
         } catch (Exception ex) {
-            Logger.getLogger(Lookup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Lookup.class.getName()).log(Level.SEVERE, null,
+                             ex);
         }
 
         return result;
-
     }
 
-    private Lookup() {
-    }
+    private Lookup() {}
 }

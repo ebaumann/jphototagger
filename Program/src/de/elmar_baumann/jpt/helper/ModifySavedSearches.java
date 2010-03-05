@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -26,6 +27,7 @@ import de.elmar_baumann.jpt.database.DatabaseSavedSearches;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.ListModelSavedSearches;
 import de.elmar_baumann.lib.componentutil.ListUtil;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -46,18 +48,21 @@ public final class ModifySavedSearches {
     public static void insert(final SavedSearch savedSearch, boolean force) {
         if (force || confirmInsert(savedSearch)) {
             SwingUtilities.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
                     if (getDb().insertOrUpdate(savedSearch)) {
                         ListModelSavedSearches model = getModel();
+
                         if (!model.contains(savedSearch)) {
-                            ListUtil.insertSorted(model, savedSearch,
-                                    ComparatorSavedSearch.INSTANCE,
-                                    0, model.getSize() - 1);
+                            ListUtil.insertSorted(
+                                model, savedSearch,
+                                ComparatorSavedSearch.INSTANCE, 0,
+                                model.getSize() - 1);
                         }
                     } else {
-                        MessageDisplayer.error(null, "ModifySavedSearches.Error.SearchCouldntBeSaved");
+                        MessageDisplayer.error(
+                            null,
+                            "ModifySavedSearches.Error.SearchCouldntBeSaved");
                     }
                 }
             });
@@ -71,16 +76,19 @@ public final class ModifySavedSearches {
      */
     public static void delete(final SavedSearch savedSearch) {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 String searchName = savedSearch.getParamStatement().getName();
+
                 if (confirmDelete(searchName)) {
                     if (getDb().delete(searchName)) {
                         ListModelSavedSearches model = getModel();
+
                         model.removeElement(savedSearch);
                     } else {
-                        MessageDisplayer.error(null, "ModifySavedSearches.Error.SavedSearchCouldntBeDeleted");
+                        MessageDisplayer.error(
+                            null,
+                            "ModifySavedSearches.Error.SavedSearchCouldntBeDeleted");
                     }
                 }
             }
@@ -94,22 +102,29 @@ public final class ModifySavedSearches {
      */
     public static void rename(final SavedSearch oldSearch) {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 String oldName = oldSearch.getName();
                 String newName = getNewName(oldName);
+
                 if (newName != null) {
                     DatabaseSavedSearches db = getDb();
+
                     if (db.updateRename(oldName, newName)) {
                         SavedSearch newSearch = db.find(newName);
+
                         if (newSearch == null) {
-                            MessageDisplayer.error(null, "ModifySavedSearches.Error.SavedSearchWasRenamedButCouldntBeLoaded", oldName);
+                            MessageDisplayer.error(
+                                null,
+                                "ModifySavedSearches.Error.SavedSearchWasRenamedButCouldntBeLoaded",
+                                oldName);
                         } else {
                             getModel().rename(oldSearch, newSearch);
                         }
                     } else {
-                        MessageDisplayer.error(null, "ModifySavedSearches.Error.RenameFailed", oldName);
+                        MessageDisplayer.error(
+                            null, "ModifySavedSearches.Error.RenameFailed",
+                            oldName);
                     }
                 }
             }
@@ -118,23 +133,29 @@ public final class ModifySavedSearches {
 
     private static String getNewName(String oldName) {
         boolean hasInput = true;
-        String input = null;
+        String  input    = null;
+
         while (hasInput) {
-            input = getInput(oldName);
+            input    = getInput(oldName);
             hasInput = false;
-            if (input != null && getDb().exists(input)) {
+
+            if ((input != null) && getDb().exists(input)) {
                 hasInput = confirmInputDifferentName(input);
+
                 if (hasInput) {
                     oldName = input;
                 }
+
                 input = null;
             }
         }
+
         return input;
     }
 
     private static DatabaseSavedSearches getDb() {
         DatabaseSavedSearches db = DatabaseSavedSearches.INSTANCE;
+
         return db;
     }
 
@@ -143,24 +164,29 @@ public final class ModifySavedSearches {
     }
 
     private static String getInput(String oldName) {
-        return MessageDisplayer.input("ModifySavedSearches.Input.NewName", oldName, ModifySavedSearches.class.getName());
+        return MessageDisplayer.input("ModifySavedSearches.Input.NewName",
+                                      oldName,
+                                      ModifySavedSearches.class.getName());
     }
 
     private static boolean confirmInputDifferentName(String input) {
-        return MessageDisplayer.confirmYesNo(null, "ModifySavedSearches.Confirm.ChangeNameBecauseExists", input);
+        return MessageDisplayer.confirmYesNo(null,
+                "ModifySavedSearches.Confirm.ChangeNameBecauseExists", input);
     }
 
     private static boolean confirmDelete(String name) {
-        return MessageDisplayer.confirmYesNo(null, "ModifySavedSearches.Confirm.DeleteSearch", name);
+        return MessageDisplayer.confirmYesNo(null,
+                "ModifySavedSearches.Confirm.DeleteSearch", name);
     }
 
     private static boolean confirmInsert(SavedSearch savedSearch) {
         if (getDb().exists(savedSearch)) {
-            return MessageDisplayer.confirmYesNo(null, "ModifySavedSearches.Confirm.ReplaceExisting");
+            return MessageDisplayer.confirmYesNo(null,
+                    "ModifySavedSearches.Confirm.ReplaceExisting");
         }
+
         return true;
     }
 
-    private ModifySavedSearches() {
-    }
+    private ModifySavedSearches() {}
 }

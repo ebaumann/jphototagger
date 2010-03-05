@@ -17,18 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
-import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.dialog.ProgressDialog;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,10 +43,10 @@ import java.util.Set;
  */
 public final class UpdateAllThumbnails
         implements Runnable, ProgressListener, ActionListener {
-
-    private       ProgressDialog      progressDialog;
-    private       boolean             stop            = false;
-    private final Set<ActionListener> actionListeners = new HashSet<ActionListener>();
+    private ProgressDialog            progressDialog;
+    private boolean                   stop            = false;
+    private final Set<ActionListener> actionListeners =
+        new HashSet<ActionListener>();
 
     /**
      * Adds an action listener. It will be notified when the work is done.
@@ -57,6 +60,7 @@ public final class UpdateAllThumbnails
     @Override
     public void run() {
         DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+
         initProgressDialog();
         logUpdateAllThumbnails();
         db.updateAllThumbnails(this);
@@ -64,8 +68,11 @@ public final class UpdateAllThumbnails
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(GUI.INSTANCE.getAppFrame());
-        progressDialog.setTitle(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.Title"));
-        progressDialog.setInfoText(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.InfoText"));
+        progressDialog.setTitle(
+            JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.Title"));
+        progressDialog.setInfoText(
+            JptBundle.INSTANCE.getString(
+                "UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);
         progressDialog.addWindowListener(new SizeAndLocationController());
         progressDialog.setVisible(true);
@@ -118,7 +125,8 @@ public final class UpdateAllThumbnails
     }
 
     private void logUpdateAllThumbnails() {
-        AppLogger.logInfo(UpdateAllThumbnails.class, "UpdateAllThumbnails.Info.StartUpdate");
+        AppLogger.logInfo(UpdateAllThumbnails.class,
+                          "UpdateAllThumbnails.Info.StartUpdate");
     }
 
     private synchronized void notifyActionPerformed() {

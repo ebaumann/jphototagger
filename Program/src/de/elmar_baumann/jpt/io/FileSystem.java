@@ -17,14 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
-import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
+import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.ProgressEvent;
+
 import java.io.File;
 
 /**
@@ -34,9 +36,10 @@ import java.io.File;
  * @version 2008-10-20
  */
 public class FileSystem {
-
-    private final FileSystemListenerSupport fsListenerSupport = new FileSystemListenerSupport();
-    private final ProgressListenerSupport   pListenerSupport  = new ProgressListenerSupport();
+    private final FileSystemListenerSupport fsListenerSupport =
+        new FileSystemListenerSupport();
+    private final ProgressListenerSupport pListenerSupport =
+        new ProgressListenerSupport();
 
     protected FileSystem() {}
 
@@ -60,18 +63,17 @@ public class FileSystem {
         fsListenerSupport.add(listener);
     }
 
-    protected void notifyFileSystemListenersPerformed(FileSystemEvent.Type type, File src, File target) {
-
-        fsListenerSupport.notifyListeners(new FileSystemEvent(type, src, target));
-
+    protected void notifyFileSystemListenersPerformed(
+            FileSystemEvent.Type type, File src, File target) {
+        fsListenerSupport.notifyListeners(new FileSystemEvent(type, src,
+                target));
     }
 
-    protected void notifyFileSystemListenersFailed(FileSystemEvent.Type type, FileSystemError error, File src, File target) {
-
+    protected void notifyFileSystemListenersFailed(FileSystemEvent.Type type,
+            FileSystemError error, File src, File target) {
         FileSystemEvent event = new FileSystemEvent(type, src, target);
 
         event.setError(error);
-
         fsListenerSupport.notifyListeners(event);
     }
 }

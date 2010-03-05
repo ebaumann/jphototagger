@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.io.IoUtil;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 
 /**
@@ -31,7 +32,6 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
  * @version 2008-09-10
  */
 public final class ControllerDoubleklickThumbnail {
-
     private final ThumbnailsPanel panel;
 
     public ControllerDoubleklickThumbnail(ThumbnailsPanel panel) {
@@ -44,9 +44,10 @@ public final class ControllerDoubleklickThumbnail {
 
     private void openImage(int index) {
         if (panel.isIndex(index)) {
-            IoUtil.execute(IoUtil.quoteForCommandLine(
-                    UserSettings.INSTANCE.getDefaultImageOpenApp()),
-                    IoUtil.quoteForCommandLine(panel.getFile(index)));
+            IoUtil.execute(IoUtil
+                .quoteForCommandLine(UserSettings.INSTANCE
+                    .getDefaultImageOpenApp()), IoUtil
+                        .quoteForCommandLine(panel.getFile(index)));
         }
     }
 }

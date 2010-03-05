@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntry;
 import de.elmar_baumann.jpt.resource.Translation;
 import de.elmar_baumann.lib.componentutil.TableUtil;
+
 import java.awt.Component;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -37,45 +40,41 @@ import javax.swing.table.TableCellRenderer;
  */
 public final class TableCellRendererIptc extends FormatterLabelMetadata
         implements TableCellRenderer {
-
-    private static final Translation TRANSLATION = new Translation("IptcRecordDataSetNumberTranslations");
+    private static final Translation TRANSLATION =
+        new Translation("IptcRecordDataSetNumberTranslations");
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
+    public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel    cellLabel = new JLabel();
         IptcEntry iptcEntry = (IptcEntry) value;
 
         setDefaultCellColors(cellLabel, isSelected);
 
-        String number = Integer.toString(iptcEntry.getRecordNumber()) + ":" +
-                        Integer.toString(iptcEntry.getDataSetNumber());
+        String number = Integer.toString(iptcEntry.getRecordNumber()) + ":"
+                        + Integer.toString(iptcEntry.getDataSetNumber());
 
         if (column == 0) {
-
             setContentFont(cellLabel);
-            TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
-                    number,
-                    AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                    AppLookAndFeel.TABLE_ROW_HEADER_CSS);
-
+            TableUtil.embedTableCellTextInHtml(
+                table, row, cellLabel, number,
+                AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
+                AppLookAndFeel.TABLE_ROW_HEADER_CSS);
         } else if (column == 1) {
-
             setHeaderFont(cellLabel);
-            TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
-                    TRANSLATION.translate(number, number),
-                    AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                    AppLookAndFeel.TABLE_CELL_CSS);
-
+            TableUtil.embedTableCellTextInHtml(
+                table, row, cellLabel, TRANSLATION.translate(number, number),
+                AppLookAndFeel.TABLE_MAX_CHARS_CELL,
+                AppLookAndFeel.TABLE_CELL_CSS);
         } else {
-
             assert column < 3 : column;
             setContentFont(cellLabel);
-            TableUtil.embedTableCellTextInHtml(table, row, cellLabel,
-                    iptcEntry.getData(),
-                    AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                    AppLookAndFeel.TABLE_CELL_CSS);
+            TableUtil.embedTableCellTextInHtml(
+                table, row, cellLabel, iptcEntry.getData(),
+                AppLookAndFeel.TABLE_MAX_CHARS_CELL,
+                AppLookAndFeel.TABLE_CELL_CSS);
         }
+
         return cellLabel;
     }
 }

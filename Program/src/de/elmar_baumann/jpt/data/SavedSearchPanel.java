@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
-import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,21 +34,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearchPanel {
-
-    private int     panelIndex          = Integer.MIN_VALUE;
+    private int     panelIndex = Integer.MIN_VALUE;
     private boolean bracketLeft1Selected;
     private boolean bracketLeft2Selected;
     private boolean bracketRightSelected;
-    private int     operatorId          = -1;
-    private int     columnId            = -1;
-    private int     comparatorId        = -1;
+    private int     operatorId   = -1;
+    private int     columnId     = -1;
+    private int     comparatorId = -1;
     private String  value;
 
-    public SavedSearchPanel() {
-    }
+    public SavedSearchPanel() {}
 
     public SavedSearchPanel(SavedSearchPanel other) {
-        panelIndex = other.panelIndex;
+        panelIndex           = other.panelIndex;
         bracketLeft1Selected = other.bracketLeft1Selected;
         bracketLeft2Selected = other.bracketLeft2Selected;
         bracketRightSelected = other.bracketRightSelected;

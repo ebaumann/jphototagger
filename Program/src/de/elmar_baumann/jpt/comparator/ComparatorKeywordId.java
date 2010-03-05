@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.comparator;
 
 import de.elmar_baumann.jpt.data.Keyword;
+
 import java.util.Comparator;
 
 /**
@@ -28,9 +30,7 @@ import java.util.Comparator;
  * @author  Elmar Baumann
  * @version 2009-07-10
  */
-public final class ComparatorKeywordId
-        implements Comparator<Keyword> {
-
+public final class ComparatorKeywordId implements Comparator<Keyword> {
     public static ComparatorKeywordId INSTANCE = new ComparatorKeywordId();
 
     @Override

@@ -17,11 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
-import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifCopyright;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifCopyright;
 
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#COPYRIGHT}.
@@ -30,15 +31,13 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
  * @version 2009-06-10
  */
 public final class ExifFormatterCopyright extends ExifFormatter {
+    public static final ExifFormatterCopyright INSTANCE =
+        new ExifFormatterCopyright();
 
-    public static final ExifFormatterCopyright INSTANCE = new ExifFormatterCopyright();
-
-    private ExifFormatterCopyright() {
-    }
+    private ExifFormatterCopyright() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.COPYRIGHT);
 
         return ExifCopyright.photographerCopyright(exifTag.rawValue());

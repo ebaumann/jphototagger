@@ -17,17 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
 import de.elmar_baumann.jpt.exporter.AutoscanDirectoriesExporter;
-import de.elmar_baumann.jpt.exporter.AutoscanDirectoriesExporter.CollectionWrapper;
+import de.elmar_baumann.jpt.exporter.AutoscanDirectoriesExporter
+    .CollectionWrapper;
 import de.elmar_baumann.jpt.exporter.StringWrapper;
+
 import java.io.File;
-import javax.swing.Icon;
+
 import javax.swing.filechooser.FileFilter;
+import javax.swing.Icon;
 
 /**
  *
@@ -36,19 +40,21 @@ import javax.swing.filechooser.FileFilter;
  * @version 2010-03-02
  */
 public final class AutoscanDirectoriesImporter implements Importer {
-
-    public static final AutoscanDirectoriesImporter INSTANCE = new AutoscanDirectoriesImporter();
+    public static final AutoscanDirectoriesImporter INSTANCE =
+        new AutoscanDirectoriesImporter();
 
     @Override
     public void importFile(File file) {
         try {
-            AutoscanDirectoriesExporter.CollectionWrapper wrapper = (CollectionWrapper)
-                    XmlObjectImporter.importObject(
-                          file, AutoscanDirectoriesExporter.CollectionWrapper.class);
+            AutoscanDirectoriesExporter.CollectionWrapper wrapper =
+                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    AutoscanDirectoriesExporter.CollectionWrapper.class);
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
-                if (!DatabaseAutoscanDirectories.INSTANCE.exists(stringWrapper.getString())) {
-                    DatabaseAutoscanDirectories.INSTANCE.insert(stringWrapper.getString());
+                if (!DatabaseAutoscanDirectories.INSTANCE.exists(
+                        stringWrapper.getString())) {
+                    DatabaseAutoscanDirectories.INSTANCE.insert(
+                        stringWrapper.getString());
                 }
             }
         } catch (Exception ex) {
@@ -76,6 +82,5 @@ public final class AutoscanDirectoriesImporter implements Importer {
         return AutoscanDirectoriesExporter.INSTANCE.getDefaultFilename();
     }
 
-    private AutoscanDirectoriesImporter() {
-    }
+    private AutoscanDirectoriesImporter() {}
 }

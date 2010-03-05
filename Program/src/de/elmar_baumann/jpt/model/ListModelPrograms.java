@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
@@ -25,7 +26,9 @@ import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
+
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -39,10 +42,10 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann
  * @version 2008-10-16
  */
-public final class ListModelPrograms extends DefaultListModel implements DatabaseProgramsListener {
-
+public final class ListModelPrograms extends DefaultListModel
+        implements DatabaseProgramsListener {
     private static final long serialVersionUID = 1107244876982338977L;
-    private              Type type;
+    private Type              type;
 
     public ListModelPrograms(Type type) {
         this.type = type;
@@ -54,7 +57,8 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         if (!contains(program) && DatabasePrograms.INSTANCE.insert(program)) {
             addElement(program);
         } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Add", program.getAlias());
+            MessageDisplayer.error(null, "ListModelPrograms.Error.Add",
+                                   program.getAlias());
         }
     }
 
@@ -62,21 +66,25 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
             removeElement(program);
         } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Remove", program.getAlias());
+            MessageDisplayer.error(null, "ListModelPrograms.Error.Remove",
+                                   program.getAlias());
         }
     }
 
     public void update(Program program) {
         if (contains(program) && DatabasePrograms.INSTANCE.update(program)) {
             int index = indexOf(program);
+
             fireContentsChanged(this, index, index);
         } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Update",program.getAlias());
+            MessageDisplayer.error(null, "ListModelPrograms.Error.Update",
+                                   program.getAlias());
         }
     }
 
     private void addElements() {
         List<Program> programs = DatabasePrograms.INSTANCE.getAll(type);
+
         for (Program program : programs) {
             addElement(program);
         }
@@ -86,17 +94,23 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
     public void actionPerformed(DatabaseProgramsEvent event) {
         Program program = event.getProgram();
 
-        if (program.isAction() && type.equals(Type.PROGRAM) ||
-           !program.isAction() && type.equals(Type.ACTION)) return;
+        if ((program.isAction() && type.equals(Type.PROGRAM))
+                ||(!program.isAction() && type.equals(Type.ACTION))) {
+            return;
+        }
 
-        if (event.getType().equals(DatabaseProgramsEvent.Type.PROGRAM_INSERTED)) {
+        if (event.getType().equals(
+                DatabaseProgramsEvent.Type.PROGRAM_INSERTED)) {
             addElement(program);
-        } else if (event.getType().equals(DatabaseProgramsEvent.Type.PROGRAM_UPDATED)) {
+        } else if (event.getType().equals(
+                DatabaseProgramsEvent.Type.PROGRAM_UPDATED)) {
             int index = indexOf(program);
+
             if (index >= 0) {
                 set(index, program);
             }
-        } else if (event.getType().equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED)) {
+        } else if (event.getType().equals(
+                DatabaseProgramsEvent.Type.PROGRAM_DELETED)) {
             removeElement(program);
         }
     }

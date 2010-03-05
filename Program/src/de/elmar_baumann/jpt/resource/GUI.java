@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.resource;
 
 import de.elmar_baumann.jpt.view.frames.AppFrame;
@@ -29,9 +30,8 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
  * @version 2008-09-29
  */
 public final class GUI {
-
-    private AppPanel appPanel;
-    private AppFrame appFrame;
+    private AppPanel        appPanel;
+    private AppFrame        appFrame;
     public static final GUI INSTANCE = new GUI();
 
     public void setAppPanel(AppPanel panel) {

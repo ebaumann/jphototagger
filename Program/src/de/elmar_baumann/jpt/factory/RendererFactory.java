@@ -17,11 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
@@ -35,7 +36,9 @@ import de.elmar_baumann.jpt.view.renderer.TableCellRendererXmp;
 import de.elmar_baumann.lib.componentutil.ListItemTempSelectionRowSetter;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.componentutil.TreeItemTempSelectionRowSetter;
+
 import java.util.List;
+
 import javax.swing.JTable;
 
 /**
@@ -45,23 +48,28 @@ import javax.swing.JTable;
  * @version 2008-09-29
  */
 public final class RendererFactory {
-
-    static final     RendererFactory INSTANCE = new RendererFactory();
-    private volatile boolean         init;
+    static final RendererFactory INSTANCE = new RendererFactory();
+    private volatile boolean     init;
 
     synchronized void init() {
         synchronized (this) {
-            if (!Support.checkInit(getClass(), init)) return;
+            if (!Support.checkInit(getClass(), init)) {
+                return;
+            }
+
             init = true;
         }
-        AppLogger.logFine(getClass(), "RendererFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("RendererFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
 
+        AppLogger.logFine(getClass(), "RendererFactory.Init.Start");
+        GUI.INSTANCE.getAppPanel().setStatusbarText(
+            JptBundle.INSTANCE.getString("RendererFactory.Init.Start"),
+            MessageLabel.MessageType.INFO, -1);
         setMetadataTablesRenderers();
         setPopupMenuHighlighter();
-
         AppLogger.logFine(getClass(), "RendererFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString("RendererFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+        GUI.INSTANCE.getAppPanel().setStatusbarText(
+            JptBundle.INSTANCE.getString("RendererFactory.Init.Finished"),
+            MessageLabel.MessageType.INFO, 1000);
     }
 
     private void setMetadataTablesRenderers() {
@@ -73,18 +81,27 @@ public final class RendererFactory {
             table.setDefaultRenderer(Object.class, rendererTableCellXmp);
         }
 
-        appPanel.getTableIptc().setDefaultRenderer(Object.class, new TableCellRendererIptc());
-        appPanel.getTableExif().setDefaultRenderer(Object.class, new TableCellRendererExif());
+        appPanel.getTableIptc().setDefaultRenderer(Object.class,
+                new TableCellRendererIptc());
+        appPanel.getTableExif().setDefaultRenderer(Object.class,
+                new TableCellRendererExif());
     }
 
     private void setPopupMenuHighlighter() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeFavorites()                            , PopupMenuFavorites.INSTANCE);
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeDirectories()                          , PopupMenuDirectories.INSTANCE);
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeEditKeywords()                         , PopupMenuKeywordsTree.INSTANCE);
-        new TreeItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(), PopupMenuKeywordsTree.INSTANCE);
-        new ListItemTempSelectionRowSetter(appPanel.getListImageCollections()                     , PopupMenuImageCollections.INSTANCE);
-        new ListItemTempSelectionRowSetter(appPanel.getListSavedSearches()                        , PopupMenuSavedSearches.INSTANCE);
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeFavorites(),
+                                           PopupMenuFavorites.INSTANCE);
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeDirectories(),
+                                           PopupMenuDirectories.INSTANCE);
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeEditKeywords(),
+                                           PopupMenuKeywordsTree.INSTANCE);
+        new TreeItemTempSelectionRowSetter(
+            InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
+            PopupMenuKeywordsTree.INSTANCE);
+        new ListItemTempSelectionRowSetter(appPanel.getListImageCollections(),
+                                           PopupMenuImageCollections.INSTANCE);
+        new ListItemTempSelectionRowSetter(appPanel.getListSavedSearches(),
+                                           PopupMenuSavedSearches.INSTANCE);
     }
 }

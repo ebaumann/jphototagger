@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.popupmenus;
 
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
@@ -36,23 +39,57 @@ import javax.swing.tree.TreePath;
  * @version 2008-09-23
  */
 public final class PopupMenuFavorites extends JPopupMenu {
-
-    private static final long               serialVersionUID           = -7344945087460562958L;
-    private final        JMenuItem          itemInsertFavorite         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.InsertFavorite"));
-    private final        JMenuItem          itemUpdateFavorite         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.UpdateFavorite"));
-    private final        JMenuItem          itemDeleteFavorite         = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.DeleteFavorite"));
-    private final        JMenuItem          itemOpenInFolders          = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.OpenInFolders"));
-    private final        JMenuItem          itemRefresh                = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.Refresh"));
-    private final        JMenuItem          itemMoveUp                 = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.MoveUp"));
-    private final        JMenuItem          itemAddFilesystemFolder    = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"));
-    private final        JMenuItem          itemRenameFilesystemFolder = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"));
-    private final        JMenuItem          itemDeleteFilesystemFolder = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"));
-    private final        JMenuItem          itemMoveDown               = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.MoveDown"));
-    private final        JMenuItem          itemExpandAllSubitems      = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final        JMenuItem          itemCollapseAllSubitems    = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
-    private              TreePath           treePath;
-    private transient    Favorite           favoriteDirectory;
-    public static final  PopupMenuFavorites INSTANCE                   = new PopupMenuFavorites();
+    private static final long serialVersionUID   = -7344945087460562958L;
+    private final JMenuItem   itemInsertFavorite =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.InsertFavorite"));
+    private final JMenuItem itemUpdateFavorite =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.UpdateFavorite"));
+    private final JMenuItem itemDeleteFavorite =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.DeleteFavorite"));
+    private final JMenuItem itemOpenInFolders =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.OpenInFolders"));
+    private final JMenuItem itemRefresh =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.Refresh"));
+    private final JMenuItem itemMoveUp =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.MoveUp"));
+    private final JMenuItem itemAddFilesystemFolder =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"));
+    private final JMenuItem itemRenameFilesystemFolder =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"));
+    private final JMenuItem itemDeleteFilesystemFolder =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"));
+    private final JMenuItem itemMoveDown =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuFavorites.DisplayName.Action.MoveDown"));
+    private final JMenuItem itemExpandAllSubitems =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final JMenuItem itemCollapseAllSubitems =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "MouseListenerTreeExpand.ItemCollapse"));
+    private TreePath                       treePath;
+    private transient Favorite             favoriteDirectory;
+    public static final PopupMenuFavorites INSTANCE = new PopupMenuFavorites();
 
     public JMenuItem getItemDeleteFavorite() {
         return itemDeleteFavorite;
@@ -147,13 +184,20 @@ public final class PopupMenuFavorites extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemUpdateFavorite        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
-        itemInsertFavorite        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
-        itemOpenInFolders         .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
-        itemAddFilesystemFolder   .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-        itemDeleteFavorite        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemDeleteFilesystemFolder.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
-        itemRenameFilesystemFolder.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemRefresh               .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+        itemUpdateFavorite.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
+                InputEvent.CTRL_MASK));
+        itemInsertFavorite.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
+                InputEvent.CTRL_MASK));
+        itemOpenInFolders.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
+                InputEvent.CTRL_MASK));
+        itemAddFilesystemFolder.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        itemDeleteFavorite.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemDeleteFilesystemFolder.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+        itemRenameFilesystemFolder.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemRefresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
     }
 }

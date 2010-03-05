@@ -17,21 +17,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.nometadata;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.util.List;
-import javax.swing.JList;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JList;
 
 /**
  * Listens to selections within the list {@link AppPanel#getListNoMetadata()}
@@ -43,7 +46,6 @@ import javax.swing.event.ListSelectionListener;
  */
 public final class ControllerNoMetadataItemSelected
         implements ListSelectionListener {
-
     private final JList list = GUI.INSTANCE.getAppPanel().getListNoMetadata();
 
     public ControllerNoMetadataItemSelected() {
@@ -51,7 +53,8 @@ public final class ControllerNoMetadataItemSelected
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppPanel().getListNoMetadata().addListSelectionListener(this);
+        GUI.INSTANCE.getAppPanel().getListNoMetadata().addListSelectionListener(
+            this);
     }
 
     @Override
@@ -63,17 +66,27 @@ public final class ControllerNoMetadataItemSelected
 
     private void setFiles() {
         Object selValue = list.getSelectedValue();
+
         if (selValue instanceof Column) {
-            List<String> filenames = DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadataIn((Column) selValue);
+            List<String> filenames =
+                DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadataIn(
+                    (Column) selValue);
+
             setTitle((Column) selValue);
-            ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+
+            ThumbnailsPanel thumbnailsPanel =
+                GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+
             ControllerSortThumbnails.setLastSort();
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames), Content.MISSING_METADATA);
+            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
+                                     Content.MISSING_METADATA);
         }
     }
 
     private void setTitle(Column column) {
         GUI.INSTANCE.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString("ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", column.getDescription()));
+            JptBundle.INSTANCE.getString(
+                "ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata",
+                column.getDescription()));
     }
 }

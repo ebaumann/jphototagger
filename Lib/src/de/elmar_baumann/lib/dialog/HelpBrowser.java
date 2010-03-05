@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.dialog;
 
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -27,19 +28,23 @@ import de.elmar_baumann.lib.renderer.TreeCellRendererHelpContents;
 import de.elmar_baumann.lib.resource.JslBundle;
 import de.elmar_baumann.lib.util.help.HelpNode;
 import de.elmar_baumann.lib.util.help.HelpPage;
-import java.awt.Frame;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.Frame;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -54,27 +59,29 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann
  * @version 2008-10-05
  */
-public final class HelpBrowser
-        extends    Dialog
-        implements ActionListener,
-                   HyperlinkListener,
-                   MouseListener,
+public final class HelpBrowser extends Dialog
+        implements ActionListener, HyperlinkListener, MouseListener,
                    TreeSelectionListener {
-
-    private static final String                    DISPLAY_NAME_ACTION_PREVIOUS = JslBundle.INSTANCE.getString("HelpBrowser.Action.Previous");
-    private static final String                    DISPLAY_NAME_ACTION_NEXT     = JslBundle.INSTANCE.getString("HelpBrowser.Action.Next");
-    private static final long                      serialVersionUID             = 6909713450716449838L;
-    private final        LinkedList<URL>           urlHistory                   = new LinkedList<URL>();
-    private final        List<HelpBrowserListener> helpBrowserListeners         = new ArrayList<HelpBrowserListener>();
-    private              int                       currentHistoryIndex          = -1;
-    private              PopupMenu                 popupMenu;
-    private              MenuItem                  itemPrevious;
-    private              MenuItem                  itemNext;
-    private              String                    startUrl;
-    private              String                    baseUrl;
-    private              String                    contentsUrl;
-    private              boolean                   settingPath;
-    public static final  HelpBrowser               INSTANCE                     = new HelpBrowser(ComponentUtil.getFrameWithIcon());
+    private static final String DISPLAY_NAME_ACTION_PREVIOUS =
+        JslBundle.INSTANCE.getString("HelpBrowser.Action.Previous");
+    private static final String DISPLAY_NAME_ACTION_NEXT =
+        JslBundle.INSTANCE.getString("HelpBrowser.Action.Next");
+    private static final long               serialVersionUID     =
+        6909713450716449838L;
+    private final LinkedList<URL>           urlHistory           =
+        new LinkedList<URL>();
+    private final List<HelpBrowserListener> helpBrowserListeners =
+        new ArrayList<HelpBrowserListener>();
+    private int                     currentHistoryIndex = -1;
+    private PopupMenu               popupMenu;
+    private MenuItem                itemPrevious;
+    private MenuItem                itemNext;
+    private String                  startUrl;
+    private String                  baseUrl;
+    private String                  contentsUrl;
+    private boolean                 settingPath;
+    public static final HelpBrowser INSTANCE =
+        new HelpBrowser(ComponentUtil.getFrameWithIcon());
 
     private HelpBrowser(Frame parent) {
         super(parent);
@@ -85,7 +92,8 @@ public final class HelpBrowser
     private void postInitComponents() {
         initPopupMenu();
         editorPanePage.addHyperlinkListener(this);
-        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        tree.getSelectionModel().setSelectionMode(
+            TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
     }
@@ -95,7 +103,8 @@ public final class HelpBrowser
      *
      * @param listener  listener
      */
-    public synchronized void addHelpBrowserListener(HelpBrowserListener listener) {
+    public synchronized void addHelpBrowserListener(
+            HelpBrowserListener listener) {
         helpBrowserListeners.add(listener);
     }
 
@@ -104,12 +113,15 @@ public final class HelpBrowser
      *
      * @param listener  listener
      */
-    public synchronized void removeHelpBrowserListener(HelpBrowserListener listener) {
+    public synchronized void removeHelpBrowserListener(
+            HelpBrowserListener listener) {
         helpBrowserListeners.remove(listener);
     }
 
     private synchronized void notifyUrlChanged(URL url) {
-        HelpBrowserEvent action = new HelpBrowserEvent(this, HelpBrowserEvent.Type.URL_CHANGED, url);
+        HelpBrowserEvent action = new HelpBrowserEvent(this,
+                                      HelpBrowserEvent.Type.URL_CHANGED, url);
+
         for (HelpBrowserListener listener : helpBrowserListeners) {
             listener.actionPerformed(action);
         }
@@ -167,6 +179,7 @@ public final class HelpBrowser
 
     private synchronized void setBaseUrl(String url) {
         int index = url.lastIndexOf("/");
+
         baseUrl = url.substring(0, index);
     }
 
@@ -174,6 +187,7 @@ public final class HelpBrowser
         if (startUrl != null) {
             HelpNode node = (HelpNode) tree.getModel().getRoot();
             Object[] path = node.getPagePath(startUrl);
+
             if (path != null) {
                 tree.setSelectionPath(new TreePath(path));
             }
@@ -181,55 +195,58 @@ public final class HelpBrowser
     }
 
     private boolean canGoNext() {
-        return currentHistoryIndex + 1 > 0 &&
-                currentHistoryIndex + 1 < urlHistory.size();
+        return (currentHistoryIndex + 1 > 0)
+               && (currentHistoryIndex + 1 < urlHistory.size());
     }
 
     private boolean canGoPrevious() {
-        return currentHistoryIndex - 1 >= 0 &&
-                currentHistoryIndex - 1 < urlHistory.size();
+        return (currentHistoryIndex - 1 >= 0)
+               && (currentHistoryIndex - 1 < urlHistory.size());
     }
 
     private void goNext() {
-        if (currentHistoryIndex + 1 >= 0 && currentHistoryIndex + 1 < urlHistory.size()) {
+        if ((currentHistoryIndex + 1 >= 0)
+                && (currentHistoryIndex + 1 < urlHistory.size())) {
             currentHistoryIndex++;
             setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
+            setSelectionPath(
+                getLastPathComponent(urlHistory.get(currentHistoryIndex)));
             setButtonStatus();
         }
     }
 
     private void goPrevious() {
-        if (currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 < urlHistory.size()) {
+        if ((currentHistoryIndex - 1 >= 0)
+                && (currentHistoryIndex - 1 < urlHistory.size())) {
             currentHistoryIndex--;
             setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
+            setSelectionPath(
+                getLastPathComponent(urlHistory.get(currentHistoryIndex)));
             setButtonStatus();
         }
     }
 
     private void initPopupMenu() {
-        popupMenu = new PopupMenu();
+        popupMenu    = new PopupMenu();
         itemPrevious = new MenuItem(DISPLAY_NAME_ACTION_PREVIOUS);
-        itemNext = new MenuItem(DISPLAY_NAME_ACTION_NEXT);
-
+        itemNext     = new MenuItem(DISPLAY_NAME_ACTION_NEXT);
         itemPrevious.addActionListener(this);
         itemNext.addActionListener(this);
-
         editorPanePage.addMouseListener(this);
-
         popupMenu.add(itemPrevious);
         popupMenu.add(itemNext);
         add(popupMenu);
     }
 
     private void removeNextHistory() {
-        int historyUrlCount = urlHistory.size();
-        boolean canRemove = historyUrlCount > 0 &&
-                            currentHistoryIndex >= 0 &&
-                            currentHistoryIndex < historyUrlCount;
+        int     historyUrlCount = urlHistory.size();
+        boolean canRemove       = (historyUrlCount > 0)
+                                  && (currentHistoryIndex >= 0)
+                                  && (currentHistoryIndex < historyUrlCount);
+
         if (canRemove) {
             int removeCount = historyUrlCount - currentHistoryIndex - 1;
+
             for (int i = 0; i < removeCount; i++) {
                 urlHistory.pollLast();
             }
@@ -253,7 +270,8 @@ public final class HelpBrowser
         try {
             editorPanePage.setPage(url);
         } catch (Exception ex) {
-            Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE,
+                             null, ex);
         }
     }
 
@@ -262,6 +280,7 @@ public final class HelpBrowser
         if (visible) {
             selectStartUrl();
         }
+
         super.setVisible(visible);
     }
 
@@ -277,9 +296,12 @@ public final class HelpBrowser
     @Override
     public void hyperlinkUpdate(HyperlinkEvent e) {
         if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-            URL url = e.getURL();
-            String lastPathComponent = getLastPathComponent(url);
-            Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
+            URL      url               = e.getURL();
+            String   lastPathComponent = getLastPathComponent(url);
+            Object[] path              =
+                ((HelpNode) tree.getModel().getRoot()).getPagePath(
+                    lastPathComponent);
+
             if (path == null) {
                 showUrl(url);
             } else {
@@ -289,8 +311,11 @@ public final class HelpBrowser
     }
 
     private void setSelectionPath(String lastPathComponent) {
-        Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
+        Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(
+                            lastPathComponent);
+
         assert path != null;
+
         if (path != null) {
             settingPath = true;
             tree.setSelectionPath(new TreePath(path));
@@ -305,11 +330,13 @@ public final class HelpBrowser
      * @return last path component
      */
     public static String getLastPathComponent(URL url) {
-        String path = url.getPath();
-        int index = path.lastIndexOf("/");
-        if (index > 0 && index < path.length() - 1) {
+        String path  = url.getPath();
+        int    index = path.lastIndexOf("/");
+
+        if ((index > 0) && (index < path.length() - 1)) {
             return path.substring(index + 1);
         }
+
         return path;
     }
 
@@ -318,11 +345,17 @@ public final class HelpBrowser
         synchronized (this) {
             if (!settingPath && e.isAddedPath()) {
                 Object o = e.getNewLeadSelectionPath().getLastPathComponent();
+
                 if (o instanceof HelpPage) {
-                    HelpPage helpPage = (HelpPage) o;
-                    String helpPageUrl = helpPage.getUrl();
-                    URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
-                    setTitle(helpPage.getTitle() + JslBundle.INSTANCE.getString("HelpBrowser.TitlePostfix"));
+                    HelpPage helpPage    = (HelpPage) o;
+                    String   helpPageUrl = helpPage.getUrl();
+                    URL      url         = getClass().getResource(baseUrl + "/"
+                                               + helpPageUrl);
+
+                    setTitle(
+                        helpPage.getTitle()
+                        + JslBundle.INSTANCE.getString(
+                            "HelpBrowser.TitlePostfix"));
                     showUrl(url);
                 }
             }
@@ -330,8 +363,7 @@ public final class HelpBrowser
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -339,89 +371,94 @@ public final class HelpBrowser
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
-    /** This method is called from within the constructor to
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        splitPane = new javax.swing.JSplitPane();
-        panelTree = new javax.swing.JPanel();
+        splitPane      = new javax.swing.JSplitPane();
+        panelTree      = new javax.swing.JPanel();
         scrollPaneTree = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
-        panelPage = new javax.swing.JPanel();
+        tree           = new javax.swing.JTree();
+        panelPage      = new javax.swing.JPanel();
         scrollPanePage = new javax.swing.JScrollPane();
         editorPanePage = new javax.swing.JEditorPane();
         buttonPrevious = new javax.swing.JButton();
-        buttonNext = new javax.swing.JButton();
-
+        buttonNext     = new javax.swing.JButton();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/lib/resource/properties/Bundle"); // NOI18N
-        setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
 
+        java.util.ResourceBundle bundle =
+            java.util.ResourceBundle.getBundle(
+                "de/elmar_baumann/lib/resource/properties/Bundle");    // NOI18N
+
+        setTitle(bundle.getString("HelpBrowser.title"));    // NOI18N
         splitPane.setDividerLocation(250);
         splitPane.setDividerSize(2);
-
         tree.setModel(null);
         tree.setCellRenderer(new TreeCellRendererHelpContents());
         scrollPaneTree.setViewportView(tree);
 
-        javax.swing.GroupLayout panelTreeLayout = new javax.swing.GroupLayout(panelTree);
+        javax.swing.GroupLayout panelTreeLayout =
+            new javax.swing.GroupLayout(panelTree);
+
         panelTree.setLayout(panelTreeLayout);
         panelTreeLayout.setHorizontalGroup(
-            panelTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
+            panelTreeLayout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 100,
+                Short.MAX_VALUE));
         panelTreeLayout.setVerticalGroup(
-            panelTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-        );
-
+            panelTreeLayout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 456,
+                Short.MAX_VALUE));
         splitPane.setLeftComponent(panelTree);
-
         editorPanePage.setEditable(false);
         scrollPanePage.setViewportView(editorPanePage);
 
-        javax.swing.GroupLayout panelPageLayout = new javax.swing.GroupLayout(panelPage);
+        javax.swing.GroupLayout panelPageLayout =
+            new javax.swing.GroupLayout(panelPage);
+
         panelPage.setLayout(panelPageLayout);
         panelPageLayout.setHorizontalGroup(
-            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-        );
+            panelPageLayout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING,
+                javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE));
         panelPageLayout.setVerticalGroup(
-            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePage, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-        );
-
+            panelPageLayout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                scrollPanePage, javax.swing.GroupLayout.DEFAULT_SIZE, 456,
+                Short.MAX_VALUE));
         splitPane.setRightComponent(panelPage);
-
         buttonPrevious.setMnemonic('z');
-        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
-        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
+        buttonPrevious.setText(
+            bundle.getString("HelpBrowser.buttonPrevious.text"));    // NOI18N
+        buttonPrevious.setToolTipText(
+            bundle.getString("HelpBrowser.buttonPrevious.toolTipText"));    // NOI18N
         buttonPrevious.setEnabled(false);
         buttonPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPreviousActionPerformed(evt);
             }
         });
-
         buttonNext.setMnemonic('v');
-        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text")); // NOI18N
-        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
+        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text"));    // NOI18N
+        buttonNext.setToolTipText(
+            bundle.getString("HelpBrowser.buttonNext.toolTipText"));    // NOI18N
         buttonNext.setEnabled(false);
         buttonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,64 +466,72 @@ public final class HelpBrowser
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout =
+            new javax.swing.GroupLayout(getContentPane());
+
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonPrevious)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonNext)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonNext)
-                    .addComponent(buttonPrevious))
-                .addContainerGap())
-        );
-
+        layout.setHorizontalGroup(layout
+            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                .createSequentialGroup().addContainerGap()
+                .addGroup(layout
+                    .createParallelGroup(javax.swing.GroupLayout.Alignment
+                        .TRAILING)
+                            .addComponent(splitPane, javax.swing.GroupLayout
+                                .DEFAULT_SIZE, 573, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(buttonPrevious)
+                                        .addPreferredGap(javax.swing.LayoutStyle
+                                            .ComponentPlacement.RELATED)
+                                                .addComponent(buttonNext)))
+                                                    .addContainerGap()));
+        layout.setVerticalGroup(layout
+            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                .createSequentialGroup().addContainerGap()
+                .addComponent(splitPane, javax.swing.GroupLayout
+                    .DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle
+                            .ComponentPlacement.RELATED)
+                                .addGroup(layout
+                                    .createParallelGroup(javax.swing.GroupLayout
+                                        .Alignment.BASELINE)
+                                            .addComponent(buttonNext)
+                                                .addComponent(buttonPrevious))
+                                                    .addContainerGap()));
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }    // </editor-fold>//GEN-END:initComponents
 
-private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
-    goNext();
-}//GEN-LAST:event_buttonNextActionPerformed
+    private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonNextActionPerformed
+        goNext();
+    }    // GEN-LAST:event_buttonNextActionPerformed
 
-private void buttonPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviousActionPerformed
-    goPrevious();
-}//GEN-LAST:event_buttonPreviousActionPerformed
+    private void buttonPreviousActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonPreviousActionPerformed
+        goPrevious();
+    }    // GEN-LAST:event_buttonPreviousActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 INSTANCE.setVisible(true);
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonNext;
-    private javax.swing.JButton buttonPrevious;
+    private javax.swing.JButton     buttonNext;
+    private javax.swing.JButton     buttonPrevious;
     private javax.swing.JEditorPane editorPanePage;
-    private javax.swing.JPanel panelPage;
-    private javax.swing.JPanel panelTree;
+    private javax.swing.JPanel      panelPage;
+    private javax.swing.JPanel      panelTree;
     private javax.swing.JScrollPane scrollPanePage;
     private javax.swing.JScrollPane scrollPaneTree;
-    private javax.swing.JSplitPane splitPane;
-    private javax.swing.JTree tree;
+    private javax.swing.JSplitPane  splitPane;
+    private javax.swing.JTree       tree;
+
     // End of variables declaration//GEN-END:variables
 }

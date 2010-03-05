@@ -17,12 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
+
 import java.awt.Image;
+
 import java.io.File;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,38 +36,42 @@ import java.util.Set;
  * @version 2008-07-28
  */
 public final class ImageFile {
-
-    private      String                                   filename;
-    private      long                                     lastmodified = -1;
-    private      Image                                    thumbnail;
-    private      Xmp                                      xmp;
-    private      Exif                                     exif;
-    private      Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb  = new HashSet<InsertImageFilesIntoDatabase.Insert>();
+    private String                                   filename;
+    private long                                     lastmodified = -1;
+    private Image                                    thumbnail;
+    private Xmp                                      xmp;
+    private Exif                                     exif;
+    private Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb =
+        new HashSet<InsertImageFilesIntoDatabase.Insert>();
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof File && filename != null) {
-            return filename.equals(((File) obj).getAbsolutePath());
 
+        if ((obj instanceof File) && (filename != null)) {
+            return filename.equals(((File) obj).getAbsolutePath());
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final ImageFile other = (ImageFile) obj;
+
         if ((this.filename == null)
             ? (other.filename != null)
             : !this.filename.equals(other.filename)) {
             return false;
         }
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        return this.filename != null
+        return (this.filename != null)
                ? this.filename.hashCode()
                : 0;
     }
@@ -102,7 +110,7 @@ public final class ImageFile {
     }
 
     /**
-     * 
+     *
      *
      * @return Thumbnail or null
      */
@@ -148,7 +156,8 @@ public final class ImageFile {
     }
 
     public boolean isInsertThumbnailIntoDb() {
-        return insertIntoDb.contains(InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
+        return insertIntoDb.contains(
+            InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
     }
 
     public Set<Insert> getInsertIntoDb() {

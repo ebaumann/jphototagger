@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
@@ -26,8 +27,10 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,10 +41,12 @@ import java.util.Set;
  * @version 2009-06-14
  */
 final class UpdateTablesDeleteInvalidExif {
-
-    private static final String               KEY_REMOVED_INVALID_EXIF = "Removed_Invalid_EXIF_1"; // Never change this!
-    private final        UpdateTablesMessages messages                 = UpdateTablesMessages.INSTANCE;
-    private static final Set<Column>          COLUMNS_NOT_POSITIVE     = new HashSet<Column>();
+    private static final String KEY_REMOVED_INVALID_EXIF =
+        "Removed_Invalid_EXIF_1";    // Never change this!
+    private final UpdateTablesMessages messages             =
+        UpdateTablesMessages.INSTANCE;
+    private static final Set<Column>   COLUMNS_NOT_POSITIVE =
+        new HashSet<Column>();
 
     static {
         COLUMNS_NOT_POSITIVE.add(ColumnExifFocalLength.INSTANCE);
@@ -49,30 +54,43 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     void update(Connection connection) throws SQLException {
-        if (DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF)) return;
-        messages.message(JptBundle.INSTANCE.getString("UpdateTablesDeleteInvalidExif.Info.update"));
+        if (DatabaseApplicationProperties.INSTANCE.getBoolean(
+                KEY_REMOVED_INVALID_EXIF)) {
+            return;
+        }
+
+        messages.message(
+            JptBundle.INSTANCE.getString(
+                "UpdateTablesDeleteInvalidExif.Info.update"));
         setNull(connection);
         messages.clearMessage();
-        DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
+        DatabaseApplicationProperties.INSTANCE.setBoolean(
+            KEY_REMOVED_INVALID_EXIF, true);
     }
 
     private void setNull(Connection connection) throws SQLException {
         for (Column column : COLUMNS_NOT_POSITIVE) {
             setNullIfNotPositiv(connection, column);
         }
+
         checkRecordingEquipment(connection);
     }
 
-    private void setNullIfNotPositiv(Connection connection, Column column) throws SQLException {
-        Database.execute(connection, "UPDATE " + column.getTable().getName() +
-                " SET " + column.getName() + " = NULL" +
-                " WHERE " + column.getName() + " <= 0");
+    private void setNullIfNotPositiv(Connection connection, Column column)
+            throws SQLException {
+        Database.execute(connection,
+                         "UPDATE " + column.getTable().getName() + " SET "
+                         + column.getName() + " = NULL" + " WHERE "
+                         + column.getName() + " <= 0");
     }
 
-    private void checkRecordingEquipment(Connection connection) throws SQLException {
+    private void checkRecordingEquipment(Connection connection)
+            throws SQLException {
         Column column = ColumnExifRecordingEquipment.INSTANCE;
-        Database.execute(connection, "UPDATE " + column.getTable().getName() +
-                " SET " + column.getName() + " = NULL" +
-                " WHERE " + column.getName() + " = '0'");
+
+        Database.execute(connection,
+                         "UPDATE " + column.getTable().getName() + " SET "
+                         + column.getName() + " = NULL" + " WHERE "
+                         + column.getName() + " = '0'");
     }
 }

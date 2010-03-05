@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io.filefilter;
 
 import java.io.File;
@@ -28,13 +29,14 @@ import java.io.File;
  * @author  Elmar Baumann
  * @version 2009-05-30
  */
-public final class FileChooserFilter extends javax.swing.filechooser.FileFilter {
-
+public final class FileChooserFilter
+        extends javax.swing.filechooser.FileFilter {
     private final java.io.FileFilter fileFilter;
-    private final String description;
+    private final String             description;
 
-    public FileChooserFilter(java.io.FileFilter fileFilter, String description) {
-        this.fileFilter = fileFilter;
+    public FileChooserFilter(java.io.FileFilter fileFilter,
+                             String description) {
+        this.fileFilter  = fileFilter;
         this.description = description;
     }
 

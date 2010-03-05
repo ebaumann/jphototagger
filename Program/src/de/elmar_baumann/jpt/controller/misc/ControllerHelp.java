@@ -17,16 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.misc;
 
-import de.elmar_baumann.jpt.Main;
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.io.IoUtil;
-import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.Main;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
 import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel.Tab;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
@@ -34,11 +35,16 @@ import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
 import de.elmar_baumann.lib.runtime.External;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
+
 import java.net.URL;
+
 import java.util.Locale;
+
 import javax.swing.JMenuItem;
 
 /**
@@ -47,15 +53,21 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  * @version 2008-09-12
  */
-public final class ControllerHelp implements ActionListener, HelpBrowserListener {
-
-    private static final String      HELP_CONTENTS_URL         = JptBundle.INSTANCE.getString("Help.Url.Contents");
-    private final        HelpBrowser help                      = HelpBrowser.INSTANCE;
-    private static final String      KEY_CURRENT_URL           = ControllerHelp.class.getName() + ".CurrentURL";
-    private              String      currentUrl                = UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
-    private final        JMenuItem   menuItemAcceleratorKeys   = GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
-    private final        JMenuItem   menuItemHelp              = GUI.INSTANCE.getAppFrame().getMenuItemHelp();
-    private final        JMenuItem   menuItemOpenPdfUserManual = GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
+public final class ControllerHelp
+        implements ActionListener, HelpBrowserListener {
+    private static final String HELP_CONTENTS_URL =
+        JptBundle.INSTANCE.getString("Help.Url.Contents");
+    private final HelpBrowser   help            = HelpBrowser.INSTANCE;
+    private static final String KEY_CURRENT_URL =
+        ControllerHelp.class.getName() + ".CurrentURL";
+    private String currentUrl =
+        UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
+    private final JMenuItem menuItemAcceleratorKeys =
+        GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
+    private final JMenuItem menuItemHelp =
+        GUI.INSTANCE.getAppFrame().getMenuItemHelp();
+    private final JMenuItem menuItemOpenPdfUserManual =
+        GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
 
     public ControllerHelp() {
         listen();
@@ -77,6 +89,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
+
         if (source.equals(menuItemHelp)) {
             showHelp();
         } else if (source.equals(menuItemAcceleratorKeys)) {
@@ -88,57 +101,80 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
 
     private void setCurrentUrl(HelpBrowserEvent action) {
         URL url = action.getUrl();
+
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
-            UserSettings.INSTANCE.getSettings().set(currentUrl, KEY_CURRENT_URL);
+            UserSettings.INSTANCE.getSettings().set(currentUrl,
+                    KEY_CURRENT_URL);
             UserSettings.INSTANCE.writeToFile();
         }
     }
 
     private void initHelp() {
-        if (help.getContentsUrl() == null || !help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
+        if ((help.getContentsUrl() == null)
+                ||!help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
             help.setContentsUrl(HELP_CONTENTS_URL);
         }
     }
 
     private void showHelp() {
         initHelp();
+
         if (!currentUrl.isEmpty()) {
             help.setDisplayUrl(currentUrl);
         }
+
         ComponentUtil.show(help);
     }
 
     private void showAcceleratorKeyHelp() {
         initHelp();
-        help.setDisplayUrl(JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
+        help.setDisplayUrl(
+            JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
         ComponentUtil.show(help);
     }
 
     private void openPdfUserManual() {
-        if (!checkPdfViewer()) return;
+        if (!checkPdfViewer()) {
+            return;
+        }
+
         File manual = getPdfUserManualPath();
-        if (manual == null) return;
-        String command = logAndGetPdfManualOpenCommand(manual);
-        External.ProcessResult result = External.execute(command, false);
+
+        if (manual == null) {
+            return;
+        }
+
+        String                 command = logAndGetPdfManualOpenCommand(manual);
+        External.ProcessResult result  = External.execute(command, false);
+
         assert result == null;
     }
 
     private String logAndGetPdfManualOpenCommand(File manual) {
-        String command = IoUtil.quoteForCommandLine(UserSettings.INSTANCE.getPdfViewer(), manual);
-        AppLogger.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand", command);
+        String command =
+            IoUtil.quoteForCommandLine(UserSettings.INSTANCE.getPdfViewer(),
+                                       manual);
+
+        AppLogger.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand",
+                          command);
+
         return command;
     }
 
     private boolean checkPdfViewer() {
         File viewer = new File(UserSettings.INSTANCE.getPdfViewer());
+
         if (!viewer.exists()) {
-            if (MessageDisplayer.confirmYesNo(null, "ControllerHelp.Error.NoPdfViewer")) {
+            if (MessageDisplayer.confirmYesNo(
+                    null, "ControllerHelp.Error.NoPdfViewer")) {
                 SettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
                 ComponentUtil.show(SettingsDialog.INSTANCE);
             }
+
             return false;
         }
+
         return true;
     }
 
@@ -149,28 +185,49 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
      */
     private static File getPdfUserManualPath() {
         String manualPath = "";
+
         try {
-            File jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            File jarPath =
+                new File(Main.class.getProtectionDomain().getCodeSource()
+                    .getLocation().toURI());
+
             logJar(jarPath);
-            if (jarPath.exists() && jarPath.getParentFile() != null) {
-                File   dir = jarPath.getParentFile();
-                String pathPrefix = dir.getAbsolutePath() + File.separator + "Manual";
+
+            if (jarPath.exists() && (jarPath.getParentFile() != null)) {
+                File   dir        = jarPath.getParentFile();
+                String pathPrefix = dir.getAbsolutePath() + File.separator
+                                    + "Manual";
+
                 // Trying to get Locale specific manual
-                manualPath = pathPrefix + "_" +
-                        Locale.getDefault().getLanguage() + ".pdf";
+                manualPath = pathPrefix + "_"
+                             + Locale.getDefault().getLanguage() + ".pdf";
+
                 File fileLocaleSensitive = new File(manualPath);
+
                 logIfNotExists(fileLocaleSensitive);
-                if (fileLocaleSensitive.exists()) return fileLocaleSensitive;
+
+                if (fileLocaleSensitive.exists()) {
+                    return fileLocaleSensitive;
+                }
+
                 // Trying to get default language manual
                 manualPath = pathPrefix + "_de.pdf";
+
                 File fileDefault = new File(manualPath);
+
                 logIfNotExists(fileDefault);
-                if (fileDefault.exists()) return fileDefault;
+
+                if (fileDefault.exists()) {
+                    return fileDefault;
+                }
             }
         } catch (Exception ex) {
             AppLogger.logSevere(AppInfo.class, ex);
         }
-        MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile", manualPath);
+
+        MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile",
+                               manualPath);
+
         return null;
     }
 
@@ -182,17 +239,24 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
     }
 
     private static void logJarDir(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile());
+        AppLogger.logFinest(ControllerHelp.class,
+                            "ControllerHelp.ManualPath.ParentDir",
+                            jarPath.getParentFile());
     }
 
     private static void logJarFile(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.JarPath", jarPath);
+        AppLogger.logFinest(ControllerHelp.class,
+                            "ControllerHelp.ManualPath.JarPath", jarPath);
     }
 
     private static void logIfNotExists(File file) {
-        if (file == null) return;
+        if (file == null) {
+            return;
+        }
+
         if (!file.exists()) {
-            AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.Info.FileNotExists", file);
+            AppLogger.logFinest(ControllerHelp.class,
+                                "ControllerHelp.Info.FileNotExists", file);
         }
     }
 }

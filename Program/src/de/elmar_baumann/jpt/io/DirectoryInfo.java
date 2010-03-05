@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +32,7 @@ import java.util.List;
  * @version 2008-10-05
  */
 public final class DirectoryInfo {
-
-    private File directory;
+    private File       directory;
     private List<File> imageFiles;
 
     /**
@@ -41,7 +42,8 @@ public final class DirectoryInfo {
      */
     public DirectoryInfo(File directory) {
         this.directory = directory;
-        imageFiles = ImageFilteredDirectory.getImageFilesOfDirectory(directory);
+        imageFiles     =
+            ImageFilteredDirectory.getImageFilesOfDirectory(directory);
     }
 
     /**
@@ -85,20 +87,23 @@ public final class DirectoryInfo {
     public boolean equals(Object object) {
         if (object instanceof DirectoryInfo) {
             DirectoryInfo otherDirectoryInfo = (DirectoryInfo) object;
+
             return directory.equals(otherDirectoryInfo.directory);
         } else if (object instanceof File) {
             return directory.equals(object);
         }
+
         return false;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash =
-                97 * hash + (this.directory != null
-                             ? this.directory.hashCode()
-                             : 0);
+
+        hash = 97 * hash + ((this.directory != null)
+                            ? this.directory.hashCode()
+                            : 0);
+
         return hash;
     }
 }

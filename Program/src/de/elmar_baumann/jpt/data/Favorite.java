@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import java.io.File;
-import javax.xml.bind.annotation.XmlAccessType;
+
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,13 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Favorite {
-
     private String directoryName;
     private String name;
     private int    index;
 
-    public Favorite() {
-    }
+    public Favorite() {}
 
     /**
      * Constructor.
@@ -73,7 +73,7 @@ public final class Favorite {
      * @return directory or null if the directory name is null
      */
     public File getDirectory() {
-        return directoryName == null
+        return (directoryName == null)
                ? null
                : new File(directoryName);
     }
@@ -100,7 +100,7 @@ public final class Favorite {
 
     @Override
     public String toString() {
-        return name; // Never change that (will be used to find model items)!
+        return name;    // Never change that (will be used to find model items)!
     }
 
     @Override
@@ -108,20 +108,28 @@ public final class Favorite {
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final Favorite other = (Favorite) obj;
-        if ((this.name == null || !this.name.equals(other.name))) {
+
+        if (((this.name == null) ||!this.name.equals(other.name))) {
             return false;
         }
+
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
+
+        hash = 53 * hash + ((this.name != null)
+                            ? this.name.hashCode()
+                            : 0);
+
         return hash;
     }
 }

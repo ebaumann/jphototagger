@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 /**
@@ -26,15 +27,14 @@ package de.elmar_baumann.jpt.event;
  * @version 2008-08-27
  */
 public final class ProgressEvent {
-
-    private final Object  source;
-    private       int     maximum;
-    private       int     minimum;
-    private       boolean indeterminate;
-    private       int     value;
-    private       long    milliSecondsRemaining;
-    private       Object  info;
-    private       boolean stop;
+    private final Object source;
+    private int          maximum;
+    private int          minimum;
+    private boolean      indeterminate;
+    private int          value;
+    private long         milliSecondsRemaining;
+    private Object       info;
+    private boolean      stop;
 
     /**
      * Konstruktor für Ereignisse mit bekanntem Umfang (Minimum, Maximum und
@@ -52,12 +52,13 @@ public final class ProgressEvent {
      *                Ereignisanzahl)
      * @param info    Beliebige Information
      */
-    public ProgressEvent(Object source, int minimum, int maximum, int value, Object info) {
-        this.source   = source;
-        this.minimum  = minimum;
-        this.maximum  = maximum;
-        this.value    = value;
-        this.info     = info;
+    public ProgressEvent(Object source, int minimum, int maximum, int value,
+                         Object info) {
+        this.source  = source;
+        this.minimum = minimum;
+        this.maximum = maximum;
+        this.value   = value;
+        this.info    = info;
     }
 
     /**
@@ -74,7 +75,8 @@ public final class ProgressEvent {
      * @param milliSecondsRemaining  Verbleibende Zeit in Millisekunden
      * @param info                   Beliebige Information
      */
-    public ProgressEvent(Object source, int minimum, int maximum, int value, long milliSecondsRemaining, Object info) {
+    public ProgressEvent(Object source, int minimum, int maximum, int value,
+                         long milliSecondsRemaining, Object info) {
         this.source                = source;
         this.minimum               = minimum;
         this.maximum               = maximum;

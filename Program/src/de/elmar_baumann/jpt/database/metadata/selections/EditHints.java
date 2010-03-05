@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 /**
@@ -26,8 +27,7 @@ package de.elmar_baumann.jpt.database.metadata.selections;
  * @version 2008-09-18
  */
 public final class EditHints {
-
-    private final boolean repeatable;
+    private final boolean       repeatable;
     private final SizeEditField sizeEditField;
 
     /**
@@ -39,10 +39,12 @@ public final class EditHints {
          * Kleines Feld reicht aus (einzeilig)
          */
         SMALL,
+
         /**
          * "Mittleres" Feld reicht aus (etwa drei Zeilen)
          */
         MEDIUM,
+
         /**
          * Größeres Feld
          */
@@ -56,7 +58,7 @@ public final class EditHints {
      * @param sizeEditField  Größenvorschlag
      */
     public EditHints(boolean repeatable, SizeEditField sizeEditField) {
-        this.repeatable = repeatable;
+        this.repeatable    = repeatable;
         this.sizeEditField = sizeEditField;
     }
 

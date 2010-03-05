@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ import java.util.List;
  * @version 2010-03-03
  */
 public final class JptImporters {
-
-    public static final  JptImporters   INSTANCE  = new JptImporters();
+    public static final JptImporters    INSTANCE  = new JptImporters();
     private static final List<Importer> IMPORTERS = new ArrayList<Importer>();
 
     static {
+
         // Please add new importes at the end
         IMPORTERS.add(KeywordsImporterJpt.INSTANCE);
         IMPORTERS.add(SynonymsImporter.INSTANCE);
@@ -51,6 +52,5 @@ public final class JptImporters {
         return new ArrayList<Importer>(IMPORTERS);
     }
 
-    private JptImporters() {
-    }
+    private JptImporters() {}
 }

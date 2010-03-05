@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.types.Filename;
+import de.elmar_baumann.jpt.UserSettings;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,48 +63,55 @@ import java.util.List;
  * @author Tobias Stening
  */
 public final class ConnectionPool implements Runnable {
-
     public static final ConnectionPool INSTANCE = new ConnectionPool();
-
-    private volatile boolean init;
+    private volatile boolean           init;
 
     /**
      * The name of the JDBC-Driver.
      */
     private String driver;
+
     /**
      * The URL of the database.
      */
     private String url;
+
     /**
      * The database username.
      */
     private String username;
+
     /**
      * The database password.
      */
     private String password;
+
     /**
      * The maximum number of connections.
      */
     private int maxConnections;
+
     /**
      * Indicates, if the connection pool should wait for
      * a free connection, if all connections are busy.
      */
     private boolean waitIfBusy;
+
     /**
      * The list of available connections
      */
     private LinkedList<Connection> availableConnections;
+
     /**
      * Zhe list of busy connections
      */
     private LinkedList<Connection> busyConnections;
+
     /**
      *
      */
     private boolean connectionPending = false;
+
     /**
      * The unique connection poll instance
      */
@@ -112,28 +122,30 @@ public final class ConnectionPool implements Runnable {
     public synchronized void init() throws SQLException {
         if (init) {
             assert false;
+
             return;
         }
+
         init = true;
-
-        url = "jdbc:hsqldb:file:" +
-                UserSettings.INSTANCE.getDatabaseFileName(
-                Filename.FULL_PATH_NO_SUFFIX) +
-                ";shutdown=true";
-
-        driver = "org.hsqldb.jdbcDriver";
+        url  = "jdbc:hsqldb:file:"
+               + UserSettings.INSTANCE.getDatabaseFileName(
+                   Filename.FULL_PATH_NO_SUFFIX) + ";shutdown=true";
+        driver   = "org.hsqldb.jdbcDriver";
         username = "sa";
         password = "";
+
         int initialConnections = 3;
+
         maxConnections = 15;
-        waitIfBusy = true;
+        waitIfBusy     = true;
 
         if (initialConnections > maxConnections) {
             initialConnections = maxConnections;
         }
 
-        busyConnections = new LinkedList<Connection>();
+        busyConnections      = new LinkedList<Connection>();
         availableConnections = new LinkedList<Connection>();
+
         for (int i = 0; i < initialConnections; i++) {
             availableConnections.add(makeNewConnection());
         }
@@ -146,53 +158,59 @@ public final class ConnectionPool implements Runnable {
      */
     public synchronized Connection getConnection() throws SQLException {
         assert init;
+
         if (!availableConnections.isEmpty()) {
             Connection existingConnection = availableConnections.getLast();
+
             availableConnections.removeLast();
+
             // If connection on available list is closed (e.g.,
             // it timed out), then remove it from available list
             // and repeat the process of obtaining a connection.
             // Also wake up threads that were waiting for a
             // connection because maxConnection limit was reached.
             if (existingConnection.isClosed()) {
-                notifyAll(); // Freed up a spot for anybody waiting
+                notifyAll();    // Freed up a spot for anybody waiting
 
                 return (getConnection());
             } else {
                 busyConnections.add(existingConnection);
+
                 return (existingConnection);
             }
         } else {
+
             // Three possible cases:
             // 1) You haven't reached maxConnections limit. So
-            //    establish one in the background if there isn't
-            //    already one pending, then wait for
-            //    the next available connection (whether or not
-            //    it was the newly established one).
+            // establish one in the background if there isn't
+            // already one pending, then wait for
+            // the next available connection (whether or not
+            // it was the newly established one).
             // 2) You reached maxConnections limit and waitIfBusy
-            //    flag is false. Throw SQLException in such a case.
+            // flag is false. Throw SQLException in such a case.
             // 3) You reached maxConnections limit and waitIfBusy
-            //    flag is true. Then do the same thing as in second
-            //    part of step 1: wait for next available connection.
-
-            if ((totalConnections() < maxConnections) && !connectionPending) {
+            // flag is true. Then do the same thing as in second
+            // part of step 1: wait for next available connection.
+            if ((totalConnections() < maxConnections) &&!connectionPending) {
                 makeBackgroundConnection();
             } else if (!waitIfBusy) {
                 throw new SQLException("Connection limit reached");
             }
+
             // Wait for either a new connection to be established
             // (if you called makeBackgroundConnection) or for
             // an existing connection to be freed up.
             try {
                 wait();
-            } catch (Exception ie) {
-            }
+            } catch (Exception ie) {}
+
             // Someone freed up a connection, so try again.
             return (getConnection());
         }
     }
 
-    /* NOTICE
+    /*
+     *  NOTICE
      *
      * You can't just make a new connection in the foreground
      * when none are available, since this can take several
@@ -202,17 +220,22 @@ public final class ConnectionPool implements Runnable {
      * is established or if someone finishes with an existing
      * connection.
      */
+
     /**
      * This method starts a thread for creating a connection
      * in the background.
      */
     private void makeBackgroundConnection() {
         connectionPending = true;
+
         try {
             Thread connectThread = new Thread(this);
-            connectThread.setName("Connection pool creating connection @ " + getClass().getSimpleName());
+
+            connectThread.setName("Connection pool creating connection @ "
+                                  + getClass().getSimpleName());
             connectThread.start();
         } catch (OutOfMemoryError oome) {
+
             // Give up on new connection
         }
     }
@@ -225,16 +248,18 @@ public final class ConnectionPool implements Runnable {
     public void run() {
         try {
             Connection connection = makeNewConnection();
+
             synchronized (this) {
                 availableConnections.add(connection);
                 connectionPending = false;
                 notifyAll();
             }
-        } catch (SQLException ex) { // SQLException
+        } catch (SQLException ex) {    // SQLException
+
             // Give up on new connection and wait for existing one
             // to free up.
             AppLogger.logSevere(getClass(), ex);
-        } catch (RuntimeException ex) { // OutOfMemoryException
+        } catch (RuntimeException ex) {    // OutOfMemoryException
             AppLogger.logSevere(getClass(), ex);
         }
     }
@@ -246,16 +271,20 @@ public final class ConnectionPool implements Runnable {
      */
     private Connection makeNewConnection() throws SQLException {
         try {
+
             // Load database driver if not already loaded
             Class.forName(driver);
+
             // Establish network connection to database
             Connection connection = DriverManager.getConnection(url, username,
-                    password);
+                                        password);
+
             return (connection);
         } catch (ClassNotFoundException cnfe) {
             throw new SQLException("Can't find class for driver: " + driver);
         } catch (Exception ce) {
-            throw new SQLException("Can't connect to server " + url + "! " + ce);
+            throw new SQLException("Can't connect to server " + url + "! "
+                                   + ce);
         }
     }
 
@@ -265,8 +294,10 @@ public final class ConnectionPool implements Runnable {
      */
     public synchronized void free(Connection connection) {
         assert init;
+
         busyConnections.remove(connection);
         availableConnections.add(connection);
+
         // Wake up threads that are waiting for a connection
         notifyAll();
     }
@@ -290,6 +321,7 @@ public final class ConnectionPool implements Runnable {
      */
     public synchronized void closeAllConnections() {
         assert init;
+
         closeConnections(availableConnections);
         availableConnections = new LinkedList<Connection>();
         closeConnections(busyConnections);
@@ -304,11 +336,13 @@ public final class ConnectionPool implements Runnable {
         try {
             for (int i = 0; i < connections.size(); i++) {
                 Connection connection = connections.get(i);
+
                 if (!connection.isClosed()) {
                     connection.close();
                 }
             }
         } catch (Exception sqle) {
+
             // Ignore errors; garbage collect anyhow
         }
     }
@@ -319,10 +353,12 @@ public final class ConnectionPool implements Runnable {
     @Override
     public synchronized String toString() {
         StringBuffer info = new StringBuffer();
+
         info.append("ConnectionPool(" + url + "," + username + ")");
         info.append(", available=" + availableConnections.size());
         info.append(", busy=" + busyConnections.size());
         info.append(", max=" + maxConnections);
+
         return info.toString();
     }
 }

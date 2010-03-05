@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.factory;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.plugin.Plugin;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.util.Lookup;
+
 import java.util.LinkedHashSet;
 import java.util.Properties;
 
@@ -32,10 +34,11 @@ import java.util.Properties;
  * @version 2010-02-16
  */
 public final class PluginManager {
-
-    private static final LinkedHashSet<Plugin> ALL_PLUGINS = new LinkedHashSet<Plugin>();
-    private static final LinkedHashSet<Plugin> PLUGINS     = new LinkedHashSet<Plugin>();
-    public static final PluginManager INSTANCE             = new PluginManager();
+    private static final LinkedHashSet<Plugin> ALL_PLUGINS =
+        new LinkedHashSet<Plugin>();
+    private static final LinkedHashSet<Plugin> PLUGINS =
+        new LinkedHashSet<Plugin>();
+    public static final PluginManager INSTANCE = new PluginManager();
 
     /**
      * Returns not excluded plugins.
@@ -57,7 +60,7 @@ public final class PluginManager {
 
     /**
      * Returns the count of all plugins (includes the excluded plugins).
-     * 
+     *
      * @return count
      */
     public int getAllPluginsCount() {
@@ -109,7 +112,9 @@ public final class PluginManager {
         Properties properties = UserSettings.INSTANCE.getProperties();
         String     key        = plugin.getClass().getName();
 
-        if (!properties.containsKey(key)) return false;
+        if (!properties.containsKey(key)) {
+            return false;
+        }
 
         return properties.getProperty(key).equals("0");
     }
@@ -124,6 +129,7 @@ public final class PluginManager {
         for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
             ALL_PLUGINS.add(plugin);
+
             if (!isExclude(plugin)) {
                 PLUGINS.add(plugin);
             }

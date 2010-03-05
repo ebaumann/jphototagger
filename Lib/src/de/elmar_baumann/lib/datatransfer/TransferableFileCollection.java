@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.datatransfer;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,19 +40,18 @@ import java.util.List;
  * @version 2008-10-17
  */
 public final class TransferableFileCollection implements Transferable {
-
     private static final DataFlavor FILE_LIST_FLAVOR =
-            DataFlavor.javaFileListFlavor;
+        DataFlavor.javaFileListFlavor;
     private static final DataFlavor URI_LIST_FLAVOR =
-            TransferUtil.getUriListFlavor();
+        TransferUtil.getUriListFlavor();
     private static final DataFlavor[] FLAVORS;
-    private static final String FILE_PROTOCOL = "file://";
-    private static final String TOKEN_DELIMITER = "\r\n";
-    private final Collection<File> files;
-    private String fileUris;
+    private static final String       FILE_PROTOCOL   = "file://";
+    private static final String       TOKEN_DELIMITER = "\r\n";
+    private final Collection<File>    files;
+    private String                    fileUris;
 
     static {
-        FLAVORS = new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST_FLAVOR};
+        FLAVORS = new DataFlavor[] { FILE_LIST_FLAVOR, URI_LIST_FLAVOR };
     }
 
     public TransferableFileCollection(Collection<? extends File> files) {
@@ -59,9 +61,11 @@ public final class TransferableFileCollection implements Transferable {
 
     private void createUriList() {
         StringBuilder sb = new StringBuilder();
+
         for (File file : files) {
             sb.append(FILE_PROTOCOL + file.getAbsolutePath() + TOKEN_DELIMITER);
         }
+
         fileUris = sb.toString();
     }
 
@@ -86,7 +90,8 @@ public final class TransferableFileCollection implements Transferable {
      */
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
-        return flavor.equals(FILE_LIST_FLAVOR) || flavor.equals(URI_LIST_FLAVOR);
+        return flavor.equals(FILE_LIST_FLAVOR)
+               || flavor.equals(URI_LIST_FLAVOR);
     }
 
     /**
@@ -104,7 +109,6 @@ public final class TransferableFileCollection implements Transferable {
     @Override
     public Object getTransferData(DataFlavor flavor)
             throws UnsupportedFlavorException {
-
         if (flavor.equals(FILE_LIST_FLAVOR)) {
             return new ArrayList<File>(files);
         } else if (flavor.equals(URI_LIST_FLAVOR)) {

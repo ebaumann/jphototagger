@@ -17,16 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.factory.ControllerFactory;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
+
 import java.util.Comparator;
+
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingUtilities;
 
@@ -37,13 +42,14 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-14
  */
 public final class ControllerSortThumbnails implements ActionListener {
-
-    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final AppFrame        appFrame        = GUI.INSTANCE.getAppFrame();
+    private final ThumbnailsPanel thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerSortThumbnails() {
         listen();
-        appFrame.getMenuItemOfSortCmp(thumbnailsPanel.getFileSortComparator()).setSelected(true);
+        appFrame.getMenuItemOfSortCmp(
+            thumbnailsPanel.getFileSortComparator()).setSelected(true);
     }
 
     private void listen() {
@@ -58,21 +64,25 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     public static void setLastSort() {
-        Comparator<File> cmp = ControllerThumbnailsPanelPersistence.getFileSortComparator();
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileSortComparator(cmp);
+        Comparator<File> cmp =
+            ControllerThumbnailsPanelPersistence.getFileSortComparator();
+
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileSortComparator(
+            cmp);
         GUI.INSTANCE.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
     }
 
     private void sortThumbnails(final ActionEvent e) {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-                JRadioButtonMenuItem item    = (JRadioButtonMenuItem) e.getSource();
-                Comparator<File>     sortCmp = appFrame.getSortCmpOfMenuItem(item);
+                JRadioButtonMenuItem item =
+                    (JRadioButtonMenuItem) e.getSource();
+                Comparator<File> sortCmp = appFrame.getSortCmpOfMenuItem(item);
 
-                ControllerFactory.INSTANCE.getController(ControllerThumbnailsPanelPersistence.class)
-                        .setFileSortComparator(sortCmp);
+                ControllerFactory.INSTANCE
+                    .getController(ControllerThumbnailsPanelPersistence.class)
+                    .setFileSortComparator(sortCmp);
                 item.setSelected(true);
                 thumbnailsPanel.setFileSortComparator(sortCmp);
                 thumbnailsPanel.sort();

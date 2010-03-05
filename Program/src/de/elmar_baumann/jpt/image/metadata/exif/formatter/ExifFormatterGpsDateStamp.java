@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
-import de.elmar_baumann.jpt.image.metadata.exif.ExifTagValueFormatter;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+import de.elmar_baumann.jpt.image.metadata.exif.ExifTagValueFormatter;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 /**
@@ -34,21 +37,21 @@ import java.util.Date;
  * @version 2009-06-10
  */
 public final class ExifFormatterGpsDateStamp extends ExifFormatter {
+    public static final ExifFormatterGpsDateStamp INSTANCE =
+        new ExifFormatterGpsDateStamp();
 
-    public static final ExifFormatterGpsDateStamp INSTANCE = new ExifFormatterGpsDateStamp();
-
-    private ExifFormatterGpsDateStamp() {
-    }
+    private ExifFormatterGpsDateStamp() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_DATE_STAMP);
 
         byte[] rawValue  = exifTag.rawValue();
         String rawString = new String(rawValue);
 
-        if (rawString.length() != 11) return rawString;
+        if (rawString.length() != 11) {
+            return rawString;
+        }
 
         try {
             DateFormat df   = new SimpleDateFormat("yyyy:MM:dd");
@@ -58,6 +61,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
         } catch (Exception ex) {
             AppLogger.logSevere(ExifTagValueFormatter.class, ex);
         }
+
         return rawString;
     }
 }

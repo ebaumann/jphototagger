@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.datatransfer;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+
 import java.io.Serializable;
+
 import java.util.Arrays;
 
 /**
@@ -33,8 +36,7 @@ import java.util.Arrays;
  * @version 2008-10-17
  */
 public final class TransferableObject implements Transferable {
-
-    private final Object data;
+    private final Object       data;
     private final DataFlavor[] dataFlavors;
 
     /**
@@ -51,11 +53,12 @@ public final class TransferableObject implements Transferable {
      *                    MIME type
      */
     public TransferableObject(Object data, DataFlavor... dataFlavors) {
-        this.data = data;
+        this.data        = data;
         this.dataFlavors = new DataFlavor[dataFlavors.length + 1];
-        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0, dataFlavors.length);
-        this.dataFlavors[dataFlavors.length] =
-                new DataFlavor(data.getClass(), null);
+        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0,
+                         dataFlavors.length);
+        this.dataFlavors[dataFlavors.length] = new DataFlavor(data.getClass(),
+                null);
     }
 
     @Override
@@ -66,8 +69,11 @@ public final class TransferableObject implements Transferable {
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
         for (DataFlavor dataFlavor : dataFlavors) {
-            if (flavor.equals(dataFlavor)) return true;
+            if (flavor.equals(dataFlavor)) {
+                return true;
+            }
         }
+
         return false;
     }
 

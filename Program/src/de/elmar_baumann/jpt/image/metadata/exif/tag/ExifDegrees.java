@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
-import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
+
 import java.nio.ByteOrder;
+
 import java.util.Arrays;
 
 /**
@@ -32,7 +35,6 @@ import java.util.Arrays;
  * @version 2009-03-30
  */
 public final class ExifDegrees {
-
     private final ExifRational degrees;
     private final ExifRational minutes;
     private final ExifRational seconds;
@@ -46,12 +48,13 @@ public final class ExifDegrees {
      *         to {@link #byteCount()}
      */
     public ExifDegrees(byte[] rawValue, ByteOrder byteOrder) {
-
         Ensure.length(rawValue, byteCount());
-
-        degrees = new ExifRational(Arrays.copyOfRange(rawValue,  0,  8), byteOrder);
-        minutes = new ExifRational(Arrays.copyOfRange(rawValue,  8, 16), byteOrder);
-        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
+        degrees = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8),
+                                   byteOrder);
+        minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16),
+                                   byteOrder);
+        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24),
+                                   byteOrder);
     }
 
     /**

@@ -17,18 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.Enumeration;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
@@ -43,10 +47,13 @@ import javax.swing.tree.TreeModel;
  * @version 2009-06-11
  */
 public final class Timeline {
-
-    private final        DefaultMutableTreeNode ROOT_NODE    = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
-    private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
-    private              boolean                unknownNode;
+    private final DefaultMutableTreeNode ROOT_NODE =
+        new TreeNodeSortedChildren(
+            JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
+    private static final DefaultMutableTreeNode UNKNOWN_NODE =
+        new TreeNodeSortedChildren(
+            JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
+    private boolean unknownNode;
 
     /**
      * Returns the root node. It's children are the years, the year's children
@@ -74,10 +81,15 @@ public final class Timeline {
      *            recognized
      * @return    information about the inserted children
      */
-    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(Calendar cal) {
-        TreeModelUpdateInfo.NodesAndChildIndices info = new TreeModelUpdateInfo.NodesAndChildIndices();
+    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
+            Calendar cal) {
+        TreeModelUpdateInfo.NodesAndChildIndices info =
+            new TreeModelUpdateInfo.NodesAndChildIndices();
         Date date = new Date(cal);
-        insertDayNode(insertMonthNode(insertYearNode(date, info), date, info), date, info);
+
+        insertDayNode(insertMonthNode(insertYearNode(date, info), date, info),
+                      date, info);
+
         return info;
     }
 
@@ -87,15 +99,18 @@ public final class Timeline {
      * @param date date taken of the image, must be valid ({@link Date#isValid()}
      * @return     information about the inserted children
      */
-    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(Date date) {
+    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
+            Date date) {
         assert date.isValid() : date;
 
-        TreeModelUpdateInfo.NodesAndChildIndices info = new TreeModelUpdateInfo.NodesAndChildIndices();
-
-        DefaultMutableTreeNode yearNode  = insertYearNode(date, info);
+        TreeModelUpdateInfo.NodesAndChildIndices info =
+            new TreeModelUpdateInfo.NodesAndChildIndices();
+        DefaultMutableTreeNode yearNode = insertYearNode(date, info);
 
         if (date.hasMonth()) {
-            DefaultMutableTreeNode monthNode = insertMonthNode(yearNode, date, info);
+            DefaultMutableTreeNode monthNode = insertMonthNode(yearNode, date,
+                                                   info);
+
             if (date.hasDay()) {
                 insertDayNode(monthNode, date, info);
             }
@@ -112,10 +127,14 @@ public final class Timeline {
      * @return     update information
      */
     public synchronized TreeModelUpdateInfo.NodeAndChild removeDay(Date date) {
-        TreeModelUpdateInfo.NodeAndChild info    = new TreeModelUpdateInfo.NodeAndChild();
-        DefaultMutableTreeNode           dayNode = getNodeOfDay(date);
+        TreeModelUpdateInfo.NodeAndChild info =
+            new TreeModelUpdateInfo.NodeAndChild();
+        DefaultMutableTreeNode dayNode = getNodeOfDay(date);
+
         if (dayNode != null) {
-            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dayNode.getParent();
+            DefaultMutableTreeNode parent =
+                (DefaultMutableTreeNode) dayNode.getParent();
+
             if (parent != null) {
                 info.setNode(parent);
                 info.setUpdatedChild(dayNode, parent.getIndex(dayNode));
@@ -123,17 +142,21 @@ public final class Timeline {
                 removeIfEmpty(parent, info);
             }
         }
+
         return info;
     }
 
-    private void removeIfEmpty(DefaultMutableTreeNode node, TreeModelUpdateInfo.NodeAndChild info) {
+    private void removeIfEmpty(DefaultMutableTreeNode node,
+                               TreeModelUpdateInfo.NodeAndChild info) {
         if (node.getChildCount() <= 0) {
-            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+            DefaultMutableTreeNode parent =
+                (DefaultMutableTreeNode) node.getParent();
+
             if (parent != null) {
                 info.setNode(parent);
                 info.setUpdatedChild(node, parent.getIndex(node));
                 parent.remove(node);
-                removeIfEmpty(parent, info); // recursive
+                removeIfEmpty(parent, info);    // recursive
             }
         }
     }
@@ -167,23 +190,28 @@ public final class Timeline {
     private DefaultMutableTreeNode getNodeOfDay(Date date) {
         DefaultMutableTreeNode monthNodeOfCal = getNodeOfMonth(date);
 
-        if (monthNodeOfCal == null) return null;
+        if (monthNodeOfCal == null) {
+            return null;
+        }
 
-        @SuppressWarnings("unchecked")
-        Enumeration<DefaultMutableTreeNode> days         = monthNodeOfCal.children();
-        DefaultMutableTreeNode              dayNodeOfCal = null;
+        @SuppressWarnings(
+            "unchecked") Enumeration<DefaultMutableTreeNode> days =
+                monthNodeOfCal.children();
+        DefaultMutableTreeNode dayNodeOfCal = null;
 
-        while (dayNodeOfCal == null && days.hasMoreElements()) {
+        while ((dayNodeOfCal == null) && days.hasMoreElements()) {
             DefaultMutableTreeNode childNode  = days.nextElement();
             Object                 userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
                 Date dateOfNode = (Date) userObject;
+
                 if (dateOfNode.day == date.day) {
                     dayNodeOfCal = childNode;
                 }
             }
         }
+
         return dayNodeOfCal;
     }
 
@@ -196,23 +224,28 @@ public final class Timeline {
     private DefaultMutableTreeNode getNodeOfMonth(Date date) {
         DefaultMutableTreeNode yearNodeOfCal = getNodeOfYear(date);
 
-        if (yearNodeOfCal == null) return null;
+        if (yearNodeOfCal == null) {
+            return null;
+        }
 
-        @SuppressWarnings("unchecked")
-        Enumeration<DefaultMutableTreeNode> months         = yearNodeOfCal.children();
-        DefaultMutableTreeNode              monthNodeOfCal = null;
+        @SuppressWarnings(
+            "unchecked") Enumeration<DefaultMutableTreeNode> months =
+                yearNodeOfCal.children();
+        DefaultMutableTreeNode monthNodeOfCal = null;
 
-        while (monthNodeOfCal == null && months.hasMoreElements()) {
+        while ((monthNodeOfCal == null) && months.hasMoreElements()) {
             DefaultMutableTreeNode childNode  = months.nextElement();
             Object                 userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
                 Date dateOfNode = (Date) userObject;
+
                 if (dateOfNode.month == date.month) {
                     monthNodeOfCal = childNode;
                 }
             }
         }
+
         return monthNodeOfCal;
     }
 
@@ -223,51 +256,62 @@ public final class Timeline {
      * @return  node or null if no such node exists
      */
     private DefaultMutableTreeNode getNodeOfYear(Date date) {
-        @SuppressWarnings("unchecked")
-        Enumeration<DefaultMutableTreeNode> years         = ROOT_NODE.children();
-        DefaultMutableTreeNode              yearNodeOfCal = null;
+        @SuppressWarnings(
+            "unchecked") Enumeration<DefaultMutableTreeNode> years =
+                ROOT_NODE.children();
+        DefaultMutableTreeNode yearNodeOfCal = null;
 
-        while (yearNodeOfCal == null && years.hasMoreElements()) {
+        while ((yearNodeOfCal == null) && years.hasMoreElements()) {
             DefaultMutableTreeNode childNode  = years.nextElement();
             Object                 userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
                 Date dateOfNode = (Date) userObject;
+
                 if (dateOfNode.year == date.year) {
                     yearNodeOfCal = childNode;
                 }
             }
         }
+
         return yearNodeOfCal;
     }
 
-    private DefaultMutableTreeNode insertYearNode(Date date, TreeModelUpdateInfo.NodesAndChildIndices info) {
+    private DefaultMutableTreeNode insertYearNode(Date date,
+            TreeModelUpdateInfo.NodesAndChildIndices info) {
         int                    indexYearNode = indexOfYearNode(date);
         DefaultMutableTreeNode yearNode;
 
         if (indexYearNode >= 0) {
-            yearNode = (DefaultMutableTreeNode) ROOT_NODE.getChildAt(indexYearNode);
+            yearNode =
+                (DefaultMutableTreeNode) ROOT_NODE.getChildAt(indexYearNode);
         } else {
             yearNode = new TreeNodeSortedChildren(new Date(date.year, 0, 0));
             insertYearNode(yearNode, info);
         }
+
         return yearNode;
     }
 
-    private void insertYearNode(DefaultMutableTreeNode yearNode, TreeModelUpdateInfo.NodesAndChildIndices info) {
+    private void insertYearNode(DefaultMutableTreeNode yearNode,
+                                TreeModelUpdateInfo.NodesAndChildIndices info) {
         int     childCount = ROOT_NODE.getChildCount();
         boolean inserted   = false;
         int     index      = 0;
+        int     year       = getYear(yearNode);
 
-        int year = getYear(yearNode);
-        while (!inserted && index < childCount) {
-            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++);
+        while (!inserted && (index < childCount)) {
+            DefaultMutableTreeNode childNode =
+                (DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++);
+
             if (childNode != UNKNOWN_NODE) {
                 Object userObject = childNode.getUserObject();
+
                 assert userObject instanceof Date;
                 inserted = ((Date) userObject).year == year;
             }
         }
+
         if (!inserted) {
             ROOT_NODE.add(yearNode);
             info.addNode(ROOT_NODE, ROOT_NODE.getIndex(yearNode));
@@ -275,56 +319,64 @@ public final class Timeline {
     }
 
     private DefaultMutableTreeNode insertMonthNode(
-            DefaultMutableTreeNode                   yearNode,
-            Date                                     date,
-            TreeModelUpdateInfo.NodesAndChildIndices info
-            ) {
+            DefaultMutableTreeNode yearNode, Date date,
+            TreeModelUpdateInfo.NodesAndChildIndices info) {
         DefaultMutableTreeNode monthNode  = null;
         int                    childCount = yearNode.getChildCount();
         boolean                inserted   = false;
         int                    index      = 0;
 
-        while (!inserted && index < childCount) {
+        while (!inserted && (index < childCount)) {
             monthNode = (DefaultMutableTreeNode) yearNode.getChildAt(index++);
 
             Object  userObject       = monthNode.getUserObject();
             boolean userObjectIsDate = userObject instanceof Date;
 
-            if (!userObjectIsDate) return null;
+            if (!userObjectIsDate) {
+                return null;
+            }
 
             int monthValue = ((Date) userObject).month;
 
             inserted = monthValue == date.month;
         }
+
         if (!inserted) {
-            monthNode = new TreeNodeSortedChildren(new Date(date.year, date.month, 0));
+            monthNode = new TreeNodeSortedChildren(new Date(date.year,
+                    date.month, 0));
             yearNode.add(monthNode);
             info.addNode(yearNode, yearNode.getIndex(monthNode));
         }
+
         return monthNode;
     }
 
-    private void insertDayNode(
-            DefaultMutableTreeNode                   monthNode,
-            Date                                     date,
-            TreeModelUpdateInfo.NodesAndChildIndices info
-            ) {
-        if (monthNode == null) return;
+    private void insertDayNode(DefaultMutableTreeNode monthNode, Date date,
+                               TreeModelUpdateInfo.NodesAndChildIndices info) {
+        if (monthNode == null) {
+            return;
+        }
 
         DefaultMutableTreeNode dayNode    = null;
         int                    childCount = monthNode.getChildCount();
         boolean                inserted   = false;
         int                    index      = 0;
 
-        while (!inserted && index < childCount) {
+        while (!inserted && (index < childCount)) {
             dayNode = (DefaultMutableTreeNode) monthNode.getChildAt(index++);
+
             Object  userObject       = dayNode.getUserObject();
             boolean userObjectIsDate = userObject instanceof Date;
 
-            if (!userObjectIsDate) return;
+            if (!userObjectIsDate) {
+                return;
+            }
+
             int dayValue = ((Date) userObject).day;
+
             inserted = dayValue == date.day;
         }
+
         if (!inserted) {
             dayNode = new TreeNodeSortedChildren(date);
             monthNode.add(dayNode);
@@ -337,12 +389,15 @@ public final class Timeline {
         int     childCount = ROOT_NODE.getChildCount();
         boolean yearExists = false;
 
-        while (!yearExists && index < childCount) {
-            Object userObject = ((DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++)).getUserObject();
+        while (!yearExists && (index < childCount)) {
+            Object userObject = ((DefaultMutableTreeNode) ROOT_NODE.getChildAt(
+                                    index++)).getUserObject();
+
             if (userObject instanceof Date) {
                 yearExists = ((Date) userObject).year == date.year;
             }
         }
+
         return yearExists
                ? index - 1
                : -1;
@@ -350,25 +405,31 @@ public final class Timeline {
 
     private int getYear(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
+
         if (userObject instanceof Date) {
             return ((Date) userObject).year;
         }
+
         return -1;
     }
 
     private int getMonth(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
+
         if (userObject instanceof Date) {
             return ((Date) userObject).month;
         }
+
         return -1;
     }
 
     private int getDay(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
+
         if (userObject instanceof Date) {
             return ((Date) userObject).day;
         }
+
         return -1;
     }
 
@@ -377,7 +438,7 @@ public final class Timeline {
      * where only parts are known.
      *
      * Convention: Set the unknown parts to zero.
-     * 
+     *
      * @author Elmar Baumann
      */
     public static class Date implements Comparable<Date> {
@@ -397,6 +458,7 @@ public final class Timeline {
 
         public Date(java.sql.Date date) {
             Calendar cal = Calendar.getInstance();
+
             cal.setTime(date);
             set(cal);
         }
@@ -415,21 +477,26 @@ public final class Timeline {
 
         public boolean setXmpDateCreated(String date) {
             int length = date.length();
+
             try {
                 if (length >= 4) {
                     year = Integer.parseInt(date.substring(0, 4));
                 }
+
                 if (length >= 7) {
                     month = Integer.parseInt(date.substring(5, 7));
                 }
+
                 if (length == 10) {
                     day = Integer.parseInt(date.substring(8));
                 }
+
                 return true;
             } catch (Exception ex) {
                 AppLogger.logSevere(Date.class, ex);
                 reset();
             }
+
             return false;
         }
 
@@ -475,7 +542,7 @@ public final class Timeline {
          * @return true if year, month and day are greater than zero
          */
         public boolean isComplete() {
-            return day > 0 && month > 0 && year > 0;
+            return (day > 0) && (month > 0) && (year > 0);
         }
 
         /**
@@ -485,7 +552,10 @@ public final class Timeline {
          */
         public String getMonthDisplayName() {
             try {
-                if (!hasMonth()) return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");
+                if (!hasMonth()) {
+                    return JptBundle.INSTANCE.getString(
+                        "Timeline.DisplayName.NoMonth");
+                }
 
                 DateFormat     df     = new SimpleDateFormat("M");
                 java.util.Date date   = df.parse(Integer.toString(month));
@@ -495,6 +565,7 @@ public final class Timeline {
             } catch (Exception ex) {
                 AppLogger.logSevere(Date.class, ex);
             }
+
             return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");
         }
 
@@ -502,38 +573,63 @@ public final class Timeline {
         public String toString() {
             DecimalFormat dfY  = new DecimalFormat("0000");
             DecimalFormat dfMD = new DecimalFormat("00");
-            return MessageFormat.format(
-                   "{0}-{1}-{2}", dfY.format(year), dfMD.format(month), dfMD.format(day));
+
+            return MessageFormat.format("{0}-{1}-{2}", dfY.format(year),
+                                        dfMD.format(month), dfMD.format(day));
         }
 
         @Override
         public boolean equals(Object obj) {
-            if (obj == null) return false;
-            if (getClass() != obj.getClass()) return false;
+            if (obj == null) {
+                return false;
+            }
+
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+
             final Date other = (Date) obj;
-            if (this.year  != other.year ) return false;
-            if (this.month != other.month) return false;
-            if (this.day   != other.day  ) return false;
+
+            if (this.year != other.year) {
+                return false;
+            }
+
+            if (this.month != other.month) {
+                return false;
+            }
+
+            if (this.day != other.day) {
+                return false;
+            }
+
             return true;
         }
 
         @Override
         public int hashCode() {
             int hash = 3;
+
             hash = 31 * hash + this.year;
             hash = 31 * hash + this.month;
             hash = 31 * hash + this.day;
+
             return hash;
         }
 
         @Override
         public int compareTo(Date o) {
-            if (year == o.year && month == o.month && day == o.day) return 0;
-            boolean greater =
-                     year > o.year ||
-                     year == o.year && month > o.month ||
-                     year == o.year && month == o.month && day > o.day;
-            return greater ? 1 : -1;
+            if ((year == o.year) && (month == o.month) && (day == o.day)) {
+                return 0;
+            }
+
+            boolean greater = (year > o.year)
+                              || ((year == o.year) && (month > o.month))
+                              || ((year == o.year) && (month == o.month)
+                                  && (day > o.day));
+
+            return greater
+                   ? 1
+                   : -1;
         }
     }
 }

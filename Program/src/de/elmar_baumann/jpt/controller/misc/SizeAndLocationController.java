@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.UserSettings;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -35,15 +37,16 @@ import java.awt.event.WindowEvent;
  * @version 2010-01-14
  */
 public final class SizeAndLocationController extends WindowAdapter {
-
     @Override
     public void windowOpened(WindowEvent e) {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(e.getComponent());
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(
+            e.getComponent());
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(e.getComponent());
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(
+            e.getComponent());
         UserSettings.INSTANCE.writeToFile();
     }
 }

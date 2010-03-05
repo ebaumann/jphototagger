@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 import de.elmar_baumann.jpt.data.SavedSearch;
@@ -28,11 +29,10 @@ import de.elmar_baumann.jpt.data.SavedSearch;
  * @version 2008-08-23
  */
 public final class SearchEvent {
-
-    private Type type;
+    private Type        type;
     private SavedSearch savedSearch;
-    private String searchName;
-    private boolean forceOverwrite;
+    private String      searchName;
+    private boolean     forceOverwrite;
 
     /**
      * Typ des Ereignisses.
@@ -41,16 +41,21 @@ public final class SearchEvent {
 
         /** Suche speichern */
         SAVE,
+
         /** Suche starten */
         START,
+
         /**
          * Aktion ist eine Schnellsuche. Operationen bezüglich der gespeicherten
          * Suchen liefern null.
          */
         FAST_SEARCH,
+
         /** The name of a (saved) search has changend */
         NAME_CHANGED
-    };
+    }
+
+    ;
 
     /**
      * Konstruktor.

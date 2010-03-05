@@ -17,25 +17,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
-import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
+import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
+
 import java.io.File;
+
 import java.util.List;
-import javax.swing.JTree;
-import javax.swing.SwingUtilities;
+
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 
 /**
@@ -47,14 +51,17 @@ import javax.swing.tree.TreePath;
  * @version 2008-10-05
  */
 public final class ControllerDirectorySelected
-        implements TreeSelectionListener,
-                   RefreshListener {
-
-    private final AppPanel               appPanel               = GUI.INSTANCE.getAppPanel();
-    private final JTree                  treeDirectories        = appPanel.getTreeDirectories();
-    private final EditMetadataPanels     editPanels             = appPanel.getEditMetadataPanels();
-    private final ThumbnailsPanel        thumbnailsPanel        = appPanel.getPanelThumbnails();
-    private final ImageFilteredDirectory imageFilteredDirectory = new ImageFilteredDirectory();
+        implements TreeSelectionListener, RefreshListener {
+    private final AppPanel           appPanel        =
+        GUI.INSTANCE.getAppPanel();
+    private final JTree              treeDirectories =
+        appPanel.getTreeDirectories();
+    private final EditMetadataPanels editPanels      =
+        appPanel.getEditMetadataPanels();
+    private final ThumbnailsPanel thumbnailsPanel =
+        appPanel.getPanelThumbnails();
+    private final ImageFilteredDirectory imageFilteredDirectory =
+        new ImageFilteredDirectory();
 
     public ControllerDirectorySelected() {
         listen();
@@ -67,7 +74,7 @@ public final class ControllerDirectorySelected
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath() && !PopupMenuDirectories.INSTANCE.isTreeSelected()) {
+        if (e.isAddedPath() &&!PopupMenuDirectories.INSTANCE.isTreeSelected()) {
             setFilesToThumbnailsPanel(null);
         }
     }
@@ -82,7 +89,6 @@ public final class ControllerDirectorySelected
     }
 
     private class ShowThumbnails implements Runnable {
-
         private final ThumbnailsPanel.Settings panelSettings;
 
         public ShowThumbnails(ThumbnailsPanel.Settings settings) {
@@ -93,8 +99,13 @@ public final class ControllerDirectorySelected
         public void run() {
             if (treeDirectories.getSelectionCount() > 0) {
                 File selectedDirectory = new File(getDirectorynameFromTree());
+
                 imageFilteredDirectory.setDirectory(selectedDirectory);
-                List<File> files = ImageFilteredDirectory.getImageFilesOfDirectory(selectedDirectory);
+
+                List<File> files =
+                    ImageFilteredDirectory.getImageFilesOfDirectory(
+                        selectedDirectory);
+
                 setTitle(selectedDirectory);
                 ControllerSortThumbnails.setLastSort();
                 thumbnailsPanel.setFiles(files, Content.DIRECTORY);
@@ -105,13 +116,17 @@ public final class ControllerDirectorySelected
 
         private void setTitle(File selectedDirectory) {
             GUI.INSTANCE.getAppFrame().setTitle(
-                    JptBundle.INSTANCE.getString("ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory));
+                JptBundle.INSTANCE.getString(
+                    "ControllerDirectorySelected.AppFrame.Title.Directory",
+                    selectedDirectory));
         }
 
         private String getDirectorynameFromTree() {
             TreePath treePath = treeDirectories.getSelectionPath();
+
             if (treePath.getLastPathComponent() instanceof File) {
-                return ((File) treePath.getLastPathComponent()).getAbsolutePath();
+                return ((File) treePath.getLastPathComponent())
+                    .getAbsolutePath();
             } else {
                 return treePath.getLastPathComponent().toString();
             }

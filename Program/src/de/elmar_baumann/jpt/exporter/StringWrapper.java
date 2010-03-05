@@ -17,13 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.exporter;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
+
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -35,11 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class StringWrapper {
-
     private String string;
 
-    public StringWrapper() {
-    }
+    public StringWrapper() {}
 
     public StringWrapper(String string) {
         this.string = string;
@@ -53,8 +53,10 @@ public final class StringWrapper {
         this.string = string;
     }
 
-    public static List<StringWrapper> getWrappedStrings(Collection<? extends String> strings) {
-        List<StringWrapper> wrapped = new ArrayList<StringWrapper>(strings.size());
+    public static List<StringWrapper> getWrappedStrings(
+            Collection<? extends String> strings) {
+        List<StringWrapper> wrapped =
+            new ArrayList<StringWrapper>(strings.size());
 
         for (String string : strings) {
             wrapped.add(new StringWrapper(string));

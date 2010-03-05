@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.collections;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -29,15 +30,12 @@ import de.elmar_baumann.jpt.database.metadata.Column.DataType;
  * @version 2008-09-07
  */
 public final class ColumnCollectionsIdCollectionNames extends Column {
-
-    public static final ColumnCollectionsIdCollectionNames INSTANCE = new ColumnCollectionsIdCollectionNames();
+    public static final ColumnCollectionsIdCollectionNames INSTANCE =
+        new ColumnCollectionsIdCollectionNames();
 
     private ColumnCollectionsIdCollectionNames() {
-        super(
-            TableCollections.INSTANCE,
-            "id_collectionnnames",
-            DataType.BIGINT);
-
+        super(TableCollections.INSTANCE, "id_collectionnnames",
+              DataType.BIGINT);
         setIsPrimaryKey(true);
     }
 }

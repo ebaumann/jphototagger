@@ -17,11 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifAscii;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.lib.util.ByteUtil;
 
@@ -32,21 +33,17 @@ import de.elmar_baumann.lib.util.ByteUtil;
  * @version 2009-06-10
  */
 public final class ExifFormatterFlash extends ExifFormatter {
-
     public static final ExifFormatterFlash INSTANCE = new ExifFormatterFlash();
 
-    private ExifFormatterFlash() {
-    }
+    private ExifFormatterFlash() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.FLASH);
 
         byte[] rawValue = exifTag.rawValue();
 
-        if (rawValue != null && rawValue.length >= 1) {
-
+        if ((rawValue != null) && (rawValue.length >= 1)) {
             boolean[] bitsByte1 = ByteUtil.getBits(rawValue[0]);
             boolean   fired     = bitsByte1[0];
             boolean   hasFlash  = !bitsByte1[5];
@@ -54,10 +51,12 @@ public final class ExifFormatterFlash extends ExifFormatter {
             if (!hasFlash) {
                 return translate(IfdType.EXIF, "FlashNone");
             }
+
             return fired
                    ? translate(IfdType.EXIF, "FlashFired")
                    : translate(IfdType.EXIF, "FlashNotFired");
         }
+
         return ExifAscii.decode(rawValue);
     }
 }

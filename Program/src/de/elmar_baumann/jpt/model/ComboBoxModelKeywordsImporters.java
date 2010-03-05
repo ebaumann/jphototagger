@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.importer.KeywordsImporter;
 import de.elmar_baumann.jpt.importer.KeywordImporters;
+import de.elmar_baumann.jpt.importer.KeywordsImporter;
+
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -31,7 +33,6 @@ import javax.swing.DefaultComboBoxModel;
  * @version 2009-08-01
  */
 public final class ComboBoxModelKeywordsImporters extends DefaultComboBoxModel {
-
     private static final long serialVersionUID = 7228501230169153588L;
 
     public ComboBoxModelKeywordsImporters() {

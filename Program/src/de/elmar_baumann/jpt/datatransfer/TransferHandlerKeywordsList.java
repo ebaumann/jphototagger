@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
+
 import java.awt.datatransfer.Transferable;
+
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
@@ -38,7 +41,6 @@ import javax.swing.TransferHandler;
  * @version 2009-07-11
  */
 public final class TransferHandlerKeywordsList extends TransferHandler {
-
     private static final long serialVersionUID = -4156977618928448144L;
 
     /**
@@ -52,10 +54,12 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
      */
     public static Object[] getKeywords(Transferable transferable) {
         try {
-            return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
+            return (Object[]) transferable.getTransferData(
+                Flavor.KEYWORDS_LIST);
         } catch (Exception e) {
             AppLogger.logSevere(TransferHandlerKeywordsList.class, e);
         }
+
         return null;
     }
 
@@ -66,8 +70,9 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        JList list = (JList) c;
+        JList    list      = (JList) c;
         Object[] selValues = list.getSelectedValues();
+
         return new TransferableObject(selValues, Flavor.KEYWORDS_LIST);
     }
 

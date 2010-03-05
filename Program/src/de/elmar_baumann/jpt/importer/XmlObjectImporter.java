@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -35,11 +38,13 @@ import javax.xml.bind.Unmarshaller;
  * @version 2010-03-02
  */
 public final class XmlObjectImporter {
-
-    public static Object importObject(File file, Class<?> clazz) throws JAXBException, FileNotFoundException {
+    public static Object importObject(File file, Class<?> clazz)
+            throws JAXBException, FileNotFoundException {
         FileInputStream fis = null;
+
         try {
             fis = new FileInputStream(file);
+
             JAXBContext  context      = JAXBContext.newInstance(clazz);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -59,7 +64,5 @@ public final class XmlObjectImporter {
         }
     }
 
-    private XmlObjectImporter() {
-    }
-
+    private XmlObjectImporter() {}
 }

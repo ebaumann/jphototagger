@@ -17,23 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.imagecollection;
 
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.io.File;
+
 import java.util.List;
+
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 
@@ -53,13 +58,12 @@ import javax.swing.JMenuItem;
  * @version 2009-07-21
  */
 public final class ControllerPickReject implements ActionListener, KeyListener {
-
     private final ThumbnailsPanel panelThumbnails =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem itemPick =
-            PopupMenuThumbnails.INSTANCE.getItemPick();
+        PopupMenuThumbnails.INSTANCE.getItemPick();
     private final JMenuItem itemReject =
-            PopupMenuThumbnails.INSTANCE.getItemReject();
+        PopupMenuThumbnails.INSTANCE.getItemReject();
 
     public ControllerPickReject() {
         listen();
@@ -90,21 +94,28 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private void addOrRemove(boolean pick) {
-        if (pick && isPickCollection() || !pick && isRejectCollection()) return;
+        if ((pick && isPickCollection()) ||(!pick && isRejectCollection())) {
+            return;
+        }
+
         if (panelThumbnails.getSelectionCount() > 0) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
-            GUI.INSTANCE.getAppPanel().setStatusbarText(getPopupMessage(pick), MessageLabel.MessageType.INFO, 1000);
-            addToCollection(
-                    pick
-                    ? ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED
-                    : ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED,
-                    selFiles);
-            if (pick && isRejectCollection() || !pick && isPickCollection()) {
-                deleteFromCollection(
-                        pick
-                        ? ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED
-                        : ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED,
-                        selFiles);
+
+            GUI.INSTANCE.getAppPanel().setStatusbarText(getPopupMessage(pick),
+                    MessageLabel.MessageType.INFO, 1000);
+            addToCollection(pick
+                            ? ListModelImageCollections
+                                .NAME_IMAGE_COLLECTION_PICKED
+                            : ListModelImageCollections
+                                .NAME_IMAGE_COLLECTION_REJECTED, selFiles);
+
+            if ((pick && isRejectCollection())
+                    ||(!pick && isPickCollection())) {
+                deleteFromCollection(pick
+                                     ? ListModelImageCollections
+                                         .NAME_IMAGE_COLLECTION_REJECTED
+                                     : ListModelImageCollections
+                                     .NAME_IMAGE_COLLECTION_PICKED, selFiles);
                 panelThumbnails.remove(selFiles);
             }
         }
@@ -112,44 +123,54 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
 
     private String getPopupMessage(boolean pick) {
         return pick
-                ? JptBundle.INSTANCE.getString("ControllerPickReject.Info.Pick")
-                : JptBundle.INSTANCE.getString("ControllerPickReject.Info.Reject");
+               ? JptBundle.INSTANCE.getString("ControllerPickReject.Info.Pick")
+               : JptBundle.INSTANCE.getString(
+                   "ControllerPickReject.Info.Reject");
     }
 
     private boolean isPickCollection() {
-        return isCollection(ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED);
+        return isCollection(
+            ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED);
     }
 
     private boolean isRejectCollection() {
         return isCollection(
-                ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED);
+            ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED);
     }
 
     private boolean isCollection(String collection) {
-        if (!panelThumbnails.getContent().equals(Content.IMAGE_COLLECTION))
+        if (!panelThumbnails.getContent().equals(Content.IMAGE_COLLECTION)) {
             return false;
+        }
+
         JList list = GUI.INSTANCE.getAppPanel().getListImageCollections();
-        if (list.getSelectedIndex() < 0) return false;
+
+        if (list.getSelectedIndex() < 0) {
+            return false;
+        }
+
         return list.getSelectedValue().toString().equals(collection);
     }
 
     private void addToCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.insertImagesInto(
-                collection, FileUtil.getAsFilenames(files));
+        DatabaseImageCollections.INSTANCE.insertImagesInto(collection,
+                FileUtil.getAsFilenames(files));
     }
 
     private void deleteFromCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.deleteImagesFrom(
-                collection, FileUtil.getAsFilenames(files));
+        DatabaseImageCollections.INSTANCE.deleteImagesFrom(collection,
+                FileUtil.getAsFilenames(files));
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

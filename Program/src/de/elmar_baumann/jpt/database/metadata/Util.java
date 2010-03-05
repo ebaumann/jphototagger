@@ -17,11 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Utils für Datenbankmetadaten.
@@ -37,15 +37,18 @@ public final class Util {
      * @param columns Spalten
      * @return        Tabellennamen
      */
-    public static List<String> getUniqueTableNamesOfColumnArray(List<Column> columns) {
+    public static List<String> getUniqueTableNamesOfColumnArray(
+            List<Column> columns) {
         List<String> tablenames = new ArrayList<String>();
 
         for (Column column : columns) {
             String tableName = column.getTable().getName();
+
             if (!tablenames.contains(tableName)) {
                 tablenames.add(tableName);
             }
         }
+
         return tablenames;
     }
 
@@ -57,11 +60,13 @@ public final class Util {
      */
     public static List<Table> getUniqueTablesOfTableArray(List<Table> tables) {
         List<Table> uniqueTables = new ArrayList<Table>();
+
         for (Table table : tables) {
             if (!uniqueTables.contains(table)) {
                 uniqueTables.add(table);
             }
         }
+
         return uniqueTables;
     }
 
@@ -71,14 +76,18 @@ public final class Util {
      * @param columns Spalten
      * @return        Tabellen
      */
-    public static List<Table> getUniqueTablesOfColumnArray(List<Column> columns) {
+    public static List<Table> getUniqueTablesOfColumnArray(
+            List<Column> columns) {
         List<Table> tables = new ArrayList<Table>();
+
         for (Column column : columns) {
             Table table = column.getTable();
+
             if (!tables.contains(table)) {
                 tables.add(table);
             }
         }
+
         return tables;
     }
 
@@ -88,13 +97,16 @@ public final class Util {
      * @param columns Spalten
      * @return        Spalten
      */
-    public static List<Column> getUniqueColumnsOfColumnArray(List<Column> columns) {
+    public static List<Column> getUniqueColumnsOfColumnArray(
+            List<Column> columns) {
         List<Column> uniqueColumns = new ArrayList<Column>();
+
         for (Column column : columns) {
             if (!uniqueColumns.contains(column)) {
                 uniqueColumns.add(column);
             }
         }
+
         return uniqueColumns;
     }
 
@@ -111,17 +123,22 @@ public final class Util {
      *                       referenzieren (unique)
      */
     public static List<Table> getTablesWithReferenceTo(List<Table> tables,
-        Table referenceTable, Column.ReferenceDirection direction) {
+            Table referenceTable, Column.ReferenceDirection direction) {
         List<Table> referenced = new ArrayList<Table>();
+
         for (Table table : tables) {
             List<Column> refCols = table.getReferenceColumns();
+
             for (Column column : refCols) {
                 Column refdCol = column.getReferences();
-                if (refdCol.getTable().equals(referenceTable) && column.getReferenceDirection().equals(direction)) {
+
+                if (refdCol.getTable().equals(referenceTable)
+                        && column.getReferenceDirection().equals(direction)) {
                     referenced.add(table);
                 }
             }
         }
+
         return getUniqueTablesOfTableArray(referenced);
     }
 
@@ -133,13 +150,15 @@ public final class Util {
      * @return             Spalten der Tabelle aus <code>tableColumns</code>
      */
     public static List<Column> getTableColumnsOfTableStartsWith(
-        List<Column> tableColumns, String tablename) {
+            List<Column> tableColumns, String tablename) {
         List<Column> columns = new ArrayList<Column>();
+
         for (Column column : tableColumns) {
             if (column.getTable().getName().startsWith(tablename)) {
                 columns.add(column);
             }
         }
+
         return columns;
     }
 
@@ -150,23 +169,30 @@ public final class Util {
      * @return             SQL-String
      */
     public static String getSqlSelectFrom(List<Column> tableColumns) {
-        StringBuffer sql = new StringBuffer("SELECT ");
-        int columnCount = tableColumns.size();
+        StringBuffer sql         = new StringBuffer("SELECT ");
+        int          columnCount = tableColumns.size();
 
         for (int index = 0; index < columnCount; index++) {
             Column tableColumn = tableColumns.get(index);
-            sql.append(tableColumn.getTable().getName() + "." + tableColumn.
-                getName() + (index < columnCount - 1
-                ? ", " : ""));
+
+            sql.append(tableColumn.getTable().getName() + "."
+                       + tableColumn.getName() + ((index < columnCount - 1)
+                    ? ", "
+                    : ""));
         }
 
         sql.append(" FROM ");
 
-        List<String> tablenames = getUniqueTableNamesOfColumnArray(tableColumns);
+        List<String> tablenames =
+            getUniqueTableNamesOfColumnArray(tableColumns);
         int tableCount = tablenames.size();
+
         for (int index = 0; index < tableCount; index++) {
             String tablename = tablenames.get(index);
-            sql.append(tablename + (index < columnCount - 1 ? ", " : ""));
+
+            sql.append(tablename + ((index < columnCount - 1)
+                                    ? ", "
+                                    : ""));
         }
 
         return sql.toString();

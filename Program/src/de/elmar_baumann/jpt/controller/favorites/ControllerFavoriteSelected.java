@@ -17,18 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.favorites;
 
-import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
+import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.helper.FavoritesHelper;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.types.Content;
+import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import javax.swing.JTree;
+
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.JTree;
 
 /**
  * Listens for selections of items in the favorite directories tree view. A tree
@@ -38,18 +40,22 @@ import javax.swing.event.TreeSelectionListener;
  * @author  Elmar Baumann
  * @version 2008-09-24
  */
-public final class ControllerFavoriteSelected implements TreeSelectionListener, RefreshListener {
-
-    private final AppPanel        appPanel                = GUI.INSTANCE.getAppPanel();
-    private final JTree           treeFavoriteDirectories = appPanel.getTreeFavorites();
-    private final ThumbnailsPanel thumbnailsPanel         = appPanel.getPanelThumbnails();
+public final class ControllerFavoriteSelected
+        implements TreeSelectionListener, RefreshListener {
+    private final AppPanel        appPanel                =
+        GUI.INSTANCE.getAppPanel();
+    private final JTree           treeFavoriteDirectories =
+        appPanel.getTreeFavorites();
+    private final ThumbnailsPanel thumbnailsPanel         =
+        appPanel.getPanelThumbnails();
 
     public ControllerFavoriteSelected() {
         listen();
     }
 
     private void listen() {
-        treeFavoriteDirectories.getSelectionModel().addTreeSelectionListener(this);
+        treeFavoriteDirectories.getSelectionModel().addTreeSelectionListener(
+            this);
         thumbnailsPanel.addRefreshListener(this, Content.FAVORITE);
     }
 
@@ -57,7 +63,7 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
     public void valueChanged(TreeSelectionEvent e) {
         if (e.isAddedPath()) {
             FavoritesHelper.setFilesToThumbnailPanel(
-                    FavoritesHelper.getFilesOfSelectedtDirectory(), null);
+                FavoritesHelper.getFilesOfSelectedtDirectory(), null);
         }
     }
 
@@ -65,7 +71,8 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
     public void refresh(RefreshEvent evt) {
         if (treeFavoriteDirectories.getSelectionCount() > 0) {
             FavoritesHelper.setFilesToThumbnailPanel(
-                    FavoritesHelper.getFilesOfSelectedtDirectory(), evt.getSettings());
+                FavoritesHelper.getFilesOfSelectedtDirectory(),
+                evt.getSettings());
         }
     }
 }

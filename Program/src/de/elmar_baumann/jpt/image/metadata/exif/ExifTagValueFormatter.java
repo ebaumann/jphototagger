@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif;
 
 import de.elmar_baumann.jpt.image.metadata.exif.formatter.ExifFormatter;
@@ -37,12 +38,13 @@ public final class ExifTagValueFormatter {
      */
     public static String format(ExifTag exifTag) {
         ExifFormatter formatter = ExifFormatterFactory.get(exifTag);
+
         if (formatter != null) {
             return formatter.format(exifTag);
         }
+
         return exifTag.stringValue().trim();
     }
 
-    private ExifTagValueFormatter() {
-    }
+    private ExifTagValueFormatter() {}
 }

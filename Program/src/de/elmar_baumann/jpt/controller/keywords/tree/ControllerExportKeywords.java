@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.exporter.Exporter;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.KeywordExportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,13 +36,13 @@ import java.awt.event.ActionListener;
  * @version 2009-08-02
  */
 public final class ControllerExportKeywords implements ActionListener {
-
     public ControllerExportKeywords() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemExportKeywords().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemExportKeywords()
+            .addActionListener(this);
     }
 
     @Override
@@ -50,10 +52,14 @@ public final class ControllerExportKeywords implements ActionListener {
 
     private void exportKeywords() {
         KeywordExportDialog dlg = new KeywordExportDialog();
+
         dlg.setVisible(true);
+
         if (dlg.isAccepted()) {
             Exporter exporter = dlg.getExporter();
+
             assert exporter != null : "Exporter is null!";
+
             if (exporter != null) {
                 exporter.exportFile(dlg.getFile());
             }

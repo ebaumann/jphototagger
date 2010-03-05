@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.resource;
 
 import de.elmar_baumann.lib.resource.Bundle;
@@ -27,7 +28,6 @@ import de.elmar_baumann.lib.resource.Bundle;
  * @version 2008-09-02
  */
 public final class JptBundle extends Bundle {
-
     public static final JptBundle INSTANCE = new JptBundle();
 
     private JptBundle() {

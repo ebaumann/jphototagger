@@ -17,13 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
+
 import java.io.File;
+
 import java.util.List;
 
 /**
@@ -49,17 +52,26 @@ public final class FileSystemDirectories {
         if (directory.isDirectory()) {
             if (TreeFileSystemDirectories.confirmDelete(directory.getName())) {
                 try {
-                    List<File> imageFiles = ImageFilteredDirectory.getImageFilesOfDirAndSubDirs(directory);
+                    List<File> imageFiles =
+                        ImageFilteredDirectory.getImageFilesOfDirAndSubDirs(
+                            directory);
+
                     FileUtil.deleteDirectoryRecursive(directory);
-                    int count = DatabaseImageFiles.INSTANCE.delete(FileUtil.getAsFilenames(imageFiles));
+
+                    int count = DatabaseImageFiles.INSTANCE.delete(
+                                    FileUtil.getAsFilenames(imageFiles));
+
                     logDelete(directory, count);
+
                     return true;
                 } catch (Exception ex) {
-                    TreeFileSystemDirectories.errorMessageDelete(directory.getName());
+                    TreeFileSystemDirectories.errorMessageDelete(
+                        directory.getName());
                     AppLogger.logSevere(FileSystemDirectories.class, ex);
                 }
             }
         }
+
         return false;
     }
 
@@ -73,19 +85,28 @@ public final class FileSystemDirectories {
      */
     public static File rename(File directory) {
         if (directory.isDirectory()) {
-            String newDirectoryName = TreeFileSystemDirectories.getNewName(directory);
-            if (newDirectoryName != null && !newDirectoryName.trim().isEmpty()) {
+            String newDirectoryName =
+                TreeFileSystemDirectories.getNewName(directory);
 
-                File newDirectory = new File(directory.getParentFile(), newDirectoryName);
+            if ((newDirectoryName != null)
+                    &&!newDirectoryName.trim().isEmpty()) {
+                File newDirectory = new File(directory.getParentFile(),
+                                             newDirectoryName);
+
                 if (TreeFileSystemDirectories.checkDoesNotExist(newDirectory)) {
                     try {
                         if (directory.renameTo(newDirectory)) {
-
-                            String oldParentDir = directory.getAbsolutePath() + File.separator;
-                            String newParentDir = newDirectory.getAbsolutePath() + File.separator;
-                            int    dbCount      = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(oldParentDir, newParentDir, null);
+                            String oldParentDir = directory.getAbsolutePath()
+                                                  + File.separator;
+                            String newParentDir =
+                                newDirectory.getAbsolutePath() + File.separator;
+                            int dbCount =
+                                DatabaseImageFiles.INSTANCE
+                                    .updateRenameFilenamesStartingWith(
+                                        oldParentDir, newParentDir, null);
 
                             logInfoRenamed(directory, newDirectory, dbCount);
+
                             return newDirectory;
                         }
                     } catch (Exception ex) {
@@ -94,17 +115,22 @@ public final class FileSystemDirectories {
                 }
             }
         }
+
         return null;
     }
 
     private static void logDelete(File directory, int countDeletedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Delete", directory, countDeletedInDatabase);
+        AppLogger.logInfo(FileSystemDirectories.class,
+                          "FileSystemDirectories.Info.Delete", directory,
+                          countDeletedInDatabase);
     }
 
-    private static void logInfoRenamed(File directory, File newDirectory, int countRenamedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Rename", directory, newDirectory, countRenamedInDatabase);
+    private static void logInfoRenamed(File directory, File newDirectory,
+                                       int countRenamedInDatabase) {
+        AppLogger.logInfo(FileSystemDirectories.class,
+                          "FileSystemDirectories.Info.Rename", directory,
+                          newDirectory, countRenamedInDatabase);
     }
 
-    private FileSystemDirectories() {
-    }
+    private FileSystemDirectories() {}
 }

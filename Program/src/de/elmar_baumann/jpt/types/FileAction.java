@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 import javax.swing.TransferHandler;
@@ -28,11 +29,9 @@ import javax.swing.TransferHandler;
  * @version 2008-10-26
  */
 public enum FileAction {
+    COPY(TransferHandler.COPY), CUT(TransferHandler.MOVE),
+    MOVE(TransferHandler.MOVE), UNDEFINED(null),;
 
-    COPY(TransferHandler.COPY),
-    CUT(TransferHandler.MOVE),
-    MOVE(TransferHandler.MOVE),
-    UNDEFINED(null),;
     /**
      * Action equivalent for a {@link TransferHandler}
      */

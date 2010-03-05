@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+
 import java.awt.Component;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -32,19 +35,21 @@ import javax.swing.table.TableCellRenderer;
  * @author  Elmar Baumann
  * @version 2008-09-17
  */
-public final class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
-
+public final class TableCellRendererDatabaseInfoColumns
+        implements TableCellRenderer {
     private static final String PADDING_LEFT = "  ";
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
-        boolean isSelected, boolean hasFocus, int row, int column) {
+            boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel cellLabel = new JLabel();
+
         if (column == 0) {
             FormatterLabelTableColumn.setLabelText(cellLabel, (Column) value);
         } else {
             cellLabel.setText(PADDING_LEFT + value.toString());
         }
+
         return cellLabel;
     }
 }

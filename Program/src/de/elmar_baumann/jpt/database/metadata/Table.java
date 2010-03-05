@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import java.util.List;
  * @version 2008-10-05
  */
 public abstract class Table {
-
     private final List<Column> columns          = new ArrayList<Column>();
     private final List<Column> referenceColumns = new ArrayList<Column>();
     private final String       name;
@@ -45,17 +45,21 @@ public abstract class Table {
     public boolean equals(Object o) {
         if (o instanceof Table) {
             Table otherTable = (Table) o;
+
             return name.equals(otherTable.name);
         }
+
         return false;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (this.name != null
+
+        hash = 29 * hash + ((this.name != null)
                             ? this.name.hashCode()
                             : 0);
+
         return hash;
     }
 
@@ -63,6 +67,7 @@ public abstract class Table {
         assert !columns.contains(column);
         column.setTable(this);
         columns.add(column);
+
         if (column.getReferences() != null) {
             referenceColumns.add(column);
         }
@@ -72,6 +77,7 @@ public abstract class Table {
         if (columns.isEmpty()) {
             addColumns();
         }
+
         return new ArrayList<Column>(columns);
     }
 
@@ -84,6 +90,7 @@ public abstract class Table {
         if (columns.isEmpty()) {
             addColumns();
         }
+
         return referenceColumns;
     }
 
@@ -100,12 +107,15 @@ public abstract class Table {
      */
     public List<Column> getJoinColumnsFor(Table table) {
         List<Column> joinColumns = new ArrayList<Column>();
+
         for (Column column : referenceColumns) {
             Column referencedColumn = column.getReferences();
+
             if (referencedColumn.getTable().equals(table)) {
                 joinColumns.add(column);
             }
         }
+
         return joinColumns;
     }
 

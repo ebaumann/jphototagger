@@ -17,18 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.rating;
 
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JMenuItem;
 
 /**
@@ -42,12 +46,11 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  * @version 2009-08-03
  */
-public final class ControllerSetRating
-        implements ActionListener, KeyListener {
-
-    private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
+public final class ControllerSetRating implements ActionListener, KeyListener {
+    private final PopupMenuThumbnails       popup              =
+        PopupMenuThumbnails.INSTANCE;
     private static final Map<Integer, Long> RATING_OF_KEY_CODE =
-            new HashMap<Integer, Long>();
+        new HashMap<Integer, Long>();
 
     static {
         RATING_OF_KEY_CODE.put(KeyEvent.VK_0, Long.valueOf(0));
@@ -86,7 +89,8 @@ public final class ControllerSetRating
 
     public void setRating(Long rating) {
         EditMetadataPanels editPanel =
-                GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+
         if (editPanel.isEditable()) {
             editPanel.setRating(rating);
         }
@@ -98,11 +102,13 @@ public final class ControllerSetRating
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import org.junit.AfterClass;
@@ -30,9 +31,7 @@ import org.junit.Test;
  * @version 2010/01/15
  */
 public class SplashScreenTest {
-
-    public SplashScreenTest() {
-    }
+    public SplashScreenTest() {}
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -87,7 +86,8 @@ public class SplashScreenTest {
         System.out.println("setMessage");
         SplashScreen.INSTANCE.setMessage("Testmessage 1");
         sleep(2000);
-        SplashScreen.INSTANCE.setMessage("Testmessage 2 (should have replaced previous)");
+        SplashScreen.INSTANCE.setMessage(
+            "Testmessage 2 (should have replaced previous)");
         sleep(2000);
     }
 
@@ -98,5 +98,4 @@ public class SplashScreenTest {
             ex.printStackTrace();
         }
     }
-
 }

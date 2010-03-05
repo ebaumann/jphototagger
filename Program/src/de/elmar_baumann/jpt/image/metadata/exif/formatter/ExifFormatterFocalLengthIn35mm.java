@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -32,26 +34,25 @@ import java.text.NumberFormat;
  * @version 2009-06-10
  */
 public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
+    public static final ExifFormatterFocalLengthIn35mm INSTANCE =
+        new ExifFormatterFocalLengthIn35mm();
 
-    public static final ExifFormatterFocalLengthIn35mm INSTANCE = new ExifFormatterFocalLengthIn35mm();
-
-    private ExifFormatterFocalLengthIn35mm() {
-    }
+    private ExifFormatterFocalLengthIn35mm() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-
-            ExifShort     es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(),
+                                         exifTag.byteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.# mm");
 
             return df.format(es.value());
         }
+
         return "?";
     }
 }

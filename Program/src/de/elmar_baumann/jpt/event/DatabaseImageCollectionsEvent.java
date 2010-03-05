@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 import java.util.Collection;
@@ -40,22 +41,27 @@ public final class DatabaseImageCollectionsEvent {
          * An image collection was deleted
          */
         COLLECTION_DELETED,
+
         /**
          * An image collection was inserted
          */
         COLLECTION_INSERTED,
+
         /**
          * Images were inserted into an image collection
          */
         IMAGES_INSERTED,
+
         /**
          * Images were deleted from an image collection
          */
         IMAGES_DELETED,
-    };
-    private final String collectionName;
+    }
+
+    ;
+    private final String      collectionName;
     private final Set<String> filenames;
-    private final Type type;
+    private final Type        type;
 
     /**
      * Creates a new event.
@@ -64,12 +70,11 @@ public final class DatabaseImageCollectionsEvent {
      * @param collectionName name of the image collection
      * @param filenames      names of the affected files
      */
-    public DatabaseImageCollectionsEvent(Type type,
-            String collectionName,
+    public DatabaseImageCollectionsEvent(Type type, String collectionName,
             Collection<? extends String> filenames) {
-        this.type = type;
+        this.type           = type;
         this.collectionName = collectionName;
-        this.filenames = new HashSet<String>(filenames);
+        this.filenames      = new HashSet<String>(filenames);
     }
 
     /**

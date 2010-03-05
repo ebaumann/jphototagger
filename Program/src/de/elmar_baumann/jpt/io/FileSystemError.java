@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -26,12 +27,13 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @author Elmar Baumann
  */
 public enum FileSystemError {
-
-    LOCKED             (JptBundle.INSTANCE.getString("FileSystemError.LOCKED")),
-    MISSING_PRIVILEGES (JptBundle.INSTANCE.getString("FileSystemError.MISSING_PRIVILEGES")),
-    MOVE_RENAME_EXISTS (JptBundle.INSTANCE.getString("FileSystemError.MOVE_RENAME_EXISTS")),
-    READ_ONLY          (JptBundle.INSTANCE.getString("FileSystemError.READ_ONLY")),
-    UNKNOWN            (JptBundle.INSTANCE.getString("FileSystemError.UNKNOWN"));
+    LOCKED(JptBundle.INSTANCE.getString("FileSystemError.LOCKED")),
+    MISSING_PRIVILEGES(
+        JptBundle.INSTANCE.getString("FileSystemError.MISSING_PRIVILEGES")),
+    MOVE_RENAME_EXISTS(
+        JptBundle.INSTANCE.getString("FileSystemError.MOVE_RENAME_EXISTS")),
+    READ_ONLY(JptBundle.INSTANCE.getString("FileSystemError.READ_ONLY")),
+    UNKNOWN(JptBundle.INSTANCE.getString("FileSystemError.UNKNOWN"));
 
     private final String message;
 

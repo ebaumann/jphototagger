@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import de.elmar_baumann.lib.resource.JslBundle;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -33,9 +35,8 @@ import javax.swing.text.JTextComponent;
  * @version 2008-10-28
  */
 public final class InputVerifierMaxLength extends InputVerifier {
-
-    private final int     maxLength;
-    private       boolean message  = true;
+    private final int maxLength;
+    private boolean   message = true;
 
     /**
      * Constructor.
@@ -44,7 +45,9 @@ public final class InputVerifierMaxLength extends InputVerifier {
      * @throws IllegalArgumentException if {@code maxLength < 0}
      */
     public InputVerifierMaxLength(int maxLength) {
-        if (maxLength < 0) throw new IllegalArgumentException("maxLength < 0: " + maxLength);
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("maxLength < 0: " + maxLength);
+        }
 
         this.maxLength = maxLength;
     }
@@ -61,9 +64,11 @@ public final class InputVerifierMaxLength extends InputVerifier {
     @Override
     public boolean verify(JComponent input) {
         boolean lengthOk = lengthOk(input);
+
         if (!lengthOk) {
             errorMessage(input);
         }
+
         return lengthOk;
     }
 
@@ -75,14 +80,24 @@ public final class InputVerifierMaxLength extends InputVerifier {
         if (component instanceof JTextComponent) {
             return ((JTextComponent) component).getText().trim();
         }
+
         return "";
     }
 
     private void errorMessage(JComponent input) {
-        if (!message) return;
-        JOptionPane.showMessageDialog(
+        if (!message) {
+            return;
+        }
+
+        JOptionPane
+            .showMessageDialog(
                 input,
-                JslBundle.INSTANCE.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
-                JslBundle.INSTANCE.getString("InputVerifierMaxLength.Error.Title"), JOptionPane.ERROR_MESSAGE);
+                JslBundle.INSTANCE
+                    .getString(
+                        "InputVerifierMaxLength.ErrorMessage",
+                        maxLength), JslBundle.INSTANCE
+                            .getString(
+                                "InputVerifierMaxLength.Error.Title"), JOptionPane
+                                    .ERROR_MESSAGE);
     }
 }

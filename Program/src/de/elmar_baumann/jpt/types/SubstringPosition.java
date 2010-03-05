@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.types;
 
 /**
@@ -28,10 +29,7 @@ package de.elmar_baumann.jpt.types;
 public enum SubstringPosition {
 
     // When adding a constant check getSqlFilter() and getSqlFilterOperator()
-    ANYWHERE,
-    BEGIN,
-    MIDDLE,
-    END,
+    ANYWHERE, BEGIN, MIDDLE, END,
     EXACT_MATCH;
 
     /**
@@ -64,6 +62,7 @@ public enum SubstringPosition {
         String escapedString = pos.equals(EXACT_MATCH)
                                ? s
                                : escapeForLike(s);
+
         return pos.equals(ANYWHERE)
                ? "%" + escapedString + "%"
                : pos.equals(BEGIN)
@@ -72,7 +71,7 @@ public enum SubstringPosition {
                    ? ".%" + escapedString + "%."
                    : pos.equals(END)
                      ? "%" + escapedString
-                     : escapedString; // EXACT_MATCH
+                     : escapedString;    // EXACT_MATCH
     }
 
     private static String escapeForLike(String s) {

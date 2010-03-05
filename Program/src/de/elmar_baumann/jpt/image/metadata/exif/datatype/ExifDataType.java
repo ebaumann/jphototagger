@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 /**
@@ -35,7 +36,8 @@ public enum ExifDataType {
      * <li>Bit Count: 8</li>
      * </ul>
      */
-    BYTE          (1, 8, "BYTE"),
+    BYTE(1, 8, "BYTE"),
+
     /**
      * An 8-bit byte containing one 7-bit ASCII code. The final byte is terminated with NULL.
      * <p>
@@ -44,7 +46,8 @@ public enum ExifDataType {
      * <li>Bit Count: 8</li>
      * </ul>
      */
-    ASCII         (2, 8, "ASCII"),
+    ASCII(2, 8, "ASCII"),
+
     /**
      * A 16-bit (2-byte) unsigned integer.
      * <p>
@@ -53,7 +56,8 @@ public enum ExifDataType {
      * <li>Bit Count: 16</li>
      * </ul>
      */
-    SHORT         (3, 16, "SHORT"),
+    SHORT(3, 16, "SHORT"),
+
     /**
      * A 32-bit (4-byte) unsigned integer,
      * <ul>
@@ -61,7 +65,8 @@ public enum ExifDataType {
      * <li>Bit Count: 32</li>
      * </ul>
      */
-    LONG          (4, 32, "LONG"),
+    LONG(4, 32, "LONG"),
+
     /**
      * Two LONGs. The first LONG is the numerator and the second LONG expresses
      * thedenominator.
@@ -70,7 +75,8 @@ public enum ExifDataType {
      * <li>Bit Count: 64</li>
      * </ul>
      */
-    RATIONAL      (5, 64, "RATIONAL"),
+    RATIONAL(5, 64, "RATIONAL"),
+
     /**
      * An 8-bit byte that can take any value depending on the field definition.
      * <ul>
@@ -78,7 +84,8 @@ public enum ExifDataType {
      * <li>Bit Count: 8</li>
      * </ul>
      */
-    UNDEFINED     (7, 8, "UNDEFINED"),
+    UNDEFINED(7, 8, "UNDEFINED"),
+
     /**
      * A 32-bit (4-byte) signed integer (2's complement notation).
      * <ul>
@@ -86,7 +93,8 @@ public enum ExifDataType {
      * <li>Bit Count: 32</li>
      * </ul>
      */
-    SLONG         (9, 32, "SLONG"),
+    SLONG(9, 32, "SLONG"),
+
     /**
      * Two SLONGs. The first SLONG is the numerator and the second SLONG is the
      * denominator.
@@ -95,7 +103,8 @@ public enum ExifDataType {
      * <li>Bit Count: 64</li>
      * </ul>
      */
-    SRATIONAL     (10, 64, "SRATIONAL"),
+    SRATIONAL(10, 64, "SRATIONAL"),
+
     /**
      * JPhotoTagger internal.
      * <ul>
@@ -103,7 +112,7 @@ public enum ExifDataType {
      * <li>Bit Count: -1</li>
      * </ul>
      */
-    SHORT_OR_LONG (-1, -1, "SHORT_OR_LONG"),
+    SHORT_OR_LONG(-1, -1, "SHORT_OR_LONG"),
     ;
 
     private final int    value;
@@ -137,16 +146,23 @@ public enum ExifDataType {
 
     public static ExifDataType fromType(int type) {
         for (ExifDataType dataType : values()) {
-            if (dataType.value == type) return dataType;
+            if (dataType.value == type) {
+                return dataType;
+            }
         }
-        assert false: type;
+
+        assert false : type;
+
         return UNDEFINED;
     }
 
     public static boolean isType(int type) {
         for (ExifDataType dataType : values()) {
-            if (dataType.value == type) return true;
+            if (dataType.value == type) {
+                return true;
+            }
         }
+
         return false;
     }
 

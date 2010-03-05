@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.data.Exif;
@@ -25,15 +26,17 @@ import de.elmar_baumann.jpt.data.Timeline;
 import de.elmar_baumann.jpt.data.Timeline.Date;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.lib.model.TreeModelUpdateInfo;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
-/**
+ *
  * The model contains a {@link Timeline} retrieved through
  * {@link DatabaseImageFiles#getTimeline()}.
  *
@@ -47,9 +50,10 @@ import javax.swing.tree.DefaultTreeModel;
  * @author  Elmar Baumann
  * @version 2009-06-12
  */
-public final class TreeModelTimeline extends DefaultTreeModel implements DatabaseImageFilesListener {
-
-    private static final    long               serialVersionUID = 3932797263824188655L;
+public final class TreeModelTimeline extends DefaultTreeModel
+        implements DatabaseImageFilesListener {
+    private static final long                  serialVersionUID =
+        3932797263824188655L;
     private final transient Timeline           timeline;
     private final transient DatabaseImageFiles db;
 
@@ -68,13 +72,19 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
         DatabaseImageFilesEvent.Type eventType = event.getType();
+
         if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
             checkDeleted(event.getImageFile());
-        } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED)) {
+        } else if (eventType.equals(
+                DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED)) {
             checkInserted(event.getImageFile());
-        } else if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
+        } else if (eventType.equals(
+                DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
             ImageFile imageFile = event.getImageFile();
-            if (imageFile != null && (imageFile.isInsertExifIntoDb() || imageFile.isInsertXmpIntoDb())) {
+
+            if ((imageFile != null)
+                    && (imageFile.isInsertExifIntoDb()
+                        || imageFile.isInsertXmpIntoDb())) {
                 checkDeleted(event.getOldImageFile());
                 checkInserted(event.getImageFile());
             }
@@ -91,16 +101,21 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
         if (exif != null) {
             exifDate       = exif.getDateTimeOriginal();
-            exifDateExists = exifDate != null && db.existsExifDate(exifDate);
+            exifDateExists = (exifDate != null) && db.existsExifDate(exifDate);
         }
 
         if (xmp != null) {
             Object o = xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-            xmpDate       = o == null ? null : (String) xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-            xmpDateExists = xmpDate != null && db.existsXMPDateCreated(xmpDate);
+
+            xmpDate = (o == null)
+                      ? null
+                      : (String) xmp.getValue(
+                          ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+            xmpDateExists = (xmpDate != null)
+                            && db.existsXMPDateCreated(xmpDate);
         }
 
-        if (!exifDateExists && exifDate != null) {
+        if (!exifDateExists && (exifDate != null)) {
             Timeline.Date date = new Timeline.Date(exifDate);
 
             if (!db.existsExifDate(exifDate)) {
@@ -108,11 +123,12 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
             }
         }
 
-        if (!xmpDateExists && xmpDate != null) {
+        if (!xmpDateExists && (xmpDate != null)) {
             Timeline.Date date = new Timeline.Date(-1, -1, -1);
 
             date.setXmpDateCreated(xmpDate);
-            if (date.isValid() && !db.existsXMPDateCreated(xmpDate)) {
+
+            if (date.isValid() &&!db.existsXMPDateCreated(xmpDate)) {
                 delete(date);
             }
         }
@@ -124,17 +140,22 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
         if (exif != null) {
             java.sql.Date day = exif.getDateTimeOriginal();
+
             if (day != null) {
                 Timeline.Date date = new Timeline.Date(day);
+
                 insert(date);
             }
         }
 
-        if (xmp != null && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)) {
-            String        xmpDate = (String)xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-            Timeline.Date date    = new Timeline.Date(-1, -1, -1);
+        if ((xmp != null)
+                && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)) {
+            String xmpDate = (String) xmp.getValue(
+                                 ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+            Timeline.Date date = new Timeline.Date(-1, -1, -1);
 
             date.setXmpDateCreated(xmpDate);
+
             if (date.isValid()) {
                 insert(date);
             }
@@ -143,16 +164,17 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
     private void delete(Date date) {
         TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(date);
-        nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(), info.getUpdatedChild());
+
+        nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(),
+                         info.getUpdatedChild());
     }
 
     private void insert(Date date) {
         if (!timeline.existsDate(date)) {
-
             TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);
 
-            for (TreeModelUpdateInfo.NodeAndChildIndices node : info.getInfo()) {
-
+            for (TreeModelUpdateInfo
+                    .NodeAndChildIndices node : info.getInfo()) {
                 nodesWereInserted(node.getNode(), node.getChildIndices());
             }
         }

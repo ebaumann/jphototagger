@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import java.sql.Connection;
@@ -25,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,47 +37,57 @@ import java.util.List;
  * @version 2008-10-23
  */
 public final class DatabaseMetadata extends Database {
-
     public static final DatabaseMetadata INSTANCE = new DatabaseMetadata();
 
-    private DatabaseMetadata() {
-    }
+    private DatabaseMetadata() {}
 
-    public boolean existsTable(Connection connection, String tablename) throws SQLException {
+    public boolean existsTable(Connection connection, String tablename)
+            throws SQLException {
         boolean          exists = false;
         DatabaseMetaData dbm    = connection.getMetaData();
-        String[]         names  = {"TABLE"};
+        String[]         names  = { "TABLE" };
         ResultSet        rs     = dbm.getTables(null, "%", "%", names);
+
         while (!exists && rs.next()) {
             exists = rs.getString("TABLE_NAME").equalsIgnoreCase(tablename);
         }
+
         rs.close();
+
         return exists;
     }
 
-    public boolean existsColumn(
-            Connection connection, String tableName, String columnName) throws SQLException {
-
-        if (!existsTable(connection, tableName)) return false;
+    public boolean existsColumn(Connection connection, String tableName,
+                                String columnName)
+            throws SQLException {
+        if (!existsTable(connection, tableName)) {
+            return false;
+        }
 
         Statement         stmt   = null;
         ResultSet         rs     = null;
         ResultSetMetaData rsmd   = null;
         boolean           exists = false;
+
         try {
             stmt = connection.createStatement();
-            String            sql         = "select * from " + tableName + " WHERE 1 = 0"; // "WHERE 1 = 0": speed, memory!
+
+            String sql = "select * from " + tableName + " WHERE 1 = 0";    // "WHERE 1 = 0": speed, memory!
+
             rs   = stmt.executeQuery(sql);
             rsmd = rs.getMetaData();
-            int  columnCount = rsmd.getColumnCount();
 
-            for (int i = 1; !exists && i <= columnCount; i++) {
+            int columnCount = rsmd.getColumnCount();
+
+            for (int i = 1; !exists && (i <= columnCount); i++) {
                 String column = rsmd.getColumnName(i);
+
                 exists = column.equalsIgnoreCase(columnName);
             }
         } finally {
             close(rs, stmt);
         }
+
         return exists;
     }
 
@@ -106,6 +118,7 @@ public final class DatabaseMetadata extends Database {
         public short  SOURCE_DATA_TYPE;
     }
 
+
     /**
      * Returns information of one or all columns of a specific table.
      *
@@ -115,14 +128,19 @@ public final class DatabaseMetadata extends Database {
      * @return            Information
      * @throws SQLException
      */
-    public List<ColumnInfo> getColumnInfo(
-            Connection connection, String tableName, String columnName) throws SQLException {
+    public List<ColumnInfo> getColumnInfo(Connection connection,
+            String tableName, String columnName)
+            throws SQLException {
+        ResultSet        rs    = null;
+        List<ColumnInfo> infos = new ArrayList<ColumnInfo>();
 
-        ResultSet rs = null;
-        List<ColumnInfo>  infos = new ArrayList<ColumnInfo>();
         try {
-            DatabaseMetaData  meta  = connection.getMetaData();
-            rs = meta.getColumns(null, null, tableName.toUpperCase(), columnName == null ? "%" : columnName.toUpperCase());
+            DatabaseMetaData meta = connection.getMetaData();
+
+            rs = meta.getColumns(null, null, tableName.toUpperCase(),
+                                 (columnName == null)
+                                 ? "%"
+                                 : columnName.toUpperCase());
 
             while (rs.next()) {
                 ColumnInfo colInfo = new ColumnInfo();
@@ -148,12 +166,12 @@ public final class DatabaseMetadata extends Database {
                 colInfo.TABLE_NAME        = rs.getString("TABLE_NAME");
                 colInfo.TABLE_SCHEM       = rs.getString("TABLE_SCHEM");
                 colInfo.TYPE_NAME         = rs.getString("TYPE_NAME");
-
                 infos.add(colInfo);
             }
         } finally {
             close(rs, null);
         }
+
         return infos;
     }
 }

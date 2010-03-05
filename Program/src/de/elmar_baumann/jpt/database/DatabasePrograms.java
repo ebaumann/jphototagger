@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -24,12 +25,15 @@ import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+
 import java.io.File;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -43,12 +47,12 @@ import java.util.Set;
  * @version 2008-11-04
  */
 public final class DatabasePrograms extends Database {
+    public static final DatabasePrograms                    INSTANCE        =
+        new DatabasePrograms();
+    private final ListenerSupport<DatabaseProgramsListener> listenerSupport =
+        new ListenerSupport<DatabaseProgramsListener>();
 
-    public static final DatabasePrograms                          INSTANCE        = new DatabasePrograms();
-    private final       ListenerSupport<DatabaseProgramsListener> listenerSupport = new ListenerSupport<DatabaseProgramsListener>();
-
-    private DatabasePrograms() {
-    }
+    private DatabasePrograms() {}
 
     /**
      * Inserts a new program. Prevoius You should call {@link #hasProgram()}.
@@ -60,33 +64,32 @@ public final class DatabasePrograms extends Database {
         int               countAffectedRows = 0;
         Connection        connection        = null;
         PreparedStatement stmt              = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             setId(connection, program);
-            stmt = connection.prepareStatement(
-                    "INSERT INTO programs" +
-                    " (" +
-                    "id" +                              // --  1 --
-                    ", action" +                        // --  2 --
-                    ", filename" +                      // --  3 --
-                    ", alias" +                         // --  4 --
-                    ", parameters_before_filename" +    // --  5 --
-                    ", parameters_after_filename" +     // --  6 --
-                    ", input_before_execute" +          // --  7 --
-                    ", input_before_execute_per_file" + // --  8 --
-                    ", single_file_processing" +        // --  9 --
-                    ", change_file" +                   // -- 10 --
-                    ", sequence_number" +               // -- 11 --
-                    ", use_pattern" +                   // -- 12 --
-                    ", pattern" +                       // -- 13 --
-                    ")" +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = connection.prepareStatement("INSERT INTO programs" + " ("
+                                               + "id" +    // --  1 --
+                ", action" +                                                   // --  2 --
+                    ", filename" +                                             // --  3 --
+                        ", alias" +                                            // --  4 --
+                            ", parameters_before_filename" +                   // --  5 --
+                                ", parameters_after_filename" +                // --  6 --
+                                    ", input_before_execute" +                 // --  7 --
+                                        ", input_before_execute_per_file" +    // --  8 --
+                                            ", single_file_processing" +       // --  9 --
+                                            ", change_file" +                  // -- 10 --
+                                            ", sequence_number" +              // -- 11 --
+                                            ", use_pattern" +                  // -- 12 --
+                                            ", pattern" +                      // -- 13 --
+                                            ")" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             setValuesInsert(stmt, program);
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
-            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_INSERTED, program);
+            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_INSERTED,
+                            program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -94,20 +97,26 @@ public final class DatabasePrograms extends Database {
             close(stmt);
             free(connection);
         }
+
         return countAffectedRows == 1;
     }
 
-    private void setValuesInsert(PreparedStatement stmt, Program program) throws SQLException {
+    private void setValuesInsert(PreparedStatement stmt, Program program)
+            throws SQLException {
         stmt.setLong(1, program.getId());
         stmt.setBoolean(2, program.isAction());
         stmt.setString(3, program.getFile().getAbsolutePath());
         stmt.setString(4, program.getAlias());
+
         String parametersBeforeFilename = program.getParametersBeforeFilename();
-        stmt.setBytes(5, parametersBeforeFilename == null
+
+        stmt.setBytes(5, (parametersBeforeFilename == null)
                          ? null
                          : parametersBeforeFilename.getBytes());
+
         String parametersAfterFilename = program.getParametersAfterFilename();
-        stmt.setBytes(6, parametersAfterFilename == null
+
+        stmt.setBytes(6, (parametersAfterFilename == null)
                          ? null
                          : parametersAfterFilename.getBytes());
         stmt.setBoolean(7, program.isInputBeforeExecute());
@@ -116,20 +125,27 @@ public final class DatabasePrograms extends Database {
         stmt.setBoolean(10, program.isChangeFile());
         stmt.setInt(11, program.getSequenceNumber());
         stmt.setBoolean(12, program.isUsePattern());
+
         String pattern = program.getPattern();
-        stmt.setBytes(13, pattern == null
-                         ? null
-                         : pattern.getBytes());
+
+        stmt.setBytes(13, (pattern == null)
+                          ? null
+                          : pattern.getBytes());
     }
 
-    private void setId(Connection connection, Program program) throws SQLException {
+    private void setId(Connection connection, Program program)
+            throws SQLException {
         Statement stmt = null;
-        ResultSet rs = null;
+        ResultSet rs   = null;
+
         try {
             stmt = connection.createStatement();
+
             String sql = "SELECT MAX(id) FROM programs";
+
             logFinest(sql);
             rs = stmt.executeQuery(sql);
+
             if (rs.next()) {
                 program.setId(rs.getLong(1) + 1);
             }
@@ -145,34 +161,34 @@ public final class DatabasePrograms extends Database {
      * @return  true if updated
      */
     public boolean update(Program program) {
-        int countAffectedRows = 0;
-        Connection connection = null;
-        PreparedStatement stmt = null;
+        int               countAffectedRows = 0;
+        Connection        connection        = null;
+        PreparedStatement stmt              = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
-                    "UPDATE programs" +
-                    " SET" +
-                    " action = ?" +                         // --  1 --
-                    ", filename = ?" +                      // --  2 --
-                    ", alias = ?" +                         // --  3 --
-                    ", parameters_before_filename = ?" +    // --  4 --
-                    ", parameters_after_filename = ?" +     // --  5 --
-                    ", input_before_execute = ?" +          // --  6 --
-                    ", input_before_execute_per_file = ?" + // --  7 --
-                    ", single_file_processing = ?" +        // --  8 --
-                    ", change_file = ?" +                   // --  9 --
-                    ", sequence_number = ?" +               // -- 10 --
-                    ", use_pattern = ?" +                   // -- 11 --
-                    ", pattern = ?" +                       // -- 12 --
-                    " WHERE id = ?");                       // -- 13 --
+            stmt = connection.prepareStatement("UPDATE programs" + " SET"
+                                               + " action = ?" +    // --  1 --
+                ", filename = ?" +                                             // --  2 --
+                    ", alias = ?" +                                            // --  3 --
+                        ", parameters_before_filename = ?" +                   // --  4 --
+                            ", parameters_after_filename = ?" +                // --  5 --
+                                ", input_before_execute = ?" +                 // --  6 --
+                                    ", input_before_execute_per_file = ?" +    // --  7 --
+                                        ", single_file_processing = ?" +       // --  8 --
+                                            ", change_file = ?" +              // --  9 --
+                                            ", sequence_number = ?" +          // -- 10 --
+                                            ", use_pattern = ?" +              // -- 11 --
+                                            ", pattern = ?" +                  // -- 12 --
+                                            " WHERE id = ?");    // -- 13 --
             setValuesUpdate(stmt, program);
             stmt.setLong(13, program.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
-            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_UPDATED, program);
+            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_UPDATED,
+                            program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -180,19 +196,25 @@ public final class DatabasePrograms extends Database {
             close(stmt);
             free(connection);
         }
+
         return countAffectedRows == 1;
     }
 
-    private void setValuesUpdate(PreparedStatement stmt, Program program) throws SQLException {
+    private void setValuesUpdate(PreparedStatement stmt, Program program)
+            throws SQLException {
         stmt.setBoolean(1, program.isAction());
         stmt.setString(2, program.getFile().getAbsolutePath());
         stmt.setString(3, program.getAlias());
+
         String parametersBeforeFilename = program.getParametersBeforeFilename();
-        stmt.setBytes(4, parametersBeforeFilename == null
+
+        stmt.setBytes(4, (parametersBeforeFilename == null)
                          ? null
                          : parametersBeforeFilename.getBytes());
+
         String parametersAfterFilename = program.getParametersAfterFilename();
-        stmt.setBytes(5, parametersAfterFilename == null
+
+        stmt.setBytes(5, (parametersAfterFilename == null)
                          ? null
                          : parametersAfterFilename.getBytes());
         stmt.setBoolean(6, program.isInputBeforeExecute());
@@ -201,10 +223,12 @@ public final class DatabasePrograms extends Database {
         stmt.setBoolean(9, program.isChangeFile());
         stmt.setInt(10, program.getSequenceNumber());
         stmt.setBoolean(11, program.isUsePattern());
+
         String pattern = program.getPattern();
-        stmt.setBytes(12, pattern == null
-                         ? null
-                         : pattern.getBytes());
+
+        stmt.setBytes(12, (pattern == null)
+                          ? null
+                          : pattern.getBytes());
     }
 
     /**
@@ -214,21 +238,24 @@ public final class DatabasePrograms extends Database {
      * @return true if deleted
      */
     public boolean delete(Program program) {
-        int countAffectedRows = 0;
-        Connection connection = null;
-        PreparedStatement stmt = null;
+        int               countAffectedRows = 0;
+        Connection        connection        = null;
+        PreparedStatement stmt              = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                    "DELETE FROM programs WHERE id = ?");
+                "DELETE FROM programs WHERE id = ?");
             stmt.setLong(1, program.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             connection.commit();
+
             // Hack because of dirty design of this table (no cascade possible)
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
-            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_DELETED, program);
+            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_DELETED,
+                            program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(connection);
@@ -236,16 +263,14 @@ public final class DatabasePrograms extends Database {
             close(stmt);
             free(connection);
         }
+
         return countAffectedRows == 1;
     }
 
     /**
      *
      */
-    public enum Type {
-        ACTION,
-        PROGRAM
-    }
+    public enum Type { ACTION, PROGRAM }
 
     /**
      * Returns all programs ordered by their aliases.
@@ -254,17 +279,19 @@ public final class DatabasePrograms extends Database {
      * @return      programs
      */
     public List<Program> getAll(Type type) {
-        List<Program> programs = new LinkedList<Program>();
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        List<Program>     programs   = new LinkedList<Program>();
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
         try {
             connection = getConnection();
-            stmt = connection.prepareStatement(
-                    getSelectProgramStmt(WhereFilter.ACTION));
+            stmt       = connection.prepareStatement(
+                getSelectProgramStmt(WhereFilter.ACTION));
             stmt.setBoolean(1, type.equals(Type.ACTION));
             logFinest(stmt);
             rs = stmt.executeQuery();
+
             while (rs.next()) {
                 programs.add(getSelectedProgram(rs));
             }
@@ -274,36 +301,32 @@ public final class DatabasePrograms extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return programs;
     }
 
-    private enum WhereFilter {
-        ID,
-        ACTION
-    }
+    private enum WhereFilter { ID, ACTION }
 
     private String getSelectProgramStmt(WhereFilter filter) {
-        return "SELECT" +
-                " id" +                             // --  1 --
-                ", action" +                        // --  2 --
-                ", filename" +                      // --  3 --
-                ", alias" +                         // --  4 --
-                ", parameters_before_filename" +    // --  5 --
-                ", parameters_after_filename" +     // --  6 --
-                ", input_before_execute" +          // --  7 --
-                ", input_before_execute_per_file" + // --  8 --
-                ", single_file_processing" +        // --  9 --
-                ", change_file" +                   // -- 10 --
-                ", sequence_number" +               // -- 11 --
-                ", use_pattern" +                   // -- 12 --
-                ", pattern" +                       // -- 13 --
-                " FROM programs" +
-                (filter.equals(WhereFilter.ACTION)
-                 ? " WHERE action = ?"
-                 : filter.equals(WhereFilter.ID)
-                   ? " WHERE id = ?"
-                   : "") +
-                " ORDER BY alias";
+        return "SELECT" + " id" +                                          // --  1 --
+            ", action" +                                                   // --  2 --
+                ", filename" +                                             // --  3 --
+                    ", alias" +                                            // --  4 --
+                        ", parameters_before_filename" +                   // --  5 --
+                            ", parameters_after_filename" +                // --  6 --
+                                ", input_before_execute" +                 // --  7 --
+                                    ", input_before_execute_per_file" +    // --  8 --
+                                        ", single_file_processing" +       // --  9 --
+                                        ", change_file" +                  // -- 10 --
+                                        ", sequence_number" +              // -- 11 --
+                                        ", use_pattern" +                  // -- 12 --
+                                        ", pattern" +                      // -- 13 --
+                                        " FROM programs" + (filter.equals(
+                                        WhereFilter.ACTION)
+                ? " WHERE action = ?"
+                : filter.equals(WhereFilter.ID)
+                  ? " WHERE id = ?"
+                  : "") + " ORDER BY alias";
     }
 
     private Program getSelectedProgram(ResultSet rs) throws SQLException {
@@ -316,21 +339,23 @@ public final class DatabasePrograms extends Database {
         program.setAction(rs.getBoolean(2));
         program.setFile(new File(rs.getString(3)));
         program.setAlias(rs.getString(4));
-        program.setParametersBeforeFilename(parametersBeforeFilename == null
-                                            ? null
-                                            : new String(parametersBeforeFilename));
-        program.setParametersAfterFilename(parametersAfterFilename == null
+        program.setParametersBeforeFilename((parametersBeforeFilename == null)
+                ? null
+                : new String(parametersBeforeFilename));
+        program.setParametersAfterFilename((parametersAfterFilename == null)
                                            ? null
-                                           : new String(parametersAfterFilename));
+                                           : new String(
+                                           parametersAfterFilename));
         program.setInputBeforeExecute(rs.getBoolean(7));
         program.setInputBeforeExecutePerFile(rs.getBoolean(8));
         program.setSingleFileProcessing(rs.getBoolean(9));
         program.setChangeFile(rs.getBoolean(10));
         program.setSequenceNumber(rs.getInt(11));
         program.setUsePattern(rs.getBoolean(12));
-        program.setPattern(pattern == null
-                                           ? null
-                                           : new String(pattern));
+        program.setPattern((pattern == null)
+                           ? null
+                           : new String(pattern));
+
         return program;
     }
 
@@ -347,14 +372,16 @@ public final class DatabasePrograms extends Database {
         PreparedStatement stmt       = null;
         ResultSet         rs         = null;
         boolean           exists     = false;
+
         try {
             connection = getConnection();
-            stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM programs WHERE alias = ? AND filename = ?");
+            stmt       = connection.prepareStatement(
+                "SELECT COUNT(*) FROM programs WHERE alias = ? AND filename = ?");
             setString(program.getAlias(), stmt, 1);
             setString(program.getFile().getAbsolutePath(), stmt, 2);
             logFinest(stmt);
             rs = stmt.executeQuery();
+
             if (rs.next()) {
                 exists = rs.getLong(1) > 0;
             }
@@ -364,6 +391,7 @@ public final class DatabasePrograms extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return exists;
     }
 
@@ -374,17 +402,19 @@ public final class DatabasePrograms extends Database {
      * @return Program or null if no program has this ID
      */
     public Program find(long id) {
-        Program program = null;
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        Program           program    = null;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
         try {
             connection = getConnection();
-            stmt = connection.prepareStatement(
-                    getSelectProgramStmt(WhereFilter.ID));
+            stmt       = connection.prepareStatement(
+                getSelectProgramStmt(WhereFilter.ID));
             stmt.setLong(1, id);
             logFinest(stmt);
             rs = stmt.executeQuery();
+
             if (rs.next()) {
                 program = getSelectedProgram(rs);
             }
@@ -394,6 +424,7 @@ public final class DatabasePrograms extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return program;
     }
 
@@ -418,17 +449,20 @@ public final class DatabasePrograms extends Database {
     }
 
     private boolean has(boolean action) {
-        int count = 0;
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        int               count      = 0;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
         try {
             connection = getConnection();
-            stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM programs WHERE action = " +
-                                                (action ? "TRUE" : "FALSE"));
+            stmt       = connection.prepareStatement(
+                "SELECT COUNT(*) FROM programs WHERE action = " + (action
+                    ? "TRUE"
+                    : "FALSE"));
             logFinest(stmt);
             rs = stmt.executeQuery();
+
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -438,6 +472,7 @@ public final class DatabasePrograms extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return count > 0;
     }
 
@@ -449,16 +484,15 @@ public final class DatabasePrograms extends Database {
         listenerSupport.remove(listener);
     }
 
-    private void notifyListeners(
-            DatabaseProgramsEvent.Type type,
-            Program                   program
-            ) {
-        DatabaseProgramsEvent         event     = new DatabaseProgramsEvent(type);
+    private void notifyListeners(DatabaseProgramsEvent.Type type,
+                                 Program program) {
+        DatabaseProgramsEvent         event     =
+            new DatabaseProgramsEvent(type);
         Set<DatabaseProgramsListener> listeners = listenerSupport.get();
 
         event.setProgram(program);
 
-        synchronized(listeners) {
+        synchronized (listeners) {
             for (DatabaseProgramsListener listener : listeners) {
                 listener.actionPerformed(event);
             }

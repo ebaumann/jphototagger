@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.file;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -30,15 +31,13 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2007-07-29
  */
 public final class ColumnFilesLastModified extends Column {
-
-    public static final ColumnFilesLastModified INSTANCE = new ColumnFilesLastModified();
+    public static final ColumnFilesLastModified INSTANCE =
+        new ColumnFilesLastModified();
 
     private ColumnFilesLastModified() {
-        super(
-            TableFiles.INSTANCE,
-            "lastmodified",
-            DataType.DATE);
-
-        setDescription(JptBundle.INSTANCE.getString("ColumnFilesLastModified.Description"));
+        super(TableFiles.INSTANCE, "lastmodified", DataType.DATE);
+        setDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnFilesLastModified.Description"));
     }
 }

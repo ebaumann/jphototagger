@@ -17,18 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.image.util;
 
 import de.elmar_baumann.lib.resource.JslBundle;
+
 import java.awt.Image;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * Werkzeuge für Icons.
@@ -51,16 +56,21 @@ public final class IconUtil {
      *         falls dieses nicht geladen wurde
      */
     public static Image getIconImage(String path) {
-        if (path == null)
+        if (path == null) {
             throw new NullPointerException("path == null");
+        }
 
         java.net.URL imgURL = IconUtil.class.getResource(path);
+
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                    JslBundle.INSTANCE.getString("IconUtil.GetIconImage.Error.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(
+                Level.SEVERE, null,
+                JslBundle.INSTANCE.getString(
+                    "IconUtil.GetIconImage.Error.FileNotFound") + path);
         }
+
         return null;
     }
 
@@ -72,16 +82,20 @@ public final class IconUtil {
      * @see    #getIconImage(java.lang.String)
      */
     public static List<Image> getIconImages(List<String> paths) {
-        if (paths == null)
+        if (paths == null) {
             throw new NullPointerException("paths == null");
+        }
 
         List<Image> images = new ArrayList<Image>();
+
         for (String path : paths) {
             Image image = getIconImage(path);
+
             if (image != null) {
                 images.add(image);
             }
         }
+
         return images;
     }
 
@@ -94,16 +108,21 @@ public final class IconUtil {
      *         nicht geladen wurde
      */
     public static ImageIcon getImageIcon(String path) {
-        if (path == null)
+        if (path == null) {
             throw new NullPointerException("path == null");
+        }
 
         java.net.URL imgURL = IconUtil.class.getResource(path);
+
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                    JslBundle.INSTANCE.getString("IconUtil.GetImageIcon.Error.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(
+                Level.SEVERE, null,
+                JslBundle.INSTANCE.getString(
+                    "IconUtil.GetImageIcon.Error.FileNotFound") + path);
         }
+
         return null;
     }
 
@@ -116,16 +135,20 @@ public final class IconUtil {
      * @see    #getImageIcon(java.lang.String)
      */
     public static List<ImageIcon> getImageIcons(List<String> paths) {
-        if (paths == null)
+        if (paths == null) {
             throw new NullPointerException("paths == null");
+        }
 
         List<ImageIcon> icons = new ArrayList<ImageIcon>();
+
         for (String path : paths) {
             ImageIcon icon = getImageIcon(path);
+
             if (icon != null) {
                 icons.add(icon);
             }
         }
+
         return icons;
     }
 
@@ -136,24 +159,26 @@ public final class IconUtil {
      * @return icon or null on errors
      */
     public static Icon getSystemIcon(File file) {
-        if (file == null)
+        if (file == null) {
             throw new NullPointerException("file == null");
+        }
 
-        Icon icon = null;
+        Icon           icon           = null;
         FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+
         if (file.exists()) {
             synchronized (fileSystemView) {
                 try {
                     icon = fileSystemView.getSystemIcon(file);
                 } catch (Exception ex) {
-                    Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE,
-                            null, ex);
+                    Logger.getLogger(IconUtil.class.getName()).log(
+                        Level.SEVERE, null, ex);
                 }
             }
         }
+
         return icon;
     }
 
-    private IconUtil() {
-    }
+    private IconUtil() {}
 }

@@ -17,16 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.image.util;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -48,31 +52,39 @@ public final class ImageUtil {
      * @param formatName a String containg the informal name of the format
      * @return           stream oder null on errors
      */
-    public static ByteArrayInputStream getByteArrayInputStream(
-            Image image, String formatName) {
-
-        if (image == null)
+    public static ByteArrayInputStream getByteArrayInputStream(Image image,
+            String formatName) {
+        if (image == null) {
             throw new NullPointerException("image == null");
-        if (formatName == null)
+        }
+
+        if (formatName == null) {
             throw new NullPointerException("formatName == null");
+        }
 
         ByteArrayInputStream stream = null;
+
         try {
             BufferedImage bufferedImage =
-                    new BufferedImage(image.getWidth(null),
-                    image.getHeight(null),
-                    BufferedImage.TYPE_INT_RGB);
+                new BufferedImage(image.getWidth(null), image.getHeight(null),
+                                  BufferedImage.TYPE_INT_RGB);
             Graphics graphics = bufferedImage.getGraphics();
+
             graphics.drawImage(image, 0, 0, null);
             graphics.dispose();
+
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
             ImageIO.write(bufferedImage, formatName, outputStream);
+
             byte[] byteArray = outputStream.toByteArray();
+
             stream = new ByteArrayInputStream(byteArray);
         } catch (Exception ex) {
-            Logger.getLogger(
-                    ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null,
+                             ex);
         }
+
         return stream;
     }
 
@@ -84,29 +96,38 @@ public final class ImageUtil {
      * @return         new dimensions or null if they couldn't be calculated
      */
     public static Dimension getNewDimensions(BufferedImage img, int maxWidth) {
-        int width = img.getWidth();
+        int width  = img.getWidth();
         int height = img.getHeight();
-        assert width > 0 && height > 0 :
+
+        assert (width > 0) && (height > 0) :
                 "Width " + width + " height " + height + " have to be > 0!";
-        if (width <= 0 || height <= 0) return null;
-        boolean isLandscape = width > height;
-        double aspectRatio = (double) width / (double) height;
-        int lenOtherSide = isLandscape
-                           ? (int) ((double) maxWidth / aspectRatio + 0.5)
-                           : (int) ((double) maxWidth * aspectRatio + 0.5);
-        int newWidth = isLandscape
-                       ? maxWidth
-                       : lenOtherSide;
-        int newHeight = isLandscape
-                        ? lenOtherSide
-                        : maxWidth;
-        assert newWidth > 0 && newHeight > 0 :
-                "Width " + newWidth + " height " + newHeight +
-                " have to be > 0!";
-        if (newWidth <= 0 || newHeight <= 0) return null;
+
+        if ((width <= 0) || (height <= 0)) {
+            return null;
+        }
+
+        boolean isLandscape  = width > height;
+        double  aspectRatio  = (double) width / (double) height;
+        int     lenOtherSide = isLandscape
+                               ? (int) ((double) maxWidth / aspectRatio + 0.5)
+                               : (int) ((double) maxWidth * aspectRatio + 0.5);
+        int     newWidth     = isLandscape
+                               ? maxWidth
+                               : lenOtherSide;
+        int     newHeight    = isLandscape
+                               ? lenOtherSide
+                               : maxWidth;
+
+        assert (newWidth > 0) && (newHeight > 0) :
+                "Width " + newWidth + " height " + newHeight
+                + " have to be > 0!";
+
+        if ((newWidth <= 0) || (newHeight <= 0)) {
+            return null;
+        }
+
         return new Dimension(newWidth, newHeight);
     }
 
-    private ImageUtil() {
-    }
+    private ImageUtil() {}
 }

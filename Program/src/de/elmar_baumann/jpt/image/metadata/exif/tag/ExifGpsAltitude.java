@@ -17,14 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifDatatypeUtil;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.util.ByteUtil;
+
 import java.nio.ByteOrder;
+
 import java.text.MessageFormat;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,30 +40,33 @@ import java.util.Map;
  * @version 2009-03-17
  */
 public final class ExifGpsAltitude {
+    public enum Ref { OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL }
 
-    public enum Ref {
-
-        OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL
-    }
-    private static final Map<Integer, Ref> REF_OF_INTEGER          = new HashMap<Integer, Ref>();
-    private static final Map<Ref, String>  LOCALIZED_STRING_OF_REF = new HashMap<Ref, String>();
+    private static final Map<Integer, Ref> REF_OF_INTEGER =
+        new HashMap<Integer, Ref>();
+    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF =
+        new HashMap<Ref, String>();
 
     static {
         REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);
         REF_OF_INTEGER.put(1, Ref.BELOW_SEA_LEVEL);
-
-        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, JptBundle.INSTANCE.getString("ExifGpsAltitudeRefOboveSeaLevel"));
-        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, JptBundle.INSTANCE.getString("ExifGpsAltitudeRefBelowSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(
+            Ref.OBOVE_SEA_LEVEL,
+            JptBundle.INSTANCE.getString("ExifGpsAltitudeRefOboveSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(
+            Ref.BELOW_SEA_LEVEL,
+            JptBundle.INSTANCE.getString("ExifGpsAltitudeRefBelowSeaLevel"));
     }
-    private Ref ref;
+
+    private Ref          ref;
     private ExifRational value;
 
-    public ExifGpsAltitude(byte[] refRawValue, byte[] rawValue, ByteOrder byteOrder) {
-
+    public ExifGpsAltitude(byte[] refRawValue, byte[] rawValue,
+                           ByteOrder byteOrder) {
         ensureByteCount(refRawValue, rawValue);
-
         this.ref   = ref(refRawValue);
-        this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
+        this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8),
+                                      byteOrder);
     }
 
     /**
@@ -94,7 +101,9 @@ public final class ExifGpsAltitude {
 
     public String localizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}");
-        return msg.format(new Object[]{ExifDatatypeUtil.toLong(value), LOCALIZED_STRING_OF_REF.get(ref)});
+
+        return msg.format(new Object[] { ExifDatatypeUtil.toLong(value),
+                                         LOCALIZED_STRING_OF_REF.get(ref) });
     }
 
     public Ref ref() {
@@ -105,14 +114,16 @@ public final class ExifGpsAltitude {
         return value;
     }
 
-    private void ensureByteCount(byte[] refRawValue, byte[] rawValue) throws IllegalArgumentException {
-
-        if (!refByteCountOk(refRawValue))
+    private void ensureByteCount(byte[] refRawValue, byte[] rawValue)
+            throws IllegalArgumentException {
+        if (!refByteCountOk(refRawValue)) {
             throw new IllegalArgumentException(
-                    "Illegal ref raw value byte count: " + refRawValue.length);
+                "Illegal ref raw value byte count: " + refRawValue.length);
+        }
 
-        if (!byteCountOk(rawValue))
-            throw new IllegalArgumentException(
-                    "Illegal raw value byte count: " + rawValue.length);
+        if (!byteCountOk(rawValue)) {
+            throw new IllegalArgumentException("Illegal raw value byte count: "
+                                               + rawValue.length);
+        }
     }
 }

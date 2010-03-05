@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.comparator;
 
 /**
@@ -25,8 +26,4 @@ package de.elmar_baumann.lib.comparator;
  * @author Elmar Baumann
  * @version 2008-10-14
  */
-enum CompareOrder {
-
-    ASCENDING,
-    DESCENDING;
-}
+enum CompareOrder { ASCENDING, DESCENDING; }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.comparator;
 
 /**
@@ -37,19 +38,18 @@ final class NumberCompare {
      *           equals and a positive integer when l1 is greater than l2.
      */
     static int compare(Long l1, Long l2) {
-        return l1 == null && l2 == null
+        return ((l1 == null) && (l2 == null))
                ? 0
-               : l1 == null && l2 != null
-               ? -1
-               : l1 != null && l2 == null
-               ? 1
-               : l1.longValue() == l2.longValue()
-               ? 0 
-               : l1.longValue() > l2.longValue()
-               ? 1
-               : -1;
+               : ((l1 == null) && (l2 != null))
+                 ? -1
+                 : ((l1 != null) && (l2 == null))
+                   ? 1
+                   : (l1.longValue() == l2.longValue())
+                     ? 0
+                     : (l1.longValue() > l2.longValue())
+                       ? 1
+                       : -1;
     }
 
-    private NumberCompare() {
-    }
+    private NumberCompare() {}
 }

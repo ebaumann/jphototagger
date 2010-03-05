@@ -17,14 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.imagecollection;
 
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ModifyImageCollections;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.ImageCollectionsDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,11 +38,10 @@ import java.awt.event.ActionListener;
  * @version 2008-00-10
  */
 public final class ControllerAddToImageCollection implements ActionListener {
-
-    private final PopupMenuThumbnails popupMenu =
-            PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel thumbnailsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuThumbnails popupMenu       =
+        PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
         listen();
@@ -57,15 +58,19 @@ public final class ControllerAddToImageCollection implements ActionListener {
 
     private void addSelectedFilesToImageCollection() {
         String collectionName = selectCollectionName();
+
         if (collectionName != null) {
-            ModifyImageCollections.addImagesToCollection(collectionName,
-                    FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
+            ModifyImageCollections.addImagesToCollection(
+                collectionName,
+                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
         }
     }
 
     private String selectCollectionName() {
         ImageCollectionsDialog dialog = new ImageCollectionsDialog();
+
         dialog.setVisible(true);
+
         return dialog.getSelectedCollectionName();
     }
 }

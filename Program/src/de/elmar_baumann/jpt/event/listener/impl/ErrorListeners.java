@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.ErrorListener;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +39,6 @@ import java.util.Set;
  * @version 2008-09-14
  */
 public final class ErrorListeners extends ListenerSupport<ErrorListener> {
-
     public static final ErrorListeners INSTANCE = new ErrorListeners();
 
     public void notifyListeners(ErrorEvent evt) {
@@ -48,6 +49,5 @@ public final class ErrorListeners extends ListenerSupport<ErrorListener> {
         }
     }
 
-    private ErrorListeners() {
-    }
+    private ErrorListeners() {}
 }

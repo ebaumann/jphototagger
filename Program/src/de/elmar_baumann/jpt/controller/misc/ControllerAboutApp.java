@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -35,14 +38,15 @@ import javax.swing.JOptionPane;
  * @version 2008-09-12
  */
 public final class ControllerAboutApp implements ActionListener {
-
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(
-                GUI.INSTANCE.getAppFrame(),
-                JptBundle.INSTANCE.getString("ControllerAboutApp.Info.About", AppInfo.APP_NAME, AppInfo.APP_VERSION),
-                "JPhotoTagger",
-                JOptionPane.INFORMATION_MESSAGE,
-                AppLookAndFeel.getIcon("icon_app_about.png"));
+            GUI.INSTANCE.getAppFrame(),
+            JptBundle.INSTANCE.getString(
+                "ControllerAboutApp.Info.About", AppInfo.APP_NAME,
+                AppInfo.APP_VERSION), "JPhotoTagger",
+                                      JOptionPane.INFORMATION_MESSAGE,
+                                      AppLookAndFeel.getIcon(
+                                          "icon_app_about.png"));
     }
 }

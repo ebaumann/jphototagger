@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.event;
 
 import java.net.URL;
@@ -32,22 +33,26 @@ import java.net.URL;
  * @version 2008-10-04
  */
 public final class HelpBrowserEvent {
-
     private final Object source;
-    private final Type type;
-    private final URL url;
+    private final Type   type;
+    private final URL    url;
 
     public HelpBrowserEvent(Object source, Type type, URL url) {
-        if (source == null)
+        if (source == null) {
             throw new NullPointerException("source == null");
-        if (type == null)
+        }
+
+        if (type == null) {
             throw new NullPointerException("type == null");
-        if (url == null)
+        }
+
+        if (url == null) {
             throw new NullPointerException("url == null");
+        }
 
         this.source = source;
-        this.type = type;
-        this.url = url;
+        this.type   = type;
+        this.url    = url;
     }
 
     public enum Type {

@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.importer.KeywordsImporter;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.KeywordImportDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,13 +36,13 @@ import java.awt.event.ActionListener;
  * @version 2009-08-01
  */
 public final class ControllerImportKeywords implements ActionListener {
-
     public ControllerImportKeywords() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemImportKeywords().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemImportKeywords()
+            .addActionListener(this);
     }
 
     @Override
@@ -50,10 +52,14 @@ public final class ControllerImportKeywords implements ActionListener {
 
     private void importKeywords() {
         KeywordImportDialog dlg = new KeywordImportDialog();
+
         dlg.setVisible(true);
+
         if (dlg.isAccepted()) {
             KeywordsImporter importer = dlg.getImporter();
+
             assert importer != null : "Importer is null!";
+
             if (importer != null) {
                 importer.getPaths(dlg.getFile());
             }

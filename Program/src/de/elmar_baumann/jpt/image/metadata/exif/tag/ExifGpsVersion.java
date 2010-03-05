@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import de.elmar_baumann.lib.util.ByteUtil;
@@ -29,7 +30,6 @@ import de.elmar_baumann.lib.util.ByteUtil;
  * @version 2009-03-17
  */
 public final class ExifGpsVersion {
-
     private int first  = Integer.MIN_VALUE;
     private int second = Integer.MIN_VALUE;
     private int third  = Integer.MIN_VALUE;
@@ -43,8 +43,7 @@ public final class ExifGpsVersion {
     }
 
     public ExifGpsVersion(byte[] rawValue) {
-
-        if (rawValue != null && byteCountOk(rawValue)) {
+        if ((rawValue != null) && byteCountOk(rawValue)) {
             first  = ByteUtil.toInt(rawValue[0]);
             second = ByteUtil.toInt(rawValue[1]);
             third  = ByteUtil.toInt(rawValue[2]);
@@ -78,11 +77,11 @@ public final class ExifGpsVersion {
 
     @Override
     public String toString() {
-
         StringBuffer sb = new StringBuffer(6);
-        sb.append(Integer.toString(first)  + ".");
+
+        sb.append(Integer.toString(first) + ".");
         sb.append(Integer.toString(second) + ".");
-        sb.append(Integer.toString(third)  + ".");
+        sb.append(Integer.toString(third) + ".");
         sb.append(Integer.toString(fourth));
 
         return sb.toString();

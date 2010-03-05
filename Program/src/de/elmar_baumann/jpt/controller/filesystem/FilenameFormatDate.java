@@ -17,14 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.event.listener.FilenameFormatListener.Request;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.io.File;
+
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,10 +39,9 @@ import java.util.Date;
  * @version 2008-10-13
  */
 public final class FilenameFormatDate extends FilenameFormat {
-
     private String delimiter;
     private String name;
-    Date prevDate;
+    Date           prevDate;
 
     public FilenameFormatDate(String delimiter) {
         this.delimiter = delimiter;
@@ -52,8 +55,10 @@ public final class FilenameFormatDate extends FilenameFormat {
      */
     private void setFromExif(File file) {
         Exif exif = ExifMetadata.getExif(file);
+
         if (exif != null) {
             java.sql.Date date = exif.getDateTimeOriginal();
+
             if (date == null) {
                 setFromFilesystem(file);
             } else {
@@ -78,15 +83,14 @@ public final class FilenameFormatDate extends FilenameFormat {
     private void formatDate(Date date) {
         checkNewDay(date);
         prevDate = date;
-        name =
-                new SimpleDateFormat("yyyy" +
-                delimiter + "MM" +
-                delimiter + "dd").format(date);
+        name     = new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter
+                                        + "dd").format(date);
     }
 
     @Override
     public String format() {
         setFromExif(getFile());
+
         return name;
     }
 
@@ -95,23 +99,28 @@ public final class FilenameFormatDate extends FilenameFormat {
         return JptBundle.INSTANCE.getString("FilenameFormatDate.String");
     }
 
-    private FilenameFormatDate() {
-    }
+    private FilenameFormatDate() {}
 
     private void checkNewDay(Date date) {
-        if (prevDate == null) return;
+        if (prevDate == null) {
+            return;
+        }
+
         Calendar newDate = Calendar.getInstance();
         Calendar oldDate = Calendar.getInstance();
+
         newDate.setTime(date);
         oldDate.setTime(prevDate);
-        int newDay = newDate.get(Calendar.DAY_OF_MONTH);
-        int newMonth = newDate.get(Calendar.MONTH);
-        int newYear = newDate.get(Calendar.YEAR);
-        int oldDay = oldDate.get(Calendar.DAY_OF_MONTH);
-        int oldMonth = oldDate.get(Calendar.MONTH);
-        int oldYear = oldDate.get(Calendar.YEAR);
-        boolean datesDifferent = newDay != oldDay || newMonth != oldMonth ||
-                newYear != oldYear;
+
+        int     newDay         = newDate.get(Calendar.DAY_OF_MONTH);
+        int     newMonth       = newDate.get(Calendar.MONTH);
+        int     newYear        = newDate.get(Calendar.YEAR);
+        int     oldDay         = oldDate.get(Calendar.DAY_OF_MONTH);
+        int     oldMonth       = oldDate.get(Calendar.MONTH);
+        int     oldYear        = oldDate.get(Calendar.YEAR);
+        boolean datesDifferent = (newDay != oldDay) || (newMonth != oldMonth)
+                                 || (newYear != oldYear);
+
         if (datesDifferent) {
             requestListeners(Request.RESTART_SEQUENCE);
         }

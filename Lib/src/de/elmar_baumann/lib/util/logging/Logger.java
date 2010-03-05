@@ -17,12 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util.logging;
 
 import de.elmar_baumann.lib.resource.Bundle;
+
 import java.text.MessageFormat;
-import java.util.Properties;
+
 import java.util.logging.Level;
+import java.util.Properties;
 
 /**
  * Logs localized messages.
@@ -42,9 +45,8 @@ import java.util.logging.Level;
  * @version 2008-11-11
  */
 public final class Logger {
-
     public static final String USE_STRING = "Log.UseString";
-    private final       Bundle bundle;
+    private final Bundle       bundle;
 
     /**
      * Creates a logger which reads strings from a specific bundle.
@@ -133,10 +135,13 @@ public final class Logger {
      * @param ex  Exception
      */
     public void logSevere(Class<?> c, Exception ex) {
-        java.util.logging.Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
+        java.util.logging.Logger.getLogger(c.getName()).log(Level.SEVERE, null,
+                                           ex);
     }
 
-    private void log(Class<?> c, Level level, String bundleKey, Object... params) {
-        java.util.logging.Logger.getLogger(c.getName()).log(level, bundle.getString(bundleKey, params));
+    private void log(Class<?> c, Level level, String bundleKey,
+                     Object... params) {
+        java.util.logging.Logger.getLogger(c.getName()).log(level,
+                                           bundle.getString(bundleKey, params));
     }
 }

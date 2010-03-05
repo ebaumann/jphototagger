@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.awt.event.ActionListener;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
@@ -31,18 +34,21 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann
  * @version 2009-12-19
  */
-public final class MouseListenerTreeExpand
-        extends    MouseListenerTree
+public final class MouseListenerTreeExpand extends MouseListenerTree
         implements ActionListener {
-
-    private final JPopupMenu popupMenu    = new JPopupMenu();
-    private final JMenuItem  itemExpand   = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final JMenuItem  itemCollapse = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private final JPopupMenu popupMenu  = new JPopupMenu();
+    private final JMenuItem  itemExpand =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final JMenuItem itemCollapse =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "MouseListenerTreeExpand.ItemCollapse"));
 
     public MouseListenerTreeExpand() {
         popupMenu.add(itemExpand);
         popupMenu.add(itemCollapse);
-        listenExpandAllSubItems  (itemExpand  , true);
+        listenExpandAllSubItems(itemExpand, true);
         listenCollapseAllSubItems(itemCollapse, true);
     }
 

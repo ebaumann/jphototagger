@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event;
 
 import java.io.File;
@@ -26,11 +27,10 @@ import java.io.File;
  * the hierarchy.  This usually means, that a local representation needs to
  * be updated or recreated.
  *
- * @author  Martin Pohlack 
+ * @author  Martin Pohlack
  * @version 2009-08-18
  */
 public final class ThumbnailUpdateEvent {
-
     private Type type;
     private File source;
 
@@ -38,17 +38,21 @@ public final class ThumbnailUpdateEvent {
 
         /** New thumbnail data available */
         THUMBNAIL_UPDATE,
+
         /** New XMP metadata available */
         XMP_UPDATE,
+
         /** New empty XMP metadata available */
         XMP_EMPTY_UPDATE,
+
         /** New rendered thumbnail data available */
         RENDERED_THUMBNAIL_UPDATE,
-    };
+    }
 
+    ;
     public ThumbnailUpdateEvent(File _file, Type _type) {
         source = _file;
-        type = _type;
+        type   = _type;
     }
 
     /**

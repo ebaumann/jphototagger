@@ -17,15 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.directories;
 
 import de.elmar_baumann.jpt.controller.Controller;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.lib.io.TreeFileSystemDirectories;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import java.io.File;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -36,9 +40,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2010-01-19
  */
 abstract class ControllerDirectory extends Controller {
-
     private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    private final JTree                tree  = GUI.INSTANCE.getAppPanel().getTreeDirectories();
+    private final JTree                tree  =
+        GUI.INSTANCE.getAppPanel().getTreeDirectories();
 
     protected abstract void action(DefaultMutableTreeNode node);
 
@@ -48,8 +52,10 @@ abstract class ControllerDirectory extends Controller {
 
     @Override
     protected void action(ActionEvent evt) {
-        DefaultMutableTreeNode node = 
-                TreeFileSystemDirectories.getNodeOfLastPathComponent(popup.getTreePath());
+        DefaultMutableTreeNode node =
+            TreeFileSystemDirectories.getNodeOfLastPathComponent(
+                popup.getTreePath());
+
         if (node != null) {
             action(node);
         }
@@ -59,6 +65,7 @@ abstract class ControllerDirectory extends Controller {
     protected void action(KeyEvent evt) {
         if (!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
+
             if (node instanceof DefaultMutableTreeNode) {
                 action((DefaultMutableTreeNode) node);
             }
@@ -67,9 +74,11 @@ abstract class ControllerDirectory extends Controller {
 
     protected File getDirOfNode(DefaultMutableTreeNode node) {
         File dir = TreeFileSystemDirectories.getFile(node);
-        if (dir != null && dir.isDirectory()) {
+
+        if ((dir != null) && dir.isDirectory()) {
             return dir;
         }
+
         return null;
     }
 }

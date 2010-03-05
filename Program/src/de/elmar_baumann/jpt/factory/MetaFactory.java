@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppWindowPersistence;
@@ -30,9 +31,8 @@ import de.elmar_baumann.jpt.app.update.UpdateDownload;
  * @version 2008-09-29
  */
 public final class MetaFactory implements Runnable {
-
     public static final MetaFactory INSTANCE = new MetaFactory();
-    private             boolean     init     = false;
+    private boolean                 init     = false;
 
     @Override
     public void run() {
@@ -41,20 +41,22 @@ public final class MetaFactory implements Runnable {
 
     private void init() {
         synchronized (this) {
-            if(!Support.checkInit(getClass(), init)) return;
+            if (!Support.checkInit(getClass(), init)) {
+                return;
+            }
+
             init = true;
         }
+
         AppWindowPersistence appPersistence = new AppWindowPersistence();
 
         appPersistence.readAppFrameFromProperties();
-
-        ModelFactory            .INSTANCE.init();
-        RendererFactory         .INSTANCE.init();
-        ControllerFactory       .INSTANCE.init();
+        ModelFactory.INSTANCE.init();
+        RendererFactory.INSTANCE.init();
+        ControllerFactory.INSTANCE.init();
         ActionKeyListenerFactory.INSTANCE.init();
-        MouseListenerFactory    .INSTANCE.init();
-        MiscFactory             .INSTANCE.init();
-
+        MouseListenerFactory.INSTANCE.init();
+        MiscFactory.INSTANCE.init();
         appPersistence.readAppPanelFromProperties();
         UpdateDownload.checkForNewerVersion(60 * 1000);
     }

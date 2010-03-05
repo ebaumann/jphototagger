@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
+import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
-import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,9 +35,10 @@ import java.util.Map;
  * @version 2009-06-10
  */
 public final class ExifFormatterExposureProgram extends ExifFormatter {
-
-    public static final  ExifFormatterExposureProgram INSTANCE                     = new ExifFormatterExposureProgram();
-    private static final Map<Integer, String>         EXIF_KEY_OF_EXPOSURE_PROGRAM = new HashMap<Integer, String>();
+    public static final ExifFormatterExposureProgram INSTANCE =
+        new ExifFormatterExposureProgram();
+    private static final Map<Integer, String> EXIF_KEY_OF_EXPOSURE_PROGRAM =
+        new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_EXPOSURE_PROGRAM.put(0, "ExposureProgramUnkonwn");
@@ -49,24 +52,23 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
         EXIF_KEY_OF_EXPOSURE_PROGRAM.put(8, "ExposureProgramLandscape");
     }
 
-    private ExifFormatterExposureProgram() {
-    }
+    private ExifFormatterExposureProgram() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.EXPOSURE_PROGRAM);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-
-            ExifShort es    = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int       value = es.value();
+            ExifShort es = new ExifShort(exifTag.rawValue(),
+                                         exifTag.byteOrder());
+            int value = es.value();
 
             if (EXIF_KEY_OF_EXPOSURE_PROGRAM.containsKey(value)) {
-
-                return translate(IfdType.EXIF, EXIF_KEY_OF_EXPOSURE_PROGRAM.get(value));
+                return translate(IfdType.EXIF,
+                                 EXIF_KEY_OF_EXPOSURE_PROGRAM.get(value));
             }
         }
+
         return "?";
     }
 }

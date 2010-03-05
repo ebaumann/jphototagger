@@ -17,19 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.data.ParamStatement;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.Util;
 import de.elmar_baumann.jpt.database.metadata.Join;
 import de.elmar_baumann.jpt.database.metadata.Join.Type;
-import de.elmar_baumann.jpt.data.ParamStatement;
+import de.elmar_baumann.jpt.database.metadata.Util;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,11 +43,9 @@ import java.util.List;
  * @version 2008-10-21
  */
 public final class DatabaseFind extends Database {
-
     public static final DatabaseFind INSTANCE = new DatabaseFind();
 
-    private DatabaseFind() {
-    }
+    private DatabaseFind() {}
 
     /**
      * Liefert Dateinamen anhand eines Statements.
@@ -53,20 +54,24 @@ public final class DatabaseFind extends Database {
      * @return                Dateiname
      */
     public List<String> findFilenames(ParamStatement paramStatement) {
-        List<String> filenames  = new ArrayList<String>();
-        Connection   connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        List<String>      filenames  = new ArrayList<String>();
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
         try {
             connection = getConnection();
-            stmt = connection.prepareStatement(paramStatement.getSql());
+            stmt       = connection.prepareStatement(paramStatement.getSql());
+
             if (paramStatement.getValues() != null) {
                 for (int i = 0; i < paramStatement.getValues().length; i++) {
                     stmt.setObject(i + 1, paramStatement.getValues()[i]);
                 }
             }
+
             logFinest(stmt);
             rs = stmt.executeQuery();
+
             while (rs.next()) {
                 filenames.add(rs.getString(1));
             }
@@ -77,6 +82,7 @@ public final class DatabaseFind extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return filenames;
     }
 
@@ -89,36 +95,46 @@ public final class DatabaseFind extends Database {
      * @param searchString  Suchteilzeichenkette
      * @return              Alle gefundenen Dateinamen
      */
-    public List<String> findFilenamesLikeOr(List<Column> searchColumns, String searchString) {
-
+    public List<String> findFilenamesLikeOr(List<Column> searchColumns,
+            String searchString) {
         List<String> filenames = new ArrayList<String>();
-        addFilenamesSearchFilenamesLikeOr(Util.getTableColumnsOfTableStartsWith(searchColumns, "xmp"), searchString, filenames, "xmp");
-        addFilenamesSearchFilenamesLikeOr(Util.getTableColumnsOfTableStartsWith(searchColumns, "exif"), searchString, filenames, "exif");
+
+        addFilenamesSearchFilenamesLikeOr(
+            Util.getTableColumnsOfTableStartsWith(searchColumns, "xmp"),
+            searchString, filenames, "xmp");
+        addFilenamesSearchFilenamesLikeOr(
+            Util.getTableColumnsOfTableStartsWith(searchColumns, "exif"),
+            searchString, filenames, "exif");
+
         return filenames;
     }
 
-    private void addFilenamesSearchFilenamesLikeOr(
-            List<Column> searchColumns,
-            String       searchString,
-            List<String> filenames,
-            String       tablename
-            ) {
+    private void addFilenamesSearchFilenamesLikeOr(List<Column> searchColumns,
+            String searchString, List<String> filenames, String tablename) {
         if (searchColumns.size() > 0) {
-            Connection connection = null;
-            PreparedStatement stmt = null;
-            ResultSet rs = null;
+            Connection        connection = null;
+            PreparedStatement stmt       = null;
+            ResultSet         rs         = null;
+
             try {
                 connection = getConnection();
-                stmt = connection.prepareStatement(getSqlSearchFilenamesLikeOr(searchColumns, tablename, searchString));
+                stmt       = connection.prepareStatement(
+                    getSqlSearchFilenamesLikeOr(
+                        searchColumns, tablename, searchString));
+
                 for (int i = 0; i < searchColumns.size(); i++) {
                     stmt.setString(i + 1, "%" + searchString + "%");
                 }
+
                 addSynonyms(searchColumns, searchString, stmt);
                 logFinest(stmt);
                 rs = stmt.executeQuery();
+
                 String string;
+
                 while (rs.next()) {
                     string = rs.getString(1);
+
                     if (!filenames.contains(string)) {
                         filenames.add(string);
                     }
@@ -133,40 +149,57 @@ public final class DatabaseFind extends Database {
         }
     }
 
-    private void addSynonyms(List<Column> searchColumns, String searchString, PreparedStatement stmt) throws SQLException {
+    private void addSynonyms(List<Column> searchColumns, String searchString,
+                             PreparedStatement stmt)
+            throws SQLException {
         if (searchColumns.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
             int paramIndex = searchColumns.size() + 1;
-            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString)) {
+
+            for (String synonym :
+                    DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString)) {
                 stmt.setString(paramIndex++, synonym);
             }
         }
     }
 
-    private String getSqlSearchFilenamesLikeOr(List<Column> searchColumns, String tablename, String searchString) {
-        StringBuilder sql = new StringBuilder("SELECT DISTINCT files.filename FROM ");
-        List<String> tablenames = Util.getUniqueTableNamesOfColumnArray(searchColumns);
+    private String getSqlSearchFilenamesLikeOr(List<Column> searchColumns,
+            String tablename, String searchString) {
+        StringBuilder sql =
+            new StringBuilder("SELECT DISTINCT files.filename FROM ");
+        List<String> tablenames =
+            Util.getUniqueTableNamesOfColumnArray(searchColumns);
 
         sql.append((tablename.equals("xmp")
                     ? Join.getSqlFilesXmpJoin(Type.INNER, Type.LEFT, tablenames)
-                    : Join.getSqlFilesExifJoin(Type.INNER, tablenames)) +
-                " WHERE ");
+                    : Join.getSqlFilesExifJoin(Type.INNER,
+                    tablenames)) + " WHERE ");
+
         boolean isFirstColumn = true;
+
         for (Column column : searchColumns) {
-            sql.append((!isFirstColumn ? " OR " : "") +
-                    column.getTable().getName() + "." + column.getName() +
-                    " LIKE ?");
+            sql.append((!isFirstColumn
+                        ? " OR "
+                        : "") + column.getTable().getName() + "."
+                              + column.getName() + " LIKE ?");
             isFirstColumn = false;
         }
+
         if (searchColumns.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
             addSynonyms(sql, searchString);
         }
+
         sql.append(" ORDER BY files.filename ASC");
+
         return sql.toString();
     }
 
     private void addSynonyms(StringBuilder sb, String searchString) {
-        int count = DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString).size();
-        String colName = ColumnXmpDcSubjectsSubject.INSTANCE.getTable().getName() + "." + ColumnXmpDcSubjectsSubject.INSTANCE.getName();
+        int count =
+            DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString).size();
+        String colName =
+            ColumnXmpDcSubjectsSubject.INSTANCE.getTable().getName() + "."
+            + ColumnXmpDcSubjectsSubject.INSTANCE.getName();
+
         for (int i = 0; i < count; i++) {
             sb.append(" OR ");
             sb.append(colName);

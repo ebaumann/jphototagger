@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,18 +32,18 @@ import java.util.Map;
  * @version 2009-06-10
  */
 public final class ExifThumbnailUtil {
-
-    private static final Map<String, Double> ROTATION_ANGLE_OF_STRING = new HashMap<String, Double>();
+    private static final Map<String, Double> ROTATION_ANGLE_OF_STRING =
+        new HashMap<String, Double>();
 
     static {
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-left"    , new Double(0));   // 1
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-right"   , new Double(0));   // 2
-        ROTATION_ANGLE_OF_STRING.put("0, 0) is bottom-right" , new Double(180)); // 3
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is bottom-left" , new Double(180)); // 4
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-top"    , new Double(90));  // 5
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-top"   , new Double(90));  // 6
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-bottom", new Double(270)); // 7
-        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-bottom" , new Double(270)); // 8
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-left", new Double(0));    // 1
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-right", new Double(0));    // 2
+        ROTATION_ANGLE_OF_STRING.put("0, 0) is bottom-right", new Double(180));    // 3
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is bottom-left", new Double(180));    // 4
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-top", new Double(90));    // 5
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-top", new Double(90));    // 6
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is right-bottom", new Double(270));    // 7
+        ROTATION_ANGLE_OF_STRING.put("(0, 0) is left-bottom", new Double(270));    // 8
     }
 
     /**
@@ -51,17 +53,20 @@ public final class ExifThumbnailUtil {
      * @return         rotation angle
      */
     public static double getThumbnailRotationAngle(ExifTag exifTag) {
-        assert exifTag == null || exifTag.idValue() == 274;
+        assert (exifTag == null) || (exifTag.idValue() == 274);
+
         if (exifTag != null) {
             Double angle = ROTATION_ANGLE_OF_STRING.get(exifTag.stringValue());
+
             if (angle == null) {
                 return 0;
             }
+
             return angle.doubleValue();
         }
+
         return 0;
     }
 
-    private ExifThumbnailUtil() {
-    }
+    private ExifThumbnailUtil() {}
 }

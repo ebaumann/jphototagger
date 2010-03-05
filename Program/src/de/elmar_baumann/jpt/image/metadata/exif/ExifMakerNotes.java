@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif;
 
 import java.io.File;
@@ -28,6 +29,5 @@ import java.io.File;
  * @version 2010-01-13
  */
 public interface ExifMakerNotes {
-
     public void add(File file, ExifTags exifTags, ExifTag makerNoteTag);
 }

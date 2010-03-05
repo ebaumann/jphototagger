@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.data.ImageFile;
@@ -26,9 +27,11 @@ import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -38,10 +41,12 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann
  * @version 2008-10-25
  */
-public final class ListModelKeywords extends DefaultListModel implements DatabaseImageFilesListener {
-
-    private static final    long               serialVersionUID = -9181622876402951455L;
-    private final transient DatabaseImageFiles db               = DatabaseImageFiles.INSTANCE;
+public final class ListModelKeywords extends DefaultListModel
+        implements DatabaseImageFilesListener {
+    private static final long                  serialVersionUID =
+        -9181622876402951455L;
+    private final transient DatabaseImageFiles db               =
+        DatabaseImageFiles.INSTANCE;
 
     public ListModelKeywords() {
         addElements();
@@ -50,6 +55,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     private void addElements() {
         Set<String> keywords = db.getAllDcSubjects();
+
         for (String keyword : keywords) {
             addElement(keyword);
         }
@@ -76,10 +82,16 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
      */
     public synchronized boolean rename(String oldName, String newName) {
         assert !oldName.equals(newName);
+
         int index = indexOf(oldName);
-        if (index < 0) return false;
+
+        if (index < 0) {
+            return false;
+        }
+
         remove(index);
         add(index, newName);
+
         return true;
     }
 
@@ -92,8 +104,13 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
      */
     public synchronized boolean delete(String keyword) {
         int index = indexOf(keyword);
-        if (index < 0) return false;
+
+        if (index < 0) {
+            return false;
+        }
+
         remove(index);
+
         return true;
     }
 
@@ -107,6 +124,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     private void checkForNewKeywords(final ImageFile imageFile) {
         List<String> keywords = getKeywords(imageFile);
+
         for (String keyword : keywords) {
             if (!contains(keyword)) {
                 addElement(keyword);
@@ -115,26 +133,36 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
     }
 
     private void removeNotExistingKeywords(final ImageFile imageFile) {
-        if (imageFile == null) return;
+        if (imageFile == null) {
+            return;
+        }
+
         List<String> keywords = getKeywords(imageFile);
+
         for (String keyword : keywords) {
-            if (contains(keyword) && !databaseHasKeyword(keyword)) {
+            if (contains(keyword) &&!databaseHasKeyword(keyword)) {
                 removeElement(keyword);
             }
         }
     }
 
     boolean databaseHasKeyword(String keyword) {
-        return DatabaseStatistics.INSTANCE.existsValueIn(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+        return DatabaseStatistics.INSTANCE.existsValueIn(
+            ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
     }
 
     @SuppressWarnings("unchecked")
     private List<String> getKeywords(ImageFile imageFile) {
         List<String> keywords = new ArrayList<String>();
         Xmp          xmp      = imageFile.getXmp();
-        if (xmp != null && xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-            keywords.addAll((List<String>)xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
+
+        if ((xmp != null)
+                && xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+            keywords.addAll(
+                (List<String>) xmp.getValue(
+                    ColumnXmpDcSubjectsSubject.INSTANCE));
         }
+
         return keywords;
     }
 }

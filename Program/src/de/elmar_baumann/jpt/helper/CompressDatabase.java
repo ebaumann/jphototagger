@@ -17,16 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
-import de.elmar_baumann.jpt.event.ProgressEvent;
-import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
+import de.elmar_baumann.jpt.event.listener.ProgressListener;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Filename;
+import de.elmar_baumann.jpt.UserSettings;
+
 import java.io.File;
 
 /**
@@ -36,11 +38,11 @@ import java.io.File;
  * @version 2008-10-30
  */
 public final class CompressDatabase implements Runnable {
-
-    private final ProgressListenerSupport listenerSupport = new ProgressListenerSupport();
-    private       boolean                 success         = false;
-    private       long                    sizeBefore;
-    private       long                    sizeAfter;
+    private final ProgressListenerSupport listenerSupport =
+        new ProgressListenerSupport();
+    private boolean success = false;
+    private long    sizeBefore;
+    private long    sizeAfter;
 
     public synchronized void addProgressListener(ProgressListener l) {
         listenerSupport.add(l);
@@ -86,22 +88,29 @@ public final class CompressDatabase implements Runnable {
     public void run() {
         logCompressDatabase();
         notifyStarted();
-        File dbFile = new File(UserSettings.INSTANCE.getDatabaseFileName(
-                Filename.FULL_PATH));
+
+        File dbFile = new File(
+                          UserSettings.INSTANCE.getDatabaseFileName(
+                              Filename.FULL_PATH));
+
         sizeBefore = dbFile.length();
-        success = DatabaseMaintainance.INSTANCE.compressDatabase();
-        sizeAfter = dbFile.length();
+        success    = DatabaseMaintainance.INSTANCE.compressDatabase();
+        sizeAfter  = dbFile.length();
         notifyEnded();
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(this, JptBundle.INSTANCE.getString("CompressDatabase.Start"));
+        ProgressEvent evt = new ProgressEvent(
+                                this,
+                                JptBundle.INSTANCE.getString(
+                                    "CompressDatabase.Start"));
 
         listenerSupport.notifyStarted(evt);
     }
 
     private void logCompressDatabase() {
-        AppLogger.logInfo(CompressDatabase.class, "CompressDatabase.Info.StartCompress");
+        AppLogger.logInfo(CompressDatabase.class,
+                          "CompressDatabase.Info.StartCompress");
     }
 
     private synchronized void notifyEnded() {
@@ -111,12 +120,15 @@ public final class CompressDatabase implements Runnable {
     }
 
     private Object getEndMessage() {
-        double mb = 1024 * 1024;
+        double   mb     = 1024 * 1024;
         Object[] params = { success
-                ? JptBundle.INSTANCE.getString("CompressDatabase.End.Success.True")
-                : JptBundle.INSTANCE.getString("CompressDatabase.End.Success.False"),
-            sizeBefore, new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb)
-        };
+                            ? JptBundle.INSTANCE.getString(
+                                "CompressDatabase.End.Success.True")
+                            : JptBundle.INSTANCE.getString(
+                                "CompressDatabase.End.Success.False"),
+                            sizeBefore, new Double(sizeBefore / mb), sizeAfter,
+                            new Double(sizeAfter / mb) };
+
         return JptBundle.INSTANCE.getString("CompressDatabase.End", params);
     }
 }

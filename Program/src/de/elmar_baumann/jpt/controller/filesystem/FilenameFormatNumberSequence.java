@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.text.DecimalFormat;
 
 /**
@@ -29,27 +31,28 @@ import java.text.DecimalFormat;
  * @version 2008-10-13
  */
 public final class FilenameFormatNumberSequence extends FilenameFormat {
-
-    private int current;
-    private int start;
-    private int increment;
-    private int countDigits;
+    private int           current;
+    private int           start;
+    private int           increment;
+    private int           countDigits;
     private DecimalFormat decimalFormat;
 
-    public FilenameFormatNumberSequence(
-            int start, int increment, int countDigits) {
-        this.start = start;
-        this.increment = increment;
+    public FilenameFormatNumberSequence(int start, int increment,
+            int countDigits) {
+        this.start       = start;
+        this.increment   = increment;
         this.countDigits = countDigits;
-        current = start;
+        current          = start;
         createDecimalFormat();
     }
 
     private void createDecimalFormat() {
         StringBuffer buffer = new StringBuffer();
+
         for (int i = 0; i < countDigits; i++) {
             buffer.append("0");
         }
+
         decimalFormat = new DecimalFormat(buffer.toString());
     }
 
@@ -76,7 +79,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     public void setStart(int start) {
         this.start = start;
-        current = start;
+        current    = start;
     }
 
     /**
@@ -98,9 +101,9 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString("FilenameFormatNumberSequence.String");
+        return JptBundle.INSTANCE.getString(
+            "FilenameFormatNumberSequence.String");
     }
 
-    private FilenameFormatNumberSequence() {
-    }
+    private FilenameFormatNumberSequence() {}
 }

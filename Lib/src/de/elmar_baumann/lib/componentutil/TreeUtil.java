@@ -17,16 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import java.awt.event.MouseEvent;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
@@ -46,31 +50,36 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public final class TreeUtil {
 
-/**
-     * Returns a node with a specific user object in the path below a node.
-     * Uses equals of the user objects.
+    /**
+     *     Returns a node with a specific user object in the path below a node.
+     *     Uses equals of the user objects.
      *
-     * @param parent     parent node
-     * @param userObject searched user object. If null null will be returned.
-     * @return           found node or null if not found
+     *     @param parent     parent node
+     *     @param userObject searched user object. If null null will be returned.
+     *     @return           found node or null if not found
      */
+    @SuppressWarnings("unchecked")
     public static DefaultMutableTreeNode findNodeWithUserObject(
-            DefaultMutableTreeNode parent,
-            Object                 userObject
-            ) {
-        if (userObject == null) return null;
+            DefaultMutableTreeNode parent, Object userObject) {
+        if (userObject == null) {
+            return null;
+        }
 
-        for (@SuppressWarnings("unchecked")Enumeration<Object> nodes = parent.preorderEnumeration(); nodes.hasMoreElements();) {
-
+        for (Enumeration<Object> nodes = parent.preorderEnumeration();
+                nodes.hasMoreElements(); ) {
             Object node = nodes.nextElement();
-            if (node instanceof DefaultMutableTreeNode) {
-                Object userObjectNode = ((DefaultMutableTreeNode) node).getUserObject();
 
-                if (userObjectNode != null && userObject.equals(userObjectNode)) {
+            if (node instanceof DefaultMutableTreeNode) {
+                Object userObjectNode =
+                    ((DefaultMutableTreeNode) node).getUserObject();
+
+                if ((userObjectNode != null)
+                        && userObject.equals(userObjectNode)) {
                     return (DefaultMutableTreeNode) node;
                 }
             }
         }
+
         return null;
     }
 
@@ -81,7 +90,9 @@ public final class TreeUtil {
      * @return true, falls der Zeiger über dem Wurzelitem steht
      */
     public static boolean isRootItemPosition(MouseEvent e) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
 
         if (e.getSource() instanceof JTree) {
             JTree    tree      = (JTree) e.getSource();
@@ -91,11 +102,12 @@ public final class TreeUtil {
                 Object root      = tree.getModel().getRoot();
                 Object mouseItem = mousePath.getLastPathComponent();
 
-                if (root != null && mouseItem != null) {
+                if ((root != null) && (mouseItem != null)) {
                     return root.equals(mouseItem);
                 }
             }
         }
+
         return false;
     }
 
@@ -105,7 +117,9 @@ public final class TreeUtil {
      * @param trees Trees
      */
     public static void clearSelection(List<JTree> trees) {
-        if (trees == null) throw new NullPointerException("trees == null");
+        if (trees == null) {
+            throw new NullPointerException("trees == null");
+        }
 
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
@@ -122,50 +136,61 @@ public final class TreeUtil {
      * @param pathSeparator Separator zwischen den einzelnen Pfadbestandteilen
      * @return              Pfad oder null, wenn nicht gefunden
      */
-    public static TreePath getTreePath(
-            TreeModel treeModel,
-            String    pathString,
-            String    pathSeparator
-            ) {
-        if (treeModel     == null) throw new NullPointerException("treeModel == null");
-        if (pathString    == null) throw new NullPointerException("pathString == null");
-        if (pathSeparator == null) throw new NullPointerException("pathSeparator == null");
+    public static TreePath getTreePath(TreeModel treeModel, String pathString,
+                                       String pathSeparator) {
+        if (treeModel == null) {
+            throw new NullPointerException("treeModel == null");
+        }
 
-        StringTokenizer tokenizer       = new StringTokenizer(pathString, pathSeparator);
-        int             tokenCount      = tokenizer.countTokens();
-        int             tokenNumber     = 1;
-        int             tokenFoundCount = 0;
-        Object[]        path = new Object[tokenCount > 0 ? tokenCount : 1];
+        if (pathString == null) {
+            throw new NullPointerException("pathString == null");
+        }
+
+        if (pathSeparator == null) {
+            throw new NullPointerException("pathSeparator == null");
+        }
+
+        StringTokenizer tokenizer = new StringTokenizer(pathString,
+                                        pathSeparator);
+        int      tokenCount      = tokenizer.countTokens();
+        int      tokenNumber     = 1;
+        int      tokenFoundCount = 0;
+        Object[] path            = new Object[(tokenCount > 0)
+                ? tokenCount
+                : 1];
 
         if (tokenCount > 0) {
             path[0] = treeModel.getRoot();
             tokenizer.nextToken();
+
             Object  currentElement = treeModel.getRoot();
             Object  childElement   = null;
             boolean appended       = true;
 
-            while (appended && tokenNumber < tokenCount) {
-
+            while (appended && (tokenNumber < tokenCount)) {
                 int     childCount = treeModel.getChildCount(currentElement);
                 String  pathToken  = tokenizer.nextToken();
                 boolean found      = false;
 
                 appended = false;
-                for (int index = 0; index < childCount && !found; index++) {
+
+                for (int index = 0; (index < childCount) &&!found; index++) {
                     childElement = treeModel.getChild(currentElement, index);
-                    found = childElement.toString().equals(pathToken);
+                    found        = childElement.toString().equals(pathToken);
+
                     if (found) {
                         path[tokenNumber] = childElement;
                         currentElement    = childElement;
-
-                        appended = true;
+                        appended          = true;
                         tokenFoundCount++;
                     }
                 }
+
                 tokenNumber++;
             }
         }
-        return tokenCount > 0 && tokenCount - 1 == tokenFoundCount
+
+        return ((tokenCount > 0) && (tokenCount - 1 == tokenFoundCount))
                ? new TreePath(path)
                : null;
     }
@@ -177,8 +202,13 @@ public final class TreeUtil {
      * @param path Pfad
      */
     public static void expandPath(JTree tree, TreePath path) {
-        if (tree == null) throw new NullPointerException("tree == null");
-        if (path == null) throw new NullPointerException("path == null");
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
 
         TreePath expandPath = path;
 
@@ -198,8 +228,13 @@ public final class TreeUtil {
      * @param path path to expand in <code>tree</code>
      */
     public static void expandPathCascade(JTree tree, TreePath path) {
-        if (tree == null) throw new NullPointerException("tree == null");
-        if (path == null) throw new NullPointerException("path == null");
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
 
         Stack<TreePath> stack  = new Stack<TreePath>();
         TreePath        parent = path;
@@ -229,35 +264,62 @@ public final class TreeUtil {
      * @param ignoreCase true if the strings shall be compared case insensitive
      * @return           true if the path was found
      */
-    public static boolean existsPathBelow(DefaultMutableTreeNode parentNode, List<String> toStrings, boolean ignoreCase) {
-        if (parentNode == null) throw new NullPointerException("parentNode == null");
-        if (toStrings  == null) throw new NullPointerException("toStrings == null");
+    public static boolean existsPathBelow(DefaultMutableTreeNode parentNode,
+            List<String> toStrings, boolean ignoreCase) {
+        if (parentNode == null) {
+            throw new NullPointerException("parentNode == null");
+        }
+
+        if (toStrings == null) {
+            throw new NullPointerException("toStrings == null");
+        }
 
         int                    size = toStrings.size();
         DefaultMutableTreeNode node = parentNode;
 
         for (int i = 0; i < size; i++) {
             String string = toStrings.get(i);
-            if (string == null) throw new NullPointerException("string == null. Element index: " + i);
+
+            if (string == null) {
+                throw new NullPointerException(
+                    "string == null. Element index: " + i);
+            }
+
             node = getChild(node, string, ignoreCase);
-            if (node == null) return false;
+
+            if (node == null) {
+                return false;
+            }
         }
 
         return true;
     }
 
-    public static DefaultMutableTreeNode getBestMatchingNodeBelow(DefaultMutableTreeNode parentNode, List<String> toStrings, boolean ignoreCase) {
-        if (parentNode == null) throw new NullPointerException("parentNode == null");
-        if (toStrings  == null) throw new NullPointerException("toStrings == null");
+    public static DefaultMutableTreeNode getBestMatchingNodeBelow(
+            DefaultMutableTreeNode parentNode, List<String> toStrings,
+            boolean ignoreCase) {
+        if (parentNode == null) {
+            throw new NullPointerException("parentNode == null");
+        }
 
-        int                    size = toStrings.size();
+        if (toStrings == null) {
+            throw new NullPointerException("toStrings == null");
+        }
+
+        int                    size   = toStrings.size();
         DefaultMutableTreeNode node   = parentNode;
         DefaultMutableTreeNode latest = parentNode;
 
-        for (int i = 0; i < size && node != null; i++) {
+        for (int i = 0; (i < size) && (node != null); i++) {
             String string = toStrings.get(i);
-            if (string == null) throw new NullPointerException("string == null. Element index: " + i);
+
+            if (string == null) {
+                throw new NullPointerException(
+                    "string == null. Element index: " + i);
+            }
+
             node = getChild(node, string, ignoreCase);
+
             if (node != null) {
                 latest = node;
             }
@@ -266,18 +328,29 @@ public final class TreeUtil {
         return latest;
     }
 
-    private static DefaultMutableTreeNode getChild(DefaultMutableTreeNode parentNode, String toString, boolean ignoreCase) {
+    private static DefaultMutableTreeNode getChild(
+            DefaultMutableTreeNode parentNode, String toString,
+            boolean ignoreCase) {
         assert toString != null;
+
         for (Enumeration<?> e = parentNode.children(); e.hasMoreElements(); ) {
             Object child = e.nextElement();
+
             if (child instanceof DefaultMutableTreeNode) {
-                if (child.toString() == null) return null;
+                if (child.toString() == null) {
+                    return null;
+                }
+
                 boolean exists = ignoreCase
-                            ? child.toString().equalsIgnoreCase(toString)
-                            : child.toString().equals(toString);
-                if (exists) return (DefaultMutableTreeNode) child;
+                                 ? child.toString().equalsIgnoreCase(toString)
+                                 : child.toString().equals(toString);
+
+                if (exists) {
+                    return (DefaultMutableTreeNode) child;
+                }
             }
         }
+
         return null;
     }
 
@@ -290,11 +363,14 @@ public final class TreeUtil {
      */
     public static TreePath getTreePath(MouseEvent e) {
         Object source = e.getSource();
+
         if (source instanceof JTree) {
             int mousePosX = e.getX();
             int mousePosY = e.getY();
+
             return ((JTree) source).getPathForLocation(mousePosX, mousePosY);
         }
+
         return null;
     }
 
@@ -310,17 +386,24 @@ public final class TreeUtil {
      * @return path
      */
     public static TreePath getTreePath(File file, TreeModel model) {
-        if (file  == null) throw new NullPointerException("file == null");
-        if (model == null) throw new NullPointerException("model == null");
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
 
-        Stack<DefaultMutableTreeNode> stack = new Stack<DefaultMutableTreeNode>();
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        Stack<DefaultMutableTreeNode> stack =
+            new Stack<DefaultMutableTreeNode>();
 
         while (file != null) {
             stack.push(new DefaultMutableTreeNode(file));
             file = file.getParentFile();
         }
 
-        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(stack.size() + 1);
+        List<DefaultMutableTreeNode> nodes =
+            new ArrayList<DefaultMutableTreeNode>(stack.size() + 1);
 
         nodes.add((DefaultMutableTreeNode) model.getRoot());
 
@@ -339,26 +422,32 @@ public final class TreeUtil {
      * @param userObject user object to compare with equals
      * @param maxCount   maximum count of nodes to add
      */
+    @SuppressWarnings("unchecked")
     public static void addNodesUserWithObject(
             Collection<? super DefaultMutableTreeNode> foundNodes,
-            DefaultMutableTreeNode                     rootNode,
-            Object                                     userObject,
-            int                                        maxCount
-            ) {
-        if (foundNodes == null) throw new NullPointerException("foundNodes == null");
-        if (rootNode   == null) throw new NullPointerException("rootNode == null");
-        if (userObject == null) throw new NullPointerException("userObject == null");
+            DefaultMutableTreeNode rootNode, Object userObject, int maxCount) {
+        if (foundNodes == null) {
+            throw new NullPointerException("foundNodes == null");
+        }
+
+        if (rootNode == null) {
+            throw new NullPointerException("rootNode == null");
+        }
+
+        if (userObject == null) {
+            throw new NullPointerException("userObject == null");
+        }
 
         int foundNodeCount = foundNodes.size();
 
-        for (@SuppressWarnings("unchecked")Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements() && foundNodeCount <= maxCount;) {
-
+        for (Enumeration<DefaultMutableTreeNode> children = rootNode.children();
+                children.hasMoreElements() && (foundNodeCount <= maxCount); ) {
             DefaultMutableTreeNode child = children.nextElement();
 
             if (userObject.equals(child.getUserObject())) {
                 foundNodes.add(child);
             } else {
-                addNodesUserWithObject(foundNodes, child, userObject, maxCount); // recursive
+                addNodesUserWithObject(foundNodes, child, userObject, maxCount);    // recursive
             }
         }
     }
@@ -373,34 +462,36 @@ public final class TreeUtil {
      * @return            the first matching child node containing that file
      */
     public static DefaultMutableTreeNode findChildNodeWithFile(
-            DefaultMutableTreeNode parentNode,
-            File                   file
-            ) {
+            DefaultMutableTreeNode parentNode, File file) {
         int childCount = parentNode.getChildCount();
 
         for (int i = 0; i < childCount; i++) {
             TreeNode childNode = parentNode.getChildAt(i);
 
             if (childNode instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode node       = (DefaultMutableTreeNode) childNode;
-                Object                 userObject = node.getUserObject();
+                DefaultMutableTreeNode node =
+                    (DefaultMutableTreeNode) childNode;
+                Object userObject = node.getUserObject();
 
                 if (userObject instanceof File) {
                     File f = (File) userObject;
+
                     if (f.equals(file)) {
                         return node;
                     }
                 }
             }
         }
+
         return null;
     }
 
     // Code: http://www.exampledepot.com/egs/javax.swing.tree/ExpandAll.html
+
     /**
      * If expand is true, expands all nodes in the tree.
      * Otherwise, collapses all nodes in the tree.
-
+     *
      * @param tree   tree
      * @param expand true if expand all nodes
      */
@@ -417,14 +508,20 @@ public final class TreeUtil {
      * @param tree   tree
      * @param parent parent path
      * @param expand true if expand, false if collapse
+     *
      */
+    @SuppressWarnings("unchecked")
     public static void expandAll(JTree tree, TreePath parent, boolean expand) {
+
         // Traverse children
         TreeNode node = (TreeNode) parent.getLastPathComponent();
+
         if (node.getChildCount() >= 0) {
-            for (@SuppressWarnings("unchecked")Enumeration<TreeNode> e = node.children(); e.hasMoreElements();) {
+            for (Enumeration<TreeNode> e =
+                    node.children(); e.hasMoreElements(); ) {
                 TreeNode n    = e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
+
                 expandAll(tree, path, expand);
             }
         }
@@ -439,7 +536,9 @@ public final class TreeUtil {
 
     public static void deselectAll(JTree tree) {
         TreeSelectionModel m = tree.getSelectionModel();
+
         assert m != null;
+
         if (m != null) {
             m.clearSelection();
         }
@@ -460,13 +559,17 @@ public final class TreeUtil {
      */
     public static boolean isAbove(TreeNode above, TreeNode below) {
         TreeNode parent = below.getParent();
+
         while (parent != null) {
-            if (parent == above) return true;
+            if (parent == above) {
+                return true;
+            }
+
             parent = parent.getParent();
         }
+
         return false;
     }
 
-    private TreeUtil() {
-    }
+    private TreeUtil() {}
 }

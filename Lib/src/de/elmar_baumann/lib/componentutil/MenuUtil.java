@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.componentutil;
 
 import javax.swing.JMenu;
@@ -30,7 +31,6 @@ import javax.swing.JMenuItem;
  * @version 2009-07-23
  */
 public final class MenuUtil {
-
     private static final String AMPERSAND = "&";
 
     /**
@@ -41,12 +41,13 @@ public final class MenuUtil {
      * @throws         NullPointerException if <code>menuBar</code> is null
      */
     public static void setMnemonics(JMenuBar menuBar) {
-
-        if (menuBar == null)
+        if (menuBar == null) {
             throw new NullPointerException("menuBar == null");
+        }
 
         for (int i = 0; i < menuBar.getMenuCount(); i++) {
             JMenu menu = menuBar.getMenu(i);
+
             if (menu != null) {
                 setMnemonicsToItems(menu);
             }
@@ -61,17 +62,20 @@ public final class MenuUtil {
      * @throws      NullPointerException if <code>menu</code> is null
      */
     private static void setMnemonicsToItems(JMenu menu) {
-
-        if (menu == null)
+        if (menu == null) {
             throw new NullPointerException("menu == null");
+        }
 
         setMnemonics(menu);
+
         for (int i = 0; i < menu.getItemCount(); i++) {
             JMenuItem item = menu.getItem(i);
+
             if (item != null) {
                 setMnemonics(item);
+
                 if (item instanceof JMenu) {
-                    setMnemonicsToItems((JMenu) item); // recursive
+                    setMnemonicsToItems((JMenu) item);    // recursive
                 }
             }
         }
@@ -85,22 +89,23 @@ public final class MenuUtil {
      * @throws      NullPointerException if <code>item</code> is null
      */
     public static void setMnemonics(JMenuItem item) {
-
-        if (item == null)
+        if (item == null) {
             throw new NullPointerException("item == null");
+        }
 
-        String itemText = item.getText();
-        int itemTextLength = itemText.length();
-        int ampersandIndex = itemText.indexOf(AMPERSAND);
-        if (ampersandIndex >= 0 && ampersandIndex < itemTextLength - 1) {
+        String itemText       = item.getText();
+        int    itemTextLength = itemText.length();
+        int    ampersandIndex = itemText.indexOf(AMPERSAND);
+
+        if ((ampersandIndex >= 0) && (ampersandIndex < itemTextLength - 1)) {
             char mnemonic = itemText.charAt(ampersandIndex + 1);
-            itemText = itemText.substring(0, ampersandIndex) +
-                    itemText.substring(ampersandIndex + 1, itemTextLength);
+
+            itemText = itemText.substring(0, ampersandIndex)
+                       + itemText.substring(ampersandIndex + 1, itemTextLength);
             item.setText(itemText);
             item.setMnemonic(mnemonic);
         }
     }
 
-    private MenuUtil() {
-    }
+    private MenuUtil() {}
 }

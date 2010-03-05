@@ -17,18 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.event.SearchEvent;
 
 /**
  *
  * @author  Elmar Baumann
  * @version 2008-10-18
  */
-public final class SearchListenerSupport extends ListenerSupport<SearchListener> {
-
+public final class SearchListenerSupport
+        extends ListenerSupport<SearchListener> {
     public void notifyListeners(SearchEvent event) {
         synchronized (listeners) {
             for (SearchListener listener : listeners) {

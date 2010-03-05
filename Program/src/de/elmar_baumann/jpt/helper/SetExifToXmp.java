@@ -17,18 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,10 +45,9 @@ import java.util.List;
  * @version 2010-01-02
  */
 public final class SetExifToXmp extends HelperThread {
-
-    private volatile boolean      stop;
-    private          List<String> files;
-    private final    boolean      replaceExistingXmpData;
+    private volatile boolean stop;
+    private List<String>     files;
+    private final boolean    replaceExistingXmpData;
 
     /**
      * Checks all known image files.
@@ -67,7 +70,8 @@ public final class SetExifToXmp extends HelperThread {
      *                               be replaced with EXIF metadata.
      *                               Default: false.
      */
-    public SetExifToXmp(Collection<String> filenames, boolean replaceExistingXmpData) {
+    public SetExifToXmp(Collection<String> filenames,
+                        boolean replaceExistingXmpData) {
         this.replaceExistingXmpData = replaceExistingXmpData;
         this.files                  = new ArrayList<String>(filenames);
         setInfo();
@@ -82,24 +86,29 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     private void setInfo() {
-        setName("Setting EXIF metadata to XMP metadata @ " + getClass().getSimpleName());
+        setName("Setting EXIF metadata to XMP metadata @ "
+                + getClass().getSimpleName());
         setInfo(JptBundle.INSTANCE.getString("SetExifToXmp.Info"));
     }
 
     @Override
     public void run() {
+        List<String> filenames = (files == null)
+                                 ? DatabaseImageFiles.INSTANCE.getAllFilenames()
+                                 : files;
+        int fileCount = filenames.size();
 
-        List<String> filenames = files == null ? DatabaseImageFiles.INSTANCE.getAllFilenames() : files;
-        int          fileCount = filenames.size();
+        progressStarted(0, 0, fileCount, (fileCount > 0)
+                                         ? filenames.get(0)
+                                         : null);
 
-        progressStarted(0, 0, fileCount, fileCount > 0 ? filenames.get(0) : null);
-
-        for (int i = 0; !stop && i < fileCount; i++) {
-
+        for (int i = 0; !stop && (i < fileCount); i++) {
             String filename = filenames.get(i);
+
             set(filename, replaceExistingXmpData);
             progressPerformed(i + 1, filename);
         }
+
         progressEnded(null);
     }
 
@@ -120,20 +129,28 @@ public final class SetExifToXmp extends HelperThread {
         Exif exif = ExifMetadata.getExif(new File(filename));
         Xmp  xmp  = XmpMetadata.getXmpFromSidecarFileOf(filename);
 
-        if (xmp == null) xmp = new Xmp();
-        if (exif != null && exifHasValues(exif)) {
+        if (xmp == null) {
+            xmp = new Xmp();
+        }
+
+        if ((exif != null) && exifHasValues(exif)) {
             if (isSet(xmp, replaceExistingXmpData)) {
                 setDateCreated(xmp, exif);
-                String xmpFilename = XmpMetadata.suggestSidecarFilename(filename);
+
+                String xmpFilename =
+                    XmpMetadata.suggestSidecarFilename(filename);
+
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFilename)) {
                     ImageFile imageFile = new ImageFile();
 
-                    xmp.setValue(ColumnXmpLastModified.INSTANCE, new File(xmpFilename).lastModified());
-                    imageFile.setLastmodified(new File(filename).lastModified()); // Avoids re-reading thumbnails
+                    xmp.setValue(ColumnXmpLastModified.INSTANCE,
+                                 new File(xmpFilename).lastModified());
+                    imageFile.setLastmodified(
+                        new File(filename).lastModified());    // Avoids re-reading thumbnails
                     imageFile.setFilename(filename);
                     imageFile.setXmp(xmp);
-                    imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
-
+                    imageFile.addInsertIntoDb(
+                        InsertImageFilesIntoDatabase.Insert.XMP);
                     DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
                 }
             }
@@ -141,8 +158,8 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     private static boolean isSet(Xmp xmp, boolean replaceExistingXmpData) {
-        return replaceExistingXmpData ||
-               !xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        return replaceExistingXmpData
+               ||!xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
     }
 
     public static boolean exifHasValues(Exif exif) {
@@ -151,7 +168,8 @@ public final class SetExifToXmp extends HelperThread {
 
     public static void setDateCreated(Xmp xmp, Exif exif) {
         if (exif.getDateTimeOriginal() != null) {
-            xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, exif.getXmpDateCreated());
+            xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
+                         exif.getXmpDateCreated());
         }
     }
 

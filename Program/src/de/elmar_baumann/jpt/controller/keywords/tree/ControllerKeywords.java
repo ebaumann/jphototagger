@@ -17,19 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -43,11 +47,12 @@ import javax.swing.tree.TreePath;
  */
 public abstract class ControllerKeywords
         implements ActionListener, KeyListener {
-
     private final KeywordsPanel panel;
 
     abstract protected boolean myKey(KeyEvent e);
+
     abstract protected void localAction(List<DefaultMutableTreeNode> nodes);
+
     abstract protected boolean canHandleMultipleNodes();
 
     public ControllerKeywords(KeywordsPanel _panel) {
@@ -56,6 +61,7 @@ public abstract class ControllerKeywords
     }
 
     private void listen() {
+
         // Listening to singleton popup menu via ActionListenerFactory#
         // listenToPopupMenuKeywords()
         panel.getTree().addKeyListener(this);
@@ -67,11 +73,11 @@ public abstract class ControllerKeywords
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         if (myKey(e)) {
             List<DefaultMutableTreeNode> selNodes = getSelNodes(e);
 
-            if (selNodes != null && !selNodes.isEmpty() && checkNodeCount(selNodes)) {
+            if ((selNodes != null) &&!selNodes.isEmpty()
+                    && checkNodeCount(selNodes)) {
                 localAction(selNodes);
             }
         }
@@ -81,25 +87,26 @@ public abstract class ControllerKeywords
     public void actionPerformed(ActionEvent e) {
         List<DefaultMutableTreeNode> selNodes = getSelNodes(e);
 
-        if (selNodes != null && !selNodes.isEmpty() && checkNodeCount(selNodes)) {
+        if ((selNodes != null) &&!selNodes.isEmpty()
+                && checkNodeCount(selNodes)) {
             localAction(selNodes);
         }
     }
 
     protected List<DefaultMutableTreeNode> getSelNodes(ActionEvent e) {
-
         TreePath[] selPaths = PopupMenuKeywordsTree.INSTANCE.getTreePaths();
 
-        if (selPaths == null) return null;
+        if (selPaths == null) {
+            return null;
+        }
 
-        List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> selNodes =
+            new ArrayList<DefaultMutableTreeNode>();
 
         for (TreePath selPath : selPaths) {
-
             Object node = selPath.getLastPathComponent();
 
             if (node instanceof DefaultMutableTreeNode) {
-
                 selNodes.add((DefaultMutableTreeNode) node);
             }
         }
@@ -108,60 +115,78 @@ public abstract class ControllerKeywords
     }
 
     protected List<DefaultMutableTreeNode> getSelNodes(KeyEvent e) {
-
         if (e.getComponent() instanceof JTree) {
             JTree tree = (JTree) e.getComponent();
 
-            if (tree.isSelectionEmpty()) return null;
+            if (tree.isSelectionEmpty()) {
+                return null;
+            }
 
-            List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
+            List<DefaultMutableTreeNode> selNodes =
+                new ArrayList<DefaultMutableTreeNode>();
 
             for (TreePath selPath : tree.getSelectionPaths()) {
-
                 Object node = selPath.getLastPathComponent();
 
                 if (node instanceof DefaultMutableTreeNode) {
                     selNodes.add((DefaultMutableTreeNode) node);
                 }
             }
+
             return selNodes;
         }
+
         return null;
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 
     protected boolean ensureNoChild(List<DefaultMutableTreeNode> nodes) {
         int size = nodes.size();
-        if (size <= 1) return true;
+
+        if (size <= 1) {
+            return true;
+        }
+
         for (int i = 0; i < size; i++) {
             DefaultMutableTreeNode parent = nodes.get(i);
+
             for (int j = 0; j < size; j++) {
                 if (j != i) {
                     DefaultMutableTreeNode node = nodes.get(j);
+
                     if (TreeUtil.isAbove(parent, node)) {
-                        MessageDisplayer.error(null, "ControllerDeleteKeywords.Tree.Error.IsChild");
+                        MessageDisplayer.error(
+                            null,
+                            "ControllerDeleteKeywords.Tree.Error.IsChild");
+
                         return false;
                     }
                 }
             }
         }
+
         return true;
     }
 
     private boolean checkNodeCount(Collection<DefaultMutableTreeNode> coll) {
-        if (!canHandleMultipleNodes() && coll.size() > 1) {
-            MessageDisplayer.error(null, "ControllerKeywords.Error.MultiSelection");
+        if (!canHandleMultipleNodes() && (coll.size() > 1)) {
+            MessageDisplayer.error(null,
+                                   "ControllerKeywords.Error.MultiSelection");
+
             return false;
         }
+
         return true;
     }
 }

@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.plugin;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JPanel;
@@ -37,12 +40,12 @@ import javax.swing.JProgressBar;
  * @version 2009-08-27
  */
 public abstract class Plugin {
-
-    private       Properties          properties;
-    private       JProgressBar        progressBar;
-    private final List<File>          files            = new ArrayList<File>();
-    private final Set<PluginListener> pluginListeners  = new HashSet<PluginListener>();
-    private       boolean             pBarStringPainted;
+    private Properties                properties;
+    private JProgressBar              progressBar;
+    private final List<File>          files           = new ArrayList<File>();
+    private final Set<PluginListener> pluginListeners =
+        new HashSet<PluginListener>();
+    private boolean pBarStringPainted;
 
     /**
      * Sets a progress bar.
@@ -52,6 +55,7 @@ public abstract class Plugin {
      */
     public void setProgressBar(JProgressBar progressBar) {
         this.progressBar = progressBar;
+
         if (progressBar != null) {
             pBarStringPainted = progressBar.isStringPainted();
         }
@@ -236,7 +240,8 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    public void progressStarted(int minimum, int maximum, int value, String string) {
+    public void progressStarted(int minimum, int maximum, int value,
+                                String string) {
         setProgressBar(0, maximum, value, string);
     }
 
@@ -248,7 +253,8 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    public void progressPerformed(int minimum, int maximum, int value, String string) {
+    public void progressPerformed(int minimum, int maximum, int value,
+                                  String string) {
         setProgressBar(minimum, maximum, value, string);
     }
 
@@ -260,16 +266,19 @@ public abstract class Plugin {
             if (progressBar.isStringPainted()) {
                 progressBar.setString("");
             }
+
             progressBar.setStringPainted(pBarStringPainted);
             progressBar.setValue(0);
         }
     }
 
-    private void setProgressBar(final int minimum, final int maximum, final int value, final String string) {
+    private void setProgressBar(final int minimum, final int maximum,
+                                final int value, final String string) {
         if (progressBar != null) {
             progressBar.setMinimum(minimum);
             progressBar.setMaximum(maximum);
             progressBar.setValue(value);
+
             if (string != null) {
                 progressBar.setStringPainted(true);
                 progressBar.setString(string);

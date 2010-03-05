@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
@@ -34,19 +37,19 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann
  * @version 2009-12-20
  */
-public class MouseListenerTree
-        extends    MouseAdapter
-        implements ActionListener {
-
-    private JTree      tree;
-    private TreePath   path;
-    private int        x;
-    private int        y;
-    private JMenuItem  itemExpandAllSubItems;
-    private JMenuItem  itemCollapseExpandAllSubItems;
+public class MouseListenerTree extends MouseAdapter implements ActionListener {
+    private JTree     tree;
+    private TreePath  path;
+    private int       x;
+    private int       y;
+    private JMenuItem itemExpandAllSubItems;
+    private JMenuItem itemCollapseExpandAllSubItems;
 
     public void listenExpandAllSubItems(JMenuItem item, boolean listen) {
-        itemExpandAllSubItems = listen ? item  : null;
+        itemExpandAllSubItems = listen
+                                ? item
+                                : null;
+
         if (listen) {
             item.addActionListener(this);
         } else {
@@ -55,7 +58,10 @@ public class MouseListenerTree
     }
 
     public void listenCollapseAllSubItems(JMenuItem item, boolean listen) {
-        itemCollapseExpandAllSubItems = listen ? item  : null;
+        itemCollapseExpandAllSubItems = listen
+                                        ? item
+                                        : null;
+
         if (listen) {
             item.addActionListener(this);
         } else {
@@ -67,11 +73,15 @@ public class MouseListenerTree
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (!MouseEventUtil.isPopupTrigger(e)) return;
+        if (!MouseEventUtil.isPopupTrigger(e)) {
+            return;
+        }
 
         reset(TreeUtil.getTreePath(e));
+
         if (path != null) {
             Object source = e.getSource();
+
             if (source instanceof JTree) {
                 tree = (JTree) source;
                 popupTrigger(tree, path, e.getX(), e.getY());
@@ -105,9 +115,11 @@ public class MouseListenerTree
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
-        if (source == itemExpandAllSubItems && tree != null) {
+
+        if ((source == itemExpandAllSubItems) && (tree != null)) {
             TreeUtil.expandAll(tree, path, true);
-        } else if (source == itemCollapseExpandAllSubItems && tree != null) {
+        } else if ((source == itemCollapseExpandAllSubItems)
+                   && (tree != null)) {
             TreeUtil.expandAll(tree, path, false);
         }
     }

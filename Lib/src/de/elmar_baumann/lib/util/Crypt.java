@@ -17,15 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.util;
 
 import de.elmar_baumann.lib.thirdparty.Base64;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 
-// Code based on: http://www.exampledepot.com/egs/javax.crypto/desstring.html
+//Code based on: http://www.exampledepot.com/egs/javax.crypto/desstring.html
 
 /**
  * En- and decrypts strings with <code>DESede</code> and <code>Base64</code> so
@@ -67,7 +70,6 @@ import javax.crypto.SecretKey;
  * @see     Base64
  */
 public final class Crypt {
-
     private Cipher ecipher;
     private Cipher dcipher;
 
@@ -91,11 +93,13 @@ public final class Crypt {
     public String encrypt(String str) {
         try {
             byte[] utf8 = str.getBytes("UTF8");
-            byte[] enc = ecipher.doFinal(utf8);
+            byte[] enc  = ecipher.doFinal(utf8);
+
             return Base64.encodeBytes(enc);
         } catch (Exception ex) {
             Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
     }
 
@@ -107,12 +111,14 @@ public final class Crypt {
      */
     public String decrypt(String str) {
         try {
-            byte[] dec = Base64.decode(str);
+            byte[] dec  = Base64.decode(str);
             byte[] utf8 = dcipher.doFinal(dec);
+
             return new String(utf8, "UTF8");
         } catch (Exception ex) {
             Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
     }
 }

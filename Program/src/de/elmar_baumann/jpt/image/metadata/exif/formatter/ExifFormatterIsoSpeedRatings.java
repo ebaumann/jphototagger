@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
-import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifShort;
+import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 
 /**
@@ -30,24 +31,23 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
  * @version 2009-06-10
  */
 public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
+    public static final ExifFormatterIsoSpeedRatings INSTANCE =
+        new ExifFormatterIsoSpeedRatings();
+    private static final String POSTFIX = " ISO";
 
-    public static final  ExifFormatterIsoSpeedRatings INSTANCE = new ExifFormatterIsoSpeedRatings();
-    private static final String                       POSTFIX  = " ISO";
-
-    private ExifFormatterIsoSpeedRatings() {
-    }
+    private ExifFormatterIsoSpeedRatings() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.ISO_SPEED_RATINGS);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-
-            ExifShort es = new ExifShort(exifTag.rawValue(),exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(),
+                                         exifTag.byteOrder());
 
             return Integer.toString(es.value()) + POSTFIX;
         }
+
         return "?" + POSTFIX;
     }
 }

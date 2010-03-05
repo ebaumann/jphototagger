@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -26,9 +27,12 @@ import de.elmar_baumann.jpt.view.dialogs.CopyToDirectoryDialog;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
+
 import java.util.List;
 
 /**
@@ -38,18 +42,17 @@ import java.util.List;
  * @version 2008-10-05
  */
 public final class ControllerCopyFilesToDirectory implements ActionListener {
-
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel =
-            appPanel.getPanelThumbnails();
+        appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
         listen();
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemFileSystemCopyToDirectory().
-                addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemCopyToDirectory()
+            .addActionListener(this);
     }
 
     @Override
@@ -59,13 +62,18 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
 
     private void copySelectedFiles() {
         List<File> files = thumbnailsPanel.getSelectedFiles();
+
         if (files.size() > 0) {
             CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
+
             dialog.setSourceFiles(files);
-            dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
+            dialog.addFileSystemActionListener(
+                new FilesystemDatabaseUpdater(true));
             dialog.setVisible(true);
         } else {
-            AppLogger.logWarning(ControllerCopyFilesToDirectory.class, "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
+            AppLogger.logWarning(
+                ControllerCopyFilesToDirectory.class,
+                "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
         }
     }
 }

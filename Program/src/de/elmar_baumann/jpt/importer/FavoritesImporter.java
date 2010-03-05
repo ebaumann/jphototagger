@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
@@ -25,9 +26,11 @@ import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
 import de.elmar_baumann.jpt.exporter.FavoritesExporter;
 import de.elmar_baumann.jpt.exporter.FavoritesExporter.CollectionWrapper;
+
 import java.io.File;
-import javax.swing.Icon;
+
 import javax.swing.filechooser.FileFilter;
+import javax.swing.Icon;
 
 /**
  *
@@ -36,15 +39,14 @@ import javax.swing.filechooser.FileFilter;
  * @version 2010-03-02
  */
 public final class FavoritesImporter implements Importer {
-
     public static final FavoritesImporter INSTANCE = new FavoritesImporter();
 
     @Override
     public void importFile(File file) {
         try {
-            FavoritesExporter.CollectionWrapper wrapper = (CollectionWrapper)
-                    XmlObjectImporter.importObject(
-                          file, FavoritesExporter.CollectionWrapper.class);
+            FavoritesExporter.CollectionWrapper wrapper =
+                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    FavoritesExporter.CollectionWrapper.class);
 
             for (Favorite favorite : wrapper.getCollection()) {
                 if (!DatabaseFavorites.INSTANCE.exists(favorite.getName())) {
@@ -76,6 +78,5 @@ public final class FavoritesImporter implements Importer {
         return FavoritesExporter.INSTANCE.getDefaultFilename();
     }
 
-    private FavoritesImporter() {
-    }
+    private FavoritesImporter() {}
 }

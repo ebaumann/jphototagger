@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.database.ConnectionPool;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseTables;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.sql.SQLException;
 
 /**
@@ -32,14 +34,15 @@ import java.sql.SQLException;
  * @version 2009-06-11
  */
 public final class AppDatabase {
-
     private static boolean init;
 
     public synchronized static void init() {
         assert !init;
+
         if (!init) {
             init = true;
             informationMessageInitDatabase();
+
             try {
                 ConnectionPool.INSTANCE.init();
                 DatabaseTables.INSTANCE.createTables();
@@ -52,9 +55,9 @@ public final class AppDatabase {
 
     private static void informationMessageInitDatabase() {
         SplashScreen.INSTANCE.setMessage(
-                JptBundle.INSTANCE.getString("AppDatabase.Info.SplashScreen.ConnectToDatabase"));
+            JptBundle.INSTANCE.getString(
+                "AppDatabase.Info.SplashScreen.ConnectToDatabase"));
     }
 
-    private AppDatabase() {
-    }
+    private AppDatabase() {}
 }

@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
@@ -30,27 +31,25 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
  * @version 2009-06-10
  */
 public final class ExifFormatterFileSource extends ExifFormatter {
+    public static final ExifFormatterFileSource INSTANCE =
+        new ExifFormatterFileSource();
 
-    public static final ExifFormatterFileSource INSTANCE = new ExifFormatterFileSource();
-
-    private ExifFormatterFileSource() {
-    }
+    private ExifFormatterFileSource() {}
 
     @Override
     public String format(ExifTag exifTag) {
-
         Ensure.exifTagId(exifTag, ExifTag.Id.FILE_SOURCE);
 
         byte[] rawValue = exifTag.rawValue();
 
         if (rawValue.length >= 1) {
-
             int value = rawValue[0];
 
             if (value == 3) {
                 return translate(IfdType.EXIF, "FileSourceDigitalCamera");
             }
         }
+
         return "?";
     }
 }

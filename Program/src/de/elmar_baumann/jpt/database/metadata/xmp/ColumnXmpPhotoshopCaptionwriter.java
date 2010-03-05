@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -30,17 +31,17 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * @version 2008-08-23
  */
 public final class ColumnXmpPhotoshopCaptionwriter extends Column {
-
-    public static final ColumnXmpPhotoshopCaptionwriter INSTANCE = new ColumnXmpPhotoshopCaptionwriter();
+    public static final ColumnXmpPhotoshopCaptionwriter INSTANCE =
+        new ColumnXmpPhotoshopCaptionwriter();
 
     private ColumnXmpPhotoshopCaptionwriter() {
-        super(
-            TableXmp.INSTANCE,
-            "photoshop_captionwriter",
-            DataType.STRING);
-
+        super(TableXmp.INSTANCE, "photoshop_captionwriter", DataType.STRING);
         setLength(32);
-        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCaptionwriter.Description"));
-        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCaptionwriter.LongerDescription"));
+        setDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnXmpPhotoshopCaptionwriter.Description"));
+        setLongerDescription(
+            JptBundle.INSTANCE.getString(
+                "ColumnXmpPhotoshopCaptionwriter.LongerDescription"));
     }
 }

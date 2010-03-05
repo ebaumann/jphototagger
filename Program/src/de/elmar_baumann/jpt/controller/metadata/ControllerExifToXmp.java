@@ -17,15 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.helper.SetExifToXmp;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
+
 import java.util.List;
 
 /**
@@ -34,7 +38,6 @@ import java.util.List;
  * @version 2010-01-07
  */
 public final class ControllerExifToXmp implements ActionListener {
-
     public ControllerExifToXmp() {
         listen();
     }
@@ -50,10 +53,12 @@ public final class ControllerExifToXmp implements ActionListener {
     }
 
     private void processSelectedFiles() {
-        final List<File> selectedFiles = GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
+        final List<File> selectedFiles =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
 
         if (selectedFiles.size() > 0) {
-            new SetExifToXmp(FileUtil.getAsFilenames(selectedFiles), true).start();
+            new SetExifToXmp(FileUtil.getAsFilenames(selectedFiles),
+                             true).start();
         }
     }
 }

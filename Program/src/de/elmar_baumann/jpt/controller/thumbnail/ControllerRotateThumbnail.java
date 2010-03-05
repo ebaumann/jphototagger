@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
@@ -25,12 +26,15 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.image.util.ImageTransform;
-import java.awt.Image;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 
@@ -42,14 +46,14 @@ import javax.swing.SwingUtilities;
  * @version 2008-09-10
  */
 public final class ControllerRotateThumbnail implements ActionListener {
-
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu =
-            PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel thumbnailsPanel = GUI.INSTANCE.
-            getAppPanel().getPanelThumbnails();
-    private final Map<JMenuItem, Float> angleOfItem =
-            new HashMap<JMenuItem, Float>();
+    private final DatabaseImageFiles  db              =
+        DatabaseImageFiles.INSTANCE;
+    private final PopupMenuThumbnails popupMenu       =
+        PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem,
+                                                          Float>();
 
     public ControllerRotateThumbnail() {
         initAngleOfItem();
@@ -73,6 +77,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
 
         if (obj instanceof JMenuItem) {
             JMenuItem menuItem = (JMenuItem) obj;
+
             if (angleOfItem.containsKey(menuItem)) {
                 angle = angleOfItem.get(menuItem);
             }
@@ -88,18 +93,30 @@ public final class ControllerRotateThumbnail implements ActionListener {
 
     private void rotateSelectedImages(final float rotateAngle) {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-                List<Integer> selectedIndices = thumbnailsPanel.getSelectedIndices();
+                List<Integer> selectedIndices =
+                    thumbnailsPanel.getSelectedIndices();
+
                 for (Integer index : selectedIndices) {
-                    final String md5File = PersistentThumbnails.getMd5Filename(thumbnailsPanel.getFile(index.intValue()).getAbsolutePath());
+                    final String md5File =
+                        PersistentThumbnails.getMd5Filename(
+                            thumbnailsPanel.getFile(
+                                index.intValue()).getAbsolutePath());
+
                     if (md5File != null) {
-                        final Image tnUnrotated = PersistentThumbnails.getThumbnail(md5File);
+                        final Image tnUnrotated =
+                            PersistentThumbnails.getThumbnail(md5File);
+
                         if (tnUnrotated != null) {
-                            Image thumbnail = ImageTransform.rotate(tnUnrotated, rotateAngle);
+                            Image thumbnail =
+                                ImageTransform.rotate(tnUnrotated, rotateAngle);
+
                             if (thumbnail != null) {
-                                String filename = thumbnailsPanel.getFile(index.intValue()).getAbsolutePath();
+                                String filename =
+                                    thumbnailsPanel.getFile(
+                                        index.intValue()).getAbsolutePath();
+
                                 // should fire an update caught by cache
                                 db.updateThumbnail(filename, thumbnail);
                             }

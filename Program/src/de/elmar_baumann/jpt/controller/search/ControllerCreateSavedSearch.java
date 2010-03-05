@@ -17,19 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.search;
 
-import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
+import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.factory.ControllerFactory;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.ModifySavedSearches;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.AdvancedSearchDialog;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JList;
 
 /**
@@ -45,44 +48,48 @@ import javax.swing.JList;
  */
 public final class ControllerCreateSavedSearch
         implements ActionListener, KeyListener, SearchListener {
-
     public ControllerCreateSavedSearch() {
         listen();
     }
 
     private void listen() {
         PopupMenuSavedSearches.INSTANCE.getItemCreate().addActionListener(this);
-        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().addSearchListener(this);
+        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel()
+            .addSearchListener(this);
         GUI.INSTANCE.getAppPanel().getListSavedSearches().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_N) {
-            ControllerFactory.INSTANCE.getController(ControllerShowAdvancedSearchDialog.class).showDialog();
+            ControllerFactory.INSTANCE.getController(
+                ControllerShowAdvancedSearchDialog.class).showDialog();
         }
     }
 
     @Override
     public void actionPerformed(SearchEvent evt) {
         if (evt.getType().equals(SearchEvent.Type.SAVE)) {
-            ModifySavedSearches.insert(evt.getSavedSearch(), evt.
-                    isForceOverwrite());
+            ModifySavedSearches.insert(evt.getSavedSearch(),
+                                       evt.isForceOverwrite());
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ControllerFactory.INSTANCE.getController(ControllerShowAdvancedSearchDialog.class).showDialog();
+        ControllerFactory.INSTANCE.getController(
+            ControllerShowAdvancedSearchDialog.class).showDialog();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

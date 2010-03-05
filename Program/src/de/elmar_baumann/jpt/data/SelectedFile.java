@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +35,9 @@ import java.util.List;
  * @version 2009-07-07
  */
 public final class SelectedFile {
-
-    public static final SelectedFile          INSTANCE        = new SelectedFile();
-    private             List<XMPPropertyInfo> xmpPropertyInfos;
-    private             File                  file            = new File("");
+    public static final SelectedFile INSTANCE = new SelectedFile();
+    private List<XMPPropertyInfo>    xmpPropertyInfos;
+    private File                     file = new File("");
 
     /**
      * Sets the file and it's metadata.
@@ -44,13 +46,17 @@ public final class SelectedFile {
      * @param xmpPropertyInfos      XMP metadata
      * @throws NullPointerException if the file is null
      */
-    public synchronized void setFile(File file, List<XMPPropertyInfo> xmpPropertyInfos) {
-        if (file == null) throw new NullPointerException("file == null");
+    public synchronized void setFile(File file,
+                                     List<XMPPropertyInfo> xmpPropertyInfos) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
 
-        this.file = file;
-        this.xmpPropertyInfos = xmpPropertyInfos == null
+        this.file             = file;
+        this.xmpPropertyInfos = (xmpPropertyInfos == null)
                                 ? null
-                                : new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
+                                : new ArrayList<XMPPropertyInfo>(
+                                    xmpPropertyInfos);
     }
 
     /**
@@ -66,11 +72,10 @@ public final class SelectedFile {
      * @return XMP metadata or null
      */
     public synchronized List<XMPPropertyInfo> getPropertyInfos() {
-        return xmpPropertyInfos == null
+        return (xmpPropertyInfos == null)
                ? null
                : new ArrayList<XMPPropertyInfo>(xmpPropertyInfos);
     }
 
-    private SelectedFile() {
-    }
+    private SelectedFile() {}
 }

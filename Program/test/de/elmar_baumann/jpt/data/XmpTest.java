@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
+
 import de.elmar_baumann.jpt.data.Xmp.SetIptc;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
@@ -28,14 +30,19 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
-import java.util.Arrays;
-import java.util.Collection;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopAuthorsposition;
+import de.elmar_baumann.jpt.database.metadata.xmp
+    .ColumnXmpPhotoshopCaptionwriter;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Tests the Class {@link de.elmar_baumann. }.
@@ -44,17 +51,13 @@ import static org.junit.Assert.*;
  * @version 2010/02/08
  */
 public class XmpTest {
-
-    public XmpTest() {
-    }
+    public XmpTest() {}
 
     @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+    public static void setUpClass() throws Exception {}
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+    public static void tearDownClass() throws Exception {}
 
     /**
      * Test of contains method, of class Xmp.
@@ -64,9 +67,9 @@ public class XmpTest {
         System.out.println("contains");
 
         Xmp xmp = new Xmp();
+
         assertFalse(xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE));
         assertFalse(xmp.contains(ColumnXmpDcTitle.INSTANCE));
-
         xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, "test");
         xmp.setValue(ColumnXmpDcTitle.INSTANCE, "abc");
         assertTrue(xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE));
@@ -81,10 +84,11 @@ public class XmpTest {
         System.out.println("remove");
 
         Xmp                        xmp         = new Xmp();
-        ColumnXmpDcSubjectsSubject colSubjects = ColumnXmpDcSubjectsSubject.INSTANCE;
-        ColumnXmpDcTitle           colTitle    = ColumnXmpDcTitle.INSTANCE;
-        String                     subject     = "subject";
-        String                     title       = "title";
+        ColumnXmpDcSubjectsSubject colSubjects =
+            ColumnXmpDcSubjectsSubject.INSTANCE;
+        ColumnXmpDcTitle colTitle = ColumnXmpDcTitle.INSTANCE;
+        String           subject  = "subject";
+        String           title    = "title";
 
         assertNull(xmp.remove(colSubjects));
         xmp.setValue(colSubjects, subject);
@@ -102,8 +106,9 @@ public class XmpTest {
     public void testTextRemoved() {
         System.out.println("textRemoved");
 
-        Xmp xmp = new Xmp();
+        Xmp    xmp  = new Xmp();
         String text = "bla";
+
         xmp.setValue(ColumnXmpDcDescription.INSTANCE, text);
         xmp.textRemoved(ColumnXmpDcDescription.INSTANCE, text);
         assertNull(xmp.remove(ColumnXmpDcDescription.INSTANCE));
@@ -117,7 +122,8 @@ public class XmpTest {
         System.out.println("textAdded");
 
         String text = "fiffi";
-        Xmp xmp = new Xmp();
+        Xmp    xmp  = new Xmp();
+
         xmp.textAdded(ColumnXmpDcTitle.INSTANCE, text);
         assertEquals(text, xmp.getValue(ColumnXmpDcTitle.INSTANCE));
     }
@@ -131,18 +137,19 @@ public class XmpTest {
         System.out.println("textChanged");
 
         Column xmpColumn = ColumnXmpPhotoshopCaptionwriter.INSTANCE;
-        String oldText = "quaffel";
-        String newText = "quirrel";
-        Xmp xmp = new Xmp();
+        String oldText   = "quaffel";
+        String newText   = "quirrel";
+        Xmp    xmp       = new Xmp();
+
         xmp.setValue(xmpColumn, oldText);
         xmp.textChanged(xmpColumn, oldText, newText);
         assertEquals(newText, xmp.getValue(xmpColumn));
-
         xmpColumn = ColumnXmpDcSubjectsSubject.INSTANCE;
         xmp.setValue(xmpColumn, oldText);
         xmp.textChanged(xmpColumn, oldText, newText);
-        assertFalse(((Collection<?>)xmp.getValue(xmpColumn)).contains(oldText));
-        assertTrue(((Collection<?>)xmp.getValue(xmpColumn)).contains(newText));
+        assertFalse(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(oldText));
+        assertTrue(((Collection<?>) xmp.getValue(xmpColumn)).contains(newText));
     }
 
     /**
@@ -152,7 +159,7 @@ public class XmpTest {
     @SuppressWarnings("element-type-mismatch")
     public void testSetMetaDataTemplate() {
         System.out.println("setMetaDataTemplate");
-        
+
         MetadataTemplate template = new MetadataTemplate();
         Xmp              xmp      = new Xmp();
         Column           col1     = ColumnXmpDcDescription.INSTANCE;
@@ -164,7 +171,6 @@ public class XmpTest {
         template.setValueOfColumn(col1, val1);
         template.setValueOfColumn(col2, Arrays.asList(val2));
         xmp.setValue(col3, val2);
-
         xmp.setMetaDataTemplate(template);
         assertEquals(val1, xmp.getValue(col1));
         assertTrue(((Collection<?>) xmp.getValue(col2)).contains(val2));
@@ -187,33 +193,43 @@ public class XmpTest {
         String                     subject1   = "subject1";
         String                     subject2   = "subject2";
         ColumnXmpDcCreator         colCreator = ColumnXmpDcCreator.INSTANCE;
-        ColumnXmpDcSubjectsSubject colSubject = ColumnXmpDcSubjectsSubject.INSTANCE;
-        IPTCEntryMeta              headline   = IPTCEntryMeta.HEADLINE;
+        ColumnXmpDcSubjectsSubject colSubject =
+            ColumnXmpDcSubjectsSubject.INSTANCE;
+        IPTCEntryMeta headline = IPTCEntryMeta.HEADLINE;
 
         iptc.setValue(headline, title);
-        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colCreator), creator);
-        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colSubject), subject1);
+        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colCreator),
+                      creator);
+        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colSubject),
+                      subject1);
         xmp.setValue(colSubject, subject2);
         xmp.setValue(colCreator, "xxx");
         xmp.setIptc(iptc, options);
-
-        assertEquals(title, xmp.getValue(IptcXmpMapping.getXmpColumnOfIptcEntryMeta(headline)));
+        assertEquals(
+            title,
+            xmp.getValue(IptcXmpMapping.getXmpColumnOfIptcEntryMeta(headline)));
         assertEquals(creator, xmp.getValue(colCreator));
-        assertTrue(((Collection<?>)xmp.getValue(colSubject)).contains(subject1));
-        assertFalse(((Collection<?>)xmp.getValue(colSubject)).contains(subject2));
-
+        assertTrue(
+            ((Collection<?>) xmp.getValue(colSubject)).contains(subject1));
+        assertFalse(
+            ((Collection<?>) xmp.getValue(colSubject)).contains(subject2));
         options = SetIptc.DONT_CHANGE_EXISTING_VALUES;
         iptc.setValue(headline, title);
-        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colCreator), creator);
-        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colSubject), subject1);
+        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colCreator),
+                      creator);
+        iptc.setValue(IptcXmpMapping.getIptcEntryMetaOfXmpColumn(colSubject),
+                      subject1);
         xmp.setValue(colSubject, subject2);
         xmp.setValue(colCreator, "xxx");
         xmp.setIptc(iptc, options);
-
-        assertEquals(title, xmp.getValue(IptcXmpMapping.getXmpColumnOfIptcEntryMeta(headline)));
+        assertEquals(
+            title,
+            xmp.getValue(IptcXmpMapping.getXmpColumnOfIptcEntryMeta(headline)));
         assertEquals("xxx", xmp.getValue(colCreator));
-        assertTrue(((Collection<?>)xmp.getValue(colSubject)).contains(subject1));
-        assertTrue(((Collection<?>)xmp.getValue(colSubject)).contains(subject2));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(colSubject)).contains(subject1));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(colSubject)).contains(subject2));
     }
 
     /**
@@ -234,7 +250,9 @@ public class XmpTest {
         xmp.setValue(repeatableColumn, subject);
         xmp.setValue(stringColumn, captWriter);
         xmp.setValue(longColumn, longValue);
+
         Collection<?> coll = (Collection<?>) xmp.getValue(repeatableColumn);
+
         assertTrue(coll.contains(subject));
     }
 
@@ -248,22 +266,27 @@ public class XmpTest {
 
         Column xmpColumn = ColumnXmpDcCreator.INSTANCE;
         String creator   = "creator";
-        Xmp xmp = new Xmp();
+        Xmp    xmp       = new Xmp();
 
         assertNull(xmp.getValue(xmpColumn));
         xmp.setValue(xmpColumn, creator);
         assertEquals(creator, xmp.getValue(xmpColumn));
-
         xmpColumn = ColumnXmpDcSubjectsSubject.INSTANCE;
+
         String subject1 = "subject1";
         String subject2 = "subject2";
+
         assertNull(xmp.getValue(xmpColumn));
         xmp.setValue(xmpColumn, subject1);
-        assertTrue(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
-        assertFalse(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
+        assertFalse(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
         xmp.setValue(xmpColumn, subject2);
-        assertTrue(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
-        assertTrue(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
     }
 
     /**
@@ -274,26 +297,30 @@ public class XmpTest {
     public void testRemoveValue() {
         System.out.println("removeValue");
 
-
         Column xmpColumn = ColumnXmpDcCreator.INSTANCE;
         String creator   = "creator";
-        Xmp xmp = new Xmp();
+        Xmp    xmp       = new Xmp();
 
         xmp.setValue(xmpColumn, creator);
         assertEquals(creator, xmp.getValue(xmpColumn));
         xmp.removeValue(xmpColumn, creator);
         assertNull(xmp.getValue(xmpColumn));
-
         xmpColumn = ColumnXmpDcSubjectsSubject.INSTANCE;
+
         String subject1 = "subject1";
         String subject2 = "subject2";
+
         xmp.setValue(xmpColumn, subject1);
         xmp.setValue(xmpColumn, subject2);
-        assertTrue(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
-        assertTrue(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
         xmp.removeValue(xmpColumn, subject1);
-        assertFalse(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
-        assertTrue(((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
+        assertFalse(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject1));
+        assertTrue(
+            ((Collection<?>) xmp.getValue(xmpColumn)).contains(subject2));
         xmp.removeValue(xmpColumn, subject2);
         assertNull(xmp.getValue(xmpColumn));
     }
@@ -309,7 +336,6 @@ public class XmpTest {
 
         xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, "abc");
         xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE, "abc");
-
         assertFalse(xmp.isEmpty());
         xmp.clear();
         assertTrue(xmp.isEmpty());
@@ -327,13 +353,12 @@ public class XmpTest {
         assertTrue(xmp.isEmpty());
         xmp.setValue(ColumnXmpDcCreator.INSTANCE, "abc");
         assertFalse(xmp.isEmpty());
-
         xmp = new Xmp();
         xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, "abc");
         assertFalse(xmp.isEmpty());
         xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, "abc");
         assertTrue(xmp.isEmpty());
-}
+    }
 
     /**
      * Test of set method, of class Xmp.
@@ -354,9 +379,7 @@ public class XmpTest {
         xmp1.setValue(col1, creator);
         xmp1.setValue(col2, subject);
         xmp1.setValue(col3, longVal);
-
         xmp2.set(xmp1);
-
         assertEquals(creator, xmp2.getValue(col1));
         assertEquals(Arrays.asList(subject), xmp2.getValue(col2));
         assertEquals(longVal, xmp2.getValue(col3));
@@ -381,14 +404,12 @@ public class XmpTest {
         assertFalse(xmp.containsValue(columnDcSubj, keyw1));
         assertFalse(xmp.containsValue(columnLastM, lastM));
         assertFalse(xmp.containsValue(columnTitle, title));
-
         xmp.setValue(columnDcSubj, keyw1);
         xmp.setValue(columnLastM, lastM);
         xmp.setValue(columnTitle, title);
         assertTrue(xmp.containsValue(columnDcSubj, keyw1));
         assertTrue(xmp.containsValue(columnLastM, lastM));
         assertTrue(xmp.containsValue(columnTitle, title));
-
         xmp.setValue(columnDcSubj, keyw2);
         assertTrue(xmp.containsValue(columnDcSubj, keyw1));
         assertTrue(xmp.containsValue(columnDcSubj, keyw2));
@@ -398,6 +419,5 @@ public class XmpTest {
      * Test of toString method, of class Xmp.
      */
     @Test
-    public void testToString() {
-    }
+    public void testToString() {}
 }

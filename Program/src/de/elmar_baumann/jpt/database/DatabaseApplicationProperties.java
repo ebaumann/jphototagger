@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,13 +37,12 @@ import java.sql.ResultSet;
  * @version 2009-08-28
  */
 public final class DatabaseApplicationProperties extends Database {
+    public static final DatabaseApplicationProperties INSTANCE =
+        new DatabaseApplicationProperties();
+    private static final String VALUE_TRUE  = "1";    // Never change that!
+    private static final String VALUE_FALSE = "0";    // Never change that!
 
-    public static final DatabaseApplicationProperties INSTANCE = new DatabaseApplicationProperties();
-    private static final String VALUE_TRUE = "1"; // Never change that!
-    private static final String VALUE_FALSE = "0"; // Never change that!
-
-    private DatabaseApplicationProperties() {
-    }
+    private DatabaseApplicationProperties() {}
 
     /**
      * Returns whether a key exists.
@@ -50,21 +51,26 @@ public final class DatabaseApplicationProperties extends Database {
      * @return     true if the key exists
      */
     public boolean existsKey(String key) {
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
         try {
             connection = getConnection();
+
             String sql = "SELECT COUNT(*) FROM application WHERE key = ?";
+
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
             rs = stmt.executeQuery();
+
             int count = 0;
 
             if (rs.next()) {
                 count = rs.getInt(1);
             }
+
             return count > 0;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
@@ -72,6 +78,7 @@ public final class DatabaseApplicationProperties extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return false;
     }
 
@@ -81,12 +88,15 @@ public final class DatabaseApplicationProperties extends Database {
      * @param key key to delete
      */
     public void deleteKey(String key) {
-        Connection connection = null;
-        PreparedStatement stmt = null;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
+
             String sql = "DELETE FROM application WHERE key = ?";
+
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
@@ -108,19 +118,21 @@ public final class DatabaseApplicationProperties extends Database {
      *             a key with {@link #existsKey(String)}.
      */
     public boolean getBoolean(String key) {
-        Connection connection = null;
-        boolean isTrue = false;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        Connection        connection = null;
+        boolean           isTrue     = false;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
         try {
             connection = getConnection();
-            stmt = connection.prepareStatement(getQueryStmt());
+            stmt       = connection.prepareStatement(getQueryStmt());
             stmt.setString(1, key);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
                 String value = new String(rs.getBytes(1));
+
                 if (!rs.wasNull()) {
                     isTrue = value.equals(VALUE_TRUE);
                 }
@@ -131,6 +143,7 @@ public final class DatabaseApplicationProperties extends Database {
             close(rs, stmt);
             free(connection);
         }
+
         return isTrue;
     }
 
@@ -141,8 +154,9 @@ public final class DatabaseApplicationProperties extends Database {
      * @param value value to set
      */
     public void setBoolean(String key, boolean value) {
-        Connection connection = null;
-        PreparedStatement stmt = null;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
@@ -150,11 +164,15 @@ public final class DatabaseApplicationProperties extends Database {
             stmt.setBytes(1, value
                              ? VALUE_TRUE.getBytes()
                              : VALUE_FALSE.getBytes());
+
             if (!existsKey(key)) {
                 stmt.setString(2, key);
             }
+
             logFinest(stmt);
+
             int count = stmt.executeUpdate();
+
             assert count > 0 : "Not updated: " + key;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);

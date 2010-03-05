@@ -17,32 +17,37 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDirectoryTree;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
-import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
+import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.lib.clipboard.ClipboardUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 /**
  * Listens to {@link PopupMenuThumbnails#getItemPasteFromClipboard()} and on action
@@ -56,11 +61,13 @@ import javax.swing.event.MenuListener;
  */
 public final class ControllerPasteFilesFromClipboard
         implements ActionListener, KeyListener, MenuListener,
-        ThumbnailsPanelListener {
-
-    private final ThumbnailsPanel     thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final PopupMenuThumbnails popup           = PopupMenuThumbnails.INSTANCE;
-    private final JMenuItem           menuItemPaste   = popup.getItemPasteFromClipboard();
+                   ThumbnailsPanelListener {
+    private final ThumbnailsPanel thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final PopupMenuThumbnails popup         =
+        PopupMenuThumbnails.INSTANCE;
+    private final JMenuItem           menuItemPaste =
+        popup.getItemPasteFromClipboard();
 
     public ControllerPasteFilesFromClipboard() {
         listen();
@@ -75,9 +82,13 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!menuItemPaste.isEnabled()) return;
+        if (!menuItemPaste.isEnabled()) {
+            return;
+        }
+
         if (KeyEventUtil.isControl(e, KeyEvent.VK_V) && canPasteFiles()) {
             Object source = e.getSource();
+
             if (source == thumbnailsPanel) {
                 insertFiles(getDirectory());
             } else if (isTreeSelection(source)) {
@@ -90,6 +101,7 @@ public final class ControllerPasteFilesFromClipboard
         if (source instanceof JTree) {
             return ((JTree) source).getSelectionCount() > 0;
         }
+
         return false;
     }
 
@@ -103,42 +115,51 @@ public final class ControllerPasteFilesFromClipboard
 
     private File getDirectory() {
         Content content = thumbnailsPanel.getContent();
+
         if (content.equals(Content.DIRECTORY)) {
-            return ViewUtil.getSelectedFile(GUI.INSTANCE.getAppPanel().getTreeDirectories());
+            return ViewUtil.getSelectedFile(
+                GUI.INSTANCE.getAppPanel().getTreeDirectories());
         } else if (content.equals(Content.FAVORITE)) {
-            return ViewUtil.getSelectedFile(GUI.INSTANCE.getAppPanel().getTreeFavorites());
+            return ViewUtil.getSelectedFile(
+                GUI.INSTANCE.getAppPanel().getTreeFavorites());
         }
+
         return null;
     }
 
     private void insertFiles(final File file) {
-        if (file == null || !file.isDirectory()) return;
-        SwingUtilities.invokeLater(new Runnable() {
+        if ((file == null) ||!file.isDirectory()) {
+            return;
+        }
 
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<File> files = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
+                List<File> files = ClipboardUtil.getFilesFromSystemClipboard(
+                                       FilenameDelimiter.NEWLINE);
+
                 TransferHandlerDirectoryTree.handleDroppedFiles(
-                              getEstimatedTransferHandlerAction(), files, file);
+                    getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();
             }
-
             public int getEstimatedTransferHandlerAction() {
                 Integer action =
-                        thumbnailsPanel.getFileAction().getTransferHandlerAction();
-                return action == null
-                        ? TransferHandler.COPY
-                        : action;
-            }
+                    thumbnailsPanel.getFileAction().getTransferHandlerAction();
 
+                return (action == null)
+                       ? TransferHandler.COPY
+                       : action;
+            }
             private void emptyClipboard() {
-                ClipboardUtil.copyToSystemClipboard(new ArrayList<File>(), null);
+                ClipboardUtil.copyToSystemClipboard(new ArrayList<File>(),
+                        null);
             }
         });
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
+
         // ignore
     }
 
@@ -148,8 +169,8 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     private boolean canPasteFiles() {
-        return thumbnailsPanel.getContent().canInsertImagesFromFileSystem() &&
-                TransferUtil.systemClipboardMaybeContainFiles();
+        return thumbnailsPanel.getContent().canInsertImagesFromFileSystem()
+               && TransferUtil.systemClipboardMaybeContainFiles();
     }
 
     @Override
@@ -159,21 +180,25 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void menuDeselected(MenuEvent e) {
+
         // ignore
     }
 
     @Override
     public void menuCanceled(MenuEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

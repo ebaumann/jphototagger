@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -38,24 +39,28 @@ public final class AppInfo {
      * second action in the main() mehtod has to be renaming that directory from
      * the old to the new name. Also check the code accessing this field.
      */
-    public static final String PROJECT_NAME = "ImageMetaDataViewer"; // WHEN CHANGING SEE COMMENT ABOVE!
+    public static final String PROJECT_NAME = "ImageMetaDataViewer";    // WHEN CHANGING SEE COMMENT ABOVE!
+
     /**
      * The application's version
      */
     public static final String APP_VERSION = "0.7.87";
+
     /**
      * The application's name
      */
     public static final String APP_NAME = "JPhotoTagger";
+
     /**
      * Title of the application
      */
-    public static final String APP_DESCRIPTION = JptBundle.INSTANCE.getString("AppInfo.AppDescription");
+    public static final String APP_DESCRIPTION =
+        JptBundle.INSTANCE.getString("AppInfo.AppDescription");
+
     /**
      * Minimum required Java version
      */
     public static final Version MIN_JAVA_VERSION = new Version(1, 6);
 
-    private AppInfo() {
-    }
+    private AppInfo() {}
 }

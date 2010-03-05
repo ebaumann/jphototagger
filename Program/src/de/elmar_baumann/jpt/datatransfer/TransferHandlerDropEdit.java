@@ -17,21 +17,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.helper.KeywordsHelper;
+
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.TransferHandler;
 import javax.swing.text.JTextComponent;
+import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -48,16 +52,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2009-08-02
  */
 public final class TransferHandlerDropEdit extends TransferHandler {
-
     private static final long serialVersionUID = 4543789065456550151L;
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-
-        return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor) ||
-                Flavor.hasKeywordsFromTree(transferSupport) ||
-                Flavor.hasKeywordsFromList(transferSupport) ||
-                Flavor.hasMetadataTemplate(transferSupport);
+        return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)
+               || Flavor.hasKeywordsFromTree(transferSupport)
+               || Flavor.hasKeywordsFromList(transferSupport)
+               || Flavor.hasMetadataTemplate(transferSupport);
     }
 
     @Override
@@ -65,6 +67,7 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         if (c instanceof JTextComponent) {
             return new StringSelection(((JTextComponent) c).getSelectedText());
         }
+
         return null;
     }
 
@@ -80,46 +83,44 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         Transferable transferable = transferSupport.getTransferable();
 
         if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-
             string = Support.getString(transferable);
-
         } else if (Flavor.hasKeywordsFromList(transferSupport)) {
-
             string = getStrings(Support.getKeywords(transferable));
-
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
-
             string = getStrings(Support.getKeywordNodes(transferable));
-
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
-            
             MetadataTemplateSupport.setTemplate(transferSupport);
+
             return true;
         }
 
-        if (string == null) return false;
+        if (string == null) {
+            return false;
+        }
 
         if (component instanceof JTextArea) {
-
             setText((JTextArea) component, string);
-
         } else if (component instanceof JTextField) {
-
             setText((JTextField) component, string);
-
         } else {
             return false;
         }
+
         return true;
     }
 
     private String getStrings(Object[] array) {
-        if (array == null || array.length == 0 || array[0] == null) return null;
+        if ((array == null) || (array.length == 0) || (array[0] == null)) {
+            return null;
+        }
 
-        StringBuilder sb = new StringBuilder();
-        int index = 0;
+        StringBuilder sb    = new StringBuilder();
+        int           index = 0;
+
         for (Object o : array) {
-            sb.append(index++ == 0 ? "" : ";");
+            sb.append((index++ == 0)
+                      ? ""
+                      : ";");
             sb.append(o.toString());
         }
 
@@ -127,7 +128,9 @@ public final class TransferHandlerDropEdit extends TransferHandler {
     }
 
     private String getStrings(List<DefaultMutableTreeNode> nodes) {
-        if (nodes.size() <= 0) return null;
+        if (nodes.size() <= 0) {
+            return null;
+        }
 
         List<String> keywords = new ArrayList<String>();
 
@@ -135,12 +138,17 @@ public final class TransferHandlerDropEdit extends TransferHandler {
             keywords.addAll(KeywordsHelper.getKeywordStrings(node, true));
         }
 
-        if (keywords.size() == 0) return null;
+        if (keywords.size() == 0) {
+            return null;
+        }
 
-        StringBuilder sb = new StringBuilder();
-        int index = 0;
+        StringBuilder sb    = new StringBuilder();
+        int           index = 0;
+
         for (String keyword : keywords) {
-            sb.append(index++ == 0 ? "" : ";");
+            sb.append((index++ == 0)
+                      ? ""
+                      : ";");
             sb.append(keyword);
         }
 

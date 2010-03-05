@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.favorites;
 
 import de.elmar_baumann.jpt.controller.Controller;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -35,8 +38,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 2010-01-20
  */
 public abstract class ControllerFavorite extends Controller {
-
     protected abstract void action(Favorite favorite);
+
     protected abstract void action(DefaultMutableTreeNode node);
 
     ControllerFavorite() {
@@ -45,7 +48,9 @@ public abstract class ControllerFavorite extends Controller {
 
     @Override
     protected void action(KeyEvent evt) {
-        if (GUI.INSTANCE.getAppPanel().getTreeFavorites().isSelectionEmpty()) return;
+        if (GUI.INSTANCE.getAppPanel().getTreeFavorites().isSelectionEmpty()) {
+            return;
+        }
 
         DefaultMutableTreeNode node = getSelectedNodeFromTree();
         Object                 o    = node.getUserObject();
@@ -60,6 +65,7 @@ public abstract class ControllerFavorite extends Controller {
     @Override
     protected void action(ActionEvent evt) {
         Favorite favorite = PopupMenuFavorites.INSTANCE.getFavorite();
+
         if (favorite != null) {
             action(favorite);
         }
@@ -72,6 +78,7 @@ public abstract class ControllerFavorite extends Controller {
         if (node instanceof DefaultMutableTreeNode) {
             return (DefaultMutableTreeNode) node;
         }
+
         return null;
     }
 }

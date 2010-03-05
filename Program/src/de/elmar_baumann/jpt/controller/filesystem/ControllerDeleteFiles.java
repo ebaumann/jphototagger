@@ -17,23 +17,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
-import de.elmar_baumann.jpt.controller.imagecollection.ControllerDeleteFromImageCollection;
+import de.elmar_baumann.jpt.controller.imagecollection
+    .ControllerDeleteFromImageCollection;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.helper.DeleteImageFiles;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.DeleteOption;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.io.File;
+
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -46,11 +52,12 @@ import javax.swing.SwingUtilities;
  * @version 2008-10-12
  * @see     ControllerDeleteFromImageCollection
  */
-public final class ControllerDeleteFiles implements ActionListener, KeyListener {
-
-    private final ThumbnailsPanel     thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles  db              = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu       = PopupMenuThumbnails.INSTANCE;
+public final class ControllerDeleteFiles
+        implements ActionListener, KeyListener {
+    private final ThumbnailsPanel thumbnailsPanel =
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
 
     public ControllerDeleteFiles() {
         listen();
@@ -64,7 +71,10 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DELETE) {
-            if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)) return;
+            if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)) {
+                return;
+            }
+
             delete();
         }
     }
@@ -75,10 +85,10 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
     }
 
     private void delete() {
-        if (thumbnailsPanel.getSelectionCount() > 0 &&
-                thumbnailsPanel.getContent().canDeleteImagesFromFileSystem()) {
+        if ((thumbnailsPanel.getSelectionCount() > 0)
+                && thumbnailsPanel.getContent()
+                    .canDeleteImagesFromFileSystem()) {
             SwingUtilities.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
                     deleteSelectedFiles();
@@ -88,8 +98,11 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
     }
 
     private void deleteSelectedFiles() {
-        List<File> deletedImageFiles = DeleteImageFiles.delete(
-                thumbnailsPanel.getSelectedFiles(), DeleteOption.CONFIRM_DELETE, DeleteOption.MESSAGES_ON_FAILURES);
+        List<File> deletedImageFiles =
+            DeleteImageFiles.delete(thumbnailsPanel.getSelectedFiles(),
+                                    DeleteOption.CONFIRM_DELETE,
+                                    DeleteOption.MESSAGES_ON_FAILURES);
+
         if (deletedImageFiles.size() > 0) {
             db.delete(FileUtil.getAsFilenames(deletedImageFiles));
             thumbnailsPanel.remove(deletedImageFiles);
@@ -98,11 +111,13 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
 
     @Override
     public void keyTyped(KeyEvent e) {
+
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         // ignore
     }
 }

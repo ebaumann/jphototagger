@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns;
 import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseFileExcludePatternsListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -37,12 +40,14 @@ import javax.swing.DefaultListModel;
  * @author  Elmar Baumann
  * @version 2008-10-09
  */
-public final class ListModelFileExcludePatterns extends DefaultListModel implements DatabaseFileExcludePatternsListener {
-
-    private static final    long                        serialVersionUID = -8337739189362442866L;
-    private final transient DatabaseFileExcludePatterns db               = DatabaseFileExcludePatterns.INSTANCE;
-    private                 List<String>                patterns;
-    private transient       boolean                     listenToDb       = true;
+public final class ListModelFileExcludePatterns extends DefaultListModel
+        implements DatabaseFileExcludePatternsListener {
+    private static final long                           serialVersionUID =
+        -8337739189362442866L;
+    private final transient DatabaseFileExcludePatterns db               =
+        DatabaseFileExcludePatterns.INSTANCE;
+    private List<String>      patterns;
+    private transient boolean listenToDb = true;
 
     public ListModelFileExcludePatterns() {
         addElements();
@@ -55,60 +60,75 @@ public final class ListModelFileExcludePatterns extends DefaultListModel impleme
 
     public void insert(String pattern) {
         listenToDb = false;
+
         String trimmedPattern = pattern.trim();
+
         if (db.exists(trimmedPattern)) {
             errorMessageExists(trimmedPattern);
         }
+
         if (db.insert(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
             errorMessageInsert(trimmedPattern);
         }
+
         listenToDb = true;
     }
 
     public void delete(String pattern) {
         listenToDb = false;
+
         String trimmedPattern = pattern.trim();
+
         if (db.delete(trimmedPattern)) {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
             errorMessageDelete(trimmedPattern);
         }
+
         listenToDb = true;
     }
 
     private void addElements() {
         patterns = db.getAll();
+
         for (String pattern : patterns) {
             addElement(pattern);
         }
     }
 
     private void errorMessageDelete(String trimmedPattern) {
-        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.Delete", trimmedPattern);
+        MessageDisplayer.error(null,
+                               "ListModelFileExcludePatterns.Error.Delete",
+                               trimmedPattern);
     }
 
     private void errorMessageInsert(String trimmedPattern) {
-        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Add", trimmedPattern);
+        MessageDisplayer.error(
+            null, "ListModelFileExcludePatterns.Error.InsertPattern.Add",
+            trimmedPattern);
     }
 
     private void errorMessageExists(String trimmedPattern) {
-        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Exists", trimmedPattern);
+        MessageDisplayer.error(
+            null, "ListModelFileExcludePatterns.Error.InsertPattern.Exists",
+            trimmedPattern);
     }
 
     @Override
     public void actionPerformed(DatabaseFileExcludePatternsEvent evt) {
-        if (!listenToDb) return;
+        if (!listenToDb) {
+            return;
+        }
 
         String pattern = evt.getPattern();
 
         if (evt.isPatternInserted()) {
             addElement(pattern);
             patterns.add(pattern);
-        } else if (evt.isPatternDeleted()) {
-        }
+        } else if (evt.isPatternDeleted()) {}
     }
 }

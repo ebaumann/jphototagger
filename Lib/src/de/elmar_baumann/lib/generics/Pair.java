@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.generics;
 
-// Code: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6229146
+//Code: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6229146
+
 /**
  * Keeps the references of an object pair.
  *
@@ -29,7 +31,6 @@ package de.elmar_baumann.lib.generics;
  * @version 2008-09-18
  */
 public class Pair<A, B> {
-
     private final A first;
     private final B second;
 
@@ -40,7 +41,7 @@ public class Pair<A, B> {
      * @param second  second object
      */
     public Pair(A first, B second) {
-        this.first = first;
+        this.first  = first;
         this.second = second;
     }
 
@@ -74,7 +75,7 @@ public class Pair<A, B> {
     }
 
     private static boolean equals(Object x, Object y) {
-        return (x == null && y == null) || (x != null && x.equals(y));
+        return ((x == null) && (y == null)) || ((x != null) && x.equals(y));
     }
 
     /**
@@ -88,15 +89,17 @@ public class Pair<A, B> {
      */
     @Override
     public boolean equals(Object o) {
-        return o instanceof Pair<?, ?> &&
-                 equals(first , ((Pair<?, ?>) o).first) &&
-                 equals(second, ((Pair<?, ?>) o).second);
+        return (o instanceof Pair<?, ?>)
+               && equals(first, ((Pair<?, ?>) o).first)
+               && equals(second, ((Pair<?, ?>) o).second);
     }
 
     @Override
     public int hashCode() {
         if (first == null) {
-            return (second == null) ? 0 : second.hashCode() + 1;
+            return (second == null)
+                   ? 0
+                   : second.hashCode() + 1;
         } else if (second == null) {
             return first.hashCode() + 2;
         } else {

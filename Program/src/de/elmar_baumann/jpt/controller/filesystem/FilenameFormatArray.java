@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.event.listener.FilenameFormatListener;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +34,8 @@ import java.util.List;
  * @version 2008-10-13
  */
 public final class FilenameFormatArray implements FilenameFormatListener {
-
-    private final List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
+    private final List<FilenameFormat> formats =
+        new ArrayList<FilenameFormat>();
 
     /**
      * Adds a format. {@link #format()} returns the filename built in the
@@ -66,6 +69,7 @@ public final class FilenameFormatArray implements FilenameFormatListener {
             for (FilenameFormat format : formats) {
                 format.removeFilenameFormatListener(this);
             }
+
             formats.clear();
         }
     }
@@ -78,11 +82,13 @@ public final class FilenameFormatArray implements FilenameFormatListener {
      */
     public String format() {
         StringBuffer buffer = new StringBuffer();
+
         synchronized (formats) {
             for (FilenameFormat format : formats) {
                 buffer.append(format.format());
             }
         }
+
         return buffer.toString();
     }
 

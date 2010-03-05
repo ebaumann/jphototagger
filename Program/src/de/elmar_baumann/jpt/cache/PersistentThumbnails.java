@@ -17,22 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.io.IoUtil;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.image.util.ImageUtil;
 import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.awt.Image;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+
 import java.security.MessageDigest;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -42,20 +48,29 @@ import javax.swing.ImageIcon;
  * @version 2009-08-13
  */
 public final class PersistentThumbnails {
-
     public static void writeThumbnail(Image thumbnail, String hash) {
-        FileOutputStream fos = null;
-        File tnFile = getThumbnailfile(hash);
-        if (tnFile == null) return;
+        FileOutputStream fos    = null;
+        File             tnFile = getThumbnailfile(hash);
+
+        if (tnFile == null) {
+            return;
+        }
+
         try {
-            if (!IoUtil.lockLogWarning(tnFile, PersistentThumbnails.class)) return;
+            if (!IoUtil.lockLogWarning(tnFile, PersistentThumbnails.class)) {
+                return;
+            }
+
             logWriteThumbnail(tnFile);
             fos = new FileOutputStream(tnFile);
             fos.getChannel().lock();
+
             ByteArrayInputStream is =
-                    ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
+                ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
+
             if (is != null) {
                 int nextByte;
+
                 while ((nextByte = is.read()) != -1) {
                     fos.write(nextByte);
                 }
@@ -69,30 +84,45 @@ public final class PersistentThumbnails {
     }
 
     private static void logWriteThumbnail(File tnFile) {
-        AppLogger.logInfo(PersistentThumbnails.class, "PersistentThumbnails.Info.WriteThumbnail", tnFile);
+        AppLogger.logInfo(PersistentThumbnails.class,
+                          "PersistentThumbnails.Info.WriteThumbnail", tnFile);
     }
 
     public static boolean deleteThumbnail(String hash) {
         File thumbnailFile = getThumbnailfile(hash);
-        if (thumbnailFile == null) return false;
+
+        if (thumbnailFile == null) {
+            return false;
+        }
+
         if (thumbnailFile.exists()) {
             return thumbnailFile.delete();
         }
+
         return false;
     }
 
     public static Image getThumbnail(String hash) {
-        Image thumbnail = null;
-        FileInputStream fis = null;
+        Image           thumbnail = null;
+        FileInputStream fis       = null;
+
         try {
             File tnFile = getThumbnailfile(hash);
-            if (tnFile == null) return null;
+
+            if (tnFile == null) {
+                return null;
+            }
+
             if (tnFile.exists()) {
                 fis = new FileInputStream(tnFile);
-                int bytecount = fis.available();
-                byte[] bytes = new byte[bytecount];
+
+                int    bytecount = fis.available();
+                byte[] bytes     = new byte[bytecount];
+
                 fis.read(bytes, 0, bytecount);
+
                 ImageIcon icon = new ImageIcon(bytes);
+
                 thumbnail = icon.getImage();
             }
         } catch (Exception ex) {
@@ -100,6 +130,7 @@ public final class PersistentThumbnails {
         } finally {
             closeStream(fis);
         }
+
         return thumbnail;
     }
 
@@ -114,9 +145,10 @@ public final class PersistentThumbnails {
      */
     public static File getThumbnailFileOfImageFile(String imageFilename) {
         String md5Filename = getMd5Filename(imageFilename);
-        return md5Filename == null
-                ? null
-                : getThumbnailfile(md5Filename);
+
+        return (md5Filename == null)
+               ? null
+               : getThumbnailfile(md5Filename);
     }
 
     /**
@@ -127,9 +159,10 @@ public final class PersistentThumbnails {
      */
     public static boolean existsThumbnailForImagefile(String imageFilename) {
         File tnFile = getThumbnailFileOfImageFile(imageFilename);
-        return tnFile == null
-                ? false
-                : tnFile.exists();
+
+        return (tnFile == null)
+               ? false
+               : tnFile.exists();
     }
 
     /**
@@ -140,44 +173,63 @@ public final class PersistentThumbnails {
      */
     public static File getThumbnailfile(String hash) {
         String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
+
         try {
             FileUtil.ensureDirectoryExists(new File(dir));
+
             return new File(dir + File.separator + hash + ".jpeg");
         } catch (Exception ex) {
             AppLogger.logSevere(PersistentThumbnails.class, ex);
         }
+
         return null;
     }
 
-    /* Adapts the thumbnail's name to changes in the name of the original file
+    /*
+     *  Adapts the thumbnail's name to changes in the name of the original file
      */
     public static void updateThumbnailName(String oldName, String newName) {
         final String md5File = getMd5Filename(oldName);
-        if (md5File == null) return;
+
+        if (md5File == null) {
+            return;
+        }
+
         File tnFile = getThumbnailfile(md5File);
-        if (tnFile == null) return;
-        
+
+        if (tnFile == null) {
+            return;
+        }
+
         if (!tnFile.renameTo(getThumbnailfile(getMd5Filename(newName)))) {
-            AppLogger.logWarning(PersistentThumbnails.class, "PersistentThumbnails.Error.Rename", oldName, newName);
+            AppLogger.logWarning(PersistentThumbnails.class,
+                                 "PersistentThumbnails.Error.Rename", oldName,
+                                 newName);
         }
     }
 
-    /* Compute an MD5 hash from a fully canonicalized filename.
+    /*
+     *  Compute an MD5 hash from a fully canonicalized filename.
      * @return MD5 filename or null on errors
      */
     public static String getMd5Filename(String cFilename) {
         MessageDigest md5;
+
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (Exception ex) {
-            Logger.getLogger(PersistentThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersistentThumbnails.class.getName()).log(
+                Level.SEVERE, null, ex);
+
             return null;
         }
+
         md5.reset();
         md5.update(("file://" + cFilename).getBytes());
-        byte[] result = md5.digest();
 
-        StringBuffer hex = new StringBuffer();
+        byte[]       result = md5.digest();
+        StringBuffer hex    = new StringBuffer();
+
         for (int i = 0; i < result.length; i++) {
             if ((result[i] & 0xff) == 0) {
                 hex.append("00");
@@ -187,6 +239,7 @@ public final class PersistentThumbnails {
                 hex.append(Integer.toHexString(0xFF & result[i]));
             }
         }
+
         return hex.toString();
     }
 
@@ -210,6 +263,5 @@ public final class PersistentThumbnails {
         }
     }
 
-    private PersistentThumbnails() {
-    }
+    private PersistentThumbnails() {}
 }

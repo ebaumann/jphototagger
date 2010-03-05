@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.importer;
 
 import de.elmar_baumann.jpt.view.dialogs.ExportImportDialog;
 import de.elmar_baumann.jpt.view.panels.ExportImportPanel.Context;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 
 /**
@@ -31,15 +34,14 @@ import javax.swing.AbstractAction;
  * @version 2010-03-03
  */
 public final class JptImportAction extends AbstractAction {
-
-    private static final long            serialVersionUID = 7147327788643508948L;
-    public static final  JptImportAction INSTANCE         = new JptImportAction();
+    private static final long           serialVersionUID = 7147327788643508948L;
+    public static final JptImportAction INSTANCE         =
+        new JptImportAction();
 
     @Override
     public void actionPerformed(ActionEvent e) {
         new ExportImportDialog(Context.IMPORT).setVisible(true);
     }
 
-    private JptImportAction() {
-    }
+    private JptImportAction() {}
 }

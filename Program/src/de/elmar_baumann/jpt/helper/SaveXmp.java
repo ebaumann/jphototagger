@@ -17,19 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.data.Xmp;
-import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
+import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.generics.Pair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
 import javax.swing.JProgressBar;
 
 /**
@@ -40,10 +43,10 @@ import javax.swing.JProgressBar;
  * @version 2008-10-05
  */
 public final class SaveXmp extends Thread {
-
-    private static final String                        PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
-    private final        Collection<Pair<String, Xmp>> filenamesXmp;
-    private              JProgressBar                  progressBar;
+    private static final String PROGRESSBAR_STRING =
+        JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
+    private final Collection<Pair<String, Xmp>> filenamesXmp;
+    private JProgressBar                        progressBar;
 
     private SaveXmp(Collection<Pair<String, Xmp>> filenamesXmp) {
         AppLifeCycle.INSTANCE.addSaveObject(this);
@@ -51,8 +54,8 @@ public final class SaveXmp extends Thread {
         setName("Saving XMP @ " + getClass().getSimpleName());
     }
 
-    public synchronized static void save(Collection<Pair<String, Xmp>> filenamesXmp) {
-
+    public synchronized static void save(Collection<Pair<String,
+            Xmp>> filenamesXmp) {
         final int fileCount = filenamesXmp.size();
 
         if (fileCount >= 1) {
@@ -63,43 +66,53 @@ public final class SaveXmp extends Thread {
     @Override
     public void run() {
         int fileIndex = 0;
+
         // Ignore isInterrupted() because saving user input has high priority
         for (Pair<String, Xmp> pair : filenamesXmp) {
             String filename        = pair.getFirst();
             Xmp    xmp             = pair.getSecond();
-            String sidecarFilename = XmpMetadata.suggestSidecarFilename(filename);
+            String sidecarFilename =
+                XmpMetadata.suggestSidecarFilename(filename);
 
             if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
                 updateDatabase(filename);
             }
+
             updateProgressBar(++fileIndex);
         }
+
         releaseProgressBar();
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
     private void updateDatabase(String filename) {
-        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(
-                                                        Arrays.asList(filename),
-                                                        Insert.XMP);
+        InsertImageFilesIntoDatabase updater =
+            new InsertImageFilesIntoDatabase(Arrays.asList(filename),
+                Insert.XMP);
 
-        updater.run(); // Starting not a separate thread
+        updater.run();    // Starting not a separate thread
     }
 
     private void getProgressBar() {
-        if (progressBar != null) return;
+        if (progressBar != null) {
+            return;
+        }
+
         progressBar = ProgressBar.INSTANCE.getResource(this);
     }
 
     private void updateProgressBar(int value) {
         getProgressBar();
+
         if (progressBar != null) {
             progressBar.setMinimum(0);
             progressBar.setMaximum(filenamesXmp.size());
             progressBar.setValue(value);
+
             if (!progressBar.isStringPainted()) {
                 progressBar.setStringPainted(true);
             }
+
             if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
                 progressBar.setString(PROGRESSBAR_STRING);
             }
@@ -111,8 +124,10 @@ public final class SaveXmp extends Thread {
             if (progressBar.isStringPainted()) {
                 progressBar.setString("");
             }
+
             progressBar.setValue(0);
         }
+
         ProgressBar.INSTANCE.releaseResource(this);
     }
 }

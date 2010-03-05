@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif;
 
 import java.util.ArrayList;
@@ -32,21 +33,23 @@ import java.util.Set;
  * @version 2010-01-01
  */
 public final class ExifTags {
-
     private String makerNoteDescription;
 
     /**
      * Tags of EXIF IFD
      */
     private Set<ExifTag> exifTags = new HashSet<ExifTag>();
+
     /**
      * Tags of GPS IFD
      */
     private Set<ExifTag> gpsTags = new HashSet<ExifTag>();
+
     /**
      * Tags of  Interoperability IFD
      */
     private Set<ExifTag> interoperabilityTags = new HashSet<ExifTag>();
+
     /**
      * Maker note tags of EXIF IFD
      */
@@ -69,10 +72,8 @@ public final class ExifTags {
     }
 
     public int tagCount() {
-        return exifTags            .size() +
-               gpsTags             .size() +
-               interoperabilityTags.size() +
-               makerNoteTags       .size();
+        return exifTags.size() + gpsTags.size() + interoperabilityTags.size()
+               + makerNoteTags.size();
     }
 
     public List<ExifTag> asList() {
@@ -115,19 +116,19 @@ public final class ExifTags {
     }
 
     public ExifTag exifTagById(int id) {
-         return byId(exifTags, id);
+        return byId(exifTags, id);
     }
 
     public ExifTag gpsTagById(int id) {
-         return byId(gpsTags, id);
+        return byId(gpsTags, id);
     }
 
     public ExifTag interoparabilityTagById(int id) {
-         return byId(interoperabilityTags, id);
+        return byId(interoperabilityTags, id);
     }
 
     public ExifTag makerNoteTagById(int id) {
-         return byId(makerNoteTags, id);
+        return byId(makerNoteTags, id);
     }
 
     public void removeExifTag(ExifTag tag) {
@@ -148,8 +149,11 @@ public final class ExifTags {
 
     private ExifTag byId(Collection<ExifTag> tags, int id) {
         for (ExifTag tag : tags) {
-            if (tag.idValue() == id) return tag;
+            if (tag.idValue() == id) {
+                return tag;
+            }
         }
+
         return null;
     }
 }

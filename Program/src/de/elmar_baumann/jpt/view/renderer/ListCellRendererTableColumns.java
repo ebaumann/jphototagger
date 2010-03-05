@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.view.renderer;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
+
 import java.awt.Component;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -32,15 +35,18 @@ import javax.swing.JList;
  * @version 2008-09-13
  * @see     de.elmar_baumann.jpt.database.metadata.Column#getDescription()
  */
-public final class ListCellRendererTableColumns extends DefaultListCellRenderer {
-
+public final class ListCellRendererTableColumns
+        extends DefaultListCellRenderer {
     private static final long serialVersionUID = -3987847245199721880L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
-        int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            int index, boolean isSelected, boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
+                           index, isSelected, cellHasFocus);
+
         FormatterLabelTableColumn.setLabelText(label, (Column) value);
+
         return label;
     }
 }

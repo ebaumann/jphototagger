@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io.filefilter;
 
 import de.elmar_baumann.lib.resource.JslBundle;
+
 import java.io.File;
 import java.io.FileFilter;
 
@@ -30,15 +32,15 @@ import java.io.FileFilter;
  * @version 2009-05-22
  */
 public final class AcceptAllFilesFilter implements FileFilter {
-
     public static AcceptAllFilesFilter INSTANCE = new AcceptAllFilesFilter();
 
-    private AcceptAllFilesFilter() {
-    }
+    private AcceptAllFilesFilter() {}
 
     @Override
     public boolean accept(File pathname) {
-        return pathname.isFile() ? true : false;
+        return pathname.isFile()
+               ? true
+               : false;
     }
 
     /**
@@ -47,6 +49,8 @@ public final class AcceptAllFilesFilter implements FileFilter {
      * @return file filter
      */
     public javax.swing.filechooser.FileFilter forFileChooser() {
-        return new FileChooserFilter(this, JslBundle.INSTANCE.getString("AcceptAllFilesFilter.Description"));
+        return new FileChooserFilter(
+            this,
+            JslBundle.INSTANCE.getString("AcceptAllFilesFilter.Description"));
     }
 }

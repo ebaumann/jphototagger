@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.formatter;
 
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata.IfdType;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.resource.Translation;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,11 +34,12 @@ import java.util.Map;
  * @version 2009-06-10
  */
 public abstract class ExifFormatter {
-
-    private static final Map<IfdType, Translation> TRANSLATION_OF_IFD = new HashMap<IfdType, Translation>();
+    private static final Map<IfdType, Translation> TRANSLATION_OF_IFD =
+        new HashMap<IfdType, Translation>();
 
     static {
-        TRANSLATION_OF_IFD.put(IfdType.EXIF, new Translation("ExifExifIfdFieldValueTranslations"));
+        TRANSLATION_OF_IFD.put(
+            IfdType.EXIF, new Translation("ExifExifIfdFieldValueTranslations"));
     }
 
     /**
@@ -51,6 +54,8 @@ public abstract class ExifFormatter {
     protected String translate(IfdType ifdType, String propertyKey) {
         Translation translation = TRANSLATION_OF_IFD.get(ifdType);
 
-        return translation == null ? "?" : translation.translate(propertyKey);
+        return (translation == null)
+               ? "?"
+               : translation.translate(propertyKey);
     }
 }

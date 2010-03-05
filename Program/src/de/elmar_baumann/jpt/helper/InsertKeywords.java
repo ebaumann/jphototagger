@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 import de.elmar_baumann.jpt.resource.GUI;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -36,12 +39,12 @@ import javax.swing.tree.TreePath;
  * @version 2009-09-03
  */
 public final class InsertKeywords extends Thread {
-
     private final List<String> keywords;
 
     public InsertKeywords(List<String> keywords) {
         this.keywords = new ArrayList<String>(keywords);
-        setName("Inserting string list into keywords @ " +getClass().getSimpleName());
+        setName("Inserting string list into keywords @ "
+                + getClass().getSimpleName());
     }
 
     @Override
@@ -50,20 +53,19 @@ public final class InsertKeywords extends Thread {
     }
 
     private void copy() {
-        TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        Object            root  = model.getRoot();
+        TreeModelKeywords model =
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        Object root = model.getRoot();
 
         if (root instanceof DefaultMutableTreeNode) {
             insertKeywords((DefaultMutableTreeNode) root, model);
         }
     }
 
-    private void insertKeywords(
-            DefaultMutableTreeNode rootHk,
-            TreeModelKeywords modelHk) {
-
-        DatabaseKeywords db = DatabaseKeywords.INSTANCE;
-        boolean inserted = false;
+    private void insertKeywords(DefaultMutableTreeNode rootHk,
+                                TreeModelKeywords modelHk) {
+        DatabaseKeywords db       = DatabaseKeywords.INSTANCE;
+        boolean          inserted = false;
 
         for (String keyword : keywords) {
             if (!db.existsRootKeyword(keyword)) {
@@ -78,8 +80,10 @@ public final class InsertKeywords extends Thread {
     }
 
     private void expandRoot() {
-        JTree tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
+        JTree  tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
         Object root = tree.getModel().getRoot();
-        tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
+
+        tree.expandPath(
+            new TreePath(((DefaultMutableTreeNode) root).getPath()));
     }
 }

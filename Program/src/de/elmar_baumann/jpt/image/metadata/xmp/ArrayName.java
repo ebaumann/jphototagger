@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.xmp;
 
 import com.adobe.xmp.options.PropertyOptions;
-import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
+
+import de.elmar_baumann.jpt.database.metadata.mapping
+    .XmpColumnXmpDataTypeMapping.XmpValueType;
 
 /**
  *
@@ -29,15 +32,16 @@ import de.elmar_baumann.jpt.database.metadata.mapping.XmpColumnXmpDataTypeMappin
  * @version 2010-01-27
  */
 public enum ArrayName {
-
-    LR_HIERARCHICAL_SUBJECTS("lr:hierarchicalSubject", Namespace.LIGHTROOM, XmpValueType.BAG_TEXT),
+    LR_HIERARCHICAL_SUBJECTS("lr:hierarchicalSubject", Namespace.LIGHTROOM,
+                             XmpValueType.BAG_TEXT),
     ;
 
     private final String       name;
     private final Namespace    namesapce;
     private final XmpValueType valueType;
 
-    private ArrayName(String name, Namespace namesapce, XmpValueType valueType) {
+    private ArrayName(String name, Namespace namesapce,
+                      XmpValueType valueType) {
         this.name      = name;
         this.namesapce = namesapce;
         this.valueType = valueType;
@@ -64,6 +68,7 @@ public enum ArrayName {
             return new PropertyOptions().setArrayAlternate(true);
         } else {
             assert false : valueType;
+
             return null;
         }
     }

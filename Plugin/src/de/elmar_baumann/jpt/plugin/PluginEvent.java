@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.plugin;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,17 +31,18 @@ import java.util.List;
  * @version 2010-02-17
  */
 public class PluginEvent {
-
     public enum Type {
 
         /**
          * The plugin action has been started
          */
         STARTED,
+
         /**
          * The plugin action has been finished successfully
          */
         FINISHED_SUCCESS,
+
         /**
          * The plugin action has been finished with errors
          */
@@ -70,7 +73,6 @@ public class PluginEvent {
     public void setProcessedFiles(List<File> processedFiles) {
         this.processedFiles.clear();
         this.processedFiles.addAll(processedFiles);
-
     }
 
     public List<File> getProcessedFiles() {

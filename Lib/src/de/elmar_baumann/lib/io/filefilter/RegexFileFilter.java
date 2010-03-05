@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io.filefilter;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -36,7 +38,6 @@ import java.util.StringTokenizer;
  * @version 2008-10-05
  */
 public final class RegexFileFilter implements java.io.FileFilter {
-
     private List<String> acceptedPatterns = new ArrayList<String>();
 
     /**
@@ -47,15 +48,20 @@ public final class RegexFileFilter implements java.io.FileFilter {
      * @param delim            Begrenzer zwischen den einzelnen Mustern
      */
     public RegexFileFilter(String acceptedPatterns, String delim) {
-        if (acceptedPatterns == null) throw new NullPointerException("acceptedPatterns == null");
-        if (delim == null)            throw new NullPointerException("delim == null");
+        if (acceptedPatterns == null) {
+            throw new NullPointerException("acceptedPatterns == null");
+        }
+
+        if (delim == null) {
+            throw new NullPointerException("delim == null");
+        }
 
         setAcceptedValues(acceptedPatterns, delim);
     }
 
     private void setAcceptedValues(String acceptedValueString, String delim) {
-
         StringTokenizer token = new StringTokenizer(acceptedValueString, delim);
+
         while (token.hasMoreElements()) {
             acceptedPatterns.add(token.nextToken());
         }
@@ -64,11 +70,13 @@ public final class RegexFileFilter implements java.io.FileFilter {
     @Override
     public boolean accept(File pathname) {
         String filename = pathname.getName();
+
         for (String pattern : acceptedPatterns) {
             if (filename.matches(pattern)) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -78,7 +86,8 @@ public final class RegexFileFilter implements java.io.FileFilter {
      * @param  description  description
      * @return file filter
      */
-    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
+    public javax.swing.filechooser.FileFilter forFileChooser(
+            String description) {
         return new FileChooserFilter(this, description);
     }
 }

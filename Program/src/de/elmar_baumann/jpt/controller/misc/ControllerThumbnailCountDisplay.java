@@ -17,18 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * Zeigt die Anzahl der Thumbnails an.
@@ -38,14 +40,16 @@ import javax.swing.event.ChangeListener;
  */
 public final class ControllerThumbnailCountDisplay
         implements ThumbnailsPanelListener, ChangeListener {
-
-    private final AppPanel        appPanel            = GUI.INSTANCE.getAppPanel();
-    private final JSlider         sliderThumbnailSize = appPanel.getSliderThumbnailSize();
-    private final JLabel          label               = appPanel.getLabelThumbnailInfo();
-    private final ThumbnailsPanel panelThumbnails     = appPanel.getPanelThumbnails();
-    private int                   thumbnailZoom       = sliderThumbnailSize.getValue();
-    private int                   thumbnailCount;
-    private int                   selectionCount;
+    private final AppPanel appPanel            = GUI.INSTANCE.getAppPanel();
+    private final JSlider  sliderThumbnailSize =
+        appPanel.getSliderThumbnailSize();
+    private final JLabel          label           =
+        appPanel.getLabelThumbnailInfo();
+    private final ThumbnailsPanel panelThumbnails =
+        appPanel.getPanelThumbnails();
+    private int thumbnailZoom = sliderThumbnailSize.getValue();
+    private int thumbnailCount;
+    private int selectionCount;
 
     public ControllerThumbnailCountDisplay() {
         listen();
@@ -84,10 +88,13 @@ public final class ControllerThumbnailCountDisplay
 
     private void setLabel() {
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-                String info = JptBundle.INSTANCE.getString("ControllerThumbnailCountDisplay.Info", thumbnailCount, selectionCount, thumbnailZoom);
+                String info = JptBundle.INSTANCE.getString(
+                                  "ControllerThumbnailCountDisplay.Info",
+                                  thumbnailCount, selectionCount,
+                                  thumbnailZoom);
+
                 label.setText(info);
                 label.setToolTipText(info);
             }

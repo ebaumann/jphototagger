@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import de.elmar_baumann.jpt.image.metadata.exif.datatype.ExifRational;
@@ -32,68 +33,40 @@ public final class ExifGpsMetadata {
     /**
      * Status of the GPS receiver when the image is recorded
      */
-    public enum GpsStatus {
-
-        MEASUREMENT_IS_IN_PROGRESS,
-        MEASUREMENT_IS_INTEROPERABILITY
-    }
+    public enum GpsStatus { MEASUREMENT_IS_IN_PROGRESS,
+                            MEASUREMENT_IS_INTEROPERABILITY }
 
     /**
      * GPS measurement mode
      */
-    public enum GpsMeasureMode {
-
-        TWO_DIMENSIONAL,
-        THREE_DIMENSIONAL
-    }
+    public enum GpsMeasureMode { TWO_DIMENSIONAL, THREE_DIMENSIONAL }
 
     /**
      * Unit used to express the GPS receiver speed of movement
      */
-    public enum GpsSpeedRef {
-
-        KILOMETERS_PER_HOUR,
-        MILES_PER_HOUR,
-        KNOTS
-    }
+    public enum GpsSpeedRef { KILOMETERS_PER_HOUR, MILES_PER_HOUR, KNOTS }
 
     /**
      * Reference for giving the direction of GPS receiver movement
      */
-    public enum GpsTrackRef {
-
-        TRUE_DIRECTION,
-        MAGNETIC_DIRECTION
-    }
+    public enum GpsTrackRef { TRUE_DIRECTION, MAGNETIC_DIRECTION }
 
     /**
      * Reference for giving the direction of the image when it is
      * captured
      */
-    public enum GpsImgDirectionRef {
-
-        TRUE_DIRECTION,
-        MAGNETIC_DIRECTION
-    }
+    public enum GpsImgDirectionRef { TRUE_DIRECTION, MAGNETIC_DIRECTION }
 
     /**
      * Reference used for giving the bearing to the destination point
      */
-    public enum GpsDestBearingRef {
-
-        TRUE_DIRECTION,
-        MAGNETIC_DIRECTION
-    }
+    public enum GpsDestBearingRef { TRUE_DIRECTION, MAGNETIC_DIRECTION }
 
     /**
      * Unit used to express the distance to the destination point
      */
-    public enum GpsDestDistanceRef {
+    public enum GpsDestDistanceRef { KILOMETERS, MILES, KNOTS }
 
-        KILOMETERS,
-        MILES,
-        KNOTS
-    }
     private ExifGpsVersion     version;
     private ExifGpsLatitude    latitude;
     private ExifGpsLongitude   longitude;
@@ -301,7 +274,8 @@ public final class ExifGpsMetadata {
      *
      * @param gpsDistanceToDestination distance to destination
      */
-    public void setGpsDistanceToDestination(ExifRational gpsDistanceToDestination) {
+    public void setGpsDistanceToDestination(
+            ExifRational gpsDistanceToDestination) {
         this.gpsDistanceToDestination = gpsDistanceToDestination;
     }
 
@@ -614,6 +588,6 @@ public final class ExifGpsMetadata {
     }
 
     public boolean hasCoordinates() {
-        return latitude != null && longitude != null;
+        return (latitude != null) && (longitude != null);
     }
 }

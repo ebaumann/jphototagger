@@ -17,16 +17,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.io;
 
 import de.elmar_baumann.jpt.app.AppFileFilters;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.io.FileLock;
 import de.elmar_baumann.lib.io.FileUtil;
-import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.runtime.External;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,7 +42,6 @@ import java.util.List;
  * @version 2008-10-05
  */
 public final class IoUtil {
-
     private static final String QUOTE                = "\"";
     private static final String SEPARATOR            = " ";
     private static final String EMPTY                = "";
@@ -59,11 +61,14 @@ public final class IoUtil {
      */
     public static void execute(String appPath, String arguments) {
         if (!appPath.isEmpty()) {
-            String openCommand = appPath + getDefaultCommandLineSeparator() +
-                    arguments;
+            String openCommand = appPath + getDefaultCommandLineSeparator()
+                                 + arguments;
+
             try {
-                AppLogger.logInfo(IoUtil.class, "IoUtil.Info.Execute", openCommand);
-                Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
+                AppLogger.logInfo(IoUtil.class, "IoUtil.Info.Execute",
+                                  openCommand);
+                Runtime.getRuntime().exec(
+                    External.parseQuotedCommandLine(openCommand));
             } catch (Exception ex) {
                 AppLogger.logSevere(IoUtil.class, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
@@ -78,13 +83,16 @@ public final class IoUtil {
      * @return                image files of <code>files</code>
      */
     public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
-        List<File> imageFiles = new ArrayList<File>();
-        RegexFileFilter filter = AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
+        List<File>      imageFiles = new ArrayList<File>();
+        RegexFileFilter filter     =
+            AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
+
         for (File file : arbitraryFiles) {
             if (filter.accept(file)) {
                 imageFiles.add(file);
             }
         }
+
         return imageFiles;
     }
 
@@ -108,6 +116,7 @@ public final class IoUtil {
 
     public static String quoteForCommandLine(String string) {
         String quote = getDefaultCommandlineQuote();
+
         return quote + string + quote;
     }
 
@@ -120,9 +129,11 @@ public final class IoUtil {
      * @return         quoted string
      */
     public static String quoteForCommandLine(String string, File file) {
-        String quote = getDefaultCommandlineQuote();
+        String quote     = getDefaultCommandlineQuote();
         String separator = getDefaultCommandLineSeparator();
-        return quote + string + quote + separator + quote + file.getAbsolutePath() + quote;
+
+        return quote + string + quote + separator + quote
+               + file.getAbsolutePath() + quote;
     }
 
     /**
@@ -133,10 +144,9 @@ public final class IoUtil {
      * @return       quoted string
      */
     public static String quoteForCommandLine(File... files) {
-        return getQuotedForCommandLine(
-                Arrays.asList(files),
-                getDefaultCommandLineSeparator(),
-                getDefaultCommandlineQuote());
+        return getQuotedForCommandLine(Arrays.asList(files),
+                                       getDefaultCommandLineSeparator(),
+                                       getDefaultCommandlineQuote());
     }
 
     /**
@@ -147,10 +157,8 @@ public final class IoUtil {
      * @return       quoted string
      */
     public static String quoteForCommandLine(Collection<? extends File> files) {
-        return getQuotedForCommandLine(
-                files,
-                getDefaultCommandLineSeparator(),
-                getDefaultCommandlineQuote());
+        return getQuotedForCommandLine(files, getDefaultCommandLineSeparator(),
+                                       getDefaultCommandlineQuote());
     }
 
     /**
@@ -174,24 +182,25 @@ public final class IoUtil {
         String name      = FileUtil.getPrefix(file.getName());
         String extension = FileUtil.getSuffix(file.getName());
 
-        return pattern.replace(PATTERN_FS_DIR_PATH , dirPath).
-                replace(PATTERN_FS_FILE_EXT , extension).
-                replace(PATTERN_FS_FILE_NAME, name).
-                replace(PATTERN_FS_PATH     , path).
-                replace(PATTERN_FS_ROOT     , root)
-                ;
+        return pattern.replace(PATTERN_FS_DIR_PATH,
+                               dirPath).replace(PATTERN_FS_FILE_EXT,
+                                   extension).replace(PATTERN_FS_FILE_NAME,
+                                       name).replace(PATTERN_FS_PATH,
+                                           path).replace(PATTERN_FS_ROOT, root)
+        ;
     }
 
     private static String getQuotedForCommandLine(
             Collection<? extends File> files, String separator, String quote) {
+        StringBuilder sb    = new StringBuilder();
+        int           index = 0;
 
-        StringBuilder sb = new StringBuilder();
-        int index = 0;
         for (File file : files) {
-            sb.append((index++ == 0
-                    ? EMPTY
-                    : separator) + quote + file.getAbsolutePath() + quote);
+            sb.append(((index++ == 0)
+                       ? EMPTY
+                       : separator) + quote + file.getAbsolutePath() + quote);
         }
+
         return sb.toString();
     }
 
@@ -213,12 +222,14 @@ public final class IoUtil {
      */
     public static boolean lockLogWarning(File file, Object owner) {
         if (!FileLock.INSTANCE.lock(file, owner)) {
-            AppLogger.logWarning(owner.getClass(), "IoUtil.Error.lock", file, owner, FileLock.INSTANCE.getOwner(file));
+            AppLogger.logWarning(owner.getClass(), "IoUtil.Error.lock", file,
+                                 owner, FileLock.INSTANCE.getOwner(file));
+
             return false;
         }
+
         return true;
     }
 
-    private IoUtil() {
-    }
+    private IoUtil() {}
 }

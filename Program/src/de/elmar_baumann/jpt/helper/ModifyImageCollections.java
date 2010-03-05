@@ -17,12 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
+
 import java.util.List;
 
 /**
@@ -41,14 +43,17 @@ public final class ModifyImageCollections {
      */
     public static String insertImageCollection(List<String> filenames) {
         String name = inputCollectionName("");
-        if (name != null && !name.isEmpty()) {
+
+        if ((name != null) &&!name.isEmpty()) {
             logAddImageCollection(name);
-            if (!DatabaseImageCollections.INSTANCE.insert(
-                    name, filenames)) {
+
+            if (!DatabaseImageCollections.INSTANCE.insert(name, filenames)) {
                 errorMessageAddImageCollection(name);
+
                 return null;
             }
         }
+
         return name;
     }
 
@@ -61,17 +66,19 @@ public final class ModifyImageCollections {
      */
     public static boolean deleteImagesFromCollection(String collectionName,
             List<String> filenames) {
-        if (confirmDelete(
-                "ModifyImageCollections.Confirm.DeleteSelectedFiles",
-                collectionName)) {
-            boolean removed = DatabaseImageCollections.INSTANCE.
-                    deleteImagesFrom(collectionName, filenames) ==
-                    filenames.size();
+        if (confirmDelete("ModifyImageCollections.Confirm.DeleteSelectedFiles",
+                          collectionName)) {
+            boolean removed =
+                DatabaseImageCollections.INSTANCE.deleteImagesFrom(
+                    collectionName, filenames) == filenames.size();
+
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
             }
+
             return removed;
         }
+
         return false;
     }
 
@@ -83,15 +90,16 @@ public final class ModifyImageCollections {
      */
     public static boolean deleteImageCollection(String collectionName) {
         boolean deleted = false;
-        if (confirmDelete(
-                "ModifyImageCollections.Confirm.DeleteCollection",
-                collectionName)) {
-            deleted = DatabaseImageCollections.INSTANCE.delete(
-                    collectionName);
+
+        if (confirmDelete("ModifyImageCollections.Confirm.DeleteCollection",
+                          collectionName)) {
+            deleted = DatabaseImageCollections.INSTANCE.delete(collectionName);
+
             if (!deleted) {
                 errorMessageDeleteImageCollection(collectionName);
             }
         }
+
         return deleted;
     }
 
@@ -104,11 +112,14 @@ public final class ModifyImageCollections {
      */
     public static boolean addImagesToCollection(String collectionName,
             List<String> filenames) {
-        boolean added = DatabaseImageCollections.INSTANCE.
-                insertImagesInto(collectionName, filenames);
+        boolean added =
+            DatabaseImageCollections.INSTANCE.insertImagesInto(collectionName,
+                filenames);
+
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
         }
+
         return added;
     }
 
@@ -121,17 +132,21 @@ public final class ModifyImageCollections {
      */
     public static String renameImageCollection(String oldName) {
         String newName = inputCollectionName(oldName);
-        if (newName != null && !newName.isEmpty()) {
-            boolean renamed = DatabaseImageCollections.INSTANCE.
-                    updateRename(oldName, newName) >
-                    0;
+
+        if ((newName != null) &&!newName.isEmpty()) {
+            boolean renamed =
+                DatabaseImageCollections.INSTANCE.updateRename(oldName,
+                    newName) > 0;
+
             if (renamed) {
                 return newName;
             } else {
                 errorMessageRenameImageCollection(oldName);
+
                 return null;
             }
         }
+
         return null;
     }
 
@@ -144,72 +159,107 @@ public final class ModifyImageCollections {
      * @return true if allowed
      */
     public static boolean isValidName(String name) {
-        return !name.trim().equalsIgnoreCase(ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT);
+        return !name.trim().equalsIgnoreCase(
+            ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT);
     }
 
     private static boolean checkIsValidName(String name) {
-        if (isValidName(name)) return true;
-        MessageDisplayer.error(null, "ModifyImageCollections.Error.InvalidName", name);
+        if (isValidName(name)) {
+            return true;
+        }
+
+        MessageDisplayer.error(null,
+                               "ModifyImageCollections.Error.InvalidName",
+                               name);
+
         return false;
     }
 
     private static void logAddImageCollection(String name) {
-        AppLogger.logInfo(ModifyImageCollections.class, "ModifyImageCollections.Info.StartInsert", name);
+        AppLogger.logInfo(ModifyImageCollections.class,
+                          "ModifyImageCollections.Info.StartInsert", name);
     }
 
-    private static void errorMessageAddImagesToCollection(String collectionName) {
-        MessageDisplayer.error(null, "ModifyImageCollections.Error.AddImagesToCollection", collectionName);
+    private static void errorMessageAddImagesToCollection(
+            String collectionName) {
+        MessageDisplayer.error(
+            null, "ModifyImageCollections.Error.AddImagesToCollection",
+            collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
-        MessageDisplayer.error(null, "ModifyImageCollections.Error.AddImageCollection", collectionName);
+        MessageDisplayer.error(
+            null, "ModifyImageCollections.Error.AddImageCollection",
+            collectionName);
     }
 
-    private static void errorMessageDeleteImageCollection(String collectionName) {
-        MessageDisplayer.error(null, "ModifyImageCollections.Error.DeleteImageCollection", collectionName);
+    private static void errorMessageDeleteImageCollection(
+            String collectionName) {
+        MessageDisplayer.error(
+            null, "ModifyImageCollections.Error.DeleteImageCollection",
+            collectionName);
     }
 
-    private static void errorMessageDeleteImagesFromCollection(String collectionName) {
-        MessageDisplayer.error(null, "ModifyImageCollections.Error.DeleteImagesFromCollection", collectionName);
+    private static void errorMessageDeleteImagesFromCollection(
+            String collectionName) {
+        MessageDisplayer.error(
+            null, "ModifyImageCollections.Error.DeleteImagesFromCollection",
+            collectionName);
     }
 
-    private static void errorMessageRenameImageCollection(String collectionName) {
-        MessageDisplayer.error(null, "ModifyImageCollections.Error.RenameImageCollection", collectionName);
+    private static void errorMessageRenameImageCollection(
+            String collectionName) {
+        MessageDisplayer.error(
+            null, "ModifyImageCollections.Error.RenameImageCollection",
+            collectionName);
     }
 
-    private static boolean confirmDelete(String bundleKey, String collectionName) {
+    private static boolean confirmDelete(String bundleKey,
+            String collectionName) {
         return MessageDisplayer.confirmYesNo(null, bundleKey, collectionName);
     }
 
     private static String inputCollectionName(String defaultName) {
-        String name = getCollectionName(defaultName);
+        String  name    = getCollectionName(defaultName);
         boolean willAdd = name != null;
-        while (name != null && willAdd) {
+
+        while ((name != null) && willAdd) {
             willAdd = false;
+
             String nameNextTry = name;
-            if (DatabaseImageCollections.INSTANCE.exists(name) ||
-                    !checkIsValidName(name)) {
-                willAdd = MessageDisplayer.confirmYesNo(null, "ModifyImageCollections.Confirm.InputNewCollectionName", name);
+
+            if (DatabaseImageCollections.INSTANCE.exists(name)
+                    ||!checkIsValidName(name)) {
+                willAdd = MessageDisplayer.confirmYesNo(
+                    null,
+                    "ModifyImageCollections.Confirm.InputNewCollectionName",
+                    name);
                 name = null;
             }
+
             if (willAdd) {
                 name = getCollectionName(nameNextTry);
             }
         }
+
         return name;
     }
 
     private static String getCollectionName(String defaultName) {
-        String name = MessageDisplayer.input("ModifyImageCollections.Input.CollectionName", defaultName, ModifyImageCollections.class.getName());
+        String name = MessageDisplayer.input(
+                          "ModifyImageCollections.Input.CollectionName",
+                          defaultName, ModifyImageCollections.class.getName());
+
         if (name != null) {
             name = name.trim();
+
             if (name.isEmpty()) {
                 name = null;
             }
         }
+
         return name;
     }
 
-    private ModifyImageCollections() {
-    }
+    private ModifyImageCollections() {}
 }

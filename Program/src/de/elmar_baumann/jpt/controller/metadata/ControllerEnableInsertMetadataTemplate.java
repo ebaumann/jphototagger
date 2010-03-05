@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.metadata;
 
 import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
 import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
@@ -35,10 +38,12 @@ import javax.swing.JComboBox;
  */
 public final class ControllerEnableInsertMetadataTemplate
         implements EditMetadataPanelsListener, ActionListener {
-
-    private final JButton            buttonMetadataTemplateInsert = GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateInsert();
-    private final JComboBox          comboBoxTemplates            = GUI.INSTANCE.getAppPanel().getComboBoxMetadataTemplates();
-    private final EditMetadataPanels editPanels                   = GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+    private final JButton buttonMetadataTemplateInsert =
+        GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateInsert();
+    private final JComboBox comboBoxTemplates =
+        GUI.INSTANCE.getAppPanel().getComboBoxMetadataTemplates();
+    private final EditMetadataPanels editPanels =
+        GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
 
     public ControllerEnableInsertMetadataTemplate() {
         listen();
@@ -60,7 +65,7 @@ public final class ControllerEnableInsertMetadataTemplate
     }
 
     private void setButtonEnabled() {
-        buttonMetadataTemplateInsert.setEnabled(
-                editPanels.isEditable() && comboBoxTemplates.getSelectedIndex() >= 0);
+        buttonMetadataTemplateInsert.setEnabled(editPanels.isEditable()
+                && (comboBoxTemplates.getSelectedIndex() >= 0));
     }
 }

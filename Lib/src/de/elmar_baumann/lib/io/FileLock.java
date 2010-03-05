@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.io;
 
 import java.io.File;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,10 +38,9 @@ import java.util.Map;
  * @version 2009-06-22
  */
 public final class FileLock {
-
-    public static final FileLock INSTANCE = new FileLock();
+    public static final FileLock    INSTANCE          = new FileLock();
     private final Map<File, Object> ownerOfLockedFile =
-            Collections.synchronizedMap(new HashMap<File, Object>());
+        Collections.synchronizedMap(new HashMap<File, Object>());
 
     /**
      * Locks a file.
@@ -52,8 +53,10 @@ public final class FileLock {
         synchronized (ownerOfLockedFile) {
             if (!ownerOfLockedFile.containsKey(file)) {
                 ownerOfLockedFile.put(file, owner);
+
                 return true;
             }
+
             return false;
         }
     }
@@ -77,15 +80,16 @@ public final class FileLock {
      */
     public boolean unlock(File file, Object owner) {
         synchronized (ownerOfLockedFile) {
-            if (ownerOfLockedFile.containsKey(file) &&
-                    ownerOfLockedFile.get(file).equals(owner)) {
+            if (ownerOfLockedFile.containsKey(file)
+                    && ownerOfLockedFile.get(file).equals(owner)) {
                 ownerOfLockedFile.remove(file);
+
                 return true;
             }
+
             return false;
         }
     }
 
-    private FileLock() {
-    }
+    private FileLock() {}
 }

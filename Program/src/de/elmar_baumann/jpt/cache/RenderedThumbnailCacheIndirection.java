@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
 import java.awt.Image;
+
 import java.io.File;
 
 /**
@@ -28,15 +30,15 @@ import java.io.File;
  * @version 2009-07-18
  */
 public class RenderedThumbnailCacheIndirection extends CacheIndirection {
-    public Image thumbnail;
-    public int length = 0;
-    public boolean hasKeywords;  // actually contains keywords
-    public boolean renderedForKeywords;  // was rendered for keywords
+    public Image   thumbnail;
+    public int     length = 0;
+    public boolean hasKeywords;            // actually contains keywords
+    public boolean renderedForKeywords;    // was rendered for keywords
 
     public RenderedThumbnailCacheIndirection(File _file, int _length) {
         super(_file);
         thumbnail = null;
-        length = _length;
+        length    = _length;
     }
 
     @Override

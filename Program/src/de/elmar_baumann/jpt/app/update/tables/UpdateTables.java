@@ -17,9 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -30,22 +32,20 @@ import java.sql.SQLException;
  * @version 2008-10-23
  */
 public final class UpdateTables extends Database {
-
     public static final UpdateTables INSTANCE = new UpdateTables();
 
-    private UpdateTables() {
-    }
+    private UpdateTables() {}
 
     public void update(Connection connection) throws SQLException {
-        new UpdateTablesDropColumns()      .update(connection);
-        new UpdateTablesRenameColumns()    .update(connection);
-        new UpdateTablesInsertColumns()    .update(connection);
-        new UpdateTablesIndexes()          .update(connection);
-        new UpdateTablesPrimaryKeys()      .update(connection);
-        new UpdateTablesXmpLastModified()  .update(connection);
-        new UpdateTablesPrograms()         .update(connection);
+        new UpdateTablesDropColumns().update(connection);
+        new UpdateTablesRenameColumns().update(connection);
+        new UpdateTablesInsertColumns().update(connection);
+        new UpdateTablesIndexes().update(connection);
+        new UpdateTablesPrimaryKeys().update(connection);
+        new UpdateTablesXmpLastModified().update(connection);
+        new UpdateTablesPrograms().update(connection);
         new UpdateTablesDeleteInvalidExif().update(connection);
-        new UpdateTablesThumbnails()       .update(connection);
-        new UpdateTablesDropCategories()   .update(connection);
+        new UpdateTablesThumbnails().update(connection);
+        new UpdateTablesDropCategories().update(connection);
     }
 }

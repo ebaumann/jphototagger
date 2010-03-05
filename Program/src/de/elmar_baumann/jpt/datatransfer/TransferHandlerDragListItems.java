@@ -17,14 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.datatransfer;
+
+import de.elmar_baumann.lib.datatransfer.TransferableObject;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-import de.elmar_baumann.lib.datatransfer.TransferableObject;
 
 /**
  * Creates a {@link TransferableObject} with selected list items as object array.
@@ -33,14 +36,13 @@ import de.elmar_baumann.lib.datatransfer.TransferableObject;
  * @version 2009-08-02
  */
 public final class TransferHandlerDragListItems extends TransferHandler {
-
-    private static final long serialVersionUID = 2228155163708066205L;
-
+    private static final long  serialVersionUID = 2228155163708066205L;
     private final DataFlavor[] dataFlavors;
 
     public TransferHandlerDragListItems(DataFlavor... dataFlavors) {
         this.dataFlavors = new DataFlavor[dataFlavors.length];
-        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0, dataFlavors.length);
+        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0,
+                         dataFlavors.length);
     }
 
     /**
@@ -51,8 +53,8 @@ public final class TransferHandlerDragListItems extends TransferHandler {
      */
     @Override
     protected Transferable createTransferable(JComponent c) {
-        return new TransferableObject(
-                ((JList) c).getSelectedValues(), dataFlavors);
+        return new TransferableObject(((JList) c).getSelectedValues(),
+                                      dataFlavors);
     }
 
     @Override

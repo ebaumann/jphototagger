@@ -17,20 +17,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.LookAndFeelUtil;
 import de.elmar_baumann.lib.image.util.IconUtil;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import javax.swing.ImageIcon;
-import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.UIManager;
 
 /**
  *
@@ -39,34 +43,42 @@ import javax.swing.plaf.FontUIResource;
  */
 public final class AppLookAndFeel {
     private static Color tableStoredInDatabaseForeground = Color.BLACK;
-    private static Color tableStoredInDatabaseBackground = new Color(251, 249, 241);
+    private static Color tableStoredInDatabaseBackground = new Color(251, 249,
+                                                               241);
     private static Color tableExifMakerNoteForeground = Color.BLACK;
-    private static Color tableExifMakerNoteBackground = new Color(226, 226, 255);
-    private static Color tableSelectionForeground = Color.BLACK;
-    private static Color tableSelectionBackground = new Color(226, 226, 255);
-    private static Color tableForeground = Color.BLACK;
-    private static Color tableBackground = Color.WHITE;
-    private static Color treeSelectionForeground;
-    private static Color treeSelectionBackground;
-    private static Color treeTextBackground;
-    private static Color treeTextForeground;
-    private static Color listSelectionForeground;
-    private static Color listSelectionBackground;
-    private static Color listBackground;
-    private static Color listForeground;
-    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(100, 100, 100);
-    public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = new Color(255, 255, 255);
-
-    public static final String TABLE_ROW_HEADER_CSS = "margin-left:3px;margin-right:3px;";
-    public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
-    public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
-    public static final int TABLE_MAX_CHARS_CELL = 45;
-
-    private static final String ICONS_PATH = "/de/elmar_baumann/jpt/resource/icons";
-    private static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";
-    private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH + "/icon_app_medium.png";
+    private static Color tableExifMakerNoteBackground = new Color(226, 226,
+                                                            255);
+    private static Color      tableSelectionForeground = Color.BLACK;
+    private static Color      tableSelectionBackground = new Color(226, 226,
+                                                             255);
+    private static Color      tableForeground          = Color.BLACK;
+    private static Color      tableBackground          = Color.WHITE;
+    private static Color      treeSelectionForeground;
+    private static Color      treeSelectionBackground;
+    private static Color      treeTextBackground;
+    private static Color      treeTextForeground;
+    private static Color      listSelectionForeground;
+    private static Color      listSelectionBackground;
+    private static Color      listBackground;
+    private static Color      listForeground;
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND =
+        new Color(100, 100, 100);
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND =
+        new Color(255, 255, 255);
+    public static final String TABLE_ROW_HEADER_CSS =
+        "margin-left:3px;margin-right:3px;";
+    public static final String TABLE_CELL_CSS =
+        "margin-left:3px;margin-right:3px;";
+    public static final int     TABLE_MAX_CHARS_ROW_HEADER = 40;
+    public static final int     TABLE_MAX_CHARS_CELL       = 45;
+    private static final String ICONS_PATH                 =
+        "/de/elmar_baumann/jpt/resource/icons";
+    private static final String SMALL_APP_ICON_PATH = ICONS_PATH
+                                                      + "/icon_app_small.png";
+    private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH
+                                                       + "/icon_app_medium.png";
     private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
-    private static final List<Image>  APP_ICONS = new ArrayList<Image>();
+    private static final List<Image>  APP_ICONS      = new ArrayList<Image>();
 
     static {
         APP_ICON_PATHS.add(SMALL_APP_ICON_PATH);
@@ -102,17 +114,21 @@ public final class AppLookAndFeel {
      * @throws      IllegalArgumentException if the trimmed path is empty
      */
     public static String toLocalizedPath(String path) {
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
 
-        if (path == null         ) throw new NullPointerException("path == null");
-        if (path.trim().isEmpty()) throw new IllegalArgumentException("path is empty!");
+        if (path.trim().isEmpty()) {
+            throw new IllegalArgumentException("path is empty!");
+        }
 
         String lang          = Locale.getDefault().getLanguage();
         int    lastPathDelim = path.lastIndexOf("/");
 
-        return lastPathDelim >= 0
-                ? path.substring(0, lastPathDelim + 1) + lang + "/" + path.substring(lastPathDelim + 1)
-                : lang + "/" + path
-                ;
+        return (lastPathDelim >= 0)
+               ? path.substring(0, lastPathDelim + 1) + lang + "/"
+                 + path.substring(lastPathDelim + 1)
+               : lang + "/" + path;
     }
 
     /**
@@ -131,6 +147,7 @@ public final class AppLookAndFeel {
      */
     public static Image getLocalizedImage(String path) {
         java.net.URL imgURL = IconUtil.class.getResource(toLocalizedPath(path));
+
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
         } else {
@@ -149,18 +166,27 @@ public final class AppLookAndFeel {
     }
 
     private static void setUiColors() {
-        treeSelectionForeground         = ComponentUtil.getUiColor("Tree.selectionForeground");
-        treeSelectionBackground         = ComponentUtil.getUiColor("Tree.selectionBackground");
-        treeTextBackground              = ComponentUtil.getUiColor("Tree.textBackground");
-        treeTextForeground              = ComponentUtil.getUiColor("Tree.textForeground");
-        listSelectionForeground         = ComponentUtil.getUiColor("List.selectionForeground");
-        listSelectionBackground         = ComponentUtil.getUiColor("List.selectionBackground");
-        listBackground                  = ComponentUtil.getUiColor("List.background");
-        listForeground                  = ComponentUtil.getUiColor("List.foreground");
-        tableForeground                 = ComponentUtil.getUiColor("Table.foreground");
-        tableBackground                 = ComponentUtil.getUiColor("Table.background ");
-        tableSelectionForeground        = ComponentUtil.getUiColor("Table.selectionForeground");
-        tableSelectionBackground        = ComponentUtil.getUiColor("Table.selectionBackground ");
+        treeSelectionForeground =
+            ComponentUtil.getUiColor("Tree.selectionForeground");
+        treeSelectionBackground =
+            ComponentUtil.getUiColor("Tree.selectionBackground");
+        treeTextBackground      =
+            ComponentUtil.getUiColor("Tree.textBackground");
+        treeTextForeground      =
+            ComponentUtil.getUiColor("Tree.textForeground");
+        listSelectionForeground =
+            ComponentUtil.getUiColor("List.selectionForeground");
+        listSelectionBackground =
+            ComponentUtil.getUiColor("List.selectionBackground");
+        listBackground           = ComponentUtil.getUiColor("List.background");
+        listForeground           = ComponentUtil.getUiColor("List.foreground");
+        tableForeground          = ComponentUtil.getUiColor("Table.foreground");
+        tableBackground          =
+            ComponentUtil.getUiColor("Table.background ");
+        tableSelectionForeground =
+            ComponentUtil.getUiColor("Table.selectionForeground");
+        tableSelectionBackground =
+            ComponentUtil.getUiColor("Table.selectionBackground ");
         tableStoredInDatabaseForeground = new Color(0, 0, 200);
         tableStoredInDatabaseBackground = tableBackground;
         tableExifMakerNoteForeground    = new Color(0, 125, 0);
@@ -232,62 +258,61 @@ public final class AppLookAndFeel {
     }
 
     private static void setFonts() {
-        setBoldFont("Button.font"             , false);
-        setBoldFont("CheckBox.font"           , false);
-        setBoldFont("CheckBoxMenuItem.font"   , false);
-        setBoldFont("ColorChooser.font"       , false);
-        setBoldFont("ComboBox.font"           , false);
-        setBoldFont("EditorPane.font"         , false);
-        setBoldFont("FormattedTextField.font" , false);
-        setBoldFont("Label.font"              , false);
-        setBoldFont("List.font"               , false);
-        setBoldFont("MenuBar.font"            , false);
-        setBoldFont("Menu.font"               , false);
-        setBoldFont("MenuItem.font"           , false);
-        setBoldFont("OptionPane.font"         , false);
-        setBoldFont("Panel.font"              , false);
-        setBoldFont("PopupMenu.font"          , false);
-        setBoldFont("RadioButton.font"        , false);
+        setBoldFont("Button.font", false);
+        setBoldFont("CheckBox.font", false);
+        setBoldFont("CheckBoxMenuItem.font", false);
+        setBoldFont("ColorChooser.font", false);
+        setBoldFont("ComboBox.font", false);
+        setBoldFont("EditorPane.font", false);
+        setBoldFont("FormattedTextField.font", false);
+        setBoldFont("Label.font", false);
+        setBoldFont("List.font", false);
+        setBoldFont("MenuBar.font", false);
+        setBoldFont("Menu.font", false);
+        setBoldFont("MenuItem.font", false);
+        setBoldFont("OptionPane.font", false);
+        setBoldFont("Panel.font", false);
+        setBoldFont("PopupMenu.font", false);
+        setBoldFont("RadioButton.font", false);
         setBoldFont("RadioButtonMenuItem.font", false);
-        setBoldFont("ScrollPane.font"         , false);
-        setBoldFont("Slider.font"             , false);
-        setBoldFont("Spinner.font"            , false);
-        setBoldFont("TabbedPane.font"         , false);
-        setBoldFont("Table.font"              , false);
-        setBoldFont("TextArea.font"           , false);
-        setBoldFont("TextField.font"          , false);
-        setBoldFont("Text.font"               , false);
-        setBoldFont("TextPane.font"           , false);
-        setBoldFont("TextPane.font"           , false);
-        setBoldFont("ToggleButton.font"       , false);
-        setBoldFont("ToolBar.font"            , false);
-        setBoldFont("ToolTip.font"            , false);
-        setBoldFont("Tree.font"               , false);
-        setBoldFont("Viewport.font"           , false);
+        setBoldFont("ScrollPane.font", false);
+        setBoldFont("Slider.font", false);
+        setBoldFont("Spinner.font", false);
+        setBoldFont("TabbedPane.font", false);
+        setBoldFont("Table.font", false);
+        setBoldFont("TextArea.font", false);
+        setBoldFont("TextField.font", false);
+        setBoldFont("Text.font", false);
+        setBoldFont("TextPane.font", false);
+        setBoldFont("TextPane.font", false);
+        setBoldFont("ToggleButton.font", false);
+        setBoldFont("ToolBar.font", false);
+        setBoldFont("ToolTip.font", false);
+        setBoldFont("Tree.font", false);
+        setBoldFont("Viewport.font", false);
+
         // Bold
-        setBoldFont("PasswordField.font"      , true);
-        setBoldFont("ProgressBar.font"        , true);
-        setBoldFont("TableHeader.font"        , true);
-        setBoldFont("TitledBorder.font.font"  , true);
+        setBoldFont("PasswordField.font", true);
+        setBoldFont("ProgressBar.font", true);
+        setBoldFont("TableHeader.font", true);
+        setBoldFont("TitledBorder.font.font", true);
     }
 
     private static void setBoldFont(String key, boolean bold) {
-
         Font defaultFont = UIManager.getFont(key);
-        int  weight      = bold ? Font.BOLD : Font.PLAIN;
+        int  weight      = bold
+                           ? Font.BOLD
+                           : Font.PLAIN;
 
         if (defaultFont != null) {
-
             Font plainFont = new Font(defaultFont.getName(),
-                    defaultFont.isItalic()
-                        ? weight | Font.ITALIC
-                        : Font.PLAIN,
-                    defaultFont.getSize());
+                                      defaultFont.isItalic()
+                                      ? weight | Font.ITALIC
+                                      : Font.PLAIN, defaultFont.getSize());
 
             UIManager.put(key, new FontUIResource(plainFont));
         }
     }
 
-    private AppLookAndFeel() {
-    }
+    private AppLookAndFeel() {}
 }

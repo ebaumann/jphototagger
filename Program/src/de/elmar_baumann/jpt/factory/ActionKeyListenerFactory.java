@@ -17,29 +17,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeywordsToEditPanel;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerCopyCutPasteKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerKeywordsDisplayImages;
+import de.elmar_baumann.jpt.controller.keywords.tree
+    .ControllerAddKeywordsToEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree
+    .ControllerCopyCutPasteKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree
+    .ControllerDeleteKeywordFromEditPanel;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywords;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel;
+import de.elmar_baumann.jpt.controller.keywords.tree
+    .ControllerKeywordsDisplayImages;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerRenameKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree.ControllerToggleRealKeyword;
+import de.elmar_baumann.jpt.controller.keywords.tree
+    .ControllerToggleRealKeyword;
+import de.elmar_baumann.jpt.controller.metadata
+    .ControllerShowUpdateMetadataDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerAboutApp;
 import de.elmar_baumann.jpt.controller.misc.ControllerHelp;
 import de.elmar_baumann.jpt.controller.misc.ControllerMaintainDatabase;
-import de.elmar_baumann.jpt.controller.search.ControllerShowAdvancedSearchDialog;
-import de.elmar_baumann.jpt.controller.metadata.ControllerShowUpdateMetadataDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
+import de.elmar_baumann.jpt.controller.search
+    .ControllerShowAdvancedSearchDialog;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.InputHelperDialog;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
+
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+
 import javax.swing.JMenuItem;
 
 /**
@@ -48,12 +58,13 @@ import javax.swing.JMenuItem;
  * @version 2008-09-29
  */
 public final class ActionKeyListenerFactory {
-
-    static final ActionKeyListenerFactory INSTANCE = new ActionKeyListenerFactory();
-    private      boolean               init;
+    static final ActionKeyListenerFactory INSTANCE =
+        new ActionKeyListenerFactory();
+    private boolean init;
 
     synchronized void init() {
         Support.checkInit(ActionKeyListenerFactory.class, init);
+
         if (!init) {
             init = true;
             addActionListeners();
@@ -67,19 +78,26 @@ public final class ActionKeyListenerFactory {
     }
 
     private void addKeyListeners() {
-        addKeyListener(ControllerCopyCutPasteKeyword.class, GUI.INSTANCE.getAppPanel().getTreeEditKeywords());
-        addKeyListener(ControllerCopyCutPasteKeyword.class, InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
+        addKeyListener(ControllerCopyCutPasteKeyword.class,
+                       GUI.INSTANCE.getAppPanel().getTreeEditKeywords());
+        addKeyListener(ControllerCopyCutPasteKeyword.class,
+                       InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
     private void listenToAppFrameMenuItems() {
         AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
-        addActionListeners(ControllerAboutApp.class                , appFrame.getMenuItemAbout());
-        addActionListeners(ControllerHelp.class                    , appFrame.getMenuItemHelp());
-        addActionListeners(ControllerMaintainDatabase.class        , appFrame.getMenuItemMaintainDatabase());
-        addActionListeners(ControllerShowUpdateMetadataDialog.class, appFrame.getMenuItemScanDirectory());
-        addActionListeners(ControllerShowUserSettingsDialog.class  , appFrame.getMenuItemSettings());
-        addActionListeners(ControllerShowAdvancedSearchDialog.class, appFrame.getMenuItemSearch());
+        addActionListeners(ControllerAboutApp.class,
+                           appFrame.getMenuItemAbout());
+        addActionListeners(ControllerHelp.class, appFrame.getMenuItemHelp());
+        addActionListeners(ControllerMaintainDatabase.class,
+                           appFrame.getMenuItemMaintainDatabase());
+        addActionListeners(ControllerShowUpdateMetadataDialog.class,
+                           appFrame.getMenuItemScanDirectory());
+        addActionListeners(ControllerShowUserSettingsDialog.class,
+                           appFrame.getMenuItemSettings());
+        addActionListeners(ControllerShowAdvancedSearchDialog.class,
+                           appFrame.getMenuItemSearch());
     }
 
     private void listenToPopupMenuKeywordsTrees() {
@@ -87,33 +105,48 @@ public final class ActionKeyListenerFactory {
 
         // Registerung not to more than 1 controller:
         // Popup menu stores tree and item of the action source
-        addActionListener(ControllerAddKeyword.class                , popup.getItemAdd());
-        addActionListener(ControllerRenameKeyword.class             , popup.getItemRename());
-        addActionListener(ControllerDeleteKeywords.class            , popup.getItemRemove());
-        addActionListener(ControllerAddKeywordsToEditPanel.class    , popup.getItemAddToEditPanel());
-        addActionListener(ControllerDeleteKeywordFromEditPanel.class, popup.getItemRemoveFromEditPanel());
-        addActionListener(ControllerToggleRealKeyword.class         , popup.getItemToggleReal());
-        addActionListener(ControllerCopyCutPasteKeyword.class       , popup.getItemCopy());
-        addActionListener(ControllerCopyCutPasteKeyword.class       , popup.getItemCut());
-        addActionListener(ControllerCopyCutPasteKeyword.class       , popup.getItemPaste());
-        addActionListener(ControllerKeywordsDisplayImages.class     , popup.getItemDisplayImages());
-        addActionListener(ControllerKeywordsDisplayImages.class     , popup.getItemDisplayImagesKw());
+        addActionListener(ControllerAddKeyword.class, popup.getItemAdd());
+        addActionListener(ControllerRenameKeyword.class, popup.getItemRename());
+        addActionListener(ControllerDeleteKeywords.class,
+                          popup.getItemRemove());
+        addActionListener(ControllerAddKeywordsToEditPanel.class,
+                          popup.getItemAddToEditPanel());
+        addActionListener(ControllerDeleteKeywordFromEditPanel.class,
+                          popup.getItemRemoveFromEditPanel());
+        addActionListener(ControllerToggleRealKeyword.class,
+                          popup.getItemToggleReal());
+        addActionListener(ControllerCopyCutPasteKeyword.class,
+                          popup.getItemCopy());
+        addActionListener(ControllerCopyCutPasteKeyword.class,
+                          popup.getItemCut());
+        addActionListener(ControllerCopyCutPasteKeyword.class,
+                          popup.getItemPaste());
+        addActionListener(ControllerKeywordsDisplayImages.class,
+                          popup.getItemDisplayImages());
+        addActionListener(ControllerKeywordsDisplayImages.class,
+                          popup.getItemDisplayImagesKw());
     }
 
-    private void addActionListener(Class<? extends ActionListener> listenerClass, JMenuItem item) {
-        ActionListener listener = ControllerFactory.INSTANCE.getController(listenerClass);
+    private void addActionListener(
+            Class<? extends ActionListener> listenerClass, JMenuItem item) {
+        ActionListener listener =
+            ControllerFactory.INSTANCE.getController(listenerClass);
 
         item.addActionListener(listener);
     }
 
-    private void addActionListeners(Class<? extends ActionListener> listenerClass, JMenuItem item) {
-        for (ActionListener listener : ControllerFactory.INSTANCE.getControllers(listenerClass)) {
-                item.addActionListener(listener);
+    private void addActionListeners(
+            Class<? extends ActionListener> listenerClass, JMenuItem item) {
+        for (ActionListener listener :
+                ControllerFactory.INSTANCE.getControllers(listenerClass)) {
+            item.addActionListener(listener);
         }
     }
 
-    private void addKeyListener(Class<? extends KeyListener> listenerClass, Component c) {
-        KeyListener listener = ControllerFactory.INSTANCE.getController(listenerClass);
+    private void addKeyListener(Class<? extends KeyListener> listenerClass,
+                                Component c) {
+        KeyListener listener =
+            ControllerFactory.INSTANCE.getController(listenerClass);
 
         c.addKeyListener(listener);
     }

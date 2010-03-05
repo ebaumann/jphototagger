@@ -17,10 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.tag;
 
 import de.elmar_baumann.lib.generics.Pair;
+
 import java.nio.charset.Charset;
+
 import java.util.Arrays;
 
 /**
@@ -30,14 +33,13 @@ import java.util.Arrays;
  * @version 2009-06-09
  */
 public final class ExifCopyright {
-
     private final String photographerCopyright;
     private final String editorCopyright;
 
     public ExifCopyright(byte[] photographerCopyright, byte[] editorCopyright) {
-
-        this.photographerCopyright = photographerCopyright(photographerCopyright);
-        this.editorCopyright       = editorCopyright(editorCopyright);
+        this.photographerCopyright =
+            photographerCopyright(photographerCopyright);
+        this.editorCopyright = editorCopyright(editorCopyright);
     }
 
     public String editorCopyright() {
@@ -57,10 +59,11 @@ public final class ExifCopyright {
      *
      */
     public static String photographerCopyright(byte[] rawValue) {
+        Pair<Integer, Integer> photographerOffsets =
+            photographerOffsets(rawValue);
 
-        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
-
-        return string(rawValue, photographerOffsets.getFirst(), photographerOffsets.getSecond());
+        return string(rawValue, photographerOffsets.getFirst(),
+                      photographerOffsets.getSecond());
     }
 
     /**
@@ -72,44 +75,51 @@ public final class ExifCopyright {
      *
      */
     public static String editorCopyright(byte[] rawValue) {
-
         Pair<Integer, Integer> editorOffsets = editorOffsets(rawValue);
 
-        return string(rawValue, editorOffsets.getFirst(), editorOffsets.getSecond());
+        return string(rawValue, editorOffsets.getFirst(),
+                      editorOffsets.getSecond());
     }
 
     private static String string(byte[] ba, int first, int last) {
+        if ((first < 0) || (first > ba.length) || (last < first)
+                || (last > ba.length)) {
+            return "";
+        }
 
-        if (first < 0 || first > ba.length || last < first || last > ba.length) return "";
-
-        return new String(Arrays.copyOfRange(ba, first, last), Charset.forName("US-ASCII"));
+        return new String(Arrays.copyOfRange(ba, first, last),
+                          Charset.forName("US-ASCII"));
     }
 
     private static Pair<Integer, Integer> photographerOffsets(byte[] rawValue) {
-
-        if (rawValue.length < 2) return new Pair<Integer, Integer>(-1, -1);
+        if (rawValue.length < 2) {
+            return new Pair<Integer, Integer>(-1, -1);
+        }
 
         boolean end = false;
         int     i   = 0;
-        while (!end && i < rawValue.length) {
+
+        while (!end && (i < rawValue.length)) {
             end = rawValue[i++] == 0x0;
         }
+
         return new Pair<Integer, Integer>(0, i - 1);
     }
 
     private static Pair<Integer, Integer> editorOffsets(byte[] rawValue) {
-
-        if (rawValue.length < 3) return new Pair<Integer, Integer>(-1, -1);
-
-        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
-
-        if (photographerOffsets.getFirst() == -1 ||
-            photographerOffsets.getSecond() == rawValue.length) {
-
+        if (rawValue.length < 3) {
             return new Pair<Integer, Integer>(-1, -1);
         }
 
-        return new Pair<Integer, Integer>(
-                photographerOffsets.getSecond() + 1, rawValue.length - 1);
+        Pair<Integer, Integer> photographerOffsets =
+            photographerOffsets(rawValue);
+
+        if ((photographerOffsets.getFirst() == -1)
+                || (photographerOffsets.getSecond() == rawValue.length)) {
+            return new Pair<Integer, Integer>(-1, -1);
+        }
+
+        return new Pair<Integer, Integer>(photographerOffsets.getSecond() + 1,
+                        rawValue.length - 1);
     }
 }

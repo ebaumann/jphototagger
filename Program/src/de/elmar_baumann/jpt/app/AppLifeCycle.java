@@ -17,18 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.app;
 
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.factory.MetaFactory;
 import de.elmar_baumann.jpt.helper.Cleanup;
 import de.elmar_baumann.jpt.tasks.UserTasks;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,12 +42,14 @@ import java.util.Set;
  * @version 2009-07-30
  */
 public final class AppLifeCycle {
-
-    public static final AppLifeCycle                     INSTANCE        = new AppLifeCycle();
-    private final       Set<Object>                      saveObjects     = new HashSet<Object>();
-    private final       ListenerSupport<AppExitListener> listenerSupport = new ListenerSupport<AppExitListener>();
-    private             AppFrame                         appFrame;
-    private             boolean                          started;
+    public static final AppLifeCycle               INSTANCE        =
+        new AppLifeCycle();
+    private final Set<Object>                      saveObjects     =
+        new HashSet<Object>();
+    private final ListenerSupport<AppExitListener> listenerSupport =
+        new ListenerSupport<AppExitListener>();
+    private AppFrame appFrame;
+    private boolean  started;
 
     /**
      * Has be to call <em>once</em> after the {@link AppFrame} has been created.
@@ -54,12 +59,20 @@ public final class AppLifeCycle {
     public void started(AppFrame appFrame) {
         synchronized (this) {
             assert !started;
-            if (started) return;
+
+            if (started) {
+                return;
+            }
+
             started = true;
         }
+
         this.appFrame = appFrame;
+
         Thread thread = new Thread(MetaFactory.INSTANCE);
-        thread.setName("Initializing meta factory @ " + getClass().getSimpleName());
+
+        thread.setName("Initializing meta factory @ "
+                       + getClass().getSimpleName());
         thread.start();
         listenForQuit();
     }
@@ -75,7 +88,7 @@ public final class AppLifeCycle {
      * @param saveObject object that saves data.
      */
     public void addSaveObject(Object saveObject) {
-        synchronized(saveObjects) {
+        synchronized (saveObjects) {
             saveObjects.add(saveObject);
         }
     }
@@ -86,7 +99,7 @@ public final class AppLifeCycle {
      * @param saveObject save object to remove
      */
     public void removeSaveObject(Object saveObject) {
-        synchronized(saveObjects) {
+        synchronized (saveObjects) {
             saveObjects.remove(saveObject);
         }
     }
@@ -119,21 +132,18 @@ public final class AppLifeCycle {
     }
 
     private void listenForQuit() {
-
         appFrame.addWindowListener(new WindowAdapter() {
-
             @Override
             public void windowClosed(WindowEvent evt) {
                 quit();
             }
-
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 quit();
             }
         });
-        appFrame.getMenuItemExit().addActionListener(new java.awt.event.ActionListener() {
-
+        appFrame.getMenuItemExit().addActionListener(
+            new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quit();
@@ -159,43 +169,54 @@ public final class AppLifeCycle {
 
     private boolean ensureUserTasksFinished() {
         boolean finished = UserTasks.INSTANCE.getCount() <= 0;
-        if (finished) return true;
-        return MessageDisplayer.confirmYesNo(appFrame, "AppLifeCycle.Confirm.QuitOnUserTasks");
+
+        if (finished) {
+            return true;
+        }
+
+        return MessageDisplayer.confirmYesNo(appFrame,
+                "AppLifeCycle.Confirm.QuitOnUserTasks");
     }
 
     private void checkDataToSave() {
-        long    elapsedMilliseconds       = 0;
-        long    timeoutMilliSeconds       = 120 * 1000;
-        long    checkIntervalMilliSeconds =   2 * 1000;
+        long elapsedMilliseconds       = 0;
+        long timeoutMilliSeconds       = 120 * 1000;
+        long checkIntervalMilliSeconds = 2 * 1000;
 
         if (hasSaveObjects()) {
-            AppLogger.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
-            while (hasSaveObjects() && elapsedMilliseconds < timeoutMilliSeconds) {
+            AppLogger.logInfo(getClass(),
+                              "AppLifeCycle.Info.SaveObjectsExisting",
+                              saveObjects);
+
+            while (hasSaveObjects()
+                    && (elapsedMilliseconds < timeoutMilliSeconds)) {
                 try {
                     elapsedMilliseconds += checkIntervalMilliSeconds;
                     Thread.sleep(checkIntervalMilliSeconds);
                 } catch (Exception ex) {
                     AppLogger.logSevere(getClass(), ex);
                 }
+
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    MessageDisplayer.error(null, "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded", timeoutMilliSeconds / 1000);
+                    MessageDisplayer.error(
+                        null,
+                        "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
+                        timeoutMilliSeconds / 1000);
                 }
             }
         }
     }
-    
+
     private boolean hasSaveObjects() {
         synchronized (saveObjects) {
             return saveObjects.size() > 0;
         }
     }
 
-
     private void writeProperties() {
         UserSettings.INSTANCE.getSettings().setSizeAndLocation(appFrame);
         UserSettings.INSTANCE.writeToFile();
     }
 
-    private AppLifeCycle() {
-    }
+    private AppLifeCycle() {}
 }

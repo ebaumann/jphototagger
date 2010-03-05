@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.image.metadata.exif.datatype;
 
 import java.nio.ByteBuffer;
@@ -29,9 +30,7 @@ import java.nio.ByteOrder;
  * @version 2009-03-31
  */
 public final class ExifDatatypeUtil {
-
     public static double toDouble(ExifRational rational) {
-
         double numerator   = rational.numerator();
         double denominator = rational.denominator();
 
@@ -46,16 +45,19 @@ public final class ExifDatatypeUtil {
 
     public static int intFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
+
         return buf.getInt();
     }
 
-    public static short shortFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
+    public static short shortFromRawValue(byte[] rawValue,
+            ByteOrder byteOrder) {
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
+
         return buf.getShort();
     }
 
-    private static ByteBuffer getByeBuffer(byte[] rawValue, ByteOrder byteOrder) {
-
+    private static ByteBuffer getByeBuffer(byte[] rawValue,
+            ByteOrder byteOrder) {
         ByteBuffer buf = ByteBuffer.wrap(rawValue);
 
         buf.order(byteOrder);
@@ -63,6 +65,5 @@ public final class ExifDatatypeUtil {
         return buf;
     }
 
-    private ExifDatatypeUtil() {
-    }
+    private ExifDatatypeUtil() {}
 }

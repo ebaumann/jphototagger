@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.controller.filesystem;
 
 /**
@@ -35,8 +36,9 @@ public final class FilenameFormatFilenamePostfix extends FilenameFormat {
     @Override
     public String format() {
         String filename = getFile().getName();
-        int index = filename.lastIndexOf(".");
-        return index >= 0
+        int    index    = filename.lastIndexOf(".");
+
+        return (index >= 0)
                ? filename.substring(index)
                : "";
     }

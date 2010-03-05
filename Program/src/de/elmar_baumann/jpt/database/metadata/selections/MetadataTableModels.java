@@ -17,11 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.model.TableModelExif;
 import de.elmar_baumann.jpt.model.TableModelIptc;
 import de.elmar_baumann.jpt.model.TableModelXmp;
+
 import java.util.Set;
 
 /**
@@ -31,7 +33,6 @@ import java.util.Set;
  * @version 2008-09-25
  */
 public final class MetadataTableModels {
-
     private TableModelIptc     iptcTableModel;
     private TableModelExif     exifTableModel;
     private TableModelXmp      xmpTableModelDc;
@@ -124,7 +125,8 @@ public final class MetadataTableModels {
     /**
      * @param xmpTableModelLightroom the xmpTableModelLightroom to set
      */
-    public void setXmpTableModelLightroom(TableModelXmp xmpTableModelLightroom) {
+    public void setXmpTableModelLightroom(
+            TableModelXmp xmpTableModelLightroom) {
         this.xmpTableModelLightroom = xmpTableModelLightroom;
     }
 
@@ -138,7 +140,8 @@ public final class MetadataTableModels {
     /**
      * @param xmpTableModelPhotoshop the xmpTableModelPhotoshop to set
      */
-    public void setXmpTableModelPhotoshop(TableModelXmp xmpTableModelPhotoshop) {
+    public void setXmpTableModelPhotoshop(
+            TableModelXmp xmpTableModelPhotoshop) {
         this.xmpTableModelPhotoshop = xmpTableModelPhotoshop;
     }
 

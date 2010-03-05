@@ -17,12 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.datatransfer;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+
 import java.util.List;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -43,10 +47,12 @@ public final class Support {
      */
     public static Object[] getKeywords(Transferable transferable) {
         try {
-            return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
+            return (Object[]) transferable.getTransferData(
+                Flavor.KEYWORDS_LIST);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
+
         return null;
     }
 
@@ -59,12 +65,15 @@ public final class Support {
      * @return              keyword node or null on errors
      */
     @SuppressWarnings("unchecked")
-    public static List<DefaultMutableTreeNode> getKeywordNodes(Transferable transferable) {
+    public static List<DefaultMutableTreeNode> getKeywordNodes(
+            Transferable transferable) {
         try {
-            return (List<DefaultMutableTreeNode>) transferable.getTransferData(Flavor.KEYWORDS_TREE);
+            return (List<DefaultMutableTreeNode>) transferable.getTransferData(
+                Flavor.KEYWORDS_TREE);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
+
         return null;
     }
 
@@ -78,14 +87,14 @@ public final class Support {
      */
     public static String getString(Transferable transferable) {
         try {
-            return (String) transferable.getTransferData(DataFlavor.stringFlavor);
+            return (String) transferable.getTransferData(
+                DataFlavor.stringFlavor);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
+
         return null;
     }
 
-    private Support() {
-    }
-
+    private Support() {}
 }

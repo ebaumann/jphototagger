@@ -17,22 +17,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.lib.component;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
@@ -48,15 +51,18 @@ import javax.swing.JPanel;
  * @version 2010-03-03
  */
 public final class SelectObjectsPanel extends JPanel implements ActionListener {
-
-    private static final long                   serialVersionUID  = -273547657004917436L;
-    private static final String                 DELIM_SEL_INDICES = ",";
-    private final        List<JCheckBox>        checkBoxes        = new ArrayList<JCheckBox>();
-    private final        Map<JCheckBox, Object> objectOfCheckBox  = new LinkedHashMap<JCheckBox, Object>();
-    private final        Set<SelectionListener> listeners         = new HashSet<SelectionListener>();
-    private              String                 keySelIndices;
-    private              Properties             properties;
-    private              int                    componentCount;
+    private static final long            serialVersionUID  =
+        -273547657004917436L;
+    private static final String          DELIM_SEL_INDICES = ",";
+    private final List<JCheckBox>        checkBoxes        =
+        new ArrayList<JCheckBox>();
+    private final Map<JCheckBox, Object> objectOfCheckBox  =
+        new LinkedHashMap<JCheckBox, Object>();
+    private final Set<SelectionListener> listeners =
+        new HashSet<SelectionListener>();
+    private String     keySelIndices;
+    private Properties properties;
+    private int        componentCount;
 
     public SelectObjectsPanel() {
         init();
@@ -68,7 +74,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * Usage only, if the count and order of objects is always the same. The
      * order is defined through the order of
      * {@link #add(java.lang.Object, java.lang.String)} calls.
-     * 
+     *
      * @param properties    properties
      * @param keySelIndices key in <code>properties</code> for setting and
      *                      getting the selected indices
@@ -83,9 +89,8 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private void init() {
         setLayout(new GridBagLayout());
     }
-    
+
     public static class SelectionEvent {
-        
         private final Object selectedObject;
         private final int    selectionCount;
 
@@ -103,13 +108,14 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         }
     }
 
+
     /**
      * A selection listener will be notified, if the user did select an object.
      */
     public interface SelectionListener {
-
         public void objectSelected(SelectionEvent evt);
     }
+
 
     public void addSelectionListener(SelectionListener listener) {
         synchronized (listeners) {
@@ -126,7 +132,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private void notifyListeners(Object selObject) {
         SelectionEvent evt = new SelectionEvent(selObject, getSelectionCount());
 
-        synchronized(listeners) {
+        synchronized (listeners) {
             for (SelectionListener listener : listeners) {
                 listener.objectSelected(evt);
             }
@@ -147,7 +153,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     /**
      * Returns the "real" object count (i.e. <em>not</em> the object count set
      * via {@link #setObjectCount(int)}).
-     * 
+     *
      * @return object count
      */
     public int getObjectCount() {
@@ -189,8 +195,13 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     public void add(Object object, String displayName) {
-        if (object      == null) throw new NullPointerException("object == null");
-        if (displayName == null) throw new NullPointerException("displayName == null");
+        if (object == null) {
+            throw new NullPointerException("object == null");
+        }
+
+        if (displayName == null) {
+            throw new NullPointerException("displayName == null");
+        }
 
         addCheckBox(object, displayName);
     }
@@ -213,6 +224,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     private void addCheckBox(Object object, String displayName) {
         JCheckBox checkBox = new JCheckBox(displayName);
+
         checkBox.addActionListener(this);
         checkBoxes.add(checkBox);
         objectOfCheckBox.put(checkBox, object);
@@ -221,19 +233,23 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     private GridBagConstraints getGbcCheckBox() {
         GridBagConstraints gbc = new GridBagConstraints();
+
         gbc.gridx   = GridBagConstraints.REMAINDER;
         gbc.gridy   = GridBagConstraints.RELATIVE;
         gbc.anchor  = GridBagConstraints.NORTHWEST;
         gbc.fill    = GridBagConstraints.NONE;
         gbc.weightx = 1;
-        if (componentCount > 0 && checkBoxes.size() == componentCount) {
+
+        if ((componentCount > 0) && (checkBoxes.size() == componentCount)) {
             gbc.weighty = 1;
         }
+
         return gbc;
     }
 
     public List<Object> getSelectedObjects() {
-        List<Object> selObjects = new ArrayList<Object>(objectOfCheckBox.size());
+        List<Object> selObjects =
+            new ArrayList<Object>(objectOfCheckBox.size());
 
         for (JCheckBox checkBox : objectOfCheckBox.keySet()) {
             if (checkBox.isSelected()) {
@@ -249,23 +265,31 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * {@link SelectObjectsPanel#SelectObjectsPanel(java.util.Properties)}
      */
     public void applyPropertiesSelectedIndices() {
-        if (properties == null || !properties.containsKey(keySelIndices)) return;
-        
-        StringTokenizer st      = new StringTokenizer(properties.getProperty(keySelIndices), DELIM_SEL_INDICES);
-        int[]           indices = new int[st.countTokens()];
+        if ((properties == null) ||!properties.containsKey(keySelIndices)) {
+            return;
+        }
 
-        int i = 0;
+        StringTokenizer st =
+            new StringTokenizer(properties.getProperty(keySelIndices),
+                                DELIM_SEL_INDICES);
+        int[] indices = new int[st.countTokens()];
+        int   i       = 0;
+
         while (st.hasMoreElements()) {
             try {
                 indices[i++] = Integer.parseInt(st.nextToken());
             } catch (NumberFormatException ex) {
-                Logger.getLogger(SelectObjectsPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SelectObjectsPanel.class.getName()).log(
+                    Level.SEVERE, null, ex);
+
                 return;
             }
         }
+
         int size = checkBoxes.size();
+
         for (int index : indices) {
-            if (index >= 0 && index < size) {
+            if ((index >= 0) && (index < size)) {
                 checkBoxes.get(index).setSelected(true);
             }
         }
@@ -280,29 +304,37 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         for (JCheckBox checkBox : checkBoxes) {
             checkBox.setSelected(selected);
         }
+
         writeSelectedIndicesToProperties();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
+
         if (source instanceof JCheckBox) {
             writeSelectedIndicesToProperties();
-            notifyListeners(objectOfCheckBox.get((JCheckBox)source));
+            notifyListeners(objectOfCheckBox.get((JCheckBox) source));
         }
     }
 
     private void writeSelectedIndicesToProperties() {
-        if (properties == null) return;
-        int size = checkBoxes.size();
-        StringBuilder sb = new StringBuilder();
+        if (properties == null) {
+            return;
+        }
+
+        int           size = checkBoxes.size();
+        StringBuilder sb   = new StringBuilder();
 
         for (int i = 0; i < size; i++) {
             if (checkBoxes.get(i).isSelected()) {
-                sb.append(i == 0 ? "" : DELIM_SEL_INDICES);
+                sb.append((i == 0)
+                          ? ""
+                          : DELIM_SEL_INDICES);
                 sb.append(Integer.toString(i));
             }
         }
+
         properties.setProperty(keySelIndices, sb.toString());
     }
 }

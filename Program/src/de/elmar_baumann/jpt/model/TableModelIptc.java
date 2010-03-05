@@ -17,17 +17,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntryComparator;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntry;
+import de.elmar_baumann.jpt.image.metadata.iptc.IptcEntryComparator;
 import de.elmar_baumann.jpt.image.metadata.iptc.IptcMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.UserSettings;
+
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,10 +42,9 @@ import javax.swing.table.DefaultTableModel;
  * @version 2008-10-05
  */
 public final class TableModelIptc extends DefaultTableModel {
-
-    private static final long            serialVersionUID = -3988241922301609843L;
-    private              File            file;
-    private              List<IptcEntry> iptcEntries      = new ArrayList<IptcEntry>();
+    private static final long serialVersionUID = -3988241922301609843L;
+    private File              file;
+    private List<IptcEntry>   iptcEntries = new ArrayList<IptcEntry>();
 
     public TableModelIptc() {
         addColumnHeaders();
@@ -54,7 +57,10 @@ public final class TableModelIptc extends DefaultTableModel {
      * @param file  Datei
      */
     public void setFile(File file) {
-        if (!UserSettings.INSTANCE.isDisplayIptc()) return;
+        if (!UserSettings.INSTANCE.isDisplayIptc()) {
+            return;
+        }
+
         this.file = file;
         removeAllElements();
         iptcEntries = IptcMetadata.getIptcEntries(file);
@@ -84,18 +90,22 @@ public final class TableModelIptc extends DefaultTableModel {
 
     private void addRows() {
         Collections.sort(iptcEntries, IptcEntryComparator.INSTANCE);
+
         for (IptcEntry entry : iptcEntries) {
             super.addRow(getTableRow(entry));
         }
     }
 
     private Object[] getTableRow(IptcEntry entry) {
-        return new Object[]{entry, entry, entry};
+        return new Object[] { entry, entry, entry };
     }
 
     private void addColumnHeaders() {
-        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.1"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.2"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.3"));
+        addColumn(
+            JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.1"));
+        addColumn(
+            JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.2"));
+        addColumn(
+            JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.3"));
     }
 }

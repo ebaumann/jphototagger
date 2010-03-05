@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
@@ -41,14 +42,14 @@ public final class SearchHelper {
      * @param search saved search
      */
     public static void setSort(SavedSearch search) {
-        if (search.isCustomSql() ) {
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileSortComparator(FileSort.NO_SORT.getComparator());
+        if (search.isCustomSql()) {
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+                .setFileSortComparator(FileSort.NO_SORT.getComparator());
             GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
         } else {
             ControllerSortThumbnails.setLastSort();
         }
     }
 
-    private SearchHelper() {
-    }
+    private SearchHelper() {}
 }

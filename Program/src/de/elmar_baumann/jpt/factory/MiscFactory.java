@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppCommandLineOptions;
@@ -24,13 +25,14 @@ import de.elmar_baumann.jpt.app.AppInit;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.controller.search.ControllerFastSearch;
 import de.elmar_baumann.jpt.helper.ImportImageFiles;
-import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.GUI;
+import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.io.FileUtil;
+
 import java.io.File;
 
 /**
@@ -39,38 +41,48 @@ import java.io.File;
  * @version 2008-10-16
  */
 public final class MiscFactory {
-
-    static final     MiscFactory INSTANCE = new MiscFactory();
-    private volatile boolean     init     = false;
+    static final MiscFactory INSTANCE = new MiscFactory();
+    private volatile boolean init     = false;
 
     void init() {
         synchronized (this) {
-            if (!Support.checkInit(getClass(), init)) return;
+            if (!Support.checkInit(getClass(), init)) {
+                return;
+            }
+
             init = true;
         }
+
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
         AppLogger.logFine(getClass(), "MiscFactory.Init.Start");
-        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("MiscFactory.Init.Start"), MessageLabel.MessageType.INFO, -1);
-
+        appPanel.setStatusbarText(
+            JptBundle.INSTANCE.getString("MiscFactory.Init.Start"),
+            MessageLabel.MessageType.INFO, -1);
         appPanel.getEditMetadataPanels().setAutocomplete();
         PopupMenuThumbnails.INSTANCE.setOtherPrograms();
         ScheduledTasks.INSTANCE.run();
         checkImportImageFiles();
-        ControllerFactory.INSTANCE.getController(ControllerFastSearch.class).setAutocomplete(true);
-
+        ControllerFactory.INSTANCE.getController(
+            ControllerFastSearch.class).setAutocomplete(true);
         AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
-        appPanel.setStatusbarText(JptBundle.INSTANCE.getString("MiscFactory.Init.Finished"), MessageLabel.MessageType.INFO, 1000);
+        appPanel.setStatusbarText(
+            JptBundle.INSTANCE.getString("MiscFactory.Init.Finished"),
+            MessageLabel.MessageType.INFO, 1000);
     }
 
     private void checkImportImageFiles() {
-        AppCommandLineOptions cmdLineOptions = AppInit.INSTANCE.getCommandLineOptions();
+        AppCommandLineOptions cmdLineOptions =
+            AppInit.INSTANCE.getCommandLineOptions();
+
         if (cmdLineOptions.isImportImageFiles()) {
             String dirName = cmdLineOptions.getFileImportDir();
             File   dir     = null;
-            if (dirName != null && FileUtil.existsDirectory(dirName)) {
+
+            if ((dirName != null) && FileUtil.existsDirectory(dirName)) {
                 dir = new File(dirName);
             }
+
             ImportImageFiles.importFrom(dir);
         }
     }

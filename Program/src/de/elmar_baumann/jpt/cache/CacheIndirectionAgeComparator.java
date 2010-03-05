@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.cache;
 
 import java.io.File;
 import java.io.Serializable;
+
 import java.lang.ref.SoftReference;
+
 import java.util.Comparator;
 import java.util.Map.Entry;
 
@@ -40,10 +43,11 @@ public class CacheIndirectionAgeComparator<C extends CacheIndirection>
     @Override
     public int compare(Entry<File, SoftReference<C>> o1,
                        Entry<File, SoftReference<C>> o2) {
-        C c;
+        C   c;
         int t1, t2;
 
         c = o1.getValue().get();
+
         if (c == null) {
             t1 = 0;
         } else {
@@ -51,12 +55,17 @@ public class CacheIndirectionAgeComparator<C extends CacheIndirection>
         }
 
         c = o2.getValue().get();
+
         if (c == null) {
             t2 = 0;
         } else {
             t2 = c.usageTime;
         }
 
-        return (t1 < t2 ? -1 : (t1 == t2 ? 0 : 1));
+        return ((t1 < t2)
+                ? -1
+                : ((t1 == t2)
+                   ? 0
+                   : 1));
     }
 }

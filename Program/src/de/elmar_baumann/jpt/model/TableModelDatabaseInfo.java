@@ -17,19 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.selections.DatabaseInfoRecordCountColumns;
+import de.elmar_baumann.jpt.database.metadata.selections
+    .DatabaseInfoRecordCountColumns;
 import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.JptBundle;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,14 +47,19 @@ import javax.swing.table.DefaultTableModel;
  * @author  Elmar Baumann, Tobias Stening
  * @version 2008-10-05
  */
-public final class TableModelDatabaseInfo extends DefaultTableModel implements DatabaseImageFilesListener {
-
-    private static final    List<DatabaseImageFilesEvent.Type>  COUNT_EVENTS            = new ArrayList<DatabaseImageFilesEvent.Type>();
-    private static final    long                                serialVersionUID        = 1974343527501774916L;
-    private final transient DatabaseStatistics                  db                      = DatabaseStatistics.INSTANCE;
-    private final           LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn = new LinkedHashMap<Column, StringBuffer>();
-    private final           LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn     = new LinkedHashMap<Column, StringBuffer>();
-    private                 boolean                             listenToDatabase;
+public final class TableModelDatabaseInfo extends DefaultTableModel
+        implements DatabaseImageFilesListener {
+    private static final List<DatabaseImageFilesEvent.Type> COUNT_EVENTS =
+        new ArrayList<DatabaseImageFilesEvent.Type>();
+    private static final long                         serialVersionUID        =
+        1974343527501774916L;
+    private final transient DatabaseStatistics        db                      =
+        DatabaseStatistics.INSTANCE;
+    private final LinkedHashMap<Column, StringBuffer> bufferDifferentOfColumn =
+        new LinkedHashMap<Column, StringBuffer>();
+    private final LinkedHashMap<Column, StringBuffer> bufferTotalOfColumn =
+        new LinkedHashMap<Column, StringBuffer>();
+    private boolean listenToDatabase;
 
     static {
         COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED);
@@ -60,6 +69,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
 
     private void initBufferOfColumn() {
         List<Column> columns = DatabaseInfoRecordCountColumns.get();
+
         for (Column column : columns) {
             bufferDifferentOfColumn.put(column, new StringBuffer());
             bufferTotalOfColumn.put(column, new StringBuffer());
@@ -98,23 +108,29 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
     }
 
     private void addColumnHeaders() {
-        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.1"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.2"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.3"));
+        addColumn(
+            JptBundle.INSTANCE.getString(
+                "TableModelDatabaseInfo.HeaderColumn.1"));
+        addColumn(
+            JptBundle.INSTANCE.getString(
+                "TableModelDatabaseInfo.HeaderColumn.2"));
+        addColumn(
+            JptBundle.INSTANCE.getString(
+                "TableModelDatabaseInfo.HeaderColumn.3"));
     }
 
     private void addRows() {
         Set<Column> columns = bufferDifferentOfColumn.keySet();
+
         for (Column column : columns) {
-            addRow(getRow(column,
-                          bufferDifferentOfColumn.get(column),
+            addRow(getRow(column, bufferDifferentOfColumn.get(column),
                           bufferTotalOfColumn.get(column)));
         }
     }
 
-    private Object[] getRow(Column rowHeader, StringBuffer bufferDifferent, StringBuffer bufferTotal) {
-
-        return new Object[]{rowHeader, bufferDifferent, bufferTotal};
+    private Object[] getRow(Column rowHeader, StringBuffer bufferDifferent,
+                            StringBuffer bufferTotal) {
+        return new Object[] { rowHeader, bufferDifferent, bufferTotal };
     }
 
     private void setCount() {
@@ -122,23 +138,28 @@ public final class TableModelDatabaseInfo extends DefaultTableModel implements D
     }
 
     private class SetCountThread extends Thread {
-
         public SetCountThread() {
             super();
-            setName("Setting count in database info @ " + getClass().getSimpleName());
+            setName("Setting count in database info @ "
+                    + getClass().getSimpleName());
             setPriority(MIN_PRIORITY);
         }
 
         @Override
         public void run() {
             Set<Column> columns = bufferDifferentOfColumn.keySet();
+
             for (Column column : columns) {
-                setCountToBuffer(bufferDifferentOfColumn.get(column), db.getDistinctCountOf(column));
-                setCountToBuffer(bufferTotalOfColumn.get(column)    , db.getTotalRecordCountIn(column));
+                setCountToBuffer(bufferDifferentOfColumn.get(column),
+                                 db.getDistinctCountOf(column));
+                setCountToBuffer(bufferTotalOfColumn.get(column),
+                                 db.getTotalRecordCountIn(column));
             }
+
             fireTableDataChanged();
         }
     }
+
 
     private void setCountToBuffer(StringBuffer buffer, Integer count) {
         buffer.replace(0, buffer.length(), count.toString());

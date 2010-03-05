@@ -17,10 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+
 import java.sql.Connection;
 import java.sql.Statement;
 
@@ -31,20 +33,22 @@ import java.sql.Statement;
  * @version 2008-10-21
  */
 public final class DatabaseMaintainance extends Database {
-
-    public static final DatabaseMaintainance INSTANCE = new DatabaseMaintainance();
+    public static final DatabaseMaintainance INSTANCE =
+        new DatabaseMaintainance();
 
     /**
      * Shuts down the database.
      */
     public void shutdown() {
         Connection connection = null;
-        Statement stmt = null;
+        Statement  stmt       = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
             stmt = connection.createStatement();
-            AppLogger.logInfo(DatabaseMaintainance.class, "DatabaseMaintainance.Info.Shutdown");
+            AppLogger.logInfo(DatabaseMaintainance.class,
+                              "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
         } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
@@ -60,9 +64,10 @@ public final class DatabaseMaintainance extends Database {
      * @return true, wenn die Datenbank erfolgreich komprimiert wurde
      */
     public boolean compressDatabase() {
-        boolean success = false;
+        boolean    success    = false;
         Connection connection = null;
-        Statement stmt = null;
+        Statement  stmt       = null;
+
         try {
             connection = getConnection();
             connection.setAutoCommit(true);
@@ -75,9 +80,9 @@ public final class DatabaseMaintainance extends Database {
             close(stmt);
             free(connection);
         }
+
         return success;
     }
 
-    private DatabaseMaintainance() {
-    }
+    private DatabaseMaintainance() {}
 }

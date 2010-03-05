@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
+
 package de.elmar_baumann.jpt.event.listener.impl;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -28,8 +29,8 @@ import de.elmar_baumann.jpt.event.listener.TextEntryListener;
  * @author  Elmar Baumann
  * @version 2009/07/20
  */
-public final class TextEntryListenerSupport extends ListenerSupport<TextEntryListener> {
-
+public final class TextEntryListenerSupport
+        extends ListenerSupport<TextEntryListener> {
     public void notifyTextRemoved(Column column, String removedText) {
         synchronized (listeners) {
             for (TextEntryListener listener : listeners) {
@@ -46,7 +47,8 @@ public final class TextEntryListenerSupport extends ListenerSupport<TextEntryLis
         }
     }
 
-    public void notifyTextChanged(Column column, String oldText, String newText) {
+    public void notifyTextChanged(Column column, String oldText,
+                                  String newText) {
         synchronized (listeners) {
             for (TextEntryListener listener : listeners) {
                 listener.textChanged(column, oldText, newText);
