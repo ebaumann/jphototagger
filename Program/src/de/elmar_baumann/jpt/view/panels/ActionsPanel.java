@@ -189,17 +189,20 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane    = new javax.swing.JScrollPane();
-        list          = new javax.swing.JList();
-        progressBar   = new javax.swing.JProgressBar();
-        panelButtons  = new javax.swing.JPanel();
-        buttonDelete  = new javax.swing.JButton();
-        buttonEdit    = new javax.swing.JButton();
-        buttonNew     = new javax.swing.JButton();
+        scrollPane = new javax.swing.JScrollPane();
+        list = new javax.swing.JList();
+        progressBar = new javax.swing.JProgressBar();
+        panelButtons = new javax.swing.JPanel();
+        buttonDelete = new javax.swing.JButton();
+        buttonEdit = new javax.swing.JButton();
+        buttonNew = new javax.swing.JButton();
         buttonExecute = new javax.swing.JButton();
+
         setFocusable(false);
         setLayout(new java.awt.GridBagLayout());
+
         scrollPane.setFocusable(false);
+
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new ListCellRendererActions());
@@ -208,62 +211,60 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 listMouseClicked(evt);
             }
         });
+        list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listValueChanged(evt);
+            }
+        });
         scrollPane.setViewportView(list);
-        gridBagConstraints         = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx   = 0;
-        gridBagConstraints.gridy   = 0;
-        gridBagConstraints.fill    = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor  = java.awt.GridBagConstraints.NORTH;
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets  = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         add(scrollPane, gridBagConstraints);
-        progressBar.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "ActionsPanel.progressBar.toolTipText"));    // NOI18N
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 0;
-        gridBagConstraints.gridy  = 1;
-        gridBagConstraints.fill   = java.awt.GridBagConstraints.HORIZONTAL;
+
+        progressBar.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         add(progressBar, gridBagConstraints);
-        buttonDelete.setText(
-            JptBundle.INSTANCE.getString("ActionsPanel.buttonDelete.text"));    // NOI18N
-        buttonDelete.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "ActionsPanel.buttonDelete.toolTipText"));    // NOI18N
+
+        buttonDelete.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }
         });
-        buttonEdit.setText(
-            JptBundle.INSTANCE.getString("ActionsPanel.buttonEdit.text"));    // NOI18N
-        buttonEdit.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "ActionsPanel.buttonEdit.toolTipText"));    // NOI18N
+
+        buttonEdit.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonEdit.text")); // NOI18N
+        buttonEdit.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
         buttonEdit.setEnabled(false);
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditActionPerformed(evt);
             }
         });
-        buttonNew.setText(
-            JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.text"));    // NOI18N
-        buttonNew.setToolTipText(
-            JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.toolTipText"));    // NOI18N
+
+        buttonNew.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.text")); // NOI18N
+        buttonNew.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.toolTipText")); // NOI18N
         buttonNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNewActionPerformed(evt);
             }
         });
-        buttonExecute.setText(
-            JptBundle.INSTANCE.getString("ActionsPanel.buttonExecute.text"));    // NOI18N
-        buttonExecute.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "ActionsPanel.buttonExecute.toolTipText"));    // NOI18N
+
+        buttonExecute.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonExecute.text")); // NOI18N
+        buttonExecute.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
         buttonExecute.setEnabled(false);
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,68 +272,70 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout panelButtonsLayout =
-            new javax.swing.GroupLayout(panelButtons);
-
+        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
         panelButtons.setLayout(panelButtonsLayout);
-        panelButtonsLayout
-            .setHorizontalGroup(panelButtonsLayout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment
-                    .TRAILING, panelButtonsLayout.createSequentialGroup()
-                    .addComponent(buttonDelete)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement
-                        .RELATED).addComponent(buttonEdit)
-                            .addPreferredGap(javax.swing.LayoutStyle
-                                .ComponentPlacement.RELATED)
-                                    .addComponent(buttonNew)
-                                    .addPreferredGap(javax.swing.LayoutStyle
-                                        .ComponentPlacement.RELATED)
-                                            .addComponent(buttonExecute)));
+        panelButtonsLayout.setHorizontalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
+                .addComponent(buttonDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonNew)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonExecute))
+        );
         panelButtonsLayout.setVerticalGroup(
-            panelButtonsLayout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                panelButtonsLayout.createParallelGroup(
-                    javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                    buttonExecute).addComponent(buttonNew).addComponent(
-                    buttonEdit).addComponent(buttonDelete)));
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 0;
-        gridBagConstraints.gridy  = 2;
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(buttonExecute)
+                .addComponent(buttonNew)
+                .addComponent(buttonEdit)
+                .addComponent(buttonDelete))
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 3, 5);
         add(panelButtons, gridBagConstraints);
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void listMouseClicked(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_listMouseClicked
+    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
+        if (!evt.getValueIsAdjusting()) {
+            setButtonsEnabled();
+        }
+    }//GEN-LAST:event_listValueChanged
+
+    private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
         handleListMouseClicked(evt);
-    }    // GEN-LAST:event_listMouseClicked
+    }//GEN-LAST:event_listMouseClicked
 
-    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonDeleteActionPerformed
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         handleButtonDeleteActionPerformed();
-    }    // GEN-LAST:event_buttonDeleteActionPerformed
+    }//GEN-LAST:event_buttonDeleteActionPerformed
 
-    private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonEditActionPerformed
+    private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
         handleButtonEditActionPerformed();
-    }    // GEN-LAST:event_buttonEditActionPerformed
+    }//GEN-LAST:event_buttonEditActionPerformed
 
-    private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonNewActionPerformed
+    private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
         handleButtonNewActionPerformed();
-    }    // GEN-LAST:event_buttonNewActionPerformed
+    }//GEN-LAST:event_buttonNewActionPerformed
 
-    private void buttonExecuteActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonExecuteActionPerformed
+    private void buttonExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExecuteActionPerformed
         execute();
-    }    // GEN-LAST:event_buttonExecuteActionPerformed
+    }//GEN-LAST:event_buttonExecuteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton      buttonDelete;
-    private javax.swing.JButton      buttonEdit;
-    private javax.swing.JButton      buttonExecute;
-    private javax.swing.JButton      buttonNew;
-    private javax.swing.JList        list;
-    private javax.swing.JPanel       panelButtons;
+    private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonEdit;
+    private javax.swing.JButton buttonExecute;
+    private javax.swing.JButton buttonNew;
+    private javax.swing.JList list;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JScrollPane  scrollPane;
-
+    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }
