@@ -115,6 +115,7 @@ public final class StartPrograms {
                 processAll();
             }
 
+            setValueToProgressBar(0);
             updateDatabase();
             nextExecutor();
         }
