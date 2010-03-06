@@ -20,7 +20,6 @@
 
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -97,7 +96,7 @@ public final class ActionsHelper {
         private final transient Program action;
 
         public ActionStarter(Program action) {
-            super(action.getAlias(), AppLookAndFeel.getIcon("icon_action.png"));
+            super(action.getAlias());
             this.action = action;
         }
 
