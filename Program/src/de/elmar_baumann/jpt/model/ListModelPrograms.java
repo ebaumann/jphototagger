@@ -46,6 +46,7 @@ public final class ListModelPrograms extends DefaultListModel
         implements DatabaseProgramsListener {
     private static final long serialVersionUID = 1107244876982338977L;
     private Type              type;
+    private boolean           listenToDb = true;
 
     public ListModelPrograms(Type type) {
         this.type = type;
@@ -54,24 +55,34 @@ public final class ListModelPrograms extends DefaultListModel
     }
 
     public void add(Program program) {
+        listenToDb = false;
+
         if (!contains(program) && DatabasePrograms.INSTANCE.insert(program)) {
             addElement(program);
         } else {
             MessageDisplayer.error(null, "ListModelPrograms.Error.Add",
                                    program.getAlias());
         }
+
+        listenToDb = true;
     }
 
     public void delete(Program program) {
+        listenToDb = false;
+
         if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
             removeElement(program);
         } else {
             MessageDisplayer.error(null, "ListModelPrograms.Error.Remove",
                                    program.getAlias());
         }
+
+        listenToDb = true;
     }
 
     public void update(Program program) {
+        listenToDb = false;
+
         if (contains(program) && DatabasePrograms.INSTANCE.update(program)) {
             int index = indexOf(program);
 
@@ -80,6 +91,8 @@ public final class ListModelPrograms extends DefaultListModel
             MessageDisplayer.error(null, "ListModelPrograms.Error.Update",
                                    program.getAlias());
         }
+
+        listenToDb = true;
     }
 
     private void addElements() {
@@ -92,10 +105,14 @@ public final class ListModelPrograms extends DefaultListModel
 
     @Override
     public void actionPerformed(DatabaseProgramsEvent event) {
+        if (!listenToDb) {
+            return;
+        }
+
         Program program = event.getProgram();
 
         if ((program.isAction() && type.equals(Type.PROGRAM))
-                ||(!program.isAction() && type.equals(Type.ACTION))) {
+                || (!program.isAction() && type.equals(Type.ACTION))) {
             return;
         }
 
