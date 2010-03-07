@@ -425,7 +425,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuFile.add(menuItemScanDirectory);
 
         menuItemMaintainDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_file.png"))); // NOI18N
+        menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_database.png"))); // NOI18N
         menuItemMaintainDatabase.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
         menuFile.add(menuItemMaintainDatabase);
         menuFile.add(sep1);
@@ -606,7 +606,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuGoto.add(menuItemGotoFastSearch);
 
         menuItemGotoEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_workspace.png"))); // NOI18N
+        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_edit.png"))); // NOI18N
         menuItemGotoEdit.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
         menuGoto.add(menuItemGotoEdit);
         menuGoto.add(sep16);
@@ -707,6 +707,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuWindow.add(sep19);
 
         menuItemOutputWindow.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemOutputWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_view_logfile.png"))); // NOI18N
         menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
         menuWindow.add(menuItemOutputWindow);
         menuWindow.add(sep20);
@@ -743,7 +744,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuHelp.add(menuItemSendFeatureMail);
         menuHelp.add(sep22);
 
-        menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_small.png"))); // NOI18N
+        menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_about.png"))); // NOI18N
         menuItemAbout.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemAbout.text")); // NOI18N
         menuHelp.add(menuItemAbout);
 
