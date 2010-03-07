@@ -23,23 +23,21 @@ package de.elmar_baumann.jpt.controller.misc;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.Main;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
-import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel.Tab;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
-import de.elmar_baumann.lib.runtime.External;
+import java.awt.Desktop;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.net.URL;
 
@@ -135,47 +133,16 @@ public final class ControllerHelp
     }
 
     private void openPdfUserManual() {
-        if (!checkPdfViewer()) {
-            return;
-        }
-
         File manual = getPdfUserManualPath();
 
         if (manual == null) {
             return;
         }
-
-        String                 command = logAndGetPdfManualOpenCommand(manual);
-        External.ProcessResult result  = External.execute(command, false);
-
-        assert result == null;
-    }
-
-    private String logAndGetPdfManualOpenCommand(File manual) {
-        String command =
-            IoUtil.quoteForCommandLine(UserSettings.INSTANCE.getPdfViewer(),
-                                       manual);
-
-        AppLogger.logInfo(getClass(), "ControllerHelp.Info.PdfOpenCommand",
-                          command);
-
-        return command;
-    }
-
-    private boolean checkPdfViewer() {
-        File viewer = new File(UserSettings.INSTANCE.getPdfViewer());
-
-        if (!viewer.exists()) {
-            if (MessageDisplayer.confirmYesNo(
-                    null, "ControllerHelp.Error.NoPdfViewer")) {
-                SettingsDialog.INSTANCE.selectTab(Tab.EXTERNAL_APPLICATIONS);
-                ComponentUtil.show(SettingsDialog.INSTANCE);
-            }
-
-            return false;
+        try {
+            Desktop.getDesktop().open(manual);
+        } catch (IOException ex) {
+            AppLogger.logSevere(ControllerHelp.class, ex);
         }
-
-        return true;
     }
 
     /**
