@@ -1496,106 +1496,106 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonRenameActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRenameActionPerformed
+    private void buttonRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameActionPerformed
         renameViaInput();
-    }    // GEN-LAST:event_buttonRenameActionPerformed
+    }//GEN-LAST:event_buttonRenameActionPerformed
 
-    private void buttonNextFileActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonNextFileActionPerformed
+    private void buttonNextFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextFileActionPerformed
         setNextFileViaInput();
-    }    // GEN-LAST:event_buttonNextFileActionPerformed
+    }//GEN-LAST:event_buttonNextFileActionPerformed
 
-    private void textFieldDelim2KeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldDelim2KeyReleased
+    private void textFieldDelim2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDelim2KeyReleased
         handleTextFieldDelim2KeyReleased();
-    }    // GEN-LAST:event_textFieldDelim2KeyReleased
+    }//GEN-LAST:event_textFieldDelim2KeyReleased
 
-    private void textFieldInTheMiddleKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldInTheMiddleKeyReleased
+    private void textFieldInTheMiddleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInTheMiddleKeyReleased
         handleTextFieldInTheMiddleKeyReleased();
-    }    // GEN-LAST:event_textFieldInTheMiddleKeyReleased
+    }//GEN-LAST:event_textFieldInTheMiddleKeyReleased
 
-    private void textFieldDelim1KeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldDelim1KeyReleased
+    private void textFieldDelim1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldDelim1KeyReleased
         handleTextFieldDelim1KeyReleased();
-    }    // GEN-LAST:event_textFieldDelim1KeyReleased
+    }//GEN-LAST:event_textFieldDelim1KeyReleased
 
-    private void textFieldAtBeginKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldAtBeginKeyReleased
+    private void textFieldAtBeginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAtBeginKeyReleased
         handleTextFieldAtBeginKeyReleased();
-    }    // GEN-LAST:event_textFieldAtBeginKeyReleased
+    }//GEN-LAST:event_textFieldAtBeginKeyReleased
 
     private void spinnerNumberCountStateChanged(
-            javax.swing.event.ChangeEvent evt) {    // GEN-FIRST:event_spinnerNumberCountStateChanged
+            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberCountStateChanged
         handleSpinnerNumberCountStateChanged();
-    }    // GEN-LAST:event_spinnerNumberCountStateChanged
+    }//GEN-LAST:event_spinnerNumberCountStateChanged
 
     private void spinnerNumberStepWidthStateChanged(
-            javax.swing.event.ChangeEvent evt) {    // GEN-FIRST:event_spinnerNumberStepWidthStateChanged
+            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberStepWidthStateChanged
         handleSpinnerNumberStepWidthStateChanged();
-    }    // GEN-LAST:event_spinnerNumberStepWidthStateChanged
+    }//GEN-LAST:event_spinnerNumberStepWidthStateChanged
 
     private void spinnerStartNumberStateChanged(
-            javax.swing.event.ChangeEvent evt) {    // GEN-FIRST:event_spinnerStartNumberStateChanged
+            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerStartNumberStateChanged
         handleSpinnerStartNumberStateChanged();
-    }    // GEN-LAST:event_spinnerStartNumberStateChanged
+    }//GEN-LAST:event_spinnerStartNumberStateChanged
 
     private void buttonRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRenameTemplateActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameTemplateActionPerformed
         renameViaTemplate();
-    }    // GEN-LAST:event_buttonRenameTemplateActionPerformed
+    }//GEN-LAST:event_buttonRenameTemplateActionPerformed
 
     private void comboBoxAtBeginActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxAtBeginActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAtBeginActionPerformed
         handleComboBoxAtBeginActionPerformed();
-    }    // GEN-LAST:event_comboBoxAtBeginActionPerformed
+    }//GEN-LAST:event_comboBoxAtBeginActionPerformed
 
     private void comboBoxInTheMiddleActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxInTheMiddleActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxInTheMiddleActionPerformed
         handleComboBoxInTheMiddleActionPerformed();
-    }    // GEN-LAST:event_comboBoxInTheMiddleActionPerformed
+    }//GEN-LAST:event_comboBoxInTheMiddleActionPerformed
 
-    private void comboBoxAtEndActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxAtEndActionPerformed
+    private void comboBoxAtEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAtEndActionPerformed
         handleComboBoxAtEndActionPerformed();
-    }    // GEN-LAST:event_comboBoxAtEndActionPerformed
+    }//GEN-LAST:event_comboBoxAtEndActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         handleWindowClosing();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
     private void panelInputNameComponentShown(
-            java.awt.event.ComponentEvent evt) {    // GEN-FIRST:event_panelInputNameComponentShown
+            java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelInputNameComponentShown
         handlePanelInputNameComponentShown();
-    }    // GEN-LAST:event_panelInputNameComponentShown
+    }//GEN-LAST:event_panelInputNameComponentShown
 
     private void buttonSaveRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSaveRenameTemplateActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveRenameTemplateActionPerformed
         saveAsRenameTemplate();
-    }    // GEN-LAST:event_buttonSaveRenameTemplateActionPerformed
+    }//GEN-LAST:event_buttonSaveRenameTemplateActionPerformed
 
     private void buttonRenameRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRenameRenameTemplateActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameRenameTemplateActionPerformed
         renameRenameTemplate();
-    }    // GEN-LAST:event_buttonRenameRenameTemplateActionPerformed
+    }//GEN-LAST:event_buttonRenameRenameTemplateActionPerformed
 
     private void buttonDeleteRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonDeleteRenameTemplateActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteRenameTemplateActionPerformed
         deleteRenameTemplate();
-    }    // GEN-LAST:event_buttonDeleteRenameTemplateActionPerformed
+    }//GEN-LAST:event_buttonDeleteRenameTemplateActionPerformed
 
     private void comboBoxRenameTemplatesActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxRenameTemplatesActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRenameTemplatesActionPerformed
         handleComboBoxRenameTemplatesActionPerformed();
-    }    // GEN-LAST:event_comboBoxRenameTemplatesActionPerformed
+    }//GEN-LAST:event_comboBoxRenameTemplatesActionPerformed
 
     private void buttonUpdateRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonUpdateRenameTemplateActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateRenameTemplateActionPerformed
         updateRenameTemplate();
-    }    // GEN-LAST:event_buttonUpdateRenameTemplateActionPerformed
+    }//GEN-LAST:event_buttonUpdateRenameTemplateActionPerformed
 
     private void comboBoxDateDelimiterActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxDateDelimiterActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDateDelimiterActionPerformed
         handleComboBoxDateDelimiterActionPerformed();
-    }    // GEN-LAST:event_comboBoxDateDelimiterActionPerformed
+    }//GEN-LAST:event_comboBoxDateDelimiterActionPerformed
 
-    private void textFieldAtEndKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldAtEndKeyReleased
+    private void textFieldAtEndKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAtEndKeyReleased
         handleTextFieldAtEndKeyReleased();
-    }    // GEN-LAST:event_textFieldAtEndKeyReleased
+    }//GEN-LAST:event_textFieldAtEndKeyReleased
 
     /**
      * @param args the command line arguments

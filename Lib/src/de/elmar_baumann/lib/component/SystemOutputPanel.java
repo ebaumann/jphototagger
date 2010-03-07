@@ -188,13 +188,13 @@ public class SystemOutputPanel extends JPanel {
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonCopyToClipboardActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCopyToClipboardActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyToClipboardActionPerformed
         copyToClipboard();
-    }    // GEN-LAST:event_buttonCopyToClipboardActionPerformed
+    }//GEN-LAST:event_buttonCopyToClipboardActionPerformed
 
-    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonDeleteActionPerformed
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         deleteText();
-    }    // GEN-LAST:event_buttonDeleteActionPerformed
+    }//GEN-LAST:event_buttonDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton     buttonCopyToClipboard;

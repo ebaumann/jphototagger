@@ -546,80 +546,80 @@ public class SynonymsPanel extends javax.swing.JPanel
                 textFieldSynonyms });
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonAddWordActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddWordActionPerformed
+    private void buttonAddWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddWordActionPerformed
         addWord();
-    }    // GEN-LAST:event_buttonAddWordActionPerformed
+    }//GEN-LAST:event_buttonAddWordActionPerformed
 
     private void buttonRemoveWordActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRemoveWordActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveWordActionPerformed
         removeWord();
-    }    // GEN-LAST:event_buttonRemoveWordActionPerformed
+    }//GEN-LAST:event_buttonRemoveWordActionPerformed
 
     private void buttonChangeWordActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChangeWordActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeWordActionPerformed
         changeWord();
-    }    // GEN-LAST:event_buttonChangeWordActionPerformed
+    }//GEN-LAST:event_buttonChangeWordActionPerformed
 
     private void buttonAddSynonymActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddSynonymActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSynonymActionPerformed
         addSynonym();
-    }    // GEN-LAST:event_buttonAddSynonymActionPerformed
+    }//GEN-LAST:event_buttonAddSynonymActionPerformed
 
     private void buttonRemoveSynonymActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRemoveSynonymActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSynonymActionPerformed
         removeSynonym();
-    }    // GEN-LAST:event_buttonRemoveSynonymActionPerformed
+    }//GEN-LAST:event_buttonRemoveSynonymActionPerformed
 
     private void buttonChangeSynonymActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChangeSynonymActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeSynonymActionPerformed
         changeSynonym();
-    }    // GEN-LAST:event_buttonChangeSynonymActionPerformed
+    }//GEN-LAST:event_buttonChangeSynonymActionPerformed
 
-    private void textAreaWordsKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textAreaWordsKeyPressed
+    private void textAreaWordsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaWordsKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             addWord();
         }
-    }    // GEN-LAST:event_textAreaWordsKeyPressed
+    }//GEN-LAST:event_textAreaWordsKeyPressed
 
-    private void textFieldSynonymsKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldSynonymsKeyPressed
+    private void textFieldSynonymsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSynonymsKeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER)
                 && (listWords.getSelectedValue() != null)) {
             addSynonym();
         }
-    }    // GEN-LAST:event_textFieldSynonymsKeyPressed
+    }//GEN-LAST:event_textFieldSynonymsKeyPressed
 
-    private void listSynonymsKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_listSynonymsKeyPressed
+    private void listSynonymsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listSynonymsKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             removeSynonym();
         } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
             changeSynonym();
         }
-    }    // GEN-LAST:event_listSynonymsKeyPressed
+    }//GEN-LAST:event_listSynonymsKeyPressed
 
-    private void listWordsMouseClicked(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_listWordsMouseClicked
+    private void listWordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listWordsMouseClicked
         if (MouseEventUtil.isDoubleClick(evt)) {
             changeWord();
         }
-    }    // GEN-LAST:event_listWordsMouseClicked
+    }//GEN-LAST:event_listWordsMouseClicked
 
-    private void listSynonymsMouseClicked(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_listSynonymsMouseClicked
+    private void listSynonymsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSynonymsMouseClicked
         if (MouseEventUtil.isDoubleClick(evt)) {
             changeSynonym();
         }
-    }    // GEN-LAST:event_listSynonymsMouseClicked
+    }//GEN-LAST:event_listSynonymsMouseClicked
 
-    private void listWordsKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_listWordsKeyPressed
+    private void listWordsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listWordsKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             removeWord();
         } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
             changeWord();
         }
-    }    // GEN-LAST:event_listWordsKeyPressed
+    }//GEN-LAST:event_listWordsKeyPressed
 
     private void buttonAddAllKeywordsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddAllKeywordsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAllKeywordsActionPerformed
         addAllKeywords();
-    }    // GEN-LAST:event_buttonAddAllKeywordsActionPerformed
+    }//GEN-LAST:event_buttonAddAllKeywordsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton     buttonAddAllKeywords;

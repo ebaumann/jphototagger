@@ -271,17 +271,17 @@ public class KeywordsPanel extends javax.swing.JPanel {
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonToggleExpandAllNodesActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
         handleButtonToggleExpandAllNodesActionPerformed();
-    }    // GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
+    }//GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
 
-    private void buttonAsListActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAsListActionPerformed
+    private void buttonAsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsListActionPerformed
         displayCard("List");
-    }    // GEN-LAST:event_buttonAsListActionPerformed
+    }//GEN-LAST:event_buttonAsListActionPerformed
 
-    private void buttonAsTreeActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAsTreeActionPerformed
+    private void buttonAsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsTreeActionPerformed
         displayCard("Tree");
-    }    // GEN-LAST:event_buttonAsTreeActionPerformed
+    }//GEN-LAST:event_buttonAsTreeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton       buttonAsList;

@@ -740,40 +740,40 @@ public final class ProgramPropertiesDialog extends Dialog {
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonChooseFileActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseFileActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
         chooseProgram();
-    }    // GEN-LAST:event_buttonChooseFileActionPerformed
+    }//GEN-LAST:event_buttonChooseFileActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cancel();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCancelActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         cancel();
-    }    // GEN-LAST:event_buttonCancelActionPerformed
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonOkActionPerformed
+    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         accept();
-    }    // GEN-LAST:event_buttonOkActionPerformed
+    }//GEN-LAST:event_buttonOkActionPerformed
 
     private void checkBoxInputBeforeExecuteActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxInputBeforeExecuteActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxInputBeforeExecuteActionPerformed
         handleCheckBoxInputBeforeExecuteActionPerformed();
-    }    // GEN-LAST:event_checkBoxInputBeforeExecuteActionPerformed
+    }//GEN-LAST:event_checkBoxInputBeforeExecuteActionPerformed
 
-    private void textFieldAliasKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldAliasKeyPressed
+    private void textFieldAliasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAliasKeyPressed
         handleTextFieldAliasKeyPressed(evt);
-    }    // GEN-LAST:event_textFieldAliasKeyPressed
+    }//GEN-LAST:event_textFieldAliasKeyPressed
 
     private void checkBoxUsePatternActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxUsePatternActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxUsePatternActionPerformed
         handleCheckBoxUsePatternActionPerformed();
-    }    // GEN-LAST:event_checkBoxUsePatternActionPerformed
+    }//GEN-LAST:event_checkBoxUsePatternActionPerformed
 
     private void buttonInfoUsePatternActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonInfoUsePatternActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInfoUsePatternActionPerformed
         showPatternHelp();
-    }    // GEN-LAST:event_buttonInfoUsePatternActionPerformed
+    }//GEN-LAST:event_buttonInfoUsePatternActionPerformed
 
     /**
      * @param args the command line arguments

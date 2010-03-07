@@ -505,45 +505,45 @@ public final class DirectoryChooser extends Dialog
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonChooseActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseActionPerformed
+    private void buttonChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseActionPerformed
         ok();
-    }    // GEN-LAST:event_buttonChooseActionPerformed
+    }//GEN-LAST:event_buttonChooseActionPerformed
 
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCancelActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         cancel();
-    }    // GEN-LAST:event_buttonCancelActionPerformed
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cancel();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
-    private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRefreshActionPerformed
+    private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRefreshActionPerformed
         refresh();
-    }    // GEN-LAST:event_buttonRefreshActionPerformed
+    }//GEN-LAST:event_buttonRefreshActionPerformed
 
-    private void menuItemAddActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_menuItemAddActionPerformed
+    private void menuItemAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddActionPerformed
         addDirectory();
-    }    // GEN-LAST:event_menuItemAddActionPerformed
+    }//GEN-LAST:event_menuItemAddActionPerformed
 
-    private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_menuItemRenameActionPerformed
+    private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRenameActionPerformed
         renameDirectory();
-    }    // GEN-LAST:event_menuItemRenameActionPerformed
+    }//GEN-LAST:event_menuItemRenameActionPerformed
 
-    private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_menuItemDeleteActionPerformed
+    private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDeleteActionPerformed
         deleteDirectory();
-    }    // GEN-LAST:event_menuItemDeleteActionPerformed
+    }//GEN-LAST:event_menuItemDeleteActionPerformed
 
-    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddActionPerformed
+    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         addDirectory();
-    }    // GEN-LAST:event_buttonAddActionPerformed
+    }//GEN-LAST:event_buttonAddActionPerformed
 
-    private void buttonRenameActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRenameActionPerformed
+    private void buttonRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameActionPerformed
         renameDirectory();
-    }    // GEN-LAST:event_buttonRenameActionPerformed
+    }//GEN-LAST:event_buttonRenameActionPerformed
 
-    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonDeleteActionPerformed
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         deleteDirectory();
-    }    // GEN-LAST:event_buttonDeleteActionPerformed
+    }//GEN-LAST:event_buttonDeleteActionPerformed
 
     /**
      * @param args the command line arguments

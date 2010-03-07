@@ -502,22 +502,22 @@ public final class MoveToDirectoryDialog extends Dialog
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStartActionPerformed
+    private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
         start();
-    }    // GEN-LAST:event_buttonStartActionPerformed
+    }//GEN-LAST:event_buttonStartActionPerformed
 
-    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStopActionPerformed
+    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
         stop();
-    }    // GEN-LAST:event_buttonStopActionPerformed
+    }//GEN-LAST:event_buttonStopActionPerformed
 
     private void buttonChooseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseDirectoryActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseTargetDirectory();
-    }    // GEN-LAST:event_buttonChooseDirectoryActionPerformed
+    }//GEN-LAST:event_buttonChooseDirectoryActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         checkClosing();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

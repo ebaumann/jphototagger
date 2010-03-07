@@ -353,33 +353,33 @@ public final class FavoritePropertiesDialog extends Dialog {
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonChooseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseDirectoryActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseDirectory();
-    }    // GEN-LAST:event_buttonChooseDirectoryActionPerformed
+    }//GEN-LAST:event_buttonChooseDirectoryActionPerformed
 
-    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonOkActionPerformed
+    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         exitIfOk();
-    }    // GEN-LAST:event_buttonOkActionPerformed
+    }//GEN-LAST:event_buttonOkActionPerformed
 
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCancelActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         escape();
-    }    // GEN-LAST:event_buttonCancelActionPerformed
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void textFieldFavoriteNameKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldFavoriteNameKeyPressed
+    private void textFieldFavoriteNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFavoriteNameKeyPressed
         handleKeyPressed(evt);
-    }    // GEN-LAST:event_textFieldFavoriteNameKeyPressed
+    }//GEN-LAST:event_textFieldFavoriteNameKeyPressed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         escape();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
-    private void textFieldFavoriteNameKeyTyped(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldFavoriteNameKeyTyped
+    private void textFieldFavoriteNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFavoriteNameKeyTyped
         setOkEnabled();
-    }    // GEN-LAST:event_textFieldFavoriteNameKeyTyped
+    }//GEN-LAST:event_textFieldFavoriteNameKeyTyped
 
-    private void textFieldFavoriteNameKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldFavoriteNameKeyReleased
+    private void textFieldFavoriteNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFavoriteNameKeyReleased
         setOkEnabled();
-    }    // GEN-LAST:event_textFieldFavoriteNameKeyReleased
+    }//GEN-LAST:event_textFieldFavoriteNameKeyReleased
 
     /**
      * @param args the command line arguments

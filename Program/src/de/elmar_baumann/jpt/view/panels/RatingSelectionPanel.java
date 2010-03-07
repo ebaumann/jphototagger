@@ -480,29 +480,29 @@ public class RatingSelectionPanel extends JPanel
         add(buttonStar5, gridBagConstraints);
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonNoRatingMousePressed(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_buttonNoRatingMousePressed
+    private void buttonNoRatingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonNoRatingMousePressed
         handleButtonPressed((JButton) evt.getSource());
-    }    // GEN-LAST:event_buttonNoRatingMousePressed
+    }//GEN-LAST:event_buttonNoRatingMousePressed
 
-    private void buttonStar1MousePressed(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_buttonStar1MousePressed
+    private void buttonStar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar1MousePressed
         handleButtonPressed((JButton) evt.getSource());
-    }    // GEN-LAST:event_buttonStar1MousePressed
+    }//GEN-LAST:event_buttonStar1MousePressed
 
-    private void buttonStar2MousePressed(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_buttonStar2MousePressed
+    private void buttonStar2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar2MousePressed
         handleButtonPressed((JButton) evt.getSource());
-    }    // GEN-LAST:event_buttonStar2MousePressed
+    }//GEN-LAST:event_buttonStar2MousePressed
 
-    private void buttonStar3MousePressed(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_buttonStar3MousePressed
+    private void buttonStar3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar3MousePressed
         handleButtonPressed((JButton) evt.getSource());
-    }    // GEN-LAST:event_buttonStar3MousePressed
+    }//GEN-LAST:event_buttonStar3MousePressed
 
-    private void buttonStar4MousePressed(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_buttonStar4MousePressed
+    private void buttonStar4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar4MousePressed
         handleButtonPressed((JButton) evt.getSource());
-    }    // GEN-LAST:event_buttonStar4MousePressed
+    }//GEN-LAST:event_buttonStar4MousePressed
 
-    private void buttonStar5MousePressed(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_buttonStar5MousePressed
+    private void buttonStar5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar5MousePressed
         handleButtonPressed((JButton) evt.getSource());
-    }    // GEN-LAST:event_buttonStar5MousePressed
+    }//GEN-LAST:event_buttonStar5MousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNoRating;

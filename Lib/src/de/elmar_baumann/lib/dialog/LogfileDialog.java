@@ -875,21 +875,21 @@ public final class LogfileDialog extends javax.swing.JDialog
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldSearchKeyReleased
+    private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSearchKeyReleased
         filterTable();
-    }    // GEN-LAST:event_textFieldSearchKeyReleased
+    }//GEN-LAST:event_textFieldSearchKeyReleased
 
-    private void buttonReloadActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonReloadActionPerformed
+    private void buttonReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReloadActionPerformed
         reload();
-    }    // GEN-LAST:event_buttonReloadActionPerformed
+    }//GEN-LAST:event_buttonReloadActionPerformed
 
-    private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonExitActionPerformed
+    private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         setVisible(false);
-    }    // GEN-LAST:event_buttonExitActionPerformed
+    }//GEN-LAST:event_buttonExitActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

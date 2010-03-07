@@ -502,13 +502,13 @@ public final class HelpBrowser extends Dialog
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonNextActionPerformed
+    private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
         goNext();
-    }    // GEN-LAST:event_buttonNextActionPerformed
+    }//GEN-LAST:event_buttonNextActionPerformed
 
-    private void buttonPreviousActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonPreviousActionPerformed
+    private void buttonPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviousActionPerformed
         goPrevious();
-    }    // GEN-LAST:event_buttonPreviousActionPerformed
+    }//GEN-LAST:event_buttonPreviousActionPerformed
 
     /**
      * @param args the command line arguments

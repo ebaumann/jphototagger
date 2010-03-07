@@ -407,34 +407,34 @@ public class DatabaseUpdatePanel extends JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void toggleButtonRefreshExifActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonRefreshExifActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshExifActionPerformed
         updateExif();
-    }    // GEN-LAST:event_toggleButtonRefreshExifActionPerformed
+    }//GEN-LAST:event_toggleButtonRefreshExifActionPerformed
 
     private void buttonRenameFilesActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRenameFilesActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameFilesActionPerformed
         renameFilesInDb();
-    }    // GEN-LAST:event_buttonRenameFilesActionPerformed
+    }//GEN-LAST:event_buttonRenameFilesActionPerformed
 
     private void toggleButtonRefreshXmpActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonRefreshXmpActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshXmpActionPerformed
         updateXmp();
-    }    // GEN-LAST:event_toggleButtonRefreshXmpActionPerformed
+    }//GEN-LAST:event_toggleButtonRefreshXmpActionPerformed
 
     private void buttonUpdateThumbnailsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonUpdateThumbnailsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateThumbnailsActionPerformed
         updateThumbnails();
-    }    // GEN-LAST:event_buttonUpdateThumbnailsActionPerformed
+    }//GEN-LAST:event_buttonUpdateThumbnailsActionPerformed
 
     private void buttonCopyKeywordsToKeywordsTreeActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
         copyKeywordsToKeywordsTree();
-    }    // GEN-LAST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
+    }//GEN-LAST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
 
     private void toggleButtonExifDateToXmpDateCreatedActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
         exifDateToXmpDateCreated();
-    }    // GEN-LAST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
+    }//GEN-LAST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton       buttonCopyKeywordsToKeywordsTree;

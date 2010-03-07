@@ -182,24 +182,24 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(
-            javax.swing.event.ChangeEvent evt) {    // GEN-FIRST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
+            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
         setMaximumSecondsToTerminateExternalPrograms();
-    }    // GEN-LAST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
+    }//GEN-LAST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
 
     private void checkBoxScanForEmbeddedXmpActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxScanForEmbeddedXmpActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxScanForEmbeddedXmpActionPerformed
         setScanForEmbeddedXmp();
-    }    // GEN-LAST:event_checkBoxScanForEmbeddedXmpActionPerformed
+    }//GEN-LAST:event_checkBoxScanForEmbeddedXmpActionPerformed
 
     private void checkBoxSaveInputEarlyActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxSaveInputEarlyActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSaveInputEarlyActionPerformed
         setSaveEarly();
-    }    // GEN-LAST:event_checkBoxSaveInputEarlyActionPerformed
+    }//GEN-LAST:event_checkBoxSaveInputEarlyActionPerformed
 
     private void checkBoxDisplayIptcActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxDisplayIptcActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayIptcActionPerformed
         setDisplayIptc();
-    }    // GEN-LAST:event_checkBoxDisplayIptcActionPerformed
+    }//GEN-LAST:event_checkBoxDisplayIptcActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxDisplayIptc;

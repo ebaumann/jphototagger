@@ -403,24 +403,24 @@ public class ExportImportPanel extends javax.swing.JPanel
                 labelPromptDir });
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonSelDirActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSelDirActionPerformed
+    private void buttonSelDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelDirActionPerformed
         selectDirectory();
-    }    // GEN-LAST:event_buttonSelDirActionPerformed
+    }//GEN-LAST:event_buttonSelDirActionPerformed
 
     private void buttonExportImportActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonExportImportActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportImportActionPerformed
         exportImport();
-    }    // GEN-LAST:event_buttonExportImportActionPerformed
+    }//GEN-LAST:event_buttonExportImportActionPerformed
 
     private void buttonSelectAllActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSelectAllActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectAllActionPerformed
         setSelectedAll(true);
-    }    // GEN-LAST:event_buttonSelectAllActionPerformed
+    }//GEN-LAST:event_buttonSelectAllActionPerformed
 
     private void buttonSelectNoneActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSelectNoneActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNoneActionPerformed
         setSelectedAll(false);
-    }    // GEN-LAST:event_buttonSelectNoneActionPerformed
+    }//GEN-LAST:event_buttonSelectNoneActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton                               buttonExportImport;

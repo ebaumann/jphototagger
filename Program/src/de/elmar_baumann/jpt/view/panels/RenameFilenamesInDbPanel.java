@@ -272,17 +272,17 @@ public class RenameFilenamesInDbPanel extends JPanel
                 textFieldSearch });
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonReplaceActionPerformed
+    private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReplaceActionPerformed
         replace(this);
-    }    // GEN-LAST:event_buttonReplaceActionPerformed
+    }//GEN-LAST:event_buttonReplaceActionPerformed
 
-    private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldSearchKeyReleased
+    private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSearchKeyReleased
         setButtonReplaceEnabled();
-    }    // GEN-LAST:event_textFieldSearchKeyReleased
+    }//GEN-LAST:event_textFieldSearchKeyReleased
 
-    private void textFieldReplacementKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldReplacementKeyReleased
+    private void textFieldReplacementKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldReplacementKeyReleased
         setButtonReplaceEnabled();
-    }    // GEN-LAST:event_textFieldReplacementKeyReleased
+    }//GEN-LAST:event_textFieldReplacementKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup  buttonGroupPosition;

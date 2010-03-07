@@ -250,13 +250,13 @@ public final class ProgressDialog extends javax.swing.JDialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStopActionPerformed
+    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
         stop();
-    }    // GEN-LAST:event_buttonStopActionPerformed
+    }//GEN-LAST:event_buttonStopActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         stop();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

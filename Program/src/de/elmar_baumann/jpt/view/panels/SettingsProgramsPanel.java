@@ -299,33 +299,33 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonChooseDefaultProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseDefaultProgramActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDefaultProgramActionPerformed
         setDefaultProgram();
-    }    // GEN-LAST:event_buttonChooseDefaultProgramActionPerformed
+    }//GEN-LAST:event_buttonChooseDefaultProgramActionPerformed
 
     private void listProgramsValueChanged(
-            javax.swing.event.ListSelectionEvent evt) {    // GEN-FIRST:event_listProgramsValueChanged
+            javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listProgramsValueChanged
         setEnabled();
-    }    // GEN-LAST:event_listProgramsValueChanged
+    }//GEN-LAST:event_listProgramsValueChanged
 
     private void buttonRemoveProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRemoveProgramActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveProgramActionPerformed
         removeProgram();
-    }    // GEN-LAST:event_buttonRemoveProgramActionPerformed
+    }//GEN-LAST:event_buttonRemoveProgramActionPerformed
 
     private void buttonAddProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddProgramActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddProgramActionPerformed
         addProgram();
-    }    // GEN-LAST:event_buttonAddProgramActionPerformed
+    }//GEN-LAST:event_buttonAddProgramActionPerformed
 
     private void buttonEditProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonEditProgramActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditProgramActionPerformed
         updateProgram();
-    }    // GEN-LAST:event_buttonEditProgramActionPerformed
+    }//GEN-LAST:event_buttonEditProgramActionPerformed
 
-    private void listProgramsMouseClicked(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_listProgramsMouseClicked
+    private void listProgramsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProgramsMouseClicked
         handleListOtherProgramsMouseClicked(evt);
-    }    // GEN-LAST:event_listProgramsMouseClicked
+    }//GEN-LAST:event_listProgramsMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton     buttonAddProgram;

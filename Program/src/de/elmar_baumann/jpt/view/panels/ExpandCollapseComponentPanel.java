@@ -247,9 +247,9 @@ public class ExpandCollapseComponentPanel extends JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonExpandCollapseActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonExpandCollapseActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExpandCollapseActionPerformed
         toggleExpandCollapse();
-    }    // GEN-LAST:event_buttonExpandCollapseActionPerformed
+    }//GEN-LAST:event_buttonExpandCollapseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExpandCollapse;
