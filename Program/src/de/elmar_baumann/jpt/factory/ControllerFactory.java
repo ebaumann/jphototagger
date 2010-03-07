@@ -122,6 +122,7 @@ import de.elmar_baumann.jpt.controller.metadatatemplates
 import de.elmar_baumann.jpt.controller.metadatatemplates
     .ControllerMetadataTemplateSetToSelImages;
 import de.elmar_baumann.jpt.controller.misc.ControllerAboutApp;
+import de.elmar_baumann.jpt.controller.misc.ControllerBackupDatabase;
 import de.elmar_baumann.jpt.controller.misc.ControllerGoTo;
 import de.elmar_baumann.jpt.controller.misc.ControllerHelp;
 import de.elmar_baumann.jpt.controller.misc
@@ -309,6 +310,7 @@ public final class ControllerFactory {
         support.add(new ControllerShowSynonymsDialog());
         support.add(new ControllerEditKeywordSynonyms());
         support.add(new ControllerSendMail());
+        support.add(new ControllerBackupDatabase());
         addKeywordsTreeControllers();
         addSizeAndLocationController();
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");

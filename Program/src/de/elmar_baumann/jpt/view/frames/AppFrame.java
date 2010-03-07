@@ -312,6 +312,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemBrowseWebsite;
     }
 
+    public JMenuItem getMenuItemBackupDatabase() {
+        return menuItemBackupDatabase;
+    }
+
     @Override
     public void setTitle(String title) {
         if (title.equals(AppInfo.APP_NAME)) {
@@ -346,6 +350,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuImport = new javax.swing.JMenu();
         menuItemImportJptMisc = new javax.swing.JMenuItem();
         menuItemImportKeywords = new javax.swing.JMenuItem();
+        menuItemBackupDatabase = new javax.swing.JMenuItem();
         sep3 = new javax.swing.JPopupMenu.Separator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
@@ -480,6 +485,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuImport.add(menuItemImportKeywords);
 
         menuFile.add(menuImport);
+
+        menuItemBackupDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_save.png"))); // NOI18N
+        menuItemBackupDatabase.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBackupDatabase.text")); // NOI18N
+        menuFile.add(menuItemBackupDatabase);
         menuFile.add(sep3);
 
         menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -796,6 +805,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;
+    private javax.swing.JMenuItem menuItemBackupDatabase;
     private javax.swing.JMenuItem menuItemBrowseChangelog;
     private javax.swing.JMenuItem menuItemBrowseUserForum;
     private javax.swing.JMenuItem menuItemBrowseWebsite;
