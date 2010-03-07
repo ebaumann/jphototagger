@@ -21,7 +21,6 @@
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
 import de.elmar_baumann.jpt.image.metadata.exif.ExifTagDisplayComparator;
@@ -31,16 +30,13 @@ import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsMetadata;
 import de.elmar_baumann.jpt.image.metadata.exif.tag.ExifGpsUtil;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.resource.Translation;
-import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.view.dialogs.SettingsDialog;
-import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
-import de.elmar_baumann.lib.componentutil.ComponentUtil;
-import de.elmar_baumann.lib.runtime.External;
+import java.awt.Desktop;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
+import java.net.URI;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -206,50 +202,20 @@ public final class TableModelExif extends DefaultTableModel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String webBrowser = UserSettings.INSTANCE.getWebBrowser();
-
-            if (checkWebBrowser(webBrowser)) {
-                startWebBrowser(webBrowser);
-            }
+            browse();
         }
 
-        private boolean checkWebBrowser(String webBrowser) {
-            if (webBrowser.length() <= 0) {
-                MessageDisplayer.error(null, "TableModelExif.Error.WebBrowser");
-                setWebBrowser();
-
-                return false;
-            }
-
-            return true;
-        }
-
-        private void setWebBrowser() {
-            SettingsDialog settingsDialog = SettingsDialog.INSTANCE;
-
-            ComponentUtil.show(settingsDialog);
-            settingsDialog.selectTab(
-                SettingsMiscPanel.Tab.EXTERNAL_APPLICATIONS);
-        }
-
-        private void startWebBrowser(String webBrowser) {
+        private void browse() {
             if (exifGpsMetadata != null) {
                 String url =
                     ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(),
                                               exifGpsMetadata.latitude());
-                String cmd = "\"" + webBrowser + "\" \"" + url + "\"";
-
-                logExternalAppCommand(cmd);
-
-                External.ProcessResult result = External.execute(cmd, false);
-
-                assert result == null;
+                try {
+                    Desktop.getDesktop().browse(new URI(url));
+                } catch (Exception ex) {
+                    AppLogger.logSevere(TableModelExif.class, ex);
+                }
             }
-        }
-
-        private void logExternalAppCommand(String cmd) {
-            AppLogger.logFinest(GpsButtonListener.class,
-                                "TableModelExif.ExternalAppCommand", cmd);
         }
     }
 }
