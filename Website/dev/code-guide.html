@@ -82,6 +82,15 @@
            the class <code>de.elmar_baumann.jpt.app.MessageDisplayer</code>.
         </p>
 
+        <h2>Using persistent settings</h2>
+
+        <p>For reading and writing settings persistent, use
+            <code>de.elmar_baumann.lib.util.Settings</code> returned by
+            <code>UserSettings#getSettings()</code>. If you want flush changes
+            immediately, call <code>UserSettings#writeToFile()</code>, otherwise
+            all settings will be written before exiting the VM.
+        </p>
+
         <h2>Internationalization</h2>
 
         <p>All GUI strings and internationalized logging messages are in <em>one</em>
