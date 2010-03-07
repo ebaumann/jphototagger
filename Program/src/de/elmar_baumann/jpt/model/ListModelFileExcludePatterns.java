@@ -129,6 +129,9 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         if (evt.isPatternInserted()) {
             addElement(pattern);
             patterns.add(pattern);
-        } else if (evt.isPatternDeleted()) {}
+        } else if (evt.isPatternDeleted()) {
+            removeElement(pattern);
+            patterns.remove(pattern);
+        }
     }
 }
