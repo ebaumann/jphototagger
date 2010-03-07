@@ -854,6 +854,9 @@
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.panelExif.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
+                                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_exif.png"/>
+                                </Property>
                               </JTabbedPaneConstraints>
                             </Constraint>
                           </Constraints>
@@ -1187,7 +1190,7 @@
                                   <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppPanel.panelTabEditMetadata.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_workspace.png"/>
+                                  <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_edit.png"/>
                                 </Property>
                               </JTabbedPaneConstraints>
                             </Constraint>
@@ -1216,7 +1219,7 @@
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="363" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="345" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
