@@ -27,18 +27,20 @@ import de.elmar_baumann.jpt.Main;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.dialog.HelpBrowser;
 import de.elmar_baumann.lib.event.HelpBrowserEvent;
 import de.elmar_baumann.lib.event.listener.HelpBrowserListener;
-import java.awt.Desktop;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
 import java.io.IOException;
 
+import java.net.URI;
 import java.net.URL;
 
 import java.util.Locale;
@@ -55,17 +57,30 @@ public final class ControllerHelp
         implements ActionListener, HelpBrowserListener {
     private static final String HELP_CONTENTS_URL =
         JptBundle.INSTANCE.getString("Help.Url.Contents");
-    private final HelpBrowser   help            = HelpBrowser.INSTANCE;
     private static final String KEY_CURRENT_URL =
         ControllerHelp.class.getName() + ".CurrentURL";
-    private String currentUrl =
+    private static final String URI_USER_FORUM =
+        JptBundle.INSTANCE.getString("ControllerHelp.URI.UserForum");
+    private static final String URI_WEBSITE =
+        JptBundle.INSTANCE.getString("ControllerHelp.URI.Website");
+    private static final String URI_CHANGELOG =
+        JptBundle.INSTANCE.getString("ControllerHelp.URI.Changelog");
+    private final AppFrame    appFrame   = GUI.INSTANCE.getAppFrame();
+    private final HelpBrowser help       = HelpBrowser.INSTANCE;
+    private String            currentUrl =
         UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
     private final JMenuItem menuItemAcceleratorKeys =
-        GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
-    private final JMenuItem menuItemHelp =
-        GUI.INSTANCE.getAppFrame().getMenuItemHelp();
+        appFrame.getMenuItemAcceleratorKeys();
+    private final JMenuItem menuItemHelp              =
+        appFrame.getMenuItemHelp();
     private final JMenuItem menuItemOpenPdfUserManual =
-        GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
+        appFrame.getMenuItemOpenPdfUserManual();
+    private final JMenuItem menuItemBrowseWebsite =
+        appFrame.getMenuItemBrowseWebsite();
+    private final JMenuItem menuItemBrowseUserForum =
+        appFrame.getMenuItemBrowseUserForum();
+    private final JMenuItem menuItemBrowseChangelog =
+        appFrame.getMenuItemBrowseChangelog();
 
     public ControllerHelp() {
         listen();
@@ -75,6 +90,9 @@ public final class ControllerHelp
         help.addHelpBrowserListener(this);
         menuItemOpenPdfUserManual.addActionListener(this);
         menuItemAcceleratorKeys.addActionListener(this);
+        menuItemBrowseUserForum.addActionListener(this);
+        menuItemBrowseWebsite.addActionListener(this);
+        menuItemBrowseChangelog.addActionListener(this);
     }
 
     @Override
@@ -90,10 +108,16 @@ public final class ControllerHelp
 
         if (source.equals(menuItemHelp)) {
             showHelp();
-        } else if (source.equals(menuItemAcceleratorKeys)) {
+        } else if (source == menuItemAcceleratorKeys) {
             showAcceleratorKeyHelp();
-        } else if (source.equals(menuItemOpenPdfUserManual)) {
+        } else if (source == menuItemOpenPdfUserManual) {
             openPdfUserManual();
+        } else if (source == menuItemBrowseUserForum) {
+            browse(URI_USER_FORUM);
+        } else if (source == menuItemBrowseWebsite) {
+            browse(URI_WEBSITE);
+        } else if (source == menuItemBrowseChangelog) {
+            browse(URI_CHANGELOG);
         }
     }
 
@@ -132,12 +156,21 @@ public final class ControllerHelp
         ComponentUtil.show(help);
     }
 
+    private void browse(String uri) {
+        try {
+            Desktop.getDesktop().browse(new URI(uri));
+        } catch (Exception ex) {
+            AppLogger.logSevere(ControllerHelp.class, ex);
+        }
+    }
+
     private void openPdfUserManual() {
         File manual = getPdfUserManualPath();
 
         if (manual == null) {
             return;
         }
+
         try {
             Desktop.getDesktop().open(manual);
         } catch (IOException ex) {

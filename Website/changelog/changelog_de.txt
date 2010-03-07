@@ -8,6 +8,10 @@ Changelog JPhotoTagger
 0.7.90 2010-03-07
 -----------------
 
+* Hilfe: Neue Menüeinträge:
+  * Benutzerforum besuchen
+  * Website besuchen
+  * Versions-Historie
 * Bearbeiten > Einstellungen: Kartenreiter "Sonstiges" hat keine
   Unterkartenreiter mehr. Zum Anzeigen von PDF-Dateien und Browsen im Web
   werden die im System definierten Programme benutzt.
