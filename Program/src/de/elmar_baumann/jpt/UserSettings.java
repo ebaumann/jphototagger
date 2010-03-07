@@ -278,36 +278,6 @@ public final class UserSettings {
         return settings.getString(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
-    public void setWebBrowser(String webBrowser) {
-        settings.set(webBrowser, KEY_WEB_BROWSER);
-        writeToFile();
-        notifyListeners(Type.WEB_BROWSER);
-    }
-
-    /**
-     * Returns the path to the web browser.
-     *
-     * @return path (filename) or empty string if not defined
-     */
-    public String getWebBrowser() {
-        return settings.getString(KEY_WEB_BROWSER);
-    }
-
-    public void setPdfViewer(String pdfViewer) {
-        settings.set(pdfViewer, KEY_PDF_VIEWER);
-        writeToFile();
-        notifyListeners(Type.PDF_VIEWER);
-    }
-
-    /**
-     * Returns the path to the PDF viewer.
-     *
-     * @return path (filename) or empty string if not defined
-     */
-    public String getPdfViewer() {
-        return settings.getString(KEY_PDF_VIEWER);
-    }
-
     public void setLogLevel(Level logLevel) {
         settings.set(logLevel.toString(), KEY_LOG_LEVEL);
         writeToFile();

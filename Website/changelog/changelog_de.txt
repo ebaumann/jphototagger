@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.90 2010-03-07
+-----------------
+
+* Bearbeiten > Einstellungen: Kartenreiter "Sonstiges" hat keine
+  Unterkartenreiter mehr. Zum Anzeigen von PDF-Dateien und Browsen im Web
+  werden die im System definierten Programme benutzt.
+
 0.7.89 2010-03-06
 -----------------
 
