@@ -300,6 +300,18 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemSendFeatureMail;
     }
 
+    public JMenuItem getMenuItemBrowseUserForum() {
+        return menuItemBrowseUserForum;
+    }
+
+    public JMenuItem getMenuItemBrowseChangelog() {
+        return menuItemBrowseChangelog;
+    }
+
+    public JMenuItem getMenuItemBrowseWebsite() {
+        return menuItemBrowseWebsite;
+    }
+
     @Override
     public void setTitle(String title) {
         if (title.equals(AppInfo.APP_NAME)) {
@@ -409,9 +421,13 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
         menuItemAcceleratorKeys = new javax.swing.JMenuItem();
         sep21 = new javax.swing.JPopupMenu.Separator();
+        menuItemBrowseUserForum = new javax.swing.JMenuItem();
+        menuItemBrowseWebsite = new javax.swing.JMenuItem();
+        menuItemBrowseChangelog = new javax.swing.JMenuItem();
+        sep22 = new javax.swing.JPopupMenu.Separator();
         menuItemSendBugMail = new javax.swing.JMenuItem();
         menuItemSendFeatureMail = new javax.swing.JMenuItem();
-        sep22 = new javax.swing.JPopupMenu.Separator();
+        sep23 = new javax.swing.JPopupMenu.Separator();
         menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -735,6 +751,19 @@ public final class AppFrame extends javax.swing.JFrame {
         menuHelp.add(menuItemAcceleratorKeys);
         menuHelp.add(sep21);
 
+        menuItemBrowseUserForum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_web.png"))); // NOI18N
+        menuItemBrowseUserForum.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseUserForum.text")); // NOI18N
+        menuHelp.add(menuItemBrowseUserForum);
+
+        menuItemBrowseWebsite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_web.png"))); // NOI18N
+        menuItemBrowseWebsite.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseWebsite.text")); // NOI18N
+        menuHelp.add(menuItemBrowseWebsite);
+
+        menuItemBrowseChangelog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_web.png"))); // NOI18N
+        menuItemBrowseChangelog.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseChangelog.text")); // NOI18N
+        menuHelp.add(menuItemBrowseChangelog);
+        menuHelp.add(sep22);
+
         menuItemSendBugMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendBugMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendBugMail.text")); // NOI18N
         menuHelp.add(menuItemSendBugMail);
@@ -742,7 +771,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSendFeatureMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendFeatureMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendFeatureMail.text")); // NOI18N
         menuHelp.add(menuItemSendFeatureMail);
-        menuHelp.add(sep22);
+        menuHelp.add(sep23);
 
         menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_app_about.png"))); // NOI18N
         menuItemAbout.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemAbout.text")); // NOI18N
@@ -767,6 +796,9 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;
+    private javax.swing.JMenuItem menuItemBrowseChangelog;
+    private javax.swing.JMenuItem menuItemBrowseUserForum;
+    private javax.swing.JMenuItem menuItemBrowseWebsite;
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportJptMisc;
@@ -840,6 +872,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator sep20;
     private javax.swing.JPopupMenu.Separator sep21;
     private javax.swing.JPopupMenu.Separator sep22;
+    private javax.swing.JPopupMenu.Separator sep23;
     private javax.swing.JPopupMenu.Separator sep3;
     private javax.swing.JPopupMenu.Separator sep4;
     private javax.swing.JPopupMenu.Separator sep5;
