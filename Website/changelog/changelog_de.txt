@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.89 2010-03-06
+-----------------
+
+* Bugfix: Aktionsliste zeigte eine neue Aktion zwei mal an (nach Neustart von
+  JPhotoTagger erschien die Aktion korrekt nur ein mal in der Liste)
+
 0.7.88 2010-03-05
 -----------------
 
