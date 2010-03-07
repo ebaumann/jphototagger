@@ -26,15 +26,19 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.image.util.IconUtil;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JFileChooser;
 
 /**
@@ -45,11 +49,20 @@ import javax.swing.JFileChooser;
  * @version 2008-11-04
  */
 public final class ProgramPropertiesDialog extends Dialog {
-    private static final long serialVersionUID = 5953007101307866505L;
-    private transient Program program          = new Program();
-    private File              file;
-    private boolean           accecpted = false;
-    private boolean           action;
+    private static final long   serialVersionUID = 5953007101307866505L;
+    private transient Program   program          = new Program();
+    private static final String KEY_LAST_DIR     =
+        "ProgramPropertiesDialog.LastDirectory";
+    private File lastDir =
+        new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIR));
+    private File               file;
+    private boolean            accecpted = false;
+    private boolean            action;
+    private static final Color FG_COLOR_LABEL_FILE_EXISTS = Color.BLUE;
+    private static final Color BG_COLOR_LABEL_FILE_EXISTS =
+        ComponentUtil.getUiColor("Label.background");
+    private static final Color FG_COLOR_LABEL_FILE_NOT_EXISTS = Color.WHITE;
+    private static final Color BG_COLOR_LABEL_FILE_NOT_EXISTS = Color.RED;
 
     public ProgramPropertiesDialog(boolean action) {
         super(GUI.INSTANCE.getAppFrame(), true,
@@ -58,6 +71,56 @@ public final class ProgramPropertiesDialog extends Dialog {
         program.setAction(action);
         initComponents();
         postInitComponents();
+    }
+
+    private void postInitComponents() {
+        if (action) {
+            setActionTexts();
+        } else {
+            getContentPane().remove(checkBoxInputBeforeExecute);
+        }
+
+        MnemonicUtil.setMnemonics((Container) this);
+        listen();
+    }
+
+    private void listen() {
+        textFieldAlias.getDocument().addDocumentListener(
+            new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                setEnabledButtonOk();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                setEnabledButtonOk();
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                setEnabledButtonOk();
+            }
+        });
+    }
+
+    private void setEnabledButtonOk() {
+        buttonOk.setEnabled(inputsValid());
+    }
+
+    private void showFileExists(boolean exists) {
+        if (exists) {
+            labelErrorFileDoesNotExist.setText("<html> </html>");
+        } else {
+            labelErrorFileDoesNotExist.setText(
+                JptBundle.INSTANCE.getString(
+                    "ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
+        }
+
+        labelFile.setForeground(exists
+                                ? FG_COLOR_LABEL_FILE_EXISTS
+                                : FG_COLOR_LABEL_FILE_NOT_EXISTS);
+        labelFile.setBackground(exists
+                                ? BG_COLOR_LABEL_FILE_EXISTS
+                                : BG_COLOR_LABEL_FILE_NOT_EXISTS);
     }
 
     public void setProgram(Program program) {
@@ -96,6 +159,8 @@ public final class ProgramPropertiesDialog extends Dialog {
                                    : pattern);
         setPatternStatus();
         setProgramIcon();
+        showFileExists((file != null) && file.exists());
+        setEnabledButtonOk();
     }
 
     private void setActionTexts() {
@@ -166,16 +231,6 @@ public final class ProgramPropertiesDialog extends Dialog {
                &&!textFieldAlias.getText().trim().isEmpty();
     }
 
-    private void postInitComponents() {
-        if (action) {
-            setActionTexts();
-        } else {
-            getContentPane().remove(checkBoxInputBeforeExecute);
-        }
-
-        MnemonicUtil.setMnemonics((Container) this);
-    }
-
     private void cancel() {
         accecpted = false;
         setVisible(false);
@@ -187,22 +242,40 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void chooseProgram() {
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(lastDir);
 
         fileChooser.setMultiSelectionEnabled(false);
 
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = fileChooser.getSelectedFile();
 
+            storeLastDir(f);
+
             if (f.exists() &&!f.isDirectory()) {
                 file = f;
                 labelFile.setText(file.getAbsolutePath());
+                showFileExists(true);
                 setProgramIcon();
             } else {
                 MessageDisplayer.error(
                     this, "ProgramPropertiesDialog.Error.ChooseFile");
             }
         }
+
+        setEnabledButtonOk();
+    }
+
+    private void storeLastDir(File f) {
+        File dir = f.getParentFile();
+
+        if ((dir == null) ||!dir.isDirectory()) {
+            return;
+        }
+
+        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(),
+                KEY_LAST_DIR);
+        UserSettings.INSTANCE.writeToFile();
+        lastDir = dir;
     }
 
     private void handleCheckBoxInputBeforeExecuteActionPerformed() {
@@ -265,6 +338,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonGroupSingleFileProcessing    = new javax.swing.ButtonGroup();
         panelProgram                       = new javax.swing.JPanel();
         labelFilePrompt                    = new javax.swing.JLabel();
+        labelErrorFileDoesNotExist         = new javax.swing.JLabel();
         buttonChooseFile                   = new javax.swing.JButton();
         labelFile                          = new javax.swing.JLabel();
         labelAlias                         = new javax.swing.JLabel();
@@ -287,6 +361,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         panelMultipleSelection             = new javax.swing.JPanel();
         radioButtonSingleFileProcessingYes = new javax.swing.JRadioButton();
         radioButtonSingleFileProcessingNo  = new javax.swing.JRadioButton();
+        labelInfoRequiredInputs            = new javax.swing.JLabel();
         buttonCancel                       = new javax.swing.JButton();
         buttonOk                           = new javax.swing.JButton();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -300,9 +375,14 @@ public final class ProgramPropertiesDialog extends Dialog {
             javax.swing.BorderFactory.createTitledBorder(
                 JptBundle.INSTANCE.getString(
                     "ProgramPropertiesDialog.panelProgram.border.title")));    // NOI18N
+        labelFilePrompt.setForeground(new java.awt.Color(255, 0, 0));
         labelFilePrompt.setText(
             JptBundle.INSTANCE.getString(
                 "ProgramPropertiesDialog.labelFilePrompt.text"));    // NOI18N
+        labelErrorFileDoesNotExist.setForeground(new java.awt.Color(255, 0, 0));
+        labelErrorFileDoesNotExist.setText(
+            JptBundle.INSTANCE.getString(
+                "ProgramPropertiesDialog.labelErrorFileDoesNotExist.text"));    // NOI18N
         buttonChooseFile.setText(
             JptBundle.INSTANCE.getString(
                 "ProgramPropertiesDialog.buttonChooseFile.text"));    // NOI18N
@@ -313,6 +393,8 @@ public final class ProgramPropertiesDialog extends Dialog {
         });
         labelFile.setForeground(new java.awt.Color(0, 0, 255));
         labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFile.setOpaque(true);
+        labelAlias.setForeground(new java.awt.Color(255, 0, 0));
         labelAlias.setLabelFor(textFieldAlias);
         labelAlias.setText(
             JptBundle.INSTANCE.getString(
@@ -341,8 +423,11 @@ public final class ProgramPropertiesDialog extends Dialog {
                         javax.swing.GroupLayout.Alignment.LEADING).addGroup(
                         panelProgramLayout.createSequentialGroup().addComponent(
                             labelFilePrompt).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                            314, Short.MAX_VALUE).addComponent(
+                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
+                            labelErrorFileDoesNotExist,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, 296,
+                            Short.MAX_VALUE).addPreferredGap(
+                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
                                 buttonChooseFile)).addComponent(
                                     labelFile,
                                     javax.swing.GroupLayout.DEFAULT_SIZE, 533,
@@ -362,7 +447,11 @@ public final class ProgramPropertiesDialog extends Dialog {
                     panelProgramLayout.createParallelGroup(
                         javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
                         labelFilePrompt).addComponent(
-                        buttonChooseFile)).addPreferredGap(
+                        buttonChooseFile).addComponent(
+                        labelErrorFileDoesNotExist,
+                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(
                             javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
                             labelFile, javax.swing.GroupLayout.PREFERRED_SIZE,
                             23,
@@ -511,7 +600,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                         .createParallelGroup(javax.swing.GroupLayout.Alignment
                             .LEADING).addComponent(checkBoxInputBeforeExecute)
                                 .addComponent(checkBoxInputBeforeExecutePerFile))
-                                    .addContainerGap(84, Short.MAX_VALUE)));
+                                    .addContainerGap(91, Short.MAX_VALUE)));
         panelInputBeforeExecuteLayout.linkSize(
             javax.swing.SwingConstants.HORIZONTAL,
             new java.awt.Component[] { checkBoxInputBeforeExecute,
@@ -563,6 +652,10 @@ public final class ProgramPropertiesDialog extends Dialog {
                         .RELATED)
                             .addComponent(radioButtonSingleFileProcessingNo)
                             .addContainerGap(9, Short.MAX_VALUE)));
+        labelInfoRequiredInputs.setForeground(new java.awt.Color(255, 0, 0));
+        labelInfoRequiredInputs.setText(
+            JptBundle.INSTANCE.getString(
+                "ProgramPropertiesDialog.labelInfoRequiredInputs.text"));    // NOI18N
         buttonCancel.setText(
             JptBundle.INSTANCE.getString(
                 "ProgramPropertiesDialog.buttonCancel.text"));    // NOI18N
@@ -574,6 +667,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonOk.setText(
             JptBundle.INSTANCE.getString(
                 "ProgramPropertiesDialog.buttonOk.text"));    // NOI18N
+        buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
@@ -608,9 +702,13 @@ public final class ProgramPropertiesDialog extends Dialog {
                                     Short.MAX_VALUE).addGroup(
                                         javax.swing.GroupLayout.Alignment.TRAILING,
                                         layout.createSequentialGroup().addComponent(
-                                            buttonCancel).addPreferredGap(
-                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                    buttonOk))).addContainerGap()));
+                                            labelInfoRequiredInputs).addPreferredGap(
+                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                    218,
+                                                    Short.MAX_VALUE).addComponent(
+                                                        buttonCancel).addPreferredGap(
+                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
+                                                                buttonOk))).addContainerGap()));
         layout.setVerticalGroup(
             layout.createParallelGroup(
                 javax.swing.GroupLayout.Alignment.LEADING).addGroup(
@@ -636,7 +734,8 @@ public final class ProgramPropertiesDialog extends Dialog {
                                     layout.createParallelGroup(
                                         javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
                                         buttonOk).addComponent(
-                                        buttonCancel)).addContainerGap()));
+                                        buttonCancel).addComponent(
+                                        labelInfoRequiredInputs)).addContainerGap()));
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
@@ -708,8 +807,10 @@ public final class ProgramPropertiesDialog extends Dialog {
     private javax.swing.JCheckBox    checkBoxInputBeforeExecutePerFile;
     private javax.swing.JCheckBox    checkBoxUsePattern;
     private javax.swing.JLabel       labelAlias;
+    private javax.swing.JLabel       labelErrorFileDoesNotExist;
     private javax.swing.JLabel       labelFile;
     private javax.swing.JLabel       labelFilePrompt;
+    private javax.swing.JLabel       labelInfoRequiredInputs;
     private javax.swing.JLabel       labelParametersAfterFilename;
     private javax.swing.JLabel       labelParametersBeforeFilename;
     private javax.swing.JPanel       panelInputBeforeExecute;
