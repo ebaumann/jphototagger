@@ -27,6 +27,8 @@ import com.aetrion.flickr.Flickr;
 import com.aetrion.flickr.RequestContext;
 import com.aetrion.flickr.REST;
 
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
+
 import java.awt.Desktop;
 
 import java.net.URL;
@@ -100,17 +102,14 @@ final class Authorization {
     }
 
     private void authenticateViaWebBrowser() throws Exception {
-        URL                 url =
-            authInterface.buildAuthenticationUrl(Permission.DELETE, frob);
-        LargeMessagesDialog dlg = new LargeMessagesDialog(
-                                      FlickrBundle.INSTANCE.getString(
-                                          "Auth.Info.GetToken.Browse",
-                                          url.toExternalForm()));
+        URL url = authInterface.buildAuthenticationUrl(Permission.DELETE, frob);
 
-        dlg.setVisible(true);
+        JOptionPane.showMessageDialog(
+            ComponentUtil.getFrameWithIcon(),
+            FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Browse"));
         Desktop.getDesktop().browse(url.toURI());
         JOptionPane.showMessageDialog(
-            null,
+            ComponentUtil.getFrameWithIcon(),
             FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Confirm"));
         auth  = authInterface.getToken(frob);
         token = auth.getToken();
