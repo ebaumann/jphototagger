@@ -72,4 +72,11 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-post-compile">
+        <copy
+            file="../dist_files/manual/Manual_de.pdf"
+            todir="build"
+            overwrite="false"
+        />
+    </target>
 </project>
