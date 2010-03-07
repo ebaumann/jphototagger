@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.jpt.view.panels.ImagePreviewPanel;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
@@ -256,6 +257,7 @@ public class ImportImageFilesDialog extends Dialog {
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
+        dlg.addWindowListener(new SizeAndLocationController());
         dlg.setVisible(true);
 
         return dlg.accepted()

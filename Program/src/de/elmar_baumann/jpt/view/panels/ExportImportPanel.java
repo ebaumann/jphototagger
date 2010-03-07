@@ -29,6 +29,7 @@ import de.elmar_baumann.jpt.importer.JptImporters;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
 import de.elmar_baumann.lib.component.SelectObjectsPanel;
 import de.elmar_baumann.lib.component.SelectObjectsPanel.SelectionEvent;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -162,6 +163,7 @@ public class ExportImportPanel extends javax.swing.JPanel
                 GUI.INSTANCE.getAppFrame(), new File(""),
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
+        dlg.addWindowListener(new SizeAndLocationController());
         dlg.setVisible(true);
 
         if (dlg.accepted()) {
