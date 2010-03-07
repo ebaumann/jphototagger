@@ -137,7 +137,7 @@ public class FileUtilTest {
                 0x00, 0x00, 0x00, 0x00, 0x00
             };
 
-            result = FileUtil.getIndexOf(file, search2);
+            result = FileUtil.getIndexOf(file, search3);
             file.close();
             assertEquals(-1, result);
         } catch (IOException ex) {
