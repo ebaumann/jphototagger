@@ -142,9 +142,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         close();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

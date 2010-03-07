@@ -306,21 +306,21 @@ public class PathSelectionDialog extends Dialog
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonSelectNothingActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSelectNothingActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNothingActionPerformed
         handleButtonSelectNothingActionPerformed();
-    }    // GEN-LAST:event_buttonSelectNothingActionPerformed
+    }//GEN-LAST:event_buttonSelectNothingActionPerformed
 
     private void buttonSelectAllActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSelectAllActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectAllActionPerformed
         handleButtonSelectAllActionPerformed();
-    }    // GEN-LAST:event_buttonSelectAllActionPerformed
+    }//GEN-LAST:event_buttonSelectAllActionPerformed
 
     private void buttonSelectSelectedActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSelectSelectedActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectSelectedActionPerformed
         handleButtonSelectSelectedActionPerformed();
-    }    // GEN-LAST:event_buttonSelectSelectedActionPerformed
+    }//GEN-LAST:event_buttonSelectSelectedActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);    // writes properties
     }                         // GEN-LAST:event_formWindowClosing
 

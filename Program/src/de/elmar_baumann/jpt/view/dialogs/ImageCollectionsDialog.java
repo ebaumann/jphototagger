@@ -174,14 +174,14 @@ public final class ImageCollectionsDialog extends Dialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonOkActionPerformed
+    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         handleButtonOkClicked();
-    }    // GEN-LAST:event_buttonOkActionPerformed
+    }//GEN-LAST:event_buttonOkActionPerformed
 
     private void listImageCollectionNamesMouseClicked(
-            java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_listImageCollectionNamesMouseClicked
+            java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listImageCollectionNamesMouseClicked
         checkDoubleClick(evt);
-    }    // GEN-LAST:event_listImageCollectionNamesMouseClicked
+    }//GEN-LAST:event_listImageCollectionNamesMouseClicked
 
     /**
      * @param args the command line arguments

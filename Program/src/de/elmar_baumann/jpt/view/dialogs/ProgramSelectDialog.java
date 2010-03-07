@@ -189,17 +189,17 @@ public class ProgramSelectDialog extends Dialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void listProgramsMouseClicked(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_listProgramsMouseClicked
+    private void listProgramsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProgramsMouseClicked
         handleMousClicked(evt);
-    }    // GEN-LAST:event_listProgramsMouseClicked
+    }//GEN-LAST:event_listProgramsMouseClicked
 
-    private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSelectActionPerformed
+    private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectActionPerformed
         handleButtonSelectAction();
-    }    // GEN-LAST:event_buttonSelectActionPerformed
+    }//GEN-LAST:event_buttonSelectActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

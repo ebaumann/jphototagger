@@ -678,59 +678,59 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void checkBoxAutoDownloadCheckActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
         handleActionPerformedAutoDownload();
-    }    // GEN-LAST:event_checkBoxAutoDownloadCheckActionPerformed
+    }//GEN-LAST:event_checkBoxAutoDownloadCheckActionPerformed
 
     private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
         handleActionPerformedCopyMoveFiles();
-    }    // GEN-LAST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
+    }//GEN-LAST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
 
     private void radioButtonCopyMoveFileConfirmOverwriteActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
         handleActionPerformedCopyMoveFiles();
-    }    // GEN-LAST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
+    }//GEN-LAST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
 
     private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
         handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
-    }    // GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
+    }//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
 
     private void comboBoxLogLevelActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxLogLevelActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
         handleActionPerformedComboBoxLogLevel();
-    }    // GEN-LAST:event_comboBoxLogLevelActionPerformed
+    }//GEN-LAST:event_comboBoxLogLevelActionPerformed
 
     private void buttonChooseDatabaseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
         handleActionPerformedChooseDatabaseDirectory();
-    }    // GEN-LAST:event_buttonChooseDatabaseDirectoryActionPerformed
+    }//GEN-LAST:event_buttonChooseDatabaseDirectoryActionPerformed
 
     private void buttonSetStandardDatabaseDirectoryNameActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
         handleActionPerformedSetStandardDatabaseDirectory();
-    }    // GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
+    }//GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
 
     private void buttonChoosePdfViewerActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChoosePdfViewerActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChoosePdfViewerActionPerformed
         handleActionPerformedChoosePdfViewer();
-    }    // GEN-LAST:event_buttonChoosePdfViewerActionPerformed
+    }//GEN-LAST:event_buttonChoosePdfViewerActionPerformed
 
     private void buttonChooseWebBrowserActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseWebBrowserActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseWebBrowserActionPerformed
         handleActionPerformedChooseWebBrowser();
-    }    // GEN-LAST:event_buttonChooseWebBrowserActionPerformed
+    }//GEN-LAST:event_buttonChooseWebBrowserActionPerformed
 
     private void checkBoxDisplaySearchButtonActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
         handleActionPerformedCheckBoxDisplaySearchButton();
-    }    // GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
+    }//GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
 
     private void comboBoxIptcCharsetActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
         handleActionComboBoxIptcCharset();
-    }    // GEN-LAST:event_comboBoxIptcCharsetActionPerformed
+    }//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton      buttonChooseDatabaseDirectory;

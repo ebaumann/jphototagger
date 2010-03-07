@@ -672,43 +672,43 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }    // </editor-fold>//GEN-END:initComponents
 
     private void toggleButtonBracketLeft1ActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonBracketLeft1ActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft1ActionPerformed
         handleTaggleButtonBracketLeftActionPerformed();
-    }    // GEN-LAST:event_toggleButtonBracketLeft1ActionPerformed
+    }//GEN-LAST:event_toggleButtonBracketLeft1ActionPerformed
 
     private void toggleButtonBracketLeft2ActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonBracketLeft2ActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft2ActionPerformed
         handleTaggleButtonBracketLeft2ActionPerformed();
-    }    // GEN-LAST:event_toggleButtonBracketLeft2ActionPerformed
+    }//GEN-LAST:event_toggleButtonBracketLeft2ActionPerformed
 
-    private void buttonCalendarActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCalendarActionPerformed
+    private void buttonCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalendarActionPerformed
         handleButtonCalendarActionPerformed();
-    }    // GEN-LAST:event_buttonCalendarActionPerformed
+    }//GEN-LAST:event_buttonCalendarActionPerformed
 
     private void comboBoxOperatorsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxOperatorsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxOperatorsActionPerformed
         setChanged();
-    }    // GEN-LAST:event_comboBoxOperatorsActionPerformed
+    }//GEN-LAST:event_comboBoxOperatorsActionPerformed
 
     private void comboBoxColumnsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxColumnsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxColumnsActionPerformed
         handleColumnChanged();
-    }    // GEN-LAST:event_comboBoxColumnsActionPerformed
+    }//GEN-LAST:event_comboBoxColumnsActionPerformed
 
     private void comboBoxComparatorsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_comboBoxComparatorsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxComparatorsActionPerformed
         setChanged();
-    }    // GEN-LAST:event_comboBoxComparatorsActionPerformed
+    }//GEN-LAST:event_comboBoxComparatorsActionPerformed
 
     private void toggleButtonBracketRightActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_toggleButtonBracketRightActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketRightActionPerformed
         setToggleButtonsTexts(toggleButtonBracketRight, false);
         setChanged();
-    }    // GEN-LAST:event_toggleButtonBracketRightActionPerformed
+    }//GEN-LAST:event_toggleButtonBracketRightActionPerformed
 
-    private void textFieldValueKeyTyped(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldValueKeyTyped
+    private void textFieldValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldValueKeyTyped
         handleTextFieldValueKeyTyped(evt);
-    }    // GEN-LAST:event_textFieldValueKeyTyped
+    }//GEN-LAST:event_textFieldValueKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton             buttonCalendar;

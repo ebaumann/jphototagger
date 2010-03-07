@@ -281,9 +281,9 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonHelpPluginActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonHelpPluginActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
         showHelp();
-    }    // GEN-LAST:event_buttonHelpPluginActionPerformed
+    }//GEN-LAST:event_buttonHelpPluginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupActionsAfterDatabaseInsertion;

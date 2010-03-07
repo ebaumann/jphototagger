@@ -820,43 +820,43 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         add(scrollPaneTextArea, gridBagConstraints);
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddInputActionPerformed
+    private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddInputActionPerformed
         handleButtonAddInputActionPerformed();
-    }    // GEN-LAST:event_buttonAddInputActionPerformed
+    }//GEN-LAST:event_buttonAddInputActionPerformed
 
     private void buttonRemoveSelectionActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRemoveSelectionActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSelectionActionPerformed
         handleButtonRemoveInputActionPerformed();
-    }    // GEN-LAST:event_buttonRemoveSelectionActionPerformed
+    }//GEN-LAST:event_buttonRemoveSelectionActionPerformed
 
-    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {    // GEN-FIRST:event_listValueChanged
+    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         handleListValueChanged(evt);
-    }    // GEN-LAST:event_listValueChanged
+    }//GEN-LAST:event_listValueChanged
 
-    private void listKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_listKeyPressed
+    private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
         handleListKeyPressed(evt);
-    }    // GEN-LAST:event_listKeyPressed
+    }//GEN-LAST:event_listKeyPressed
 
     private void buttonSuggestionActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSuggestionActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSuggestionActionPerformed
         suggestText();
-    }    // GEN-LAST:event_buttonSuggestionActionPerformed
+    }//GEN-LAST:event_buttonSuggestionActionPerformed
 
-    private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_menuItemRenameActionPerformed
+    private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRenameActionPerformed
         renameSelectedListItems();
-    }    // GEN-LAST:event_menuItemRenameActionPerformed
+    }//GEN-LAST:event_menuItemRenameActionPerformed
 
-    private void menuItemRemoveActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_menuItemRemoveActionPerformed
+    private void menuItemRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemoveActionPerformed
         removeSelectedElements();
-    }    // GEN-LAST:event_menuItemRemoveActionPerformed
+    }//GEN-LAST:event_menuItemRemoveActionPerformed
 
-    private void textAreaInputKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textAreaInputKeyReleased
+    private void textAreaInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaInputKeyReleased
         handleTextFieldKeyReleased(evt);
-    }    // GEN-LAST:event_textAreaInputKeyReleased
+    }//GEN-LAST:event_textAreaInputKeyReleased
 
-    private void textAreaInputKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textAreaInputKeyPressed
+    private void textAreaInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaInputKeyPressed
         suggestText(evt);
-    }    // GEN-LAST:event_textAreaInputKeyPressed
+    }//GEN-LAST:event_textAreaInputKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton     buttonAddInput;

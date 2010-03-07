@@ -482,24 +482,24 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                                                                                                     buttonChooseDirectories)).addContainerGap()));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void listDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_listDirectoriesKeyReleased
+    private void listDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listDirectoriesKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             handleRemoveSelectedDirectories();
         }
-    }    // GEN-LAST:event_listDirectoriesKeyReleased
+    }//GEN-LAST:event_listDirectoriesKeyReleased
 
     private void buttonChooseDirectoriesActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseDirectoriesActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoriesActionPerformed
         chooseDirectories();
-    }    // GEN-LAST:event_buttonChooseDirectoriesActionPerformed
+    }//GEN-LAST:event_buttonChooseDirectoriesActionPerformed
 
-    private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStartActionPerformed
+    private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
         startUpdate();
-    }    // GEN-LAST:event_buttonStartActionPerformed
+    }//GEN-LAST:event_buttonStartActionPerformed
 
-    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStopActionPerformed
+    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
         stopUpdate();
-    }    // GEN-LAST:event_buttonStopActionPerformed
+    }//GEN-LAST:event_buttonStopActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton      buttonChooseDirectories;

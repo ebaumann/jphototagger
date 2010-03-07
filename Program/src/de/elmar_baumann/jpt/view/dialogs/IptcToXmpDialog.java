@@ -383,22 +383,22 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         checkClose();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
-    private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStartActionPerformed
+    private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
         start();
-    }    // GEN-LAST:event_buttonStartActionPerformed
+    }//GEN-LAST:event_buttonStartActionPerformed
 
     private void buttonChooseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseDirectoryActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseDirectory();
-    }    // GEN-LAST:event_buttonChooseDirectoryActionPerformed
+    }//GEN-LAST:event_buttonChooseDirectoryActionPerformed
 
-    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStopActionPerformed
+    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
         stop();
-    }    // GEN-LAST:event_buttonStopActionPerformed
+    }//GEN-LAST:event_buttonStopActionPerformed
 
     /**
      * @param args the command line arguments

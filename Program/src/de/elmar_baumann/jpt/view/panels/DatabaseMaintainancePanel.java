@@ -579,45 +579,45 @@ public final class DatabaseMaintainancePanel extends JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
         UserSettings.INSTANCE.getSettings().set(
             checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected(),
             KEY_DEL_RECORDS_OF_NOT_EX_FILES);
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
-    }    // GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
+    }//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
 
     private void checkBoxCompressDatabaseActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
         UserSettings.INSTANCE.getSettings().set(
             checkBoxCompressDatabase.isSelected(), KEY_COMPRESS_DB);
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
-    }    // GEN-LAST:event_checkBoxCompressDatabaseActionPerformed
+    }//GEN-LAST:event_checkBoxCompressDatabaseActionPerformed
 
     private void buttonStartMaintainActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonStartMaintainActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartMaintainActionPerformed
         startMaintain();
-    }    // GEN-LAST:event_buttonStartMaintainActionPerformed
+    }//GEN-LAST:event_buttonStartMaintainActionPerformed
 
     private void buttonAbortActionActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAbortActionActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbortActionActionPerformed
         handleButtonAbortActionPerformed();
-    }    // GEN-LAST:event_buttonAbortActionActionPerformed
+    }//GEN-LAST:event_buttonAbortActionActionPerformed
 
     private void buttonDeleteMessagesActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonDeleteMessagesActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteMessagesActionPerformed
         deleteMessages();
-    }    // GEN-LAST:event_buttonDeleteMessagesActionPerformed
+    }//GEN-LAST:event_buttonDeleteMessagesActionPerformed
 
     private void checkBoxDeleteOrphanedThumbnailsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
         UserSettings.INSTANCE.getSettings().set(
             checkBoxDeleteOrphanedThumbnails.isSelected(),
             KEY_DEL_ORPHANED_THUMBS);
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
-    }    // GEN-LAST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
+    }//GEN-LAST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton   buttonAbortAction;

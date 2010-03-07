@@ -657,11 +657,11 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
                                                         .MAX_VALUE)));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {    // GEN-FIRST:event_listValueChanged
+    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         if (!evt.getValueIsAdjusting()) {
             setTabOfSelectedListValue();
         }
-    }    // GEN-LAST:event_listValueChanged
+    }//GEN-LAST:event_listValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel      labelSearch;

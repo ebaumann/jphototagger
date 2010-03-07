@@ -251,22 +251,22 @@ public class InputDialog extends Dialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonOkActionPerformed
+    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         accepted = true;
         setVisible(false);
-    }    // GEN-LAST:event_buttonOkActionPerformed
+    }//GEN-LAST:event_buttonOkActionPerformed
 
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCancelActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         accepted = false;
         setVisible(false);
-    }    // GEN-LAST:event_buttonCancelActionPerformed
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_textFieldInputKeyPressed
+    private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             accepted = true;
             setVisible(false);
         }
-    }    // GEN-LAST:event_textFieldInputKeyPressed
+    }//GEN-LAST:event_textFieldInputKeyPressed
 
     /**
      * @param args the command line arguments

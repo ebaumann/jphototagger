@@ -358,39 +358,39 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonActionsAfterDatabaseInsertionEditActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonActionsAfterDatabaseInsertionEditActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionEditActionPerformed
         handleActionsAfterDatabaseInsertionEdit();
-    }    // GEN-LAST:event_buttonActionsAfterDatabaseInsertionEditActionPerformed
+    }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionEditActionPerformed
 
     private void buttonActionsAfterDatabaseInsertionMoveUpActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveUpActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveUpActionPerformed
         handleActionsAfterDatabaseInsertionMoveUp();
-    }    // GEN-LAST:event_buttonActionsAfterDatabaseInsertionMoveUpActionPerformed
+    }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionMoveUpActionPerformed
 
     private void buttonActionsAfterDatabaseInsertionMoveDownActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveDownActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveDownActionPerformed
         handleActionsAfterDatabaseInsertionMoveDown();
-    }    // GEN-LAST:event_buttonActionsAfterDatabaseInsertionMoveDownActionPerformed
+    }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionMoveDownActionPerformed
 
     private void buttonActionsAfterDatabaseInsertionRemoveActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonActionsAfterDatabaseInsertionRemoveActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionRemoveActionPerformed
         handleActionsAfterDatabaseInsertionRemove();
-    }    // GEN-LAST:event_buttonActionsAfterDatabaseInsertionRemoveActionPerformed
+    }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionRemoveActionPerformed
 
     private void buttonActionsAfterDatabaseInsertionAddActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonActionsAfterDatabaseInsertionAddActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionAddActionPerformed
         handleActionsAfterDatabaseInsertionAdd();
-    }    // GEN-LAST:event_buttonActionsAfterDatabaseInsertionAddActionPerformed
+    }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionAddActionPerformed
 
     private void radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed
         handleActionsAfterDatabaseInsertionExecuteAlways();
-    }    // GEN-LAST:event_radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed
+    }//GEN-LAST:event_radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed
 
     private void radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
         handleActionsAfterDatabaseInsertionExecuteIfXmpExists();
-    }    // GEN-LAST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
+    }//GEN-LAST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton      buttonActionsAfterDatabaseInsertionAdd;

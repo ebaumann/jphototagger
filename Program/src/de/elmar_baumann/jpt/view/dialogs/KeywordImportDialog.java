@@ -321,22 +321,22 @@ public class KeywordImportDialog extends Dialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {    // GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         writeProperties();
-    }    // GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosing
 
-    private void buttonImportActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonImportActionPerformed
+    private void buttonImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonImportActionPerformed
         handleImportActionPerformed();
-    }    // GEN-LAST:event_buttonImportActionPerformed
+    }//GEN-LAST:event_buttonImportActionPerformed
 
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonCancelActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         handleCancelActionPerformed();
-    }    // GEN-LAST:event_buttonCancelActionPerformed
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonChooseFileActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonChooseFileActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
         chooseFile();
-    }    // GEN-LAST:event_buttonChooseFileActionPerformed
+    }//GEN-LAST:event_buttonChooseFileActionPerformed
 
     /**
      * @param args the command line arguments

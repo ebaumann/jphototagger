@@ -976,36 +976,36 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveSearchActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSaveSearchActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveSearchActionPerformed
         saveSearch();
-    }    // GEN-LAST:event_buttonSaveSearchActionPerformed
+    }//GEN-LAST:event_buttonSaveSearchActionPerformed
 
-    private void buttonSaveAsActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSaveAsActionPerformed
+    private void buttonSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveAsActionPerformed
         saveAs();
-    }    // GEN-LAST:event_buttonSaveAsActionPerformed
+    }//GEN-LAST:event_buttonSaveAsActionPerformed
 
     private void buttonResetColumnsActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonResetColumnsActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResetColumnsActionPerformed
         clearInput(false);
-    }    // GEN-LAST:event_buttonResetColumnsActionPerformed
+    }//GEN-LAST:event_buttonResetColumnsActionPerformed
 
-    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonSearchActionPerformed
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         search();
-    }    // GEN-LAST:event_buttonSearchActionPerformed
+    }//GEN-LAST:event_buttonSearchActionPerformed
 
     private void buttonAddColumnActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonAddColumnActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddColumnActionPerformed
         addColumn();
-    }    // GEN-LAST:event_buttonAddColumnActionPerformed
+    }//GEN-LAST:event_buttonAddColumnActionPerformed
 
     private void buttonRemoveColumnActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonRemoveColumnActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveColumnActionPerformed
         removeColumn();
-    }    // GEN-LAST:event_buttonRemoveColumnActionPerformed
+    }//GEN-LAST:event_buttonRemoveColumnActionPerformed
 
-    private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {    // GEN-FIRST:event_tabbedPaneStateChanged
+    private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
         setFocusToInputInTab(tabbedPane.getSelectedComponent());
-    }    // GEN-LAST:event_tabbedPaneStateChanged
+    }//GEN-LAST:event_tabbedPaneStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton                                           buttonAddColumn;

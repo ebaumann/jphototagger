@@ -1461,14 +1461,14 @@ public final class AppPanel extends javax.swing.JPanel {
     }    // </editor-fold>//GEN-END:initComponents
 
     private void buttonDisplaySelKeywordsListActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonDisplaySelKeywordsListActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsListActionPerformed
         displaySelKeywordsCard("flatKeywords");
-    }    // GEN-LAST:event_buttonDisplaySelKeywordsListActionPerformed
+    }//GEN-LAST:event_buttonDisplaySelKeywordsListActionPerformed
 
     private void buttonDisplaySelKeywordsTreeActionPerformed(
-            java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_buttonDisplaySelKeywordsTreeActionPerformed
+            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsTreeActionPerformed
         displaySelKeywordsCard("keywordsTree");
-    }    // GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
+    }//GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton                              buttonDisplaySelKeywordsList;
