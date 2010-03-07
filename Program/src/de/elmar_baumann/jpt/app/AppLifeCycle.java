@@ -48,8 +48,11 @@ public final class AppLifeCycle {
         new HashSet<Object>();
     private final ListenerSupport<AppExitListener> listenerSupport =
         new ListenerSupport<AppExitListener>();
-    private AppFrame appFrame;
-    private boolean  started;
+    private final Set<FinalTask> finalTasks = new HashSet<FinalTask>();
+    private AppFrame             appFrame;
+    private boolean              started;
+
+    private AppLifeCycle() {}
 
     /**
      * Has be to call <em>once</em> after the {@link AppFrame} has been created.
@@ -75,6 +78,21 @@ public final class AppLifeCycle {
                        + getClass().getSimpleName());
         thread.start();
         listenForQuit();
+    }
+
+    /**
+     * Adds a thread that will be executed before the application window becomes
+     * invisible and the application exists the VM.
+     * <p>
+     * <em>At this time, the database has been shutdown, so that database
+     * operations are not possible!</em>
+     *
+     * @param task task
+     */
+    public void addFinalTask(FinalTask task) {
+        synchronized (finalTasks) {
+            finalTasks.add(task);
+        }
     }
 
     /**
@@ -161,9 +179,43 @@ public final class AppLifeCycle {
             checkDataToSave();
             Cleanup.shutdown();
             DatabaseMaintainance.INSTANCE.shutdown();
-            appFrame.dispose();
-            AppLock.unlock();
-            System.exit(0);
+
+            synchronized (finalTasks) {
+                if (finalTasks.isEmpty()) {
+                    quitVm();
+                } else {
+                    executeFinalTasksAndQuit();
+                }
+            }
+        }
+    }
+
+    private void quitVm() {
+        appFrame.dispose();
+        AppLock.unlock();
+        System.exit(0);
+    }
+
+    private void executeFinalTasksAndQuit() {
+        FinalTaskListener listener = new FinalTaskListener() {
+            @Override
+            public void finished() {
+                synchronized (finalTasks) {
+                    if (finalTasks.isEmpty()) {
+                        quitVm();
+                    }
+                }
+            }
+        };
+
+        synchronized (finalTasks) {
+            Set<FinalTask> tasks = new HashSet<FinalTask>(finalTasks);
+
+            for (FinalTask task : tasks) {
+                task.addListener(listener);
+                finalTasks.remove(task);
+                task.execute();
+            }
         }
     }
 
@@ -218,5 +270,37 @@ public final class AppLifeCycle {
         UserSettings.INSTANCE.writeToFile();
     }
 
-    private AppLifeCycle() {}
+    public interface FinalTaskListener {
+
+        /**
+         * Will be called after the task has been finished.
+         */
+        void finished();
+    }
+
+
+    public static abstract class FinalTask {
+        private final ListenerSupport<FinalTaskListener> listenerSupport =
+            new ListenerSupport<FinalTaskListener>();
+
+        public void addListener(FinalTaskListener listener) {
+            listenerSupport.add(listener);
+        }
+
+        public void removeListener(FinalTaskListener listener) {
+            listenerSupport.remove(listener);
+        }
+
+        protected void notifyFinished() {
+            Set<FinalTaskListener> listeners = listenerSupport.get();
+
+            synchronized (listeners) {
+                for (FinalTaskListener listener : listeners) {
+                    listener.finished();
+                }
+            }
+        }
+
+        public abstract void execute();
+    }
 }

@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.7.90 2010-03-07
 -----------------
 
+* Neuer Menüeintrag: "Datei > Datenbank sichern". Dieser ist beschrieben in der
+  Hilfe und im PDF-Benutzerhandbuch.
 * Hilfe: Neue Menüeinträge:
   * Benutzerforum besuchen
   * Website besuchen

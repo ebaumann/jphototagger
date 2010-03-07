@@ -192,6 +192,10 @@
             <title>Datei &gt; Importieren &gt; Stichwortbaum</title>
         </page>
         <page>
+            <url>backup_database.html</url>
+            <title>Datei &gt; Datenbank sichern</title>
+        </page>
+        <page>
             <url>settings.html</url>
             <title>Bearbeiten &gt; Einstellungen</title>
         </page>

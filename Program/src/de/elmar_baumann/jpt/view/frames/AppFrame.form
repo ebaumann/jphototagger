@@ -126,6 +126,16 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemBackupDatabase">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/de/elmar_baumann/jpt/resource/icons/icon_save.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="AppFrame.menuItemBackupDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                </Property>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep3">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExit">
