@@ -24,7 +24,6 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.view.panels.SettingsMiscPanel;
 import de.elmar_baumann.lib.componentutil.TabbedPaneUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.util.StringUtil;
@@ -164,8 +163,7 @@ public final class SettingsDialog extends Dialog {
         panelSearch.addSearchWordsTo(
             StringUtil.getWordsOf(
                 JptBundle.INSTANCE.getString(
-                    "SettingsDialog.AdditionalSearchWords.PanelMiscMisc")), panelMisc.getTab(
-                        SettingsMiscPanel.Tab.MISCELLANEOUS));
+                    "SettingsDialog.AdditionalSearchWords.PanelMiscMisc")), panelMisc);
     }
 
     public void selectTab(Tab tab) {
@@ -174,12 +172,6 @@ public final class SettingsDialog extends Dialog {
         if ((index >= 0) && (index < tabbedPane.getComponentCount())) {
             tabbedPane.setSelectedIndex(index);
         }
-    }
-
-    public void selectTab(
-            de.elmar_baumann.jpt.view.panels.SettingsMiscPanel.Tab tab) {
-        selectTab(Tab.MISC);
-        panelMisc.selectTab(tab);
     }
 
     private void readProperties() {
