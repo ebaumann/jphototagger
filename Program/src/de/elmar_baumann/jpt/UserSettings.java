@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.update.UpdateUserSettings;
-import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.listener.impl.UserSettingsListenerSupport;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
@@ -40,7 +39,6 @@ import de.elmar_baumann.lib.util.SettingsHints;
 
 import java.io.File;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.XMLFormatter;
 import java.util.Properties;
@@ -50,8 +48,8 @@ import java.util.Properties;
  * <p>
  * To make changes permanent the application has to call {@link #writeToFile()}.
  * <p>
- * While creating an instance, this class loads the written properties if is
- * does exist.
+ * Getters and setters in this class are used by multiple classes, else a
+ * class should use {@link #getSettings()}.
  *
  * @author  Elmar Baumann
  * @version 2008-10-05
@@ -59,7 +57,6 @@ import java.util.Properties;
 public final class UserSettings {
     private static final int    DEFAULT_MAX_THUMBNAIL_WIDTH              = 150;
     private static final int    DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
-    private static final String DELIMITER_COLUMNS                        = "\t";
     private static final String DOMAIN_NAME                              =
         "de.elmar_baumann";    // NEVER CHANGE!
     private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES =
@@ -96,14 +93,12 @@ public final class UserSettings {
         "UserSettings.MinutesToStartScheduledTasks";
     private static final String KEY_OPTIONS_COPY_MOVE_FILES =
         "UserSettings.CopyMoveFiles";
-    private static final String KEY_PDF_VIEWER       = "UserSettings.PdfViewer";
     private static final String KEY_SAVE_INPUT_EARLY =
         "UserSettings.SaveInputEarly";
     private static final String KEY_SCAN_FOR_EMBEDDED_XMP =
         "UserSettings.ScanForEmbeddedXmp";
     private static final String KEY_THUMBNAIL_CREATOR =
         "UserSettings.ThumbnailCreator";
-    private static final String KEY_WEB_BROWSER     = "UserSettings.WebBrowser";
     private static final String PROPERTIES_FILENAME = "Settings.properties";    // NEVER CHANGE!
     public static final SettingsHints SET_TABBED_PANE_SETTINGS =
         new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
@@ -310,16 +305,6 @@ public final class UserSettings {
         return (level == null)
                ? Level.INFO
                : level;
-    }
-
-    private String getColumnKeys(List<Column> columns) {
-        StringBuffer buffer = new StringBuffer();
-
-        for (Column column : columns) {
-            buffer.append(column.getKey() + DELIMITER_COLUMNS);
-        }
-
-        return buffer.toString();
     }
 
     public void setDefaultImageOpenApp(File app) {
