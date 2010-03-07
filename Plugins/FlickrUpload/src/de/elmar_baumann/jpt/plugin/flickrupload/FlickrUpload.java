@@ -27,6 +27,7 @@ import com.aetrion.flickr.uploader.UploadMetaData;
 
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.plugin.PluginEvent;
+import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.image.metadata.xmp.Xmp;
 import de.elmar_baumann.lib.image.util.IconUtil;
 
@@ -162,7 +163,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
                     Logger.getLogger(FlickrUpload.class.getName()).log(
                         Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(
-                        null,
+                        ComponentUtil.getFrameWithIcon(),
                         FlickrBundle.INSTANCE.getString(
                             "FlickrUpload.Error.Upload", file));
                     success = false;
@@ -182,7 +183,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
 
             progressEnded();
             JOptionPane.showMessageDialog(
-                null,
+                ComponentUtil.getFrameWithIcon(),
                 FlickrBundle.INSTANCE.getString(
                     "FlickrUpload.Info.UploadCount", index));
             notifyFinished(processedFiles, success);
@@ -254,7 +255,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
         private boolean confirmUpload() {
             return JOptionPane
                 .showConfirmDialog(
-                    null,
+                    ComponentUtil.getFrameWithIcon(),
                     FlickrBundle.INSTANCE
                         .getString(
                             "FlickrUpload.Confirm.Upload",
