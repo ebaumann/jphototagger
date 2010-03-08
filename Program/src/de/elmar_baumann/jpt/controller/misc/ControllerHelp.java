@@ -62,8 +62,8 @@ public final class ControllerHelp
         JptBundle.INSTANCE.getString("Help.Url.Contents");
     private static final String KEY_CURRENT_URL =
         ControllerHelp.class.getName() + ".CurrentURL";
-    private static final String TO_ADDRESS_BUGS     = "eb@elmar-baumann.de";
-    private static final String TO_ADDRESS_FEATURES = "eb@elmar-baumann.de";
+    private static final String TO_ADDRESS_BUGS     = "support@jphototagger.org";
+    private static final String TO_ADDRESS_FEATURES = "support@jphototagger.org";
     private static final String URI_USER_FORUM      =
         JptBundle.INSTANCE.getString("ControllerHelp.URI.UserForum");
     private static final String URI_WEBSITE =

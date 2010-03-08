@@ -1,6 +1,6 @@
 Zeichenkodierung dieser Datei: UTF-8
 
-Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html
+Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html
 
 Changelog JPhotoTagger
 ======================
@@ -10,6 +10,7 @@ Changelog JPhotoTagger
 
 * JPhotoTagger kann seine Datenbank automatisch sichern: "Bearbeiten >
   Einstellungen > Automatisieren"
+* URIs für E-Mails und Webseiten umgestellt auf neue Domain jphototagger.org
 
 0.7.91 2010-03-07
 -----------------
