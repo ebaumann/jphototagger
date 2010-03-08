@@ -18,30 +18,46 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelTasksAutoscan" alignment="1" pref="649" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="panelStartDelay" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="197" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="1">
+                      <Component id="checkBoxScheduledBackupDb" pref="187" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="comboBoxScheduledBackupDb" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="332" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="panelTasksAutoscan" alignment="0" pref="550" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="labelTasksMinutesToStartScheduledTasks" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="spinnerMinutesToStartScheduledTasks" min="-2" pref="51" max="-2" attributes="0"/>
+                      <EmptySpace pref="108" max="32767" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="panelTasksAutoscan" pref="264" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelTasksAutoscan" pref="242" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxScheduledBackupDb" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBoxScheduledBackupDb" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
-                  <Component id="panelStartDelay" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="spinnerMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTasksMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="buttonStopScheduledTasks" pref="21" max="32767" attributes="1"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -166,51 +182,27 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panelStartDelay">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="labelTasksMinutesToStartScheduledTasks" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="spinnerMinutesToStartScheduledTasks" min="-2" pref="51" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="spinnerMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelTasksMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="labelTasksMinutesToStartScheduledTasks">
-          <Properties>
-            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="spinnerMinutesToStartScheduledTasks"/>
-            </Property>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JSpinner" name="spinnerMinutesToStartScheduledTasks">
-          <Properties>
-            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new SpinnerNumberModel(5, 1, 6000, 1)" type="code"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinnerMinutesToStartScheduledTasksStateChanged"/>
-          </Events>
-        </Component>
-      </SubComponents>
-    </Container>
+    <Component class="javax.swing.JCheckBox" name="checkBoxScheduledBackupDb">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.checkBoxScheduledBackupDb.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxScheduledBackupDbActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboBoxScheduledBackupDb">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new ComboBoxModelScheduledTaskBackupDatabase()" type="code"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxScheduledBackupDbActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JButton" name="buttonStopScheduledTasks">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -233,6 +225,26 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelTasksMinutesToStartScheduledTasks">
+      <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="spinnerMinutesToStartScheduledTasks"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/elmar_baumann/jpt/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spinnerMinutesToStartScheduledTasks">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new SpinnerNumberModel(5, 1, 6000, 1)" type="code"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinnerMinutesToStartScheduledTasksStateChanged"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

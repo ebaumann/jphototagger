@@ -58,7 +58,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
      *
      * @return inserters
      */
-    public static List<InsertImageFilesIntoDatabase> getThreads() {
+    static List<InsertImageFilesIntoDatabase> getThreads() {
         List<File>                         directories = getDirectories();
         List<InsertImageFilesIntoDatabase> updaters    =
             new ArrayList<InsertImageFilesIntoDatabase>(directories.size());

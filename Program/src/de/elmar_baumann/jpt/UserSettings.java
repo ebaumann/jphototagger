@@ -67,8 +67,12 @@ public final class UserSettings {
         "UserSettings.IsAutoscanIncludeSubdirectories";
     private static final String KEY_DATABASE_BACKUP_DIRECTORY =
         "UserSettings.DatabaseBackupDirectoryName";
+    private static final String KEY_DATABASE_BACKUP_INTERVAL =
+        "UserSettings.DbBackupInterval";
     private static final String KEY_DATABASE_DIRECTORY =
         "UserSettings.DatabaseDirectoryName";
+    private static final String KEY_DATABASE_SCHEDULED_BACKUP =
+        "UserSettings.DbScheduledBackup";
     private static final String KEY_DEFAULT_IMAGE_OPEN_APP =
         "UserSettings.DefaultImageOpenApp";
     private static final String KEY_DISPLAY_IPTC          =
@@ -646,6 +650,31 @@ public final class UserSettings {
     public boolean isDisplayIptc() {
         return properties.containsKey(KEY_DISPLAY_IPTC)
                ? settings.getBoolean(KEY_DISPLAY_IPTC)
+               : false;
+    }
+
+    public void setScheduledBackupDbInterval(int interval) {
+        settings.set(interval, KEY_DATABASE_BACKUP_INTERVAL);
+    }
+
+    /**
+     * Returns the database backup interval in days.
+     *
+     * @return days or -1 if not set
+     */
+    public int getScheduledBackupDbInterval() {
+        return properties.containsKey(KEY_DATABASE_BACKUP_INTERVAL)
+               ? settings.getInt(KEY_DATABASE_BACKUP_INTERVAL)
+               : -1;
+    }
+
+    public void setScheduledBackupDb(boolean scheduled) {
+        settings.set(scheduled, KEY_DATABASE_SCHEDULED_BACKUP);
+    }
+
+    public boolean isScheduledBackupDb() {
+        return properties.containsKey(KEY_DATABASE_SCHEDULED_BACKUP)
+               ? settings.getBoolean(KEY_DATABASE_SCHEDULED_BACKUP)
                : false;
     }
 

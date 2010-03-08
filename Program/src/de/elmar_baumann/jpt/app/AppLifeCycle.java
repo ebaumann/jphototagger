@@ -96,6 +96,12 @@ public final class AppLifeCycle {
         }
     }
 
+    public void removeFinalTask(FinalTask task) {
+        synchronized (finalTasks) {
+            finalTasks.remove(task);
+        }
+    }
+
     /**
      * Adds an object which is currently or will soon saving data. As long as
      * data is to save, the app does not exit.

@@ -5,6 +5,12 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.92 2010-03-08
+-----------------
+
+* JPhotoTagger kann seine Datenbank automatisch sichern: "Bearbeiten >
+  Einstellungen > Automatisieren"
+
 0.7.91 2010-03-07
 -----------------
 
