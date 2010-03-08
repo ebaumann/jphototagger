@@ -77,8 +77,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private void handleActionPerformedChooseDatabaseDirectory(boolean backupDir) {
         File file = chooseDirectory(
-                        new File(
-                            UserSettings.INSTANCE.getDatabaseDirectoryName()));
+                        new File(backupDir
+                            ? UserSettings.INSTANCE.getDatabaseBackupDirectoryName()
+                            : UserSettings.INSTANCE.getDatabaseDirectoryName()));
 
         if (file != null) {
             setDatabaseDirectoryName(file.getAbsolutePath(), backupDir);
@@ -161,6 +162,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             settings.isAcceptHiddenDirectories());
         labelDatabaseDirectory.setText(
             UserSettings.INSTANCE.getDatabaseDirectoryName());
+        labelDatabaseBackupDirectory.setText(
+            UserSettings.INSTANCE.getDatabaseBackupDirectoryName());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(
             settings.getCopyMoveFilesOptions().equals(
                 CopyFiles.Options.CONFIRM_OVERWRITE));
