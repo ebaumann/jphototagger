@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-08
  */
 public final class BackupDatabase extends AppLifeCycle.FinalTask

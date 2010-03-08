@@ -57,7 +57,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Code geringfügig modifiziert Elmar Baumann <eb@elmar-baumann.de>:
+ * Code geringfügig modifiziert Elmar Baumann:
  * - Konstruktoren private
  * - Buttons für Monatswechsel mit Icons
  * - Icons für die Titelleiste können wahlweise gesetzt werden

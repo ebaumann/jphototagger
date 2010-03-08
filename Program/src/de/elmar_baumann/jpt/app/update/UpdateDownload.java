@@ -46,18 +46,18 @@ import javax.swing.JProgressBar;
  * @version 2010-01-05
  */
 public final class UpdateDownload extends Thread {
-    private static final String URL_CHECK =
-        "http://www.elmar-baumann.de/JPhotoTagger/jphototagger-version.txt";
+    private static final String FILENAME_JAR     = "JPhotoTagger.jar";
+    private static final String FILENAME_WINDOWS = "JPhotoTagger-Setup.exe";
+    private static final String URL_CHECK        =
+        "http://www.jphototagger.org/jphototagger-version.txt";
     private static final String URL_JAR =
-        "http://www.elmar-baumann.de/JPhotoTagger/dist/JPhotoTagger.zip";
+        "http://www.jphototagger.org/dist/JPhotoTagger.zip";
     private static final String URL_WIN_INSTALLER =
-        "http://www.elmar-baumann.de/JPhotoTagger/dist/JPhotoTagger-setup.exe";
+        "http://www.jphototagger.org/dist/JPhotoTagger-setup.exe";
     private static final String VERSION_DELIMITER = ".";
-    private static final String FILENAME_WINDOWS  = "JPhotoTagger-Setup.exe";
-    private static final String FILENAME_JAR      = "JPhotoTagger.jar";
-    private JProgressBar        progressBar;
     private Version             currentVersion;
     private Version             netVersion;
+    private JProgressBar        progressBar;
 
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ "
