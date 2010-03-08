@@ -6,7 +6,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="16px"
@@ -50,16 +49,6 @@
        inkscape:vp_z="16 : 8 : 1"
        inkscape:persp3d-origin="8 : 5.3333333 : 1"
        id="perspective2391" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3437"
-       id="linearGradient3443"
-       x1="4"
-       y1="1.78125"
-       x2="12"
-       y2="14"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(0,0.109375)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -69,7 +58,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="28.875"
-     inkscape:cx="8"
+     inkscape:cx="1.1601732"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -126,7 +115,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="fill:url(#linearGradient3443);fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 7.96875,1.890625 C 6.7214061,1.890625 5.71875,2.893281 5.71875,4.140625 C 5.71875,5.0260453 6.2265909,5.8013172 6.96875,6.171875 L 4,14.109375 L 12,14.109375 L 9.03125,6.140625 C 9.7525546,5.7630661 10.25,5.0106958 10.25,4.140625 C 10.25,2.8932811 9.2160937,1.890625 7.96875,1.890625 z"
        id="path2568" />
   </g>
