@@ -21,12 +21,12 @@
 package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.app.AppLifeCycle;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.Controller;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -40,7 +40,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.JMenuItem;
@@ -106,32 +109,26 @@ public final class ControllerBackupDatabase extends Controller {
         }
 
         private void backup() {
-            File[] dbFiles = getDbFiles();
+            List<File> dbFiles = getDbFiles();
+            List<File> tnFiles = getTnFiles();
 
-            if ((dbFiles != null) && (dbFiles.length > 0)) {
+            if (!dbFiles.isEmpty()) {
                 File backupDir = getBackupDir();
 
                 if (backupDir == null) {
                     return;
                 }
 
+                File tnBackupDir =
+                    new File(backupDir.getAbsolutePath() + File.separator
+                             + UserSettings.getThumbnailDirBasename());
                 JProgressBar progressBar =
                     ProgressBar.INSTANCE.getResource(this);
 
                 setProgressBarStarted(progressBar);
 
-                for (File dbFile : dbFiles) {
-                    try {
-                        FileUtil.copyFile(dbFile,
-                                          new File(backupDir + File.separator
-                                                   + dbFile.getName()));
-                    } catch (IOException ex) {
-                        AppLogger.logSevere(BackupDb.class, ex);
-                        MessageDisplayer.error(null, "BackupDb.Error.Copy",
-                                               dbFile, backupDir);
-
-                        break;
-                    }
+                if (backup(dbFiles, backupDir)) {
+                    backup(tnFiles, tnBackupDir);
                 }
 
                 setProgressBarEnded(progressBar);
@@ -140,14 +137,52 @@ public final class ControllerBackupDatabase extends Controller {
             }
         }
 
-        private File[] getDbFiles() {
+        private boolean backup(List<File> files, File toDir) {
+            for (File file : files) {
+                try {
+                    FileUtil.copyFile(file,
+                                      new File(toDir + File.separator
+                                               + file.getName()));
+                } catch (IOException ex) {
+                    AppLogger.logSevere(BackupDb.class, ex);
+                    MessageDisplayer.error(null, "BackupDb.Error.Copy", file,
+                                           toDir);
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private List<File> getDbFiles() {
             File dbDir =
                 new File(
                     UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
-            String pattern = Pattern.quote(UserSettings.getDatabaseBasename())
-                             + ".*";
+            String dbPattern =
+                Pattern.quote(UserSettings.getDatabaseBasename()) + ".*";
+            File[] dbFileArray = dbDir.listFiles(new RegexFileFilter(dbPattern,
+                                     ""));
 
-            return dbDir.listFiles(new RegexFileFilter(pattern, ""));
+            if (dbFileArray == null) {
+                return new ArrayList<File>();
+            }
+
+            return Arrays.asList(dbFileArray);
+        }
+
+        private List<File> getTnFiles() {
+            String tnPattern = ".*\\.jpeg";
+            File   tnDir     =
+                new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
+            File[] tnFileArray = tnDir.listFiles(new RegexFileFilter(tnPattern,
+                                     ""));
+
+            if (tnFileArray == null) {
+                return new ArrayList<File>();
+            }
+
+            return Arrays.asList(tnFileArray);
         }
 
         private File getBackupDir() {
@@ -155,9 +190,11 @@ public final class ControllerBackupDatabase extends Controller {
             String     dirname =
                 UserSettings.INSTANCE.getDatabaseBackupDirectoryName()
                 + File.separator + df.format(new Date());
-            File dir = new File(dirname);
+            File dir   = new File(dirname);
+            File tnDir = new File(dirname + File.separator
+                                  + UserSettings.getThumbnailDirBasename());
 
-            if (dir.mkdir()) {
+            if (dir.mkdir() && tnDir.mkdir()) {
                 return dir;
             } else {
                 MessageDisplayer.error(null, "BackupDb.Error.CreateDir", dir);
