@@ -17,45 +17,42 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="panelTasksAutoscan" alignment="0" pref="539" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="1">
-                      <Component id="checkBoxScheduledBackupDb" pref="187" max="32767" attributes="0"/>
+                      <Component id="checkBoxScheduledBackupDb" min="-2" pref="187" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="comboBoxScheduledBackupDb" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="332" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="panelTasksAutoscan" alignment="0" pref="550" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="1">
                       <Component id="labelTasksMinutesToStartScheduledTasks" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="spinnerMinutesToStartScheduledTasks" min="-2" pref="51" max="-2" attributes="0"/>
-                      <EmptySpace pref="108" max="32767" attributes="0"/>
+                      <EmptySpace pref="97" max="32767" attributes="0"/>
                       <Component id="buttonStopScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelTasksAutoscan" pref="242" max="32767" attributes="0"/>
+              <Component id="panelTasksAutoscan" pref="213" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="checkBoxScheduledBackupDb" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboBoxScheduledBackupDb" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="checkBoxScheduledBackupDb" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBoxScheduledBackupDb" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="spinnerMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelTasksMinutesToStartScheduledTasks" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="buttonStopScheduledTasks" pref="21" max="32767" attributes="1"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="spinnerMinutesToStartScheduledTasks" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTasksMinutesToStartScheduledTasks" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonStopScheduledTasks" alignment="2" min="-2" max="-2" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
