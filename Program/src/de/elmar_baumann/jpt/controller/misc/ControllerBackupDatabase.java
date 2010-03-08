@@ -24,12 +24,11 @@ import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.Controller;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.jpt.types.Filename;
-import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.resource.JptBundle;
-import de.elmar_baumann.jpt.view.frames.AppFrame;
+import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
-import de.elmar_baumann.lib.dialog.DirectoryChooser;
+import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
@@ -42,6 +41,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.swing.JMenuItem;
 import javax.swing.JProgressBar;
@@ -53,13 +53,9 @@ import javax.swing.JProgressBar;
  * @version 2010-03-07
  */
 public final class ControllerBackupDatabase extends Controller {
-    private static final String KEY_LAST_DIR =
-        "ControllerBackupDatabase.LastDirectory";
     private static final BackupDb BACKUP_TASK      = new BackupDb();
     private final JMenuItem       menuItemBackupDb =
         GUI.INSTANCE.getAppFrame().getMenuItemBackupDatabase();
-    private File lastDir =
-        new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIR));
 
     public ControllerBackupDatabase() {
         listenToActionsOf(menuItemBackupDb);
@@ -77,7 +73,7 @@ public final class ControllerBackupDatabase extends Controller {
 
     @Override
     protected void action(ActionEvent evt) {
-        selectBackupDirAndAddTask();
+        addBackupTask();
     }
 
     @Override
@@ -86,90 +82,97 @@ public final class ControllerBackupDatabase extends Controller {
         // Ignore
     }
 
-    private void selectBackupDirAndAddTask() {
-        AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-
-        if (MessageDisplayer.confirmYesNo(
-                appFrame, "ControllerBackupDatabase.Info.ChooseDir")) {
-            DirectoryChooser dlg =
-                new DirectoryChooser(
-                    appFrame, lastDir,
-                    UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
-
-            dlg.addWindowListener(new SizeAndLocationController());
-            dlg.setVisible(true);
-
-            if (dlg.accepted()) {
-                lastDir = dlg.getSelectedDirectories().get(0);
-                writeLastDirToProperties();
-                BACKUP_TASK.setBackupDir(lastDir);
-                AppLifeCycle.INSTANCE.addFinalTask(BACKUP_TASK);
-            }
-        }
+    private void addBackupTask() {
+        MessageDisplayer.information(null,
+                                     "ControllerBackupDatabase.Info.ChooseDir");
+        AppLifeCycle.INSTANCE.addFinalTask(BACKUP_TASK);
     }
 
-    private void writeLastDirToProperties() {
-        UserSettings.INSTANCE.getSettings().set(lastDir.getAbsolutePath(),
-                KEY_LAST_DIR);
-        UserSettings.INSTANCE.writeToFile();
-    }
-
-    private static class BackupDb extends AppLifeCycle.FinalTask {
-        private File backupDir = new File("");
-
+    private static class BackupDb extends AppLifeCycle.FinalTask
+            implements Runnable {
         @Override
-        public void execute() {
+        public void run() {
             backup();
             notifyFinished();
         }
 
-        public void setBackupDir(File dir) {
-            assert dir.isDirectory() : dir;
-            backupDir = dir;
+        @Override
+        public void execute() {
+            Thread thread = new Thread(BACKUP_TASK);
+
+            thread.setName("Backup database @ "
+                           + BackupDb.class.getSimpleName());
+            thread.start();
         }
 
         private void backup() {
-            File db = getDbFile();
+            File[] dbFiles = getDbFiles();
 
-            if (db.exists()) {
-                File backupFile = getBackupFile();
-                JProgressBar progressBar = ProgressBar.INSTANCE.getResource(this);
+            if ((dbFiles != null) && (dbFiles.length > 0)) {
+                File backupDir = getBackupDir();
+
+                if (backupDir == null) {
+                    return;
+                }
+
+                JProgressBar progressBar =
+                    ProgressBar.INSTANCE.getResource(this);
 
                 setProgressBarStarted(progressBar);
-                try {
-                    FileUtil.copyFile(db, backupFile);
-                } catch (IOException ex) {
-                    MessageDisplayer.error(null, "BackupDb.Error.Copy", db,
-                                           backupFile);
+
+                for (File dbFile : dbFiles) {
+                    try {
+                        FileUtil.copyFile(dbFile,
+                                          new File(backupDir + File.separator
+                                                   + dbFile.getName()));
+                    } catch (IOException ex) {
+                        AppLogger.logSevere(BackupDb.class, ex);
+                        MessageDisplayer.error(null, "BackupDb.Error.Copy",
+                                               dbFile, backupDir);
+
+                        break;
+                    }
                 }
+
                 setProgressBarEnded(progressBar);
             } else {
-                MessageDisplayer.error(null, "BackupDb.Error.FileNotExists",
-                                       db);
+                MessageDisplayer.error(null, "BackupDb.Error.FileNotExists");
             }
         }
 
-        private File getDbFile() {
-            return new File(
-                UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH));
+        private File[] getDbFiles() {
+            File dbDir =
+                new File(
+                    UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
+            String pattern = Pattern.quote(UserSettings.getDatabaseBasename())
+                             + ".*";
+
+            return dbDir.listFiles(new RegexFileFilter(pattern, ""));
         }
 
-        private File getBackupFile() {
-            String basename = backupDir.getAbsolutePath() + File.separator
-                              + new File(
-                                  UserSettings.INSTANCE.getDatabaseFileName(
-                                      Filename.FULL_PATH)).getName();
-            DateFormat df = new SimpleDateFormat("-yyyy-MM-dd");
+        private File getBackupDir() {
+            DateFormat df      = new SimpleDateFormat("yyyy-MM-dd_kk-mm-ss");
+            String     dirname =
+                UserSettings.INSTANCE.getDatabaseBackupDirectoryName()
+                + File.separator + df.format(new Date());
+            File dir = new File(dirname);
 
-            return FileUtil.getNotExistingFile(new File(basename
-                    + df.format(new Date())));
+            if (dir.mkdir()) {
+                return dir;
+            } else {
+                MessageDisplayer.error(null, "BackupDb.Error.CreateDir", dir);
+
+                return null;
+            }
         }
 
         private void setProgressBarStarted(JProgressBar progressBar) {
             if (progressBar != null) {
                 progressBar.setIndeterminate(true);
                 progressBar.setStringPainted(true);
-                progressBar.setString(JptBundle.INSTANCE.getString("BackupDb.ProgressBar.String"));
+                progressBar.setString(
+                    JptBundle.INSTANCE.getString(
+                        "BackupDb.ProgressBar.String"));
             }
         }
 

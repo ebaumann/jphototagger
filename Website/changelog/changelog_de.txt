@@ -5,6 +5,13 @@ Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/im
 Changelog JPhotoTagger
 ======================
 
+0.7.91 2010-03-07
+-----------------
+
+* "Datei > Datenbank sichern": Es werden alle Dateien der Datenbank in einen
+  Ordner gespeichert. Dieser kann eingestellt werden unter "Bearbeiten >
+  Einstellungen > Sonstiges".
+
 0.7.90 2010-03-07
 -----------------
 
