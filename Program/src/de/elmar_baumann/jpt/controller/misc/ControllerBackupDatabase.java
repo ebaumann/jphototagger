@@ -37,7 +37,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
+ * @author  Elmar Baumann
  * @version 2010-03-07
  */
 public final class ControllerBackupDatabase extends Controller {

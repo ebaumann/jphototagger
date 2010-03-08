@@ -22,6 +22,7 @@ package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.app.AppWindowPersistence;
 import de.elmar_baumann.jpt.app.update.UpdateDownload;
+import de.elmar_baumann.jpt.tasks.ScheduledTaskBackupDatabase;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -59,5 +60,6 @@ public final class MetaFactory implements Runnable {
         MiscFactory.INSTANCE.init();
         appPersistence.readAppPanelFromProperties();
         UpdateDownload.checkForNewerVersion(60 * 1000);
+        ScheduledTaskBackupDatabase.INSTANCE.setBackup();
     }
 }

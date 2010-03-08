@@ -53,18 +53,12 @@ import javax.swing.JButton;
  */
 public final class ScheduledTasks
         implements ActionListener, UpdateMetadataCheckListener {
-    public static final ScheduledTasks INSTANCE = new ScheduledTasks();
-    private final SerialExecutor       executor =
-        new SerialExecutor(Executors.newCachedThreadPool());
-    private final JButton button =
-        SettingsDialog.INSTANCE.getButtonScheduledTasks();
-    private final long MINUTES_WAIT_BEFORE_PERFORM =
-        UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
+    public static final ScheduledTasks          INSTANCE             =
+        new ScheduledTasks();
     private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE =
         new HashMap<ButtonState, Icon>();
     private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE =
         new HashMap<ButtonState, String>();
-    private volatile boolean isRunning;
 
     static {
         ICON_OF_BUTTON_STATE.put(
@@ -81,7 +75,23 @@ public final class ScheduledTasks
             AppLookAndFeel.getIcon("icon_stop_scheduled_tasks_enabled.png"));
     }
 
+    private final SerialExecutor executor =
+        new SerialExecutor(Executors.newCachedThreadPool());
+    private final JButton button =
+        SettingsDialog.INSTANCE.getButtonScheduledTasks();
+    private final long MINUTES_WAIT_BEFORE_PERFORM =
+        UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
+    private volatile boolean isRunning;
+
     private enum ButtonState { START, STOP }
+
+    private ScheduledTasks() {
+        if (MINUTES_WAIT_BEFORE_PERFORM <= 0) {
+            setButtonState(ButtonState.START);
+        }
+
+        button.addActionListener(this);
+    }
 
     /**
      * Runs the tasks after {@link UserSettings#getMinutesToStartScheduledTasks()}.
@@ -181,13 +191,5 @@ public final class ScheduledTasks
         button.setEnabled(true);
         button.setIcon(ICON_OF_BUTTON_STATE.get(state));
         button.setToolTipText(TOOLTIP_TEXT_OF_BUTTON_STATE.get(state));
-    }
-
-    private ScheduledTasks() {
-        if (MINUTES_WAIT_BEFORE_PERFORM <= 0) {
-            setButtonState(ButtonState.START);
-        }
-
-        button.addActionListener(this);
     }
 }

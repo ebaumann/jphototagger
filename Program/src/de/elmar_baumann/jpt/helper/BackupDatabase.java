@@ -33,6 +33,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
     public static final BackupDatabase INSTANCE         = new BackupDatabase();
     volatile int                       currentFileIndex = 0;
     volatile int                       filecount        = 0;
+    volatile boolean                   cancel;
     ProgressBarUpdater                 progressBarUpdater;
 
     private BackupDatabase() {}
@@ -41,6 +42,10 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
     public void run() {
         backup();
         notifyFinished();
+    }
+
+    public void cancel() {
+        cancel = true;
     }
 
     @Override
@@ -73,7 +78,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
             filecount = dbFiles.size() + tnFiles.size();
             notifyProgressStarted();
 
-            if (backup(dbFiles, backupDir)) {
+            if (backup(dbFiles, backupDir) &&!cancel) {
                 backup(tnFiles, tnBackupDir);
             }
 
@@ -91,6 +96,10 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
                                            + file.getName()));
                 currentFileIndex++;
                 notifyProgressPerformed();
+
+                if (cancel) {
+                    return true;
+                }
             } catch (IOException ex) {
                 AppLogger.logSevere(BackupDatabase.class, ex);
                 MessageDisplayer.error(null, "BackupDatabase.Error.Copy", file,
