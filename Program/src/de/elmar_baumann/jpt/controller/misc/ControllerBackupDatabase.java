@@ -24,10 +24,11 @@ import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.Controller;
+import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.view.panels.ProgressBar;
+import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.lib.io.filefilter.RegexFileFilter;
 import de.elmar_baumann.lib.io.FileUtil;
 
@@ -47,7 +48,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.JMenuItem;
-import javax.swing.JProgressBar;
 
 /**
  *
@@ -93,6 +93,10 @@ public final class ControllerBackupDatabase extends Controller {
 
     private static class BackupDb extends AppLifeCycle.FinalTask
             implements Runnable {
+        volatile int       currentFileIndex = 0;
+        volatile int       filecount        = 0;
+        ProgressBarUpdater progressBarUpdater;
+
         @Override
         public void run() {
             backup();
@@ -122,16 +126,18 @@ public final class ControllerBackupDatabase extends Controller {
                 File tnBackupDir =
                     new File(backupDir.getAbsolutePath() + File.separator
                              + UserSettings.getThumbnailDirBasename());
-                JProgressBar progressBar =
-                    ProgressBar.INSTANCE.getResource(this);
 
-                setProgressBarStarted(progressBar);
+                progressBarUpdater = new ProgressBarUpdater(
+                    JptBundle.INSTANCE.getString(
+                        "BackupDb.ProgressBar.String"));
+                filecount = dbFiles.size() + tnFiles.size();
+                notifyProgressStarted();
 
                 if (backup(dbFiles, backupDir)) {
                     backup(tnFiles, tnBackupDir);
                 }
 
-                setProgressBarEnded(progressBar);
+                notifyProgressEnded();
             } else {
                 MessageDisplayer.error(null, "BackupDb.Error.FileNotExists");
             }
@@ -143,6 +149,8 @@ public final class ControllerBackupDatabase extends Controller {
                     FileUtil.copyFile(file,
                                       new File(toDir + File.separator
                                                + file.getName()));
+                    currentFileIndex++;
+                    notifyProgressPerformed();
                 } catch (IOException ex) {
                     AppLogger.logSevere(BackupDb.class, ex);
                     MessageDisplayer.error(null, "BackupDb.Error.Copy", file,
@@ -203,21 +211,24 @@ public final class ControllerBackupDatabase extends Controller {
             }
         }
 
-        private void setProgressBarStarted(JProgressBar progressBar) {
-            if (progressBar != null) {
-                progressBar.setIndeterminate(true);
-                progressBar.setStringPainted(true);
-                progressBar.setString(
-                    JptBundle.INSTANCE.getString(
-                        "BackupDb.ProgressBar.String"));
-            }
+        private void notifyProgressStarted() {
+            ProgressEvent evt = new ProgressEvent(this, 0, filecount, 0, null);
+
+            progressBarUpdater.progressStarted(evt);
         }
 
-        private void setProgressBarEnded(JProgressBar progressBar) {
-            if (progressBar != null) {
-                progressBar.setIndeterminate(false);
-                ProgressBar.INSTANCE.releaseResource(this);
-            }
+        private void notifyProgressPerformed() {
+            ProgressEvent evt = new ProgressEvent(this, 0, filecount,
+                                    currentFileIndex, null);
+
+            progressBarUpdater.progressPerformed(evt);
+        }
+
+        private void notifyProgressEnded() {
+            ProgressEvent evt = new ProgressEvent(this, 0, filecount,
+                                    currentFileIndex, null);
+
+            progressBarUpdater.progressEnded(evt);
         }
     }
 }
