@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.factory.MetaFactory;
 import de.elmar_baumann.jpt.helper.Cleanup;
 import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 
 import java.awt.event.WindowAdapter;
@@ -210,6 +211,7 @@ public final class AppLifeCycle {
 
         synchronized (finalTasks) {
             Set<FinalTask> tasks = new HashSet<FinalTask>(finalTasks);
+            GUI.INSTANCE.getAppFrame().setEnabled(false);
 
             for (FinalTask task : tasks) {
                 task.addListener(listener);

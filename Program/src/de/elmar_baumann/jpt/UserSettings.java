@@ -65,16 +65,16 @@ public final class UserSettings {
         "UserSettings.AutoDownloadNewerVersions";
     private static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES =
         "UserSettings.IsAutoscanIncludeSubdirectories";
-    private static final String KEY_DATABASE_DIRECTORY =
-        "UserSettings.DatabaseDirectoryName";
     private static final String KEY_DATABASE_BACKUP_DIRECTORY =
         "UserSettings.DatabaseBackupDirectoryName";
+    private static final String KEY_DATABASE_DIRECTORY =
+        "UserSettings.DatabaseDirectoryName";
     private static final String KEY_DEFAULT_IMAGE_OPEN_APP =
         "UserSettings.DefaultImageOpenApp";
+    private static final String KEY_DISPLAY_IPTC          =
+        "UserSettings.DisplayIptc";
     private static final String KEY_DISPLAY_SEARCH_BUTTON =
         "UserSettings.DisplaySearchButton";
-    private static final String KEY_DISPLAY_IPTC                                    =
-        "UserSettings.DisplayIptc";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS =
         "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP =
@@ -83,10 +83,10 @@ public final class UserSettings {
         "UserSettings.ExternalThumbnailCreationCommand";
     private static final String KEY_IPTC_CHARSET            =
         "UserSettings.IptcCharset";
+    private static final String KEY_LOG_LEVEL               =
+        "UserSettings.LogLevel";
     private static final String KEY_LOGFILE_FORMATTER_CLASS =
         "UserSettings.LogfileFormatterClass";
-    private static final String KEY_LOG_LEVEL                                  =
-        "UserSettings.LogLevel";
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
         "UserSettings.MaximumSecondsToTerminateExternalPrograms";
     private static final String KEY_MAX_THUMBNAIL_WIDTH =
@@ -104,14 +104,13 @@ public final class UserSettings {
     private static final String PROPERTIES_FILENAME = "Settings.properties";    // NEVER CHANGE!
     public static final SettingsHints SET_TABBED_PANE_SETTINGS =
         new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
-    private final Properties     properties     = new Properties();
-    private final PropertiesFile propertiesFile =
+    public static final UserSettings INSTANCE       = new UserSettings();
+    private final Properties         properties     = new Properties();
+    private final PropertiesFile     propertiesFile =
         new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME,
                            PROPERTIES_FILENAME, properties);
     private final Settings                    settings        =
         new Settings(properties);
-    public static final UserSettings          INSTANCE        =
-        new UserSettings();
     private final UserSettingsListenerSupport listenerSupport =
         new UserSettingsListenerSupport();
 
@@ -228,10 +227,10 @@ public final class UserSettings {
                || name.equals(Filename.FULL_PATH_NO_SUFFIX) :
                name;
 
-        return getDatabaseDirectoryName() + File.separator + getDatabaseBasename()
-               + (name.equals(Filename.FULL_PATH)
-                  ? ".data"
-                  : "");
+        return getDatabaseDirectoryName() + File.separator
+               + getDatabaseBasename() + (name.equals(Filename.FULL_PATH)
+                                          ? ".data"
+                                          : "");
     }
 
     public static String getDatabaseBasename() {
@@ -246,7 +245,12 @@ public final class UserSettings {
      * @return directory name
      */
     public String getThumbnailsDirectoryName() {
-        return getDatabaseDirectoryName() + File.separator + "thumbnails";
+        return getDatabaseDirectoryName() + File.separator
+               + getThumbnailDirBasename();
+    }
+
+    public static String getThumbnailDirBasename() {
+        return "thumbnails";
     }
 
     public DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
