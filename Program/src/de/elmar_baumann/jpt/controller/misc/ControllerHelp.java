@@ -22,6 +22,7 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.AppLoggingSystem;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.Main;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -39,8 +40,10 @@ import java.awt.event.ActionListener;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import java.util.Locale;
@@ -59,12 +62,18 @@ public final class ControllerHelp
         JptBundle.INSTANCE.getString("Help.Url.Contents");
     private static final String KEY_CURRENT_URL =
         ControllerHelp.class.getName() + ".CurrentURL";
-    private static final String URI_USER_FORUM =
+    private static final String TO_ADDRESS_BUGS     = "eb@elmar-baumann.de";
+    private static final String TO_ADDRESS_FEATURES = "eb@elmar-baumann.de";
+    private static final String URI_USER_FORUM      =
         JptBundle.INSTANCE.getString("ControllerHelp.URI.UserForum");
     private static final String URI_WEBSITE =
         JptBundle.INSTANCE.getString("ControllerHelp.URI.Website");
     private static final String URI_CHANGELOG =
         JptBundle.INSTANCE.getString("ControllerHelp.URI.Changelog");
+    private static final String SUBJECT_FEATURES =
+        JptBundle.INSTANCE.getString("ControllerSendMail.Subject.Features");
+    private static final String SUBJECT_BUGS =
+        JptBundle.INSTANCE.getString("ControllerSendMail.Subject.Bugs");
     private final AppFrame    appFrame   = GUI.INSTANCE.getAppFrame();
     private final HelpBrowser help       = HelpBrowser.INSTANCE;
     private String            currentUrl =
@@ -81,6 +90,10 @@ public final class ControllerHelp
         appFrame.getMenuItemBrowseUserForum();
     private final JMenuItem menuItemBrowseChangelog =
         appFrame.getMenuItemBrowseChangelog();
+    private final JMenuItem menuItemSendBugMail =
+        appFrame.getMenuItemSendBugMail();
+    private final JMenuItem menuItemSendFeatureMail =
+        appFrame.getMenuItemSendFeatureMail();
 
     public ControllerHelp() {
         listen();
@@ -93,6 +106,8 @@ public final class ControllerHelp
         menuItemBrowseUserForum.addActionListener(this);
         menuItemBrowseWebsite.addActionListener(this);
         menuItemBrowseChangelog.addActionListener(this);
+        menuItemSendBugMail.addActionListener(this);
+        menuItemSendFeatureMail.addActionListener(this);
     }
 
     @Override
@@ -118,6 +133,10 @@ public final class ControllerHelp
             browse(URI_WEBSITE);
         } else if (source == menuItemBrowseChangelog) {
             browse(URI_CHANGELOG);
+        } else if (source == menuItemSendBugMail) {
+            sendBugMail();
+        } else if (source == menuItemSendFeatureMail) {
+            sendFeatureMail();
         }
     }
 
@@ -154,6 +173,40 @@ public final class ControllerHelp
         help.setDisplayUrl(
             JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
         ComponentUtil.show(help);
+    }
+
+    private void sendBugMail() {
+        sendMail(
+            TO_ADDRESS_BUGS, SUBJECT_BUGS,
+            JptBundle.INSTANCE.getString(
+                "ControllerSendMail.Info.AttachLogfile",
+                AppLoggingSystem.getCurrentLogfileName()));
+    }
+
+    private void sendFeatureMail() {
+        sendMail(TO_ADDRESS_FEATURES, SUBJECT_FEATURES, null);
+    }
+
+    private void sendMail(String to, String subject, String body) {
+        try {
+            URI uri = getMailtoUri(to, subject, body);
+
+            AppLogger.logInfo(ControllerHelp.class,
+                              "ControllerSendMail.Info.SendMail.Uri", uri);
+            Desktop.getDesktop().mail(uri);
+        } catch (Exception ex) {
+            MessageDisplayer.error(null, "ControllerSendMail.Error.SendMail");
+            AppLogger.logSevere(ControllerHelp.class, ex);
+        }
+    }
+
+    private URI getMailtoUri(String to, String subject, String body)
+            throws URISyntaxException, UnsupportedEncodingException {
+        String bodyPart = ((body == null) || body.trim().isEmpty())
+                          ? ""
+                          : "&body=" + body;
+
+        return new URI("mailto", to + "?subject=" + subject + bodyPart, null);
     }
 
     private void browse(String uri) {
