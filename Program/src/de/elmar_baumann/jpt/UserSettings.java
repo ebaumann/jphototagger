@@ -67,6 +67,8 @@ public final class UserSettings {
         "UserSettings.IsAutoscanIncludeSubdirectories";
     private static final String KEY_DATABASE_DIRECTORY =
         "UserSettings.DatabaseDirectoryName";
+    private static final String KEY_DATABASE_BACKUP_DIRECTORY =
+        "UserSettings.DatabaseBackupDirectoryName";
     private static final String KEY_DEFAULT_IMAGE_OPEN_APP =
         "UserSettings.DefaultImageOpenApp";
     private static final String KEY_DISPLAY_SEARCH_BUTTON =
@@ -190,6 +192,17 @@ public final class UserSettings {
                : getDefaultDatabaseDirectoryName();
     }
 
+    public void setDatabaseBackupDirectoryName(String directoryName) {
+        settings.set(directoryName, KEY_DATABASE_BACKUP_DIRECTORY);
+        writeToFile();
+    }
+
+    public String getDatabaseBackupDirectoryName() {
+        return properties.containsKey(KEY_DATABASE_BACKUP_DIRECTORY)
+               ? settings.getString(KEY_DATABASE_BACKUP_DIRECTORY)
+               : getDatabaseDirectoryName();
+    }
+
     /**
      * Returns the default name of the directory where the database file is
      * located.
@@ -215,10 +228,14 @@ public final class UserSettings {
                || name.equals(Filename.FULL_PATH_NO_SUFFIX) :
                name;
 
-        return getDatabaseDirectoryName() + File.separator + "database"
+        return getDatabaseDirectoryName() + File.separator + getDatabaseBasename()
                + (name.equals(Filename.FULL_PATH)
                   ? ".data"
                   : "");
+    }
+
+    public static String getDatabaseBasename() {
+        return "database";
     }
 
     /**
