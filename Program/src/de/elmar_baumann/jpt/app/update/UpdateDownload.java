@@ -46,14 +46,15 @@ import javax.swing.JProgressBar;
  * @version 2010-01-05
  */
 public final class UpdateDownload extends Thread {
-    private static final String FILENAME_JAR     = "JPhotoTagger.jar";
-    private static final String FILENAME_WINDOWS = "JPhotoTagger-Setup.exe";
-    private static final String URL_CHECK        =
+    private static final String FILENAME_WINDOWS       =
+        "JPhotoTagger-Setup.exe";
+    private static final String FILENAME_ZIP           = "JPhotoTagger.zip";
+    private static final String URL_VERSION_CHECK_FILE =
         "http://www.jphototagger.org/jphototagger-version.txt";
-    private static final String URL_JAR =
-        "http://www.jphototagger.org/dist/JPhotoTagger.zip";
     private static final String URL_WIN_INSTALLER =
         "http://www.jphototagger.org/dist/JPhotoTagger-setup.exe";
+    private static final String URL_ZIP =
+        "http://www.jphototagger.org/dist/JPhotoTagger.zip";
     private static final String VERSION_DELIMITER = ".";
     private Version             currentVersion;
     private Version             netVersion;
@@ -144,7 +145,7 @@ public final class UpdateDownload extends Thread {
     private String getDownloadUrl() {
         return isWindows()
                ? URL_WIN_INSTALLER
-               : URL_JAR;
+               : URL_ZIP;
     }
 
     private File getDownloadFile() {
@@ -152,7 +153,7 @@ public final class UpdateDownload extends Thread {
                          + File.separator;
         String filename = isWindows()
                           ? FILENAME_WINDOWS
-                          : FILENAME_JAR;
+                          : FILENAME_ZIP;
 
         return new File(dirname + File.separator + filename);
     }
@@ -193,7 +194,8 @@ public final class UpdateDownload extends Thread {
     }
 
     private boolean hasNewerVersion() throws Exception {
-        netVersion = NetVersion.getOverHttp(URL_CHECK, VERSION_DELIMITER);
+        netVersion = NetVersion.getOverHttp(URL_VERSION_CHECK_FILE,
+                VERSION_DELIMITER);
 
         return currentVersion().compareTo(netVersion) < 0;
     }
