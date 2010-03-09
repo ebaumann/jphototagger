@@ -34,6 +34,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -49,7 +50,7 @@ public final class AppLifeCycle {
         new HashSet<Object>();
     private final ListenerSupport<AppExitListener> listenerSupport =
         new ListenerSupport<AppExitListener>();
-    private final Set<FinalTask> finalTasks = new HashSet<FinalTask>();
+    private final Set<FinalTask> finalTasks = new LinkedHashSet<FinalTask>();
     private AppFrame             appFrame;
     private boolean              started;
 
