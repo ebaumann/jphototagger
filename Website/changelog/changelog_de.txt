@@ -5,6 +5,12 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.7.93 2010-03-09
+-----------------
+
+* Windows: Nach Herunterladen einer neuen Version, wird gefragt, ob diese
+  installiert werden soll nach Beenden von JPhotoTagger
+
 0.7.92 2010-03-08
 -----------------
 
