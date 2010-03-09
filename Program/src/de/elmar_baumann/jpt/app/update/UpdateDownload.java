@@ -21,8 +21,10 @@
 package de.elmar_baumann.jpt.app.update;
 
 import de.elmar_baumann.jpt.app.AppInfo;
+import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.helper.FinalExecutable;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
@@ -129,16 +131,32 @@ public final class UpdateDownload extends Thread {
 
     private void download() {
         try {
-            File                 downloadFilename = getDownloadFile();
-            BufferedOutputStream os               = new BufferedOutputStream(
-                                                        new FileOutputStream(
-                                                            downloadFilename));
+            File                 downloadFile = getDownloadFile();
+            BufferedOutputStream os           =
+                new BufferedOutputStream(new FileOutputStream(downloadFile));
 
             HttpUtil.write(new URL(getDownloadUrl()), os);
-            MessageDisplayer.information(null, "UpdateDownload.Info.Success",
-                                         downloadFilename);
+
+            if (isWindows()) {
+                setFinalExecutable(downloadFile);
+            } else {
+                MessageDisplayer.information(null,
+                                             "UpdateDownload.Info.Success",
+                                             downloadFile);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(UpdateDownload.class, ex);
+        }
+    }
+
+    private void setFinalExecutable(File downloadFile) {
+        if (MessageDisplayer.confirmYesNo(
+                null, "UpdateDownload.Confirm.SetFinalExecutable",
+                downloadFile)) {
+            FinalExecutable exec =
+                new FinalExecutable(downloadFile.getAbsolutePath());
+
+            AppLifeCycle.INSTANCE.addFinalTask(exec);
         }
     }
 
