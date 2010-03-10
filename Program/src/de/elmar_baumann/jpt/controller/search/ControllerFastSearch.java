@@ -90,11 +90,18 @@ public final class ControllerFastSearch
         appPanel.getSelectionLists();
     private final EditMetadataPanels editPanels     =
         appPanel.getEditMetadataPanels();
+    private final Autocomplete autocomplete;
     private boolean            isAutocomplete;
-    private final Autocomplete autocomplete = new Autocomplete();
 
     public ControllerFastSearch() {
-        autocomplete.setTransferFocusForward(false);
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            autocomplete = new Autocomplete();
+            autocomplete.setTransferFocusForward(false);
+        } else {
+            autocomplete   = null;
+            isAutocomplete = false;
+        }
+
         listen();
     }
 
@@ -114,10 +121,16 @@ public final class ControllerFastSearch
         thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
-    public void setAutocomplete(boolean autocomplete) {
-        isAutocomplete = autocomplete;
+    public void setAutocomplete(boolean ac) {
+        assert UserSettings.INSTANCE.isAutocomplete();
 
-        if (autocomplete) {
+        if (autocomplete == null) {
+            return;
+        }
+
+        isAutocomplete = ac;
+
+        if (ac) {
             decorateTextFieldSearch();
         }
     }
@@ -146,6 +159,10 @@ public final class ControllerFastSearch
     }
 
     private void decorateTextFieldSearch() {
+        if (autocomplete == null || !UserSettings.INSTANCE.isAutocomplete()) {
+            return;
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -285,8 +302,10 @@ public final class ControllerFastSearch
 
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (event.getType().equals(
-                DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
+        if ((autocomplete == null) || event.getType()
+                .equals(DatabaseImageFilesEvent.Type
+                    .IMAGEFILE_DELETED) ||!UserSettings.INSTANCE
+                        .isAutocomplete()) {
             return;
         }
 

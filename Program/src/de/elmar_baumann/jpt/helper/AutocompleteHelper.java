@@ -26,10 +26,10 @@ import de.elmar_baumann.jpt.database.metadata.selections.AutoCompleteData;
 import de.elmar_baumann.jpt.database.metadata.selections
     .AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,8 +40,12 @@ import java.util.List;
  * @version 2010-01-26
  */
 public final class AutocompleteHelper {
+    private AutocompleteHelper() {}
+
     public static void addAutocompleteData(Column column, Autocomplete ac,
             Xmp xmp) {
+        assert UserSettings.INSTANCE.isAutocomplete();
+
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
 
         if (acData == null) {
@@ -52,6 +56,8 @@ public final class AutocompleteHelper {
     }
 
     public static void addFastSearchAutocompleteData(Autocomplete ac, Xmp xmp) {
+        assert UserSettings.INSTANCE.isAutocomplete();
+
         AutoCompleteData acData =
             AutoCompleteDataOfColumn.INSTANCE.getFastSearchData();
 
@@ -96,6 +102,8 @@ public final class AutocompleteHelper {
 
     public static void addAutocompleteData(Column column, Autocomplete ac,
             Collection<String> words) {
+        assert UserSettings.INSTANCE.isAutocomplete();
+
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
 
         if (acData == null) {
@@ -107,11 +115,4 @@ public final class AutocompleteHelper {
             ac.add(word);
         }
     }
-
-    public static void addAutocompleteData(Column column, Autocomplete ac,
-            String word) {
-        addAutocompleteData(column, ac, Arrays.asList(word));
-    }
-
-    private AutocompleteHelper() {}
 }

@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.TextEntry;
@@ -127,21 +128,22 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     @Override
     public void setAutocomplete() {
-        synchronized (this) {
-            if (autocomplete != null) {
-                return;
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            synchronized (this) {
+                if (autocomplete != null) {
+                    return;
+                }
             }
+            autocomplete = new Autocomplete();
+            autocomplete.setTransferFocusForward(false);
+            autocomplete.decorate(
+                textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
         }
-
-        autocomplete = new Autocomplete();
-        autocomplete.setTransferFocusForward(false);
-        autocomplete.decorate(
-            textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
     }
 
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (autocomplete == null) {
+        if (autocomplete == null || !UserSettings.INSTANCE.isAutocomplete()) {
             return;
         }
 
@@ -502,7 +504,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
                 }
             }
 
-            if (autocomplete != null) {
+            if (autocomplete != null && UserSettings.INSTANCE.isAutocomplete()) {
                 AutocompleteHelper.addAutocompleteData(column, autocomplete,
                         texts);
             }

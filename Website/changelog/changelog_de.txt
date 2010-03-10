@@ -5,6 +5,12 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.7.94 2010-03-10
+-----------------
+
+* Neue Option: Bearbeiten > Einstellungen > Sonstiges: Auto-Vervollständigen
+  aktivieren. Diese Option ist in der Hilfe (im PDF-Handbuch) beschrieben.
+
 0.7.93 2010-03-09
 -----------------
 

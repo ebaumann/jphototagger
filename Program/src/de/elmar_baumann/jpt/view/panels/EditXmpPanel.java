@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -129,8 +130,10 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     }
 
     private void setAutocomplete() {
-        for (TextEntry textEntry : textEntries) {
-            textEntry.setAutocomplete();
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            for (TextEntry textEntry : textEntries) {
+                textEntry.setAutocomplete();
+            }
         }
     }
 

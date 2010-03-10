@@ -90,11 +90,11 @@ public final class EditMetadataPanels
     private boolean              editable             = true;
     private WatchDifferentValues watchDifferentValues =
         new WatchDifferentValues();
-    private JComponent                              container;
-    private EditMetadataActionsPanel                editActionsPanel;
-    private Component                               lastFocussedEditControl;
     private final EditMetadataPanelsListenerSupport listenerSupport =
         new EditMetadataPanelsListenerSupport();
+    private JComponent               container;
+    private EditMetadataActionsPanel editActionsPanel;
+    private Component                lastFocussedEditControl;
 
     public EditMetadataPanels(JComponent container) {
         this.container = container;
@@ -786,11 +786,13 @@ public final class EditMetadataPanels
     }
 
     public void setAutocomplete() {
-        for (JPanel panel : panels) {
-            if (panel instanceof TextEntry) {
-                TextEntry textEntry = (TextEntry) panel;
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            for (JPanel panel : panels) {
+                if (panel instanceof TextEntry) {
+                    TextEntry textEntry = (TextEntry) panel;
 
-                textEntry.setAutocomplete();
+                    textEntry.setAutocomplete();
+                }
             }
         }
     }
@@ -915,12 +917,35 @@ public final class EditMetadataPanels
         checkDirty();
     }
 
+    /**
+     * Checks whether content was changed and saves in that case the content.
+     */
+    public void checkSaveOnChanges() {
+        if (!isEditable()) {
+            return;
+        }
+
+        if (UserSettings.INSTANCE.isSaveInputEarly() && isDirty()) {
+            save();
+        }
+    }
+
+    public void addEditMetadataPanelsListener(
+            EditMetadataPanelsListener listener) {
+        listenerSupport.add(listener);
+    }
+
+    public void removeEditMetadataPanelsListener(
+            EditMetadataPanelsListener listener) {
+        listenerSupport.remove(listener);
+    }
+
     private class WatchDifferentValues extends MouseAdapter {
-        private volatile boolean      listen;
         private final List<TextEntry> entries         =
             new ArrayList<TextEntry>();
         private final Set<TextEntry>  releasedEntries =
             new HashSet<TextEntry>();
+        private volatile boolean      listen;
 
         public synchronized void setListen(boolean listen) {
             if (listen) {
@@ -1017,29 +1042,5 @@ public final class EditMetadataPanels
 
             return false;
         }
-    }
-
-
-    /**
-     * Checks whether content was changed and saves in that case the content.
-     */
-    public void checkSaveOnChanges() {
-        if (!isEditable()) {
-            return;
-        }
-
-        if (UserSettings.INSTANCE.isSaveInputEarly() && isDirty()) {
-            save();
-        }
-    }
-
-    public void addEditMetadataPanelsListener(
-            EditMetadataPanelsListener listener) {
-        listenerSupport.add(listener);
-    }
-
-    public void removeEditMetadataPanelsListener(
-            EditMetadataPanelsListener listener) {
-        listenerSupport.remove(listener);
     }
 }

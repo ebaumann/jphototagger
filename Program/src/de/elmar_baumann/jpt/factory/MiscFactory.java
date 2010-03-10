@@ -28,6 +28,7 @@ import de.elmar_baumann.jpt.helper.ImportImageFiles;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.tasks.ScheduledTasks;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
@@ -63,12 +64,18 @@ public final class MiscFactory {
         PopupMenuThumbnails.INSTANCE.setOtherPrograms();
         ScheduledTasks.INSTANCE.run();
         checkImportImageFiles();
-        ControllerFactory.INSTANCE.getController(
-            ControllerFastSearch.class).setAutocomplete(true);
+        setAutocomplete();
         AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
         appPanel.setStatusbarText(
             JptBundle.INSTANCE.getString("MiscFactory.Init.Finished"),
             MessageLabel.MessageType.INFO, 1000);
+    }
+
+    private void setAutocomplete() {
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            ControllerFactory.INSTANCE.getController(
+                ControllerFastSearch.class).setAutocomplete(true);
+        }
     }
 
     private void checkImportImageFiles() {
