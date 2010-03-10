@@ -262,7 +262,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     /**
      * Selects all check boxes if their index is in the properties set via
-     * {@link SelectObjectsPanel#SelectObjectsPanel(java.util.Properties)}
+     * {@link SelectObjectsPanel#SelectObjectsPanel(java.util.Properties, java.lang.String)}
      */
     public void applyPropertiesSelectedIndices() {
         if ((properties == null) ||!properties.containsKey(keySelIndices)) {
