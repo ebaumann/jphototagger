@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.selections
@@ -51,7 +52,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         new ListModelSynonyms(ListModelSynonyms.Role.WORDS);
     private ListModelSynonyms modelSynonyms =
         new ListModelSynonyms(ListModelSynonyms.Role.SYNONYMS);
-    private Autocomplete autocomplete      = new Autocomplete();;
+    private Autocomplete autocomplete;
     private boolean      listenToDocuments = true;
 
     public SynonymsPanel() {
@@ -65,10 +66,16 @@ public class SynonymsPanel extends javax.swing.JPanel
         textAreaWords.getDocument().addDocumentListener(this);
         textFieldSynonyms.getDocument().addDocumentListener(this);
         MnemonicUtil.setMnemonics((Container) this);
-        autocomplete.decorate(
-            textAreaWords,
-            AutoCompleteDataOfColumn.INSTANCE.get(
-                ColumnXmpDcSubjectsSubject.INSTANCE).get());
+        setAutocomplete();
+    }
+
+    private void setAutocomplete() {
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            autocomplete = new Autocomplete();
+            autocomplete.decorate(textAreaWords,
+                    AutoCompleteDataOfColumn.INSTANCE.get(
+                        ColumnXmpDcSubjectsSubject.INSTANCE).get());
+        }
     }
 
     @Override

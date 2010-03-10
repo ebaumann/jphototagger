@@ -90,12 +90,18 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelColumn1.setOperatorsEnabled(false);
         initSearchColumnPanelArray();
         listenToSearchPanels();
-        panelKeywordsInput.setAutocomplete();
+        setAutocomplete();
         panelKeywordsInput.setBundleKeyPosRenameDialog(
             "AdvancedSearchPanel.Keywords.RenameDialog.Pos");
         setDefaultInputOfComponent();
         searchColumnPanels.get(0).removeFirst();
         MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setAutocomplete() {
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            panelKeywordsInput.setAutocomplete();
+        }
     }
 
     private void setDefaultInputOfComponent() {

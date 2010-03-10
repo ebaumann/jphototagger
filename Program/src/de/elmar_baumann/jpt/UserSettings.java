@@ -40,7 +40,6 @@ import de.elmar_baumann.lib.util.SettingsHints;
 import java.io.File;
 
 import java.util.logging.Level;
-import java.util.logging.XMLFormatter;
 import java.util.Properties;
 
 /**
@@ -79,18 +78,18 @@ public final class UserSettings {
         "UserSettings.DisplayIptc";
     private static final String KEY_DISPLAY_SEARCH_BUTTON =
         "UserSettings.DisplaySearchButton";
+    private static final String KEY_ENABLE_AUTOCOMPLETE =
+        "UserSettings.EnableAutoComplete";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS =
         "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP =
         "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
     private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND =
         "UserSettings.ExternalThumbnailCreationCommand";
-    private static final String KEY_IPTC_CHARSET            =
+    private static final String KEY_IPTC_CHARSET                               =
         "UserSettings.IptcCharset";
-    private static final String KEY_LOG_LEVEL               =
+    private static final String KEY_LOG_LEVEL                                  =
         "UserSettings.LogLevel";
-    private static final String KEY_LOGFILE_FORMATTER_CLASS =
-        "UserSettings.LogfileFormatterClass";
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
         "UserSettings.MaximumSecondsToTerminateExternalPrograms";
     private static final String KEY_MAX_THUMBNAIL_WIDTH =
@@ -105,9 +104,14 @@ public final class UserSettings {
         "UserSettings.ScanForEmbeddedXmp";
     private static final String KEY_THUMBNAIL_CREATOR =
         "UserSettings.ThumbnailCreator";
-    private static final String PROPERTIES_FILENAME = "Settings.properties";    // NEVER CHANGE!
+    private static final String PROPERTIES_FILENAME =
+        "Settings.properties";    // NEVER CHANGE!
+
+    /** Field description */
     public static final SettingsHints SET_TABBED_PANE_SETTINGS =
         new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
+
+    /** Field description */
     public static final UserSettings INSTANCE       = new UserSettings();
     private final Properties         properties     = new Properties();
     private final PropertiesFile     propertiesFile =
@@ -153,7 +157,7 @@ public final class UserSettings {
     }
 
     /**
-     * Writes the properties to a file.
+     * Writes the properties of this settings to a file.
      * <p>
      * The setters of this class always calling this method after updating the
      * properties. If You change the properties outside
@@ -170,7 +174,7 @@ public final class UserSettings {
     }
 
     /**
-     * Returns directory name of the propertie's file .
+     * Returns directory name of the properties file of this settings.
      *
      * @return directory name
      */
@@ -178,6 +182,12 @@ public final class UserSettings {
         return propertiesFile.getDirectoryName();
     }
 
+    /**
+     * Sets the name of the directory where the database files are stored.
+     *
+     *
+     * @param directoryName directory name
+     */
     public void setDatabaseDirectoryName(String directoryName) {
         settings.set(directoryName, KEY_DATABASE_DIRECTORY);
         writeToFile();
@@ -185,9 +195,10 @@ public final class UserSettings {
     }
 
     /**
-     * Returns the name of the directory where the database file is located.
+     * Returns the name of the directory where the database files are stored.
      *
-     * @return directory name
+     * @return directory name.
+     *         Default: {@link #getDefaultDatabaseDirectoryName()}.
      */
     public String getDatabaseDirectoryName() {
         return properties.containsKey(KEY_DATABASE_DIRECTORY)
@@ -195,11 +206,23 @@ public final class UserSettings {
                : getDefaultDatabaseDirectoryName();
     }
 
+    /**
+     * Sets the parent directory name of the directories, where the database
+     * will be backed up.
+     *
+     * @param directoryName directory name
+     */
     public void setDatabaseBackupDirectoryName(String directoryName) {
         settings.set(directoryName, KEY_DATABASE_BACKUP_DIRECTORY);
         writeToFile();
     }
 
+    /**
+     * Returns the parent directory name of the directories, where the database
+     * will be backed up.
+     *
+     * @return directory name. Default: {@link #getDatabaseDirectoryName()}.
+     */
     public String getDatabaseBackupDirectoryName() {
         return properties.containsKey(KEY_DATABASE_BACKUP_DIRECTORY)
                ? settings.getString(KEY_DATABASE_BACKUP_DIRECTORY)
@@ -237,6 +260,13 @@ public final class UserSettings {
                                           : "");
     }
 
+    /**
+     * Returns the basename of the database directory: The directory where the
+     * database files are stored. The basename is the directory name without its
+     * parent names.
+     *
+     * @return
+     */
     public static String getDatabaseBasename() {
         return "database";
     }
@@ -253,28 +283,60 @@ public final class UserSettings {
                + getThumbnailDirBasename();
     }
 
+    /**
+     * Returns the basename of the thumbnails directory: A subdirectory of the
+     * database location where the thumbnails are stored. The basename is the
+     * directory name without its parent names.
+     *
+     * @return basename of the thumbnails directory
+     */
     public static String getThumbnailDirBasename() {
         return "thumbnails";
     }
 
+    /**
+     * Returns the default directory chooser filter option whether to show
+     * hidden directories depending on {@link #isAcceptHiddenDirectories()} .
+     *
+     * @return DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES, if hidden
+     *         directories shall be displayed, else
+     *         DirectoryChooser.Option.NO_OPTION
+     */
     public DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
         return isAcceptHiddenDirectories()
                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
                : DirectoryChooser.Option.NO_OPTION;
     }
 
+    /**
+     * Returns the default directory filter whether to show hidden files.
+     *
+     * @return DirectoryFilter.Option.ACCEPT_HIDDEN_FILES, if hidden files
+     *         shall be displayed, else DirectoryFilter.Option.NO_OPTION
+     */
     public DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
         return isAcceptHiddenDirectories()
                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
                : DirectoryFilter.Option.NO_OPTION;
     }
 
+    /**
+     * Sets the thumbnail creator.
+     *
+     * @param creator thumbnail creator
+     */
     public void setThumbnailCreator(ThumbnailCreator creator) {
         properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
         writeToFile();
         notifyListeners(Type.THUMBNAIL_CREATOR);
     }
 
+    /**
+     * Returns the thumbnail creator.
+     *
+     * @return thumbnail creator.
+     *                   Default: {@link ThumbnailCreator#JAVA_IMAGE_IO}.
+     */
     public ThumbnailCreator getThumbnailCreator() {
         return properties.containsKey(KEY_THUMBNAIL_CREATOR)
                ? ThumbnailCreator.valueOf(
@@ -282,6 +344,12 @@ public final class UserSettings {
                : ThumbnailCreator.JAVA_IMAGE_IO;
     }
 
+    /**
+     * Sets the command line of the external program which creates the
+     * thumbnails.
+     *
+     * @param command command line
+     */
     public void setExternalThumbnailCreationCommand(String command) {
         settings.set(command, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
         writeToFile();
@@ -298,6 +366,11 @@ public final class UserSettings {
         return settings.getString(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
+    /**
+     * Sets the log level.
+     *
+     * @param logLevel log level
+     */
     public void setLogLevel(Level logLevel) {
         settings.set(logLevel.toString(), KEY_LOG_LEVEL);
         writeToFile();
@@ -332,6 +405,12 @@ public final class UserSettings {
                : level;
     }
 
+    /**
+     * Sets the path to the application which opens images when double
+     * clicking onto a thumbnail.
+     *
+     * @param app path
+     */
     public void setDefaultImageOpenApp(File app) {
         settings.set(app.getAbsolutePath(), KEY_DEFAULT_IMAGE_OPEN_APP);
         writeToFile();
@@ -358,19 +437,10 @@ public final class UserSettings {
     }
 
     /**
-     * Returns the maximum length of the thumbnail width.
+     * Sets whether the search button shall be displayed.
      *
-     * @return maximum length in pixel. Default: Internal constant
-     *         <code>DEFAULT_MAX_THUMBNAIL_LENGTH</code>.
+     * @param display true, if the search button shall be displayed
      */
-    public int getMaxThumbnailWidth() {
-        int width = settings.getInt(KEY_MAX_THUMBNAIL_WIDTH);
-
-        return (width != Integer.MIN_VALUE)
-               ? width
-               : DEFAULT_MAX_THUMBNAIL_WIDTH;
-    }
-
     public void setDisplaySearchButton(boolean display) {
         settings.set(display, KEY_DISPLAY_SEARCH_BUTTON);
         writeToFile();
@@ -378,10 +448,9 @@ public final class UserSettings {
     }
 
     /**
-     * Returns wheter the search button shall be displayed.
+     * Returns whether the search button shall be displayed.
      *
-     * @return true, if the search button shall be displayed
-     *         Default: <code>true</code>
+     * @return true, if the search button shall be displayed. Default: true.
      */
     public boolean isDisplaySearchButton() {
         return properties.containsKey(KEY_DISPLAY_SEARCH_BUTTON)
@@ -389,6 +458,12 @@ public final class UserSettings {
                : true;
     }
 
+    /**
+     * Sets whether to scan for embedded XMP metadata if no sidecar file
+     * exists.
+     *
+     * @param scan true, when to scan image files for embedded XMP metadata
+     */
     public void setScanForEmbeddedXmp(boolean scan) {
         settings.set(scan, KEY_SCAN_FOR_EMBEDDED_XMP);
         writeToFile();
@@ -400,7 +475,7 @@ public final class UserSettings {
      * exists.
      *
      * @return true, when to scan image files for embedded XMP metadata.
-     *         Default: <code>false</code>.
+     *         Default: false.
      */
     public boolean isScanForEmbeddedXmp() {
         return properties.containsKey(KEY_SCAN_FOR_EMBEDDED_XMP)
@@ -408,6 +483,11 @@ public final class UserSettings {
                : false;
     }
 
+    /**
+     * Sets the options when copying or moving files.
+     *
+     * @param options options
+     */
     public void setCopyMoveFilesOptions(Options options) {
         settings.set(options.getInt(), KEY_OPTIONS_COPY_MOVE_FILES);
         writeToFile();
@@ -417,7 +497,7 @@ public final class UserSettings {
     /**
      * Returns the options when copying or moving files.
      *
-     * @return options. Default: <code>CONFIRM_OVERWRITE</code>
+     * @return options. Default: CONFIRM_OVERWRITE.
      */
     public CopyFiles.Options getCopyMoveFilesOptions() {
         return properties.containsKey(KEY_OPTIONS_COPY_MOVE_FILES)
@@ -426,6 +506,13 @@ public final class UserSettings {
                : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
+    /**
+     * Sets whether actions shall be executed always after changing images in
+     * the database, e.g. a user defined action which embeds XMP into the image
+     * files.
+     *
+     * @param set true when the actions shall be executed always
+     */
     public void setExecuteActionsAfterImageChangeInDbAlways(boolean set) {
         settings.set(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
         settings.set(
@@ -436,12 +523,11 @@ public final class UserSettings {
     }
 
     /**
-     * Returns wheter actions shall be executed always after changing images in
+     * Returns whether actions shall be executed always after changing images in
      * the database, e.g. a user defined action which embeds XMP into the image
      * files.
      *
-     * @return true when the actions shall be executed always.
-     *         Default: <code>false</code>
+     * @return true when the actions shall be executed always. Default: false.
      * @see    #isExecuteActionsAfterImageChangeInDbIfImageHasXmp()
      */
     public boolean isExecuteActionsAfterImageChangeInDbAlways() {
@@ -452,6 +538,13 @@ public final class UserSettings {
                : false;
     }
 
+    /**
+     * Sets whether actions shall be executed after changing images in the
+     * database when the image has embbeded XMP metadata.
+     *
+     * @param set true when the actions shall be executed if the modified image
+     *            has embedded XMP metadata
+     */
     public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
             boolean set) {
         settings.set(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
@@ -463,11 +556,11 @@ public final class UserSettings {
     }
 
     /**
-     * Returns wheter actions shall be executed after changing images in the
+     * Returns whether actions shall be executed after changing images in the
      * database when the image has embbeded XMP metadata.
      *
      * @return true when the actions shall be executed if the modified image
-     *         has embedded XMP metadata. Default: <code>false</code>
+     *         has embedded XMP metadata. Default: false.
      * @see    #isExecuteActionsAfterImageChangeInDbAlways()
      */
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
@@ -478,6 +571,11 @@ public final class UserSettings {
                : false;
     }
 
+    /**
+     * Sets the charset for decoding IPTC metadata strings.
+     *
+     * @param charset charset
+     */
     public void setIptcCharset(String charset) {
         settings.set(charset, KEY_IPTC_CHARSET);
         writeToFile();
@@ -487,7 +585,7 @@ public final class UserSettings {
     /**
      * Returns the charset for decoding IPTC metadata strings.
      *
-     * @return charset. Default: <code>"ISO-8859-1"</code>
+     * @return charset. Default: "ISO-8859-1".
      */
     public String getIptcCharset() {
         String charset = settings.getString(KEY_IPTC_CHARSET);
@@ -497,6 +595,12 @@ public final class UserSettings {
                : charset;
     }
 
+    /**
+     * Sets whether automatated scans of directories for updating the
+     * database shall include subdirectories.
+     *
+     * @param include true if include subdirectories
+     */
     public void setAutoscanIncludeSubdirectories(boolean include) {
         settings.set(include, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES);
         writeToFile();
@@ -507,7 +611,7 @@ public final class UserSettings {
      * Returns whether automatated scans of directories for updating the
      * database shall include subdirectories.
      *
-     * @return true if include subdirectories. Default: <code>true</code>
+     * @return true if include subdirectories. Default: true.
      */
     public boolean isAutoscanIncludeSubdirectories() {
         return properties.containsKey(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
@@ -539,16 +643,12 @@ public final class UserSettings {
         notifyListeners(Type.SAVE_INPUT_EARLY);
     }
 
-    private void setToPropertiesLogfileFormatterClass(Class<?> formatterClass) {
-        String classString = formatterClass.toString();
-        int    index       = classString.lastIndexOf(" ");
-
-        settings.set(((index >= 0) && (index + 1 < classString.length()))
-                     ? classString.substring(index + 1)
-                     : XMLFormatter.class
-                         .getName(), KEY_LOGFILE_FORMATTER_CLASS);
-    }
-
+    /**
+     * Sets the miniutes to wait after starting before the application starts
+     * the automated tasks.
+     *
+     * @param minutes minutes
+     */
     public void setMinutesToStartScheduledTasks(int minutes) {
         settings.set(Integer.toString(minutes),
                      KEY_MINUTES_TO_START_SCHEDULED_TASKS);
@@ -571,12 +671,36 @@ public final class UserSettings {
                : DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS;
     }
 
+    /**
+     * Sets the maximum length of the thumbnail width.
+     *
+     * @param width length in pixel
+     */
     public void setMaxThumbnailWidth(int width) {
         settings.set(Integer.toString(width), KEY_MAX_THUMBNAIL_WIDTH);
         writeToFile();
         notifyListeners(Type.MAX_THUMBNAIL_WIDTH);
     }
 
+    /**
+     * Returns the maximum length of the thumbnail width.
+     *
+     * @return maximum length in pixel. Default: Internal constant
+     *         <code>DEFAULT_MAX_THUMBNAIL_LENGTH</code>.
+     */
+    public int getMaxThumbnailWidth() {
+        int width = settings.getInt(KEY_MAX_THUMBNAIL_WIDTH);
+
+        return (width != Integer.MIN_VALUE)
+               ? width
+               : DEFAULT_MAX_THUMBNAIL_WIDTH;
+    }
+
+    /**
+     * Sets the maximum time to wait before terminating external programs.
+     *
+     * @param seconds time in seconds
+     */
     public void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
         settings.set(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
         writeToFile();
@@ -586,7 +710,7 @@ public final class UserSettings {
     /**
      * Returns the maximum time to wait before terminating external programs.
      *
-     * @return time in seconds. Default: <code>60</code>.
+     * @return time in seconds. Default: 60.
      */
     public int getMaxSecondsToTerminateExternalPrograms() {
         return properties.containsKey(
@@ -595,6 +719,12 @@ public final class UserSettings {
                : 60;
     }
 
+    /**
+     * Sets, whether directory choosers and -trees shall show hidden
+     * directories and if directory scans shall include them.
+     *
+     * @param accept true, if accepted
+     */
     public void setAcceptHiddenDirectories(boolean accept) {
         settings.set(accept, KEY_ACCEPT_HIDDEN_DIRECTORIES);
         writeToFile();
@@ -605,7 +735,7 @@ public final class UserSettings {
      * Returns whether directory choosers and -trees shall show hidden
      * directories and if directory scans shall include them.
      *
-     * @return true, if accepted. Default: <code>false</code>
+     * @return true, if accepted. Default: false.
      */
     public boolean isAcceptHiddenDirectories() {
         return properties.containsKey(KEY_ACCEPT_HIDDEN_DIRECTORIES)
@@ -614,7 +744,7 @@ public final class UserSettings {
     }
 
     /**
-     * Sets wheter to check and auto download newer program versions.
+     * Sets whether to check and auto download newer program versions.
      *
      * @param auto true if to check and auto download.
      *             Default: true.
@@ -626,7 +756,7 @@ public final class UserSettings {
     }
 
     /**
-     * Returns wheter to check and auto download newer program versions.
+     * Returns whether to check and auto download newer program versions.
      *
      * @return true, if to check and auto download
      */
@@ -636,6 +766,11 @@ public final class UserSettings {
                : true;
     }
 
+    /**
+     * Sets, whether IPTC shall be displayed, if an image was selected.
+     *
+     * @param display true, if IPTC shall be displayed, if an image was selected
+     */
     public void setDisplayIptc(boolean display) {
         settings.set(display, KEY_DISPLAY_IPTC);
         writeToFile();
@@ -643,9 +778,10 @@ public final class UserSettings {
     }
 
     /**
-     * Sets whether to display IPTC.
+     * Sets whether IPTC shall be displayed, if an image was selected.
      *
-     * @return true if display IPTC. Default: false.
+     * @return true if IPTC shall be displayed, if an image was selected.
+     *         Default: false.
      */
     public boolean isDisplayIptc() {
         return properties.containsKey(KEY_DISPLAY_IPTC)
@@ -653,14 +789,20 @@ public final class UserSettings {
                : false;
     }
 
+    /**
+     * Sets the database backup interval in days.
+     *
+     * @param interval days
+     */
     public void setScheduledBackupDbInterval(int interval) {
         settings.set(interval, KEY_DATABASE_BACKUP_INTERVAL);
+        writeToFile();
     }
 
     /**
      * Returns the database backup interval in days.
      *
-     * @return days or -1 if not set
+     * @return days or -1 if not set. Default: -1
      */
     public int getScheduledBackupDbInterval() {
         return properties.containsKey(KEY_DATABASE_BACKUP_INTERVAL)
@@ -668,20 +810,62 @@ public final class UserSettings {
                : -1;
     }
 
+    /**
+     * Sets, whether automized backups shall be scheduled.
+     *
+     * @param scheduled true, if automized backups shall be scheduled
+     */
     public void setScheduledBackupDb(boolean scheduled) {
         settings.set(scheduled, KEY_DATABASE_SCHEDULED_BACKUP);
+        writeToFile();
     }
 
+    /**
+     * Returns, whether automized backups shall be scheduled.
+     *
+     * @return true, if automized backups shall be scheduled. Default: false.
+     */
     public boolean isScheduledBackupDb() {
         return properties.containsKey(KEY_DATABASE_SCHEDULED_BACKUP)
                ? settings.getBoolean(KEY_DATABASE_SCHEDULED_BACKUP)
                : false;
     }
 
+    /**
+     * Sets, whether autocomplete shall be enabled.
+     *
+     * @param enable true, if autocomplete shall be enabled.
+     */
+    public void setEnableAutocomplete(boolean enable) {
+        settings.set(enable, KEY_ENABLE_AUTOCOMPLETE);
+        writeToFile();
+    }
+
+    /**
+     * Returns, whether autocomplete shall be enabled.
+     *
+     * @return true, if autocomplete shall be enabled. Default: true.
+     */
+    public boolean isAutocomplete() {
+        return settings.containsKey(KEY_ENABLE_AUTOCOMPLETE)
+               ? settings.getBoolean(KEY_ENABLE_AUTOCOMPLETE)
+               : true;
+    }
+
+    /**
+     * Adss a listener.
+     *
+     * @param listener listener
+     */
     public void addUserSettingsListener(UserSettingsListener listener) {
         listenerSupport.add(listener);
     }
 
+    /**
+     * Removes a listener.
+     *
+     * @param listener listener
+     */
     public void removeUserSettingsListener(UserSettingsListener listener) {
         listenerSupport.remove(listener);
     }

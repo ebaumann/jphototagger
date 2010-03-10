@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.view.panels;
 
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
@@ -126,20 +127,21 @@ public final class EditTextEntryPanel extends JPanel
 
     @Override
     public void setAutocomplete() {
-        synchronized (this) {
-            if (autocomplete != null) {
-                return;
+        if (UserSettings.INSTANCE.isAutocomplete()) {
+            synchronized (this) {
+                if (autocomplete != null) {
+                    return;
+                }
             }
+            autocomplete = new Autocomplete();
+            autocomplete.decorate(
+                textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
         }
-
-        autocomplete = new Autocomplete();
-        autocomplete.decorate(
-            textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
     }
 
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (autocomplete == null) {
+        if (autocomplete == null || !UserSettings.INSTANCE.isAutocomplete()) {
             return;
         }
 

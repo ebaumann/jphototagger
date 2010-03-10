@@ -22,6 +22,7 @@ package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.database.DatabaseContent;
 import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.util.CollectionUtil;
 
 import java.util.ArrayList;
@@ -40,9 +41,9 @@ import java.util.StringTokenizer;
  * @version 2008-09-10
  */
 public final class AutoCompleteData {
-    private final DatabaseContent    db = DatabaseContent.INSTANCE;
-    private final Set<Column>        columns;
+    private final DatabaseContent    db    = DatabaseContent.INSTANCE;
     private final LinkedList<String> words = new LinkedList<String>();
+    private final Set<Column>        columns;
 
     /**
      * Creates a new instance of this class.
@@ -52,12 +53,15 @@ public final class AutoCompleteData {
      *               will be added to the autocomplete data.
      */
     AutoCompleteData(Collection<? extends Column> columns) {
+        assert UserSettings.INSTANCE.isAutocomplete();
         this.columns = new LinkedHashSet<Column>(columns);
         words.addAll(wordsOf(db.getDistinctValuesOf(this.columns)));
         Collections.sort(words);
     }
 
     public boolean add(String word) {
+        assert UserSettings.INSTANCE.isAutocomplete();
+
         synchronized (words) {
             for (String wd : wordsOf(word)) {
                 if (Collections.binarySearch(words, wd) < 0) {
