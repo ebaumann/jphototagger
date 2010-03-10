@@ -40,6 +40,7 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.lib.comparator.FileSort;
 import de.elmar_baumann.lib.componentutil.MenuUtil;
+import de.elmar_baumann.lib.system.SystemUtil;
 
 import java.io.File;
 
@@ -753,6 +754,7 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuItemOpenPdfUserManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_pdf_manual.png"))); // NOI18N
         menuItemOpenPdfUserManual.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemOpenPdfUserManual.text")); // NOI18N
+        menuItemOpenPdfUserManual.setEnabled(SystemUtil.canOpen());
         menuHelp.add(menuItemOpenPdfUserManual);
 
         menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_keyboard.png"))); // NOI18N
@@ -762,23 +764,28 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuItemBrowseUserForum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_web.png"))); // NOI18N
         menuItemBrowseUserForum.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseUserForum.text")); // NOI18N
+        menuItemBrowseUserForum.setEnabled(SystemUtil.canBrowse());
         menuHelp.add(menuItemBrowseUserForum);
 
         menuItemBrowseWebsite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_web.png"))); // NOI18N
         menuItemBrowseWebsite.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseWebsite.text")); // NOI18N
+        menuItemBrowseWebsite.setEnabled(SystemUtil.canBrowse());
         menuHelp.add(menuItemBrowseWebsite);
 
         menuItemBrowseChangelog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_web.png"))); // NOI18N
         menuItemBrowseChangelog.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseChangelog.text")); // NOI18N
+        menuItemBrowseChangelog.setEnabled(SystemUtil.canBrowse());
         menuHelp.add(menuItemBrowseChangelog);
         menuHelp.add(sep22);
 
         menuItemSendBugMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendBugMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendBugMail.text")); // NOI18N
+        menuItemSendBugMail.setEnabled(SystemUtil.canMail());
         menuHelp.add(menuItemSendBugMail);
 
         menuItemSendFeatureMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/elmar_baumann/jpt/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendFeatureMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendFeatureMail.text")); // NOI18N
+        menuItemSendFeatureMail.setEnabled(SystemUtil.canMail());
         menuHelp.add(menuItemSendFeatureMail);
         menuHelp.add(sep23);
 
