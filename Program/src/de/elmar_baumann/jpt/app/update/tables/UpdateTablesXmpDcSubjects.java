@@ -114,13 +114,38 @@ final class UpdateTablesXmpDcSubjects {
                 Long   idDcSubject =
                     DatabaseImageFiles.INSTANCE.getIdDcSubject(dcSubject);
 
-                if (idDcSubject != null) {
-                    insertIntoLinkTable(connection, idXmp, idDcSubject);
+                if ((idDcSubject != null) && existsIdXmp(connection, idXmp)) {
+                    if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(
+                            idXmp, idDcSubject)) {
+                        insertIntoLinkTable(connection, idXmp, idDcSubject);
+                    }
                 }
             }
         } finally {
             Database.close(rs, stmt);
         }
+    }
+
+    private boolean existsIdXmp(Connection connection, long id)
+            throws SQLException {
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
+        boolean           exists = false;
+
+        try {
+            stmt = connection.prepareStatement(
+                "SELECT COUNT(*) FROM xmp WHERE id = ?");
+            stmt.setLong(1, id);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+        } finally {
+            Database.close(rs, stmt);
+        }
+
+        return false;
     }
 
     private void insertIntoLinkTable(Connection connection, long idXmp,
