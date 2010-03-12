@@ -20,11 +20,8 @@
 
 package de.elmar_baumann.jpt.database.metadata;
 
-import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
-import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
-
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * SQL-Joins.
@@ -33,12 +30,32 @@ import java.util.List;
  * @version 2008-10-05
  */
 public final class Join {
+    private static final Map<String, String> JOIN_FROM_FILES =
+        new HashMap<String, String>();
+
+    static {
+        JOIN_FROM_FILES.put("files", "");
+        JOIN_FROM_FILES.put(
+            "dc_subjects",
+            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+            + " INNER JOIN xmp_dc_subject ON xmp.id = xmp_dc_subject.id_xmp"
+            + " INNER JOIN dc_subjects"
+            + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id");
+        JOIN_FROM_FILES.put("exif",
+                            "\\JOIN_TYPE\\ JOIN exif"
+                            + " on files.id = exif.id_files");
+        JOIN_FROM_FILES.put("xmp",
+                            "\\JOIN_TYPE\\ JOIN xmp"
+                            + " on files.id = xmp.id_files");
+    }
+
+    private Join() {}
 
     /**
-     * Type of a SQL join - only the currently used types.
+     * Type of a SQL join.
      */
     public enum Type {
-        INNER("INNER JOIN"), LEFT("LEFT JOIN");
+        INNER("INNER"), LEFT("LEFT");
 
         private final String string;
 
@@ -52,47 +69,16 @@ public final class Join {
         }
     }
 
-    /**
-     * Liefert den JOIN-Anteil eines SQL-Statements für eine Verknüpfung
-     * der Tabelle <code>exif</code> mit verschiedenen EXIF-Tabellen (INNER JOIN;
-     * aktuell gibt es nur eine EXIF-Tabele).
-     *
-     * @param type       type of join between {@link TableFiles} and
-     *                   {@link TableExif}
-     * @param tablenames Namen der Tabellen
-     * @return           JOIN-Statement
-     */
-    public static String getSqlFilesExifJoin(Type type,
-            List<String> tablenames) {
-        return " files " + type.toString()
-               + " exif on files.id = exif.id_files";
-    }
-
-    /**
-     * Liefert den JOIN-Anteil eines SQL-Statements für eine Verknüpfung
-     * der xmp-Tabelle mit verschiedenen XMP-Tabellen (LEFT JOIN).
-     *
-     * @param typeFiles  type of join between {@link TableFiles} and
-     *                   {@link TableXmp}
-     * @param typeXmp    type of join between {@link TableXmp} and one of it's
-     *                   n:m resolution tables
-     * @param tablenames Namen der Tabellen
-     * @return           JOIN-Statement
-     */
-    public static String getSqlFilesXmpJoin(Type typeFiles, Type typeXmp,
-            List<String> tablenames) {
-        StringBuilder sb = new StringBuilder(" files " + typeFiles.toString()
-                               + " xmp on files.id = xmp.id_files");
-
-        for (String tablename : tablenames) {
-            if (tablename.startsWith("xmp") &&!tablename.equals("xmp")) {
-                sb.append(" " + typeXmp.toString() + " " + tablename
-                          + " ON xmp.id = " + tablename + ".id_xmp");
-            }
+    public static String getJoinToFiles(String tablename, Type type) {
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
         }
 
-        return sb.toString();
-    }
+        if (!JOIN_FROM_FILES.containsKey(tablename)) {
+            throw new IllegalArgumentException("Unkown table: " + tablename);
+        }
 
-    private Join() {}
+        return JOIN_FROM_FILES.get(tablename).replace("\\JOIN_TYPE\\",
+                                   type.string);
+    }
 }

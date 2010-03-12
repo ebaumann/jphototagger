@@ -21,7 +21,6 @@
 package de.elmar_baumann.jpt.database.metadata.xmp;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesId;
 
 /**
  * Spalte <code>id_files</code> der Tabelle <code>xmp</code>.
@@ -34,8 +33,6 @@ public final class ColumnXmpIdFiles extends Column {
 
     private ColumnXmpIdFiles() {
         super(TableXmp.INSTANCE, "id_files", DataType.BIGINT);
-        setIsUnique(true);
-        setCanBeNull(false);
-        setReferences(ColumnFilesId.INSTANCE);
+        setSurrogateKey(true);
     }
 }

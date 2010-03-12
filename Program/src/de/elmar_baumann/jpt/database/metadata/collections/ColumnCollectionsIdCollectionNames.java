@@ -36,6 +36,6 @@ public final class ColumnCollectionsIdCollectionNames extends Column {
     private ColumnCollectionsIdCollectionNames() {
         super(TableCollections.INSTANCE, "id_collectionnnames",
               DataType.BIGINT);
-        setIsPrimaryKey(true);
+        setSurrogateKey(true);
     }
 }

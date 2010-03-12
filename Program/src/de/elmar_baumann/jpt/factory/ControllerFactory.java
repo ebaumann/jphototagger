@@ -69,6 +69,7 @@ import de.elmar_baumann.jpt.controller.keywords.list.ControllerDeleteKeywords;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDisplayKeyword;
 import de.elmar_baumann.jpt.controller.keywords.list
     .ControllerEditKeywordSynonyms;
+import de.elmar_baumann.jpt.controller.keywords.list.ControllerInsertKeywords;
 import de.elmar_baumann.jpt.controller.keywords.list
     .ControllerKeywordItemSelected;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
@@ -309,6 +310,7 @@ public final class ControllerFactory {
         support.add(new ControllerShowSynonymsDialog());
         support.add(new ControllerEditKeywordSynonyms());
         support.add(new ControllerBackupDatabase());
+        support.add(new ControllerInsertKeywords());
         addKeywordsTreeControllers();
         addSizeAndLocationController();
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");

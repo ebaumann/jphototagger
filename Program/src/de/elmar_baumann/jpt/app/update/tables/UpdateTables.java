@@ -47,5 +47,6 @@ public final class UpdateTables extends Database {
         new UpdateTablesDeleteInvalidExif().update(connection);
         new UpdateTablesThumbnails().update(connection);
         new UpdateTablesDropCategories().update(connection);
+        new UpdateTablesXmpDcSubjects().update(connection);
     }
 }

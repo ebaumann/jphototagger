@@ -23,7 +23,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 import de.elmar_baumann.jpt.database.metadata.Column;
 
 /**
- * Spalte <code>id</code> der Tabelle <code>xmp_dc_subjects</code>.
+ * Spalte <code>id</code> der Tabelle <code>xmp_dc_subject</code>.
  *
  * @author  Elmar Baumann
  * @version 2008-08-27
@@ -34,6 +34,6 @@ public final class ColumnXmpDcSubjectsId extends Column {
 
     private ColumnXmpDcSubjectsId() {
         super(TableXmpDcSubjects.INSTANCE, "id", DataType.BIGINT);
-        setIsPrimaryKey(true);
+        setSurrogateKey(true);
     }
 }

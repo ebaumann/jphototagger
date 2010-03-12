@@ -26,17 +26,9 @@ import de.elmar_baumann.jpt.data.SavedSearch;
 import de.elmar_baumann.jpt.data.SavedSearchPanel;
 import de.elmar_baumann.jpt.data.SavedSearchParamStatement;
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifIdFiles;
-import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
-import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesId;
-import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
-import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.jpt.database.metadata.Util;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpId;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIdFiles;
-import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
 import de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit;
 import de.elmar_baumann.jpt.event.listener.impl.SearchListenerSupport;
 import de.elmar_baumann.jpt.event.listener.SearchListener;
@@ -44,6 +36,9 @@ import de.elmar_baumann.jpt.event.SearchEvent;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.database.metadata.Join;
+import de.elmar_baumann.jpt.database.metadata.Join.Type;
+import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -67,7 +62,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         implements SearchListener, Persistence {
     private static final int    MIN_COLUMN_COUNT        = 5;
     private static final String SQL_IDENTIFIER_KEYWORDS =
-        "xmp_dc_subjects.subject IN";
+        "dc_subjects.subject IN";
     private static final String KEY_SELECTED_TAB_INDEX =
         "AdvancedSearchPanel.SelectedTabIndex";
     private static final long             serialVersionUID   =
@@ -192,7 +187,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
 
         SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
-        ParamStatement            stmt      = getSql();
+        ParamStatement            stmt      = getParamStatement();
 
         paramStmt.setQuery(stmt.isQuery());
         paramStmt.setSql(stmt.getSql());
@@ -541,12 +536,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         notifyNameChanged();
     }
 
-    private ParamStatement getSql() {
-        StringBuffer   statement = getStartSelectFrom();
+    private ParamStatement getParamStatement() {
+        StringBuilder   statement = getStartSelectFrom();
         List<String>   values    = new ArrayList<String>();
         ParamStatement stmt      = new ParamStatement();
 
-        appendFrom(statement);
+        appendToFrom(statement);
         appendWhere(statement, values);
         stmt.setSql(statement.toString());
         stmt.setValues(values.toArray());
@@ -555,12 +550,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return stmt;
     }
 
-    private StringBuffer getStartSelectFrom() {
+    private StringBuilder getStartSelectFrom() {
         Column columnFilename     = ColumnFilesFilename.INSTANCE;
         String columnNameFilename = columnFilename.getName();
         String tableNameFiles     = columnFilename.getTable().getName();
 
-        return new StringBuffer("SELECT DISTINCT " + tableNameFiles + "."
+        return new StringBuilder("SELECT DISTINCT " + tableNameFiles + "."
                                 + columnNameFilename + " FROM");
     }
 
@@ -601,7 +596,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return keywords;
     }
 
-    private void appendWhere(StringBuffer statement, List<String> values) {
+    private void appendWhere(StringBuilder statement, List<String> values) {
         statement.append(" WHERE");
 
         int index = 0;
@@ -617,7 +612,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         appendKeywords(statement, values, index > 0);
     }
 
-    private void appendKeywords(StringBuffer statement, List<String> values,
+    private void appendKeywords(StringBuilder statement, List<String> values,
                                 boolean and) {
         List<String> keywords = getKeywords();
         int          count    = keywords.size();
@@ -628,7 +623,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         statement.append((and
                           ? " AND"
-                          : "") + " xmp_dc_subjects.subject IN "
+                          : "") + " dc_subjects.subject IN "
                                 + de.elmar_baumann.jpt.database.Util
                                     .getParamsInParentheses(
                                         count) + " GROUP BY files.filename"
@@ -637,50 +632,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         values.addAll(keywords);
     }
 
-    private void appendFrom(StringBuffer statement) {
-        List<Table>               allTables     =
-            Util.getUniqueTablesOfColumnArray(getColumns());
-        Column.ReferenceDirection back          =
-            Column.ReferenceDirection.BACKWARDS;
-        List<Table>               refsXmpTables =
-            Util.getTablesWithReferenceTo(allTables, TableXmp.INSTANCE, back);
-
-        statement.append(" " + TableFiles.INSTANCE.getName());
-
-        if (allTables.contains(TableExif.INSTANCE)) {
-            statement.append(getJoinFiles(TableExif.INSTANCE,
-                                          ColumnExifIdFiles.INSTANCE));
-        }
-
-        if (allTables.contains(TableXmp.INSTANCE) ||!refsXmpTables.isEmpty()) {
-            statement.append(getJoinFiles(TableXmp.INSTANCE,
-                                          ColumnXmpIdFiles.INSTANCE));
-        }
-
-        String xmpJoinCol = TableXmp.INSTANCE.getName() + "."
-                            + ColumnXmpId.INSTANCE.getName();
-
-        appendInnerJoin(statement, refsXmpTables, TableXmp.INSTANCE,
-                        xmpJoinCol);
-    }
-
-    private String getJoinFiles(Table joinTable, Column joinColumn) {
-        return " INNER JOIN " + joinTable.getName() + " ON "
-               + joinTable.getName() + "." + joinColumn.getName() + " = "
-               + TableFiles.INSTANCE.getName() + "."
-               + ColumnFilesId.INSTANCE.getName();
-    }
-
-    private void appendInnerJoin(StringBuffer statement,
-                                 List<Table> refsTables, Table referredTable,
-                                 String joinCol) {
-        for (Table refsTable : refsTables) {
-            Column refColumn =
-                refsTable.getJoinColumnsFor(referredTable).get(0);
-
-            statement.append(" INNER JOIN " + refsTable.getName() + " ON "
-                             + refsTable.getName() + "." + refColumn.getName()
-                             + " = " + joinCol);
+    private void appendToFrom(StringBuilder statement) {
+        statement.append(" files ");
+        int index = 0;
+        for (Table table : Util.getDistinctTablesOfColumns(getColumns())) {
+            statement.append(index == 0 ? "" : " ");
+            statement.append(Join.getJoinToFiles(table.getName(), Type.INNER));
         }
     }
 

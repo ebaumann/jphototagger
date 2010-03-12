@@ -35,6 +35,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -97,14 +98,15 @@ public final class DatabaseFind extends Database {
      */
     public List<String> findFilenamesLikeOr(List<Column> searchColumns,
             String searchString) {
-        List<String> filenames = new ArrayList<String>();
+        List<String>              filenames      = new ArrayList<String>();
+        Map<String, List<Column>> columnsOfTable =
+            Util.getColumnsSeparatedByTables(searchColumns);
 
-        addFilenamesSearchFilenamesLikeOr(
-            Util.getTableColumnsOfTableStartsWith(searchColumns, "xmp"),
-            searchString, filenames, "xmp");
-        addFilenamesSearchFilenamesLikeOr(
-            Util.getTableColumnsOfTableStartsWith(searchColumns, "exif"),
-            searchString, filenames, "exif");
+        for (String tablename : columnsOfTable.keySet()) {
+            addFilenamesSearchFilenamesLikeOr(columnsOfTable.get(tablename),
+                                              searchString, filenames,
+                                              tablename);
+        }
 
         return filenames;
     }
@@ -166,13 +168,9 @@ public final class DatabaseFind extends Database {
             String tablename, String searchString) {
         StringBuilder sql =
             new StringBuilder("SELECT DISTINCT files.filename FROM ");
-        List<String> tablenames =
-            Util.getUniqueTableNamesOfColumnArray(searchColumns);
 
-        sql.append((tablename.equals("xmp")
-                    ? Join.getSqlFilesXmpJoin(Type.INNER, Type.LEFT, tablenames)
-                    : Join.getSqlFilesExifJoin(Type.INNER,
-                    tablenames)) + " WHERE ");
+        sql.append("files " + Join.getJoinToFiles(tablename, Type.INNER)
+                   + " WHERE ");
 
         boolean isFirstColumn = true;
 

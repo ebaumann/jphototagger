@@ -21,6 +21,7 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.data.Xmp;
@@ -43,7 +44,6 @@ import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -63,6 +63,7 @@ import javax.swing.tree.TreePath;
  * @version 2009-08-05
  */
 public final class KeywordsHelper {
+    private KeywordsHelper() {}
 
     /**
      * Adds the keyword - contained as user object in a d.m. tree node -
@@ -83,6 +84,44 @@ public final class KeywordsHelper {
         if (keywordStrings.size() > 1) {
             Collections.reverse(keywordStrings);    // else leaf is first element
         }
+    }
+
+    /**
+     * Inserts into the Database a Dublin Core keyword.
+     */
+    public static void insertDcSubject() {
+        String dcSubject = MessageDisplayer.input(
+                               "KeywordsHelper.Input.InsertDcSubject", "",
+                               "KeywordsHelper.Input.InsertDcSubject.Settings");
+
+        if ((dcSubject != null) && checkExistsDcSubject(dcSubject)) {
+            if (DatabaseImageFiles.INSTANCE.insertDcSubject(dcSubject)) {
+                insertDcSubjectAsKeyword(dcSubject);
+            } else {
+                MessageDisplayer.error(null,
+                                       "KeywordsHelper.Error.InsertDcSubject",
+                                       dcSubject);
+            }
+        }
+    }
+
+    private static void insertDcSubjectAsKeyword(String keyword) {
+        if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
+            DatabaseKeywords.INSTANCE.insert(new Keyword(null, null, keyword,
+                    true));
+        }
+    }
+
+    private static boolean checkExistsDcSubject(String dcSubject) {
+        if (DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
+            MessageDisplayer.error(null,
+                                   "KeywordsHelper.Error.DcSubjectExists",
+                                   dcSubject);
+
+            return false;
+        }
+
+        return true;
     }
 
     public static void saveKeywordsToImageFile(List<String> keywordStrings,
@@ -303,9 +342,85 @@ public final class KeywordsHelper {
         }
     }
 
+    private static void updateXmp(Xmp xmp, String filename,
+                                  String sidecarFilename) {
+        if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
+            ImageFile imageFile = new ImageFile();
+
+            imageFile.setFilename(filename);
+            imageFile.setLastmodified(FileUtil.getLastModified(filename));
+            xmp.setValue(ColumnXmpLastModified.INSTANCE,
+                         FileUtil.getLastModified(sidecarFilename));
+            imageFile.setXmp(xmp);
+            imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
+            DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
+        }
+    }
+
+    private static class DeleteKeyword extends HelperThread {
+        private final String     keyword;
+        private volatile boolean stop;
+
+        public DeleteKeyword(String keyword) {
+            this.keyword = keyword;
+            setName("Deleting keyword @ " + getClass().getSimpleName());
+            setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Delete"));
+        }
+
+        @Override
+        public void run() {
+            List<String> filenames =
+                new ArrayList<String>(
+                    DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(
+                        keyword));
+
+            logStartDelete(keyword);
+            progressStarted(0, 0, filenames.size(), null);
+
+            int size  = filenames.size();
+            int index = 0;
+
+            for (index = 0; !stop && (index < size); index++) {
+                String filename        = filenames.get(index);
+                String sidecarFilename =
+                    XmpMetadata.suggestSidecarFilename(filename);
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+
+                if (xmp != null) {
+                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
+                                    keyword);
+                    updateXmp(xmp, filename, sidecarFilename);
+                }
+
+                progressPerformed(index, xmp);
+            }
+
+            checkDatabase();
+
+            progressEnded(index);
+        }
+
+        private static void logStartDelete(String keyword) {
+            AppLogger.logInfo(KeywordsHelper.class,
+                              "KeywordsHelper.Info.StartDelete", keyword);
+        }
+
+        @Override
+        protected void stopRequested() {
+            stop = true;
+        }
+
+        private void checkDatabase() {
+            if (DatabaseImageFiles.INSTANCE.existsDcSubject(keyword)) {
+                DatabaseImageFiles.INSTANCE.deleteDcSubject(keyword);
+            }
+        }
+    }
+
+
     private static class RenameKeyword extends HelperThread {
-        private final String     oldName;
         private final String     newName;
+        private final String     oldName;
         private volatile boolean stop;
 
         public RenameKeyword(String oldName, String newName) {
@@ -358,75 +473,4 @@ public final class KeywordsHelper {
             stop = true;
         }
     }
-
-
-    private static class DeleteKeyword extends HelperThread {
-        private final String     keyword;
-        private volatile boolean stop;
-
-        public DeleteKeyword(String keyword) {
-            this.keyword = keyword;
-            setName("Deleting keyword @ " + getClass().getSimpleName());
-            setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Delete"));
-        }
-
-        @Override
-        public void run() {
-            List<String> filenames =
-                new ArrayList<String>(
-                    DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(
-                        keyword));
-
-            logStartDelete(keyword);
-            progressStarted(0, 0, filenames.size(), null);
-
-            int size  = filenames.size();
-            int index = 0;
-
-            for (index = 0; !stop && (index < size); index++) {
-                String filename        = filenames.get(index);
-                String sidecarFilename =
-                    XmpMetadata.suggestSidecarFilename(filename);
-                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
-
-                if (xmp != null) {
-                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                    keyword);
-                    updateXmp(xmp, filename, sidecarFilename);
-                }
-
-                progressPerformed(index, xmp);
-            }
-
-            progressEnded(index);
-        }
-
-        private static void logStartDelete(String keyword) {
-            AppLogger.logInfo(KeywordsHelper.class,
-                              "KeywordsHelper.Info.StartDelete", keyword);
-        }
-
-        @Override
-        protected void stopRequested() {
-            stop = true;
-        }
-    }
-
-
-    private static void updateXmp(Xmp xmp, String filename,
-                                  String sidecarFilename) {
-        if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
-            ImageFile imageFile = new ImageFile();
-
-            imageFile.setFilename(filename);
-            imageFile.setLastmodified(FileUtil.getLastModified(filename));
-            xmp.setValue(ColumnXmpLastModified.INSTANCE,
-                         FileUtil.getLastModified(sidecarFilename));
-            imageFile.setXmp(xmp);
-            imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
-            DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
-        }
-    }
-
-    private KeywordsHelper() {}
 }

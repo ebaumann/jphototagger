@@ -21,7 +21,6 @@
 package de.elmar_baumann.jpt.database.metadata.exif;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesId;
 
 /**
  * Spalte <code>id_files</code> der Tabelle <code>exif</code>.
@@ -34,8 +33,6 @@ public final class ColumnExifIdFiles extends Column {
 
     private ColumnExifIdFiles() {
         super(TableExif.INSTANCE, "id_files", DataType.BIGINT);
-        setIsUnique(true);
-        setCanBeNull(false);
-        setReferences(ColumnFilesId.INSTANCE);
+        setSurrogateKey(true);
     }
 }

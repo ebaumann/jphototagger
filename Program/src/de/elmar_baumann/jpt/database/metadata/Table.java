@@ -20,8 +20,8 @@
 
 package de.elmar_baumann.jpt.database.metadata;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -29,8 +29,7 @@ import java.util.List;
  * @version 2008-10-05
  */
 public abstract class Table {
-    private final List<Column> columns          = new ArrayList<Column>();
-    private final List<Column> referenceColumns = new ArrayList<Column>();
+    private final Set<Column> columns = new HashSet<Column>();
     private final String       name;
 
     protected Table(String name) {
@@ -64,59 +63,21 @@ public abstract class Table {
     }
 
     protected void addColumn(Column column) {
-        assert !columns.contains(column);
         column.setTable(this);
         columns.add(column);
-
-        if (column.getReferences() != null) {
-            referenceColumns.add(column);
-        }
     }
 
-    public List<Column> getColumns() {
+    public Set<Column> getColumns() {
         if (columns.isEmpty()) {
             addColumns();
         }
 
-        return new ArrayList<Column>(columns);
-    }
-
-    /**
-     * Liefert alle Spalten, die Spalten einer anderen Tabelle referenzieren.
-     *
-     * @return Referenzspalten
-     */
-    public List<Column> getReferenceColumns() {
-        if (columns.isEmpty()) {
-            addColumns();
-        }
-
-        return referenceColumns;
+        return new HashSet<Column>(columns);
     }
 
     @Override
     public String toString() {
         return name;
-    }
-
-    /**
-     * Liefert die Spalten, die eine bestimmte Tabelle referenzieren.
-     *
-     * @param table Tabelle
-     * @return Spalten
-     */
-    public List<Column> getJoinColumnsFor(Table table) {
-        List<Column> joinColumns = new ArrayList<Column>();
-
-        for (Column column : referenceColumns) {
-            Column referencedColumn = column.getReferences();
-
-            if (referencedColumn.getTable().equals(table)) {
-                joinColumns.add(column);
-            }
-        }
-
-        return joinColumns;
     }
 
     public boolean contains(Column column) {

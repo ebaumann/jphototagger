@@ -33,6 +33,6 @@ public final class ColumnXmpId extends Column {
 
     private ColumnXmpId() {
         super(TableXmp.INSTANCE, "id", DataType.BIGINT);
-        setIsPrimaryKey(true);
+        setSurrogateKey(true);
     }
 }
