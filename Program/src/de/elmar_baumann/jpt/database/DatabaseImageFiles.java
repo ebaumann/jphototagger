@@ -2662,6 +2662,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.setString(1, dcSubject);
             logFiner(stmt);
             int count = stmt.executeUpdate();
+            connection.commit();
             if (count > 0) {
                 Xmp oldXmp = new Xmp();
                 oldXmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
@@ -2669,6 +2670,7 @@ public final class DatabaseImageFiles extends Database {
             }
         } catch (SQLException ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
+            rollback(connection);
         } finally {
             close(stmt);
             free(connection);
