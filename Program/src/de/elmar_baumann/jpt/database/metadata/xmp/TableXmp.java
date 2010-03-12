@@ -43,7 +43,6 @@ public final class TableXmp extends Table {
         addColumn(ColumnXmpDcDescription.INSTANCE);
         addColumn(ColumnXmpDcRights.INSTANCE);
         addColumn(ColumnXmpDcTitle.INSTANCE);
-        addColumn(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
         addColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         addColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         addColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE);

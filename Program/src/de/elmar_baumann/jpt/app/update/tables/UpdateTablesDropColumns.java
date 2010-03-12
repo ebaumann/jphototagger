@@ -50,6 +50,8 @@ final class UpdateTablesDropColumns {
         COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null));
         COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null,
                                    null));
+        COLUMNS.add(new ColumnInfo("xmp", "iptc4xmpcore_countrycode", null, null));
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "iptc4xmpcoreCountrycode", null, null));
     }
 
     void update(Connection connection) throws SQLException {

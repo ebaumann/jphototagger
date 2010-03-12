@@ -27,8 +27,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreCountrycode;
-import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp
@@ -79,8 +77,6 @@ public final class XmpColumnXmpDataTypeMapping {
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE,
                                      XmpValueType.LANG_ALT);
         XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
                                      XmpValueType.TEXT);
         XMP_VALUE_TYPE_OF_COLUMN.put(
             ColumnXmpPhotoshopAuthorsposition.INSTANCE, XmpValueType.TEXT);

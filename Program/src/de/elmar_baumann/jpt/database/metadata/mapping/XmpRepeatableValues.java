@@ -27,8 +27,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreCountrycode;
-import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
@@ -67,7 +65,6 @@ public final class XmpRepeatableValues {
         IS_REPEATABLE.put(ColumnXmpDcRights.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpDcSubjectsSubject.INSTANCE, true);
         IS_REPEATABLE.put(ColumnXmpDcTitle.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, false);
