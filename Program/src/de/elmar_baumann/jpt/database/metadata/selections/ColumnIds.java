@@ -39,8 +39,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreCountrycode;
-import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp
@@ -91,7 +89,7 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(7, ColumnXmpDcDescription.INSTANCE);
         COLUMN_OF_ID.put(8, ColumnXmpDcRights.INSTANCE);
         COLUMN_OF_ID.put(9, ColumnXmpDcTitle.INSTANCE);
-        COLUMN_OF_ID.put(10, ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
+        // Removed 10: ColumnXmpIptc4xmpcoreCountrycode
         COLUMN_OF_ID.put(11, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         COLUMN_OF_ID.put(12, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
         COLUMN_OF_ID.put(13, ColumnXmpPhotoshopCaptionwriter.INSTANCE);

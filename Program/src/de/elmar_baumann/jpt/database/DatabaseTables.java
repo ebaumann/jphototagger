@@ -142,7 +142,6 @@ public final class DatabaseTables extends Database {
                 + ", dc_description VARCHAR_IGNORECASE(2000)"
                 + ", dc_rights VARCHAR_IGNORECASE(128)"
                 + ", dc_title VARCHAR_IGNORECASE(64)"
-                + ", iptc4xmpcore_countrycode VARCHAR_IGNORECASE(3)"
                 + ", iptc4xmpcore_location VARCHAR_IGNORECASE(64)"
                 + ", photoshop_authorsposition VARCHAR_IGNORECASE(32)"
                 + ", photoshop_captionwriter VARCHAR_IGNORECASE(32)"
@@ -164,8 +163,6 @@ public final class DatabaseTables extends Database {
                          + " ON xmp (dc_description)");
             stmt.execute("CREATE INDEX idx_xmp_dc_rights ON xmp (dc_rights)");
             stmt.execute("CREATE INDEX idx_xmp_dc_title ON xmp (dc_title)");
-            stmt.execute("CREATE INDEX idx_xmp_iptc4xmpcore_countrycode"
-                         + " ON xmp (iptc4xmpcore_countrycode)");
             stmt.execute("CREATE INDEX idx_xmp_iptc4xmpcore_location"
                          + " ON xmp (iptc4xmpcore_location)");
             stmt.execute("CREATE INDEX idx_xmp_photoshop_authorsposition"
@@ -358,7 +355,6 @@ public final class DatabaseTables extends Database {
                          + ", dcDescription BINARY"
                          + ", photoshopCaptionwriter BINARY"
                          + ", iptc4xmpcoreLocation BINARY"
-                         + ", iptc4xmpcoreCountrycode BINARY"
                          + ", dcRights BINARY, dcCreator BINARY"
                          + ", photoshopAuthorsposition BINARY"
                          + ", photoshopCity BINARY, photoshopState BINARY"

@@ -28,8 +28,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreCountrycode;
-import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp
@@ -106,20 +104,19 @@ public class DatabaseMetadataTemplates extends Database {
                             ", dcDescription" +    // --  5 --
                                 ", photoshopCaptionwriter" +    // --  6 --
                                     ", iptc4xmpcoreLocation" +    // --  7 --
-                                        ", iptc4xmpcoreCountrycode" +    // --  8 --
-                                            ", dcRights" +    // --  9 --
-                                            ", dcCreator" +    // -- 10 --
-                                            ", photoshopAuthorsposition" +    // -- 11 --
-                                            ", photoshopCity" +    // -- 12 --
-                                            ", photoshopState" +    // -- 13 --
-                                            ", photoshopCountry" +    // -- 14 --
-                                            ", photoshopTransmissionReference" +    // -- 15 --
-                                            ", photoshopInstructions" +       // -- 16 --
-                                            ", photoshopCredit" +             // -- 17 --
-                                            ", photoshopSource" +             // -- 18 --
-                                            ", rating" +                      // -- 19 --
-                                            ", iptc4xmpcore_datecreated" +    // -- 20 --
-                                            ")" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                            ", dcRights" +    // --  8 --
+                                            ", dcCreator" +    // -- 9 --
+                                            ", photoshopAuthorsposition" +    // -- 10 --
+                                            ", photoshopCity" +    // -- 11 --
+                                            ", photoshopState" +    // -- 12 --
+                                            ", photoshopCountry" +    // -- 13 --
+                                            ", photoshopTransmissionReference" +    // -- 14 --
+                                            ", photoshopInstructions" +       // -- 15 --
+                                            ", photoshopCredit" +             // -- 16 --
+                                            ", photoshopSource" +             // -- 17 --
+                                            ", rating" +                      // -- 18 --
+                                            ", iptc4xmpcore_datecreated" +    // -- 19 --
+                                            ")" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             set(stmt, template);
             logFiner(stmt);
             stmt.executeUpdate();
@@ -179,86 +176,80 @@ public class DatabaseMetadataTemplates extends Database {
                ? null
                : ((String) template.getValueOfColumn(
                    ColumnXmpIptc4xmpcoreLocation.INSTANCE)).getBytes());
-        stmt.setBytes(
-            8, (template.getValueOfColumn(
-                ColumnXmpIptc4xmpcoreCountrycode.INSTANCE) == null)
-               ? null
-               : ((String) template.getValueOfColumn(
-                   ColumnXmpIptc4xmpcoreCountrycode.INSTANCE)).getBytes());
-        stmt.setBytes(9, (template.getValueOfColumn(ColumnXmpDcRights.INSTANCE)
+        stmt.setBytes(8, (template.getValueOfColumn(ColumnXmpDcRights.INSTANCE)
                       == null)
                          ? null
                          : ((String) template.getValueOfColumn(
                              ColumnXmpDcRights.INSTANCE)).getBytes());
-        stmt.setBytes(10,
+        stmt.setBytes(9,
                       (template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE)
                        == null)
                       ? null
                       : ((String) template.getValueOfColumn(
                           ColumnXmpDcCreator.INSTANCE)).getBytes());
         stmt.setBytes(
-            11,
+            10,
             (template.getValueOfColumn(
                 ColumnXmpPhotoshopAuthorsposition.INSTANCE) == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopAuthorsposition.INSTANCE)).getBytes());
         stmt.setBytes(
-            12,
+            11,
             (template.getValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE) == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopCity.INSTANCE)).getBytes());
         stmt.setBytes(
-            13,
+            12,
             (template.getValueOfColumn(ColumnXmpPhotoshopState.INSTANCE)
              == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopState.INSTANCE)).getBytes());
         stmt.setBytes(
-            14,
+            13,
             (template.getValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE)
              == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopCountry.INSTANCE)).getBytes());
         stmt.setBytes(
-            15,
+            14,
             (template.getValueOfColumn(
                 ColumnXmpPhotoshopTransmissionReference.INSTANCE) == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopTransmissionReference.INSTANCE)).getBytes());
         stmt.setBytes(
-            16,
+            15,
             (template.getValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE)
              == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopInstructions.INSTANCE)).getBytes());
         stmt.setBytes(
-            17,
+            16,
             (template.getValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE)
              == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopCredit.INSTANCE)).getBytes());
         stmt.setBytes(
-            18,
+            17,
             (template.getValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE)
              == null)
             ? null
             : ((String) template.getValueOfColumn(
                 ColumnXmpPhotoshopSource.INSTANCE)).getBytes());
-        stmt.setBytes(19,
+        stmt.setBytes(18,
                       (template.getValueOfColumn(ColumnXmpRating.INSTANCE)
                        == null)
                       ? null
                       : ((String) template.getValueOfColumn(
                           ColumnXmpRating.INSTANCE)).getBytes());
         stmt.setBytes(
-            20,
+            19,
             (template.getValueOfColumn(
                 ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) == null)
             ? null
@@ -372,19 +363,18 @@ public class DatabaseMetadataTemplates extends Database {
                         ", dcDescription" +                                     // --  5 --
                             ", photoshopCaptionwriter" +                        // --  6 --
                                 ", iptc4xmpcoreLocation" +                      // --  7 --
-                                    ", iptc4xmpcoreCountrycode" +               // --  8 --
-                                        ", dcRights" +                          // --  9 --
-                                        ", dcCreator" +                         // -- 10 --
-                                        ", photoshopAuthorsposition" +          // -- 11 --
-                                        ", photoshopCity" +                     // -- 12 --
-                                        ", photoshopState" +                    // -- 13 --
-                                        ", photoshopCountry" +                  // -- 14 --
-                                        ", photoshopTransmissionReference" +    // -- 15 --
-                                        ", photoshopInstructions" +             // -- 16 --
-                                        ", photoshopCredit" +                   // -- 17 --
-                                        ", photoshopSource" +                   // -- 18 --
-                                        ", rating" +                            // -- 19 --
-                                        ", iptc4xmpcore_datecreated" +          // -- 20 --
+                                        ", dcRights" +                          // --  8 --
+                                        ", dcCreator" +                         // --  9 --
+                                        ", photoshopAuthorsposition" +          // -- 10 --
+                                        ", photoshopCity" +                     // -- 11 --
+                                        ", photoshopState" +                    // -- 12 --
+                                        ", photoshopCountry" +                  // -- 13 --
+                                        ", photoshopTransmissionReference" +    // -- 14 --
+                                        ", photoshopInstructions" +             // -- 15 --
+                                        ", photoshopCredit" +                   // -- 16 --
+                                        ", photoshopSource" +                   // -- 17 --
+                                        ", rating" +                            // -- 18 --
+                                        ", iptc4xmpcore_datecreated" +          // -- 19 --
                                         " FROM metadata_edit_templates"
         ;
     }
@@ -423,61 +413,56 @@ public class DatabaseMetadataTemplates extends Database {
                                   ? null
                                   : new String(bytes));
         bytes = rs.getBytes(8);
-        template.setValueOfColumn(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
-                                  rs.wasNull()
-                                  ? null
-                                  : new String(bytes));
-        bytes = rs.getBytes(9);
         template.setValueOfColumn(ColumnXmpDcRights.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
-        bytes = rs.getBytes(10);
+        bytes = rs.getBytes(9);
         template.setValueOfColumn(ColumnXmpDcCreator.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
-        bytes = rs.getBytes(11);
+        bytes = rs.getBytes(10);
         template.setValueOfColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
                                   rs.wasNull()
                                   ? null
                                   : new String(bytes));
-        bytes = rs.getBytes(12);
+        bytes = rs.getBytes(11);
         template.setValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
-        bytes = rs.getBytes(13);
+        bytes = rs.getBytes(12);
         template.setValueOfColumn(ColumnXmpPhotoshopState.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
-        bytes = rs.getBytes(14);
+        bytes = rs.getBytes(13);
         template.setValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE,
                                   rs.wasNull()
                                   ? null
                                   : new String(bytes));
-        bytes = rs.getBytes(15);
+        bytes = rs.getBytes(14);
         template.setValueOfColumn(
             ColumnXmpPhotoshopTransmissionReference.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
-        bytes = rs.getBytes(16);
+        bytes = rs.getBytes(15);
         template.setValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE,
                                   rs.wasNull()
                                   ? null
                                   : new String(bytes));
-        bytes = rs.getBytes(17);
+        bytes = rs.getBytes(16);
         template.setValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE,
                                   rs.wasNull()
                                   ? null
                                   : new String(bytes));
-        bytes = rs.getBytes(18);
+        bytes = rs.getBytes(17);
         template.setValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE,
                                   rs.wasNull()
                                   ? null
                                   : new String(bytes));
-        bytes = rs.getBytes(19);
+        bytes = rs.getBytes(18);
         template.setValueOfColumn(ColumnXmpRating.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
-        bytes = rs.getBytes(20);
+        bytes = rs.getBytes(19);
         template.setValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
                                   rs.wasNull()
                                   ? null
@@ -509,22 +494,21 @@ public class DatabaseMetadataTemplates extends Database {
                             ", dcDescription = ?" +    // --  5 --
                                 ", photoshopCaptionwriter = ?" +    // --  6 --
                                     ", iptc4xmpcoreLocation = ?" +    // --  7 --
-                                        ", iptc4xmpcoreCountrycode = ?" +    // --  8 --
-                                            ", dcRights = ?" +    // --  9 --
-                                            ", dcCreator = ?" +    // -- 10 --
-                                            ", photoshopAuthorsposition = ?" +    // -- 11 --
-                                            ", photoshopCity = ?" +    // -- 12 --
-                                            ", photoshopState = ?" +    // -- 13 --
-                                            ", photoshopCountry = ?" +    // -- 14 --
-                                            ", photoshopTransmissionReference = ?" +    // -- 15 --
-                                            ", photoshopInstructions = ?" +    // -- 16 --
-                                            ", photoshopCredit = ?" +    // -- 17 --
-                                            ", photoshopSource = ?" +    // -- 18 --
-                                            ", rating = ?" +    // -- 19 --
-                                            ", iptc4xmpcore_datecreated = ?" +    // -- 20 --
-                                            " WHERE name = ?");    // -- 21 --
+                                            ", dcRights = ?" +    // --  8 --
+                                            ", dcCreator = ?" +    // -- 9 --
+                                            ", photoshopAuthorsposition = ?" +    // -- 10 --
+                                            ", photoshopCity = ?" +    // -- 11 --
+                                            ", photoshopState = ?" +    // -- 12 --
+                                            ", photoshopCountry = ?" +    // -- 13 --
+                                            ", photoshopTransmissionReference = ?" +    // -- 14 --
+                                            ", photoshopInstructions = ?" +    // -- 15 --
+                                            ", photoshopCredit = ?" +    // -- 16 --
+                                            ", photoshopSource = ?" +    // -- 17 --
+                                            ", rating = ?" +    // -- 18 --
+                                            ", iptc4xmpcore_datecreated = ?" +    // -- 19 --
+                                            " WHERE name = ?");    // -- 20 --
             set(stmt, template);
-            stmt.setString(21, template.getName());
+            stmt.setString(20, template.getName());
             logFiner(stmt);
 
             int count = stmt.executeUpdate();

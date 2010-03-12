@@ -35,8 +35,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreCountrycode;
-import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpLastModified;
@@ -1134,21 +1132,20 @@ public final class DatabaseImageFiles extends Database {
                 ", dc_description = ?" +    // --  3 --
                     ", dc_rights = ?" +    // --  4 --
                         ", dc_title = ?" +    // --  5 --
-                            ", iptc4xmpcore_countrycode = ?" +    // --  6 --
-                                ", iptc4xmpcore_location = ?" +    // --  7 --
-                                    ", photoshop_authorsposition = ?" +    // --  8 --
-                                        ", photoshop_captionwriter = ?" +    // --  9 --
-                                        ", photoshop_city = ?" +    // -- 10 --
-                                        ", photoshop_country = ?" +    // -- 11 --
-                                        ", photoshop_credit = ?" +    // -- 12 --
-                                        ", photoshop_headline = ?" +    // -- 13 --
-                                        ", photoshop_instructions = ?" +    // -- 14 --
-                                        ", photoshop_source = ?" +    // -- 15 --
-                                        ", photoshop_state = ?" +    // -- 16 --
-                                        ", photoshop_transmissionReference = ?" +    // -- 17 --
-                                        ", rating = ?" +                      // -- 18 --
-                                        ", iptc4xmpcore_datecreated = ?" +    // -- 19 --
-                                        " WHERE id = ?";    // -- 20 --
+                                ", iptc4xmpcore_location = ?" +    // --  6 --
+                                    ", photoshop_authorsposition = ?" +    // --  7 --
+                                        ", photoshop_captionwriter = ?" +    // --  8 --
+                                        ", photoshop_city = ?" +    // -- 9 --
+                                        ", photoshop_country = ?" +    // -- 10 --
+                                        ", photoshop_credit = ?" +    // -- 11 --
+                                        ", photoshop_headline = ?" +    // -- 12 --
+                                        ", photoshop_instructions = ?" +    // -- 13 --
+                                        ", photoshop_source = ?" +    // -- 14 --
+                                        ", photoshop_state = ?" +    // -- 15 --
+                                        ", photoshop_transmissionReference = ?" +    // -- 16 --
+                                        ", rating = ?" +                      // -- 17 --
+                                        ", iptc4xmpcore_datecreated = ?" +    // -- 18 --
+                                        " WHERE id = ?";    // -- 19 --
     }
 
     private String getInsertIntoXmpStatement() {
@@ -1157,21 +1154,20 @@ public final class DatabaseImageFiles extends Database {
                 ", dc_description" +    // --  3 --
                     ", dc_rights" +    // --  4 --
                         ", dc_title" +    // --  5 --
-                            ", iptc4xmpcore_countrycode" +    // --  6 --
-                                ", iptc4xmpcore_location" +    // --  7 --
-                                    ", photoshop_authorsposition" +    // --  8 --
-                                        ", photoshop_captionwriter" +    // --  9 --
-                                        ", photoshop_city" +    // -- 10 --
-                                        ", photoshop_country" +    // -- 11 --
-                                        ", photoshop_credit" +    // -- 12 --
-                                        ", photoshop_headline" +    // -- 13 --
-                                        ", photoshop_instructions" +    // -- 14 --
-                                        ", photoshop_source" +    // -- 15 --
-                                        ", photoshop_state" +    // -- 16 --
-                                        ", photoshop_transmissionReference" +    // -- 17 --
-                                        ", rating" +                      // -- 18 --
-                                        ", iptc4xmpcore_datecreated" +    // -- 19 --
-                                        ")" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                ", iptc4xmpcore_location" +    // --  6 --
+                                    ", photoshop_authorsposition" +    // --  7 --
+                                        ", photoshop_captionwriter" +    // --  8 --
+                                        ", photoshop_city" +    // -- 9 --
+                                        ", photoshop_country" +    // -- 10 --
+                                        ", photoshop_credit" +    // -- 11 --
+                                        ", photoshop_headline" +    // -- 12 --
+                                        ", photoshop_instructions" +    // -- 13 --
+                                        ", photoshop_source" +    // -- 14 --
+                                        ", photoshop_state" +    // -- 15 --
+                                        ", photoshop_transmissionReference" +    // -- 16 --
+                                        ", rating" +                      // -- 17 --
+                                        ", iptc4xmpcore_datecreated" +    // -- 18 --
+                                        ")" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp)
@@ -1181,30 +1177,28 @@ public final class DatabaseImageFiles extends Database {
         setString(xmp.getValue(ColumnXmpDcDescription.INSTANCE), stmt, 3);
         setString(xmp.getValue(ColumnXmpDcRights.INSTANCE), stmt, 4);
         setString(xmp.getValue(ColumnXmpDcTitle.INSTANCE), stmt, 5);
-        setString(xmp.getValue(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE),
-                  stmt, 6);
         setString(xmp.getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE), stmt,
-                  7);
+                  6);
         setString(xmp.getValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE),
-                  stmt, 8);
+                  stmt, 7);
         setString(xmp.getValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE), stmt,
-                  9);
-        setString(xmp.getValue(ColumnXmpPhotoshopCity.INSTANCE), stmt, 10);
-        setString(xmp.getValue(ColumnXmpPhotoshopCountry.INSTANCE), stmt, 11);
-        setString(xmp.getValue(ColumnXmpPhotoshopCredit.INSTANCE), stmt, 12);
-        setString(xmp.getValue(ColumnXmpPhotoshopHeadline.INSTANCE), stmt, 13);
+                  8);
+        setString(xmp.getValue(ColumnXmpPhotoshopCity.INSTANCE), stmt, 9);
+        setString(xmp.getValue(ColumnXmpPhotoshopCountry.INSTANCE), stmt, 10);
+        setString(xmp.getValue(ColumnXmpPhotoshopCredit.INSTANCE), stmt, 11);
+        setString(xmp.getValue(ColumnXmpPhotoshopHeadline.INSTANCE), stmt, 12);
         setString(xmp.getValue(ColumnXmpPhotoshopInstructions.INSTANCE), stmt,
-                  14);
-        setString(xmp.getValue(ColumnXmpPhotoshopSource.INSTANCE), stmt, 15);
-        setString(xmp.getValue(ColumnXmpPhotoshopState.INSTANCE), stmt, 16);
+                  13);
+        setString(xmp.getValue(ColumnXmpPhotoshopSource.INSTANCE), stmt, 14);
+        setString(xmp.getValue(ColumnXmpPhotoshopState.INSTANCE), stmt, 15);
         setString(
             xmp.getValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE),
-            stmt, 17);
+            stmt, 16);
         setLongMinMax(xmp.getValue(ColumnXmpRating.INSTANCE),
                       ColumnXmpRating.getMinValue(),
-                      ColumnXmpRating.getMaxValue(), stmt, 18);
+                      ColumnXmpRating.getMaxValue(), stmt, 17);
         setString(xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE),
-                  stmt, 19);
+                  stmt, 18);
     }
 
     @SuppressWarnings("unchecked")
@@ -1219,7 +1213,7 @@ public final class DatabaseImageFiles extends Database {
                 try {
                     stmt = connection.prepareStatement(getUpdateXmpStatement());
                     setXmpValues(stmt, idFile, xmp);
-                    stmt.setLong(20, idXmp);
+                    stmt.setLong(19, idXmp);
                     logFiner(stmt);
                     stmt.executeUpdate();
                     deleteXmpDcSubjects(connection, idXmp);
@@ -1337,21 +1331,20 @@ public final class DatabaseImageFiles extends Database {
                 ", xmp.dc_description" +    // --  3 --
                     ", xmp.dc_rights" +    // --  4 --
                         ", xmp.dc_title" +    // --  5 --
-                            ", xmp.iptc4xmpcore_countrycode" +    // --  6 --
-                                ", xmp.iptc4xmpcore_location" +    // --  7  --
-                                    ", xmp.photoshop_authorsposition" +    // --  8 --
-                                        ", xmp.photoshop_captionwriter" +    // --  9 --
-                                        ", xmp.photoshop_city" +    // -- 10 --
-                                        ", xmp.photoshop_country" +    // -- 11 --
-                                        ", xmp.photoshop_credit" +    // -- 12 --
-                                        ", xmp.photoshop_headline" +    // -- 13 --
-                                        ", xmp.photoshop_instructions" +    // -- 14 --
-                                        ", xmp.photoshop_source" +    // -- 15 --
-                                        ", xmp.photoshop_state" +    // -- 16 --
-                                        ", xmp.photoshop_transmissionReference" +    // -- 17 --
-                                        ", dc_subjects.subject" +             // -- 18 --
-                                        ", xmp.rating" +                      // -- 19 --
-                                        ", xmp.iptc4xmpcore_datecreated" +    // -- 20 --
+                                ", xmp.iptc4xmpcore_location" +    // --  6  --
+                                    ", xmp.photoshop_authorsposition" +    // --  7 --
+                                        ", xmp.photoshop_captionwriter" +    // --  8 --
+                                        ", xmp.photoshop_city" +    // -- 9 --
+                                        ", xmp.photoshop_country" +    // -- 10 --
+                                        ", xmp.photoshop_credit" +    // -- 11 --
+                                        ", xmp.photoshop_headline" +    // -- 12 --
+                                        ", xmp.photoshop_instructions" +    // -- 13 --
+                                        ", xmp.photoshop_source" +    // -- 14 --
+                                        ", xmp.photoshop_state" +    // -- 15 --
+                                        ", xmp.photoshop_transmissionReference" +    // -- 16 --
+                                        ", dc_subjects.subject" +             // -- 17 --
+                                        ", xmp.rating" +                      // -- 18 --
+                                        ", xmp.iptc4xmpcore_datecreated" +    // -- 19 --
                                         " FROM" + " files LEFT JOIN xmp"
                                         + " ON files.id = xmp.id_files"
                                         + " LEFT JOIN xmp_dc_subject"
@@ -1402,32 +1395,30 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setValue(ColumnXmpDcDescription.INSTANCE, getString(rs, 3));
                 xmp.setValue(ColumnXmpDcRights.INSTANCE, getString(rs, 4));
                 xmp.setValue(ColumnXmpDcTitle.INSTANCE, getString(rs, 5));
-                xmp.setValue(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
-                             getString(rs, 6));
                 xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                             getString(rs, 7));
+                             getString(rs, 6));
                 xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
-                             getString(rs, 8));
+                             getString(rs, 7));
                 xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
-                             getString(rs, 9));
+                             getString(rs, 8));
                 xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE,
-                             getString(rs, 10));
+                             getString(rs, 9));
                 xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE,
-                             getString(rs, 11));
+                             getString(rs, 10));
                 xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE,
-                             getString(rs, 12));
+                             getString(rs, 11));
                 xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE,
-                             getString(rs, 13));
+                             getString(rs, 12));
                 xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE,
-                             getString(rs, 14));
+                             getString(rs, 13));
                 xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE,
-                             getString(rs, 15));
+                             getString(rs, 14));
                 xmp.setValue(ColumnXmpPhotoshopState.INSTANCE,
-                             getString(rs, 16));
+                             getString(rs, 15));
                 xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-                             getString(rs, 17));
+                             getString(rs, 16));
 
-                String dcSubject = getString(rs, 18);
+                String dcSubject = getString(rs, 17);
 
                 if (dcSubject != null) {
                     xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE,
@@ -1435,11 +1426,11 @@ public final class DatabaseImageFiles extends Database {
                 }
 
                 xmp.setValue(ColumnXmpRating.INSTANCE,
-                             getLongMinMax(rs, 19,
+                             getLongMinMax(rs, 18,
                                            ColumnXmpRating.getMinValue(),
                                            ColumnXmpRating.getMaxValue()));
                 xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
-                             getString(rs, 20));
+                             getString(rs, 19));
 
                 if (!filename.equals(prevFilename)) {
                     list.add(new Pair<String, Xmp>(filename, xmp));
@@ -1488,21 +1479,20 @@ public final class DatabaseImageFiles extends Database {
             ", xmp.dc_description" +    // --  2 --
                 ", xmp.dc_rights" +    // --  3 --
                     ", xmp.dc_title" +    // --  4 --
-                        ", xmp.iptc4xmpcore_countrycode" +    // --  5 --
-                            ", xmp.iptc4xmpcore_location" +    // --  6  --
-                                ", xmp.photoshop_authorsposition" +    // --  7 --
-                                    ", xmp.photoshop_captionwriter" +    // --  8 --
-                                        ", xmp.photoshop_city" +    // --  9 --
-                                        ", xmp.photoshop_country" +    // -- 10 --
-                                        ", xmp.photoshop_credit" +    // -- 11 --
-                                        ", xmp.photoshop_headline" +    // -- 12 --
-                                        ", xmp.photoshop_instructions" +    // -- 13 --
-                                        ", xmp.photoshop_source" +    // -- 14 --
-                                        ", xmp.photoshop_state" +    // -- 15 --
-                                        ", xmp.photoshop_transmissionReference" +    // -- 16 --
-                                        ", dc_subjects.subject" +             // -- 17 --
-                                        ", xmp.rating" +                      // -- 18 --
-                                        ", xmp.iptc4xmpcore_datecreated" +    // -- 19 --
+                            ", xmp.iptc4xmpcore_location" +    // --  5  --
+                                ", xmp.photoshop_authorsposition" +    // --  6 --
+                                    ", xmp.photoshop_captionwriter" +    // --  7 --
+                                        ", xmp.photoshop_city" +    // --  8 --
+                                        ", xmp.photoshop_country" +    // -- 9 --
+                                        ", xmp.photoshop_credit" +    // -- 10 --
+                                        ", xmp.photoshop_headline" +    // -- 11 --
+                                        ", xmp.photoshop_instructions" +    // -- 12 --
+                                        ", xmp.photoshop_source" +    // -- 13 --
+                                        ", xmp.photoshop_state" +    // -- 14 --
+                                        ", xmp.photoshop_transmissionReference" +    // -- 15 --
+                                        ", dc_subjects.subject" +             // -- 16 --
+                                        ", xmp.rating" +                      // -- 17 --
+                                        ", xmp.iptc4xmpcore_datecreated" +    // -- 18 --
                                         " FROM" + " files INNER JOIN xmp"
                                         + " ON files.id = xmp.id_files"
                                         + " LEFT JOIN xmp_dc_subject"
@@ -1537,31 +1527,29 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setValue(ColumnXmpDcDescription.INSTANCE, getString(rs, 2));
                 xmp.setValue(ColumnXmpDcRights.INSTANCE, getString(rs, 3));
                 xmp.setValue(ColumnXmpDcTitle.INSTANCE, getString(rs, 4));
-                xmp.setValue(ColumnXmpIptc4xmpcoreCountrycode.INSTANCE,
-                             getString(rs, 5));
                 xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                             getString(rs, 6));
+                             getString(rs, 5));
                 xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
-                             getString(rs, 7));
+                             getString(rs, 6));
                 xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
-                             getString(rs, 8));
-                xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE, getString(rs, 9));
+                             getString(rs, 7));
+                xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE, getString(rs, 8));
                 xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE,
-                             getString(rs, 10));
+                             getString(rs, 9));
                 xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE,
-                             getString(rs, 11));
+                             getString(rs, 10));
                 xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE,
-                             getString(rs, 12));
+                             getString(rs, 11));
                 xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE,
-                             getString(rs, 13));
+                             getString(rs, 12));
                 xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE,
-                             getString(rs, 14));
+                             getString(rs, 13));
                 xmp.setValue(ColumnXmpPhotoshopState.INSTANCE,
-                             getString(rs, 15));
+                             getString(rs, 14));
                 xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-                             getString(rs, 16));
+                             getString(rs, 15));
 
-                String dcSubject = getString(rs, 17);
+                String dcSubject = getString(rs, 16);
 
                 if (dcSubject != null) {
                     xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE,
@@ -1569,11 +1557,11 @@ public final class DatabaseImageFiles extends Database {
                 }
 
                 xmp.setValue(ColumnXmpRating.INSTANCE,
-                             getLongMinMax(rs, 18,
+                             getLongMinMax(rs, 17,
                                            ColumnXmpRating.getMinValue(),
                                            ColumnXmpRating.getMaxValue()));
                 xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
-                             getString(rs, 19));
+                             getString(rs, 18));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);

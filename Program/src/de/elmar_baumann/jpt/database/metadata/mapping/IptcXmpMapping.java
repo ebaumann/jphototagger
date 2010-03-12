@@ -29,8 +29,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
 import de.elmar_baumann.jpt.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreCountrycode;
-import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp
@@ -104,9 +102,6 @@ public final class IptcXmpMapping {
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(
             IPTCEntryMeta.DATE_CREATED,
             ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-        XMP_COLUMN_OF_IPTC_ENTRY_META.put(
-            IPTCEntryMeta.CONTENT_LOCATION_CODE,
-            ColumnXmpIptc4xmpcoreCountrycode.INSTANCE);
         XMP_COLUMN_OF_IPTC_ENTRY_META.put(
             IPTCEntryMeta.WRITER_EDITOR,
             ColumnXmpPhotoshopCaptionwriter.INSTANCE);
