@@ -28,26 +28,32 @@ import java.text.DateFormat;
 import javax.swing.InputVerifier;
 
 /**
- * Eine Tabellenspalte.
+ * Database column.
  *
  * @author  Elmar Baumann
  * @version 2007-07-29
  */
 public class Column {
-    private Table              table;
-    private final String       name;
-    private String             description;
-    private String             longerDescription;
-    private final DataType     dataType;
-    private Column             references         = null;
-    private final boolean      isIgnoreCase       = true;
-    private final boolean      isIndexed          = true;
-    private boolean            isUnique           = false;
-    private boolean            isPrimaryKey       = false;
-    private boolean            canBeNull          = true;
-    private int                length             = 0;
-    private ReferenceDirection referenceDirection =
-        ReferenceDirection.BACKWARDS;
+    private final DataType dataType;
+    private String         description;
+    private int            length;
+    private String         longerDescription;
+    private final String   name;
+    private boolean        surrogateKey;
+    private Table          table;
+
+    /**
+     * Erzeugt eine Instanz.
+     *
+     * @param table    Tabelle, in der die Spalte ist
+     * @param name     Spaltenname
+     * @param dataType Spaltentyp
+     */
+    protected Column(Table table, String name, DataType dataType) {
+        this.table    = table;
+        this.name     = name;
+        this.dataType = dataType;
+    }
 
     /**
      * Typ der Spaltendaten.
@@ -82,7 +88,7 @@ public class Column {
                 return string.getBytes();
 
             case DATE :
-                return s2date(string);
+                return string2date(string);
 
             case INTEGER :
                 return Integer.parseInt(string);
@@ -104,7 +110,7 @@ public class Column {
             }
         }
 
-        private Object s2date(String s) {
+        private Object string2date(String s) {
             try {
                 return new java.sql.Date(
                     DateFormat.getInstance().parse(s).getTime());
@@ -114,39 +120,6 @@ public class Column {
 
             return s;
         }
-    }
-
-    ;
-
-    /**
-     * Richtung der Referenz.
-     */
-    public enum ReferenceDirection {
-
-        /**
-         * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
-         * n-Teil
-         */
-        BACKWARDS,
-
-        /**
-         * Rückwärtsgerichtete Referenz, üblich bei 1:n - Beziehungen für den
-         * 1-Teil
-         */
-        FORWARDS
-    }
-
-    /**
-     * Erzeugt eine Instanz.
-     *
-     * @param table    Tabelle, in der die Spalte ist
-     * @param name     Spaltenname
-     * @param dataType Spaltentyp
-     */
-    protected Column(Table table, String name, DataType dataType) {
-        this.table    = table;
-        this.name     = name;
-        this.dataType = dataType;
     }
 
     @Override
@@ -186,172 +159,44 @@ public class Column {
         return hash;
     }
 
-    /**
-     * Liefert, ob unterschieden wird zwischen Groß- und Kleinschreibung.
-     *
-     * @return true, wenn unterschieden wird zwischen Groß- und Kleinschreibung
-     */
-    public boolean isIgnoreCase() {
-        return isIgnoreCase;
+    public boolean isSurrogateKey() {
+        return surrogateKey;
+    }
+
+    protected void setSurrogateKey(boolean is) {
+        surrogateKey = is;
     }
 
     /**
-     * Liefert, ob ein Index existiert für diese Spalte.
+     * Returns the maximum length of this column.
      *
-     * @return true, wenn ein Index existiert für diese Spalte
-     */
-    public boolean isIndexed() {
-        return isIndexed;
-    }
-
-    /**
-     * Liefert, ob die Spalte (Teil eines) Primärschlüssels ist.
-     *
-     * @return true, wenn die Spalte (Teil eines) Primärschlüssels ist
-     */
-    public boolean isPrimaryKey() {
-        return isPrimaryKey;
-    }
-
-    /**
-     * Setzt, dass die Spalte (Teil eines) Primärschlüssels ist.
-     *
-     * @param isPrimaryKey true, wenn die Spalte (Teil eines) Primärschlüssels
-     *                     ist. Default: false.
-     */
-    protected void setIsPrimaryKey(boolean isPrimaryKey) {
-        this.isPrimaryKey = isPrimaryKey;
-
-        if (isPrimaryKey) {
-            canBeNull = false;
-        }
-    }
-
-    /**
-     * Liefert, ob die Spalte leer sein kann.
-     *
-     * @return true, wenn die Spalte leer sein kann
-     */
-    public boolean isCanBeNull() {
-        return canBeNull;
-    }
-
-    /**
-     * Setzt, ob die Spalte leer sein kann.
-     *
-     * @param canBeNull true, wenn die Spalte leer sein kann.
-     *                   Default: true, bei Primärschlüsselspalten false
-     */
-    protected void setCanBeNull(boolean canBeNull) {
-        this.canBeNull = canBeNull;
-    }
-
-    /**
-     * Liefert, ob alle Werte in dieser Spalte in der Tabelle nur einmal
-     * vorkommen.
-     *
-     * @return true, wenn alle Werte in dieser Spalte in der Tabelle nur
-     *         einmal vorkommen
-     */
-    public boolean isIsUnique() {
-        return isUnique;
-    }
-
-    /**
-     * Setzt, dass alle Werte in dieser Spalte in der Tabelle nur einmal
-     * vorkommen.
-     *
-     * @param isUnique true, wenn alle Werte in dieser Spalte in der Tabelle
-     *                 nur einmal vorkommen. Default: false.
-     */
-    protected void setIsUnique(boolean isUnique) {
-        this.isUnique = isUnique;
-    }
-
-    /**
-     * Liefert die (maximale) Länge dieser Spalte.
-     *
-     * @return (maximale) Länge dieser Spalte
+     * @return maximum length of this column
      */
     public int getLength() {
         return length;
     }
 
     /**
-     * Setzt die (maximale) Länge dieser Spalte.
+     * Sets the maximum length of this column.
      *
-     * @param length (maximale) Länge dieser Spalte.
-     *               Default: 0.
+     * @param length maximum length. Default: 0.
      */
     protected void setLength(int length) {
         this.length = length;
     }
 
-    /**
-     * Liefert einen Schlüssel, z.B. zum persistenten Abspeichern.
-     *
-     * @return Schlüssel
-     */
-    public String getKey() {
-        return getClass().getName();
-    }
-
-    /**
-     * Liefert die Tabelle, in der sich diese Spalte befindet.
-     *
-     * @return Tabelle
-     */
     public Table getTable() {
         return table;
     }
 
-    /**
-     * Setzt die Tabelle, in der sich diese Spalte befindet.
-     *
-     * @param table die Tabelle, in der sich diese Spalte befindet
-     */
     protected void setTable(Table table) {
         this.table = table;
     }
 
-    /**
-     * Liefert, welche Spalte (einer anderen Tabelle) diese Spalte referenziert.
-     * Das heißt, diese Spalte enthält den (Teil eines) Primärschlüssel(s) einer
-     * anderen Tabelle; sie ist ein Fremdschlüssel.
-     *
-     * @return Referenzierte Spalte (einer anderen Tabelle) oder null, wenn
-     *         diese Spalte keine andere Spalte referenziert
-     */
-    public Column getReferences() {
-        return references;
-    }
-
-    /**
-     * Setzt, welche Spalte (einer anderen Tabelle) diese Spalte refernziert.
-     * Das heißt, diese Spalte enthält den (Teil eines) Primärschlüssel(s) einer
-     * anderen Tabelle; sie ist ein Fremdschlüssel.
-     *
-     * @param references Refernziert Spalte.
-     *                   Default: null.
-     */
-    protected void setReferences(Column references) {
-        this.references = references;
-    }
-
-    /**
-     * Liefert den Namen der Spalte.
-     *
-     * @return Spaltenname
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Liefert eine Beschreibung der Spalte.
-     *
-     * @return Beschreibung der Spalte
-     */
     public String getDescription() {
         return description;
     }
@@ -365,11 +210,6 @@ public class Column {
         return longerDescription;
     }
 
-    /**
-     * Setzt die Beschreibung der Spalte.
-     *
-     * @param description Beschreibung der Spalte
-     */
     protected void setDescription(String description) {
         this.description = description;
     }
@@ -377,38 +217,14 @@ public class Column {
     /**
      * Sets a longer description e.g. for tooltip texts.
      *
-     * @param description  description
+     * @param description description
      */
     protected void setLongerDescription(String description) {
         longerDescription = description;
     }
 
-    /**
-     * Liefert den Datentyp der Spalte.
-     *
-     * @return Datentyp der Spalte
-     */
     public DataType getDataType() {
         return dataType;
-    }
-
-    /**
-     * Liefert, ob die Spalte Fremdschlüssel ist. Abkürzung für
-     * getReferences() != null.
-     *
-     * @return true, wenn die Spalte Fremdschlüssel ist
-     */
-    public boolean isForeignKey() {
-        return references != null;
-    }
-
-    /**
-     * Liefert die Richtung der Referenz.
-     *
-     * @return Richtung der Referenz
-     */
-    public ReferenceDirection getReferenceDirection() {
-        return referenceDirection;
     }
 
     /**
@@ -420,16 +236,5 @@ public class Column {
      */
     public InputVerifier getInputVerifier() {
         return new InputVerifierMaxLength(getLength());
-    }
-
-    /**
-     * Setzt die Richtung der Referenz.
-     *
-     * @param referenceDirection Richtung der Referenz.
-     *                           Default: BACKWARDS
-     */
-    protected void setReferenceDirection(
-            ReferenceDirection referenceDirection) {
-        this.referenceDirection = referenceDirection;
     }
 }

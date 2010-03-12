@@ -39,15 +39,18 @@ import javax.swing.KeyStroke;
  * @version 2010-01-07
  */
 public final class PopupMenuKeywordsList extends JPopupMenu {
-    private static final long serialVersionUID = -552638878495121120L;
-    private final JMenuItem   itemRename       =
+    private static final long                 serialVersionUID =
+        -552638878495121120L;
+    public static final PopupMenuKeywordsList INSTANCE         =
+        new PopupMenuKeywordsList();
+    private final JMenuItem itemInsert =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuKeywordsList.DisplayName.Action.Insert"));
+    private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "PopupMenuKeywordsList.DisplayName.Action.Rename"));
-    private final JMenuItem itemDelete =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.Action.Delete"));
     private final JMenuItem itemEditSynonyms =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
@@ -56,10 +59,12 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
-    private int                               selIndex;
-    private JList                             list;
-    public static final PopupMenuKeywordsList INSTANCE =
-        new PopupMenuKeywordsList();
+    private final JMenuItem itemDelete =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuKeywordsList.DisplayName.Action.Delete"));
+    private JList list;
+    private int   selIndex;
 
     private PopupMenuKeywordsList() {
         addItems();
@@ -98,7 +103,12 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         return itemEditSynonyms;
     }
 
+    public JMenuItem getItemInsert() {
+        return itemInsert;
+    }
+
     private void addItems() {
+        add(itemInsert);
         add(itemRename);
         add(itemDelete);
         add(new Separator());
@@ -108,6 +118,8 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     }
 
     private void setAccelerators() {
+        itemInsert.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                InputEvent.CTRL_MASK));
         itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
         itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
                 0));

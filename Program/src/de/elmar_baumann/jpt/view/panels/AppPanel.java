@@ -596,7 +596,6 @@ public final class AppPanel extends javax.swing.JPanel {
         radioButtonSelKeywordsMultipleSelAll = new javax.swing.JRadioButton();
         radioButtonSelKeywordsMultipleSelOne = new javax.swing.JRadioButton();
         buttonDisplaySelKeywordsTree = new javax.swing.JButton();
-        labelInfoListView = new javax.swing.JLabel();
         panelTimeline = new javax.swing.JPanel();
         scrollPaneTimeline = new javax.swing.JScrollPane();
         treeTimeline = new javax.swing.JTree();
@@ -864,7 +863,6 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -895,7 +893,6 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
@@ -914,14 +911,6 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 2);
         panelSelKeywordsList.add(buttonDisplaySelKeywordsTree, gridBagConstraints);
-
-        labelInfoListView.setText(bundle.getString("AppPanel.labelInfoListView.text")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        panelSelKeywordsList.add(labelInfoListView, gridBagConstraints);
 
         panelSelKeywords.add(panelSelKeywordsList, "flatKeywords");
 
@@ -1315,7 +1304,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearch;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JLabel labelError;
-    private javax.swing.JLabel labelInfoListView;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelStatusbarText;
     private javax.swing.JLabel labelThumbnailInfo;

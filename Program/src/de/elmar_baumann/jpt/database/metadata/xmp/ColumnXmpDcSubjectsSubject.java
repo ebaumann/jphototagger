@@ -25,7 +25,7 @@ import de.elmar_baumann.jpt.database.metadata.Column.DataType;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
 /**
- * Spalte <code>subject</code> der Tabelle <code>xmp_dc_subjects</code>.
+ * Spalte <code>subject</code> der Tabelle <code>xmp_dc_subject</code>.
  *
  * @author  Elmar Baumann
  * @version 2008-08-23

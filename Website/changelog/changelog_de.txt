@@ -5,6 +5,17 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.7.95 2010-03-12
+-----------------
+
+* Datenbankdesign modifiziert: Stichwörter sind nun in einer einzigen Tabelle.
+  Gespeicherte Suchen mit einem Stichwort stehen zwischen zwei
+  Ausrufungszeichen, da diese nicht mehr funktionieren (können). Sind es von
+  JPhotoTagger erzeugte Suchen, sollte es ausreichen, die Suchen erneut zu
+  speichern (Klick mit rechter Maustaste auf eine Suche, "Bearbeiten" auswählen
+  und im Dialog die Schaltfläche "Speichern". Eigenes SQL ist (selbst)
+  umzuformulieren.
+
 0.7.94 2010-03-10
 -----------------
 

@@ -96,6 +96,8 @@ public final class DatabaseImageFiles extends Database {
     private final ListenerSupport<DatabaseImageFilesListener> listenerSupport =
         new ListenerSupport<DatabaseImageFilesListener>();
 
+    public enum DcSubjectOption { INCLUDE_SYNONYMS }
+
     private DatabaseImageFiles() {}
 
     /**
@@ -208,7 +210,8 @@ public final class DatabaseImageFiles extends Database {
      * @param  newStart        new start substring
      * @param progressListener null or progress listener. The progress listener
      *                         can stop renaming via
-     *                         {@link ProgressEvent#setStop(boolean)} (no rollback).
+     *                         {@link ProgressEvent#setStop(boolean)}
+     *                         (no rollback).
      * @return                 count of renamed files
      */
     public synchronized int updateRenameFilenamesStartingWith(
@@ -423,15 +426,16 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Inserts an image file into the databse. If the image already existsValueIn
-     * it's data will be updated.
+     * Inserts an image file into the databse. If the image already
+     * existsValueIn it's data will be updated.
      * <p>
      * Inserts or updates this metadata:
      *
      * <ul>
      * <li>EXIF when {@link ImageFile#isInsertExifIntoDb()} is true</li>
      * <li>XMP when {@link ImageFile#isInsertXmpIntoDb()} is true</li>
-     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true</li>
+     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true
+     * </li>
      * </ul>
      *
      * @param  imageFile image
@@ -538,7 +542,8 @@ public final class DatabaseImageFiles extends Database {
      * <ul>
      * <li>EXIF when {@link ImageFile#isInsertExifIntoDb()} is true</li>
      * <li>XMP when {@link ImageFile#isInsertXmpIntoDb()} is true</li>
-     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true</li>
+     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true
+     * </li>
      * </ul>
      *
      * @param imageFile Bild
@@ -1030,28 +1035,97 @@ public final class DatabaseImageFiles extends Database {
     private void insertXmpDcSubjects(Connection connection, long idXmp,
                                      List<String> dcSubjects)
             throws SQLException {
-        String sql = "INSERT INTO xmp_dc_subjects (id_xmp, subject)";
+        for (String dcSubject : dcSubjects) {
+            Long idDcSubject = ensureDcSubjectExists(connection, dcSubject);
 
-        insertValues(connection, sql, idXmp, dcSubjects);
+            if (idDcSubject == null) {
+                throw new SQLException("Couldn't ensure ID of DC subject!");
+            }
+
+            if (!existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
+                insertXmpDcSubjectsLink(connection, idXmp, idDcSubject);
+            }
+        }
     }
 
-    private void insertValues(Connection connection, String sql, long id,
-                              List<String> values)
+    private void insertXmpDcSubjectsLink(Connection connection, long idXmp,
+            long idDcSubject)
             throws SQLException {
         PreparedStatement stmt = null;
 
         try {
-            stmt = connection.prepareStatement(sql + " VALUES (?, ?)");
-
-            for (String value : values) {
-                stmt.setLong(1, id);
-                stmt.setString(2, value);
-                logFiner(stmt);
-                stmt.executeUpdate();
-            }
+            stmt = connection.prepareStatement(
+                "INSERT INTO xmp_dc_subject"
+                + " (id_xmp, id_dc_subject) VALUES (?, ?)");
+            stmt.setLong(1, idXmp);
+            stmt.setLong(2, idDcSubject);
+            logFiner(stmt);
+            stmt.executeUpdate();
         } finally {
             close(stmt);
         }
+    }
+
+    private Long ensureDcSubjectExists(Connection connection, String dcSubject)
+            throws SQLException {
+        Long idDcSubject = getIdDcSubject(dcSubject);
+
+        if (idDcSubject == null) {
+            insertDcSubject(connection, dcSubject);
+            idDcSubject = getIdDcSubject(dcSubject);
+        }
+
+        return idDcSubject;
+    }
+
+    private int insertDcSubject(Connection connection, String dcSubject)
+            throws SQLException {
+        PreparedStatement stmt = null;
+        int count = 0;
+
+        try {
+            stmt = connection.prepareStatement(
+                "INSERT INTO dc_subjects (subject) VALUES (?)");
+            stmt.setString(1, dcSubject);
+            logFiner(stmt);
+            count = stmt.executeUpdate();
+        } finally {
+            close(stmt);
+        }
+        return count;
+    }
+
+    /**
+     * Inserts a Dublin core subject.
+     * <p>
+     * Does <em>not</em> check whether it already exists. In that case an
+     * {@link SQLException} will be thrown and caught by this method.
+     *
+     * @param  dcSubject subject
+     * @return           true if inserted
+     * @see              #existsDcSubject(java.lang.String)
+     */
+    public boolean insertDcSubject(String dcSubject) {
+        boolean    inserted   = false;
+        Connection connection = null;
+
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(true);
+            int count = insertDcSubject(connection, dcSubject);
+            inserted = count == 1;
+            if (inserted) {
+                Xmp newXmp = new Xmp();
+                newXmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+                notifyXmpInsertedOrUpdated("", new Xmp(), newXmp);
+            }
+        } catch (SQLException ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(connection);
+        }
+
+        return inserted;
     }
 
     private String getUpdateXmpStatement() {
@@ -1171,7 +1245,7 @@ public final class DatabaseImageFiles extends Database {
 
         try {
             stmt = connection.prepareStatement(
-                "DELETE FROM xmp_dc_subjects WHERE id_xmp = ?");
+                "DELETE FROM xmp_dc_subject WHERE id_xmp = ?");
             stmt.setLong(1, idXmp);
             logFiner(stmt);
             stmt.executeUpdate();
@@ -1275,13 +1349,16 @@ public final class DatabaseImageFiles extends Database {
                                         ", xmp.photoshop_source" +    // -- 15 --
                                         ", xmp.photoshop_state" +    // -- 16 --
                                         ", xmp.photoshop_transmissionReference" +    // -- 17 --
-                                        ", xmp_dc_subjects.subject" +         // -- 18 --
+                                        ", dc_subjects.subject" +             // -- 18 --
                                         ", xmp.rating" +                      // -- 19 --
                                         ", xmp.iptc4xmpcore_datecreated" +    // -- 20 --
                                         " FROM" + " files LEFT JOIN xmp"
                                         + " ON files.id = xmp.id_files"
-                                        + " LEFT JOIN xmp_dc_subjects"
-                                        + " ON xmp.id = xmp_dc_subjects.id_xmp"
+                                        + " LEFT JOIN xmp_dc_subject"
+                                        + " ON xmp.id = xmp_dc_subject.id_xmp"
+                                        + " LEFT JOIN dc_subjects"
+                                        + " ON xmp_dc_subject.id_dc_subject"
+                                        + " = dc_subjects.id"
                                         + " WHERE files.filename IN" + " ("
                                         + getPlaceholder(fileCount) + ")";
     }
@@ -1423,13 +1500,16 @@ public final class DatabaseImageFiles extends Database {
                                         ", xmp.photoshop_source" +    // -- 14 --
                                         ", xmp.photoshop_state" +    // -- 15 --
                                         ", xmp.photoshop_transmissionReference" +    // -- 16 --
-                                        ", xmp_dc_subjects.subject" +         // -- 17 --
+                                        ", dc_subjects.subject" +             // -- 17 --
                                         ", xmp.rating" +                      // -- 18 --
                                         ", xmp.iptc4xmpcore_datecreated" +    // -- 19 --
                                         " FROM" + " files INNER JOIN xmp"
                                         + " ON files.id = xmp.id_files"
-                                        + " LEFT JOIN xmp_dc_subjects"
-                                        + " ON xmp.id = xmp_dc_subjects.id_xmp"
+                                        + " LEFT JOIN xmp_dc_subject"
+                                        + " ON xmp.id = xmp_dc_subject.id_xmp"
+                                        + " LEFT JOIN dc_subjects"
+                                        + " ON xmp_dc_subject.id_dc_subject"
+                                        + " = dc_subjects.id"
                                         + " WHERE files.filename = ?";
     }
 
@@ -1519,8 +1599,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
 
-            String sql = "SELECT DISTINCT subject" + " FROM xmp_dc_subjects"
-                         + " ORDER BY 1 ASC";
+            String sql = "SELECT subject FROM dc_subjects ORDER BY 1 ASC";
 
             stmt = connection.createStatement();
             logFinest(sql);
@@ -1554,12 +1633,14 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
 
-            String sql = "SELECT DISTINCT xmp_dc_subjects.subject FROM"
+            String sql = "SELECT DISTINCT dc_subjects.subject FROM"
                          + " files INNER JOIN xmp ON files.id = xmp.id_files"
-                         + " INNER JOIN xmp_dc_subjects"
-                         + " ON xmp.id = xmp_dc_subjects.id_xmp"
+                         + " INNER JOIN xmp_dc_subject"
+                         + " ON xmp.id = xmp_dc_subject.id_xmp"
+                         + " INNER JOIN dc_subjects"
+                         + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id"
                          + " WHERE files.filename = ? "
-                         + " ORDER BY xmp_dc_subjects.subject ASC";
+                         + " ORDER BY dc_subjects.subject ASC";
 
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, filename);
@@ -1578,8 +1659,6 @@ public final class DatabaseImageFiles extends Database {
 
         return dcSubjects;
     }
-
-    public enum DcSubjectOption { INCLUDE_SYNONYMS }
 
     /**
      * Returns the filenames within a specific dublin core subject (keyword).
@@ -1637,18 +1716,20 @@ public final class DatabaseImageFiles extends Database {
     private String getGetFilenamesOfDcSubjectSql(String dcSubject,
             Set<DcSubjectOption> options) {
         StringBuilder sql =
-            new StringBuilder(" SELECT DISTINCT files.filename FROM"
-                              + " xmp_dc_subjects INNER JOIN xmp"
-                              + " ON xmp_dc_subjects.id_xmp = xmp.id"
-                              + " INNER JOIN files ON xmp.id_files = files.id"
-                              + " WHERE xmp_dc_subjects.subject = ?");
+            new StringBuilder(
+                " SELECT DISTINCT files.filename FROM"
+                + " dc_subjects INNER JOIN xmp_dc_subject"
+                + " ON dc_subjects.id = xmp_dc_subject.id_dc_subject"
+                + " INNER JOIN xmp ON xmp_dc_subject.id_xmp = xmp.id"
+                + " INNER JOIN files ON xmp.id_files = files.id"
+                + " WHERE dc_subjects.subject = ?");
 
         if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
             int size =
                 DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject).size();
 
             for (int i = 0; i < size; i++) {
-                sql.append(" OR xmp_dc_subjects.subject = ?");
+                sql.append(" OR dc_subjects.subject = ?");
             }
         }
 
@@ -1679,14 +1760,15 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
 
             int    count = dcSubjects.size();
-            String sql   = " SELECT files.filename FROM"
-                           + " xmp_dc_subjects INNER JOIN xmp"
-                           + " ON xmp_dc_subjects.id_xmp = xmp.id"
-                           + " INNER JOIN files ON xmp.id_files = files.id"
-                           + " WHERE xmp_dc_subjects.subject IN "
-                           + Util.getParamsInParentheses(count)
-                           + " GROUP BY files.filename" + " HAVING COUNT(*) = "
-                           + count;
+            String sql   =
+                " SELECT files.filename FROM"
+                + " dc_subjects INNER JOIN xmp_dc_subject"
+                + " ON dc_subjects.id = xmp_dc_subject.id_dc_subject"
+                + " INNER JOIN xmp ON xmp_dc_subject.id_xmp = xmp.id"
+                + " INNER JOIN files ON xmp.id_files = files.id"
+                + " WHERE dc_subjects.subject IN "
+                + Util.getParamsInParentheses(count)
+                + " GROUP BY files.filename" + " HAVING COUNT(*) = " + count;
 
             stmt = connection.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
@@ -1727,12 +1809,13 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
 
             int    count = dcSubjects.size();
-            String sql   = " SELECT DISTINCT files.filename FROM"
-                           + " xmp_dc_subjects INNER JOIN xmp"
-                           + " ON xmp_dc_subjects.id_xmp = xmp.id"
-                           + " INNER JOIN files ON xmp.id_files = files.id"
-                           + " WHERE xmp_dc_subjects.subject IN "
-                           + Util.getParamsInParentheses(count);
+            String sql   =
+                " SELECT DISTINCT files.filename FROM dc_subjects"
+                + " INNER JOIN xmp_dc_subject ON dc_subjects.id"
+                + " = xmp_dc_subject.id_dc_subject INNER JOIN xmp"
+                + " ON xmp_dc_subject.id_xmp = xmp.id INNER JOIN files"
+                + " ON xmp.id_files = files.id WHERE dc_subjects.subject IN "
+                + Util.getParamsInParentheses(count);
 
             stmt = connection.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
@@ -2181,7 +2264,7 @@ public final class DatabaseImageFiles extends Database {
      * @return        all distinct files with values in that column
      */
     public List<File> getFilesNotNullIn(Column column) {
-        assert !column.isForeignKey() : column;
+        assert !column.isSurrogateKey() : column;
 
         List<File> files      = new ArrayList<File>();
         Connection connection = null;
@@ -2236,7 +2319,7 @@ public final class DatabaseImageFiles extends Database {
      * @return            files
      */
     public List<File> getFilesJoinTable(Column column, String exactValue) {
-        assert !column.isForeignKey() : column;
+        assert !column.isSurrogateKey() : column;
 
         List<File>        files      = new ArrayList<File>();
         Connection        connection = null;
@@ -2449,15 +2532,10 @@ public final class DatabaseImageFiles extends Database {
 
             String columnName = column.getName();
             String tableName  = column.getTable().getName();
-            String sql        = "SELECT" + " files.filename" + " FROM"
-                                + (tableName.startsWith("exif")
-                                   ? Join.getSqlFilesExifJoin(Type.LEFT,
-                                       Arrays.asList(tableName))
-                                   : Join.getSqlFilesXmpJoin(Type.LEFT,
-                                       Type.LEFT,
-                                       Arrays.asList(tableName))) + " WHERE "
-                                           + tableName + "." + columnName
-                                           + " IS NULL";
+            String sql        = "SELECT files.filename FROM files "
+                                + Join.getJoinToFiles(tableName, Type.LEFT)
+                                + " WHERE " + tableName + "." + columnName
+                                + " IS NULL";
 
             stmt = connection.prepareStatement(sql);
             logFinest(stmt);
@@ -2562,6 +2640,122 @@ public final class DatabaseImageFiles extends Database {
         }
 
         return tnFiles;
+    }
+
+    /**
+     * Deletes a Dublin Core subject.
+     * <p>
+     * <em>Call this method only, if You are sure, that no image has that
+     * subject!</em>
+     *
+     * @param dcSubject subject
+     */
+    public void deleteDcSubject(String dcSubject) {
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(false);
+            stmt = connection.prepareStatement(
+                "DELETE FROM dc_subjects WHERE subject = ?");
+            stmt.setString(1, dcSubject);
+            logFiner(stmt);
+            int count = stmt.executeUpdate();
+            if (count > 0) {
+                Xmp oldXmp = new Xmp();
+                oldXmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+                notifyXmpInsertedOrUpdated("", oldXmp, new Xmp());
+            }
+        } catch (SQLException ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            close(stmt);
+            free(connection);
+        }
+    }
+
+    public boolean existsDcSubject(String subject) {
+        boolean           exists     = false;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
+        try {
+            connection = getConnection();
+            stmt       = connection.prepareStatement(
+                "SELECT COUNT(*) FROM dc_subjects WHERE subject = ?");
+            stmt.setString(1, subject);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) == 1;
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(connection);
+        }
+
+        return exists;
+    }
+
+    public Long getIdDcSubject(String subject) {
+        Long              id         = null;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
+        try {
+            connection = getConnection();
+            stmt       = connection.prepareStatement(
+                "SELECT id FROM dc_subjects WHERE subject = ?");
+            stmt.setString(1, subject);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(connection);
+        }
+
+        return id;
+    }
+
+    public boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject) {
+        boolean           exists     = false;
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+
+        try {
+            connection = getConnection();
+            stmt       = connection.prepareStatement(
+                "SELECT COUNT(*) FROM xmp_dc_subject"
+                + " WHERE id_xmp = ? AND id_dc_subject = ?");
+            stmt.setLong(1, idXmp);
+            stmt.setLong(2, idDcSubject);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) == 1;
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(connection);
+        }
+
+        return exists;
     }
 
     public void addListener(DatabaseImageFilesListener listener) {

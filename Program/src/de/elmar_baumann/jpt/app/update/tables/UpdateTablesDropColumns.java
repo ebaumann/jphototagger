@@ -45,7 +45,6 @@ final class UpdateTablesDropColumns {
         new ArrayList<ColumnInfo>();
 
     static {
-        COLUMNS.add(new ColumnInfo("xmp_dc_subjects", "id", null, null));
         COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null));
         COLUMNS.add(new ColumnInfo("favorite_directories", "id", null, null));
         COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null));

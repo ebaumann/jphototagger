@@ -101,7 +101,7 @@ public final class Xmp implements TextEntryListener {
     public void setMetaDataTemplate(MetadataTemplate template) {
         for (Table xmpTable : XmpTables.get()) {
             for (Column column : xmpTable.getColumns()) {
-                if (!column.isPrimaryKey() &&!column.isForeignKey()) {
+                if (!column.isSurrogateKey()) {
                     valueOfColumn.put(column,
                                       template.getValueOfColumn(column));
                 }

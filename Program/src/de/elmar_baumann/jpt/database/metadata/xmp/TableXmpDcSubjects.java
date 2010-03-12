@@ -23,7 +23,7 @@ package de.elmar_baumann.jpt.database.metadata.xmp;
 import de.elmar_baumann.jpt.database.metadata.Table;
 
 /**
- * Tabelle <code>xmp_dc_subjects</code>.
+ * Tabelle <code>xmp_dc_subject</code>.
  *
  * @author  Elmar Baumann
  * @version 2008-08-27
@@ -32,13 +32,12 @@ public final class TableXmpDcSubjects extends Table {
     public static final TableXmpDcSubjects INSTANCE = new TableXmpDcSubjects();
 
     private TableXmpDcSubjects() {
-        super("xmp_dc_subjects");
+        super("dc_subjects");
     }
 
     @Override
     protected void addColumns() {
         addColumn(ColumnXmpDcSubjectsId.INSTANCE);
-        addColumn(ColumnXmpDcSubjectsIdXmp.INSTANCE);
         addColumn(ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 }

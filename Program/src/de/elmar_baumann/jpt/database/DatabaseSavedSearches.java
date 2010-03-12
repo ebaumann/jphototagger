@@ -119,7 +119,8 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getInsertSearchValuesSql() {
-        return "INSERT INTO saved_searches_values (" + "id_saved_searches" +    // -- 1 --
+        return "INSERT INTO saved_searches_values (" + "id_saved_searches"
+               +    // -- 1 --
             ", value" +              // -- 2 --
                 ", value_index" +    // -- 3 --
                     ")" + " VALUES (?, ?, ?)";
@@ -547,6 +548,21 @@ public final class DatabaseSavedSearches extends Database {
                                         + " ON saved_searches_panels.id_saved_searches = saved_searches.id"
                                         + " AND saved_searches.name = ?"
                                         + " ORDER BY saved_searches_panels.panel_index ASC";
+    }
+
+    public void tagSearchesIfStmtContains(String what, String tag) {
+        for (SavedSearch search : getAll()) {
+            SavedSearchParamStatement stmt = search.getParamStatement();
+
+            if ((stmt != null) && stmt.getSql().contains(what)) {
+                String name = search.getName();
+                if (!name.startsWith(tag) && !name.endsWith(tag)) {
+                    delete(name);
+                    search.setName(tag + name + tag);
+                    insertOrUpdate(search);
+                }
+            }
+        }
     }
 
     private void setSavedSearchPanels(Connection connection,

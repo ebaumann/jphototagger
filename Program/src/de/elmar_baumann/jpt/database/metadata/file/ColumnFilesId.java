@@ -33,6 +33,6 @@ public final class ColumnFilesId extends Column {
 
     private ColumnFilesId() {
         super(TableFiles.INSTANCE, "id", DataType.BIGINT);
-        setIsPrimaryKey(true);
+        setSurrogateKey(true);
     }
 }
