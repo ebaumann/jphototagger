@@ -30,8 +30,6 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesFilename;
 import de.elmar_baumann.jpt.database.metadata.file.ColumnFilesLastModified;
-import de.elmar_baumann.jpt.database.metadata.savedsearches
-    .ColumnSavedSearchesName;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcDescription;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
@@ -103,7 +101,7 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(23, ColumnXmpDcCreator.INSTANCE);
         COLUMN_OF_ID.put(24, ColumnXmpDcSubjectsSubject.INSTANCE);
         COLUMN_OF_ID.put(26, ColumnCollectionnamesName.INSTANCE);
-        COLUMN_OF_ID.put(27, ColumnSavedSearchesName.INSTANCE);
+        // Removed 27: ColumnSavedSearchesName
         COLUMN_OF_ID.put(28, ColumnXmpRating.INSTANCE);
         COLUMN_OF_ID.put(29, ColumnExifLens.INSTANCE);
         COLUMN_OF_ID.put(30, ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);

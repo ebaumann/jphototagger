@@ -42,8 +42,6 @@ public final class TableIcons {
         AppLookAndFeel.getIcon("icon_exif.png");
     private static final Icon ICON_XMP          =
         AppLookAndFeel.getIcon("icon_xmp.png");
-    private static final Icon ICON_SAVED_SEARCH =
-        AppLookAndFeel.getIcon("icon_search.png");
     private static final Map<String, Icon> ICON_OF_TABLENAME =
         new HashMap<String, Icon>();
     private static final Icon ICON_IMAGE_COLLECTION =
@@ -56,7 +54,6 @@ public final class TableIcons {
         ICON_OF_TABLENAME.put("dc_subjects", ICON_XMP);
         ICON_OF_TABLENAME.put("collections", ICON_IMAGE_COLLECTION);
         ICON_OF_TABLENAME.put("collection_names", ICON_IMAGE_COLLECTION);
-        ICON_OF_TABLENAME.put("saved_searches", ICON_SAVED_SEARCH);
     }
 
     private TableIcons() {}
