@@ -66,15 +66,15 @@ public final class AppInit {
 
     private void init() {
         AppLookAndFeel.set();
-        captureOutput();
+        AppLoggingSystem.init();
         checkJavaVersion();
         lock();
         showSplashScreen();
         AppDatabase.init();
-        AppLoggingSystem.init();
         SplashScreen.INSTANCE.setProgress(75);
         AbstractImageReader.install(ImageProperties.class);
         hideSplashScreen();
+        captureOutput();
         showMainWindow();
     }
 
