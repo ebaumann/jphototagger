@@ -37,8 +37,6 @@ public final class TableCollections extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnCollectionsIdFiles.INSTANCE);
-        addColumn(ColumnCollectionsIdCollectionNames.INSTANCE);
         addColumn(ColumnCollectionsSequenceNumber.INSTANCE);
     }
 }

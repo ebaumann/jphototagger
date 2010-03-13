@@ -37,8 +37,6 @@ public final class TableExif extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnExifId.INSTANCE);
-        addColumn(ColumnExifIdFiles.INSTANCE);
         addColumn(ColumnExifDateTimeOriginal.INSTANCE);
         addColumn(ColumnExifFocalLength.INSTANCE);
         addColumn(ColumnExifIsoSpeedRatings.INSTANCE);

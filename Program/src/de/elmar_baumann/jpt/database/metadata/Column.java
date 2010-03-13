@@ -39,7 +39,6 @@ public class Column {
     private int            length;
     private String         longerDescription;
     private final String   name;
-    private boolean        surrogateKey;
     private Table          table;
 
     /**
@@ -157,14 +156,6 @@ public class Column {
                             : 0);
 
         return hash;
-    }
-
-    public boolean isSurrogateKey() {
-        return surrogateKey;
-    }
-
-    protected void setSurrogateKey(boolean is) {
-        surrogateKey = is;
     }
 
     /**
