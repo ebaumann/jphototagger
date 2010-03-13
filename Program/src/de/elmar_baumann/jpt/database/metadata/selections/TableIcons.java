@@ -44,16 +44,12 @@ public final class TableIcons {
         AppLookAndFeel.getIcon("icon_xmp.png");
     private static final Map<String, Icon> ICON_OF_TABLENAME =
         new HashMap<String, Icon>();
-    private static final Icon ICON_IMAGE_COLLECTION =
-        AppLookAndFeel.getIcon("icon_imagecollection.png");
 
     static {
         ICON_OF_TABLENAME.put("exif", ICON_EXIF);
         ICON_OF_TABLENAME.put("files", ICON_FILES);
         ICON_OF_TABLENAME.put("xmp", ICON_XMP);
         ICON_OF_TABLENAME.put("dc_subjects", ICON_XMP);
-        ICON_OF_TABLENAME.put("collections", ICON_IMAGE_COLLECTION);
-        ICON_OF_TABLENAME.put("collection_names", ICON_IMAGE_COLLECTION);
     }
 
     private TableIcons() {}

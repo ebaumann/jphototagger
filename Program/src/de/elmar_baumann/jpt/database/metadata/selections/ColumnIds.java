@@ -20,8 +20,6 @@
 
 package de.elmar_baumann.jpt.database.metadata.selections;
 
-import de.elmar_baumann.jpt.database.metadata.collections
-    .ColumnCollectionnamesName;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifDateTimeOriginal;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifFocalLength;
@@ -100,7 +98,7 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(22, ColumnXmpPhotoshopTransmissionReference.INSTANCE);
         COLUMN_OF_ID.put(23, ColumnXmpDcCreator.INSTANCE);
         COLUMN_OF_ID.put(24, ColumnXmpDcSubjectsSubject.INSTANCE);
-        COLUMN_OF_ID.put(26, ColumnCollectionnamesName.INSTANCE);
+        // Removed 26: ColumnCollectionnamesName
         // Removed 27: ColumnSavedSearchesName
         COLUMN_OF_ID.put(28, ColumnXmpRating.INSTANCE);
         COLUMN_OF_ID.put(29, ColumnExifLens.INSTANCE);
