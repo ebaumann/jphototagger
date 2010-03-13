@@ -653,7 +653,7 @@ public final class XmpMetadata {
                     try {
                         xmp.setValue(
                             column,
-                            column.getDataType().fromString(value.toString()));
+                            column.getDataType().parseString(value.toString()));
                     } catch (Exception ex) {
                         AppLogger.logSevere(XmpMetadata.class, ex);
                     }
