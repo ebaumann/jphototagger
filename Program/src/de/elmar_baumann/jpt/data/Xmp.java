@@ -27,7 +27,6 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.mapping.IptcXmpMapping;
 import de.elmar_baumann.jpt.database.metadata.mapping.XmpRepeatableValues;
 import de.elmar_baumann.jpt.database.metadata.Table;
-import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
@@ -101,10 +100,7 @@ public final class Xmp implements TextEntryListener {
     public void setMetaDataTemplate(MetadataTemplate template) {
         for (Table xmpTable : XmpTables.get()) {
             for (Column column : xmpTable.getColumns()) {
-                if (!column.isSurrogateKey()) {
-                    valueOfColumn.put(column,
-                                      template.getValueOfColumn(column));
-                }
+                valueOfColumn.put(column, template.getValueOfColumn(column));
             }
         }
     }

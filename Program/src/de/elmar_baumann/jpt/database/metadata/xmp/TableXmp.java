@@ -37,8 +37,6 @@ public final class TableXmp extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnXmpId.INSTANCE);
-        addColumn(ColumnXmpIdFiles.INSTANCE);
         addColumn(ColumnXmpDcCreator.INSTANCE);
         addColumn(ColumnXmpDcDescription.INSTANCE);
         addColumn(ColumnXmpDcRights.INSTANCE);

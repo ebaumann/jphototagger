@@ -38,7 +38,6 @@ public final class TableCollectionNames extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnCollectionnamesId.INSTANCE);
         addColumn(ColumnCollectionnamesName.INSTANCE);
     }
 }

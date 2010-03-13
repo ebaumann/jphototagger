@@ -2252,8 +2252,6 @@ public final class DatabaseImageFiles extends Database {
      * @return        all distinct files with values in that column
      */
     public List<File> getFilesNotNullIn(Column column) {
-        assert !column.isSurrogateKey() : column;
-
         List<File> files      = new ArrayList<File>();
         Connection connection = null;
         Statement  stmt       = null;
@@ -2307,8 +2305,6 @@ public final class DatabaseImageFiles extends Database {
      * @return            files
      */
     public List<File> getFilesJoinTable(Column column, String exactValue) {
-        assert !column.isSurrogateKey() : column;
-
         List<File>        files      = new ArrayList<File>();
         Connection        connection = null;
         PreparedStatement stmt       = null;

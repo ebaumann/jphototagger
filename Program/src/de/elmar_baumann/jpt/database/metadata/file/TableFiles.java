@@ -37,7 +37,6 @@ public final class TableFiles extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnFilesId.INSTANCE);
         addColumn(ColumnFilesFilename.INSTANCE);
         addColumn(ColumnFilesLastModified.INSTANCE);
         addColumn(ColumnFilesThumbnail.INSTANCE);

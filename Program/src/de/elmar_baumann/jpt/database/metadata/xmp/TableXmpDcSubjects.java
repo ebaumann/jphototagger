@@ -37,7 +37,6 @@ public final class TableXmpDcSubjects extends Table {
 
     @Override
     protected void addColumns() {
-        addColumn(ColumnXmpDcSubjectsId.INSTANCE);
         addColumn(ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 }

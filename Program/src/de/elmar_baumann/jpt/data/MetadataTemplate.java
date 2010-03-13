@@ -122,9 +122,7 @@ public final class MetadataTemplate {
     public void setXmp(Xmp xmp) {
         for (Table xmpTable : XmpTables.get()) {
             for (Column column : xmpTable.getColumns()) {
-                if (!column.isSurrogateKey()) {
-                    fieldOfColumn.put(column, xmp.getValue(column));
-                }
+                fieldOfColumn.put(column, xmp.getValue(column));
             }
         }
     }
