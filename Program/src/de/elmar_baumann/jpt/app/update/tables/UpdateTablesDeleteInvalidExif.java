@@ -79,7 +79,7 @@ final class UpdateTablesDeleteInvalidExif {
     private void setNullIfNotPositiv(Connection connection, Column column)
             throws SQLException {
         Database.execute(connection,
-                         "UPDATE " + column.getTable().getName() + " SET "
+                         "UPDATE " + column.getTablename() + " SET "
                          + column.getName() + " = NULL" + " WHERE "
                          + column.getName() + " <= 0");
     }
@@ -89,7 +89,7 @@ final class UpdateTablesDeleteInvalidExif {
         Column column = ColumnExifRecordingEquipment.INSTANCE;
 
         Database.execute(connection,
-                         "UPDATE " + column.getTable().getName() + " SET "
+                         "UPDATE " + column.getTablename() + " SET "
                          + column.getName() + " = NULL" + " WHERE "
                          + column.getName() + " = '0'");
     }

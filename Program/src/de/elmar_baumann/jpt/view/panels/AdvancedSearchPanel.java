@@ -38,7 +38,6 @@ import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.database.metadata.Join;
 import de.elmar_baumann.jpt.database.metadata.Join.Type;
-import de.elmar_baumann.jpt.database.metadata.Table;
 import de.elmar_baumann.lib.component.TabOrEnterLeavingTextArea;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
@@ -553,7 +552,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private StringBuilder getStartSelectFrom() {
         Column columnFilename     = ColumnFilesFilename.INSTANCE;
         String columnNameFilename = columnFilename.getName();
-        String tableNameFiles     = columnFilename.getTable().getName();
+        String tableNameFiles     = columnFilename.getTablename();
 
         return new StringBuilder("SELECT DISTINCT " + tableNameFiles + "."
                                 + columnNameFilename + " FROM");
@@ -635,9 +634,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private void appendToFrom(StringBuilder statement) {
         statement.append(" files ");
         int index = 0;
-        for (Table table : Util.getDistinctTablesOfColumns(getColumns())) {
+        for (String tablename : Util.getDistinctTablenamesOfColumns(getColumns())) {
             statement.append(index == 0 ? "" : " ");
-            statement.append(Join.getJoinToFiles(table.getName(), Type.INNER));
+            statement.append(Join.getJoinToFiles(tablename, Type.INNER));
         }
     }
 

@@ -21,14 +21,6 @@
 package de.elmar_baumann.jpt.database.metadata.selections;
 
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.database.metadata.collections.TableCollectionNames;
-import de.elmar_baumann.jpt.database.metadata.collections.TableCollections;
-import de.elmar_baumann.jpt.database.metadata.exif.TableExif;
-import de.elmar_baumann.jpt.database.metadata.file.TableFiles;
-import de.elmar_baumann.jpt.database.metadata.savedsearches.TableSavedSearches;
-import de.elmar_baumann.jpt.database.metadata.Table;
-import de.elmar_baumann.jpt.database.metadata.xmp.TableXmp;
-import de.elmar_baumann.jpt.database.metadata.xmp.TableXmpDcSubjects;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,39 +40,32 @@ public final class TableIcons {
         AppLookAndFeel.getIcon("icon_file.png");
     private static final Icon ICON_EXIF =
         AppLookAndFeel.getIcon("icon_exif.png");
-    private static final Icon ICON_XMP              =
+    private static final Icon ICON_XMP          =
         AppLookAndFeel.getIcon("icon_xmp.png");
-    private static final Icon ICON_IMAGE_COLLECTION =
-        AppLookAndFeel.getIcon("icon_imagecollection.png");
     private static final Icon ICON_SAVED_SEARCH =
         AppLookAndFeel.getIcon("icon_search.png");
-    private static final Map<Table, Icon> ICON_OF_TABLE = new HashMap<Table,
-                                                              Icon>();
+    private static final Map<String, Icon> ICON_OF_TABLENAME =
+        new HashMap<String, Icon>();
+    private static final Icon ICON_IMAGE_COLLECTION =
+        AppLookAndFeel.getIcon("icon_imagecollection.png");
 
     static {
-        ICON_OF_TABLE.put(TableExif.INSTANCE, ICON_EXIF);
-        ICON_OF_TABLE.put(TableFiles.INSTANCE, ICON_FILES);
-        ICON_OF_TABLE.put(TableXmp.INSTANCE, ICON_XMP);
-        ICON_OF_TABLE.put(TableXmpDcSubjects.INSTANCE, ICON_XMP);
-        ICON_OF_TABLE.put(TableCollections.INSTANCE, ICON_IMAGE_COLLECTION);
-        ICON_OF_TABLE.put(TableCollectionNames.INSTANCE, ICON_IMAGE_COLLECTION);
-        ICON_OF_TABLE.put(TableSavedSearches.INSTANCE, ICON_SAVED_SEARCH);
+        ICON_OF_TABLENAME.put("exif", ICON_EXIF);
+        ICON_OF_TABLENAME.put("files", ICON_FILES);
+        ICON_OF_TABLENAME.put("xmp", ICON_XMP);
+        ICON_OF_TABLENAME.put("dc_subjects", ICON_XMP);
+        ICON_OF_TABLENAME.put("collections", ICON_IMAGE_COLLECTION);
+        ICON_OF_TABLENAME.put("collection_names", ICON_IMAGE_COLLECTION);
+        ICON_OF_TABLENAME.put("saved_searches", ICON_SAVED_SEARCH);
     }
 
-    /**
-     * Liefert das Icon für eine Tabelle.
-     *
-     * @param  table Tabelle
-     * @return Icon der Tabelle oder ein Icon für eine undefinierte Tabelle
-     *         (Standard-Tabellenicon)
-     */
-    public static Icon getIcon(Table table) {
-        Icon icon = ICON_OF_TABLE.get(table);
+    private TableIcons() {}
+
+    public static Icon getIcon(String tablename) {
+        Icon icon = ICON_OF_TABLENAME.get(tablename);
 
         return (icon == null)
                ? ICON_UNDEFINED
                : icon;
     }
-
-    private TableIcons() {}
 }

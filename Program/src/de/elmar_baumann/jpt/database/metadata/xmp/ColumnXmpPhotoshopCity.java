@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopCity extends Column {
         new ColumnXmpPhotoshopCity();
 
     private ColumnXmpPhotoshopCity() {
-        super(TableXmp.INSTANCE, "photoshop_city", DataType.STRING);
+        super("photoshop_city", "xmp", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCity.Description"));

@@ -35,7 +35,7 @@ public final class ColumnCollectionsSequenceNumber extends Column {
         new ColumnCollectionsSequenceNumber();
 
     private ColumnCollectionsSequenceNumber() {
-        super(TableCollections.INSTANCE, "sequence_number", DataType.INTEGER);
+        super("sequence_number", "collections", DataType.INTEGER);
         setDescription(
             JptBundle.INSTANCE.getString(
                 "ColumnCollectionsSequenceNumber.Description"));

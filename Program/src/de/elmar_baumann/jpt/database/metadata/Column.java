@@ -39,18 +39,18 @@ public class Column {
     private int            length;
     private String         longerDescription;
     private final String   name;
-    private Table          table;
+    private final String   tablename;
 
     /**
-     * Erzeugt eine Instanz.
+     * Creates an instances.
      *
-     * @param table    Tabelle, in der die Spalte ist
-     * @param name     Spaltenname
-     * @param dataType Spaltentyp
+     * @param name      name of this column
+     * @param tablename name of the table of this column
+     * @param dataType  data type of this column
      */
-    protected Column(Table table, String name, DataType dataType) {
-        this.table    = table;
+    protected Column(String name, String tablename, DataType dataType) {
         this.name     = name;
+        this.tablename    = tablename;
         this.dataType = dataType;
     }
 
@@ -121,6 +121,10 @@ public class Column {
         }
     }
 
+    public String getTablename() {
+        return tablename;
+    }
+
     @Override
     public String toString() {
         String desc = getDescription();
@@ -137,7 +141,7 @@ public class Column {
         if (o instanceof Column) {
             Column other = (Column) o;
 
-            return getTable().equals(other.getTable())
+            return tablename.equals(other.tablename)
                    && getName().equals(other.getName());
         }
 
@@ -148,8 +152,8 @@ public class Column {
     public int hashCode() {
         int hash = 7;
 
-        hash = 83 * hash + ((this.getTable() != null)
-                            ? this.getTable().hashCode()
+        hash = 83 * hash + ((this.tablename != null)
+                            ? this.tablename.hashCode()
                             : 0);
         hash = 83 * hash + ((this.getName() != null)
                             ? this.getName().hashCode()
@@ -174,14 +178,6 @@ public class Column {
      */
     protected void setLength(int length) {
         this.length = length;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    protected void setTable(Table table) {
-        this.table = table;
     }
 
     public String getName() {

@@ -34,7 +34,7 @@ public final class ColumnXmpDcTitle extends Column {
     public static final ColumnXmpDcTitle INSTANCE = new ColumnXmpDcTitle();
 
     private ColumnXmpDcTitle() {
-        super(TableXmp.INSTANCE, "dc_title", DataType.STRING);
+        super("dc_title", "xmp", DataType.STRING);
         setLength(64);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnXmpDcTitle.Description"));

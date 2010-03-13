@@ -35,7 +35,7 @@ public final class ColumnCollectionnamesName extends Column {
         new ColumnCollectionnamesName();
 
     private ColumnCollectionnamesName() {
-        super(TableCollectionNames.INSTANCE, "name", DataType.INTEGER);
+        super("name", "collection_names", DataType.INTEGER);
         setDescription(
             JptBundle.INSTANCE.getString(
                 "ColumnCollectionnamesName.Description"));

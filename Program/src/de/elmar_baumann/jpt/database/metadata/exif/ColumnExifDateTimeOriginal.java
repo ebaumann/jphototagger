@@ -38,7 +38,7 @@ public final class ColumnExifDateTimeOriginal extends Column {
         new ColumnExifDateTimeOriginal();
 
     private ColumnExifDateTimeOriginal() {
-        super(TableExif.INSTANCE, "exif_date_time_original", DataType.DATE);
+        super("exif_date_time_original", "exif", DataType.DATE);
         setDescription(
             JptBundle.INSTANCE.getString(
                 "ColumnExifDateTimeOriginal.Description"));

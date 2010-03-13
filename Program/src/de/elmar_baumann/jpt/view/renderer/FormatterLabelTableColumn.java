@@ -40,7 +40,7 @@ public final class FormatterLabelTableColumn {
      * @param column  Tabellenspalte
      */
     public static void setLabelText(JLabel label, Column column) {
-        label.setIcon(TableIcons.getIcon(column.getTable()));
+        label.setIcon(TableIcons.getIcon(column.getTablename()));
         label.setText(column.getDescription());
     }
 

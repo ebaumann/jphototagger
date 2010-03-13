@@ -38,7 +38,7 @@ public final class ColumnExifIsoSpeedRatings extends Column {
         new ColumnExifIsoSpeedRatings();
 
     private ColumnExifIsoSpeedRatings() {
-        super(TableExif.INSTANCE, "exif_iso_speed_ratings", DataType.SMALLINT);
+        super("exif_iso_speed_ratings", "exif", DataType.SMALLINT);
         setDescription(
             JptBundle.INSTANCE.getString(
                 "ColumnExifIsoSpeedRatings.Description"));

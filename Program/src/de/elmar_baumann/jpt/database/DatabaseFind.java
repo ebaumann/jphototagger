@@ -177,7 +177,7 @@ public final class DatabaseFind extends Database {
         for (Column column : searchColumns) {
             sql.append((!isFirstColumn
                         ? " OR "
-                        : "") + column.getTable().getName() + "."
+                        : "") + column.getTablename() + "."
                               + column.getName() + " LIKE ?");
             isFirstColumn = false;
         }
@@ -195,7 +195,7 @@ public final class DatabaseFind extends Database {
         int count =
             DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString).size();
         String colName =
-            ColumnXmpDcSubjectsSubject.INSTANCE.getTable().getName() + "."
+            ColumnXmpDcSubjectsSubject.INSTANCE.getTablename() + "."
             + ColumnXmpDcSubjectsSubject.INSTANCE.getName();
 
         for (int i = 0; i < count; i++) {

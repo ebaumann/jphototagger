@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopInstructions extends Column {
         new ColumnXmpPhotoshopInstructions();
 
     private ColumnXmpPhotoshopInstructions() {
-        super(TableXmp.INSTANCE, "photoshop_instructions", DataType.STRING);
+        super("photoshop_instructions", "xmp", DataType.STRING);
         setLength(256);
         setDescription(
             JptBundle.INSTANCE.getString(

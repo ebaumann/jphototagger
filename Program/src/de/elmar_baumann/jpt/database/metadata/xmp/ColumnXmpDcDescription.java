@@ -35,7 +35,7 @@ public final class ColumnXmpDcDescription extends Column {
         new ColumnXmpDcDescription();
 
     private ColumnXmpDcDescription() {
-        super(TableXmp.INSTANCE, "dc_description", DataType.STRING);
+        super("dc_description", "xmp", DataType.STRING);
         setLength(2000);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnXmpDcDescription.Description"));

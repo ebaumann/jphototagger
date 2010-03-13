@@ -35,7 +35,7 @@ public final class ColumnFilesFilename extends Column {
         new ColumnFilesFilename();
 
     private ColumnFilesFilename() {
-        super(TableFiles.INSTANCE, "filename", DataType.STRING);
+        super("filename", "files", DataType.STRING);
         setLength(512);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnFilesFilename.Description"));

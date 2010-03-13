@@ -58,7 +58,7 @@ public final class DatabaseStatistics extends Database {
             String columnName = column.getName();
             String sql        = "SELECT COUNT(*) FROM (SELECT DISTINCT "
                                 + columnName + " FROM "
-                                + column.getTable().getName() + " WHERE "
+                                + column.getTablename() + " WHERE "
                                 + columnName + " IS NOT NULL" + ")";
 
             logFinest(sql);
@@ -95,7 +95,7 @@ public final class DatabaseStatistics extends Database {
             connection = getConnection();
             stmt       = connection.createStatement();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getTable().getName()
+            String sql = "SELECT COUNT(*) FROM " + column.getTablename()
                          + " WHERE " + column.getName() + " IS NOT NULL";
 
             logFinest(sql);
@@ -245,7 +245,7 @@ public final class DatabaseStatistics extends Database {
                 Column column = columns.get(i);
 
                 stmt = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM " + column.getTable().getName()
+                    "SELECT COUNT(*) FROM " + column.getTablename()
                     + " WHERE " + column.getName() + " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
@@ -284,7 +284,7 @@ public final class DatabaseStatistics extends Database {
         try {
             connection = getConnection();
             stmt       = connection.prepareStatement("SELECT COUNT(*) FROM "
-                    + column.getTable().getName() + " WHERE "
+                    + column.getTablename() + " WHERE "
                     + column.getName() + " = ?");
             stmt.setString(1, value);
             logFinest(stmt);

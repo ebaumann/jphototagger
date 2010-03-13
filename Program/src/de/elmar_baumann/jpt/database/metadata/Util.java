@@ -51,7 +51,7 @@ public final class Util {
                                                        List<Column>>();
 
         for (Column col : columns) {
-            String       tablename = col.getTable().getName();
+            String       tablename = col.getTablename();
             List<Column> cols      = columnsOfTable.get(tablename);
 
             if (cols == null) {
@@ -66,19 +66,19 @@ public final class Util {
     }
 
     /**
-     * Returns the distinct tables of a collection of columns.
+     * Returns the distinct table names of a collection of columns.
      *
      * @param columns Spalten
      * @return        Tabellen
      */
-    public static Set<Table> getDistinctTablesOfColumns(
+    public static Set<String> getDistinctTablenamesOfColumns(
             Collection<? extends Column> columns) {
-        Set<Table> tables = new HashSet<Table>();
+        Set<String> tablenames = new HashSet<String>();
 
         for (Column column : columns) {
-            tables.add(column.getTable());
+            tablenames.add(column.getTablename());
         }
 
-        return tables;
+        return tablenames;
     }
 }

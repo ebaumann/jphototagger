@@ -38,7 +38,7 @@ public final class ColumnExifFocalLength extends Column {
         new ColumnExifFocalLength();
 
     private ColumnExifFocalLength() {
-        super(TableExif.INSTANCE, "exif_focal_length", DataType.REAL);
+        super("exif_focal_length", "exif", DataType.REAL);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnExifFocalLength.Description"));
     }

@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopHeadline extends Column {
         new ColumnXmpPhotoshopHeadline();
 
     private ColumnXmpPhotoshopHeadline() {
-        super(TableXmp.INSTANCE, "photoshop_headline", DataType.STRING);
+        super("photoshop_headline", "xmp", DataType.STRING);
         setLength(256);
         setDescription(
             JptBundle.INSTANCE.getString(

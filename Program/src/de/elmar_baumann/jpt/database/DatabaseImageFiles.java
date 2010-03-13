@@ -1845,7 +1845,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
 
-            String tableName  = column.getTable().getName();
+            String tableName  = column.getTablename();
             String columnName = column.getName();
             int    count      = words.size();
             String sql        = " SELECT files.filename FROM " + tableName
@@ -2221,7 +2221,7 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
 
             String sql = "SELECT DISTINCT " + column.getName() + " FROM "
-                         + column.getTable().getName() + " WHERE "
+                         + column.getTablename() + " WHERE "
                          + column.getName() + " IS NOT NULL" + " ORDER BY "
                          + column.getName();
 
@@ -2260,7 +2260,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
 
-            String tableName  = column.getTable().getName();
+            String tableName  = column.getTablename();
             String columnName = column.getName();
             String sql        = "SELECT DISTINCT files.filename" + " FROM "
                                 + tableName + " INNER JOIN files" + " ON "
@@ -2313,7 +2313,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             connection = getConnection();
 
-            String tableName  = column.getTable().getName();
+            String tableName  = column.getTablename();
             String columnName = column.getName();
             String sql        = "SELECT files.filename" + " FROM " + tableName
                                 + " INNER JOIN files" + " ON " + tableName
@@ -2471,7 +2471,7 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
 
             String sql = "SELECT COUNT(*)" + " FROM "
-                         + column.getTable().getName() + " WHERE "
+                         + column.getTablename() + " WHERE "
                          + column.getName() + " = ?";
 
             stmt = connection.prepareStatement(sql);
@@ -2515,7 +2515,7 @@ public final class DatabaseImageFiles extends Database {
             connection = getConnection();
 
             String columnName = column.getName();
-            String tableName  = column.getTable().getName();
+            String tableName  = column.getTablename();
             String sql        = "SELECT files.filename FROM files "
                                 + Join.getJoinToFiles(tableName, Type.LEFT)
                                 + " WHERE " + tableName + "." + columnName
@@ -2540,11 +2540,11 @@ public final class DatabaseImageFiles extends Database {
 
     private boolean checkIsExifOrXmpColumn(Column column) {
         boolean isExifOrXmpColumn =
-            column.getTable().getName().startsWith("exif")
-            || column.getTable().getName().startsWith("xmp");
+            column.getTablename().startsWith("exif")
+            || column.getTablename().startsWith("xmp");
 
         assert isExifOrXmpColumn :
-               "Only EXIF or XMP table are valid, not: " + column.getTable();
+               "Only EXIF or XMP table are valid, not: " + column.getTablename();
 
         return isExifOrXmpColumn;
     }

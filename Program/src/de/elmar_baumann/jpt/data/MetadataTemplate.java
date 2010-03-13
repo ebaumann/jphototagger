@@ -21,8 +21,7 @@
 package de.elmar_baumann.jpt.data;
 
 import de.elmar_baumann.jpt.database.metadata.Column;
-import de.elmar_baumann.jpt.database.metadata.Table;
-import de.elmar_baumann.jpt.database.metadata.xmp.XmpTables;
+import de.elmar_baumann.jpt.database.metadata.xmp.XmpColumns;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -120,10 +119,8 @@ public final class MetadataTemplate {
     }
 
     public void setXmp(Xmp xmp) {
-        for (Table xmpTable : XmpTables.get()) {
-            for (Column column : xmpTable.getColumns()) {
-                fieldOfColumn.put(column, xmp.getValue(column));
-            }
+        for (Column column : XmpColumns.get()) {
+            fieldOfColumn.put(column, xmp.getValue(column));
         }
     }
 
