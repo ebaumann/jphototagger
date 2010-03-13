@@ -47,7 +47,7 @@ public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {
         new InputVerifierDateCreated();
 
     private ColumnXmpIptc4XmpCoreDateCreated() {
-        super(TableXmp.INSTANCE, "iptc4xmpcore_datecreated", DataType.STRING);
+        super("iptc4xmpcore_datecreated", "xmp", DataType.STRING);
         setLength(10);
         setDescription(
             JptBundle.INSTANCE.getString(

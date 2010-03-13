@@ -35,8 +35,7 @@ public final class ColumnXmpPhotoshopTransmissionReference extends Column {
         new ColumnXmpPhotoshopTransmissionReference();
 
     private ColumnXmpPhotoshopTransmissionReference() {
-        super(TableXmp.INSTANCE, "photoshop_transmissionReference",
-              DataType.STRING);
+        super("photoshop_transmissionReference", "xmp", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString(

@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopCaptionwriter extends Column {
         new ColumnXmpPhotoshopCaptionwriter();
 
     private ColumnXmpPhotoshopCaptionwriter() {
-        super(TableXmp.INSTANCE, "photoshop_captionwriter", DataType.STRING);
+        super("photoshop_captionwriter", "xmp", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString(

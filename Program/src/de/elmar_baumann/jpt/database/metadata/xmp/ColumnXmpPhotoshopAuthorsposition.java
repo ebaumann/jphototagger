@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopAuthorsposition extends Column {
         new ColumnXmpPhotoshopAuthorsposition();
 
     private ColumnXmpPhotoshopAuthorsposition() {
-        super(TableXmp.INSTANCE, "photoshop_authorsposition", DataType.STRING);
+        super("photoshop_authorsposition", "xmp", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString(

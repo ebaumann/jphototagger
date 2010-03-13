@@ -34,7 +34,7 @@ public final class ColumnXmpLastModified extends Column {
         new ColumnXmpLastModified();
 
     private ColumnXmpLastModified() {
-        super(TableXmp.INSTANCE, "lastmodified", DataType.BIGINT);
+        super("lastmodified", "xmp", DataType.BIGINT);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnXmpLastModified.Description"));
         setLongerDescription(

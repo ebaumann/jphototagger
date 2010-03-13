@@ -34,7 +34,7 @@ public final class ColumnXmpDcCreator extends Column {
     public static final ColumnXmpDcCreator INSTANCE = new ColumnXmpDcCreator();
 
     private ColumnXmpDcCreator() {
-        super(TableXmp.INSTANCE, "dc_creator", DataType.STRING);
+        super("dc_creator", "xmp", DataType.STRING);
         setLength(128);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnXmpDcCreator.Description"));

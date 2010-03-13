@@ -35,7 +35,7 @@ public final class ColumnFilesLastModified extends Column {
         new ColumnFilesLastModified();
 
     private ColumnFilesLastModified() {
-        super(TableFiles.INSTANCE, "lastmodified", DataType.DATE);
+        super("lastmodified", "files", DataType.DATE);
         setDescription(
             JptBundle.INSTANCE.getString(
                 "ColumnFilesLastModified.Description"));

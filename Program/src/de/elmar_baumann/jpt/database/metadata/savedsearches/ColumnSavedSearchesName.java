@@ -34,7 +34,7 @@ public final class ColumnSavedSearchesName extends Column {
         new ColumnSavedSearchesName();
 
     private ColumnSavedSearchesName() {
-        super(TableSavedSearches.INSTANCE, "name", DataType.STRING);
+        super("name", "saved_searches", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString(

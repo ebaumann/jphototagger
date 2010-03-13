@@ -308,8 +308,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             buffer.append(toggleButtonBracketLeft2.isSelected()
                           ? " ("
                           : "");
-            buffer.append(" " + column.getTable().getName() + "."
-                          + column.getName());
+            buffer.append(" " + column.getTablename() + "." + column.getName());
             buffer.append(" " + operator.toSqlString());
             buffer.append(" ?");
             buffer.append(toggleButtonBracketRight.isSelected()

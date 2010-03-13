@@ -35,7 +35,7 @@ public final class ColumnXmpDcSubjectsSubject extends Column {
         new ColumnXmpDcSubjectsSubject();
 
     private ColumnXmpDcSubjectsSubject() {
-        super(TableXmpDcSubjects.INSTANCE, "subject", DataType.STRING);
+        super("subject", "dc_subjects", DataType.STRING);
         setLength(64);
         setDescription(
             JptBundle.INSTANCE.getString(

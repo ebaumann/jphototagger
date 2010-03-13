@@ -37,7 +37,7 @@ public final class ColumnXmpRating extends Column {
     public static final ColumnXmpRating INSTANCE = new ColumnXmpRating();
 
     private ColumnXmpRating() {
-        super(TableXmp.INSTANCE, "rating", DataType.BIGINT);
+        super("rating", "xmp", DataType.BIGINT);
         setLength(1);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnXmpRating.Description"));

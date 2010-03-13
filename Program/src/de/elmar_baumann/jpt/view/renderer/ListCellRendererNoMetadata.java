@@ -49,7 +49,7 @@ public final class ListCellRendererNoMetadata extends DefaultListCellRenderer {
             Column column = (Column) value;
 
             label.setText(column.getDescription());
-            label.setIcon(TableIcons.getIcon(column.getTable()));
+            label.setIcon(TableIcons.getIcon(column.getTablename()));
         }
 
         return label;
