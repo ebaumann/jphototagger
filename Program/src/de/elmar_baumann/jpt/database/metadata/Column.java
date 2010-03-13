@@ -28,7 +28,7 @@ import java.text.DateFormat;
 import javax.swing.InputVerifier;
 
 /**
- * Database column.
+ * Database column containing metadata with the user acts on.
  *
  * @author  Elmar Baumann
  * @version 2007-07-29
@@ -49,39 +49,57 @@ public class Column {
      * @param dataType  data type of this column
      */
     protected Column(String name, String tablename, DataType dataType) {
-        this.name     = name;
-        this.tablename    = tablename;
-        this.dataType = dataType;
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (dataType == null) {
+            throw new NullPointerException("dataType == null");
+        }
+
+        this.name      = name;
+        this.tablename = tablename;
+        this.dataType  = dataType;
     }
 
     /**
-     * Typ der Spaltendaten.
+     * Data type of this column.
      */
     public enum DataType {
 
-        /** Binärdaten, Java-Typ: byte[] */
+        /** Java type <code>byte[]</code> */
         BINARY,
 
-        /** Datum, Java-Typ: java.sql.DATE */
+        /** Java type <code>java.sql.Date</code> */
         DATE,
 
-        /** Ganzzahl, Java-Typ: int */
+        /** Java type <code>int</code> */
         INTEGER,
 
-        /** Java-Typ: long */
+        /** Java type <code>long</code> */
         BIGINT,
 
-        /** Realzahl, Java-Typ: double */
+        /** Java type <code>double</code> */
         REAL,
 
-        /** kleine Ganzzahl, Java-Typ: short */
+        /** Java type <code>short</code> */
         SMALLINT,
 
-        /** Zeichenkette variabler Länge, Java-Typ: java.lang.STRING */
+        /** Java type <code>java.lang.String</code> */
         STRING
         ;
 
-        public Object fromString(String string) {
+        /**
+         * Converts a string into the data type of this column.
+         *
+         * @param  string string
+         * @return        data type
+         */
+        public Object parseString(String string) {
             switch (this) {
             case BINARY :
                 return string.getBytes();
@@ -105,7 +123,7 @@ public class Column {
                 return string;
 
             default :
-                return string;
+                throw new IllegalArgumentException("Not handled type: " + this);
             }
         }
 
@@ -127,13 +145,13 @@ public class Column {
 
     @Override
     public String toString() {
-        String desc = getDescription();
+        String desc = (description == null)
+                      ? ""
+                      : description.trim();
 
-        if (desc.isEmpty()) {
-            return name;
-        }
-
-        return desc;
+        return desc.isEmpty()
+               ? name
+               : desc;
     }
 
     @Override
@@ -141,8 +159,7 @@ public class Column {
         if (o instanceof Column) {
             Column other = (Column) o;
 
-            return tablename.equals(other.tablename)
-                   && getName().equals(other.getName());
+            return tablename.equals(other.tablename) && name.equals(other.name);
         }
 
         return false;
@@ -152,11 +169,11 @@ public class Column {
     public int hashCode() {
         int hash = 7;
 
-        hash = 83 * hash + ((this.tablename != null)
-                            ? this.tablename.hashCode()
+        hash = 83 * hash + ((tablename != null)
+                            ? tablename.hashCode()
                             : 0);
-        hash = 83 * hash + ((this.getName() != null)
-                            ? this.getName().hashCode()
+        hash = 83 * hash + ((name != null)
+                            ? name.hashCode()
                             : 0);
 
         return hash;
@@ -184,6 +201,11 @@ public class Column {
         return name;
     }
 
+    /**
+     * Returns the description.
+     *
+     * @return description or null if not set
+     */
     public String getDescription() {
         return description;
     }
@@ -191,7 +213,7 @@ public class Column {
     /**
      * Returns the longer description.
      *
-     * @return description or null if not set
+     * @return longer description or null if not set
      */
     public String getLongerDescription() {
         return longerDescription;
@@ -202,9 +224,9 @@ public class Column {
     }
 
     /**
-     * Sets a longer description e.g. for tooltip texts.
+     * Sets a longer description e.g. for label and tooltip texts.
      *
-     * @param description description
+     * @param description longer description
      */
     protected void setLongerDescription(String description) {
         longerDescription = description;
@@ -218,8 +240,8 @@ public class Column {
      * Returns an appropriate input verifier for a text component.
      *
      * @return this class returns an {@link InputVerifierMaxLength} with this
-     *         column's length. Specialized classes can return an instance with
-     *         a better verification.
+     *         column's maximum length. Specialized classes can return an
+     *         instance with a better verification.
      */
     public InputVerifier getInputVerifier() {
         return new InputVerifierMaxLength(getLength());
