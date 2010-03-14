@@ -20,9 +20,6 @@
 
 package de.elmar_baumann.jpt.view.panels;
 
-import de.elmar_baumann.jpt.database.DatabaseStatistics;
-import de.elmar_baumann.jpt.event.listener.impl
-    .DatabaseTotalRecordCountListener;
 import de.elmar_baumann.jpt.model.TableModelDatabaseInfo;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Filename;
@@ -36,10 +33,7 @@ import de.elmar_baumann.jpt.view.renderer.TableCellRendererDatabaseInfoColumns;
  * @version 2008-11-08
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
-    private static final long                                serialVersionUID         =
-        -8537559082830438692L;
-    private final transient DatabaseTotalRecordCountListener listenerTotalRecordCount =
-        new DatabaseTotalRecordCountListener();
+    private static final long      serialVersionUID = -8537559082830438692L;
     private TableModelDatabaseInfo modelDatabaseInfo;
     private volatile boolean       listenToDbChanges;
 
@@ -54,32 +48,12 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         listenToDbChanges = listen;
 
         if (listen) {
-            listenerTotalRecordCount.addLabel(labelTotalRecordCount);
             setModelDatabaseInfo();
-        } else {
-            listenerTotalRecordCount.removeLabel(labelTotalRecordCount);
         }
-
-        listenerTotalRecordCount.setListenToDatabase(listen);
 
         if (modelDatabaseInfo != null) {
             modelDatabaseInfo.setListenToDatabase(listen);
         }
-    }
-
-    private void setInitTotalRecordCount() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                labelTotalRecordCount.setText(
-                    Long.toString(
-                        DatabaseStatistics.INSTANCE.getTotalRecordCount()));
-            }
-        });
-
-        thread.setName("Database info setting initial total record count @ "
-                       + getClass().getSimpleName());
-        thread.start();
     }
 
     private void setLabelFilename() {
@@ -98,7 +72,6 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                     modelDatabaseInfo.setListenToDatabase(listenToDbChanges);
                     table.setModel(modelDatabaseInfo);
                     modelDatabaseInfo.update();
-                    setInitTotalRecordCount();
                 }
             });
 
@@ -107,7 +80,6 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                 + getClass().getSimpleName());
             thread.start();
         } else {
-            setInitTotalRecordCount();
             modelDatabaseInfo.setListenToDatabase(true);
             modelDatabaseInfo.update();
         }
@@ -123,89 +95,47 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelTable                  = new javax.swing.JLabel();
-        scrollPane                  = new javax.swing.JScrollPane();
-        table                       = new javax.swing.JTable();
-        labelPromptTotalRecordCount = new javax.swing.JLabel();
-        labelTotalRecordCount       = new javax.swing.JLabel();
-        labelFilename               = new javax.swing.JLabel();
-        labelTable.setText(
-            JptBundle.INSTANCE.getString(
-                "DatabaseInfoCountPanel.labelTable.text"));
+
+        labelTable = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        labelFilename = new javax.swing.JLabel();
+
+        labelTable.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
+
         scrollPane.setViewportView(table);
-        labelPromptTotalRecordCount.setText(
-            JptBundle.INSTANCE.getString(
-                "DatabaseInfoCountPanel.labelPromptTotalRecordCount.text"));
-        labelFilename.setText(
-            JptBundle.INSTANCE.getString(
-                "DatabaseInfoCountPanel.labelFilename.text"));
+
+        labelFilename.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelFilename.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 385,
-                        Short.MAX_VALUE).addGroup(
-                            layout.createSequentialGroup().addGroup(
-                                layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.TRAILING,
-                                    false).addComponent(
-                                        labelTable,
-                                        javax.swing.GroupLayout.Alignment.LEADING,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE).addComponent(
-                                            labelPromptTotalRecordCount,
-                                                javax.swing.GroupLayout.Alignment.LEADING,
-                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                            Short.MAX_VALUE)).addPreferredGap(
-                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                    labelTotalRecordCount,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                            161,
-                                                                            Short.MAX_VALUE)).addComponent(
-                                                                                labelFilename,
-                                                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                        385,
-                                                                                        Short.MAX_VALUE)).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                    .addComponent(labelTable, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelFilename, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    labelTable).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 159,
-                    Short.MAX_VALUE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                        layout.createParallelGroup(
-                            javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                            labelPromptTotalRecordCount).addComponent(
-                            labelTotalRecordCount,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, 16,
-                            Short.MAX_VALUE)).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                labelFilename,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 15,
-                                javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { labelPromptTotalRecordCount,
-                labelTotalRecordCount });
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTable)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel      labelFilename;
-    private javax.swing.JLabel      labelPromptTotalRecordCount;
-    private javax.swing.JLabel      labelTable;
-    private javax.swing.JLabel      labelTotalRecordCount;
+    private javax.swing.JLabel labelFilename;
+    private javax.swing.JLabel labelTable;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JTable      table;
-
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
