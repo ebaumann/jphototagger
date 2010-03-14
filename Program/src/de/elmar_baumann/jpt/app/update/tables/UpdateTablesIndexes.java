@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.generics.Pair;
@@ -40,8 +41,6 @@ import java.util.Map;
  * @version 2009-09-11
  */
 final class UpdateTablesIndexes {
-    private final UpdateTablesMessages                          messages         =
-        UpdateTablesMessages.INSTANCE;
     private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE =
         new HashMap<Pair<String, String>, IndexInfo[]>();
 
@@ -55,6 +54,8 @@ final class UpdateTablesIndexes {
                 new IndexInfo(false, "idx_collections_id_files", "collections",
                               "id_files") });
     }
+
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
 
     void update(Connection connection) throws SQLException {
         messages.message(
@@ -84,9 +85,12 @@ final class UpdateTablesIndexes {
 
             String sql = "DROP INDEX " + indexName + " IF EXISTS";
 
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
             stmt.executeUpdate(sql);
 
             for (IndexInfo indexInfo : indexInfos) {
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
+                                   indexInfo.sql());
                 stmt.executeUpdate(indexInfo.sql());
             }
         } finally {

@@ -43,15 +43,15 @@ import java.util.Set;
 final class UpdateTablesDeleteInvalidExif {
     private static final String KEY_REMOVED_INVALID_EXIF =
         "Removed_Invalid_EXIF_1";    // Never change this!
-    private final UpdateTablesMessages messages             =
-        UpdateTablesMessages.INSTANCE;
-    private static final Set<Column>   COLUMNS_NOT_POSITIVE =
+    private static final Set<Column> COLUMNS_NOT_POSITIVE =
         new HashSet<Column>();
 
     static {
         COLUMNS_NOT_POSITIVE.add(ColumnExifFocalLength.INSTANCE);
         COLUMNS_NOT_POSITIVE.add(ColumnExifIsoSpeedRatings.INSTANCE);
     }
+
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
 
     void update(Connection connection) throws SQLException {
         if (DatabaseApplicationProperties.INSTANCE.getBoolean(

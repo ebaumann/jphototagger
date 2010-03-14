@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
@@ -69,6 +70,7 @@ final class UpdateTablesXmpDcSubjects {
 
             String sql = "SELECT DISTINCT subject FROM xmp_dc_subjects";
 
+            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
             rs = stmt.executeQuery(sql);
 
             String subject = null;
@@ -93,6 +95,7 @@ final class UpdateTablesXmpDcSubjects {
         try {
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, subject);
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
             stmt.executeUpdate();
         } finally {
             Database.close(stmt);
@@ -106,7 +109,8 @@ final class UpdateTablesXmpDcSubjects {
 
         try {
             stmt = connection.createStatement();
-            rs   = stmt.executeQuery(sql);
+            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 long   idXmp       = rs.getLong(1);
@@ -136,6 +140,7 @@ final class UpdateTablesXmpDcSubjects {
             stmt = connection.prepareStatement(
                 "SELECT COUNT(*) FROM xmp WHERE id = ?");
             stmt.setLong(1, id);
+            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -161,6 +166,7 @@ final class UpdateTablesXmpDcSubjects {
                 stmt = connection.prepareStatement(sql);
                 stmt.setLong(1, idXmp);
                 stmt.setLong(2, idDcSubject);
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
                 stmt.executeUpdate();
             } finally {
                 Database.close(stmt);

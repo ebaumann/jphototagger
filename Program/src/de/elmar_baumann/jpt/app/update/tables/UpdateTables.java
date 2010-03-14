@@ -48,5 +48,6 @@ public final class UpdateTables extends Database {
         new UpdateTablesThumbnails().update(connection);
         new UpdateTablesDropCategories().update(connection);
         new UpdateTablesXmpDcSubjects().update(connection);
+        new UpdateTablesMake1n().update(connection);
     }
 }

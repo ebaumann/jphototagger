@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
@@ -86,19 +87,21 @@ final class UpdateTablesXmpLastModified {
             stmtUpdate = connection.prepareStatement(
                 "UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
 
-            long lastModified = -1;
-            long idFiles      = -1;
-            int  value        = 0;
+            long   lastModified = -1;
+            long   idFiles      = -1;
+            int    value        = 0;
+            String sql          = "SELECT id, lastmodified FROM files";
 
-            rsQuery =
-                stmtQuery.executeQuery("SELECT id, lastmodified FROM files");
+            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            rsQuery = stmtQuery.executeQuery(sql);
 
             while (rsQuery.next()) {
                 idFiles      = rsQuery.getLong(1);
                 lastModified = rsQuery.getLong(2);
                 stmtUpdate.setLong(1, lastModified);
                 stmtUpdate.setLong(2, idFiles);
-                stmtUpdate.execute();
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmtUpdate);
+                stmtUpdate.executeUpdate();
                 messages.setValue(++value / count * 100);
             }
         } finally {
