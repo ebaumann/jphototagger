@@ -161,6 +161,10 @@ public final class AppLoggingSystem implements UserSettingsListener {
         return getLogfilePrefix() + "0." + getLogfileSuffix();
     }
 
+    public static String getCurrentAllLogifleName() {
+        return getLogfilePrefix() + "-all-0.txt";
+    }
+
     private static String getLogfilePrefix() {
         return UserSettings.INSTANCE.getSettingsDirectoryName()
                + File.separator + "imagemetadataviewerlog";

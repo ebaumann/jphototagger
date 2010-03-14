@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.event.listener.ErrorListener;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
 import de.elmar_baumann.lib.dialog.LogfileDialog;
 import de.elmar_baumann.lib.event.util.MouseEventUtil;
@@ -36,6 +37,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 
 import javax.swing.JLabel;
@@ -55,8 +57,12 @@ public final class ControllerLogfileDialog extends MouseAdapter
             "ControllerLogfileDialog.LabelErrorTooltipText");
     private static final String STATUSBAR_ERROR_TEXT =
         JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
-    private final JMenuItem itemShowDlg =
-        GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
+    private final AppFrame  appFrame                =
+        GUI.INSTANCE.getAppFrame();
+    private final JMenuItem itemShowDlgErrorLogfile =
+        appFrame.getMenuItemDisplayLogfile();
+    private final JMenuItem itemShowDlgAllLogfile =
+        appFrame.getMenuItemDisplayAllLogfile();
     private final JLabel labelError =
         GUI.INSTANCE.getAppPanel().getLabelError();
 
@@ -65,15 +71,18 @@ public final class ControllerLogfileDialog extends MouseAdapter
     }
 
     private void listen() {
-        itemShowDlg.addActionListener(this);
+        itemShowDlgErrorLogfile.addActionListener(this);
+        itemShowDlgAllLogfile.addActionListener(this);
         labelError.addMouseListener(this);
         ErrorListeners.INSTANCE.add(this);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (MouseEventUtil.isLeftClick(e) && itemShowDlg.isEnabled()) {
-            showLogfileDialog();
+        if (MouseEventUtil.isLeftClick(e)
+                && itemShowDlgErrorLogfile.isEnabled()) {
+            showLogfileDialog(AppLoggingSystem.getCurrentLogfileName(),
+                              XMLFormatter.class);
             labelError.setIcon(null);
             labelError.setToolTipText("");
         }
@@ -83,20 +92,28 @@ public final class ControllerLogfileDialog extends MouseAdapter
     public void error(ErrorEvent evt) {
         GUI.INSTANCE.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT,
                 MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
-        itemShowDlg.setEnabled(true);
+        itemShowDlgErrorLogfile.setEnabled(true);
         labelError.setIcon(AppLookAndFeel.getIcon("icon_error12.png"));
         labelError.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        showLogfileDialog();
+        Object source = e.getSource();
+
+        if (source == itemShowDlgErrorLogfile) {
+            showLogfileDialog(AppLoggingSystem.getCurrentLogfileName(),
+                              XMLFormatter.class);
+        } else if (source == itemShowDlgAllLogfile) {
+            showLogfileDialog(AppLoggingSystem.getCurrentAllLogifleName(),
+                              SimpleFormatter.class);
+        }
     }
 
-    private void showLogfileDialog() {
+    private void showLogfileDialog(String logfilename,
+                                   Class<?> formatterClass) {
         LogfileDialog dialog = new LogfileDialog(GUI.INSTANCE.getAppFrame(),
-                                   AppLoggingSystem.getCurrentLogfileName(),
-                                   XMLFormatter.class);
+                                   logfilename, formatterClass);
 
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
