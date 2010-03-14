@@ -215,7 +215,7 @@ public final class UpdateTablesMake1n {
                 String sqlAddForeignKey = "ALTER TABLE " + sourceTable
                                           + " ADD FOREIGN KEY (" + newColumn
                                           + ") REFERENCES " + targetTable
-                                          + "(id)" + " ON DELETE SET NULL";
+                                          + "(id) ON DELETE SET NULL";
 
                 AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
                                    sqlAddForeignKey);

@@ -118,7 +118,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     private static String logfileNamePatternAllMessages() {
-        return getLogfilePrefix() + "-all-" + "%g." + "txt";
+        return getLogfilePrefix() + "-all-%g.txt";
     }
 
     private static void addSystemOutHandler() {

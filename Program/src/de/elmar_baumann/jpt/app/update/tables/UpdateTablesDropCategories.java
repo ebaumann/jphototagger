@@ -83,7 +83,7 @@ final class UpdateTablesDropCategories {
     private boolean saveCategoriesToFile(Connection connection)
             throws SQLException {
         String sql = " SELECT DISTINCT photoshop_category FROM xmp"
-                     + " WHERE photoshop_category IS NOT NULL" + " UNION ALL"
+                     + " WHERE photoshop_category IS NOT NULL UNION ALL"
                      + " SELECT DISTINCT supplementalcategory"
                      + " FROM xmp_photoshop_supplementalcategories"
                      + " WHERE supplementalcategory IS NOT NULL"
@@ -130,7 +130,7 @@ final class UpdateTablesDropCategories {
     }
 
     private void fixSavedSearches(Connection connection) throws SQLException {
-        String sql = "UPDATE saved_searches_panels" + " SET column_id = 24"
+        String sql = "UPDATE saved_searches_panels SET column_id = 24"
                      + " WHERE column_id = 25 OR column_id = 14";
 
         // Now as keyword
