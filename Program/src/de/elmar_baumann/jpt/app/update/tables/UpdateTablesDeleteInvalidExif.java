@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -51,19 +52,17 @@ final class UpdateTablesDeleteInvalidExif {
         COLUMNS_NOT_POSITIVE.add(ColumnExifIsoSpeedRatings.INSTANCE);
     }
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-
     void update(Connection connection) throws SQLException {
         if (DatabaseApplicationProperties.INSTANCE.getBoolean(
                 KEY_REMOVED_INVALID_EXIF)) {
             return;
         }
 
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesDeleteInvalidExif.Info.update"));
         setNull(connection);
-        messages.clearMessage();
+        SplashScreen.INSTANCE.setMessage("");
         DatabaseApplicationProperties.INSTANCE.setBoolean(
             KEY_REMOVED_INVALID_EXIF, true);
     }

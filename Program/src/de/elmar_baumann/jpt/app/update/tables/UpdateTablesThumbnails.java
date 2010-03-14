@@ -21,6 +21,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
@@ -58,8 +59,7 @@ final class UpdateTablesThumbnails extends Database {
     private static final int    FETCH_MAX_ROWS                     = 1000;
     private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
         "Updated_Thumbnails_Names_Hash_1";    // Never change this!
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private int                        count;
+    private int count;
 
     void update(Connection connection) throws SQLException {
         writeThumbnailsFromTableIntoFilesystem(connection);
@@ -102,7 +102,6 @@ final class UpdateTablesThumbnails extends Database {
                     id, current,
                     "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table");
                 writeThumbnail(inputStream, id);
-                messages.setValue(current++ / cnt * 100);
             }
         } finally {
             Database.close(rs, stmt);
@@ -329,15 +328,14 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private void compress() {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesThumbnails.Info.CompressDatabase"));
         DatabaseMaintainance.INSTANCE.compressDatabase();
     }
 
     private void setMessageCurrentFile(long id, long current, String message) {
-        messages.message(JptBundle.INSTANCE.getString(message, id, current,
-                count));
-        messages.setValue((int) (current / count * 100));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString(message,
+                id, current, count));
     }
 }

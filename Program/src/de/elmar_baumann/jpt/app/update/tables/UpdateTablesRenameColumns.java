@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -38,10 +39,6 @@ import java.util.List;
  * @version 2008-11-06
  */
 final class UpdateTablesRenameColumns {
-    private final UpdateTablesMessages               messages      =
-        UpdateTablesMessages.INSTANCE;
-    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
-        new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
     private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS =
         new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
 
@@ -53,6 +50,9 @@ final class UpdateTablesRenameColumns {
                                      "parameters_before_filename", null,
                                      null)));
     }
+
+    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
+        new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
 
     void update(Connection connection) throws SQLException {
         setColumns(connection);
@@ -76,7 +76,7 @@ final class UpdateTablesRenameColumns {
     }
 
     private void renameColumns(Connection connection) throws SQLException {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesRenameColumns.Info.update"));
 
@@ -97,7 +97,7 @@ final class UpdateTablesRenameColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesRenameColumns.Info.RenameColumn", tableName,
                 columnName));

@@ -21,9 +21,9 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
-import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
 import java.sql.Connection;
@@ -39,9 +39,6 @@ import java.sql.Statement;
  * @version 2008-10-29
  */
 final class UpdateTablesXmpLastModified {
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-    private int                        count;
-
     void update(Connection connection) throws SQLException {
         removeColumnXmpLastModifiedFromTableXmp(connection);
         addColumnXmpLastModifiedToTableFiles(connection);
@@ -51,7 +48,7 @@ final class UpdateTablesXmpLastModified {
             throws SQLException {
         if (DatabaseMetadata.INSTANCE.existsColumn(connection, "xmp",
                 "lastmodified")) {
-            messages.message(
+            SplashScreen.INSTANCE.setMessage(
                 JptBundle.INSTANCE.getString(
                     "UpdateTablesXmpLastModified.Info.RemoveColumnXmpLastModified"));
             Database.execute(connection,
@@ -63,7 +60,7 @@ final class UpdateTablesXmpLastModified {
             throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsColumn(connection, "files",
                 "xmp_lastmodified")) {
-            messages.message(
+            SplashScreen.INSTANCE.setMessage(
                 JptBundle.INSTANCE.getString(
                     "UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.AddColumn"));
             Database.execute(
@@ -76,7 +73,7 @@ final class UpdateTablesXmpLastModified {
     // too slow and no feedback: "UPDATE files SET xmp_lastmodified = lastmodified"
     private void copyLastModifiedToXmp(Connection connection)
             throws SQLException {
-        setProgress();
+        infoMessage();
 
         PreparedStatement stmtUpdate = null;
         Statement         stmtQuery  = null;
@@ -89,7 +86,6 @@ final class UpdateTablesXmpLastModified {
 
             long   lastModified = -1;
             long   idFiles      = -1;
-            int    value        = 0;
             String sql          = "SELECT id, lastmodified FROM files";
 
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
@@ -100,9 +96,9 @@ final class UpdateTablesXmpLastModified {
                 lastModified = rsQuery.getLong(2);
                 stmtUpdate.setLong(1, lastModified);
                 stmtUpdate.setLong(2, idFiles);
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmtUpdate);
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
+                                   stmtUpdate);
                 stmtUpdate.executeUpdate();
-                messages.setValue(++value / count * 100);
             }
         } finally {
             Database.close(rsQuery, stmtQuery);
@@ -110,10 +106,9 @@ final class UpdateTablesXmpLastModified {
         }
     }
 
-    private void setProgress() {
-        messages.message(
+    private void infoMessage() {
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.SetLastModified"));
-        count = DatabaseStatistics.INSTANCE.getXmpCount();
     }
 }

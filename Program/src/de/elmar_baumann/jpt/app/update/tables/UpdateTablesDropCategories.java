@@ -22,6 +22,7 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
@@ -54,15 +55,13 @@ import java.sql.Statement;
  * @version 2009-12-24
  */
 final class UpdateTablesDropCategories {
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-
     void update(Connection connection) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(connection,
                 "xmp_photoshop_supplementalcategories")) {
             return;
         }
 
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
 
         if (!categoriesAlreadyDropped(connection)
