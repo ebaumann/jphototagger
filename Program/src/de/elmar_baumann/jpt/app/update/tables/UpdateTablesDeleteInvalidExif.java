@@ -79,7 +79,7 @@ final class UpdateTablesDeleteInvalidExif {
             throws SQLException {
         Database.execute(connection,
                          "UPDATE " + column.getTablename() + " SET "
-                         + column.getName() + " = NULL" + " WHERE "
+                         + column.getName() + " = NULL WHERE "
                          + column.getName() + " <= 0");
     }
 
@@ -89,7 +89,7 @@ final class UpdateTablesDeleteInvalidExif {
 
         Database.execute(connection,
                          "UPDATE " + column.getTablename() + " SET "
-                         + column.getName() + " = NULL" + " WHERE "
+                         + column.getName() + " = NULL WHERE "
                          + column.getName() + " = '0'");
     }
 }

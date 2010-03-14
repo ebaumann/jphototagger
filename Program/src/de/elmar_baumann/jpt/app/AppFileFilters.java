@@ -34,12 +34,17 @@ public final class AppFileFilters {
      * Filter of all computable image file formats
      */
     public static final RegexFileFilter ACCEPTED_IMAGE_FILENAME_FILTER =
-        new RegexFileFilter(".*\\.[cC][rR][wW];" + ".*\\.[cC][rR]2;"
-                            + ".*\\.[dD][cC][rR];" + ".*\\.[dD][nN][gG];"
-                            + ".*\\.[jJ][pP][gG];" + ".*\\.[jJ][pP][eE][gG];"
-                            + ".*\\.[mM][rR][wW];" + ".*\\.[nN][eE][fF];"
-                            + ".*\\.[tT][hH][mM];" + ".*\\.[tT][iI][fF];"
-                            + ".*\\.[tT][iI][fF][fF];", ";");
+        new RegexFileFilter(".*\\.[cC][rR][wW];"    // Canon RAW
+        + ".*\\.[cC][rR]2;"                  // Canon RAW 2
+        + ".*\\.[dD][cC][rR];"               // Kodak RAW
+        + ".*\\.[dD][nN][gG];"               // Digal Negative
+        + ".*\\.[jJ][pP][gG];"               // Joint Photographic Experts Group
+        + ".*\\.[jJ][pP][eE][gG];"           // Joint Photographic Experts Group
+        + ".*\\.[mM][rR][wW];"               // Minolta RAW
+        + ".*\\.[nN][eE][fF];"               // Nikon RAW
+        + ".*\\.[tT][hH][mM];"               // EXIF Info
+        + ".*\\.[tT][iI][fF];"               // Tagged Image File Format
+        + ".*\\.[tT][iI][fF][fF];", ";");    // Tagged Image File Format
 
     private AppFileFilters() {}
 }

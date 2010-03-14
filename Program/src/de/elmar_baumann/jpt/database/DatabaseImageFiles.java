@@ -2531,7 +2531,7 @@ public final class DatabaseImageFiles extends Database {
         return isLink
                ? Join.getNullSqlOf(tablename)
                : "SELECT files.filename FROM files INNER JOIN " + tablename
-                 + " ON files.id = " + tablename + ".id_files" + " WHERE "
+                 + " ON files.id = " + tablename + ".id_files WHERE "
                  + tablename + "." + columnName + " IS NULL"
                  + " UNION SELECT files.filename FROM files "
                  + Join.getUnjoinedFilesSqlWhere(tablename);

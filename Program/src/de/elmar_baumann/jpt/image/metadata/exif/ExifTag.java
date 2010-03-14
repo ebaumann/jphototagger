@@ -286,7 +286,7 @@ public final class ExifTag {
     }
 
     public String info() {
-        return "EXIF Tag [" + "ID: " + idValue + ", Name: " + ((name == null)
+        return "EXIF Tag [ID: " + idValue + ", Name: " + ((name == null)
                 ? " Undefined "
                 : name) + ", Number of values: " + valueCount
                         + ", Value offset: " + valueOffset + ", Data type: "
