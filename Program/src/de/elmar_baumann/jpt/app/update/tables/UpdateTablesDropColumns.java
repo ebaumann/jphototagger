@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -37,12 +38,7 @@ import java.util.List;
  * @version 2008-10-31
  */
 final class UpdateTablesDropColumns {
-    private final UpdateTablesMessages    messages    =
-        UpdateTablesMessages.INSTANCE;
-    private final List<ColumnInfo>        dropColumns =
-        new ArrayList<ColumnInfo>();
-    private static final List<ColumnInfo> COLUMNS     =
-        new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo> COLUMNS = new ArrayList<ColumnInfo>();
 
     static {
         COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null));
@@ -50,9 +46,13 @@ final class UpdateTablesDropColumns {
         COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null));
         COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null,
                                    null));
-        COLUMNS.add(new ColumnInfo("xmp", "iptc4xmpcore_countrycode", null, null));
-        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "iptc4xmpcoreCountrycode", null, null));
+        COLUMNS.add(new ColumnInfo("xmp", "iptc4xmpcore_countrycode", null,
+                                   null));
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates",
+                                   "iptc4xmpcoreCountrycode", null, null));
     }
+
+    private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
 
     void update(Connection connection) throws SQLException {
         setColumns(connection);
@@ -76,7 +76,7 @@ final class UpdateTablesDropColumns {
     }
 
     private void dropColumns(Connection connection) throws SQLException {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesDropColumns.Info.update"));
 
@@ -95,7 +95,7 @@ final class UpdateTablesDropColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesDropColumns.Info", tableName, columnName));
     }

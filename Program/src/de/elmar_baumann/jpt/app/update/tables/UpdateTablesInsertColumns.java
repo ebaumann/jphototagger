@@ -21,6 +21,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -79,10 +80,7 @@ final class UpdateTablesInsertColumns {
                                    null));
     }
 
-    private final UpdateTablesMessages messages       =
-        UpdateTablesMessages.INSTANCE;
-    private final List<ColumnInfo>     missingColumns =
-        new ArrayList<ColumnInfo>();
+    private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
 
     void update(Connection connection) throws SQLException {
         fixBugs(connection);
@@ -107,7 +105,7 @@ final class UpdateTablesInsertColumns {
     }
 
     private void addColumns(Connection connection) throws SQLException {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesInsertColumns.Info.update"));
 
@@ -142,7 +140,7 @@ final class UpdateTablesInsertColumns {
     }
 
     private void setMessage(String tableName, String columnName) {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesInsertColumns.Info", tableName, columnName));
     }
@@ -176,7 +174,7 @@ final class UpdateTablesInsertColumns {
             boolean                     isOk    = typeOk && indexOk;
 
             if (!isOk) {
-                messages.message(
+                SplashScreen.INSTANCE.setMessage(
                     JptBundle.INSTANCE.getString(
                         "UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates",
                         tableName, columnName));

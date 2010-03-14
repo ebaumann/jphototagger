@@ -114,6 +114,7 @@ public final class SplashScreen {
         assert init;
 
         this.message = message;
+        AppLogger.logInfo(getClass(), AppLogger.USE_STRING, message);
 
         if (canDisplay()) {
             updateDisplay();

@@ -21,6 +21,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.generics.Pair;
@@ -55,13 +56,11 @@ final class UpdateTablesIndexes {
                               "id_files") });
     }
 
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
-
     void update(Connection connection) throws SQLException {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
         replaceIndices(connection);
-        messages.message("");
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private void replaceIndices(Connection connection) throws SQLException {

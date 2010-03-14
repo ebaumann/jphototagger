@@ -21,6 +21,7 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
@@ -42,13 +43,12 @@ import java.util.List;
 final class UpdateTablesPrimaryKeys {
     private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP =
         new ArrayList<String>();
-    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
 
     void update(Connection connection) throws SQLException {
-        messages.message(
+        SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
         dropPrimaryKeys(connection);
-        messages.message("");
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private void dropPrimaryKeys(Connection connection) throws SQLException {
