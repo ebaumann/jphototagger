@@ -52,7 +52,8 @@ public final class AppLoggingSystem implements UserSettingsListener {
         new ArrayList<Handler>();
     private static boolean             init;
     private static Handler             systemOutHandler;
-    private static Handler             fileHandler;
+    private static Handler             fileHandlerImportant;
+    private static Handler             fileHandlerAllMsgs;
     private static Logger              appLogger;
 
     /**
@@ -90,22 +91,34 @@ public final class AppLoggingSystem implements UserSettingsListener {
     // Publishes only warning and severe events (on severe events the last
     // 1000 logfile records through it's memory handler)
     private static void addFileHandler() throws Exception {
-        fileHandler = new FileHandler(logfileNamePattern(),
+        fileHandlerImportant = new FileHandler(logfileNamePatternImportant(),
+                                      MAX_LOGFILE_SIZE_IN_BYTES,
+                                      LOGFILE_ROTATE_COUNT,
+                                      APPEND_OUTPUT_TO_LOGFILE);
+        fileHandlerAllMsgs = new FileHandler(logfileNamePatternAllMessages(),
                                       MAX_LOGFILE_SIZE_IN_BYTES,
                                       LOGFILE_ROTATE_COUNT,
                                       APPEND_OUTPUT_TO_LOGFILE);
 
         // Ignoring user settings obove (INFO, FINE, ...) and keeping size small
-        fileHandler.setLevel(Level.WARNING);
-        fileHandler.setFormatter(new XMLFormatter());
+        fileHandlerImportant.setLevel(Level.WARNING);
+        fileHandlerImportant.setFormatter(new XMLFormatter());
+
+        fileHandlerAllMsgs.setLevel(Level.ALL);
+        fileHandlerAllMsgs.setFormatter(new SimpleFormatter());
 
         synchronized (HANDLERS) {
-            HANDLERS.add(fileHandler);
+            HANDLERS.add(fileHandlerImportant);
+            HANDLERS.add(fileHandlerAllMsgs);
         }
     }
 
-    private static String logfileNamePattern() {
+    private static String logfileNamePatternImportant() {
         return getLogfilePrefix() + "%g." + getLogfileSuffix();
+    }
+
+    private static String logfileNamePatternAllMessages() {
+        return getLogfilePrefix() + "-all-" + "%g." + "txt";
     }
 
     private static void addSystemOutHandler() {
@@ -184,8 +197,11 @@ public final class AppLoggingSystem implements UserSettingsListener {
             break;
 
         case FILE :
-            if (fileHandler != null) {
-                fileHandler.flush();
+            if (fileHandlerImportant != null) {
+                fileHandlerImportant.flush();
+            }
+            if (fileHandlerAllMsgs != null) {
+                fileHandlerAllMsgs.flush();
             }
 
             break;
