@@ -16,8 +16,7 @@ Changelog JPhotoTagger
 * Datenbankdesign modifiziert: 10 verschiedene XMP und 2 EXIF-Werte sind in
   separaten Tabellen. Für gespeicherte Suchen gilt das gleiche wie hier
   beschreiben unter "0.7.95 2010-03-12". Das Aktualisieren großer Datenbanken
-  kann einige Zeit dauern! Bei großen Datenbank ist anschließend folgender
-  Menüpunkt zu empfehlen: Datei > Datenbank > Wartung: Datenbank komprimieren.
+  kann einige Zeit dauern!
 
 0.7.95 2010-03-12
 -----------------

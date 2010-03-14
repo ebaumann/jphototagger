@@ -88,6 +88,7 @@ final class UpdateTablesInsertColumns {
         if (missingColumns.size() > 0) {
             addColumns(con);
         }
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private void setColumns(Connection con) throws SQLException {

@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.lib.io.FileUtil;
 
 import java.io.File;
@@ -61,6 +62,7 @@ final class UpdateTablesPrograms extends Database {
             UserSettings.INSTANCE.getSettings().removeStringCollection(
                 KEY_OTHER_IMAGE_OPEN_APPS);
             UserSettings.INSTANCE.writeToFile();
+            SplashScreen.INSTANCE.setMessage("");
         }
     }
 }

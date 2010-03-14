@@ -23,8 +23,10 @@ package de.elmar_baumann.jpt.app.update.tables;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;
+import de.elmar_baumann.jpt.database.DatabaseMaintainance;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.database.DatabaseSavedSearches;
+import de.elmar_baumann.jpt.resource.JptBundle;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -89,8 +91,10 @@ public final class UpdateTablesMake1n {
     UpdateTablesMake1n() {}
 
     void update(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage("UpdateTablesMake1n.Info");
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesMake1n.Info"));
         moveContent(con);
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private String getLinkColumn(String targetTable) {
@@ -100,12 +104,16 @@ public final class UpdateTablesMake1n {
     private void moveContent(Connection con) throws SQLException {
         con.setAutoCommit(true);
 
+        boolean compress = false;
+
         for (ColumnInfo source : TARGET_COL_OF.keySet()) {
             if (DatabaseMetadata.INSTANCE.existsColumn(con,
                     source.getTableName(), source.getColumnName())) {
                 ColumnInfo target = TARGET_COL_OF.get(source);
                 Statement  stmt   = null;
                 ResultSet  rs     = null;
+
+                compress = true;
 
                 try {
                     String sourceTable  = source.getTableName();
@@ -135,6 +143,10 @@ public final class UpdateTablesMake1n {
                     Database.close(rs, stmt);
                 }
             }
+        }
+
+        if (compress) {
+            DatabaseMaintainance.INSTANCE.compressDatabase();
         }
     }
 

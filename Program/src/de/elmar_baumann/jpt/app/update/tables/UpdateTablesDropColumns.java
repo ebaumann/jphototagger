@@ -60,6 +60,7 @@ final class UpdateTablesDropColumns {
         if (dropColumns.size() > 0) {
             dropColumns(con);
         }
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private void setColumns(Connection con) throws SQLException {
