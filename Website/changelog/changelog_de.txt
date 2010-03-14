@@ -5,6 +5,13 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.8.0 2010-03-14
+----------------
+
+* Datenbankdesign modifiziert: 10 verschiedene XMP und 2 EXIF-Werte sind in
+  separaten Tabellen. Für gespeicherte Suchen gilt das gleiche wie hier
+  beschreiben unter "0.7.95 2010-03-12".
+
 0.7.95 2010-03-12
 -----------------
 

@@ -36,7 +36,7 @@ public final class ColumnExifLens extends Column {
     public static final ColumnExifLens INSTANCE = new ColumnExifLens();
 
     private ColumnExifLens() {
-        super("exif_lens", "exif", DataType.STRING);
+        super("lens", "exif_lens", DataType.STRING);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnExifLens.Description"));
     }

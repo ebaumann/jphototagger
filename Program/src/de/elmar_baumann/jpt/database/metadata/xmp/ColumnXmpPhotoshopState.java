@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopState extends Column {
         new ColumnXmpPhotoshopState();
 
     private ColumnXmpPhotoshopState() {
-        super("photoshop_state", "xmp", DataType.STRING);
+        super("state", "photoshop_state", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString(

@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopCredit extends Column {
         new ColumnXmpPhotoshopCredit();
 
     private ColumnXmpPhotoshopCredit() {
-        super("photoshop_credit", "xmp", DataType.STRING);
+        super("credit", "photoshop_credit", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString(

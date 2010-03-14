@@ -47,8 +47,20 @@ public final class TableIcons {
 
     static {
         ICON_OF_TABLENAME.put("exif", ICON_EXIF);
+        ICON_OF_TABLENAME.put("exif_recording_equipment", ICON_EXIF);
+        ICON_OF_TABLENAME.put("exif_lens", ICON_EXIF);
         ICON_OF_TABLENAME.put("files", ICON_FILES);
         ICON_OF_TABLENAME.put("xmp", ICON_XMP);
+        ICON_OF_TABLENAME.put("dc_creator", ICON_XMP);
+        ICON_OF_TABLENAME.put("dc_rights", ICON_XMP);
+        ICON_OF_TABLENAME.put("iptc4xmpcore_location", ICON_XMP);
+        ICON_OF_TABLENAME.put("photoshop_authorsposition", ICON_XMP);
+        ICON_OF_TABLENAME.put("photoshop_captionwriter", ICON_XMP);
+        ICON_OF_TABLENAME.put("photoshop_city", ICON_XMP);
+        ICON_OF_TABLENAME.put("photoshop_country", ICON_XMP);
+        ICON_OF_TABLENAME.put("photoshop_credit", ICON_XMP);
+        ICON_OF_TABLENAME.put("photoshop_source", ICON_XMP);
+        ICON_OF_TABLENAME.put("photoshop_state", ICON_XMP);
         ICON_OF_TABLENAME.put("dc_subjects", ICON_XMP);
     }
 

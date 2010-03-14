@@ -62,7 +62,6 @@ final class UpdateTablesInsertColumns {
                                        "real",
                                        "idx_hierarchical_subjects_real",
                                        false)));
-        columns.add(new ColumnInfo("xmp", "rating", "BIGINT", null));
         columns.add(new ColumnInfo("xmp", "iptc4xmpcore_datecreated",
                                    "VARCHAR_IGNORECASE(32)",
                                    new IndexOfColumn("xmp",
