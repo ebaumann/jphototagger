@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.8.0 2010-03-14
 ----------------
 
+* Neuer Menüpunkt: Fenster > Protokoll mit allen Ausgaben. Dieses zeigt jede
+  Meldung an und dient insbesondere der Fehleranalyse.
 * Datenbankdesign modifiziert: 10 verschiedene XMP und 2 EXIF-Werte sind in
   separaten Tabellen. Für gespeicherte Suchen gilt das gleiche wie hier
   beschreiben unter "0.7.95 2010-03-12".

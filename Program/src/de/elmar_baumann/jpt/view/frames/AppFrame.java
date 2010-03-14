@@ -281,6 +281,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemDisplayLogfile;
     }
 
+    public JMenuItem getMenuItemDisplayAllLogfile() {
+        return menuItemDisplayAllLogfile;
+    }
+
     public JMenuItem getMenuItemSynonyms() {
         return menuItemSynonyms;
     }
@@ -422,6 +426,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOutputWindow = new javax.swing.JMenuItem();
         sep20 = new javax.swing.JPopupMenu.Separator();
         menuItemDisplayLogfile = new javax.swing.JMenuItem();
+        menuItemDisplayAllLogfile = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
@@ -743,6 +748,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemDisplayLogfile.setEnabled(false);
         menuWindow.add(menuItemDisplayLogfile);
 
+        menuItemDisplayAllLogfile.setText(bundle.getString("AppFrame.menuItemDisplayAllLogfile.text")); // NOI18N
+        menuWindow.add(menuItemDisplayAllLogfile);
+
         menuBar.add(menuWindow);
 
         menuHelp.setText(JptBundle.INSTANCE.getString("AppFrame.menuHelp.text")); // NOI18N
@@ -816,6 +824,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemBrowseChangelog;
     private javax.swing.JMenuItem menuItemBrowseUserForum;
     private javax.swing.JMenuItem menuItemBrowseWebsite;
+    private javax.swing.JMenuItem menuItemDisplayAllLogfile;
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportJptMisc;
