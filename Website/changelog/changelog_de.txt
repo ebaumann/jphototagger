@@ -9,10 +9,15 @@ Changelog JPhotoTagger
 ----------------
 
 * Neuer Menüpunkt: Fenster > Protokoll mit allen Ausgaben. Dieses zeigt jede
-  Meldung an und dient insbesondere der Fehleranalyse.
+  Meldung an, die auch das Ausgabefenster anzeigt und dient insbesondere der
+  Fehleranalyse. Im Gegensatz zum Ausgabefenster sind dort alle Meldungen seit
+  dem Start gespeichert, während das Ausgabefenster einen "Puffer" mit
+  bestimmter Größe hat, das heißt, eine maximale Anzahl an Nachrichten anzeigt.
 * Datenbankdesign modifiziert: 10 verschiedene XMP und 2 EXIF-Werte sind in
   separaten Tabellen. Für gespeicherte Suchen gilt das gleiche wie hier
-  beschreiben unter "0.7.95 2010-03-12".
+  beschreiben unter "0.7.95 2010-03-12". Das Aktualisieren großer Datenbanken
+  kann einige Zeit dauern! Bei großen Datenbank ist anschließend folgender
+  Menüpunkt zu empfehlen: Datei > Datenbank > Wartung: Datenbank komprimieren.
 
 0.7.95 2010-03-12
 -----------------

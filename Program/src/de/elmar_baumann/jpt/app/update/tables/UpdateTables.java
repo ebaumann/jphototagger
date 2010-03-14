@@ -21,9 +21,12 @@
 package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.database.Database;
+import de.elmar_baumann.jpt.UserSettings;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import java.util.logging.Level;
 
 /**
  * Updates tables from previous application versions
@@ -37,17 +40,25 @@ public final class UpdateTables extends Database {
     private UpdateTables() {}
 
     public void update(Connection con) throws SQLException {
-        new UpdateTablesDropColumns().update(con);
-        new UpdateTablesRenameColumns().update(con);
-        new UpdateTablesInsertColumns().update(con);
-        new UpdateTablesIndexes().update(con);
-        new UpdateTablesPrimaryKeys().update(con);
-        new UpdateTablesXmpLastModified().update(con);
-        new UpdateTablesPrograms().update(con);
-        new UpdateTablesDeleteInvalidExif().update(con);
-        new UpdateTablesThumbnails().update(con);
-        new UpdateTablesDropCategories().update(con);
-        new UpdateTablesXmpDcSubjects().update(con);
-        new UpdateTablesMake1n().update(con);
+        Level defaultLogLevel = UserSettings.INSTANCE.getLogLevel();
+
+        UserSettings.INSTANCE.setLogLevel(Level.FINEST);
+
+        try {
+            new UpdateTablesDropColumns().update(con);
+            new UpdateTablesRenameColumns().update(con);
+            new UpdateTablesInsertColumns().update(con);
+            new UpdateTablesIndexes().update(con);
+            new UpdateTablesPrimaryKeys().update(con);
+            new UpdateTablesXmpLastModified().update(con);
+            new UpdateTablesPrograms().update(con);
+            new UpdateTablesDeleteInvalidExif().update(con);
+            new UpdateTablesThumbnails().update(con);
+            new UpdateTablesDropCategories().update(con);
+            new UpdateTablesXmpDcSubjects().update(con);
+            new UpdateTablesMake1n().update(con);
+        } finally {
+            UserSettings.INSTANCE.setLogLevel(defaultLogLevel);
+        }
     }
 }

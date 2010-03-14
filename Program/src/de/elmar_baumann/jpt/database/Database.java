@@ -173,6 +173,35 @@ public class Database {
         }
     }
 
+    public static Long getId(Connection con, String tablename, String columnName, String value)
+            throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet         rs   = null;
+        Long              id   = null;
+
+        if (value == null) {
+            return null;
+        }
+
+        try {
+            String sql = "SELECT id FROM " + tablename + " WHERE " + columnName
+                         + " = ?";
+
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, value);
+            AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+        } finally {
+            close(rs, stmt);
+        }
+
+        return id;
+    }
+
     protected Long getId(String tablename, String columnName, String value)
             throws SQLException {
         Connection        con  = null;
