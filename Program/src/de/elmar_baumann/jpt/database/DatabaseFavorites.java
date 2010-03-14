@@ -57,18 +57,18 @@ public final class DatabaseFavorites extends Database {
      * @return true bei Erfolg
      */
     public boolean insertOrUpdate(Favorite favorite) {
-        boolean           inserted   = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           inserted = false;
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
 
         try {
             if (exists(favorite.getName())) {
                 return update(favorite.getName(), favorite);
             }
 
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "INSERT INTO favorite_directories"
                 + " (favorite_name, directory_name, favorite_index)"
                 + " VALUES (?, ?, ?)");
@@ -79,7 +79,7 @@ public final class DatabaseFavorites extends Database {
 
             int count = stmt.executeUpdate();
 
-            connection.commit();
+            con.commit();
             inserted = count > 0;
 
             if (inserted) {
@@ -88,10 +88,10 @@ public final class DatabaseFavorites extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return inserted;
@@ -104,23 +104,23 @@ public final class DatabaseFavorites extends Database {
      * @return true bei Erfolg
      */
     public boolean delete(String favoriteName) {
-        boolean           deleted    = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           deleted = false;
+        Connection        con     = null;
+        PreparedStatement stmt    = null;
 
         try {
             Favorite delFavorite = find(favoriteName);
 
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "DELETE FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
 
-            connection.commit();
+            con.commit();
             deleted = count > 0;
 
             if (deleted && (delFavorite != null)) {
@@ -129,10 +129,10 @@ public final class DatabaseFavorites extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return deleted;
@@ -146,14 +146,14 @@ public final class DatabaseFavorites extends Database {
      * @return true bei Erfolg
      */
     public boolean update(String favoriteName, Favorite favorite) {
-        boolean           updated    = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           updated = false;
+        Connection        con     = null;
+        PreparedStatement stmt    = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "UPDATE favorite_directories SET"
                 + " favorite_name = ?, directory_name = ?, favorite_index = ?"
                 + " WHERE favorite_name = ?");
@@ -165,7 +165,7 @@ public final class DatabaseFavorites extends Database {
 
             int count = stmt.executeUpdate();
 
-            connection.commit();
+            con.commit();
             updated = count > 0;
 
             if (updated) {
@@ -176,10 +176,10 @@ public final class DatabaseFavorites extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return updated;
@@ -191,14 +191,14 @@ public final class DatabaseFavorites extends Database {
      * @return Favoritenverzeichnisse
      */
     public List<Favorite> getAll() {
-        List<Favorite> favorites  = new ArrayList<Favorite>();
-        Connection     connection = null;
-        Statement      stmt       = null;
-        ResultSet      rs         = null;
+        List<Favorite> favorites = new ArrayList<Favorite>();
+        Connection     con       = null;
+        Statement      stmt      = null;
+        ResultSet      rs        = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.createStatement();
+            con  = getConnection();
+            stmt = con.createStatement();
 
             String sql =
                 "SELECT favorite_name, directory_name, favorite_index"
@@ -216,23 +216,23 @@ public final class DatabaseFavorites extends Database {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return favorites;
     }
 
     private Favorite find(String name) {
-        Favorite          favorite   = null;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Favorite          favorite = null;
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        ResultSet         rs       = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement("SELECT"
-                    + " favorite_name, directory_name, favorite_index"
-                    + " FROM favorite_directories WHERE favorite_name = ?");
+            con  = getConnection();
+            stmt = con.prepareStatement(
+                "SELECT" + " favorite_name, directory_name, favorite_index"
+                + " FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -245,7 +245,7 @@ public final class DatabaseFavorites extends Database {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return favorite;
@@ -258,14 +258,14 @@ public final class DatabaseFavorites extends Database {
      * @return true wenn existent
      */
     public boolean exists(String favoriteName) {
-        boolean           exists     = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        boolean           exists = false;
+        Connection        con    = null;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(
+            con  = getConnection();
+            stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM favorite_directories"
                 + " WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
@@ -283,7 +283,7 @@ public final class DatabaseFavorites extends Database {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return exists;

@@ -41,10 +41,10 @@ public final class DatabaseMetadata extends Database {
 
     private DatabaseMetadata() {}
 
-    public boolean existsTable(Connection connection, String tablename)
+    public boolean existsTable(Connection con, String tablename)
             throws SQLException {
         boolean          exists = false;
-        DatabaseMetaData dbm    = connection.getMetaData();
+        DatabaseMetaData dbm    = con.getMetaData();
         String[]         names  = { "TABLE" };
         ResultSet        rs     = dbm.getTables(null, "%", "%", names);
 
@@ -57,10 +57,10 @@ public final class DatabaseMetadata extends Database {
         return exists;
     }
 
-    public boolean existsColumn(Connection connection, String tableName,
+    public boolean existsColumn(Connection con, String tableName,
                                 String columnName)
             throws SQLException {
-        if (!existsTable(connection, tableName)) {
+        if (!existsTable(con, tableName)) {
             return false;
         }
 
@@ -70,7 +70,7 @@ public final class DatabaseMetadata extends Database {
         boolean           exists = false;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             // "WHERE 1 = 0": speed, memory!
             String sql = "select * from " + tableName + " WHERE 1 = 0";
@@ -95,20 +95,20 @@ public final class DatabaseMetadata extends Database {
     /**
      * Returns information of one or all columns of a specific table.
      *
-     * @param  connection connection
+     * @param  con        connection
      * @param  tableName  table nam
      * @param  columnName column name pattern or null for all columns
      * @return            Information
      * @throws SQLException
      */
-    public List<ColumnInfo> getColumnInfo(Connection connection,
-            String tableName, String columnName)
+    public List<ColumnInfo> getColumnInfo(Connection con, String tableName,
+            String columnName)
             throws SQLException {
         ResultSet        rs    = null;
         List<ColumnInfo> infos = new ArrayList<ColumnInfo>();
 
         try {
-            DatabaseMetaData meta = connection.getMetaData();
+            DatabaseMetaData meta = con.getMetaData();
 
             rs = meta.getColumns(null, null, tableName.toUpperCase(),
                                  (columnName == null)

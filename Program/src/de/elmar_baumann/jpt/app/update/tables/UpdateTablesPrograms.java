@@ -45,7 +45,7 @@ final class UpdateTablesPrograms extends Database {
 
     UpdateTablesPrograms() {}
 
-    void update(Connection connection) throws SQLException {
+    void update(Connection con) throws SQLException {
         List<File> files =
             FileUtil.getAsFiles(
                 UserSettings.INSTANCE.getSettings().getStringCollection(

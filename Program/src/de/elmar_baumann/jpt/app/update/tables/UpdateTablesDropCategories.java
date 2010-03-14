@@ -55,8 +55,8 @@ import java.sql.Statement;
  * @version 2009-12-24
  */
 final class UpdateTablesDropCategories {
-    void update(Connection connection) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(connection,
+    void update(Connection con) throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(con,
                 "xmp_photoshop_supplementalcategories")) {
             return;
         }
@@ -64,23 +64,23 @@ final class UpdateTablesDropCategories {
         SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
 
-        if (!categoriesAlreadyDropped(connection)
-                && saveCategoriesToFile(connection)) {
-            updateDatabase(connection);
-            fixSavedSearches(connection);
+        if (!categoriesAlreadyDropped(con)
+                && saveCategoriesToFile(con)) {
+            updateDatabase(con);
+            fixSavedSearches(con);
         }
     }
 
-    private boolean categoriesAlreadyDropped(Connection connection)
+    private boolean categoriesAlreadyDropped(Connection con)
             throws SQLException {
         return !DatabaseMetadata.INSTANCE.existsColumn(
-            connection, "xmp",
+            con, "xmp",
             "photoshop_category") ||!DatabaseMetadata.INSTANCE.existsColumn(
-                connection, "xmp_photoshop_supplementalcategories",
+                con, "xmp_photoshop_supplementalcategories",
                 "supplementalcategory");
     }
 
-    private boolean saveCategoriesToFile(Connection connection)
+    private boolean saveCategoriesToFile(Connection con)
             throws SQLException {
         String sql = " SELECT DISTINCT photoshop_category FROM xmp"
                      + " WHERE photoshop_category IS NOT NULL UNION ALL"
@@ -97,7 +97,7 @@ final class UpdateTablesDropCategories {
                 new OutputStreamWriter(
                     new FileOutputStream(getFilename()),
                     CharEncoding.LIGHTROOM_KEYWORDS));
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
             rs = stmt.executeQuery(sql);
 
@@ -129,19 +129,19 @@ final class UpdateTablesDropCategories {
                + FilenameSuffixes.LIGHTROOM_KEYWORDS;
     }
 
-    private void fixSavedSearches(Connection connection) throws SQLException {
+    private void fixSavedSearches(Connection con) throws SQLException {
         String sql = "UPDATE saved_searches_panels SET column_id = 24"
                      + " WHERE column_id = 25 OR column_id = 14";
 
         // Now as keyword
-        Database.execute(connection, sql);
+        Database.execute(con, sql);
     }
 
-    private void updateDatabase(Connection connection) throws SQLException {
+    private void updateDatabase(Connection con) throws SQLException {
         Statement stmt = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             String sql = "ALTER TABLE xmp DROP COLUMN photoshop_category";
 

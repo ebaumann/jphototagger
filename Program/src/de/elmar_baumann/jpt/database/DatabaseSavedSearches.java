@@ -72,13 +72,13 @@ public final class DatabaseSavedSearches extends Database {
                 return update(savedSearch);
             }
 
-            Connection        connection = null;
-            PreparedStatement stmt       = null;
+            Connection        con  = null;
+            PreparedStatement stmt = null;
 
             try {
-                connection = getConnection();
-                connection.setAutoCommit(false);
-                stmt = connection.prepareStatement(getInsertSql());
+                con = getConnection();
+                con.setAutoCommit(false);
+                stmt = con.prepareStatement(getInsertSql());
                 stmt.setString(1, paramStmt.getName());
                 stmt.setBytes(2, paramStmt.getSql().getBytes());
                 stmt.setBoolean(3, paramStmt.isQuery());
@@ -86,18 +86,18 @@ public final class DatabaseSavedSearches extends Database {
                 logFiner(stmt);
                 stmt.executeUpdate();
 
-                long id = findId(connection, paramStmt.getName());
+                long id = findId(con, paramStmt.getName());
 
-                insertSavedSearchValues(connection, id, paramStmt.getValues());
-                insertSavedSearchPanels(connection, id, panels);
-                connection.commit();
+                insertSavedSearchValues(con, id, paramStmt.getValues());
+                insertSavedSearchPanels(con, id, panels);
+                con.commit();
                 inserted = true;
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseSavedSearches.class, ex);
-                rollback(connection);
+                rollback(con);
             } finally {
                 close(stmt);
-                free(connection);
+                free(con);
             }
         }
 
@@ -123,14 +123,14 @@ public final class DatabaseSavedSearches extends Database {
                + " (id_saved_searches, value, value_index) VALUES (?, ?, ?)";
     }
 
-    private void insertSavedSearchValues(Connection connection,
-            long idSavedSearch, List<String> values)
+    private void insertSavedSearchValues(Connection con, long idSavedSearch,
+            List<String> values)
             throws SQLException {
         if ((idSavedSearch > 0) && (values != null) && (values.size() > 0)) {
             PreparedStatement stmt = null;
 
             try {
-                stmt = connection.prepareStatement(getInsertSearchValuesSql());
+                stmt = con.prepareStatement(getInsertSearchValuesSql());
                 stmt.setLong(1, idSavedSearch);
 
                 int size = values.size();
@@ -163,15 +163,14 @@ public final class DatabaseSavedSearches extends Database {
                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    private void insertSavedSearchPanels(Connection connection,
-            long idSavedSearch, List<SavedSearchPanel> panels)
+    private void insertSavedSearchPanels(Connection con, long idSavedSearch,
+            List<SavedSearchPanel> panels)
             throws SQLException {
         if ((idSavedSearch > 0) && (panels != null)) {
             PreparedStatement stmt = null;
 
             try {
-                stmt = connection.prepareStatement(
-                    getInsertSavedSearchPanelsSql());
+                stmt = con.prepareStatement(getInsertSavedSearchPanelsSql());
                 stmt.setLong(1, idSavedSearch);
 
                 for (SavedSearchPanel panel : panels) {
@@ -192,14 +191,13 @@ public final class DatabaseSavedSearches extends Database {
         }
     }
 
-    private long findId(Connection connection, String name)
-            throws SQLException {
+    private long findId(Connection con, String name) throws SQLException {
         long              id   = -1;
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
 
         try {
-            stmt = connection.prepareStatement(
+            stmt = con.prepareStatement(
                 "SELECT id FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
@@ -221,14 +219,14 @@ public final class DatabaseSavedSearches extends Database {
      * @return Anzahl oder -1 bei Fehlern.
      */
     public int getCount() {
-        int        count      = -1;
-        Connection connection = null;
-        Statement  stmt       = null;
-        ResultSet  rs         = null;
+        int        count = -1;
+        Connection con   = null;
+        Statement  stmt  = null;
+        ResultSet  rs    = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.createStatement();
+            con  = getConnection();
+            stmt = con.createStatement();
 
             String sql = "SELECT COUNT(*) FROM saved_searches";
 
@@ -242,7 +240,7 @@ public final class DatabaseSavedSearches extends Database {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return count;
@@ -256,18 +254,18 @@ public final class DatabaseSavedSearches extends Database {
      * @see    #exists(de.elmar_baumann.jpt.data.SavedSearch)
      */
     public boolean exists(String name) {
-        Connection connection = null;
+        Connection con = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
-            long id = findId(connection, name);
+            long id = findId(con, name);
 
             return id > 0;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
-            free(connection);
+            free(con);
         }
 
         return false;
@@ -291,28 +289,28 @@ public final class DatabaseSavedSearches extends Database {
      * @return true bei Erfolg
      */
     public boolean delete(String name) {
-        boolean           deleted    = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           deleted = false;
+        Connection        con     = null;
+        PreparedStatement stmt    = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "DELETE FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
 
-            connection.commit();
+            con.commit();
             deleted = count > 0;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return deleted;
@@ -326,14 +324,14 @@ public final class DatabaseSavedSearches extends Database {
      * @return true bei Erfolg
      */
     public boolean updateRename(String oldName, String newName) {
-        boolean           renamed    = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           renamed = false;
+        Connection        con     = null;
+        PreparedStatement stmt    = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.prepareStatement(
                 "UPDATE saved_searches SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
@@ -353,7 +351,7 @@ public final class DatabaseSavedSearches extends Database {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return renamed;
@@ -389,13 +387,13 @@ public final class DatabaseSavedSearches extends Database {
      */
     public SavedSearch find(String name) {
         SavedSearch       savedSearch = null;
-        Connection        connection  = null;
+        Connection        con         = null;
         PreparedStatement stmt        = null;
         ResultSet         rs          = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(getFindSql());
+            con  = getConnection();
+            stmt = con.prepareStatement(getFindSql());
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -411,15 +409,15 @@ public final class DatabaseSavedSearches extends Database {
                 paramStmt.setQuery(rs.getBoolean(3));
                 savedSearch.setParamStatement(paramStmt);
                 setSearchType(rs, 4, savedSearch);
-                setSavedSearchValues(connection, savedSearch);
-                setSavedSearchPanels(connection, savedSearch);
+                setSavedSearchValues(con, savedSearch);
+                setSavedSearchPanels(con, savedSearch);
             }
         } catch (Exception ex) {
             savedSearch = null;
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return savedSearch;
@@ -447,14 +445,14 @@ public final class DatabaseSavedSearches extends Database {
      * @return Gespeicherte Suchen
      */
     public List<SavedSearch> getAll() {
-        List<SavedSearch> allData    = new ArrayList<SavedSearch>();
-        Connection        connection = null;
-        Statement         stmt       = null;
-        ResultSet         rs         = null;
+        List<SavedSearch> allData = new ArrayList<SavedSearch>();
+        Connection        con     = null;
+        Statement         stmt    = null;
+        ResultSet         rs      = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.createStatement();
+            con  = getConnection();
+            stmt = con.createStatement();
 
             String sql = getGetAllSql();
 
@@ -471,8 +469,8 @@ public final class DatabaseSavedSearches extends Database {
                 paramStmt.setQuery(rs.getBoolean(3));
                 savedSearch.setParamStatement(paramStmt);
                 setSearchType(rs, 4, savedSearch);
-                setSavedSearchValues(connection, savedSearch);
-                setSavedSearchPanels(connection, savedSearch);
+                setSavedSearchValues(con, savedSearch);
+                setSavedSearchPanels(con, savedSearch);
                 allData.add(savedSearch);
             }
         } catch (Exception ex) {
@@ -480,7 +478,7 @@ public final class DatabaseSavedSearches extends Database {
             allData.clear();
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return allData;
@@ -494,8 +492,7 @@ public final class DatabaseSavedSearches extends Database {
                + " ORDER BY saved_searches_values.value_index ASC";
     }
 
-    private void setSavedSearchValues(Connection connection,
-                                      SavedSearch savedSearch)
+    private void setSavedSearchValues(Connection con, SavedSearch savedSearch)
             throws SQLException {
         assert savedSearch.getParamStatement() != null;
 
@@ -503,7 +500,7 @@ public final class DatabaseSavedSearches extends Database {
         ResultSet         rs   = null;
 
         try {
-            stmt = connection.prepareStatement(getSetSearchValuesSql());
+            stmt = con.prepareStatement(getSetSearchValuesSql());
             stmt.setString(1, savedSearch.getParamStatement().getName());
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -557,8 +554,7 @@ public final class DatabaseSavedSearches extends Database {
         }
     }
 
-    private void setSavedSearchPanels(Connection connection,
-                                      SavedSearch savedSearch)
+    private void setSavedSearchPanels(Connection con, SavedSearch savedSearch)
             throws SQLException {
         assert savedSearch.getParamStatement() != null;
 
@@ -566,7 +562,7 @@ public final class DatabaseSavedSearches extends Database {
         ResultSet         rs   = null;
 
         try {
-            stmt = connection.prepareStatement(getSetSavedSearchPanelsSql());
+            stmt = con.prepareStatement(getSetSavedSearchPanelsSql());
             stmt.setString(1, savedSearch.getParamStatement().getName());
             logFinest(stmt);
             rs = stmt.executeQuery();

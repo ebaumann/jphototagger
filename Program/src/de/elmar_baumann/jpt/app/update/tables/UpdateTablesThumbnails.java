@@ -61,19 +61,19 @@ final class UpdateTablesThumbnails extends Database {
         "Updated_Thumbnails_Names_Hash_1";    // Never change this!
     private int count;
 
-    void update(Connection connection) throws SQLException {
-        writeThumbnailsFromTableIntoFilesystem(connection);
-        convertThumbnailIdNamesIntoHashNames(connection);
+    void update(Connection con) throws SQLException {
+        writeThumbnailsFromTableIntoFilesystem(con);
+        convertThumbnailIdNamesIntoHashNames(con);
     }
 
-    public void writeThumbnailsFromTableIntoFilesystem(Connection connection)
+    public void writeThumbnailsFromTableIntoFilesystem(Connection con)
             throws SQLException {
-        count = getCount(connection);
+        count = getCount(con);
 
         int current = 1;
 
         for (int offset = 0; offset < count; offset += FETCH_MAX_ROWS) {
-            current = updateRows(connection, current, count);
+            current = updateRows(con, current, count);
         }
 
         if (count > 0) {
@@ -81,7 +81,7 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private int updateRows(Connection connection, int current, int cnt)
+    private int updateRows(Connection con, int current, int cnt)
             throws SQLException {
         String sql = "SELECT TOP " + FETCH_MAX_ROWS + " "
                      + "id, thumbnail FROM files WHERE thumbnail IS NOT NULL";
@@ -89,7 +89,7 @@ final class UpdateTablesThumbnails extends Database {
         ResultSet rs   = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
             rs = stmt.executeQuery(sql);
 
@@ -97,7 +97,7 @@ final class UpdateTablesThumbnails extends Database {
                 long        id          = rs.getInt(1);
                 InputStream inputStream = rs.getBinaryStream(2);
 
-                setThumbnailNull(connection, id);
+                setThumbnailNull(con, id);
                 setMessageCurrentFile(
                     id, current,
                     "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table");
@@ -110,12 +110,11 @@ final class UpdateTablesThumbnails extends Database {
         return current;
     }
 
-    private void setThumbnailNull(Connection connection, long id)
-            throws SQLException {
+    private void setThumbnailNull(Connection con, long id) throws SQLException {
         PreparedStatement stmt = null;
 
         try {
-            stmt = connection.prepareStatement(
+            stmt = con.prepareStatement(
                 "UPDATE files SET thumbnail = NULL WHERE id = ?");
             stmt.setLong(1, id);
             AppLogger.logFiner(UpdateTablesThumbnails.class, stmt.toString());
@@ -190,7 +189,7 @@ final class UpdateTablesThumbnails extends Database {
     /**
      * Convert all thumbnail names to new format using hashes.
      */
-    private void convertThumbnailIdNamesIntoHashNames(Connection connection) {
+    private void convertThumbnailIdNamesIntoHashNames(Connection con) {
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
 
@@ -207,7 +206,7 @@ final class UpdateTablesThumbnails extends Database {
 
             String sql = "SELECT filename FROM files WHERE id = ?";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
 
             int fileIndex = 0;
 
@@ -303,13 +302,13 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private int getCount(Connection connection) throws SQLException {
+    private int getCount(Connection con) throws SQLException {
         int       cnt  = 0;
         Statement stmt = null;
         ResultSet rs   = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             String sql =
                 "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";

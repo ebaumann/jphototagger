@@ -56,31 +56,31 @@ final class UpdateTablesIndexes {
                               "id_files") });
     }
 
-    void update(Connection connection) throws SQLException {
+    void update(Connection con) throws SQLException {
         SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
-        replaceIndices(connection);
+        replaceIndices(con);
         SplashScreen.INSTANCE.setMessage("");
     }
 
-    private void replaceIndices(Connection connection) throws SQLException {
+    private void replaceIndices(Connection con) throws SQLException {
         for (Pair<String, String> pair : INDEX_TO_REPLACE.keySet()) {
             String indexName = pair.getFirst();
             String tableName = pair.getSecond();
 
-            if (existsIndex(connection, indexName, tableName)) {
-                replaceIndex(connection, indexName, INDEX_TO_REPLACE.get(pair));
+            if (existsIndex(con, indexName, tableName)) {
+                replaceIndex(con, indexName, INDEX_TO_REPLACE.get(pair));
             }
         }
     }
 
-    private void replaceIndex(Connection connection, String indexName,
+    private void replaceIndex(Connection con, String indexName,
                               IndexInfo[] indexInfos)
             throws SQLException {
         Statement stmt = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             String sql = "DROP INDEX " + indexName + " IF EXISTS";
 
@@ -97,16 +97,16 @@ final class UpdateTablesIndexes {
         }
     }
 
-    private boolean existsIndex(Connection connection, String indexName,
+    private boolean existsIndex(Connection con, String indexName,
                                 String tableName)
             throws SQLException {
         boolean   exists = false;
         ResultSet rs     = null;
 
         try {
-            DatabaseMetaData meta = connection.getMetaData();
+            DatabaseMetaData meta = con.getMetaData();
 
-            rs = meta.getIndexInfo(connection.getCatalog(), null,
+            rs = meta.getIndexInfo(con.getCatalog(), null,
                                    tableName.toUpperCase(), false, true);
 
             while (!exists && rs.next()) {

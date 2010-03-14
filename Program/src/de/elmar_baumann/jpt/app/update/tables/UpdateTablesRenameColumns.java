@@ -54,43 +54,43 @@ final class UpdateTablesRenameColumns {
     private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
         new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
 
-    void update(Connection connection) throws SQLException {
-        setColumns(connection);
+    void update(Connection con) throws SQLException {
+        setColumns(con);
 
         if (renameColumns.size() > 0) {
-            renameColumns(connection);
+            renameColumns(con);
         }
     }
 
-    private void setColumns(Connection connection) throws SQLException {
+    private void setColumns(Connection con) throws SQLException {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
 
         renameColumns.clear();
 
         for (Pair<ColumnInfo, ColumnInfo> info : COLUMNS) {
-            if (dbMeta.existsColumn(connection, info.getFirst().getTableName(),
+            if (dbMeta.existsColumn(con, info.getFirst().getTableName(),
                                     info.getFirst().getColumnName())) {
                 renameColumns.add(info);
             }
         }
     }
 
-    private void renameColumns(Connection connection) throws SQLException {
+    private void renameColumns(Connection con) throws SQLException {
         SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesRenameColumns.Info.update"));
 
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
-            renameColumn(connection, info);
+            renameColumn(con, info);
         }
     }
 
-    private void renameColumn(Connection connection,
+    private void renameColumn(Connection con,
                               Pair<ColumnInfo, ColumnInfo> info)
             throws SQLException {
         setMessage(info.getFirst().getTableName(),
                    info.getFirst().getColumnName());
-        Database.execute(connection,
+        Database.execute(con,
                          "ALTER TABLE " + info.getFirst().getTableName()
                          + " ALTER COLUMN " + info.getFirst().getColumnName()
                          + " RENAME TO " + info.getSecond().getColumnName());

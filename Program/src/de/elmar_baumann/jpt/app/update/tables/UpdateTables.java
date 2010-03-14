@@ -36,18 +36,18 @@ public final class UpdateTables extends Database {
 
     private UpdateTables() {}
 
-    public void update(Connection connection) throws SQLException {
-        new UpdateTablesDropColumns().update(connection);
-        new UpdateTablesRenameColumns().update(connection);
-        new UpdateTablesInsertColumns().update(connection);
-        new UpdateTablesIndexes().update(connection);
-        new UpdateTablesPrimaryKeys().update(connection);
-        new UpdateTablesXmpLastModified().update(connection);
-        new UpdateTablesPrograms().update(connection);
-        new UpdateTablesDeleteInvalidExif().update(connection);
-        new UpdateTablesThumbnails().update(connection);
-        new UpdateTablesDropCategories().update(connection);
-        new UpdateTablesXmpDcSubjects().update(connection);
-        new UpdateTablesMake1n().update(connection);
+    public void update(Connection con) throws SQLException {
+        new UpdateTablesDropColumns().update(con);
+        new UpdateTablesRenameColumns().update(con);
+        new UpdateTablesInsertColumns().update(con);
+        new UpdateTablesIndexes().update(con);
+        new UpdateTablesPrimaryKeys().update(con);
+        new UpdateTablesXmpLastModified().update(con);
+        new UpdateTablesPrograms().update(con);
+        new UpdateTablesDeleteInvalidExif().update(con);
+        new UpdateTablesThumbnails().update(con);
+        new UpdateTablesDropCategories().update(con);
+        new UpdateTablesXmpDcSubjects().update(con);
+        new UpdateTablesMake1n().update(con);
     }
 }

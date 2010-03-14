@@ -54,26 +54,26 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      */
     public boolean insert(Program action, int order) {
         int               countAffectedRows = 0;
-        Connection        connection        = null;
+        Connection        con               = null;
         PreparedStatement stmt              = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "INSERT INTO actions_after_db_insertion"
                 + " (id_programs, action_order) VALUES (?, ?)");
             stmt.setLong(1, action.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
-            connection.commit();
+            con.commit();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return countAffectedRows == 1;
@@ -87,24 +87,24 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      */
     public boolean delete(Program action) {
         int               countAffectedRows = 0;
-        Connection        connection        = null;
+        Connection        con               = null;
         PreparedStatement stmt              = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "DELETE FROM actions_after_db_insertion WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
-            connection.commit();
+            con.commit();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return countAffectedRows == 1;
@@ -116,14 +116,14 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return programs sorted ascending by their order
      */
     public List<Program> getAll() {
-        List<Program> programs   = new LinkedList<Program>();
-        Connection    connection = null;
-        Statement     stmt       = null;
-        ResultSet     rs         = null;
+        List<Program> programs = new LinkedList<Program>();
+        Connection    con      = null;
+        Statement     stmt     = null;
+        ResultSet     rs       = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.createStatement();
+            con  = getConnection();
+            stmt = con.createStatement();
 
             String sql = "SELECT id_programs FROM actions_after_db_insertion"
                          + " ORDER BY action_order ASC";
@@ -148,7 +148,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return programs;
@@ -161,16 +161,16 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return true if the action exists
      */
     public boolean exists(Program action) {
-        boolean           exists     = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        boolean           exists = false;
+        Connection        con    = null;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement("SELECT COUNT(*) "
-                    + " FROM actions_after_db_insertion"
-                    + " WHERE id_programs = ?");
+            con  = getConnection();
+            stmt = con.prepareStatement("SELECT COUNT(*) "
+                                        + " FROM actions_after_db_insertion"
+                                        + " WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -182,7 +182,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return exists;
@@ -198,14 +198,14 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return            true if reordered all actions
      */
     public boolean setOrder(List<Program> actions, int startIndex) {
-        Connection        connection   = null;
+        Connection        con          = null;
         boolean           allReordered = false;
         PreparedStatement stmt         = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "UPDATE actions_after_db_insertion SET action_order = ?"
                 + " WHERE id_programs = ?");
 
@@ -219,14 +219,14 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 countAffected += stmt.executeUpdate();
             }
 
-            connection.commit();
+            con.commit();
             allReordered = countAffected == actions.size();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return allReordered;

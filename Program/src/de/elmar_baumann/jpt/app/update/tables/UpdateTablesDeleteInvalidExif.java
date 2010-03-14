@@ -52,7 +52,7 @@ final class UpdateTablesDeleteInvalidExif {
         COLUMNS_NOT_POSITIVE.add(ColumnExifIsoSpeedRatings.INSTANCE);
     }
 
-    void update(Connection connection) throws SQLException {
+    void update(Connection con) throws SQLException {
         if (DatabaseApplicationProperties.INSTANCE.getBoolean(
                 KEY_REMOVED_INVALID_EXIF)) {
             return;
@@ -61,33 +61,32 @@ final class UpdateTablesDeleteInvalidExif {
         SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesDeleteInvalidExif.Info.update"));
-        setNull(connection);
+        setNull(con);
         SplashScreen.INSTANCE.setMessage("");
         DatabaseApplicationProperties.INSTANCE.setBoolean(
             KEY_REMOVED_INVALID_EXIF, true);
     }
 
-    private void setNull(Connection connection) throws SQLException {
+    private void setNull(Connection con) throws SQLException {
         for (Column column : COLUMNS_NOT_POSITIVE) {
-            setNullIfNotPositiv(connection, column);
+            setNullIfNotPositiv(con, column);
         }
 
-        checkRecordingEquipment(connection);
+        checkRecordingEquipment(con);
     }
 
-    private void setNullIfNotPositiv(Connection connection, Column column)
+    private void setNullIfNotPositiv(Connection con, Column column)
             throws SQLException {
-        Database.execute(connection,
+        Database.execute(con,
                          "UPDATE " + column.getTablename() + " SET "
                          + column.getName() + " = NULL WHERE "
                          + column.getName() + " <= 0");
     }
 
-    private void checkRecordingEquipment(Connection connection)
-            throws SQLException {
+    private void checkRecordingEquipment(Connection con) throws SQLException {
         Column column = ColumnExifRecordingEquipment.INSTANCE;
 
-        Database.execute(connection,
+        Database.execute(con,
                          "UPDATE " + column.getTablename() + " SET "
                          + column.getName() + " = NULL WHERE "
                          + column.getName() + " = '0'");
