@@ -47,7 +47,6 @@ import java.util.Map;
 public final class UpdateTablesMake1n {
     private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF =
         new HashMap<ColumnInfo, ColumnInfo>();
-    private static final String TMP_ID_COL = "id_tmp";
 
     static {
         TARGET_COL_OF.put(
