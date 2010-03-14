@@ -64,38 +64,16 @@ import java.util.List;
  */
 public final class ConnectionPool implements Runnable {
     public static final ConnectionPool INSTANCE = new ConnectionPool();
-    private volatile boolean           init;
 
     /**
-     * The name of the JDBC-Driver.
+     * The unique connection poll instance
      */
-    private String driver;
+    private static ConnectionPool instance;
 
     /**
-     * The URL of the database.
+     *
      */
-    private String url;
-
-    /**
-     * The database username.
-     */
-    private String username;
-
-    /**
-     * The database password.
-     */
-    private String password;
-
-    /**
-     * The maximum number of connections.
-     */
-    private int maxConnections;
-
-    /**
-     * Indicates, if the connection pool should wait for
-     * a free connection, if all connections are busy.
-     */
-    private boolean waitIfBusy;
+    private boolean connectionPending = false;
 
     /**
      * The list of available connections
@@ -108,14 +86,36 @@ public final class ConnectionPool implements Runnable {
     private LinkedList<Connection> busyConnections;
 
     /**
-     *
+     * The name of the JDBC-Driver.
      */
-    private boolean connectionPending = false;
+    private String           driver;
+    private volatile boolean init;
 
     /**
-     * The unique connection poll instance
+     * The maximum number of connections.
      */
-    private static ConnectionPool instance;
+    private int maxConnections;
+
+    /**
+     * The database password.
+     */
+    private String password;
+
+    /**
+     * The URL of the database.
+     */
+    private String url;
+
+    /**
+     * The database username.
+     */
+    private String username;
+
+    /**
+     * Indicates, if the connection pool should wait for
+     * a free connection, if all connections are busy.
+     */
+    private boolean waitIfBusy;
 
     private ConnectionPool() {}
 
@@ -247,10 +247,10 @@ public final class ConnectionPool implements Runnable {
     @Override
     public void run() {
         try {
-            Connection connection = makeNewConnection();
+            Connection con = makeNewConnection();
 
             synchronized (this) {
-                availableConnections.add(connection);
+                availableConnections.add(con);
                 connectionPending = false;
                 notifyAll();
             }
@@ -276,10 +276,10 @@ public final class ConnectionPool implements Runnable {
             Class.forName(driver);
 
             // Establish network connection to database
-            Connection connection = DriverManager.getConnection(url, username,
-                                        password);
+            Connection con = DriverManager.getConnection(url, username,
+                                 password);
 
-            return (connection);
+            return (con);
         } catch (ClassNotFoundException cnfe) {
             throw new SQLException("Can't find class for driver: " + driver);
         } catch (Exception ce) {
@@ -290,13 +290,13 @@ public final class ConnectionPool implements Runnable {
 
     /**
      * Releases a specific connection
-     * @param connection The connection to be released.
+     * @param con The connection to be released.
      */
-    public synchronized void free(Connection connection) {
+    public synchronized void free(Connection con) {
         assert init;
 
-        busyConnections.remove(connection);
-        availableConnections.add(connection);
+        busyConnections.remove(con);
+        availableConnections.add(con);
 
         // Wake up threads that are waiting for a connection
         notifyAll();
@@ -335,10 +335,10 @@ public final class ConnectionPool implements Runnable {
     private void closeConnections(List<Connection> connections) {
         try {
             for (int i = 0; i < connections.size(); i++) {
-                Connection connection = connections.get(i);
+                Connection con = connections.get(i);
 
-                if (!connection.isClosed()) {
-                    connection.close();
+                if (!con.isClosed()) {
+                    con.close();
                 }
             }
         } catch (Exception sqle) {

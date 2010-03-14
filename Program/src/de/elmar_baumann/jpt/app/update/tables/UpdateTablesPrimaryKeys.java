@@ -44,23 +44,23 @@ final class UpdateTablesPrimaryKeys {
     private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP =
         new ArrayList<String>();
 
-    void update(Connection connection) throws SQLException {
+    void update(Connection con) throws SQLException {
         SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
-        dropPrimaryKeys(connection);
+        dropPrimaryKeys(con);
         SplashScreen.INSTANCE.setMessage("");
     }
 
-    private void dropPrimaryKeys(Connection connection) throws SQLException {
-        DatabaseMetaData meta = connection.getMetaData();
+    private void dropPrimaryKeys(Connection con) throws SQLException {
+        DatabaseMetaData meta = con.getMetaData();
         Statement        stmt = null;
         ResultSet        rs   = null;
 
         for (String table : TABLES_PRIMARY_KEYS_TO_DROP) {
             try {
-                rs = meta.getPrimaryKeys(connection.getCatalog(), null,
+                rs = meta.getPrimaryKeys(con.getCatalog(), null,
                                          table.toUpperCase());
-                stmt = connection.createStatement();
+                stmt = con.createStatement();
 
                 boolean hasPk = false;
 

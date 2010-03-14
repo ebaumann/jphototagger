@@ -49,16 +49,16 @@ public final class DatabaseContent extends Database {
      */
     public Set<String> getDistinctValuesOf(Column column) {
         Set<String> content    = new LinkedHashSet<String>();
-        Connection  connection = null;
+        Connection  con = null;
         Statement   stmt       = null;
         ResultSet   rs         = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String columnName = column.getName();
 
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             String sql = "SELECT DISTINCT " + columnName + " FROM "
                          + column.getTablename() + " WHERE " + columnName
@@ -75,7 +75,7 @@ public final class DatabaseContent extends Database {
             content.clear();
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return content;

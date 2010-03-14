@@ -71,18 +71,18 @@ public final class DatabaseKeywords extends Database {
      * @return all keywords
      */
     public Collection<Keyword> getAll() {
-        List<Keyword> keywords   = new ArrayList<Keyword>();
-        Connection    connection = null;
-        Statement     stmt       = null;
-        ResultSet     rs         = null;
+        List<Keyword> keywords = new ArrayList<Keyword>();
+        Connection    con      = null;
+        Statement     stmt     = null;
+        ResultSet     rs       = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql = "SELECT id, id_parent, subject, real"
                          + " FROM hierarchical_subjects";
 
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
@@ -101,7 +101,7 @@ public final class DatabaseKeywords extends Database {
             keywords.clear();
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return keywords;
@@ -114,16 +114,16 @@ public final class DatabaseKeywords extends Database {
      * @return         true if updated
      */
     public boolean update(Keyword keyword) {
-        boolean           updated    = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           updated = false;
+        Connection        con     = null;
+        PreparedStatement stmt    = null;
 
         assert keyword.getId() != null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.prepareStatement(
                 "UPDATE hierarchical_subjects"
                 + " SET id_parent = ?, subject = ?, real = ?"
                 + " WHERE id = ?");
@@ -149,7 +149,7 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return updated;
@@ -175,20 +175,20 @@ public final class DatabaseKeywords extends Database {
             return false;
         }
 
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        Connection        con  = null;
+        PreparedStatement stmt = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
+            con = getConnection();
+            con.setAutoCommit(true);
 
             String sql =
                 "INSERT INTO hierarchical_subjects"
                 + " (id, id_parent, subject, real) VALUES (?, ?, ?, ?)";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
 
-            long nextId = findNextId(connection);
+            long nextId = findNextId(con);
 
             stmt.setLong(1, nextId);
 
@@ -216,7 +216,7 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return inserted;
@@ -231,14 +231,14 @@ public final class DatabaseKeywords extends Database {
      * @return          true if successfull
      */
     public boolean delete(Collection<Keyword> keywords) {
-        boolean           deleted    = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           deleted = false;
+        Connection        con     = null;
+        PreparedStatement stmt    = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "DELETE FROM hierarchical_subjects WHERE id = ?");
 
             for (Keyword keyword : keywords) {
@@ -247,21 +247,20 @@ public final class DatabaseKeywords extends Database {
                 stmt.executeUpdate();
             }
 
-            connection.commit();
+            con.commit();
             deleted = true;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return deleted;
     }
 
-    private Keyword findKeyword(long id, Connection connection)
-            throws SQLException {
+    private Keyword findKeyword(long id, Connection con) throws SQLException {
         Keyword           keyword = null;
         PreparedStatement stmt    = null;
         ResultSet         rs      = null;
@@ -270,7 +269,7 @@ public final class DatabaseKeywords extends Database {
             String sql = "SELECT id, id_parent, subject, real"
                          + " FROM hierarchical_subjects WHERE id = ?";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -299,16 +298,16 @@ public final class DatabaseKeywords extends Database {
      * @return         Parents or empty List if the keyword has no parent
      */
     public List<Keyword> getParents(Keyword keyword) {
-        List<Keyword> parents    = new ArrayList<Keyword>();
-        Connection    connection = null;
+        List<Keyword> parents = new ArrayList<Keyword>();
+        Connection    con     = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             Long idParent = keyword.getIdParent();
 
             while (idParent != null) {
-                Keyword parent = findKeyword(idParent, connection);
+                Keyword parent = findKeyword(idParent, con);
 
                 parents.add(parent);
                 idParent = parent.getIdParent();
@@ -316,7 +315,7 @@ public final class DatabaseKeywords extends Database {
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
-            free(connection);
+            free(con);
         }
 
         return parents;
@@ -330,19 +329,19 @@ public final class DatabaseKeywords extends Database {
      *                  children
      */
     public Collection<Keyword> getChildren(long idParent) {
-        Collection<Keyword> children   = new ArrayList<Keyword>();
-        Connection          connection = null;
-        PreparedStatement   stmt       = null;
-        ResultSet           rs         = null;
+        Collection<Keyword> children = new ArrayList<Keyword>();
+        Connection          con      = null;
+        PreparedStatement   stmt     = null;
+        ResultSet           rs       = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql = "SELECT id, id_parent, subject, real"
                          + " FROM hierarchical_subjects"
                          + " WHERE id_parent = ? ORDER BY subject ASC";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setLong(1, idParent);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -361,7 +360,7 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return children;
@@ -373,19 +372,19 @@ public final class DatabaseKeywords extends Database {
      * @return keyword with no parents ordered ascending by their keyword
      */
     public Collection<Keyword> getRoots() {
-        Collection<Keyword> children   = new ArrayList<Keyword>();
-        Connection          connection = null;
-        PreparedStatement   stmt       = null;
-        ResultSet           rs         = null;
+        Collection<Keyword> children = new ArrayList<Keyword>();
+        Connection          con      = null;
+        PreparedStatement   stmt     = null;
+        ResultSet           rs       = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql = "SELECT id, id_parent, subject, real"
                          + " FROM hierarchical_subjects"
                          + " WHERE id_parent IS NULL ORDER BY subject ASC";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -403,21 +402,20 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return children;
     }
 
-    private synchronized long findNextId(Connection connection)
-            throws Exception {
+    private synchronized long findNextId(Connection con) throws Exception {
         long      id   = 1;
         String    sql  = "SELECT MAX(id) FROM hierarchical_subjects";
         Statement stmt = null;
         ResultSet rs   = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
@@ -450,12 +448,12 @@ public final class DatabaseKeywords extends Database {
             return false;
         }
 
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Connection        con  = null;
+        PreparedStatement stmt = null;
+        ResultSet         rs   = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql = parentIsRoot
                          ? "SELECT COUNT(*) FROM hierarchical_subjects"
@@ -463,7 +461,7 @@ public final class DatabaseKeywords extends Database {
                          : "SELECT COUNT(*) FROM hierarchical_subjects"
                            + " WHERE id_parent = ? AND subject = ?";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
 
             if (!parentIsRoot) {
                 stmt.setLong(1, keyword.getIdParent());
@@ -482,7 +480,7 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return exists;
@@ -495,18 +493,18 @@ public final class DatabaseKeywords extends Database {
      * @return         true if that keyword exists
      */
     public boolean existsRootKeyword(String keyword) {
-        boolean           exists     = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        boolean           exists = false;
+        Connection        con    = null;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql = "SELECT COUNT(*) FROM hierarchical_subjects"
                          + " WHERE  subject = ? AND id_parent IS NULL";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, keyword);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -518,25 +516,25 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return exists;
     }
 
     public boolean exists(String keyword) {
-        boolean           exists     = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        boolean           exists = false;
+        Connection        con    = null;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql = "SELECT COUNT(*) FROM hierarchical_subjects"
                          + " WHERE subject = ?";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, keyword);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -548,7 +546,7 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return exists;
@@ -563,18 +561,18 @@ public final class DatabaseKeywords extends Database {
      * @return         count of renamed subjects
      */
     public int updateRenameAll(String oldName, String newName) {
-        int               count      = 0;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        int               count = 0;
+        Connection        con   = null;
+        PreparedStatement stmt  = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
+            con = getConnection();
+            con.setAutoCommit(true);
 
             String sql = "UPDATE hierarchical_subjects SET subject = ?"
                          + " WHERE subject = ? AND real = TRUE";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, newName);
             stmt.setString(2, oldName);
             logFinest(stmt);
@@ -583,7 +581,7 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return count;
@@ -603,19 +601,18 @@ public final class DatabaseKeywords extends Database {
      */
     public Collection<Collection<Keyword>> getParents(String keywordName,
             Select select) {
-        List<Collection<Keyword>> paths      =
-            new ArrayList<Collection<Keyword>>();
-        Connection                connection = null;
-        PreparedStatement         stmt       = null;
-        ResultSet                 rs         = null;
+        List<Collection<Keyword>> paths = new ArrayList<Collection<Keyword>>();
+        Connection                con   = null;
+        PreparedStatement         stmt  = null;
+        ResultSet                 rs    = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql =
                 "SELECT id_parent FROM hierarchical_subjects WHERE subject = ?";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, keywordName);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -626,7 +623,7 @@ public final class DatabaseKeywords extends Database {
                 if (!rs.wasNull()) {
                     List<Keyword> path = new ArrayList<Keyword>();
 
-                    addPathToRoot(path, idParent, select, connection);
+                    addPathToRoot(path, idParent, select, con);
                     Collections.reverse(path);
                     paths.add(path);
                 }
@@ -635,16 +632,16 @@ public final class DatabaseKeywords extends Database {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return paths;
     }
 
     private void addPathToRoot(Collection<Keyword> path, long idParent,
-                               Select select, Connection connection)
+                               Select select, Connection con)
             throws SQLException {
-        Keyword keyword = findKeyword(idParent, connection);
+        Keyword keyword = findKeyword(idParent, con);
 
         if (keyword != null) {
             Boolean real = keyword.isReal() || (keyword.isReal() == null);
@@ -657,8 +654,7 @@ public final class DatabaseKeywords extends Database {
             Long idNextParent = keyword.getIdParent();
 
             if (idNextParent != null) {
-                addPathToRoot(path, idNextParent, select,
-                              connection);    // recursive
+                addPathToRoot(path, idNextParent, select, con);    // recursive
             }
         }
     }

@@ -39,8 +39,8 @@ import java.sql.ResultSet;
 public final class DatabaseApplicationProperties extends Database {
     public static final DatabaseApplicationProperties INSTANCE =
         new DatabaseApplicationProperties();
-    private static final String VALUE_TRUE  = "1";    // Never change that!
     private static final String VALUE_FALSE = "0";    // Never change that!
+    private static final String VALUE_TRUE  = "1";    // Never change that!
 
     private DatabaseApplicationProperties() {}
 
@@ -51,16 +51,16 @@ public final class DatabaseApplicationProperties extends Database {
      * @return     true if the key exists
      */
     public boolean existsKey(String key) {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Connection        con  = null;
+        PreparedStatement stmt = null;
+        ResultSet         rs   = null;
 
         try {
-            connection = getConnection();
+            con = getConnection();
 
             String sql = "SELECT COUNT(*) FROM application WHERE key = ?";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -76,7 +76,7 @@ public final class DatabaseApplicationProperties extends Database {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return false;
@@ -88,16 +88,16 @@ public final class DatabaseApplicationProperties extends Database {
      * @param key key to delete
      */
     public void deleteKey(String key) {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        Connection        con  = null;
+        PreparedStatement stmt = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
+            con = getConnection();
+            con.setAutoCommit(true);
 
             String sql = "DELETE FROM application WHERE key = ?";
 
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);
             stmt.executeUpdate();
@@ -105,7 +105,7 @@ public final class DatabaseApplicationProperties extends Database {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
     }
 
@@ -118,14 +118,14 @@ public final class DatabaseApplicationProperties extends Database {
      *             a key with {@link #existsKey(String)}.
      */
     public boolean getBoolean(String key) {
-        Connection        connection = null;
-        boolean           isTrue     = false;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Connection        con    = null;
+        boolean           isTrue = false;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(getQueryStmt());
+            con  = getConnection();
+            stmt = con.prepareStatement(getQueryStmt());
             stmt.setString(1, key);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -141,7 +141,7 @@ public final class DatabaseApplicationProperties extends Database {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return isTrue;
@@ -154,13 +154,13 @@ public final class DatabaseApplicationProperties extends Database {
      * @param value value to set
      */
     public void setBoolean(String key, boolean value) {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        Connection        con  = null;
+        PreparedStatement stmt = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            stmt = connection.prepareStatement(getInsertOrUpdateStmt(key));
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.prepareStatement(getInsertOrUpdateStmt(key));
             stmt.setBytes(1, value
                              ? VALUE_TRUE.getBytes()
                              : VALUE_FALSE.getBytes());
@@ -178,7 +178,7 @@ public final class DatabaseApplicationProperties extends Database {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
     }
 

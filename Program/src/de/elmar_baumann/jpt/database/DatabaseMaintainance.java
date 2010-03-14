@@ -36,17 +36,19 @@ public final class DatabaseMaintainance extends Database {
     public static final DatabaseMaintainance INSTANCE =
         new DatabaseMaintainance();
 
+    private DatabaseMaintainance() {}
+
     /**
      * Shuts down the database.
      */
     public void shutdown() {
-        Connection connection = null;
-        Statement  stmt       = null;
+        Connection con  = null;
+        Statement  stmt = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            stmt = connection.createStatement();
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.createStatement();
             AppLogger.logInfo(DatabaseMaintainance.class,
                               "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
@@ -64,25 +66,23 @@ public final class DatabaseMaintainance extends Database {
      * @return true, wenn die Datenbank erfolgreich komprimiert wurde
      */
     public boolean compressDatabase() {
-        boolean    success    = false;
-        Connection connection = null;
-        Statement  stmt       = null;
+        boolean    success = false;
+        Connection con     = null;
+        Statement  stmt    = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(true);
-            stmt = connection.createStatement();
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG");
             success = true;
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMaintainance.class, ex);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return success;
     }
-
-    private DatabaseMaintainance() {}
 }

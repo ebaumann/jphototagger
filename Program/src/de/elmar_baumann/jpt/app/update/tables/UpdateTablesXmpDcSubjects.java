@@ -41,13 +41,12 @@ import java.sql.Statement;
  * @version 2010-03-11
  */
 final class UpdateTablesXmpDcSubjects {
-    void update(Connection connection) throws SQLException {
-        if (DatabaseMetadata.INSTANCE.existsTable(connection,
-                "xmp_dc_subjects")) {
+    void update(Connection con) throws SQLException {
+        if (DatabaseMetadata.INSTANCE.existsTable(con, "xmp_dc_subjects")) {
             displayStartMessage();
-            populateTableDcSubjects(connection);
-            populateLinkTable(connection);
-            Database.execute(connection, "DROP TABLE xmp_dc_subjects");
+            populateTableDcSubjects(con);
+            populateLinkTable(con);
+            Database.execute(con, "DROP TABLE xmp_dc_subjects");
             DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains(
                 "xmp_dc_subjects", "!");
         }
@@ -59,14 +58,13 @@ final class UpdateTablesXmpDcSubjects {
                 "UpdateTablesXmpDcSubjects.Info.Start"));
     }
 
-    private void populateTableDcSubjects(Connection connection)
-            throws SQLException {
+    private void populateTableDcSubjects(Connection con) throws SQLException {
         Statement stmt = null;
         ResultSet rs   = null;
 
         try {
-            connection.setAutoCommit(true);
-            stmt = connection.createStatement();
+            con.setAutoCommit(true);
+            stmt = con.createStatement();
 
             String sql = "SELECT DISTINCT subject FROM xmp_dc_subjects";
 
@@ -79,7 +77,7 @@ final class UpdateTablesXmpDcSubjects {
                 subject = rs.getString(1);
 
                 if (!DatabaseImageFiles.INSTANCE.existsDcSubject(subject)) {
-                    insertSubject(connection, subject);
+                    insertSubject(con, subject);
                 }
             }
         } finally {
@@ -87,13 +85,13 @@ final class UpdateTablesXmpDcSubjects {
         }
     }
 
-    private void insertSubject(Connection connection, String subject)
+    private void insertSubject(Connection con, String subject)
             throws SQLException {
         String            sql  = "INSERT INTO dc_subjects (subject) VALUES (?)";
         PreparedStatement stmt = null;
 
         try {
-            stmt = connection.prepareStatement(sql);
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, subject);
             AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
             stmt.executeUpdate();
@@ -102,13 +100,13 @@ final class UpdateTablesXmpDcSubjects {
         }
     }
 
-    private void populateLinkTable(Connection connection) throws SQLException {
+    private void populateLinkTable(Connection con) throws SQLException {
         String    sql  = "SELECT id_xmp, subject FROM xmp_dc_subjects";
         Statement stmt = null;
         ResultSet rs   = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
             rs = stmt.executeQuery(sql);
 
@@ -118,10 +116,10 @@ final class UpdateTablesXmpDcSubjects {
                 Long   idDcSubject =
                     DatabaseImageFiles.INSTANCE.getIdDcSubject(dcSubject);
 
-                if ((idDcSubject != null) && existsIdXmp(connection, idXmp)) {
+                if ((idDcSubject != null) && existsIdXmp(con, idXmp)) {
                     if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(
                             idXmp, idDcSubject)) {
-                        insertIntoLinkTable(connection, idXmp, idDcSubject);
+                        insertIntoLinkTable(con, idXmp, idDcSubject);
                     }
                 }
             }
@@ -130,14 +128,13 @@ final class UpdateTablesXmpDcSubjects {
         }
     }
 
-    private boolean existsIdXmp(Connection connection, long id)
-            throws SQLException {
+    private boolean existsIdXmp(Connection con, long id) throws SQLException {
         PreparedStatement stmt   = null;
         ResultSet         rs     = null;
         boolean           exists = false;
 
         try {
-            stmt = connection.prepareStatement(
+            stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM xmp WHERE id = ?");
             stmt.setLong(1, id);
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt);
@@ -153,7 +150,7 @@ final class UpdateTablesXmpDcSubjects {
         return false;
     }
 
-    private void insertIntoLinkTable(Connection connection, long idXmp,
+    private void insertIntoLinkTable(Connection con, long idXmp,
                                      long idDcSubject)
             throws SQLException {
         if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(idXmp,
@@ -163,7 +160,7 @@ final class UpdateTablesXmpDcSubjects {
             PreparedStatement stmt = null;
 
             try {
-                stmt = connection.prepareStatement(sql);
+                stmt = con.prepareStatement(sql);
                 stmt.setLong(1, idXmp);
                 stmt.setLong(2, idDcSubject);
                 AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);

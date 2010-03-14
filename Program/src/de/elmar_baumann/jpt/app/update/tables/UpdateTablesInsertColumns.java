@@ -81,46 +81,46 @@ final class UpdateTablesInsertColumns {
 
     private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
 
-    void update(Connection connection) throws SQLException {
-        fixBugs(connection);
-        setColumns(connection);
+    void update(Connection con) throws SQLException {
+        fixBugs(con);
+        setColumns(con);
 
         if (missingColumns.size() > 0) {
-            addColumns(connection);
+            addColumns(con);
         }
     }
 
-    private void setColumns(Connection connection) throws SQLException {
+    private void setColumns(Connection con) throws SQLException {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
 
         missingColumns.clear();
 
         for (ColumnInfo info : columns) {
-            if (!dbMeta.existsColumn(connection, info.getTableName(),
+            if (!dbMeta.existsColumn(con, info.getTableName(),
                                      info.getColumnName())) {
                 missingColumns.add(info);
             }
         }
     }
 
-    private void addColumns(Connection connection) throws SQLException {
+    private void addColumns(Connection con) throws SQLException {
         SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesInsertColumns.Info.update"));
 
         for (ColumnInfo info : missingColumns) {
-            addColumn(connection, info);
+            addColumn(con, info);
         }
     }
 
-    private void addColumn(Connection connection, ColumnInfo info)
+    private void addColumn(Connection con, ColumnInfo info)
             throws SQLException {
         setMessage(info.getTableName(), info.getColumnName());
 
         Statement stmt = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             String sql = "ALTER TABLE " + info.getTableName() + " ADD COLUMN "
                          + info.getColumnName() + " " + info.getDataType();
@@ -144,23 +144,21 @@ final class UpdateTablesInsertColumns {
                 "UpdateTablesInsertColumns.Info", tableName, columnName));
     }
 
-    private void fixBugs(Connection connection) throws SQLException {
-        fixBugsMetaDataTemplates(connection);
+    private void fixBugs(Connection con) throws SQLException {
+        fixBugsMetaDataTemplates(con);
     }
 
-    private void fixBugsMetaDataTemplates(Connection connection)
-            throws SQLException {
+    private void fixBugsMetaDataTemplates(Connection con) throws SQLException {
         final String tableName  = "metadata_edit_templates";
         final String columnName = "rating";
 
-        if (!DatabaseMetadata.INSTANCE.existsColumn(connection, tableName,
+        if (!DatabaseMetadata.INSTANCE.existsColumn(con, tableName,
                 columnName)) {
             return;
         }
 
         List<DatabaseMetadata.ColumnInfo> infos =
-            DatabaseMetadata.INSTANCE.getColumnInfo(connection, tableName,
-                columnName);
+            DatabaseMetadata.INSTANCE.getColumnInfo(con, tableName, columnName);
         boolean hasInfo = infos.size() == 1;
 
         assert hasInfo : infos.size();
@@ -177,17 +175,17 @@ final class UpdateTablesInsertColumns {
                     JptBundle.INSTANCE.getString(
                         "UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates",
                         tableName, columnName));
-                dropColumn(connection, tableName, columnName);
+                dropColumn(con, tableName, columnName);
             }
         }
     }
 
-    void dropColumn(Connection connection, String tableName, String columnName)
+    void dropColumn(Connection con, String tableName, String columnName)
             throws SQLException {
         Statement stmt = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             String sql = "ALTER TABLE " + tableName + " DROP " + columnName;
 

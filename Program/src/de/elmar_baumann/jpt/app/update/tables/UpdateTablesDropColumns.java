@@ -54,42 +54,42 @@ final class UpdateTablesDropColumns {
 
     private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
 
-    void update(Connection connection) throws SQLException {
-        setColumns(connection);
+    void update(Connection con) throws SQLException {
+        setColumns(con);
 
         if (dropColumns.size() > 0) {
-            dropColumns(connection);
+            dropColumns(con);
         }
     }
 
-    private void setColumns(Connection connection) throws SQLException {
+    private void setColumns(Connection con) throws SQLException {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
 
         dropColumns.clear();
 
         for (ColumnInfo info : COLUMNS) {
-            if (dbMeta.existsColumn(connection, info.getTableName(),
+            if (dbMeta.existsColumn(con, info.getTableName(),
                                     info.getColumnName())) {
                 dropColumns.add(info);
             }
         }
     }
 
-    private void dropColumns(Connection connection) throws SQLException {
+    private void dropColumns(Connection con) throws SQLException {
         SplashScreen.INSTANCE.setMessage(
             JptBundle.INSTANCE.getString(
                 "UpdateTablesDropColumns.Info.update"));
 
         for (ColumnInfo info : dropColumns) {
-            dropColumn(connection, info.getTableName(), info.getColumnName());
+            dropColumn(con, info.getTableName(), info.getColumnName());
         }
     }
 
-    private void dropColumn(Connection connection, String tableName,
+    private void dropColumn(Connection con, String tableName,
                             String columnName)
             throws SQLException {
         setMessage(tableName, columnName);
-        Database.execute(connection,
+        Database.execute(con,
                          "ALTER TABLE " + tableName + " DROP COLUMN "
                          + columnName);
     }

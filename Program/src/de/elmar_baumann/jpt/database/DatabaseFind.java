@@ -55,14 +55,14 @@ public final class DatabaseFind extends Database {
      * @return                Dateiname
      */
     public List<String> findFilenames(ParamStatement paramStatement) {
-        List<String>      filenames  = new ArrayList<String>();
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        List<String>      filenames = new ArrayList<String>();
+        Connection        con       = null;
+        PreparedStatement stmt      = null;
+        ResultSet         rs        = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(paramStatement.getSql());
+            con  = getConnection();
+            stmt = con.prepareStatement(paramStatement.getSql());
 
             if (paramStatement.getValues() != null) {
                 for (int i = 0; i < paramStatement.getValues().length; i++) {
@@ -81,7 +81,7 @@ public final class DatabaseFind extends Database {
             filenames.clear();
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return filenames;
@@ -114,13 +114,13 @@ public final class DatabaseFind extends Database {
     private void addFilenamesSearchFilenamesLikeOr(List<Column> searchColumns,
             String searchString, List<String> filenames, String tablename) {
         if (searchColumns.size() > 0) {
-            Connection        connection = null;
-            PreparedStatement stmt       = null;
-            ResultSet         rs         = null;
+            Connection        con  = null;
+            PreparedStatement stmt = null;
+            ResultSet         rs   = null;
 
             try {
-                connection = getConnection();
-                stmt       = connection.prepareStatement(
+                con  = getConnection();
+                stmt = con.prepareStatement(
                     getSqlSearchFilenamesLikeOr(
                         searchColumns, tablename, searchString));
 
@@ -146,7 +146,7 @@ public final class DatabaseFind extends Database {
                 filenames.clear();
             } finally {
                 close(rs, stmt);
-                free(connection);
+                free(con);
             }
         }
     }
@@ -177,8 +177,8 @@ public final class DatabaseFind extends Database {
         for (Column column : searchColumns) {
             sql.append((!isFirstColumn
                         ? " OR "
-                        : "") + column.getTablename() + "."
-                              + column.getName() + " LIKE ?");
+                        : "") + column.getTablename() + "." + column.getName()
+                              + " LIKE ?");
             isFirstColumn = false;
         }
 
@@ -194,9 +194,8 @@ public final class DatabaseFind extends Database {
     private void addSynonyms(StringBuilder sb, String searchString) {
         int count =
             DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString).size();
-        String colName =
-            ColumnXmpDcSubjectsSubject.INSTANCE.getTablename() + "."
-            + ColumnXmpDcSubjectsSubject.INSTANCE.getName();
+        String colName = ColumnXmpDcSubjectsSubject.INSTANCE.getTablename()
+                         + "." + ColumnXmpDcSubjectsSubject.INSTANCE.getName();
 
         for (int i = 0; i < count; i++) {
             sb.append(" OR ");

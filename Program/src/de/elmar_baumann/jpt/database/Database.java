@@ -56,13 +56,13 @@ public class Database {
                 ex.getLocalizedMessage());
     }
 
-    public static boolean execute(Connection connection, String sql)
+    public static boolean execute(Connection con, String sql)
             throws SQLException {
         Statement stmt        = null;
         boolean   isResultSet = false;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
             AppLogger.logFiner(Database.class, AppLogger.USE_STRING, sql);
             isResultSet = stmt.execute(sql);
         } catch (SQLException ex) {
@@ -89,15 +89,15 @@ public class Database {
      * Frees a connection in the Connection Pool so it can be reused at a late
      * time.
      *
-     * @param connection  The connection to be freed.
+     * @param con  The connection to be freed.
      */
-    protected void free(Connection connection) {
-        if (connection == null) {
+    protected void free(Connection con) {
+        if (con == null) {
             return;
         }
 
         try {
-            ConnectionPool.INSTANCE.free(connection);
+            ConnectionPool.INSTANCE.free(con);
         } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
         }
@@ -159,15 +159,15 @@ public class Database {
      * Rolls back the transaction, catches and logs an exception when thrown
      * through <code>Connection#rollback()</code>.
      *
-     * @param connection  connection
+     * @param con  connection
      */
-    public static void rollback(Connection connection) {
-        if (connection == null) {
+    public static void rollback(Connection con) {
+        if (con == null) {
             return;
         }
 
         try {
-            connection.rollback();
+            con.rollback();
         } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
         }
@@ -175,10 +175,10 @@ public class Database {
 
     protected Long getId(String tablename, String columnName, String value)
             throws SQLException {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
-        Long              id         = null;
+        Connection        con  = null;
+        PreparedStatement stmt = null;
+        ResultSet         rs   = null;
+        Long              id   = null;
 
         if (value == null) {
             return null;
@@ -188,8 +188,8 @@ public class Database {
             String sql = "SELECT id FROM " + tablename + " WHERE " + columnName
                          + " = ?";
 
-            connection = getConnection();
-            stmt       = connection.prepareStatement(sql);
+            con  = getConnection();
+            stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -199,7 +199,7 @@ public class Database {
             }
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return id;
@@ -215,30 +215,30 @@ public class Database {
         Long id = getId(tablename, columnName, value);
 
         if (id == null) {
-            PreparedStatement stmt       = null;
-            Connection        connection = null;
+            PreparedStatement stmt = null;
+            Connection        con  = null;
 
             try {
                 String sql = "INSERT INTO " + tablename + " (" + columnName
                              + ") VALUES (?)";
 
-                connection = getConnection();
-                connection.setAutoCommit(true);
-                stmt = connection.prepareStatement(sql);
+                con = getConnection();
+                con.setAutoCommit(true);
+                stmt = con.prepareStatement(sql);
                 stmt.setString(1, value);
                 logFiner(stmt);
                 stmt.executeUpdate();
                 id = getId(tablename, columnName, value);
             } finally {
                 close(stmt);
-                free(connection);
+                free(con);
             }
         }
 
         return id;
     }
 
-    public static long getCount(Connection connection, String tablename,
+    public static long getCount(Connection con, String tablename,
                                 String columnName, String value)
             throws SQLException {
         long              count = 0;
@@ -246,9 +246,8 @@ public class Database {
         ResultSet         rs    = null;
 
         try {
-            stmt = connection.prepareStatement("SELECT COUNT(*) FROM "
-                                               + tablename + " WHERE "
-                                               + columnName + " = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename
+                                        + " WHERE " + columnName + " = ?");
             stmt.setString(1, value);
             AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
             rs = stmt.executeQuery();
@@ -263,10 +262,10 @@ public class Database {
         return count;
     }
 
-    public static boolean exists(Connection connection, String tablename,
+    public static boolean exists(Connection con, String tablename,
                                  String columnName, String value)
             throws SQLException {
-        return getCount(connection, tablename, columnName, value) > 0;
+        return getCount(con, tablename, columnName, value) > 0;
     }
 
     protected Double getDouble(ResultSet rs, int colIndex) throws SQLException {

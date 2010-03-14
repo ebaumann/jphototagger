@@ -86,20 +86,20 @@ public final class DatabaseRenameTemplates extends Database {
     public boolean insert(RenameTemplate template) {
         assert template.getId() == null : template.getId();
 
-        boolean           inserted   = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
+        boolean           inserted = false;
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(getInsertSql());
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(getInsertSql());
             setValues(template, stmt);
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
 
-            connection.commit();
+            con.commit();
             inserted = count == 1;
 
             if (inserted) {
@@ -110,10 +110,10 @@ public final class DatabaseRenameTemplates extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return inserted;
@@ -137,19 +137,19 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public boolean update(RenameTemplate template) {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        int               count      = 0;
+        Connection        con   = null;
+        PreparedStatement stmt  = null;
+        int               count = 0;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(getUpdateSql());
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(getUpdateSql());
             setValues(template, stmt);
             stmt.setLong(14, template.getId());
             logFiner(stmt);
             count = stmt.executeUpdate();
-            connection.commit();
+            con.commit();
 
             if (count == 1) {
                 notifyListeners(
@@ -158,31 +158,31 @@ public final class DatabaseRenameTemplates extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return count == 1;
     }
 
     public int delete(String name) {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        int               count      = 0;
+        Connection        con   = null;
+        PreparedStatement stmt  = null;
+        int               count = 0;
 
         try {
             RenameTemplate delTemplate = find(name);
 
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(
                 "DELETE FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
             logFiner(stmt);
             count = stmt.executeUpdate();
-            connection.commit();
+            con.commit();
 
             if (count == 1) {
                 notifyListeners(
@@ -191,10 +191,10 @@ public final class DatabaseRenameTemplates extends Database {
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return count;
@@ -240,14 +240,14 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public Set<RenameTemplate> getAll() {
-        Set<RenameTemplate> templates  = new LinkedHashSet<RenameTemplate>();
-        Connection          connection = null;
-        Statement           stmt       = null;
-        ResultSet           rs         = null;
+        Set<RenameTemplate> templates = new LinkedHashSet<RenameTemplate>();
+        Connection          con       = null;
+        Statement           stmt      = null;
+        ResultSet           rs        = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.createStatement();
+            con  = getConnection();
+            stmt = con.createStatement();
 
             String sql = getGetAllSql();
 
@@ -262,22 +262,22 @@ public final class DatabaseRenameTemplates extends Database {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return templates;
     }
 
     private String getGetSql() {
-        return "SELECT id"                                  //  1
-               + ", name"                                   //  2
-               + ", start_number"                           //  3
-               + ", step_width"                             //  4
-               + ", number_count"                           //  5
-               + ", date_delimiter"                         //  6
-               + ", format_class_at_begin"                  //  7
-               + ", delimiter_1"                            //  8
-               + ", format_class_in_the_middle"             //  9
+        return "SELECT id"                                  // 1
+               + ", name"                                   // 2
+               + ", start_number"                           // 3
+               + ", step_width"                             // 4
+               + ", number_count"                           // 5
+               + ", date_delimiter"                         // 6
+               + ", format_class_at_begin"                  // 7
+               + ", delimiter_1"                            // 8
+               + ", format_class_in_the_middle"             // 9
                + ", delimiter_2"                            // 10
                + ", format_class_at_end"                    // 11
                + ", text_at_begin"                          // 12
@@ -294,14 +294,14 @@ public final class DatabaseRenameTemplates extends Database {
      * @return      template or null if not found
      */
     public RenameTemplate find(String name) {
-        RenameTemplate    template   = null;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        RenameTemplate    template = null;
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        ResultSet         rs       = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(getGetSql());
+            con  = getConnection();
+            stmt = con.prepareStatement(getGetSql());
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -313,21 +313,21 @@ public final class DatabaseRenameTemplates extends Database {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return template;
     }
 
     public boolean exists(String name) {
-        boolean           exists     = false;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        boolean           exists = false;
+        Connection        con    = null;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(
+            con  = getConnection();
+            stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
@@ -344,21 +344,21 @@ public final class DatabaseRenameTemplates extends Database {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return exists;
     }
 
     private long getId(String name) throws SQLException {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
-        long              id         = -1;
+        Connection        con  = null;
+        PreparedStatement stmt = null;
+        ResultSet         rs   = null;
+        long              id   = -1;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(
+            con  = getConnection();
+            stmt = con.prepareStatement(
                 "SELECT id FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
@@ -371,7 +371,7 @@ public final class DatabaseRenameTemplates extends Database {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return id;

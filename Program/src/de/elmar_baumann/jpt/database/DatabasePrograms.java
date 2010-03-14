@@ -69,7 +69,7 @@ public final class DatabasePrograms extends Database {
      */
     public boolean insert(Program program) {
         int               countAffectedRows = 0;
-        Connection        connection        = null;
+        Connection        con               = null;
         PreparedStatement stmt              = null;
 
         try {
@@ -88,22 +88,22 @@ public final class DatabasePrograms extends Database {
                          + ", pattern"                          // -- 13 --
                          + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            setId(connection, program);
-            stmt = connection.prepareStatement(sql);
+            con = getConnection();
+            con.setAutoCommit(false);
+            setId(con, program);
+            stmt = con.prepareStatement(sql);
             setValuesInsert(stmt, program);
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
-            connection.commit();
+            con.commit();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_INSERTED,
                             program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return countAffectedRows == 1;
@@ -141,13 +141,12 @@ public final class DatabasePrograms extends Database {
                           : pattern.getBytes());
     }
 
-    private void setId(Connection connection, Program program)
-            throws SQLException {
+    private void setId(Connection con, Program program) throws SQLException {
         Statement stmt = null;
         ResultSet rs   = null;
 
         try {
-            stmt = connection.createStatement();
+            stmt = con.createStatement();
 
             String sql = "SELECT MAX(id) FROM programs";
 
@@ -170,7 +169,7 @@ public final class DatabasePrograms extends Database {
      */
     public boolean update(Program program) {
         int               countAffectedRows = 0;
-        Connection        connection        = null;
+        Connection        con               = null;
         PreparedStatement stmt              = null;
 
         try {
@@ -188,22 +187,22 @@ public final class DatabasePrograms extends Database {
                          + ", pattern = ?"                          // -- 12 --
                          + " WHERE id = ?";                         // -- 13 --
 
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(sql);
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(sql);
             setValuesUpdate(stmt, program);
             stmt.setLong(13, program.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
-            connection.commit();
+            con.commit();
             notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_UPDATED,
                             program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return countAffectedRows == 1;
@@ -248,18 +247,17 @@ public final class DatabasePrograms extends Database {
      */
     public boolean delete(Program program) {
         int               countAffectedRows = 0;
-        Connection        connection        = null;
+        Connection        con               = null;
         PreparedStatement stmt              = null;
 
         try {
-            connection = getConnection();
-            connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
-                "DELETE FROM programs WHERE id = ?");
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement("DELETE FROM programs WHERE id = ?");
             stmt.setLong(1, program.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
-            connection.commit();
+            con.commit();
 
             // Hack because of dirty design of this table (no cascade possible)
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
@@ -267,10 +265,10 @@ public final class DatabasePrograms extends Database {
                             program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
-            rollback(connection);
+            rollback(con);
         } finally {
             close(stmt);
-            free(connection);
+            free(con);
         }
 
         return countAffectedRows == 1;
@@ -283,14 +281,14 @@ public final class DatabasePrograms extends Database {
      * @return      programs
      */
     public List<Program> getAll(Type type) {
-        List<Program>     programs   = new LinkedList<Program>();
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        List<Program>     programs = new LinkedList<Program>();
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        ResultSet         rs       = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(
+            con  = getConnection();
+            stmt = con.prepareStatement(
                 getSelectProgramStmt(WhereFilter.ACTION));
             stmt.setBoolean(1, type.equals(Type.ACTION));
             logFinest(stmt);
@@ -303,7 +301,7 @@ public final class DatabasePrograms extends Database {
             AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return programs;
@@ -369,17 +367,17 @@ public final class DatabasePrograms extends Database {
      * @return         true if the program does exist
      */
     public boolean exists(Program program) {
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
-        boolean           exists     = false;
+        Connection        con    = null;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
+        boolean           exists = false;
 
         try {
             String sql = "SELECT COUNT(*) FROM programs"
                          + " WHERE alias = ? AND filename = ?";
 
-            connection = getConnection();
-            stmt       = connection.prepareStatement(sql);
+            con  = getConnection();
+            stmt = con.prepareStatement(sql);
             setString(program.getAlias(), stmt, 1);
             setString(program.getFile().getAbsolutePath(), stmt, 2);
             logFinest(stmt);
@@ -392,7 +390,7 @@ public final class DatabasePrograms extends Database {
             AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return exists;
@@ -405,15 +403,14 @@ public final class DatabasePrograms extends Database {
      * @return Program or null if no program has this ID
      */
     public Program find(long id) {
-        Program           program    = null;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Program           program = null;
+        Connection        con     = null;
+        PreparedStatement stmt    = null;
+        ResultSet         rs      = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(
-                getSelectProgramStmt(WhereFilter.ID));
+            con  = getConnection();
+            stmt = con.prepareStatement(getSelectProgramStmt(WhereFilter.ID));
             stmt.setLong(1, id);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -425,7 +422,7 @@ public final class DatabasePrograms extends Database {
             AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return program;
@@ -452,14 +449,14 @@ public final class DatabasePrograms extends Database {
     }
 
     private boolean has(boolean action) {
-        int               count      = 0;
-        Connection        connection = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        int               count = 0;
+        Connection        con   = null;
+        PreparedStatement stmt  = null;
+        ResultSet         rs    = null;
 
         try {
-            connection = getConnection();
-            stmt       = connection.prepareStatement(
+            con  = getConnection();
+            stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM programs WHERE action = " + (action
                     ? "TRUE"
                     : "FALSE"));
@@ -473,7 +470,7 @@ public final class DatabasePrograms extends Database {
             AppLogger.logSevere(DatabasePrograms.class, ex);
         } finally {
             close(rs, stmt);
-            free(connection);
+            free(con);
         }
 
         return count > 0;

@@ -39,40 +39,38 @@ import java.sql.Statement;
  * @version 2008-10-29
  */
 final class UpdateTablesXmpLastModified {
-    void update(Connection connection) throws SQLException {
-        removeColumnXmpLastModifiedFromTableXmp(connection);
-        addColumnXmpLastModifiedToTableFiles(connection);
+    void update(Connection con) throws SQLException {
+        removeColumnXmpLastModifiedFromTableXmp(con);
+        addColumnXmpLastModifiedToTableFiles(con);
     }
 
-    private void removeColumnXmpLastModifiedFromTableXmp(Connection connection)
+    private void removeColumnXmpLastModifiedFromTableXmp(Connection con)
             throws SQLException {
-        if (DatabaseMetadata.INSTANCE.existsColumn(connection, "xmp",
+        if (DatabaseMetadata.INSTANCE.existsColumn(con, "xmp",
                 "lastmodified")) {
             SplashScreen.INSTANCE.setMessage(
                 JptBundle.INSTANCE.getString(
                     "UpdateTablesXmpLastModified.Info.RemoveColumnXmpLastModified"));
-            Database.execute(connection,
-                             "ALTER TABLE xmp DROP COLUMN lastmodified");
+            Database.execute(con, "ALTER TABLE xmp DROP COLUMN lastmodified");
         }
     }
 
-    private void addColumnXmpLastModifiedToTableFiles(Connection connection)
+    private void addColumnXmpLastModifiedToTableFiles(Connection con)
             throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsColumn(connection, "files",
+        if (!DatabaseMetadata.INSTANCE.existsColumn(con, "files",
                 "xmp_lastmodified")) {
             SplashScreen.INSTANCE.setMessage(
                 JptBundle.INSTANCE.getString(
                     "UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.AddColumn"));
             Database.execute(
-                connection,
-                "ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT");
-            copyLastModifiedToXmp(connection);
+                con, "ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT");
+            copyLastModifiedToXmp(con);
         }
     }
 
-    // too slow and no feedback: "UPDATE files SET xmp_lastmodified = lastmodified"
-    private void copyLastModifiedToXmp(Connection connection)
-            throws SQLException {
+    // too slow and no feedback:
+    // "UPDATE files SET xmp_lastmodified = lastmodified"
+    private void copyLastModifiedToXmp(Connection con) throws SQLException {
         infoMessage();
 
         PreparedStatement stmtUpdate = null;
@@ -80,8 +78,8 @@ final class UpdateTablesXmpLastModified {
         ResultSet         rsQuery    = null;
 
         try {
-            stmtQuery  = connection.createStatement();
-            stmtUpdate = connection.prepareStatement(
+            stmtQuery  = con.createStatement();
+            stmtUpdate = con.prepareStatement(
                 "UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
 
             long   lastModified = -1;
