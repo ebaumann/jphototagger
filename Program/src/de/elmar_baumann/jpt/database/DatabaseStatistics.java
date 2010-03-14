@@ -40,52 +40,14 @@ public final class DatabaseStatistics extends Database {
     public static final DatabaseStatistics INSTANCE = new DatabaseStatistics();
 
     /**
-     * Liefert die Anzahl der Datensätze für verschiedene Spaltenwerte.
-     *
-     * @param  column  Spalte
-     * @return Anzahl oder -1 bei Fehlern
-     */
-    public int getDistinctCountOf(Column column) {
-        int        count      = -1;
-        Connection connection = null;
-        Statement  stmt       = null;
-        ResultSet  rs         = null;
-
-        try {
-            connection = getConnection();
-            stmt       = connection.createStatement();
-
-            String columnName = column.getName();
-            String sql        = "SELECT COUNT(*) FROM (SELECT DISTINCT "
-                                + columnName + " FROM "
-                                + column.getTablename() + " WHERE "
-                                + columnName + " IS NOT NULL" + ")";
-
-            logFinest(sql);
-            rs = stmt.executeQuery(sql);
-
-            if (rs.next()) {
-                count = rs.getInt(1);
-            }
-        } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseStatistics.class, ex);
-        } finally {
-            close(rs, stmt);
-            free(connection);
-        }
-
-        return count;
-    }
-
-    /**
-     * Returns the count of records in a table for a specific column (where
+     * Returns the count of records in a table of specific column (where
      * the column value is not NULL).
      *
      * @param  column  column
      * @return count count of records in the column's table where
      * <code>column</code> is not null
      */
-    public int getTotalRecordCountIn(Column column) {
+    public int getTotalRecordCountOf(Column column) {
         int        count      = -1;
         Connection connection = null;
         Statement  stmt       = null;
@@ -173,47 +135,6 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseStatistics.class, ex);
-        } finally {
-            close(rs, stmt);
-            free(connection);
-        }
-
-        return count;
-    }
-
-    /**
-     * Liefert die Anzahl aller Datensätze in allen Tabellen.
-     *
-     * @return Anzahl oder -1 bei Fehlern
-     */
-    public long getTotalRecordCount() {
-        long         count      = -1;
-        Connection   connection = null;
-        List<String> tableNames = DatabaseTables.getTableNames();
-        Statement    stmt       = null;
-        ResultSet    rs         = null;
-
-        try {
-            connection = getConnection();
-
-            for (String tableName : tableNames) {
-                stmt = connection.createStatement();
-
-                String sql = "SELECT COUNT(*) FROM " + tableName;
-
-                logFinest(sql);
-                rs = stmt.executeQuery(sql);
-
-                if (rs.next()) {
-                    count += rs.getInt(1);
-                }
-
-                rs.close();
-                stmt.close();
-            }
-        } catch (Exception ex) {
-            count = -1;
             AppLogger.logSevere(DatabaseStatistics.class, ex);
         } finally {
             close(rs, stmt);
