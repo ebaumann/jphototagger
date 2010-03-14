@@ -60,6 +60,7 @@ final class UpdateTablesRenameColumns {
         if (renameColumns.size() > 0) {
             renameColumns(con);
         }
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private void setColumns(Connection con) throws SQLException {

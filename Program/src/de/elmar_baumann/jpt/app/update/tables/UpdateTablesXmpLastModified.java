@@ -42,6 +42,7 @@ final class UpdateTablesXmpLastModified {
     void update(Connection con) throws SQLException {
         removeColumnXmpLastModifiedFromTableXmp(con);
         addColumnXmpLastModifiedToTableFiles(con);
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private void removeColumnXmpLastModifiedFromTableXmp(Connection con)

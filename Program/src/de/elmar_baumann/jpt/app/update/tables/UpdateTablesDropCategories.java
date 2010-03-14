@@ -69,6 +69,7 @@ final class UpdateTablesDropCategories {
             updateDatabase(con);
             fixSavedSearches(con);
         }
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private boolean categoriesAlreadyDropped(Connection con)

@@ -64,6 +64,7 @@ final class UpdateTablesThumbnails extends Database {
     void update(Connection con) throws SQLException {
         writeThumbnailsFromTableIntoFilesystem(con);
         convertThumbnailIdNamesIntoHashNames(con);
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     public void writeThumbnailsFromTableIntoFilesystem(Connection con)

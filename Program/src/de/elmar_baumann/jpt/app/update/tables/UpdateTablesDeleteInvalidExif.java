@@ -65,6 +65,7 @@ final class UpdateTablesDeleteInvalidExif {
         SplashScreen.INSTANCE.setMessage("");
         DatabaseApplicationProperties.INSTANCE.setBoolean(
             KEY_REMOVED_INVALID_EXIF, true);
+        SplashScreen.INSTANCE.setMessage("");
     }
 
     private void setNull(Connection con) throws SQLException {

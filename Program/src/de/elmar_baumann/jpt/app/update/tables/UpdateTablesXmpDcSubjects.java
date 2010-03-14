@@ -49,6 +49,7 @@ final class UpdateTablesXmpDcSubjects {
             Database.execute(con, "DROP TABLE xmp_dc_subjects");
             DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains(
                 "xmp_dc_subjects", "!");
+            SplashScreen.INSTANCE.setMessage("");
         }
     }
 
