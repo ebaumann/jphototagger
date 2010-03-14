@@ -40,6 +40,8 @@ import java.sql.Statement;
  * @version 2008-10-05
  */
 public class Database {
+    protected Database() {}
+
     public static void errorMessageSqlException(SQLException ex) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
 
@@ -60,7 +62,8 @@ public class Database {
         boolean   isResultSet = false;
 
         try {
-            stmt        = connection.createStatement();
+            stmt = connection.createStatement();
+            AppLogger.logFiner(Database.class, AppLogger.USE_STRING, sql);
             isResultSet = stmt.execute(sql);
         } catch (SQLException ex) {
             throw ex;
@@ -83,7 +86,9 @@ public class Database {
     }
 
     /**
-     * Frees a connection in the Connection Pool so it can be reused at a later time.
+     * Frees a connection in the Connection Pool so it can be reused at a late
+     * time.
+     *
      * @param connection  The connection to be freed.
      */
     protected void free(Connection connection) {
@@ -166,6 +171,102 @@ public class Database {
         } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
         }
+    }
+
+    protected Long getId(String tablename, String columnName, String value)
+            throws SQLException {
+        Connection        connection = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
+        Long              id         = null;
+
+        if (value == null) {
+            return null;
+        }
+
+        try {
+            String sql = "SELECT id FROM " + tablename + " WHERE " + columnName
+                         + " = ?";
+
+            connection = getConnection();
+            stmt       = connection.prepareStatement(sql);
+            stmt.setString(1, value);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+        } finally {
+            close(rs, stmt);
+            free(connection);
+        }
+
+        return id;
+    }
+
+    protected Long ensureValueExists(String tablename, String columnName,
+                                     String value)
+            throws SQLException {
+        if (value == null) {
+            return null;
+        }
+
+        Long id = getId(tablename, columnName, value);
+
+        if (id == null) {
+            PreparedStatement stmt       = null;
+            Connection        connection = null;
+
+            try {
+                String sql = "INSERT INTO " + tablename + " (" + columnName
+                             + ") VALUES (?)";
+
+                connection = getConnection();
+                connection.setAutoCommit(true);
+                stmt = connection.prepareStatement(sql);
+                stmt.setString(1, value);
+                logFiner(stmt);
+                stmt.executeUpdate();
+                id = getId(tablename, columnName, value);
+            } finally {
+                close(stmt);
+                free(connection);
+            }
+        }
+
+        return id;
+    }
+
+    public static long getCount(Connection connection, String tablename,
+                                String columnName, String value)
+            throws SQLException {
+        long              count = 0;
+        PreparedStatement stmt  = null;
+        ResultSet         rs    = null;
+
+        try {
+            stmt = connection.prepareStatement("SELECT COUNT(*) FROM "
+                                               + tablename + " WHERE "
+                                               + columnName + " = ?");
+            stmt.setString(1, value);
+            AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getLong(1);
+            }
+        } finally {
+            close(rs, stmt);
+        }
+
+        return count;
+    }
+
+    public static boolean exists(Connection connection, String tablename,
+                                 String columnName, String value)
+            throws SQLException {
+        return getCount(connection, tablename, columnName, value) > 0;
     }
 
     protected Double getDouble(ResultSet rs, int colIndex) throws SQLException {
@@ -341,7 +442,7 @@ public class Database {
     protected void setBoolean(Object value, PreparedStatement stmt,
                               int paramIndex)
             throws SQLException {
-        assert (value == null) || (value instanceof Boolean) : value;
+        assert(value == null) || (value instanceof Boolean) : value;
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BOOLEAN);
@@ -353,7 +454,7 @@ public class Database {
     protected void setDouble(Object value, PreparedStatement stmt,
                              int paramIndex)
             throws SQLException {
-        assert (value == null) || (value instanceof Double) : value;
+        assert(value == null) || (value instanceof Double) : value;
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DOUBLE);
@@ -374,7 +475,7 @@ public class Database {
 
     protected void setInt(Object value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
-        assert (value == null) || (value instanceof Integer) : value;
+        assert(value == null) || (value instanceof Integer) : value;
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.INTEGER);
@@ -385,7 +486,7 @@ public class Database {
 
     protected void setLong(Object value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
-        assert (value == null) || (value instanceof Long) : value;
+        assert(value == null) || (value instanceof Long) : value;
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
@@ -398,7 +499,7 @@ public class Database {
                                  PreparedStatement stmt, int paramIndex)
             throws SQLException {
         assert min <= max : "min: " + min + ", max: " + max;
-        assert (value == null) || (value instanceof Long) : value;
+        assert(value == null) || (value instanceof Long) : value;
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
@@ -416,7 +517,7 @@ public class Database {
     protected void setString(Object value, PreparedStatement stmt,
                              int paramIndex)
             throws SQLException {
-        assert (value == null) || (value instanceof String) : value;
+        assert(value == null) || (value instanceof String) : value;
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
@@ -427,7 +528,7 @@ public class Database {
 
     protected void setDate(Object value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
-        assert (value == null) || (value instanceof Date) : value;
+        assert(value == null) || (value instanceof Date) : value;
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DATE);
@@ -480,6 +581,4 @@ public class Database {
     protected void logFinest(PreparedStatement stmt) {
         AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt.toString());
     }
-
-    protected Database() {}
 }

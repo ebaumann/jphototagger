@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopCountry extends Column {
         new ColumnXmpPhotoshopCountry();
 
     private ColumnXmpPhotoshopCountry() {
-        super("photoshop_country", "xmp", DataType.STRING);
+        super("country", "photoshop_country", DataType.STRING);
         setLength(64);
         setDescription(
             JptBundle.INSTANCE.getString(

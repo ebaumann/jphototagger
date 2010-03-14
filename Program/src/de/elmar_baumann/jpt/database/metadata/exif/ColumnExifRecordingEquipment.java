@@ -39,7 +39,7 @@ public final class ColumnExifRecordingEquipment extends Column {
         new ColumnExifRecordingEquipment();
 
     private ColumnExifRecordingEquipment() {
-        super("exif_recording_equipment", "exif", DataType.STRING);
+        super("equipment", "exif_recording_equipment", DataType.STRING);
         setLength(125);
         setDescription(
             JptBundle.INSTANCE.getString(

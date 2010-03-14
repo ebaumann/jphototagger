@@ -47,11 +47,11 @@ public final class DatabaseSavedSearches extends Database {
     private DatabaseSavedSearches() {}
 
     private String getInsertSql() {
-        return "INSERT INTO saved_searches" + " (" + "name" +    // -- 1 --
-            ", sql_string" +                                     // -- 2 --
-                ", is_query" +                                   // -- 3 --
-                    ", search_type" +                            // -- 4 --
-                        ")" + " VALUES (?, ?, ?, ?)";
+        return "INSERT INTO saved_searches (name"    // -- 1 --
+               + ", sql_string"                      // -- 2 --
+               + ", is_query"                        // -- 3 --
+               + ", search_type"                     // -- 4 --
+               + ") VALUES (?, ?, ?, ?)";
     }
 
     /**

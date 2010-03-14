@@ -639,7 +639,7 @@ public class DatabaseMetadataTemplates extends Database {
         try {
             connection = getConnection();
             stmt       = connection.prepareStatement("SELECT COUNT(*)"
-                    + " FROM metadata_edit_templates" + " WHERE name = ?");
+                    + " FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();

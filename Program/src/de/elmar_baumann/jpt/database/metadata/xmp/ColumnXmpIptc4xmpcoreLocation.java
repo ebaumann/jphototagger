@@ -35,7 +35,7 @@ public final class ColumnXmpIptc4xmpcoreLocation extends Column {
         new ColumnXmpIptc4xmpcoreLocation();
 
     private ColumnXmpIptc4xmpcoreLocation() {
-        super("iptc4xmpcore_location", "xmp", DataType.STRING);
+        super("location", "iptc4xmpcore_location", DataType.STRING);
         setLength(64);
         setDescription(
             JptBundle.INSTANCE.getString(
