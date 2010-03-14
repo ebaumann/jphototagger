@@ -47,23 +47,23 @@ public final class DatabaseRenameTemplates extends Database {
     private final ListenerSupport<DatabaseRenameTemplatesListener> listenerSupport =
         new ListenerSupport<DatabaseRenameTemplatesListener>();
 
+    private DatabaseRenameTemplates() {}
+
     private String getInsertSql() {    // On updates update getUpdateSql()!
-        return "INSERT INTO rename_templates (" + "name" +              // 1
-            ", start_number" +                                          // 2
-                ", step_width" +                                        // 3
-                    ", number_count" +                                  // 4
-                        ", date_delimiter" +                            // 5
-                            ", format_class_at_begin" +                 // 6
-                                ", delimiter_1" +                       // 7
-                                    ", format_class_in_the_middle" +    // 8
-                                        ", delimiter_2" +               // 9
-                                        ", format_class_at_end" +       // 10
-                                        ", text_at_begin" +             // 11
-                                        ", text_in_the_middle" +        // 12
-                                        ", text_at_end" +               // 13
-                                        ")" + " VALUES ("
-                                        + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
-                                        + ")";
+        return "INSERT INTO rename_templates (name"    // 1
+               + ", start_number"                      // 2
+               + ", step_width"                        // 3
+               + ", number_count"                      // 4
+               + ", date_delimiter"                    // 5
+               + ", format_class_at_begin"             // 6
+               + ", delimiter_1"                       // 7
+               + ", format_class_in_the_middle"        // 8
+               + ", delimiter_2"                       // 9
+               + ", format_class_at_end"               // 10
+               + ", text_at_begin"                     // 11
+               + ", text_in_the_middle"                // 12
+               + ", text_at_end"                       // 13
+               + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     private void setValues(RenameTemplate template, PreparedStatement stmt)
@@ -120,20 +120,20 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     private String getUpdateSql() {
-        return "UPDATE rename_templates SET " + "name = ?" +                // 1
-            ", start_number = ?" +                                          // 2
-                ", step_width = ?" +                                        // 3
-                    ", number_count = ?" +                                  // 4
-                        ", date_delimiter = ?" +                            // 5
-                            ", format_class_at_begin = ?" +                 // 6
-                                ", delimiter_1 = ?" +                       // 7
-                                    ", format_class_in_the_middle = ?" +    // 8
-                                        ", delimiter_2 = ?" +               // 9
-                                        ", format_class_at_end = ?" +       // 10
-                                        ", text_at_begin = ?" +             // 11
-                                        ", text_in_the_middle = ?" +        // 12
-                                        ", text_at_end = ?" +               // 13
-                                        " WHERE id = ?";    // 14
+        return "UPDATE rename_templates SET name = ?"    // 1
+               + ", start_number = ?"                    // 2
+               + ", step_width = ?"                      // 3
+               + ", number_count = ?"                    // 4
+               + ", date_delimiter = ?"                  // 5
+               + ", format_class_at_begin = ?"           // 6
+               + ", delimiter_1 = ?"                     // 7
+               + ", format_class_in_the_middle = ?"      // 8
+               + ", delimiter_2 = ?"                     // 9
+               + ", format_class_at_end = ?"             // 10
+               + ", text_at_begin = ?"                   // 11
+               + ", text_in_the_middle = ?"              // 12
+               + ", text_at_end = ?"                     // 13
+               + " WHERE id = ?";                        // 14
     }
 
     public boolean update(RenameTemplate template) {
@@ -201,21 +201,21 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     private String getGetAllSql() {
-        return "SELECT" + "  id" +                                          // 1
-            ", name" +                                                      // 2
-                ", start_number" +                                          // 3
-                    ", step_width" +                                        // 4
-                        ", number_count" +                                  // 5
-                            ", date_delimiter" +                            // 6
-                                ", format_class_at_begin" +                 // 7
-                                    ", delimiter_1" +                       // 8
-                                        ", format_class_in_the_middle" +    // 9
-                                        ", delimiter_2" +                   // 10
-                                        ", format_class_at_end" +           // 11
-                                        ", text_at_begin" +                 // 12
-                                        ", text_in_the_middle" +            // 13
-                                        ", text_at_end" +                   // 14
-                                        " FROM rename_templates" + " ORDER BY name ASC";
+        return "SELECT  id"                        // 1
+               + ", name"                          // 2
+               + ", start_number"                  // 3
+               + ", step_width"                    // 4
+               + ", number_count"                  // 5
+               + ", date_delimiter"                // 6
+               + ", format_class_at_begin"         // 7
+               + ", delimiter_1"                   // 8
+               + ", format_class_in_the_middle"    // 9
+               + ", delimiter_2"                   // 10
+               + ", format_class_at_end"           // 11
+               + ", text_at_begin"                 // 12
+               + ", text_in_the_middle"            // 13
+               + ", text_at_end"                   // 14
+               + " FROM rename_templates ORDER BY name ASC";
     }
 
     private RenameTemplate getTemplate(ResultSet rs) throws SQLException {
@@ -269,23 +269,22 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     private String getGetSql() {
-        return "SELECT " + "  id" +                                         // 1
-            ", name" +                                                      // 2
-                ", start_number" +                                          // 3
-                    ", step_width" +                                        // 4
-                        ", number_count" +                                  // 5
-                            ", date_delimiter" +                            // 6
-                                ", format_class_at_begin" +                 // 7
-                                    ", delimiter_1" +                       // 8
-                                        ", format_class_in_the_middle" +    // 9
-                                        ", delimiter_2" +                   // 10
-                                        ", format_class_at_end" +           // 11
-                                        ", text_at_begin" +                 // 12
-                                        ", text_in_the_middle" +            // 13
-                                        ", text_at_end" +                   // 14
-                                        " FROM rename_templates" + " WHERE name = ?"
-                                        +                                   // 15
-                                        " ORDER BY name ASC";
+        return "SELECT id"                                  //  1
+               + ", name"                                   //  2
+               + ", start_number"                           //  3
+               + ", step_width"                             //  4
+               + ", number_count"                           //  5
+               + ", date_delimiter"                         //  6
+               + ", format_class_at_begin"                  //  7
+               + ", delimiter_1"                            //  8
+               + ", format_class_in_the_middle"             //  9
+               + ", delimiter_2"                            // 10
+               + ", format_class_at_end"                    // 11
+               + ", text_at_begin"                          // 12
+               + ", text_in_the_middle"                     // 13
+               + ", text_at_end"                            // 14
+               + " FROM rename_templates WHERE name = ?"    // 15
+               + " ORDER BY name ASC";
     }
 
     /**
@@ -398,6 +397,4 @@ public final class DatabaseRenameTemplates extends Database {
             }
         }
     }
-
-    private DatabaseRenameTemplates() {}
 }

@@ -46,6 +46,8 @@ public final class DatabaseAutoscanDirectories extends Database {
     private final ListenerSupport<DatabaseAutoscanDirectoriesListener> listenerSupport =
         new ListenerSupport<DatabaseAutoscanDirectoriesListener>();
 
+    private DatabaseAutoscanDirectories() {}
+
     /**
      * Fügt ein automatisch nach Metadaten zu scannendes Verzeichnis hinzu.
      *
@@ -215,6 +217,4 @@ public final class DatabaseAutoscanDirectories extends Database {
             }
         }
     }
-
-    private DatabaseAutoscanDirectories() {}
 }
