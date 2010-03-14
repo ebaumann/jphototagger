@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -38,12 +39,7 @@ import java.util.List;
  * @version 2008-11-06
  */
 final class UpdateTablesInsertColumns {
-    private final UpdateTablesMessages    messages       =
-        UpdateTablesMessages.INSTANCE;
-    private final List<ColumnInfo>        missingColumns =
-        new ArrayList<ColumnInfo>();
-    private static final List<ColumnInfo> columns        =
-        new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
 
     static {
         columns.add(new ColumnInfo("programs", "parameters_after_filename",
@@ -82,6 +78,11 @@ final class UpdateTablesInsertColumns {
         columns.add(new ColumnInfo("saved_searches", "search_type", "SMALLINT",
                                    null));
     }
+
+    private final UpdateTablesMessages messages       =
+        UpdateTablesMessages.INSTANCE;
+    private final List<ColumnInfo>     missingColumns =
+        new ArrayList<ColumnInfo>();
 
     void update(Connection connection) throws SQLException {
         fixBugs(connection);
@@ -123,11 +124,17 @@ final class UpdateTablesInsertColumns {
 
         try {
             stmt = connection.createStatement();
-            stmt.execute("ALTER TABLE " + info.getTableName() + " ADD COLUMN "
-                         + info.getColumnName() + " " + info.getDataType());
+
+            String sql = "ALTER TABLE " + info.getTableName() + " ADD COLUMN "
+                         + info.getColumnName() + " " + info.getDataType();
+
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            stmt.execute(sql);
 
             if (info.getIndex() != null) {
-                stmt.execute(info.getIndex().getSql());
+                sql = info.getIndex().getSql();
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                stmt.execute(sql);
             }
         } finally {
             Database.close(stmt);
@@ -184,8 +191,11 @@ final class UpdateTablesInsertColumns {
 
         try {
             stmt = connection.createStatement();
-            stmt.executeUpdate("ALTER TABLE " + tableName + " DROP "
-                               + columnName);
+
+            String sql = "ALTER TABLE " + tableName + " DROP " + columnName;
+
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            stmt.executeUpdate(sql);
         } finally {
             Database.close(stmt);
         }

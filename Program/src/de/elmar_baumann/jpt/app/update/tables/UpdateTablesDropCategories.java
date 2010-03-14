@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.app.update.tables;
 
+import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.Database;
@@ -98,7 +99,8 @@ final class UpdateTablesDropCategories {
                     new FileOutputStream(getFilename()),
                     CharEncoding.LIGHTROOM_KEYWORDS));
             stmt = connection.createStatement();
-            rs   = stmt.executeQuery(sql);
+            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 writer.append(rs.getString(1));
@@ -129,11 +131,11 @@ final class UpdateTablesDropCategories {
     }
 
     private void fixSavedSearches(Connection connection) throws SQLException {
+        String sql = "UPDATE saved_searches_panels" + " SET column_id = 24"
+                     + " WHERE column_id = 25 OR column_id = 14";
 
         // Now as keyword
-        Database.execute(connection,
-                         "UPDATE saved_searches_panels" + " SET column_id = 24"
-                         + " WHERE column_id = 25 OR column_id = 14");
+        Database.execute(connection, sql);
     }
 
     private void updateDatabase(Connection connection) throws SQLException {
@@ -141,12 +143,20 @@ final class UpdateTablesDropCategories {
 
         try {
             stmt = connection.createStatement();
-            stmt.execute("ALTER TABLE xmp DROP COLUMN photoshop_category");
-            stmt.execute(
-                "ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory");
-            stmt.execute(
-                "ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories");
-            stmt.execute("DROP TABLE xmp_photoshop_supplementalcategories");
+
+            String sql = "ALTER TABLE xmp DROP COLUMN photoshop_category";
+
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            stmt.executeUpdate(sql);
+            sql = "ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory";
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            stmt.executeUpdate(sql);
+            sql = "ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories";
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            stmt.executeUpdate(sql);
+            sql = "DROP TABLE xmp_photoshop_supplementalcategories";
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            stmt.executeUpdate(sql);
         } finally {
             Database.close(stmt);
         }

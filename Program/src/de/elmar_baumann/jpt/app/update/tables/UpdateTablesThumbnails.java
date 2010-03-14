@@ -55,11 +55,10 @@ import javax.swing.ImageIcon;
  * @version 2009-04-29
  */
 final class UpdateTablesThumbnails extends Database {
+    private static final int    FETCH_MAX_ROWS                     = 1000;
     private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
         "Updated_Thumbnails_Names_Hash_1";    // Never change this!
-    private final UpdateTablesMessages messages       =
-        UpdateTablesMessages.INSTANCE;
-    private static final int           FETCH_MAX_ROWS = 1000;
+    private final UpdateTablesMessages messages = UpdateTablesMessages.INSTANCE;
     private int                        count;
 
     void update(Connection connection) throws SQLException {
@@ -91,7 +90,8 @@ final class UpdateTablesThumbnails extends Database {
 
         try {
             stmt = connection.createStatement();
-            rs   = stmt.executeQuery(sql);
+            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 long        id          = rs.getInt(1);
@@ -315,6 +315,7 @@ final class UpdateTablesThumbnails extends Database {
             String sql =
                 "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
 
+            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
             rs = stmt.executeQuery(sql);
 
             if (rs.next()) {
