@@ -94,6 +94,10 @@ public final class UpdateTablesMake1n {
         moveContent(con);
     }
 
+    private String getLinkColumn(String targetTable) {
+        return "id_" + targetTable;
+    }
+
     private void moveContent(Connection con) throws SQLException {
         con.setAutoCommit(true);
 
@@ -105,14 +109,14 @@ public final class UpdateTablesMake1n {
                 ResultSet  rs     = null;
 
                 try {
-                    addTempIdColumn(con, target.getTableName());
+                    String sourceTable  = source.getTableName();
+                    String sourceColumn = source.getColumnName();
+                    String targetTable  = target.getTableName();
+                    String sql          = "SELECT id, " + sourceColumn
+                                          + " FROM " + sourceTable;
+
+                    addLinkColumn(con, sourceTable, targetTable);
                     stmt = con.createStatement();
-
-                    String sourceTableName = source.getTableName();
-                    String sourceColumn    = source.getColumnName();
-                    String sql             = "SELECT id, " + sourceColumn
-                                             + " FROM " + sourceTableName;
-
                     AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
                     rs = stmt.executeQuery(sql);
 
@@ -121,15 +125,13 @@ public final class UpdateTablesMake1n {
                         String sourceValue = rs.getString(2);
 
                         if (!rs.wasNull()) {
-                            copy(con, sourceId, sourceValue, target);
+                            copy(con, source, sourceId, sourceValue, target);
                         }
                     }
 
-                    alterSourceTable(con, source, target);
-                    link(con, source, target);
+                    dropColumn(con, sourceTable, sourceColumn);
                     DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains(
                         sourceColumn, "!");
-                    dropTempIdColumn(con, target.getTableName());
                 } finally {
                     Database.close(rs, stmt);
                 }
@@ -137,64 +139,24 @@ public final class UpdateTablesMake1n {
         }
     }
 
-    private void link(Connection con, ColumnInfo source, ColumnInfo target)
-            throws SQLException {
-        Statement         stmtQuery  = null;
-        PreparedStatement stmtUpdate = null;
-        ResultSet         rsQuery    = null;
-        String            linkColumn = "id_" + target.getTableName();
-
-        try {
-            stmtQuery = con.createStatement();
-
-            String sqlUpdate = "UPDATE " + source.getTableName() + " SET "
-                               + linkColumn + " = ? WHERE id = ?";
-
-            stmtUpdate = con.prepareStatement(sqlUpdate);
-
-            String sqlQuery = "SELECT id, " + TMP_ID_COL + " FROM "
-                              + target.getTableName();
-
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sqlQuery);
-            rsQuery = stmtQuery.executeQuery(sqlQuery);
-
-            while (rsQuery.next()) {
-                Long idTarget = rsQuery.getLong(1);
-                Long idSource = rsQuery.getLong(2);
-
-                stmtUpdate.setLong(1, idTarget);
-                stmtUpdate.setLong(2, idSource);
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
-                                   stmtUpdate);
-                stmtUpdate.executeUpdate();
-            }
-        } finally {
-            Database.close(rsQuery, stmtQuery);
-            Database.close(stmtUpdate);
-        }
-    }
-
-    private void alterSourceTable(Connection con, ColumnInfo source,
-                                  ColumnInfo target)
+    private void addLinkColumn(Connection con, String sourceTable,
+                               String targetTable)
             throws SQLException {
         Statement stmt = null;
 
         try {
             stmt = con.createStatement();
 
-            String newColumn   = "id_" + target.getTableName();
-            String oldColumn   = source.getColumnName();
-            String sourceTable = source.getTableName();
+            String linkColumn = getLinkColumn(targetTable);
 
-            addNewColumn(con, sourceTable, newColumn, target.getTableName());
-            dropOldColumn(con, sourceTable, oldColumn, stmt);
+            addColumn(con, sourceTable, linkColumn, targetTable);
         } finally {
             Database.close(stmt);
         }
     }
 
-    private void addNewColumn(Connection con, String sourceTable,
-                              String newColumn, String targetTable)
+    private void addColumn(Connection con, String sourceTable,
+                           String newColumn, String targetTable)
             throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsColumn(con, sourceTable,
                 newColumn)) {
@@ -233,89 +195,86 @@ public final class UpdateTablesMake1n {
         }
     }
 
-    private void dropOldColumn(Connection con, String sourceTable,
-                               String oldColumn, Statement stmt)
+    private void dropColumn(Connection con, String table, String column)
             throws SQLException {
-        if (DatabaseMetadata.INSTANCE.existsColumn(con, sourceTable,
-                oldColumn)) {
-            String sqlDropColumn = "ALTER TABLE " + sourceTable + " DROP "
-                                   + oldColumn;
-
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sqlDropColumn);
-            stmt.executeUpdate(sqlDropColumn);
+        if (DatabaseMetadata.INSTANCE.existsColumn(con, table, column)) {
+            Statement stmt = null;
 
             try {
-                String sqlDropIndex = "DROP INDEX idx_" + sourceTable + "_"
-                                      + oldColumn + " IF EXISTS";
+                String sql = "ALTER TABLE " + table + " DROP " + column;
 
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
-                                   sqlDropIndex);
-                stmt.executeUpdate(sqlDropIndex);
+                stmt = con.createStatement();
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                stmt.executeUpdate(sql);
+                sql = "DROP INDEX idx_" + table + "_" + column + " IF EXISTS";
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                stmt.executeUpdate(sql);
             } catch (SQLException ex) {
                 AppLogger.logSevere(UpdateTablesMake1n.class, ex);
+            } finally {
+                Database.close(stmt);
             }
         }
     }
 
-    private void copy(Connection con, Long sourceId, String sourceValue,
-                      ColumnInfo target)
+    private void copy(Connection con, ColumnInfo source, Long sourceId,
+                      String sourceValue, ColumnInfo target)
             throws SQLException {
         PreparedStatement stmt = null;
 
         try {
             String targetTable  = target.getTableName();
             String targetColumn = target.getColumnName();
+            String sourceTable  = source.getTableName();
+            String linkColumn   = getLinkColumn(targetTable);
 
-            if (!Database.exists(con, targetTable, targetColumn, sourceValue)) {
-                stmt = con.prepareStatement("INSERT INTO " + targetTable + " ("
-                                            + targetColumn + ", " + TMP_ID_COL
-                                            + ") VALUES (?, ?)");
-                stmt.setString(1, sourceValue);
-                stmt.setLong(2, sourceId);
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
-                stmt.executeUpdate();
-            }
+            insertValueIntoTargetTable(con, targetTable, targetColumn,
+                                       sourceValue);
+            createLink(con, sourceTable, linkColumn, targetTable, targetColumn,
+                       sourceValue, sourceId);
         } finally {
             Database.close(stmt);
         }
     }
 
-    private void addTempIdColumn(Connection con, String tableName)
+    private void insertValueIntoTargetTable(Connection con, String targetTable,
+            String targetColumn, String value)
             throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsColumn(con, tableName,
-                TMP_ID_COL)) {
-            Statement stmt = null;
+        if (!Database.exists(con, targetTable, targetColumn, value)) {
+            PreparedStatement stmt = null;
 
             try {
-                stmt = con.createStatement();
+                String sql = "INSERT INTO " + targetTable + " (" + targetColumn
+                             + ") VALUES (?)";
 
-                String sql = "ALTER TABLE " + tableName + " ADD COLUMN "
-                             + TMP_ID_COL + " BIGINT";
-
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
-                stmt.executeUpdate(sql);
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, value);
+                stmt.executeUpdate();
             } finally {
                 Database.close(stmt);
             }
         }
     }
 
-    private void dropTempIdColumn(Connection con, String tableName)
+    private void createLink(Connection con, String sourceTable,
+                            String linkColumn, String targetTable,
+                            String targetColumn, String targetValue,
+                            Long sourceId)
             throws SQLException {
-        if (DatabaseMetadata.INSTANCE.existsColumn(con, tableName,
-                TMP_ID_COL)) {
-            Statement stmt = null;
+        PreparedStatement stmt = null;
 
-            try {
-                stmt = con.createStatement();
+        try {
+            String sql = "UPDATE " + sourceTable + " SET " + linkColumn
+                         + " = ? WHERE " + sourceTable + ".id = ?";
 
-                String sql = "ALTER TABLE " + tableName + " DROP " + TMP_ID_COL;
-
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
-                stmt.executeUpdate(sql);
-            } finally {
-                Database.close(stmt);
-            }
+            stmt = con.prepareStatement(sql);
+            stmt.setLong(1, Database.getId(con, targetTable, targetColumn,
+                                           targetValue));
+            stmt.setLong(2, sourceId);
+            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
+            stmt.executeUpdate();
+        } finally {
+            Database.close(stmt);
         }
     }
 }
