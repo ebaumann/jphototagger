@@ -96,27 +96,31 @@ public class DatabaseMetadataTemplates extends Database {
         try {
             connection = getConnection();
             connection.setAutoCommit(false);
-            stmt = connection.prepareStatement(
-                "INSERT INTO metadata_edit_templates" + " (name" +    // --  1 --
-                ", dcSubjects" +    // --  2 --
-                    ", dcTitle" +    // --  3 --
-                        ", photoshopHeadline" +    // --  4 --
-                            ", dcDescription" +    // --  5 --
-                                ", photoshopCaptionwriter" +    // --  6 --
-                                    ", iptc4xmpcoreLocation" +    // --  7 --
-                                            ", dcRights" +    // --  8 --
-                                            ", dcCreator" +    // -- 9 --
-                                            ", photoshopAuthorsposition" +    // -- 10 --
-                                            ", photoshopCity" +    // -- 11 --
-                                            ", photoshopState" +    // -- 12 --
-                                            ", photoshopCountry" +    // -- 13 --
-                                            ", photoshopTransmissionReference" +    // -- 14 --
-                                            ", photoshopInstructions" +       // -- 15 --
-                                            ", photoshopCredit" +             // -- 16 --
-                                            ", photoshopSource" +             // -- 17 --
-                                            ", rating" +                      // -- 18 --
-                                            ", iptc4xmpcore_datecreated" +    // -- 19 --
-                                            ")" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            String sql = "INSERT INTO metadata_edit_templates ("
+                         + "name"    // --  1 --
+                         + ", dcSubjects"                        // --  2 --
+                         + ", dcTitle"                           // --  3 --
+                         + ", photoshopHeadline"                 // --  4 --
+                         + ", dcDescription"                     // --  5 --
+                         + ", photoshopCaptionwriter"            // --  6 --
+                         + ", iptc4xmpcoreLocation"              // --  7 --
+                         + ", dcRights"                          // --  8 --
+                         + ", dcCreator"                         // --  9 --
+                         + ", photoshopAuthorsposition"          // -- 10 --
+                         + ", photoshopCity"                     // -- 11 --
+                         + ", photoshopState"                    // -- 12 --
+                         + ", photoshopCountry"                  // -- 13 --
+                         + ", photoshopTransmissionReference"    // -- 14 --
+                         + ", photoshopInstructions"             // -- 15 --
+                         + ", photoshopCredit"                   // -- 16 --
+                         + ", photoshopSource"                   // -- 17 --
+                         + ", rating"                            // -- 18 --
+                         + ", iptc4xmpcore_datecreated"          // -- 19 --
+                         + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
+                         + ", ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            stmt = connection.prepareStatement(sql);
             set(stmt, template);
             logFiner(stmt);
             stmt.executeUpdate();
@@ -142,25 +146,25 @@ public class DatabaseMetadataTemplates extends Database {
         stmt.setString(1, template.getName());
         stmt.setBytes(
             2, (template.getValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE)
-            == null)
+                == null)
                ? null
                : fromRepeatable(
                    (Collection<String>) template.getValueOfColumn(
                        ColumnXmpDcSubjectsSubject.INSTANCE)).getBytes());
         stmt.setBytes(3, (template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE)
-                      == null)
+                          == null)
                          ? null
                          : ((String) template.getValueOfColumn(
                              ColumnXmpDcTitle.INSTANCE)).getBytes());
         stmt.setBytes(
             4, (template.getValueOfColumn(ColumnXmpPhotoshopHeadline.INSTANCE)
-            == null)
+                == null)
                ? null
                : ((String) template.getValueOfColumn(
                    ColumnXmpPhotoshopHeadline.INSTANCE)).getBytes());
         stmt.setBytes(
             5, (template.getValueOfColumn(ColumnXmpDcDescription.INSTANCE)
-            == null)
+                == null)
                ? null
                : ((String) template.getValueOfColumn(
                    ColumnXmpDcDescription.INSTANCE)).getBytes());
@@ -177,16 +181,15 @@ public class DatabaseMetadataTemplates extends Database {
                : ((String) template.getValueOfColumn(
                    ColumnXmpIptc4xmpcoreLocation.INSTANCE)).getBytes());
         stmt.setBytes(8, (template.getValueOfColumn(ColumnXmpDcRights.INSTANCE)
-                      == null)
+                          == null)
                          ? null
                          : ((String) template.getValueOfColumn(
                              ColumnXmpDcRights.INSTANCE)).getBytes());
-        stmt.setBytes(9,
-                      (template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE)
-                       == null)
-                      ? null
-                      : ((String) template.getValueOfColumn(
-                          ColumnXmpDcCreator.INSTANCE)).getBytes());
+        stmt.setBytes(
+            9, (template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE) == null)
+               ? null
+               : ((String) template.getValueOfColumn(
+                   ColumnXmpDcCreator.INSTANCE)).getBytes());
         stmt.setBytes(
             10,
             (template.getValueOfColumn(
@@ -356,26 +359,26 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     private String getSelectForSetValues() {
-        return "SELECT" + " name" +                                             // --  1 --
-            ", dcSubjects" +                                                    // --  2 --
-                ", dcTitle" +                                                   // --  3 --
-                    ", photoshopHeadline" +                                     // --  4 --
-                        ", dcDescription" +                                     // --  5 --
-                            ", photoshopCaptionwriter" +                        // --  6 --
-                                ", iptc4xmpcoreLocation" +                      // --  7 --
-                                        ", dcRights" +                          // --  8 --
-                                        ", dcCreator" +                         // --  9 --
-                                        ", photoshopAuthorsposition" +          // -- 10 --
-                                        ", photoshopCity" +                     // -- 11 --
-                                        ", photoshopState" +                    // -- 12 --
-                                        ", photoshopCountry" +                  // -- 13 --
-                                        ", photoshopTransmissionReference" +    // -- 14 --
-                                        ", photoshopInstructions" +             // -- 15 --
-                                        ", photoshopCredit" +                   // -- 16 --
-                                        ", photoshopSource" +                   // -- 17 --
-                                        ", rating" +                            // -- 18 --
-                                        ", iptc4xmpcore_datecreated" +          // -- 19 --
-                                        " FROM metadata_edit_templates"
+        return "SELECT name"                           // --  1 --
+               + ", dcSubjects"                        // --  2 --
+               + ", dcTitle"                           // --  3 --
+               + ", photoshopHeadline"                 // --  4 --
+               + ", dcDescription"                     // --  5 --
+               + ", photoshopCaptionwriter"            // --  6 --
+               + ", iptc4xmpcoreLocation"              // --  7 --
+               + ", dcRights"                          // --  8 --
+               + ", dcCreator"                         // --  9 --
+               + ", photoshopAuthorsposition"          // -- 10 --
+               + ", photoshopCity"                     // -- 11 --
+               + ", photoshopState"                    // -- 12 --
+               + ", photoshopCountry"                  // -- 13 --
+               + ", photoshopTransmissionReference"    // -- 14 --
+               + ", photoshopInstructions"             // -- 15 --
+               + ", photoshopCredit"                   // -- 16 --
+               + ", photoshopSource"                   // -- 17 --
+               + ", rating"                            // -- 18 --
+               + ", iptc4xmpcore_datecreated"          // -- 19 --
+               + " FROM metadata_edit_templates"
         ;
     }
 
@@ -481,32 +484,34 @@ public class DatabaseMetadataTemplates extends Database {
         PreparedStatement stmt       = null;
 
         try {
+            String sql = "UPDATE metadata_edit_templates"
+                         + " SET name = ?"    // --  1 --
+                         + ", dcSubjects = ?"                        // --  2 --
+                         + ", dcTitle = ?"                           // --  3 --
+                         + ", photoshopHeadline = ?"                 // --  4 --
+                         + ", dcDescription = ?"                     // --  5 --
+                         + ", photoshopCaptionwriter = ?"            // --  6 --
+                         + ", iptc4xmpcoreLocation = ?"              // --  7 --
+                         + ", dcRights = ?"                          // --  8 --
+                         + ", dcCreator = ?"                         // --  9 --
+                         + ", photoshopAuthorsposition = ?"          // -- 10 --
+                         + ", photoshopCity = ?"                     // -- 11 --
+                         + ", photoshopState = ?"                    // -- 12 --
+                         + ", photoshopCountry = ?"                  // -- 13 --
+                         + ", photoshopTransmissionReference = ?"    // -- 14 --
+                         + ", photoshopInstructions = ?"             // -- 15 --
+                         + ", photoshopCredit = ?"                   // -- 16 --
+                         + ", photoshopSource = ?"                   // -- 17 --
+                         + ", rating = ?"                            // -- 18 --
+                         + ", iptc4xmpcore_datecreated = ?"          // -- 19 --
+                         + " WHERE name = ?";                        // -- 20 --
+
             connection = getConnection();
             connection.setAutoCommit(false);
 
             MetadataTemplate oldTemplate = find(template.getName());
 
-            stmt = connection.prepareStatement("UPDATE metadata_edit_templates"
-                                               + " SET name = ?" +    // --  1 --
-                ", dcSubjects = ?" +    // --  2 --
-                    ", dcTitle = ?" +    // --  3 --
-                        ", photoshopHeadline = ?" +    // --  4 --
-                            ", dcDescription = ?" +    // --  5 --
-                                ", photoshopCaptionwriter = ?" +    // --  6 --
-                                    ", iptc4xmpcoreLocation = ?" +    // --  7 --
-                                            ", dcRights = ?" +    // --  8 --
-                                            ", dcCreator = ?" +    // -- 9 --
-                                            ", photoshopAuthorsposition = ?" +    // -- 10 --
-                                            ", photoshopCity = ?" +    // -- 11 --
-                                            ", photoshopState = ?" +    // -- 12 --
-                                            ", photoshopCountry = ?" +    // -- 13 --
-                                            ", photoshopTransmissionReference = ?" +    // -- 14 --
-                                            ", photoshopInstructions = ?" +    // -- 15 --
-                                            ", photoshopCredit = ?" +    // -- 16 --
-                                            ", photoshopSource = ?" +    // -- 17 --
-                                            ", rating = ?" +    // -- 18 --
-                                            ", iptc4xmpcore_datecreated = ?" +    // -- 19 --
-                                            " WHERE name = ?");    // -- 20 --
+            stmt = connection.prepareStatement(sql);
             set(stmt, template);
             stmt.setString(20, template.getName());
             logFiner(stmt);

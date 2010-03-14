@@ -49,6 +49,20 @@ import java.util.List;
 public final class DatabaseKeywords extends Database {
     public static final DatabaseKeywords INSTANCE = new DatabaseKeywords();
 
+    public enum Select {
+
+        /**
+         * Select all keywords
+         */
+        ALL_KEYWORDS,
+
+        /**
+         * Select (only) real keywords. Real keywords are keywords where
+         * {@link Keyword#isReal()} returns true or null.
+         */
+        REAL_KEYWORDS,
+    }
+
     private DatabaseKeywords() {}
 
     /**
@@ -65,8 +79,8 @@ public final class DatabaseKeywords extends Database {
         try {
             connection = getConnection();
 
-            String sql =
-                "SELECT id, id_parent, subject, real FROM hierarchical_subjects";
+            String sql = "SELECT id, id_parent, subject, real"
+                         + " FROM hierarchical_subjects";
 
             stmt = connection.createStatement();
             logFinest(sql);
@@ -254,7 +268,7 @@ public final class DatabaseKeywords extends Database {
 
         try {
             String sql = "SELECT id, id_parent, subject, real"
-                         + " FROM hierarchical_subjects" + " WHERE id = ?";
+                         + " FROM hierarchical_subjects WHERE id = ?";
 
             stmt = connection.prepareStatement(sql);
             stmt.setLong(1, id);
@@ -541,7 +555,8 @@ public final class DatabaseKeywords extends Database {
     }
 
     /**
-     * Renames all real subjects whith a specific name regardless of their parent.
+     * Renames all real subjects whith a specific name regardless of their
+     * parent.
      *
      * @param  oldName old name
      * @param  newName new name
@@ -572,20 +587,6 @@ public final class DatabaseKeywords extends Database {
         }
 
         return count;
-    }
-
-    public enum Select {
-
-        /**
-         * Select all keywords
-         */
-        ALL_KEYWORDS,
-
-        /**
-         * Select (only) real keywords. Real keywords are keywords where
-         * {@link Keyword#isReal()} returns true or null.
-         */
-        REAL_KEYWORDS,
     }
 
     /**
@@ -656,7 +657,8 @@ public final class DatabaseKeywords extends Database {
             Long idNextParent = keyword.getIdParent();
 
             if (idNextParent != null) {
-                addPathToRoot(path, idNextParent, select, connection);    // recursive
+                addPathToRoot(path, idNextParent, select,
+                              connection);    // recursive
             }
         }
     }

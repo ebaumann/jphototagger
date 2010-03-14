@@ -47,6 +47,8 @@ public final class DatabaseFavorites extends Database {
     private final ListenerSupport<DatabaseFavoritesListener> listenerSupport =
         new ListenerSupport<DatabaseFavoritesListener>();
 
+    private DatabaseFavorites() {}
+
     /**
      * Fügt ein Favoritenverzeichnis ein. Existiert es bereits, wird es
      * aktualisiert.
@@ -67,10 +69,9 @@ public final class DatabaseFavorites extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                "INSERT INTO favorite_directories" + " (favorite_name" +    // -- 1 --
-                ", directory_name" +         // -- 2 --
-                    ", favorite_index)" +    // -- 3 --
-                        " VALUES (?, ?, ?)");
+                "INSERT INTO favorite_directories"
+                + " (favorite_name, directory_name, favorite_index)"
+                + " VALUES (?, ?, ?)");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
@@ -153,10 +154,9 @@ public final class DatabaseFavorites extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                "UPDATE favorite_directories SET" + " favorite_name = ?" +    // -- 1 --
-                ", directory_name = ?" +                // -- 2 --
-                    ", favorite_index = ?" +            // -- 3 --
-                        " WHERE favorite_name = ?");    // -- 4 --
+                "UPDATE favorite_directories SET"
+                + " favorite_name = ?, directory_name = ?, favorite_index = ?"
+                + " WHERE favorite_name = ?");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
@@ -200,10 +200,9 @@ public final class DatabaseFavorites extends Database {
             connection = getConnection();
             stmt       = connection.createStatement();
 
-            String sql = "SELECT favorite_name" +    // -- 1 --
-                ", directory_name" +                 // -- 2 --
-                    ", favorite_index" +             // -- 3 --
-                        " FROM favorite_directories" + " ORDER BY favorite_index ASC";
+            String sql =
+                "SELECT favorite_name, directory_name, favorite_index"
+                + " FROM favorite_directories ORDER BY favorite_index ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -231,10 +230,9 @@ public final class DatabaseFavorites extends Database {
 
         try {
             connection = getConnection();
-            stmt       = connection.prepareStatement("SELECT favorite_name" +    // -- 1 --
-                ", directory_name" +        // -- 2 --
-                    ", favorite_index" +    // -- 3 --
-                        " FROM favorite_directories" + " WHERE favorite_name = ?");
+            stmt       = connection.prepareStatement("SELECT"
+                    + " favorite_name, directory_name, favorite_index"
+                    + " FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -313,6 +311,4 @@ public final class DatabaseFavorites extends Database {
             }
         }
     }
-
-    private DatabaseFavorites() {}
 }

@@ -52,6 +52,13 @@ public final class DatabasePrograms extends Database {
     private final ListenerSupport<DatabaseProgramsListener> listenerSupport =
         new ListenerSupport<DatabaseProgramsListener>();
 
+    /**
+     *
+     */
+    public enum Type { ACTION, PROGRAM }
+
+    private enum WhereFilter { ID, ACTION }
+
     private DatabasePrograms() {}
 
     /**
@@ -66,24 +73,25 @@ public final class DatabasePrograms extends Database {
         PreparedStatement stmt              = null;
 
         try {
+            String sql = "INSERT INTO programs (id"             // --  1 --
+                         + ", action"                           // --  2 --
+                         + ", filename"                         // --  3 --
+                         + ", alias"                            // --  4 --
+                         + ", parameters_before_filename"       // --  5 --
+                         + ", parameters_after_filename"        // --  6 --
+                         + ", input_before_execute"             // --  7 --
+                         + ", input_before_execute_per_file"    // --  8 --
+                         + ", single_file_processing"           // --  9 --
+                         + ", change_file"                      // -- 10 --
+                         + ", sequence_number"                  // -- 11 --
+                         + ", use_pattern"                      // -- 12 --
+                         + ", pattern"                          // -- 13 --
+                         + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
             connection = getConnection();
             connection.setAutoCommit(false);
             setId(connection, program);
-            stmt = connection.prepareStatement("INSERT INTO programs" + " ("
-                                               + "id" +    // --  1 --
-                ", action" +                                                   // --  2 --
-                    ", filename" +                                             // --  3 --
-                        ", alias" +                                            // --  4 --
-                            ", parameters_before_filename" +                   // --  5 --
-                                ", parameters_after_filename" +                // --  6 --
-                                    ", input_before_execute" +                 // --  7 --
-                                        ", input_before_execute_per_file" +    // --  8 --
-                                            ", single_file_processing" +       // --  9 --
-                                            ", change_file" +                  // -- 10 --
-                                            ", sequence_number" +              // -- 11 --
-                                            ", use_pattern" +                  // -- 12 --
-                                            ", pattern" +                      // -- 13 --
-                                            ")" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = connection.prepareStatement(sql);
             setValuesInsert(stmt, program);
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -166,22 +174,23 @@ public final class DatabasePrograms extends Database {
         PreparedStatement stmt              = null;
 
         try {
+            String sql = "UPDATE programs SET action = ?"           // --  1 --
+                         + ", filename = ?"                         // --  2 --
+                         + ", alias = ?"                            // --  3 --
+                         + ", parameters_before_filename = ?"       // --  4 --
+                         + ", parameters_after_filename = ?"        // --  5 --
+                         + ", input_before_execute = ?"             // --  6 --
+                         + ", input_before_execute_per_file = ?"    // --  7 --
+                         + ", single_file_processing = ?"           // --  8 --
+                         + ", change_file = ?"                      // --  9 --
+                         + ", sequence_number = ?"                  // -- 10 --
+                         + ", use_pattern = ?"                      // -- 11 --
+                         + ", pattern = ?"                          // -- 12 --
+                         + " WHERE id = ?";                         // -- 13 --
+
             connection = getConnection();
             connection.setAutoCommit(false);
-            stmt = connection.prepareStatement("UPDATE programs" + " SET"
-                                               + " action = ?" +    // --  1 --
-                ", filename = ?" +                                             // --  2 --
-                    ", alias = ?" +                                            // --  3 --
-                        ", parameters_before_filename = ?" +                   // --  4 --
-                            ", parameters_after_filename = ?" +                // --  5 --
-                                ", input_before_execute = ?" +                 // --  6 --
-                                    ", input_before_execute_per_file = ?" +    // --  7 --
-                                        ", single_file_processing = ?" +       // --  8 --
-                                            ", change_file = ?" +              // --  9 --
-                                            ", sequence_number = ?" +          // -- 10 --
-                                            ", use_pattern = ?" +              // -- 11 --
-                                            ", pattern = ?" +                  // -- 12 --
-                                            " WHERE id = ?");    // -- 13 --
+            stmt = connection.prepareStatement(sql);
             setValuesUpdate(stmt, program);
             stmt.setLong(13, program.getId());
             logFiner(stmt);
@@ -268,11 +277,6 @@ public final class DatabasePrograms extends Database {
     }
 
     /**
-     *
-     */
-    public enum Type { ACTION, PROGRAM }
-
-    /**
      * Returns all programs ordered by their aliases.
      *
      * @param  type program type
@@ -305,28 +309,25 @@ public final class DatabasePrograms extends Database {
         return programs;
     }
 
-    private enum WhereFilter { ID, ACTION }
-
     private String getSelectProgramStmt(WhereFilter filter) {
-        return "SELECT" + " id" +                                          // --  1 --
-            ", action" +                                                   // --  2 --
-                ", filename" +                                             // --  3 --
-                    ", alias" +                                            // --  4 --
-                        ", parameters_before_filename" +                   // --  5 --
-                            ", parameters_after_filename" +                // --  6 --
-                                ", input_before_execute" +                 // --  7 --
-                                    ", input_before_execute_per_file" +    // --  8 --
-                                        ", single_file_processing" +       // --  9 --
-                                        ", change_file" +                  // -- 10 --
-                                        ", sequence_number" +              // -- 11 --
-                                        ", use_pattern" +                  // -- 12 --
-                                        ", pattern" +                      // -- 13 --
-                                        " FROM programs" + (filter.equals(
-                                        WhereFilter.ACTION)
-                ? " WHERE action = ?"
-                : filter.equals(WhereFilter.ID)
-                  ? " WHERE id = ?"
-                  : "") + " ORDER BY alias";
+        return "SELECT id"                            // --  1 --
+               + ", action"                           // --  2 --
+               + ", filename"                         // --  3 --
+               + ", alias"                            // --  4 --
+               + ", parameters_before_filename"       // --  5 --
+               + ", parameters_after_filename"        // --  6 --
+               + ", input_before_execute"             // --  7 --
+               + ", input_before_execute_per_file"    // --  8 --
+               + ", single_file_processing"           // --  9 --
+               + ", change_file"                      // -- 10 --
+               + ", sequence_number"                  // -- 11 --
+               + ", use_pattern"                      // -- 12 --
+               + ", pattern"                          // -- 13 --
+               + " FROM programs" + (filter.equals(WhereFilter.ACTION)
+                                     ? " WHERE action = ?"
+                                     : filter.equals(WhereFilter.ID)
+                                       ? " WHERE id = ?"
+                                       : "") + " ORDER BY alias";
     }
 
     private Program getSelectedProgram(ResultSet rs) throws SQLException {
@@ -374,9 +375,11 @@ public final class DatabasePrograms extends Database {
         boolean           exists     = false;
 
         try {
+            String sql = "SELECT COUNT(*) FROM programs"
+                         + " WHERE alias = ? AND filename = ?";
+
             connection = getConnection();
-            stmt       = connection.prepareStatement(
-                "SELECT COUNT(*) FROM programs WHERE alias = ? AND filename = ?");
+            stmt       = connection.prepareStatement(sql);
             setString(program.getAlias(), stmt, 1);
             setString(program.getFile().getAbsolutePath(), stmt, 2);
             logFinest(stmt);

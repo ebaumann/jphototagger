@@ -61,10 +61,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                "INSERT INTO actions_after_db_insertion" + " (" + "id_programs"
-                +    // -- 1 --
-                ", action_order" +    // -- 2 --
-                    ")" + " VALUES (?, ?)");
+                "INSERT INTO actions_after_db_insertion"
+                + " (id_programs, action_order) VALUES (?, ?)");
             stmt.setLong(1, action.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
@@ -127,8 +125,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection = getConnection();
             stmt       = connection.createStatement();
 
-            String sql = "SELECT" + " id_programs" +    // -- 1 --
-                " FROM actions_after_db_insertion" + " ORDER BY action_order ASC";
+            String sql = "SELECT id_programs FROM actions_after_db_insertion"
+                         + " ORDER BY action_order ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -170,8 +168,9 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
 
         try {
             connection = getConnection();
-            stmt       = connection.prepareStatement("SELECT" + " COUNT(*) " +    // -- 1 --
-                " FROM actions_after_db_insertion" + " WHERE id_programs = ?");
+            stmt       = connection.prepareStatement("SELECT COUNT(*) "
+                    + " FROM actions_after_db_insertion"
+                    + " WHERE id_programs = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -207,9 +206,8 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                "UPDATE actions_after_db_insertion" + " SET"
-                + " action_order = ?" +    // -- 1 --
-                " WHERE id_programs = ?");
+                "UPDATE actions_after_db_insertion SET action_order = ?"
+                + " WHERE id_programs = ?");
 
             int index         = startIndex;
             int countAffected = 0;

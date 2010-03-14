@@ -55,7 +55,8 @@ public final class DatabaseSynonyms extends Database {
             connection = getConnection();
             connection.setAutoCommit(false);
             stmt = connection.prepareStatement(
-                "UPDATE synonyms SET synonym = ? WHERE word = ? AND synonym = ?");
+                "UPDATE synonyms SET synonym = ?"
+                + " WHERE word = ? AND synonym = ?");
             stmt.setString(1, newSynonym);
             stmt.setString(2, word);
             stmt.setString(3, oldSynonym);

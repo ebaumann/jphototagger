@@ -203,10 +203,8 @@ public final class DatabaseImageCollections extends Database {
             stmtName = connection.prepareStatement(
                 "INSERT INTO collection_names (name) VALUES (?)");
             stmtColl = connection.prepareStatement("INSERT INTO collections"
-                    + " (id_collectionnnames" +    // -- 1 --
-                ", id_files" +                // -- 2 --
-                    ", sequence_number)" +    // -- 3 --
-                        " VALUES (?, ?, ?)");
+                    + " (id_collectionnnames, id_files, sequence_number)"
+                    + " VALUES (?, ?, ?)");
             stmtName.setString(1, collectionName);
             logFiner(stmtName);
             stmtName.executeUpdate();
@@ -361,11 +359,10 @@ public final class DatabaseImageCollections extends Database {
             if (exists(collectionName)) {
                 connection = getConnection();
                 connection.setAutoCommit(false);
-                stmt = connection.prepareStatement("INSERT INTO collections"
-                                                   + " (id_files" +    // -- 1 --
-                    ", id_collectionnnames" +     // -- 2 --
-                        ", sequence_number)" +    // -- 3 --
-                            " VALUES (?, ?, ?)");
+                stmt = connection.prepareStatement(
+                    "INSERT INTO collections"
+                    + " (id_files, id_collectionnnames, sequence_number)"
+                    + " VALUES (?, ?, ?)");
 
                 long idCollectionNames = findId(connection, collectionName);
                 int  sequence_number   = getMaxSequenceNumber(connection,

@@ -184,7 +184,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             connection = getConnection();
             stmt       = connection.createStatement();
 
-            String sql = "SELECT pattern" + " FROM file_exclude_pattern"
+            String sql = "SELECT pattern FROM file_exclude_pattern"
                          + " ORDER BY pattern ASC";
 
             logFinest(sql);

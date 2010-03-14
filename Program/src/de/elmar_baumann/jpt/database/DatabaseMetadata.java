@@ -72,7 +72,8 @@ public final class DatabaseMetadata extends Database {
         try {
             stmt = connection.createStatement();
 
-            String sql = "select * from " + tableName + " WHERE 1 = 0";    // "WHERE 1 = 0": speed, memory!
+            // "WHERE 1 = 0": speed, memory!
+            String sql = "select * from " + tableName + " WHERE 1 = 0";
 
             rs   = stmt.executeQuery(sql);
             rsmd = rs.getMetaData();
@@ -90,34 +91,6 @@ public final class DatabaseMetadata extends Database {
 
         return exists;
     }
-
-    /**
-     * Column info. The fields are documented in {@code DatabaseMetaData#getColumns()}.
-     */
-    public static class ColumnInfo {
-        public String TABLE_CAT;
-        public String TABLE_SCHEM;
-        public String TABLE_NAME;
-        public String COLUMN_NAME;
-        public int    DATA_TYPE;
-        public String TYPE_NAME;
-        public int    COLUMN_SIZE;
-        public int    DECIMAL_DIGITS;
-        public int    NUM_PREC_RADIX;
-        public int    NULLABLE;
-        public String REMARKS;
-        public String COLUMN_DEF;
-        public int    SQL_DATA_TYPE;
-        public int    SQL_DATETIME_SUB;
-        public int    CHAR_OCTET_LENGTH;
-        public int    ORDINAL_POSITION;
-        public String IS_NULLABLE;
-        public String SCOPE_CATLOG;
-        public String SCOPE_SCHEMA;
-        public String SCOPE_TABLE;
-        public short  SOURCE_DATA_TYPE;
-    }
-
 
     /**
      * Returns information of one or all columns of a specific table.
@@ -173,5 +146,33 @@ public final class DatabaseMetadata extends Database {
         }
 
         return infos;
+    }
+
+    /**
+     * Column info. The fields are documented in
+     * {@code DatabaseMetaData#getColumns()}.
+     */
+    public static class ColumnInfo {
+        public int    CHAR_OCTET_LENGTH;
+        public String COLUMN_DEF;
+        public String COLUMN_NAME;
+        public int    COLUMN_SIZE;
+        public int    DATA_TYPE;
+        public int    DECIMAL_DIGITS;
+        public String IS_NULLABLE;
+        public int    NULLABLE;
+        public int    NUM_PREC_RADIX;
+        public int    ORDINAL_POSITION;
+        public String REMARKS;
+        public String SCOPE_CATLOG;
+        public String SCOPE_SCHEMA;
+        public String SCOPE_TABLE;
+        public short  SOURCE_DATA_TYPE;
+        public int    SQL_DATA_TYPE;
+        public int    SQL_DATETIME_SUB;
+        public String TABLE_CAT;
+        public String TABLE_NAME;
+        public String TABLE_SCHEM;
+        public String TYPE_NAME;
     }
 }

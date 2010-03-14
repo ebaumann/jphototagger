@@ -119,11 +119,8 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getInsertSearchValuesSql() {
-        return "INSERT INTO saved_searches_values (" + "id_saved_searches"
-               +    // -- 1 --
-            ", value" +              // -- 2 --
-                ", value_index" +    // -- 3 --
-                    ")" + " VALUES (?, ?, ?)";
+        return "INSERT INTO saved_searches_values"
+               + " (id_saved_searches, value, value_index) VALUES (?, ?, ?)";
     }
 
     private void insertSavedSearchValues(Connection connection,
@@ -153,17 +150,17 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getInsertSavedSearchPanelsSql() {
-        return "INSERT INTO" + " saved_searches_panels (" + "id_saved_searches"
-               +    // -- 1 --
-            ", panel_index" +                                   // -- 2 --
-                ", bracket_left_1" +                            // -- 3 --
-                    ", operator_id" +                           // -- 4 --
-                        ", bracket_left_2" +                    // -- 5 --
-                            ", column_id" +                     // -- 6 --
-                                ", comparator_id" +             // -- 7 --
-                                    ", value" +                 // -- 8 --
-                                        ", bracket_right)" +    // -- 9 --
-                                        " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO saved_searches_panels"
+               + " (id_saved_searches"    // -- 1 --
+               + ", panel_index"       // -- 2 --
+               + ", bracket_left_1"    // -- 3 --
+               + ", operator_id"       // -- 4 --
+               + ", bracket_left_2"    // -- 5 --
+               + ", column_id"         // -- 6 --
+               + ", comparator_id"     // -- 7 --
+               + ", value"             // -- 8 --
+               + ", bracket_right)"    // -- 9 --
+               + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     private void insertSavedSearchPanels(Connection connection,
@@ -380,11 +377,8 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getFindSql() {
-        return "SELECT" + " name" +      // -- 1 --
-            ", sql_string" +             // -- 2 --
-                ", is_query" +           // -- 3 --
-                    ", search_type" +    // -- 4 --
-                        " FROM saved_searches WHERE name = ?";
+        return "SELECT name, sql_string, is_query, search_type"
+               + " FROM saved_searches WHERE name = ?";
     }
 
     /**
@@ -443,11 +437,8 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getGetAllSql() {
-        return "SELECT" + " name" +      // -- 1 --
-            ", sql_string" +             // -- 2 --
-                ", is_query" +           // -- 3 --
-                    ", search_type" +    // -- 4 --
-                        " FROM saved_searches ORDER BY name";
+        return "SELECT name, sql_string, is_query, search_type"
+               + " FROM saved_searches ORDER BY name";
     }
 
     /**
@@ -496,10 +487,10 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getSetSearchValuesSql() {
-        return "SELECT" + " saved_searches_values.value" + " FROM"
+        return "SELECT saved_searches_values.value FROM"
                + " saved_searches_values INNER JOIN saved_searches"
-               + " ON saved_searches_values.id_saved_searches = saved_searches.id"
-               + " AND saved_searches.name = ?"
+               + " ON saved_searches_values.id_saved_searches"
+               + " = saved_searches.id AND saved_searches.name = ?"
                + " ORDER BY saved_searches_values.value_index ASC";
     }
 
@@ -536,18 +527,18 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getSetSavedSearchPanelsSql() {
-        return "SELECT" + " saved_searches_panels.panel_index" +    // -- 1 --
-            ", saved_searches_panels.bracket_left_1" +    // -- 2 --
-                ", saved_searches_panels.operator_id" +    // -- 3 --
-                    ", saved_searches_panels.bracket_left_2" +    // -- 4 --
-                        ", saved_searches_panels.column_id" +    // -- 5 --
-                            ", saved_searches_panels.comparator_id" +    // -- 6 --
-                                ", saved_searches_panels.value" +    // -- 7 --
-                                    ", saved_searches_panels.bracket_right" +    // -- 8 --
-                                        " FROM" + " saved_searches_panels INNER JOIN saved_searches"
-                                        + " ON saved_searches_panels.id_saved_searches = saved_searches.id"
-                                        + " AND saved_searches.name = ?"
-                                        + " ORDER BY saved_searches_panels.panel_index ASC";
+        return "SELECT saved_searches_panels.panel_index"    // -- 1 --
+               + ", saved_searches_panels.bracket_left_1"    // -- 2 --
+               + ", saved_searches_panels.operator_id"       // -- 3 --
+               + ", saved_searches_panels.bracket_left_2"    // -- 4 --
+               + ", saved_searches_panels.column_id"         // -- 5 --
+               + ", saved_searches_panels.comparator_id"     // -- 6 --
+               + ", saved_searches_panels.value"             // -- 7 --
+               + ", saved_searches_panels.bracket_right"     // -- 8 --
+               + " FROM saved_searches_panels INNER JOIN saved_searches"
+               + " ON saved_searches_panels.id_saved_searches"
+               + " = saved_searches.id AND saved_searches.name = ?"
+               + " ORDER BY saved_searches_panels.panel_index ASC";
     }
 
     public void tagSearchesIfStmtContains(String what, String tag) {
@@ -556,7 +547,8 @@ public final class DatabaseSavedSearches extends Database {
 
             if ((stmt != null) && stmt.getSql().contains(what)) {
                 String name = search.getName();
-                if (!name.startsWith(tag) && !name.endsWith(tag)) {
+
+                if (!name.startsWith(tag) &&!name.endsWith(tag)) {
                     delete(name);
                     search.setName(tag + name + tag);
                     insertOrUpdate(search);
