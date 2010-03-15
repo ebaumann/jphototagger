@@ -2651,6 +2651,25 @@ public final class DatabaseImageFiles extends Database {
         return tnFiles;
     }
 
+    public void deleteValueOfJoinedColumn(Column column, String value) {
+        String            sql  = Join.getDeleteSql(column.getTablename());
+        Connection        con  = null;
+        PreparedStatement stmt = null;
+
+        try {
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, value);
+            logFiner(stmt);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            AppLogger.logSevere(getClass(), ex);
+        } finally {
+            close(stmt);
+        }
+    }
+
     /**
      * Deletes a Dublin Core subject.
      * <p>

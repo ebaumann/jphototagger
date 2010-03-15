@@ -36,6 +36,8 @@ public final class Join {
                                                                String>();
     private static final Map<String, String> NOT_NULL_SQL_OF =
         new HashMap<String, String>();
+    private static final Map<String, String> DELETE_SQL_OF =
+        new HashMap<String, String>();
 
     static {
         JOIN_FROM_FILES.put("files", "");
@@ -244,6 +246,29 @@ public final class Join {
                             + " INNER JOIN xmp ON files.id = xmp.id_files"
                             + " WHERE xmp.id IN"
                             + " (SELECT id_xmp FROM xmp_dc_subject)");
+        DELETE_SQL_OF.put("dc_creator",
+                          "DELETE FROM dc_creator WHERE creator = ?");
+        DELETE_SQL_OF.put("dc_rights",
+                          "DELETE FROM dc_rights WHERE rights = ?");
+        DELETE_SQL_OF.put(
+            "iptc4xmpcore_location",
+            "DELETE FROM iptc4xmpcore_location WHERE location = ?");
+        DELETE_SQL_OF.put("photoshop_authorsposition",
+                          "DELETE FROM photoshop_authorsposition"
+                          + " WHERE authorsposition = ?");
+        DELETE_SQL_OF.put(
+            "photoshop_captionwriter",
+            "DELETE FROM photoshop_captionwriter WHERE captionwriter = ?");
+        DELETE_SQL_OF.put("photoshop_city",
+                          "DELETE FROM photoshop_city WHERE city = ?");
+        DELETE_SQL_OF.put("photoshop_country",
+                          "DELETE FROM photoshop_country WHERE country = ?");
+        DELETE_SQL_OF.put("photoshop_credit",
+                          "DELETE FROM photoshop_credit WHERE credit = ?");
+        DELETE_SQL_OF.put("photoshop_source",
+                          "DELETE FROM photoshop_source WHERE source = ?");
+        DELETE_SQL_OF.put("photoshop_state",
+                          "DELETE FROM photoshop_state WHERE state = ?");
     }
 
     private Join() {}
@@ -272,6 +297,19 @@ public final class Join {
         return " WHERE files.id NOT IN ("
                + "SELECT files.id FROM files INNER JOIN " + tablename + " ON "
                + tablename + ".id_files = files.id)";
+    }
+
+    public static String getDeleteSql(String tablename) {
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (!DELETE_SQL_OF.containsKey(tablename)) {
+            throw new IllegalArgumentException("Table not defined: "
+                                               + tablename);
+        }
+
+        return DELETE_SQL_OF.get(tablename);
     }
 
     public static String getNotNullSqlOf(String joinTablename) {
