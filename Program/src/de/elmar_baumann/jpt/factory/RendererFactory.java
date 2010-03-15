@@ -29,6 +29,7 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuDirectories;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuFavorites;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuImageCollections;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsTree;
+import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMiscMetadata;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuSavedSearches;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererExif;
 import de.elmar_baumann.jpt.view.renderer.TableCellRendererIptc;
@@ -99,6 +100,8 @@ public final class RendererFactory {
         new TreeItemTempSelectionRowSetter(
             InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
             PopupMenuKeywordsTree.INSTANCE);
+        new TreeItemTempSelectionRowSetter(appPanel.getTreeMiscMetadata(),
+                                           PopupMenuMiscMetadata.INSTANCE);
         new ListItemTempSelectionRowSetter(appPanel.getListImageCollections(),
                                            PopupMenuImageCollections.INSTANCE);
         new ListItemTempSelectionRowSetter(appPanel.getListSavedSearches(),

@@ -20,8 +20,6 @@
 
 package de.elmar_baumann.jpt.view.popupmenus;
 
-import de.elmar_baumann.jpt.controller.miscmetadata.DeleteMiscMetadataAction;
-import de.elmar_baumann.jpt.controller.miscmetadata.RenameMiscMetadataAction;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
@@ -35,6 +33,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
+import javax.swing.tree.TreePath;
 
 /**
  *
@@ -47,9 +46,9 @@ public final class PopupMenuMiscMetadata extends JPopupMenu {
     public static final PopupMenuMiscMetadata INSTANCE         =
         new PopupMenuMiscMetadata();
     private final JMenuItem itemRename =
-        new JMenuItem(new RenameMiscMetadataAction());
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemRename"));
     private final JMenuItem itemDelete =
-        new JMenuItem(new DeleteMiscMetadataAction());
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemDelete"));
     private final JMenuItem itemExpandAllSubitems =
         new JMenuItem(
             JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
@@ -57,6 +56,7 @@ public final class PopupMenuMiscMetadata extends JPopupMenu {
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "MouseListenerTreeExpand.ItemCollapse"));
+    private TreePath selPath;
     private static final KeyStroke keyStrokeRename = KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0);
     private static final KeyStroke keyStrokeDelete = KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0);
 
@@ -65,12 +65,28 @@ public final class PopupMenuMiscMetadata extends JPopupMenu {
         setAccelerators();
     }
 
+    public TreePath getSelPath() {
+        return selPath;
+    }
+
+    public void setSelPath(TreePath selPath) {
+        this.selPath = selPath;
+    }
+
     public JMenuItem getItemCollapseAllSubitems() {
         return itemCollapseAllSubitems;
     }
 
     public JMenuItem getItemExpandAllSubitems() {
         return itemExpandAllSubitems;
+    }
+
+    public JMenuItem getItemDelete() {
+        return itemDelete;
+    }
+
+    public JMenuItem getItemRename() {
+        return itemRename;
     }
 
     private void addItems() {

@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.RefreshEvent;
-import de.elmar_baumann.jpt.helper.MiscMetadataHelper;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
@@ -96,7 +95,6 @@ public final class ControllerMiscMetadataItemSelected
             Object lastPathComponent = treePath.getLastPathComponent();
 
             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
-            MiscMetadataHelper.addColumnToLookup(treePath);
         }
 
         private void setFilesOfPossibleNodeToThumbnailsPanel(
