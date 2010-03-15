@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLock;
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.app.update.tables.UpdateTables;
+import de.elmar_baumann.jpt.app.update.tables.UpdateTablesFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -66,7 +66,7 @@ public final class DatabaseTables extends Database {
             createHierarchicalSubjectsTable(con, stmt);
             createSynonymsTable(con, stmt);
             createRenameTemplatesTable(con, stmt);
-            UpdateTables.INSTANCE.update(con);
+            UpdateTablesFactory.INSTANCE.update(con);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseTables.class, ex);
 
