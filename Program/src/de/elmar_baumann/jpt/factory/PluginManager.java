@@ -22,7 +22,7 @@ package de.elmar_baumann.jpt.factory;
 
 import de.elmar_baumann.jpt.plugin.Plugin;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.lib.util.Lookup;
+import de.elmar_baumann.lib.util.ServiceLookup;
 
 import java.util.LinkedHashSet;
 import java.util.Properties;
@@ -126,7 +126,7 @@ public final class PluginManager {
     private void init() {
         Properties properties = UserSettings.INSTANCE.getProperties();
 
-        for (Plugin plugin : Lookup.lookupAll(Plugin.class)) {
+        for (Plugin plugin : ServiceLookup.lookupAll(Plugin.class)) {
             plugin.setProperties(properties);
             ALL_PLUGINS.add(plugin);
 
