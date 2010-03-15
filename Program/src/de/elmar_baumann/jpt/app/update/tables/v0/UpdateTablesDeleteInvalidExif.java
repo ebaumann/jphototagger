@@ -18,7 +18,7 @@
  * MA  02110-1301, USA.
  */
 
-package de.elmar_baumann.jpt.app.update.tables;
+package de.elmar_baumann.jpt.app.update.tables.v0;
 
 import de.elmar_baumann.jpt.app.SplashScreen;
 import de.elmar_baumann.jpt.database.Database;

@@ -32,7 +32,7 @@ public final class IndexOfColumn {
     private final String  indexName;
     private final boolean unique;
 
-    IndexOfColumn(String tableName, String columnName, String indexName,
+    public IndexOfColumn(String tableName, String columnName, String indexName,
                   boolean unique) {
         this.tableName  = tableName;
         this.columnName = columnName;
@@ -40,7 +40,7 @@ public final class IndexOfColumn {
         this.unique     = unique;
     }
 
-    String getSql() {
+    public String getSql() {
         return "CREATE" + (unique
                            ? " UNIQUE INDEX "
                            : " INDEX ") + indexName + " ON " + tableName + " ("

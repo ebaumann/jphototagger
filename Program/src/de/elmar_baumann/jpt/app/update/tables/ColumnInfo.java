@@ -26,7 +26,7 @@ package de.elmar_baumann.jpt.app.update.tables;
  * @author  Elmar Baumann
  * @version 2008-11-06
  */
-final class ColumnInfo {
+public final class ColumnInfo {
     private final String        tableName;
     private final String        columnName;
     private final String        dataType;

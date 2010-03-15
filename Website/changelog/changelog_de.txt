@@ -11,6 +11,12 @@ Changelog JPhotoTagger
 * Neue Einträge im Kontextmenü des Kartenreiters "Verschiedenes": "Löschen" und
   "Umbenennen": Löscht ausgewählte Metadaten aus allen Filialdateien oder
   benennt diese dort um, beispielsweise das Copyright.
+* "Inoffizielle" Option für die Datei "Settings.properties" im Einstellungen-
+  Verzeichnis: "UdateTables.Disable.V<Hauptversionsnummer>=1" schaltet beim
+  Start das Prüfen der Tabellen ab und beschleunigt diesen so. Aktuell ist die
+  Hauptversionsummer "0" und "UdateTables.Disable.V0=1" deaktiviert die
+  Tabellenprüfung beim Start. Nach Installation einer neuen Version ist diese
+  Prüfung zu aktivieren: "UdateTables.Disable.V0=0"!
 
 0.8.0 2010-03-14
 ----------------
