@@ -32,12 +32,12 @@ import java.util.ServiceLoader;
  *
  * For details see http://java.sun.com/j2se/1.4.2/docs/guide/jar/jar.html#Service%20Provider.
  *
- * Inspired by http://bits.netbeans.org/dev/javadoc/org-openide-util/org/openide/util/Lookup.html.
+ * Inspired by http://bits.netbeans.org/dev/javadoc/org-openide-util/org/openide/util/ServiceLookup.html.
  *
  * @author  Elmar Baumann
  * @version 2009-08-27
  */
-public final class Lookup {
+public final class ServiceLookup {
 
     /**
      * Returns the first implementing class of a Java service.
@@ -71,12 +71,12 @@ public final class Lookup {
                 result.add(service);
             }
         } catch (Exception ex) {
-            Logger.getLogger(Lookup.class.getName()).log(Level.SEVERE, null,
+            Logger.getLogger(ServiceLookup.class.getName()).log(Level.SEVERE, null,
                              ex);
         }
 
         return result;
     }
 
-    private Lookup() {}
+    private ServiceLookup() {}
 }
