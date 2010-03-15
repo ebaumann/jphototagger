@@ -27,6 +27,7 @@ import de.elmar_baumann.jpt.event.listener.impl.MouseListenerImageCollections;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywordsList;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerKeywordsTree;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerMetadataTemplates;
+import de.elmar_baumann.jpt.event.listener.impl.MouseListenerMiscMetadataTree;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerSavedSearches;
 import de.elmar_baumann.jpt.event.listener.impl.MouseListenerTreeExpand;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -82,7 +83,7 @@ public final class MouseListenerFactory {
             new MouseListenerImageCollections());
         appPanel.getTreeFavorites().addMouseListener(
             new MouseListenerFavorites());
-        appPanel.getTreeMiscMetadata().addMouseListener(listenerTreeExpand);
+        appPanel.getTreeMiscMetadata().addMouseListener(new MouseListenerMiscMetadataTree());
         appPanel.getTreeTimeline().addMouseListener(listenerTreeExpand);
         appPanel.getTreeSelKeywords().addMouseListener(listenerTreeExpand);
         appPanel.getTreeEditKeywords().addMouseListener(listenerKeywordsTree);
