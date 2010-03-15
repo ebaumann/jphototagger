@@ -2265,6 +2265,17 @@ public final class DatabaseImageFiles extends Database {
         return values;
     }
 
+    private String getFilesNotNullInSql(String tablename, String columnName) {
+        boolean isLink = !tablename.equals("xmp") &&!tablename.equals("exif");
+
+        return isLink
+               ? Join.getNotNullSqlOf(tablename)
+               : "SELECT DISTINCT files.filename FROM " + tablename
+                 + " INNER JOIN files ON " + tablename + ".id_files = files.id"
+                 + " WHERE " + tablename + "." + columnName + " IS NOT NULL"
+                 + " ORDER BY files.filename ASC";
+    }
+
     /**
      * Returns files with specific values (where the column is not null), e.g.
      * files with ISO speed ratings in the EXIF table.
@@ -2283,14 +2294,9 @@ public final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String tableName  = column.getTablename();
+            String tablename  = column.getTablename();
             String columnName = column.getName();
-            String sql        = "SELECT DISTINCT files.filename FROM "
-                                + tableName + " INNER JOIN files ON "
-                                + tableName + ".id_files = files.id"
-                                + " WHERE " + tableName + "." + columnName
-                                + " IS NOT NULL"
-                                + " ORDER BY files.filename ASC";
+            String sql        = getFilesNotNullInSql(tablename, columnName);
 
             stmt = con.createStatement();
             logFinest(sql);
@@ -2327,7 +2333,8 @@ public final class DatabaseImageFiles extends Database {
      * @param  exactValue exact value of the column content
      * @return            files
      */
-    public List<File> getFilesJoinTable(Column column, String exactValue) {
+    public List<File> getFilesWithColumnContent(Column column,
+            String exactValue) {
         List<File>        files      = new ArrayList<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
