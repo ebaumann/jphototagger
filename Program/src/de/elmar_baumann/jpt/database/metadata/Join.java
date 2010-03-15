@@ -34,6 +34,8 @@ public final class Join {
         new HashMap<String, String>();
     private static final Map<String, String> NULL_SQL_OF = new HashMap<String,
                                                                String>();
+    private static final Map<String, String> NOT_NULL_SQL_OF =
+        new HashMap<String, String>();
 
     static {
         JOIN_FROM_FILES.put("files", "");
@@ -121,60 +123,60 @@ public final class Join {
         NULL_SQL_OF.put(
             "dc_creator",
             "SELECT files.filename FROM xmp INNER JOIN files"
-            + " ON xmp.id_files = xmp.id WHERE xmp.id_dc_creator IS NULL"
+            + " ON xmp.id_files = files.id WHERE xmp.id_dc_creator IS NULL"
             + " UNION SELECT files.filename FROM files "
             + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put(
             "dc_rights",
             "SELECT files.filename FROM xmp INNER JOIN files"
-            + " ON xmp.id_files = xmp.id WHERE xmp.id_dc_rights IS NULL"
+            + " ON xmp.id_files = files.id WHERE xmp.id_dc_rights IS NULL"
             + " UNION SELECT files.filename FROM files "
             + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("iptc4xmpcore_location",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_iptc4xmpcore_location IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("photoshop_authorsposition",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_photoshop_authorsposition IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("photoshop_captionwriter",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_photoshop_captionwriter IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("photoshop_city",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_photoshop_city IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("photoshop_country",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_photoshop_country IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("photoshop_credit",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_photoshop_credit IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("photoshop_source",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_photoshop_source IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
         NULL_SQL_OF.put("photoshop_state",
                         "SELECT files.filename FROM xmp INNER JOIN files"
-                        + " ON xmp.id_files = xmp.id"
+                        + " ON xmp.id_files = files.id"
                         + " WHERE xmp.id_photoshop_state IS NULL"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
@@ -185,6 +187,63 @@ public final class Join {
                         + " (SELECT id_xmp FROM xmp_dc_subject)"
                         + " UNION SELECT files.filename FROM files "
                         + getUnjoinedFilesSqlWhere("xmp"));
+        NOT_NULL_SQL_OF.put(
+            "exif_recording_equipment",
+            "SELECT files.filename FROM exif INNER JOIN files"
+            + " ON exif.id_files = files.id"
+            + " WHERE exif.id_exif_recording_equipment IS NOT NULL");
+        NOT_NULL_SQL_OF.put("exif_lens",
+                            "SELECT files.filename FROM exif INNER JOIN files"
+                            + " ON exif.id_files = files.id"
+                            + " WHERE exif.id_exif_lens IS NOT NULL");
+        NOT_NULL_SQL_OF.put("dc_creator",
+                            "SELECT files.filename FROM xmp INNER JOIN files"
+                            + " ON xmp.id_files = files.id"
+                            + " WHERE xmp.id_dc_creator IS NOT NULL");
+        NOT_NULL_SQL_OF.put("dc_rights",
+                            "SELECT files.filename FROM xmp INNER JOIN files"
+                            + " ON xmp.id_files = files.id"
+                            + " WHERE xmp.id_dc_rights IS NOT NULL");
+        NOT_NULL_SQL_OF.put(
+            "iptc4xmpcore_location",
+            "SELECT files.filename FROM xmp INNER JOIN files"
+            + " ON xmp.id_files = files.id"
+            + " WHERE xmp.id_iptc4xmpcore_location IS NOT NULL");
+        NOT_NULL_SQL_OF.put(
+            "photoshop_authorsposition",
+            "SELECT files.filename FROM xmp INNER JOIN files"
+            + " ON xmp.id_files = files.id"
+            + " WHERE xmp.id_photoshop_authorsposition IS NOT NULL");
+        NOT_NULL_SQL_OF.put(
+            "photoshop_captionwriter",
+            "SELECT files.filename FROM xmp INNER JOIN files"
+            + " ON xmp.id_files = files.id"
+            + " WHERE xmp.id_photoshop_captionwriter IS NOT NULL");
+        NOT_NULL_SQL_OF.put("photoshop_city",
+                            "SELECT files.filename FROM xmp INNER JOIN files"
+                            + " ON xmp.id_files = files.id"
+                            + " WHERE xmp.id_photoshop_city IS NOT NULL");
+        NOT_NULL_SQL_OF.put("photoshop_country",
+                            "SELECT files.filename FROM xmp INNER JOIN files"
+                            + " ON xmp.id_files = files.id"
+                            + " WHERE xmp.id_photoshop_country IS NOT NULL");
+        NOT_NULL_SQL_OF.put("photoshop_credit",
+                            "SELECT files.filename FROM xmp INNER JOIN files"
+                            + " ON xmp.id_files = files.id"
+                            + " WHERE xmp.id_photoshop_credit IS NOT NULL");
+        NOT_NULL_SQL_OF.put("photoshop_source",
+                            "SELECT files.filename FROM xmp INNER JOIN files"
+                            + " ON xmp.id_files = files.id"
+                            + " WHERE xmp.id_photoshop_source IS NOT NULL");
+        NOT_NULL_SQL_OF.put("photoshop_state",
+                            "SELECT files.filename FROM xmp INNER JOIN files"
+                            + " ON xmp.id_files = files.id"
+                            + " WHERE xmp.id_photoshop_state IS NOT NULL");
+        NOT_NULL_SQL_OF.put("dc_subjects",
+                            "SELECT files.filename FROM files"
+                            + " INNER JOIN xmp ON files.id = xmp.id_files"
+                            + " WHERE xmp.id IN"
+                            + " (SELECT id_xmp FROM xmp_dc_subject)");
     }
 
     private Join() {}
@@ -211,8 +270,21 @@ public final class Join {
         assert tablename.equals("exif") || tablename.equals("xmp") : tablename;
 
         return " WHERE files.id NOT IN ("
-               + "SELECT files.id FROM files INNER JOIN " + tablename
-               + " ON " + tablename + ".id_files = files.id)";
+               + "SELECT files.id FROM files INNER JOIN " + tablename + " ON "
+               + tablename + ".id_files = files.id)";
+    }
+
+    public static String getNotNullSqlOf(String joinTablename) {
+        if (joinTablename == null) {
+            throw new NullPointerException("joinTablename == null");
+        }
+
+        if (!NOT_NULL_SQL_OF.containsKey(joinTablename)) {
+            throw new IllegalArgumentException("Table not defined: "
+                                               + joinTablename);
+        }
+
+        return NOT_NULL_SQL_OF.get(joinTablename);
     }
 
     public static String getNullSqlOf(String joinTablename) {
