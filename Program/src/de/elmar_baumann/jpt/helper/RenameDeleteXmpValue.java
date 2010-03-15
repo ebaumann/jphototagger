@@ -140,11 +140,9 @@ public final class RenameDeleteXmpValue {
                 notifyPerformed(++value, size);
             }
 
-            if (newValue.isEmpty()) {
-                DatabaseImageFiles.INSTANCE.deleteValueOfJoinedColumn(column,
-                        oldValue);
-            }
-
+            DatabaseImageFiles.INSTANCE.deleteValueOfJoinedColumn(column,
+                    oldValue);
+            MiscMetadataHelper.removeChildValueFrom(column, oldValue);
             notifyEnded(value, size);
         }
 

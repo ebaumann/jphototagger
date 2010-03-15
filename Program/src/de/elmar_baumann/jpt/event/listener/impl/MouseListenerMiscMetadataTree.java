@@ -20,10 +20,15 @@
 
 package de.elmar_baumann.jpt.event.listener.impl;
 
+import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.xmp.XmpColumns;
 import de.elmar_baumann.jpt.helper.MiscMetadataHelper;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuMiscMetadata;
 
+import java.util.List;
+
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -31,18 +36,30 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann
  * @version 2010-03-15
  */
-public final class MouseListenerMiscMetadataTree extends MouseListenerTree
-        {
-    private final PopupMenuMiscMetadata popup = PopupMenuMiscMetadata.INSTANCE;
+public final class MouseListenerMiscMetadataTree extends MouseListenerTree {
+    private static final List<Column>   XMP_COLUMNS = XmpColumns.get();
+    private final PopupMenuMiscMetadata popup       =
+        PopupMenuMiscMetadata.INSTANCE;
 
     public MouseListenerMiscMetadataTree() {
         listenExpandAllSubItems(popup.getItemExpandAllSubitems(), true);
-        listenCollapseAllSubItems(popup.getItemCollapseAllSubitems(), true);
     }
 
     @Override
     protected void popupTrigger(JTree tree, TreePath path, int x, int y) {
-        MiscMetadataHelper.addColumnToLookup(path);
+        popup.setSelPath(path);
+        setItemsEnabled(path);
         popup.show(tree, x, y);
+    }
+
+    private void setItemsEnabled(TreePath path) {
+        DefaultMutableTreeNode selNode =
+            (DefaultMutableTreeNode) path.getLastPathComponent();
+        boolean enabled =
+            MiscMetadataHelper.isParentUserObjectAColumnOf(selNode,
+                XMP_COLUMNS);
+
+        popup.getItemDelete().setEnabled(enabled);
+        popup.getItemRename().setEnabled(enabled);
     }
 }

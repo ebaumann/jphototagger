@@ -1,13 +1,13 @@
 package de.elmar_baumann.jpt.helper;
 
-import de.elmar_baumann.jpt.app.JptSelectionLookup;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.resource.GUI;
+
+import java.util.Collection;
 import java.util.Enumeration;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -19,111 +19,51 @@ public final class MiscMetadataHelper {
     private MiscMetadataHelper() {}
 
     /**
-     * Adds a selected column to the lookup if - and only if - the parent of
-     * the selected tree node is a column.
+     * Returns wether the parent's user object of a specific node is column
+     * contained in a collection of columns.
      *
-     * @param   path path of the selected tree node
-     * @return       added column or null if no column was added
+     * @param  node    node
+     * @param  columns columns
+     * @return         true if the parent's user object is a column contained in
+     *                 <code>columns</code>
      */
-    public static Column addColumnToLookup(TreePath path) {
-        JptSelectionLookup.INSTANCE.removeAll();
+    public static boolean isParentUserObjectAColumnOf(
+            DefaultMutableTreeNode node, Collection<? extends Column> columns) {
+        DefaultMutableTreeNode parent =
+            (DefaultMutableTreeNode) node.getParent();
+        Object userObject = parent.getUserObject();
 
-        Object lpc = path.getLastPathComponent();
-
-        if (lpc instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) lpc;
-
-            if (selNode.isLeaf()) {
-                TreeNode parent = selNode.getParent();
-
-                if (parent instanceof DefaultMutableTreeNode) {
-                    Object o =
-                        ((DefaultMutableTreeNode) parent).getUserObject();
-
-                    if (o instanceof Column) {
-                        JptSelectionLookup.INSTANCE.add(Column.class,
-                                                        (Column) o);
-
-                        return (Column) o;
-                    }
-                }
-            }
+        if (userObject instanceof Column) {
+            return columns.contains((Column) userObject);
         }
 
-        return null;
+        return false;
     }
 
-    public static void renameSelectedLeafHavingColumnParent() {
-        Column column = getParentColumnOfSelectedLeaf();
-        String oldValue = getSelectedLeafValue();
-
-        if (column != null && oldValue != null) {
-            RenameDeleteXmpValue.rename(column, oldValue);
-        }
+    private static DefaultTreeModel getModel() {
+        return (DefaultTreeModel) GUI.INSTANCE.getAppPanel()
+            .getTreeMiscMetadata().getModel();
     }
 
-    public static void deleteSelectedLeafHavingColumnParent() {
-        Column column = getParentColumnOfSelectedLeaf();
-        String oldValue = getSelectedLeafValue();
+    /**
+     * Returns the first node with a specific column as user object.
+     *
+     * @param  column column
+     * @return        node with that column as user object
+     */
+    public static DefaultMutableTreeNode findNodeContains(Column column) {
+        DefaultMutableTreeNode root =
+            (DefaultMutableTreeNode) getModel().getRoot();
 
-        if (column != null && oldValue != null) {
-            RenameDeleteXmpValue.delete(column, oldValue);
-        }
-    }
+        for (Enumeration<?> e = root.depthFirstEnumeration();
+                e.hasMoreElements(); ) {
+            DefaultMutableTreeNode node =
+                (DefaultMutableTreeNode) e.nextElement();
+            Object userObject = node.getUserObject();
 
-    public static void deleteChildValueOf(Column column, String value) {
-        Object rn = GUI.INSTANCE.getAppPanel().getTreeMiscMetadata().getModel().getRoot();
-        if (rn instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode root = (DefaultMutableTreeNode) rn;
-            for (Enumeration<?> e = root.depthFirstEnumeration(); e.hasMoreElements(); ) {
-                Object o = e.nextElement();
-                if (o instanceof DefaultMutableTreeNode) {
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
-                    Object cuo = node.getUserObject();
-                    if (cuo instanceof Column && ((Column) cuo).equals(column)) {
-                        int count = node.getChildCount();
-                        int index = -1;
-                        for (int i = 0; i < count; i++) {
-                            Object child = node.getChildAt(i);
-                            if (child instanceof DefaultMutableTreeNode) {
-                                Object uo = ((DefaultMutableTreeNode) child).getUserObject();
-                                if (uo instanceof String && ((String) uo).equals(value)) {
-                                    index = i;
-                                }
-                            }
-                        }
-                        if (index != -1) {
-                            node.remove(index);
-                            // fire
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public static Column getParentColumnOfSelectedLeaf() {
-        TreePath tp =
-            GUI.INSTANCE.getAppPanel().getTreeMiscMetadata().getSelectionPath();
-
-        if (tp != null) {
-            Object lpc = tp.getLastPathComponent();
-
-            if (lpc instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) lpc;
-
-                if (node.isLeaf()) {
-                    TreeNode parent = node.getParent();
-
-                    if (parent instanceof DefaultMutableTreeNode) {
-                        Object uo =
-                            ((DefaultMutableTreeNode) parent).getUserObject();
-
-                        if (uo instanceof Column) {
-                            return (Column) uo;
-                        }
-                    }
-                }
+            if ((userObject instanceof Column)
+                    && ((Column) userObject).equals(column)) {
+                return node;
             }
         }
 
@@ -131,31 +71,29 @@ public final class MiscMetadataHelper {
     }
 
     /**
-     * Returns a selected leaf value if a leaf is selected and the user object
-     * of that leaf is a string.
+     * Removes from the model a node with a string value as user object from a
+     * parent containing a specific column as user object.
      *
-     * @return string or null if no string leaf is selected
+     * @param column column of parent
+     * @param value  value of child
      */
-    public static String getSelectedLeafValue() {
-        TreePath tp =
-            GUI.INSTANCE.getAppPanel().getTreeMiscMetadata().getSelectionPath();
+    public static void removeChildValueFrom(Column column, String value) {
+        DefaultMutableTreeNode node = findNodeContains(column);
 
-        if (tp != null) {
-            Object lpc = tp.getLastPathComponent();
+        if (node != null) {
+            int count = node.getChildCount();
 
-            if (lpc instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) lpc;
+            for (int i = 0; i < count; i++) {
+                DefaultMutableTreeNode childNode =
+                    (DefaultMutableTreeNode) node.getChildAt(i);
+                Object uo = (childNode).getUserObject();
 
-                if (node.isLeaf()) {
-                    Object uo = node.getUserObject();
+                if ((uo instanceof String) && ((String) uo).equals(value)) {
+                    getModel().removeNodeFromParent(childNode);
 
-                    if (uo instanceof String) {
-                        return (String) uo;
-                    }
+                    return;
                 }
             }
         }
-
-        return null;
     }
 }

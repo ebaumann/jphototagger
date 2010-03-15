@@ -137,8 +137,10 @@ import de.elmar_baumann.jpt.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerThumbnailCountDisplay;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
+import de.elmar_baumann.jpt.controller.miscmetadata.ControllerDeleteMiscMetadata;
 import de.elmar_baumann.jpt.controller.miscmetadata
     .ControllerMiscMetadataItemSelected;
+import de.elmar_baumann.jpt.controller.miscmetadata.ControllerRenameMiscMetadata;
 import de.elmar_baumann.jpt.controller.nometadata
     .ControllerNoMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.programs.ControllerOpenFilesWithOtherApp;
@@ -311,6 +313,8 @@ public final class ControllerFactory {
         support.add(new ControllerEditKeywordSynonyms());
         support.add(new ControllerBackupDatabase());
         support.add(new ControllerInsertKeywords());
+        support.add(new ControllerDeleteMiscMetadata());
+        support.add(new ControllerRenameMiscMetadata());
         addKeywordsTreeControllers();
         addSizeAndLocationController();
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
