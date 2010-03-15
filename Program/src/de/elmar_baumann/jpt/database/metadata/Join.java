@@ -294,7 +294,7 @@ public final class Join {
     public static String getUnjoinedFilesSqlWhere(String tablename) {
         assert tablename.equals("exif") || tablename.equals("xmp") : tablename;
 
-        return " WHERE files.id NOT IN ("
+        return "WHERE files.id NOT IN ("
                + "SELECT files.id FROM files INNER JOIN " + tablename + " ON "
                + tablename + ".id_files = files.id)";
     }
