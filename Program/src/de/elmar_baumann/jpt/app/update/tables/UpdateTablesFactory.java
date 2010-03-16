@@ -22,8 +22,8 @@ package de.elmar_baumann.jpt.app.update.tables;
 
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.update.tables.v0.UpdateTablesV0;
+import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.lib.util.Settings;
 import de.elmar_baumann.lib.util.Version;
 
 import java.sql.Connection;
@@ -42,6 +42,8 @@ import java.util.Set;
 public final class UpdateTablesFactory {
     public static final UpdateTablesFactory INSTANCE =
         new UpdateTablesFactory();
+    private static final String KEY_JPT_VERSION_LAST_DB_UPDATE =
+        "VersionLastDbUpdate";
     private final Set<Updater> UPDATERS = new HashSet<Updater>();
 
     private UpdateTablesFactory() {
@@ -49,37 +51,68 @@ public final class UpdateTablesFactory {
     }
 
     private void addUpdaters() {
-        if (isUpdate(0)) {
+        boolean force = isForceUpdate();
+
+        if (force || isCurrentMajorVersion(0)) {
             UPDATERS.add(new UpdateTablesV0());
         }
     }
 
     public void update(Connection con) throws SQLException {
-        Level defaultLogLevel = UserSettings.INSTANCE.getLogLevel();
+        if (isUpdate()) {
+            Level defaultLogLevel = UserSettings.INSTANCE.getLogLevel();
 
-        UserSettings.INSTANCE.setLogLevel(Level.FINEST);
+            UserSettings.INSTANCE.setLogLevel(Level.FINEST);
 
-        try {
-            for (Updater updater : UPDATERS) {
-                updater.update(con);
+            try {
+                for (Updater updater : UPDATERS) {
+                    updater.update(con);
+                }
+
+                DatabaseApplicationProperties.INSTANCE.setString(
+                    KEY_JPT_VERSION_LAST_DB_UPDATE, AppInfo.APP_VERSION);
+            } finally {
+                UserSettings.INSTANCE.setLogLevel(defaultLogLevel);
             }
-        } finally {
-            UserSettings.INSTANCE.setLogLevel(defaultLogLevel);
         }
     }
 
-    public static boolean isUpdate(int version) {
-        int    major         = Version.parseVersion(AppInfo.APP_VERSION,
-                                   ".").getMajor();
-        String forceString   = "UdateTables.Force.V"
-                               + Integer.toString(version);
-        String disableString = "UdateTables.Disable.V"
-                               + Integer.toString(version);
-        Settings settings = UserSettings.INSTANCE.getSettings();
-        boolean  force    = settings.getBoolean(forceString);
-        boolean  disable  = settings.getBoolean(disableString);
+    public static boolean isCurrentMajorVersion(int version) {
+        int cuMajor = Version.parseVersion(AppInfo.APP_VERSION, ".").getMajor();
 
-        return (force || (version == major)) &&!disable;
+        return version == cuMajor;
+    }
+
+    /**
+     * Returns, whether a database update shall be forced.
+     * <p>
+     * This is true, if in the properties file the key
+     * <strong>"UdateTables.ForceUpdate"</strong> is set to <code>"1"</code>.
+     *
+     * @return true, if an update shall be forced
+     */
+    public static boolean isForceUpdate() {
+        return UserSettings.INSTANCE.getSettings().getBoolean(
+            "UdateTables.ForceUpdate");
+    }
+
+    /**
+     * Returns whether to update the database.
+     *
+     * @return true if {@link #isForceUpdate()} or the current application
+     *         version {@link AppInfo#APP_VERSION} is different from the
+     *         last update. This info will be written into the
+     *         {@link DatabaseApplicationProperties} after an successful update.
+     */
+    private boolean isUpdate() {
+        String lastVersion = DatabaseApplicationProperties.INSTANCE.getString(
+                                 KEY_JPT_VERSION_LAST_DB_UPDATE);
+
+        return isForceUpdate()
+               ? true
+               : (lastVersion == null)
+                 ? true
+                 : !lastVersion.equals(AppInfo.APP_VERSION);
     }
 
     public interface Updater {
