@@ -5,18 +5,29 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.8.2 2010-03-16
+----------------
+
+* Neue Einträge im Kontextmenü des rechten Stichwort*listen*-Kartenreiters:
+  * Hinzufügen zu ausgewählten Bildern
+  * Entfernen aus ausgewählten Bildern
+  Diese fügen Stichwörtern ausgewählten Bilder hinzu oder entfernen diese, so
+  wie dies bei der Baumansicht (seit längerem) möglich ist
+* Autovervollständigen für Bildtitel und Bildbeschreibung deaktiviert
+  (Performance). Außerdem unterscheidet das Auto-Vervollständigen nun zwischen
+  Groß- und Kleinschreibung
+* Die Datenbank wird nach einmaligem erfolgreichen Aktualisieren nur noch bei
+  neuen JPhotoTagger-Versionen während des Start überprüft. Somit sind keine
+  "Performance-Parameter" mehr in den Einstellungen erforderlich, diese
+  werden auch nicht mehr ausgewertet, wie beschrieben und nun gelöscht unter
+  der Vorgängerversion 0.8.1.
+
 0.8.1 2010-03-15
 ----------------
 
 * Neue Einträge im Kontextmenü des Kartenreiters "Verschiedenes": "Löschen" und
   "Umbenennen": Löscht ausgewählte Metadaten aus allen Filialdateien oder
   benennt diese dort um, beispielsweise das Copyright.
-* "Inoffizielle" Option für die Datei "Settings.properties" im Einstellungen-
-  Verzeichnis: "UdateTables.Disable.V<Hauptversionsnummer>=1" schaltet beim
-  Start das Prüfen der Tabellen ab und beschleunigt diesen so. Aktuell ist die
-  Hauptversionsummer "0" und "UdateTables.Disable.V0=1" deaktiviert die
-  Tabellenprüfung beim Start. Nach Installation einer neuen Version ist diese
-  Prüfung zu aktivieren: "UdateTables.Disable.V0=0"!
 
 0.8.0 2010-03-14
 ----------------
