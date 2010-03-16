@@ -74,7 +74,7 @@ public class SynonymsPanel extends javax.swing.JPanel
             autocomplete = new Autocomplete();
             autocomplete.decorate(textAreaWords,
                     AutoCompleteDataOfColumn.INSTANCE.get(
-                        ColumnXmpDcSubjectsSubject.INSTANCE).get());
+                        ColumnXmpDcSubjectsSubject.INSTANCE).get(), true);
         }
     }
 

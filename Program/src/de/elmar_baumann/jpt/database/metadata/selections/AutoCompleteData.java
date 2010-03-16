@@ -25,14 +25,13 @@ import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.util.CollectionUtil;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 /**
  * Contains autocomplete data (words, terms).
@@ -45,55 +44,53 @@ public final class AutoCompleteData {
     private final LinkedList<String> words = new LinkedList<String>();
     private final Set<Column>        columns;
 
-    /**
-     * Creates a new instance of this class.
-     *
-     * @param columns columns. All words of
-     *               {@link DatabaseContent#getDistinctValuesOf(de.elmar_baumann.jpt.database.metadata.Column)}
-     *               will be added to the autocomplete data.
-     */
     AutoCompleteData(Collection<? extends Column> columns) {
         assert UserSettings.INSTANCE.isAutocomplete();
-        this.columns = new LinkedHashSet<Column>(columns);
-        words.addAll(wordsOf(db.getDistinctValuesOf(this.columns)));
+        this.columns =
+            new LinkedHashSet<Column>(getAutocompleteColumnsOf(columns));
+        words.addAll(db.getDistinctValuesOf(this.columns));
         Collections.sort(words);
+    }
+
+    AutoCompleteData(Column column) {
+        assert UserSettings.INSTANCE.isAutocomplete();
+        this.columns = new LinkedHashSet<Column>(
+            getAutocompleteColumnsOf(Collections.singleton(column)));
+        words.addAll(db.getDistinctValuesOf(column));    // already sorted
+    }
+
+    /**
+     * Removes from a collection of columns all columns which shouldn't be
+     * auto completed.
+     *
+     * @param  columns columns
+     * @return         autocomplete columns or empty set
+     */
+    private Set<Column> getAutocompleteColumnsOf(
+            Collection<? extends Column> columns) {
+        Set<Column> cols = new HashSet<Column>(columns.size());
+
+        for (Column column : columns) {
+            if (AutocompleteColumns.contains(column)) {
+                cols.add(column);
+            }
+        }
+
+        return cols;
     }
 
     public boolean add(String word) {
         assert UserSettings.INSTANCE.isAutocomplete();
 
         synchronized (words) {
-            for (String wd : wordsOf(word)) {
-                if (Collections.binarySearch(words, wd) < 0) {
-                    CollectionUtil.binaryInsert(words, wd);
+            if (Collections.binarySearch(words, word) < 0) {
+                CollectionUtil.binaryInsert(words, word);
 
-                    return true;
-                }
+                return true;
             }
         }
 
         return false;
-    }
-
-    private List<String> wordsOf(Collection<String> strings) {
-        List<String> wordsOf = new ArrayList<String>(strings.size());
-
-        for (String string : strings) {
-            wordsOf.addAll(wordsOf(string));
-        }
-
-        return wordsOf;
-    }
-
-    private List<String> wordsOf(String s) {
-        List<String>    wordsOf = new ArrayList<String>();
-        StringTokenizer st      = new StringTokenizer(s, " \t");
-
-        while (st.hasMoreTokens()) {
-            wordsOf.add(st.nextToken().trim());
-        }
-
-        return wordsOf;
     }
 
     /**

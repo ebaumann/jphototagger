@@ -135,7 +135,8 @@ public final class EditTextEntryPanel extends JPanel
             }
             autocomplete = new Autocomplete();
             autocomplete.decorate(
-                textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
+                textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get(),
+                    true);
         }
     }
 

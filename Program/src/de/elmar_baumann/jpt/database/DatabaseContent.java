@@ -42,16 +42,16 @@ public final class DatabaseContent extends Database {
     private DatabaseContent() {}
 
     /**
-     * Liefert den Inhalt einer ganzen Tabellenspalte.
+     * Returns the distinct ascending sorted values of a database column.
      *
-     * @param column Tabellenspalte
-     * @return Werte DISTINCT
+     * @param  column column
+     * @return        distinct sorted values of that column
      */
     public Set<String> getDistinctValuesOf(Column column) {
-        Set<String> content    = new LinkedHashSet<String>();
-        Connection  con = null;
-        Statement   stmt       = null;
-        ResultSet   rs         = null;
+        Set<String> content = new LinkedHashSet<String>();
+        Connection  con     = null;
+        Statement   stmt    = null;
+        ResultSet   rs      = null;
 
         try {
             con = getConnection();
@@ -62,7 +62,7 @@ public final class DatabaseContent extends Database {
 
             String sql = "SELECT DISTINCT " + columnName + " FROM "
                          + column.getTablename() + " WHERE " + columnName
-                         + " IS NOT NULL";
+                         + " IS NOT NULL ORDER BY 1 ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -82,10 +82,11 @@ public final class DatabaseContent extends Database {
     }
 
     /**
-     * Liefert den Inhalt von Tabellenspalten.
+     * Collects for each column of a set the results of
+     * {@link #getDistinctValuesOf(Column)}.
      *
-     * @param columns Tabellenspalten
-     * @return Werte DISTINCT
+     * @param  columns columns
+     * @return         distinct values of columns (not sorted)
      */
     public Set<String> getDistinctValuesOf(Set<Column> columns) {
         Set<String> content = new LinkedHashSet<String>();
