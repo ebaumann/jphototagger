@@ -32,6 +32,18 @@ import de.elmar_baumann.lib.util.Version;
 public final class AppInfo {
 
     /**
+     * The application's name
+     */
+    public static final String APP_NAME = "JPhotoTagger";
+
+    /**
+     * The application's version
+     */
+
+    // Never change that scheme: "[0-9]+\.[0-9]+\.[0-9]+"!
+    public static final String APP_VERSION = "0.8.3";
+
+    /**
      * ("Historical") Name of this project.
      *
      * This is also the name of the user settings subdirectory (properties file)
@@ -39,28 +51,20 @@ public final class AppInfo {
      * second action in the main() mehtod has to be renaming that directory from
      * the old to the new name. Also check the code accessing this field.
      */
-    public static final String PROJECT_NAME = "ImageMetaDataViewer";    // WHEN CHANGING SEE COMMENT ABOVE!
+
+    // IF CHANGING IS REQUIRED, SEE COMMENT ABOVE!
+    public static final String PROJECT_NAME = "ImageMetaDataViewer";
 
     /**
-     * The application's version
+     * Minimum required Java version
      */
-    public static final String APP_VERSION = "0.8.3";
-
-    /**
-     * The application's name
-     */
-    public static final String APP_NAME = "JPhotoTagger";
+    public static final Version MIN_JAVA_VERSION = new Version(1, 6);
 
     /**
      * Title of the application
      */
     public static final String APP_DESCRIPTION =
         JptBundle.INSTANCE.getString("AppInfo.AppDescription");
-
-    /**
-     * Minimum required Java version
-     */
-    public static final Version MIN_JAVA_VERSION = new Version(1, 6);
 
     private AppInfo() {}
 }

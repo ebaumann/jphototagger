@@ -198,6 +198,12 @@ public final class AppLifeCycle {
         }
     }
 
+    public static void quitBeforeGuiWasCreated() {
+        DatabaseMaintainance.INSTANCE.shutdown();
+        AppLock.unlock();
+        System.exit(1);
+    }
+
     private void quitVm() {
         appFrame.dispose();
         AppLock.unlock();

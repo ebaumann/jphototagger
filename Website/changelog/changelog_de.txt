@@ -8,6 +8,8 @@ Changelog JPhotoTagger
 0.8.3 2010-03-16
 ----------------
 
+* JPhotoTagger prüft, ob eine neuere Datenbank benutzt wird und startet in
+  diesem Fall nicht, da diese beschädigt werden könnte
 * Windows-Installationen: JPhotoTagger darf sich nun maximal (kurzzeitig bis
   zu) 750 MB RAM holen
 * Bugfix: Ist Autovervollständigen deaktiviert, erzeugte das Drücken von Enter

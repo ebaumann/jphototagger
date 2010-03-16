@@ -22,6 +22,7 @@ package de.elmar_baumann.jpt.app;
 
 import de.elmar_baumann.jpt.database.ConnectionPool;
 import de.elmar_baumann.jpt.database.Database;
+import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.database.DatabaseTables;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
@@ -36,6 +37,8 @@ import java.sql.SQLException;
 public final class AppDatabase {
     private static boolean init;
 
+    private AppDatabase() {}
+
     public synchronized static void init() {
         assert !init;
 
@@ -45,10 +48,11 @@ public final class AppDatabase {
 
             try {
                 ConnectionPool.INSTANCE.init();
+                checkDatabaseVersion();
                 DatabaseTables.INSTANCE.createTables();
             } catch (SQLException ex) {
                 Database.errorMessageSqlException(ex);
-                System.exit(1);
+                AppLifeCycle.quitBeforeGuiWasCreated();
             }
         }
     }
@@ -59,5 +63,12 @@ public final class AppDatabase {
                 "AppDatabase.Info.SplashScreen.ConnectToDatabase"));
     }
 
-    private AppDatabase() {}
+    private static void checkDatabaseVersion() {
+        if (DatabaseMetadata.isDatabaseOfNewerVersion()) {
+            MessageDisplayer.error(null, "AppDatabase.Error.NewerDbVersion",
+                                   DatabaseMetadata.getDatabaseAppVersion(),
+                                   AppInfo.APP_VERSION);
+            AppLifeCycle.quitBeforeGuiWasCreated();
+        }
+    }
 }
