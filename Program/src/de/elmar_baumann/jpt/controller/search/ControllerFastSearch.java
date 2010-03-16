@@ -171,7 +171,7 @@ public final class ControllerFastSearch
                                       ? AutoCompleteDataOfColumn.INSTANCE
                                           .getFastSearchData().get()
                                       : AutoCompleteDataOfColumn.INSTANCE.get(
-                                          getSearchColumn()).get());
+                                          getSearchColumn()).get(), true);
             }
         }).start();
     }

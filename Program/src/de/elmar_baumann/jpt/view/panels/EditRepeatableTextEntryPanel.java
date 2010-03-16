@@ -137,7 +137,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             autocomplete = new Autocomplete();
             autocomplete.setTransferFocusForward(false);
             autocomplete.decorate(
-                textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get());
+                textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get(),
+                    true);
         }
     }
 
