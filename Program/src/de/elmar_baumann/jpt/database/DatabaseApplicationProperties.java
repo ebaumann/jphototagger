@@ -99,7 +99,7 @@ public final class DatabaseApplicationProperties extends Database {
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, key);
-            logFinest(stmt);
+            logFiner(stmt);
             stmt.executeUpdate();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
@@ -160,12 +160,9 @@ public final class DatabaseApplicationProperties extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement(getInsertOrUpdateStmt(key));
             stmt.setBytes(1, string.getBytes());
+            stmt.setString(2, key);
 
-            if (!existsKey(key)) {
-                stmt.setString(2, key);
-            }
-
-            logFinest(stmt);
+            logFiner(stmt);
             stmt.executeUpdate();
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
