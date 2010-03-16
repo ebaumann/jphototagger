@@ -46,12 +46,22 @@ import javax.swing.JTextArea;
  */
 public final class ImageTextArea extends JTextArea implements KeyListener {
     private static final long serialVersionUID = -3386009175292905714L;
+    private boolean           consumeEnter;
     private Image             image;
-    private boolean           paintImage;
     protected String          imagePath;
+    private boolean           paintImage;
 
     public ImageTextArea() {
         addKeyListener(this);
+    }
+
+    /**
+     * Set whether the text area shall consume enter (disable line wrapping).
+     *
+     * @param consumeEnter true, if consume. Default: false.
+     */
+    public void setConsumeEnter(boolean consumeEnter) {
+        this.consumeEnter = consumeEnter;
     }
 
     /**
@@ -66,7 +76,8 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
     /**
      * Sets the path to the image.
      *
-     * @param imagePath path, e.g. <code>"/com/mydomain/myproject/res/search.png"</code>
+     * @param imagePath path, e.g.
+     *                  <code>"/com/mydomain/myproject/res/search.png"</code>
      */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
@@ -122,5 +133,15 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         // ignore
+    }
+
+    @Override
+    protected void processComponentKeyEvent(KeyEvent e) {
+        if (consumeEnter && (e.getID() == KeyEvent.KEY_PRESSED)
+                && (e.getKeyCode() == KeyEvent.VK_ENTER)) {
+            e.consume();
+        } else {
+            super.processComponentKeyEvent(e);
+        }
     }
 }
