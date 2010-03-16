@@ -26,9 +26,9 @@ import java.awt.event.ActionEvent;
 
 import java.io.Serializable;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -53,23 +53,25 @@ import javax.swing.SwingUtilities;
  * @version 2010-01-13
  */
 public final class Autocomplete implements DocumentListener, Serializable {
-    private static final long        serialVersionUID = 7533238660594168356L;
-    private JTextArea                textArea;
     private static final String      COMMIT_ACTION               = "commit";
-    private static final String      FOCUS_FORWARD_ACTION        =
-        "focus_forward";
     private static final String      FOCUS_BACKWARD_ACTION       =
         "focus_backward";
+    private static final String      FOCUS_FORWARD_ACTION        =
+        "focus_forward";
     private static final int         MIN_CHARS                   = 2;
+    private static final long        serialVersionUID            =
+        7533238660594168356L;
     private final LinkedList<String> words                       =
         new LinkedList<String>();
-    private Mode                     mode                        = Mode.INSERT;
     private volatile boolean         transferFocusForwardOnEnter = true;
+    private Mode                     mode                        = Mode.INSERT;
+    private JTextArea                textArea;
 
     private static enum Mode { INSERT, COMPLETION }
 
     ;
-    public void decorate(JTextArea textArea, Collection<String> words) {
+    public void decorate(JTextArea textArea, List<String> words,
+                         boolean sorted) {
         if (textArea != this.textArea) {
             this.textArea = textArea;
             textArea.getDocument().addDocumentListener(this);
@@ -81,7 +83,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
             this.words.addAll(words);
         }
 
-        init();
+        init(sorted);
     }
 
     /**
@@ -93,11 +95,13 @@ public final class Autocomplete implements DocumentListener, Serializable {
         this.transferFocusForwardOnEnter = transfer;
     }
 
-    private void init() {
-        wordsToLowerCase();
+    private void init(boolean sorted) {
+        if (!sorted) {
 
-        synchronized (words) {
-            Collections.sort(words);    // Binary search requires natural sort order
+            // Binary search requires natural sort order
+            synchronized (words) {
+                Collections.sort(words);
+            }
         }
     }
 
@@ -114,16 +118,6 @@ public final class Autocomplete implements DocumentListener, Serializable {
         im.put(KeyStroke.getKeyStroke("shift TAB"), FOCUS_BACKWARD_ACTION);
     }
 
-    private void wordsToLowerCase() {
-        synchronized (words) {
-            int size = words.size();
-
-            for (int i = 0; i < size; i++) {
-                words.set(i, words.get(i).toLowerCase());    // #insertUpdate() converts input to lowercase
-            }
-        }
-    }
-
     /**
      * Adds a new word for auto completion.
      *
@@ -133,14 +127,10 @@ public final class Autocomplete implements DocumentListener, Serializable {
      * @param word word
      */
     public void add(String word) {
-        String newWord = word.trim().toLowerCase();
-
         synchronized (words) {
-            if (contains(newWord)) {
-                return;
+            if (!contains(word)) {
+                CollectionUtil.binaryInsert(words, word);
             }
-
-            CollectionUtil.binaryInsert(words, newWord);
         }
     }
 
@@ -192,7 +182,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
             return;
         }
 
-        String prefix = content.substring(w + 1).toLowerCase();
+        String prefix = content.substring(w + 1);
 
         synchronized (words) {
             int n = Collections.binarySearch(words, prefix);
@@ -218,25 +208,6 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
     }
 
-    private class CompletionTask implements Runnable {
-        String completion;
-        int    position;
-
-        CompletionTask(String completion, int position) {
-            this.completion = completion;
-            this.position   = position;
-        }
-
-        @Override
-        public void run() {
-            textArea.insert(completion, position);
-            textArea.setCaretPosition(position + completion.length());
-            textArea.moveCaretPosition(position);
-            mode = Mode.COMPLETION;
-        }
-    }
-
-
     private class CommitAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
 
@@ -259,12 +230,21 @@ public final class Autocomplete implements DocumentListener, Serializable {
     }
 
 
-    private class FocusForwardAction extends AbstractAction {
-        private static final long serialVersionUID = 1L;
+    private class CompletionTask implements Runnable {
+        String completion;
+        int    position;
+
+        CompletionTask(String completion, int position) {
+            this.completion = completion;
+            this.position   = position;
+        }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            textArea.transferFocus();
+        public void run() {
+            textArea.insert(completion, position);
+            textArea.setCaretPosition(position + completion.length());
+            textArea.moveCaretPosition(position);
+            mode = Mode.COMPLETION;
         }
     }
 
@@ -275,6 +255,16 @@ public final class Autocomplete implements DocumentListener, Serializable {
         @Override
         public void actionPerformed(ActionEvent e) {
             textArea.transferFocusBackward();
+        }
+    }
+
+
+    private class FocusForwardAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            textArea.transferFocus();
         }
     }
 }
