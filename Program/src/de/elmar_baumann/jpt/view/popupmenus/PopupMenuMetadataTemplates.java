@@ -40,37 +40,40 @@ import javax.swing.KeyStroke;
  * @version 2010-01-08
  */
 public final class PopupMenuMetadataTemplates extends JPopupMenu {
-    private static final long serialVersionUID   = 5476440706471574353L;
-    private final JMenuItem   itemSetToSelImages =
+    private static final long                      serialVersionUID =
+        5476440706471574353L;
+    public static final PopupMenuMetadataTemplates INSTANCE         =
+        new PopupMenuMetadataTemplates();
+    private final JMenuItem itemSetToSelImages =
         new JMenuItem(
             JptBundle.INSTANCE
                 .getString(
                     "PopupMenuMetadataTemplates.DisplayName.Action.SetToSelImages"), AppLookAndFeel
                         .getIcon("icon_image.png"));
+    private final JMenuItem itemRename =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuMetadataTemplates.DisplayName.Action.Rename"));
     private final JMenuItem itemEdit =
         new JMenuItem(
             JptBundle.INSTANCE
                 .getString(
                     "PopupMenuMetadataTemplates.DisplayName.Action.Edit"), AppLookAndFeel
-                        .getIcon("icon_edit.png"));
-    private final JMenuItem itemAdd =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuMetadataTemplates.DisplayName.Action.Add"));
-    private final JMenuItem itemRename =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuMetadataTemplates.DisplayName.Action.Rename"));
+                        .ICON_EDIT);
     private final JMenuItem itemDelete =
         new JMenuItem(
             JptBundle.INSTANCE
                 .getString(
                     "PopupMenuMetadataTemplates.DisplayName.Action.Delete"), AppLookAndFeel
-                        .getIcon("icon_delete.png"));
-    private int                                    selIndex;
-    private JList                                  list;
-    public static final PopupMenuMetadataTemplates INSTANCE =
-        new PopupMenuMetadataTemplates();
+                        .ICON_DELETE);
+    private final JMenuItem itemAdd =
+        new JMenuItem(
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuMetadataTemplates.DisplayName.Action.Add"), AppLookAndFeel
+                        .ICON_NEW);
+    private JList list;
+    private int   selIndex;
 
     private PopupMenuMetadataTemplates() {
         addItems();

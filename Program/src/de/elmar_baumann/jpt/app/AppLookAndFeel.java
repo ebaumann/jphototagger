@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.UIManager;
@@ -42,43 +43,53 @@ import javax.swing.UIManager;
  * @version 2009-06-06
  */
 public final class AppLookAndFeel {
+    private static final String ICONS_PATH =
+        "/de/elmar_baumann/jpt/resource/icons";
+    public static final String TABLE_CELL_CSS =
+        "margin-left:3px;margin-right:3px;";
+    public static final int    TABLE_MAX_CHARS_CELL       = 45;
+    public static final int    TABLE_MAX_CHARS_ROW_HEADER = 40;
+    public static final String TABLE_ROW_HEADER_CSS       =
+        "margin-left:3px;margin-right:3px;";
     private static Color tableStoredInDatabaseForeground = Color.BLACK;
     private static Color tableStoredInDatabaseBackground = new Color(251, 249,
                                                                241);
+    private static Color tableSelectionForeground     = Color.BLACK;
+    private static Color tableSelectionBackground     = new Color(226, 226,
+                                                            255);
+    private static Color tableForeground              = Color.BLACK;
     private static Color tableExifMakerNoteForeground = Color.BLACK;
     private static Color tableExifMakerNoteBackground = new Color(226, 226,
                                                             255);
-    private static Color      tableSelectionForeground = Color.BLACK;
-    private static Color      tableSelectionBackground = new Color(226, 226,
-                                                             255);
-    private static Color      tableForeground          = Color.BLACK;
-    private static Color      tableBackground          = Color.WHITE;
-    private static Color      treeSelectionForeground;
-    private static Color      treeSelectionBackground;
-    private static Color      treeTextBackground;
-    private static Color      treeTextForeground;
-    private static Color      listSelectionForeground;
-    private static Color      listSelectionBackground;
-    private static Color      listBackground;
-    private static Color      listForeground;
+    private static Color      tableBackground                     = Color.WHITE;
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND =
         new Color(100, 100, 100);
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND =
         new Color(255, 255, 255);
-    public static final String TABLE_ROW_HEADER_CSS =
-        "margin-left:3px;margin-right:3px;";
-    public static final String TABLE_CELL_CSS =
-        "margin-left:3px;margin-right:3px;";
-    public static final int     TABLE_MAX_CHARS_ROW_HEADER = 40;
-    public static final int     TABLE_MAX_CHARS_CELL       = 45;
-    private static final String ICONS_PATH                 =
-        "/de/elmar_baumann/jpt/resource/icons";
     private static final String SMALL_APP_ICON_PATH = ICONS_PATH
                                                       + "/icon_app_small.png";
     private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH
                                                        + "/icon_app_medium.png";
-    private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
+    public static final Icon          ICON_REFRESH   =
+        getIcon("icon_refresh.png");
+    public static final Icon          ICON_PASTE     =
+        getIcon("icon_paste.png");
+    public static final Icon          ICON_NEW       = getIcon("icon_new.png");
+    public static final Icon          ICON_EDIT      = getIcon("icon_edit.png");
+    public static final Icon          ICON_DELETE    =
+        getIcon("icon_delete.png");
+    public static final Icon          ICON_CUT       = getIcon("icon_cut.png");
+    public static final Icon          ICON_COPY      = getIcon("icon_copy.png");
     private static final List<Image>  APP_ICONS      = new ArrayList<Image>();
+    private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
+    private static Color              listBackground;
+    private static Color              listForeground;
+    private static Color              listSelectionBackground;
+    private static Color              listSelectionForeground;
+    private static Color              treeSelectionBackground;
+    private static Color              treeSelectionForeground;
+    private static Color              treeTextBackground;
+    private static Color              treeTextForeground;
 
     static {
         APP_ICON_PATHS.add(SMALL_APP_ICON_PATH);
@@ -89,6 +100,8 @@ public final class AppLookAndFeel {
         APP_ICONS.add(IconUtil.getIconImage(SMALL_APP_ICON_PATH));
         APP_ICONS.add(IconUtil.getIconImage(MEDIUM_APP_ICON_PATH));
     }
+
+    private AppLookAndFeel() {}
 
     public static List<Image> getAppIcons() {
         return APP_ICONS;
@@ -137,7 +150,8 @@ public final class AppLookAndFeel {
      * A localized icon has the same path plus the default locale's language
      * code before the last path component.
      *
-     * @param  path not localized path, e.g. <code>"/de/elmar_baumann/jpt/resoure/images/image.png"</code>
+     * @param  path not localized path, e.g.
+     *              <code>"/de/elmar_baumann/jpt/resoure/images/image.png"</code>
      * @return      localized icon, e.g. if the path is the same as in the
      *              the parameter doc obove, the icon of the path
      *              <code>"/de/elmar_baumann/jpt/resoure/images/de/image.png"</code>.
@@ -313,6 +327,4 @@ public final class AppLookAndFeel {
             UIManager.put(key, new FontUIResource(plainFont));
         }
     }
-
-    private AppLookAndFeel() {}
 }

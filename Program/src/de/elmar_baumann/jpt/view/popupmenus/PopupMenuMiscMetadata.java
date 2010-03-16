@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.view.popupmenus;
 
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
@@ -46,19 +47,23 @@ public final class PopupMenuMiscMetadata extends JPopupMenu {
     public static final PopupMenuMiscMetadata INSTANCE         =
         new PopupMenuMiscMetadata();
     private final JMenuItem itemRename =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemRename"));
-    private final JMenuItem itemDelete =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemDelete"));
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuMiscMetadata.DisplayName.ItemRename"));
     private final JMenuItem itemExpandAllSubitems =
         new JMenuItem(
             JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final JMenuItem itemDelete =
+        new JMenuItem(
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuMiscMetadata.DisplayName.ItemDelete"), AppLookAndFeel
+                        .ICON_DELETE);
     private final JMenuItem itemCollapseAllSubitems =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "MouseListenerTreeExpand.ItemCollapse"));
     private TreePath selPath;
-    private static final KeyStroke keyStrokeRename = KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0);
-    private static final KeyStroke keyStrokeDelete = KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0);
 
     private PopupMenuMiscMetadata() {
         addItems();
@@ -108,14 +113,17 @@ public final class PopupMenuMiscMetadata extends JPopupMenu {
         String    keyActionRename = "actionRename";
         String    keyActionDelete = "actionDelete";
 
-        inputMap.put(keyStrokeRename, keyActionRename);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0),
+                     keyActionRename);
         actionMap.put(keyActionRename, actionRename);
-
-        inputMap.put(keyStrokeDelete, keyActionDelete);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0),
+                     keyActionDelete);
         actionMap.put(keyActionDelete, actionDelete);
     }
 
     private void setAccelerators() {
-        itemRename.setAccelerator(keyStrokeRename);
+        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
+                0));
+        itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
     }
 }

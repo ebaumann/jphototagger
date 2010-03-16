@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.view.popupmenus;
 
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
 import java.awt.event.InputEvent;
@@ -45,24 +46,30 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         new PopupMenuKeywordsList();
     private final JMenuItem itemInsert =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.Action.Insert"));
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuKeywordsList.DisplayName.Action.Insert"), AppLookAndFeel
+                        .ICON_NEW);
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "PopupMenuKeywordsList.DisplayName.Action.Rename"));
     private final JMenuItem itemEditSynonyms =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"));
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"), AppLookAndFeel
+                        .ICON_EDIT);
     private final JMenuItem itemDisplayImages =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
     private final JMenuItem itemDelete =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.Action.Delete"));
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuKeywordsList.DisplayName.Action.Delete"), AppLookAndFeel
+                        .ICON_DELETE);
     private JList list;
     private int   selIndex;
 
