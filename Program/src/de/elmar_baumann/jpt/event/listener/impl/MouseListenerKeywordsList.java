@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.event.listener.impl;
 
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuKeywordsList;
 
 import javax.swing.JList;
@@ -31,10 +32,21 @@ import javax.swing.JList;
  * @version 2010-01-07
  */
 public final class MouseListenerKeywordsList extends MouseListenerList {
+    private final PopupMenuKeywordsList popup = PopupMenuKeywordsList.INSTANCE;
+
     @Override
     protected void showPopup(JList list, int x, int y) {
-        PopupMenuKeywordsList.INSTANCE.setSelIndex(getIndex());
-        PopupMenuKeywordsList.INSTANCE.setList(list);
-        PopupMenuKeywordsList.INSTANCE.show(list, x, y);
+        popup.setSelIndex(getIndex());
+        popup.setList(list);
+        setEnabled();
+        popup.show(list, x, y);
+    }
+
+    private void setEnabled() {
+        boolean editable =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels().isEditable();
+
+        popup.getItemAddToEditPanel().setEnabled(editable);
+        popup.getItemRemoveFromEditPanel().setEnabled(editable);
     }
 }
