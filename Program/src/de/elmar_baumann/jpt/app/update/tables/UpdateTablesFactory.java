@@ -23,6 +23,7 @@ package de.elmar_baumann.jpt.app.update.tables;
 import de.elmar_baumann.jpt.app.AppInfo;
 import de.elmar_baumann.jpt.app.update.tables.v0.UpdateTablesV0;
 import de.elmar_baumann.jpt.database.DatabaseApplicationProperties;
+import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.util.Version;
 
@@ -42,8 +43,6 @@ import java.util.Set;
 public final class UpdateTablesFactory {
     public static final UpdateTablesFactory INSTANCE =
         new UpdateTablesFactory();
-    private static final String KEY_JPT_VERSION_LAST_DB_UPDATE =
-        "VersionLastDbUpdate";
     private final Set<Updater> UPDATERS = new HashSet<Updater>();
 
     private UpdateTablesFactory() {
@@ -69,8 +68,7 @@ public final class UpdateTablesFactory {
                     updater.update(con);
                 }
 
-                DatabaseApplicationProperties.INSTANCE.setString(
-                    KEY_JPT_VERSION_LAST_DB_UPDATE, AppInfo.APP_VERSION);
+                DatabaseMetadata.setCurrentAppVersionToDatabase();
             } finally {
                 UserSettings.INSTANCE.setLogLevel(defaultLogLevel);
             }
@@ -105,14 +103,7 @@ public final class UpdateTablesFactory {
      *         {@link DatabaseApplicationProperties} after an successful update.
      */
     private boolean isUpdate() {
-        String lastVersion = DatabaseApplicationProperties.INSTANCE.getString(
-                                 KEY_JPT_VERSION_LAST_DB_UPDATE);
-
-        return isForceUpdate()
-               ? true
-               : (lastVersion == null)
-                 ? true
-                 : !lastVersion.equals(AppInfo.APP_VERSION);
+        return isForceUpdate() || DatabaseMetadata.isDatabaseOfOlderVersion();
     }
 
     public interface Updater {

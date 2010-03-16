@@ -65,10 +65,68 @@ public final class MessageDisplayer {
                 "MessageDisplayer.DefaultTitle.QuestionMessage"));
     }
 
+    private MessageDisplayer() {}
+
+    /**
+     * User action of a confirmYesNo message
+     */
+    public enum ConfirmAction {
+
+        /**
+         * User answered with "Yes"
+         */
+        YES(JOptionPane.YES_OPTION),
+
+        /**
+         * User answered with "No"
+         */
+        NO(JOptionPane.NO_OPTION),
+
+        /**
+         * User will cancel the operation
+         */
+        CANCEL(JOptionPane.CANCEL_OPTION);
+
+        private final int optionType;
+
+        private ConfirmAction(int optionType) {
+            this.optionType = optionType;
+        }
+
+        /**
+         * Returns the option type for a {@link JOptionPane}.
+         *
+         * @return option type
+         */
+        public int getOptionType() {
+            return optionType;
+        }
+
+        /**
+         * Returns the action type of an option type of {@link JOptionPane}.
+         *
+         * @param  type          option type
+         * @param  defaultAction action to return if type is invalid
+         * @return               action or <code>defaultAction</code> if no
+         *                       action has that option type
+         */
+        public static ConfirmAction actionOfOptionType(int type,
+                ConfirmAction defaultAction) {
+            for (ConfirmAction action : values()) {
+                if (action.getOptionType() == type) {
+                    return action;
+                }
+            }
+
+            return defaultAction;
+        }
+    }
+
     /**
      * Displays a input dialog.
      *
-     * @param infoBundleKey JptBundle key of info (prompts, what to input) or null
+     * @param infoBundleKey JptBundle key of info (prompts, what to input) or
+     *                      null
      * @param input         default value or null
      * @param propertyKey   key to write size and location
      * @param infoArgs      optional argumets for the info message
@@ -145,6 +203,12 @@ public final class MessageDisplayer {
     }
 
     private static void enableMenuItemErrorLogfile() {
+
+        // The message displayer could be used before the GUI is created
+        if (GUI.INSTANCE.getAppFrame() == null) {
+            return;
+        }
+
         JMenuItem item = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
 
         if (item.isEnabled()) {
@@ -160,67 +224,12 @@ public final class MessageDisplayer {
     }
 
     /**
-     * User action of a confirmYesNo message
-     */
-    public enum ConfirmAction {
-
-        /**
-         * User answered with "Yes"
-         */
-        YES(JOptionPane.YES_OPTION),
-
-        /**
-         * User answered with "No"
-         */
-        NO(JOptionPane.NO_OPTION),
-
-        /**
-         * User will cancel the operation
-         */
-        CANCEL(JOptionPane.CANCEL_OPTION);
-
-        private final int optionType;
-
-        private ConfirmAction(int optionType) {
-            this.optionType = optionType;
-        }
-
-        /**
-         * Returns the option type for a {@link JOptionPane}.
-         *
-         * @return option type
-         */
-        public int getOptionType() {
-            return optionType;
-        }
-
-        /**
-         * Returns the action type of an option type of {@link JOptionPane}.
-         *
-         * @param  type          option type
-         * @param  defaultAction action to return if type is invalid
-         * @return               action or <code>defaultAction</code> if no
-         *                       action has that option type
-         */
-        public static ConfirmAction actionOfOptionType(int type,
-                ConfirmAction defaultAction) {
-            for (ConfirmAction action : values()) {
-                if (action.getOptionType() == type) {
-                    return action;
-                }
-            }
-
-            return defaultAction;
-        }
-    }
-
-    /**
      * Displays a confirm message with a Yes, No and Cancel button.
      *
      * @param component    component where to display the dialog or null
-     * @param propertyKey  property key for {@link JptBundle}. There also a key for
-     *                     the title has to be in the properties file with the
-     *                     same name and the postfix <code>.Title</code>
+     * @param propertyKey  property key for {@link JptBundle}. There also a key
+     *                     for the title has to be in the properties file with
+     *                     the same name and the postfix <code>.Title</code>
      * @param params       optional parameters for message format placeholders
      * @return             user action
      */
@@ -241,12 +250,13 @@ public final class MessageDisplayer {
     }
 
     /**
-     * Displays a confirmYesNo message with a Yes and No option (<em>no</em> Cancel option).
+     * Displays a confirmYesNo message with a Yes and No option
+     * (<em>no</em> Cancel option).
      *
      * @param component    component where to display the dialog or null
-     * @param propertyKey  property key for {@link JptBundle}. There also a key for
-     *                     the title has to be in the properties file with the
-     *                     same name and the postfix <code>.Title</code>
+     * @param propertyKey  property key for {@link JptBundle}. There also a key
+     *                     for the title has to be in the properties file with
+     *                     the same name and the postfix <code>.Title</code>
      * @param params       optional parameters for message format placeholders
      * @return             user action
      */
@@ -281,6 +291,4 @@ public final class MessageDisplayer {
                ? JptBundle.INSTANCE.getString(titlePropertyKey)
                : defaultTitleOfMessageType.get(messageType);
     }
-
-    private MessageDisplayer() {}
 }
