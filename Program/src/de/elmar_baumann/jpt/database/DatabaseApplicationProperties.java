@@ -83,7 +83,7 @@ public final class DatabaseApplicationProperties extends Database {
     }
 
     /**
-     * Deletes a key and it's value.
+     * Deletes a key and its value.
      *
      * @param key key to delete
      */
@@ -118,33 +118,11 @@ public final class DatabaseApplicationProperties extends Database {
      *             a key with {@link #existsKey(String)}.
      */
     public boolean getBoolean(String key) {
-        Connection        con    = null;
-        boolean           isTrue = false;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        String value = getString(key);
 
-        try {
-            con  = getConnection();
-            stmt = con.prepareStatement(getQueryStmt());
-            stmt.setString(1, key);
-            logFinest(stmt);
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                String value = new String(rs.getBytes(1));
-
-                if (!rs.wasNull()) {
-                    isTrue = value.equals(VALUE_TRUE);
-                }
-            }
-        } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
-        } finally {
-            close(rs, stmt);
-            free(con);
-        }
-
-        return isTrue;
+        return (value == null)
+               ? false
+               : value.equals(VALUE_TRUE);
     }
 
     /**
@@ -154,36 +132,9 @@ public final class DatabaseApplicationProperties extends Database {
      * @param value value to set
      */
     public void setBoolean(String key, boolean value) {
-        Connection        con  = null;
-        PreparedStatement stmt = null;
-
-        try {
-            con = getConnection();
-            con.setAutoCommit(true);
-            stmt = con.prepareStatement(getInsertOrUpdateStmt(key));
-            stmt.setBytes(1, value
-                             ? VALUE_TRUE.getBytes()
-                             : VALUE_FALSE.getBytes());
-
-            if (!existsKey(key)) {
-                stmt.setString(2, key);
-            }
-
-            logFinest(stmt);
-
-            int count = stmt.executeUpdate();
-
-            assert count > 0 : "Not updated: " + key;
-        } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
-        } finally {
-            close(stmt);
-            free(con);
-        }
-    }
-
-    private String getQueryStmt() {
-        return "SELECT value FROM application WHERE key = ?";
+        setString(key, value
+                       ? VALUE_TRUE
+                       : VALUE_FALSE);
     }
 
     private String getInsertOrUpdateStmt(String key) {
@@ -192,5 +143,77 @@ public final class DatabaseApplicationProperties extends Database {
         } else {
             return "INSERT INTO application (value, key) VALUES (?, ?)";
         }
+    }
+
+    /**
+     * Sets a string.
+     *
+     * @param key    key
+     * @param string string to set
+     */
+    public void setString(String key, String string) {
+        Connection        con  = null;
+        PreparedStatement stmt = null;
+
+        try {
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.prepareStatement(getInsertOrUpdateStmt(key));
+            stmt.setBytes(1, string.getBytes());
+
+            if (!existsKey(key)) {
+                stmt.setString(2, key);
+            }
+
+            logFinest(stmt);
+            stmt.executeUpdate();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
+        } finally {
+            close(stmt);
+            free(con);
+        }
+    }
+
+    /**
+     * Returns a string.
+     *
+     * @param  key key
+     * @return     string or null if there is no such key in the database,
+     *             the inserted string was null or on database errors
+     */
+    public String getString(String key) {
+        Connection        con    = null;
+        PreparedStatement stmt   = null;
+        ResultSet         rs     = null;
+        String            string = null;
+
+        try {
+            String sql = "SELECT value FROM application WHERE key = ?";
+
+            con  = getConnection();
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, key);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                byte[] bytes = rs.getBytes(1);
+
+                if (rs.wasNull() || (bytes == null)) {
+                    string = null;
+                } else {
+                    string = new String(bytes);
+                }
+            }
+        } catch (Exception ex) {
+            string = null;
+            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return string;
     }
 }
