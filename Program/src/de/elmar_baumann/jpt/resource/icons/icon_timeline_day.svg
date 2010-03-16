@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,13 +14,13 @@
    height="16px"
    id="svg3143"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docbase="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons"
+   inkscape:version="0.47 r22583"
    sodipodi:docname="icon_timeline_day.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons/icon_timeline_day.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   version="1.1">
   <defs
      id="defs3145">
     <inkscape:perspective
@@ -50,6 +51,13 @@
        y2="0.47131586"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.0626027,0,0,1.0626027,-0.5008216,-0.5008215)" />
+    <inkscape:perspective
+       id="perspective11"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 8 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -58,8 +66,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="16.5625"
-     inkscape:cx="-19.592453"
+     inkscape:zoom="48.6875"
+     inkscape:cx="8"
      inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -67,10 +75,11 @@
      inkscape:document-units="px"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="818"
-     inkscape:window-height="675"
-     inkscape:window-x="66"
-     inkscape:window-y="28">
+     inkscape:window-width="1680"
+     inkscape:window-height="1031"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1">
     <sodipodi:guide
        orientation="vertical"
        position="8.0638615"
@@ -125,23 +134,26 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
-    <rect
-       style="opacity:1;fill:url(#linearGradient3140);fill-opacity:1;stroke:none;stroke-width:0.9426319;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect4127"
-       width="16"
-       height="16"
-       x="0"
-       y="-1.1178124e-15" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#eeeeee;fill-opacity:1;stroke:#777777;stroke-width:1.29999995;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3151"
+       sodipodi:cx="8.1089106"
+       sodipodi:cy="8.1613865"
+       sodipodi:rx="6.7574258"
+       sodipodi:ry="6.7574258"
+       d="m 14.866336,8.1613865 a 6.7574258,6.7574258 0 1 1 -13.5148512,0 6.7574258,6.7574258 0 1 1 13.5148512,0 z"
+       transform="translate(-0.10891056,-0.16138649)" />
     <text
        xml:space="preserve"
-       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#777777;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Times New Roman"
-       x="2.6640625"
-       y="13.296875"
+       style="font-size:13.14608765px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#777777;fill-opacity:1;stroke:none;font-family:Times New Roman"
+       x="3.6158311"
+       y="12.352074"
        id="text3136"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3138"
-         x="2.6640625"
-         y="13.296875">T</tspan></text>
+         x="3.6158311"
+         y="12.352074">T</tspan></text>
   </g>
 </svg>

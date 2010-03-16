@@ -39,8 +39,11 @@ import javax.swing.tree.TreePath;
  * @version 2008-09-24
  */
 public final class PopupMenuDirectories extends JPopupMenu {
-    private static final long serialVersionUID   = 4574458335277932153L;
-    private final JMenuItem   itemAddToFavorites =
+    private static final long                serialVersionUID =
+        4574458335277932153L;
+    public static final PopupMenuDirectories INSTANCE         =
+        new PopupMenuDirectories();
+    private final JMenuItem itemAddToFavorites =
         new JMenuItem(
             JptBundle.INSTANCE
                 .getString(
@@ -48,20 +51,26 @@ public final class PopupMenuDirectories extends JPopupMenu {
                         .getIcon("icon_favorite.png"));
     private final JMenuItem itemCreateDirectory =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuDirectories.DisplayName.Action.CreateDirectory"));
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuDirectories.DisplayName.Action.CreateDirectory"), AppLookAndFeel
+                        .getIcon("icon_folder_new.png"));
     private final JMenuItem itemRenameDirectory =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "PopupMenuDirectories.DisplayName.Action.RenameDirectory"));
-    private final JMenuItem itemDeleteDirectory =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuDirectories.DisplayName.Action.DeleteDirectory"));
     private final JMenuItem itemRefresh =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuDirectories.DisplayName.Action.Refresh"));
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuDirectories.DisplayName.Action.Refresh"), AppLookAndFeel
+                        .ICON_REFRESH);
+    private final JMenuItem itemDeleteDirectory =
+        new JMenuItem(
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuDirectories.DisplayName.Action.DeleteDirectory"), AppLookAndFeel
+                        .ICON_DELETE);
     private final JMenuItem menuItemExpandAllSubitems =
         new JMenuItem(
             JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
@@ -69,11 +78,13 @@ public final class PopupMenuDirectories extends JPopupMenu {
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "MouseListenerTreeExpand.ItemCollapse"));
-    private TreePath                         path;
-    private String                           directoryName;
-    private boolean                          treeSelected = false;
-    public static final PopupMenuDirectories INSTANCE     =
-        new PopupMenuDirectories();
+    private boolean  treeSelected = false;
+    private String   directoryName;
+    private TreePath path;
+
+    private PopupMenuDirectories() {
+        init();
+    }
 
     /**
      * Liefert den ausgewählten Verzeichnisnamen.
@@ -127,10 +138,6 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     public JMenuItem getItemExpandAllSubitems() {
         return menuItemExpandAllSubitems;
-    }
-
-    private PopupMenuDirectories() {
-        init();
     }
 
     private void init() {

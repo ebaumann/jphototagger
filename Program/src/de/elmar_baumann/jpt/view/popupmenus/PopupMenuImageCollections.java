@@ -20,6 +20,7 @@
 
 package de.elmar_baumann.jpt.view.popupmenus;
 
+import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
 import java.awt.event.InputEvent;
@@ -36,22 +37,27 @@ import javax.swing.KeyStroke;
  * @version 2008-09-08
  */
 public final class PopupMenuImageCollections extends JPopupMenu {
-    private static final long serialVersionUID = -3446852358941591602L;
-    private final JMenuItem   itemDelete       =
+    private static final long                     serialVersionUID =
+        -3446852358941591602L;
+    public static final PopupMenuImageCollections INSTANCE         =
+        new PopupMenuImageCollections();
+    private final JMenuItem itemDelete =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuImageCollections.DisplayName.Action.Delete"));
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuImageCollections.DisplayName.Action.Delete"), AppLookAndFeel
+                        .ICON_DELETE);
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "PopupMenuImageCollections.DisplayName.Action.Rename"));
     private final JMenuItem itemCreate =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuImageCollections.DisplayName.Action.Create"));
-    public int                                    itemIndex;
-    public static final PopupMenuImageCollections INSTANCE =
-        new PopupMenuImageCollections();
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuImageCollections.DisplayName.Action.Create"), AppLookAndFeel
+                        .getIcon("icon_imagecollection.png"));
+    public int itemIndex;
 
     private PopupMenuImageCollections() {
         init();
