@@ -5,6 +5,14 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.8.3 2010-03-16
+----------------
+
+* Windows-Installationen: JPhotoTagger darf sich nun maximal (kurzzeitig bis
+  zu) 750 MB RAM holen
+* Bugfix: Ist Autovervollständigen deaktiviert, erzeugte das Drücken von Enter
+  im Schnellsuchen-Eingabefeld einen Zeilenumbruch
+
 0.8.2 2010-03-16
 ----------------
 
