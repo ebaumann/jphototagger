@@ -17,7 +17,7 @@
    inkscape:version="0.47 r22583"
    version="1.0"
    sodipodi:docname="icon_keyword_hk_highlighted.svg"
-   inkscape:export-filename="/home/elmar/projekte/JPhotoTagger/Program/src/de/elmar_baumann/jpt/resource/icons/icon_keyword_hk_highlighted.png"
+   inkscape:export-filename="E:\test\jphototagger\Program\src\de\elmar_baumann\jpt\resource\icons\icon_keyword_hk_highlighted.png"
    inkscape:export-xdpi="11"
    inkscape:export-ydpi="11">
   <defs
@@ -617,7 +617,7 @@
             <dc:title>Oxygen team</dc:title>
           </cc:Agent>
         </dc:contributor>
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
       <cc:License
          rdf:about="http://creativecommons.org/licenses/LGPL/2.1/">
@@ -645,16 +645,6 @@
        id="path2276"
        d="m 50.892799,3.2812959 0,-2.79470843 0,2.79470843 z"
        style="fill:#ffffff;fill-opacity:0.75688076;fill-rule:nonzero;stroke:none" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:0.38139535;fill:url(#radialGradient10686);fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="path3289"
-       sodipodi:cx="63.912209"
-       sodipodi:cy="115.70919"
-       sodipodi:rx="63.912209"
-       sodipodi:ry="12.641975"
-       d="m 127.82442,115.70919 a 63.912209,12.641975 0 1 1 -127.82442,0 63.912209,12.641975 0 1 1 127.82442,0 z"
-       transform="matrix(1,0,0,0.416667,0.144757,74.63816)" />
     <path
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
        d="m 65.54467,17.522803 c -3.030435,-0.274071 -6.148147,0.744739 -8.477759,3.074352 L 3.2812746,74.351738 c -4.16878179,4.168781 -4.16878189,10.892436 0,15.06122 L 33.248445,119.38013 c 4.168782,4.16879 10.892439,4.16878 15.06122,0 L 102.06426,65.594492 c 2.47521,-2.475214 3.11308,-5.833232 3.1054,-9.036732 l -0.0621,-28.50763 c 0,-5.89555 -4.75599,-10.651543 -10.651543,-10.651543 0,0 -28.428272,0.09134 -28.911337,0.124216 z m 28.662905,5.092867 c 3.639655,-0.160418 6.117655,2.469863 6.117655,5.527623 0,3.05776 -2.469871,5.527623 -5.527628,5.527623 -3.057767,1e-6 -5.558677,-2.469863 -5.558677,-5.527623 0,-2.86665 2.168348,-5.4042 4.96865,-5.527623 z"
