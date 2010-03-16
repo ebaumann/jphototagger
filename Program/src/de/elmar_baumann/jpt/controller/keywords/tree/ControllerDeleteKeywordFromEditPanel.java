@@ -76,7 +76,7 @@ public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords
         }
     }
 
-    private void removeFromEditPanel(String keyword) {
+    public void removeFromEditPanel(String keyword) {
         EditMetadataPanels editPanels =
             GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         JPanel panel =

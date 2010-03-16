@@ -66,6 +66,8 @@ import de.elmar_baumann.jpt.controller.imagecollection.ControllerPickReject;
 import de.elmar_baumann.jpt.controller.imagecollection
     .ControllerRenameImageCollection;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDeleteKeywords;
+import de.elmar_baumann.jpt.controller.keywords.list
+    .ControllerDeleteKeywordsFromEditPanel;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerDisplayKeyword;
 import de.elmar_baumann.jpt.controller.keywords.list
     .ControllerEditKeywordSynonyms;
@@ -74,8 +76,6 @@ import de.elmar_baumann.jpt.controller.keywords.list
     .ControllerKeywordItemSelected;
 import de.elmar_baumann.jpt.controller.keywords.list.ControllerRenameKeywords;
 import de.elmar_baumann.jpt.controller.keywords.tree.ControllerAddKeyword;
-import de.elmar_baumann.jpt.controller.keywords.tree
-    .ControllerAddKeywordsToEditPanel;
 import de.elmar_baumann.jpt.controller.keywords.tree
     .ControllerCopyCutPasteKeyword;
 import de.elmar_baumann.jpt.controller.keywords.tree
@@ -137,10 +137,12 @@ import de.elmar_baumann.jpt.controller.misc.ControllerShowSystemOutput;
 import de.elmar_baumann.jpt.controller.misc.ControllerShowUserSettingsDialog;
 import de.elmar_baumann.jpt.controller.misc.ControllerThumbnailCountDisplay;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
-import de.elmar_baumann.jpt.controller.miscmetadata.ControllerDeleteMiscMetadata;
+import de.elmar_baumann.jpt.controller.miscmetadata
+    .ControllerDeleteMiscMetadata;
 import de.elmar_baumann.jpt.controller.miscmetadata
     .ControllerMiscMetadataItemSelected;
-import de.elmar_baumann.jpt.controller.miscmetadata.ControllerRenameMiscMetadata;
+import de.elmar_baumann.jpt.controller.miscmetadata
+    .ControllerRenameMiscMetadata;
 import de.elmar_baumann.jpt.controller.nometadata
     .ControllerNoMetadataItemSelected;
 import de.elmar_baumann.jpt.controller.programs.ControllerOpenFilesWithOtherApp;
@@ -315,6 +317,9 @@ public final class ControllerFactory {
         support.add(new ControllerInsertKeywords());
         support.add(new ControllerDeleteMiscMetadata());
         support.add(new ControllerRenameMiscMetadata());
+        support.add(new de.elmar_baumann.jpt.controller.keywords.list
+            .ControllerAddKeywordsToEditPanel());
+        support.add(new ControllerDeleteKeywordsFromEditPanel());
         addKeywordsTreeControllers();
         addSizeAndLocationController();
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
@@ -335,7 +340,8 @@ public final class ControllerFactory {
             support.add(new ControllerAddKeyword(keywordsPanel));
             support.add(new de.elmar_baumann.jpt.controller.keywords.tree
                 .ControllerDeleteKeywords(keywordsPanel));
-            support.add(new ControllerAddKeywordsToEditPanel(keywordsPanel));
+            support.add(new de.elmar_baumann.jpt.controller.keywords.tree
+                .ControllerAddKeywordsToEditPanel(keywordsPanel));
             support.add(
                 new ControllerDeleteKeywordFromEditPanel(keywordsPanel));
             support.add(new ControllerCopyCutPasteKeyword(keywordsPanel));

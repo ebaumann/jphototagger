@@ -70,6 +70,14 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
                 .getString(
                     "PopupMenuKeywordsList.DisplayName.Action.Delete"), AppLookAndFeel
                         .ICON_DELETE);
+    private final JMenuItem itemAddToEditPanel =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuKeywordsList.DisplayName.ActionAddToEditPanel"));
+    private final JMenuItem itemRemoveFromEditPanel =
+        new JMenuItem(
+            JptBundle.INSTANCE.getString(
+                "PopupMenuKeywordsList.DisplayName.ActionRemoveFromEditPanel"));
     private JList list;
     private int   selIndex;
 
@@ -114,12 +122,23 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         return itemInsert;
     }
 
+    public JMenuItem getItemAddToEditPanel() {
+        return itemAddToEditPanel;
+    }
+
+    public JMenuItem getItemRemoveFromEditPanel() {
+        return itemRemoveFromEditPanel;
+    }
+
     private void addItems() {
         add(itemInsert);
         add(itemRename);
         add(itemDelete);
         add(new Separator());
         add(itemEditSynonyms);
+        add(new Separator());
+        add(itemAddToEditPanel);
+        add(itemRemoveFromEditPanel);
         add(new Separator());
         add(itemDisplayImages);
     }
@@ -132,5 +151,9 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
                 0));
         itemEditSynonyms.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 InputEvent.ALT_MASK | InputEvent.CTRL_MASK));
+        itemAddToEditPanel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,
+                InputEvent.CTRL_MASK));
+        itemRemoveFromEditPanel.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
     }
 }
