@@ -24,6 +24,7 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Keyword;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
+import de.elmar_baumann.jpt.helper.KeywordsHelper;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
 import de.elmar_baumann.lib.model.TreeNodeSortedChildren;
@@ -39,7 +40,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
 /**
- * Elements are {@link DefaultMutableTreeNode}s with the user objects listed below.
+ * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
+ * below.
  *
  * <ul>
  * <li>The root user object is a {@link String}</li>
@@ -52,8 +54,9 @@ import javax.swing.tree.TreeNode;
 public final class TreeModelKeywords extends DefaultTreeModel {
     private static final long                serialVersionUID =
         -1044898256327030256L;
+    private final transient DatabaseKeywords db               =
+        DatabaseKeywords.INSTANCE;
     private final DefaultMutableTreeNode     ROOT;
-    private final transient DatabaseKeywords db = DatabaseKeywords.INSTANCE;
 
     public TreeModelKeywords() {
         super(new TreeNodeSortedChildren(
@@ -115,6 +118,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
             Keyword child    = new Keyword(null, idParent, keyword, real);
 
             if (db.insert(child)) {
+                KeywordsHelper.insertDcSubject(keyword);
+
                 TreeNodeSortedChildren node = new TreeNodeSortedChildren(child);
 
                 insertNode(parentNode, node);
@@ -159,6 +164,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                                     srcKeyword.getName(), srcKeyword.isReal());
 
         if (db.insert(keyword)) {
+            KeywordsHelper.insertDcSubject(keyword.getName());
+
             DefaultMutableTreeNode node = new TreeNodeSortedChildren(keyword);
 
             target.add(node);

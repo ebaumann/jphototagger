@@ -57,7 +57,10 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Helps with keywords.
+ * Helper for hierarchical keywords and Dublin Core subjects ("flat" keywords).
+ * <p>
+ * <strong>Keyword</strong> means a hierarchical keyword, <strong>DC (Dublin
+ * Core) subject</strong> a "flat" keyword.
  *
  * @author  Elmar Baumann
  * @version 2009-08-05
@@ -87,7 +90,19 @@ public final class KeywordsHelper {
     }
 
     /**
-     * Inserts into the Database a Dublin Core keyword.
+     * Inserts into the database a dublin core subject if it does not already
+     * exist.
+     *
+     * @param dcSubject subject
+     */
+    public static void insertDcSubject(String dcSubject) {
+        if (!DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
+            DatabaseImageFiles.INSTANCE.insertDcSubject(dcSubject);
+        }
+    }
+
+    /**
+     * Inserts into the Database a Dublin Core keyword via user input.
      */
     public static void insertDcSubject() {
         String dcSubject = MessageDisplayer.input(
@@ -313,32 +328,32 @@ public final class KeywordsHelper {
     }
 
     /**
-     * Renames in the database and all sidecar files a keyword.
+     * Renames in the database and all sidecar files a Dublin Core subject.
      *
      * @param oldName old name
      * @param newName new name
      */
-    public static void renameKeyword(String oldName, String newName) {
+    public static void renameDcSubject(String oldName, String newName) {
         boolean valid = (oldName != null) && (newName != null)
                         &&!oldName.equalsIgnoreCase(newName);
         assert valid;
 
         if (valid) {
-            UserTasks.INSTANCE.add(new RenameKeyword(oldName, newName));
+            UserTasks.INSTANCE.add(new RenameDcSubject(oldName, newName));
         }
     }
 
     /**
-     * Renames in the database and all sidecar files a keyword.
+     * Renames in the database and all sidecar files a dublin core subject.
      *
      * @param keyword keyword
      */
-    public static void deleteKeyword(String keyword) {
+    public static void deleteDcSubject(String keyword) {
         boolean valid = keyword != null;
         assert  valid;
 
         if (valid) {
-            UserTasks.INSTANCE.add(new DeleteKeyword(keyword));
+            UserTasks.INSTANCE.add(new DeleteDcSubject(keyword));
         }
     }
 
@@ -357,12 +372,12 @@ public final class KeywordsHelper {
         }
     }
 
-    private static class DeleteKeyword extends HelperThread {
-        private final String     keyword;
+    private static class DeleteDcSubject extends HelperThread {
+        private final String     dcSubject;
         private volatile boolean stop;
 
-        public DeleteKeyword(String keyword) {
-            this.keyword = keyword;
+        public DeleteDcSubject(String keyword) {
+            this.dcSubject = keyword;
             setName("Deleting keyword @ " + getClass().getSimpleName());
             setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Delete"));
         }
@@ -372,9 +387,9 @@ public final class KeywordsHelper {
             List<String> filenames =
                 new ArrayList<String>(
                     DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(
-                        keyword));
+                        dcSubject));
 
-            logStartDelete(keyword);
+            logStartDelete(dcSubject);
             progressStarted(0, 0, filenames.size(), null);
 
             int size  = filenames.size();
@@ -388,7 +403,7 @@ public final class KeywordsHelper {
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                    keyword);
+                                    dcSubject);
                     updateXmp(xmp, filename, sidecarFilename);
                 }
 
@@ -396,7 +411,6 @@ public final class KeywordsHelper {
             }
 
             checkDatabase();
-
             progressEnded(index);
         }
 
@@ -411,22 +425,22 @@ public final class KeywordsHelper {
         }
 
         private void checkDatabase() {
-            if (DatabaseImageFiles.INSTANCE.existsDcSubject(keyword)) {
-                DatabaseImageFiles.INSTANCE.deleteDcSubject(keyword);
+            if (DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
+                DatabaseImageFiles.INSTANCE.deleteDcSubject(dcSubject);
             }
         }
     }
 
 
-    private static class RenameKeyword extends HelperThread {
+    private static class RenameDcSubject extends HelperThread {
         private final String     newName;
         private final String     oldName;
         private volatile boolean stop;
 
-        public RenameKeyword(String oldName, String newName) {
+        public RenameDcSubject(String oldName, String newName) {
             this.oldName = oldName;
             this.newName = newName;
-            setName("Renaming keyword @ " + getClass().getSimpleName());
+            setName("Renaming DC subject @ " + getClass().getSimpleName());
             setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Rename"));
         }
 

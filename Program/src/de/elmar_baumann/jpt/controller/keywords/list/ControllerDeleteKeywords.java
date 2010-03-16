@@ -62,7 +62,7 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
             if (MessageDisplayer.confirmYesNo(
                     InputHelperDialog.INSTANCE,
                     "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
-                KeywordsHelper.deleteKeyword(keyword);
+                KeywordsHelper.deleteDcSubject(keyword);
             }
         } else if (size > 1) {
             if (MessageDisplayer.confirmYesNo(
@@ -70,7 +70,7 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
                     "ControllerDeleteKeywords.List.Confirm.DeleteMultiple",
                     size)) {
                 for (String keyword : keywords) {
-                    KeywordsHelper.deleteKeyword(keyword);
+                    KeywordsHelper.deleteDcSubject(keyword);
                 }
             }
         }
