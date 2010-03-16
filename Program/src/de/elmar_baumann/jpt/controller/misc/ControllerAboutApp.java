@@ -47,6 +47,6 @@ public final class ControllerAboutApp implements ActionListener {
                 AppInfo.APP_VERSION), "JPhotoTagger",
                                       JOptionPane.INFORMATION_MESSAGE,
                                       AppLookAndFeel.getIcon(
-                                          "icon_app_about.png"));
+                                          "icon_logo.png"));
     }
 }
