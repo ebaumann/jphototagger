@@ -31,6 +31,7 @@ import de.elmar_baumann.jpt.io.CharEncoding;
 import de.elmar_baumann.jpt.io.FilenameSuffixes;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.jpt.helper.KeywordsHelper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -190,6 +191,7 @@ final class UpdateTablesDropCategories {
 
                     if (!kw.isEmpty()) {
                         db.insert(new Keyword(null, null, kw, true));
+                        KeywordsHelper.insertDcSubject(kw);
                     }
                 }
             } catch (Exception ex) {

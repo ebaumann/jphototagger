@@ -64,7 +64,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
             String newName = getNewName(oldName);
 
             if ((newName != null) &&!newName.equalsIgnoreCase(oldName)) {
-                KeywordsHelper.renameKeyword(oldName, newName);
+                KeywordsHelper.renameDcSubject(oldName, newName);
             }
         } else if (size > 1) {
             MessageDisplayer.information(
