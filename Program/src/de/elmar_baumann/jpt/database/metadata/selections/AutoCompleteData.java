@@ -79,14 +79,17 @@ public final class AutoCompleteData {
         return cols;
     }
 
+    // Consider to do that in a separate thread
     public boolean add(String word) {
         assert UserSettings.INSTANCE.isAutocomplete();
 
-        synchronized (words) {
-            if (Collections.binarySearch(words, word) < 0) {
-                CollectionUtil.binaryInsert(words, word);
+        if (UserSettings.INSTANCE.isUpdateAutocomplete()) {
+            synchronized (words) {
+                if (Collections.binarySearch(words, word) < 0) {
+                    CollectionUtil.binaryInsert(words, word);
 
-                return true;
+                    return true;
+                }
             }
         }
 
