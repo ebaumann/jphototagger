@@ -252,39 +252,40 @@ public final class EditTextEntryPanel extends JPanel
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPrompt  = new javax.swing.JLabel();
-        scrollPane   = new javax.swing.JScrollPane();
+        labelPrompt = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
         textAreaEdit = new javax.swing.JTextArea();
+
         setLayout(new java.awt.GridBagLayout());
-        labelPrompt.setText(
-            JptBundle.INSTANCE.getString(
-                "EditTextEntryPanel.labelPrompt.text"));    // NOI18N
+
+        labelPrompt.setText(JptBundle.INSTANCE.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
-        gridBagConstraints         = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx   = 0;
-        gridBagConstraints.gridy   = 0;
-        gridBagConstraints.anchor  = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
+
         textAreaEdit.setColumns(1);
         textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
         textAreaEdit.setWrapStyleWord(true);
         scrollPane.setViewportView(textAreaEdit);
-        textAreaEdit.setTransferHandler(
-            new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
-        gridBagConstraints         = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx   = 0;
-        gridBagConstraints.gridy   = 1;
-        gridBagConstraints.fill    = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weighty = 0.5;
+        textAreaEdit.setTransferHandler(new de.elmar_baumann.jpt.datatransfer.TransferHandlerDropEdit());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         add(scrollPane, gridBagConstraints);
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel      labelPrompt;
+    private javax.swing.JLabel labelPrompt;
     private javax.swing.JScrollPane scrollPane;
-    public javax.swing.JTextArea    textAreaEdit;
-
+    public javax.swing.JTextArea textAreaEdit;
     // End of variables declaration//GEN-END:variables
 }
