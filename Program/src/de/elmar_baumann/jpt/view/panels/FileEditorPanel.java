@@ -345,81 +345,69 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelDescription              = new javax.swing.JLabel();
-        panelOptions                  = new javax.swing.JPanel();
+
+        labelDescription = new javax.swing.JLabel();
+        panelOptions = new javax.swing.JPanel();
         checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
-        checkBoxReplaceExistingFiles  = new javax.swing.JCheckBox();
-        scrollPaneListFiles           = new javax.swing.JScrollPane();
-        listFiles                     = new javax.swing.JList();
-        progressBar                   = new javax.swing.JProgressBar();
-        labelFilename                 = new javax.swing.JLabel();
-        buttonSelectFiles             = new javax.swing.JButton();
-        buttonStop                    = new javax.swing.JButton();
-        buttonStart                   = new javax.swing.JButton();
+        checkBoxReplaceExistingFiles = new javax.swing.JCheckBox();
+        scrollPaneListFiles = new javax.swing.JScrollPane();
+        listFiles = new javax.swing.JList();
+        progressBar = new javax.swing.JProgressBar();
+        labelFilename = new javax.swing.JLabel();
+        buttonSelectFiles = new javax.swing.JButton();
+        buttonStop = new javax.swing.JButton();
+        buttonStart = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "de/elmar_baumann/jpt/resource/properties/Bundle");    // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/elmar_baumann/jpt/resource/properties/Bundle"); // NOI18N
+        labelDescription.setText(bundle.getString("FileEditorPanel.labelDescription.text")); // NOI18N
 
-        labelDescription.setText(
-            bundle.getString("FileEditorPanel.labelDescription.text"));    // NOI18N
-        panelOptions.setBorder(
-            javax.swing.BorderFactory.createTitledBorder(
-                JptBundle.INSTANCE.getString(
-                    "FileEditorPanel.panelOptions.border.title")));    // NOI18N
-        checkBoxIncludeSubdirectories.setText(
-            JptBundle.INSTANCE.getString(
-                "FileEditorPanel.checkBoxIncludeSubdirectories.text"));    // NOI18N
-        checkBoxReplaceExistingFiles.setText(
-            JptBundle.INSTANCE.getString(
-                "FileEditorPanel.checkBoxReplaceExistingFiles.text"));    // NOI18N
+        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
 
-        javax.swing.GroupLayout panelOptionsLayout =
-            new javax.swing.GroupLayout(panelOptions);
+        checkBoxIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
 
+        checkBoxReplaceExistingFiles.setText(JptBundle.INSTANCE.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
+
+        javax.swing.GroupLayout panelOptionsLayout = new javax.swing.GroupLayout(panelOptions);
         panelOptions.setLayout(panelOptionsLayout);
         panelOptionsLayout.setHorizontalGroup(
-            panelOptionsLayout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                panelOptionsLayout.createSequentialGroup().addGroup(
-                    panelOptionsLayout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        checkBoxReplaceExistingFiles).addComponent(
-                        checkBoxIncludeSubdirectories)).addContainerGap(
-                            117, Short.MAX_VALUE)));
-        panelOptionsLayout
-            .setVerticalGroup(panelOptionsLayout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment
-                    .TRAILING, panelOptionsLayout.createSequentialGroup()
-                    .addComponent(checkBoxIncludeSubdirectories)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement
-                        .UNRELATED).addComponent(checkBoxReplaceExistingFiles)
-                            .addContainerGap(javax.swing.GroupLayout
-                                .DEFAULT_SIZE, Short.MAX_VALUE)));
+            panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOptionsLayout.createSequentialGroup()
+                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxReplaceExistingFiles)
+                    .addComponent(checkBoxIncludeSubdirectories))
+                .addContainerGap(189, Short.MAX_VALUE))
+        );
+        panelOptionsLayout.setVerticalGroup(
+            panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionsLayout.createSequentialGroup()
+                .addComponent(checkBoxIncludeSubdirectories)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkBoxReplaceExistingFiles)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         listFiles.setCellRenderer(new ListCellRendererFileSystem(true));
         listFiles.setEnabled(false);
         scrollPaneListFiles.setViewportView(listFiles);
+
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
-        buttonSelectFiles.setText(
-            JptBundle.INSTANCE.getString(
-                "FileEditorPanel.buttonSelectFiles.text"));    // NOI18N
-        buttonSelectFiles.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonSelectFiles.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
+        buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectFilesActionPerformed(evt);
             }
         });
-        buttonStop.setText(
-            JptBundle.INSTANCE.getString("FileEditorPanel.buttonStop.text"));    // NOI18N
+
+        buttonStop.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonStop.text")); // NOI18N
         buttonStop.setEnabled(false);
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStopActionPerformed(evt);
             }
         });
-        buttonStart.setText(
-            JptBundle.INSTANCE.getString("FileEditorPanel.buttonStart.text"));    // NOI18N
+
+        buttonStart.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -428,71 +416,46 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.TRAILING).addComponent(
-                        scrollPaneListFiles,
-                        javax.swing.GroupLayout.Alignment.LEADING,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, 490,
-                        Short.MAX_VALUE).addComponent(
-                            labelDescription,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, 490,
-                            Short.MAX_VALUE).addGroup(
-                                layout.createSequentialGroup().addComponent(
-                                    buttonSelectFiles).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                    buttonStop).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                    buttonStart)).addComponent(
-                                        panelOptions,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE).addComponent(
-                                            progressBar,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    490,
-                                                    Short.MAX_VALUE).addComponent(
-                                                        labelFilename,
-                                                            javax.swing.GroupLayout.Alignment.LEADING,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                    490,
-                                                                    Short.MAX_VALUE)).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonSelectFiles)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonStop)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonStart))
+                    .addComponent(panelOptions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addComponent(
-                    labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 15,
-                    Short.MAX_VALUE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                        panelOptions, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                            scrollPaneListFiles,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, 144,
-                            Short.MAX_VALUE).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                progressBar,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 22,
-                                javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                    labelFilename,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 16,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                        layout.createParallelGroup(
-                                            javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                                buttonStop).addComponent(
-                                                    buttonSelectFiles).addComponent(
-                                                        buttonStart)).addContainerGap()));
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonStop)
+                    .addComponent(buttonSelectFiles)
+                    .addComponent(buttonStart))
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSelectFilesActionPerformed(
             java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFilesActionPerformed
@@ -508,17 +471,16 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonStopActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton      buttonSelectFiles;
-    private javax.swing.JButton      buttonStart;
-    private javax.swing.JButton      buttonStop;
-    private javax.swing.JCheckBox    checkBoxIncludeSubdirectories;
-    private javax.swing.JCheckBox    checkBoxReplaceExistingFiles;
-    private javax.swing.JLabel       labelDescription;
-    private javax.swing.JLabel       labelFilename;
-    private javax.swing.JList        listFiles;
-    private javax.swing.JPanel       panelOptions;
+    private javax.swing.JButton buttonSelectFiles;
+    private javax.swing.JButton buttonStart;
+    private javax.swing.JButton buttonStop;
+    private javax.swing.JCheckBox checkBoxIncludeSubdirectories;
+    private javax.swing.JCheckBox checkBoxReplaceExistingFiles;
+    private javax.swing.JLabel labelDescription;
+    private javax.swing.JLabel labelFilename;
+    private javax.swing.JList listFiles;
+    private javax.swing.JPanel panelOptions;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JScrollPane  scrollPaneListFiles;
-
+    private javax.swing.JScrollPane scrollPaneListFiles;
     // End of variables declaration//GEN-END:variables
 }
