@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifByte.java    2009-04-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.image.metadata.exif.Ensure;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-04-04
  */
 public final class ExifByte {
     private final int value;

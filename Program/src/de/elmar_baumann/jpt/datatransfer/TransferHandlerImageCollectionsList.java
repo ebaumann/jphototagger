@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TransferHandlerImageCollectionsList.java    2008-10-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +47,6 @@ import javax.swing.TransferHandler;
  * collections.
  *
  * @author  Elmar Baumann
- * @version 2008-10-24
  */
 public final class TransferHandlerImageCollectionsList extends TransferHandler {
     private static final long serialVersionUID = 1375965940535469098L;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RenameFilenamesInDbDialog.java    2009-06-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import de.elmar_baumann.lib.dialog.Dialog;
  * Holds a {@link de.elmar_baumann.jpt.view.panels.RenameFilenamesInDbPanel}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-16
  */
 public class RenameFilenamesInDbDialog extends Dialog {
     private static final long serialVersionUID = 4052809300034354623L;

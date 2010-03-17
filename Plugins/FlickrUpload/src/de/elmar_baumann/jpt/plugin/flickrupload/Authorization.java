@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Authorization.java    2010-02-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import javax.swing.JOptionPane;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-14
  */
 final class Authorization {
     private static final String KEY_TOKEN =

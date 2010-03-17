@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TextEntry.java    2008-09-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.util.List;
  * Text as value of a {@link Column}.
  *
  * @author  Elmar Baumann
- * @version 2008-09-18
  */
 public interface TextEntry {
     public String getText();

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerMiscMetadataItemSelected.java    2009-06-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import javax.swing.tree.TreePath;
 /**
  *
  * @author  Elmar Baumann
- * @version 2009-06-12
  */
 public final class ControllerMiscMetadataItemSelected
         implements TreeSelectionListener, RefreshListener {

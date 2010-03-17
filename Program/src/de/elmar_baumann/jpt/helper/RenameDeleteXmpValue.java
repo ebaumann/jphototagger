@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RenameDeleteXmpValue.java    2010-03-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import java.util.List;
  * Renames or deletes values in XMP sidecar files.
  *
  * @author  Elmar Baumann
- * @version 2010-03-15
  */
 public final class RenameDeleteXmpValue {
     private RenameDeleteXmpValue() {}

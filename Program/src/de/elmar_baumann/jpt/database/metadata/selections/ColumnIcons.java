@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ColumnIcons.java    2009-08-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,7 +49,6 @@ import javax.swing.Icon;
  * Icons of table columns.
  *
  * @author  Elmar Baumann
- * @version 2009-08-03
  */
 public final class ColumnIcons {
     private static final Icon ICON_UNDEFINED =

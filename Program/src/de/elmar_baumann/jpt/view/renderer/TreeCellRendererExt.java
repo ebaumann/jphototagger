@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeCellRendererExt.java    2010-01-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-07
  */
 public class TreeCellRendererExt extends DefaultTreeCellRenderer {
     private static final long serialVersionUID = 7468243064122106211L;

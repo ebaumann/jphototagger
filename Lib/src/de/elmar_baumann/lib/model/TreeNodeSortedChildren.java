@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeNodeSortedChildren.java    2009-07-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import javax.swing.tree.MutableTreeNode;
  * Compares the user object's strings ignoring the case.
  *
  * @author  Elmar Baumann
- * @version 2009-07-02
  */
 public final class TreeNodeSortedChildren extends DefaultMutableTreeNode
         implements Comparable<Object> {

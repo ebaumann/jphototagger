@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerActionExecutor.java    2008-11-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
  * {@link de.elmar_baumann.jpt.view.dialogs.ActionsDialog}.
  *
  * @author  Elmar Baumann
- * @version 2008-11-06
  */
 public final class ControllerActionExecutor implements ProgramActionListener {
     private final ThumbnailsPanel thumbnailsPanel =

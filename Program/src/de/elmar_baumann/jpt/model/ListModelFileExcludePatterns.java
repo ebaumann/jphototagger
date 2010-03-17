@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListModelFileExcludePatterns.java    2008-10-09
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.DefaultListModel;
  * <strong>JPhotoTagger</strong>.
  *
  * @author  Elmar Baumann
- * @version 2008-10-09
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel
         implements DatabaseFileExcludePatternsListener {

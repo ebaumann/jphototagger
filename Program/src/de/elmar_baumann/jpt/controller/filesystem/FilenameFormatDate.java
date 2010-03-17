@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FilenameFormatDate.java    2008-10-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import java.util.Date;
  * Formatted date in the order YYYY-MM-dd.
  *
  * @author  Elmar Baumann
- * @version 2008-10-13
  */
 public final class FilenameFormatDate extends FilenameFormat {
     private String delimiter;

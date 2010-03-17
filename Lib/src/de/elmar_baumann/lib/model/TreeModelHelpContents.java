@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeModelHelpContents.java    2008-10-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import javax.swing.tree.TreePath;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-10-02
  */
 public final class TreeModelHelpContents implements TreeModel {
     private HelpNode root = new HelpNode();

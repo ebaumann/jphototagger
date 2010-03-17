@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ImportImageFiles.java    2010-01-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -52,7 +53,6 @@ import java.util.List;
  * {@link ListModelImageCollections#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
  *
  * @author  Elmar Baumann
- * @version 2010-01-24
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
     private final List<File>    copiedTargetFiles = new ArrayList<File>();

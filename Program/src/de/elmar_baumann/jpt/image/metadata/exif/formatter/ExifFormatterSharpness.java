@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifFormatterSharpness.java    2009-06-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.util.Map;
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#SHARPNESS}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-10
  */
 public final class ExifFormatterSharpness extends ExifFormatter {
     public static final ExifFormatterSharpness INSTANCE =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Plugin.java    2009-08-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import javax.swing.JProgressBar;
  * Base class for Plugins.
  *
  * @author  Elmar Baumann
- * @version 2009-08-27
  */
 public abstract class Plugin {
     private Properties                properties;

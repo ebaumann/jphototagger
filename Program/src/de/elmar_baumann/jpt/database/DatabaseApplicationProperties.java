@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseApplicationProperties.java    2009-08-28
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import java.sql.ResultSet;
  * different way too.
  *
  * @author  Elmar Baumann
- * @version 2009-08-28
  */
 public final class DatabaseApplicationProperties extends Database {
     public static final DatabaseApplicationProperties INSTANCE =

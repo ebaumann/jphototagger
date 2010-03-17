@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateUserSettings.java    2009-09-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.util.Properties;
  * Updates the user properties.
  *
  * @author  Elmar Baumann
- * @version 2009-09-17
  */
 public final class UpdateUserSettings {
     private static final Map<String, String> NEW_PATHNAME_START =

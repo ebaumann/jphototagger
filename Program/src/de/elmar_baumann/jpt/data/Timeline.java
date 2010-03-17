@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Timeline.java    2009-06-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +45,6 @@ import javax.swing.tree.TreeModel;
  * {@link java.util.Calendar}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-11
  */
 public final class Timeline {
     private final DefaultMutableTreeNode ROOT_NODE =

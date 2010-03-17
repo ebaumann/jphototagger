@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DeleteOption.java    2009-02-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,6 +25,5 @@ package de.elmar_baumann.jpt.types;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-02-19
  */
 public enum DeleteOption { CONFIRM_DELETE, MESSAGES_ON_FAILURES }

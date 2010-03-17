@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerRenameFiles.java    2008-10-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -51,7 +52,6 @@ import javax.swing.SwingUtilities;
  * selected files.
  *
  * @author  Elmar Baumann
- * @version 2008-10-13
  */
 public final class ControllerRenameFiles
         implements ActionListener, KeyListener, FileSystemListener {

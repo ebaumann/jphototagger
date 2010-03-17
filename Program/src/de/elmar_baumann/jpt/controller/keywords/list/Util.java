@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Util.java    2009-12-21
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import java.util.List;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-12-21
  */
 final class Util {
     public static String keywordPathString(List<String> keywords) {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SubjectCacheIndirection.java    2009-07-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import java.util.List;
 /**
  *
  * @author Martin Pohlack
- * @version 2009-07-18
  */
 public class SubjectCacheIndirection extends CacheIndirection {
     public List<String> subjects;

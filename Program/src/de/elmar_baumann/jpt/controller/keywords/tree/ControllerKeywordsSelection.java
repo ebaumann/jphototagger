@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerKeywordsSelection.java    2009-09-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import javax.swing.tree.TreePath;
  * shows thumbnails of the selected keyword and all it's
  *
  * @author  Elmar Baumann
- * @version 2009-09-02
  */
 public final class ControllerKeywordsSelection
         implements TreeSelectionListener {

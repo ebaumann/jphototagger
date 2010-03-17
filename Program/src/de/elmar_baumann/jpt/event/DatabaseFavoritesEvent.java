@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseFavoritesEvent.java    2010-03-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.data.Favorite;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-04
  */
 public final class DatabaseFavoritesEvent {
     public enum Type { FAVORITE_INSERTED, FAVORITE_UPDATED, FAVORITE_DELETED; }

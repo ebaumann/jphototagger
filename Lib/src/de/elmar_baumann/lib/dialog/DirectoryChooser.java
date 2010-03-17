@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DirectoryChooser.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,7 +49,6 @@ import javax.swing.tree.TreeSelectionModel;
  * delete and rename existing.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class DirectoryChooser extends Dialog
         implements TreeSelectionListener, PopupMenuListener {

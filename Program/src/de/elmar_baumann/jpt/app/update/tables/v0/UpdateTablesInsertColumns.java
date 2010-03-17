@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesInsertColumns.java    2008-11-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.List;
  * Adds new columns to the database.
  *
  * @author  Elmar Baumann
- * @version 2008-11-06
  */
 final class UpdateTablesInsertColumns {
     private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();

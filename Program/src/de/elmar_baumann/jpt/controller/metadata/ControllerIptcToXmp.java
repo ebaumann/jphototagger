@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerIptcToXmp.java    2008-09-30
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import java.util.List;
  * Kontrolliert die Aktion: IPTC-Daten nach XMP schreiben.
  *
  * @author  Elmar Baumann
- * @version 2008-09-30
  */
 public final class ControllerIptcToXmp implements ActionListener {
     public ControllerIptcToXmp() {

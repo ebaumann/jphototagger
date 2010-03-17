@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerShowSystemOutput.java    2009-05-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.awt.event.ActionListener;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-05-31
  */
 public final class ControllerShowSystemOutput implements ActionListener {
     public ControllerShowSystemOutput() {

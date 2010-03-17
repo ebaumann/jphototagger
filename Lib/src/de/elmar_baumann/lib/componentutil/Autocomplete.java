@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Autocomplete.java    2010-01-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -50,7 +51,6 @@ import javax.swing.SwingUtilities;
  * transfer the focus).
  *
  * @author  Elmar Baumann
- * @version 2010-01-13
  */
 public final class Autocomplete implements DocumentListener, Serializable {
     private static final String      COMMIT_ACTION               = "commit";

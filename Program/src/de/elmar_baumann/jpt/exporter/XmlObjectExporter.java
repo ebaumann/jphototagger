@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)XmlObjectExporter.java    2010-03-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import javax.xml.bind.Marshaller;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-02
  */
 public final class XmlObjectExporter {
     public static void export(Object object, File file)

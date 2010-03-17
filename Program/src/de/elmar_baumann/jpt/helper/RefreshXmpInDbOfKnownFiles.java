@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RefreshXmpInDbOfKnownFiles.java    2010-01-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import java.util.List;
  * check.
  *
  * @author  Elmar Baumann
- * @version 2010-01-04
  */
 public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
     private volatile boolean stop;

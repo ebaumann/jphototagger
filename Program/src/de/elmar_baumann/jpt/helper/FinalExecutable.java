@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FinalExecutable.java    2010-03-09
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import de.elmar_baumann.lib.runtime.External;
  * {@link AppLifeCycle#addFinalTask(de.elmar_baumann.jpt.app.AppLifeCycle.FinalTask)}
  *
  * @author  Elmar Baumann
- * @version 2010-03-09
  */
 public final class FinalExecutable extends FinalTask {
     private String executable;

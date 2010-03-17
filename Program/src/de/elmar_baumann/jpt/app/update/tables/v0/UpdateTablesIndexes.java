@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesIndexes.java    2009-09-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import java.util.Map;
  * Updates the tables indexes.
  *
  * @author  Elmar Baumann
- * @version 2009-09-11
  */
 final class UpdateTablesIndexes {
     private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE =

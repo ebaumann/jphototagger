@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UserSettings.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -51,7 +52,6 @@ import java.util.Properties;
  * class should use {@link #getSettings()}.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class UserSettings {
     private static final int    DEFAULT_MAX_THUMBNAIL_WIDTH              = 150;

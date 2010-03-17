@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)GUI.java    2008-09-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
  * Provides access to GUI elements.
  *
  * @author  Elmar Baumann
- * @version 2008-09-29
  */
 public final class GUI {
     private AppPanel        appPanel;

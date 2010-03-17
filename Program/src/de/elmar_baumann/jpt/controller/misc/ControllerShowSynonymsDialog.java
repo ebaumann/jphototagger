@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerShowSynonymsDialog.java    2010-02-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.awt.event.ActionListener;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-07
  */
 public final class ControllerShowSynonymsDialog implements ActionListener {
     public ControllerShowSynonymsDialog() {

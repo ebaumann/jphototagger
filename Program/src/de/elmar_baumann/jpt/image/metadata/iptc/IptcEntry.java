@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)IptcEntry.java    2008-02-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import java.util.Arrays;
  * ISO-8859-1-String.
  *
  * @author  Elmar Baumann
- * @version 2008-02-17
  */
 public final class IptcEntry {
     private final String        name;

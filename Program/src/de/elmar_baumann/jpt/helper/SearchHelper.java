@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SearchHelper.java    2010-01-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import de.elmar_baumann.lib.comparator.FileSort;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-20
  */
 public final class SearchHelper {
 

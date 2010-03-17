@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)HelpBrowserListener.java    2008-10-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import de.elmar_baumann.lib.event.HelpBrowserEvent;
  * {@link de.elmar_baumann.lib.dialog.HelpBrowser}.
  *
  * @author  Elmar Baumann
- * @version 2008-10-04
  */
 public interface HelpBrowserListener {
 

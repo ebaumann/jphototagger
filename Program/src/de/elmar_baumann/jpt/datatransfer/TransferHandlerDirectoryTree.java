@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TransferHandlerDirectoryTree.java    2008-10-26
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import javax.swing.tree.TreePath;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-10-26
  */
 public final class TransferHandlerDirectoryTree extends TransferHandler {
     private static final long serialVersionUID = 667981391265349868L;

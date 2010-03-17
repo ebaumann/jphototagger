@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TableModelXmp.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.table.DefaultTableModel;
  * {@link #setPropertyInfosOfFile(java.lang.String, java.util.List)}.
  *
  * @author  Elmar Baumann, Tobias Stening
- * @version 2008-10-05
  */
 public final class TableModelXmp extends DefaultTableModel {
     private static final long     serialVersionUID = -647814140321831383L;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)EditMetaDataTemplateDialog.java    2010-01-08
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import java.awt.Container;
  * calling {@link #setVisible(boolean)}!
  *
  * @author  Elmar Baumann
- * @version 2010-01-08
  */
 public class EditMetaDataTemplateDialog extends Dialog {
     private static final long          serialVersionUID = -6621176928237283620L;

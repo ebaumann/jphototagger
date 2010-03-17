@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)NikonMakerNoteType3Tag132.java    2010-01-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import java.text.DecimalFormat;
  * Formats tag 18 of the Nikon Type 3 Makernote Tags: The Flash Compensation.
  *
  * @author  Elmar Baumann
- * @version 2010-01-01
  */
 public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {
     @Override

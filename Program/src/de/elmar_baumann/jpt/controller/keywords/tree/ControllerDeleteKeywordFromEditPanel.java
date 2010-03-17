@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerDeleteKeywordFromEditPanel.java    2009-07-26
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,7 +49,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to key events and does the same if Ctrl+D was pressed.
  *
  * @author  Martin Pohlack
- * @version 2009-07-26
  */
 public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords
         implements ActionListener, KeyListener {

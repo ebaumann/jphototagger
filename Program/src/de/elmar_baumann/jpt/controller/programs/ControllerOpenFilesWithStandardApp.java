@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerOpenFilesWithStandardApp.java    2008-09-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import java.awt.event.ActionListener;
  * ausgelöst von {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann
- * @version 2008-09-10
  */
 public final class ControllerOpenFilesWithStandardApp
         implements ActionListener {

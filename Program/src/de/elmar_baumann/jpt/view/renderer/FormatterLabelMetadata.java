@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FormatterLabelMetadata.java    2008-09-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import javax.swing.JLabel;
  * Basisklasse für Renderer, die Metadaten darstellen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-14
  */
 public class FormatterLabelMetadata {
     private Font headerFont  = null;

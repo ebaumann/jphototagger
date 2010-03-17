@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateDownload.java    2010-01-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import javax.swing.JProgressBar;
  * on {@link UserSettings#isAutoDownloadNewerVersions()}.
  *
  * @author  Elmar Baumann
- * @version 2010-01-05
  */
 public final class UpdateDownload extends Thread {
     private static final String FILENAME_WINDOWS       =

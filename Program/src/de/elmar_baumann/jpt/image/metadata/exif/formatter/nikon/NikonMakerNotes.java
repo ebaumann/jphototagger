@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)NikonMakerNotes.java    2009-12-30
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import java.util.ResourceBundle;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-12-30
  */
 public final class NikonMakerNotes implements ExifMakerNotes {
     private static final String PROPERTY_FILE_PREFIX =

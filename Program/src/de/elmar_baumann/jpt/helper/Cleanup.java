@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Cleanup.java    2009-07-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import de.elmar_baumann.jpt.tasks.UserTasks;
  * Shuts down all Tasks. Should be called when the application exits.
  *
  * @author  Elmar Baumann
- * @version 2009-07-16
  */
 public final class Cleanup {
 

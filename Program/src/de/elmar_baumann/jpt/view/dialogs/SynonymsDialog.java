@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SynonymsDialog.java    2010-02-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import de.elmar_baumann.lib.dialog.Dialog;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-07
  */
 public class SynonymsDialog extends Dialog {
     private static final long          serialVersionUID = 2986454559232977345L;

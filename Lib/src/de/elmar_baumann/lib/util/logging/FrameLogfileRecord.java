@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FrameLogfileRecord.java    2008-08-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -25,7 +26,6 @@ package de.elmar_baumann.lib.util.logging;
  * Ein Frame beschreibt eine Zeile im Backtrace eines Throwable-Objekts.
  *
  * @author  Elmar Baumann
- * @version 1.0 2008-08-04
  */
 public final class FrameLogfileRecord {
     private String className;

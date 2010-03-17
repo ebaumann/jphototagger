@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Comparator.java    2008-08-28
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * Pattern).
  *
  * @author  Elmar Baumann
- * @version 2008-08-28
  */
 public enum Comparator {
 

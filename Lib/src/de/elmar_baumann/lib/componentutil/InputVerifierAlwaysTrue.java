@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)InputVerifierAlwaysTrue.java    2010-03-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import javax.swing.JComponent;
  * Considers every input as true.
  *
  * @author  Elmar Baumann
- * @version 2010-03-17
  */
 public final class InputVerifierAlwaysTrue extends InputVerifier {
     public static final InputVerifierAlwaysTrue INSTANCE =

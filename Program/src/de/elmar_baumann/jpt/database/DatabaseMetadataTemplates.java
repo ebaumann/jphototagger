@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseMetadataTemplates.java    2008-10-21
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -65,7 +66,6 @@ import java.util.StringTokenizer;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-10-21
  */
 public class DatabaseMetadataTemplates extends Database {
     private static final String                   DELIM_REPEATABLE_STRINGS =

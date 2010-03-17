@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Main.java    2008-02-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.app.AppInit;
  * Calls {@link AppInit#init(java.lang.String[])}.
  *
  * @author  Elmar Baumann
- * @version 2008-02-17
  */
 public final class Main {
     public static void main(String[] args) {

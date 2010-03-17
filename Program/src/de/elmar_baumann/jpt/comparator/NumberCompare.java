@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)NumberCompare.java    2009-07-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -25,7 +26,6 @@ package de.elmar_baumann.jpt.comparator;
  * than a number that is not null.
  *
  * @author  Elmar Baumann
- * @version 2009-07-10
  */
 final class NumberCompare {
 

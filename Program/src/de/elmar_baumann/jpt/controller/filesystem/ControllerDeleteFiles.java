@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerDeleteFiles.java    2008-10-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -49,7 +50,6 @@ import javax.swing.SwingUtilities;
  * {@link Content#IMAGE_COLLECTION}.
  *
  * @author  Elmar Baumann
- * @version 2008-10-12
  * @see     ControllerDeleteFromImageCollection
  */
 public final class ControllerDeleteFiles

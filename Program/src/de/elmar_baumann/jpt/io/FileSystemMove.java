@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FileSystemMove.java    2008-10-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import java.util.List;
  * {@link de.elmar_baumann.lib.generics.Pair#getSecond()} is the target file.
  *
  * @author  Elmar Baumann
- * @version 2008-10-20
  */
 public final class FileSystemMove extends FileSystem implements Runnable {
     private final List<File> sourceFiles = new ArrayList<File>();

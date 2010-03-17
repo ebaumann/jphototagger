@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)HttpUtil.java    2010-01-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.net.URL;
  * Utils for the Hypertext Transfer Protocol.
  *
  * @author  Elmar Baumann
- * @version 2010-01-05
  */
 public final class HttpUtil {
 

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Lookup.java    2010-03-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import java.util.Set;
  * Inspired by http://bits.netbeans.org/dev/javadoc/org-openide-util/org/openide/util/ServiceLookup.html.
  *
  * @author  Elmar Baumann
- * @version 2010-03-15
  */
 public class Lookup {
     private final Map<Class<?>, Collection<Object>> contentOfClass =

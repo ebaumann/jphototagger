@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ProgramSelectDialog.java    2009-06-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import java.awt.event.MouseEvent;
  * Dialog to select an {@link de.elmar_baumann.jpt.data.Program}.
  *
  * @author Elmar Baumann
- * @version 2009-06-07
  */
 public class ProgramSelectDialog extends Dialog {
     private static final long       serialVersionUID = -8970433115513988650L;

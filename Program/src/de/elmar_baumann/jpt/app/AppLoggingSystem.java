@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppLoggingSystem.java    2009-06-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import java.util.logging.XMLFormatter;
  * Logging system of the application.
  *
  * @author  Elmar Baumann
- * @version 2009-06-11
  */
 public final class AppLoggingSystem implements UserSettingsListener {
     private static final int           MAX_LOGFILE_SIZE_IN_BYTES = 1000000;

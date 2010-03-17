@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComparatorFilesLastModifiedAsc.java    2009-12-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.util.Comparator;
  * Compares the last modification time of two files ascending.
  *
  * @author  Elmar Baumann
- * @version 2009-12-14
  */
 public final class ComparatorFilesLastModifiedAsc extends ClassEquality
         implements Comparator<File>, Serializable {

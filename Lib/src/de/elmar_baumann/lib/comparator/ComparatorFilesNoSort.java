@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComparatorFilesNoSort.java    2010-01-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.util.Comparator;
  * Does not change the sort order.
  *
  * @author  Elmar Baumann
- * @version 2010-01-19
  */
 public final class ComparatorFilesNoSort extends ClassEquality
         implements Comparator<File>, Serializable {

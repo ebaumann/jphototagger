@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)PluginEvent.java    2010-02-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.util.List;
 /**
  *
  * @author  Elmar Baumann
- * @version 2010-02-17
  */
 public class PluginEvent {
     public enum Type {

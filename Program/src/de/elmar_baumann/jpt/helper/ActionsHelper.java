@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ActionsHelper.java    2010-01-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import javax.swing.JMenuItem;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-24
  */
 public final class ActionsHelper {
     public static JMenu actionsAsMenu() {

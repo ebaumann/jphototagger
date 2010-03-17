@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)KeywordTreeNodesClipboard.java    2009-09-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-09-10
  */
 public final class KeywordTreeNodesClipboard {
     public enum Action { COPY, MOVE, UNKNOWN }

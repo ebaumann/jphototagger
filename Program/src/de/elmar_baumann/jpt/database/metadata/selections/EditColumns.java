@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)EditColumns.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -56,7 +57,6 @@ import java.util.Map;
  * Supported XMP columns for editing and updating XMP sidecar files.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class EditColumns {
     private static final Map<Column, EditHints> EDIT_HINT_OF_COLUMN =

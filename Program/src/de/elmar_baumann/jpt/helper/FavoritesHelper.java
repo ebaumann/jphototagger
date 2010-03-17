@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FavoritesHelper.java    2010-01-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,7 +49,6 @@ import javax.swing.tree.TreePath;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-20
  */
 public final class FavoritesHelper {
     public static void updateFavorite(final Favorite favorite) {

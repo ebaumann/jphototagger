@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExpandCollapseComponentPanel.java    2009-06-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import javax.swing.text.JTextComponent;
  * has a {@link javax.swing.JLabel} the label's text is shown when collapsed.
  *
  * @author  Elmar Baumann
- * @version 2009-06-24
  */
 public class ExpandCollapseComponentPanel extends JPanel
         implements FocusListener {

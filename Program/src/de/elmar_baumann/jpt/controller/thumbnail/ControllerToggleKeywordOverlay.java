@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerToggleKeywordOverlay.java    2009-07-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.awt.event.ActionListener;
  *
  *
  * @author  Martin Pohlack
- * @version 2009-07-16
  */
 public final class ControllerToggleKeywordOverlay implements ActionListener {
     private static final String KEY_SHOW_METADATA_OVERLAY =

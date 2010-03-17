@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Translation.java    2008-09-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import java.util.ResourceBundle;
  * Properties-Datei.
  *
  * @author  Elmar Baumann
- * @version 2008-09-05
  */
 public final class Translation {
     private static final String PATH_PREFIX =

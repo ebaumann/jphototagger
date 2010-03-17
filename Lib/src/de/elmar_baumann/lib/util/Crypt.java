@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Crypt.java    2010-02-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -66,7 +67,6 @@ import javax.crypto.SecretKey;
  * {@code SecretKey secKey = KeyGenerator.getInstance("DESede").generateKey();}.
  *
  * @author  Elmar Baumann
- * @version 2010-02-14
  * @see     Base64
  */
 public final class Crypt {

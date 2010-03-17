@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerToggleRealKeyword.java    2009-07-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * and toggles the real property of a keyword.
  *
  * @author  Martin Pohlack
- * @version 2009-07-13
  */
 public class ControllerToggleRealKeyword extends ControllerKeywords
         implements ActionListener, KeyListener {

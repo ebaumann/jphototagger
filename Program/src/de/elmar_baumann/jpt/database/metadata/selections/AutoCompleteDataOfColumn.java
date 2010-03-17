@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AutoCompleteDataOfColumn.java    2009-09-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.util.Map;
  * Contains autocomplete data of specific columns.
  *
  * @author  Elmar Baumann
- * @version 2009-09-01
  */
 public final class AutoCompleteDataOfColumn {
     public static final AutoCompleteDataOfColumn INSTANCE =

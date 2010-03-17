@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)External.java    2008-08-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.logging.Logger;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-08-02
  */
 public final class External {
     private enum Stream { STANDARD_ERROR, STANDARD_IN, STANDARD_OUT, }

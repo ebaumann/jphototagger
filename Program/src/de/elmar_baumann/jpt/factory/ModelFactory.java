@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ModelFactory.java    2008-09-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -56,7 +57,6 @@ import javax.swing.tree.TreeModel;
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-29
  */
 public final class ModelFactory {
     public static final ModelFactory INSTANCE = new ModelFactory();

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListCellRendererKeywordImExport.java    2008-11-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import javax.swing.JList;
  * Renders lists with {@link Importer}s and {@link Exporter}s for keywords.
  *
  * @author  Elmar Baumann
- * @version 2008-11-04
  */
 public final class ListCellRendererKeywordImExport
         extends DefaultListCellRenderer {

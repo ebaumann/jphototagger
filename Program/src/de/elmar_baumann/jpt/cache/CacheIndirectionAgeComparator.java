@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)CacheIndirectionAgeComparator.java    2009-07-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import java.util.Map.Entry;
  *
  * @param <C>
  * @author Martin Pohlack
- * @version 2009-07-18
  */
 public class CacheIndirectionAgeComparator<C extends CacheIndirection>
         implements Comparator<Entry<File, SoftReference<C>>>, Serializable {

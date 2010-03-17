@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppLock.java    2008-10-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.io.IOException;
  * to get the setting's directory where the lock file will be created.
  *
  * @author  Elmar Baumann
- * @version 2008-10-10
  */
 public final class AppLock {
     private static final String LOCKFILE_NAME =

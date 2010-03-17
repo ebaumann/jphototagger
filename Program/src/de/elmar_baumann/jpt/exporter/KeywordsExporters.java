@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)KeywordsExporters.java    2009-08-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.util.List;
  * applications (<em>not</em> for JPhotoTagger).
  *
  * @author  Elmar Baumann
- * @version 2009-08-01
  */
 public final class KeywordsExporters {
     private static final List<Exporter> exporters = new ArrayList<Exporter>();

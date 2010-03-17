@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeModelAllSystemDirectories.java    2009-06-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -49,7 +50,6 @@ import javax.swing.tree.TreePath;
  * of the root directory.
  *
  * @author  Elmar Baumann
- * @version 2009-06-29
  */
 public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         implements TreeWillExpandListener {

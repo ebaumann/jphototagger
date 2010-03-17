@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerCopyCutPasteKeyword.java    2009-09-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -59,7 +60,6 @@ import javax.swing.tree.TreePath;
  * The key action Ctrl+X and Ctrl+V are handled by the JTree.
  *
  * @author  Elmar Baumann
- * @version 2009-09-10
  */
 public class ControllerCopyCutPasteKeyword
         implements ActionListener, KeyListener {

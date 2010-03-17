@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ImageCollectionsDialog.java    2008-09-08
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.ListModel;
  * Dialog zum Anzeigen und Auswählen der Namen von Bildsammlungen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-08
  */
 public final class ImageCollectionsDialog extends Dialog {
     private static final long serialVersionUID = 1314098937293915298L;

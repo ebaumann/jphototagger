@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerEditKeywordSynonyms.java    2010-02-09
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -52,7 +53,6 @@ import javax.swing.KeyStroke;
 /**
  *
  * @author  Elmar Baumann
- * @version 2010-02-09
  */
 public final class ControllerEditKeywordSynonyms extends ControllerKeywords
         implements PopupMenuListener {

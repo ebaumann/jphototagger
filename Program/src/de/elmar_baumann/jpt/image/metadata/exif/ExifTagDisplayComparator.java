@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifTagDisplayComparator.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.util.Map;
  * Defines the display order of EXIF data.
  *
  * @author  Elmar Baumann, Tobias Stening
- * @version 2008-10-05
  */
 public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
     private static final Map<Integer, Integer> ORDER_OF_TAG_ID_VALUE =

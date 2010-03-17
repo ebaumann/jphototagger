@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DeleteOrphanedXmp.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import java.util.Set;
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  * @see     DatabaseImageFiles#deleteOrphanedXmp(de.elmar_baumann.jpt.event.listener.ProgressListener)
  */
 public final class DeleteOrphanedXmp implements Runnable, ProgressListener {

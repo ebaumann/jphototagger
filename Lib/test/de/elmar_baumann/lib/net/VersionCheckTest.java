@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)VersionCheckTest.java    2010/01/05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import static org.junit.Assert.*;
  * Tests the Class {@link de.elmar_baumann. }.
  *
  * @author Elmar Baumann
- * @version 2010/01/05
  */
 public class VersionCheckTest {
     public VersionCheckTest() {}

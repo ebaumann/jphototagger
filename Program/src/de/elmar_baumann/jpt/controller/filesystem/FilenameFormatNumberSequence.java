@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FilenameFormatNumberSequence.java    2008-10-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.text.DecimalFormat;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-10-13
  */
 public final class FilenameFormatNumberSequence extends FilenameFormat {
     private int           current;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SynonymsPanel.java    2010-02-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import javax.swing.event.ListSelectionListener;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-07
  */
 public class SynonymsPanel extends javax.swing.JPanel
         implements ListSelectionListener, DocumentListener {

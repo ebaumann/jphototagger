@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeItemTempSelectionRowSetter.java    2009-07-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -47,7 +48,6 @@ import javax.swing.tree.TreeCellRenderer;
  * parameter for the index.
  *
  * @author  Elmar Baumann
- * @version 2009-07-27
  */
 public final class TreeItemTempSelectionRowSetter
         implements MouseListener, PopupMenuListener {

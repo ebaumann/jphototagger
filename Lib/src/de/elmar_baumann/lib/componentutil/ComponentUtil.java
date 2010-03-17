@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComponentUtil.java    2008-10-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import javax.swing.UIManager;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-10-27
  */
 public final class ComponentUtil {
 

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListCellRendererNoMetadata.java    2008-09-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.JList;
  * Renders list items of {@link ListModelNoMetadata}.
  *
  * @author  Elmar Baumann
- * @version 2008-09-23
  */
 public final class ListCellRendererNoMetadata extends DefaultListCellRenderer {
     private static final long serialVersionUID = -5033440934166574955L;

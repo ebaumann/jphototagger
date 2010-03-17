@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListModelNoMetadata.java    2009-08-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.swing.DefaultListModel;
  * Elements are {@link Column}s retrieved through {@link NoMetadataColumns#get()}.
  *
  * @author  Elmar Baumann
- * @version 2009-08-06
  */
 public final class ListModelNoMetadata extends DefaultListModel {
     private static final long serialVersionUID = -1610826692746882410L;

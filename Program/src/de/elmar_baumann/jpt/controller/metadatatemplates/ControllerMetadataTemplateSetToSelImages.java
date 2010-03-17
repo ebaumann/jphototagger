@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerMetadataTemplateSetToSelImages.java    2010-01-08
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.JButton;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-08
  */
 public final class ControllerMetadataTemplateSetToSelImages
         extends ControllerMetadataTemplate {

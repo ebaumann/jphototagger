@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)KeywordsImporter.java    2009-08-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import javax.swing.tree.TreePath;
  * Imports keywords.
  *
  * @author  Elmar Baumann
- * @version 2009-08-01
  */
 public abstract class KeywordsImporter implements Importer {
     private static final String PROGRESSBAR_STRING =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Dialog.java    2008-10-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import javax.swing.KeyStroke;
  * by pressing the F1 key.
  *
  * @author  Elmar Baumann
- * @version 2008-10-19
  */
 public class Dialog extends JDialog implements WindowListener {
     private static final long           serialVersionUID = 847375186274302816L;

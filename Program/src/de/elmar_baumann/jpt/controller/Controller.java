@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Controller.java    2010-01-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import java.lang.reflect.Method;
  * the base class controller the key events.
  *
  * @author  Elmar Baumann
- * @version 2010-01-07
  */
 public abstract class Controller implements ActionListener, KeyListener {
 

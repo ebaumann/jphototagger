@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FlickrUpload.java    2010-02-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -53,7 +54,6 @@ import javax.swing.JPanel;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-13
  */
 public final class FlickrUpload extends Plugin implements Serializable {
     private static final long serialVersionUID = -2935460271965834936L;

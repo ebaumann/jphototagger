@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SavedSearchPanel.java    2008-09-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Die Indexe sind Indexe von Listenitems in Comboboxen oder Listboxen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-12
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppLifeCycle.java    2009-07-30
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import java.util.Set;
  * Life cycle of the application.
  *
  * @author  Elmar Baumann
- * @version 2009-07-30
  */
 public final class AppLifeCycle {
     public static final AppLifeCycle               INSTANCE        =

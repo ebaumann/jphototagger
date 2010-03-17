@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesDropColumns.java    2008-10-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import java.util.List;
  * Drops unused columns.
  *
  * @author  Elmar Baumann
- * @version 2008-10-31
  */
 final class UpdateTablesDropColumns {
     private static final List<ColumnInfo> COLUMNS = new ArrayList<ColumnInfo>();

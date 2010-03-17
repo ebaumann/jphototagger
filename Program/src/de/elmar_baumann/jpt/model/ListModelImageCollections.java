@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListModelImageCollections.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import javax.swing.DefaultListModel;
  * through {@link DatabaseImageCollections#getAll()}.
  *
  * @author  Elmar Baumann, Tobias Stening
- * @version 2008-10-05
  */
 public final class ListModelImageCollections extends DefaultListModel {
     private static final List<String> SPECIAL_COLLECTIONS =

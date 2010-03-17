@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MenuUtil.java    2009-07-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import javax.swing.JMenuItem;
  * Helper Methods for Menus.
  *
  * @author  Elmar Baumann
- * @version 2009-07-23
  */
 public final class MenuUtil {
     private static final String AMPERSAND = "&";

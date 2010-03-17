@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ThumbnailRenderer.java    2009-08-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.awt.Image;
  * image.
  *
  * @author Martin Pohlack
- * @version 2009-08-17
  */
 public interface ThumbnailRenderer {
     public Image getRenderedThumbnail(Image scaled,

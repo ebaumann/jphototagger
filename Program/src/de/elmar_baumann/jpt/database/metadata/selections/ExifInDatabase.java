@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifInDatabase.java    2008-09-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.util.List;
  * Liefert, welche Exif-Metadaten in die Datenbank gespeichert werden.
  *
  * @author  Elmar Baumann
- * @version 2008-09-14
  */
 public final class ExifInDatabase {
     private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD =

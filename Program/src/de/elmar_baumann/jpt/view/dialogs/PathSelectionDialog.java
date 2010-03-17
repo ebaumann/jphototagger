@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)PathSelectionDialog.java    2009-07-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -47,7 +48,6 @@ import javax.swing.JList;
  * Modal dialog to select a path.
  *
  * @author  Elmar Baumann
- * @version 2009-07-12
  */
 public class PathSelectionDialog extends Dialog
         implements ListSelectionListener {

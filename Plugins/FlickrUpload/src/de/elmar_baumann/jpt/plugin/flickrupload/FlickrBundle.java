@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FlickrBundle.java    2010-02-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.plugin.flickrupload;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-14
  */
 final class FlickrBundle extends de.elmar_baumann.lib.resource.Bundle {
     public static final FlickrBundle INSTANCE = new FlickrBundle();

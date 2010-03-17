@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)PopupMenuSavedSearches.java    2008-08-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import javax.swing.KeyStroke;
  * Popupmenü für gespeicherte Suchen.
  *
  * @author  Elmar Baumann
- * @version 2008-08-31
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
     private static final long                  serialVersionUID =

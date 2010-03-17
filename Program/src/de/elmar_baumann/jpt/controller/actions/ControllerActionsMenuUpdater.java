@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerActionsMenuUpdater.java    2010-01-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import javax.swing.JMenu;
  * the {@link PopupMenuThumbnails#getMenuActions()}.
  *
  * @author  Elmar Baumann
- * @version 2010-01-24
  */
 public final class ControllerActionsMenuUpdater
         implements DatabaseProgramsListener {

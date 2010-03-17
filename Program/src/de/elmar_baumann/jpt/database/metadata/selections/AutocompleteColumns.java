@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AutocompleteColumns.java    2010-03-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import java.util.List;
  * be disabled.
  *
  * @author  Elmar Baumann
- * @version 2010-03-16
  */
 public final class AutocompleteColumns {
     private static final List<Column> COLUMNS = new ArrayList<Column>();

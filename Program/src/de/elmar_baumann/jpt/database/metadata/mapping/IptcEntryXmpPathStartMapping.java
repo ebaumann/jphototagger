@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)IptcEntryXmpPathStartMapping.java    2008-09-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import java.util.Map;
  * eckigen Klammern an, weshalb es keine vollständige Abdeckung geben kann.
  *
  * @author  Elmar Baumann
- * @version 2008-09-19
  */
 public final class IptcEntryXmpPathStartMapping {
     private static final Map<IPTCEntryMeta, String> XMP_PATH_START_OF_IPTC_ENTRY_META =

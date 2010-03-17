@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerLogfileDialog.java    2008-09-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -47,7 +48,6 @@ import javax.swing.JMenuItem;
  * Kontrolliert die Aktion: Logfiledialog anzeigen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-11
  */
 public final class ControllerLogfileDialog extends MouseAdapter
         implements ActionListener, ErrorListener {

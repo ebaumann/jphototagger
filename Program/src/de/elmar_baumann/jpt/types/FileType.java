@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FileType.java    2008-08-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.types;
  * Dateitypen.
  *
  * @author  Elmar Baumann
- * @version 2008-08-31
  */
 public final class FileType {
 

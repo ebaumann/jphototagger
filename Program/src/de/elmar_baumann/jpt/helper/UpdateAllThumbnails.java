@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateAllThumbnails.java    2008-10-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.Set;
  * Updates all Thumbnails in the database with the current settings.
  *
  * @author  Elmar Baumann
- * @version 2008-10-12
  */
 public final class UpdateAllThumbnails
         implements Runnable, ProgressListener, ActionListener {

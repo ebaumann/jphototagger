@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ProgressBar.java    2009-06-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.swing.JProgressBar;
  * Synchronized access to {@link AppPanel#getProgressBar()}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-16
  */
 public final class ProgressBar extends MutualExcludedResource<JProgressBar> {
     public static final ProgressBar INSTANCE = new ProgressBar();

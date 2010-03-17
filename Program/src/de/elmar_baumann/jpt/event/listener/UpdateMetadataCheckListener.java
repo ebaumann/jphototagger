@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateMetadataCheckListener.java    2009-08-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.event.UpdateMetadataCheckEvent;
  * Listens for updating metadata.
  *
  * @author  Elmar Baumann
- * @version 2009-08-06
  */
 public interface UpdateMetadataCheckListener {
     public void actionPerformed(UpdateMetadataCheckEvent evt);

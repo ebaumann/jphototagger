@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerCopyOrCutFilesToClipboard.java    2008-10-26
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import javax.swing.JMenuItem;
  * Enables or disables that menu items based on selection.
  *
  * @author  Elmar Baumann
- * @version 2008-10-26
  */
 public final class ControllerCopyOrCutFilesToClipboard
         implements ActionListener, KeyListener, ThumbnailsPanelListener {

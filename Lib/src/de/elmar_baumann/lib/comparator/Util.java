@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Util.java    2009-12-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.io.File;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-12-14
  */
 final class Util {
     static Pair<String, String> getCmpSuffixes(File leftFile, File rightFile,

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseActionsAfterDbInsertion.java    2009-06-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import java.util.List;
  * into the database.
  *
  * @author  Elmar Baumann
- * @version 2009-06-07
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
     public static final DatabaseActionsAfterDbInsertion INSTANCE =

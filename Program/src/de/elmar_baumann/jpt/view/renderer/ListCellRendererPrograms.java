@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListCellRendererPrograms.java    2008-11-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.JList;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-11-04
  */
 public final class ListCellRendererPrograms extends DefaultListCellRenderer {
     private static final FileSystemView FILE_SYSTEM_VIEW =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ColumnXmpDcSubjectsSubject.java    2008-08-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * Spalte <code>subject</code> der Tabelle <code>xmp_dc_subject</code>.
  *
  * @author  Elmar Baumann
- * @version 2008-08-23
  */
 public final class ColumnXmpDcSubjectsSubject extends Column {
     public static final ColumnXmpDcSubjectsSubject INSTANCE =

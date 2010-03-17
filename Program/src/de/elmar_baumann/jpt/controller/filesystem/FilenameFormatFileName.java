@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FilenameFormatFileName.java    2008-10-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * Format with the name of a filname excluded the postfix and the parents.
  *
  * @author  Elmar Baumann
- * @version 2008-10-13
  */
 public final class FilenameFormatFileName extends FilenameFormat {
     @Override

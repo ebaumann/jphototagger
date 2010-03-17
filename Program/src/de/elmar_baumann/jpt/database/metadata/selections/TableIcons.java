@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TableIcons.java    2008-09-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import javax.swing.Icon;
  * Liefert Icons für Tabellen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-13
  */
 public final class TableIcons {
     private static final Icon ICON_UNDEFINED =

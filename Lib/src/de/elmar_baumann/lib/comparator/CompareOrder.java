@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)CompareOrder.java    2008-10-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,6 +25,5 @@ package de.elmar_baumann.lib.comparator;
  * Order of elements to compare.
  *
  * @author Elmar Baumann
- * @version 2008-10-14
  */
 enum CompareOrder { ASCENDING, DESCENDING; }

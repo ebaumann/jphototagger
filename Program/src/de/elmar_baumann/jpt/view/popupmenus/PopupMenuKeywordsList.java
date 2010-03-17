@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)PopupMenuKeywordsList.java    2010-01-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import javax.swing.KeyStroke;
  * {@link de.elmar_baumann.jpt.view.panels.KeywordsPanel#getList()}.
  *
  * @author  Elmar Baumann
- * @version 2010-01-07
  */
 public final class PopupMenuKeywordsList extends JPopupMenu {
     private static final long                 serialVersionUID =

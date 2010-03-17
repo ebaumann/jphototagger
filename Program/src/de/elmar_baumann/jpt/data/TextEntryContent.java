@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TextEntryContent.java    2008-10-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.util.List;
  * Text entry with text and column.
  *
  * @author  Elmar Baumann
- * @version 2008-10-29
  */
 public final class TextEntryContent implements TextEntry {
     private String text;

@@ -7,7 +7,6 @@ package de.elmar_baumann.lib.thirdparty;
  * The Knuth-Morris-Pratt Algorithm for Pattern Matching modified for comparing
  * byte arrays.
  *
- * @version 2010-01-15
  */
 public final class KMPMatch {
 

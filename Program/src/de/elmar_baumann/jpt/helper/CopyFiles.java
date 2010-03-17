@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)CopyFiles.java    2008-09-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import java.util.List;
  * Kopieren von Dateien.
  *
  * @author  Elmar Baumann
- * @version 2008-09-24
  */
 public final class CopyFiles implements Runnable {
     private final ProgressListenerSupport listenerSupport =

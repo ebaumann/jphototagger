@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListenerSupport.java    2010-01-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.util.Set;
  *
  * @param <T> listener type
  * @author  Elmar Baumann
- * @version 2010-01-12
  */
 public class ListenerSupport<T> {
     protected final Set<T> listeners = new HashSet<T>();

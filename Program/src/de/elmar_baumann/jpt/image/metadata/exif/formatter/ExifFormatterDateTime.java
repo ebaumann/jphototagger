@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifFormatterDateTime.java    2009-06-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import java.util.GregorianCalendar;
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#DATE_TIME_ORIGINAL}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-10
  */
 public final class ExifFormatterDateTime extends ExifFormatter {
     public static final ExifFormatterDateTime INSTANCE =

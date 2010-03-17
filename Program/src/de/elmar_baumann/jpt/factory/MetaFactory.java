@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MetaFactory.java    2008-09-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import de.elmar_baumann.jpt.tasks.ScheduledTaskBackupDatabase;
  * settings to the application's frame and panel.
  *
  * @author  Elmar Baumann
- * @version 2008-09-29
  */
 public final class MetaFactory implements Runnable {
     public static final MetaFactory INSTANCE = new MetaFactory();

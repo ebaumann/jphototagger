@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ColumnExifDateTimeOriginal.java    2008-08-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * </ul>
  *
  * @author  Elmar Baumann
- * @version 2008-08-27
  */
 public final class ColumnExifDateTimeOriginal extends Column {
     public static final ColumnExifDateTimeOriginal INSTANCE =

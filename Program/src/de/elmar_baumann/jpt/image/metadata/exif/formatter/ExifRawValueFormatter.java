@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifRawValueFormatter.java    2009-12-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.image.metadata.exif.ExifTag;
  * Formats a raw value of an EXIF tag (Generic raw value formatter).
  *
  * @author  Elmar Baumann
- * @version 2009-12-31
  */
 public interface ExifRawValueFormatter {
 

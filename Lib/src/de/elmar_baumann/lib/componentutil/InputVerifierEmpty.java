@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)InputVerifierEmpty.java    2010-01-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import javax.swing.text.JTextComponent;
  * A valid input of a <code>JTextComponent</code> has to be empty.
  *
  * @author  Elmar Baumann
- * @version 2010-01-06
  */
 public final class InputVerifierEmpty extends InputVerifier {
     private final boolean trim;

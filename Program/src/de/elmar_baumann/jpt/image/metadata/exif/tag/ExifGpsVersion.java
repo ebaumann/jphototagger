@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifGpsVersion.java    2009-03-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import de.elmar_baumann.lib.util.ByteUtil;
  * mandatory when GPSInfo tag is present.
  *
  * @author  Elmar Baumann
- * @version 2009-03-17
  */
 public final class ExifGpsVersion {
     private int first  = Integer.MIN_VALUE;

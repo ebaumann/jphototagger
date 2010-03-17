@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RendererFactory.java    2008-09-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +47,6 @@ import javax.swing.JTable;
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-29
  */
 public final class RendererFactory {
     static final RendererFactory INSTANCE = new RendererFactory();

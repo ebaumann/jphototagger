@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RefreshListener.java    2008-10-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.event.RefreshEvent;
  * Listens to the action: Refresh the contents.
  *
  * @author  Elmar Baumann
- * @version 2008-10-19
  */
 public interface RefreshListener {
 

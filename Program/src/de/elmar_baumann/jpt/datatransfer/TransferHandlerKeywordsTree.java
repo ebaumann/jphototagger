@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TransferHandlerKeywordsTree.java    2009-07-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import javax.swing.tree.TreePath;
  * Handles drags and drops for a {@link KeywordsPanel}'s tree.
  *
  * @author  Elmar Baumann
- * @version 2009-07-11
  */
 public final class TransferHandlerKeywordsTree extends TransferHandler {
     private static final long serialVersionUID = 1714818504305178611L;

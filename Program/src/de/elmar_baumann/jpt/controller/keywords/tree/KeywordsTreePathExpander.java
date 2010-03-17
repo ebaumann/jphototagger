@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)KeywordsTreePathExpander.java    2009-07-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import javax.swing.tree.TreePath;
  * Expands the path of all {@link KeywordsPanel}s trees.
  *
  * @author  Elmar Baumann
- * @version 2009-07-31
  */
 public final class KeywordsTreePathExpander {
     public static void expand(JTree tree, DefaultMutableTreeNode node) {

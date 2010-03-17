@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifGpsLongitude.java    2009-03-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.util.Map;
  * GPS longitude.
  *
  * @author  Elmar Baumann
- * @version 2009-03-17
  */
 public final class ExifGpsLongitude {
     public enum Ref { EAST, WEST }

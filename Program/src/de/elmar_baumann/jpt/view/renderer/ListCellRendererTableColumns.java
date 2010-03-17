@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListCellRendererTableColumns.java    2008-09-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import javax.swing.JList;
  * Renderer für Tabellenspaltenbeschreibungen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-13
  * @see     de.elmar_baumann.jpt.database.metadata.Column#getDescription()
  */
 public final class ListCellRendererTableColumns

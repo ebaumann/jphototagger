@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RenameTemplate.java    2010-03-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-01
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

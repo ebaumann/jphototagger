@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ThumbnailPanelRenderer.java    2009-08-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -57,7 +58,6 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author Martin Pohlack
- * @version 2009-08-20
  */
 public class ThumbnailPanelRenderer
         implements ThumbnailRenderer, DropTargetListener {

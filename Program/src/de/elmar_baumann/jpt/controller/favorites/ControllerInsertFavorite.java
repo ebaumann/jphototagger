@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerInsertFavorite.java    2008-09-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +47,6 @@ import javax.swing.SwingUtilities;
  * the keys <code>Ctrl+I</code> were pressed.
  *
  * @author  Elmar Baumann
- * @version 2008-09-23
  */
 public final class ControllerInsertFavorite
         implements ActionListener, KeyListener {

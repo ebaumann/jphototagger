@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)CommandLineParserTest.java    2010/01/22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import static org.junit.Assert.*;
  * Tests the Class {@link de.elmar_baumann. }.
  *
  * @author Elmar Baumann
- * @version 2010/01/22
  */
 public class CommandLineParserTest {
     public CommandLineParserTest() {}

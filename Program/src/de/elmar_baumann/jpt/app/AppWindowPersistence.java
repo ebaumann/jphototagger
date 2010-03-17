@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppWindowPersistence.java    2010-01-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import java.util.Map;
  * {@link AppFrame}.
  *
  * @author  Elmar Baumann
- * @version 2010-01-15
  */
 public final class AppWindowPersistence
         implements ComponentListener, AppExitListener, UserSettingsListener {

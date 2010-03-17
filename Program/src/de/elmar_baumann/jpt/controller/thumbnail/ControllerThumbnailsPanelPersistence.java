@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerThumbnailsPanelPersistence.java    2008-10-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import javax.swing.SwingUtilities;
  * Applies persistent settings to the thumbnails panel.
  *
  * @author  Elmar Baumann
- * @version 2008-10-15
  */
 public final class ControllerThumbnailsPanelPersistence
         implements ThumbnailsPanelListener, AppExitListener {

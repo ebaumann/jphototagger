@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerPickReject.java    2009-07-21
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -55,7 +56,6 @@ import javax.swing.JMenuItem;
  * key events <strong>P</strong> or <strong>R</strong>.
  *
  * @author  Elmar Baumann
- * @version 2009-07-21
  */
 public final class ControllerPickReject implements ActionListener, KeyListener {
     private final ThumbnailsPanel panelThumbnails =

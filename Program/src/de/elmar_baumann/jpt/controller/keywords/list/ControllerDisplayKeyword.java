@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerDisplayKeyword.java    2010-01-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import javax.swing.ListModel;
  * Displays a selected keyword through selecting it in the selection list.
  *
  * @author  Elmar Baumann
- * @version 2010-01-17
  */
 public final class ControllerDisplayKeyword extends ControllerKeywords {
     public ControllerDisplayKeyword() {

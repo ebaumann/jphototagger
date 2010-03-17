@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)HelpBrowserEvent.java    2008-10-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.net.URL;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-10-04
  */
 public final class HelpBrowserEvent {
     private final Object source;

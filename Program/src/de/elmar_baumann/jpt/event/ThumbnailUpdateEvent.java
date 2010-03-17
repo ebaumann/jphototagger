@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ThumbnailUpdateEvent.java    2009-08-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.io.File;
  * be updated or recreated.
  *
  * @author  Martin Pohlack
- * @version 2009-08-18
  */
 public final class ThumbnailUpdateEvent {
     private Type type;

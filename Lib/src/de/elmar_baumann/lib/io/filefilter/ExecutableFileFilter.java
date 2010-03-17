@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExecutableFileFilter.java    2009-04-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import java.io.File;
  * Accepts only executable files.
  *
  * @author  Elmar Baumann
- * @version 2009-04-01
  */
 public final class ExecutableFileFilter implements java.io.FileFilter {
     @Override

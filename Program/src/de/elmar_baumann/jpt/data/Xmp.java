@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Xmp.java    2008-08-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import java.util.Map;
  * documentation links to the corresponding {@link Iptc} method.
  *
  * @author  Elmar Baumann
- * @version 2008-08-22
  */
 public final class Xmp implements TextEntryListener {
     private final Map<Column, Object> valueOfColumn = new HashMap<Column,

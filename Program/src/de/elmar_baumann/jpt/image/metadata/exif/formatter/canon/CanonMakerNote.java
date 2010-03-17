@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)CanonMakerNote.java    2010-01-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import java.nio.ByteOrder;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-13
  */
 public final class CanonMakerNote {
     private static final byte[] JPEG_MAGIC_BYTES      = { (byte) 0xFF,

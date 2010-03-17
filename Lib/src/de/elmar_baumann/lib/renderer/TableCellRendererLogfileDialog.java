@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TableCellRendererLogfileDialog.java    2008-08-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import javax.swing.table.TableCellRenderer;
  * selected table rows.
  *
  * @author  Elmar Baumann
- * @version 2008-08-03
  */
 public final class TableCellRendererLogfileDialog implements TableCellRenderer {
     private static final Color            SEL_BACKGROUND_COLOR = new Color(251,

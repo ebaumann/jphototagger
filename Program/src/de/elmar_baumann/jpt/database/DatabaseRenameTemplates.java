@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseRenameTemplates.java    2010-03-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.Set;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-01
  */
 public final class DatabaseRenameTemplates extends Database {
     public static final DatabaseRenameTemplates INSTANCE =

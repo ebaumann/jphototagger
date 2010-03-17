@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesDeleteInvalidExif.java    2009-06-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.Set;
  * Removes invalid EXIF metadata (Bugfix).
  *
  * @author  Elmar Baumann
- * @version 2009-06-14
  */
 final class UpdateTablesDeleteInvalidExif {
     private static final String KEY_REMOVED_INVALID_EXIF =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppLogger.java    2008-11-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +45,6 @@ import java.util.logging.Logger;
  * following string.
  *
  * @author  Elmar Baumann
- * @version 2008-11-11
  */
 public final class AppLogger {
     public static final String USE_STRING = "AppLog.UseString";

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AdvancedSearchColumns.java    2008-09-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -58,7 +59,6 @@ import java.util.List;
  * Spalten für die erweiterte Suche.
  *
  * @author  Elmar Baumann
- * @version 2008-09-22
  */
 public final class AdvancedSearchColumns {
     private static final List<Column> COLUMNS = new ArrayList<Column>();

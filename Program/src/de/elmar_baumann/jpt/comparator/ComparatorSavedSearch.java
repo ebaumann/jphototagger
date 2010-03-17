@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComparatorSavedSearch.java    2008-11-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.util.Comparator;
  * will be compared.
  *
  * @author  Elmar Baumann
- * @version 2008-11-05
  */
 public final class ComparatorSavedSearch implements Comparator<SavedSearch> {
     public static final ComparatorSavedSearch INSTANCE =

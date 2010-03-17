@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Keyword.java    2009-07-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.io.Serializable;
  * Persistent instances resists in the {@link DatabaseKeywords}.
  *
  * @author  Elmar Baumann
- * @version 2009-07-10
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {
     private static final long serialVersionUID = -8175948472921889128L;

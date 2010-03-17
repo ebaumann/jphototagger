@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SplashScreen.java    2008-08-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.awt.Rectangle;
  * The application's splashscreen.
  *
  * @author  Elmar Baumann
- * @version 2008-08-23
  */
 public final class SplashScreen {
     private static final int   MESSAGE_X         = 10;

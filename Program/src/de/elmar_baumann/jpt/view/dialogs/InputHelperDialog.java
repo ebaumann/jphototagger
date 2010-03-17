@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)InputHelperDialog.java    2007-07-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import javax.swing.ListModel;
  * Dialog for input assistance.
  *
  * @author  Elmar Baumann
- * @version 2007-07-10
  */
 public class InputHelperDialog extends Dialog {
     public static final InputHelperDialog INSTANCE                  =

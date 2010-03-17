@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)IptcRepeatableValues.java    2009-02-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.util.Map;
  * repeatable values.
  *
  * @author  Elmar Baumann
- * @version 2009-02-20
  */
 public final class IptcRepeatableValues {
     private static final Map<IPTCEntryMeta, Boolean> IS_REPEATABLE =

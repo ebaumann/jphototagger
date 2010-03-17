@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ImageTransform.java    2008-08-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +45,6 @@ import javax.swing.ImageIcon;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-08-19
  */
 public final class ImageTransform {
 
