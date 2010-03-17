@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RenameTemplateTest.java    2010/03/01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import static org.junit.Assert.*;
  * Tests the Class {@link de.elmar_baumann. }.
  *
  * @author Elmar Baumann
- * @version 2010/03/01
  */
 public class RenameTemplateTest {
     public RenameTemplateTest() {}

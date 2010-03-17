@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MouseListenerDirectories.java    2008-09-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import javax.swing.tree.TreePath;
  * Reagiert auf Mausaktionen in der Treeview, die die Verzeichnisse darstellt.
  *
  * @author  Elmar Baumann
- * @version 2008-09-24
  */
 public final class MouseListenerDirectories extends MouseListenerTree {
     private final PopupMenuDirectories popupMenu =

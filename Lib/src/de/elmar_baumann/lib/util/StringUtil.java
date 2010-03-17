@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)StringUtil.java    2009-06-25
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import java.util.StringTokenizer;
  * Utils for strings.
  *
  * @author  Elmar Baumann
- * @version 2009-06-25
  */
 public final class StringUtil {
     private static final String WORD_DELIMITER = " \t\n\r";

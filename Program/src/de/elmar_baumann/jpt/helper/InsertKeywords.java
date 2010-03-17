@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)InsertKeywords.java    2009-09-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import javax.swing.tree.TreePath;
  * Inserts a list of Strings into the keywords root.
  *
  * @author  Elmar Baumann
- * @version 2009-09-03
  */
 public final class InsertKeywords extends Thread {
     private final List<String> keywords;

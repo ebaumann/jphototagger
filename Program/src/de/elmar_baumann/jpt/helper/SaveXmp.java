@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SaveXmp.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import javax.swing.JProgressBar;
  * database.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class SaveXmp extends Thread {
     private static final String PROGRESSBAR_STRING =

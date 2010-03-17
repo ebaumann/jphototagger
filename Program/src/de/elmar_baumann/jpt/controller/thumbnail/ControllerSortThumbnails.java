@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerSortThumbnails.java    2008-10-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import javax.swing.SwingUtilities;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-10-14
  */
 public final class ControllerSortThumbnails implements ActionListener {
     private final ThumbnailsPanel thumbnailsPanel =

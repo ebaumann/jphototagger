@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ColumnIds.java    2008-09-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -62,7 +63,6 @@ import java.util.Set;
  * ermittelt werden kann.
  *
  * @author  Elmar Baumann
- * @version 2008-09-13
  */
 public final class ColumnIds {
     private static final Map<Integer, Column> COLUMN_OF_ID =

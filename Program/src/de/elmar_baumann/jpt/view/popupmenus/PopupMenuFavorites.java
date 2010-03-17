@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)PopupMenuFavorites.java    2008-09-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import javax.swing.tree.TreePath;
  * Menü für Aktionen in der Liste mit den Favoritenverzeichnissen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-23
  */
 public final class PopupMenuFavorites extends JPopupMenu {
     private static final long              serialVersionUID   =

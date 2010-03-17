@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerCopyFilesToDirectory.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.List;
  * Kontrolliert die Aktion: Ausgewählte Dateien in ein Verzeichnis kopieren.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class ControllerCopyFilesToDirectory implements ActionListener {
     private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();

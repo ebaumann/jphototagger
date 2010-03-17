@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TableModelExif.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -57,7 +58,6 @@ import javax.swing.table.DefaultTableModel;
  * <code>String</code> instances).
  *
  * @author  Elmar Baumann, Tobias Stening
- * @version 2008-10-05
  */
 public final class TableModelExif extends DefaultTableModel {
     private static final long         serialVersionUID = -5656774233855745962L;

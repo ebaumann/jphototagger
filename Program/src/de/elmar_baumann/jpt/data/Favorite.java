@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Favorite.java    2008-09-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Favorite: File system directory + alias name + order (index).
  *
  * @author  Elmar Baumann
- * @version 2008-09-23
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

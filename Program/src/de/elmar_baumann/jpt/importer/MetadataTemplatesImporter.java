@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MetadataTemplatesImporter.java    2010-02-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -58,7 +59,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-07
  */
 public final class MetadataTemplatesImporter
         implements Importer, EntityResolver {

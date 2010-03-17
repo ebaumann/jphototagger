@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FilenameFormatFilenamePostfix.java    2008-10-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.controller.filesystem;
  * Returns the postfix of a file.
  *
  * @author  Elmar Baumann
- * @version 2008-10-13
  */
 public final class FilenameFormatFilenamePostfix extends FilenameFormat {
 

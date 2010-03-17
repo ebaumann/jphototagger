@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ImagePreviewPanel.java    2010-02-28
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -47,7 +48,6 @@ import javax.swing.JPanel;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-28
  */
 public class ImagePreviewPanel extends JPanel
         implements PropertyChangeListener {

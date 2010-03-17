@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SettingsPanel.java    2009-08-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import javax.swing.JList;
  * Settings for {@link CopyFilenamesToClipboard}.
  *
  * @author  Elmar Baumann
- * @version 2009-08-27
  */
 public class SettingsPanel extends javax.swing.JPanel {
     private static final long       serialVersionUID = -8198418342037889703L;

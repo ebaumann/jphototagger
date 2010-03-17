@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ImageTextArea.java    2009-12-30
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import javax.swing.JTextArea;
  * overlaying the text. If the text field is empty, the image will be displayed.
  *
  * @author  Elmar Baumann
- * @version 2009-12-30
  */
 public final class ImageTextArea extends JTextArea implements KeyListener {
     private static final long serialVersionUID = -3386009175292905714L;

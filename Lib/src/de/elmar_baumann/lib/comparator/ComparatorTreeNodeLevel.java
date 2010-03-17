@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComparatorTreeNodeLevel.java    2009-06-28
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Compares tree nodes by their level to the root node.
  *
  * @author  Elmar Baumann
- * @version 2009-06-28
  */
 public final class ComparatorTreeNodeLevel
         implements Comparator<DefaultMutableTreeNode>, Serializable {

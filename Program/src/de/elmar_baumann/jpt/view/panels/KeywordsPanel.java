@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)KeywordsPanel.java    2009-07-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.tree.TreeSelectionModel;
  * A tree for keywords.
  *
  * @author  Elmar Baumann
- * @version 2009-07-10
  */
 public class KeywordsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 5968799511284000903L;

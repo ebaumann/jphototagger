@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ImagePanel.java    2008-07-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.JPanel;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-07-20
  */
 public class ImagePanel extends JPanel {
     private static final long serialVersionUID = 6103175417678650145L;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeCellRendererMiscMetadata.java    2009-06-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +47,6 @@ import javax.swing.tree.TreeNode;
  * {@link de.elmar_baumann.jpt.model.TreeModelMiscMetadata} nodes.
  *
  * @author  Elmar Baumann
- * @version 2009-06-12
  */
 public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     private static final ImageIcon ICON_MISC_METADATA =

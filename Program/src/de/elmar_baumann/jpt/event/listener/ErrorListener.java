@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ErrorListener.java    2008-08-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.event.ErrorEvent;
  * Beobachtet Fehler (in Threads).
  *
  * @author  Elmar Baumann
- * @version 2008-08-03
  */
 public interface ErrorListener {
 

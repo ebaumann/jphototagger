@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MoveToDirectoryDialog.java    2008-10-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -56,7 +57,6 @@ import javax.swing.filechooser.FileSystemView;
 /**
  *
  * @author  Elmar Baumann
- * @version 2008-10-20
  */
 public final class MoveToDirectoryDialog extends Dialog
         implements ProgressListener, FileSystemListener {

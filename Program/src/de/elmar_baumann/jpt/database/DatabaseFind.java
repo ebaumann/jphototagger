@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseFind.java    2008-10-21
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import java.util.Map;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-10-21
  */
 public final class DatabaseFind extends Database {
     public static final DatabaseFind INSTANCE = new DatabaseFind();

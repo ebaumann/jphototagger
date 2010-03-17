@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TabOrEnterLeavingTextArea.java    2008-09-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import javax.swing.JTextArea;
  * capabilities of a text area.
  *
  * @author  Elmar Baumann
- * @version 2008-09-19
  */
 public final class TabOrEnterLeavingTextArea extends JTextArea {
     private static final long serialVersionUID = -6104921627665799043L;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComparatorExifIsoSpeedRatingAsc.java    2009-12-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.util.Comparator;
 /**
  *
  * @author  Elmar Baumann
- * @version 2009-12-16
  */
 public final class ComparatorExifIsoSpeedRatingAsc extends ClassEquality
         implements Comparator<File>, Serializable {

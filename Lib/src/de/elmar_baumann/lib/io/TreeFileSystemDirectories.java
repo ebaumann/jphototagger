@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeFileSystemDirectories.java    2009-06-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import javax.swing.tree.TreePath;
  * trees representing a file system.
  *
  * @author  Elmar Baumann
- * @version 2009-06-29
  */
 public final class TreeFileSystemDirectories {
 

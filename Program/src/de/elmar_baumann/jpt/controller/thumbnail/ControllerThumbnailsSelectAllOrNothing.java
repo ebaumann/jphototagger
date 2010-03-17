@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerThumbnailsSelectAllOrNothing.java    2010-01-28
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import javax.swing.JMenuItem;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-28
  */
 public final class ControllerThumbnailsSelectAllOrNothing
         implements ActionListener {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeModelFavorites.java    2009-06-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -67,7 +68,6 @@ import javax.swing.tree.TreePath;
  * </ul>
  *
  * @author  Elmar Baumann
- * @version 2009-06-15
  */
 public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, DatabaseFavoritesListener,

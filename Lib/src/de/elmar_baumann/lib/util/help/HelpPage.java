@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)HelpPage.java    2008-10-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ package de.elmar_baumann.lib.util.help;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-10-02
  */
 public final class HelpPage {
     private String   url;

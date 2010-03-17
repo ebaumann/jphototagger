@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseFileExcludePatternsListener.java    2010-03-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-04
  */
 public interface DatabaseFileExcludePatternsListener {
     public void actionPerformed(DatabaseFileExcludePatternsEvent evt);

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ArrayUtilTest.java    2009-01-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import java.util.logging.Logger;
  * Tests the Class {@link de.elmar_baumann.lib.util.ArrayUtil}.
  *
  * @author Elmar Baumann
- * @version 2009-01-23
  */
 public class ArrayUtilTest {
     public ArrayUtilTest() {}

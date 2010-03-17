@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AutoscanDirectoriesImporter.java    2010-03-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import javax.swing.Icon;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-02
  */
 public final class AutoscanDirectoriesImporter implements Importer {
     public static final AutoscanDirectoriesImporter INSTANCE =

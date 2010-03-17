@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)InputVerifierDate.java    2010-03-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import javax.swing.text.JTextComponent;
  * message.
  *
  * @author  Elmar Baumann
- * @version 2010-03-17
  */
 public final class InputVerifierDate extends InputVerifier {
     private final String pattern;

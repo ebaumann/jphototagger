@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SettingsMiscPanel.java    2008-11-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import javax.swing.filechooser.FileSystemView;
 /**
  *
  * @author  Elmar Baumann
- * @version 2008-11-02
  */
 public final class SettingsMiscPanel extends javax.swing.JPanel
         implements Persistence {

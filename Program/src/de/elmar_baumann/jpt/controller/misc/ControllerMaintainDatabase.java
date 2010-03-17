@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerMaintainDatabase.java    2008-09-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.awt.event.ActionListener;
  * Kontrolliert die Aktion: Datenbank warten.
  *
  * @author  Elmar Baumann
- * @version 2008-09-12
  */
 public final class ControllerMaintainDatabase implements ActionListener {
     @Override

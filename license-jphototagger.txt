@@ -1,7 +1,8 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}JPhotoTagger tags and finds images fast.
+${licensePrefix}@(#)${name}.java    ${date?date?string("yyyy-MM-dd")}
+${licensePrefix}
 ${licensePrefix}Copyright (C) 2009-2010 by the JPhotoTagger developer team.
 ${licensePrefix}
 ${licensePrefix}This program is free software; you can redistribute it and/or

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Namespace.java    2010-01-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.image.metadata.xmp;
  * Namespaces not existing in {@link com.adobe.xmp.XMPConst}.
  *
  * @author  Elmar Baumann
- * @version 2010-01-27
  */
 public enum Namespace {
     LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),

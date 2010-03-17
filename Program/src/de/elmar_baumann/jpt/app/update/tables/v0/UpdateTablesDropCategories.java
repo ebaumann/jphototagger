@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesDropCategories.java    2009-12-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -53,7 +54,6 @@ import java.sql.Statement;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-12-24
  */
 final class UpdateTablesDropCategories {
     void update(Connection con) throws SQLException {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComboBoxModelKeywordsExporters.java    2009-08-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import javax.swing.DefaultComboBoxModel;
  * {@link KeywordsExporters#getAll()}.
  *
  * @author  Elmar Baumann
- * @version 2009-08-01
  */
 public final class ComboBoxModelKeywordsExporters extends DefaultComboBoxModel {
     private static final long serialVersionUID = 9136865883087790779L;

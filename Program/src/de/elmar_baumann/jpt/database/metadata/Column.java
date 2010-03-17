@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Column.java    2007-07-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.InputVerifier;
  * Database column containing metadata with the user acts on.
  *
  * @author  Elmar Baumann
- * @version 2007-07-29
  */
 public class Column {
     private final DataType dataType;

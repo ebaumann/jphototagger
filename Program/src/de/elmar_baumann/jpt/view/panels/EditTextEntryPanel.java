@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)EditTextEntryPanel.java    2008-09-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -51,7 +52,6 @@ import javax.swing.JPanel;
  * Panel zum Eingeben einzeiliger Texte.
  *
  * @author  Elmar Baumann
- * @version 2008-09-18
  */
 public final class EditTextEntryPanel extends JPanel
         implements TextEntry, DocumentListener, DatabaseImageFilesListener {

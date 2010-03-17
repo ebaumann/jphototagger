@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SerialExecutor.java    2009-07-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import java.util.Queue;
  * previous has finished.
  *
  * @author  Elmar Baumann
- * @version 2009-07-17
  */
 public final class SerialExecutor implements Executor {
     private final Queue<Exec>   runnables                 =

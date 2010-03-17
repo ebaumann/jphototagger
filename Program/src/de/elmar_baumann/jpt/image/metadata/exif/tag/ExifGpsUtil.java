@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifGpsUtil.java    2009-03-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import java.util.Locale;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-03-31
  */
 public final class ExifGpsUtil {
     public static double degrees(ExifDegrees degrees) {

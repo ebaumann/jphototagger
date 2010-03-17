@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ProgressDialog.java    2008-08-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.util.List;
  * Nichtmodaler Dialog mit Fortschrittsbalken.
  *
  * @author  Elmar Baumann
- * @version 2008-08-03
  */
 public final class ProgressDialog extends javax.swing.JDialog {
     private static final long          serialVersionUID = 4604786111382584915L;

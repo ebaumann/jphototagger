@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerEditSavedSearch.java    2008-09-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import javax.swing.JList;
  * search when the keys <code>Ctrl+E</code> were pressed.
  *
  * @author  Elmar Baumann
- * @version 2008-09-10
  */
 public final class ControllerEditSavedSearch
         implements ActionListener, KeyListener {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AutoCompleteData.java    2008-09-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import java.util.Set;
  * Contains autocomplete data (words, terms).
  *
  * @author  Elmar Baumann
- * @version 2008-09-10
  */
 public final class AutoCompleteData {
     private final DatabaseContent    db    = DatabaseContent.INSTANCE;

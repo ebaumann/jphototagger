@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerMoveFavorite.java    2009-06-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import javax.swing.tree.TreePath;
  * clicked.
  *
  * @author  Elmar Baumann
- * @version 2009-06-15
  */
 public final class ControllerMoveFavorite implements ActionListener {
     private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();

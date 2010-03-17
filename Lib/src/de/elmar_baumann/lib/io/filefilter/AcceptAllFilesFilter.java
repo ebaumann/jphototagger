@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AcceptAllFilesFilter.java    2009-05-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import java.io.FileFilter;
  * Accepts all Files, rejects directories.
  *
  * @author  Elmar Baumann
- * @version 2009-05-22
  */
 public final class AcceptAllFilesFilter implements FileFilter {
     public static AcceptAllFilesFilter INSTANCE = new AcceptAllFilesFilter();

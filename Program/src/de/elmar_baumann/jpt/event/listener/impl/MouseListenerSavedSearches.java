@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MouseListenerSavedSearches.java    2008-08-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.JList;
  * Beobachtet Mausklicks im JTree mit gespeicherten Suchen.
  *
  * @author  Elmar Baumann
- * @version 2008-08-31
  */
 public final class MouseListenerSavedSearches extends MouseAdapter {
     private final PopupMenuSavedSearches popupMenu =

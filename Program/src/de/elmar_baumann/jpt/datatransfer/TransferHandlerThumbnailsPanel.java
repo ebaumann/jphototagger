@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TransferHandlerThumbnailsPanel.java    2008-10-24
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -62,7 +63,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * {@link DataFlavor#javaFileListFlavor}.
  *
  * @author  Elmar Baumann
- * @version 2008-10-24
  */
 public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     private static final long serialVersionUID = 1831860682951562565L;

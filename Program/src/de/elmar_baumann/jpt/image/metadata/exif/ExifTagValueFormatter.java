@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifTagValueFormatter.java    2008-08-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.image.metadata.exif.formatter.ExifFormatterFactory;
 /**
  *
  * @author  Elmar Baumann
- * @version 2008-08-31
  */
 public final class ExifTagValueFormatter {
 

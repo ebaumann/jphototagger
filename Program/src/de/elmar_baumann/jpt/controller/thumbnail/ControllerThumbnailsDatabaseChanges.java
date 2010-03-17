@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerThumbnailsDatabaseChanges.java    2008-10-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import javax.swing.SwingUtilities;
  * Reacts to databse changes of thumbnails
  *
  * @author  Elmar Baumann
- * @version 2008-10-15
  */
 public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseImageFilesListener {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)XmpColumnXmpArrayNameMapping.java    2008-09-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -51,7 +52,6 @@ import java.util.Map;
 /**
  *
  * @author  Elmar Baumann
- * @version 2008-09-19
  */
 public final class XmpColumnXmpArrayNameMapping {
     private static final Map<Column, String> XMP_ARRAY_NAME_OF_COLUMN =

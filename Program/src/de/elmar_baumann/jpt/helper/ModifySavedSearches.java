@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ModifySavedSearches.java    2009-02-25
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.SwingUtilities;
  * Inserts, updates, deletes  saved searches into/from the model and database.
  *
  * @author  Elmar Baumann
- * @version 2009-02-25
  */
 public final class ModifySavedSearches {
 

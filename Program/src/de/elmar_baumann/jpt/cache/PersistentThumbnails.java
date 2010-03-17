@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)PersistentThumbnails.java    2009-08-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import javax.swing.ImageIcon;
  * Persistent stored (cached) thumbnails.
  *
  * @author  Martin Pohlack, Elmar Baumann
- * @version 2009-08-13
  */
 public final class PersistentThumbnails {
     public static void writeThumbnail(Image thumbnail, String hash) {

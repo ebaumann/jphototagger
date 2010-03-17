@@ -145,7 +145,6 @@ package de.elmar_baumann.lib.thirdparty;
  *
  * @author Robert Harder
  * @author rob@iharder.net
- * @version 2.3.7
  */
 public class Base64 {
 

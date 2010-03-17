@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Pair.java    2008-09-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ package de.elmar_baumann.lib.generics;
  * @param <A> first object
  * @param <B> second object
  * @author  Elmar Baumann
- * @version 2008-09-18
  */
 public class Pair<A, B> {
     private final A first;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifMakerNotesFactory.java    2010-01-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.util.Map;
 /**
  *
  * @author  Elmar Baumann
- * @version 2010-01-13
  */
 public final class ExifMakerNotesFactory {
     private static final Map<String, ExifMakerNotes> makerNotesOfMake =

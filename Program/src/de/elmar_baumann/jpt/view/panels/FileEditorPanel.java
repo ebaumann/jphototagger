@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FileEditorPanel.java    2009-05-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -51,7 +52,6 @@ import javax.swing.JFileChooser;
  * progress.
  *
  * @author  Elmar Baumann
- * @version 2009-05-22
  */
 public final class FileEditorPanel extends javax.swing.JPanel {
     private static final String KEY_DIRECTORY_NAME =

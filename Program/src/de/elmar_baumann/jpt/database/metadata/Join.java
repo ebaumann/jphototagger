@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Join.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import java.util.Map;
  * SQL-Joins.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class Join {
     private static final Map<String, String> JOIN_FROM_FILES =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)KeywordImportDialog.java    2009-08-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import javax.swing.JFileChooser;
  * Modal dialog for importing keywords.
  *
  * @author  Elmar Baumann
- * @version 2009-08-01
  */
 public class KeywordImportDialog extends Dialog {
     private static final String KEY_PREV_IMPORT_FILE =

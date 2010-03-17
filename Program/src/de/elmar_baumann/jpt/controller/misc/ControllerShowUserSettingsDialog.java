@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerShowUserSettingsDialog.java    2008-09-25
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.awt.event.ActionListener;
  * Kontrolliert die Aktion: Benutzereinstellungen-Dialog anzeigen.
  *
  * @author  Elmar Baumann
- * @version 2008-09-25
  */
 public final class ControllerShowUserSettingsDialog implements ActionListener {
     @Override

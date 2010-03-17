@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifAscii.java    2009-04-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -25,7 +26,6 @@ package de.elmar_baumann.jpt.image.metadata.exif.datatype;
  * one 7-bit ASCII code. The final byte is terminated with NULL.
  *
  * @author  Elmar Baumann
- * @version 2009-04-04
  */
 public final class ExifAscii {
     private final String value;

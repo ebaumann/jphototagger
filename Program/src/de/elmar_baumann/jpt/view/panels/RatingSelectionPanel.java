@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RatingSelectionPanel.java    2009-08-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -51,7 +52,6 @@ import javax.swing.JPanel;
 * RatingSelectionPanel.java
 *
 * @author  Martin Pohlack
-* @version 2009-08-01
  */
 public class RatingSelectionPanel extends JPanel
         implements TextEntry, FocusListener, KeyListener {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ListItemTempSelectionRowSetter.java    2009-07-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,7 +49,6 @@ import javax.swing.ListCellRenderer;
  * parameter for the index.
  *
  * @author  Elmar Baumann
- * @version 2009-07-27
  */
 public final class ListItemTempSelectionRowSetter
         implements MouseListener, PopupMenuListener {

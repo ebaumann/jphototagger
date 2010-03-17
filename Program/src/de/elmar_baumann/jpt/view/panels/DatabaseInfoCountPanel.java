@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseInfoCountPanel.java    2008-11-08
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import de.elmar_baumann.jpt.view.renderer.TableCellRendererDatabaseInfoColumns;
  * Dislplays the database record count total and of specific columns.
  *
  * @author  Elmar Baumann
- * @version 2008-11-08
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     private static final long      serialVersionUID = -8537559082830438692L;

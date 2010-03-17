@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifFormatterFactory.java    2009-06-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.util.Map;
  * Creates instances of {@link ExifFormatter}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-10
  */
 public final class ExifFormatterFactory {
     private static final Map<Integer, ExifFormatter> FORMATTER_OF_EXIF_IFD_TAG_ID =

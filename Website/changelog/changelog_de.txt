@@ -5,6 +5,15 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.8.4 2010-03-17
+----------------
+
+* Neue Option: Bearbeiten > Einstellungen > Leistung > Auto-Vervollständigen:
+  Auto-Vervollständigen-Wortschatz anhand Eingaben fortlaufend aktualisieren.
+  Näheres steht in der Hilfe und im PDF-Benutzerhandbuch.
+* Bugfix: Beim Erzeugen neuer Datenbanken schlug das Erzeugen der XMP-Tabelle
+  fehl (woraufhin JPhotoTagger sich beendete)
+
 0.8.3 2010-03-16
 ----------------
 

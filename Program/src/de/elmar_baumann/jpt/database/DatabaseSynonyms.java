@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseSynonyms.java    2010-02-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import java.util.Set;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-06
  */
 public final class DatabaseSynonyms extends Database {
     public static final DatabaseSynonyms                    INSTANCE        =

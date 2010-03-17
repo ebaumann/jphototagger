@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)RefreshEvent.java    2010-01-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.util.List;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-14
  */
 public final class RefreshEvent {
     private final Object  source;

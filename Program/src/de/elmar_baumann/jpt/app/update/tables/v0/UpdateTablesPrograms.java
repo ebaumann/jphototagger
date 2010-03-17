@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesPrograms.java    2008-11-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import java.util.List;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-11-04
  */
 final class UpdateTablesPrograms extends Database {
     private static final String KEY_OTHER_IMAGE_OPEN_APPS =

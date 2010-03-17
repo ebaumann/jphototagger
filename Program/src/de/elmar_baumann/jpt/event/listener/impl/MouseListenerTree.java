@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MouseListenerTree.java    2009-12-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import javax.swing.tree.TreePath;
 /**
  *
  * @author  Elmar Baumann
- * @version 2009-12-20
  */
 public class MouseListenerTree extends MouseAdapter implements ActionListener {
     private JTree     tree;

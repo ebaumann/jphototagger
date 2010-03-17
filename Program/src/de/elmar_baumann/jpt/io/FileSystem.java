@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FileSystem.java    2008-10-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import java.io.File;
  * Base class for file system actions. Provides registering and notifying listeners.
  *
  * @author  Elmar Baumann
- * @version 2008-10-20
  */
 public class FileSystem {
     private final FileSystemListenerSupport fsListenerSupport =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TableCellRendererExif.java    2008-09-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import javax.swing.table.TableCellRenderer;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-09-14
  */
 public final class TableCellRendererExif extends FormatterLabelMetadata
         implements TableCellRenderer {

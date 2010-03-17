@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifTagsToDisplay.java    2009-06-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.util.List;
  * Contains the EXIF metadata to display (show) to the user.
  *
  * @author  Elmar Baumann
- * @version 2009-06-10
  */
 public final class ExifTagsToDisplay {
     private static final List<Integer> ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY =

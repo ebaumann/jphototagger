@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SizeUnit.java    2009-07-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.types;
  * Size units as n multiplied by one byte.
  *
  * @author  Elmar Baumann
- * @version 2009-07-16
  */
 public enum SizeUnit {
     BYTE(1, "B"), KILO_BYTE(1024, "KB"), MEGA_BYTE(1024 * 1024, "MB"),

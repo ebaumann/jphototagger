@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComparatorKeywordIdParent.java    2009-07-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.util.Comparator;
  * Compares {@link Keyword}s by the database ID of their parents.
  *
  * @author  Elmar Baumann
- * @version 2009-07-10
  */
 public final class ComparatorKeywordIdParent implements Comparator<Keyword> {
     public static final ComparatorKeywordIdParent INSTANCE =

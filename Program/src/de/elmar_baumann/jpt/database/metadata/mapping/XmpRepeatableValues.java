@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)XmpRepeatableValues.java    2009-02-20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -53,7 +54,6 @@ import java.util.Map;
  * Returns, whether a XMP column has repeatable values.
  *
  * @author  Elmar Baumann
- * @version 2009-02-20
  */
 public final class XmpRepeatableValues {
     private static final Map<Column, Boolean> IS_REPEATABLE =

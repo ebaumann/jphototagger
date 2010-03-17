@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesThumbnails.java    2009-04-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -53,7 +54,6 @@ import javax.swing.ImageIcon;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-04-29
  */
 final class UpdateTablesThumbnails extends Database {
     private static final int    FETCH_MAX_ROWS                     = 1000;

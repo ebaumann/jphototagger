@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ProgramPropertiesDialog.java    2008-11-04
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +47,6 @@ import javax.swing.JFileChooser;
  * be started within the application.
  *
  * @author  Elmar Baumann
- * @version 2008-11-04
  */
 public final class ProgramPropertiesDialog extends Dialog {
     private static final long   serialVersionUID = 5953007101307866505L;

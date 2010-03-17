@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)IptcXmpMapping.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -58,7 +59,6 @@ import java.util.Set;
  * Mapping between IPTC Entry Metadata and XMP columns.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class IptcXmpMapping {
     private static final Map<IPTCEntryMeta, Column> XMP_COLUMN_OF_IPTC_ENTRY_META =

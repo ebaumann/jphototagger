@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SearchEvent.java    2008-08-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.data.SavedSearch;
  * Suchereignis.
  *
  * @author  Elmar Baumann
- * @version 2008-08-23
  */
 public final class SearchEvent {
     private Type        type;

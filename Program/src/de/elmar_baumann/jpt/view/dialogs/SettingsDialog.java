@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SettingsDialog.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -41,7 +42,6 @@ import javax.swing.JButton;
  * Modaler Dialog für Anwendungseinstellungen.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class SettingsDialog extends Dialog {
     private static final String KEY_INDEX_TABBED_PANE =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FilenameFormatListener.java    2009-07-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.event.listener;
  * Listens while formatting files.
  *
  * @author  Elmar Baumann
- * @version 2009-07-07
  */
 public interface FilenameFormatListener {
     public enum Request {

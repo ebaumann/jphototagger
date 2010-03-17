@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)JptImporters.java    2010-03-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import java.util.List;
  * All importers exporting JPhotoTagger data.
  *
  * @author  Elmar Baumann
- * @version 2010-03-03
  */
 public final class JptImporters {
     public static final JptImporters    INSTANCE  = new JptImporters();

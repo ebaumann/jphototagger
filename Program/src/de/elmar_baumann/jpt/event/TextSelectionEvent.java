@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TextSelectionEvent.java    2009-06-26
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.event;
  * Text was selected.
  *
  * @author  Elmar Baumann
- * @version 2009-06-26
  */
 public final class TextSelectionEvent {
     private final String text;

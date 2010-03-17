@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ColumnXmpPhotoshopTransmissionReference.java    2008-08-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * Spalte <code>photoshop_transmissionReference</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann
- * @version 2008-08-23
  */
 public final class ColumnXmpPhotoshopTransmissionReference extends Column {
     public static final ColumnXmpPhotoshopTransmissionReference INSTANCE =

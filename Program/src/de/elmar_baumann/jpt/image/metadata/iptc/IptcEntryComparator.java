@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)IptcEntryComparator.java    2008-02-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import java.util.Comparator;
  * identifizieren diesen eindeutig; er ist redundand.
  *
  * @author  Elmar Baumann
- * @version 2008-02-17
  * @see     IptcEntry
  */
 public final class IptcEntryComparator implements Comparator<IptcEntry> {

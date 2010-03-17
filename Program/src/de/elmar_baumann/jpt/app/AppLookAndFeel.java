@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppLookAndFeel.java    2009-06-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -40,7 +41,6 @@ import javax.swing.UIManager;
 /**
  *
  * @author  Elmar Baumann
- * @version 2009-06-06
  */
 public final class AppLookAndFeel {
     private static final String ICONS_PATH =

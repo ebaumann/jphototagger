@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ThumbnailCreator.java    2010-01-09
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.image.thumbnail;
  * How to create humbnails.
  *
  * @author  Elmar Baumann
- * @version 2010-01-09
  */
 public enum ThumbnailCreator {
 

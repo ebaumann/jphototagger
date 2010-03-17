@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)JptBundle.java    2008-09-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -25,7 +26,6 @@ import de.elmar_baumann.lib.resource.Bundle;
 /**
  *
  * @author  Elmar Baumann
- * @version 2008-09-02
  */
 public final class JptBundle extends Bundle {
     public static final JptBundle INSTANCE = new JptBundle();

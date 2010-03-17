@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerAdvancedSearch.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -50,7 +51,6 @@ import javax.swing.SwingUtilities;
  * eine Suche soll durchgeführt werden, ausgelöst vom Suchdialog.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class ControllerAdvancedSearch
         implements ActionListener, SearchListener {

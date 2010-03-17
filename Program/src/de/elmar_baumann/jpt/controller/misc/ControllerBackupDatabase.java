@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerBackupDatabase.java    2010-03-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.JMenuItem;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-07
  */
 public final class ControllerBackupDatabase extends Controller {
     private final JMenuItem       menuItemBackupDb =

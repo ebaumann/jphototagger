@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)InputVerifiersAnd.java    2010-01-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.swing.JComponent;
  * All added input verifiers must return true for a valid input.
  *
  * @author  Elmar Baumann
- * @version 2010-01-06
  */
 public final class InputVerifiersAnd extends InputVerifiers {
 

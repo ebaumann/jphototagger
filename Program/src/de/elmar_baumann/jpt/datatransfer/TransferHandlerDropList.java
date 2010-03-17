@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TransferHandlerDropList.java    2009-08-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +45,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Does <em>not</em> support moving data.
  *
  * @author  Elmar Baumann
- * @version 2009-08-02
  */
 public final class TransferHandlerDropList extends TransferHandler {
     private static final long serialVersionUID = -3654778661471221382L;

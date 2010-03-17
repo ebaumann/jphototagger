@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ErrorEvent.java    2008-08-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.event;
  * Fehler.
  *
  * @author  Elmar Baumann
- * @version 2008-08-03
  */
 public final class ErrorEvent {
     private final String message;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ColumnFilesLastModified.java    2007-07-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import de.elmar_baumann.jpt.resource.JptBundle;
  * Tabellenspalte <code>lastmodified</code> der Tabelle <code>files</code>.
  *
  * @author  Elmar Baumann
- * @version 2007-07-29
  */
 public final class ColumnFilesLastModified extends Column {
     public static final ColumnFilesLastModified INSTANCE =

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ProgressBarUpdater.java    2009-12-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.swing.JProgressBar;
  *
  *
  * @author  Elmar Baumann
- * @version 2009-12-18
  */
 public final class ProgressBarUpdater implements ProgressListener {
     private final String progressBarString;

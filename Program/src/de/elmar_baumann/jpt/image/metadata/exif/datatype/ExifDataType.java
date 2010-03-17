@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifDataType.java    2009-07-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.image.metadata.exif.datatype;
  * Data type of an EXIF tag.
  *
  * @author  Elmar Baumann
- * @version 2009-07-06
  */
 public enum ExifDataType {
 

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ConnectionPool.java    1.0
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -58,7 +59,6 @@ import java.util.List;
  * <b>Notice:</b><br />
  * Compatible with J2SE 1.6.0 and above</b>
  *
- * @version 1.0
  * @since 2005-10-03
  * @author Tobias Stening
  */

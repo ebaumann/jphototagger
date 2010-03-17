@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseSynonymsListener.java    2010-02-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.event.DatabaseSynonymsEvent;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-07
  */
 public interface DatabaseSynonymsListener {
     public void actionPerformed(DatabaseSynonymsEvent event);

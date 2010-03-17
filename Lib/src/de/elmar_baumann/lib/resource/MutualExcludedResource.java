@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MutualExcludedResource.java    2008-09-16
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +45,6 @@ import java.util.logging.Logger;
  *
  * @param <T> Type of resource
  * @author    Elmar Baumann
- * @version   2008-09-16
  */
 public class MutualExcludedResource<T> {
     private T       resource = null;

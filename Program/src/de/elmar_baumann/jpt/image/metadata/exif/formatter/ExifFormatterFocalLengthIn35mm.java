@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifFormatterFocalLengthIn35mm.java    2009-06-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.text.NumberFormat;
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FOCAL_LENGTH_IN_35_MM_FILM}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-10
  */
 public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
     public static final ExifFormatterFocalLengthIn35mm INSTANCE =

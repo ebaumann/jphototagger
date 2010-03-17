@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ImageFilteredDirectory.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import java.util.List;
  * Verzeichnis im Dateisystem gefiltert nach Bilddateien.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class ImageFilteredDirectory {
     private File       directory;

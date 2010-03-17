@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Xmp.java    2010-02-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import java.util.logging.Logger;
  * <code>lib</code> directory of this project.
  *
  * @author  Elmar Baumann
- * @version 2010-02-15
  */
 public final class Xmp {
     public enum Namespace {

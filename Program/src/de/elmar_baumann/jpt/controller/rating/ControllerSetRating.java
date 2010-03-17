@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerSetRating.java    2009-08-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +45,6 @@ import javax.swing.JMenuItem;
  * rates an action performed.
  *
  * @author  Elmar Baumann
- * @version 2009-08-03
  */
 public final class ControllerSetRating implements ActionListener, KeyListener {
     private final PopupMenuThumbnails       popup              =

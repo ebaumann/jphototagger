@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TransferUtil.java    2008-10-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,7 +49,6 @@ import javax.swing.TransferHandler.TransferSupport;
  * not documentet that it can be null.
  *
  * @author  Elmar Baumann
- * @version 2008-10-17
  */
 public final class TransferUtil {
     private static final String MIME_TYPE_URI_LIST =

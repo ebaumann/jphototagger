@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TextEntryListenerSupport.java    2009/07/20
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import de.elmar_baumann.jpt.event.listener.TextEntryListener;
  * Support to add, remove and notify {@link TextEntryListener}s.
  *
  * @author  Elmar Baumann
- * @version 2009/07/20
  */
 public final class TextEntryListenerSupport
         extends ListenerSupport<TextEntryListener> {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FileEditorDialog.java    2009-05-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import de.elmar_baumann.lib.dialog.Dialog;
  * Closing is disabled as long as the file editor runs.
  *
  * @author  Elmar Baumann
- * @version 2009-05-22
  */
 public class FileEditorDialog extends Dialog {
     private static final long serialVersionUID = -3235645652277682178L;

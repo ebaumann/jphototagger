@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SystemOutputPanel.java    2009-05-31
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.SwingUtilities;
  * Starts after calling {@link #caputure()}.
  *
  * @author  Elmar Baumann
- * @version 2009-05-31
  */
 public class SystemOutputPanel extends JPanel {
     private static volatile int MAX_CHAR_COUNT   = 100000;

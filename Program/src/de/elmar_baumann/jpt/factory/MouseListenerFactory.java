@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MouseListenerFactory.java    2008-09-29
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import de.elmar_baumann.lib.event.listener.TableButtonMouseListener;
  * Erzeugt und verbindet MouseListener.
  *
  * @author  Elmar Baumann
- * @version 2008-09-29
  */
 public final class MouseListenerFactory {
     static final MouseListenerFactory INSTANCE = new MouseListenerFactory();

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TreeModelKeywords.java    2009-07-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -49,7 +50,6 @@ import javax.swing.tree.TreeNode;
  * </ul>
  *
  * @author  Elmar Baumann
- * @version 2009-07-11
  */
 public final class TreeModelKeywords extends DefaultTreeModel {
     private static final long                serialVersionUID =

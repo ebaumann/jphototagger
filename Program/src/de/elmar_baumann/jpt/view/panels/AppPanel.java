@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppPanel.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -64,7 +65,6 @@ import javax.swing.tree.TreeSelectionModel;
  * Panel der Anwendung.
  *
  * @author  Elmar Baumann, Tobias Stening
- * @version 2008-10-05
  */
 public final class AppPanel extends javax.swing.JPanel {
     private static final String KEY_DIVIDER_LOCATION_MAIN =

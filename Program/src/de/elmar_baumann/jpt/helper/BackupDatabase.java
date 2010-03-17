@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)BackupDatabase.java    2010-03-08
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +47,6 @@ import java.util.regex.Pattern;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-08
  */
 public final class BackupDatabase extends AppLifeCycle.FinalTask
         implements Runnable {

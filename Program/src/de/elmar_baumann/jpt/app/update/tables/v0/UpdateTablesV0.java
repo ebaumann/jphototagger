@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesV0.java    2008-10-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import java.sql.SQLException;
  * Updates tables from previous application versions
  *
  * @author  Elmar Baumann
- * @version 2008-10-23
  */
 public final class UpdateTablesV0 implements Updater {
 

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MetadataTemplateSupport.java    2010-01-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +37,6 @@ import javax.swing.TransferHandler.TransferSupport;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-06
  */
 final class MetadataTemplateSupport {
     @SuppressWarnings({ "unchecked", "unchecked" })

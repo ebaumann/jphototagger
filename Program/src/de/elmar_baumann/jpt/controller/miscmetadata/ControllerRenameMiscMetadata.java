@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerRenameMiscMetadata.java    2010-03-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import javax.swing.JMenuItem;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-15
  */
 public final class ControllerRenameMiscMetadata extends ControllerMiscMetadata {
 

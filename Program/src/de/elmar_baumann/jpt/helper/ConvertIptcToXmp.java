@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ConvertIptcToXmp.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.List;
  * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class ConvertIptcToXmp implements Runnable {
     private final List<ProgressListener> progressListeners =

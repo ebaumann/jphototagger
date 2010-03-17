@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseMetadata.java    2008-10-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import java.util.List;
  *
  *
  * @author  Elmar Baumann
- * @version 2008-10-23
  */
 public final class DatabaseMetadata extends Database {
     public static final DatabaseMetadata INSTANCE               =

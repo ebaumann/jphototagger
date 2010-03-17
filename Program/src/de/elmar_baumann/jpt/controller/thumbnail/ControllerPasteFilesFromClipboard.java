@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerPasteFilesFromClipboard.java    2008-10-27
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -57,7 +58,6 @@ import javax.swing.TransferHandler;
  * Enables the menu items based on the content (when it's a single directory).
  *
  * @author  Elmar Baumann
- * @version 2008-10-27
  */
 public final class ControllerPasteFilesFromClipboard
         implements ActionListener, KeyListener, MenuListener,

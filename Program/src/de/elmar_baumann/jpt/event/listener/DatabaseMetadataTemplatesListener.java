@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DatabaseMetadataTemplatesListener.java    2010-01-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-05
  */
 public interface DatabaseMetadataTemplatesListener {
     public void actionPerformed(DatabaseMetadataTemplatesEvent evt);

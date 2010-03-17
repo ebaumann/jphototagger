@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Settings.java    2010-02-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import java.util.Properties;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-02-15
  */
 public final class Settings {
     private static final String KEY_DC_DESCRIPTION =

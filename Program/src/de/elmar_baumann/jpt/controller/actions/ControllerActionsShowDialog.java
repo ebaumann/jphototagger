@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerActionsShowDialog.java    2008-11-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import java.awt.event.ActionListener;
  * accelerator keys (F4) were pressed.
  *
  * @author  Elmar Baumann
- * @version 2008-11-06
  */
 public final class ControllerActionsShowDialog implements ActionListener {
     public ControllerActionsShowDialog() {

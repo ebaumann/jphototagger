@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)NetVersion.java    2010-01-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import java.net.URL;
  * Grabs version information from the net.
  *
  * @author  Elmar Baumann
- * @version 2010-01-05
  */
 public final class NetVersion {
 

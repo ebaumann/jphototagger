@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ThumbnailUtil.java    2008-10-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -59,7 +60,6 @@ import javax.imageio.ImageIO;
  * Hilfsklasse für Thumbnails.
  *
  * @author Elmar Baumann, Tobias Stening
- * @version 2008-10-07
  */
 public final class ThumbnailUtil {
 

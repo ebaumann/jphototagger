@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)HelperThread.java    2010-01-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -34,7 +35,6 @@ import javax.swing.JProgressBar;
  * progress bar.
  *
  * @author  Elmar Baumann
- * @version 2010-01-02
  */
 public abstract class HelperThread extends Thread {
     private String                      info;

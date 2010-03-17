@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerHighlightKeywordsTree.java    2009-07-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +45,6 @@ import javax.swing.tree.TreeCellRenderer;
  * of a  {@link KeywordsPanel} the keywords of the selected image.
  *
  * @author  Elmar Baumann
- * @version 2009-07-23
  */
 public final class ControllerHighlightKeywordsTree
         implements ThumbnailsPanelListener {

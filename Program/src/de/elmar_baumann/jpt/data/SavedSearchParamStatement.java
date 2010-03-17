@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SavedSearchParamStatement.java    2008-09-12
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Data of a {@link de.elmar_baumann.jpt.data.ParamStatement}
  *
  * @author  Elmar Baumann
- * @version 2008-09-12
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

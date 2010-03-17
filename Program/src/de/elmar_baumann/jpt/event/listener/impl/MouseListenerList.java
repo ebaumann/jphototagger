@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MouseListenerList.java    2010-01-07
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +33,6 @@ import javax.swing.JList;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-07
  */
 public abstract class MouseListenerList extends MouseAdapter {
     private int     index;

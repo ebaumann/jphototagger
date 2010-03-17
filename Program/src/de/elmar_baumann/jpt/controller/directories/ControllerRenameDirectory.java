@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerRenameDirectory.java    2009-06-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * directory when the keys <code>Ctrl+R</code> or <code>F2</code> were pressed.
  *
  * @author  Elmar Baumann
- * @version 2009-06-19
  */
 public final class ControllerRenameDirectory extends ControllerDirectory {
     public ControllerRenameDirectory() {

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)XmpInDatabase.java    2008-09-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +28,6 @@ import java.util.Set;
  * Liefert, welche XMP-Metadaten in die Datenbank gespeichert werden.
  *
  * @author  Elmar Baumann
- * @version 2008-09-14
  */
 public final class XmpInDatabase {
     private static final Set<String> STORED_PATHS_PREFIXES =

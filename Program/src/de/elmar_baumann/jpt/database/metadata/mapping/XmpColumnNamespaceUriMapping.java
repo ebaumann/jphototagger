@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)XmpColumnNamespaceUriMapping.java    2008-09-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -56,7 +57,6 @@ import java.util.Map;
  * einem Namespace-URI
  *
  * @author  Elmar Baumann
- * @version 2008-09-19
  */
 public final class XmpColumnNamespaceUriMapping {
     private static final Map<Column, String> NAMESPACE_URI_OF_COLUMN =

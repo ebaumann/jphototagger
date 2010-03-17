@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Support.java    2010-01-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import java.util.Map;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-17
  */
 final class Support {
     private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS =

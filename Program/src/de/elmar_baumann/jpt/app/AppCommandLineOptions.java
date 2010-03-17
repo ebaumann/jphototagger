@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AppCommandLineOptions.java    2010-01-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import de.elmar_baumann.lib.util.CommandLineParser;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-01-22
  */
 public final class AppCommandLineOptions {
     private static final String     OPTION_NO_SPLASH_SCREEN   = "nosplash";

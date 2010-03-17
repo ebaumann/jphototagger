@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TableButtonMouseListener.java    2009-04-01
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import javax.swing.SwingUtilities;
 /**
  * Ursprünglicher Code von http://www.devx.com/getHelpOn/10MinuteSolution/20425
  *
- * @version 2009-04-01
  */
 public final class TableButtonMouseListener implements MouseListener {
     private final JTable table;

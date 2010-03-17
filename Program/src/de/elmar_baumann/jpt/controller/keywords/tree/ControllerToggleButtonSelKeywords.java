@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerToggleButtonSelKeywords.java    2010-01-15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import javax.swing.JToggleButton;
  * collapses all keyword nodes on action.
  *
  * @author  Elmar Baumann
- * @version 2010-01-15
  */
 public final class ControllerToggleButtonSelKeywords implements ActionListener {
     private final JToggleButton toggleButtonExpandAllNodesSelKeywords =

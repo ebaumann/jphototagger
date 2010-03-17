@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SelectObjectsPanel.java    2010-03-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -48,7 +49,6 @@ import javax.swing.JPanel;
  * {@link GridBagLayout}!</em>
  *
  * @author  Elmar Baumann
- * @version 2010-03-03
  */
 public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private static final long            serialVersionUID  =

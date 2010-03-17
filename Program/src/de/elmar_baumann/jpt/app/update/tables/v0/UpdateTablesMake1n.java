@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesMake1n.java    2010-03-13
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -45,7 +46,6 @@ import java.util.Map;
  * Works only, if the column data type is a string.
  *
  * @author  Elmar Baumann
- * @version 2010-03-13
  */
 public final class UpdateTablesMake1n {
     private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF =

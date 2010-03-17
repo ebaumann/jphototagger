@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)DeleteOrphanedThumbnails.java    2009-10-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -43,7 +44,6 @@ import java.util.Set;
  * {@link UserSettings#getThumbnailsDirectoryName()}.
  *
  * @author  Elmar Baumann
- * @version 2009-10-17
  */
 public final class DeleteOrphanedThumbnails implements Runnable {
     private final ProgressListenerSupport listenerSupport =

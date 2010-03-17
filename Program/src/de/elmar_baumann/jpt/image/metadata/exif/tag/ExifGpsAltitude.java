@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifGpsAltitude.java    2009-03-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import java.util.Map;
  * GPS altitude.
  *
  * @author  Elmar Baumann
- * @version 2009-03-17
  */
 public final class ExifGpsAltitude {
     public enum Ref { OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL }

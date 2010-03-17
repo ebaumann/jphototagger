@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)EditHints.java    2008-09-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +25,6 @@ package de.elmar_baumann.jpt.database.metadata.selections;
  * Hinweise für Spalten, die bearbeitet werden können.
  *
  * @author  Elmar Baumann
- * @version 2008-09-18
  */
 public final class EditHints {
     private final boolean       repeatable;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExceptionLogfileRecord.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.util.List;
  * benutzt für Java-Exceptions und sonstigen Throwable-Objekten.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class ExceptionLogfileRecord {
     private final List<FrameLogfileRecord> logfileRecordFrames =

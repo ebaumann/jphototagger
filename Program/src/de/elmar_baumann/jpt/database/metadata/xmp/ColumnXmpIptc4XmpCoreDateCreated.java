@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ColumnXmpIptc4XmpCoreDateCreated.java    2010-01-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.JComponent;
  * <code>YYYY-MM-DD</code>.
  *
  * @author  Elmar Baumann
- * @version 2010-01-06
  */
 public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {
     public static final ColumnXmpIptc4XmpCoreDateCreated INSTANCE =

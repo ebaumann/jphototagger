@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)EditXmpPanel.java    2010-01-08
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -67,7 +68,6 @@ import javax.swing.text.JTextComponent;
  * the input values into the referenced XMP object.
  *
  * @author  Elmar Baumann
- * @version 2010-01-08
  */
 public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private static final long     serialVersionUID = 7898855480121337499L;

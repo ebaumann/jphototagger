@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ComparatorStringAscending.java    2008-11-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import java.util.Comparator;
  * Compares strings in ascending order.
  *
  * @author  Elmar Baumann
- * @version 2008-11-05
  */
 public final class ComparatorStringAscending implements Comparator<String> {
     public static final ComparatorStringAscending INSTANCE =

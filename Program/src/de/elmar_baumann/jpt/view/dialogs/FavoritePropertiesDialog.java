@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FavoritePropertiesDialog.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import java.util.List;
  * Neues Favoritenverzeichnis erstellen oder modifiziertes aktualisieren.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class FavoritePropertiesDialog extends Dialog {
     private static final String KEY_LAST_DIRECTORY =

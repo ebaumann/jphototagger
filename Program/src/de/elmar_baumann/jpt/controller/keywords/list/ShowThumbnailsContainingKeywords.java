@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ShowThumbnailsContainingKeywords.java    2009-09-02
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import java.util.Set;
  * Displays in the {@link ThumbnailsPanel} thumbnails with specific keywords.
  *
  * @author  Elmar Baumann
- * @version 2009-09-02
  */
 public final class ShowThumbnailsContainingKeywords implements Runnable {
     private final DatabaseImageFiles db              =

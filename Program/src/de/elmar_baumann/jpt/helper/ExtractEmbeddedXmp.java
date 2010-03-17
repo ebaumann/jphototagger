@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExtractEmbeddedXmp.java    2009-05-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -39,7 +40,6 @@ import java.util.Arrays;
  * Extracts in images embedded XMP metadata into sidecar files.
  *
  * @author  Elmar Baumann
- * @version 2009-05-22
  */
 public final class ExtractEmbeddedXmp extends FileEditor {
     @Override

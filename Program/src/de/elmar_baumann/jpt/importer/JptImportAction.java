@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)JptImportAction.java    2010-03-03
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import javax.swing.AbstractAction;
  *
  *
  * @author  Elmar Baumann
- * @version 2010-03-03
  */
 public final class JptImportAction extends AbstractAction {
     private static final long           serialVersionUID = 7147327788643508948L;

@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)InputVerifierNumberRange.java    2009-08-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -35,7 +36,6 @@ import javax.swing.text.JTextComponent;
  * number and displays an error message dialog on errors.
  *
  * @author  Elmar Baumann
- * @version 2009-08-05
  */
 public final class InputVerifierNumberRange extends InputVerifier {
     private final double min;

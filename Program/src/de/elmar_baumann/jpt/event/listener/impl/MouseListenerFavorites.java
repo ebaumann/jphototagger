@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)MouseListenerFavorites.java    2008-09-23
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import javax.swing.tree.TreePath;
  * Behandelt Mauskereignisse in der Liste für Favoritenverzeichnisse.
  *
  * @author  Elmar Baumann
- * @version 2008-09-23
  */
 public final class MouseListenerFavorites extends MouseListenerTree {
     private final PopupMenuFavorites popupMenu = PopupMenuFavorites.INSTANCE;

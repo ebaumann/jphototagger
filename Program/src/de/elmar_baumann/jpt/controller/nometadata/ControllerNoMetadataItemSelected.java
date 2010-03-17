@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerNoMetadataItemSelected.java    2009-08-06
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import javax.swing.JList;
  * selected item to the thumbnails panel.
  *
  * @author  Elmar Baumann Elmar Baumann
- * @version 2009-08-06
  */
 public final class ControllerNoMetadataItemSelected
         implements ListSelectionListener {

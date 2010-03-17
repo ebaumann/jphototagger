@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerMetadataTemplates.java    2008-09-22
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import javax.swing.SwingUtilities;
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.
  *
  * @author  Elmar Baumann
- * @version 2008-09-22
  */
 public final class ControllerMetadataTemplates implements ActionListener {
     private final DatabaseMetadataTemplates db =

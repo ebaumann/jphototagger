@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)Flavor.java    2009-08-14
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,7 +32,6 @@ import javax.swing.TransferHandler.TransferSupport;
  * Data flavors supported in this application.
  *
  * @author  Elmar Baumann
- * @version 2009-08-14
  */
 public final class Flavor {
     private final class KEYWORDS_TREE {}

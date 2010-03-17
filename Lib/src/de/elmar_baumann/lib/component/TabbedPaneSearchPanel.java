@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)TabbedPaneSearchPanel.java    2010-02-25
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -73,7 +74,6 @@ import javax.swing.JTabbedPane;
  * tag names will be added as search words too.
  *
  * @author  Elmar Baumann
- * @version 2010-02-25
  */
 public class TabbedPaneSearchPanel extends javax.swing.JPanel
         implements ComponentListener, DocumentListener {

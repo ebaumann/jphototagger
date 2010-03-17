@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)AdvancedSearchDialog.java    2008-10-05
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +34,6 @@ import de.elmar_baumann.lib.dialog.Dialog;
  * Nicht modaler Dialog für eine erweiterte Suche.
  *
  * @author  Elmar Baumann
- * @version 2008-10-05
  */
 public final class AdvancedSearchDialog extends Dialog
         implements SearchListener {

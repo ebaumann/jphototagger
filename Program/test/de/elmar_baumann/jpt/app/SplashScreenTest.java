@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)SplashScreenTest.java    2010/01/15
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -28,7 +29,6 @@ import org.junit.Test;
  * Tests the Class {@link de.elmar_baumann. }.
  *
  * @author Elmar Baumann
- * @version 2010/01/15
  */
 public class SplashScreenTest {
     public SplashScreenTest() {}

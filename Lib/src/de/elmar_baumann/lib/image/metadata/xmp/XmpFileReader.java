@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)XmpFileReader.java    2007-11-08
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -42,7 +43,6 @@ import java.util.logging.Logger;
  * <strong>Bug:</strong> Liest nur UTF-8-kodierte XMP-Pakete richtig.
  *
  * @author  Elmar Baumann
- * @version 2007-11-08
  */
 public final class XmpFileReader {
     private static final byte[] XMP_PACKET_MARKER = {

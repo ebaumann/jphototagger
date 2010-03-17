@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ExifFormatterFlash.java    2009-06-10
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +31,6 @@ import de.elmar_baumann.lib.util.ByteUtil;
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FLASH}.
  *
  * @author  Elmar Baumann
- * @version 2009-06-10
  */
 public final class ExifFormatterFlash extends ExifFormatter {
     public static final ExifFormatterFlash INSTANCE = new ExifFormatterFlash();

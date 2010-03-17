@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)UpdateTablesPrimaryKeys.java    2009-09-11
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +39,6 @@ import java.util.List;
  * Updates the table's primary keys.
  *
  * @author  Elmar Baumann
- * @version 2009-09-11
  */
 final class UpdateTablesPrimaryKeys {
     private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP =

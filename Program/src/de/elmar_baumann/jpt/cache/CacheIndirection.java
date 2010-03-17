@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)CacheIndirection.java    2009-07-18
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -26,7 +27,6 @@ import java.io.File;
  * Base class for container object contained in the caches
  *
  * @author Martin Pohlack
- * @version 2009-07-18
  */
 public abstract class CacheIndirection {
     public int  usageTime;

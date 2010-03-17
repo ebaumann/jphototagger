@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)ControllerDirectory.java    2010-01-19
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -37,7 +38,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Base class for directory controllers.
  *
  * @author  Elmar Baumann
- * @version 2010-01-19
  */
 abstract class ControllerDirectory extends Controller {
     private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;

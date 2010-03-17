@@ -1,5 +1,6 @@
 /*
- * JPhotoTagger tags and finds images fast.
+ * @(#)FormatterLabelTableColumn.java    2008-09-17
+ *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,7 +30,6 @@ import javax.swing.JLabel;
  * Renderd eine Tabellenspalte.
  *
  * @author  Elmar Baumann
- * @version 2008-09-17
  */
 public final class FormatterLabelTableColumn {
 
