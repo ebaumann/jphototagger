@@ -21,7 +21,10 @@
 package de.elmar_baumann.jpt.database.metadata;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.lib.componentutil.InputVerifierAlwaysTrue;
+import de.elmar_baumann.lib.componentutil.InputVerifierDate;
 import de.elmar_baumann.lib.componentutil.InputVerifierMaxLength;
+import de.elmar_baumann.lib.componentutil.InputVerifierNumber;
 
 import java.text.DateFormat;
 
@@ -72,26 +75,32 @@ public class Column {
     public enum DataType {
 
         /** Java type <code>byte[]</code> */
-        BINARY,
+        BINARY(InputVerifierAlwaysTrue.INSTANCE),
 
         /** Java type <code>java.sql.Date</code> */
-        DATE,
+        DATE(new InputVerifierDate("yyyy-MM-dd")),
 
         /** Java type <code>int</code> */
-        INTEGER,
+        INTEGER(InputVerifierNumber.INSTANCE),
 
         /** Java type <code>long</code> */
-        BIGINT,
+        BIGINT(InputVerifierNumber.INSTANCE),
 
         /** Java type <code>double</code> */
-        REAL,
+        REAL(InputVerifierNumber.INSTANCE),
 
         /** Java type <code>short</code> */
-        SMALLINT,
+        SMALLINT(InputVerifierNumber.INSTANCE),
 
         /** Java type <code>java.lang.String</code> */
-        STRING
+        STRING(InputVerifierAlwaysTrue.INSTANCE)
         ;
+
+        private final InputVerifier defaultInputVerifier;
+
+        private DataType(InputVerifier inputVerifier) {
+            this.defaultInputVerifier = inputVerifier;
+        }
 
         /**
          * Converts a string into the data type of this column.
@@ -239,11 +248,12 @@ public class Column {
     /**
      * Returns an appropriate input verifier for a text component.
      *
-     * @return this class returns an {@link InputVerifierMaxLength} with this
-     *         column's maximum length. Specialized classes can return an
-     *         instance with a better verification.
+     * @return this class returns an unsophisticated input verifier dependend
+     *         on the data type
      */
     public InputVerifier getInputVerifier() {
-        return new InputVerifierMaxLength(getLength());
+        return dataType.equals(DataType.STRING)
+               ? new InputVerifierMaxLength(length)
+               : dataType.defaultInputVerifier;
     }
 }
