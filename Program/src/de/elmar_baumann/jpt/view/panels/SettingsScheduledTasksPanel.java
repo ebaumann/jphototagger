@@ -77,6 +77,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     public void setEnabled() {
         buttonRemoveAutoscanDirectories.setEnabled(
             listAutoscanDirectories.getSelectedIndex() >= 0);
+        setEnabledCheckBoxSubdirs();
     }
 
     @Override
@@ -96,6 +97,13 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
             comboBoxScheduledBackupDb.setSelectedItem(interval);
         }
         comboBoxScheduledBackupDb.setEnabled(checkBoxScheduledBackupDb.isSelected());
+        setEnabledCheckBoxSubdirs();
+
+    }
+
+    private void setEnabledCheckBoxSubdirs() {
+        boolean hasDirs = listAutoscanDirectories.getModel().getSize() > 0;
+        checkBoxIsAutoscanIncludeSubdirectories.setEnabled(hasDirs);
     }
 
     @Override
