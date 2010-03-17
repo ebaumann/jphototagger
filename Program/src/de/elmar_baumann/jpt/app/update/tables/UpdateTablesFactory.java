@@ -30,12 +30,13 @@ import de.elmar_baumann.lib.util.Version;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
-import java.util.Set;
 
 /**
- *
+ * Creates updaters for updating an older database version and let them update
+ * the database.
  *
  * @author  Elmar Baumann
  * @version 2010-03-15
@@ -43,17 +44,26 @@ import java.util.Set;
 public final class UpdateTablesFactory {
     public static final UpdateTablesFactory INSTANCE =
         new UpdateTablesFactory();
-    private final Set<Updater> UPDATERS = new HashSet<Updater>();
+    private final List<Updater> allUpdaters = new ArrayList<Updater>();
+    private final List<Updater> runningUpdaters = new ArrayList<Updater>();
 
     private UpdateTablesFactory() {
+        initAllUpdaters();
         addUpdaters();
     }
+
+    private void initAllUpdaters() {
+        allUpdaters.add(new UpdateTablesV0());
+    }
+
 
     private void addUpdaters() {
         boolean force = isForceUpdate();
 
-        if (force || isCurrentMajorVersion(0)) {
-            UPDATERS.add(new UpdateTablesV0());
+        for (Updater updater : allUpdaters) {
+            if (force || isRunUpdaterOfMajorVersion(updater.getMajorVersion())) {
+                runningUpdaters.add(updater);
+            }
         }
     }
 
@@ -64,7 +74,7 @@ public final class UpdateTablesFactory {
             UserSettings.INSTANCE.setLogLevel(Level.FINEST);
 
             try {
-                for (Updater updater : UPDATERS) {
+                for (Updater updater : runningUpdaters) {
                     updater.update(con);
                 }
 
@@ -75,10 +85,15 @@ public final class UpdateTablesFactory {
         }
     }
 
-    public static boolean isCurrentMajorVersion(int version) {
-        int cuMajor = Version.parseVersion(AppInfo.APP_VERSION, ".").getMajor();
+    private static boolean isRunUpdaterOfMajorVersion(int version) {
+        String dbVersion = DatabaseMetadata.getDatabaseAppVersion();
 
-        return version == cuMajor;
+        /* dbVersion == null: Only versions prior to 0.8.3 do not write version
+         * info into the database. In that case, every upater has to be created.
+         */
+        return (dbVersion == null)
+               ? true
+               : version >= Version.parseVersion(dbVersion, ".").getMajor();
     }
 
     /**
@@ -89,7 +104,7 @@ public final class UpdateTablesFactory {
      *
      * @return true, if an update shall be forced
      */
-    public static boolean isForceUpdate() {
+    private static boolean isForceUpdate() {
         return UserSettings.INSTANCE.getSettings().getBoolean(
             "UdateTables.ForceUpdate");
     }
@@ -106,7 +121,30 @@ public final class UpdateTablesFactory {
         return isForceUpdate() || DatabaseMetadata.isDatabaseOfOlderVersion();
     }
 
+    /**
+     * An updater updates the database.
+     */
     public interface Updater {
+
+        /**
+         * Updates the database.
+         *
+         * @param  con connection
+         * @throws SQLException on database errors
+         */
         void update(Connection con) throws SQLException;
+
+        /**
+         * Returns the major version of JPhotoTagger, for that the updates were
+         * built for.
+         * <p>
+         * That is a compromise between the minimum required count of updates
+         * and update everything from "scratch": The updaters are not separated
+         * by Major.Minor.Patch versions, they are bundled within a major
+         * version.
+         *
+         * @return major version
+         */
+        int getMajorVersion();
     }
 }

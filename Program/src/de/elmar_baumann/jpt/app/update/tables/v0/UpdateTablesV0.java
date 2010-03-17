@@ -49,4 +49,9 @@ public final class UpdateTablesV0 implements Updater {
         new UpdateTablesXmpDcSubjects().update(con);
         new UpdateTablesMake1n().update(con);
     }
+
+    @Override
+    public int getMajorVersion() {
+        return 0;
+    }
 }
