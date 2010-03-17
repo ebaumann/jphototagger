@@ -65,20 +65,6 @@ public final class AutoCompleteDataOfColumn {
         }
     }
 
-    public boolean add(Column column, String word) {
-        assert UserSettings.INSTANCE.isAutocomplete();
-
-        synchronized (DATA_OF_COLUMN) {
-            AutoCompleteData data = DATA_OF_COLUMN.get(column);
-
-            if (data == null) {
-                return false;
-            }
-
-            return data.add(word);
-        }
-    }
-
     public AutoCompleteData getFastSearchData() {
         assert UserSettings.INSTANCE.isAutocomplete();
 

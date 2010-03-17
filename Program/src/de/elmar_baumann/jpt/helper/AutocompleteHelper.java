@@ -48,7 +48,7 @@ public final class AutocompleteHelper {
 
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
 
-        if (acData == null) {
+        if (acData == null || !UserSettings.INSTANCE.isUpdateAutocomplete()) {
             return;
         }
 
@@ -61,7 +61,7 @@ public final class AutocompleteHelper {
         AutoCompleteData acData =
             AutoCompleteDataOfColumn.INSTANCE.getFastSearchData();
 
-        if (acData == null) {
+        if (acData == null || !UserSettings.INSTANCE.isUpdateAutocomplete()) {
             return;
         }
 
@@ -70,43 +70,45 @@ public final class AutocompleteHelper {
         }
     }
 
+    // Consider to do that in a separate thread
     @SuppressWarnings("unchecked")
     private static void add(Column column, AutoCompleteData acData,
                             Autocomplete ac, Xmp xmp) {
-        Object value = xmp.getValue(column);
+        Object xmpValue = xmp.getValue(column);
 
-        if (value == null) {
+        if ((xmpValue == null) ||!UserSettings.INSTANCE.isUpdateAutocomplete()) {
             return;
         }
 
-        List<String> values = new ArrayList<String>();
+        List<String> words = new ArrayList<String>();
 
-        if (value instanceof String) {
-            values.add((String) value);
-        } else if (value instanceof List<?>) {
-            List<?> list         = (List<?>) value;
+        if (xmpValue instanceof String) {
+            words.add((String) xmpValue);
+        } else if (xmpValue instanceof List<?>) {
+            List<?> list         = (List<?>) xmpValue;
             boolean isStringList = (list.size() > 0)
                                    ? list.get(0) instanceof String
                                    : false;
 
             if (isStringList) {
-                values = (List<String>) list;
+                words = (List<String>) list;
             }
         }
 
-        for (String word : values) {
+        for (String word : words) {
             acData.add(word);
             ac.add(word);
         }
     }
 
+    // Consider to do that in a separate thread
     public static void addAutocompleteData(Column column, Autocomplete ac,
             Collection<String> words) {
         assert UserSettings.INSTANCE.isAutocomplete();
 
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
 
-        if (acData == null) {
+        if ((acData == null) ||!UserSettings.INSTANCE.isUpdateAutocomplete()) {
             return;
         }
 

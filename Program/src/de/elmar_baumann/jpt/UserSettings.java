@@ -104,8 +104,11 @@ public final class UserSettings {
         "UserSettings.ScanForEmbeddedXmp";
     private static final String KEY_THUMBNAIL_CREATOR =
         "UserSettings.ThumbnailCreator";
-    private static final String PROPERTIES_FILENAME =
-        "Settings.properties";    // NEVER CHANGE!
+    private static final String KEY_UPDATE_AUTOCOMPLETE =
+        "UserSettings.UpdateAutocomplete";
+
+    // NEVER CHANGE PROPERTIES_FILENAME!
+    private static final String PROPERTIES_FILENAME = "Settings.properties";
 
     /** Field description */
     public static final SettingsHints SET_TABBED_PANE_SETTINGS =
@@ -849,6 +852,27 @@ public final class UserSettings {
     public boolean isAutocomplete() {
         return settings.containsKey(KEY_ENABLE_AUTOCOMPLETE)
                ? settings.getBoolean(KEY_ENABLE_AUTOCOMPLETE)
+               : true;
+    }
+
+    /**
+     * Sets whether to update autocomplete permanently based on user inputs.
+     *
+     * @param update true if update permanently
+     */
+    public void setUpdateAutocomplete(boolean update) {
+        settings.set(update, KEY_UPDATE_AUTOCOMPLETE);
+        writeToFile();
+    }
+
+    /**
+     * Returns whether to update autocomplete permanently based on user inputs.
+     *
+     * @return true if update permanently
+     */
+    public boolean isUpdateAutocomplete() {
+        return settings.containsKey(KEY_UPDATE_AUTOCOMPLETE)
+               ? settings.getBoolean(KEY_UPDATE_AUTOCOMPLETE)
                : true;
     }
 
