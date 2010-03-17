@@ -268,7 +268,7 @@ public final class UserSettings {
      * database files are stored. The basename is the directory name without its
      * parent names.
      *
-     * @return
+     * @return basename of the database directory
      */
     public static String getDatabaseBasename() {
         return "database";
