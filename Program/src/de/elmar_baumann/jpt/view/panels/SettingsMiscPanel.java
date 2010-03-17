@@ -375,9 +375,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(checkBoxIsAcceptHiddenDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkBoxAutoDownloadCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
-                            .addComponent(checkBoxIsAcceptHiddenDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                             .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                             .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
@@ -397,6 +399,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAutoDownloadCheck)
@@ -414,7 +417,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                     .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
