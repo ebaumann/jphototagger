@@ -29,7 +29,39 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ * All database tables.
+ * <p>
+ * Rules:
+ * <ul>
+ * <li>Table- and column names are written in <strong>lowercase</strong>, parts
+ *     of compound names are separated by an underscore "<strong>_</strong>".
+ *     Usually table names are in plural and column names in singular. Examples
+ *     for table names: <code>"files", "saved_searches", "collection_names".
+ *     </code> Examples for column names: <code>"name", "sequence_number",
+ *     "subject"</code>.
+ * </li>
+ * <li>With a few exceptions, all tables have a surrogate primary key. It's
+ *     name <em>has to be</em> "<strong>id</strong>" (Identifier, lowercase)
+ * </li>
+ * <li>"Link tables" resolving n:m relations are a compound of the resolved
+ *     tables, usually in singular if the table names are in plural
+ * </li>
+ * <li>Foreign key columns having a compound name starting with
+ *     "<strong>id_</strong>" followed by the name of the referenced table.
+ *     Examples: "<code>"id_files"</code>" (references table "files"),
+ *     <code>"id_saved_searches"</code> (references table "saved_searches").
+ * </li>
+ * <li>Let the DBMS do the work: Generating unique sourrogate primary keys and
+ *     setting null or deleting cascade on deletion of "linked" rows
+ * </li>
+ * <li>Create an index for columns which maybe queried. The name of an index
+ *     starts with "<strong>idx_</strong>" followed by the table name followed
+ *     by the indexed column name(s). Examples: <code>"idx_dc_subjects_subject"
+ *     </code> (index of column "subject" in the table "dc_subjects"),
+ *     <code>"idx_synonyms_synonym"</code> (index of column "synonym" in table
+ *     "synonyms").
+ * </li>
+ * </ul>
  *
  * @author  Elmar Baumann
  * @version 2008-10-21
