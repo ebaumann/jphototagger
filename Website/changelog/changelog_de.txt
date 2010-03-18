@@ -8,6 +8,13 @@ Changelog JPhotoTagger
 0.8.4 2010-03-17
 ----------------
 
+* Bugfix: Ziehen und Ablegen mehrerer Stichwörter aus der Stichwortliste auf
+  *nicht* ausgewählte Bilder speicherte nur eines, Issue
+  http://code.google.com/p/jphototagger/issues/detail?id=1
+
+0.8.4 2010-03-17
+----------------
+
 * Neue Option: Bearbeiten > Einstellungen > Leistung > Auto-Vervollständigen:
   Auto-Vervollständigen-Wortschatz anhand Eingaben fortlaufend aktualisieren.
   Näheres steht in der Hilfe und im PDF-Benutzerhandbuch.
