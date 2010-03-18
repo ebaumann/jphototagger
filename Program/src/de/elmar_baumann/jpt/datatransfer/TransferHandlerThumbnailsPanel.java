@@ -74,7 +74,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
         return metadataTransferred(transferSupport)
                || isImageCollection(tnPanel)
-               ||(!transferSupport.isDataFlavorSupported(
+               || (!transferSupport.isDataFlavorSupported(
                    Flavor.THUMBNAILS_PANEL) && canImportFiles(tnPanel)
                        && Flavor.hasFiles(transferSupport.getTransferable()));
     }
@@ -91,7 +91,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         return (Flavor.hasKeywordsFromList(
             transferSupport) || Flavor.hasKeywordsFromTree(
             transferSupport)) && isThumbnailPos || (Flavor.hasMetadataTemplate(
-                transferSupport) && dropOverSelectedThumbnail);
+            transferSupport) && dropOverSelectedThumbnail);
     }
 
     @Override
@@ -200,14 +200,19 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t),
                           dropOverSelectedThumbnail, imageFilename);
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
+            List<String> keywords = new ArrayList<String>();
+
             for (DefaultMutableTreeNode node : Support.getKeywordNodes(t)) {
                 if (dropOverSelectedThumbnail) {
                     KeywordsHelper.addKeywordsToEditPanel(node);
                 } else {
-                    KeywordsHelper.saveKeywordsToImageFile(
-                        KeywordsHelper.getKeywordStrings(node, true),
-                        imageFilename);
+                    keywords.addAll(KeywordsHelper.getKeywordStrings(node,
+                            true));
                 }
+            }
+
+            if (!keywords.isEmpty()) {
+                KeywordsHelper.saveKeywordsToImageFile(keywords, imageFilename);
             }
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
             importMetadataTemplate(transferSupport);
