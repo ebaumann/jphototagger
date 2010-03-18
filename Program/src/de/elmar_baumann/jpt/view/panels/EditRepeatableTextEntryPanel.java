@@ -384,10 +384,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private void handleListKeyPressed(KeyEvent evt) {
-        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            removeSelectedElements();
-        } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            renameSelectedListItems();
+        if (editable) {
+            if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                removeSelectedElements();
+            } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
+                renameSelectedListItems();
+            }
         }
     }
 
