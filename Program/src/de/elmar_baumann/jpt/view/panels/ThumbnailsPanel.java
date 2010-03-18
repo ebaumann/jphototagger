@@ -34,6 +34,7 @@ import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.jpt.event.RefreshEvent;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
+import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.FileAction;
@@ -86,6 +87,13 @@ import javax.swing.TransferHandler;
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
                    KeyListener, ThumbnailUpdateListener, AppExitListener {
+    private static final String KEY_THUMBNAIL_WIDTH =
+        "ThumbnailsPanel.ThumbnailWidth";
+
+    /**
+     * Empty space surrounding a thumbnail outside it's border in pixel
+     */
+    private static final int  MARGIN_THUMBNAIL = 3;
     private static final long serialVersionUID = 1034671645083632578L;
 
     /**
@@ -94,11 +102,9 @@ public class ThumbnailsPanel extends JPanel
     public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
 
     /**
-     * Empty space surrounding a thumbnail outside it's border in pixel
+     * Has the mouse clicked into a thumbnail?
      */
-    private static final int    MARGIN_THUMBNAIL    = 3;
-    private static final String KEY_THUMBNAIL_WIDTH =
-        "ThumbnailsPanel.ThumbnailWidth";
+    private int clickInSelection = -1;
 
     /**
      * Contains the flags of thumbnails at specific indices
@@ -119,11 +125,6 @@ public class ThumbnailsPanel extends JPanel
         new ArrayList<Integer>();
 
     /**
-     * The viewport of this
-     */
-    private JViewport viewport;
-
-    /**
      * Count of thumbnails horicontal
      */
     private int thumbnailCountPerRow = 0;
@@ -136,31 +137,31 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Transfer data of dragged thumbnails
      */
-    private boolean transferData = false;
-
-    /**
-     * Has the mouse clicked into a thumbnail?
-     */
-    private int                             clickInSelection = -1;
-    private boolean                         keywordsOverlay;
-    private boolean                         drag;
+    private boolean                         transferData           = false;
+    private ThumbnailPanelRenderer          renderer               =
+        new ThumbnailPanelRenderer(this);
     public transient RenderedThumbnailCache renderedThumbnailCache =
         RenderedThumbnailCache.INSTANCE;
-    private ThumbnailPanelRenderer                   renderer =
-        new ThumbnailPanelRenderer(this);
-    private Content                                  content  =
-        Content.UNDEFINED;
-    private transient ControllerDoubleklickThumbnail controllerDoubleklick;
-    private FileAction                               fileAction         =
-        FileAction.UNDEFINED;
-    private Comparator<File>                         fileSortComparator =
+    private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
+        new HashMap<Content, List<RefreshListener>>();
+    private final PopupMenuThumbnails popupMenu          =
+        PopupMenuThumbnails.INSTANCE;
+    private Comparator<File>          fileSortComparator =
         FileSort.NAMES_ASCENDING.getComparator();
     private final List<File> files =
         Collections.synchronizedList(new ArrayList<File>());
-    private final PopupMenuThumbnails                 popupMenu                 =
-        PopupMenuThumbnails.INSTANCE;
-    private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
-        new HashMap<Content, List<RefreshListener>>();
+    private FileAction                               fileAction =
+        FileAction.UNDEFINED;
+    private Content                                  content    =
+        Content.UNDEFINED;
+    private transient ControllerDoubleklickThumbnail controllerDoubleklick;
+    private boolean                                  drag;
+    private boolean                                  keywordsOverlay;
+
+    /**
+     * The viewport of this
+     */
+    private JViewport viewport;
 
     public ThumbnailsPanel() {
         initRefreshListeners();
@@ -315,13 +316,15 @@ public class ThumbnailsPanel extends JPanel
             int newY = ((int) (p * getHeight()))
                        - viewport.getExtentSize().height / 2;
 
+            validateScrollPane();
             viewport.setViewPosition(new Point(0, Math.max(0, newY)));
         }
     }
 
     /**
      * Enables the Drag gesture whithin the thumbnails panel. Whitout calling
-     * this, {@link #handleMouseDragged(java.awt.event.MouseEvent)} will never called.
+     * this, {@link #handleMouseDragged(java.awt.event.MouseEvent)} will never
+     * called.
      *
      * @param enabled true if enabled. Default: false
      */
@@ -719,7 +722,9 @@ public class ThumbnailsPanel extends JPanel
 
     private void removeSelection(int index) {
         if (isSelected(index)) {
-            selectedThumbnailIndices.remove(Integer.valueOf(index));    // NOT remove(int)
+
+            // Do NOT call remove(int)!
+            selectedThumbnailIndices.remove(Integer.valueOf(index));
             rerender(index);
             notifySelectionChanged();
         }
@@ -1035,33 +1040,6 @@ public class ThumbnailsPanel extends JPanel
         // no effect
     }
 
-    public static class Settings {
-        private final Point         viewPosition;
-        private final List<Integer> selThumbnails;
-
-        public Settings(Point viewPosition, List<Integer> selThumbnails) {
-            this.viewPosition  = viewPosition;
-            this.selThumbnails = selThumbnails;
-        }
-
-        public List<Integer> getSelThumbnails() {
-            return selThumbnails;
-        }
-
-        public Point getViewPosition() {
-            return viewPosition;
-        }
-
-        public boolean hasSelThumbnails() {
-            return selThumbnails != null;
-        }
-
-        public boolean hasViewPosition() {
-            return viewPosition != null;
-        }
-    }
-
-
     /**
      * Applies settings to this panel.
      *
@@ -1082,11 +1060,24 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void setViewPosition(Point pos) {
+        if (viewport != null) {
+            validateScrollPane();
+            viewport.setViewPosition(pos);
+        }
+    }
+
+    private void validateScrollPane() {
+
+        // See: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5066771
+        GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel().validate();
+    }
+
+    private Point getViewPosition() {
         JViewport vp = getViewport();
 
-        if (vp != null) {
-            vp.setViewPosition(pos);
-        }
+        return (vp == null)
+               ? new Point(0, 0)
+               : vp.getViewPosition();
     }
 
     public synchronized boolean displaysFile(File file) {
@@ -1104,7 +1095,11 @@ public class ThumbnailsPanel extends JPanel
 
         if (files.removeAll(filesToRemove)) {
             convertSelection(oldFiles, files);
+
+            Point viewPos = getViewPosition();
+
             setFiles(files, content);
+            setViewPosition(viewPos);
             renderedThumbnailCache.remove(filesToRemove);
             refresh();
         }
@@ -1366,25 +1361,16 @@ public class ThumbnailsPanel extends JPanel
         this.viewport = viewport;
     }
 
-    /**
-     * Returns the viewport within this panel is displayed.
-     *
-     * @return viewport or null if not set or if the panel is not in a viewport
-     */
-    public synchronized JViewport getViewport() {
+    private synchronized JViewport getViewport() {
         return viewport;
     }
 
     protected void scrollToTop() {
-        if (viewport != null) {
-            viewport.setViewPosition(new Point(0, 0));
-        }
+        setViewPosition(new Point(0, 0));
     }
 
     protected void scrollToBottom() {
-        if (viewport != null) {
-            viewport.setViewPosition(new Point(0, getHeight()));
-        }
+        setViewPosition(new Point(0, getHeight()));
     }
 
     private void checkScrollUp() {
@@ -1422,6 +1408,7 @@ public class ThumbnailsPanel extends JPanel
                              ? p.y - tnHeight
                              : 0;
 
+            validateScrollPane();
             viewport.setViewPosition(new Point(0, y));
         }
     }
@@ -1430,6 +1417,7 @@ public class ThumbnailsPanel extends JPanel
         if (viewport != null) {
             Point p = viewport.getViewPosition();
 
+            validateScrollPane();
             viewport.setViewPosition(
                 new Point(0, p.y + renderer.getThumbnailAreaHeight()));
         }
@@ -1571,5 +1559,31 @@ public class ThumbnailsPanel extends JPanel
         return (sidecarfile == null)
                ? ""
                : sidecarfile;
+    }
+
+    public static class Settings {
+        private final List<Integer> selThumbnails;
+        private final Point         viewPosition;
+
+        public Settings(Point viewPosition, List<Integer> selThumbnails) {
+            this.viewPosition  = viewPosition;
+            this.selThumbnails = selThumbnails;
+        }
+
+        public List<Integer> getSelThumbnails() {
+            return selThumbnails;
+        }
+
+        public Point getViewPosition() {
+            return viewPosition;
+        }
+
+        public boolean hasSelThumbnails() {
+            return selThumbnails != null;
+        }
+
+        public boolean hasViewPosition() {
+            return viewPosition != null;
+        }
     }
 }
