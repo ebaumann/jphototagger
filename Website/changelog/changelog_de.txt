@@ -11,6 +11,9 @@ Changelog JPhotoTagger
 * Bugfix: Ziehen und Ablegen mehrerer Stichwörter aus der Stichwortliste auf
   *nicht* ausgewählte Bilder speicherte nur eines, Issue
   http://code.google.com/p/jphototagger/issues/detail?id=1
+* Bugfix: Nach dem Löschen einer Datei springt die Vorschaubildanzeige nicht
+  mehr zum ersten Bild, Issue
+  http://code.google.com/p/jphototagger/issues/detail?id=2
 
 0.8.4 2010-03-17
 ----------------
