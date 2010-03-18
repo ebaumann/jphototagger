@@ -46,66 +46,76 @@
 
         <ul>
             <li>File system folders</li>
-            <li>Favorite file system folders (user defined and ordered most important folders)</li>
-            <li>Keywords</li>
-            <li>Hierarchical keywords</li>
+            <li>Favorite file system folders (user defined and ordered by importance)</li>
+            <li>Keywords: Hierarchical and &quot;flat&quot; organization (tree view and list view)</li>
             <li>Timeline</li>
             <li>Saved Searches</li>
-            <li>Photo albums (Image collections)</li>
-            <li>Images without specific metadata, e.g. images without a copyright notice</li>
-            <li>Images taken with a specific
-                <ul>
-                    <li>camera model</li>
-                    <li>focal length</li>
-                    <li>ISO value </li>
-                </ul>
-            </li>
-            <li>Images with specific metadata, e.g.:
-                <ul>
-                    <li>subject's location</li>
-                    <li>photographer</li>
-                    <li>copyright</li>
-                    <li>rating</li>
-                    <li>... </li>
-                </ul>
-            </li>
+            <li>Photo albums (image collections)</li>
+			<li>&quot;Smart collections&quot;:
+			    <ul>
+                    <li>Images without specific metadata, e.g. images without a copyright notice (missing metadata)</li>
+                    <li>Images taken with a specific
+                        <ul>
+                            <li>camera model</li>
+                            <li>focal length</li>
+                            <li>ISO value</li>
+		    				<li>...</li>
+                        </ul>
+                    </li>
+                    <li>Images with specific metadata:
+                        <ul>
+                            <li>subject's location</li>
+                            <li>photographer</li>
+                            <li>rating</li>
+                            <li>...</li>
+                        </ul>
+                    </li>
+		        </ul>
+			</li>
         </ul>
 
         <h2>Searching, finding</h2>
 
         <ul>
             <li>Fast search input field in the application's window with auto complete</li>
-            <li>Complexer searches with logical operators e.g. AND, OR, can be saved </li>
+            <li>Complexer searches with logical operators e.g. AND, OR, can be saved:
+			    <ul>
+			        <li>Generated via GUI support</li>
+				    <li>Custom (arbitrary, user typed) SQL for complex queries</li>
+			    </ul>
+			</li>
+			<li><strong>Synonyms</strong> can be defined and will be recoginzed by fast searches</li>
         </ul>
 
         <h2>Thumbnails Window (middle of the application's window)</h2>
 
         <ul>
-            <li>Thumbnails can be scaled continuously</li>
-            <li>Keywords and rating stars can be overlayed to the thumbnails </li>
+            <li>Thumbnails can be scaled (zoomed in and out) continuously</li>
+            <li>Keywords and rating stars can be overlayed to the thumbnails</li>
+			<li>Images can be sorted by filenames, file extensions and metadata, e.g. date taken, rating, focal length, ISO value</li>
         </ul>
 
         <h2>Metadata Views (right to the application's window)</h2>
 
         <ul>
-            <li>Embedded IPTC metadata</li>
-            <li>Most important EXIF values</li>
-            <li>Complete XMP metadata of these namespaces (embedded or in sidecar files):
+            <li>Embedded <strong>IPTC</strong> metadata</li>
+            <li>Most important <strong>EXIF</strong> values</li>
+            <li>Complete <strong>XMP</strong> metadata of these namespaces (embedded or in sidecar files):
                 <ul>
                     <li>Dublin Core</li>
                     <li>EXIF</li>
                     <li>TIFF</li>
                     <li>Photoshop</li>
                     <li>Camera RAW</li>
-                    <li>Lightroom </li>
+                    <li>Lightroom</li>
                 </ul>
             </li>
         </ul>
 
         <h2>Editing</h2>
 
-        All data will be written to XMP sidecar files, the images are left untouched. Interoperatable with other applications, currently Adobe Photoshop Lightroom.
-        Edit fields
+        <p>All data will be written to XMP sidecar files, the images are left untouched. Interoperatable with other applications, currently Adobe Photoshop Lightroom.
+        Edit fields:</p>
 
         <ul>
             <li>Keywords</li>
@@ -125,19 +135,22 @@
             <li>Transmission reference</li>
             <li>Instructions</li>
             <li>Author of the metadata</li>
-            <li>Rating </li>
+            <li>Rating</li>
         </ul>
+		
+		<p>In the left view of miscellaneous metadata, data can be renamed, e.g. typing errors whithin copyright notices, locations, photographer names.</p>
 
         <h2>Edit support</h2>
 
         <ul>
-            <li>Autocomplete</li>
+            <li>Auto complete</li>
             <li>Drag and Drop hierarchical keywords and keywords</li>
-            <li>If added a hierarchical keyword to images all it's parents will be added too</li>
+            <li>If adding a hierarchical keyword to images, all it's parents will be added too</li>
             <li>Templates with predefined values, e.g. copyright and photographer's address</li>
             <li>Copy complete metadata from and paste to selected images</li>
             <li>When multiple images are selected, the common metadata can be modified or deleted</li>
-            <li>Added metadata is applied to all selected images </li>
+            <li>Added metadata is applied to all selected images</li>
+			<li>Context menus (popup menus) in tree and list views</li>
         </ul>
 
         <h2>File system support</h2>
@@ -146,7 +159,7 @@
             <li>Drag and Drop images from and to external applications, e.g. file managers</li>
             <li>Renaming, adding and deleting folders in the folders view</li>
             <li>Moving images between folders via clipboard or Drag and Drop</li>
-            <li>Renaming via template, e.g. applying the date taken as filename prefix </li>
+            <li>Renaming via template, e.g. applying the date taken as filename prefix, different templates can be saved</li>
         </ul>
 
         <h2>Other features</h2>
@@ -155,15 +168,17 @@
             <li>Export IPTC metadata to XMP sidecar files</li>
             <li>Export embedded XMP metadata to sidecar files</li>
             <li>Scheduled task to scan automatically folders for new, modified or deleted images</li>
+			<li>Scheduled task for database backups</li>
             <li>Database information and maintainance</li>
             <li>Import images from a folder, e.g. the camera's memory card</li>
             <li>Import from exported Lightroom hierarchical keywords</li>
             <li>Export to Lightroom hierarchical keywords</li>
+			<li>Export and import <strong>JPhotoTagger's</strong> data, which is not written into the XMP sidecar files, e.g. for sharing keyword trees and keyword synonyms between different installations</li>
             <li>Renaming files within the database, e.g. when a drive letter or mount point has been changed</li>
-            <li>Thumbnails can be rendered with an external renderer</li>
-            <li>Adding to the thumbnails popup menu external applications to handle images</li>
+            <li>Thumbnails can be rendered by an external renderer</li>
+            <li>Adding external applications to the thumbnails popup menu to handle images</li>
             <li>Defining actions applied to images, e.g. external converters</li>
-            <li>Opening location in Google Maps if the image has GPS metadata </li>
+            <li>Opening location in Google Maps if the image has GPS metadata</li>
         </ul>
 
         <h2>Plugins</h2>
@@ -172,7 +187,9 @@
             <li>Flickr Upload</li>
         </ul>
 
-        <p>Status: 2010-02-14</p>
+		<p><strong>Author:</strong> Elmar Baumann
+           <br /><strong>Status of this document:</strong> 2010-03-18
+		</p>
 
     </div><!--content-->
 </div><!--page-->
