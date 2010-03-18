@@ -364,7 +364,9 @@ public final class EditMetadataPanels
 
                     for (Object o : collection) {
                         assert o != null;
-                        p.addText(o.toString());    // addText() sets the dirty flag
+
+                        // addText() would set the dirty flag
+                        p.addText(o.toString());
                     }
                 }
             } else if (panel instanceof RatingSelectionPanel) {
@@ -679,9 +681,11 @@ public final class EditMetadataPanels
         EditMetadataActionsPanel actionsPanel =
             GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
 
-        // TODO permanent: Exlude to edit panel possible visible app panel buttons.
-        // Else Alt+Mnemonic triggers that action even if the component with the
-        // button is not focussed.
+        /*
+         *  TODO permanent: Exlude to edit panel possible visible app panel
+         * buttons. Else Alt+Mnemonic triggers that action even if the component
+         * with the button is not focussed.
+         */
         ViewUtil
             .setDisplayedMnemonicsToLabels(container, (char) actionsPanel
                 .buttonEmptyMetadata.getMnemonic(), (char) actionsPanel
@@ -868,6 +872,10 @@ public final class EditMetadataPanels
 
     @Override
     public void actionPerformed(DatabaseImageFilesEvent event) {
+        if (!isEditable()) {
+            return;
+        }
+
         if (event.isTextMetadataAffected()) {
             ImageFile imageFile = event.getImageFile();
 
