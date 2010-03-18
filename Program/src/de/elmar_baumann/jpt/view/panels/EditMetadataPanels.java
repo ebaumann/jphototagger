@@ -682,9 +682,10 @@ public final class EditMetadataPanels
             GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
 
         /*
-         *  TODO permanent: Exlude to edit panel possible visible app panel
-         * buttons. Else Alt+Mnemonic triggers that action even if the component
-         * with the button is not focussed.
+         * UPDATE IF other components of the application panel containing
+         * buttons with mnemonics and can be visible and enabled when the edit
+         * panel is displayed. Else Alt+Mnemonic triggers their button actions
+         * even if the components with the buttons are not focussed.
          */
         ViewUtil
             .setDisplayedMnemonicsToLabels(container, (char) actionsPanel

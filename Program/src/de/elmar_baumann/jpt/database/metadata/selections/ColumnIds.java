@@ -72,18 +72,21 @@ public final class ColumnIds {
 
     static {
 
-        // TODO PERMANENT: Add new relevant (e. g. searchable) columns
-        // Never change existing IDs, don't use an ID twice!
+        // UPDATE IF an new Column was created an will be used by a class that
+        // uses this class.
+        // *Never* change existing IDs and don't use an ID twice!
         COLUMN_OF_ID.put(0, ColumnExifDateTimeOriginal.INSTANCE);
         COLUMN_OF_ID.put(1, ColumnExifFocalLength.INSTANCE);
         COLUMN_OF_ID.put(2, ColumnExifIsoSpeedRatings.INSTANCE);
         COLUMN_OF_ID.put(3, ColumnExifRecordingEquipment.INSTANCE);
         COLUMN_OF_ID.put(4, ColumnFilesFilename.INSTANCE);
         COLUMN_OF_ID.put(5, ColumnFilesLastModified.INSTANCE);
+
         // Removed 6: ColumnFilesThumbnail
         COLUMN_OF_ID.put(7, ColumnXmpDcDescription.INSTANCE);
         COLUMN_OF_ID.put(8, ColumnXmpDcRights.INSTANCE);
         COLUMN_OF_ID.put(9, ColumnXmpDcTitle.INSTANCE);
+
         // Removed 10: ColumnXmpIptc4xmpcoreCountrycode
         COLUMN_OF_ID.put(11, ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         COLUMN_OF_ID.put(12, ColumnXmpPhotoshopAuthorsposition.INSTANCE);
@@ -98,6 +101,7 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(22, ColumnXmpPhotoshopTransmissionReference.INSTANCE);
         COLUMN_OF_ID.put(23, ColumnXmpDcCreator.INSTANCE);
         COLUMN_OF_ID.put(24, ColumnXmpDcSubjectsSubject.INSTANCE);
+
         // Removed 26: ColumnCollectionnamesName
         // Removed 27: ColumnSavedSearchesName
         COLUMN_OF_ID.put(28, ColumnXmpRating.INSTANCE);
@@ -105,13 +109,14 @@ public final class ColumnIds {
         COLUMN_OF_ID.put(30, ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
 
         // Next ID: 31 - UPDATE ID after assigning! --
-
         Set<Integer> keys = COLUMN_OF_ID.keySet();
 
         for (Integer key : keys) {
             ID_OF_COLUMN.put(COLUMN_OF_ID.get(key), key);
         }
     }
+
+    private ColumnIds() {}
 
     /**
      * Liefert eine Spalte mit bestimmter ID.
@@ -132,6 +137,4 @@ public final class ColumnIds {
     public static int getId(Column column) {
         return ID_OF_COLUMN.get(column);
     }
-
-    private ColumnIds() {}
 }
