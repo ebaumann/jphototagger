@@ -66,6 +66,11 @@ ul {
     list-style-type: none;
 }
 
+#content li ul {
+    padding-top: 0;
+	margin-top: 0;
+}
+
 pre {
     background: #fafafa;
 }
