@@ -21,6 +21,9 @@
 
 package de.elmar_baumann.jpt.data;
 
+import de.elmar_baumann.jpt.database.metadata.Column;
+import de.elmar_baumann.jpt.database.metadata.Comparator;
+import de.elmar_baumann.jpt.database.metadata.selections.ColumnIds;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -76,6 +79,10 @@ public final class SavedSearchPanel {
         return columnId;
     }
 
+    public Column getColumn() {
+        return ColumnIds.getColumn(columnId);
+    }
+
     public void setColumnId(int id) {
         columnId = id;
     }
@@ -84,8 +91,16 @@ public final class SavedSearchPanel {
         return comparatorId;
     }
 
+    public Comparator getComparator() {
+        return Comparator.get(comparatorId);
+    }
+
     public void setComparatorId(int id) {
         comparatorId = id;
+    }
+
+    public void setComparator(Comparator comparator) {
+        comparatorId = comparator.getId();
     }
 
     public boolean isBracketLeft1Selected() {
@@ -114,6 +129,10 @@ public final class SavedSearchPanel {
 
     public boolean hasValue() {
         return value != null;
+    }
+
+    public boolean isTrimmedValueEmpty() {
+        return value == null || value.trim().isEmpty();
     }
 
     public String getValue() {
