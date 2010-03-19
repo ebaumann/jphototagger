@@ -1,7 +1,7 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}@(#)${name}.java    ${date?date?string("yyyy-MM-dd")}
+${licensePrefix}@(#)${name}.java    Created on ${date?date?string("yyyy-MM-dd")}
 ${licensePrefix}
 ${licensePrefix}Copyright (C) 2009-2010 by the JPhotoTagger developer team.
 ${licensePrefix}
