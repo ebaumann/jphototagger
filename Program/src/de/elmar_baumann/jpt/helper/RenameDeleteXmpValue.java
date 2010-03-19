@@ -1,5 +1,5 @@
 /*
- * @(#)RenameDeleteXmpValue.java    2010-03-15
+ * @(#)RenameDeleteXmpValue.java    Created on 2010-03-15
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

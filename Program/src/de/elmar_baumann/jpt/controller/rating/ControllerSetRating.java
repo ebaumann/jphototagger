@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerSetRating.java    2009-08-03
+ * @(#)ControllerSetRating.java    Created on 2009-08-03
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

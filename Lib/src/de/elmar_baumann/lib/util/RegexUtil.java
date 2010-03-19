@@ -1,5 +1,5 @@
 /*
- * @(#)RegexUtil.java    2009-02-16
+ * @(#)RegexUtil.java    Created on 2009-02-16
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

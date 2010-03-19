@@ -1,5 +1,5 @@
 /*
- * @(#)SystemOutputPanel.java    2009-05-31
+ * @(#)SystemOutputPanel.java    Created on 2009-05-31
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

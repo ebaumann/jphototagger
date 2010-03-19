@@ -1,5 +1,5 @@
 /*
- * @(#)HelpBrowserEvent.java    2008-10-04
+ * @(#)HelpBrowserEvent.java    Created on 2008-10-04
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

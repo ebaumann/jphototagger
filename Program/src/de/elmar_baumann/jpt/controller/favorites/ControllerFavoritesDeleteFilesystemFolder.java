@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerFavoritesDeleteFilesystemFolder.java    2009-06-30
+ * @(#)ControllerFavoritesDeleteFilesystemFolder.java    Created on 2009-06-30
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

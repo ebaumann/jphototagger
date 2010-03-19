@@ -1,5 +1,5 @@
 /*
- * @(#)ListModelPrograms.java    2008-10-16
+ * @(#)ListModelPrograms.java    Created on 2008-10-16
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

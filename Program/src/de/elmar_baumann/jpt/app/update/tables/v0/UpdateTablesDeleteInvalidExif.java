@@ -1,5 +1,5 @@
 /*
- * @(#)UpdateTablesDeleteInvalidExif.java    2009-06-14
+ * @(#)UpdateTablesDeleteInvalidExif.java    Created on 2009-06-14
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

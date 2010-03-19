@@ -1,5 +1,5 @@
 /*
- * @(#)ColumnXmpLastModified.java    2008-10-23
+ * @(#)ColumnXmpLastModified.java    Created on 2008-10-23
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

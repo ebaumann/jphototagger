@@ -1,5 +1,5 @@
 /*
- * @(#)FilenameSuffixes.java    2009-09-05
+ * @(#)FilenameSuffixes.java    Created on 2009-09-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

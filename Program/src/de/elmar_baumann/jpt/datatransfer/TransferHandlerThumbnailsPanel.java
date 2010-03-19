@@ -1,5 +1,5 @@
 /*
- * @(#)TransferHandlerThumbnailsPanel.java    2008-10-24
+ * @(#)TransferHandlerThumbnailsPanel.java    Created on 2008-10-24
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

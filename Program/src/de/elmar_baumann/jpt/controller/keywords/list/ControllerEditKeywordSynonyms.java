@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerEditKeywordSynonyms.java    2010-02-09
+ * @(#)ControllerEditKeywordSynonyms.java    Created on 2010-02-09
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

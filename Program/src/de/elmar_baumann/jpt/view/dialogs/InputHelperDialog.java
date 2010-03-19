@@ -1,5 +1,5 @@
 /*
- * @(#)InputHelperDialog.java    2007-07-10
+ * @(#)InputHelperDialog.java    Created on 2007-07-10
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

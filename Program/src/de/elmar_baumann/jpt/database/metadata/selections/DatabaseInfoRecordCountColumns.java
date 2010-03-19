@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseInfoRecordCountColumns.java    2008-11-08
+ * @(#)DatabaseInfoRecordCountColumns.java    Created on 2008-11-08
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

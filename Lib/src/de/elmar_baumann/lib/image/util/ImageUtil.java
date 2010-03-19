@@ -1,5 +1,5 @@
 /*
- * @(#)ImageUtil.java    2008-07-24
+ * @(#)ImageUtil.java    Created on 2008-07-24
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

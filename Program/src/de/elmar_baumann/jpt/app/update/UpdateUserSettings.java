@@ -1,5 +1,5 @@
 /*
- * @(#)UpdateUserSettings.java    2009-09-17
+ * @(#)UpdateUserSettings.java    Created on 2009-09-17
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

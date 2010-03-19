@@ -1,5 +1,5 @@
 /*
- * @(#)LogfileParser.java    2008-10-05
+ * @(#)LogfileParser.java    Created on 2008-10-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

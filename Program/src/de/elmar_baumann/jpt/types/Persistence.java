@@ -1,5 +1,5 @@
 /*
- * @(#)Persistence.java    2008-11-01
+ * @(#)Persistence.java    Created on 2008-11-01
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

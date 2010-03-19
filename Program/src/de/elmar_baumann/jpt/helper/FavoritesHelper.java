@@ -1,5 +1,5 @@
 /*
- * @(#)FavoritesHelper.java    2010-01-20
+ * @(#)FavoritesHelper.java    Created on 2010-01-20
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

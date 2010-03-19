@@ -1,5 +1,5 @@
 /*
- * @(#)XmpColumnNamespaceUriMapping.java    2008-09-19
+ * @(#)XmpColumnNamespaceUriMapping.java    Created on 2008-09-19
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

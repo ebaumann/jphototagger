@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerDirectory.java    2010-01-19
+ * @(#)ControllerDirectory.java    Created on 2010-01-19
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

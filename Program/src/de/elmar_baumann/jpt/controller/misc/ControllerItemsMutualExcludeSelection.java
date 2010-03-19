@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerItemsMutualExcludeSelection.java    2008-10-05
+ * @(#)ControllerItemsMutualExcludeSelection.java    Created on 2008-10-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

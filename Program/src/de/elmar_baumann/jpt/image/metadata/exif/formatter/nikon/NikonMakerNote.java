@@ -1,5 +1,5 @@
 /*
- * @(#)NikonMakerNote.java    2009-12-30
+ * @(#)NikonMakerNote.java    Created on 2009-12-30
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

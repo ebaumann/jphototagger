@@ -1,5 +1,5 @@
 /*
- * @(#)DirectoryFilter.java    2008-07-23
+ * @(#)DirectoryFilter.java    Created on 2008-07-23
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

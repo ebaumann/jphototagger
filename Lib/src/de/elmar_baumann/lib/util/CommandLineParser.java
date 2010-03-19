@@ -1,5 +1,5 @@
 /*
- * @(#)CommandLineParser.java    2010-01-22
+ * @(#)CommandLineParser.java    Created on 2010-01-22
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

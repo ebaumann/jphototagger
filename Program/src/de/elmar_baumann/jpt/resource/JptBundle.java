@@ -1,5 +1,5 @@
 /*
- * @(#)JptBundle.java    2008-09-02
+ * @(#)JptBundle.java    Created on 2008-09-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

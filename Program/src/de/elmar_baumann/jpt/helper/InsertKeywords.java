@@ -1,5 +1,5 @@
 /*
- * @(#)InsertKeywords.java    2009-09-03
+ * @(#)InsertKeywords.java    Created on 2009-09-03
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

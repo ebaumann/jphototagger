@@ -1,5 +1,5 @@
 /*
- * @(#)FileSystemEvent.java    2008-10-20
+ * @(#)FileSystemEvent.java    Created on 2008-10-20
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

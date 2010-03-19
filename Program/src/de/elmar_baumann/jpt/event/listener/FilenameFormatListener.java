@@ -1,5 +1,5 @@
 /*
- * @(#)FilenameFormatListener.java    2009-07-07
+ * @(#)FilenameFormatListener.java    Created on 2009-07-07
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

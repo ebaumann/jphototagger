@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerMetadataTemplateAdd.java    2010-01-08
+ * @(#)ControllerMetadataTemplateAdd.java    Created on 2010-01-08
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

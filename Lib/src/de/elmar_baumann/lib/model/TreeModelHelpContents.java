@@ -1,5 +1,5 @@
 /*
- * @(#)TreeModelHelpContents.java    2008-10-02
+ * @(#)TreeModelHelpContents.java    Created on 2008-10-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

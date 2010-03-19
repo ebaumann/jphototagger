@@ -1,5 +1,5 @@
 /*
- * @(#)UpdateTablesThumbnails.java    2009-04-29
+ * @(#)UpdateTablesThumbnails.java    Created on 2009-04-29
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

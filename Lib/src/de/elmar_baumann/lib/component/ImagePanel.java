@@ -1,5 +1,5 @@
 /*
- * @(#)ImagePanel.java    2008-07-20
+ * @(#)ImagePanel.java    Created on 2008-07-20
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

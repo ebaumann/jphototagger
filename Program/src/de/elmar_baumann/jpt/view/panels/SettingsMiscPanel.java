@@ -1,5 +1,5 @@
 /*
- * @(#)SettingsMiscPanel.java    2008-11-02
+ * @(#)SettingsMiscPanel.java    Created on 2008-11-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

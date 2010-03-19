@@ -1,5 +1,5 @@
 /*
- * @(#)FilenameFormatEmptyString.java    2008-10-13
+ * @(#)FilenameFormatEmptyString.java    Created on 2008-10-13
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

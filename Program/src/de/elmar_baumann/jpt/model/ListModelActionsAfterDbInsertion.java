@@ -1,5 +1,5 @@
 /*
- * @(#)ListModelActionsAfterDbInsertion.java    2009-06-07
+ * @(#)ListModelActionsAfterDbInsertion.java    Created on 2009-06-07
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerGoTo.java    2008-10-10
+ * @(#)ControllerGoTo.java    Created on 2008-10-10
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

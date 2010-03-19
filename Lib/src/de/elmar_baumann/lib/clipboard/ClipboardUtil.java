@@ -1,5 +1,5 @@
 /*
- * @(#)ClipboardUtil.java    2008-10-26
+ * @(#)ClipboardUtil.java    Created on 2008-10-26
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

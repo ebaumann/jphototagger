@@ -1,5 +1,5 @@
 /*
- * @(#)TreeNodeSortedChildren.java    2009-07-02
+ * @(#)TreeNodeSortedChildren.java    Created on 2009-07-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

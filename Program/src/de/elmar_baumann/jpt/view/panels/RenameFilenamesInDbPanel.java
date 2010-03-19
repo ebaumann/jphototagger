@@ -1,5 +1,5 @@
 /*
- * @(#)RenameFilenamesInDbPanel.java    2009-06-16
+ * @(#)RenameFilenamesInDbPanel.java    Created on 2009-06-16
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)ComboBoxUtil.java    2007-08-29
+ * @(#)ComboBoxUtil.java    Created on 2007-08-29
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

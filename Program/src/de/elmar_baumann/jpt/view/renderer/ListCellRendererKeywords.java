@@ -1,5 +1,5 @@
 /*
- * @(#)ListCellRendererKeywords.java    2008-10-25
+ * @(#)ListCellRendererKeywords.java    Created on 2008-10-25
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

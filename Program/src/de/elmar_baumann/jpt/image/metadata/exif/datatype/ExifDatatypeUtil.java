@@ -1,5 +1,5 @@
 /*
- * @(#)ExifDatatypeUtil.java    2009-03-31
+ * @(#)ExifDatatypeUtil.java    Created on 2009-03-31
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

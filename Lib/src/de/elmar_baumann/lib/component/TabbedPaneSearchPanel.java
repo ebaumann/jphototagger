@@ -1,5 +1,5 @@
 /*
- * @(#)TabbedPaneSearchPanel.java    2010-02-25
+ * @(#)TabbedPaneSearchPanel.java    Created on 2010-02-25
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

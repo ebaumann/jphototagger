@@ -1,5 +1,5 @@
 /*
- * @(#)ColumnXmpPhotoshopCity.java    2008-08-23
+ * @(#)ColumnXmpPhotoshopCity.java    Created on 2008-08-23
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

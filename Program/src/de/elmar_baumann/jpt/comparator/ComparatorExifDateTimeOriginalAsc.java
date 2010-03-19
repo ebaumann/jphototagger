@@ -1,5 +1,5 @@
 /*
- * @(#)ComparatorExifDateTimeOriginalAsc.java    2009-12-15
+ * @(#)ComparatorExifDateTimeOriginalAsc.java    Created on 2009-12-15
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

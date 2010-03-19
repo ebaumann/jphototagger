@@ -1,5 +1,5 @@
 /*
- * @(#)XmpColumnXmpDataTypeMapping.java    2008-09-20
+ * @(#)XmpColumnXmpDataTypeMapping.java    Created on 2008-09-20
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

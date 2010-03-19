@@ -1,5 +1,5 @@
 /*
- * @(#)UpdateTablesMake1n.java    2010-03-13
+ * @(#)UpdateTablesMake1n.java    Created on 2010-03-13
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

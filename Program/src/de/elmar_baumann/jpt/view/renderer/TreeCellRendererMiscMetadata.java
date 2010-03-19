@@ -1,5 +1,5 @@
 /*
- * @(#)TreeCellRendererMiscMetadata.java    2009-06-12
+ * @(#)TreeCellRendererMiscMetadata.java    Created on 2009-06-12
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

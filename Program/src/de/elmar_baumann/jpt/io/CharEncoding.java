@@ -1,5 +1,5 @@
 /*
- * @(#)CharEncoding.java    2009-09-05
+ * @(#)CharEncoding.java    Created on 2009-09-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

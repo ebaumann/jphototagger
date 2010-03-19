@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerRefreshThumbnailsPanel.java    2008-09-25
+ * @(#)ControllerRefreshThumbnailsPanel.java    Created on 2008-09-25
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

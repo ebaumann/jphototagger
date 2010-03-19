@@ -1,5 +1,5 @@
 /*
- * @(#)MetaDataTemplatesPanel.java    2010-01-05
+ * @(#)MetaDataTemplatesPanel.java    Created on 2010-01-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
