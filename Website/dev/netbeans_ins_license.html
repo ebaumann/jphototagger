@@ -80,7 +80,7 @@
 &lt;#include "../Licenses/license-${project.license}.txt"&gt;
 </pre>
 
-        <h2>Tipp: Inserting user and date</h2>
+        <h2>Tipp: Inserting your name as author</h2>
 
         <p>Insert this text into the code templates above the class declaration:
         </p>
@@ -90,7 +90,6 @@
  *
  *
  * @author  ${user}
- * @version ${date?date?string("yyyy-MM-dd")}
  */
 </pre>
 
@@ -98,7 +97,7 @@
                 User configuration properties (User.properties)</strong>, e.g.
         </p>
 
-        <pre>user=Elmar Baumann &lt;eb@elmar-baumann.de&gt;</pre>
+        <pre>user=Elmar Baumann</pre>
 
         <p>All Java code templates are now having this header:</p>
 
@@ -116,7 +115,6 @@ package ${package};
  *
  *
  * @author  ${user}
- * @version ${date?date?string("yyyy-MM-dd")}
  */
 </pre>
 
