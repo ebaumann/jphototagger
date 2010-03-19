@@ -1,5 +1,5 @@
 /*
- * @(#)ComparatorSavedSearch.java    2008-11-05
+ * @(#)ComparatorSavedSearch.java    Created on 2008-11-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

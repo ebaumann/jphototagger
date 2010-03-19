@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerBackupDatabase.java    2010-03-07
+ * @(#)ControllerBackupDatabase.java    Created on 2010-03-07
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)MetaFactory.java    2008-09-29
+ * @(#)MetaFactory.java    Created on 2008-09-29
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

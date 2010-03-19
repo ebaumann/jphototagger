@@ -1,5 +1,5 @@
 /*
- * @(#)FormatterFactory.java    2008-10-28
+ * @(#)FormatterFactory.java    Created on 2008-10-28
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

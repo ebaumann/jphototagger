@@ -1,5 +1,5 @@
 /*
- * @(#)ModelFactory.java    2008-09-29
+ * @(#)ModelFactory.java    Created on 2008-09-29
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

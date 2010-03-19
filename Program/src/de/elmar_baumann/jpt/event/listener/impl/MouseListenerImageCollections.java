@@ -1,5 +1,5 @@
 /*
- * @(#)MouseListenerImageCollections.java    2008-09-08
+ * @(#)MouseListenerImageCollections.java    Created on 2008-09-08
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)TextEntryContent.java    2008-10-29
+ * @(#)TextEntryContent.java    Created on 2008-10-29
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

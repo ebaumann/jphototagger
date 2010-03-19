@@ -1,5 +1,5 @@
 /*
- * @(#)ExternalTest.java    2009-01-30
+ * @(#)ExternalTest.java    Created on 2009-01-30
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

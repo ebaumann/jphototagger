@@ -1,5 +1,5 @@
 /*
- * @(#)ExifCopyright.java    2009-06-09
+ * @(#)ExifCopyright.java    Created on 2009-06-09
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

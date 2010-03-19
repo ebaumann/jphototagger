@@ -1,5 +1,5 @@
 /*
- * @(#)AdvancedSearchColumns.java    2008-09-22
+ * @(#)AdvancedSearchColumns.java    Created on 2008-09-22
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerExtractEmbeddedXmp.java    2009-05-22
+ * @(#)ControllerExtractEmbeddedXmp.java    Created on 2009-05-22
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

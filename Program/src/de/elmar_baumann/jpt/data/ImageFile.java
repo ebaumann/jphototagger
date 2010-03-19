@@ -1,5 +1,5 @@
 /*
- * @(#)ImageFile.java    2008-07-28
+ * @(#)ImageFile.java    Created on 2008-07-28
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

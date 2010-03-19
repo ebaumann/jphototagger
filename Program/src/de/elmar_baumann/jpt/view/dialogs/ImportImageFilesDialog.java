@@ -1,5 +1,5 @@
 /*
- * @(#)ImportImageFilesDialog.java    2010-01-23
+ * @(#)ImportImageFilesDialog.java    Created on 2010-01-23
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

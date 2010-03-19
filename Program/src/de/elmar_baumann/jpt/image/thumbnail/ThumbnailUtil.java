@@ -1,5 +1,5 @@
 /*
- * @(#)ThumbnailUtil.java    2008-10-07
+ * @(#)ThumbnailUtil.java    Created on 2008-10-07
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

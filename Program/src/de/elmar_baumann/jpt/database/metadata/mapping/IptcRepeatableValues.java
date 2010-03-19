@@ -1,5 +1,5 @@
 /*
- * @(#)IptcRepeatableValues.java    2009-02-20
+ * @(#)IptcRepeatableValues.java    Created on 2009-02-20
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

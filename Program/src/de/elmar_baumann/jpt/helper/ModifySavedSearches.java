@@ -1,5 +1,5 @@
 /*
- * @(#)ModifySavedSearches.java    2009-02-25
+ * @(#)ModifySavedSearches.java    Created on 2009-02-25
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

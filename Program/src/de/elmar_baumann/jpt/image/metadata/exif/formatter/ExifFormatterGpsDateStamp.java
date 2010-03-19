@@ -1,5 +1,5 @@
 /*
- * @(#)ExifFormatterGpsDateStamp.java    2009-06-10
+ * @(#)ExifFormatterGpsDateStamp.java    Created on 2009-06-10
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

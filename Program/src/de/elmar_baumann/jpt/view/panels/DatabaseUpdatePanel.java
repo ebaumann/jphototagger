@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseUpdatePanel.java    
+ * @(#)DatabaseUpdatePanel.java    Created on 
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

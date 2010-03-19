@@ -1,5 +1,5 @@
 /*
- * @(#)ProgressListener.java    2008-07-22
+ * @(#)ProgressListener.java    Created on 2008-07-22
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)TableCellRendererDatabaseInfoColumns.java    2008-09-17
+ * @(#)TableCellRendererDatabaseInfoColumns.java    Created on 2008-09-17
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

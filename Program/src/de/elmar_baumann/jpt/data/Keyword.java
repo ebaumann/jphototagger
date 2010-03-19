@@ -1,5 +1,5 @@
 /*
- * @(#)Keyword.java    2009-07-10
+ * @(#)Keyword.java    Created on 2009-07-10
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

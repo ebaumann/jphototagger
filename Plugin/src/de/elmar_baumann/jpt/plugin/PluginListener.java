@@ -1,5 +1,5 @@
 /*
- * @(#)PluginListener.java    2009-08-27
+ * @(#)PluginListener.java    Created on 2009-08-27
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

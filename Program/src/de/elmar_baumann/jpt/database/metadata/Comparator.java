@@ -1,5 +1,5 @@
 /*
- * @(#)Comparator.java    2008-08-28
+ * @(#)Comparator.java    Created on 2008-08-28
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

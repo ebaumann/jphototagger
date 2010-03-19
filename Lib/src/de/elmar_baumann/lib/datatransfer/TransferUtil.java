@@ -1,5 +1,5 @@
 /*
- * @(#)TransferUtil.java    2008-10-17
+ * @(#)TransferUtil.java    Created on 2008-10-17
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

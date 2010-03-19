@@ -1,5 +1,5 @@
 /*
- * @(#)EditMetadataPanelsListener.java    
+ * @(#)EditMetadataPanelsListener.java    Created on 
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

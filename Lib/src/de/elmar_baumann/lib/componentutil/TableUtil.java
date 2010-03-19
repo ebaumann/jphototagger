@@ -1,5 +1,5 @@
 /*
- * @(#)TableUtil.java    2008-02-17
+ * @(#)TableUtil.java    Created on 2008-02-17
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

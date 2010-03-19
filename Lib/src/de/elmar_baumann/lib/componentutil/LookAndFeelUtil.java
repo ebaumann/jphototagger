@@ -1,5 +1,5 @@
 /*
- * @(#)LookAndFeelUtil.java    2008-07-14
+ * @(#)LookAndFeelUtil.java    Created on 2008-07-14
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

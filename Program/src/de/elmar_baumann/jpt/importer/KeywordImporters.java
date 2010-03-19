@@ -1,5 +1,5 @@
 /*
- * @(#)KeywordImporters.java    2009-08-01
+ * @(#)KeywordImporters.java    Created on 2009-08-01
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

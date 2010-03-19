@@ -1,5 +1,5 @@
 /*
- * @(#)UpdateTablesPrimaryKeys.java    2009-09-11
+ * @(#)UpdateTablesPrimaryKeys.java    Created on 2009-09-11
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

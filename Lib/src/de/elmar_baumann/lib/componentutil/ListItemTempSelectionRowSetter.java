@@ -1,5 +1,5 @@
 /*
- * @(#)ListItemTempSelectionRowSetter.java    2009-07-27
+ * @(#)ListItemTempSelectionRowSetter.java    Created on 2009-07-27
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

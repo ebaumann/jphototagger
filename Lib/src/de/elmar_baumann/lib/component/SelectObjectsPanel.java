@@ -1,5 +1,5 @@
 /*
- * @(#)SelectObjectsPanel.java    2010-03-03
+ * @(#)SelectObjectsPanel.java    Created on 2010-03-03
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

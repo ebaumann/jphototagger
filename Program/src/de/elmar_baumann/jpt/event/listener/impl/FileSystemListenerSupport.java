@@ -1,5 +1,5 @@
 /*
- * @(#)FileSystemListenerSupport.java    2008-10-18
+ * @(#)FileSystemListenerSupport.java    Created on 2008-10-18
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

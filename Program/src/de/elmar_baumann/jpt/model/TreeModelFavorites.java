@@ -1,5 +1,5 @@
 /*
- * @(#)TreeModelFavorites.java    2009-06-15
+ * @(#)TreeModelFavorites.java    Created on 2009-06-15
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

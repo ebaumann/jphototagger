@@ -1,5 +1,5 @@
 /*
- * @(#)FileExcludePatternsExporter.java    2010-03-02
+ * @(#)FileExcludePatternsExporter.java    Created on 2010-03-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

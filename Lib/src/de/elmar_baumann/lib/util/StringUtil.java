@@ -1,5 +1,5 @@
 /*
- * @(#)StringUtil.java    2009-06-25
+ * @(#)StringUtil.java    Created on 2009-06-25
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

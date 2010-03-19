@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseFavoritesEvent.java    2010-03-04
+ * @(#)DatabaseFavoritesEvent.java    Created on 2010-03-04
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

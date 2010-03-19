@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerPickReject.java    2009-07-21
+ * @(#)ControllerPickReject.java    Created on 2009-07-21
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

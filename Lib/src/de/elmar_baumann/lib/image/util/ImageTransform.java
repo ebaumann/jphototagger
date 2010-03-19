@@ -1,5 +1,5 @@
 /*
- * @(#)ImageTransform.java    2008-08-19
+ * @(#)ImageTransform.java    Created on 2008-08-19
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

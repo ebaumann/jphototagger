@@ -1,5 +1,5 @@
 /*
- * @(#)TransferHandlerDropList.java    2009-08-02
+ * @(#)TransferHandlerDropList.java    Created on 2009-08-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

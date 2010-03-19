@@ -1,5 +1,5 @@
 /*
- * @(#)ErrorListener.java    2008-08-03
+ * @(#)ErrorListener.java    Created on 2008-08-03
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

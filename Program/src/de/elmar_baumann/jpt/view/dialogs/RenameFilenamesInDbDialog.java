@@ -1,5 +1,5 @@
 /*
- * @(#)RenameFilenamesInDbDialog.java    2009-06-16
+ * @(#)RenameFilenamesInDbDialog.java    Created on 2009-06-16
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

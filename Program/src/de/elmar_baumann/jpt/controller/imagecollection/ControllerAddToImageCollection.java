@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerAddToImageCollection.java    2008-00-10
+ * @(#)ControllerAddToImageCollection.java    Created on 2008-00-10
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

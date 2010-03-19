@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerThumbnailsPanelPersistence.java    2008-10-15
+ * @(#)ControllerThumbnailsPanelPersistence.java    Created on 2008-10-15
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

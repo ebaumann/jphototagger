@@ -1,5 +1,5 @@
 /*
- * @(#)EditHints.java    2008-09-18
+ * @(#)EditHints.java    Created on 2008-09-18
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

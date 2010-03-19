@@ -1,5 +1,5 @@
 /*
- * @(#)XmpTest.java    2010/02/08
+ * @(#)XmpTest.java    Created on 2010/02/08
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

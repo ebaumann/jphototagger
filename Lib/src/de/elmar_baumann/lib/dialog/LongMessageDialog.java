@@ -1,5 +1,5 @@
 /*
- * @(#)LongMessageDialog.java    2009-05-03
+ * @(#)LongMessageDialog.java    Created on 2009-05-03
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

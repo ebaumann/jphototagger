@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerKeywordsSelection.java    2009-09-02
+ * @(#)ControllerKeywordsSelection.java    Created on 2009-09-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)TreeModelUpdateInfo.java    2009-06-13
+ * @(#)TreeModelUpdateInfo.java    Created on 2009-06-13
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

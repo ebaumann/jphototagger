@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerRenameDirectory.java    2009-06-19
+ * @(#)ControllerRenameDirectory.java    Created on 2009-06-19
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

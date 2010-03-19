@@ -1,5 +1,5 @@
 /*
- * @(#)ComparatorFilesNamesAscCs.java    2009-12-20
+ * @(#)ComparatorFilesNamesAscCs.java    Created on 2009-12-20
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

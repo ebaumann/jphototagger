@@ -1,5 +1,5 @@
 /*
- * @(#)FormatterLabelTableColumn.java    2008-09-17
+ * @(#)FormatterLabelTableColumn.java    Created on 2008-09-17
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

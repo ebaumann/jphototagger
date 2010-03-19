@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseFileExcludePatternsEvent.java    2010-03-04
+ * @(#)DatabaseFileExcludePatternsEvent.java    Created on 2010-03-04
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

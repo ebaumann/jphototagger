@@ -1,5 +1,5 @@
 /*
- * @(#)UpdateTablesV0.java    2008-10-23
+ * @(#)UpdateTablesV0.java    Created on 2008-10-23
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

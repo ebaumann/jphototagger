@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseRenameTemplatesEvent.java    2010-03-01
+ * @(#)DatabaseRenameTemplatesEvent.java    Created on 2010-03-01
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

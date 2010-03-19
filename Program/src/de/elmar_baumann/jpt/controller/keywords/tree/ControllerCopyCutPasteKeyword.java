@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerCopyCutPasteKeyword.java    2009-09-10
+ * @(#)ControllerCopyCutPasteKeyword.java    Created on 2009-09-10
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)KeywordsTreePathExpander.java    2009-07-31
+ * @(#)KeywordsTreePathExpander.java    Created on 2009-07-31
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

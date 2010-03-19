@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerAddKeywordsToEditPanel.java    2009-07-15
+ * @(#)ControllerAddKeywordsToEditPanel.java    Created on 2009-07-15
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

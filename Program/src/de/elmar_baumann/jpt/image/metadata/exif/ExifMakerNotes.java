@@ -1,5 +1,5 @@
 /*
- * @(#)ExifMakerNotes.java    2010-01-13
+ * @(#)ExifMakerNotes.java    Created on 2010-01-13
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)AppDatabase.java    2009-06-11
+ * @(#)AppDatabase.java    Created on 2009-06-11
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

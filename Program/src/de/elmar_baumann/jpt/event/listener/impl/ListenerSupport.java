@@ -1,5 +1,5 @@
 /*
- * @(#)ListenerSupport.java    2010-01-12
+ * @(#)ListenerSupport.java    Created on 2010-01-12
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

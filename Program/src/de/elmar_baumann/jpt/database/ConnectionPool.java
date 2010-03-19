@@ -1,5 +1,5 @@
 /*
- * @(#)ConnectionPool.java    1.0
+ * @(#)ConnectionPool.java    Created on 1.0
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

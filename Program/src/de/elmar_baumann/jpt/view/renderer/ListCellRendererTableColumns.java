@@ -1,5 +1,5 @@
 /*
- * @(#)ListCellRendererTableColumns.java    2008-09-13
+ * @(#)ListCellRendererTableColumns.java    Created on 2008-09-13
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

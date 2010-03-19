@@ -1,5 +1,5 @@
 /*
- * @(#)ComparatorFilesLastModifiedAsc.java    2009-12-14
+ * @(#)ComparatorFilesLastModifiedAsc.java    Created on 2009-12-14
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

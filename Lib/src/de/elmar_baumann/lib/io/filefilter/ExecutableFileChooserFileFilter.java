@@ -1,5 +1,5 @@
 /*
- * @(#)ExecutableFileChooserFileFilter.java    2009-04-01
+ * @(#)ExecutableFileChooserFileFilter.java    Created on 2009-04-01
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

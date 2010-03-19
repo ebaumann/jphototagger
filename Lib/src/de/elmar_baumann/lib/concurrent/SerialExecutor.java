@@ -1,5 +1,5 @@
 /*
- * @(#)SerialExecutor.java    2009-07-17
+ * @(#)SerialExecutor.java    Created on 2009-07-17
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

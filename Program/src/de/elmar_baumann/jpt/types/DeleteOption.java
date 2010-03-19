@@ -1,5 +1,5 @@
 /*
- * @(#)DeleteOption.java    2009-02-19
+ * @(#)DeleteOption.java    Created on 2009-02-19
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

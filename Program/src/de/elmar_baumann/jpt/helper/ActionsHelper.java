@@ -1,5 +1,5 @@
 /*
- * @(#)ActionsHelper.java    2010-01-24
+ * @(#)ActionsHelper.java    Created on 2010-01-24
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)AppInfo.java    2008-06-21
+ * @(#)AppInfo.java    Created on 2008-06-21
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

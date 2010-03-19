@@ -1,5 +1,5 @@
 /*
- * @(#)FlickrBundle.java    2010-02-14
+ * @(#)FlickrBundle.java    Created on 2010-02-14
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

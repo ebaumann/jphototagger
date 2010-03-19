@@ -1,5 +1,5 @@
 /*
- * @(#)PluginEvent.java    2010-02-17
+ * @(#)PluginEvent.java    Created on 2010-02-17
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)Column.java    2007-07-29
+ * @(#)Column.java    Created on 2007-07-29
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

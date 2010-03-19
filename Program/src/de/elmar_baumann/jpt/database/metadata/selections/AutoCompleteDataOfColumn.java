@@ -1,5 +1,5 @@
 /*
- * @(#)AutoCompleteDataOfColumn.java    2009-09-01
+ * @(#)AutoCompleteDataOfColumn.java    Created on 2009-09-01
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *

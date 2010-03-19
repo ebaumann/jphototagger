@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerActionExecutor.java    2008-11-06
+ * @(#)ControllerActionExecutor.java    Created on 2008-11-06
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
