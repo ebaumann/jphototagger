@@ -283,7 +283,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         }
     }
 
-    public synchronized void remove(Collection<File> list) {
+    public synchronized void remove(Collection<? extends File> list) {
         for (File file : list) {
             remove(file);
         }

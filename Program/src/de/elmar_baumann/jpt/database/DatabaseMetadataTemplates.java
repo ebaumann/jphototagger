@@ -46,7 +46,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplatesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 
@@ -72,7 +71,7 @@ public class DatabaseMetadataTemplates extends Database {
         "\t";
     public static final DatabaseMetadataTemplates INSTANCE                 =
         new DatabaseMetadataTemplates();
-    private final ListenerSupport<DatabaseMetadataTemplatesListener> listenerSupport =
+    private final ListenerSupport<DatabaseMetadataTemplatesListener> ls =
         new ListenerSupport<DatabaseMetadataTemplatesListener>();
 
     private DatabaseMetadataTemplates() {}
@@ -126,9 +125,7 @@ public class DatabaseMetadataTemplates extends Database {
             stmt.executeUpdate();
             con.commit();
             inserted = true;
-            notifyListeners(
-                new DatabaseMetadataTemplatesEvent(
-                    DatabaseMetadataTemplatesEvent.Type.ADDED, template, this));
+            notifyInserted(template);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
             rollback(con);
@@ -522,10 +519,7 @@ public class DatabaseMetadataTemplates extends Database {
             updated = count > 0;
 
             if (updated) {
-                notifyListeners(
-                    new DatabaseMetadataTemplatesEvent(
-                        DatabaseMetadataTemplatesEvent.Type.UPDATED, template,
-                        oldTemplate, this));
+                notifyUpdated(oldTemplate, template);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
@@ -553,9 +547,6 @@ public class DatabaseMetadataTemplates extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
-            MetadataTemplate oldTemplate = find(oldName);
-
             stmt = con.prepareStatement(
                 "UPDATE metadata_edit_templates SET name = ? WHERE name = ?");
             stmt.setString(1, newName);
@@ -568,12 +559,7 @@ public class DatabaseMetadataTemplates extends Database {
             renamed = count > 0;
 
             if (renamed) {
-                MetadataTemplate newTemplate = find(newName);
-
-                notifyListeners(
-                    new DatabaseMetadataTemplatesEvent(
-                        DatabaseMetadataTemplatesEvent.Type.UPDATED,
-                        newTemplate, oldTemplate, this));
+                notifyRenamed(oldName, newName);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
@@ -614,10 +600,7 @@ public class DatabaseMetadataTemplates extends Database {
             deleted = count > 0;
 
             if (deleted) {
-                notifyListeners(
-                    new DatabaseMetadataTemplatesEvent(
-                        DatabaseMetadataTemplatesEvent.Type.DELETED, template,
-                        this));
+                notifyDelted(template);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
@@ -659,20 +642,50 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     public void addListener(DatabaseMetadataTemplatesListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseMetadataTemplatesListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    private void notifyListeners(DatabaseMetadataTemplatesEvent evt) {
-        Set<DatabaseMetadataTemplatesListener> listeners =
-            listenerSupport.get();
+    private void notifyDelted(MetadataTemplate template) {
+        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseMetadataTemplatesListener listener : listeners) {
-                listener.actionPerformed(evt);
+                listener.templateDeleted(template);
+            }
+        }
+    }
+
+    private void notifyInserted(MetadataTemplate template) {
+        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseMetadataTemplatesListener listener : listeners) {
+                listener.templateInserted(template);
+            }
+        }
+    }
+
+    private void notifyUpdated(MetadataTemplate oldTemplate,
+                               MetadataTemplate updatedTemplate) {
+        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseMetadataTemplatesListener listener : listeners) {
+                listener.templateUpdated(oldTemplate, updatedTemplate);
+            }
+        }
+    }
+
+    private void notifyRenamed(String oldName, String newName) {
+        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseMetadataTemplatesListener listener : listeners) {
+                listener.templateRenamed(oldName, newName);
             }
         }
     }

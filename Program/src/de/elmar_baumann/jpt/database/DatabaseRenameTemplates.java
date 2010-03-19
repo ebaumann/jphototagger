@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.RenameTemplate;
-import de.elmar_baumann.jpt.event.DatabaseRenameTemplatesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseRenameTemplatesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 
@@ -44,7 +43,7 @@ import java.util.Set;
 public final class DatabaseRenameTemplates extends Database {
     public static final DatabaseRenameTemplates INSTANCE =
         new DatabaseRenameTemplates();
-    private final ListenerSupport<DatabaseRenameTemplatesListener> listenerSupport =
+    private final ListenerSupport<DatabaseRenameTemplatesListener> ls =
         new ListenerSupport<DatabaseRenameTemplatesListener>();
 
     private DatabaseRenameTemplates() {}
@@ -104,9 +103,7 @@ public final class DatabaseRenameTemplates extends Database {
 
             if (inserted) {
                 template.setId(getId(template.getName()));
-                notifyListeners(
-                    DatabaseRenameTemplatesEvent.Type.TEMPLATE_INSERTED,
-                    template);
+                notifyInserted(template);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
@@ -152,9 +149,7 @@ public final class DatabaseRenameTemplates extends Database {
             con.commit();
 
             if (count == 1) {
-                notifyListeners(
-                    DatabaseRenameTemplatesEvent.Type.TEMPLATE_UPDATED,
-                    template);
+                notifyUpdated(template);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
@@ -185,9 +180,7 @@ public final class DatabaseRenameTemplates extends Database {
             con.commit();
 
             if (count == 1) {
-                notifyListeners(
-                    DatabaseRenameTemplatesEvent.Type.TEMPLATE_DELETED,
-                    delTemplate);
+                notifyDeleted(delTemplate);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
@@ -378,22 +371,39 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public void addListener(DatabaseRenameTemplatesListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseRenameTemplatesListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    private void notifyListeners(DatabaseRenameTemplatesEvent.Type type,
-                                 RenameTemplate template) {
-        DatabaseRenameTemplatesEvent evt =
-            new DatabaseRenameTemplatesEvent(type, template);
-        Set<DatabaseRenameTemplatesListener> listeners = listenerSupport.get();
+    private void notifyDeleted(RenameTemplate template) {
+        Set<DatabaseRenameTemplatesListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseRenameTemplatesListener listener : listeners) {
-                listener.actionPerformed(evt);
+                listener.templateDeleted(template);
+            }
+        }
+    }
+
+    private void notifyInserted(RenameTemplate template) {
+        Set<DatabaseRenameTemplatesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseRenameTemplatesListener listener : listeners) {
+                listener.templateInserted(template);
+            }
+        }
+    }
+
+    private void notifyUpdated(RenameTemplate template) {
+        Set<DatabaseRenameTemplatesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseRenameTemplatesListener listener : listeners) {
+                listener.templateUpdated(template);
             }
         }
     }

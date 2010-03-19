@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 
@@ -127,24 +126,6 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         }
     }
 
-    @Override
-    public void actionPerformed(DatabaseProgramsEvent event) {
-        DatabaseProgramsEvent.Type eventType = event.getType();
-        Program                    program   = event.getProgram();
-        int                        index     = indexOf(program);
-        boolean                    contains  = index >= 0;
-
-        if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED)
-                && contains) {
-            removeElementAt(index);
-            fireIntervalRemoved(this, index, index);
-        } else if (eventType.equals(DatabaseProgramsEvent.Type.PROGRAM_UPDATED)
-                   && contains) {
-            set(index, program);
-            fireContentsChanged(this, index, index);
-        }
-    }
-
     private void errorMessageDelete(Program action) {
         MessageDisplayer.error(null,
                                "ListModelActionsAfterDbInsertion.Error.Remove",
@@ -161,5 +142,31 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         MessageDisplayer.error(null,
                                "ListModelActionsAfterDbInsertion.Error.Add",
                                action);
+    }
+
+    @Override
+    public void programDeleted(Program program) {
+        int index = indexOf(program);
+
+        if (index >= 0) {
+            removeElementAt(index);
+            fireIntervalRemoved(this, index, index);
+        }
+    }
+
+    @Override
+    public void programInserted(Program program) {
+
+        // ignore
+    }
+
+    @Override
+    public void programUpdated(Program program) {
+        int index = indexOf(program);
+
+        if (index >= 0) {
+            set(index, program);
+            fireContentsChanged(this, index, index);
+        }
     }
 }

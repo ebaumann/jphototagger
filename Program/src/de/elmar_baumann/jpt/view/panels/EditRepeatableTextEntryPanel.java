@@ -23,14 +23,14 @@ package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
-import de.elmar_baumann.jpt.data.ImageFile;
+import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.TextEntry;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections
     .AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
@@ -49,6 +49,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -139,25 +140,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             autocomplete.decorate(
                 textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get(),
                     true);
-        }
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (autocomplete == null || !UserSettings.INSTANCE.isAutocomplete()) {
-            return;
-        }
-
-        if (event.getType().equals(
-                DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
-            return;    // Do not remove autocomplete data
-        }
-
-        ImageFile imageFile = event.getImageFile();
-
-        if ((imageFile != null) && (imageFile.getXmp() != null)) {
-            AutocompleteHelper.addAutocompleteData(column, autocomplete,
-                    imageFile.getXmp());
         }
     }
 
@@ -650,6 +632,80 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
         for (Component component : inputComponents) {
             component.removeMouseListener(l);
+        }
+    }
+
+    private boolean isAutocomplete() {
+        return autocomplete != null && UserSettings.INSTANCE.isAutocomplete();
+    }
+
+    private void addToAutocomplete(Xmp xmp) {
+        if (isAutocomplete()) {
+            AutocompleteHelper.addAutocompleteData(column, autocomplete, xmp);
+        }
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        addToAutocomplete(xmp);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        addToAutocomplete(updatedXmp);
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        // ignore
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        if (isAutocomplete()) {
+            AutocompleteHelper.addAutocompleteData(
+                    ColumnXmpDcSubjectsSubject.INSTANCE, autocomplete,
+                    Collections.singleton(dcSubject));
         }
     }
 

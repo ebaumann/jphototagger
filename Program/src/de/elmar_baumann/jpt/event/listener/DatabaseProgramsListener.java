@@ -21,19 +21,37 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
+import de.elmar_baumann.jpt.data.Program;
 
 /**
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabasePrograms}.
  *
- *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseProgramsListener {
 
     /**
-     * A program event occured.
+     * Called if a programs was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabasePrograms}.
      *
-     * @param event event
+     * @param program deleted program
      */
-    public void actionPerformed(DatabaseProgramsEvent event);
+    public void programDeleted(Program program);
+
+    /**
+     * Called if a programs was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabasePrograms}.
+     *
+     * @param program inserted program
+     */
+    public void programInserted(Program program);
+
+    /**
+     * Called if a programs was updated in
+     * {@link de.elmar_baumann.jpt.database.DatabasePrograms}.
+     *
+     * @param program updated program
+     */
+    public void programUpdated(Program program);
 }

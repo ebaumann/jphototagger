@@ -22,7 +22,8 @@
 package de.elmar_baumann.jpt.controller.search;
 
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
-import de.elmar_baumann.jpt.data.ImageFile;
+import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseFind;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -30,7 +31,6 @@ import de.elmar_baumann.jpt.database.metadata.selections
     .AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
@@ -54,6 +54,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,7 +161,7 @@ public final class ControllerFastSearch
     }
 
     private void decorateTextFieldSearch() {
-        if (autocomplete == null || !UserSettings.INSTANCE.isAutocomplete()) {
+        if ((autocomplete == null) ||!UserSettings.INSTANCE.isAutocomplete()) {
             return;
         }
 
@@ -300,27 +302,89 @@ public final class ControllerFastSearch
                && selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
     }
 
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if ((autocomplete == null) || event.getType()
-                .equals(DatabaseImageFilesEvent.Type
-                    .IMAGEFILE_DELETED) ||!UserSettings.INSTANCE
-                        .isAutocomplete()) {
-            return;
-        }
-
-        ImageFile imageFile = event.getImageFile();
-
-        if ((imageFile == null) || (imageFile.getXmp() == null)) {
+    private void addAutocompleteWordsOf(Xmp xmp) {
+        if (!isAutocomplete()) {
             return;
         }
 
         if (isSearchAllDefinedColumns()) {
-            AutocompleteHelper.addFastSearchAutocompleteData(autocomplete,
-                    imageFile.getXmp());
+            AutocompleteHelper.addFastSearchAutocompleteData(autocomplete, xmp);
         } else {
             AutocompleteHelper.addAutocompleteData(getSearchColumn(),
-                    autocomplete, imageFile.getXmp());
+                    autocomplete, xmp);
         }
+    }
+
+    private boolean isAutocomplete() {
+        return (autocomplete != null) && UserSettings.INSTANCE.isAutocomplete();
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        addAutocompleteWordsOf(xmp);
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        addAutocompleteWordsOf(xmp);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        addAutocompleteWordsOf(updatedXmp);
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+
+        // ignore
     }
 }

@@ -21,19 +21,62 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseImageCollectionsEvent;
+import java.util.List;
 
 /**
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
  *
- *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseImageCollectionsListener {
 
     /**
-     * An image collection event occured.
+     * Will be called if an image collection was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
      *
-     * @param event event
+     * @param collectionName    name of the inserted collection
+     * @param insertedFilepaths full qualified paths to all inserted files
      */
-    public void actionPerformed(DatabaseImageCollectionsEvent event);
+    public void collectionInserted(String collectionName,
+                                   List<String> insertedFilepaths);
+
+    /**
+     * Will be called if an image collection was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
+     *
+     * @param collectionName   name of the deleted collection
+     * @param deletedFilepaths full qualified paths to all deleted files
+     */
+    public void collectionDeleted(String collectionName,
+                                  List<String> deletedFilepaths);
+
+    /**
+     * Will be called if an image collection was renamed from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
+     *
+     * @param oldName old name of the image collection
+     * @param newName new name of the image collection
+     */
+    public void collectionRenamed(String oldName, String newName);
+
+    /**
+     * Will be called if images were inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
+     *
+     * @param collectionName    name of the image collection
+     * @param insertedFilepaths full qualified paths to all inserted files
+     */
+    public void imagesInserted(String collectionName,
+                               List<String> insertedFilepaths);
+
+    /**
+     * Will be called if images were deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
+     *
+     * @param collectionName   name of the image collection
+     * @param deletedFilepaths full qualified paths to all deleted files
+     */
+    public void imagesDeleted(String collectionName,
+                              List<String> deletedFilepaths);
 }

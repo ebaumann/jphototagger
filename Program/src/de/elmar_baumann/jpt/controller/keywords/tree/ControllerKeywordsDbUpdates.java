@@ -21,15 +21,19 @@
 
 package de.elmar_baumann.jpt.controller.keywords.tree;
 
-import de.elmar_baumann.jpt.data.ImageFile;
+import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseKeywords;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.model.TreeModelKeywords;
 
+import java.io.File;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,25 +53,19 @@ public final class ControllerKeywordsDbUpdates
         DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (event.isTextMetadataAffected()) {
-            addNotExistingKeywords(event.getImageFile());
+    @SuppressWarnings("unchecked")
+    private void addNotExistingKeywords(Xmp xmp) {
+        Object o = xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE);
+
+        if (o instanceof List<?>) {
+            addNotExistingKeywords((List<String>) o);
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private void addNotExistingKeywords(ImageFile imageFile) {
-        if ((imageFile != null) && (imageFile.getXmp() != null)) {
-            Object o = imageFile.getXmp().getValue(
-                           ColumnXmpDcSubjectsSubject.INSTANCE);
-
-            if (o instanceof List<?>) {
-                for (String keyword : (List<String>) o) {
-                    if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
-                        addKeyword(keyword);
-                    }
-                }
+    private void addNotExistingKeywords(Collection<? extends String> keywords) {
+        for (String keyword : keywords) {
+            if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
+                addKeyword(keyword);
             }
         }
     }
@@ -77,5 +75,74 @@ public final class ControllerKeywordsDbUpdates
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
         model.insert((DefaultMutableTreeNode) model.getRoot(), keyword, true);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        addNotExistingKeywords(updatedXmp);
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        addNotExistingKeywords(Collections.singleton(dcSubject));
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        addNotExistingKeywords(xmp);
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+
+        // ignore
     }
 }

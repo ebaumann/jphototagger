@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.data.RenameTemplate;
 import de.elmar_baumann.jpt.database.DatabaseRenameTemplates;
-import de.elmar_baumann.jpt.event.DatabaseRenameTemplatesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseRenameTemplatesListener;
 
 import javax.swing.DefaultComboBoxModel;
@@ -42,30 +41,31 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
         DatabaseRenameTemplates.INSTANCE.addListener(this);
     }
 
-    @Override
-    public void actionPerformed(DatabaseRenameTemplatesEvent evt) {
-        if (evt.isTemplateInserted()) {
-            RenameTemplate template = evt.getTemplate();
-
-            addElement(template);
-            setSelectedItem(template);
-        } else if (evt.isTemplateUpdated()) {
-            RenameTemplate template = evt.getTemplate();
-            int            index    = getIndexOf(template);
-
-            if (index >= 0) {
-                ((RenameTemplate) getElementAt(index)).set(template);
-                fireContentsChanged(this, index, index);
-            }
-        } else if (evt.isTemplateDeleted()) {
-            removeElement(evt.getTemplate());
-        }
-    }
-
     private void addElements() {
         for (RenameTemplate template :
                 DatabaseRenameTemplates.INSTANCE.getAll()) {
             addElement(template);
+        }
+    }
+
+    @Override
+    public void templateDeleted(RenameTemplate template) {
+        removeElement(template);
+    }
+
+    @Override
+    public void templateInserted(RenameTemplate template) {
+        addElement(template);
+        setSelectedItem(template);
+    }
+
+    @Override
+    public void templateUpdated(RenameTemplate template) {
+        int index = getIndexOf(template);
+
+        if (index >= 0) {
+            ((RenameTemplate) getElementAt(index)).set(template);
+            fireContentsChanged(this, index, index);
         }
     }
 }

@@ -21,13 +21,27 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
-
 /**
- *
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns}.
  *
  * @author  Elmar Baumann
  */
 public interface DatabaseFileExcludePatternsListener {
-    public void actionPerformed(DatabaseFileExcludePatternsEvent evt);
+
+    /**
+     * Called if a pattern was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns}.
+     *
+     * @param pattern inserted pattern
+     */
+    public void patternInserted(String pattern);
+
+    /**
+     * Called if a pattern was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns}.
+     *
+     * @param pattern deleted pattern
+     */
+    public void patternDeleted(String pattern);
 }

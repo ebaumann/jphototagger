@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.data.MetadataTemplate;
 import de.elmar_baumann.jpt.database.DatabaseMetadataTemplates;
-import de.elmar_baumann.jpt.event.DatabaseMetadataTemplatesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseMetadataTemplatesListener;
 
 import javax.swing.DefaultListModel;
@@ -49,19 +48,52 @@ public final class ListModelMetadataTemplates extends DefaultListModel
         }
     }
 
-    @Override
-    public void actionPerformed(DatabaseMetadataTemplatesEvent evt) {
-        if (evt.wasAdded()) {
-            addElement(evt.getTemplate());
-        } else if (evt.wasDeleted()) {
-            removeElement(evt.getTemplate());
-        } else if (evt.wasUpdated()) {
-            int index = indexOf(evt.getOldTemplate());
+    private int indexOfTemplate(String name) {
+        int size = getSize();
 
-            if (index >= 0) {
-                remove(index);
-                add(index, evt.getTemplate());
+        for (int i = 0; i < size; i++) {
+            Object o = getElementAt(i);
+
+            if (o instanceof MetadataTemplate) {
+                if (((MetadataTemplate) o).getName().equals(name)) {
+                    return i;
+                }
             }
+        }
+
+        return -1;
+    }
+
+
+    @Override
+    public void templateDeleted(MetadataTemplate template) {
+        removeElement(template);
+    }
+
+    @Override
+    public void templateInserted(MetadataTemplate template) {
+        addElement(template);
+    }
+
+    @Override
+    public void templateUpdated(MetadataTemplate oldTemplate,
+                                MetadataTemplate updatedTemplate) {
+        int index = indexOfTemplate(oldTemplate.getName());
+
+        if (index >= 0) {
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+    @Override
+    public void templateRenamed(String oldName, String newName) {
+        int index = indexOfTemplate(oldName);
+
+        if (index >= 0) {
+            MetadataTemplate template = (MetadataTemplate) getElementAt(index);
+
+            template.setName(newName);
+            fireContentsChanged(this, index, index);
         }
     }
 }

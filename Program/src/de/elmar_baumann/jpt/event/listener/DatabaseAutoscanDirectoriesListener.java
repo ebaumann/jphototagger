@@ -21,13 +21,29 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseAutoscanDirectoriesEvent;
+import java.io.File;
 
 /**
- *
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories}.
  *
  * @author  Elmar Baumann
  */
 public interface DatabaseAutoscanDirectoriesListener {
-    public void actionPerformed(DatabaseAutoscanDirectoriesEvent evt);
+
+    /**
+     * Will be called if a directory was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories}.
+     *
+     * @param directory inserted directory
+     */
+    public void directoryInserted(File directory);
+
+    /**
+     * Will be called if a directory was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories}.
+     *
+     * @param directory deleted directory
+     */
+    public void directoryDeleted(File directory);
 }

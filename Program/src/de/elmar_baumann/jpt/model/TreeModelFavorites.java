@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Favorite;
 import de.elmar_baumann.jpt.database.DatabaseFavorites;
-import de.elmar_baumann.jpt.event.DatabaseFavoritesEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.DatabaseFavoritesListener;
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -57,7 +56,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Elements are {@link DefaultMutableTreeNode}s with the user objects listed below.
+ * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
+ * below.
  *
  * <ul>
  * <li>The root user object is a {@link String}</li>
@@ -72,17 +72,17 @@ import javax.swing.tree.TreePath;
 public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, DatabaseFavoritesListener,
                    AppExitListener {
+    private static final String KEY_SELECTED_DIR      =
+        "TreeModelFavorites.SelDir";
     private static final String KEY_SELECTED_FAV_NAME =
         "TreeModelFavorites.SelFavDir";
-    private static final String               KEY_SELECTED_DIR =
-        "TreeModelFavorites.SelDir";
     private static final long                 serialVersionUID =
         -2453748094818942669L;
-    private final DefaultMutableTreeNode      rootNode;
+    private final Object                      monitor          = new Object();
+    private transient boolean                 listenToDb       = true;
     private final transient DatabaseFavorites db;
+    private final DefaultMutableTreeNode      rootNode;
     private final JTree                       tree;
-    private final Object                      monitor    = new Object();
-    private transient boolean                 listenToDb = true;
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(
@@ -148,28 +148,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 Favorite fav = (Favorite) userObject;
 
                 fav.setIndex(newIndex++);
-                db.update(fav.getName(), fav);
+                db.update(fav);
             }
-        }
-    }
-
-    public void update(Favorite oldFavorite, Favorite newFavorite) {
-        synchronized (monitor) {
-            listenToDb = false;
-
-            DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
-
-            if ((nodeOfFavorite != null)
-                    && db.update(oldFavorite.getName(), newFavorite)) {
-                updateNodes(oldFavorite, newFavorite, nodeOfFavorite);
-            } else {
-                errorMessage(
-                    oldFavorite.getName(),
-                    JptBundle.INSTANCE.getString(
-                        "TreeModelFavorites.Error.ParamUpdate"));
-            }
-
-            listenToDb = true;
         }
     }
 
@@ -244,11 +224,11 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     private boolean updateFavoriteDirectory(Object userObject, int newIndex) {
         if (userObject instanceof Favorite) {
-            Favorite favoriteDirectory = (Favorite) userObject;
+            Favorite favorite = (Favorite) userObject;
 
-            favoriteDirectory.setIndex(newIndex);
+            favorite.setIndex(newIndex);
 
-            return db.update(favoriteDirectory.getName(), favoriteDirectory);
+            return db.update(favorite);
         }
 
         return false;
@@ -651,28 +631,32 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     @Override
-    public void actionPerformed(DatabaseFavoritesEvent evt) {
-        if (!listenToDb) {
-            return;
-        }
-
-        Favorite favorite    = evt.getFavorite();
-        Favorite oldFavorite = evt.getOldFavorite();
-
-        if (evt.isFavoriteInserted()) {
+    public void favoriteInserted(Favorite favorite) {
+        if (listenToDb) {
             addFavorite(favorite);
-        } else if (evt.isFavoriteUpdated()) {
-            DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
+        }
+    }
 
-            if (nodeOfFavorite != null) {
-                updateNodes(oldFavorite, favorite, nodeOfFavorite);
-            }
-        } else if (evt.isFavoriteDeleted()) {
+    @Override
+    public void favoriteDeleted(Favorite favorite) {
+        if (listenToDb) {
             DefaultMutableTreeNode favNode = getNode(favorite);
 
             if (favNode != null) {
                 removeNodeFromParent(favNode);
                 resetFavoriteIndices();
+            }
+        }
+    }
+
+    @Override
+    public void favoriteUpdated(Favorite oldFavorite,
+                                Favorite updatedFavorite) {
+        if (listenToDb) {
+            DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
+
+            if (nodeOfFavorite != null) {
+                updateNodes(oldFavorite, updatedFavorite, nodeOfFavorite);
             }
         }
     }

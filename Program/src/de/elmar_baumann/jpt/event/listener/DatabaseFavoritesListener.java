@@ -21,13 +21,38 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseFavoritesEvent;
+import de.elmar_baumann.jpt.data.Favorite;
 
 /**
- *
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabaseFavorites}.
  *
  * @author  Elmar Baumann
  */
 public interface DatabaseFavoritesListener {
-    public void actionPerformed(DatabaseFavoritesEvent evt);
+
+    /**
+     * Will be called if a favorite was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseFavorites}.
+     *
+     * @param favorite inserted favorite
+     */
+    public void favoriteInserted(Favorite favorite);
+
+    /**
+     * Will be called if a favorite was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseFavorites}.
+     *
+     * @param favorite deleted favorite
+     */
+    public void favoriteDeleted(Favorite favorite);
+
+    /**
+     * Will be called if a favorite was update in
+     * {@link de.elmar_baumann.jpt.database.DatabaseFavorites}.
+     *
+     * @param oldFavorite old favorite before update
+     * @param updatedFavorite new favorite after update
+     */
+    public void favoriteUpdated(Favorite oldFavorite, Favorite updatedFavorite);
 }

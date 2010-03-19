@@ -21,13 +21,66 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseSynonymsEvent;
-
 /**
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabaseSynonyms}.
  *
- *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseSynonymsListener {
-    public void actionPerformed(DatabaseSynonymsEvent event);
+
+    /**
+     * Called if a synonym of a word was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseSynonyms}.
+     *
+     * @param word    word
+     * @param synonym delted synonym
+     */
+    public void synonymOfWordDeleted(String word, String synonym);
+
+    /**
+     * Called if a synonym was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseSynonyms}.
+     *
+     * @param word    word for which the synonym is a synonym
+     * @param synonym inserted synonym
+     */
+    public void synonymInserted(String word, String synonym);
+
+    /**
+     * Called if a synonym of a word was renamed in
+     * {@link de.elmar_baumann.jpt.database.DatabaseSynonyms}.
+     *
+     * @param word           word
+     * @param oldSynonymName old name of the synonym
+     * @param newSynonymName new name of the synonym
+     */
+    public void synonymOfWordRenamed(String word, String oldSynonymName,
+                                     String newSynonymName);
+
+    /**
+     * Called if a synonym was renamed in
+     * {@link de.elmar_baumann.jpt.database.DatabaseSynonyms}.
+     *
+     * @param oldSynonymName old name of the synonym
+     * @param newSynonymName new name of the synonym
+     */
+    public void synonymRenamed(String oldSynonymName, String newSynonymName);
+
+    /**
+     * Called if a word was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseSynonyms}.
+     *
+     * @param word deleted word
+     */
+    public void wordDeleted(String word);
+
+    /**
+     * Called if a synonym word renamed in
+     * {@link de.elmar_baumann.jpt.database.DatabaseSynonyms}.
+     *
+     * @param oldName old name of the word
+     * @param newName new name of the word
+     */
+    public void wordRenamed(String oldName, String newName);
 }

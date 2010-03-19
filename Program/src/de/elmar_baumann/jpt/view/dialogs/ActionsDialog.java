@@ -24,8 +24,6 @@ package de.elmar_baumann.jpt.view.dialogs;
 import de.elmar_baumann.jpt.controller.actions.ControllerActionExecutor;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent.Type;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -80,14 +78,25 @@ public final class ActionsDialog extends Dialog
         panelActions.addListener(l);
     }
 
-    @Override
-    public void actionPerformed(DatabaseProgramsEvent evt) {
-        Type type = evt.getType();
-
-        if ((type.equals(Type.PROGRAM_INSERTED)
-                || type.equals(Type.PROGRAM_UPDATED)) && isVisible()) {
+    private void toFrontIfVisible() {
+        if (isVisible()) {
             toFront();
         }
+    }
+
+    @Override
+    public void programDeleted(Program program) {
+        // ignore
+    }
+
+    @Override
+    public void programInserted(Program program) {
+        toFrontIfVisible();
+    }
+
+    @Override
+    public void programUpdated(Program program) {
+        toFrontIfVisible();
     }
 
     /**

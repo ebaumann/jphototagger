@@ -21,8 +21,8 @@
 
 package de.elmar_baumann.jpt.controller.misc;
 
+import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailsPanelListener;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -49,18 +49,19 @@ import javax.swing.JMenuItem;
 public final class ControllerMenuItemEnabler
         implements DatabaseProgramsListener, ThumbnailsPanelListener,
                    PopupMenuListener {
-    private final Map<JMenuItem, List<Content>> contentsOfMenuItemRequiresSelectedImages =
+    private final Map<JMenuItem, List<Content>> contentsOfItemsRequiresSelImages =
         new HashMap<JMenuItem, List<Content>>();
-    private final List<JMenuItem> itemsRequiresSelectedImages =
+    private final List<JMenuItem> itemsRequiresSelImages =
         new ArrayList<JMenuItem>();
     private final PopupMenuThumbnails popupThumbnails =
         PopupMenuThumbnails.INSTANCE;
     private final ThumbnailsPanel thumbnailsPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final JMenu     menPrograms                  =
+        popupThumbnails.getMenuPrograms();
     private final JMenuItem itemOpenFilesWithStandardApp =
         popupThumbnails.getItemOpenFilesWithStandardApp();
-    private final JMenu menPrograms = popupThumbnails.getMenuPrograms();
-    private boolean     hasProgram  = DatabasePrograms.INSTANCE.hasProgram();
+    private boolean hasProgram = DatabasePrograms.INSTANCE.hasProgram();
 
     public ControllerMenuItemEnabler() {
         init();
@@ -78,76 +79,66 @@ public final class ControllerMenuItemEnabler
 
         contents.add(Content.DIRECTORY);
         contents.add(Content.FAVORITE);
-        contentsOfMenuItemRequiresSelectedImages.put(
+        contentsOfItemsRequiresSelImages.put(
             popupThumbnails.getItemFileSystemMoveFiles(), contents);
         contents = new ArrayList<Content>();
         contents.add(Content.IMAGE_COLLECTION);
-        contentsOfMenuItemRequiresSelectedImages.put(
+        contentsOfItemsRequiresSelImages.put(
             popupThumbnails.getItemDeleteFromImageCollection(), contents);
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getItemUpdateThumbnail());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getItemUpdateMetadata());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(popupThumbnails.getItemUpdateThumbnail());
+        itemsRequiresSelImages.add(popupThumbnails.getItemUpdateMetadata());
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemDeleteImageFromDatabase());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemCreateImageCollection());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemAddToImageCollection());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getItemRotateThumbnail90());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getItemRotateThumbnai180());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getItemRotateThumbnail270());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(popupThumbnails.getItemRotateThumbnail90());
+        itemsRequiresSelImages.add(popupThumbnails.getItemRotateThumbnai180());
+        itemsRequiresSelImages.add(popupThumbnails.getItemRotateThumbnail270());
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemFileSystemCopyToDirectory());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemFileSystemDeleteFiles());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemFileSystemRenameFiles());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemIptcToXmp());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemExifToXmp());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemPick());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemCopyMetadata());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getItemCopyToClipboard());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getItemCutToClipboard());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(popupThumbnails.getItemIptcToXmp());
+        itemsRequiresSelImages.add(popupThumbnails.getItemExifToXmp());
+        itemsRequiresSelImages.add(popupThumbnails.getItemPick());
+        itemsRequiresSelImages.add(popupThumbnails.getItemCopyMetadata());
+        itemsRequiresSelImages.add(popupThumbnails.getItemCopyToClipboard());
+        itemsRequiresSelImages.add(popupThumbnails.getItemCutToClipboard());
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemFileSystemCopyToDirectory());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemFileSystemDeleteFiles());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemFileSystemMoveFiles());
-        itemsRequiresSelectedImages.add(
+        itemsRequiresSelImages.add(
             popupThumbnails.getItemFileSystemRenameFiles());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemPasteMetadata());
-        itemsRequiresSelectedImages.add(popupThumbnails.getItemReject());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getMenuImageCollection());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuMetadata());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuPlugins());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuPrograms());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuRating());
-        itemsRequiresSelectedImages.add(
-            popupThumbnails.getMenuRotateThumbnail());
-        itemsRequiresSelectedImages.add(popupThumbnails.getMenuSelection());
+        itemsRequiresSelImages.add(popupThumbnails.getItemPasteMetadata());
+        itemsRequiresSelImages.add(popupThumbnails.getItemReject());
+        itemsRequiresSelImages.add(popupThumbnails.getMenuImageCollection());
+        itemsRequiresSelImages.add(popupThumbnails.getMenuMetadata());
+        itemsRequiresSelImages.add(popupThumbnails.getMenuPlugins());
+        itemsRequiresSelImages.add(popupThumbnails.getMenuPrograms());
+        itemsRequiresSelImages.add(popupThumbnails.getMenuRating());
+        itemsRequiresSelImages.add(popupThumbnails.getMenuRotateThumbnail());
+        itemsRequiresSelImages.add(popupThumbnails.getMenuSelection());
     }
 
     private void setEnabled() {
         Content content     = thumbnailsPanel.getContent();
         boolean isSelection = thumbnailsPanel.getSelectionCount() > 0;
 
-        for (JMenuItem item : itemsRequiresSelectedImages) {
+        for (JMenuItem item : itemsRequiresSelImages) {
             item.setEnabled(isSelection);
         }
 
-        for (JMenuItem item : contentsOfMenuItemRequiresSelectedImages
-                .keySet()) {
+        for (JMenuItem item : contentsOfItemsRequiresSelImages.keySet()) {
             item.setEnabled(
                 isSelection
-                && contentsOfMenuItemRequiresSelectedImages.get(item).contains(
+                && contentsOfItemsRequiresSelImages.get(item).contains(
                     content));
         }
 
@@ -185,12 +176,6 @@ public final class ControllerMenuItemEnabler
     }
 
     @Override
-    public void actionPerformed(DatabaseProgramsEvent event) {
-        hasProgram = DatabasePrograms.INSTANCE.hasProgram();
-        setEnabled();
-    }
-
-    @Override
     public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 
         // ignore
@@ -200,5 +185,25 @@ public final class ControllerMenuItemEnabler
     public void popupMenuCanceled(PopupMenuEvent e) {
 
         // ignore
+    }
+
+    private void setEnabledProgramsMenu() {
+        hasProgram = DatabasePrograms.INSTANCE.hasProgram();
+        setEnabled();
+    }
+
+    @Override
+    public void programDeleted(Program program) {
+        setEnabledProgramsMenu();
+    }
+
+    @Override
+    public void programInserted(Program program) {
+        setEnabledProgramsMenu();
+    }
+
+    @Override
+    public void programUpdated(Program program) {
+        setEnabledProgramsMenu();
     }
 }

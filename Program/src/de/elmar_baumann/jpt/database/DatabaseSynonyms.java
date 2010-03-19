@@ -22,7 +22,6 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.event.DatabaseSynonymsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseSynonymsListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 
@@ -40,9 +39,9 @@ import java.util.Set;
  * @author  Elmar Baumann
  */
 public final class DatabaseSynonyms extends Database {
-    public static final DatabaseSynonyms                    INSTANCE        =
+    public static final DatabaseSynonyms                    INSTANCE =
         new DatabaseSynonyms();
-    private final ListenerSupport<DatabaseSynonymsListener> listenerSupport =
+    private final ListenerSupport<DatabaseSynonymsListener> ls       =
         new ListenerSupport<DatabaseSynonymsListener>();
 
     public int updateSynonymOf(String word, String oldSynonym,
@@ -64,8 +63,7 @@ public final class DatabaseSynonyms extends Database {
             con.commit();
 
             if (count > 0) {
-                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_UPDATED,
-                                word, word, oldSynonym, newSynonym);
+                notifySynonymOfWordRenamed(word, oldSynonym, newSynonym);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
@@ -96,8 +94,7 @@ public final class DatabaseSynonyms extends Database {
             con.commit();
 
             if (count > 0) {
-                notifyListeners(DatabaseSynonymsEvent.Type.WORD_UPDATED,
-                                oldWord, newWord, null, null);
+                notifyWordRenamed(oldWord, newWord);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
@@ -128,8 +125,7 @@ public final class DatabaseSynonyms extends Database {
             con.commit();
 
             if (count > 0) {
-                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_UPDATED,
-                                null, null, oldSynonym, newSynonym);
+                notifySynonymRenamed(oldSynonym, newSynonym);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
@@ -228,8 +224,7 @@ public final class DatabaseSynonyms extends Database {
             con.commit();
 
             if (count > 0) {
-                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_INSERTED,
-                                word, word, synonym, synonym);
+                notifySynonymInserted(word, synonym);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
@@ -260,8 +255,7 @@ public final class DatabaseSynonyms extends Database {
             con.commit();
 
             if (count > 0) {
-                notifyListeners(DatabaseSynonymsEvent.Type.SYNONYM_DELETED,
-                                word, word, synonym, synonym);
+                notifySynonymOfWordDeleted(word, synonym);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
@@ -296,8 +290,7 @@ public final class DatabaseSynonyms extends Database {
             con.commit();
 
             if (count > 0) {
-                notifyListeners(DatabaseSynonymsEvent.Type.WORD_DELETED, word,
-                                word, null, null);
+                notifyWordDeleted(word);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseKeywords.class, ex);
@@ -380,28 +373,72 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public void addListener(DatabaseSynonymsListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseSynonymsListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    private void notifyListeners(DatabaseSynonymsEvent.Type type,
-                                 String oldWord, String newWord,
-                                 String oldSynonym, String newSynonym) {
-        DatabaseSynonymsEvent         evt       =
-            new DatabaseSynonymsEvent(type);
-        Set<DatabaseSynonymsListener> listeners = listenerSupport.get();
-
-        evt.setWord(newWord);
-        evt.setOldWord(oldWord);
-        evt.setSynonym(newSynonym);
-        evt.setOldSynonym(oldSynonym);
+    private void notifySynonymOfWordDeleted(String word, String synonym) {
+        Set<DatabaseSynonymsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseSynonymsListener listener : listeners) {
-                listener.actionPerformed(evt);
+                listener.synonymOfWordDeleted(word, synonym);
+            }
+        }
+    }
+
+    private void notifyWordDeleted(String word) {
+        Set<DatabaseSynonymsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSynonymsListener listener : listeners) {
+                listener.wordDeleted(word);
+            }
+        }
+    }
+
+    private void notifySynonymInserted(String word, String synonym) {
+        Set<DatabaseSynonymsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSynonymsListener listener : listeners) {
+                listener.synonymInserted(word, synonym);
+            }
+        }
+    }
+
+    private void notifySynonymOfWordRenamed(String word, String oldSynonymName,
+            String newSynonymName) {
+        Set<DatabaseSynonymsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSynonymsListener listener : listeners) {
+                listener.synonymOfWordRenamed(word, oldSynonymName,
+                                              newSynonymName);
+            }
+        }
+    }
+
+    private void notifySynonymRenamed(String oldSynonymName,
+                                      String newSynonymName) {
+        Set<DatabaseSynonymsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSynonymsListener listener : listeners) {
+                listener.synonymRenamed(oldSynonymName, newSynonymName);
+            }
+        }
+    }
+
+    private void notifyWordRenamed(String oldName, String newName) {
+        Set<DatabaseSynonymsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSynonymsListener listener : listeners) {
+                listener.wordRenamed(oldName, newName);
             }
         }
     }

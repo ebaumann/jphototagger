@@ -22,14 +22,14 @@
 package de.elmar_baumann.jpt.view.panels;
 
 import de.elmar_baumann.jpt.UserSettings;
-import de.elmar_baumann.jpt.data.ImageFile;
+import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.TextEntry;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections
     .AutoCompleteDataOfColumn;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcTitle;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.impl.TextEntryListenerSupport;
 import de.elmar_baumann.jpt.event.listener.TextEntryListener;
@@ -40,8 +40,10 @@ import de.elmar_baumann.lib.componentutil.Autocomplete;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.event.DocumentEvent;
@@ -140,22 +142,75 @@ public final class EditTextEntryPanel extends JPanel
         }
     }
 
+    private boolean isAutocomplete() {
+        return autocomplete != null && UserSettings.INSTANCE.isAutocomplete();
+    }
+
+    private void addToAutocomplete(Xmp xmp) {
+        if (isAutocomplete()) {
+            AutocompleteHelper.addAutocompleteData(column, autocomplete, xmp);
+        }
+    }
+
     @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (autocomplete == null || !UserSettings.INSTANCE.isAutocomplete()) {
-            return;
-        }
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        addToAutocomplete(xmp);
+    }
 
-        if (event.getType().equals(
-                DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
-            return;    // Do not remove autocomplete data
-        }
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        addToAutocomplete(updatedXmp);
+    }
 
-        ImageFile imageFile = event.getImageFile();
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        // ignore
+    }
 
-        if ((imageFile != null) && (imageFile.getXmp() != null)) {
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        // ignore
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        if (isAutocomplete()) {
             AutocompleteHelper.addAutocompleteData(column, autocomplete,
-                    imageFile.getXmp());
+                    Collections.singleton(dcSubject));
         }
     }
 
