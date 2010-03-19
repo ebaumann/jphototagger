@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.app.AppLookAndFeel;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
@@ -431,16 +430,18 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     @Override
-    public void actionPerformed(DatabaseProgramsEvent event) {
-        if (isSetOtherPrograms(event.getType())) {
-            setOtherPrograms();
-        }
+    public void programDeleted(Program program) {
+        setOtherPrograms();
     }
 
-    private boolean isSetOtherPrograms(DatabaseProgramsEvent.Type type) {
-        return type.equals(DatabaseProgramsEvent.Type.PROGRAM_DELETED)
-               || type.equals(DatabaseProgramsEvent.Type.PROGRAM_INSERTED)
-               || type.equals(DatabaseProgramsEvent.Type.PROGRAM_UPDATED);
+    @Override
+    public void programInserted(Program program) {
+        setOtherPrograms();
+    }
+
+    @Override
+    public void programUpdated(Program program) {
+        setOtherPrograms();
     }
 
     @Override

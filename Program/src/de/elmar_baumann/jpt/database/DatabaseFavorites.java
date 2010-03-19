@@ -23,13 +23,13 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Favorite;
-import de.elmar_baumann.jpt.event.DatabaseFavoritesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseFavoritesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
@@ -39,23 +39,16 @@ import java.util.Set;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseFavorites extends Database {
-    public static final DatabaseFavorites                    INSTANCE        =
+    public static final DatabaseFavorites                    INSTANCE =
         new DatabaseFavorites();
-    private final ListenerSupport<DatabaseFavoritesListener> listenerSupport =
+    private final ListenerSupport<DatabaseFavoritesListener> ls       =
         new ListenerSupport<DatabaseFavoritesListener>();
 
     private DatabaseFavorites() {}
 
-    /**
-     * Fügt ein Favoritenverzeichnis ein. Existiert es bereits, wird es
-     * aktualisiert.
-     *
-     * @param  favorite  Favoritenverzeichnis
-     * @return true bei Erfolg
-     */
     public boolean insertOrUpdate(Favorite favorite) {
         boolean           inserted = false;
         Connection        con      = null;
@@ -63,7 +56,7 @@ public final class DatabaseFavorites extends Database {
 
         try {
             if (exists(favorite.getName())) {
-                return update(favorite.getName(), favorite);
+                return update(favorite);
             }
 
             con = getConnection();
@@ -83,8 +76,7 @@ public final class DatabaseFavorites extends Database {
             inserted = count > 0;
 
             if (inserted) {
-                notifyListener(DatabaseFavoritesEvent.Type.FAVORITE_INSERTED,
-                               favorite, favorite);
+                notifyInserted(favorite);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
@@ -97,12 +89,6 @@ public final class DatabaseFavorites extends Database {
         return inserted;
     }
 
-    /**
-     * Löscht ein Favoritenverzeichnis.
-     *
-     * @param  favoriteName Favoritenname
-     * @return true bei Erfolg
-     */
     public boolean delete(String favoriteName) {
         boolean           deleted = false;
         Connection        con     = null;
@@ -124,8 +110,7 @@ public final class DatabaseFavorites extends Database {
             deleted = count > 0;
 
             if (deleted && (delFavorite != null)) {
-                notifyListener(DatabaseFavoritesEvent.Type.FAVORITE_DELETED,
-                               delFavorite, delFavorite);
+                notifyDeleted(delFavorite);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
@@ -138,14 +123,48 @@ public final class DatabaseFavorites extends Database {
         return deleted;
     }
 
+    public boolean updateRename(String oldName, String newName) {
+        PreparedStatement stmt  = null;
+        ResultSet         rs    = null;
+        int               count = 0;
+
+        try {
+            Favorite oldFavorite = find(oldName);
+            Connection con = getConnection();
+
+            con.setAutoCommit(true);
+
+            String sql = "UPDATE favorite_directories SET favorite_name = ?"
+                         + " WHERE favorite_name = ?";
+
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, newName);
+            stmt.setString(2, oldName);
+            logFiner(stmt);
+            count = stmt.executeUpdate();
+            if (count > 0) {
+                notifyUpdated(oldFavorite, find(newName));
+            }
+        } catch (SQLException ex) {
+            AppLogger.logSevere(getClass(), ex);
+        } finally {
+            close(rs, stmt);
+        }
+
+        return count > 0;
+    }
+
     /**
-     * Aktualisiert ein Favoritenverzeichnis.
-     *
-     * @param favoriteName      Name
-     * @param favorite          Favoritenverzeichnis
-     * @return true bei Erfolg
+     * Calling if - <em>and only if</em> - some data in the favorite has been
+     * updated <em>with exception of the favorite name</em>
+     * ({@link Favorite#getName()}).
+     * <p>
+     * To rename a favorite, call {@link #updateRename(String, String)}.
+     * 
+     * @param  favorite favorite
+     * @return          true if updated
      */
-    public boolean update(String favoriteName, Favorite favorite) {
+    public boolean update(Favorite favorite) {
         boolean           updated = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -153,6 +172,9 @@ public final class DatabaseFavorites extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
+
+            Favorite oldFavorite = find(favorite.getName());
+
             stmt = con.prepareStatement(
                 "UPDATE favorite_directories SET"
                 + " favorite_name = ?, directory_name = ?, favorite_index = ?"
@@ -160,7 +182,7 @@ public final class DatabaseFavorites extends Database {
             stmt.setString(1, favorite.getName());
             stmt.setString(2, favorite.getDirectoryName());
             stmt.setInt(3, favorite.getIndex());
-            stmt.setString(4, favoriteName);
+            stmt.setString(4, favorite.getName());
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
@@ -169,10 +191,7 @@ public final class DatabaseFavorites extends Database {
             updated = count > 0;
 
             if (updated) {
-                Favorite newFavorite = find(favoriteName);
-
-                notifyListener(DatabaseFavoritesEvent.Type.FAVORITE_UPDATED,
-                               newFavorite, favorite);
+                notifyUpdated(oldFavorite, favorite);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
@@ -185,11 +204,6 @@ public final class DatabaseFavorites extends Database {
         return updated;
     }
 
-    /**
-     * Liefert alle Favoritenverzeichnisse.
-     *
-     * @return Favoritenverzeichnisse
-     */
     public List<Favorite> getAll() {
         List<Favorite> favorites = new ArrayList<Favorite>();
         Connection     con       = null;
@@ -251,12 +265,6 @@ public final class DatabaseFavorites extends Database {
         return favorite;
     }
 
-    /**
-     * Liefert, ob ein Favoritenverzeichnis existiert.
-     *
-     * @param  favoriteName  Name des Favoriten (Alias)
-     * @return true wenn existent
-     */
     public boolean exists(String favoriteName) {
         boolean           exists = false;
         Connection        con    = null;
@@ -290,24 +298,39 @@ public final class DatabaseFavorites extends Database {
     }
 
     public void addListener(DatabaseFavoritesListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseFavoritesListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    private void notifyListener(DatabaseFavoritesEvent.Type type,
-                                Favorite favorite, Favorite oldFavorite) {
-        DatabaseFavoritesEvent         evt       =
-            new DatabaseFavoritesEvent(type, favorite);
-        Set<DatabaseFavoritesListener> listeners = listenerSupport.get();
-
-        evt.setOldFavorite(oldFavorite);
+    private void notifyInserted(Favorite favorite) {
+        Set<DatabaseFavoritesListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseFavoritesListener listener : listeners) {
-                listener.actionPerformed(evt);
+                listener.favoriteInserted(favorite);
+            }
+        }
+    }
+
+    private void notifyDeleted(Favorite favorite) {
+        Set<DatabaseFavoritesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseFavoritesListener listener : listeners) {
+                listener.favoriteDeleted(favorite);
+            }
+        }
+    }
+
+    private void notifyUpdated(Favorite oldFavorite, Favorite updatedFavorite) {
+        Set<DatabaseFavoritesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseFavoritesListener listener : listeners) {
+                listener.favoriteUpdated(oldFavorite, updatedFavorite);
             }
         }
     }

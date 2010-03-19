@@ -54,7 +54,6 @@ import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopState;
 import de.elmar_baumann.jpt.database.metadata.xmp
     .ColumnXmpPhotoshopTransmissionReference;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -88,9 +87,9 @@ import java.util.Set;
  * @author  Elmar Baumann
  */
 public final class DatabaseImageFiles extends Database {
-    public static final DatabaseImageFiles                    INSTANCE        =
+    public static final DatabaseImageFiles                    INSTANCE =
         new DatabaseImageFiles();
-    private final ListenerSupport<DatabaseImageFilesListener> listenerSupport =
+    private final ListenerSupport<DatabaseImageFilesListener> ls       =
         new ListenerSupport<DatabaseImageFilesListener>();
 
     public enum DcSubjectOption { INCLUDE_SYNONYMS }
@@ -98,11 +97,11 @@ public final class DatabaseImageFiles extends Database {
     private DatabaseImageFiles() {}
 
     /**
-     * Renames a file.
+     * Renames an image file.
      *
      * @param  oldFilename old filename
      * @param  newFilename new filename
-     * @return             count of renamed files
+     * @return             count of renamed files (0 or 1)
      */
     public int updateRename(String oldFilename, String newFilename) {
         int               count = 0;
@@ -119,6 +118,8 @@ public final class DatabaseImageFiles extends Database {
             logFiner(stmt);
             count = stmt.executeUpdate();
             PersistentThumbnails.updateThumbnailName(oldFilename, newFilename);
+            notifyImageFileRenamed(new File(oldFilename),
+                                   new File(newFilename));
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
         } finally {
@@ -244,7 +245,7 @@ public final class DatabaseImageFiles extends Database {
                 String newFilename = newStart
                                      + oldFilename.substring(startLength);
 
-                updateFilename(con, oldFilename, newFilename);
+                updateImageFilename(con, oldFilename, newFilename);
                 countRenamed++;
                 progressEvent.setValue(countRenamed);
                 stop = notifyProgressListenerPerformed(progressListener,
@@ -262,16 +263,8 @@ public final class DatabaseImageFiles extends Database {
         return countRenamed;
     }
 
-    private void notifyImageFileDeleted(String imageFilename) {
-        ImageFile imageFile = new ImageFile();
-
-        imageFile.setFilename(imageFilename);
-        notifyListeners(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED,
-                        imageFile);
-    }
-
-    private void updateFilename(Connection con, String oldFileName,
-                                String newFileName)
+    private void updateImageFilename(Connection con, String oldFileName,
+                                     String newFileName)
             throws SQLException {
         if (oldFileName.equals(newFileName)) {
             return;
@@ -287,6 +280,8 @@ public final class DatabaseImageFiles extends Database {
             stmt.setString(2, oldFileName);
             logFiner(stmt);
             stmt.executeUpdate();
+            notifyImageFileRenamed(new File(oldFileName),
+                                   new File(newFileName));
             renameThumbnail(oldFileName, newFileName);
         } finally {
             close(stmt);
@@ -336,22 +331,20 @@ public final class DatabaseImageFiles extends Database {
         return countDeleted;
     }
 
-    public synchronized boolean insertOrUpdateExif(String filename, Exif exif) {
+    public synchronized boolean insertOrUpdateExif(String imageFilename,
+            Exif exif) {
         Connection con = null;
 
         try {
             con = getConnection();
 
-            long idFile = findIdFile(con, filename);
+            long idFile = findIdFile(con, imageFilename);
 
             if (idFile < 0) {
                 return false;
             }
 
-            Exif oldExif = getExifOf(filename);
-
-            insertOrUpdateExif(con, idFile, exif);
-            notifyExifInsertedOrUpdated(filename, oldExif, exif);
+            insertOrUpdateExif(con, new File(imageFilename), idFile, exif);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
             rollback(con);
@@ -360,19 +353,6 @@ public final class DatabaseImageFiles extends Database {
         }
 
         return true;
-    }
-
-    private void notifyExifInsertedOrUpdated(String filename, Exif oldExif,
-            Exif newExif) {
-        ImageFile newImageFile = new ImageFile();
-        ImageFile oldImageFile = new ImageFile();
-
-        newImageFile.setExif(newExif);
-        newImageFile.setFilename(filename);
-        oldImageFile.setExif(oldExif);
-        oldImageFile.setFilename(filename);
-        notifyListeners(DatabaseImageFilesEvent.Type.EXIF_UPDATED,
-                        oldImageFile, newImageFile);
     }
 
     public synchronized boolean insertOrUpdateXmp(String filename, Xmp xmp) {
@@ -388,15 +368,12 @@ public final class DatabaseImageFiles extends Database {
                 return false;
             }
 
-            Xmp oldXmp = getXmpOf(filename);
-
-            insertOrUpdateXmp(con, idFile, xmp);
+            insertOrUpdateXmp(con, new File(filename), idFile, xmp);
             setLastModifiedXmp(filename,
                                xmp.contains(ColumnXmpLastModified.INSTANCE)
                                ? (Long) xmp.getValue(
                                    ColumnXmpLastModified.INSTANCE)
                                : -1);
-            notifyXmpInsertedOrUpdated(filename, oldXmp, xmp);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
             rollback(con);
@@ -405,19 +382,6 @@ public final class DatabaseImageFiles extends Database {
         }
 
         return true;
-    }
-
-    private void notifyXmpInsertedOrUpdated(String filename, Xmp oldXmp,
-            Xmp newXmp) {
-        ImageFile newImageFile = new ImageFile();
-        ImageFile oldImageFile = new ImageFile();
-
-        newImageFile.setXmp(newXmp);
-        newImageFile.setFilename(filename);
-        oldImageFile.setXmp(oldXmp);
-        oldImageFile.setFilename(filename);
-        notifyListeners(DatabaseImageFilesEvent.Type.XMP_UPDATED, oldImageFile,
-                        newImageFile);
     }
 
     /**
@@ -462,9 +426,10 @@ public final class DatabaseImageFiles extends Database {
                                         ? sqlWithXmpLastModified
                                         : sqlWithoutXmpLastModified);
 
-            String filename = imageFile.getFilename();
+            String imageFilename = imageFile.getFilename();
+            File   imgFile       = new File(imageFilename);
 
-            stmt.setString(1, filename);
+            stmt.setString(1, imageFilename);
             stmt.setLong(2, imageFile.getLastmodified());
 
             if (imageFile.isInsertXmpIntoDb()) {
@@ -474,26 +439,25 @@ public final class DatabaseImageFiles extends Database {
             logFiner(stmt);
             stmt.executeUpdate();
 
-            long idFile = findIdFile(con, filename);
+            long idFile = findIdFile(con, imageFilename);
 
             if (imageFile.isInsertThumbnailIntoDb()) {
                 updateThumbnailFile(
-                    PersistentThumbnails.getMd5Filename(filename),
-                    imageFile.getThumbnail());
+                    PersistentThumbnails.getMd5Filename(imageFilename),
+                    imageFile.getThumbnail(), imgFile);
             }
 
             if (imageFile.isInsertXmpIntoDb()) {
-                insertXmp(con, idFile, imageFile.getXmp());
+                insertXmp(con, imgFile, idFile, imageFile.getXmp());
             }
 
             if (imageFile.isInsertExifIntoDb()) {
-                insertExif(con, idFile, imageFile.getExif());
+                insertExif(con, imgFile, idFile, imageFile.getExif());
             }
 
             con.commit();
             success = true;
-            notifyListeners(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED,
-                            imageFile);
+            notifyImageFileInserted(imgFile);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
             rollback(con);
@@ -550,8 +514,6 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement stmt    = null;
 
         try {
-            ImageFile oldImageFile = getImageFile(imageFile.getFilename());
-
             con = getConnection();
             con.setAutoCommit(false);
 
@@ -565,8 +527,9 @@ public final class DatabaseImageFiles extends Database {
                                         ? sqlWithXmpLastModified
                                         : sqlWithoutXmpLastModified);
 
-            String filename = imageFile.getFilename();
-            long   idFile   = findIdFile(con, filename);
+            String imageFilename = imageFile.getFilename();
+            File   imgFile       = new File(imageFilename);
+            long   idFile        = findIdFile(con, imageFilename);
 
             stmt.setLong(1, imageFile.getLastmodified());
 
@@ -582,22 +545,21 @@ public final class DatabaseImageFiles extends Database {
 
             if (imageFile.isInsertThumbnailIntoDb()) {
                 updateThumbnailFile(
-                    PersistentThumbnails.getMd5Filename(filename),
-                    imageFile.getThumbnail());
+                    PersistentThumbnails.getMd5Filename(imageFilename),
+                    imageFile.getThumbnail(), imgFile);
             }
 
             if (imageFile.isInsertXmpIntoDb()) {
-                insertOrUpdateXmp(con, idFile, imageFile.getXmp());
+                insertOrUpdateXmp(con, imgFile, idFile, imageFile.getXmp());
             }
 
             if (imageFile.isInsertExifIntoDb()) {
-                insertOrUpdateExif(con, idFile, imageFile.getExif());
+                insertOrUpdateExif(con, new File(imageFilename), idFile,
+                                   imageFile.getExif());
             }
 
             con.commit();
             success = true;
-            notifyListeners(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED,
-                            oldImageFile, imageFile);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
             rollback(con);
@@ -628,7 +590,6 @@ public final class DatabaseImageFiles extends Database {
                 DatabaseStatistics.INSTANCE.getFileCount();
             ProgressEvent progressEvent = new ProgressEvent(this, 0, filecount,
                                               0, "");
-            ImageFile imageFile = new ImageFile();
 
             con = getConnection();
             con.setAutoCommit(true);
@@ -644,18 +605,16 @@ public final class DatabaseImageFiles extends Database {
             notifyProgressListenerStart(listener, progressEvent);
 
             while (!progressEvent.isStop() && rs.next()) {
-                String filename = rs.getString(1);
+                String imageFilename = rs.getString(1);
 
                 updateThumbnailFile(
-                    PersistentThumbnails.getMd5Filename(filename),
-                    getThumbnailFromFile(filename));
+                    PersistentThumbnails.getMd5Filename(imageFilename),
+                    getThumbnailFromFile(imageFilename),
+                    new File(imageFilename));
                 updated++;
                 progressEvent.setValue(++count);
-                progressEvent.setInfo(filename);
+                progressEvent.setInfo(imageFilename);
                 notifyProgressListenerPerformed(listener, progressEvent);
-                imageFile.setFilename(filename);
-                notifyListeners(DatabaseImageFilesEvent.Type.THUMBNAIL_UPDATED,
-                                imageFile);
             }
 
             notifyProgressListenerEnd(listener, progressEvent);
@@ -676,24 +635,19 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Updates the thumbnail of an image file.
      *
-     * @param  filename  filename
+     * @param  imageFilename  filename
      * @param  thumbnail thumbnail
      * @return true if updated
      */
-    public boolean updateThumbnail(String filename, Image thumbnail) {
+    public boolean updateThumbnail(String imageFilename, Image thumbnail) {
         Connection con = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            updateThumbnailFile(PersistentThumbnails.getMd5Filename(filename),
-                                thumbnail);
-
-            ImageFile imageFile = new ImageFile();
-
-            imageFile.setFilename(filename);
-            notifyListeners(DatabaseImageFilesEvent.Type.THUMBNAIL_UPDATED,
-                            imageFile);
+            updateThumbnailFile(
+                PersistentThumbnails.getMd5Filename(imageFilename), thumbnail,
+                new File(imageFilename));
 
             return true;
         } catch (Exception ex) {
@@ -705,9 +659,11 @@ public final class DatabaseImageFiles extends Database {
         return false;
     }
 
-    private void updateThumbnailFile(String hash, Image thumbnail) {
+    private void updateThumbnailFile(String hash, Image thumbnail,
+                                     File imageFile) {
         if ((hash != null) && (thumbnail != null)) {
             PersistentThumbnails.writeThumbnail(thumbnail, hash);
+            notifyThumbnailUpdated(imageFile);
         }
     }
 
@@ -779,12 +735,12 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Entfernt eine Bilddatei aus der Datenbank.
+     * Removes an image file from the database.
      *
-     * @param filenames Namen der zu löschenden Dateien
-     * @return          Anzahl gelöschter Datensätze
+     * @param filepaths full qualified paths of the images files to delete
+     * @return          Count of deleted files
      */
-    public int delete(List<String> filenames) {
+    public int delete(List<String> filepaths) {
         int               countDeleted = 0;
         Connection        con          = null;
         PreparedStatement stmt         = null;
@@ -794,14 +750,9 @@ public final class DatabaseImageFiles extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
 
-            for (String imageFilename : filenames) {
-                stmt.setString(1, imageFilename);
+            for (String imageFilepath : filepaths) {
+                stmt.setString(1, imageFilepath);
 
-                ImageFile oldImageFile = new ImageFile();
-
-                oldImageFile.setFilename(imageFilename);
-                oldImageFile.setExif(getExifOf(imageFilename));
-                oldImageFile.setXmp(getXmpOf(imageFilename));
                 logFiner(stmt);
 
                 int countAffectedRows = stmt.executeUpdate();
@@ -809,10 +760,20 @@ public final class DatabaseImageFiles extends Database {
                 countDeleted += countAffectedRows;
 
                 if (countAffectedRows > 0) {
-                    deleteThumbnailOf(imageFilename);
-                    notifyListeners(
-                        DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED,
-                        oldImageFile, oldImageFile);
+                    File imgFile = new File(imageFilepath);
+                    Xmp  xmp     = getXmpOf(imageFilepath);
+                    Exif exif    = getExifOf(imageFilepath);
+
+                    deleteThumbnailOf(imageFilepath);
+                    notifyImageFileDeleted(imgFile);
+
+                    if (xmp != null) {
+                        notifyXmpDeleted(imgFile, xmp);
+                    }
+
+                    if (exif != null) {
+                        notifyExifDeleted(imgFile, exif);
+                    }
                 }
             }
         } catch (Exception ex) {
@@ -867,16 +828,27 @@ public final class DatabaseImageFiles extends Database {
             while (!stop && rs.next()) {
                 imageFilename = rs.getString(1);
 
-                File file = new File(imageFilename);
+                File imageFile = new File(imageFilename);
 
-                if (!file.exists()) {
-                    int deletedRows = deleteRowWithFilename(con, imageFilename);
+                if (!imageFile.exists()) {
+                    Xmp       xmp          = getXmpOf(imageFilename);
+                    Exif      exif         = getExifOf(imageFilename);
+                    int       deletedRows  = deleteRowWithFilename(con,
+                                                 imageFilename);
 
                     countDeleted += deletedRows;
 
                     if (deletedRows > 0) {
                         deleteThumbnailOf(imageFilename);
-                        notifyImageFileDeleted(imageFilename);
+                        notifyImageFileDeleted(imageFile);
+
+                        if (xmp != null) {
+                            notifyXmpDeleted(imageFile, xmp);
+                        }
+
+                        if (exif != null) {
+                            notifyExifDeleted(imageFile, exif);
+                        }
                     }
                 }
 
@@ -1000,7 +972,7 @@ public final class DatabaseImageFiles extends Database {
     }
 
     @SuppressWarnings("unchecked")
-    private void insertXmp(Connection con, long idFile, Xmp xmp)
+    private void insertXmp(Connection con, File imageFile, long idFile, Xmp xmp)
             throws SQLException {
         if ((xmp != null) &&!xmp.isEmpty()) {
             PreparedStatement stmt = null;
@@ -1019,6 +991,8 @@ public final class DatabaseImageFiles extends Database {
                         (List<String>) xmp.getValue(
                             ColumnXmpDcSubjectsSubject.INSTANCE));
                 }
+
+                notifyXmpInserted(imageFile, xmp);
             } finally {
                 close(stmt);
             }
@@ -1112,10 +1086,7 @@ public final class DatabaseImageFiles extends Database {
             inserted = count == 1;
 
             if (inserted) {
-                Xmp newXmp = new Xmp();
-
-                newXmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
-                notifyXmpInsertedOrUpdated("", new Xmp(), newXmp);
+                notifyDcSubjectInserted(dcSubject);
             }
         } catch (SQLException ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1234,7 +1205,8 @@ public final class DatabaseImageFiles extends Database {
     }
 
     @SuppressWarnings("unchecked")
-    private void insertOrUpdateXmp(Connection con, long idFile, Xmp xmp)
+    private void insertOrUpdateXmp(Connection con, File imageFile, long idFile,
+                                   Xmp xmp)
             throws SQLException {
         if (xmp != null) {
             long idXmp = findIdXmpOfIdFile(con, idFile);
@@ -1243,6 +1215,8 @@ public final class DatabaseImageFiles extends Database {
                 PreparedStatement stmt = null;
 
                 try {
+                    Xmp oldXmp = getXmpOf(imageFile.getAbsolutePath());
+
                     stmt = con.prepareStatement(getUpdateXmpStatement());
                     setXmpValues(stmt, idFile, xmp);
                     stmt.setLong(19, idXmp);
@@ -1256,11 +1230,13 @@ public final class DatabaseImageFiles extends Database {
                             (List<String>) xmp.getValue(
                                 ColumnXmpDcSubjectsSubject.INSTANCE));
                     }
+
+                    notifyXmpUpdated(imageFile, oldXmp, xmp);
                 } finally {
                     close(stmt);
                 }
             } else {
-                insertXmp(con, idFile, xmp);
+                insertXmp(con, imageFile, idFile, xmp);
             }
         }
     }
@@ -1945,7 +1921,8 @@ public final class DatabaseImageFiles extends Database {
                + " WHERE id_files = ?";                 // -- 7 --
     }
 
-    private void insertOrUpdateExif(Connection con, long idFile, Exif exif)
+    private void insertOrUpdateExif(Connection con, File imageFile,
+                                    long idFile, Exif exif)
             throws SQLException {
         if (exif != null) {
             long idExif = findIdExifOfIdFile(con, idFile);
@@ -1954,16 +1931,23 @@ public final class DatabaseImageFiles extends Database {
                 PreparedStatement stmt = null;
 
                 try {
+                    Exif oldExif = getExifOf(imageFile.getAbsolutePath());
+
                     stmt = con.prepareStatement(getUpdateExifStatement());
                     setExifValues(stmt, idFile, exif);
                     stmt.setLong(7, idFile);
                     logFiner(stmt);
-                    stmt.executeUpdate();
+
+                    int count = stmt.executeUpdate();
+
+                    if (count > 0) {
+                        notifyExifUpdated(imageFile, oldExif, exif);
+                    }
                 } finally {
                     close(stmt);
                 }
             } else {
-                insertExif(con, idFile, exif);
+                insertExif(con, imageFile, idFile, exif);
             }
         }
     }
@@ -1978,7 +1962,8 @@ public final class DatabaseImageFiles extends Database {
                + ") VALUES (?, ?, ?, ?, ?, ?)";
     }
 
-    private void insertExif(Connection con, long idFile, Exif exif)
+    private void insertExif(Connection con, File imageFile, long idFile,
+                            Exif exif)
             throws SQLException {
         if ((exif != null) &&!exif.isEmpty()) {
             PreparedStatement stmt = null;
@@ -1988,6 +1973,7 @@ public final class DatabaseImageFiles extends Database {
                 setExifValues(stmt, idFile, exif);
                 logFiner(stmt);
                 stmt.executeUpdate();
+                notifyExifInserted(imageFile, exif);
             } finally {
                 close(stmt);
             }
@@ -2695,10 +2681,7 @@ public final class DatabaseImageFiles extends Database {
             con.commit();
 
             if (count > 0) {
-                Xmp oldXmp = new Xmp();
-
-                oldXmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
-                notifyXmpInsertedOrUpdated("", oldXmp, new Xmp());
+                notifyDcSubjectDeleted(dcSubject);
             }
         } catch (SQLException ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -2793,40 +2776,130 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public void addListener(DatabaseImageFilesListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseImageFilesListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    void notifyListeners(DatabaseImageFilesEvent.Type type,
-                         ImageFile oldImageFile, ImageFile newImageFile) {
-        DatabaseImageFilesEvent         event     =
-            new DatabaseImageFilesEvent(type);
-        Set<DatabaseImageFilesListener> listeners = listenerSupport.get();
-
-        event.setImageFile(newImageFile);
-        event.setOldImageFile(oldImageFile);
+    void notifyImageFileDeleted(File imageFile) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseImageFilesListener listener : listeners) {
-                listener.actionPerformed(event);
+                listener.imageFileDeleted(imageFile);
             }
         }
     }
 
-    void notifyListeners(DatabaseImageFilesEvent.Type type,
-                         ImageFile imageFile) {
-        DatabaseImageFilesEvent         event     =
-            new DatabaseImageFilesEvent(type);
-        Set<DatabaseImageFilesListener> listeners = listenerSupport.get();
-
-        event.setImageFile(imageFile);
+    private void notifyImageFileInserted(File imageFile) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseImageFilesListener listener : listeners) {
-                listener.actionPerformed(event);
+                listener.imageFileInserted(imageFile);
+            }
+        }
+    }
+
+    private void notifyImageFileRenamed(File oldFile, File newFile) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.imageFileRenamed(oldFile, newFile);
+            }
+        }
+    }
+
+    private void notifyXmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.xmpUpdated(imageFile, oldXmp, updatedXmp);
+            }
+        }
+    }
+
+    private void notifyXmpInserted(File imageFile, Xmp xmp) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.xmpInserted(imageFile, xmp);
+            }
+        }
+    }
+
+    private void notifyXmpDeleted(File imageFile, Xmp xmp) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.xmpDeleted(imageFile, xmp);
+            }
+        }
+    }
+
+    private void notifyExifUpdated(File imageFile, Exif oldExif,
+                                   Exif updatedExif) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.exifUpdated(imageFile, oldExif, updatedExif);
+            }
+        }
+    }
+
+    private void notifyExifInserted(File imageFile, Exif eExif) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.exifInserted(imageFile, eExif);
+            }
+        }
+    }
+
+    private void notifyExifDeleted(File imageFile, Exif eExif) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.exifDeleted(imageFile, eExif);
+            }
+        }
+    }
+
+    private void notifyThumbnailUpdated(File imageFile) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.thumbnailUpdated(imageFile);
+            }
+        }
+    }
+
+    private void notifyDcSubjectInserted(String dcSubject) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.dcSubjectInserted(dcSubject);
+            }
+        }
+    }
+
+    private void notifyDcSubjectDeleted(String dcSubject) {
+        Set<DatabaseImageFilesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseImageFilesListener listener : listeners) {
+                listener.dcSubjectDeleted(dcSubject);
             }
         }
     }

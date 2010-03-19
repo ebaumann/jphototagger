@@ -22,7 +22,6 @@
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.data.Exif;
-import de.elmar_baumann.jpt.data.ImageFile;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.metadata.Column;
@@ -32,13 +31,15 @@ import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifLens;
 import de.elmar_baumann.jpt.database.metadata.exif.ColumnExifRecordingEquipment;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcCreator;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcRights;
+import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
+
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -49,9 +50,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- * This model contains distinct values of specific EXIF and XMP database columns.
+ * This model contains distinct values of specific EXIF and XMP database
+ * columns.
  *
- * Elements are {@link DefaultMutableTreeNode}s with the user objects listed below.
+ * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
+ * below.
  *
  * <ul>
  * <li>The root user object is a {@link String}</li>
@@ -71,18 +74,16 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     private static final Object EXIF_USER_OBJECT =
         JptBundle.INSTANCE.getString(
             "TreeModelMiscMetadata.ExifNode.DisplayName");
-    private static final Object XMP_USER_OBJECT =
+    private static final long   serialVersionUID = 2498087635943355657L;
+    private static final Object XMP_USER_OBJECT  =
         JptBundle.INSTANCE.getString(
             "TreeModelMiscMetadata.XmpNode.DisplayName");
-    private static final Set<Column> EXIF_COLUMNS        =
-        new LinkedHashSet<Column>();
     private static final Set<Column> XMP_COLUMNS         =
+        new LinkedHashSet<Column>();
+    private static final Set<Column> EXIF_COLUMNS        =
         new LinkedHashSet<Column>();
     private static final Set<Object> COLUMN_USER_OBJECTS =
         new LinkedHashSet<Object>();
-    private static final long                  serialVersionUID =
-        2498087635943355657L;
-    private final transient DatabaseImageFiles db;
 
     static {
         EXIF_COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
@@ -98,6 +99,8 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         COLUMN_USER_OBJECTS.add(XMP_USER_OBJECT);
     }
 
+    private final transient DatabaseImageFiles db;
+
     public TreeModelMiscMetadata() {
         super(ROOT);
         db = DatabaseImageFiles.INSTANCE;
@@ -108,41 +111,6 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
 
     private void listen() {
         db.addListener(this);
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        DatabaseImageFilesEvent.Type eventType = event.getType();
-
-        if (eventType.equals(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED)) {
-            checkImageInserted(event.getImageFile());
-        } else if (eventType
-                .equals(DatabaseImageFilesEvent.Type
-                    .IMAGEFILE_DELETED) && (event.getOldImageFile() != null)) {
-            checkImageDeleted(event.getOldImageFile());
-        } else if (eventType.equals(
-                DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
-            ImageFile imageFile = event.getImageFile();
-
-            if ((imageFile != null)
-                    && (imageFile.isInsertExifIntoDb()
-                        || imageFile.isInsertXmpIntoDb())) {
-                checkImageInserted(event.getImageFile());
-
-                if (event.getOldImageFile() != null) {
-                    checkImageDeleted(event.getOldImageFile());
-                }
-            }
-        } else if (eventType.equals(
-                DatabaseImageFilesEvent.Type.EXIF_UPDATED)) {
-            if (event.getImageFile() != null) {
-                checkImageInserted(event.getImageFile());
-            }
-
-            if (event.getOldImageFile() != null) {
-                checkImageDeleted(event.getOldImageFile());
-            }
-        }
     }
 
     public static Set<Column> getExifColumns() {
@@ -189,21 +157,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         }
     }
 
-    private void checkImageDeleted(ImageFile imageFile) {
-        Exif exif = imageFile.getExif();
-
-        if (exif != null) {
-            checkExifDeleted(exif);
-        }
-
-        Xmp xmp = imageFile.getXmp();
-
-        if (xmp != null) {
-            checkXmpDeleted(xmp);
-        }
-    }
-
-    private void checkXmpDeleted(Xmp xmp) {
+    private void checkDeleted(Xmp xmp) {
         for (Column xmpColumn : XMP_COLUMNS) {
             Object value = xmp.getValue(xmpColumn);
 
@@ -213,7 +167,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         }
     }
 
-    private void checkExifDeleted(Exif exif) {
+    private void checkDeleted(Exif exif) {
         String recordingEquipment = exif.getRecordingEquipment();
 
         if (recordingEquipment != null) {
@@ -258,21 +212,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         }
     }
 
-    private void checkImageInserted(ImageFile imageFile) {
-        Exif exif = imageFile.getExif();
-
-        if (exif != null) {
-            checkExifInserted(exif);
-        }
-
-        Xmp xmp = imageFile.getXmp();
-
-        if (xmp != null) {
-            checkXmpInserted(xmp);
-        }
-    }
-
-    private void checkXmpInserted(Xmp xmp) {
+    private void checkInserted(Xmp xmp) {
         for (Column xmpColumn : XMP_COLUMNS) {
             Object value = xmp.getValue(xmpColumn);
 
@@ -282,7 +222,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         }
     }
 
-    private void checkExifInserted(Exif exif) {
+    private void checkInserted(Exif exif) {
         String recordingEquipment = exif.getRecordingEquipment();
 
         if (recordingEquipment != null) {
@@ -337,5 +277,71 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         return (foundNodes.size() > 0)
                ? foundNodes.get(0)
                : null;
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        checkDeleted(oldXmp);
+        checkInserted(updatedXmp);
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        checkInserted(xmp);
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        checkDeleted(xmp);
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+        checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+        checkInserted(exif);
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        checkDeleted(oldExif);
+        checkInserted(updatedExif);
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+        checkDeleted(exif);
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+
+        // ignore
     }
 }

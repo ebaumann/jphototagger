@@ -21,8 +21,8 @@
 
 package de.elmar_baumann.jpt.controller.actions;
 
+import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.helper.ActionsHelper;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
@@ -38,8 +38,9 @@ import javax.swing.JMenu;
 public final class ControllerActionsMenuUpdater
         implements DatabaseProgramsListener {
     public ControllerActionsMenuUpdater() {
-        PopupMenuThumbnails.INSTANCE.getMenuActions().setEnabled(
-            DatabasePrograms.INSTANCE.hasAction());
+        JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
+
+        actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
         listen();
     }
 
@@ -48,22 +49,22 @@ public final class ControllerActionsMenuUpdater
     }
 
     @Override
-    public void actionPerformed(DatabaseProgramsEvent event) {
-        if (!event.getProgram().isAction()) {
-            return;
-        }
-
+    public void programDeleted(Program program) {
         JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
 
-        if (event.getType().equals(
-                DatabaseProgramsEvent.Type.PROGRAM_INSERTED)) {
-            ActionsHelper.addAction(actionMenu, event.getProgram());
-        } else if (event.getType().equals(
-                DatabaseProgramsEvent.Type.PROGRAM_DELETED)) {
-            ActionsHelper.removeAction(actionMenu, event.getProgram());
-        }
+        ActionsHelper.removeAction(actionMenu, program);
+    }
 
-        PopupMenuThumbnails.INSTANCE.getMenuActions().setEnabled(
-            DatabasePrograms.INSTANCE.hasAction());
+    @Override
+    public void programInserted(Program program) {
+        JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
+
+        ActionsHelper.addAction(actionMenu, program);
+    }
+
+    @Override
+    public void programUpdated(Program program) {
+
+        // ignore
     }
 }

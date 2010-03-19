@@ -22,9 +22,9 @@
 package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
-import de.elmar_baumann.jpt.event.DatabaseAutoscanDirectoriesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseAutoscanDirectoriesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+import java.io.File;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,7 +43,7 @@ import java.util.Set;
 public final class DatabaseAutoscanDirectories extends Database {
     public static final DatabaseAutoscanDirectories INSTANCE =
         new DatabaseAutoscanDirectories();
-    private final ListenerSupport<DatabaseAutoscanDirectoriesListener> listenerSupport =
+    private final ListenerSupport<DatabaseAutoscanDirectoriesListener> ls =
         new ListenerSupport<DatabaseAutoscanDirectoriesListener>();
 
     private DatabaseAutoscanDirectories() {}
@@ -74,8 +74,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 inserted = count > 0;
 
                 if (inserted) {
-                    notifyListeners(DatabaseAutoscanDirectoriesEvent.Type
-                        .DIRECTORY_INSERTED, directoryName);
+                    notifyInserted(new File(directoryName));
                 }
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
@@ -113,9 +112,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             deleted = count > 0;
 
             if (deleted) {
-                notifyListeners(
-                    DatabaseAutoscanDirectoriesEvent.Type.DIRECTORY_DELETED,
-                    directoryName);
+                notifyDeleted(new File(directoryName));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
@@ -199,23 +196,29 @@ public final class DatabaseAutoscanDirectories extends Database {
     }
 
     public void addListener(DatabaseAutoscanDirectoriesListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseAutoscanDirectoriesListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    private void notifyListeners(DatabaseAutoscanDirectoriesEvent.Type type,
-                                 String dir) {
-        DatabaseAutoscanDirectoriesEvent evt =
-            new DatabaseAutoscanDirectoriesEvent(type, dir);
-        Set<DatabaseAutoscanDirectoriesListener> listeners =
-            listenerSupport.get();
+    private void notifyInserted(File dir) {
+        Set<DatabaseAutoscanDirectoriesListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseAutoscanDirectoriesListener listener : listeners) {
-                listener.actionPerformed(evt);
+                listener.directoryInserted(dir);
+            }
+        }
+    }
+
+    private void notifyDeleted(File dir) {
+        Set<DatabaseAutoscanDirectoriesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseAutoscanDirectoriesListener listener : listeners) {
+                listener.directoryDeleted(dir);
             }
         }
     }

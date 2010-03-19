@@ -21,13 +21,37 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseRenameTemplatesEvent;
+import de.elmar_baumann.jpt.data.RenameTemplate;
 
 /**
- *
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabaseRenameTemplates}.
  *
  * @author  Elmar Baumann
  */
 public interface DatabaseRenameTemplatesListener {
-    public void actionPerformed(DatabaseRenameTemplatesEvent evt);
+
+    /**
+     * Will be called if a template was
+     * {@link de.elmar_baumann.jpt.database.DatabaseRenameTemplates}.
+     *
+     * @param template  template
+     */
+    public void templateDeleted(RenameTemplate template);
+
+    /**
+     * Will be called if a template was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseRenameTemplates}.
+     *
+     * @param template inserted template
+     */
+    public void templateInserted(RenameTemplate template);
+
+    /**
+     * Will be called if a template was updated in
+     * {@link de.elmar_baumann.jpt.database.DatabaseRenameTemplates}.
+     *
+     * @param template updated template
+     */
+    public void templateUpdated(RenameTemplate template);
 }

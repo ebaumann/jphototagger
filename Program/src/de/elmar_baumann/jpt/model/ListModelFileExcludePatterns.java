@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseFileExcludePatterns;
-import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseFileExcludePatternsListener;
 
 import java.util.ArrayList;
@@ -46,8 +45,8 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         -8337739189362442866L;
     private final transient DatabaseFileExcludePatterns db               =
         DatabaseFileExcludePatterns.INSTANCE;
-    private List<String>      patterns;
     private transient boolean listenToDb = true;
+    private List<String>      patterns;
 
     public ListModelFileExcludePatterns() {
         addElements();
@@ -119,17 +118,16 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
     }
 
     @Override
-    public void actionPerformed(DatabaseFileExcludePatternsEvent evt) {
-        if (!listenToDb) {
-            return;
-        }
-
-        String pattern = evt.getPattern();
-
-        if (evt.isPatternInserted()) {
+    public void patternInserted(String pattern) {
+        if (listenToDb) {
             addElement(pattern);
             patterns.add(pattern);
-        } else if (evt.isPatternDeleted()) {
+        }
+    }
+
+    @Override
+    public void patternDeleted(String pattern) {
+        if (listenToDb) {
             removeElement(pattern);
             patterns.remove(pattern);
         }

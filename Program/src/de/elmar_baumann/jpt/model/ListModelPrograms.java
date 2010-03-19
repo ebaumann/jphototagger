@@ -25,7 +25,6 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.database.DatabasePrograms;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 
 import java.util.List;
@@ -34,7 +33,7 @@ import javax.swing.DefaultListModel;
 
 /**
  * Contains {@link Program}s retrieved through
- * {@link DatabasePrograms#getAll(de.elmar_baumann.jpt.database.DatabasePrograms.Type)}.
+ * {@link DatabasePrograms#getAll(DatabasePrograms.Type)}.
  *
  * All programs in this model are actions, where
  * {@link de.elmar_baumann.jpt.data.Program#isAction()} is true, <em>or</em>
@@ -45,8 +44,8 @@ import javax.swing.DefaultListModel;
 public final class ListModelPrograms extends DefaultListModel
         implements DatabaseProgramsListener {
     private static final long serialVersionUID = 1107244876982338977L;
+    private boolean           listenToDb       = true;
     private Type              type;
-    private boolean           listenToDb = true;
 
     public ListModelPrograms(Type type) {
         this.type = type;
@@ -103,32 +102,33 @@ public final class ListModelPrograms extends DefaultListModel
         }
     }
 
+    private boolean isAppropriateProgramType(Program program) {
+        return (program.isAction() && type.equals(Type.ACTION))
+               || (!program.isAction() && type.equals(Type.PROGRAM));
+    }
+
     @Override
-    public void actionPerformed(DatabaseProgramsEvent event) {
-        if (!listenToDb) {
-            return;
+    public void programDeleted(Program program) {
+        if (listenToDb && isAppropriateProgramType(program)) {
+            removeElement(program);
         }
+    }
 
-        Program program = event.getProgram();
-
-        if ((program.isAction() && type.equals(Type.PROGRAM))
-                || (!program.isAction() && type.equals(Type.ACTION))) {
-            return;
-        }
-
-        if (event.getType().equals(
-                DatabaseProgramsEvent.Type.PROGRAM_INSERTED)) {
+    @Override
+    public void programInserted(Program program) {
+        if (listenToDb && isAppropriateProgramType(program)) {
             addElement(program);
-        } else if (event.getType().equals(
-                DatabaseProgramsEvent.Type.PROGRAM_UPDATED)) {
+        }
+    }
+
+    @Override
+    public void programUpdated(Program program) {
+        if (listenToDb && isAppropriateProgramType(program)) {
             int index = indexOf(program);
 
             if (index >= 0) {
                 set(index, program);
             }
-        } else if (event.getType().equals(
-                DatabaseProgramsEvent.Type.PROGRAM_DELETED)) {
-            removeElement(program);
         }
     }
 }

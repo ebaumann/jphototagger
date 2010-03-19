@@ -1090,7 +1090,7 @@ public class ThumbnailsPanel extends JPanel
      *
      * @param filesToRemove  files to remove
      */
-    public synchronized void remove(List<File> filesToRemove) {
+    public synchronized void remove(Collection<? extends File> filesToRemove) {
         List<File> oldFiles = new ArrayList<File>(files);
 
         if (files.removeAll(filesToRemove)) {

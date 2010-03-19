@@ -22,8 +22,9 @@
 package de.elmar_baumann.jpt.cache;
 
 import de.elmar_baumann.jpt.app.AppLogger;
+import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
@@ -57,68 +58,71 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
     }
 
     @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        switch (event.getType()) {
-        case THUMBNAIL_UPDATED :     // fall through
-        case IMAGEFILE_DELETED :     // fall through
-        case IMAGEFILE_INSERTED :    // fall through
-        case IMAGEFILE_UPDATED :
-            File file = event.getImageFile().getFile();
-
-            fileCache.remove(file);
-            notifyUpdate(file);
-
-            break;
-        }
+    public void imageFileDeleted(File imageFile) {
+        fileCache.remove(imageFile);
     }
 
-    private static class ThumbnailFetcher implements Runnable {
-        private WorkQueue<ThumbnailCacheIndirection> wq;
-        private final ThumbnailCache                 cache;
-
-        ThumbnailFetcher(WorkQueue<ThumbnailCacheIndirection> imageWQ,
-                         ThumbnailCache _cache) {
-            wq    = imageWQ;
-            cache = _cache;
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                File file = null;
-
-                try {
-                    file = wq.fetch().file;
-
-                    Image image = null;
-
-                    if (file == null) {
-                        AppLogger.logWarning(ThumbnailFetcher.class,
-                                             "ThumbnailCache.Info.FileIsNull");
-                    } else {
-                        String tnFilename = PersistentThumbnails.getMd5Filename(
-                                                file.getAbsolutePath());
-
-                        if (tnFilename == null) {
-                            AppLogger.logWarning(
-                                ThumbnailFetcher.class,
-                                "ThumbnailCache.Info.NoTnFilename", file);
-                        } else {
-                            image =
-                                PersistentThumbnails.getThumbnail(tnFilename);
-                        }
-                    }
-
-                    if (image == null) {    // no image available from db
-                        image = cache.noPreviewThumbnail;
-                    }
-
-                    cache.update(image, file);
-                } catch (Exception e) {}
-            }
-        }
+    @Override
+    public void imageFileInserted(File imageFile) {
+        notifyUpdate(imageFile);
     }
 
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        fileCache.remove(oldImageFile);
+        notifyUpdate(newImageFile);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        XmpCache.INSTANCE.xmpUpdated(imageFile, oldXmp, updatedXmp);
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        XmpCache.INSTANCE.xmpDeleted(imageFile, xmp);
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+        fileCache.remove(imageFile);
+        notifyUpdate(imageFile);
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+
+        // ignore
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        XmpCache.INSTANCE.xmpInserted(imageFile, xmp);
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+
+        // ignore
+    }
 
     /**
      * Creates a new entry in the cache with the two keys index and filename.
@@ -177,6 +181,53 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         for (ThumbnailUpdateListener l : updateListeners) {
             l.actionPerformed(new ThumbnailUpdateEvent(file,
                     ThumbnailUpdateEvent.Type.THUMBNAIL_UPDATE));
+        }
+    }
+
+    private static class ThumbnailFetcher implements Runnable {
+        private final ThumbnailCache                 cache;
+        private WorkQueue<ThumbnailCacheIndirection> wq;
+
+        ThumbnailFetcher(WorkQueue<ThumbnailCacheIndirection> imageWQ,
+                         ThumbnailCache _cache) {
+            wq    = imageWQ;
+            cache = _cache;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                File file = null;
+
+                try {
+                    file = wq.fetch().file;
+
+                    Image image = null;
+
+                    if (file == null) {
+                        AppLogger.logWarning(ThumbnailFetcher.class,
+                                             "ThumbnailCache.Info.FileIsNull");
+                    } else {
+                        String tnFilename = PersistentThumbnails.getMd5Filename(
+                                                file.getAbsolutePath());
+
+                        if (tnFilename == null) {
+                            AppLogger.logWarning(
+                                ThumbnailFetcher.class,
+                                "ThumbnailCache.Info.NoTnFilename", file);
+                        } else {
+                            image =
+                                PersistentThumbnails.getThumbnail(tnFilename);
+                        }
+                    }
+
+                    if (image == null) {    // no image available from db
+                        image = cache.noPreviewThumbnail;
+                    }
+
+                    cache.update(image, file);
+                } catch (Exception e) {}
+            }
         }
     }
 }

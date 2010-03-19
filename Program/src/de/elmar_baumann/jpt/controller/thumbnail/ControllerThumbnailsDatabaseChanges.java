@@ -23,8 +23,9 @@ package de.elmar_baumann.jpt.controller.thumbnail;
 
 import de.elmar_baumann.jpt.cache.ThumbnailCache;
 import de.elmar_baumann.jpt.cache.XmpCache;
+import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
@@ -32,12 +33,10 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import java.io.File;
 
 import java.util.Collections;
-import java.util.List;
 
 import javax.swing.SwingUtilities;
 
 /**
- * Reacts to databse changes of thumbnails
  *
  * @author  Elmar Baumann
  */
@@ -54,37 +53,93 @@ public final class ControllerThumbnailsDatabaseChanges
         DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
-    @Override
-    public void actionPerformed(final DatabaseImageFilesEvent event) {
+    private void updateXmpCache(final File imageFile) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DatabaseImageFilesEvent.Type eventType = event.getType();
-                File                         file      =
-                    event.getImageFile().getFile();
-
-                if (eventType.equals(
-                        DatabaseImageFilesEvent.Type.THUMBNAIL_UPDATED)) {
-                    ThumbnailCache.INSTANCE.remove(file);
-                    ThumbnailCache.INSTANCE.notifyUpdate(file);
-                } else if (eventType.equals(
-                        DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED)) {
-
-                    // fixme: strange event for Xmp updates ... needs some cleanup
-                    XmpCache.INSTANCE.remove(file);
-                    XmpCache.INSTANCE.notifyUpdate(file);
-                    ThumbnailCache.INSTANCE.remove(file);
-                    ThumbnailCache.INSTANCE.notifyUpdate(file);
-                } else if (eventType.equals(
-                        DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED)) {
-                    List<File> deleted = Collections.singletonList(
-                                             event.getImageFile().getFile());
-
-                    thumbnailsPanel.remove(deleted);
-
-                    // fixme: iterate over images and do same as above
-                }
+                XmpCache.INSTANCE.remove(imageFile);
+                XmpCache.INSTANCE.notifyUpdate(imageFile);
             }
         });
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        updateXmpCache(imageFile);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        updateXmpCache(imageFile);
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        updateXmpCache(imageFile);
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+        final File file = imageFile;
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ThumbnailCache.INSTANCE.remove(file);
+                ThumbnailCache.INSTANCE.notifyUpdate(file);
+            }
+        });
+    }
+
+    @Override
+    public void imageFileDeleted(final File imageFile) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                thumbnailsPanel.remove(Collections.singleton(imageFile));
+            }
+        });
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+
+        // ignore
     }
 }

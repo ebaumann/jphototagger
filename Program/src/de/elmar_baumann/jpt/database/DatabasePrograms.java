@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.data.Program;
-import de.elmar_baumann.jpt.event.DatabaseProgramsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseProgramsListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 
@@ -47,9 +46,9 @@ import java.util.Set;
  * @author  Elmar Baumann
  */
 public final class DatabasePrograms extends Database {
-    public static final DatabasePrograms                    INSTANCE        =
+    public static final DatabasePrograms                    INSTANCE =
         new DatabasePrograms();
-    private final ListenerSupport<DatabaseProgramsListener> listenerSupport =
+    private final ListenerSupport<DatabaseProgramsListener> ls       =
         new ListenerSupport<DatabaseProgramsListener>();
 
     /**
@@ -96,8 +95,7 @@ public final class DatabasePrograms extends Database {
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             con.commit();
-            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_INSERTED,
-                            program);
+            notifyInserted(program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(con);
@@ -195,8 +193,7 @@ public final class DatabasePrograms extends Database {
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             con.commit();
-            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_UPDATED,
-                            program);
+            notifyUpdated(program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(con);
@@ -261,8 +258,7 @@ public final class DatabasePrograms extends Database {
 
             // Hack because of dirty design of this table (no cascade possible)
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
-            notifyListeners(DatabaseProgramsEvent.Type.PROGRAM_DELETED,
-                            program);
+            notifyDeleted(program);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
             rollback(con);
@@ -477,24 +473,39 @@ public final class DatabasePrograms extends Database {
     }
 
     public void addListener(DatabaseProgramsListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseProgramsListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    private void notifyListeners(DatabaseProgramsEvent.Type type,
-                                 Program program) {
-        DatabaseProgramsEvent         event     =
-            new DatabaseProgramsEvent(type);
-        Set<DatabaseProgramsListener> listeners = listenerSupport.get();
-
-        event.setProgram(program);
+    private void notifyDeleted(Program program) {
+        Set<DatabaseProgramsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseProgramsListener listener : listeners) {
-                listener.actionPerformed(event);
+                listener.programDeleted(program);
+            }
+        }
+    }
+
+    private void notifyInserted(Program program) {
+        Set<DatabaseProgramsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseProgramsListener listener : listeners) {
+                listener.programInserted(program);
+            }
+        }
+    }
+
+    private void notifyUpdated(Program program) {
+        Set<DatabaseProgramsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseProgramsListener listener : listeners) {
+                listener.programUpdated(program);
             }
         }
     }

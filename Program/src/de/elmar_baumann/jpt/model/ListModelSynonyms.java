@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseSynonyms;
-import de.elmar_baumann.jpt.event.DatabaseSynonymsEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseSynonymsListener;
 
 import javax.swing.DefaultListModel;
@@ -37,11 +36,10 @@ public final class ListModelSynonyms extends DefaultListModel
         implements DatabaseSynonymsListener {
     private static final long serialVersionUID = -7595224452344062647L;
     private boolean           listen           = true;
+    private final Role        role;
+    private String            word;
 
     public enum Role { WORDS, SYNONYMS }
-
-    private final Role role;
-    private String     word;
 
     public ListModelSynonyms(Role role) {
         this.role = role;
@@ -51,55 +49,6 @@ public final class ListModelSynonyms extends DefaultListModel
 
     private void listen() {
         DatabaseSynonyms.INSTANCE.addListener(this);
-    }
-
-    @Override
-    public void actionPerformed(DatabaseSynonymsEvent event) {
-        if (!listen) {
-            return;
-        }
-
-        if (event.isSynonymInserted()) {
-            String w = event.getWord();
-            String s = event.getSynonym();
-
-            if (role.equals(Role.WORDS) &&!contains(w)) {
-                addElement(w);
-            } else if (isRoleSynonymForWord(w) &&!contains(s)) {
-                addElement(s);
-            }
-        } else if (event.isSynonymDeleted()) {
-            String w = event.getWord();
-            String s = event.getSynonym();
-
-            if (isRoleSynonymForWord(w) && contains(s)) {
-                removeElement(s);
-            } else if (role.equals(Role.WORDS) && contains(w)
-                       &&!DatabaseSynonyms.INSTANCE.existsWord(w)) {
-                removeElement(w);
-            }
-        } else if (event.isSynonymUpdated()) {
-            String w  = event.getWord();
-            String s  = event.getSynonym();
-            String os = event.getOldSynonym();
-
-            if (isRoleSynonymForWord(w) && contains(os)) {
-                setElementAt(s, indexOf(os));
-            }
-        } else if (event.isWordUpdated()) {
-            String w  = event.getWord();
-            String ow = event.getOldWord();
-
-            if (role.equals(Role.WORDS) && contains(ow)) {
-                setElementAt(w, indexOf(ow));
-            }
-        } else if (event.isWordDeleted()) {
-            String w = event.getWord();
-
-            if (role.equals(Role.WORDS) && contains(w)) {
-                removeElement(w);
-            }
-        }
     }
 
     private boolean isRoleSynonymForWord(String word) {
@@ -193,6 +142,56 @@ public final class ListModelSynonyms extends DefaultListModel
                 && ((this.word == null) ||!this.word.equals(word))) {
             this.word = word;
             addElements();
+        }
+    }
+
+    @Override
+    public void synonymOfWordDeleted(String word, String synonym) {
+        if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
+            removeElement(synonym);
+        } else if (listen && role.equals(Role.WORDS) && contains(word)
+                   &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
+            removeElement(word);
+        }
+    }
+
+    @Override
+    public void synonymInserted(String word, String synonym) {
+        if (listen && role.equals(Role.WORDS) &&!contains(word)) {
+            addElement(word);
+        } else if (listen && isRoleSynonymForWord(word) &&!contains(synonym)) {
+            addElement(synonym);
+        }
+    }
+
+    @Override
+    public void synonymOfWordRenamed(String word, String oldSynonymName,
+                                     String newSynonymName) {
+        if (listen && isRoleSynonymForWord(word) && contains(oldSynonymName)) {
+            setElementAt(newSynonymName, indexOf(oldSynonymName));
+        }
+    }
+
+    @Override
+    public void synonymRenamed(String oldSynonymName, String newSynonymName) {
+        if (listen && role.equals(Role.SYNONYMS) && contains(oldSynonymName)) {
+            setElementAt(newSynonymName, indexOf(oldSynonymName));
+        }
+    }
+
+    @Override
+    public void wordDeleted(String word) {
+        if (listen && role.equals(Role.WORDS) && contains(word)) {
+            removeElement(word);
+        } else if (listen && isRoleSynonymForWord(word)) {
+            removeAllElements();
+        }
+    }
+
+    @Override
+    public void wordRenamed(String oldName, String newName) {
+        if (listen && role.equals(Role.WORDS) && contains(oldName)) {
+            setElementAt(newName, indexOf(oldName));
         }
     }
 

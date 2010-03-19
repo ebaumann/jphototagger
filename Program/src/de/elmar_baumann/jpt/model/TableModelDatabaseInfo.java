@@ -21,16 +21,18 @@
 
 package de.elmar_baumann.jpt.model;
 
+import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.Column;
 import de.elmar_baumann.jpt.database.metadata.selections
     .DatabaseInfoRecordCountColumns;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
-import java.util.ArrayList;
+import java.io.File;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -49,20 +51,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelDatabaseInfo extends DefaultTableModel
         implements DatabaseImageFilesListener {
-    private static final List<DatabaseImageFilesEvent.Type> COUNT_EVENTS =
-        new ArrayList<DatabaseImageFilesEvent.Type>();
-    private static final long                         serialVersionUID        =
+    private static final long                         serialVersionUID =
         1974343527501774916L;
-    private final transient DatabaseStatistics        db                      =
+    private final transient DatabaseStatistics        db               =
         DatabaseStatistics.INSTANCE;
-    private final LinkedHashMap<Column, StringBuffer> bufferOfColumn =
+    private final LinkedHashMap<Column, StringBuffer> bufferOfColumn   =
         new LinkedHashMap<Column, StringBuffer>();
     private boolean listenToDatabase;
 
-    static {
-        COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED);
-        COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_INSERTED);
-        COUNT_EVENTS.add(DatabaseImageFilesEvent.Type.IMAGEFILE_UPDATED);
+    public TableModelDatabaseInfo() {
+        initBufferOfColumn();
+        addColumnHeaders();
+        addRows();
+        DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     private void initBufferOfColumn() {
@@ -73,35 +74,19 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         }
     }
 
-    public TableModelDatabaseInfo() {
-        initBufferOfColumn();
-        addColumnHeaders();
-        addRows();
-        DatabaseImageFiles.INSTANCE.addListener(this);
-    }
-
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (listenToDatabase && isCountEvent(event.getType())) {
-            update();
-        }
-    }
-
     @Override
     public boolean isCellEditable(int row, int column) {
         return false;
     }
 
     public void update() {
-        setCount();
+        if (listenToDatabase) {
+            setCount();
+        }
     }
 
     public void setListenToDatabase(boolean listen) {
         listenToDatabase = listen;
-    }
-
-    private boolean isCountEvent(DatabaseImageFilesEvent.Type type) {
-        return COUNT_EVENTS.contains(type);
     }
 
     private void addColumnHeaders() {
@@ -129,6 +114,72 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         new SetCountThread().start();
     }
 
+    @Override
+    public void imageFileDeleted(File imageFile) {
+        update();
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+        update();
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        update();
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+        update();
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        update();
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        update();
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        update();
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+        update();
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        update();
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+        update();
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+
+        // ignore
+    }
+
+    private void setCountToBuffer(StringBuffer buffer, Integer count) {
+        buffer.replace(0, buffer.length(), count.toString());
+    }
+
     private class SetCountThread extends Thread {
         public SetCountThread() {
             super();
@@ -146,10 +197,5 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
             fireTableDataChanged();
         }
-    }
-
-
-    private void setCountToBuffer(StringBuffer buffer, Integer count) {
-        buffer.replace(0, buffer.length(), count.toString());
     }
 }

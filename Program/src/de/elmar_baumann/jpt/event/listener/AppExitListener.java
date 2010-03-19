@@ -22,15 +22,15 @@
 package de.elmar_baumann.jpt.event.listener;
 
 /**
- * Listen to exiting the VM.
+ * Listen for exits of the VM.
  *
  * @author  Elmar Baumann
  */
 public interface AppExitListener {
 
     /**
-     * Tells, that the application will be existed. Listeners can release
-     * resources, write persistent, ...
+     * Will be called before the application exists. Listeners can release
+     * resources, writing persistent content etc.
      */
     public void appWillExit();
 }

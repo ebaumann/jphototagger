@@ -23,9 +23,6 @@ package de.elmar_baumann.jpt.database;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.cache.PersistentThumbnails;
-import de.elmar_baumann.jpt.data.ImageFile;
-import de.elmar_baumann.jpt.event.DatabaseFileExcludePatternsEvent;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseFileExcludePatternsListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
@@ -50,7 +47,7 @@ import java.util.Set;
 public final class DatabaseFileExcludePatterns extends Database {
     public static final DatabaseFileExcludePatterns INSTANCE =
         new DatabaseFileExcludePatterns();
-    private final ListenerSupport<DatabaseFileExcludePatternsListener> listenerSupport =
+    private final ListenerSupport<DatabaseFileExcludePatternsListener> ls =
         new ListenerSupport<DatabaseFileExcludePatternsListener>();
 
     private DatabaseFileExcludePatterns() {}
@@ -81,9 +78,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             inserted = count > 0;
 
             if (inserted) {
-                notifyListeners(
-                    DatabaseFileExcludePatternsEvent.Type.PATTERN_INSERTED,
-                    pattern);
+                notifyInserted(pattern);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
@@ -121,9 +116,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             deleted = count > 0;
 
             if (deleted) {
-                notifyListeners(
-                    DatabaseFileExcludePatternsEvent.Type.PATTERN_DELETED,
-                    pattern);
+                notifyDeleted(pattern);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
@@ -262,12 +255,8 @@ public final class DatabaseFileExcludePatterns extends Database {
                         if (affectedRows > 0) {
                             deleteThumbnail(filename);
 
-                            ImageFile deletedImageFile = new ImageFile();
-
-                            deletedImageFile.setFilename(filename);
-                            DatabaseImageFiles.INSTANCE.notifyListeners(
-                                DatabaseImageFilesEvent.Type.IMAGEFILE_DELETED,
-                                deletedImageFile);
+                            DatabaseImageFiles.INSTANCE.notifyImageFileDeleted(
+                                new File(filename));
                         }
 
                         stop = event.isStop();
@@ -309,23 +298,29 @@ public final class DatabaseFileExcludePatterns extends Database {
     }
 
     public void addListener(DatabaseFileExcludePatternsListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(DatabaseFileExcludePatternsListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
-    private void notifyListeners(DatabaseFileExcludePatternsEvent.Type type,
-                                 String pattern) {
-        DatabaseFileExcludePatternsEvent evt =
-            new DatabaseFileExcludePatternsEvent(type, pattern);
-        Set<DatabaseFileExcludePatternsListener> listeners =
-            listenerSupport.get();
+    private void notifyInserted(String pattern) {
+        Set<DatabaseFileExcludePatternsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseFileExcludePatternsListener listener : listeners) {
-                listener.actionPerformed(evt);
+                listener.patternInserted(pattern);
+            }
+        }
+    }
+
+    private void notifyDeleted(String pattern) {
+        Set<DatabaseFileExcludePatternsListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseFileExcludePatternsListener listener : listeners) {
+                listener.patternDeleted(pattern);
             }
         }
     }

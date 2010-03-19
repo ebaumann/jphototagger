@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseImageFilesListener.java    Created on 
+ * @(#)DatabaseImageFilesListener.java    Created on
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,13 +21,123 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
+import de.elmar_baumann.jpt.data.Exif;
+import de.elmar_baumann.jpt.data.Xmp;
+
+import java.io.File;
 
 /**
- * Listens to events in the database.
+ * Listens to events in
+ * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
  *
  * @author Elmar Baumann
  */
 public interface DatabaseImageFilesListener {
-    public void actionPerformed(DatabaseImageFilesEvent event);
+
+    /**
+     * Will be called if an image files was inserted into
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile inserted image file
+     */
+    public void imageFileInserted(File imageFile);
+
+    /**
+     * Will be called if an image file was renamed in
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param oldImageFile old image file
+     * @param newImageFile new image file
+     */
+    public void imageFileRenamed(File oldImageFile, File newImageFile);
+
+    /**
+     * Will be called if an image file was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile deleted image file
+     */
+    public void imageFileDeleted(File imageFile);
+
+    /**
+     * Will be called if XMP metadata of an image files was inserted in
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile image file, which XMP metadata was inserted
+     * @param xmp       inserted XMP metadata
+     */
+    public void xmpInserted(File imageFile, Xmp xmp);
+
+    /**
+     * Will be called if XMP metadata of an image files was updated in
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile  image file, which XMP metadata was updated
+     * @param oldXmp     old XMP metadata
+     * @param updatedXmp updated (new) XMP metadata
+     */
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp);
+
+    /**
+     * Will be called if XMP metadata of an image files was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile image file, which XMP metadata was deleted
+     * @param xmp       deleted XMP metadata
+     */
+    public void xmpDeleted(File imageFile, Xmp xmp);
+
+    /**
+     * Will be called if EXIF metadata of an image files was inserted in
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile image file, which EXIF metadata was inserted
+     * @param exif      EXIF metadata
+     */
+    public void exifInserted(File imageFile, Exif exif);
+
+    /**
+     * Will be called if EXIF metadata of an image files was updated in
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile   image file, which EXIF metadata was updated
+     * @param oldExif     old EXIF metadata
+     * @param updatedExif updated (new) EXIF metadata
+     */
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif);
+
+    /**
+     * Will be called if EXIF metadata of an image files was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile image file, which EXIF metadata was deleted
+     * @param exif      EXIF metadata
+     */
+    public void exifDeleted(File imageFile, Exif exif);
+
+    /**
+     * Will be called if a thumbnail was updated in
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles}.
+     *
+     * @param imageFile image file, which thumbnail was updated
+     */
+    public void thumbnailUpdated(File imageFile);
+
+    /**
+     * Will be called if a Dublin Core subject was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles} (not linked
+     * with a file, only update of the DC subjects table).
+     *
+     * @param dcSubject deleted Dublin Core subject
+     */
+    public void dcSubjectInserted(String dcSubject);
+
+    /**
+     * Will be called if a Dublin Core subject was deleted from
+     * {@link de.elmar_baumann.jpt.database.DatabaseImageFiles} (not linked
+     * with a file, only update of the DC subjects table).
+     *
+     * @param dcSubject deleted Dublin Core subject
+     */
+    public void dcSubjectDeleted(String dcSubject);
 }

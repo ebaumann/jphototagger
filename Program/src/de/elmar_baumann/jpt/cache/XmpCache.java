@@ -21,9 +21,9 @@
 
 package de.elmar_baumann.jpt.cache;
 
+import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.ThumbnailUpdateListener;
 import de.elmar_baumann.jpt.event.ThumbnailUpdateEvent;
@@ -52,13 +52,68 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
     }
 
     @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (DatabaseImageFilesEvent.Type.XMP_UPDATED == event.getType()) {
-            File file = event.getImageFile().getFile();
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        update(imageFile);
+    }
 
-            fileCache.remove(file);
-            notifyUpdate(file);
-        }
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        update(imageFile);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        update(imageFile);
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        // ignore
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    private void update(File imageFile) {
+        fileCache.remove(imageFile);
+        notifyUpdate(imageFile);
     }
 
     private static class XmpFetcher implements Runnable {

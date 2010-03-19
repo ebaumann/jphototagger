@@ -22,7 +22,6 @@
 package de.elmar_baumann.jpt.model;
 
 import de.elmar_baumann.jpt.database.DatabaseAutoscanDirectories;
-import de.elmar_baumann.jpt.event.DatabaseAutoscanDirectoriesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseAutoscanDirectoriesListener;
 
 import java.io.File;
@@ -62,13 +61,16 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
     }
 
     @Override
-    public void actionPerformed(DatabaseAutoscanDirectoriesEvent evt) {
-        File dir = new File(evt.getDirectoryName());
+    public void directoryInserted(File directory) {
+        if (!contains(directory)) {
+            addElement(directory);
+        }
+    }
 
-        if (evt.isDirectoryInserted() &&!contains(dir)) {
-            addElement(dir);
-        } else if (evt.isDirectoryDeleted() && contains(dir)) {
-            removeElement(dir);
+    @Override
+    public void directoryDeleted(File directory) {
+        if (contains(directory)) {
+            removeElement(directory);
         }
     }
 }

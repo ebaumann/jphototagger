@@ -21,15 +21,18 @@
 
 package de.elmar_baumann.jpt.model;
 
-import de.elmar_baumann.jpt.data.ImageFile;
+import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.database.DatabaseStatistics;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 
+import java.io.File;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -62,8 +65,8 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     /**
-     * Returns whether a keyword existsValueIn whithin this model, does <em>not</em>
-     * check the database.
+     * Returns whether a keyword existsValueIn whithin this model, does
+     * <em>not</em> check the database.
      *
      * @param  keyword keywords
      * @return         true if this model contains that keyword
@@ -114,17 +117,7 @@ public final class ListModelKeywords extends DefaultListModel
         return true;
     }
 
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (event.isTextMetadataAffected()) {
-            checkForNewKeywords(event.getImageFile());
-            removeNotExistingKeywords(event.getOldImageFile());
-        }
-    }
-
-    private void checkForNewKeywords(final ImageFile imageFile) {
-        List<String> keywords = getKeywords(imageFile);
-
+    private void addNewKeywords(Collection<? extends String> keywords) {
         for (String keyword : keywords) {
             if (!contains(keyword)) {
                 addElement(keyword);
@@ -132,13 +125,7 @@ public final class ListModelKeywords extends DefaultListModel
         }
     }
 
-    private void removeNotExistingKeywords(final ImageFile imageFile) {
-        if (imageFile == null) {
-            return;
-        }
-
-        List<String> keywords = getKeywords(imageFile);
-
+    private void removeKeywordsNotInDb(Collection<? extends String> keywords) {
         for (String keyword : keywords) {
             if (contains(keyword) &&!databaseHasKeyword(keyword)) {
                 removeElement(keyword);
@@ -152,17 +139,83 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     @SuppressWarnings("unchecked")
-    private List<String> getKeywords(ImageFile imageFile) {
+    private List<String> getKeywords(Xmp xmp) {
         List<String> keywords = new ArrayList<String>();
-        Xmp          xmp      = imageFile.getXmp();
 
-        if ((xmp != null)
-                && xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
             keywords.addAll(
                 (List<String>) xmp.getValue(
                     ColumnXmpDcSubjectsSubject.INSTANCE));
         }
 
         return keywords;
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        addNewKeywords(getKeywords(xmp));
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        removeKeywordsNotInDb(getKeywords(xmp));
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        addNewKeywords(getKeywords(updatedXmp));
+        removeKeywordsNotInDb(getKeywords(oldXmp));
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+        removeKeywordsNotInDb(Collections.singleton(dcSubject));
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        addNewKeywords(Collections.singleton(dcSubject));
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
+        // ignore
     }
 }

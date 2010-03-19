@@ -25,9 +25,8 @@ import de.elmar_baumann.jpt.app.AppLifeCycle;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.keywords.tree.SuggestKeywords;
-import de.elmar_baumann.jpt.data.ImageFile;
+import de.elmar_baumann.jpt.data.Exif;
 import de.elmar_baumann.jpt.data.MetadataTemplate;
-import de.elmar_baumann.jpt.data.SelectedFile;
 import de.elmar_baumann.jpt.data.TextEntry;
 import de.elmar_baumann.jpt.data.Xmp;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
@@ -38,7 +37,6 @@ import de.elmar_baumann.jpt.database.metadata.selections.EditHints
     .SizeEditField;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.DatabaseImageFilesEvent;
 import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
@@ -121,7 +119,6 @@ public final class EditMetadataPanels
         if (isDirty()) {
             save();
             setFocusToLastFocussedEditControl();
-            SelectedFile.INSTANCE.setFile(new File(""), null);
         }
     }
 
@@ -871,53 +868,26 @@ public final class EditMetadataPanels
         return null;
     }
 
-    @Override
-    public void actionPerformed(DatabaseImageFilesEvent event) {
-        if (!isEditable()) {
-            return;
-        }
-
-        if (event.isTextMetadataAffected()) {
-            ImageFile imageFile = event.getImageFile();
-
-            setModifiedXmp(imageFile);
-        }
-    }
-
     /**
      * When the XMP was changed and the data was not edited setting the new
      * XMP data.
      *
      * @param imageFile image file with new XMP data
      */
-    private void setModifiedXmp(ImageFile imageFile) {
-        if (isDirty()) {
+    private void setModifiedXmp(String filename, Xmp xmp) {
+        if (!editable || isDirty() || filenamesXmp.size() != 1) {
             return;
         }
 
-        if ((imageFile != null) && (imageFile.getXmp() != null)) {
-            String filename = imageFile.getFilename();
+        Pair<String, Xmp> pair = filenamesXmp.get(0);
 
-            if (filename == null) {
-                return;
-            }
+        if (pair.getFirst().equals(filename)) {
+            setXmpAsTextEntryListener(pair.getSecond(), false);
+            setXmpAsTextEntryListener(xmp, true);
+            filenamesXmp.set(0, new Pair<String, Xmp>(filename, xmp));
+            setXmpToEditPanels();
 
-            if (filenamesXmp.size() != 1) {
-                return;
-            }
-
-            Pair<String, Xmp> pair = filenamesXmp.get(0);
-
-            if (pair.getFirst().equals(filename)) {
-                Xmp xmp = imageFile.getXmp();
-
-                setXmpAsTextEntryListener(pair.getSecond(), false);
-                setXmpAsTextEntryListener(xmp, true);
-                filenamesXmp.set(0, new Pair<String, Xmp>(filename, xmp));
-                setXmpToEditPanels();
-
-                return;
-            }
+            return;
         }
     }
 
@@ -947,6 +917,66 @@ public final class EditMetadataPanels
     public void removeEditMetadataPanelsListener(
             EditMetadataPanelsListener listener) {
         listenerSupport.remove(listener);
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        setModifiedXmp(imageFile.getAbsolutePath(), xmp);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        setModifiedXmp(imageFile.getAbsolutePath(), updatedXmp);
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        setModifiedXmp(imageFile.getAbsolutePath(), xmp);
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+        // ignore
     }
 
     private class WatchDifferentValues extends MouseAdapter {
