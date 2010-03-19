@@ -24,6 +24,7 @@ package de.elmar_baumann.jpt.helper;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.thumbnail.ControllerSortThumbnails;
 import de.elmar_baumann.jpt.data.Favorite;
+import de.elmar_baumann.jpt.database.DatabaseFavorites;
 import de.elmar_baumann.jpt.factory.ModelFactory;
 import de.elmar_baumann.jpt.io.ImageFilteredDirectory;
 import de.elmar_baumann.jpt.model.TreeModelFavorites;
@@ -51,6 +52,8 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann
  */
 public final class FavoritesHelper {
+    private FavoritesHelper() {}
+
     public static void updateFavorite(final Favorite favorite) {
         FavoritePropertiesDialog dialog = new FavoritePropertiesDialog();
 
@@ -59,30 +62,49 @@ public final class FavoritesHelper {
         dialog.setVisible(true);
 
         if (dialog.accepted()) {
-            final String favoriteName  = dialog.getFavoriteName();
-            final String directoryName = dialog.getDirectoryName();
+            final String  newFavName = dialog.getFavoriteName();
+            final String  oldFavName = favorite.getName();
+            final String  dirName    = dialog.getDirectoryName();
+            final boolean renamed    = !newFavName.equals(oldFavName);
+            final int     index      = favorite.getIndex();
 
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(
-                                                   TreeModelFavorites.class);
+                    DatabaseFavorites db = DatabaseFavorites.INSTANCE;
 
-                    model.update(favorite,
-                                 new Favorite(favoriteName, directoryName,
-                                              favorite.getIndex()));
+                    if (renamed) {
+                        if (db.updateRename(oldFavName, newFavName)) {
+                            favorite.setName(newFavName);
+                        } else {
+                            MessageDisplayer.error(
+                                null, "FavoritesHelper.Error.Rename",
+                                oldFavName);
+
+                            return;
+                        }
+                    }
+
+                    Favorite newFavorite = new Favorite(newFavName, dirName,
+                                               index);
+
+                    if (!db.update(newFavorite)) {
+                        MessageDisplayer.error(null,
+                                               "FavoritesHelper.Error.Update",
+                                               newFavName);
+                    }
                 }
             });
         }
     }
 
-    public static void deleteFavorite(final Favorite favoirte) {
-        if (confirmDelete(favoirte.getName())) {
+    public static void deleteFavorite(final Favorite favorite) {
+        if (confirmDelete(favorite.getName())) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ModelFactory.INSTANCE.getModel(
-                        TreeModelFavorites.class).delete(favoirte);
+                        TreeModelFavorites.class).delete(favorite);
                 }
             });
         }
@@ -130,7 +152,8 @@ public final class FavoritesHelper {
     }
 
     /**
-     * Returns the files in the directory of the selected node of the favorites tree.
+     * Returns the files in the directory of the selected node of the favorites
+     * tree.
      *
      * @return files or empty list
      */
@@ -172,8 +195,8 @@ public final class FavoritesHelper {
             appPanel.getPanelThumbnails();
         private final EditMetadataPanels editPanels =
             appPanel.getEditMetadataPanels();
-        private final ThumbnailsPanel.Settings tnPanelSettings;
         private final List<File>               files;
+        private final ThumbnailsPanel.Settings tnPanelSettings;
 
         public SetFiles(List<File> files, Settings settings) {
             this.files           = files;    // No copy due performance
@@ -206,7 +229,4 @@ public final class FavoritesHelper {
             }
         }
     }
-
-
-    private FavoritesHelper() {}
 }
