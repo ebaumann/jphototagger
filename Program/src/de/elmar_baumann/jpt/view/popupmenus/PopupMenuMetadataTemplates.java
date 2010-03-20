@@ -53,7 +53,8 @@ public final class PopupMenuMetadataTemplates extends JPopupMenu {
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuMetadataTemplates.DisplayName.Action.Rename"));
+                "PopupMenuMetadataTemplates.DisplayName.Action.Rename"),
+                AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemEdit =
         new JMenuItem(
             JptBundle.INSTANCE

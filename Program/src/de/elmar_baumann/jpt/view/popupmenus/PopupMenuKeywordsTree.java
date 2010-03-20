@@ -64,7 +64,8 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"));
+                "PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"),
+                AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemToggleReal =
         new JMenuItem(
             JptBundle.INSTANCE.getString(

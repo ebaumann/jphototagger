@@ -50,7 +50,8 @@ public final class PopupMenuImageCollections extends JPopupMenu {
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuImageCollections.DisplayName.Action.Rename"));
+                "PopupMenuImageCollections.DisplayName.Action.Rename"),
+                AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemCreate =
         new JMenuItem(
             JptBundle.INSTANCE

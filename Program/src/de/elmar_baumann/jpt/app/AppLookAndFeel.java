@@ -70,6 +70,8 @@ public final class AppLookAndFeel {
                                                       + "/icon_app_small.png";
     private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH
                                                        + "/icon_app_medium.png";
+    public static final Icon          ICON_RENAME    =
+        getIcon("icon_rename.png");
     public static final Icon          ICON_REFRESH   =
         getIcon("icon_refresh.png");
     public static final Icon          ICON_PASTE     =
@@ -151,10 +153,10 @@ public final class AppLookAndFeel {
      * code before the last path component.
      *
      * @param  path not localized path, e.g.
-     *              <code>"/de/elmar_baumann/jpt/resoure/images/image.png"</code>
+     *             <code>"/de/elmar_baumann/jpt/resoure/images/image.png"</code>
      * @return      localized icon, e.g. if the path is the same as in the
      *              the parameter doc obove, the icon of the path
-     *              <code>"/de/elmar_baumann/jpt/resoure/images/de/image.png"</code>.
+     *         <code>"/de/elmar_baumann/jpt/resoure/images/de/image.png"</code>.
      *              If a localized icon does not exist, the icon of the path
      *              will be returned or null if the icon of the path does not
      *              exist.
