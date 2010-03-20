@@ -21,7 +21,6 @@
 
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
 import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 
 /**
@@ -30,10 +29,18 @@ import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
  */
 public final class EditMetadataPanelsListenerSupport
         extends ListenerSupport<EditMetadataPanelsListener> {
-    public void notifyListeners(EditMetadataPanelsEvent event) {
+    public void notifyEditEnabled() {
         synchronized (listeners) {
             for (EditMetadataPanelsListener listener : listeners) {
-                listener.actionPerformed(event);
+                listener.editEnabled();
+            }
+        }
+    }
+
+    public void notifyEditDisabled() {
+        synchronized (listeners) {
+            for (EditMetadataPanelsListener listener : listeners) {
+                listener.editDisabled();
             }
         }
     }

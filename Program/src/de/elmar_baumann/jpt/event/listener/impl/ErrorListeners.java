@@ -21,11 +21,8 @@
 
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.ErrorListener;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Error-Listener, erspart Klassen die Implementation von
@@ -41,10 +38,10 @@ import java.util.Set;
 public final class ErrorListeners extends ListenerSupport<ErrorListener> {
     public static final ErrorListeners INSTANCE = new ErrorListeners();
 
-    public void notifyListeners(ErrorEvent evt) {
+    public void notifyListeners(Object source, String message) {
         synchronized (listeners) {
             for (ErrorListener listener : listeners) {
-                listener.error(evt);
+                listener.error(source, message);
             }
         }
     }

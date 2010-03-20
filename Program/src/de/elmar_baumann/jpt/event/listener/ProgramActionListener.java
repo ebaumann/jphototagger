@@ -21,12 +21,12 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.ProgramEvent;
+import de.elmar_baumann.jpt.data.Program;
 
 /**
  *
  * @author  Elmar Baumann
  */
 public interface ProgramActionListener {
-    public void actionPerformed(ProgramEvent evt);
+    public void programShallBeExecuted(Program program);
 }

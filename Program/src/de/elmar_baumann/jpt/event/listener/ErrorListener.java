@@ -21,19 +21,12 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.ErrorEvent;
-
 /**
- * Beobachtet Fehler (in Threads).
+ * Listens to errors.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface ErrorListener {
 
-    /**
-     * Wird bei Fehlern aufgerufen.
-     *
-     * @param evt Fehlerereigis
-     */
-    public void error(ErrorEvent evt);
+    public void error(Object source, String message);
 }

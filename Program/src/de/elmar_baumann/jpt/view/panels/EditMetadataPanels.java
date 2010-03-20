@@ -37,7 +37,6 @@ import de.elmar_baumann.jpt.database.metadata.selections.EditHints
     .SizeEditField;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpRating;
-import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
@@ -88,7 +87,7 @@ public final class EditMetadataPanels
     private boolean              editable             = true;
     private WatchDifferentValues watchDifferentValues =
         new WatchDifferentValues();
-    private final EditMetadataPanelsListenerSupport listenerSupport =
+    private final EditMetadataPanelsListenerSupport ls =
         new EditMetadataPanelsListenerSupport();
     private JComponent               container;
     private EditMetadataActionsPanel editActionsPanel;
@@ -154,10 +153,11 @@ public final class EditMetadataPanels
             ((TextEntry) panel).setEditable(editable);
         }
 
-        listenerSupport.notifyListeners(new EditMetadataPanelsEvent(this,
-                editable
-                ? EditMetadataPanelsEvent.Type.EDIT_ENABLED
-                : EditMetadataPanelsEvent.Type.EDIT_DISABLED));
+        if (editable) {
+            ls.notifyEditEnabled();
+        } else {
+            ls.notifyEditDisabled();
+        }
     }
 
     /**
@@ -875,7 +875,7 @@ public final class EditMetadataPanels
      * @param imageFile image file with new XMP data
      */
     private void setModifiedXmp(String filename, Xmp xmp) {
-        if (!editable || isDirty() || filenamesXmp.size() != 1) {
+        if (!editable || isDirty() || (filenamesXmp.size() != 1)) {
             return;
         }
 
@@ -911,12 +911,12 @@ public final class EditMetadataPanels
 
     public void addEditMetadataPanelsListener(
             EditMetadataPanelsListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeEditMetadataPanelsListener(
             EditMetadataPanelsListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
     @Override
@@ -936,46 +936,55 @@ public final class EditMetadataPanels
 
     @Override
     public void exifInserted(File imageFile, Exif exif) {
+
         // ignore
     }
 
     @Override
     public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
         // ignore
     }
 
     @Override
     public void exifDeleted(File imageFile, Exif exif) {
+
         // ignore
     }
 
     @Override
     public void imageFileDeleted(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void imageFileInserted(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
         // ignore
     }
 
     @Override
     public void thumbnailUpdated(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void dcSubjectDeleted(String dcSubject) {
+
         // ignore
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
+
         // ignore
     }
 

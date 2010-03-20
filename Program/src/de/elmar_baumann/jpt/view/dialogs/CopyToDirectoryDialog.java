@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.view.dialogs;
 
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
@@ -105,11 +104,8 @@ public final class CopyToDirectoryDialog extends Dialog
         fsListenerSupport.remove(listener);
     }
 
-    public void notifyFileSystemActionListenersCopied(File src, File target) {
-        FileSystemEvent event = new FileSystemEvent(FileSystemEvent.Type.COPY,
-                                    src, target);
-
-        fsListenerSupport.notifyListeners(event);
+    private void notifyFileSystemActionListenersCopied(File src, File target) {
+        fsListenerSupport.notifyCopied(src, target);
     }
 
     private void checkClosing() {

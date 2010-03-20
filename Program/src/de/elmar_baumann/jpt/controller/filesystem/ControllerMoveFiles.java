@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.controller.filesystem;
 
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.MoveToDirectoryDialog;
@@ -78,18 +77,32 @@ public final class ControllerMoveFiles
         }
     }
 
+    private boolean isXmpFile(File file) {
+        return file.getName().toLowerCase().endsWith("xmp");
+    }
+
     @Override
-    public void actionPerformed(FileSystemEvent event) {
-        if (!event.getType().equals(FileSystemEvent.Type.MOVE)
-                || event.isError()) {
-            return;
+    public void fileMoved(File source, File target) {
+        if (!isXmpFile(source)) {
+            db.updateRename(source.getAbsolutePath(), target.getAbsolutePath());
         }
+    }
 
-        File src    = event.getSource();
-        File target = event.getTarget();
+    @Override
+    public void fileCopied(File source, File target) {
 
-        if (!src.getName().toLowerCase().endsWith(".xmp")) {
-            db.updateRename(src.getAbsolutePath(), target.getAbsolutePath());
-        }
+        // ignore
+    }
+
+    @Override
+    public void fileDeleted(File file) {
+
+        // ignore
+    }
+
+    @Override
+    public void fileRenamed(File oldFile, File newFile) {
+
+        // ignore
     }
 }

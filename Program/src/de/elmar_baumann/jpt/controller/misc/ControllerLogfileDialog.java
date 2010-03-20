@@ -23,7 +23,6 @@ package de.elmar_baumann.jpt.controller.misc;
 
 import de.elmar_baumann.jpt.app.AppLoggingSystem;
 import de.elmar_baumann.jpt.app.AppLookAndFeel;
-import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.ErrorListener;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -88,8 +87,7 @@ public final class ControllerLogfileDialog extends MouseAdapter
         }
     }
 
-    @Override
-    public void error(ErrorEvent evt) {
+    private void error() {
         GUI.INSTANCE.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT,
                 MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         itemShowDlgErrorLogfile.setEnabled(true);
@@ -117,5 +115,10 @@ public final class ControllerLogfileDialog extends MouseAdapter
 
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
+    }
+
+    @Override
+    public void error(Object source, String message) {
+        error();
     }
 }
