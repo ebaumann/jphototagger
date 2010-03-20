@@ -83,7 +83,7 @@ public final class ControllerShowMetadata
     }
 
     private enum Metadata {
-        EXIF, XMP;
+        EXIF, IPTC, XMP;
 
         public static Set<Metadata> getAll() {
             return new HashSet<Metadata>(Arrays.asList(values()));
@@ -316,7 +316,12 @@ public final class ControllerShowMetadata
                 metadataTableModels.getExifTableModel().setFile(file);
             }
 
-            appPanel.getButtonIptcToXmp().setEnabled(hasIptcData());
+            if (metadata.contains(Metadata.IPTC)
+                    && UserSettings.INSTANCE.isDisplayIptc()) {
+                metadataTableModels.getIptcTableModel().setFile(file);
+                appPanel.getButtonIptcToXmp().setEnabled(hasIptcData());
+            }
+
             appPanel.getButtonExifToXmp().setEnabled(hasExifData());
 
             if (metadata.contains(Metadata.XMP)) {
@@ -335,6 +340,11 @@ public final class ControllerShowMetadata
         private void resizeMetadataTables(Set<Metadata> metadata) {
             if (metadata.contains(Metadata.EXIF)) {
                 resizeTables(Collections.singleton(appPanel.getTableExif()));
+            }
+
+            if (metadata.contains(Metadata.IPTC)
+                    && UserSettings.INSTANCE.isDisplayIptc()) {
+                resizeTables(Collections.singleton(appPanel.getTableIptc()));
             }
 
             if (metadata.contains(Metadata.XMP)) {
