@@ -53,7 +53,8 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.Action.Rename"));
+                "PopupMenuKeywordsList.DisplayName.Action.Rename"),
+                AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemEditSynonyms =
         new JMenuItem(
             JptBundle.INSTANCE

@@ -63,7 +63,8 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuSavedSearches.DisplayName.Action.Rename"));
+                "PopupMenuSavedSearches.DisplayName.Action.Rename"),
+                AppLookAndFeel.ICON_RENAME);
     private transient SavedSearch savedSearch;
 
     private PopupMenuSavedSearches() {

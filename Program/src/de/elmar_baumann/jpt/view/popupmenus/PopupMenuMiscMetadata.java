@@ -49,7 +49,8 @@ public final class PopupMenuMiscMetadata extends JPopupMenu {
     private final JMenuItem itemRename =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuMiscMetadata.DisplayName.ItemRename"));
+                "PopupMenuMiscMetadata.DisplayName.ItemRename"),
+                AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemExpandAllSubitems =
         new JMenuItem(
             JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));

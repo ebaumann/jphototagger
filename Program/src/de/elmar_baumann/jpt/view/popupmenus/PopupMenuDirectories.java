@@ -58,7 +58,8 @@ public final class PopupMenuDirectories extends JPopupMenu {
     private final JMenuItem itemRenameDirectory =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuDirectories.DisplayName.Action.RenameDirectory"));
+                "PopupMenuDirectories.DisplayName.Action.RenameDirectory"),
+                AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemRefresh =
         new JMenuItem(
             JptBundle.INSTANCE

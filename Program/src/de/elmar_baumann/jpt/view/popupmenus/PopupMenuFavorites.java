@@ -59,7 +59,8 @@ public final class PopupMenuFavorites extends JPopupMenu {
     private final JMenuItem itemRenameFilesystemFolder =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"));
+                "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"),
+                AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemRefresh =
         new JMenuItem(
             JptBundle.INSTANCE
