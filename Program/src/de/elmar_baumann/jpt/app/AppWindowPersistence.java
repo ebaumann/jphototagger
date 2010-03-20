@@ -24,11 +24,13 @@ package de.elmar_baumann.jpt.app;
 import de.elmar_baumann.jpt.event.listener.AppExitListener;
 import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.event.UserSettingsEvent;
+import de.elmar_baumann.jpt.model.TableModelIptc;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.jpt.view.frames.AppFrame;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.KeywordsPanel;
+import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.ComponentUtil;
 import de.elmar_baumann.lib.util.Settings;
 
@@ -36,8 +38,12 @@ import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import java.io.File;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.table.TableModel;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
@@ -71,7 +77,8 @@ public final class AppWindowPersistence
 
     private void init() {
 
-        // Strings has to be equal to the card names in AppPanel (errors on renamings)!
+        // Strings has to be equal to the card names in AppPanel
+        // (errors on renamings)!
         NAME_OF_CARD.put(cardSelKeywordsList, "flatKeywords");
         NAME_OF_CARD.put(cardSelKeywordsTree, "keywordsTree");
 
@@ -134,7 +141,8 @@ public final class AppWindowPersistence
         panelEditKeywords.setKeyTree("AppPanel.Keywords.Tree");
         panelEditKeywords.readProperties();
 
-        // Strings has to be equal to the card names in AppPanel (errors on renamings)!
+        // Strings has to be equal to the card names in AppPanel
+        // (errors on renamings)!
         String name = "keywordsTree";
 
         if (UserSettings.INSTANCE.getProperties().containsKey(
@@ -180,8 +188,28 @@ public final class AppWindowPersistence
     @Override
     public void applySettings(UserSettingsEvent evt) {
         if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
-            GUI.INSTANCE.getAppPanel().setEnabledIptcTab(
-                UserSettings.INSTANCE.isDisplayIptc());
+            boolean displayIptc = UserSettings.INSTANCE.isDisplayIptc();
+
+            GUI.INSTANCE.getAppPanel().setEnabledIptcTab(displayIptc);
+
+            if (displayIptc) {
+                displayIptc();
+            }
+        }
+    }
+
+    private void displayIptc() {
+        AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+        ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
+
+        if (tnPanel.getSelectionCount() == 1) {
+            TableModel model = appPanel.getTableIptc().getModel();
+
+            if (model instanceof TableModelIptc) {
+                File file = tnPanel.getSelectedFiles().get(0);
+
+                ((TableModelIptc) model).setFile(file);
+            }
         }
     }
 
