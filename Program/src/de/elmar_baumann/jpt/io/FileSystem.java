@@ -21,7 +21,6 @@
 
 package de.elmar_baumann.jpt.io;
 
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
@@ -31,9 +30,10 @@ import de.elmar_baumann.jpt.event.ProgressEvent;
 import java.io.File;
 
 /**
- * Base class for file system actions. Provides registering and notifying listeners.
+ * Base class for file system actions. Provides registering and notifying
+ * listeners.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class FileSystem {
     private final FileSystemListenerSupport fsListenerSupport =
@@ -63,17 +63,20 @@ public class FileSystem {
         fsListenerSupport.add(listener);
     }
 
-    protected void notifyFileSystemListenersPerformed(
-            FileSystemEvent.Type type, File src, File target) {
-        fsListenerSupport.notifyListeners(new FileSystemEvent(type, src,
-                target));
+    protected void notifyFileSystemListenersCopied(File src, File target) {
+        fsListenerSupport.notifyCopied(src, target);
     }
 
-    protected void notifyFileSystemListenersFailed(FileSystemEvent.Type type,
-            FileSystemError error, File src, File target) {
-        FileSystemEvent event = new FileSystemEvent(type, src, target);
+    protected void notifyFileSystemListenersMoved(File src, File target) {
+        fsListenerSupport.notifyMoved(src, target);
+    }
 
-        event.setError(error);
-        fsListenerSupport.notifyListeners(event);
+    protected void notifyFileSystemListenersRenamed(File oldFile,
+            File newFile) {
+        fsListenerSupport.notifyRenamed(oldFile, newFile);
+    }
+
+    protected void notifyFileSystemListenersDeleted(File file) {
+        fsListenerSupport.notifyDeleted(file);
     }
 }

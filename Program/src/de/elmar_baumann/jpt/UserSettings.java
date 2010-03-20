@@ -194,7 +194,6 @@ public final class UserSettings {
     public void setDatabaseDirectoryName(String directoryName) {
         settings.set(directoryName, KEY_DATABASE_DIRECTORY);
         writeToFile();
-        notifyListeners(Type.DATABASE_DIRECTORY);
     }
 
     /**
@@ -331,7 +330,6 @@ public final class UserSettings {
     public void setThumbnailCreator(ThumbnailCreator creator) {
         properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
         writeToFile();
-        notifyListeners(Type.THUMBNAIL_CREATOR);
     }
 
     /**
@@ -356,7 +354,6 @@ public final class UserSettings {
     public void setExternalThumbnailCreationCommand(String command) {
         settings.set(command, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
         writeToFile();
-        notifyListeners(Type.EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
     /**
@@ -447,7 +444,6 @@ public final class UserSettings {
     public void setDisplaySearchButton(boolean display) {
         settings.set(display, KEY_DISPLAY_SEARCH_BUTTON);
         writeToFile();
-        notifyListeners(Type.DISPLAY_SEARCH_BUTTON);
     }
 
     /**
@@ -470,7 +466,6 @@ public final class UserSettings {
     public void setScanForEmbeddedXmp(boolean scan) {
         settings.set(scan, KEY_SCAN_FOR_EMBEDDED_XMP);
         writeToFile();
-        notifyListeners(Type.SCAN_FOR_EMBEDDED_XMP);
     }
 
     /**
@@ -494,7 +489,6 @@ public final class UserSettings {
     public void setCopyMoveFilesOptions(Options options) {
         settings.set(options.getInt(), KEY_OPTIONS_COPY_MOVE_FILES);
         writeToFile();
-        notifyListeners(Type.OPTIONS_COPY_MOVE_FILES);
     }
 
     /**
@@ -522,7 +516,6 @@ public final class UserSettings {
             !set,
             KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
-        notifyListeners(Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
     }
 
     /**
@@ -554,8 +547,6 @@ public final class UserSettings {
         settings.set(
             set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
-        notifyListeners(
-            Type.EXECUTE_ACTION_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
     }
 
     /**
@@ -582,7 +573,6 @@ public final class UserSettings {
     public void setIptcCharset(String charset) {
         settings.set(charset, KEY_IPTC_CHARSET);
         writeToFile();
-        notifyListeners(Type.IPTC_CHARSET);
     }
 
     /**
@@ -607,7 +597,6 @@ public final class UserSettings {
     public void setAutoscanIncludeSubdirectories(boolean include) {
         settings.set(include, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES);
         writeToFile();
-        notifyListeners(Type.AUTO_SCAN_INCLUDE_DIRECTORIES);
     }
 
     /**
@@ -643,7 +632,6 @@ public final class UserSettings {
     public void setSaveInputEarly(boolean early) {
         settings.set(early, KEY_SAVE_INPUT_EARLY);
         writeToFile();
-        notifyListeners(Type.SAVE_INPUT_EARLY);
     }
 
     /**
@@ -656,7 +644,6 @@ public final class UserSettings {
         settings.set(Integer.toString(minutes),
                      KEY_MINUTES_TO_START_SCHEDULED_TASKS);
         writeToFile();
-        notifyListeners(Type.MINUTES_TO_START_SCHEDULED_TASKS);
     }
 
     /**
@@ -707,7 +694,6 @@ public final class UserSettings {
     public void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
         settings.set(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
         writeToFile();
-        notifyListeners(Type.MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
     }
 
     /**
@@ -731,7 +717,6 @@ public final class UserSettings {
     public void setAcceptHiddenDirectories(boolean accept) {
         settings.set(accept, KEY_ACCEPT_HIDDEN_DIRECTORIES);
         writeToFile();
-        notifyListeners(Type.ACCEPT_HIDDEN_DIRECTORIES);
     }
 
     /**
@@ -755,7 +740,6 @@ public final class UserSettings {
     public void setAutoDownloadNewerVersions(boolean auto) {
         settings.set(auto, KEY_AUTO_DOWNLOAD_NEWER_VERSIONS);
         writeToFile();
-        notifyListeners(Type.AUTO_DOWNLOAD_NEWER_VERSIONS);
     }
 
     /**

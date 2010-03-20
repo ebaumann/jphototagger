@@ -21,20 +21,15 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
-
 /**
- * Beobachtet ein
+ * Listens to event in
  * {@link de.elmar_baumann.jpt.view.panels.EditMetadataPanels}.
  *
  * @author Elmar Baumann
  */
 public interface EditMetadataPanelsListener {
 
-    /**
-     * Ein Ereignis fand statt.
-     *
-     * @param event  Ereignis
-     */
-    public void actionPerformed(EditMetadataPanelsEvent event);
+    public void editEnabled();
+
+    public void editDisabled();
 }

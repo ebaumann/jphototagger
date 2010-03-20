@@ -21,8 +21,8 @@
 
 package de.elmar_baumann.jpt.controller.actions;
 
+import de.elmar_baumann.jpt.data.Program;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
-import de.elmar_baumann.jpt.event.ProgramEvent;
 import de.elmar_baumann.jpt.helper.StartPrograms;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.ActionsDialog;
@@ -37,9 +37,12 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 public final class ControllerActionExecutor implements ProgramActionListener {
     private final ThumbnailsPanel thumbnailsPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final ActionsDialog actionsDialog  = ActionsDialog.INSTANCE;
+
+    private final ActionsDialog actionsDialog = ActionsDialog.INSTANCE;
+
+    // no other executor expected, so it got the progress bar
     private final StartPrograms programStarter =
-        new StartPrograms(actionsDialog.getProgressBar(this));    // no other executor expected
+        new StartPrograms(actionsDialog.getProgressBar(this));
 
     public ControllerActionExecutor() {
         listen();
@@ -50,10 +53,8 @@ public final class ControllerActionExecutor implements ProgramActionListener {
     }
 
     @Override
-    public void actionPerformed(ProgramEvent evt) {
-        if (evt.getType().equals(ProgramEvent.Type.PROGRAM_EXECUTED)) {
-            programStarter.startProgram(evt.getProgram(),
-                                        thumbnailsPanel.getSelectedFiles());
-        }
+    public void programShallBeExecuted(Program program) {
+        programStarter.startProgram(program,
+                                    thumbnailsPanel.getSelectedFiles());
     }
 }

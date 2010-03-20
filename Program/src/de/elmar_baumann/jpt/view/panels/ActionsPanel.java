@@ -27,7 +27,6 @@ import de.elmar_baumann.jpt.database.DatabaseActionsAfterDbInsertion;
 import de.elmar_baumann.jpt.database.DatabasePrograms.Type;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.ProgramActionListener;
-import de.elmar_baumann.jpt.event.ProgramEvent;
 import de.elmar_baumann.jpt.model.ListModelPrograms;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramPropertiesDialog;
@@ -93,10 +92,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private void execute() {
         if (list.getSelectedIndex() >= 0) {
-            Program program = getSelectedProgram();
-
-            notify(new ProgramEvent(ProgramEvent.Type.PROGRAM_EXECUTED,
-                                    program));
+            notifyProgramExecuted(getSelectedProgram());
         }
     }
 
@@ -168,12 +164,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
         listenerSupport.add(l);
     }
 
-    private synchronized void notify(ProgramEvent evt) {
+    private synchronized void notifyProgramExecuted(Program program) {
         Set<ProgramActionListener> listeners = listenerSupport.get();
 
         synchronized (listeners) {
             for (ProgramActionListener l : listeners) {
-                l.actionPerformed(evt);
+                l.programShallBeExecuted(program);
             }
         }
     }

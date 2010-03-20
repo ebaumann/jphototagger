@@ -33,9 +33,7 @@ import de.elmar_baumann.jpt.database.metadata.selections.FastSearchColumns;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageFilesListener;
 import de.elmar_baumann.jpt.event.listener.RefreshListener;
-import de.elmar_baumann.jpt.event.listener.UserSettingsListener;
 import de.elmar_baumann.jpt.event.RefreshEvent;
-import de.elmar_baumann.jpt.event.UserSettingsEvent;
 import de.elmar_baumann.jpt.helper.AutocompleteHelper;
 import de.elmar_baumann.jpt.model.ComboBoxModelFastSearch;
 import de.elmar_baumann.jpt.resource.GUI;
@@ -74,8 +72,7 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann
  */
 public final class ControllerFastSearch
-        implements ActionListener, UserSettingsListener, RefreshListener,
-                   DatabaseImageFilesListener {
+        implements ActionListener, RefreshListener, DatabaseImageFilesListener {
     private static final String DELIMITER_SEARCH_WORDS = ";";
     private final DatabaseFind  db                     = DatabaseFind.INSTANCE;
     private final AppPanel      appPanel               =
@@ -108,7 +105,6 @@ public final class ControllerFastSearch
     }
 
     private void listen() {
-        UserSettings.INSTANCE.addUserSettingsListener(this);
         DatabaseImageFiles.INSTANCE.addListener(this);
         textFieldSearch.addKeyListener(new KeyAdapter() {
             @Override
@@ -144,19 +140,6 @@ public final class ControllerFastSearch
             decorateTextFieldSearch();
         } else if (e.getSource() == appPanel.getButtonSearch()) {
             search();
-        }
-    }
-
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.FAST_SEARCH_COLUMNS)
-                || evt.getType().equals(
-                    UserSettingsEvent.Type.NO_FAST_SEARCH_COLUMNS)) {
-            if (isSearchAllDefinedColumns()) {
-                textFieldSearch.setEnabled(
-                    evt.getType().equals(
-                        UserSettingsEvent.Type.FAST_SEARCH_COLUMNS));
-            }
         }
     }
 

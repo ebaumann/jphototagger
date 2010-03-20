@@ -21,8 +21,9 @@
 
 package de.elmar_baumann.jpt.event.listener.impl;
 
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
+
+import java.io.File;
 
 /**
  *
@@ -30,10 +31,34 @@ import de.elmar_baumann.jpt.event.listener.FileSystemListener;
  */
 public final class FileSystemListenerSupport
         extends ListenerSupport<FileSystemListener> {
-    public void notifyListeners(FileSystemEvent event) {
+    public void notifyCopied(File source, File target) {
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
-                listener.actionPerformed(event);
+                listener.fileCopied(source, target);
+            }
+        }
+    }
+
+    public void notifyMoved(File source, File target) {
+        synchronized (listeners) {
+            for (FileSystemListener listener : listeners) {
+                listener.fileMoved(source, target);
+            }
+        }
+    }
+
+    public void notifyDeleted(File file) {
+        synchronized (listeners) {
+            for (FileSystemListener listener : listeners) {
+                listener.fileDeleted(file);
+            }
+        }
+    }
+
+    public void notifyRenamed(File oldFile, File newFile) {
+        synchronized (listeners) {
+            for (FileSystemListener listener : listeners) {
+                listener.fileRenamed(oldFile, newFile);
             }
         }
     }

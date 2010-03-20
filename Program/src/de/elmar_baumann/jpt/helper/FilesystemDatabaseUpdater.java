@@ -22,7 +22,6 @@
 package de.elmar_baumann.jpt.helper;
 
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.ImageUtil;
@@ -61,49 +60,58 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
         this.wait = wait;
     }
 
-    @Override
-    public void actionPerformed(FileSystemEvent event) {
-        if (event.isError()) {
-            return;
-        }
-
-        File                 src    = event.getSource();
-        File                 target = event.getTarget();
-        FileSystemEvent.Type type   = event.getType();
-
-        if (!ImageUtil.isImageFile(src)) {
-            return;
-        }
-
-        if (type.equals(FileSystemEvent.Type.COPY)) {
-            insertFileIntoDatabase(target);
-        } else if (type.equals(FileSystemEvent.Type.DELETE)) {
-            removeFileFromDatabase(src);
-        } else if (type.equals(FileSystemEvent.Type.MOVE)
-                   || type.equals(FileSystemEvent.Type.RENAME)) {
-            DatabaseImageFiles.INSTANCE.updateRename(src.getAbsolutePath(),
-                    target.getAbsolutePath());
-        }
-    }
-
     private void insertFileIntoDatabase(File file) {
-        InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(
-                Arrays.asList(file.getAbsolutePath()), Insert.OUT_OF_DATE);
+        if (ImageUtil.isImageFile(file)) {
+            InsertImageFilesIntoDatabase inserter =
+                new InsertImageFilesIntoDatabase(
+                    Arrays.asList(file.getAbsolutePath()), Insert.OUT_OF_DATE);
 
-        if (wait) {
-            inserter.run();    // Do not start a thread!
-        } else {
-            UserTasks.INSTANCE.add(inserter);
+            if (wait) {
+                inserter.run();    // Do not start a thread!
+            } else {
+                UserTasks.INSTANCE.add(inserter);
+            }
         }
     }
 
     private void removeFileFromDatabase(File file) {
-        DatabaseImageFiles db       = DatabaseImageFiles.INSTANCE;
-        String             filename = file.getAbsolutePath();
+        if (ImageUtil.isImageFile(file)) {
+            DatabaseImageFiles db       = DatabaseImageFiles.INSTANCE;
+            String             filename = file.getAbsolutePath();
 
-        if (db.exists(filename)) {
-            db.delete(Arrays.asList(filename));
+            if (db.exists(filename)) {
+                db.delete(Arrays.asList(filename));
+            }
+        }
+    }
+
+    @Override
+    public void fileCopied(File source, File target) {
+        if (ImageUtil.isImageFile(target)) {
+            insertFileIntoDatabase(target);
+        }
+    }
+
+    @Override
+    public void fileDeleted(File file) {
+        if (ImageUtil.isImageFile(file)) {
+            removeFileFromDatabase(file);
+        }
+    }
+
+    @Override
+    public void fileMoved(File source, File target) {
+        if (ImageUtil.isImageFile(source) && ImageUtil.isImageFile(target)) {
+            DatabaseImageFiles.INSTANCE.updateRename(source.getAbsolutePath(),
+                    target.getAbsolutePath());
+        }
+    }
+
+    @Override
+    public void fileRenamed(File oldFile, File newFile) {
+        if (ImageUtil.isImageFile(oldFile) && ImageUtil.isImageFile(newFile)) {
+            DatabaseImageFiles.INSTANCE.updateRename(oldFile.getAbsolutePath(),
+                    newFile.getAbsolutePath());
         }
     }
 }

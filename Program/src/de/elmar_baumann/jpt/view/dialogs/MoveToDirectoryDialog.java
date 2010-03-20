@@ -21,10 +21,8 @@
 
 package de.elmar_baumann.jpt.view.dialogs;
 
-import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.controller.misc.SizeAndLocationController;
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.event.listener.impl.ProgressListenerSupport;
@@ -32,7 +30,6 @@ import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.helper.CopyFiles;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.io.FileSystemError;
 import de.elmar_baumann.jpt.io.FileSystemMove;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.resource.JptBundle;
@@ -331,28 +328,28 @@ public final class MoveToDirectoryDialog extends Dialog
         checkClosing();
     }
 
+
     @Override
-    public void actionPerformed(FileSystemEvent event) {
-        if (!event.getType().equals(FileSystemEvent.Type.MOVE)) {
-            return;
-        }
+    public void fileMoved(File source, File target) {
+        movedFiles.add(source);
+    }
 
-        File src = event.getSource();
+    @Override
+    public void fileCopied(File source, File target) {
 
-        if (event.isError()) {
-            File            target = event.getTarget();
-            FileSystemError error  = event.getError();
+        // ignore
+    }
 
-            AppLogger.logWarning(MoveToDirectoryDialog.class,
-                                 "MoveToDirectoryDialog.Error.Logfile", src,
-                                 target, error.getLocalizedMessage());
+    @Override
+    public void fileDeleted(File file) {
 
-            synchronized (this) {
-                errors = true;
-            }
-        } else {
-            movedFiles.add(src);
-        }
+        // ignore
+    }
+
+    @Override
+    public void fileRenamed(File oldFile, File newFile) {
+
+        // ignore
     }
 
     /**

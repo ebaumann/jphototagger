@@ -21,7 +21,6 @@
 
 package de.elmar_baumann.jpt.app;
 
-import de.elmar_baumann.jpt.event.ErrorEvent;
 import de.elmar_baumann.jpt.event.listener.impl.ErrorListeners;
 import de.elmar_baumann.jpt.resource.JptBundle;
 
@@ -32,15 +31,15 @@ import java.util.logging.Logger;
 
 /**
  * Logs <strong>localized</strong> messages.
- *
- * Uses {@link JptBundle} to get the messages. If a message must not be displayed
- * to the user, the following bundle key can be used: * {@link #USE_STRING}.
- * Example:
- *
+ * <p>
+ * Uses {@link JptBundle} to get the messages. If a message must not be
+ * displayed  to the user, the following bundle key can be used:
+ * {@link #USE_STRING}. Example:
+ * <p>
  * {@code
- * AppLogger.logFiner(MyClass.class, AppLogger.USE_STRING, "For developers only");
+ * AppLogger.logFiner(MyClass.class, AppLogger.USE_STRING, "Bla");
  * }
- *
+ * <p>
  * This key contains only one parameter which will be substitued through the
  * following string.
  *
@@ -48,6 +47,8 @@ import java.util.logging.Logger;
  */
 public final class AppLogger {
     public static final String USE_STRING = "AppLog.UseString";
+
+    private AppLogger() {}
 
     /**
      * Logs a message with the class' logger and the log level
@@ -120,11 +121,14 @@ public final class AppLogger {
     public static void logWarning(Class<?> c, String bundleKey,
                                   Object... params) {
         log(c, Level.WARNING, bundleKey, params);
-        ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(bundleKey, c));
+        ErrorListeners.INSTANCE.notifyListeners(c,
+                JptBundle.INSTANCE.getString(bundleKey, params));
     }
 
     /**
-     * Logs an exception with the class' logger and notifies the error listeners.
+     * Logs an exception with the class' logger and notifies the error
+     * listeners.
+     * <p>
      * The log level is {@link java.util.logging.Level#SEVERE}.
      *
      * @param c   logger's class
@@ -133,8 +137,7 @@ public final class AppLogger {
     public static void logSevere(Class<?> c, Exception ex) {
         Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
-        ErrorListeners.INSTANCE.notifyListeners(new ErrorEvent(ex.getMessage(),
-                c));
+        ErrorListeners.INSTANCE.notifyListeners(c, ex.getMessage());
     }
 
     private static void log(Class<?> c, Level level, String bundleKey,
@@ -143,6 +146,4 @@ public final class AppLogger {
                          JptBundle.INSTANCE.getString(bundleKey, params));
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
     }
-
-    private AppLogger() {}
 }

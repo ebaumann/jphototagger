@@ -44,6 +44,21 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ImageUtil {
+    private ImageUtil() {}
+
+    public enum ConfirmOverwrite {
+        YES, NO;
+
+        public boolean yes() {
+            return this.equals(YES);
+        }
+
+        public static ConfirmOverwrite fromBoolean(boolean b) {
+            return b
+                   ? YES
+                   : NO;
+        }
+    }
 
     /**
      * Returns wheter a file is an image file.
@@ -71,20 +86,6 @@ public final class ImageUtil {
         }
 
         return imageFiles;
-    }
-
-    public enum ConfirmOverwrite {
-        YES, NO;
-
-        public boolean yes() {
-            return this.equals(YES);
-        }
-
-        public static ConfirmOverwrite fromBoolean(boolean b) {
-            return b
-                   ? YES
-                   : NO;
-        }
     }
 
     /**
@@ -216,6 +217,4 @@ public final class ImageUtil {
 
         return files;
     }
-
-    private ImageUtil() {}
 }

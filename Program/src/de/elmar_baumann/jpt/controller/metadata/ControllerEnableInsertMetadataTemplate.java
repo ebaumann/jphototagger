@@ -21,7 +21,6 @@
 
 package de.elmar_baumann.jpt.controller.metadata;
 
-import de.elmar_baumann.jpt.event.EditMetadataPanelsEvent;
 import de.elmar_baumann.jpt.event.listener.EditMetadataPanelsListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
@@ -59,13 +58,18 @@ public final class ControllerEnableInsertMetadataTemplate
         setButtonEnabled();
     }
 
-    @Override
-    public void actionPerformed(EditMetadataPanelsEvent event) {
-        setButtonEnabled();
-    }
-
     private void setButtonEnabled() {
         buttonMetadataTemplateInsert.setEnabled(editPanels.isEditable()
                 && (comboBoxTemplates.getSelectedIndex() >= 0));
+    }
+
+    @Override
+    public void editEnabled() {
+        setButtonEnabled();
+    }
+
+    @Override
+    public void editDisabled() {
+        setButtonEnabled();
     }
 }

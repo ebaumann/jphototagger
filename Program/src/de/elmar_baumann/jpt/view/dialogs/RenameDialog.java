@@ -32,7 +32,6 @@ import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFileName;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatFilenamePostfix;
 import de.elmar_baumann.jpt.controller.filesystem.FilenameFormatNumberSequence;
 import de.elmar_baumann.jpt.data.RenameTemplate;
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.event.listener.impl.FileSystemListenerSupport;
 import de.elmar_baumann.jpt.helper.RenameTemplateHelper;
@@ -154,10 +153,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     public synchronized void notifyFileSystemListeners(File oldFile,
             File newFile) {
-        FileSystemEvent event =
-            new FileSystemEvent(FileSystemEvent.Type.RENAME, oldFile, newFile);
-
-        listenerSupport.notifyListeners(event);
+        listenerSupport.notifyRenamed(oldFile, newFile);
     }
 
     private boolean renameFile(File oldFile, File newFile) {

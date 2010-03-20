@@ -21,7 +21,7 @@
 
 package de.elmar_baumann.jpt.io;
 
-import de.elmar_baumann.jpt.event.FileSystemEvent;
+import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.lib.generics.Pair;
 import de.elmar_baumann.lib.io.FileUtil;
@@ -107,7 +107,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
             if (checkExists(sourceFile, targetFile)) {
                 boolean moved = sourceFile.renameTo(targetFile);
 
-                checkMoved(moved, sourceFile, targetFile);
+                notifyMoved(moved, sourceFile, targetFile);
             }
 
             progressEvent.setValue(i + 1);
@@ -133,25 +133,19 @@ public final class FileSystemMove extends FileSystem implements Runnable {
         boolean exists = targetFile.exists();
 
         if (exists) {
-            notifyError(FileSystemError.MOVE_RENAME_EXISTS, sourceFile,
-                        targetFile);
+            MessageDisplayer.error(null, "FileSystemMove.Error.TargetExists",
+                                   sourceFile, targetFile);
         }
 
         return !exists;
     }
 
-    private void checkMoved(boolean moved, File sourceFile, File targetFile) {
+    private void notifyMoved(boolean moved, File sourceFile, File targetFile) {
         if (moved) {
-            notifyFileSystemListenersPerformed(FileSystemEvent.Type.MOVE,
-                                               sourceFile, targetFile);
+            notifyFileSystemListenersMoved(sourceFile, targetFile);
         } else {
-            notifyError(FileSystemError.UNKNOWN, sourceFile, targetFile);
+            MessageDisplayer.error(null, "FileSystemMove.Error", sourceFile,
+                                   targetFile);
         }
-    }
-
-    private synchronized void notifyError(FileSystemError error,
-            File sourceFile, File targetFile) {
-        notifyFileSystemListenersFailed(FileSystemEvent.Type.MOVE, error,
-                                        sourceFile, targetFile);
     }
 }

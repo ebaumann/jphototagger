@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.cache.RenderedThumbnailCache;
 import de.elmar_baumann.jpt.cache.ThumbnailCache;
 import de.elmar_baumann.jpt.cache.XmpCache;
 import de.elmar_baumann.jpt.database.DatabaseImageFiles;
-import de.elmar_baumann.jpt.event.FileSystemEvent;
 import de.elmar_baumann.jpt.event.listener.FileSystemListener;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.RenameDialog;
@@ -100,30 +99,6 @@ public final class ControllerRenameFiles
     }
 
     @Override
-    public void actionPerformed(FileSystemEvent event) {
-        if (!event.getType().equals(FileSystemEvent.Type.RENAME)
-                || event.isError()) {
-            return;
-        }
-
-        final File src    = event.getSource();
-        final File target = event.getTarget();
-
-        AppLogger.logInfo(ControllerRenameFiles.class,
-                          "ControllerRenameFiles.Info.Rename", src, target);
-        db.updateRename(src.getAbsolutePath(), target.getAbsolutePath());
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ThumbnailCache.INSTANCE.updateFiles(src, target);
-                XmpCache.INSTANCE.updateFiles(src, target);
-                RenderedThumbnailCache.INSTANCE.updateFiles(src, target);
-                thumbnailsPanel.rename(src, target);
-            }
-        });
-    }
-
-    @Override
     public void keyTyped(KeyEvent e) {
 
         // ignore
@@ -131,6 +106,41 @@ public final class ControllerRenameFiles
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+        // ignore
+    }
+
+    @Override
+    public void fileRenamed(final File oldFile, final File newFile) {
+        AppLogger.logInfo(ControllerRenameFiles.class,
+                          "ControllerRenameFiles.Info.Rename", oldFile,
+                          newFile);
+        db.updateRename(oldFile.getAbsolutePath(), newFile.getAbsolutePath());
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
+                XmpCache.INSTANCE.updateFiles(oldFile, newFile);
+                RenderedThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
+                thumbnailsPanel.rename(oldFile, newFile);
+            }
+        });
+    }
+
+    @Override
+    public void fileCopied(File source, File target) {
+
+        // ignore
+    }
+
+    @Override
+    public void fileDeleted(File file) {
+
+        // ignore
+    }
+
+    @Override
+    public void fileMoved(File source, File target) {
 
         // ignore
     }

@@ -21,19 +21,17 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
-import de.elmar_baumann.jpt.event.FileSystemEvent;
+import java.io.File;
 
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface FileSystemListener {
 
-    /**
-     * Called if an file system event occured
-     *
-     * @param event event
-     */
-    public void actionPerformed(FileSystemEvent event);
+    public void fileCopied(File source, File target);
+    public void fileDeleted(File file);
+    public void fileMoved(File source, File target);
+    public void fileRenamed(File oldFile, File newFile);
 }
