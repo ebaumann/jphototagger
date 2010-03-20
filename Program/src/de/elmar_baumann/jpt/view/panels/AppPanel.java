@@ -238,6 +238,9 @@ public final class AppPanel extends javax.swing.JPanel {
                 ? ""
                 : JptBundle.INSTANCE.getString(
                     "AppPanel.TabMetadataIptc.TooltipText.Disabled"));
+        if (!enabled && index == tabbedPaneMetadata.getSelectedIndex()) {
+            tabbedPaneMetadata.setSelectedIndex(0);
+        }
     }
 
     /**
