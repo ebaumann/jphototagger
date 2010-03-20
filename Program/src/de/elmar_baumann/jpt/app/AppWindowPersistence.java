@@ -84,6 +84,7 @@ public final class AppWindowPersistence
         AppLifeCycle.INSTANCE.addAppExitListener(this);
         cardSelKeywordsList.addComponentListener(this);
         cardSelKeywordsTree.addComponentListener(this);
+        UserSettings.INSTANCE.addUserSettingsListener(this);
     }
 
     @Override
