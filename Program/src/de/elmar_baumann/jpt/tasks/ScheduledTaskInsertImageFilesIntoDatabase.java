@@ -39,7 +39,8 @@ import java.util.List;
 /**
  * Creates a {@link InsertImageFilesIntoDatabase} instance for every directory
  * defined in {@link DatabaseAutoscanDirectories#getAll()} and
- * their subdirectories if {@link UserSettings#isAutoscanIncludeSubdirectories()}
+ * their subdirectories if
+ * {@link UserSettings#isAutoscanIncludeSubdirectories()}
  * is true.
  *
  * @author  Elmar Baumann
@@ -52,6 +53,8 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
         SYSTEM_DIRECTORIES_SUBSTRINGS.add("System Volume Information");
         SYSTEM_DIRECTORIES_SUBSTRINGS.add("RECYCLER");
     }
+
+    private ScheduledTaskInsertImageFilesIntoDatabase() {}
 
     /**
      * Returns the inserter threads, each for a specific directory.
@@ -68,7 +71,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
                 if (!isSystemDirectory(directory.getAbsolutePath())) {
                     InsertImageFilesIntoDatabase inserter =
                         new InsertImageFilesIntoDatabase(
-                            getImageFilenamesOfDirectory(directory),
+                            getImageFilesOfDirectory(directory),
                             Insert.OUT_OF_DATE);
 
                     inserter.addProgressListener(
@@ -83,40 +86,35 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
         return updaters;
     }
 
-    private static List<String> getImageFilenamesOfDirectory(File directory) {
-        return FileUtil.getAsFilenames(
-            ImageFilteredDirectory.getImageFilesOfDirectory(directory));
+    private static List<File> getImageFilesOfDirectory(File directory) {
+        return ImageFilteredDirectory.getImageFilesOfDirectory(directory);
     }
 
     private static List<File> getDirectories() {
-        List<String> directoryNames =
-            DatabaseAutoscanDirectories.INSTANCE.getAll();
+        List<File> directories = DatabaseAutoscanDirectories.INSTANCE.getAll();
 
-        addSubdirectoryNames(directoryNames);
-        Collections.sort(directoryNames);
-        Collections.reverse(directoryNames);
+        addSubdirectories(directories);
+        Collections.sort(directories);
+        Collections.reverse(directories);
 
-        return FileUtil.getAsFiles(directoryNames);
+        return directories;
     }
 
-    private static void addSubdirectoryNames(List<String> directoryNames) {
-        List<String> subdirectoryNames = new ArrayList<String>();
+    private static void addSubdirectories(List<File> directories) {
+        List<File> subdirectories = new ArrayList<File>();
 
         if (UserSettings.INSTANCE.isAutoscanIncludeSubdirectories()) {
-            for (String directoryName : directoryNames) {
-                subdirectoryNames.addAll(
-                    getAllSubdirectoryNames(directoryName));
+            for (File directory : directories) {
+                subdirectories.addAll(getAllSubdirectories(directory));
             }
 
-            directoryNames.addAll(subdirectoryNames);
+            directories.addAll(subdirectories);
         }
     }
 
-    private static List<String> getAllSubdirectoryNames(String directoryName) {
-        return FileUtil.getAsFilenames(
-            FileUtil.getSubdirectoriesRecursive(
-                new File(directoryName),
-                UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
+    private static List<File> getAllSubdirectories(File directory) {
+        return FileUtil.getSubdirectoriesRecursive(directory,
+                UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
     }
 
     private static boolean isSystemDirectory(String directoryName) {
@@ -128,6 +126,4 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
 
         return false;
     }
-
-    private ScheduledTaskInsertImageFilesIntoDatabase() {}
 }

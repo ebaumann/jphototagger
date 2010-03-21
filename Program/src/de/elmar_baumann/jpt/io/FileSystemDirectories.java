@@ -37,6 +37,7 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class FileSystemDirectories {
+    private FileSystemDirectories() {}
 
     /**
      * Deletes a directory from the file system and updates the
@@ -58,8 +59,7 @@ public final class FileSystemDirectories {
 
                     FileUtil.deleteDirectoryRecursive(directory);
 
-                    int count = DatabaseImageFiles.INSTANCE.delete(
-                                    FileUtil.getAsFilenames(imageFiles));
+                    int count = DatabaseImageFiles.INSTANCE.delete(imageFiles);
 
                     logDelete(directory, count);
 
@@ -131,6 +131,4 @@ public final class FileSystemDirectories {
                           "FileSystemDirectories.Info.Rename", directory,
                           newDirectory, countRenamedInDatabase);
     }
-
-    private FileSystemDirectories() {}
 }

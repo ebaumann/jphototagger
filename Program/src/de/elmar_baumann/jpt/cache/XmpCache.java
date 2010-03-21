@@ -128,13 +128,13 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
         @Override
         public void run() {
-            Collection<String> files = new HashSet<String>();
-            File               file;
+            Collection<File> imageFiles = new HashSet<File>();
+            File             imageFile  = null;
 
             while (true) {
-                if (files.size() < 1) {
+                if (imageFiles.size() < 1) {
                     try {
-                        file = wq.fetch().file;
+                        imageFile = wq.fetch().file;
                     } catch (Exception ex) {
                         continue;
                     }
@@ -142,21 +142,21 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
                     XmpCacheIndirection ci = wq.poll();
 
                     if (ci != null) {
-                        file = ci.file;
+                        imageFile = ci.file;
                     } else {
-                        file = null;
+                        imageFile = null;
                     }
                 }
 
-                if (file != null) {
-                    files.add(file.getAbsolutePath());
+                if (imageFile != null) {
+                    imageFiles.add(imageFile);
                 }
 
-                assert !((file == null) && (files.size() == 0)) :
+                assert !((imageFile == null) && (imageFiles.size() == 0)) :
                        "Should not happen";
 
-                if ((file == null) || (files.size() >= 64)) {
-                    if (files.size() > 1) {
+                if ((imageFile == null) || (imageFiles.size() >= 64)) {
+                    if (imageFiles.size() > 1) {
                         try {
 
                             // wait a bit to allow ThumbnailCache to get some disk bandwidth
@@ -164,26 +164,26 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
                         } catch (Exception ex) {}
                     }
 
-                    List<Pair<String, Xmp>> res = db.getXmpOf(files);
+                    List<Pair<File, Xmp>> res = db.getXmpOfImageFiles(imageFiles);
 
                     // send updates to request results
-                    for (Pair<String, Xmp> p : res) {
-                        String temp = p.getFirst();
+                    for (Pair<File, Xmp> p : res) {
+                        File temp = p.getFirst();
 
-                        cache.update(p.getSecond(), new File(temp), true);
-                        files.remove(temp);
+                        cache.update(p.getSecond(), temp, true);
+                        imageFiles.remove(temp);
                     }
 
                     // if we have files left, there was nothing in the DB, we
                     // fabricate clear xmp objects for them, in order not to
                     // have to ask the DB again
-                    for (String f : files) {
+                    for (File f : imageFiles) {
                         Xmp xmp = new Xmp();
 
-                        cache.update(xmp, new File(f), false);
+                        cache.update(xmp, f, false);
                     }
 
-                    files.clear();
+                    imageFiles.clear();
                 }
             }
         }
@@ -195,7 +195,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
      */
 
     /**
-     * Creates a new entry in the cache with the two keys index and filename.
+     * Creates a new entry in the cache with the two keys index and file.
      *
      * Requests for Xmp objects are put into their respective work queues
      * @param file

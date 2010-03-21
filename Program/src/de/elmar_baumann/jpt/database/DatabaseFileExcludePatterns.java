@@ -236,16 +236,16 @@ public final class DatabaseFileExcludePatterns extends Database {
             boolean stop = event.isStop();
 
             while (!stop && rs.next()) {
-                String filename = rs.getString(1);
+                String filepath = rs.getString(1);
 
                 for (int i = 0; !stop && (i < patternCount); i++) {
                     progress++;
 
                     String pattern = patterns.get(i);
 
-                    if (filename.matches(pattern)) {
-                        stmtUpdate.setString(1, filename);
-                        deletedFiles.add(filename);
+                    if (filepath.matches(pattern)) {
+                        stmtUpdate.setString(1, filepath);
+                        deletedFiles.add(filepath);
                         logFiner(stmtUpdate);
 
                         int affectedRows = stmtUpdate.executeUpdate();
@@ -253,16 +253,18 @@ public final class DatabaseFileExcludePatterns extends Database {
                         count += affectedRows;
 
                         if (affectedRows > 0) {
-                            deleteThumbnail(filename);
+                            File imageFile = getFile(filepath);
 
+                            PersistentThumbnails.deleteThumbnailOfImageFile(
+                                imageFile);
                             DatabaseImageFiles.INSTANCE.notifyImageFileDeleted(
-                                new File(filename));
+                                imageFile);
                         }
 
                         stop = event.isStop();
                     }
 
-                    event.setInfo(filename);
+                    event.setInfo(filepath);
                     event.setValue(progress);
                     notifyProgressListenerPerformed(listener, event);
                 }
@@ -280,21 +282,6 @@ public final class DatabaseFileExcludePatterns extends Database {
         }
 
         return count;
-    }
-
-    private void deleteThumbnail(String filename) {
-        File tnFile =
-            PersistentThumbnails.getThumbnailFileOfImageFile(filename);
-
-        if (tnFile == null) {
-            return;
-        }
-
-        if (!tnFile.delete()) {
-            AppLogger.logWarning(
-                getClass(), "DatabaseFileExcludePattern.Error.DeleteThumbnail",
-                tnFile, filename);
-        }
     }
 
     public void addListener(DatabaseFileExcludePatternsListener listener) {

@@ -29,6 +29,8 @@ import de.elmar_baumann.jpt.database.metadata.Join.Type;
 import de.elmar_baumann.jpt.database.metadata.Util;
 import de.elmar_baumann.jpt.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 
+import java.io.File;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,13 +54,13 @@ public final class DatabaseFind extends Database {
      * Liefert Dateinamen anhand eines Statements.
      *
      * @param  paramStatement Korrekt ausgefülltes Statement
-     * @return                Dateiname
+     * @return                Dateien
      */
-    public List<String> findFilenames(ParamStatement paramStatement) {
-        List<String>      filenames = new ArrayList<String>();
-        Connection        con       = null;
-        PreparedStatement stmt      = null;
-        ResultSet         rs        = null;
+    public List<File> findImageFiles(ParamStatement paramStatement) {
+        List<File>        imageFiles = new ArrayList<File>();
+        Connection        con        = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
 
         try {
             con  = getConnection();
@@ -74,45 +76,45 @@ public final class DatabaseFind extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                filenames.add(rs.getString(1));
+                imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFind.class, ex);
-            filenames.clear();
+            imageFiles.clear();
         } finally {
             close(rs, stmt);
             free(con);
         }
 
-        return filenames;
+        return imageFiles;
     }
 
     /**
-     * Liefert alle Dateinamen, der Metadaten bestimmte Suchbegriffe enthalten.
+     * Liefert alle Dateien, der Metadaten bestimmte Suchbegriffe enthalten.
      * Gesucht wird in allen Spalten mit TabelleA.SpalteB LIKE '%Suchbegriff%'
      * OR TabelleC.SpalteD LIKE '%Suchbegriff%' ...
      *
      * @param searchColumns Spalten, in denen der Suchbegriff vorkommen soll
      * @param searchString  Suchteilzeichenkette
-     * @return              Alle gefundenen Dateinamen
+     * @return              Alle gefundenen Dateien
      */
-    public List<String> findFilenamesLikeOr(List<Column> searchColumns,
+    public List<File> findImageFilesLikeOr(List<Column> searchColumns,
             String searchString) {
-        List<String>              filenames      = new ArrayList<String>();
+        List<File>                imageFiles     = new ArrayList<File>();
         Map<String, List<Column>> columnsOfTable =
             Util.getColumnsSeparatedByTables(searchColumns);
 
         for (String tablename : columnsOfTable.keySet()) {
-            addFilenamesSearchFilenamesLikeOr(columnsOfTable.get(tablename),
-                                              searchString, filenames,
-                                              tablename);
+            addImageFilesSearchImageFilesLikeOr(columnsOfTable.get(tablename),
+                    searchString, imageFiles, tablename);
         }
 
-        return filenames;
+        return imageFiles;
     }
 
-    private void addFilenamesSearchFilenamesLikeOr(List<Column> searchColumns,
-            String searchString, List<String> filenames, String tablename) {
+    private void addImageFilesSearchImageFilesLikeOr(
+            List<Column> searchColumns, String searchString,
+            List<File> imageFiles, String tablename) {
         if (searchColumns.size() > 0) {
             Connection        con  = null;
             PreparedStatement stmt = null;
@@ -121,7 +123,7 @@ public final class DatabaseFind extends Database {
             try {
                 con  = getConnection();
                 stmt = con.prepareStatement(
-                    getSqlSearchFilenamesLikeOr(
+                    getSqlFindImageFilesLikeOr(
                         searchColumns, tablename, searchString));
 
                 for (int i = 0; i < searchColumns.size(); i++) {
@@ -132,18 +134,18 @@ public final class DatabaseFind extends Database {
                 logFinest(stmt);
                 rs = stmt.executeQuery();
 
-                String string;
+                File imageFile;
 
                 while (rs.next()) {
-                    string = rs.getString(1);
+                    imageFile = getFile(rs.getString(1));
 
-                    if (!filenames.contains(string)) {
-                        filenames.add(string);
+                    if (!imageFiles.contains(imageFile)) {
+                        imageFiles.add(imageFile);
                     }
                 }
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseFind.class, ex);
-                filenames.clear();
+                imageFiles.clear();
             } finally {
                 close(rs, stmt);
                 free(con);
@@ -164,7 +166,7 @@ public final class DatabaseFind extends Database {
         }
     }
 
-    private String getSqlSearchFilenamesLikeOr(List<Column> searchColumns,
+    private String getSqlFindImageFilesLikeOr(List<Column> searchColumns,
             String tablename, String searchString) {
         StringBuilder sql =
             new StringBuilder("SELECT DISTINCT files.filename FROM ");

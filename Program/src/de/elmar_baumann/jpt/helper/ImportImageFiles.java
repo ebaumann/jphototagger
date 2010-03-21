@@ -55,14 +55,23 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
-    private final List<File>    copiedTargetFiles = new ArrayList<File>();
-    private final List<File>    copiedSourceFiles = new ArrayList<File>();
     private static final String progressBarString =
         JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
+    private final List<File>         copiedTargetFiles  = new ArrayList<File>();
+    private final List<File>         copiedSourceFiles  = new ArrayList<File>();
     private final ProgressBarUpdater progressBarUpdater =
         new ProgressBarUpdater(progressBarString);
     private final CopyFiles copier;
     private final boolean   deleteScrFilesAfterCopying;
+
+    private ImportImageFiles(List<Pair<File, File>> sourceTargetFiles,
+                             boolean deleteScrFilesAfterCopying) {
+        this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
+        copier                          = new CopyFiles(sourceTargetFiles,
+                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
+        setName("Importing image files @ "
+                + ControllerImportImageFiles.class.getSimpleName());
+    }
 
     public static void importFrom(File sourceDirectory) {
         ImportImageFilesDialog dlg = new ImportImageFilesDialog();
@@ -121,15 +130,6 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         return pairs;
     }
 
-    private ImportImageFiles(List<Pair<File, File>> sourceTargetFiles,
-                             boolean deleteScrFilesAfterCopying) {
-        this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
-        copier                          = new CopyFiles(sourceTargetFiles,
-                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
-        setName("Importing image files @ "
-                + ControllerImportImageFiles.class.getSimpleName());
-    }
-
     @Override
     public void run() {
         copier.addProgressListener(this);
@@ -152,10 +152,9 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
             Object     second = pair.getSecond();
 
             if (second instanceof File) {
-                File   file     = (File) second;
-                String filename = file.getName().toLowerCase();
+                File file = (File) second;
 
-                if (!filename.endsWith(".xmp")) {
+                if (!file.getName().toLowerCase().endsWith(".xmp")) {
                     copiedTargetFiles.add(file);
                     copiedSourceFiles.add((File) pair.getFirst());
                 }
@@ -174,7 +173,9 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private void addFilesToCollection() {
         if (!copiedTargetFiles.isEmpty()) {
-            insertCopiedFilesIntoDb();    // Needs to be in the DB to be added to an image collection
+
+            // Needs to be in the DB to be added to an image collection
+            insertCopiedFilesIntoDb();
         }
 
         insertCopiedFilesAsCollectionIntoDb();
@@ -183,8 +184,8 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private void insertCopiedFilesIntoDb() {
         InsertImageFilesIntoDatabase dbInserter =
-            new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(copiedTargetFiles), Insert.OUT_OF_DATE);
+            new InsertImageFilesIntoDatabase(copiedTargetFiles,
+                Insert.OUT_OF_DATE);
 
         dbInserter.addProgressListener(progressBarUpdater);
         dbInserter.run();    // No separate thread!
@@ -195,8 +196,8 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
             ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT;
         DatabaseImageCollections db                  =
             DatabaseImageCollections.INSTANCE;
-        List<String>             prevCollectionFiles =
-            db.getFilenamesOf(collectionName);
+        List<File>               prevCollectionFiles =
+            db.getImageFilesOf(collectionName);
 
         if (!prevCollectionFiles.isEmpty()) {
             int delCount = db.deleteImagesFrom(collectionName,
@@ -212,7 +213,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
             }
         }
 
-        db.insert(collectionName, FileUtil.getAsFilenames(copiedTargetFiles));
+        db.insert(collectionName, copiedTargetFiles);
     }
 
     private void selectPrevImportCollection() {

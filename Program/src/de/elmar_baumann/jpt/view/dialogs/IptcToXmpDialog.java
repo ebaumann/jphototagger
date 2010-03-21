@@ -177,8 +177,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         stop = false;
         setEnabledButtons();
 
-        ConvertIptcToXmp converter =
-            new ConvertIptcToXmp(FileUtil.getAsFilenames(getFiles()));
+        ConvertIptcToXmp converter = new ConvertIptcToXmp(getFiles());
 
         converter.addProgressListener(this);
 

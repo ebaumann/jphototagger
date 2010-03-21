@@ -162,12 +162,11 @@ public final class CopyToDirectoryDialog extends Dialog
         return filePairs;
     }
 
-    private void addXmp(File sourceFile, List<Pair<File, File>> filePairs) {
-        String sidecarFilename =
-            XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
+    private void addXmp(File imageFile, List<Pair<File, File>> filePairs) {
+        File sidecarFile = XmpMetadata.getSidecarFile(imageFile);
 
-        if (sidecarFilename != null) {
-            File sourceSidecarFile = new File(sidecarFilename);
+        if (sidecarFile != null) {
+            File sourceSidecarFile = sidecarFile;
             File targetSidecarFile = new File(targetDirectory + File.separator
                                               + sourceSidecarFile.getName());
 
@@ -210,8 +209,7 @@ public final class CopyToDirectoryDialog extends Dialog
         } else {
             File dir = new File(labelTargetDirectory.getText().trim());
 
-            buttonStart.setEnabled(FileUtil.existsDirectory(dir)
-                                   && dir.canWrite());
+            buttonStart.setEnabled(FileUtil.isWritableDirectory(dir));
         }
     }
 
@@ -309,7 +307,7 @@ public final class CopyToDirectoryDialog extends Dialog
                              UserSettings.INSTANCE.getSettings().getString(
                                  KEY_LAST_DIRECTORY));
 
-        if (FileUtil.existsDirectory(directory)) {
+        if (directory.isDirectory()) {
             targetDirectory = directory;
         }
     }

@@ -155,7 +155,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     private void updateNodes(Favorite oldFavorite, Favorite newFavorite,
                              DefaultMutableTreeNode nodeOfFavorite) {
-        oldFavorite.setDirectoryName(newFavorite.getDirectoryName());
+        oldFavorite.setDirectory(newFavorite.getDirectory());
         oldFavorite.setName(newFavorite.getName());
         nodeChanged(nodeOfFavorite);
         removeAllChildren(nodeOfFavorite);
@@ -238,7 +238,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         List<Favorite> directories = db.getAll();
 
         for (Favorite directory : directories) {
-            if (FileUtil.existsDirectory(directory.getDirectory())) {
+            if (directory.getDirectory().isDirectory()) {
                 addFavorite(directory);
             } else {
                 errorMessageAddDirectory(directory);
@@ -318,7 +318,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     /**
-     * Removes from a node child nodes with files as user objects when the
+     * Removes from a node child nodes with files as user objects if the
      * file does not exist.
      *
      * @param  parentNode parent node
@@ -351,7 +351,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             Object userObject = childNodeToRemove.getUserObject();
 
             if (userObject instanceof Favorite) {
-                db.delete(((Favorite) userObject).getDirectoryName());
+                db.delete(((Favorite) userObject).getName());
             }
 
             removeNodeFromParent(childNodeToRemove);
@@ -713,10 +713,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
                                favoriteName, cause);
     }
 
-    private void errorMessageAddDirectory(Favorite directory) {
+    private void errorMessageAddDirectory(Favorite favorite) {
         AppLogger.logWarning(
             TreeModelFavorites.class,
             "TreeModelFavorites.Error.DbDirectoryDoesNotExist",
-            directory.getDirectoryName());
+            favorite.getDirectory());
     }
 }

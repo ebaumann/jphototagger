@@ -128,13 +128,11 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
 
             for (File directory : directories) {
                 if (!modelAutoscanDirectories.contains(directory)) {
-                    String directoryName = directory.getAbsolutePath();
+                    lastSelectedAutoscanDirectory = directory.getAbsolutePath();
 
-                    lastSelectedAutoscanDirectory = directoryName;
-
-                    if (!db.exists(directoryName)) {
-                        if (!db.insert(directoryName)) {
-                            errorMessageInsertAutoscanDirectory(directoryName);
+                    if (!db.exists(directory)) {
+                        if (!db.insert(directory)) {
+                            errorMessageInsertAutoscanDirectory(directory);
                         }
                     }
                 }
@@ -149,11 +147,10 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
 
         for (int i = 0; i < values.length; i++) {
             File   directory     = (File) values[i];
-            String directoryName = (directory).getAbsolutePath();
 
-            if (db.exists(directoryName)) {
-                if (!db.delete(directoryName)) {
-                    errorMessageDeleteAutoscanDirectory(directoryName);
+            if (db.exists(directory)) {
+                if (!db.delete(directory)) {
+                    errorMessageDeleteAutoscanDirectory(directory);
                 }
             }
         }
@@ -161,16 +158,16 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         setEnabled();
     }
 
-    private void errorMessageInsertAutoscanDirectory(String directoryName) {
+    private void errorMessageInsertAutoscanDirectory(File directory) {
         MessageDisplayer.error(
             this, "SettingsScheduledTasksPanel.Error.InsertAutoscanDirectory",
-            directoryName);
+            directory);
     }
 
-    private void errorMessageDeleteAutoscanDirectory(String directoryName) {
+    private void errorMessageDeleteAutoscanDirectory(File directory) {
         MessageDisplayer.error(
             this, "SettingsScheduledTasksPanel.Error.DeleteAutoscanDirectory",
-            directoryName);
+            directory);
     }
 
     private void handleKeyEventListTasksAutoscanDirectories(KeyEvent evt) {

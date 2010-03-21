@@ -27,6 +27,8 @@ import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.lib.dialog.LongMessageDialog;
 
+import java.io.File;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -74,6 +76,28 @@ public class Database {
         }
 
         return isResultSet;
+    }
+
+    /**
+     * Returns the path of file as it will be stored into the database.
+     * <p>
+     * This maybe differend from {@link File#getAbsolutePath()}.
+     *
+     * @param  file file
+     * @return      path as stored in the database
+     */
+    public static String getFilePath(File file) {
+        return file.getAbsolutePath();
+    }
+
+    /**
+     * Returns a file from a file path as stored into the database.
+     *
+     * @param   filePath path as returned from {@link #getFilePath(File)}
+     * @return
+     */
+    public static File getFile(String filePath) {
+        return new File(filePath);
     }
 
     /**
@@ -173,7 +197,8 @@ public class Database {
         }
     }
 
-    public static Long getId(Connection con, String tablename, String columnName, String value)
+    public static Long getId(Connection con, String tablename,
+                             String columnName, String value)
             throws SQLException {
         PreparedStatement stmt = null;
         ResultSet         rs   = null;

@@ -32,7 +32,6 @@ import de.elmar_baumann.jpt.view.popupmenus.PopupMenuImageCollections;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.event.util.KeyEventUtil;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,8 +56,8 @@ public final class ControllerAddImageCollection
         PopupMenuThumbnails.INSTANCE;
     private final PopupMenuImageCollections popupMenuImageCollections =
         PopupMenuImageCollections.INSTANCE;
-    private final AppPanel appPanel             = GUI.INSTANCE.getAppPanel();
-    private final JList    listImageCollections =
+    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final JList listImageCollections =
         appPanel.getListImageCollections();
     private final ThumbnailsPanel thumbnailsPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
@@ -89,7 +88,7 @@ public final class ControllerAddImageCollection
     private void createImageCollectionOfSelectedFiles() {
         final String collectionName =
             ModifyImageCollections.insertImageCollection(
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
+                thumbnailsPanel.getSelectedFiles());
 
         if (collectionName != null) {
             SwingUtilities.invokeLater(new Runnable() {

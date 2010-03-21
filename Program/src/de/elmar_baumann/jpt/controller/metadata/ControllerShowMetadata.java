@@ -325,11 +325,11 @@ public final class ControllerShowMetadata
             appPanel.getButtonExifToXmp().setEnabled(hasExifData());
 
             if (metadata.contains(Metadata.XMP)) {
-                setXmpModels(file.getAbsolutePath());
+                setXmpModels(file);
             }
 
             appPanel.getLabelMetadataFilename().setText(file.getName()
-                    + (XmpMetadata.hasImageASidecarFile(file.getAbsolutePath())
+                    + (XmpMetadata.hasImageASidecarFile(file)
                        ? ""
                        : JptBundle.INSTANCE.getString(
                            "ControllerShowMetadata.Embedded")));
@@ -358,29 +358,28 @@ public final class ControllerShowMetadata
             }
         }
 
-        private void setXmpModels(String filename) {
-            List<XMPPropertyInfo> allInfos        = null;
-            String                sidecarFilename =
-                XmpMetadata.getSidecarFilename(filename);
+        private void setXmpModels(File imageFile) {
+            List<XMPPropertyInfo> allInfos    = null;
+            File                  sidecarFile =
+                XmpMetadata.getSidecarFile(imageFile);
 
-            allInfos = (sidecarFilename != null)
-                       ? XmpMetadata.getPropertyInfosOfSidecarFile(
-                           new File(sidecarFilename))
+            allInfos = (sidecarFile != null)
+                       ? XmpMetadata.getPropertyInfosOfSidecarFile(sidecarFile)
                        : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                         ? XmpMetadata.getEmbeddedPropertyInfos(filename)
+                         ? XmpMetadata.getEmbeddedPropertyInfos(imageFile)
                          : null;
 
             if (allInfos != null) {
                 for (TableModelXmp model :
                         metadataTableModels.getXmpTableModels()) {
                     setPropertyInfosToXmpTableModel(
-                        filename, model, allInfos,
+                        imageFile, model, allInfos,
                         namespacesOfXmpTableModel.get(model));
                 }
             }
         }
 
-        private void setPropertyInfosToXmpTableModel(String filename,
+        private void setPropertyInfosToXmpTableModel(File imageFile,
                 TableModelXmp model, List<XMPPropertyInfo> allInfos,
                 String[] namespaces) {
             List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
@@ -391,7 +390,7 @@ public final class ControllerShowMetadata
                         allInfos, namespaces[index]));
             }
 
-            model.setPropertyInfosOfFile(filename, infos);
+            model.setPropertyInfosOfFile(imageFile, infos);
         }
 
         private boolean hasIptcData() {

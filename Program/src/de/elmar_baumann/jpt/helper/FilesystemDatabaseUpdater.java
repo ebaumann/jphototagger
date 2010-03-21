@@ -63,8 +63,8 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
     private void insertFileIntoDatabase(File file) {
         if (ImageUtil.isImageFile(file)) {
             InsertImageFilesIntoDatabase inserter =
-                new InsertImageFilesIntoDatabase(
-                    Arrays.asList(file.getAbsolutePath()), Insert.OUT_OF_DATE);
+                new InsertImageFilesIntoDatabase(Arrays.asList(file),
+                    Insert.OUT_OF_DATE);
 
             if (wait) {
                 inserter.run();    // Do not start a thread!
@@ -76,11 +76,10 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
 
     private void removeFileFromDatabase(File file) {
         if (ImageUtil.isImageFile(file)) {
-            DatabaseImageFiles db       = DatabaseImageFiles.INSTANCE;
-            String             filename = file.getAbsolutePath();
+            DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
-            if (db.exists(filename)) {
-                db.delete(Arrays.asList(filename));
+            if (db.exists(file)) {
+                db.delete(Arrays.asList(file));
             }
         }
     }
@@ -102,16 +101,14 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
     @Override
     public void fileMoved(File source, File target) {
         if (ImageUtil.isImageFile(source) && ImageUtil.isImageFile(target)) {
-            DatabaseImageFiles.INSTANCE.updateRename(source.getAbsolutePath(),
-                    target.getAbsolutePath());
+            DatabaseImageFiles.INSTANCE.updateRename(source, target);
         }
     }
 
     @Override
-    public void fileRenamed(File oldFile, File newFile) {
-        if (ImageUtil.isImageFile(oldFile) && ImageUtil.isImageFile(newFile)) {
-            DatabaseImageFiles.INSTANCE.updateRename(oldFile.getAbsolutePath(),
-                    newFile.getAbsolutePath());
+    public void fileRenamed(File source, File target) {
+        if (ImageUtil.isImageFile(source) && ImageUtil.isImageFile(target)) {
+            DatabaseImageFiles.INSTANCE.updateRename(source, target);
         }
     }
 }

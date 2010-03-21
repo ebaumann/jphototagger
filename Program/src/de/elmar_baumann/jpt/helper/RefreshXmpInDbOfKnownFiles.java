@@ -49,26 +49,24 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     @Override
     public void run() {
-        DatabaseImageFiles db        = DatabaseImageFiles.INSTANCE;
-        List<String>       filenames = db.getAllFilenames();
-        int                fileCount = filenames.size();
+        DatabaseImageFiles db         = DatabaseImageFiles.INSTANCE;
+        List<File>         imageFiles = db.getAllImageFiles();
+        int                fileCount  = imageFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
-                                         ? filenames.get(0)
+                                         ? imageFiles.get(0)
                                          : null);
 
         for (int i = 0; !stop && (i < fileCount); i++) {
-            File imageFile = new File(filenames.get(i));
-            Xmp  xmp       =
-                XmpMetadata.hasImageASidecarFile(imageFile.getAbsolutePath())
-                ? XmpMetadata.getXmpFromSidecarFileOf(
-                    imageFile.getAbsolutePath())
-                : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                  ? XmpMetadata.getEmbeddedXmp(imageFile.getAbsolutePath())
-                  : null;
+            File imageFile = imageFiles.get(i);
+            Xmp  xmp       = XmpMetadata.hasImageASidecarFile(imageFile)
+                             ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
+                             : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                               ? XmpMetadata.getEmbeddedXmp(imageFile)
+                               : null;
 
             if (xmp != null) {
-                db.insertOrUpdateXmp(imageFile.getAbsolutePath(), xmp);
+                db.insertOrUpdateXmp(imageFile, xmp);
             }
 
             progressPerformed(i + 1, imageFile);

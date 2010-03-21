@@ -32,6 +32,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Image;
 
+import java.io.File;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,9 +43,10 @@ import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
- * ausgelöst von {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
+ * ausgelöst von
+ * {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerRotateThumbnail implements ActionListener {
     private final DatabaseImageFiles  db              =
@@ -95,31 +98,22 @@ public final class ControllerRotateThumbnail implements ActionListener {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<Integer> selectedIndices =
-                    thumbnailsPanel.getSelectedIndices();
+                List<Integer> selIndices = thumbnailsPanel.getSelectedIndices();
 
-                for (Integer index : selectedIndices) {
-                    final String md5File =
-                        PersistentThumbnails.getMd5Filename(
-                            thumbnailsPanel.getFile(
-                                index.intValue()).getAbsolutePath());
+                for (Integer selIndex : selIndices) {
+                    File imageFile =
+                        thumbnailsPanel.getFile(selIndex.intValue());
+                    final Image unrotatedTn =
+                        PersistentThumbnails.getThumbnailOfImageFile(imageFile);
 
-                    if (md5File != null) {
-                        final Image tnUnrotated =
-                            PersistentThumbnails.getThumbnail(md5File);
+                    if (unrotatedTn != null) {
+                        Image rotatedTn = ImageTransform.rotate(unrotatedTn,
+                                              rotateAngle);
 
-                        if (tnUnrotated != null) {
-                            Image thumbnail =
-                                ImageTransform.rotate(tnUnrotated, rotateAngle);
+                        if (rotatedTn != null) {
 
-                            if (thumbnail != null) {
-                                String filename =
-                                    thumbnailsPanel.getFile(
-                                        index.intValue()).getAbsolutePath();
-
-                                // should fire an update caught by cache
-                                db.updateThumbnail(filename, thumbnail);
-                            }
+                            // should fire an update caught by cache
+                            db.updateThumbnail(imageFile, rotatedTn);
                         }
                     }
                 }

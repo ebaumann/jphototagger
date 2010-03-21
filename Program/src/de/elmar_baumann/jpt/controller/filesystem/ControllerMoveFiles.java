@@ -84,7 +84,7 @@ public final class ControllerMoveFiles
     @Override
     public void fileMoved(File source, File target) {
         if (!isXmpFile(source)) {
-            db.updateRename(source.getAbsolutePath(), target.getAbsolutePath());
+            db.updateRename(source, target);
         }
     }
 

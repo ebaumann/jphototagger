@@ -26,10 +26,11 @@ import de.elmar_baumann.jpt.database.DatabaseImageFiles;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,8 @@ import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Lösche selektierte Thumbnails,
- * ausgelöst von {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
+ * ausgelöst von
+ * {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann
  */
@@ -69,11 +71,10 @@ public final class ControllerDeleteThumbnailsFromDatabase
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    List<String> files =
-                        FileUtil.getAsFilenames(
-                            thumbnailsPanel.getSelectedFiles());
-                    int countFiles   = files.size();
-                    int countDeleted = db.delete(files);
+                    List<File> files        =
+                        thumbnailsPanel.getSelectedFiles();
+                    int        countFiles   = files.size();
+                    int        countDeleted = db.delete(files);
 
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
@@ -86,16 +87,16 @@ public final class ControllerDeleteThumbnailsFromDatabase
         }
     }
 
-    private void repaint(final List<String> filenames) {
-        List<String> deleted = new ArrayList<String>(filenames.size());
+    private void repaint(final List<File> files) {
+        List<File> deleted = new ArrayList<File>(files.size());
 
-        for (String filename : filenames) {
-            if (!db.exists(filename)) {
-                deleted.add(filename);
+        for (File file : files) {
+            if (!db.exists(file)) {
+                deleted.add(file);
             }
         }
 
-        thumbnailsPanel.remove(FileUtil.getAsFiles(deleted));
+        thumbnailsPanel.remove(deleted);
     }
 
     private boolean confirmDelete() {

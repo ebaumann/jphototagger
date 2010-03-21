@@ -46,7 +46,6 @@ import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.Autocomplete;
 import de.elmar_baumann.lib.componentutil.ListUtil;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -180,15 +179,14 @@ public final class ControllerFastSearch
                 if (!userInput.isEmpty()) {
                     clearSelection();
 
-                    List<String> filenames = searchFilenames(userInput);
+                    List<File> imageFiles = searchFiles(userInput);
 
-                    if (filenames != null) {
+                    if (imageFiles != null) {
                         setTitle(userInput);
                         GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
                         ControllerSortThumbnails.setLastSort();
-                        thumbnailsPanel.setFiles(
-                            FileUtil.getAsFiles(filenames),
-                            Content.SAVED_SEARCH);
+                        thumbnailsPanel.setFiles(imageFiles,
+                                                 Content.SAVED_SEARCH);
                     }
                 }
             }
@@ -198,10 +196,10 @@ public final class ControllerFastSearch
                         "ControllerFastSearch.AppFrame.Title.FastSearch",
                         userInput));
             }
-            private List<String> searchFilenames(String userInput) {
+            private List<File> searchFiles(String userInput) {
                 if (isSearchAllDefinedColumns()) {
-                    return db.findFilenamesLikeOr(FastSearchColumns.get(),
-                                                  userInput);
+                    return db.findImageFilesLikeOr(FastSearchColumns.get(),
+                                                   userInput);
                 } else {
                     List<String> searchWords  = getSearchWords(userInput);
                     Column       searchColumn = getSearchColumn();
@@ -216,23 +214,23 @@ public final class ControllerFastSearch
 
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<String>(DatabaseImageFiles
+                            return new ArrayList<File>(DatabaseImageFiles
                                 .INSTANCE
-                                .getFilenamesOfDcSubject(searchWords
+                                .getImageFilesOfDcSubject(searchWords
                                     .get(0), DatabaseImageFiles.DcSubjectOption
                                     .INCLUDE_SYNONYMS));
                         } else {
-                            return db.findFilenamesLikeOr(
+                            return db.findImageFilesLikeOr(
                                 Arrays.asList(searchColumn), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<String>(DatabaseImageFiles
+                            return new ArrayList<File>(DatabaseImageFiles
                                 .INSTANCE
-                                .getFilenamesOfAllDcSubjects(searchWords));
+                                .getImageFilesOfAllDcSubjects(searchWords));
                         } else {
-                            return new ArrayList<String>(
-                                DatabaseImageFiles.INSTANCE.getFilenamesOfAll(
+                            return new ArrayList<File>(
+                                DatabaseImageFiles.INSTANCE.getImageFilesOfAll(
                                     searchColumn, searchWords));
                         }
                     } else {

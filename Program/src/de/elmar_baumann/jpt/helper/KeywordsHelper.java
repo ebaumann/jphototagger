@@ -41,8 +41,9 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.renderer.TreeCellRendererKeywords;
 import de.elmar_baumann.lib.generics.Pair;
-import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.ArrayUtil;
+
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -85,7 +86,9 @@ public final class KeywordsHelper {
         }
 
         if (keywordStrings.size() > 1) {
-            Collections.reverse(keywordStrings);    // else leaf is first element
+
+            // else leaf is first element
+            Collections.reverse(keywordStrings);
         }
     }
 
@@ -140,12 +143,12 @@ public final class KeywordsHelper {
     }
 
     public static void saveKeywordsToImageFile(List<String> keywordStrings,
-            String imageFilename) {
-        if (!FileUtil.existsFile(imageFilename)) {
+            File imageFile) {
+        if (!imageFile.exists()) {
             return;
         }
 
-        Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFilename);
+        Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
         if (xmp == null) {
             xmp = new Xmp();
@@ -158,9 +161,9 @@ public final class KeywordsHelper {
             }
         }
 
-        List<Pair<String, Xmp>> saveList = new ArrayList<Pair<String, Xmp>>();
+        List<Pair<File, Xmp>> saveList = new ArrayList<Pair<File, Xmp>>();
 
-        saveList.add(new Pair<String, Xmp>(imageFilename, xmp));
+        saveList.add(new Pair<File, Xmp>(imageFile, xmp));
         SaveXmp.save(saveList);
     }
 
@@ -357,15 +360,14 @@ public final class KeywordsHelper {
         }
     }
 
-    private static void updateXmp(Xmp xmp, String filename,
-                                  String sidecarFilename) {
-        if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
+    private static void updateXmp(Xmp xmp, File imgFile, File sidecarFile) {
+        if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
             ImageFile imageFile = new ImageFile();
 
-            imageFile.setFilename(filename);
-            imageFile.setLastmodified(FileUtil.getLastModified(filename));
+            imageFile.setFile(imgFile);
+            imageFile.setLastmodified(imgFile.lastModified());
             xmp.setValue(ColumnXmpLastModified.INSTANCE,
-                         FileUtil.getLastModified(sidecarFilename));
+                         sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
             DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
@@ -384,27 +386,27 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            List<String> filenames =
-                new ArrayList<String>(
-                    DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(
+            List<File> imageFiles =
+                new ArrayList<File>(
+                    DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
                         dcSubject));
 
             logStartDelete(dcSubject);
-            progressStarted(0, 0, filenames.size(), null);
+            progressStarted(0, 0, imageFiles.size(), null);
 
-            int size  = filenames.size();
+            int size  = imageFiles.size();
             int index = 0;
 
             for (index = 0; !stop && (index < size); index++) {
-                String filename        = filenames.get(index);
-                String sidecarFilename =
-                    XmpMetadata.suggestSidecarFilename(filename);
-                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+                File imageFile   = imageFiles.get(index);
+                File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
+                Xmp  xmp         =
+                    XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
                                     dcSubject);
-                    updateXmp(xmp, filename, sidecarFilename);
+                    updateXmp(xmp, imageFile, sidecarFile);
                 }
 
                 progressPerformed(index, xmp);
@@ -446,28 +448,28 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            List<String> filenames =
-                new ArrayList<String>(
-                    DatabaseImageFiles.INSTANCE.getFilenamesOfDcSubject(
+            List<File> imageFiles =
+                new ArrayList<File>(
+                    DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
                         oldName));
 
             logStartRename(oldName, newName);
-            progressStarted(0, 0, filenames.size(), null);
+            progressStarted(0, 0, imageFiles.size(), null);
 
-            int size  = filenames.size();
+            int size  = imageFiles.size();
             int index = 0;
 
             for (index = 0; !stop && (index < size); index++) {
-                String filename        = filenames.get(index);
-                String sidecarFilename =
-                    XmpMetadata.suggestSidecarFilename(filename);
-                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+                File imageFile   = imageFiles.get(index);
+                File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
+                Xmp  xmp         =
+                    XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
                                     oldName);
                     xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, newName);
-                    updateXmp(xmp, filename, sidecarFilename);
+                    updateXmp(xmp, imageFile, sidecarFile);
                 }
 
                 progressPerformed(index + 1, xmp);

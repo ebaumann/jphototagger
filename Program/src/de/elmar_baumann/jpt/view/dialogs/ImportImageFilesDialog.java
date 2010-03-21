@@ -30,7 +30,6 @@ import de.elmar_baumann.jpt.view.panels.ImagePreviewPanel;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.Dialog;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
-import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.util.StringUtil;
 
 import java.awt.Container;
@@ -87,7 +86,7 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void init() {
-        if (FileUtil.existsDirectory(sourceDir)) {
+        if (sourceDir.isDirectory()) {
             setDirLabel(labelSourceDir, sourceDir);
         }
 
@@ -295,7 +294,7 @@ public class ImportImageFilesDialog extends Dialog {
     private boolean dirsValid() {
         if (filesChoosed) {
             return !sourceFiles.isEmpty()
-                   && FileUtil.existsDirectory(targetDir) && dirsDifferent();
+                   && targetDir.isDirectory() && dirsDifferent();
         } else {
             return existsBothDirs() && dirsDifferent();
         }
@@ -306,8 +305,7 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private boolean existsBothDirs() {
-        return FileUtil.existsDirectory(sourceDir)
-               && FileUtil.existsDirectory(targetDir);
+        return sourceDir.isDirectory() && targetDir.isDirectory();
     }
 
     private boolean checkDirsDifferent(File src, File tgt) {

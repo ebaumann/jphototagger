@@ -54,6 +54,8 @@ public final class AutoscanDirectoriesExporter implements Exporter {
     public static final AutoscanDirectoriesExporter INSTANCE =
         new AutoscanDirectoriesExporter();
 
+    private AutoscanDirectoriesExporter() {}
+
     @Override
     public void exportFile(File file) {
         if (file == null) {
@@ -64,7 +66,8 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
         try {
             List<String> directories =
-                DatabaseAutoscanDirectories.INSTANCE.getAll();
+                FileUtil.getAsFilenames(
+                    DatabaseAutoscanDirectories.INSTANCE.getAll());
 
             XmlObjectExporter.export(
                 new CollectionWrapper(
@@ -112,7 +115,4 @@ public final class AutoscanDirectoriesExporter implements Exporter {
             return new ArrayList<StringWrapper>(collection);
         }
     }
-
-
-    private AutoscanDirectoriesExporter() {}
 }

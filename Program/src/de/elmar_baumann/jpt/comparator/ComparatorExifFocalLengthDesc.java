@@ -41,9 +41,9 @@ public final class ComparatorExifFocalLengthDesc extends ClassEquality
     @Override
     public int compare(File fileLeft, File fileRight) {
         Exif exifLeft =
-            DatabaseImageFiles.INSTANCE.getExifOf(fileLeft.getAbsolutePath());
+            DatabaseImageFiles.INSTANCE.getExifOfImageFile(fileLeft);
         Exif exifRight =
-            DatabaseImageFiles.INSTANCE.getExifOf(fileRight.getAbsolutePath());
+            DatabaseImageFiles.INSTANCE.getExifOfImageFile(fileRight);
 
         return ((exifLeft == null) && (exifRight == null))
                ? 0

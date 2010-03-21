@@ -82,8 +82,8 @@ public final class EditMetadataPanels
         implements FocusListener, DatabaseImageFilesListener, AppExitListener {
     private final List<JPanel>            panels       =
         new ArrayList<JPanel>();
-    private final List<Pair<String, Xmp>> filenamesXmp =
-        new ArrayList<Pair<String, Xmp>>();
+    private final List<Pair<File, Xmp>> imageFilesXmp =
+        new ArrayList<Pair<File, Xmp>>();
     private boolean              editable             = true;
     private WatchDifferentValues watchDifferentValues =
         new WatchDifferentValues();
@@ -123,7 +123,7 @@ public final class EditMetadataPanels
 
     private void save() {
         addInputToRepeatableTextEntries();
-        SaveXmp.save(filenamesXmp);
+        SaveXmp.save(imageFilesXmp);
         setDirty(false);
     }
 
@@ -170,33 +170,33 @@ public final class EditMetadataPanels
         return editable;
     }
 
-    public synchronized void setFilenames(Collection<String> filenames) {
+    public synchronized void setImageFiles(Collection<File> imageFiles) {
         emptyPanels(false);
-        setXmpOfFiles(filenames);
+        setXmpOfImageFiles(imageFiles);
         setXmpToEditPanels();
         setXmpOfFilesAsTextEntryListener(true);
     }
 
-    private void setXmpOfFiles(Collection<String> filenames) {
-        filenamesXmp.clear();
+    private void setXmpOfImageFiles(Collection<File> imageFiles) {
+        imageFilesXmp.clear();
 
-        for (String filename : filenames) {
+        for (File imageFile : imageFiles) {
             Xmp xmp = null;
 
-            if (XmpMetadata.hasImageASidecarFile(filename)) {
-                xmp = XmpMetadata.getXmpFromSidecarFileOf(filename);
+            if (XmpMetadata.hasImageASidecarFile(imageFile)) {
+                xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
             }
 
             if (xmp == null) {
                 xmp = new Xmp();
             }
 
-            filenamesXmp.add(new Pair<String, Xmp>(filename, xmp));
+            imageFilesXmp.add(new Pair<File, Xmp>(imageFile, xmp));
         }
     }
 
     private void setXmpOfFilesAsTextEntryListener(boolean add) {
-        for (Pair<String, Xmp> pair : filenamesXmp) {
+        for (Pair<File, Xmp> pair : imageFilesXmp) {
             setXmpAsTextEntryListener(pair.getSecond(), add);
         }
     }
@@ -419,8 +419,8 @@ public final class EditMetadataPanels
         checkSaveOnChanges();
     }
 
-    public Collection<Pair<String, Xmp>> getFilenamesXmp() {
-        return filenamesXmp;
+    public Collection<Pair<File, Xmp>> getImageFilesXmp() {
+        return new ArrayList<Pair<File, Xmp>>(imageFilesXmp);
     }
 
     /**
@@ -502,7 +502,7 @@ public final class EditMetadataPanels
         watchDifferentValues.setListen(false);
         watchDifferentValues.setEntries(new ArrayList<TextEntry>());
 
-        if (filenamesXmp.size() <= 0) {
+        if (imageFilesXmp.size() <= 0) {
             return;
         }
 
@@ -538,15 +538,15 @@ public final class EditMetadataPanels
     }
 
     private boolean multipleFiles() {
-        return filenamesXmp.size() > 1;
+        return imageFilesXmp.size() > 1;
     }
 
     @SuppressWarnings("unchecked")
     private Collection<String> getCommonXmpCollection(Column column) {
-        assert filenamesXmp.size() >= 1 : "No files!";
+        assert imageFilesXmp.size() >= 1 : "No files!";
 
-        if (filenamesXmp.size() == 1) {
-            Object value = filenamesXmp.get(0).getSecond().getValue(column);
+        if (imageFilesXmp.size() == 1) {
+            Object value = imageFilesXmp.get(0).getSecond().getValue(column);
 
             if (value instanceof List<?>) {
                 return (List<String>) value;
@@ -558,7 +558,7 @@ public final class EditMetadataPanels
         // more then 1 file
         Stack<List<String>> lists = new Stack<List<String>>();
 
-        for (Pair<String, Xmp> pair : filenamesXmp) {
+        for (Pair<File, Xmp> pair : imageFilesXmp) {
             Xmp    xmp   = pair.getSecond();
             Object value = xmp.getValue(column);
 
@@ -567,7 +567,7 @@ public final class EditMetadataPanels
             }
         }
 
-        if (lists.size() != filenamesXmp.size()) {
+        if (lists.size() != imageFilesXmp.size()) {
 
             // 1 ore more files without metadata
             return new ArrayList<String>(1);
@@ -583,11 +583,11 @@ public final class EditMetadataPanels
     }
 
     private String getCommonXmpString(Column column) {
-        assert filenamesXmp.size() >= 1 : "No files!";
+        assert imageFilesXmp.size() >= 1 : "No files!";
 
-        if (filenamesXmp.size() == 1) {
+        if (imageFilesXmp.size() == 1) {
             String value =
-                toString(filenamesXmp.get(0).getSecond().getValue(column));
+                toString(imageFilesXmp.get(0).getSecond().getValue(column));
 
             return (value == null)
                    ? ""
@@ -597,7 +597,7 @@ public final class EditMetadataPanels
         // more then 1 file
         Stack<String> strings = new Stack<String>();
 
-        for (Pair<String, Xmp> pair : filenamesXmp) {
+        for (Pair<File, Xmp> pair : imageFilesXmp) {
             Xmp    xmp   = pair.getSecond();
             String value = toString(xmp.getValue(column));
 
@@ -606,7 +606,7 @@ public final class EditMetadataPanels
             }
         }
 
-        if (strings.size() != filenamesXmp.size()) {
+        if (strings.size() != imageFilesXmp.size()) {
             return "";
         }
 
@@ -622,7 +622,7 @@ public final class EditMetadataPanels
     }
 
     private boolean hasValue(Column column) {
-        for (Pair<String, Xmp> pair : filenamesXmp) {
+        for (Pair<File, Xmp> pair : imageFilesXmp) {
             Xmp    xmp   = pair.getSecond();
             String value = toString(xmp.getValue(column));
 
@@ -874,17 +874,17 @@ public final class EditMetadataPanels
      *
      * @param imageFile image file with new XMP data
      */
-    private void setModifiedXmp(String filename, Xmp xmp) {
-        if (!editable || isDirty() || (filenamesXmp.size() != 1)) {
+    private void setModifiedXmp(File imageFile, Xmp xmp) {
+        if (!editable || isDirty() || (imageFilesXmp.size() != 1)) {
             return;
         }
 
-        Pair<String, Xmp> pair = filenamesXmp.get(0);
+        Pair<File, Xmp> pair = imageFilesXmp.get(0);
 
-        if (pair.getFirst().equals(filename)) {
+        if (pair.getFirst().equals(imageFile)) {
             setXmpAsTextEntryListener(pair.getSecond(), false);
             setXmpAsTextEntryListener(xmp, true);
-            filenamesXmp.set(0, new Pair<String, Xmp>(filename, xmp));
+            imageFilesXmp.set(0, new Pair<File, Xmp>(imageFile, xmp));
             setXmpToEditPanels();
 
             return;
@@ -921,17 +921,17 @@ public final class EditMetadataPanels
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
-        setModifiedXmp(imageFile.getAbsolutePath(), xmp);
+        setModifiedXmp(imageFile, xmp);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        setModifiedXmp(imageFile.getAbsolutePath(), updatedXmp);
+        setModifiedXmp(imageFile, updatedXmp);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
-        setModifiedXmp(imageFile.getAbsolutePath(), xmp);
+        setModifiedXmp(imageFile, xmp);
     }
 
     @Override

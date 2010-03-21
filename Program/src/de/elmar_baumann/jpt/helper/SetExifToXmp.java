@@ -45,9 +45,17 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class SetExifToXmp extends HelperThread {
-    private volatile boolean stop;
-    private List<String>     files;
+    private List<File>       files;
     private final boolean    replaceExistingXmpData;
+    private volatile boolean stop;
+
+    /**
+     * Checks all known image files and does not replace existing XMP data.
+     */
+    public SetExifToXmp() {
+        replaceExistingXmpData = false;
+        setInfo();
+    }
 
     /**
      * Checks all known image files.
@@ -64,24 +72,16 @@ public final class SetExifToXmp extends HelperThread {
     /**
      * Checks all known image files.
      *
-     * @param filenames              names of files to process instead of
-     *                               processing all known files
+     * @param imageFiles             image files to process instead of
+     *                               processing all known image files
      * @param replaceExistingXmpData true, if existing XMP metadata shall
      *                               be replaced with EXIF metadata.
      *                               Default: false.
      */
-    public SetExifToXmp(Collection<String> filenames,
+    public SetExifToXmp(Collection<? extends File> imageFiles,
                         boolean replaceExistingXmpData) {
         this.replaceExistingXmpData = replaceExistingXmpData;
-        this.files                  = new ArrayList<String>(filenames);
-        setInfo();
-    }
-
-    /**
-     * Checks all known image files and does not replace existing XMP data.
-     */
-    public SetExifToXmp() {
-        replaceExistingXmpData = false;
+        files                       = new ArrayList<File>(imageFiles);
         setInfo();
     }
 
@@ -93,20 +93,20 @@ public final class SetExifToXmp extends HelperThread {
 
     @Override
     public void run() {
-        List<String> filenames = (files == null)
-                                 ? DatabaseImageFiles.INSTANCE.getAllFilenames()
-                                 : files;
-        int fileCount = filenames.size();
+        List<File> imgFiles  = (files == null)
+                               ? DatabaseImageFiles.INSTANCE.getAllImageFiles()
+                               : files;
+        int        fileCount = imgFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
-                                         ? filenames.get(0)
+                                         ? imgFiles.get(0)
                                          : null);
 
         for (int i = 0; !stop && (i < fileCount); i++) {
-            String filename = filenames.get(i);
+            File imgFile = imgFiles.get(i);
 
-            set(filename, replaceExistingXmpData);
-            progressPerformed(i + 1, filename);
+            set(imgFile, replaceExistingXmpData);
+            progressPerformed(i + 1, imgFile);
         }
 
         progressEnded(null);
@@ -120,14 +120,14 @@ public final class SetExifToXmp extends HelperThread {
      * file does not have EXIF metadata or the EXIF metadata does not have a
      * settable vale, nothing will be done.
      *
-     * @param filename               name of the image file
+     * @param imgFile              image file
      * @param replaceExistingXmpData true, if existing XMP metadata shall
      *                               be replaced with EXIF metadata.
      *                               Default: false.
      */
-    public static void set(String filename, boolean replaceExistingXmpData) {
-        Exif exif = ExifMetadata.getExif(new File(filename));
-        Xmp  xmp  = XmpMetadata.getXmpFromSidecarFileOf(filename);
+    public static void set(File imgFile, boolean replaceExistingXmpData) {
+        Exif exif = ExifMetadata.getExif(imgFile);
+        Xmp  xmp  = XmpMetadata.getXmpFromSidecarFileOf(imgFile);
 
         if (xmp == null) {
             xmp = new Xmp();
@@ -137,17 +137,17 @@ public final class SetExifToXmp extends HelperThread {
             if (isSet(xmp, replaceExistingXmpData)) {
                 setDateCreated(xmp, exif);
 
-                String xmpFilename =
-                    XmpMetadata.suggestSidecarFilename(filename);
+                File xmpFile = XmpMetadata.suggestSidecarFile(imgFile);
 
-                if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFilename)) {
+                if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
                     ImageFile imageFile = new ImageFile();
 
                     xmp.setValue(ColumnXmpLastModified.INSTANCE,
-                                 new File(xmpFilename).lastModified());
-                    imageFile.setLastmodified(
-                        new File(filename).lastModified());    // Avoids re-reading thumbnails
-                    imageFile.setFilename(filename);
+                                 xmpFile.lastModified());
+
+                    // Avoiding re-reading thumbnails
+                    imageFile.setLastmodified(imgFile.lastModified());
+                    imageFile.setFile(imgFile);
                     imageFile.setXmp(xmp);
                     imageFile.addInsertIntoDb(
                         InsertImageFilesIntoDatabase.Insert.XMP);

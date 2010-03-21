@@ -136,7 +136,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     private void createImageFileInserter(List<File> selectedImageFiles) {
         imageFileInserter = new InsertImageFilesIntoDatabase(
-            FileUtil.getAsFilenames(selectedImageFiles),
+            selectedImageFiles,
             getWhatToInsertIntoDatabase());
         imageFileInserter.addProgressListener(this);
         imageFileInserter.addUpdateMetadataCheckListener(this);
@@ -208,12 +208,12 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     @Override
     public void actionPerformed(UpdateMetadataCheckEvent e) {
         if (e.getType().equals(Type.CHECKING_FILE)) {
-            String filename = e.getImageFilename();
+            File file = e.getImageFile();
 
-            assert filename != null : "Filename is null!";
+            assert file != null : "File is null!";
 
-            if (filename != null) {
-                labelCurrentFilename.setText(filename);
+            if (file != null) {
+                labelCurrentFilename.setText(file.getAbsolutePath());
             }
         } else if (e.getType().equals(Type.CHECK_FINISHED)) {
             imageFileInserter.removeUpdateMetadataCheckListener(this);

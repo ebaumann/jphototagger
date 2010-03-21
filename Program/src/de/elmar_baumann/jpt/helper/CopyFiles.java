@@ -43,9 +43,23 @@ public final class CopyFiles implements Runnable {
     private final ProgressListenerSupport listenerSupport =
         new ProgressListenerSupport();
     private final List<File>             errorFiles = new ArrayList<File>();
-    private final List<Pair<File, File>> sourceTargetFiles;
+    private boolean                      stop       = false;
     private final Options                options;
-    private boolean                      stop = false;
+    private final List<Pair<File, File>> sourceTargetFiles;
+
+    /**
+     * Konstruktor
+     *
+     * @param sourceTargetFiles    Zu kopierende Dateien. Die erste im Paar
+     *                 ist die Quelldatei, die zweite die Zieldatei.
+     * @param options  Optionen
+     */
+    public CopyFiles(List<Pair<File, File>> sourceTargetFiles,
+                     Options options) {
+        this.sourceTargetFiles = new ArrayList<Pair<File,
+                File>>(sourceTargetFiles);
+        this.options = options;
+    }
 
     /**
      * Copy options.
@@ -83,20 +97,6 @@ public final class CopyFiles implements Runnable {
 
             return CONFIRM_OVERWRITE;
         }
-    }
-
-    /**
-     * Konstruktor
-     *
-     * @param sourceTargetFiles    Zu kopierende Dateien. Die erste im Paar
-     *                 ist die Quelldatei, die zweite die Zieldatei.
-     * @param options  Optionen
-     */
-    public CopyFiles(List<Pair<File, File>> sourceTargetFiles,
-                     Options options) {
-        this.sourceTargetFiles = new ArrayList<Pair<File,
-                File>>(sourceTargetFiles);
-        this.options = options;
     }
 
     /**
@@ -142,8 +142,7 @@ public final class CopyFiles implements Runnable {
                     File sourceFile = filePair.getFirst();
                     File targetFile = getTargetFile(filePair);
 
-                    logCopyFile(sourceFile.getAbsolutePath(),
-                                targetFile.getAbsolutePath());
+                    logCopyFile(sourceFile, targetFile);
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
                     AppLogger.logSevere(CopyFiles.class, ex);
@@ -168,9 +167,9 @@ public final class CopyFiles implements Runnable {
         return targetFile;
     }
 
-    private void logCopyFile(String sourceFilename, String targetFilename) {
+    private void logCopyFile(File sourceFile, File targetFile) {
         AppLogger.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy",
-                          sourceFilename, targetFilename);
+                          sourceFile, targetFile);
     }
 
     private synchronized void notifyStart() {

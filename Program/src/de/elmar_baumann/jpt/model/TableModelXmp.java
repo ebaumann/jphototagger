@@ -25,6 +25,8 @@ import com.adobe.xmp.properties.XMPPropertyInfo;
 
 import de.elmar_baumann.jpt.resource.JptBundle;
 
+import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +40,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class TableModelXmp extends DefaultTableModel {
     private static final long     serialVersionUID = -647814140321831383L;
+    private File                  file;
     private List<XMPPropertyInfo> propertyInfos;
-    private String                filename;
 
     public TableModelXmp() {
         setRowHeaders();
@@ -48,28 +50,28 @@ public final class TableModelXmp extends DefaultTableModel {
     /**
      * Setzt die Property-Infos, deren Daten übernommen werden.
      *
-     * @param filename       Name der Datei, aus der die Property-Infos
+     * @param file           Datei, aus der die Property-Infos
      *                       ermittelt wurden oder null, falls diese
-     *                       Inforation unwichtig ist
+     *                       Information unwichtig ist
      * @param propertyInfos  Property-Infos
      */
-    public void setPropertyInfosOfFile(String filename,
+    public void setPropertyInfosOfFile(File file,
                                        List<XMPPropertyInfo> propertyInfos) {
-        this.filename      = filename;
+        this.file          = file;
         this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
         removeAllRows();
         addRows();
     }
 
     /**
-     * Liefert den Namen der Datei, deren Property-Infos das Model enthält.
+     * Liefert die Datei, deren Property-Infos das Model enthält.
      *
      * @return Dateiname oder null, wenn die Property-Infos entfernt wurden
      *         oder null gesetzt wurde mit
      *         {@link #setPropertyInfosOfFile(java.lang.String, java.util.List)}
      */
-    public String getFilename() {
-        return filename;
+    public File getFile() {
+        return file;
     }
 
     /**
@@ -77,7 +79,7 @@ public final class TableModelXmp extends DefaultTableModel {
      */
     public void removeAllRows() {
         getDataVector().clear();
-        filename = null;
+        file = null;
     }
 
     @Override

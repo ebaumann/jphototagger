@@ -74,9 +74,9 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         "RenameDialog.SelectedTemplate";
     private final transient FilenameFormatArray filenameFormatArray =
         new FilenameFormatArray();
-    private List<File>                                files           =
+    private List<File>                                imageFiles           =
         new ArrayList<File>();
-    private final transient FileSystemListenerSupport listenerSupport =
+    private final transient FileSystemListenerSupport ls =
         new FileSystemListenerSupport();
     private int               fileIndex = 0;
     private boolean           lockClose = false;
@@ -122,11 +122,11 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     public void addFileSystemListener(FileSystemListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeFileSystemListener(FileSystemListener listener) {
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
     /**
@@ -143,52 +143,49 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     /**
-     * Sets the files to rename;
+     * Sets the image files to rename.
      *
-     * @param files  files
+     * @param imageFiles image files
      */
-    public void setFiles(List<File> files) {
-        this.files = files;
+    public void setImageFiles(List<File> imageFiles) {
+        this.imageFiles = imageFiles;
     }
 
-    public synchronized void notifyFileSystemListeners(File oldFile,
-            File newFile) {
-        listenerSupport.notifyRenamed(oldFile, newFile);
+    public synchronized void notifyFileSystemListeners(File fromImageFile,
+            File toImageFile) {
+        ls.notifyRenamed(fromImageFile, toImageFile);
     }
 
-    private boolean renameFile(File oldFile, File newFile) {
-        boolean renamed = oldFile.renameTo(newFile);
+    private boolean renameImageFile(File fromImageFile, File toImageFile) {
+        boolean renamed = fromImageFile.renameTo(toImageFile);
 
         if (renamed) {
-            renameXmpFile(oldFile.getAbsolutePath(), newFile.getAbsolutePath());
+            renameXmpFileOfImageFile(fromImageFile, toImageFile);
         }
 
         return renamed;
     }
 
-    private void renameXmpFile(String oldFilenamne, String newFilename) {
-        String oldXmpFilename = XmpMetadata.getSidecarFilename(oldFilenamne);
+    private void renameXmpFileOfImageFile(File fromImageFile, File toImageFile) {
+        File fromXmpFile = XmpMetadata.getSidecarFile(fromImageFile);
 
-        if (oldXmpFilename != null) {
-            String newXmpFilename =
-                XmpMetadata.suggestSidecarFilename(newFilename);
-            File newXmpFile = new File(newXmpFilename);
-            File oldXmpFile = new File(oldXmpFilename);
+        if (fromXmpFile != null) {
+            File toXmpFile = XmpMetadata.suggestSidecarFile(toImageFile);
 
-            if (newXmpFile.exists()) {
-                if (!newXmpFile.delete()) {
+            if (fromXmpFile.exists()) {
+                if (!toXmpFile.delete()) {
                     AppLogger.logWarning(
                         RenameDialog.class,
                         "RenameDialog.Error.XmpFileCouldNotBeDeleted",
-                        newXmpFilename);
+                        toXmpFile);
                 }
             }
 
-            if (!oldXmpFile.renameTo(newXmpFile)) {
+            if (!fromXmpFile.renameTo(toXmpFile)) {
                 AppLogger.logWarning(
                     RenameDialog.class,
                     "RenameDialog.Error.XmpFileCouldNotBeRenamed",
-                    oldXmpFilename, newXmpFilename);
+                    fromXmpFile, toXmpFile);
             }
         }
     }
@@ -204,12 +201,12 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         tabbedPane.setEnabledAt(1, false);
 
         int countRenamed = 0;
-        int size         = files.size();
+        int size         = imageFiles.size();
 
         for (int i = 0; !stop && (i < size); i++) {
             fileIndex = i;
 
-            File   oldFile = files.get(i);
+            File   oldFile = imageFiles.get(i);
             String parent  = oldFile.getParent();
 
             filenameFormatArray.setFile(oldFile);
@@ -221,8 +218,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                                            .format());
 
             if (checkNewFileDoesNotExist(newFile)
-                    && renameFile(oldFile, newFile)) {
-                files.set(i, newFile);
+                    && renameImageFile(oldFile, newFile)) {
+                imageFiles.set(i, newFile);
                 notifyFileSystemListeners(oldFile, newFile);
                 countRenamed++;
             } else {
@@ -243,14 +240,14 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
         int countRenamed = 0;
 
-        if ((fileIndex >= 0) && (fileIndex < files.size())) {
-            File oldFile = files.get(fileIndex);
+        if ((fileIndex >= 0) && (fileIndex < imageFiles.size())) {
+            File oldFile = imageFiles.get(fileIndex);
 
             if (canRenameViaInput()) {
                 File newFile = getNewFileViaInput();
 
-                if (renameFile(oldFile, newFile)) {
-                    files.set(fileIndex, newFile);
+                if (renameImageFile(oldFile, newFile)) {
+                    imageFiles.set(fileIndex, newFile);
                     notifyFileSystemListeners(oldFile, newFile);
                     setCurrentFilenameToInputPanel();
                     countRenamed++;
@@ -269,7 +266,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private void setNextFileViaInput() {
         fileIndex++;
 
-        if (fileIndex > files.size() - 1) {
+        if (fileIndex > imageFiles.size() - 1) {
             setVisible(false);
             dispose();
         } else {
@@ -287,7 +284,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private boolean canRenameViaInput() {
-        File oldFile = files.get(fileIndex);
+        File oldFile = imageFiles.get(fileIndex);
         File newFile = getNewFileViaInput();
 
         return checkNewFilenameIsDefined()
@@ -329,8 +326,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void setCurrentFilenameToInputPanel() {
-        if ((fileIndex >= 0) && (fileIndex < files.size())) {
-            File file = files.get(fileIndex);
+        if ((fileIndex >= 0) && (fileIndex < imageFiles.size())) {
+            File file = imageFiles.get(fileIndex);
 
             setDirectoryNameLabel(file);
             labelOldName.setText(file.getName());
@@ -396,8 +393,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void setExampleFilename() {
-        if (files.size() > 0) {
-            File file = files.get(0);
+        if (imageFiles.size() > 0) {
+            File file = imageFiles.get(0);
 
             setFileToFilenameFormats(file);
             setFilenameFormatArray(file);

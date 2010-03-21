@@ -81,8 +81,8 @@ public final class ControllerMiscMetadataItemSelected
     }
 
     private class ShowThumbnails implements Runnable {
-        private final TreePath                 treePath;
         private final ThumbnailsPanel.Settings tnPanelSettings;
+        private final TreePath                 treePath;
 
         public ShowThumbnails(TreePath treePath,
                               ThumbnailsPanel.Settings settings) {
@@ -118,10 +118,10 @@ public final class ControllerMiscMetadataItemSelected
 
                     setTitle(column, userObject);
                     ControllerSortThumbnails.setLastSort();
-                    thumbnailsPanel.setFiles(
-                        DatabaseImageFiles.INSTANCE.getFilesWithColumnContent(
-                            column,
-                            userObject.toString()), Content.MISC_METADATA);
+                    thumbnailsPanel
+                        .setFiles(DatabaseImageFiles.INSTANCE
+                            .getImageFilesWithColumnContent(column,
+                                userObject.toString()), Content.MISC_METADATA);
                     thumbnailsPanel.apply(tnPanelSettings);
                 } else {
                     setTitle();
@@ -145,7 +145,6 @@ public final class ControllerMiscMetadataItemSelected
         }
 
         // 1 path where thumbnailsPanel.apply(tnPanelSettings) is not to call
-
         private void setTitle() {
             GUI.INSTANCE.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(

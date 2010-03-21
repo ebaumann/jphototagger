@@ -28,12 +28,11 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.io.FileUtil;
+
+import java.io.File;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
@@ -67,30 +66,29 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     }
 
     private void setFilesToThumbnailsPanel() {
-        Set<String> filenames = getFilenamesOfKeywords();
+        List<File> imageFiles = getImageFilesOfKeywords();
 
         ControllerSortThumbnails.setLastSort();
-        thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                 Content.KEYWORD);
+        thumbnailsPanel.setFiles(imageFiles, Content.KEYWORD);
     }
 
-    private Set<String> getFilenamesOfKeywords() {
-        Set<String> filenames = new HashSet<String>();
+    private List<File> getImageFilesOfKeywords() {
+        List<File> imageFiles = new ArrayList<File>();
 
         for (List<String> keywords : keywordLists) {
 
             // Faster when using 2 different DB queries if only 1 keyword is
             // selected
             if (keywords.size() == 1) {
-                filenames.addAll(db.getFilenamesOfDcSubject(keywords.get(0)));
+                imageFiles.addAll(db.getImageFilesOfDcSubject(keywords.get(0)));
                 setTitle(keywords.get(0));
             } else if (keywords.size() > 1) {
                 setTitle(keywords);
-                filenames.addAll(db.getFilenamesOfAllDcSubjects(keywords));
+                imageFiles.addAll(db.getImageFilesOfAllDcSubjects(keywords));
             }
         }
 
-        return filenames;
+        return imageFiles;
     }
 
     private void setTitle(List<String> keywords) {

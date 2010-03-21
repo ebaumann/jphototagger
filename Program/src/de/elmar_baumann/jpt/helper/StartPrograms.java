@@ -28,7 +28,6 @@ import de.elmar_baumann.jpt.helper.InsertImageFilesIntoDatabase.Insert;
 import de.elmar_baumann.jpt.io.IoUtil;
 import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.dialogs.ProgramInputParametersDialog;
-import de.elmar_baumann.lib.io.FileUtil;
 import de.elmar_baumann.lib.runtime.External;
 
 import java.io.File;
@@ -47,8 +46,8 @@ import javax.swing.JProgressBar;
  * @author  Elmar Baumann
  */
 public final class StartPrograms {
-    private final JProgressBar   progressBar;
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
+    private final JProgressBar   progressBar;
 
     /**
      * Constructor.
@@ -91,10 +90,10 @@ public final class StartPrograms {
     }
 
     private class Execute extends Thread {
-        private Program              program;
-        private List<File>           imageFiles;
         ProgramInputParametersDialog dialog =
             new ProgramInputParametersDialog();
+        private List<File> imageFiles;
+        private Program    program;
 
         public Execute(Program program, List<File> imageFiles) {
             this.imageFiles = new ArrayList<File>(imageFiles);
@@ -263,8 +262,7 @@ public final class StartPrograms {
         private void updateDatabase() {
             if (program.isChangeFile()) {
                 InsertImageFilesIntoDatabase updater =
-                    new InsertImageFilesIntoDatabase(
-                        FileUtil.getAbsolutePathnames(imageFiles),
+                    new InsertImageFilesIntoDatabase(imageFiles,
                         Insert.OUT_OF_DATE);
 
                 updater.run();    // no subsequent thread

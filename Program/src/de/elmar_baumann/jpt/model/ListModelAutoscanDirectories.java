@@ -48,12 +48,9 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
     }
 
     private void addElements() {
-        List<String> directoryNames =
-            DatabaseAutoscanDirectories.INSTANCE.getAll();
+        List<File> directories = DatabaseAutoscanDirectories.INSTANCE.getAll();
 
-        for (String directoryName : directoryNames) {
-            File directory = new File(directoryName);
-
+        for (File directory : directories) {
             if (directory.isDirectory() && directory.exists()) {
                 addElement(directory);
             }

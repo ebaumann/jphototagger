@@ -36,10 +36,11 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.componentutil.TreeUtil;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.io.File;
 
 import java.util.List;
 
@@ -98,15 +99,14 @@ public final class ControllerAdvancedSearch
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
 
-                        List<String> filenames =
-                            DatabaseFind.INSTANCE.findFilenames(
+                        List<File> imageFiles =
+                            DatabaseFind.INSTANCE.findImageFiles(
                                 paramStmt.createParamStatement());
 
                         setTitle(paramStmt.getName());
                         SearchHelper.setSort(savedSearch);
-                        thumbnailsPanel.setFiles(
-                            FileUtil.getAsFiles(filenames),
-                            Content.SAVED_SEARCH);
+                        thumbnailsPanel.setFiles(imageFiles,
+                                                 Content.SAVED_SEARCH);
                     }
                 }
             }

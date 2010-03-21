@@ -90,7 +90,7 @@ public final class ControllerRenameFiles
             RenameDialog dialog = new RenameDialog();
 
             Collections.sort(files);
-            dialog.setFiles(files);
+            dialog.setImageFiles(files);
             dialog.addFileSystemListener(this);
             dialog.setEnabledTemplates(
                 thumbnailsPanel.getContent().isUniqueFileSystemDirectory());
@@ -111,18 +111,18 @@ public final class ControllerRenameFiles
     }
 
     @Override
-    public void fileRenamed(final File oldFile, final File newFile) {
+    public void fileRenamed(final File fromFile, final File toFile) {
         AppLogger.logInfo(ControllerRenameFiles.class,
-                          "ControllerRenameFiles.Info.Rename", oldFile,
-                          newFile);
-        db.updateRename(oldFile.getAbsolutePath(), newFile.getAbsolutePath());
+                          "ControllerRenameFiles.Info.Rename", fromFile,
+                          toFile);
+        db.updateRename(fromFile, toFile);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
-                XmpCache.INSTANCE.updateFiles(oldFile, newFile);
-                RenderedThumbnailCache.INSTANCE.updateFiles(oldFile, newFile);
-                thumbnailsPanel.rename(oldFile, newFile);
+                ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
+                XmpCache.INSTANCE.updateFiles(fromFile, toFile);
+                RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
+                thumbnailsPanel.rename(fromFile, toFile);
             }
         });
     }

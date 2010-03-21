@@ -26,6 +26,8 @@ import de.elmar_baumann.jpt.data.ImageCollection;
 import de.elmar_baumann.jpt.event.listener.DatabaseImageCollectionsListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 
+import java.io.File;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,9 +52,9 @@ public final class DatabaseImageCollections extends Database {
     private DatabaseImageCollections() {}
 
     /**
-     * Liefert die Namen aller (bekannten) Sammlungen.
+     * Returns the names of all image collections.
      *
-     * @return Namen der Sammlungen
+     * @return names
      */
     public List<String> getAll() {
         List<String> names = new ArrayList<String>();
@@ -89,20 +91,20 @@ public final class DatabaseImageCollections extends Database {
             new ArrayList<ImageCollection>(names.size());
 
         for (String name : names) {
-            collections.add(new ImageCollection(name, getFilenamesOf(name)));
+            collections.add(new ImageCollection(name, getImageFilesOf(name)));
         }
 
         return collections;
     }
 
     /**
-     * Benennt eine Bildsammlung um.
+     * Renames an image collection
      *
-     * @param oldName Alter Name
-     * @param newName Neuer Name
-     * @return        Anzahl umbenannter Sammlungen (sollte 1 oder 0 sein)
+     * @param fromName old name
+     * @param toName   new name
+     * @return         count of renamed image collections (0 or 1)
      */
-    public int updateRename(String oldName, String newName) {
+    public int updateRename(String fromName, String toName) {
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -112,13 +114,13 @@ public final class DatabaseImageCollections extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement(
                 "UPDATE collection_names SET name = ? WHERE name = ?");
-            stmt.setString(1, newName);
-            stmt.setString(2, oldName);
+            stmt.setString(1, toName);
+            stmt.setString(2, fromName);
             logFiner(stmt);
             count = stmt.executeUpdate();
 
             if (count > 0) {
-                notifyCollectionRenamed(oldName, newName);
+                notifyCollectionRenamed(fromName, toName);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
@@ -130,17 +132,11 @@ public final class DatabaseImageCollections extends Database {
         return count;
     }
 
-    /**
-     * Liefert alle Bilder einer Bildsammlung.
-     *
-     * @param collectionName Name der Bildsammlung
-     * @return               Dateinamen der Bilder
-     */
-    public List<String> getFilenamesOf(String collectionName) {
-        List<String>      filenames = new ArrayList<String>();
-        Connection        con       = null;
-        PreparedStatement stmt      = null;
-        ResultSet         rs        = null;
+    public List<File> getImageFilesOf(String collectionName) {
+        List<File>        imageFiles = new ArrayList<File>();
+        Connection        con        = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
 
         try {
             con  = getConnection();
@@ -156,33 +152,35 @@ public final class DatabaseImageCollections extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                filenames.add(rs.getString(1));
+                imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
-            filenames.clear();
+            imageFiles.clear();
         } finally {
             close(rs, stmt);
             free(con);
         }
 
-        return filenames;
+        return imageFiles;
     }
 
     public boolean insert(ImageCollection collection) {
-        return insert(collection.getName(), collection.getFilenames());
+        return insert(collection.getName(), collection.getFiles());
     }
 
     /**
-     * Fügt der Datenbank eine Bildsammlung hinzu. Existiert eine dieses Namens,
-     * wird sie vorher gelöscht.
+     * Inserts an image collection into the database.
+     * <p>
+     * If an image collection of that name already exists, it will be deleted
+     * before insertion.
      *
-     * @param collectionName Name der Bildsammlung
-     * @param filenames      Dateien in der gewünschten Reihenfolge
-     * @return               true bei Erfolg
+     * @param collectionName name of the image collection
+     * @param imageFiles     ordered image files
+     * @return               true if successfully inserted
      * @see                  #exists(java.lang.String)
      */
-    public boolean insert(String collectionName, List<String> filenames) {
+    public boolean insert(String collectionName, List<File> imageFiles) {
         boolean added = false;
 
         if (exists(collectionName)) {
@@ -209,22 +207,22 @@ public final class DatabaseImageCollections extends Database {
             long idCollectionName = findId(con, collectionName);
             int  sequence_number  = 0;
 
-            for (String filename : filenames) {
-                long idFile = DatabaseImageFiles.INSTANCE.findIdFile(con,
-                                  filename);
+            for (File imageFile : imageFiles) {
+                long idImageFile =
+                    DatabaseImageFiles.INSTANCE.findIdImageFile(con, imageFile);
 
-                if (!DatabaseImageFiles.INSTANCE.exists(filename)) {
+                if (!DatabaseImageFiles.INSTANCE.exists(imageFile)) {
                     AppLogger.logWarning(
                         getClass(),
                         "DatabaseImageCollections.Error.Insert.FileId",
-                        filename);
+                        imageFile);
                     rollback(con);
 
                     return false;
                 }
 
                 stmtColl.setLong(1, idCollectionName);
-                stmtColl.setLong(2, idFile);
+                stmtColl.setLong(2, idImageFile);
                 stmtColl.setInt(3, sequence_number++);
                 logFiner(stmtColl);
                 stmtColl.executeUpdate();
@@ -232,7 +230,7 @@ public final class DatabaseImageCollections extends Database {
 
             con.commit();
             added = true;
-            notifyCollectionInserted(collectionName, filenames);
+            notifyCollectionInserted(collectionName, imageFiles);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
             rollback(con);
@@ -246,28 +244,28 @@ public final class DatabaseImageCollections extends Database {
     }
 
     /**
-     * Löscht eine Bildsammlung.
+     * Deletes an image collection.
      *
-     * @param collectionname Name der Bildsammlung
-     * @return               true bei Erfolg
+     * @param collectioNname name of the image collection
+     * @return               true if successfully deleted
      */
-    public boolean delete(String collectionname) {
+    public boolean delete(String collectioNname) {
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
 
         try {
-            List<String> delFiles = getFilenamesOf(collectionname);
+            List<File> delFiles = getImageFilesOf(collectioNname);
 
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement(
                 "DELETE FROM collection_names WHERE name = ?");
-            stmt.setString(1, collectionname);
+            stmt.setString(1, collectioNname);
             logFiner(stmt);
             stmt.executeUpdate();
             deleted = true;
-            notifyCollectionDeleted(collectionname, delFiles);
+            notifyCollectionDeleted(collectioNname, delFiles);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageCollections.class, ex);
         } finally {
@@ -279,13 +277,13 @@ public final class DatabaseImageCollections extends Database {
     }
 
     /**
-     * Löscht Bilder aus einer Bildsammlung.
+     * Deletes image files from an image collection.
      *
-     * @param collectionName Name der Sammlung
-     * @param filenames      Dateinamen
-     * @return               Anzahl gelöschter Bilder
+     * @param collectionName name of the image collection
+     * @param imageFiles     image files to delete
+     * @return               count of deleted images
      */
-    public int deleteImagesFrom(String collectionName, List<String> filenames) {
+    public int deleteImagesFrom(String collectionName, List<File> imageFiles) {
         int               delCount = 0;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -297,13 +295,13 @@ public final class DatabaseImageCollections extends Database {
                 "DELETE FROM collections"
                 + " WHERE id_collectionnnames = ? AND id_files = ?");
 
-            List<String> deletedFiles = new ArrayList<String>(filenames.size());
+            List<File> deletedFiles = new ArrayList<File>(imageFiles.size());
 
-            for (String filename : filenames) {
+            for (File imageFile : imageFiles) {
                 int  prevDelCount     = delCount;
                 long idCollectionName = findId(con, collectionName);
                 long idFile           =
-                    DatabaseImageFiles.INSTANCE.findIdFile(con, filename);
+                    DatabaseImageFiles.INSTANCE.findIdImageFile(con, imageFile);
 
                 stmt.setLong(1, idCollectionName);
                 stmt.setLong(2, idFile);
@@ -311,7 +309,7 @@ public final class DatabaseImageCollections extends Database {
                 delCount += stmt.executeUpdate();
 
                 if (prevDelCount < delCount) {
-                    deletedFiles.add(filename);
+                    deletedFiles.add(imageFile);
                 }
 
                 reorderSequenceNumber(con, collectionName);
@@ -331,16 +329,16 @@ public final class DatabaseImageCollections extends Database {
     }
 
     /**
-     * Fügt einer Bildsammlung Bilder hinzu.
+     * Adds image files to an image collection.
      *
-     * @param collectionName Name der Bildsammlung. Existiert diese nicht, wird
-     * eine neue Bildsammlung angelegt
-     * @param filenames      Dateinamen. Existiert eine der Dateien in der
-     * Bildsammlung, wird sie nicht hinzugefügt
-     * @return               true bei Erfolg
+     * @param collectionName name of the image collection, will be created, if
+     *                       no image collection has that name
+     * @param imageFiles     image files to add. If that collection already
+     *                       contains a file, it will not be added
+     * @return               true if successfully inserted
      */
     public boolean insertImagesInto(String collectionName,
-                                    List<String> filenames) {
+                                    List<File> imageFiles) {
         boolean           added = false;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -357,28 +355,28 @@ public final class DatabaseImageCollections extends Database {
                 long idCollectionNames = findId(con, collectionName);
                 int  sequence_number   = getMaxSequenceNumber(con,
                                              collectionName) + 1;
-                List<String> insertedFiles =
-                    new ArrayList<String>(filenames.size());
+                List<File> insertedFiles =
+                    new ArrayList<File>(imageFiles.size());
 
-                for (String filename : filenames) {
-                    if (!isImageIn(con, collectionName, filename)) {
+                for (File imageFile : imageFiles) {
+                    if (!isImageIn(con, collectionName, imageFile)) {
                         long idFiles =
-                            DatabaseImageFiles.INSTANCE.findIdFile(con,
-                                filename);
+                            DatabaseImageFiles.INSTANCE.findIdImageFile(con,
+                                imageFile);
 
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);
                         stmt.setInt(3, sequence_number++);
                         logFiner(stmt);
                         stmt.executeUpdate();
-                        insertedFiles.add(filename);
+                        insertedFiles.add(imageFile);
                     }
                 }
 
                 reorderSequenceNumber(con, collectionName);
                 notifyImagesInserted(collectionName, insertedFiles);
             } else {
-                return insert(collectionName, filenames);
+                return insert(collectionName, imageFiles);
             }
 
             con.commit();
@@ -461,10 +459,10 @@ public final class DatabaseImageCollections extends Database {
     }
 
     /**
-     * Liefert, ob eine Bildsammlung existiert.
+     * Returns whether an image collection of a specific name does exist.
      *
-     * @param collectionName Name der Bildsammlung
-     * @return               true, wenn die Bildsammlung existiert
+     * @param collectionName name of the image collection
+     * @return               true if an image collection of that name exists
      */
     public boolean exists(String collectionName) {
         boolean           exists = false;
@@ -494,9 +492,9 @@ public final class DatabaseImageCollections extends Database {
     }
 
     /**
-     * Liefert die Anzahl der Bildsammlungen.
+     * Returns the count of image collections.
      *
-     * @return Anzahl oder -1 bei Datenbankfehlern
+     * @return count or -1 on database errors
      */
     public int getCount() {
         int        count = -1;
@@ -527,9 +525,9 @@ public final class DatabaseImageCollections extends Database {
     }
 
     /**
-     * Liefert die Anzahl aller Bilder in Bildsammlungen.
+     * Returns the sum of all images in all image collections.
      *
-     * @return Anzahl oder -1 bei Datenbankfehlern
+     * @return count or -1 on database errors
      */
     public int getTotalImageCount() {
         int        count = -1;
@@ -560,7 +558,7 @@ public final class DatabaseImageCollections extends Database {
     }
 
     private boolean isImageIn(Connection con, String collectionName,
-                              String filename)
+                              File imageFile)
             throws SQLException {
         boolean           isInCollection = false;
         PreparedStatement stmt           = null;
@@ -574,7 +572,7 @@ public final class DatabaseImageCollections extends Database {
                 + " INNER JOIN files on collections.id_files = files.id"
                 + " WHERE collection_names.name = ? AND files.filename = ?");
             stmt.setString(1, collectionName);
-            stmt.setString(2, filename);
+            stmt.setString(2, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -620,45 +618,45 @@ public final class DatabaseImageCollections extends Database {
     }
 
     private void notifyImagesInserted(String collectionName,
-                                      List<String> insertedFilepaths) {
+                                      List<File> insertedImageFiles) {
         Set<DatabaseImageCollectionsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.imagesInserted(collectionName, insertedFilepaths);
+                listener.imagesInserted(collectionName, insertedImageFiles);
             }
         }
     }
 
     private void notifyImagesDeleted(String collectionName,
-                                     List<String> deletedFilepaths) {
+                                     List<File> deletedImageFiles) {
         Set<DatabaseImageCollectionsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.imagesDeleted(collectionName, deletedFilepaths);
+                listener.imagesDeleted(collectionName, deletedImageFiles);
             }
         }
     }
 
     private void notifyCollectionInserted(String collectionName,
-            List<String> insertedFilepaths) {
+            List<File> insertedImageFiles) {
         Set<DatabaseImageCollectionsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.collectionInserted(collectionName, insertedFilepaths);
+                listener.collectionInserted(collectionName, insertedImageFiles);
             }
         }
     }
 
     private void notifyCollectionDeleted(String collectionName,
-            List<String> deletedFilepaths) {
+            List<File> deletedImageFiles) {
         Set<DatabaseImageCollectionsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.collectionDeleted(collectionName, deletedFilepaths);
+                listener.collectionDeleted(collectionName, deletedImageFiles);
             }
         }
     }

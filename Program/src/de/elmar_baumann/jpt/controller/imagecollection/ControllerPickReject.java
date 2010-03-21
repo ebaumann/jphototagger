@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
 import de.elmar_baumann.lib.componentutil.MessageLabel;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,10 +59,10 @@ import javax.swing.JMenuItem;
 public final class ControllerPickReject implements ActionListener, KeyListener {
     private final ThumbnailsPanel panelThumbnails =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenuItem itemPick =
-        PopupMenuThumbnails.INSTANCE.getItemPick();
     private final JMenuItem itemReject =
         PopupMenuThumbnails.INSTANCE.getItemReject();
+    private final JMenuItem itemPick =
+        PopupMenuThumbnails.INSTANCE.getItemPick();
 
     public ControllerPickReject() {
         listen();
@@ -94,7 +93,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private void addOrRemove(boolean pick) {
-        if ((pick && isPickCollection()) ||(!pick && isRejectCollection())) {
+        if ((pick && isPickCollection()) || (!pick && isRejectCollection())) {
             return;
         }
 
@@ -110,7 +109,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
                                 .NAME_IMAGE_COLLECTION_REJECTED, selFiles);
 
             if ((pick && isRejectCollection())
-                    ||(!pick && isPickCollection())) {
+                    || (!pick && isPickCollection())) {
                 deleteFromCollection(pick
                                      ? ListModelImageCollections
                                          .NAME_IMAGE_COLLECTION_REJECTED
@@ -153,13 +152,11 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private void addToCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.insertImagesInto(collection,
-                FileUtil.getAsFilenames(files));
+        DatabaseImageCollections.INSTANCE.insertImagesInto(collection, files);
     }
 
     private void deleteFromCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.deleteImagesFrom(collection,
-                FileUtil.getAsFilenames(files));
+        DatabaseImageCollections.INSTANCE.deleteImagesFrom(collection, files);
     }
 
     @Override

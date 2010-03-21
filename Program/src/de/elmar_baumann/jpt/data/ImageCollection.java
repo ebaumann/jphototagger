@@ -21,6 +21,8 @@
 
 package de.elmar_baumann.jpt.data;
 
+import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,28 +40,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class ImageCollection {
-    private String       name;
     @XmlElementWrapper(name = "Filenames")
     @XmlElement(type = String.class)
-    private List<String> filenames;
+    private List<File> imageFiles;
+    private String     name;
 
     public ImageCollection() {}
 
-    public ImageCollection(String name, List<String> filenames) {
-        this.name      = name;
-        this.filenames = new ArrayList<String>(filenames);
+    public ImageCollection(String name, List<File> imageFiles) {
+        this.name       = name;
+        this.imageFiles = new ArrayList<File>(imageFiles);
     }
 
-    public List<String> getFilenames() {
-        return (filenames == null)
+    public List<File> getFiles() {
+        return (imageFiles == null)
                ? null
-               : new ArrayList<String>(filenames);
-    }
-
-    public void setFilenames(List<String> filenames) {
-        this.filenames = (filenames == null)
-                         ? null
-                         : new ArrayList<String>(filenames);
+               : new ArrayList<File>(imageFiles);
     }
 
     public String getName() {

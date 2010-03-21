@@ -865,10 +865,18 @@ public class ThumbnailsPanel extends JPanel
 
             return JptBundle.INSTANCE.getString("ThumbnailsPanel.TooltipText",
                     file, unitLength, unitString, date, date,
-                    getSidecarFilename(file), flagText);
+                    getSidecarFileName(file), flagText);
         } else {
             return "";
         }
+    }
+
+    private String getSidecarFileName(File imageFile) {
+        File sidecarFile = XmpMetadata.getSidecarFile(imageFile);
+
+        return (sidecarFile == null)
+               ? ""
+               : sidecarFile.getAbsolutePath();
     }
 
     public synchronized Content getContent() {
@@ -1550,15 +1558,6 @@ public class ThumbnailsPanel extends JPanel
         int index = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
 
         setToolTipText(createTooltipText(index));
-    }
-
-    private static String getSidecarFilename(File file) {
-        String sidecarfile =
-            XmpMetadata.getSidecarFilename(file.getAbsolutePath());
-
-        return (sidecarfile == null)
-               ? ""
-               : sidecarfile;
     }
 
     public static class Settings {

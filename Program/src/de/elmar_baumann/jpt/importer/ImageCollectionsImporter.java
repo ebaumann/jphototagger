@@ -52,6 +52,8 @@ public final class ImageCollectionsImporter implements Importer {
     public static final ImageCollectionsImporter INSTANCE =
         new ImageCollectionsImporter();
 
+    private ImageCollectionsImporter() {}
+
     @Override
     public void importFile(File file) {
         try {
@@ -63,6 +65,26 @@ public final class ImageCollectionsImporter implements Importer {
         } catch (Exception ex) {
             AppLogger.logSevere(ImageCollectionsImporter.class, ex);
         }
+    }
+
+    @Override
+    public FileFilter getFileFilter() {
+        return ImageCollectionsExporter.INSTANCE.getFileFilter();
+    }
+
+    @Override
+    public String getDisplayName() {
+        return ImageCollectionsExporter.INSTANCE.getDisplayName();
+    }
+
+    @Override
+    public Icon getIcon() {
+        return AppLookAndFeel.getIcon("icon_import.png");
+    }
+
+    @Override
+    public String getDefaultFilename() {
+        return ImageCollectionsExporter.INSTANCE.getDefaultFilename();
     }
 
     private static class ImportThread extends Thread {
@@ -100,8 +122,8 @@ public final class ImageCollectionsImporter implements Importer {
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
             InsertImageFilesIntoDatabase inserter =
-                new InsertImageFilesIntoDatabase(
-                    imageCollection.getFilenames(), Insert.OUT_OF_DATE);
+                new InsertImageFilesIntoDatabase(imageCollection.getFiles(),
+                    Insert.OUT_OF_DATE);
 
             inserter.addProgressListener(
                 new ProgressBarUpdater(
@@ -110,27 +132,4 @@ public final class ImageCollectionsImporter implements Importer {
             inserter.run();    // Not as thread!
         }
     }
-
-
-    @Override
-    public FileFilter getFileFilter() {
-        return ImageCollectionsExporter.INSTANCE.getFileFilter();
-    }
-
-    @Override
-    public String getDisplayName() {
-        return ImageCollectionsExporter.INSTANCE.getDisplayName();
-    }
-
-    @Override
-    public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_import.png");
-    }
-
-    @Override
-    public String getDefaultFilename() {
-        return ImageCollectionsExporter.INSTANCE.getDefaultFilename();
-    }
-
-    private ImageCollectionsImporter() {}
 }

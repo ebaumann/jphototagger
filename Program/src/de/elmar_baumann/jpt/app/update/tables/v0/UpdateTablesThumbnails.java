@@ -145,7 +145,7 @@ final class UpdateTablesThumbnails extends Database {
 
     public void writeThumbnail(Image thumbnail, long id) {
         FileOutputStream fos    = null;
-        File             tnFile = getThumbnailfile(id);
+        File             tnFile = getOldThumbnailFile(id);
 
         if (tnFile == null) {
             return;
@@ -221,10 +221,9 @@ final class UpdateTablesThumbnails extends Database {
                     rs = stmt.executeQuery();
 
                     if (rs.next()) {
-                        String filename = rs.getString(1);
+                        File imageFile = Database.getFile(rs.getString(1));
 
-                        convertThumbnailName(
-                            id, PersistentThumbnails.getMd5Filename(filename));
+                        convertThumbnail(id, imageFile);
                     } else {
                         if (!file.delete()) {    // orphaned thumbnail
                             AppLogger.logWarning(
@@ -261,11 +260,11 @@ final class UpdateTablesThumbnails extends Database {
         return dir.listFiles(new RegexFileFilter("[0-9]+", ""));
     }
 
-    private File getThumbnailfile(long id) {
+    private File getOldThumbnailFile(long id) {
         String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
 
         try {
-            FileUtil.ensureDirectoryExists(new File(dir));
+            FileUtil.ensureDirectoryExists(dir);
 
             return new File(dir + File.separator + id);
         } catch (Exception ex) {
@@ -275,30 +274,31 @@ final class UpdateTablesThumbnails extends Database {
         return null;
     }
 
-    private void convertThumbnailName(long oldId, String newHash) {
-        if (newHash == null) {
+    private void convertThumbnail(long oldId, File imgFile) {
+        if (imgFile == null) {
             return;
         }
 
-        File oldFile = getThumbnailfile(oldId);
+        File oldTnFile = getOldThumbnailFile(oldId);
 
-        if (oldFile == null) {
+        if ((oldTnFile == null) ||!oldTnFile.exists()) {
             return;
         }
 
-        File newFile = PersistentThumbnails.getThumbnailfile(newHash);
+        File newTnFile =
+            PersistentThumbnails.getThumbnailFileOfImageFile(imgFile);
 
-        if (newFile.exists()) {
-            if (!oldFile.delete()) {
+        if ((newTnFile != null) && newTnFile.exists()) {
+            if (!oldTnFile.delete()) {
                 AppLogger.logWarning(getClass(),
                                      "UpdateTablesThumbnails.Error.DeleteOld",
-                                     oldFile);
+                                     oldTnFile);
             }
         } else {
-            if (!oldFile.renameTo(newFile)) {
+            if (!oldTnFile.renameTo(newTnFile)) {
                 AppLogger.logWarning(getClass(),
                                      "UpdateTablesThumbnails.Error.Rename",
-                                     oldFile, newFile);
+                                     oldTnFile, newTnFile);
             }
         }
     }

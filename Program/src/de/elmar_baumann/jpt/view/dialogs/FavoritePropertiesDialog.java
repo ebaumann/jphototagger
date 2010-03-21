@@ -107,13 +107,8 @@ public final class FavoritePropertiesDialog extends Dialog {
         isUpdate = true;
     }
 
-    /**
-     * Setzt den Namen des Verzeichnisses.
-     *
-     * @param  name  Verzeichnisname
-     */
-    public void setDirectoryName(String name) {
-        labelDirectoryname.setText(name);
+    public void setDirectory(File dir) {
+        labelDirectoryname.setText(dir.getAbsolutePath());
     }
 
     /**
@@ -134,13 +129,8 @@ public final class FavoritePropertiesDialog extends Dialog {
         return textFieldFavoriteName.getText().trim();
     }
 
-    /**
-     * Liefet den Namen des Verzeichnisses (File).
-     *
-     * @return Verzeichnisname
-     */
-    public String getDirectoryName() {
-        return labelDirectoryname.getText().trim();
+    public File getDirectory() {
+        return new File(labelDirectoryname.getText().trim());
     }
 
     /**
@@ -185,7 +175,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         String favoriteName  = textFieldFavoriteName.getText().trim();
 
         return !directoryName.isEmpty() &&!favoriteName.isEmpty()
-               && FileUtil.existsDirectory(new File(directoryName));
+               && FileUtil.existsDirectory(directoryName);
     }
 
     @Override

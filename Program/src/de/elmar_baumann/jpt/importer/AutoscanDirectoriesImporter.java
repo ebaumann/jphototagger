@@ -43,6 +43,8 @@ public final class AutoscanDirectoriesImporter implements Importer {
     public static final AutoscanDirectoriesImporter INSTANCE =
         new AutoscanDirectoriesImporter();
 
+    private AutoscanDirectoriesImporter() {}
+
     @Override
     public void importFile(File file) {
         try {
@@ -52,9 +54,9 @@ public final class AutoscanDirectoriesImporter implements Importer {
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
                 if (!DatabaseAutoscanDirectories.INSTANCE.exists(
-                        stringWrapper.getString())) {
+                        new File(stringWrapper.getString()))) {
                     DatabaseAutoscanDirectories.INSTANCE.insert(
-                        stringWrapper.getString());
+                        new File(stringWrapper.getString()));
                 }
             }
         } catch (Exception ex) {
@@ -81,6 +83,4 @@ public final class AutoscanDirectoriesImporter implements Importer {
     public String getDefaultFilename() {
         return AutoscanDirectoriesExporter.INSTANCE.getDefaultFilename();
     }
-
-    private AutoscanDirectoriesImporter() {}
 }

@@ -114,11 +114,10 @@ public final class MoveToDirectoryDialog extends Dialog
         List<File> xmpFiles = new ArrayList<File>();
 
         for (File sourceFile : sourceFiles) {
-            String xmpFilename =
-                XmpMetadata.getSidecarFilename(sourceFile.getAbsolutePath());
+            File xmpFile = XmpMetadata.getSidecarFile(sourceFile);
 
-            if (xmpFilename != null) {
-                xmpFiles.add(new File(xmpFilename));
+            if (xmpFile != null) {
+                xmpFiles.add(xmpFile);
             }
         }
 
@@ -199,8 +198,7 @@ public final class MoveToDirectoryDialog extends Dialog
         } else {
             File dir = new File(labelDirectoryName.getText().trim());
 
-            buttonStart.setEnabled(FileUtil.existsDirectory(dir)
-                                   && dir.canWrite());
+            buttonStart.setEnabled(FileUtil.isWritableDirectory(dir));
         }
     }
 
