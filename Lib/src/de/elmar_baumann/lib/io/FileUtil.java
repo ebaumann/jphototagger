@@ -1050,4 +1050,8 @@ public final class FileUtil {
             }
         }
     }
+
+    public static boolean deleteFile(String filepath) {
+        return new File(filepath).delete();
+    }
 }
