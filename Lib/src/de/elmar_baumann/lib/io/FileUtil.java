@@ -26,7 +26,9 @@ import de.elmar_baumann.lib.io.filefilter.DirectoryFilter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
 import java.net.URISyntaxException;
@@ -52,6 +54,7 @@ import java.util.Stack;
  * @author  Elmar Baumann
  */
 public final class FileUtil {
+    private FileUtil() {}
 
     /**
      * Returns the content of a file as string.
@@ -285,7 +288,7 @@ public final class FileUtil {
      */
     public static boolean existsDirectory(String directoryname) {
         if (directoryname == null) {
-            throw new NullPointerException("directoryname == null");    // NOI18N
+            throw new NullPointerException("directoryname == null");
         }
 
         return existsDirectory(new File(directoryname));
@@ -344,11 +347,11 @@ public final class FileUtil {
     public static void copyFile(String sourceFilename, String targetFilename)
             throws IOException {
         if (sourceFilename == null) {
-            throw new NullPointerException("sourceFilename == null");    // NOI18N
+            throw new NullPointerException("sourceFilename == null");
         }
 
         if (targetFilename == null) {
-            throw new NullPointerException("targetFilename == null");    // NOI18N
+            throw new NullPointerException("targetFilename == null");
         }
 
         copyFile(new File(sourceFilename), new File(targetFilename));
@@ -436,7 +439,7 @@ public final class FileUtil {
     public static List<File> getSubdirectoriesRecursive(String directoryname,
             DirectoryFilter.Option... options) {
         if (directoryname == null) {
-            throw new NullPointerException("directoryname == null");    // NOI18N
+            throw new NullPointerException("directoryname == null");
         }
 
         return getSubdirectoriesRecursive(new File(directoryname), options);
@@ -506,7 +509,8 @@ public final class FileUtil {
     }
 
     /**
-     * Returns a list of files from a list of object where every object is a file.
+     * Returns a list of files from a list of object where every object is a
+     * file.
      *
      * @param  objects files as object
      * @return files
@@ -615,7 +619,7 @@ public final class FileUtil {
     public static void deleteDirectoryRecursive(String directoryname)
             throws IOException {
         if (directoryname == null) {
-            throw new NullPointerException("directoryname == null");    // NOI18N
+            throw new NullPointerException("directoryname == null");
         }
 
         deleteDirectoryRecursive(new File(directoryname));
@@ -981,5 +985,41 @@ public final class FileUtil {
         return new File(file.getAbsolutePath() + suffix);
     }
 
-    private FileUtil() {}
+    /**
+     * Closes an input stream and catches a possible exception.
+     * <p>
+     * Use this method, if the {@link IOException} thrown by the stream shall
+     * not be handled.
+     *
+     * @param is input stream, can be null
+     */
+    public static void closeStream(InputStream is) {
+        if (is != null) {
+            try {
+                is.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
+                                 null, ex);
+            }
+        }
+    }
+
+    /**
+     * Closes an output stream and catches a possible exception.
+     * <p>
+     * Use this method, if the {@link IOException} thrown by the stream shall
+     * not be handled.
+     *
+     * @param os stream, can be null
+     */
+    public static void closeStream(OutputStream os) {
+        if (os != null) {
+            try {
+                os.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
+                                 null, ex);
+            }
+        }
+    }
 }
