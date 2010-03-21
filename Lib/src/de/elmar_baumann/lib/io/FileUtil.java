@@ -295,6 +295,34 @@ public final class FileUtil {
     }
 
     /**
+     * Returns whether a file is a directory and if in that directory can be
+     * written.
+     *
+     * @param  dir directory
+     * @return     true if that file is a directory and if in that directory can
+     *             be written
+     */
+    public static boolean isWritableDirectory(File dir) {
+        if (dir == null) {
+            throw new NullPointerException("dir == null");
+        }
+        return dir.isDirectory() && dir.canWrite();
+    }
+
+    /**
+     * Calls {@link #isWritableDirectory(java.io.File)}.
+     *
+     * @param  filepath path to a directory
+     * @return          see <code>isWritableDirectory()</code>
+     */
+    public static boolean isWritableDirectory(String filepath) {
+        if (filepath == null) {
+            throw new NullPointerException("filepath == null");
+        }
+        return isWritableDirectory(new File(filepath));
+    }
+
+    /**
      * Copies a file (fast).
      *
      * @param  source  source file
