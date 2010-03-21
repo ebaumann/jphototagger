@@ -44,6 +44,7 @@ import javax.swing.ListModel;
  * @author  Elmar Baumann
  */
 public final class ListUtil {
+    private ListUtil() {}
 
     /**
      * Clears alls selected items in all lists.
@@ -352,11 +353,11 @@ public final class ListUtil {
     public static List<Integer> getExistingIndicesOf(int[] indices,
             JList list) {
         if (indices == null) {
-            throw new NullPointerException("indices == null");    // NOI18N
+            throw new NullPointerException("indices == null");
         }
 
         if (list == null) {
-            throw new NullPointerException("list == null");    // NOI18N
+            throw new NullPointerException("list == null");
         }
 
         List<Integer> existingIndices = new ArrayList<Integer>(indices.length);
@@ -372,8 +373,8 @@ public final class ListUtil {
     }
 
     /**
-     * Returns all indices of specific list items where the <code>toString()</code>
-     * of the items will be compared with strings.
+     * Returns all indices of specific list items where the
+     * <code>toString()</code> of the items will be compared with strings.
      *
      * @param model     model
      * @param toStrings values of the <code>toString()</code> method of the
@@ -395,6 +396,4 @@ public final class ListUtil {
 
         return indices;
     }
-
-    private ListUtil() {}
 }
