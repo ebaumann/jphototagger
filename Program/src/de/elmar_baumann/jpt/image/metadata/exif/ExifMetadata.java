@@ -44,6 +44,12 @@ import java.io.IOException;
  * @author  Elmar Baumann, Tobias Stening
  */
 public final class ExifMetadata {
+    public enum IfdType {
+        EXIF, GPS, INTEROPERABILITY, MAKER_NOTE, UNDEFINED,
+        ;
+    }
+
+    private ExifMetadata() {}
 
     /**
      * Returns {@link ExifTag} instances of an image file.
@@ -87,7 +93,8 @@ public final class ExifMetadata {
 
             int count = ((TiffReader) imageReader).getIFDCount();
 
-            // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
+            // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD
+            // (using not IfdType.EXIF)?
             for (int i = 0; i < count; i++) {
                 addTagsOfIfd(((TiffReader) imageReader).getIFD(i),
                              IfdType.EXIF, exifTags);
@@ -118,11 +125,6 @@ public final class ExifMetadata {
         if (imageReader != null) {
             imageReader.close();
         }
-    }
-
-    public enum IfdType {
-        EXIF, GPS, INTEROPERABILITY, MAKER_NOTE, UNDEFINED,
-        ;
     }
 
     private static void addTagsOfIfd(ImageFileDirectory ifd, IfdType ifdType,
@@ -238,8 +240,7 @@ public final class ExifMetadata {
      *         modification time of the file will be returned
      */
     public static long timestampDateTimeOriginalDb(File imageFile) {
-        Exif exif =
-            DatabaseImageFiles.INSTANCE.getExifOf(imageFile.getAbsolutePath());
+        Exif exif = DatabaseImageFiles.INSTANCE.getExifOfImageFile(imageFile);
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
             return imageFile.lastModified();
@@ -247,6 +248,4 @@ public final class ExifMetadata {
 
         return exif.getDateTimeOriginal().getTime();
     }
-
-    private ExifMetadata() {}
 }

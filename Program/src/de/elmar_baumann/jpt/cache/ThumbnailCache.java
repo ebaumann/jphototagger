@@ -125,7 +125,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
     }
 
     /**
-     * Creates a new entry in the cache with the two keys index and filename.
+     * Creates a new entry in the cache with the two keys index and file.
      *
      * Requests for the real image are put into their
      * respective work queues
@@ -197,27 +197,29 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         @Override
         public void run() {
             while (true) {
-                File file = null;
+                File imageFile = null;
 
                 try {
-                    file = wq.fetch().file;
+                    imageFile = wq.fetch().file;
 
                     Image image = null;
 
-                    if (file == null) {
+                    if (imageFile == null) {
                         AppLogger.logWarning(ThumbnailFetcher.class,
                                              "ThumbnailCache.Info.FileIsNull");
                     } else {
-                        String tnFilename = PersistentThumbnails.getMd5Filename(
-                                                file.getAbsolutePath());
+                        File tnFile =
+                            PersistentThumbnails.getThumbnailFileOfImageFile(
+                                imageFile);
 
-                        if (tnFilename == null) {
+                        if (tnFile == null) {
                             AppLogger.logWarning(
                                 ThumbnailFetcher.class,
-                                "ThumbnailCache.Info.NoTnFilename", file);
+                                "ThumbnailCache.Info.NoTnFilename", imageFile);
                         } else {
                             image =
-                                PersistentThumbnails.getThumbnail(tnFilename);
+                                PersistentThumbnails.getThumbnailOfImageFile(
+                                    imageFile);
                         }
                     }
 
@@ -225,8 +227,10 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                         image = cache.noPreviewThumbnail;
                     }
 
-                    cache.update(image, file);
-                } catch (Exception e) {}
+                    cache.update(image, imageFile);
+                } catch (Exception e) {
+                    AppLogger.logSevere(getClass(), e);
+                }
             }
         }
     }

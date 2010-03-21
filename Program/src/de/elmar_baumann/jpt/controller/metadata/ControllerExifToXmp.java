@@ -24,7 +24,6 @@ package de.elmar_baumann.jpt.controller.metadata;
 import de.elmar_baumann.jpt.helper.SetExifToXmp;
 import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,8 +56,7 @@ public final class ControllerExifToXmp implements ActionListener {
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
 
         if (selectedFiles.size() > 0) {
-            new SetExifToXmp(FileUtil.getAsFilenames(selectedFiles),
-                             true).start();
+            new SetExifToXmp(selectedFiles, true).start();
         }
     }
 }

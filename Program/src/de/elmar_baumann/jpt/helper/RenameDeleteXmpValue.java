@@ -134,25 +134,24 @@ public final class RenameDeleteXmpValue {
 
         @Override
         public void run() {
-            List<File> files =
-                DatabaseImageFiles.INSTANCE.getFilesWithColumnContent(column,
-                    oldValue);
-            int size  = files.size();
+            List<File> imageFiles =
+                DatabaseImageFiles.INSTANCE.getImageFilesWithColumnContent(
+                    column, oldValue);
+            int size  = imageFiles.size();
             int value = 0;
 
             notifyStarted(size);
 
-            for (File file : files) {
-                String filepath = file.getAbsolutePath();
-                Xmp    xmp      = XmpMetadata.getXmpFromSidecarFileOf(filepath);
+            for (File imageFile : imageFiles) {
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp != null) {
                     rename(xmp);
 
                     if (XmpMetadata.writeXmpToSidecarFile(xmp,
-                            XmpMetadata.suggestSidecarFilename(filepath))) {
+                            XmpMetadata.suggestSidecarFile(imageFile))) {
                         new InsertImageFilesIntoDatabase(
-                            Collections.singletonList(filepath),
+                            Collections.singletonList(imageFile),
                             Insert.XMP).run();    // No separate thread!
                     }
                 }

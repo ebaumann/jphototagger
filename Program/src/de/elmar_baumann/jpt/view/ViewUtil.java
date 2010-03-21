@@ -49,6 +49,7 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann
  */
 public class ViewUtil {
+    private ViewUtil() {}
 
     /**
      * Returns the selected file in a {@link JTree} if the selected node is a
@@ -93,9 +94,9 @@ public class ViewUtil {
             Object                 userObject = node.getUserObject();
 
             if (userObject instanceof Favorite) {
-                Favorite favoriteDirectory = (Favorite) userObject;
+                Favorite favorite = (Favorite) userObject;
 
-                return new File(favoriteDirectory.getDirectoryName());
+                return favorite.getDirectory();
             } else if (userObject instanceof File) {
                 return (File) userObject;
             }
@@ -154,6 +155,4 @@ public class ViewUtil {
 
         return null;
     }
-
-    private ViewUtil() {}
 }

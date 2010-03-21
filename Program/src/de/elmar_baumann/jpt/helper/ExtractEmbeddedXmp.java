@@ -48,14 +48,9 @@ public final class ExtractEmbeddedXmp extends FileEditor {
             return;
         }
 
-        String sidecarFilename =
-            XmpMetadata.getSidecarFilename(file.getAbsolutePath());
-        File sidecarFile = (sidecarFilename == null)
-                           ? null
-                           : new File(sidecarFilename);
+        File sidecarFile = XmpMetadata.getSidecarFile(file);
 
-        if ((sidecarFile != null)
-                &&!confirmRemove(sidecarFile.getAbsolutePath())) {
+        if ((sidecarFile != null) &&!confirmRemove(sidecarFile)) {
             return;
         }
 
@@ -63,10 +58,10 @@ public final class ExtractEmbeddedXmp extends FileEditor {
         FileLock.INSTANCE.unlock(file, this);
     }
 
-    private boolean confirmRemove(String absolutePath) {
+    private boolean confirmRemove(File file) {
         if (getConfirmOverwrite()) {
             return MessageDisplayer.confirmYesNo(null,
-                    "ExtractEmbeddedXmp.Confirm.Overwrite", absolutePath);
+                    "ExtractEmbeddedXmp.Confirm.Overwrite", file);
         }
 
         return true;
@@ -81,20 +76,18 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     }
 
     private void writeSidecarFile(File file) {
-        String           xmp = XmpFileReader.readFile(file.getAbsolutePath());
+        String           xmp = XmpFileReader.readFile(file);
         FileOutputStream fos = null;
 
         if (xmp != null) {
             try {
                 create(file);
                 fos = new FileOutputStream(
-                    new File(
-                        XmpMetadata.suggestSidecarFilename(
-                            file.getAbsolutePath())));
+                    XmpMetadata.suggestSidecarFile(file));
                 fos.getChannel().lock();
                 fos.write(xmp.getBytes());
                 fos.flush();
-                updateDatabase(file.getAbsolutePath());
+                updateDatabase(file);
             } catch (Exception ex) {
                 AppLogger.logSevere(ExtractEmbeddedXmp.class, ex);
             } finally {
@@ -109,9 +102,9 @@ public final class ExtractEmbeddedXmp extends FileEditor {
         }
     }
 
-    private void updateDatabase(String imageFilename) {
+    private void updateDatabase(File imageFile) {
         InsertImageFilesIntoDatabase insert =
-            new InsertImageFilesIntoDatabase(Arrays.asList(imageFilename),
+            new InsertImageFilesIntoDatabase(Arrays.asList(imageFile),
                 Insert.XMP);
 
         insert.run();    // Shall run in this thread!

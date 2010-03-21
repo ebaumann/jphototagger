@@ -24,6 +24,7 @@ package de.elmar_baumann.jpt.database;
 import de.elmar_baumann.jpt.app.AppLogger;
 import de.elmar_baumann.jpt.event.listener.DatabaseAutoscanDirectoriesListener;
 import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
+
 import java.io.File;
 
 import java.sql.Connection;
@@ -48,16 +49,10 @@ public final class DatabaseAutoscanDirectories extends Database {
 
     private DatabaseAutoscanDirectories() {}
 
-    /**
-     * Fügt ein automatisch nach Metadaten zu scannendes Verzeichnis hinzu.
-     *
-     * @param  directoryName Verzeichnisname
-     * @return true bei Erfolg
-     */
-    public boolean insert(String directoryName) {
+    public boolean insert(File directory) {
         boolean inserted = false;
 
-        if (!exists(directoryName)) {
+        if (!exists(directory)) {
             Connection        con  = null;
             PreparedStatement stmt = null;
 
@@ -66,7 +61,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 con.setAutoCommit(true);
                 stmt = con.prepareStatement(
                     "INSERT INTO autoscan_directories (directory) VALUES (?)");
-                stmt.setString(1, directoryName);
+                stmt.setString(1, getFilePath(directory));
                 logFiner(stmt);
 
                 int count = stmt.executeUpdate();
@@ -74,7 +69,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 inserted = count > 0;
 
                 if (inserted) {
-                    notifyInserted(new File(directoryName));
+                    notifyInserted(directory);
                 }
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
@@ -87,14 +82,7 @@ public final class DatabaseAutoscanDirectories extends Database {
         return inserted;
     }
 
-    /**
-     * Entfernt ein automatisch nach Metadaten zu scannendes Verzeichnis aus der
-     * Datenbank.
-     *
-     * @param  directoryName Name des Verzeichnisses
-     * @return true bei Erfolg
-     */
-    public boolean delete(String directoryName) {
+    public boolean delete(File directory) {
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -104,7 +92,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement(
                 "DELETE FROM autoscan_directories WHERE directory = ?");
-            stmt.setString(1, directoryName);
+            stmt.setString(1, getFilePath(directory));
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
@@ -112,7 +100,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             deleted = count > 0;
 
             if (deleted) {
-                notifyDeleted(new File(directoryName));
+                notifyDeleted(directory);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
@@ -124,14 +112,7 @@ public final class DatabaseAutoscanDirectories extends Database {
         return deleted;
     }
 
-    /**
-     * Liefert, ob ein automatisch nach Metadaten zu scannendes Verzeichnis
-     * in der Datenbank existiert.
-     *
-     * @param  directoryName Verzeichnisname
-     * @return true, wenn das Verzeichnis existiert
-     */
-    public boolean exists(String directoryName) {
+    public boolean exists(File directory) {
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -142,7 +123,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM autoscan_directories"
                 + " WHERE directory = ?");
-            stmt.setString(1, directoryName);
+            stmt.setString(1, getFilePath(directory));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -159,17 +140,11 @@ public final class DatabaseAutoscanDirectories extends Database {
         return exists;
     }
 
-    /**
-     * Liefet alle Verzeichnisse, die automatisch nach Metadaten zu scannen
-     * sind.
-     *
-     * @return Verzeichnisnamen
-     */
-    public List<String> getAll() {
-        List<String> directories = new ArrayList<String>();
-        Connection   con         = null;
-        Statement    stmt        = null;
-        ResultSet    rs          = null;
+    public List<File> getAll() {
+        List<File> directories = new ArrayList<File>();
+        Connection con         = null;
+        Statement  stmt        = null;
+        ResultSet  rs          = null;
 
         try {
             con  = getConnection();
@@ -182,7 +157,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                directories.add(rs.getString(1));
+                directories.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);

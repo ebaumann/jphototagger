@@ -69,7 +69,7 @@ public final class MouseListenerDirectories extends MouseListenerTree {
                     if (usrOb instanceof File) {
                         File dir = (File) usrOb;
 
-                        popupMenu.setDirectoryName(dir.getAbsolutePath());
+                        popupMenu.setDirectory(dir);
                         popupMenu.setTreePath(path);
                     }
                 }

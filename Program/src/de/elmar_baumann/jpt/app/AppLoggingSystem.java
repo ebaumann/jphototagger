@@ -45,16 +45,26 @@ import java.util.logging.XMLFormatter;
  * @author  Elmar Baumann
  */
 public final class AppLoggingSystem implements UserSettingsListener {
-    private static final int           MAX_LOGFILE_SIZE_IN_BYTES = 1000000;
-    private static final int           LOGFILE_ROTATE_COUNT      = 5;
-    private static final boolean       APPEND_OUTPUT_TO_LOGFILE  = false;
-    private static final List<Handler> HANDLERS                  =
+    private static final int LOGFILE_ROTATE_COUNT      = 5;
+    private static final int MAX_LOGFILE_SIZE_IN_BYTES = 1000000;
+
+    // INSTANCE exists only for applying user settings!
+    private static final AppLoggingSystem INSTANCE                 =
+        new AppLoggingSystem();
+    private static final List<Handler>    HANDLERS                 =
         new ArrayList<Handler>();
-    private static boolean             init;
-    private static Handler             systemOutHandler;
-    private static Handler             fileHandlerImportant;
-    private static Handler             fileHandlerAllMsgs;
-    private static Logger              appLogger;
+    private static final boolean          APPEND_OUTPUT_TO_LOGFILE = false;
+    private static Logger                 appLogger;
+    private static Handler                fileHandlerAllMsgs;
+    private static Handler                fileHandlerImportant;
+    private static boolean                init;
+    private static Handler                systemOutHandler;
+
+    public enum HandlerType { SYSTEM_OUT, FILE, }
+
+    private AppLoggingSystem() {
+        UserSettings.INSTANCE.addUserSettingsListener(this);
+    }
 
     /**
      * Initializes the application's logging system.
@@ -92,18 +102,15 @@ public final class AppLoggingSystem implements UserSettingsListener {
     // 1000 logfile records through it's memory handler)
     private static void addFileHandler() throws Exception {
         fileHandlerImportant = new FileHandler(logfileNamePatternImportant(),
-                                      MAX_LOGFILE_SIZE_IN_BYTES,
-                                      LOGFILE_ROTATE_COUNT,
-                                      APPEND_OUTPUT_TO_LOGFILE);
+                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
+                APPEND_OUTPUT_TO_LOGFILE);
         fileHandlerAllMsgs = new FileHandler(logfileNamePatternAllMessages(),
-                                      MAX_LOGFILE_SIZE_IN_BYTES,
-                                      LOGFILE_ROTATE_COUNT,
-                                      APPEND_OUTPUT_TO_LOGFILE);
+                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
+                APPEND_OUTPUT_TO_LOGFILE);
 
         // Ignoring user settings obove (INFO, FINE, ...) and keeping size small
         fileHandlerImportant.setLevel(Level.WARNING);
         fileHandlerImportant.setFormatter(new XMLFormatter());
-
         fileHandlerAllMsgs.setLevel(Level.ALL);
         fileHandlerAllMsgs.setFormatter(new SimpleFormatter());
 
@@ -124,7 +131,8 @@ public final class AppLoggingSystem implements UserSettingsListener {
     private static void addSystemOutHandler() {
         systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
 
-        // Log level shall be restricted only through the logger owning this handler
+        // Log level shall be restricted only through the logger owning this
+        // handler
         systemOutHandler.setLevel(Level.FINEST);
 
         synchronized (HANDLERS) {
@@ -137,7 +145,8 @@ public final class AppLoggingSystem implements UserSettingsListener {
             appLogger = Logger.getLogger("de.elmar_baumann");
             addHandlersTo(appLogger);
             appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
-            appLogger.setUseParentHandlers(false);    // Don't log info records twice
+            appLogger.setUseParentHandlers(
+                false);    // Don't log info records twice
             LogManager.getLogManager().addLogger(appLogger);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -174,13 +183,6 @@ public final class AppLoggingSystem implements UserSettingsListener {
         return "xml";
     }
 
-    // INSTANCE exists only for applying user settings!
-    private static final AppLoggingSystem INSTANCE = new AppLoggingSystem();
-
-    private AppLoggingSystem() {
-        UserSettings.INSTANCE.addUserSettingsListener(this);
-    }
-
     @Override
     public void applySettings(UserSettingsEvent evt) {
         if ((appLogger != null)
@@ -188,8 +190,6 @@ public final class AppLoggingSystem implements UserSettingsListener {
             appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
         }
     }
-
-    public enum HandlerType { SYSTEM_OUT, FILE, }
 
     public static void flush(HandlerType handler) {
         switch (handler) {
@@ -204,6 +204,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
             if (fileHandlerImportant != null) {
                 fileHandlerImportant.flush();
             }
+
             if (fileHandlerAllMsgs != null) {
                 fileHandlerAllMsgs.flush();
             }

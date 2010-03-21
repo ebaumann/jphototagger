@@ -48,20 +48,20 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
 
     @Override
     public void run() {
-        DatabaseImageFiles db        = DatabaseImageFiles.INSTANCE;
-        List<String>       filenames = db.getAllFilenames();
-        int                fileCount = filenames.size();
+        DatabaseImageFiles db         = DatabaseImageFiles.INSTANCE;
+        List<File>         imageFiles = db.getAllImageFiles();
+        int                fileCount  = imageFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
-                                         ? filenames.get(0)
+                                         ? imageFiles.get(0)
                                          : null);
 
         for (int i = 0; !stop && (i < fileCount); i++) {
-            File imageFile = new File(filenames.get(i));
+            File imageFile = imageFiles.get(i);
             Exif exif      = ExifMetadata.getExif(imageFile);
 
             if (exif != null) {
-                db.insertOrUpdateExif(imageFile.getAbsolutePath(), exif);
+                db.insertOrUpdateExif(imageFile, exif);
             }
 
             progressPerformed(i + 1, imageFile);

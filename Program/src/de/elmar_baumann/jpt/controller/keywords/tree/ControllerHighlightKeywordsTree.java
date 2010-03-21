@@ -50,14 +50,14 @@ public final class ControllerHighlightKeywordsTree
         implements ThumbnailsPanelListener {
     private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db         = DatabaseImageFiles.INSTANCE;
-    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
-    private final KeywordsPanel      appHkPanel =
-        appPanel.getPanelEditKeywords();
-    private final KeywordsPanel      dlgHkPanel =
+    private final KeywordsPanel dlgHkPanel =
         InputHelperDialog.INSTANCE.getPanelKeywords();
-    private final JTree treeAppPanel = appHkPanel.getTree();
-    private final JTree treeDialog   = dlgHkPanel.getTree();
+    private final DatabaseImageFiles db           = DatabaseImageFiles.INSTANCE;
+    private final AppPanel           appPanel     = GUI.INSTANCE.getAppPanel();
+    private final KeywordsPanel      appHkPanel   =
+        appPanel.getPanelEditKeywords();
+    private final JTree              treeAppPanel = appHkPanel.getTree();
+    private final JTree              treeDialog   = dlgHkPanel.getTree();
 
     public ControllerHighlightKeywordsTree() {
         listen();
@@ -78,7 +78,7 @@ public final class ControllerHighlightKeywordsTree
 
             if ((selFile.size() == 1) && hasSidecarFile(selFile)) {
                 Collection<String> keywords =
-                    db.getDcSubjectsOf(selFile.get(0).getAbsolutePath());
+                    db.getDcSubjectsOf(selFile.get(0));
 
                 setKeywords(treeAppPanel, keywords);
                 setKeywords(treeDialog, keywords);
@@ -104,8 +104,7 @@ public final class ControllerHighlightKeywordsTree
         assert selFile.size() == 1 :
                "Size < 1: " + selFile.size() + " - " + selFile;
 
-        return XmpMetadata.hasImageASidecarFile(
-            selFile.get(0).getAbsolutePath());
+        return XmpMetadata.hasImageASidecarFile(selFile.get(0));
     }
 
     @Override

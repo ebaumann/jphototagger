@@ -29,7 +29,8 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.io.FileUtil;
+
+import java.io.File;
 
 import java.util.List;
 
@@ -68,8 +69,8 @@ public final class ControllerNoMetadataItemSelected
         Object selValue = list.getSelectedValue();
 
         if (selValue instanceof Column) {
-            List<String> filenames =
-                DatabaseImageFiles.INSTANCE.getFilenamesWithoutMetadataIn(
+            List<File> imageFiles =
+                DatabaseImageFiles.INSTANCE.getImageFilesWithoutMetadataIn(
                     (Column) selValue);
 
             setTitle((Column) selValue);
@@ -78,8 +79,7 @@ public final class ControllerNoMetadataItemSelected
                 GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
             ControllerSortThumbnails.setLastSort();
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                     Content.MISSING_METADATA);
+            thumbnailsPanel.setFiles(imageFiles, Content.MISSING_METADATA);
         }
     }
 

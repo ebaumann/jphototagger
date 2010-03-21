@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +40,8 @@ import javax.swing.JMenuItem;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,
- * ausgelöst von {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
+ * ausgelöst von
+ * {@link de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails}.
  *
  * <em>Nur eine Instanz erzeugen!</em>
  *
@@ -95,8 +95,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private void updateMetadata(Insert[] what) {
         InsertImageFilesIntoDatabase inserter =
             new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
-                what);
+                thumbnailsPanel.getSelectedFiles(), what);
 
         inserter.addProgressListener(
             new ProgressBarUpdater(

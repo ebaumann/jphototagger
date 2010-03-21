@@ -38,7 +38,6 @@ import de.elmar_baumann.jpt.view.ViewUtil;
 import de.elmar_baumann.lib.datatransfer.TransferableObject;
 import de.elmar_baumann.lib.datatransfer.TransferUtil;
 import de.elmar_baumann.lib.datatransfer.TransferUtil.FilenameDelimiter;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -170,7 +169,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
         if (imageCollectionName != null) {
             DatabaseImageCollections.INSTANCE.insert(imageCollectionName,
-                    FileUtil.getAsFilenames(panel.getFiles()));
+                    panel.getFiles());
         }
     }
 
@@ -194,11 +193,11 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             transferSupport.getTransferable();
         boolean      dropOverSelectedThumbnail =
             isDropOverSelectedThumbnail(transferSupport);
-        String imageFilename = getImageFilename(transferSupport);
+        File imageFile = getImageFile(transferSupport);
 
         if (Flavor.hasKeywordsFromList(transferSupport)) {
             importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t),
-                          dropOverSelectedThumbnail, imageFilename);
+                          dropOverSelectedThumbnail, imageFile);
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
             List<String> keywords = new ArrayList<String>();
 
@@ -212,7 +211,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             }
 
             if (!keywords.isEmpty()) {
-                KeywordsHelper.saveKeywordsToImageFile(keywords, imageFilename);
+                KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
             }
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
             importMetadataTemplate(transferSupport);
@@ -225,7 +224,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     public void importStrings(DataFlavor dataFlavor, Object[] strings,
                               boolean dropOverSelectedThumbnail,
-                              String imageFilename) {
+                              File imageFile) {
         if ((strings == null) || (strings.length <= 0)) {
             return;
         }
@@ -247,7 +246,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
                 editPanels.addText(column, keyword);
             }
         } else {
-            KeywordsHelper.saveKeywordsToImageFile(keywords, imageFilename);
+            KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
         }
     }
 
@@ -271,7 +270,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         return (panel.isIndex(index));
     }
 
-    private String getImageFilename(TransferSupport transferSupport) {
+    private File getImageFile(TransferSupport transferSupport) {
         Point           p     =
             transferSupport.getDropLocation().getDropPoint();
         ThumbnailsPanel panel =
@@ -279,7 +278,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
 
         if (panel.isIndex(index)) {
-            return panel.getFile(index).getAbsolutePath();
+            return panel.getFile(index);
         } else {
             return null;
         }

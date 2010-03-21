@@ -32,7 +32,8 @@ import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.lib.comparator.FileSort;
-import de.elmar_baumann.lib.io.FileUtil;
+
+import java.io.File;
 
 import java.util.List;
 
@@ -53,9 +54,10 @@ public final class ControllerImageCollectionSelected
     private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel =
         appPanel.getPanelThumbnails();
+    private final JList              list       =
+        appPanel.getListImageCollections();
     private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
-    private final JList list = appPanel.getListImageCollections();
 
     public ControllerImageCollectionSelected() {
         listen();
@@ -108,15 +110,14 @@ public final class ControllerImageCollectionSelected
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<String> filenames =
-                    DatabaseImageCollections.INSTANCE.getFilenamesOf(
+                List<File> imageFiles =
+                    DatabaseImageCollections.INSTANCE.getImageFilesOf(
                         collectionName);
 
                 setTitle();
                 thumbnailsPanel.setFileSortComparator(
                     FileSort.NO_SORT.getComparator());
-                thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                         Content.IMAGE_COLLECTION);
+                thumbnailsPanel.setFiles(imageFiles, Content.IMAGE_COLLECTION);
                 thumbnailsPanel.apply(settings);
             }
             private void setTitle() {

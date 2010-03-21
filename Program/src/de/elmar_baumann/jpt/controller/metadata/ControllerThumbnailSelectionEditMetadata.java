@@ -28,7 +28,8 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.io.FileUtil;
+
+import java.io.File;
 
 import java.util.List;
 
@@ -88,9 +89,8 @@ public final class ControllerThumbnailSelectionEditMetadata
                 if (thumbnailsPanel.getSelectionCount() > 0) {
                     canEdit = canEdit();
                     setEnabled(canEdit);
-                    editPanels.setFilenames(
-                        FileUtil.getAsFilenames(
-                            thumbnailsPanel.getSelectedFiles()));
+                    editPanels.setImageFiles(
+                        thumbnailsPanel.getSelectedFiles());
                 } else {
                     appPanel.getEditMetadataPanels().emptyPanels(false);
                     setEnabled(false);
@@ -122,15 +122,14 @@ public final class ControllerThumbnailSelectionEditMetadata
     }
 
     private boolean canEdit() {
-        List<String> filenames =
-            FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles());
+        List<File> selFiles = thumbnailsPanel.getSelectedFiles();
 
-        for (String filename : filenames) {
-            if (!XmpMetadata.canWriteSidecarFileForImageFile(filename)) {
+        for (File selFile : selFiles) {
+            if (!XmpMetadata.canWriteSidecarFileForImageFile(selFile)) {
                 return false;
             }
         }
 
-        return filenames.size() > 0;
+        return selFiles.size() > 0;
     }
 }

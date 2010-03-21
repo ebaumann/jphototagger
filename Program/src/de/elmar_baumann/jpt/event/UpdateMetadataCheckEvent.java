@@ -21,12 +21,16 @@
 
 package de.elmar_baumann.jpt.event;
 
+import java.io.File;
+
 /**
  * Files will be checked whether their metadata shall be updated.
  *
  * @author  Elmar Baumann
  */
 public final class UpdateMetadataCheckEvent {
+    private final File imageFile;
+    private final Type type;
 
     /**
      * Check type
@@ -49,12 +53,9 @@ public final class UpdateMetadataCheckEvent {
         CHECK_FINISHED,
     }
 
-    private final Type   type;
-    private final String imageFilename;
-
-    public UpdateMetadataCheckEvent(Type type, String imageFilename) {
-        this.type          = type;
-        this.imageFilename = imageFilename;
+    public UpdateMetadataCheckEvent(Type type, File imageFile) {
+        this.type      = type;
+        this.imageFile = imageFile;
     }
 
     /**
@@ -62,8 +63,8 @@ public final class UpdateMetadataCheckEvent {
      *
      * @return file or null when the event is not {@link Type#CHECKING_FILE}
      */
-    public String getImageFilename() {
-        return imageFilename;
+    public File getImageFile() {
+        return imageFile;
     }
 
     /**

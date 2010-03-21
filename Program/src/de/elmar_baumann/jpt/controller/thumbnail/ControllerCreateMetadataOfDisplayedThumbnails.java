@@ -31,7 +31,6 @@ import de.elmar_baumann.jpt.tasks.AutomaticTask;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ProgressBarUpdater;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.io.FileUtil;
 
 /**
  * Listens to the {@link ThumbnailsPanel} and when the displayed
@@ -71,8 +70,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
             "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
 
         InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(
-                FileUtil.getAsFilenames(thumbnailsPanel.getFiles()),
+            new InsertImageFilesIntoDatabase(thumbnailsPanel.getFiles(),
                 Insert.OUT_OF_DATE);
 
         inserter.addProgressListener(

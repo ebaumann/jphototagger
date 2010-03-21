@@ -21,6 +21,7 @@
 
 package de.elmar_baumann.jpt.event.listener;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -35,21 +36,21 @@ public interface DatabaseImageCollectionsListener {
      * Will be called if an image collection was inserted into
      * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
      *
-     * @param collectionName    name of the inserted collection
-     * @param insertedFilepaths full qualified paths to all inserted files
+     * @param collectionName     name of the inserted collection
+     * @param insertedImageFiles inserted image files
      */
     public void collectionInserted(String collectionName,
-                                   List<String> insertedFilepaths);
+                                   List<File> insertedImageFiles);
 
     /**
      * Will be called if an image collection was deleted from
      * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
      *
-     * @param collectionName   name of the deleted collection
-     * @param deletedFilepaths full qualified paths to all deleted files
+     * @param collectionName    name of the deleted collection
+     * @param deletedImageFiles deleted image files
      */
     public void collectionDeleted(String collectionName,
-                                  List<String> deletedFilepaths);
+                                  List<File> deletedImageFiles);
 
     /**
      * Will be called if an image collection was renamed from
@@ -64,19 +65,19 @@ public interface DatabaseImageCollectionsListener {
      * Will be called if images were inserted into
      * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
      *
-     * @param collectionName    name of the image collection
-     * @param insertedFilepaths full qualified paths to all inserted files
+     * @param collectionName     name of the image collection
+     * @param insertedImageFiles inserted image files
      */
     public void imagesInserted(String collectionName,
-                               List<String> insertedFilepaths);
+                               List<File> insertedImageFiles);
 
     /**
      * Will be called if images were deleted from
      * {@link de.elmar_baumann.jpt.database.DatabaseImageCollections}.
      *
-     * @param collectionName   name of the image collection
-     * @param deletedFilepaths full qualified paths to all deleted files
+     * @param collectionName    name of the image collection
+     * @param deletedImageFiles deleted image files
      */
     public void imagesDeleted(String collectionName,
-                              List<String> deletedFilepaths);
+                              List<File> deletedImageFiles);
 }

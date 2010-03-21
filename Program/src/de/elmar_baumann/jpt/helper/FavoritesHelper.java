@@ -58,13 +58,13 @@ public final class FavoritesHelper {
         FavoritePropertiesDialog dialog = new FavoritePropertiesDialog();
 
         dialog.setFavoriteName(favorite.getName());
-        dialog.setDirectoryName(favorite.getDirectoryName());
+        dialog.setDirectory(favorite.getDirectory());
         dialog.setVisible(true);
 
         if (dialog.accepted()) {
             final String  newFavName = dialog.getFavoriteName();
             final String  oldFavName = favorite.getName();
-            final String  dirName    = dialog.getDirectoryName();
+            final File    dir        = dialog.getDirectory();
             final boolean renamed    = !newFavName.equals(oldFavName);
             final int     index      = favorite.getIndex();
 
@@ -85,8 +85,7 @@ public final class FavoritesHelper {
                         }
                     }
 
-                    Favorite newFavorite = new Favorite(newFavName, dirName,
-                                               index);
+                    Favorite newFavorite = new Favorite(newFavName, dir, index);
 
                     if (!db.update(newFavorite)) {
                         MessageDisplayer.error(null,

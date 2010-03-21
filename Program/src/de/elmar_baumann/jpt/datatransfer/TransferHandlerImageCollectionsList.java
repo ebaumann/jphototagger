@@ -27,7 +27,6 @@ import de.elmar_baumann.jpt.helper.ModifyImageCollections;
 import de.elmar_baumann.jpt.io.ImageUtil;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 import de.elmar_baumann.jpt.resource.GUI;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -73,12 +72,12 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
             return false;
         }
 
-        List<File> files = null;
+        List<File> imageFiles = null;
 
         try {
             Transferable transferable = transferSupport.getTransferable();
 
-            files = getImageFiles(
+            imageFiles = getImageFiles(
                 (List<File>) transferable.getTransferData(
                     DataFlavor.javaFileListFlavor));
         } catch (Exception ex) {
@@ -90,32 +89,32 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         int listIndex =
             ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();
 
-        handleDroppedThumbnails(listIndex, FileUtil.getAsFilenames(files));
+        handleDroppedThumbnails(listIndex, imageFiles);
 
         return true;
     }
 
     protected void handleDroppedThumbnails(int itemIndex,
-            List<String> filenames) {
+            List<File> imageFiles) {
         if (itemIndex >= 0) {
-            addToImageCollection(itemIndex, filenames);
+            addToImageCollection(itemIndex, imageFiles);
         } else {
-            createImageCollection(filenames);
+            createImageCollection(imageFiles);
         }
     }
 
-    private void addToImageCollection(int itemIndex, List<String> filenames) {
+    private void addToImageCollection(int itemIndex, List<File> imageFiles) {
         boolean added = ModifyImageCollections.addImagesToCollection(
-                            getImageCollectionName(itemIndex), filenames);
+                            getImageCollectionName(itemIndex), imageFiles);
 
         if (added) {
             refreshThumbnailsPanel();
         }
     }
 
-    private void createImageCollection(final List<String> filenames) {
+    private void createImageCollection(final List<File> imageFiles) {
         String newCollectionName =
-            ModifyImageCollections.insertImageCollection(filenames);
+            ModifyImageCollections.insertImageCollection(imageFiles);
 
         if (newCollectionName != null) {
             ModelFactory.INSTANCE.getModel(

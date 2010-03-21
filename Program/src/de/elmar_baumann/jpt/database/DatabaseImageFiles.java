@@ -59,7 +59,6 @@ import de.elmar_baumann.jpt.event.listener.impl.ListenerSupport;
 import de.elmar_baumann.jpt.event.listener.ProgressListener;
 import de.elmar_baumann.jpt.event.ProgressEvent;
 import de.elmar_baumann.jpt.image.metadata.xmp.XmpMetadata;
-import de.elmar_baumann.jpt.image.thumbnail.ThumbnailUtil;
 import de.elmar_baumann.lib.generics.Pair;
 
 import java.awt.Image;
@@ -99,11 +98,11 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Renames an image file.
      *
-     * @param  oldFilename old filename
-     * @param  newFilename new filename
-     * @return             count of renamed files (0 or 1)
+     * @param  fromImageFile old image file
+     * @param  toImageFile   new renamed image file
+     * @return               count of renamed files (0 or 1)
      */
-    public int updateRename(String oldFilename, String newFilename) {
+    public int updateRename(File fromImageFile, File toImageFile) {
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -113,13 +112,15 @@ public final class DatabaseImageFiles extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement(
                 "UPDATE files SET filename = ? WHERE filename = ?");
-            stmt.setString(1, newFilename);
-            stmt.setString(2, oldFilename);
+            stmt.setString(1, getFilePath(toImageFile));
+            stmt.setString(2, getFilePath(fromImageFile));
             logFiner(stmt);
             count = stmt.executeUpdate();
-            PersistentThumbnails.updateThumbnailName(oldFilename, newFilename);
-            notifyImageFileRenamed(new File(oldFilename),
-                                   new File(newFilename));
+
+            if (PersistentThumbnails.renameThumbnailOfImageFile(fromImageFile,
+                    toImageFile)) {
+                notifyImageFileRenamed(fromImageFile, toImageFile);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
         } finally {
@@ -130,11 +131,11 @@ public final class DatabaseImageFiles extends Database {
         return count;
     }
 
-    public List<String> getAllFilenames() {
-        List<String> files = new ArrayList<String>();
-        Connection   con   = null;
-        Statement    stmt  = null;
-        ResultSet    rs    = null;
+    public List<File> getAllImageFiles() {
+        List<File> files = new ArrayList<File>();
+        Connection con   = null;
+        Statement  stmt  = null;
+        ResultSet  rs    = null;
 
         try {
             con = getConnection();
@@ -146,7 +147,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                files.add(rs.getString(1));
+                files.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -156,21 +157,6 @@ public final class DatabaseImageFiles extends Database {
         }
 
         return files;
-    }
-
-    private void deleteThumbnailOf(String imageFilename) {
-        File tnFile =
-            PersistentThumbnails.getThumbnailFileOfImageFile(imageFilename);
-
-        if (tnFile == null) {
-            return;
-        }
-
-        if (!tnFile.delete()) {
-            AppLogger.logWarning(DatabaseImageFiles.class,
-                                 "DatabaseImageFiles.Error.DeleteThumbnail",
-                                 tnFile, imageFilename);
-        }
     }
 
     private long getFileCountNameStartingWith(Connection con, String start)
@@ -241,11 +227,10 @@ public final class DatabaseImageFiles extends Database {
                                progressEvent);
 
             while (!stop && rs.next()) {
-                String oldFilename = rs.getString(1);
-                String newFilename = newStart
-                                     + oldFilename.substring(startLength);
+                String from = rs.getString(1);
+                String to   = newStart + from.substring(startLength);
 
-                updateImageFilename(con, oldFilename, newFilename);
+                updateImageFilename(con, getFile(from), getFile(to));
                 countRenamed++;
                 progressEvent.setValue(countRenamed);
                 stop = notifyProgressListenerPerformed(progressListener,
@@ -263,10 +248,10 @@ public final class DatabaseImageFiles extends Database {
         return countRenamed;
     }
 
-    private void updateImageFilename(Connection con, String oldFileName,
-                                     String newFileName)
+    private void updateImageFilename(Connection con, File fromImageFile,
+                                     File toImageFile)
             throws SQLException {
-        if (oldFileName.equals(newFileName)) {
+        if (fromImageFile.equals(toImageFile)) {
             return;
         }
 
@@ -276,50 +261,25 @@ public final class DatabaseImageFiles extends Database {
             String sql = "UPDATE files SET filename = ? WHERE filename = ?";
 
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, newFileName);
-            stmt.setString(2, oldFileName);
+            stmt.setString(1, getFilePath(toImageFile));
+            stmt.setString(2, getFilePath(fromImageFile));
             logFiner(stmt);
             stmt.executeUpdate();
-            notifyImageFileRenamed(new File(oldFileName),
-                                   new File(newFileName));
-            renameThumbnail(oldFileName, newFileName);
+            notifyImageFileRenamed(fromImageFile, toImageFile);
+            PersistentThumbnails.renameThumbnailOfImageFile(fromImageFile,
+                    toImageFile);
         } finally {
             close(stmt);
         }
     }
 
-    private void renameThumbnail(String oldFileName, String newFileName) {
-        File oldTnFile =
-            PersistentThumbnails.getThumbnailFileOfImageFile(oldFileName);
-
-        if ((oldTnFile != null) && oldTnFile.exists()) {
-            String filename = PersistentThumbnails.getMd5Filename(newFileName);
-
-            if (filename == null) {
-                return;
-            }
-
-            File newTnFile = PersistentThumbnails.getThumbnailfile(filename);
-
-            if (newTnFile == null) {
-                return;
-            }
-
-            if (!oldTnFile.renameTo(newTnFile)) {
-                AppLogger.logWarning(
-                    getClass(), "DatabaseImageFiles.Error.RenameThumbnail",
-                    oldTnFile, newTnFile);
-            }
-        }
-    }
-
-    private int deleteRowWithFilename(Connection con, String filename) {
+    private int deleteRowWithFilename(Connection con, File imageFile) {
         int               countDeleted = 0;
         PreparedStatement stmt         = null;
 
         try {
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(imageFile));
             logFiner(stmt);
             countDeleted = stmt.executeUpdate();
         } catch (Exception ex) {
@@ -331,20 +291,19 @@ public final class DatabaseImageFiles extends Database {
         return countDeleted;
     }
 
-    public synchronized boolean insertOrUpdateExif(String imageFilename,
-            Exif exif) {
+    public synchronized boolean insertOrUpdateExif(File imageFile, Exif exif) {
         Connection con = null;
 
         try {
             con = getConnection();
 
-            long idFile = findIdFile(con, imageFilename);
+            long idFile = findIdImageFile(con, imageFile);
 
             if (idFile < 0) {
                 return false;
             }
 
-            insertOrUpdateExif(con, new File(imageFilename), idFile, exif);
+            insertOrUpdateExif(con, imageFile, idFile, exif);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
             rollback(con);
@@ -355,21 +314,21 @@ public final class DatabaseImageFiles extends Database {
         return true;
     }
 
-    public synchronized boolean insertOrUpdateXmp(String filename, Xmp xmp) {
+    public synchronized boolean insertOrUpdateXmp(File imageFile, Xmp xmp) {
         Connection con = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
 
-            long idFile = findIdFile(con, filename);
+            long idFile = findIdImageFile(con, imageFile);
 
             if (idFile < 0) {
                 return false;
             }
 
-            insertOrUpdateXmp(con, new File(filename), idFile, xmp);
-            setLastModifiedXmp(filename,
+            insertOrUpdateXmp(con, imageFile, idFile, xmp);
+            setLastModifiedXmp(imageFile,
                                xmp.contains(ColumnXmpLastModified.INSTANCE)
                                ? (Long) xmp.getValue(
                                    ColumnXmpLastModified.INSTANCE)
@@ -403,7 +362,7 @@ public final class DatabaseImageFiles extends Database {
     public synchronized boolean insertOrUpdate(ImageFile imageFile) {
         boolean success = false;
 
-        if (exists(imageFile.getFilename())) {
+        if (exists(imageFile.getFile())) {
             return update(imageFile);
         }
 
@@ -426,10 +385,9 @@ public final class DatabaseImageFiles extends Database {
                                         ? sqlWithXmpLastModified
                                         : sqlWithoutXmpLastModified);
 
-            String imageFilename = imageFile.getFilename();
-            File   imgFile       = new File(imageFilename);
+            File imgFile = imageFile.getFile();
 
-            stmt.setString(1, imageFilename);
+            stmt.setString(1, getFilePath(imgFile));
             stmt.setLong(2, imageFile.getLastmodified());
 
             if (imageFile.isInsertXmpIntoDb()) {
@@ -439,12 +397,10 @@ public final class DatabaseImageFiles extends Database {
             logFiner(stmt);
             stmt.executeUpdate();
 
-            long idFile = findIdFile(con, imageFilename);
+            long idFile = findIdImageFile(con, imgFile);
 
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnailFile(
-                    PersistentThumbnails.getMd5Filename(imageFilename),
-                    imageFile.getThumbnail(), imgFile);
+                updateThumbnailFile(imgFile, imageFile.getThumbnail());
             }
 
             if (imageFile.isInsertXmpIntoDb()) {
@@ -472,23 +428,23 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns an image file.
      *
-     * @param  filename name of the image file
-     * @return          image file
+     * @param  imgFile image file
+     * @return         image file
      */
-    public ImageFile getImageFile(String filename) {
+    public ImageFile getImageFile(File imgFile) {
         ImageFile imageFile = new ImageFile();
 
-        imageFile.setExif(getExifOf(filename));
-        imageFile.setFilename(filename);
-        imageFile.setLastmodified(getLastModifiedImageFile(filename));
+        imageFile.setExif(getExifOfImageFile(imgFile));
+        imageFile.setFile(imgFile);
+        imageFile.setLastmodified(getImageFileLastModified(imgFile));
 
-        String md5File = PersistentThumbnails.getMd5Filename(filename);
+        Image thumbnail = PersistentThumbnails.getThumbnailOfImageFile(imgFile);
 
-        if (md5File != null) {
-            imageFile.setThumbnail(PersistentThumbnails.getThumbnail(md5File));
+        if (thumbnail != null) {
+            imageFile.setThumbnail(thumbnail);
         }
 
-        imageFile.setXmp(getXmpOf(filename));
+        imageFile.setXmp(getXmpOfImageFile(imgFile));
 
         return imageFile;
     }
@@ -527,9 +483,8 @@ public final class DatabaseImageFiles extends Database {
                                         ? sqlWithXmpLastModified
                                         : sqlWithoutXmpLastModified);
 
-            String imageFilename = imageFile.getFilename();
-            File   imgFile       = new File(imageFilename);
-            long   idFile        = findIdFile(con, imageFilename);
+            File imgFile = imageFile.getFile();
+            long idFile  = findIdImageFile(con, imgFile);
 
             stmt.setLong(1, imageFile.getLastmodified());
 
@@ -544,9 +499,7 @@ public final class DatabaseImageFiles extends Database {
             stmt.executeUpdate();
 
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnailFile(
-                    PersistentThumbnails.getMd5Filename(imageFilename),
-                    imageFile.getThumbnail(), imgFile);
+                updateThumbnailFile(imgFile, imageFile.getThumbnail());
             }
 
             if (imageFile.isInsertXmpIntoDb()) {
@@ -554,8 +507,7 @@ public final class DatabaseImageFiles extends Database {
             }
 
             if (imageFile.isInsertExifIntoDb()) {
-                insertOrUpdateExif(con, new File(imageFilename), idFile,
-                                   imageFile.getExif());
+                insertOrUpdateExif(con, imgFile, idFile, imageFile.getExif());
             }
 
             con.commit();
@@ -605,15 +557,14 @@ public final class DatabaseImageFiles extends Database {
             notifyProgressListenerStart(listener, progressEvent);
 
             while (!progressEvent.isStop() && rs.next()) {
-                String imageFilename = rs.getString(1);
+                File imgFile = getFile(rs.getString(1));
 
                 updateThumbnailFile(
-                    PersistentThumbnails.getMd5Filename(imageFilename),
-                    getThumbnailFromFile(imageFilename),
-                    new File(imageFilename));
+                    imgFile,
+                    PersistentThumbnails.getThumbnailOfImageFile(imgFile));
                 updated++;
                 progressEvent.setValue(++count);
-                progressEvent.setInfo(imageFilename);
+                progressEvent.setInfo(imgFile);
                 notifyProgressListenerPerformed(listener, progressEvent);
             }
 
@@ -628,26 +579,20 @@ public final class DatabaseImageFiles extends Database {
         return updated;
     }
 
-    private Image getThumbnailFromFile(String filename) {
-        return ThumbnailUtil.getThumbnail(new File(filename));
-    }
-
     /**
      * Updates the thumbnail of an image file.
      *
-     * @param  imageFilename  filename
-     * @param  thumbnail thumbnail
+     * @param  imageFile image file
+     * @param  thumbnail updated thumbnail
      * @return true if updated
      */
-    public boolean updateThumbnail(String imageFilename, Image thumbnail) {
+    public boolean updateThumbnail(File imageFile, Image thumbnail) {
         Connection con = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            updateThumbnailFile(
-                PersistentThumbnails.getMd5Filename(imageFilename), thumbnail,
-                new File(imageFilename));
+            updateThumbnailFile(imageFile, thumbnail);
 
             return true;
         } catch (Exception ex) {
@@ -659,10 +604,10 @@ public final class DatabaseImageFiles extends Database {
         return false;
     }
 
-    private void updateThumbnailFile(String hash, Image thumbnail,
-                                     File imageFile) {
-        if ((hash != null) && (thumbnail != null)) {
-            PersistentThumbnails.writeThumbnail(thumbnail, hash);
+    private void updateThumbnailFile(File imageFile, Image thumbnail) {
+        if (thumbnail != null) {
+            PersistentThumbnails.writeThumbnailOfImageFile(thumbnail,
+                    imageFile);
             notifyThumbnailUpdated(imageFile);
         }
     }
@@ -670,11 +615,11 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns the last modification time of an image file.
      *
-     * @param  filename filename
-     * @return time in milliseconds since 1970 or -1 if the file is not in
-     *         the database or when errors occured
+     * @param  imageFile image file
+     * @return           time in milliseconds since 1970 or -1 if the file is
+     *                   not in the database or when errors occured
      */
-    public long getLastModifiedImageFile(String filename) {
+    public long getImageFileLastModified(File imageFile) {
         long              lastModified = -1;
         Connection        con          = null;
         PreparedStatement stmt         = null;
@@ -684,7 +629,7 @@ public final class DatabaseImageFiles extends Database {
             con  = getConnection();
             stmt = con.prepareStatement(
                 "SELECT lastmodified FROM files WHERE filename = ?");
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -704,10 +649,10 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns whether an file is stored in the database.
      *
-     * @param  filename  filename
-     * @return true if existsValueIn
+     * @param  file file
+     * @return      true if existsValueIn
      */
-    public boolean exists(String filename) {
+    public boolean exists(File file) {
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -717,7 +662,7 @@ public final class DatabaseImageFiles extends Database {
             con  = getConnection();
             stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM files WHERE filename = ?");
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(file));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -737,10 +682,10 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Removes an image file from the database.
      *
-     * @param filepaths full qualified paths of the images files to delete
+     * @param files full qualified paths of the images files to delete
      * @return          Count of deleted files
      */
-    public int delete(List<String> filepaths) {
+    public int delete(List<File> files) {
         int               countDeleted = 0;
         Connection        con          = null;
         PreparedStatement stmt         = null;
@@ -750,9 +695,8 @@ public final class DatabaseImageFiles extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
 
-            for (String imageFilepath : filepaths) {
-                stmt.setString(1, imageFilepath);
-
+            for (File imageFile : files) {
+                stmt.setString(1, getFilePath(imageFile));
                 logFiner(stmt);
 
                 int countAffectedRows = stmt.executeUpdate();
@@ -760,19 +704,18 @@ public final class DatabaseImageFiles extends Database {
                 countDeleted += countAffectedRows;
 
                 if (countAffectedRows > 0) {
-                    File imgFile = new File(imageFilepath);
-                    Xmp  xmp     = getXmpOf(imageFilepath);
-                    Exif exif    = getExifOf(imageFilepath);
+                    Xmp  xmp  = getXmpOfImageFile(imageFile);
+                    Exif exif = getExifOfImageFile(imageFile);
 
-                    deleteThumbnailOf(imageFilepath);
-                    notifyImageFileDeleted(imgFile);
+                    PersistentThumbnails.deleteThumbnailOfImageFile(imageFile);
+                    notifyImageFileDeleted(imageFile);
 
                     if (xmp != null) {
-                        notifyXmpDeleted(imgFile, xmp);
+                        notifyXmpDeleted(imageFile, xmp);
                     }
 
                     if (exif != null) {
-                        notifyExifDeleted(imgFile, exif);
+                        notifyExifDeleted(imageFile, exif);
                     }
                 }
             }
@@ -822,32 +765,29 @@ public final class DatabaseImageFiles extends Database {
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
-            String  imageFilename;
             boolean stop = notifyProgressListenerStart(listener, event);
 
             while (!stop && rs.next()) {
-                imageFilename = rs.getString(1);
+                File imgFile = getFile(rs.getString(1));
 
-                File imageFile = new File(imageFilename);
-
-                if (!imageFile.exists()) {
-                    Xmp       xmp          = getXmpOf(imageFilename);
-                    Exif      exif         = getExifOf(imageFilename);
-                    int       deletedRows  = deleteRowWithFilename(con,
-                                                 imageFilename);
+                if (!imgFile.exists()) {
+                    Xmp  xmp         = getXmpOfImageFile(imgFile);
+                    Exif exif        = getExifOfImageFile(imgFile);
+                    int  deletedRows = deleteRowWithFilename(con, imgFile);
 
                     countDeleted += deletedRows;
 
                     if (deletedRows > 0) {
-                        deleteThumbnailOf(imageFilename);
-                        notifyImageFileDeleted(imageFile);
+                        PersistentThumbnails.deleteThumbnailOfImageFile(
+                            imgFile);
+                        notifyImageFileDeleted(imgFile);
 
                         if (xmp != null) {
-                            notifyXmpDeleted(imageFile, xmp);
+                            notifyXmpDeleted(imgFile, xmp);
                         }
 
                         if (exif != null) {
-                            notifyExifDeleted(imageFile, exif);
+                            notifyExifDeleted(imgFile, exif);
                         }
                     }
                 }
@@ -895,12 +835,11 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns the last modification time of the xmp data.
      *
-     * @param  imageFilename <em>image</em> filename (<em>not</em> sidecar
-     *                       filename)
+     * @param  imageFile <em>image</em> file (<em>not</em> sidecar file)
      * @return               last modification time in milliseconds since 1970
      *                       or -1 if not defined
      */
-    public long getLastModifiedXmp(String imageFilename) {
+    public long getLastModifiedXmp(File imageFile) {
         long              lastModified = -1;
         Connection        con          = null;
         PreparedStatement stmt         = null;
@@ -910,7 +849,7 @@ public final class DatabaseImageFiles extends Database {
             con  = getConnection();
             stmt = con.prepareStatement(
                 "SELECT xmp_lastmodified FROM files WHERE filename = ?");
-            stmt.setString(1, imageFilename);
+            stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -930,11 +869,11 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Sets the last modification time of XMP metadata.
      *
-     * @param  imageFilename image filename
-     * @param  time          milliseconds since 1970
-     * @return               true if set
+     * @param  imageFile image file
+     * @param  time      milliseconds since 1970
+     * @return           true if set
      */
-    public boolean setLastModifiedXmp(String imageFilename, long time) {
+    public boolean setLastModifiedXmp(File imageFile, long time) {
         boolean           set  = false;
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -945,7 +884,7 @@ public final class DatabaseImageFiles extends Database {
             stmt = con.prepareStatement(
                 "UPDATE files SET xmp_lastmodified = ? WHERE filename = ?");
             stmt.setLong(1, time);
-            stmt.setString(2, imageFilename);
+            stmt.setString(2, getFilePath(imageFile));
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
@@ -972,18 +911,19 @@ public final class DatabaseImageFiles extends Database {
     }
 
     @SuppressWarnings("unchecked")
-    private void insertXmp(Connection con, File imageFile, long idFile, Xmp xmp)
+    private void insertXmp(Connection con, File imageFile, long idImageFile,
+                           Xmp xmp)
             throws SQLException {
         if ((xmp != null) &&!xmp.isEmpty()) {
             PreparedStatement stmt = null;
 
             try {
                 stmt = con.prepareStatement(getInsertIntoXmpStatement());
-                setXmpValues(stmt, idFile, xmp);
+                setXmpValues(stmt, idImageFile, xmp);
                 logFiner(stmt);
                 stmt.executeUpdate();
 
-                long idXmp = findIdXmpOfIdFile(con, idFile);
+                long idXmp = findIdXmpOfIdFile(con, idImageFile);
 
                 if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
                     insertXmpDcSubjects(
@@ -1142,9 +1082,9 @@ public final class DatabaseImageFiles extends Database {
                + ", ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    private void setXmpValues(PreparedStatement stmt, long idFile, Xmp xmp)
+    private void setXmpValues(PreparedStatement stmt, long idImageFile, Xmp xmp)
             throws SQLException {
-        stmt.setLong(1, idFile);
+        stmt.setLong(1, idImageFile);
         setLong(
             ensureValueExists(
                 "dc_creator", "creator",
@@ -1215,7 +1155,7 @@ public final class DatabaseImageFiles extends Database {
                 PreparedStatement stmt = null;
 
                 try {
-                    Xmp oldXmp = getXmpOf(imageFile.getAbsolutePath());
+                    Xmp oldXmp = getXmpOfImageFile(imageFile);
 
                     stmt = con.prepareStatement(getUpdateXmpStatement());
                     setXmpValues(stmt, idFile, xmp);
@@ -1284,15 +1224,15 @@ public final class DatabaseImageFiles extends Database {
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
-            String  filename;
-            boolean abort = notifyProgressListenerStart(listener,
-                                progressEvent);
+            File    imageFile = null;
+            boolean abort     = notifyProgressListenerStart(listener,
+                                    progressEvent);
 
             while (!abort && rs.next()) {
-                filename = rs.getString(1);
+                imageFile = getFile(rs.getString(1));
 
-                if (XmpMetadata.getSidecarFilename(filename) == null) {
-                    countDeleted += deleteXmpOfFilename(con, filename);
+                if (XmpMetadata.getSidecarFile(imageFile) == null) {
+                    countDeleted += deleteXmpOfImageFile(con, imageFile);
                 }
 
                 progressEvent.setValue(progressEvent.getValue() + 1);
@@ -1312,7 +1252,7 @@ public final class DatabaseImageFiles extends Database {
         return countDeleted;
     }
 
-    private int deleteXmpOfFilename(Connection con, String filename) {
+    private int deleteXmpOfImageFile(Connection con, File imageFile) {
         int               count = 0;
         PreparedStatement stmt  = null;
 
@@ -1321,7 +1261,7 @@ public final class DatabaseImageFiles extends Database {
                 "DELETE FROM xmp WHERE xmp.id_files in"
                 + " (SELECT xmp.id_files FROM xmp, files"
                 + " WHERE xmp.id_files = files.id AND files.filename = ?)");
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(imageFile));
             logFiner(stmt);
             count = stmt.executeUpdate();
         } catch (Exception ex) {
@@ -1333,7 +1273,7 @@ public final class DatabaseImageFiles extends Database {
         return count;
     }
 
-    private String getXmpOfFilesStatement(int fileCount) {
+    private String getXmpOfImageFilesStatement(int fileCount) {
         return " SELECT files.filename"                           // --  1 --
                + ", dc_creator.creator"                           // --  2 --
                + ", xmp.dc_description"                           // --  3 --
@@ -1380,37 +1320,37 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns XMP metadata of files.
+     * Returns XMP metadata of image files.
      *
-     * @param filenames filenames
-     * @return          XMP metadata where the first element of a pair is the
-     *                  name of a file and the second the XMP metadata of that
-     *                  file
+     * @param imageFiles image files
+     * @return           XMP metadata where the first element of a pair is the
+     *                   image file and the second the XMP metadata of that
+     *                   file
      */
-    public List<Pair<String,
-                     Xmp>> getXmpOf(Collection<? extends String> filenames) {
-        List<Pair<String, Xmp>> list = new ArrayList<Pair<String, Xmp>>();
-        Connection              con  = null;
-        PreparedStatement       stmt = null;
-        ResultSet               rs   = null;
+    public List<Pair<File, Xmp>> getXmpOfImageFiles(
+            Collection<? extends File> imageFiles) {
+        List<Pair<File, Xmp>> list = new ArrayList<Pair<File, Xmp>>();
+        Connection            con  = null;
+        PreparedStatement     stmt = null;
+        ResultSet             rs   = null;
 
         try {
             con = getConnection();
 
-            String sql = getXmpOfFilesStatement(filenames.size());
+            String sql = getXmpOfImageFilesStatement(imageFiles.size());
 
             stmt = con.prepareStatement(sql);
-            setStrings(stmt, filenames.toArray(new String[0]), 1);
+            setStrings(stmt, imageFiles.toArray(new File[0]), 1);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
-            String prevFilename = "";
+            String prevFilepath = "";
             Xmp    xmp          = new Xmp();
 
             while (rs.next()) {
-                String filename = rs.getString(1);
+                String filepath = rs.getString(1);
 
-                if (!filename.equals(prevFilename)) {
+                if (!filepath.equals(prevFilepath)) {
                     xmp = new Xmp();
                 }
 
@@ -1454,11 +1394,11 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
                              getString(rs, 19));
 
-                if (!filename.equals(prevFilename)) {
-                    list.add(new Pair<String, Xmp>(filename, xmp));
+                if (!filepath.equals(prevFilepath)) {
+                    list.add(new Pair<File, Xmp>(getFile(filepath), xmp));
                 }
 
-                prevFilename = filename;
+                prevFilepath = filepath;
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1470,17 +1410,17 @@ public final class DatabaseImageFiles extends Database {
         return list;
     }
 
-    private void setStrings(PreparedStatement stmt, String[] strings,
+    private void setStrings(PreparedStatement stmt, File[] files,
                             int startIndex)
             throws SQLException {
         assert startIndex >= 1 :
                "Invalid SQL statement position: " + startIndex;
 
-        int endIndex    = startIndex + strings.length;
+        int endIndex    = startIndex + files.length;
         int stringIndex = 0;
 
         for (int i = startIndex; i < endIndex; i++) {
-            stmt.setString(i, strings[stringIndex++]);
+            stmt.setString(i, getFilePath(files[stringIndex++]));
         }
     }
 
@@ -1541,13 +1481,7 @@ public final class DatabaseImageFiles extends Database {
                + " WHERE files.filename = ?";
     }
 
-    /**
-     * Liefert die XMP-Daten einer Datei.
-     *
-     * @param  filename Dateiname
-     * @return          XMP-Daten der Datei
-     */
-    public Xmp getXmpOf(String filename) {
+    public Xmp getXmpOfImageFile(File imageFile) {
         Xmp               xmp  = new Xmp();
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -1556,7 +1490,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             con  = getConnection();
             stmt = con.prepareStatement(getXmpOfStatement());
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -1645,12 +1579,12 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns all dublin core subjects (keywords) of a file.
+     * Returns all dublin core subjects (keywords) of a image file.
      *
-     * @param  filename name of the file
-     * @return          dc subjects (keywords) ordered ascending
+     * @param  imageFile image file
+     * @return           dc subjects (keywords) ordered ascending
      */
-    public List<String> getDcSubjectsOf(String filename) {
+    public List<String> getDcSubjectsOf(File imageFile) {
         List<String>      dcSubjects = new ArrayList<String>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -1669,7 +1603,7 @@ public final class DatabaseImageFiles extends Database {
                          + " ORDER BY dc_subjects.subject ASC";
 
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -1693,13 +1627,13 @@ public final class DatabaseImageFiles extends Database {
      * @param options    options
      * @return           filenames
      */
-    public Set<String> getFilenamesOfDcSubject(String dcSubject,
+    public Set<File> getImageFilesOfDcSubject(String dcSubject,
             DcSubjectOption... options) {
-        Set<String>          filenames = new LinkedHashSet<String>();
-        Connection           con       = null;
-        PreparedStatement    stmt      = null;
-        ResultSet            rs        = null;
-        Set<DcSubjectOption> opts      =
+        Set<File>            imageFiles = new LinkedHashSet<File>();
+        Connection           con        = null;
+        PreparedStatement    stmt       = null;
+        ResultSet            rs         = null;
+        Set<DcSubjectOption> opts       =
             new HashSet<DcSubjectOption>(Arrays.asList(options));
 
         try {
@@ -1711,7 +1645,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                filenames.add(rs.getString(1));
+                imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1720,7 +1654,7 @@ public final class DatabaseImageFiles extends Database {
             free(con);
         }
 
-        return filenames;
+        return imageFiles;
     }
 
     private void setDcSubjectSynonyms(String dcSubject,
@@ -1763,24 +1697,24 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns all images which have all subjects of a list.
+     * Returns all images files which have all subjects of a list.
      *
      * E.g. If You are searching for an image with a tree AND a cloud AND
      * a car the list contains these three words.
      *
      * Because it's faster, call
-     * {@link #getFilenamesOfDcSubject(String, DcSubjectOption[])}
+     * {@link #getImageFilesOfDcSubject(String, DcSubjectOption[])}
      * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects
      * @return            images containing all of these subjects
      */
-    public Set<String> getFilenamesOfAllDcSubjects(
+    public Set<File> getImageFilesOfAllDcSubjects(
             List<? extends String> dcSubjects) {
-        Set<String>       filenames = new LinkedHashSet<String>();
-        Connection        con       = null;
-        PreparedStatement stmt      = null;
-        ResultSet         rs        = null;
+        Set<File>         imageFiles = new LinkedHashSet<File>();
+        Connection        con        = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
 
         try {
             con = getConnection();
@@ -1802,7 +1736,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                filenames.add(rs.getString(1));
+                imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1811,25 +1745,25 @@ public final class DatabaseImageFiles extends Database {
             free(con);
         }
 
-        return filenames;
+        return imageFiles;
     }
 
     /**
      * Returns all images which have at least one of subjects in a list.
      *
      * Because it's faster, call
-     * {@link #getFilenamesOfDcSubject(String, DcSubjectOption[])}
+     * {@link #getImageFilesOfDcSubject(String, DcSubjectOption[])}
      * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects
      * @return            images containing one or more of these subjects
      */
-    public Set<String> getFilenamesOfDcSubjects(
+    public Set<File> getImageFilesOfDcSubjects(
             List<? extends String> dcSubjects) {
-        Set<String>       filenames = new LinkedHashSet<String>();
-        Connection        con       = null;
-        PreparedStatement stmt      = null;
-        ResultSet         rs        = null;
+        Set<File>         imageFiles = new LinkedHashSet<File>();
+        Connection        con        = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
 
         try {
             con = getConnection();
@@ -1849,7 +1783,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                filenames.add(rs.getString(1));
+                imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1858,7 +1792,7 @@ public final class DatabaseImageFiles extends Database {
             free(con);
         }
 
-        return filenames;
+        return imageFiles;
     }
 
     /**
@@ -1873,12 +1807,12 @@ public final class DatabaseImageFiles extends Database {
      *                through a column <code>id_files</code>!
      * @return        images containing all of these terms in that column
      */
-    public Set<String> getFilenamesOfAll(Column column,
+    public Set<File> getImageFilesOfAll(Column column,
             List<? extends String> words) {
-        Set<String>       filenames = new LinkedHashSet<String>();
-        Connection        con       = null;
-        PreparedStatement stmt      = null;
-        ResultSet         rs        = null;
+        Set<File>         imageFiles = new LinkedHashSet<File>();
+        Connection        con        = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
 
         try {
             con = getConnection();
@@ -1899,7 +1833,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                filenames.add(rs.getString(1));
+                imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1908,7 +1842,7 @@ public final class DatabaseImageFiles extends Database {
             free(con);
         }
 
-        return filenames;
+        return imageFiles;
     }
 
     private String getUpdateExifStatement() {
@@ -1931,7 +1865,7 @@ public final class DatabaseImageFiles extends Database {
                 PreparedStatement stmt = null;
 
                 try {
-                    Exif oldExif = getExifOf(imageFile.getAbsolutePath());
+                    Exif oldExif = getExifOfImageFile(imageFile);
 
                     stmt = con.prepareStatement(getUpdateExifStatement());
                     setExifValues(stmt, idFile, exif);
@@ -2112,13 +2046,13 @@ public final class DatabaseImageFiles extends Database {
                          + " ORDER BY files.filename ASC";
 
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, getSqlDate(year, month, day));
-            stmt.setString(2, getXmpDate(year, month, day));
+            stmt.setString(1, getSqlDateString(year, month, day));
+            stmt.setString(2, getXmpDateString(year, month, day));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                files.add(new File(rs.getString(1)));
+                files.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -2130,7 +2064,7 @@ public final class DatabaseImageFiles extends Database {
         return files;
     }
 
-    public String getSqlDate(int year, int month, int day) {
+    public String getSqlDateString(int year, int month, int day) {
         return String.valueOf(year) + "-" + ((month > 0)
                 ? getMonthDayPrefix(month) + String.valueOf(month)
                 : "%") + "-" + (((month > 0) && (day > 0))
@@ -2138,7 +2072,7 @@ public final class DatabaseImageFiles extends Database {
                                 : "%");
     }
 
-    public String getXmpDate(int year, int month, int day) {
+    public String getXmpDateString(int year, int month, int day) {
         return String.valueOf(year) + ((month > 0)
                                        ? "-" + getMonthDayPrefix(month)
                                          + String.valueOf(month)
@@ -2184,7 +2118,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                files.add(new File(rs.getString(1)));
+                files.add(getFile(rs.getString(1)));
             }
 
             addFilesWithoutExif(files, con);
@@ -2214,7 +2148,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                files.add(new File(rs.getString(1)));
+                files.add(getFile(rs.getString(1)));
             }
         } finally {
             close(rs, stmt);
@@ -2289,7 +2223,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                files.add(new File(rs.getString(1)));
+                files.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -2319,7 +2253,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  exactValue exact value of the column content
      * @return            files
      */
-    public List<File> getFilesWithColumnContent(Column column,
+    public List<File> getImageFilesWithColumnContent(Column column,
             String exactValue) {
         List<File>        files      = new ArrayList<File>();
         Connection        con        = null;
@@ -2342,7 +2276,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                files.add(new File(rs.getString(1)));
+                files.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -2371,10 +2305,11 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Returns exif metadata of a specific file.
      *
-     * @param  filename filenam
-     * @return          EXIF metadata or null if that file has no EXIF metadata
+     * @param  imageFile image file
+     * @return           EXIF metadata or null if that image file has no EXIF
+     *                   metadata
      */
-    public Exif getExifOf(String filename) {
+    public Exif getExifOfImageFile(File imageFile) {
         Exif              exif = null;
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -2383,7 +2318,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             con  = getConnection();
             stmt = con.prepareStatement(getExifOfStatement());
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -2528,13 +2463,13 @@ public final class DatabaseImageFiles extends Database {
      *
      * @param   column column where it's table has to be either table "exif"
      *                 or table <code>"xmp"</code>
-     * @return         names of files without metadata for that column
+     * @return         image files without metadata for that column
      */
-    public List<String> getFilenamesWithoutMetadataIn(Column column) {
-        List<String>      files = new ArrayList<String>();
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+    public List<File> getImageFilesWithoutMetadataIn(Column column) {
+        List<File>        imageFiles = new ArrayList<File>();
+        Connection        con        = null;
+        PreparedStatement stmt       = null;
+        ResultSet         rs         = null;
 
         try {
             con = getConnection();
@@ -2549,7 +2484,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                files.add(rs.getString(1));
+                imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -2558,7 +2493,7 @@ public final class DatabaseImageFiles extends Database {
             free(con);
         }
 
-        return files;
+        return imageFiles;
     }
 
     /**
@@ -2566,12 +2501,12 @@ public final class DatabaseImageFiles extends Database {
      *
      * Intended for usage within other database methods.
      *
-     * @param  con      connection
-     * @param  filename filename
-     * @return              database ID or -1 if the filename does not exist
-     * @throws SQLException on SQL errors
+     * @param  con  connection
+     * @param  file file
+     * @return      database ID or -1 if the filename does not exist
+     * @throws      SQLException on SQL errors
      */
-    long findIdFile(Connection con, String filename) throws SQLException {
+    long findIdImageFile(Connection con, File file) throws SQLException {
         long              id   = -1;
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
@@ -2579,7 +2514,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             stmt = con.prepareStatement(
                 "SELECT id FROM files WHERE filename = ?");
-            stmt.setString(1, filename);
+            stmt.setString(1, getFilePath(file));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -2613,18 +2548,14 @@ public final class DatabaseImageFiles extends Database {
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
-            File   tnFile = null;
-            String hash   = null;
+            File tnFile = null;
 
             while (rs.next()) {
-                hash = PersistentThumbnails.getMd5Filename(rs.getString(1));
+                tnFile = PersistentThumbnails.getThumbnailFileOfImageFile(
+                    getFile(rs.getString(1)));
 
-                if (hash != null) {
-                    tnFile = PersistentThumbnails.getThumbnailfile(hash);
-
-                    if (tnFile != null) {
-                        tnFiles.add(tnFile);
-                    }
+                if (tnFile != null) {
+                    tnFiles.add(tnFile);
                 }
             }
         } catch (Exception ex) {

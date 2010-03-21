@@ -26,6 +26,8 @@ import de.elmar_baumann.jpt.app.MessageDisplayer;
 import de.elmar_baumann.jpt.database.DatabaseImageCollections;
 import de.elmar_baumann.jpt.model.ListModelImageCollections;
 
+import java.io.File;
+
 import java.util.List;
 
 /**
@@ -34,20 +36,22 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ModifyImageCollections {
+    private ModifyImageCollections() {}
 
     /**
-     * Fügt in die Datenbank eine neue Bildsammlung ein.
+     * Inserts a new image collection, prompts the user for the name.
      *
-     * @param filenames Namen der Bilddateien
-     * @return          Name der Sammlung oder null, wenn keine eingefügt wurde
+     * @param imageFiles image files to insert
+     * @return           name of the collection or null, if no image collection
+     *                   was created
      */
-    public static String insertImageCollection(List<String> filenames) {
+    public static String insertImageCollection(List<File> imageFiles) {
         String name = inputCollectionName("");
 
         if ((name != null) &&!name.isEmpty()) {
             logAddImageCollection(name);
 
-            if (!DatabaseImageCollections.INSTANCE.insert(name, filenames)) {
+            if (!DatabaseImageCollections.INSTANCE.insert(name, imageFiles)) {
                 errorMessageAddImageCollection(name);
 
                 return null;
@@ -58,19 +62,19 @@ public final class ModifyImageCollections {
     }
 
     /**
-     * Entfernt Bilder aus einer Bildsammlung.
+     * Removes images from an image collection.
      *
-     * @param collectionName Name der Bildsammlung
-     * @param filenames      Zu entfernende Bilder
-     * @return               true, wenn die Bilder entfernt wurden
+     * @param collectionName name of the image collection
+     * @param imageFiles     image files to remove
+     * @return               true if removed
      */
     public static boolean deleteImagesFromCollection(String collectionName,
-            List<String> filenames) {
+            List<File> imageFiles) {
         if (confirmDelete("ModifyImageCollections.Confirm.DeleteSelectedFiles",
                           collectionName)) {
             boolean removed =
                 DatabaseImageCollections.INSTANCE.deleteImagesFrom(
-                    collectionName, filenames) == filenames.size();
+                    collectionName, imageFiles) == imageFiles.size();
 
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
@@ -107,14 +111,14 @@ public final class ModifyImageCollections {
      * Fügt einer Bildsammlung Bilder hinzu.
      *
      * @param collectionName Name der Bildsammlung
-     * @param filenames      Hinzuzufügende Bilddateien
+     * @param imageFiles      Hinzuzufügende Bilddateien
      * @return               true bei Erfolg
      */
     public static boolean addImagesToCollection(String collectionName,
-            List<String> filenames) {
+            List<File> imageFiles) {
         boolean added =
             DatabaseImageCollections.INSTANCE.insertImagesInto(collectionName,
-                filenames);
+                imageFiles);
 
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
@@ -260,6 +264,4 @@ public final class ModifyImageCollections {
 
         return name;
     }
-
-    private ModifyImageCollections() {}
 }

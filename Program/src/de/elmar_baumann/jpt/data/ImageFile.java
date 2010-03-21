@@ -36,13 +36,13 @@ import java.util.Set;
  * @author  Elmar Baumann
  */
 public final class ImageFile {
-    private String                                   filename;
     private long                                     lastmodified = -1;
-    private Image                                    thumbnail;
-    private Xmp                                      xmp;
-    private Exif                                     exif;
     private Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb =
         new HashSet<InsertImageFilesIntoDatabase.Insert>();
+    private Exif  exif;
+    private File  file;
+    private Image thumbnail;
+    private Xmp   xmp;
 
     @Override
     public boolean equals(Object obj) {
@@ -50,8 +50,8 @@ public final class ImageFile {
             return false;
         }
 
-        if ((obj instanceof File) && (filename != null)) {
-            return filename.equals(((File) obj).getAbsolutePath());
+        if ((obj instanceof File) && (file != null)) {
+            return file.equals(((File) obj));
         }
 
         if (getClass() != obj.getClass()) {
@@ -60,9 +60,9 @@ public final class ImageFile {
 
         final ImageFile other = (ImageFile) obj;
 
-        if ((this.filename == null)
-            ? (other.filename != null)
-            : !this.filename.equals(other.filename)) {
+        if ((this.file == null)
+            ? (other.file != null)
+            : !this.file.equals(other.file)) {
             return false;
         }
 
@@ -71,26 +71,17 @@ public final class ImageFile {
 
     @Override
     public int hashCode() {
-        return (this.filename != null)
-               ? this.filename.hashCode()
+        return (this.file != null)
+               ? this.file.hashCode()
                : 0;
     }
 
-    public String getFilename() {
-        return filename;
-    }
-
-    /**
-     * Shortcut for {@code new File(imageFile.getFilename())}.
-     *
-     * @return new created file of {@link #getFilename()}
-     */
     public File getFile() {
-        return new File(filename);
+        return file;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFile(File file) {
+        this.file = file;
     }
 
     public Xmp getXmp() {
@@ -140,7 +131,7 @@ public final class ImageFile {
      * @param  insert Is that to insert?
      * @return        true if <code>insert</code> is to insert into the database
      *                (that means at least one call was made to
-     *                {@link #addInsertIntoDb(InsertImageFilesIntoDatabase.Insert)}
+     *             {@link #addInsertIntoDb(InsertImageFilesIntoDatabase.Insert)}
      *
      */
     public boolean isInsertIntoDb(InsertImageFilesIntoDatabase.Insert insert) {

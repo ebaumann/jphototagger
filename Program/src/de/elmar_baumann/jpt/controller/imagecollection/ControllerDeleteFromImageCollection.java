@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -101,8 +100,7 @@ public final class ControllerDeleteFromImageCollection
                         thumbnailsPanel.getSelectedFiles();
 
                     if (ModifyImageCollections.deleteImagesFromCollection(
-                            selectedValue.toString(),
-                            FileUtil.getAsFilenames(selectedFiles))) {
+                            selectedValue.toString(), selectedFiles)) {
                         thumbnailsPanel.remove(selectedFiles);
                     }
                 } else {

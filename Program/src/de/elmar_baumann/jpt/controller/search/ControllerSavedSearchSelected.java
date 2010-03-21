@@ -33,7 +33,8 @@ import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.AppPanel;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.io.FileUtil;
+
+import java.io.File;
 
 import java.util.List;
 
@@ -112,11 +113,10 @@ public final class ControllerSavedSearchSelected
         }
 
         private void searchParamStatement(ParamStatement stmt) {
-            List<String> filenames = DatabaseFind.INSTANCE.findFilenames(stmt);
+            List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
 
             setTitle(stmt.getName());
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                     Content.SAVED_SEARCH);
+            thumbnailsPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
         }
 
         private void setTitle(String name) {

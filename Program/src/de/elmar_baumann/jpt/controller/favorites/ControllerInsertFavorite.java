@@ -36,6 +36,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import java.io.File;
+
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
@@ -77,30 +79,30 @@ public final class ControllerInsertFavorite
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        insertFavorite(getDirectoryName(e.getSource()));
+        insertFavorite(getDirectory(e.getSource()));
     }
 
-    private String getDirectoryName(Object o) {
-        String  directoryName    = null;
+    private File getDirectory(Object o) {
+        File    directory        = null;
         boolean isAddToFavorites =
             popupDirectories.getItemAddToFavorites().equals(o);
 
         if (isAddToFavorites) {
-            directoryName = popupDirectories.getDirectoryName();
+            directory = popupDirectories.getDirectory();
         }
 
-        return directoryName;
+        return directory;
     }
 
-    private void insertFavorite(final String directoryName) {
+    private void insertFavorite(final File directory) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 FavoritePropertiesDialog dialog =
                     new FavoritePropertiesDialog();
 
-                if (directoryName != null) {
-                    dialog.setDirectoryName(directoryName);
+                if (directory != null) {
+                    dialog.setDirectory(directory);
                     dialog.setEnabledButtonChooseDirectory(false);
                 }
 
@@ -111,7 +113,7 @@ public final class ControllerInsertFavorite
                                                    TreeModelFavorites.class);
 
                     model.insert(new Favorite(dialog.getFavoriteName(),
-                                              dialog.getDirectoryName(), -1));
+                                              dialog.getDirectory(), -1));
                 }
             }
         });

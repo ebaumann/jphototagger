@@ -44,14 +44,14 @@ public final class ComparatorXmpIptcLocationAsc extends ClassEquality
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Xmp xmpLeft =
-            DatabaseImageFiles.INSTANCE.getXmpOf(fileLeft.getAbsolutePath());
-        Xmp xmpRight =
-            DatabaseImageFiles.INSTANCE.getXmpOf(fileRight.getAbsolutePath());
-        Object locLeft = (xmpLeft == null)
-                         ? null
-                         : xmpLeft.getValue(
-                             ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        Xmp    xmpLeft  =
+            DatabaseImageFiles.INSTANCE.getXmpOfImageFile(fileLeft);
+        Xmp    xmpRight =
+            DatabaseImageFiles.INSTANCE.getXmpOfImageFile(fileRight);
+        Object locLeft  = (xmpLeft == null)
+                          ? null
+                          : xmpLeft.getValue(
+                              ColumnXmpIptc4xmpcoreLocation.INSTANCE);
         Object locRight = (xmpRight == null)
                           ? null
                           : xmpRight.getValue(

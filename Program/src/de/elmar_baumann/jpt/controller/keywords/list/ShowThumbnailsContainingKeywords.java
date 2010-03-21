@@ -28,7 +28,8 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.view.panels.EditMetadataPanels;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
-import de.elmar_baumann.lib.io.FileUtil;
+
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,8 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final EditMetadataPanels editPanels =
         GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-    private final ThumbnailsPanel.Settings tnPanelSettings;
     private final List<String>             keywords;
+    private final ThumbnailsPanel.Settings tnPanelSettings;
 
     /**
      * Creates a new instance of this class.
@@ -68,27 +69,28 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     }
 
     private void setFilesToThumbnailsPanel() {
-        Set<String> filenames = getFilenamesOfSelectedKeywords();
+        List<File> imageFiles =
+            new ArrayList<File>(getImageFilesOfSelectedKeywords());
 
-        if (filenames != null) {
+        if (imageFiles != null) {
             ControllerSortThumbnails.setLastSort();
-            thumbnailsPanel.setFiles(FileUtil.getAsFiles(filenames),
-                                     Content.KEYWORD);
+            thumbnailsPanel.setFiles(imageFiles, Content.KEYWORD);
             thumbnailsPanel.apply(tnPanelSettings);
         }
     }
 
-    private Set<String> getFilenamesOfSelectedKeywords() {
+    private Set<File> getImageFilesOfSelectedKeywords() {
 
-        // Faster than using 2 different DB queries if only 1 keyword is selected
+        // Faster than using 2 different DB queries if only 1 keyword is
+        // selected
         if (keywords.size() == 1) {
             setTitle(keywords.get(0));
 
-            return db.getFilenamesOfDcSubject(keywords.get(0));
+            return db.getImageFilesOfDcSubject(keywords.get(0));
         } else if (keywords.size() > 1) {
             setTitle(keywords);
 
-            return db.getFilenamesOfDcSubjects(keywords);
+            return db.getImageFilesOfDcSubjects(keywords);
         }
 
         return null;

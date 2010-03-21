@@ -30,7 +30,6 @@ import de.elmar_baumann.jpt.types.Content;
 import de.elmar_baumann.jpt.types.DeleteOption;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,8 +55,8 @@ public final class ControllerDeleteFiles
         implements ActionListener, KeyListener {
     private final ThumbnailsPanel thumbnailsPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
 
     public ControllerDeleteFiles() {
         listen();
@@ -104,7 +103,7 @@ public final class ControllerDeleteFiles
                                     DeleteOption.MESSAGES_ON_FAILURES);
 
         if (deletedImageFiles.size() > 0) {
-            db.delete(FileUtil.getAsFilenames(deletedImageFiles));
+            db.delete(deletedImageFiles);
             thumbnailsPanel.remove(deletedImageFiles);
         }
     }

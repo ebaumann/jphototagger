@@ -30,6 +30,8 @@ import de.elmar_baumann.jpt.tasks.UserTasks;
 import de.elmar_baumann.jpt.view.panels.ProgressBar;
 import de.elmar_baumann.lib.generics.Pair;
 
+import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,21 +47,21 @@ import javax.swing.JProgressBar;
 public final class SaveXmp extends Thread {
     private static final String PROGRESSBAR_STRING =
         JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
-    private final Collection<Pair<String, Xmp>> filenamesXmp;
-    private JProgressBar                        progressBar;
+    private final Collection<Pair<File, Xmp>> imageFilesXmp;
+    private JProgressBar                      progressBar;
 
-    private SaveXmp(Collection<Pair<String, Xmp>> filenamesXmp) {
+    private SaveXmp(Collection<Pair<File, Xmp>> imageFilesXmp) {
         AppLifeCycle.INSTANCE.addSaveObject(this);
-        this.filenamesXmp = new ArrayList<Pair<String, Xmp>>(filenamesXmp);
+        this.imageFilesXmp = new ArrayList<Pair<File, Xmp>>(imageFilesXmp);
         setName("Saving XMP @ " + getClass().getSimpleName());
     }
 
-    public synchronized static void save(Collection<Pair<String,
-            Xmp>> filenamesXmp) {
-        final int fileCount = filenamesXmp.size();
+    public synchronized static void save(Collection<Pair<File,
+            Xmp>> imageFilesXmp) {
+        final int fileCount = imageFilesXmp.size();
 
         if (fileCount >= 1) {
-            UserTasks.INSTANCE.add(new SaveXmp(filenamesXmp));
+            UserTasks.INSTANCE.add(new SaveXmp(imageFilesXmp));
         }
     }
 
@@ -68,14 +70,13 @@ public final class SaveXmp extends Thread {
         int fileIndex = 0;
 
         // Ignore isInterrupted() because saving user input has high priority
-        for (Pair<String, Xmp> pair : filenamesXmp) {
-            String filename        = pair.getFirst();
-            Xmp    xmp             = pair.getSecond();
-            String sidecarFilename =
-                XmpMetadata.suggestSidecarFilename(filename);
+        for (Pair<File, Xmp> pair : imageFilesXmp) {
+            File imageFile   = pair.getFirst();
+            Xmp  xmp         = pair.getSecond();
+            File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
 
-            if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFilename)) {
-                updateDatabase(filename);
+            if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
+                updateDatabase(imageFile);
             }
 
             updateProgressBar(++fileIndex);
@@ -85,9 +86,9 @@ public final class SaveXmp extends Thread {
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
-    private void updateDatabase(String filename) {
+    private void updateDatabase(File imageFile) {
         InsertImageFilesIntoDatabase updater =
-            new InsertImageFilesIntoDatabase(Arrays.asList(filename),
+            new InsertImageFilesIntoDatabase(Arrays.asList(imageFile),
                 Insert.XMP);
 
         updater.run();    // Starting not a separate thread
@@ -106,7 +107,7 @@ public final class SaveXmp extends Thread {
 
         if (progressBar != null) {
             progressBar.setMinimum(0);
-            progressBar.setMaximum(filenamesXmp.size());
+            progressBar.setMaximum(imageFilesXmp.size());
             progressBar.setValue(value);
 
             if (!progressBar.isStringPainted()) {

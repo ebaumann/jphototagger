@@ -35,51 +35,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Favorite {
-    private String directoryName;
-    private String name;
+    private File   directory;
     private int    index;
+    private String name;
 
     public Favorite() {}
-
-    /**
-     * Constructor.
-     *
-     * @param name           name (alias) of the favorite
-     * @param directoryName  name of the directory
-     * @param index          order within the favorites
-     */
-    public Favorite(String name, String directoryName, int index) {
-        this.name          = name;
-        this.directoryName = directoryName;
-        this.index         = index;
-    }
 
     public Favorite(Favorite favorite) {
         set(favorite);
     }
 
-    public void set(Favorite favorite) {
-        this.name          = favorite.name;
-        this.directoryName = favorite.directoryName;
-        this.index         = favorite.index;
-    }
-
-    public String getDirectoryName() {
-        return directoryName;
-    }
-
     /**
+     * Constructor.
      *
-     * @return directory or null if the directory name is null
+     * @param name       name (alias) of the favorite
+     * @param directory  directory
+     * @param index      order within the favorites
      */
-    public File getDirectory() {
-        return (directoryName == null)
-               ? null
-               : new File(directoryName);
+    public Favorite(String name, File directory, int index) {
+        this.name      = name;
+        this.directory = directory;
+        this.index     = index;
     }
 
-    public void setDirectoryName(String directoryName) {
-        this.directoryName = directoryName;
+    public void set(Favorite favorite) {
+        this.name      = favorite.name;
+        this.directory = favorite.directory;
+        this.index     = favorite.index;
+    }
+
+    public File getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(File directory) {
+        this.directory = directory;
     }
 
     public String getName() {

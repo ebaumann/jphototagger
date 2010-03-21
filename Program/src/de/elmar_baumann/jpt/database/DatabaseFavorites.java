@@ -66,7 +66,7 @@ public final class DatabaseFavorites extends Database {
                 + " (favorite_name, directory_name, favorite_index)"
                 + " VALUES (?, ?, ?)");
             stmt.setString(1, favorite.getName());
-            stmt.setString(2, favorite.getDirectoryName());
+            stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
             logFiner(stmt);
 
@@ -123,14 +123,15 @@ public final class DatabaseFavorites extends Database {
         return deleted;
     }
 
-    public boolean updateRename(String oldName, String newName) {
+    public boolean updateRename(String fromFavoriteName,
+                                String toFavoriteName) {
         PreparedStatement stmt  = null;
         ResultSet         rs    = null;
         int               count = 0;
 
         try {
-            Favorite oldFavorite = find(oldName);
-            Connection con = getConnection();
+            Favorite   oldFavorite = find(fromFavoriteName);
+            Connection con         = getConnection();
 
             con.setAutoCommit(true);
 
@@ -138,12 +139,13 @@ public final class DatabaseFavorites extends Database {
                          + " WHERE favorite_name = ?";
 
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, newName);
-            stmt.setString(2, oldName);
+            stmt.setString(1, toFavoriteName);
+            stmt.setString(2, fromFavoriteName);
             logFiner(stmt);
             count = stmt.executeUpdate();
+
             if (count > 0) {
-                notifyUpdated(oldFavorite, find(newName));
+                notifyUpdated(oldFavorite, find(toFavoriteName));
             }
         } catch (SQLException ex) {
             AppLogger.logSevere(getClass(), ex);
@@ -160,7 +162,7 @@ public final class DatabaseFavorites extends Database {
      * ({@link Favorite#getName()}).
      * <p>
      * To rename a favorite, call {@link #updateRename(String, String)}.
-     * 
+     *
      * @param  favorite favorite
      * @return          true if updated
      */
@@ -180,7 +182,7 @@ public final class DatabaseFavorites extends Database {
                 + " favorite_name = ?, directory_name = ?, favorite_index = ?"
                 + " WHERE favorite_name = ?");
             stmt.setString(1, favorite.getName());
-            stmt.setString(2, favorite.getDirectoryName());
+            stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
             stmt.setString(4, favorite.getName());
             logFiner(stmt);
@@ -222,7 +224,8 @@ public final class DatabaseFavorites extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                favorites.add(new Favorite(rs.getString(1), rs.getString(2),
+                favorites.add(new Favorite(rs.getString(1),
+                                           getFile(rs.getString(2)),
                                            rs.getInt(3)));
             }
         } catch (Exception ex) {
@@ -236,7 +239,7 @@ public final class DatabaseFavorites extends Database {
         return favorites;
     }
 
-    private Favorite find(String name) {
+    private Favorite find(String favoriteName) {
         Favorite          favorite = null;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -247,13 +250,13 @@ public final class DatabaseFavorites extends Database {
             stmt = con.prepareStatement(
                 "SELECT" + " favorite_name, directory_name, favorite_index"
                 + " FROM favorite_directories WHERE favorite_name = ?");
-            stmt.setString(1, name);
+            stmt.setString(1, favoriteName);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                favorite = new Favorite(rs.getString(1), rs.getString(2),
-                                        rs.getInt(3));
+                favorite = new Favorite(rs.getString(1),
+                                        getFile(rs.getString(2)), rs.getInt(3));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);

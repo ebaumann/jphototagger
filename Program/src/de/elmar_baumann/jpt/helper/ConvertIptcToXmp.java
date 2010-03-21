@@ -44,11 +44,11 @@ import java.util.List;
 public final class ConvertIptcToXmp implements Runnable {
     private final List<ProgressListener> progressListeners =
         new ArrayList<ProgressListener>();
-    private final List<String> filenames;
-    private boolean            stop;
+    private final List<File> imageFiles;
+    private boolean          stop;
 
-    public ConvertIptcToXmp(List<String> filenames) {
-        this.filenames = new ArrayList<String>(filenames);
+    public ConvertIptcToXmp(List<File> imageFiles) {
+        this.imageFiles = new ArrayList<File>(imageFiles);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {
@@ -63,27 +63,26 @@ public final class ConvertIptcToXmp implements Runnable {
     public void run() {
         notifyStart();
 
-        int size  = filenames.size();
+        int size  = imageFiles.size();
         int index = 0;
 
         for (index = 0; !stop && (index < size); index++) {
-            String imageFilename = filenames.get(index);
-            String xmpFilename   =
-                XmpMetadata.suggestSidecarFilename(imageFilename);
-            Iptc iptc = IptcMetadata.getIptc(new File(imageFilename));
+            File imageFile = imageFiles.get(index);
+            File xmpFile   = XmpMetadata.suggestSidecarFile(imageFile);
+            Iptc iptc      = IptcMetadata.getIptc(imageFile);
 
             if (iptc != null) {
-                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFilename);
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp == null) {
                     xmp = new Xmp();
                 }
 
                 xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
-                logWriteXmpFile(imageFilename);
+                logWriteXmpFile(imageFile);
 
-                if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFilename)) {
-                    updateDatabase(imageFilename);
+                if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
+                    updateDatabase(imageFile);
                 }
             }
 
@@ -93,9 +92,9 @@ public final class ConvertIptcToXmp implements Runnable {
         notifyEnd(index);
     }
 
-    private void updateDatabase(String imageFilename) {
+    private void updateDatabase(File imageFile) {
         InsertImageFilesIntoDatabase insert =
-            new InsertImageFilesIntoDatabase(Arrays.asList(imageFilename),
+            new InsertImageFilesIntoDatabase(Arrays.asList(imageFile),
                 Insert.XMP);
 
         insert.run();    // Shall run in this thread!
@@ -107,17 +106,16 @@ public final class ConvertIptcToXmp implements Runnable {
         }
     }
 
-    private void logWriteXmpFile(String imageFilename) {
+    private void logWriteXmpFile(File imageFile) {
         AppLogger.logInfo(ConvertIptcToXmp.class,
-                          "ConvertIptcToXmp.Info.StartWriteXmpFile",
-                          imageFilename);
+                          "ConvertIptcToXmp.Info.StartWriteXmpFile", imageFile);
     }
 
     private synchronized void notifyStart() {
-        int           count = filenames.size();
+        int           count = imageFiles.size();
         ProgressEvent event = new ProgressEvent(this, 0, count, 0,
-                                  (filenames.size() > 0)
-                                  ? filenames.get(0)
+                                  (imageFiles.size() > 0)
+                                  ? imageFiles.get(0)
                                   : "");
 
         for (ProgressListener progressListener : progressListeners) {
@@ -127,8 +125,8 @@ public final class ConvertIptcToXmp implements Runnable {
     }
 
     private synchronized void notifyPerformed(int index) {
-        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(),
-                                  index + 1, filenames.get(index));
+        ProgressEvent event = new ProgressEvent(this, 0, imageFiles.size(),
+                                  index + 1, imageFiles.get(index));
 
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressPerformed(event);
@@ -137,7 +135,7 @@ public final class ConvertIptcToXmp implements Runnable {
     }
 
     private synchronized void notifyEnd(int index) {
-        ProgressEvent event = new ProgressEvent(this, 0, filenames.size(),
+        ProgressEvent event = new ProgressEvent(this, 0, imageFiles.size(),
                                   index + 1, "");
 
         for (ProgressListener progressListener : progressListeners) {

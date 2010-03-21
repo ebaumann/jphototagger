@@ -26,6 +26,10 @@ import de.elmar_baumann.jpt.database.Database;
 import de.elmar_baumann.jpt.database.DatabaseMetadata;
 import de.elmar_baumann.jpt.database.DatabaseTables;
 import de.elmar_baumann.jpt.resource.JptBundle;
+import de.elmar_baumann.jpt.UserSettings;
+import de.elmar_baumann.lib.io.FileUtil;
+
+import java.io.IOException;
 
 import java.sql.SQLException;
 
@@ -49,6 +53,7 @@ public final class AppDatabase {
             try {
                 ConnectionPool.INSTANCE.init();
                 checkDatabaseVersion();
+                ensureThumbnailDirExists();
                 DatabaseTables.INSTANCE.createTables();
             } catch (SQLException ex) {
                 Database.errorMessageSqlException(ex);
@@ -68,6 +73,18 @@ public final class AppDatabase {
             MessageDisplayer.error(null, "AppDatabase.Error.NewerDbVersion",
                                    DatabaseMetadata.getDatabaseAppVersion(),
                                    AppInfo.APP_VERSION);
+            AppLifeCycle.quitBeforeGuiWasCreated();
+        }
+    }
+
+    private static void ensureThumbnailDirExists() {
+        String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
+
+        try {
+            FileUtil.ensureDirectoryExists(dir);
+        } catch (IOException ex) {
+            AppLogger.logSevere(AppDatabase.class, ex);
+            MessageDisplayer.error(null, "AppDatabase.Error.TnDir", dir);
             AppLifeCycle.quitBeforeGuiWasCreated();
         }
     }

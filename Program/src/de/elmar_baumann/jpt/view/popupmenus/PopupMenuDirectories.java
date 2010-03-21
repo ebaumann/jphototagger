@@ -27,6 +27,8 @@ import de.elmar_baumann.jpt.resource.JptBundle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import java.io.File;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
@@ -57,9 +59,10 @@ public final class PopupMenuDirectories extends JPopupMenu {
                         .getIcon("icon_folder_new.png"));
     private final JMenuItem itemRenameDirectory =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuDirectories.DisplayName.Action.RenameDirectory"),
-                AppLookAndFeel.ICON_RENAME);
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuDirectories.DisplayName.Action.RenameDirectory"), AppLookAndFeel
+                        .ICON_RENAME);
     private final JMenuItem itemRefresh =
         new JMenuItem(
             JptBundle.INSTANCE
@@ -80,29 +83,19 @@ public final class PopupMenuDirectories extends JPopupMenu {
             JptBundle.INSTANCE.getString(
                 "MouseListenerTreeExpand.ItemCollapse"));
     private boolean  treeSelected = false;
-    private String   directoryName;
+    private File     directory;
     private TreePath path;
 
     private PopupMenuDirectories() {
         init();
     }
 
-    /**
-     * Liefert den ausgewählten Verzeichnisnamen.
-     *
-     * @return Name oder null, wenn nicht auf ein Verzeichnis geklickt wurde
-     */
-    public String getDirectoryName() {
-        return directoryName;
+    public File getDirectory() {
+        return directory;
     }
 
-    /**
-     * Setzt den Verzeichnisnamen, auf den geklickt wurde.
-     *
-     * @param directoryName  Verzeichnisname
-     */
-    public void setDirectoryName(String directoryName) {
-        this.directoryName = directoryName;
+    public void setDirectory(File directory) {
+        this.directory = directory;
     }
 
     public void setTreePath(TreePath path) {

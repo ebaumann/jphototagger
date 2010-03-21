@@ -26,7 +26,6 @@ import de.elmar_baumann.jpt.resource.GUI;
 import de.elmar_baumann.jpt.view.dialogs.ImageCollectionsDialog;
 import de.elmar_baumann.jpt.view.panels.ThumbnailsPanel;
 import de.elmar_baumann.jpt.view.popupmenus.PopupMenuThumbnails;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,9 +59,8 @@ public final class ControllerAddToImageCollection implements ActionListener {
         String collectionName = selectCollectionName();
 
         if (collectionName != null) {
-            ModifyImageCollections.addImagesToCollection(
-                collectionName,
-                FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()));
+            ModifyImageCollections.addImagesToCollection(collectionName,
+                    thumbnailsPanel.getSelectedFiles());
         }
     }
 

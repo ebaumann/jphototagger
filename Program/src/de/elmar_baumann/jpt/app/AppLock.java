@@ -39,6 +39,8 @@ public final class AppLock {
         UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator
         + AppInfo.PROJECT_NAME + ".lck";
 
+    private AppLock() {}
+
     /**
      * Returns whether the application ist locked.
      *
@@ -74,7 +76,7 @@ public final class AppLock {
      */
     public static synchronized boolean unlock() {
         if (isLocked()) {
-            return new File(LOCKFILE_NAME).delete();
+            return FileUtil.deleteFile(LOCKFILE_NAME);
         }
 
         return true;
@@ -99,7 +101,7 @@ public final class AppLock {
             return true;
         }
 
-        if (new File(LOCKFILE_NAME).delete()) {
+        if (FileUtil.deleteFile(LOCKFILE_NAME)) {
             return true;
         } else {
             errorMessageDelete();
@@ -117,6 +119,4 @@ public final class AppLock {
         MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile",
                                LOCKFILE_NAME);
     }
-
-    private AppLock() {}
 }

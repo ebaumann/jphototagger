@@ -29,7 +29,6 @@ import de.elmar_baumann.jpt.types.Persistence;
 import de.elmar_baumann.jpt.UserSettings;
 import de.elmar_baumann.lib.componentutil.MnemonicUtil;
 import de.elmar_baumann.lib.dialog.DirectoryChooser;
-import de.elmar_baumann.lib.io.FileUtil;
 
 import java.awt.Container;
 
@@ -100,7 +99,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     private void setIconDatabaseDirectory(boolean backupDir) {
         File dir = new File(labelDatabaseDirectory.getText());
 
-        if (FileUtil.existsDirectory(dir)) {
+        if (dir.isDirectory()) {
             Icon icon = FileSystemView.getFileSystemView().getSystemIcon(dir);
             if (backupDir) {
                 labelDatabaseBackupDirectory.setIcon(icon);
