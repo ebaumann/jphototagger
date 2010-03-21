@@ -239,7 +239,7 @@ public final class FileUtil {
             throw new NullPointerException("directory == null");
         }
 
-        if (existsDirectory(directory)) {
+        if (directory.isDirectory()) {
             return;
         }
 
@@ -265,22 +265,7 @@ public final class FileUtil {
     }
 
     /**
-     * Returns whether a directory exists and it's a directory.
-     *
-     * @param  directory directory
-     * @return           true if the directory exists and the file type is
-     *                   a directory
-     */
-    public static boolean existsDirectory(File directory) {
-        if (directory == null) {
-            throw new NullPointerException("directory == null");
-        }
-
-        return directory.exists() && directory.isDirectory();
-    }
-
-    /**
-     * Calls {@link #existsDirectory(java.io.File)}.
+     * Returns whether a file exists and is a directory.
      *
      * @param directoryname name of the directory
      * @return              true if the directory exists and the file type is
@@ -291,7 +276,7 @@ public final class FileUtil {
             throw new NullPointerException("directoryname == null");
         }
 
-        return existsDirectory(new File(directoryname));
+        return new File(directoryname).isDirectory();
     }
 
     /**
