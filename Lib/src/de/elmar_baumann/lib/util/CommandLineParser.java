@@ -34,78 +34,10 @@ import java.util.StringTokenizer;
  * @author  Elmar Baumann
  */
 public final class CommandLineParser {
+    private final Set<Option> options = new HashSet<Option>();
     private final String[]    args;
     private final String      optionsDelimiter;
     private final String      optionsValuesDelimiter;
-    private final Set<Option> options = new HashSet<Option>();
-
-    public static class Option {
-        private final String       name;
-        private final List<String> values = new ArrayList<String>();;
-
-        public Option(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public List<String> getValues() {
-            return values;
-        }
-
-        public void addValue(String param) {
-            values.add(param);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
-
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-
-            final Option other = (Option) obj;
-
-            if ((this.name == null)
-                ? (other.name != null)
-                : !this.name.equals(other.name)) {
-                return false;
-            }
-
-            if ((this.values != other.values)
-                    && ((this.values == null)
-                        ||!this.values.equals(other.values))) {
-                return false;
-            }
-
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            int hash = 5;
-
-            hash = 89 * hash + ((this.name != null)
-                                ? this.name.hashCode()
-                                : 0);
-            hash = 89 * hash + ((this.values != null)
-                                ? this.values.hashCode()
-                                : 0);
-
-            return hash;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
 
     /**
      * Constructor.
@@ -113,21 +45,21 @@ public final class CommandLineParser {
      * @param args
      * @param optionsDelimiter
      * @param optionsValuesDelimiter
-     * @throws                        NullPointerException if a parameter is null
-     * @throws                        IllegalArgumentException on invalid arguments
+     * @throws NullPointerException if a parameter is null
+     * @throws IllegalArgumentException on invalid arguments
      */
     public CommandLineParser(String[] args, String optionsDelimiter,
                              String optionsValuesDelimiter) {
         if (args == null) {
-            throw new NullPointerException("args == null");    // NOI18N
+            throw new NullPointerException("args == null");
         }
 
         if (optionsDelimiter == null) {
-            throw new NullPointerException("optionsDelimiter == null");    // NOI18N
+            throw new NullPointerException("optionsDelimiter == null");
         }
 
         if (optionsValuesDelimiter == null) {
-            throw new NullPointerException("optionsValuesDelimiter == null");    // NOI18N
+            throw new NullPointerException("optionsValuesDelimiter == null");
         }
 
         this.args                   = Arrays.copyOf(args, args.length);
@@ -223,6 +155,73 @@ public final class CommandLineParser {
 
         while (st.hasMoreTokens()) {
             option.addValue(st.nextToken().trim());
+        }
+    }
+
+    public static class Option {
+        private final List<String> values = new ArrayList<String>();;
+        private final String       name;
+
+        public Option(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public List<String> getValues() {
+            return values;
+        }
+
+        public void addValue(String param) {
+            values.add(param);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+
+            final Option other = (Option) obj;
+
+            if ((this.name == null)
+                ? (other.name != null)
+                : !this.name.equals(other.name)) {
+                return false;
+            }
+
+            if ((this.values != other.values)
+                    && ((this.values == null)
+                        ||!this.values.equals(other.values))) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+
+            hash = 89 * hash + ((this.name != null)
+                                ? this.name.hashCode()
+                                : 0);
+            hash = 89 * hash + ((this.values != null)
+                                ? this.values.hashCode()
+                                : 0);
+
+            return hash;
+        }
+
+        @Override
+        public String toString() {
+            return name;
         }
     }
 }

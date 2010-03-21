@@ -390,7 +390,7 @@ public final class FileUtil {
      */
     public static Stack<File> getPathFromRoot(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         return getPathFromRoot(new File(filename));
@@ -634,7 +634,7 @@ public final class FileUtil {
      */
     public static File getNotExistingFile(File file) {
         if (file == null) {
-            throw new NullPointerException("file == null");    // NOI18N
+            throw new NullPointerException("file == null");
         }
 
         File newFile = file;
@@ -668,7 +668,7 @@ public final class FileUtil {
      */
     public static File getNotExistingFile(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         return getNotExistingFile(new File(filename));
@@ -687,7 +687,7 @@ public final class FileUtil {
      */
     public static File getRoot(File file) {
         if (file == null) {
-            throw new NullPointerException("file == null");    // NOI18N
+            throw new NullPointerException("file == null");
         }
 
         File root   = file.getParentFile();
@@ -714,7 +714,7 @@ public final class FileUtil {
      */
     public static File getRoot(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         return getRoot(new File(filename));
@@ -730,7 +730,7 @@ public final class FileUtil {
      */
     public static String getRootName(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         return getRoot(filename).getAbsolutePath();
@@ -746,7 +746,7 @@ public final class FileUtil {
      */
     public static String getDirPath(File file) {
         if (file == null) {
-            throw new NullPointerException("file == null");    // NOI18N
+            throw new NullPointerException("file == null");
         }
 
         String parent = file.getParent();
@@ -772,7 +772,7 @@ public final class FileUtil {
      */
     public static String getDirPath(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         return getDirPath(new File(filename));
@@ -790,7 +790,7 @@ public final class FileUtil {
      */
     public static String getSuffix(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         if (hasSuffix(filename)) {
@@ -809,7 +809,7 @@ public final class FileUtil {
      */
     public static String getSuffix(File file) {
         if (file == null) {
-            throw new NullPointerException("file == null");    // NOI18N
+            throw new NullPointerException("file == null");
         }
 
         return getSuffix(file.getName());
@@ -834,7 +834,7 @@ public final class FileUtil {
      */
     public static String getPrefix(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         int index = filename.lastIndexOf(".");
@@ -855,7 +855,7 @@ public final class FileUtil {
      */
     public static String getPrefix(File file) {
         if (file == null) {
-            throw new NullPointerException("file == null");    // NOI18N
+            throw new NullPointerException("file == null");
         }
 
         return getPrefix(file.getName());
@@ -872,7 +872,7 @@ public final class FileUtil {
      */
     public static long getLastModified(String filename) {
         if (filename == null) {
-            throw new NullPointerException("filename == null");    // NOI18N
+            throw new NullPointerException("filename == null");
         }
 
         return new File(filename).lastModified();
