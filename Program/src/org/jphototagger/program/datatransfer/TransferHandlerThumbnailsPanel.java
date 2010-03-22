@@ -21,11 +21,16 @@
 
 package org.jphototagger.program.datatransfer;
 
+import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
@@ -35,9 +40,6 @@ import org.jphototagger.program.types.ContentUtil;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.ViewUtil;
-import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -53,6 +55,7 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.program.helper.MiscMetadataHelper;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
@@ -88,6 +91,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         boolean isThumbnailPos = isThumbnailPos(transferSupport);
 
         return (Flavor.hasKeywordsFromList(
+            transferSupport) || Flavor.hasColumnData(
             transferSupport) || Flavor.hasKeywordsFromTree(
             transferSupport)) && isThumbnailPos || (Flavor.hasMetadataTemplate(
             transferSupport) && dropOverSelectedThumbnail);
@@ -215,6 +219,9 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             }
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
             importMetadataTemplate(transferSupport);
+        } else if (Flavor.hasColumnData(transferSupport)) {
+            importColumnData(transferSupport, dropOverSelectedThumbnail,
+                             imageFile);
         } else {
             return false;
         }
@@ -336,6 +343,34 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             assert selTemplates.length == 1;
             GUI.INSTANCE.getAppPanel().getEditMetadataPanels()
                 .setMetadataTemplate((MetadataTemplate) selTemplates[0]);
+        } catch (Exception ex) {
+            AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
+        }
+    }
+
+    @SuppressWarnings(value = "unchecked")
+    private void importColumnData(TransferSupport transferSupport,
+                                  boolean dropOverSelectedThumbnail,
+                                  File imageFile) {
+        try {
+            List<ColumnData> colData =
+                (List<ColumnData>) transferSupport.getTransferable()
+                    .getTransferData(Flavor.COLUMN_DATA);
+
+            if (dropOverSelectedThumbnail) {
+                if (!ViewUtil.checkSelImagesEditable(true)) {
+                    return;
+                }
+
+                EditMetadataPanels ep =
+                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+
+                for (ColumnData data : colData) {
+                    ep.addText(data.getColumn(), (String) data.getData());
+                }
+            } else {
+                MiscMetadataHelper.saveToImageFile(colData, imageFile);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
         }
