@@ -49,13 +49,15 @@ import javax.swing.tree.TreeSelectionModel;
  * @author  Elmar Baumann
  */
 public final class TreeUtil {
+    private TreeUtil() {}
 
     /**
      *     Returns a node with a specific user object in the path below a node.
      *     Uses equals of the user objects.
      *
      *     @param parent     parent node
-     *     @param userObject searched user object. If null null will be returned.
+     *     @param userObject searched user object. If null null will be
+     *                       returned.
      *     @return           found node or null if not found
      */
     @SuppressWarnings("unchecked")
@@ -129,7 +131,8 @@ public final class TreeUtil {
     }
 
     /**
-     * Liefert aus einem Model den Pfad anhand eines Strings, der diesen spezifiziert.
+     * Liefert aus einem Model den Pfad anhand eines Strings, der diesen
+     * spezifiziert.
      *
      * @param treeModel     Model
      * @param pathString    String mit Pfad
@@ -253,14 +256,15 @@ public final class TreeUtil {
      * Checks whether a path is below a node.
      *
      * All children below <code>parentNode</code> have to be
-     * <code>DefaultMutableTreeNode</code>s. The child nodes <code>toString()</code>
-     * method strings will be compared against the <code>toStrings</code>.
+     * <code>DefaultMutableTreeNode</code>s. The child nodes
+     * <code>toString()</code> method strings will be compared against the
+     * <code>toStrings</code>.
      *
      * @param parentNode parent node, not included in <code>toStrings</code>
      * @param toStrings  first element is the <code>toString()</code> of the
-     *                   first child node, second element is the <code>toString()</code>
-     *                   of the child's child etc. <em>All strings have to be
-     *                   not null!</em>
+     *                   first child node, second element is the
+     *                   <code>toString()</code> of the child's child etc.
+     *                   <em>All strings have to be not null!</em>
      * @param ignoreCase true if the strings shall be compared case insensitive
      * @return           true if the path was found
      */
@@ -447,7 +451,9 @@ public final class TreeUtil {
             if (userObject.equals(child.getUserObject())) {
                 foundNodes.add(child);
             } else {
-                addNodesUserWithObject(foundNodes, child, userObject, maxCount);    // recursive
+
+                // recursive
+                addNodesUserWithObject(foundNodes, child, userObject, maxCount);
             }
         }
     }
@@ -534,6 +540,22 @@ public final class TreeUtil {
         }
     }
 
+    /**
+     * Expands or collapses tree paths and all it's sub paths.
+     *
+     * @param tree        tree
+     * @param parentPaths parent paths
+     * @param expand      true if expand, false if collapse
+     *
+     */
+    public static void expandAll(JTree tree,
+                                 Collection<? extends TreePath> parentPaths,
+                                 boolean expand) {
+        for (TreePath treePath : parentPaths) {
+            expandAll(tree, treePath, expand);
+        }
+    }
+
     public static void deselectAll(JTree tree) {
         TreeSelectionModel m = tree.getSelectionModel();
 
@@ -570,6 +592,4 @@ public final class TreeUtil {
 
         return false;
     }
-
-    private TreeUtil() {}
 }
