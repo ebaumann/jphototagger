@@ -41,6 +41,16 @@
               {@link org.jphototagger.program.factory.ControllerFactory} in it's
               <code>init()</code> method.
           </li>
+          <li>If the controller listens to a popup menu of a <code>JTree</code>
+              of <code>JList</code>, the best way is: Let extend the popup menu
+              {@link org.jphototagger.lib.event.listener.PopupMenuTree} or
+              {@link org.jphototagger.lib.event.listener.PopupMenuList} and
+              let the controller implement
+              {@link org.jphototagger.lib.event.listener.PopupMenuTree.Listener}
+              or
+              {@link org.jphototagger.lib.event.listener.PopupMenuList.Listener}
+              instead of overriding <code>myAction()</code>.
+          </li>
       </ul>
 
       <h2>How to get a controller</h2>
