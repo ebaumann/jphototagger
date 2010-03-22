@@ -30,7 +30,6 @@ import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
@@ -100,8 +99,6 @@ public final class RendererFactory {
         new TreeItemTempSelectionRowSetter(
             InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
             PopupMenuKeywordsTree.INSTANCE);
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeMiscMetadata(),
-                                           PopupMenuMiscMetadata.INSTANCE);
         new ListItemTempSelectionRowSetter(appPanel.getListImageCollections(),
                                            PopupMenuImageCollections.INSTANCE);
         new ListItemTempSelectionRowSetter(appPanel.getListSavedSearches(),

@@ -277,6 +277,39 @@ public final class EditMetadataPanels
 
         if (panelAdd instanceof EditRepeatableTextEntryPanel) {
             ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
+        } else {
+            TextEntry textEntry = (TextEntry) panelAdd;
+            textEntry.setText(text);
+            textEntry.setDirty(true);
+        }
+
+        checkSaveOnChanges();
+    }
+
+    public void removeText(Column column, String text) {
+        assert isEditable();
+
+        if (!isEditable()) {
+            return;
+        }
+
+        JPanel panelRemove = null;
+        int    size     = panels.size();
+
+        for (int i = 0; (panelRemove == null) && (i < size); i++) {
+            JPanel panel = panels.get(i);
+
+            if (((TextEntry) panel).getColumn().equals(column)) {
+                panelRemove = panel;
+            }
+        }
+
+        if (panelRemove instanceof EditRepeatableTextEntryPanel) {
+            ((EditRepeatableTextEntryPanel) panelRemove).removeText(text);
+        } else {
+            TextEntry textEntry = (TextEntry) panelRemove;
+            textEntry.setText("");
+            textEntry.setDirty(true);
         }
 
         checkSaveOnChanges();

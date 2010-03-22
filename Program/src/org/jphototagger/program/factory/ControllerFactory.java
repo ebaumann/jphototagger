@@ -191,6 +191,8 @@ import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 
 import java.util.List;
+import org.jphototagger.program.controller.miscmetadata.ControllerAddMetadataToSelImages;
+import org.jphototagger.program.controller.miscmetadata.ControllerRemoveMetadataFromSelImages;
 
 /**
  * Erzeugt alle Controller.
@@ -320,6 +322,8 @@ public final class ControllerFactory {
         support.add(new org.jphototagger.program.controller.keywords.list
             .ControllerAddKeywordsToEditPanel());
         support.add(new ControllerDeleteKeywordsFromEditPanel());
+        support.add(new ControllerAddMetadataToSelImages());
+        support.add(new ControllerRemoveMetadataFromSelImages());
         addKeywordsTreeControllers();
         addSizeAndLocationController();
         AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
