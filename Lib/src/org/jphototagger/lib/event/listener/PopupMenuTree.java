@@ -21,6 +21,7 @@
 
 package org.jphototagger.lib.event.listener;
 
+import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 
@@ -43,7 +44,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.MenuElement;
 import javax.swing.tree.TreePath;
-import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
 
 /**
  * Popup menu listening to a {@link JTree} and handling temporary selections:
@@ -190,19 +190,26 @@ public abstract class PopupMenuTree extends JPopupMenu
     }
 
     private void showPopupMenu(MouseEvent e) {
-        setLastSelTreePaths(e);
-        setMenuItemsEnabled(new ArrayList<TreePath>(lastSelTreePaths));
-        show(tree, e.getX(), e.getY());
+        if (setLastSelTreePaths(e)) {
+            setMenuItemsEnabled(new ArrayList<TreePath>(lastSelTreePaths));
+            show(tree, e.getX(), e.getY());
+        }
     }
 
-    private void setLastSelTreePaths(MouseEvent e) {
+    private boolean setLastSelTreePaths(MouseEvent e) {
         TreePath mouseCursorPath = TreeUtil.getTreePath(e);
+
+        if (mouseCursorPath == null) {
+            return false;
+        }
 
         if (tree.isPathSelected(mouseCursorPath)) {
             setAllSelectedTreePaths();
         } else {
             lastSelTreePaths = Collections.singletonList(mouseCursorPath);
         }
+
+        return true;
     }
 
     private void setAllSelectedTreePaths() {
