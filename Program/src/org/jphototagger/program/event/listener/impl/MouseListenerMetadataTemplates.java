@@ -48,7 +48,7 @@ public final class MouseListenerMetadataTemplates extends MouseListenerList {
     }
 
     private void enableItems() {
-        boolean clickOnItem = getIndex() > 0;
+        boolean clickOnItem = getIndex() >= 0;
 
         PopupMenuMetadataTemplates.INSTANCE.getItemDelete().setEnabled(
             clickOnItem);
