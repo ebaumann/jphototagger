@@ -34,7 +34,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- * Reagiert auf Mausaktionen in der Treeview, die die Verzeichnisse darstellt.
+ * Do not use this class as template for implemention! Instead extend
+ * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
+ * {@link org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata} does.
  *
  * @author  Elmar Baumann
  */

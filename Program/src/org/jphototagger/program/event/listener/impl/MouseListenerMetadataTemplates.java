@@ -28,7 +28,8 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 /**
- *
+ * Do not use this class as a template for other implementations! Instead extend
+ * a popup menu from {@link org.jphototagger.lib.event.listener.PopupMenuList}.
  *
  * @author  Elmar Baumann
  */

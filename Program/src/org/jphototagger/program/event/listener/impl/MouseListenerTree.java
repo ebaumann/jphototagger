@@ -34,6 +34,8 @@ import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 
 /**
+ * Do not use this class as template for implemention! Instead extend
+ * {@link org.jphototagger.lib.event.listener.PopupMenuTree}.
  *
  * @author  Elmar Baumann
  */

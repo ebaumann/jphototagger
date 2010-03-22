@@ -34,6 +34,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 /**
+ * Do not use this class! Instead extend
+ * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
+ * {@link org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata} does.
+ *
  * Listens to mouse events in a {@link KeywordsPanel}'s tree and
  * shows the {@link PopupMenuKeywordsTree} when the popup trigger mouse
  * button is pressed.
