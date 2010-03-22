@@ -32,7 +32,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JList;
 
 /**
- * Beobachtet Mausklicks im JTree mit gespeicherten Suchen.
+ * Do not use this class as a template for other implementations! Instead extend
+ * a popup menu from {@link org.jphototagger.lib.event.listener.PopupMenuList}.
  *
  * @author  Elmar Baumann
  */

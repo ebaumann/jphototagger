@@ -36,9 +36,13 @@ import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
 /**
+ * Do not use this class as template for implemention! Instead extend
+ * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
+ * {@link org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata} does.
+ *
  * Popup menu for the tree in a {@link KeywordsPanel}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class PopupMenuKeywordsTree extends JPopupMenu {
     private static final long                 serialVersionUID =

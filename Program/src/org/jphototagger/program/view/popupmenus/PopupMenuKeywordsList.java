@@ -34,6 +34,9 @@ import javax.swing.JPopupMenu.Separator;
 import javax.swing.KeyStroke;
 
 /**
+ * Do not use this class as template for implemention! Instead extend
+ * {@link org.jphototagger.lib.event.listener.PopupMenuList}.
+ *
  * Popup menu for a keywords list, such as
  * {@link org.jphototagger.program.view.panels.KeywordsPanel#getList()}.
  *

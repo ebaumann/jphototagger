@@ -33,7 +33,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 
 /**
- * Popupmenü für gespeicherte Suchen.
+ * Do not use this class as template for implemention! Instead extend
+ * {@link org.jphototagger.lib.event.listener.PopupMenuList}.
  *
  * @author  Elmar Baumann
  */
