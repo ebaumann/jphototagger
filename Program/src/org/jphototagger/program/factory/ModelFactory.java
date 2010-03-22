@@ -21,6 +21,9 @@
 
 package org.jphototagger.program.factory;
 
+import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.thirdparty.SortedListModel;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
 import org.jphototagger.program.model.ListModelImageCollections;
@@ -40,9 +43,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
-import org.jphototagger.lib.thirdparty.SortedListModel;
 
 import java.awt.Cursor;
 
@@ -327,12 +327,16 @@ public final class ModelFactory {
                         "ModelFactory.Starting.TreeModelMiscMetadata"), MessageLabel
                             .MessageType.INFO, -1);
 
-        JTree     tree       = appPanel.getTreeMiscMetadata();
-        Cursor    treeCursor = setWaitCursor(tree);
-        TreeModel model      = new TreeModelMiscMetadata();
+        JTree     tree             = appPanel.getTreeMiscMetadata();
+        Cursor    treeCursor       = setWaitCursor(tree);
+        TreeModel modelApp         = new TreeModelMiscMetadata(false);
+        TreeModel modelInputHelper = new TreeModelMiscMetadata(true);
 
-        support.add(model);
-        tree.setModel(model);
+        support.add(modelApp);
+        support.add(modelInputHelper);
+        InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree().setModel(
+            modelInputHelper);
+        tree.setModel(modelApp);
         tree.setCursor(treeCursor);
         AppLogger.logFine(getClass(),
                           "ModelFactory.Finished.TreeModelMiscMetadata");

@@ -37,11 +37,11 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerAddMetadataToSelImages
         extends ControllerMiscMetadata {
-    private final JMenuItem itemAdd =
-        PopupMenuMiscMetadata.INSTANCE.getItemAddToEditPanel();
+    private final JMenuItem itemAdd;
 
-    public ControllerAddMetadataToSelImages() {
-        PopupMenuMiscMetadata.INSTANCE.addListener(itemAdd, this);
+    public ControllerAddMetadataToSelImages(PopupMenuMiscMetadata popup) {
+        itemAdd = popup.getItemAddToEditPanel();
+        popup.addListener(itemAdd, this);
     }
 
     @Override

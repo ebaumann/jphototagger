@@ -21,23 +21,27 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
-import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
+import org.jphototagger.program.database.metadata.exif
+    .ColumnExifIsoSpeedRatings;
 import org.jphototagger.program.database.metadata.exif.ColumnExifLens;
-import org.jphototagger.program.database.metadata.exif.ColumnExifRecordingEquipment;
+import org.jphototagger.program.database.metadata.exif
+    .ColumnExifRecordingEquipment;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.componentutil.TreeUtil;
 
 import java.io.File;
 
@@ -67,10 +71,6 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public final class TreeModelMiscMetadata extends DefaultTreeModel
         implements DatabaseImageFilesListener {
-    private static final DefaultMutableTreeNode ROOT =
-        new DefaultMutableTreeNode(
-            JptBundle.INSTANCE.getString(
-                "TreeModelMiscMetadata.Root.DisplayName"));
     private static final Object EXIF_USER_OBJECT =
         JptBundle.INSTANCE.getString(
             "TreeModelMiscMetadata.ExifNode.DisplayName");
@@ -100,11 +100,21 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     }
 
     private final transient DatabaseImageFiles db;
+    private final boolean                      onlyXmp;
+    private final DefaultMutableTreeNode       ROOT;
 
-    public TreeModelMiscMetadata() {
-        super(ROOT);
-        db = DatabaseImageFiles.INSTANCE;
-        addColumnNodes(EXIF_USER_OBJECT, EXIF_COLUMNS);
+    public TreeModelMiscMetadata(boolean onlyXmp) {
+        super(new DefaultMutableTreeNode(
+            JptBundle.INSTANCE.getString(
+                "TreeModelMiscMetadata.Root.DisplayName")));
+        this.onlyXmp = onlyXmp;
+        this.ROOT    = (DefaultMutableTreeNode) getRoot();
+        db           = DatabaseImageFiles.INSTANCE;
+
+        if (!onlyXmp) {
+            addColumnNodes(EXIF_USER_OBJECT, EXIF_COLUMNS);
+        }
+
         addColumnNodes(XMP_USER_OBJECT, XMP_COLUMNS);
         listen();
     }

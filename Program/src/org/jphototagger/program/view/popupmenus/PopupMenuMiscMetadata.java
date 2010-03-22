@@ -55,9 +55,7 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuMiscMetadata extends PopupMenuTree {
     private static final long                 serialVersionUID =
         3228757281030616972L;
-    public static final PopupMenuMiscMetadata INSTANCE         =
-        new PopupMenuMiscMetadata(
-            GUI.INSTANCE.getAppPanel().getTreeMiscMetadata());
+
     private static final List<Column> XMP_COLUMNS = XmpColumns.get();
     private JMenuItem                 itemAddToEditPanel;
     private JMenuItem                 itemCollapseAllSubitems;
@@ -66,7 +64,7 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
     private JMenuItem                 itemRemoveFromEditPanel;
     private JMenuItem                 itemRename;
 
-    private PopupMenuMiscMetadata(JTree tree) {
+    public PopupMenuMiscMetadata(JTree tree) {
         super(tree);
         setAccelerators();
         setExpandAllSubItems(itemExpandAllSubitems);

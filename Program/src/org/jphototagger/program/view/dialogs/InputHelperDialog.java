@@ -32,6 +32,7 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Settings;
 
 import javax.swing.ListModel;
+import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
 
 /**
  * Dialog for input assistance.
@@ -43,6 +44,7 @@ public class InputHelperDialog extends Dialog {
         new InputHelperDialog();
     private static final String           KEY_SEL_INDEX_TABBED_PANE =
         "InputHelperDialog.SelIndexTabbedPane";
+    private static final String KEY_TREE_MISC_XMP = "InputHelperDialog.TreeMiscXmpMetadata";
     private static final long serialVersionUID = 38960516048549937L;
 
     public InputHelperDialog() {
@@ -76,6 +78,8 @@ public class InputHelperDialog extends Dialog {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         panelKeywords.readProperties();
+        settings.applySettings(panelMiscXmpMetadata.getTree(),
+                KEY_TREE_MISC_XMP);
 
         int selIndexTabbedPane = settings.getInt(KEY_SEL_INDEX_TABBED_PANE);
 
@@ -89,6 +93,7 @@ public class InputHelperDialog extends Dialog {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.set(tabbedPane.getSelectedIndex(), KEY_SEL_INDEX_TABBED_PANE);
+        settings.set(panelMiscXmpMetadata.getTree(), KEY_TREE_MISC_XMP);
         panelKeywords.writeProperties();
         UserSettings.INSTANCE.writeToFile();
     }
@@ -104,6 +109,10 @@ public class InputHelperDialog extends Dialog {
 
     public MetaDataTemplatesPanel getPanelMetaDataTemplates() {
         return panelMetaDataTemplates;
+    }
+
+    public MiscXmpMetadataPanel getPanelMiscXmpMetadata() {
+        return panelMiscXmpMetadata;
     }
 
     @Override
@@ -127,68 +136,54 @@ public class InputHelperDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        tabbedPane             = new javax.swing.JTabbedPane();
-        panelKeywords          =
-            new org.jphototagger.program.view.panels.KeywordsPanel();
-        panelMetaDataTemplates =
-            new org.jphototagger.program.view.panels.MetaDataTemplatesPanel();
-        panelMetaDataTemplates.getList().setTransferHandler(
-            new TransferHandlerDragListItems(
-                org.jphototagger.program.datatransfer.Flavor.METADATA_TEMPLATES));
+
+        tabbedPane = new javax.swing.JTabbedPane();
+        panelKeywords = new org.jphototagger.program.view.panels.KeywordsPanel();
+        panelMiscXmpMetadata = new org.jphototagger.program.view.panels.MiscXmpMetadataPanel();
+        panelMetaDataTemplates = new org.jphototagger.program.view.panels.MetaDataTemplatesPanel();
+        panelMetaDataTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.METADATA_TEMPLATES));
         labelInfo = new javax.swing.JLabel();
-        setDefaultCloseOperation(
-            javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("InputHelperDialog.title"));    // NOI18N
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle(JptBundle.INSTANCE.getString("InputHelperDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-        tabbedPane.setTabLayoutPolicy(
-            javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords);    // NOI18N
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/program/resource/properties/Bundle");    // NOI18N
+        tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelMiscXmpMetadata.TabConstraints.tabTitle"), panelMiscXmpMetadata); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
+        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
 
-        tabbedPane.addTab(
-            bundle.getString(
-                "InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates);    // NOI18N
-        labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text"));    // NOI18N
+        labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text")); // NOI18N
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, 283,
-                        Short.MAX_VALUE).addComponent(
-                            labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            283, Short.MAX_VALUE)).addContainerGap()));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                .createSequentialGroup().addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout
-                    .DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle
-                            .ComponentPlacement.RELATED)
-                                .addComponent(labelInfo, javax.swing.GroupLayout
-                                    .PREFERRED_SIZE, javax.swing.GroupLayout
-                                    .DEFAULT_SIZE, javax.swing.GroupLayout
-                                    .PREFERRED_SIZE).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);
@@ -215,10 +210,10 @@ public class InputHelperDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel                                      labelInfo;
-    private org.jphototagger.program.view.panels.KeywordsPanel          panelKeywords;
+    private javax.swing.JLabel labelInfo;
+    private org.jphototagger.program.view.panels.KeywordsPanel panelKeywords;
     private org.jphototagger.program.view.panels.MetaDataTemplatesPanel panelMetaDataTemplates;
+    private org.jphototagger.program.view.panels.MiscXmpMetadataPanel panelMiscXmpMetadata;
     private javax.swing.JTabbedPane tabbedPane;
-
     // End of variables declaration//GEN-END:variables
 }

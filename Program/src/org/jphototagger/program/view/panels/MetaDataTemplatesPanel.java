@@ -48,8 +48,11 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
     private void postInitComponents() {
         list.addListSelectionListener(this);
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-            .addThumbnailsPanelListener(this);
+        // Can be null if created via GUI editor (Matisse)
+        if (GUI.INSTANCE.getAppPanel() != null) {
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+                    .addThumbnailsPanelListener(this);
+        }
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -118,81 +121,81 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane           = new javax.swing.JScrollPane();
-        list                 = new javax.swing.JList();
-        panelButtons         = new javax.swing.JPanel();
+        scrollPane = new javax.swing.JScrollPane();
+        list = new javax.swing.JList();
+        panelButtons = new javax.swing.JPanel();
         buttonAddToSelImages = new javax.swing.JButton();
-        panelModifyButtons   = new javax.swing.JPanel();
-        buttonRename         = new javax.swing.JButton();
-        buttonAdd            = new javax.swing.JButton();
-        buttonEdit           = new javax.swing.JButton();
-        buttonDelete         = new javax.swing.JButton();
+        panelModifyButtons = new javax.swing.JPanel();
+        buttonRename = new javax.swing.JButton();
+        buttonAdd = new javax.swing.JButton();
+        buttonEdit = new javax.swing.JButton();
+        buttonDelete = new javax.swing.JButton();
+
         setLayout(new java.awt.GridBagLayout());
+
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new org.jphototagger.program.view.renderer
-            .ListCellRendererMetadataTemplates());
+        list.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererMetadataTemplates());
         list.setDragEnabled(true);
         scrollPane.setViewportView(list);
-        gridBagConstraints         = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx   = 0;
-        gridBagConstraints.gridy   = 0;
-        gridBagConstraints.fill    = java.awt.GridBagConstraints.BOTH;
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(scrollPane, gridBagConstraints);
+
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/program/resource/properties/Bundle");    // NOI18N
-
-        buttonAddToSelImages.setText(
-            bundle.getString(
-                "MetaDataTemplatesPanel.buttonAddToSelImages.text"));    // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
+        buttonAddToSelImages.setText(bundle.getString("MetaDataTemplatesPanel.buttonAddToSelImages.text")); // NOI18N
         buttonAddToSelImages.setEnabled(false);
-        gridBagConstraints       = new java.awt.GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         panelButtons.add(buttonAddToSelImages, gridBagConstraints);
+
         panelModifyButtons.setLayout(new java.awt.GridLayout(2, 0));
-        buttonRename.setText(
-            bundle.getString("MetaDataTemplatesPanel.buttonRename.text"));    // NOI18N
+
+        buttonRename.setText(bundle.getString("MetaDataTemplatesPanel.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
         panelModifyButtons.add(buttonRename);
-        buttonAdd.setText(
-            bundle.getString("MetaDataTemplatesPanel.buttonAdd.text"));    // NOI18N
+
+        buttonAdd.setText(bundle.getString("MetaDataTemplatesPanel.buttonAdd.text")); // NOI18N
         panelModifyButtons.add(buttonAdd);
-        buttonEdit.setText(
-            bundle.getString("MetaDataTemplatesPanel.buttonEdit.text"));    // NOI18N
+
+        buttonEdit.setText(bundle.getString("MetaDataTemplatesPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setEnabled(false);
         panelModifyButtons.add(buttonEdit);
-        buttonDelete.setText(
-            bundle.getString("MetaDataTemplatesPanel.buttonDelete.text"));    // NOI18N
+
+        buttonDelete.setText(bundle.getString("MetaDataTemplatesPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         panelModifyButtons.add(buttonDelete);
-        gridBagConstraints       = new java.awt.GridBagConstraints();
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill  = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         panelButtons.add(panelModifyButtons, gridBagConstraints);
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 0;
-        gridBagConstraints.gridy  = 1;
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonAdd;
-    private javax.swing.JButton     buttonAddToSelImages;
-    private javax.swing.JButton     buttonDelete;
-    private javax.swing.JButton     buttonEdit;
-    private javax.swing.JButton     buttonRename;
-    private javax.swing.JList       list;
-    private javax.swing.JPanel      panelButtons;
-    private javax.swing.JPanel      panelModifyButtons;
+    private javax.swing.JButton buttonAdd;
+    private javax.swing.JButton buttonAddToSelImages;
+    private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonEdit;
+    private javax.swing.JButton buttonRename;
+    private javax.swing.JList list;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelModifyButtons;
     private javax.swing.JScrollPane scrollPane;
-
     // End of variables declaration//GEN-END:variables
 }

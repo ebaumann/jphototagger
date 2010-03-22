@@ -35,11 +35,11 @@ import org.jphototagger.program.helper.MiscMetadataHelper;
  * @author  Elmar Baumann
  */
 public final class ControllerRemoveMetadataFromSelImages extends ControllerMiscMetadata {
-    private final JMenuItem itemRemove =
-        PopupMenuMiscMetadata.INSTANCE.getItemAddToEditPanel();
+    private final JMenuItem itemRemove;
 
-    public ControllerRemoveMetadataFromSelImages() {
-        PopupMenuMiscMetadata.INSTANCE.addListener(itemRemove, this);
+    public ControllerRemoveMetadataFromSelImages(PopupMenuMiscMetadata popup) {
+        itemRemove = popup.getItemRemoveFromEditPanel();
+        popup.addListener(itemRemove, this);
     }
 
     @Override
