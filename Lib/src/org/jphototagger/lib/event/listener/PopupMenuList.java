@@ -1,5 +1,5 @@
 /*
- * @(#)PopupMenuTree.java    Created on 2010-22-03
+ * @(#)PopupMenuList.java    Created on 2010-22-03
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,8 +21,8 @@
 
 package org.jphototagger.lib.event.listener;
 
-import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 
 import java.awt.event.ActionEvent;
@@ -39,55 +39,52 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JTree;
 import javax.swing.MenuElement;
-import javax.swing.tree.TreePath;
 
 /**
- * Popup menu listening to a {@link JTree} and handling temporary selections:
- * Right mouse clicks over a not selected tree item.
+ * Popup menu listening to a {@link JList} and handling temporary selections:
+ * Right mouse clicks over a not selected list item.
  * <p>
  * If the click is a popup trigger the popup menu will be displayed.
  * <p>
  * Renders the temporary selection: If clicked on a selection, the rendering
- * does not change, all selected tree items remain selected. If clicked outside
- * a selected tree item, the current selection seems to change to the tree item
- * under the mouse cursor and the previos selected tree item seeming to be
+ * does not change, all selected list items remain selected. If clicked outside
+ * a selected list item, the current selection seems to change to the list item
+ * under the mouse cursor and the previos selected list item seeming to be
  * deselected, but this is only rendered in that way.
  * <p>
  * {@link Listener}s are getting the rendered selection rather than the
- * "real" tree selection.
+ * "real" list selection.
  *
  * @author  Elmar Baumann
  */
-public abstract class PopupMenuTree extends JPopupMenu
+public abstract class PopupMenuList extends JPopupMenu
         implements ActionListener, MouseListener {
     private static final long                          serialVersionUID =
         378844650671466081L;
     private final Map<JMenuItem, Collection<Listener>> listenersOfItem  =
         new HashMap<JMenuItem, Collection<Listener>>();
-    private JMenuItem      itemCollapseExpandAllSubItems;
-    private JMenuItem      itemExpandAllSubItems;
-    private List<TreePath> lastSelTreePaths;
-    private final JTree    tree;
+    private List<Object> lastSelValues;
+    private final JList  list;
 
     /**
      * Creates a new instance.
      *
-     * @param tree tree where the popup menu will be shown
+     * @param list list where the popup menu will be shown
      */
-    protected PopupMenuTree(JTree tree) {
-        if (tree == null) {
-            throw new NullPointerException("tree == null");
+    protected PopupMenuList(JList list) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
         }
 
-        this.tree = tree;
+        this.list = list;
         addMenuItems();
         listenToMenuItems(this);
-        tree.addMouseListener(this);
-        new TreeItemTempSelectionRowSetter(tree, this);
+        list.addMouseListener(this);
+        new ListItemTempSelectionRowSetter(list, this);
     }
 
     /**
@@ -113,7 +110,7 @@ public abstract class PopupMenuTree extends JPopupMenu
      *
      * @param menuItem menu item
      * @param listener listener for that item; will be called if that item
-     *                 was selected, see {@link Listener#action(JTree, List)}
+     *                 was selected, see {@link Listener#action(JList, List)}
      */
     public void addListener(JMenuItem menuItem, Listener listener) {
         synchronized (listenersOfItem) {
@@ -133,7 +130,7 @@ public abstract class PopupMenuTree extends JPopupMenu
      *
      * @param menuItem menu item
      * @param listener listener added via
-     *                 {@link #addListener(JMenuItem, PopupMenuTree.Listener)}
+     *                 {@link #addListener(JMenuItem, PopupMenuList.Listener)}
      */
     public void removeListener(JMenuItem menuItem, Listener listener) {
         synchronized (listenersOfItem) {
@@ -151,80 +148,46 @@ public abstract class PopupMenuTree extends JPopupMenu
 
     private void notifyListeners(JMenuItem menuItem) {
         synchronized (listenersOfItem) {
-            List<TreePath> paths = new ArrayList<TreePath>(lastSelTreePaths);
+            List<Object> paths = new ArrayList<Object>(lastSelValues);
 
             for (Listener listener : listenersOfItem.get(menuItem)) {
-                listener.action(tree, paths);
+                listener.action(list, paths);
             }
         }
     }
 
-    /**
-     * Sets a specific menu item for expanding all sub items of a selected
-     * tree item: If that item will be selected, the subtree of the items
-     * below the mouse cursor will be expanded recursively.
-     *
-     * @param item item
-     */
-    protected void setExpandAllSubItems(JMenuItem item) {
-        if (item == null) {
-            throw new NullPointerException("item == null");
-        }
-
-        itemExpandAllSubItems = item;
-    }
-
-    /**
-     * Sets a specific menu item for collapsing all sub items of a selected
-     * tree item: If that item will be selected, the subtree of the items
-     * below the mouse cursor will be collapsed recursively.
-     *
-     * @param item item
-     */
-    protected void setCollapseAllSubItems(JMenuItem item) {
-        if (item == null) {
-            throw new NullPointerException("item == null");
-        }
-
-        itemCollapseExpandAllSubItems = item;
-    }
-
     private void showPopupMenu(MouseEvent e) {
-        if (setLastSelTreePaths(e)) {
-            setMenuItemsEnabled(new ArrayList<TreePath>(lastSelTreePaths));
-            show(tree, e.getX(), e.getY());
+        if (setLastSelValues(e)) {
+            setMenuItemsEnabled(new ArrayList<Object>(lastSelValues));
+            show(list, e.getX(), e.getY());
         }
     }
 
-    private boolean setLastSelTreePaths(MouseEvent e) {
-        TreePath mouseCursorPath = TreeUtil.getTreePath(e);
+    private boolean setLastSelValues(MouseEvent e) {
+        int mouseCursorIndex = ListUtil.getItemIndex(e);
 
-        if (mouseCursorPath == null) {
+        if (mouseCursorIndex < 0) {
             return false;
         }
 
-        if (tree.isPathSelected(mouseCursorPath)) {
-            setAllSelectedTreePaths();
+        if (list.isSelectedIndex(mouseCursorIndex)) {
+            setAllSelectedListItems();
         } else {
-            lastSelTreePaths = Collections.singletonList(mouseCursorPath);
+            lastSelValues = Collections.singletonList(list.getSelectedValue());
         }
 
         return true;
     }
 
-    private void setAllSelectedTreePaths() {
-        lastSelTreePaths = Arrays.asList(tree.getSelectionPaths());
+    private void setAllSelectedListItems() {
+        lastSelValues = Arrays.asList(list.getSelectedValues());
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
 
-        if ((source == itemExpandAllSubItems)) {
-            TreeUtil.expandAll(tree, lastSelTreePaths, true);
-        } else if ((source == itemCollapseExpandAllSubItems)) {
-            TreeUtil.expandAll(tree, lastSelTreePaths, false);
-        } else if (source instanceof JMenuItem) {
+        if (source instanceof JMenuItem) {
             JMenuItem menuItem = (JMenuItem) source;
 
             if (listenersOfItem.containsKey(menuItem)) {
@@ -237,11 +200,11 @@ public abstract class PopupMenuTree extends JPopupMenu
      * Called before the popup menu will be displayed.
      * <p>
      * Specialized classes can enable their menu items depending on the
-     * selected tree paths.
+     * selected list values.
      *
-     * @param selTreePaths selected treePaths
+     * @param selListValues selected list values
      */
-    protected void setMenuItemsEnabled(List<TreePath> selTreePaths) {
+    protected void setMenuItemsEnabled(List<Object> selListValues) {
 
         // do nothing
     }
@@ -252,7 +215,7 @@ public abstract class PopupMenuTree extends JPopupMenu
             return;
         }
 
-        if (e.getSource() == tree) {
+        if (e.getSource() == list) {
             showPopupMenu(e);
         }
     }
@@ -286,9 +249,9 @@ public abstract class PopupMenuTree extends JPopupMenu
         /**
          * Called if an item of this menu was selected.
          *
-         * @param tree              tree
-         * @param selectedTreePaths selected paths
+         * @param list           list
+         * @param selectedValues selected list values
          */
-        void action(JTree tree, List<TreePath> selectedTreePaths);
+        void action(JList list, List<Object> selectedValues);
     }
 }
