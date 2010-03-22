@@ -1,0 +1,1 @@
+See org.jphototagger.program.resource.doc.<lang>.accelerator_keys.html
