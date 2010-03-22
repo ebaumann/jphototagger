@@ -34,11 +34,11 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerRenameMiscMetadata extends ControllerMiscMetadata {
 
-    private final JMenuItem itemRename =
-        PopupMenuMiscMetadata.INSTANCE.getItemRename();
+    private final JMenuItem itemRename;
 
-    public ControllerRenameMiscMetadata() {
-        PopupMenuMiscMetadata.INSTANCE.addListener(itemRename, this);
+    public ControllerRenameMiscMetadata(PopupMenuMiscMetadata popup) {
+        itemRename = popup.getItemRename();
+        popup.addListener(itemRename, this);
     }
 
     @Override

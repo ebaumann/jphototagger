@@ -35,11 +35,11 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  */
 public final class ControllerDeleteMiscMetadata extends ControllerMiscMetadata {
-    private final JMenuItem itemDelete =
-        PopupMenuMiscMetadata.INSTANCE.getItemDelete();
+    private final JMenuItem itemDelete;
 
-    public ControllerDeleteMiscMetadata() {
-        PopupMenuMiscMetadata.INSTANCE.addListener(itemDelete, this);
+    public ControllerDeleteMiscMetadata(PopupMenuMiscMetadata popup) {
+        itemDelete = popup.getItemDelete();
+        popup.addListener(itemDelete, this);
     }
 
     @Override

@@ -22,8 +22,6 @@
 package org.jphototagger.program.controller.keywords.list;
 
 import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 

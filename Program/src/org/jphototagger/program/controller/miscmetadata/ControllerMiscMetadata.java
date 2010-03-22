@@ -28,7 +28,6 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -49,8 +48,6 @@ import javax.swing.tree.TreePath;
 public abstract class ControllerMiscMetadata extends Controller
         implements PopupMenuTree.Listener {
     private static final List<Column>   XMP_COLUMNS = XmpColumns.get();
-    private final PopupMenuMiscMetadata popup       =
-        PopupMenuMiscMetadata.INSTANCE;
     private final JTree                 tree        =
         GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
 
