@@ -19,7 +19,7 @@
  * MA  02110-1301, USA.
  */
 
-package org.jphototagger.util.logging;
+package org.jphototagger.lib.util.logging;
 
 /**
  * (Stack-) Frame in einer Logdatei von <code>java.util.logging.Logger</code>.

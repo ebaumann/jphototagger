@@ -19,7 +19,7 @@
  * MA  02110-1301, USA.
  */
 
-package org.jphototagger.util.logging;
+package org.jphototagger.lib.util.logging;
 
 import org.jphototagger.lib.resource.Bundle;
 
