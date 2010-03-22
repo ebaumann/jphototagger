@@ -22,10 +22,13 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -37,6 +40,69 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public final class MiscMetadataHelper {
     private MiscMetadataHelper() {}
+
+    public static void addMetadataToSelectedImages(
+            Collection<? extends DefaultMutableTreeNode> nodes) {
+        List<Column>       xmpColumns = XmpColumns.get();
+        EditMetadataPanels editPanels =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+
+        if (!editPanels.isEditable()) {
+            return;
+        }
+
+        for (DefaultMutableTreeNode node : nodes) {
+            if (isParentUserObjectAColumnOf(node, xmpColumns)) {
+                String                 text   = (String) node.getUserObject();
+                DefaultMutableTreeNode parent =
+                    (DefaultMutableTreeNode) node.getParent();
+                Column column = (Column) parent.getUserObject();
+
+                editPanels.addText(column, text);
+            }
+        }
+    }
+
+    public static void removeMetadataFromSelectedImages(
+            Collection<? extends DefaultMutableTreeNode> nodes) {
+        List<Column>       xmpColumns = XmpColumns.get();
+        EditMetadataPanels editPanels =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+
+        if (!editPanels.isEditable()) {
+            return;
+        }
+
+        for (DefaultMutableTreeNode node : nodes) {
+            if (isParentUserObjectAColumnOf(node, xmpColumns)) {
+                String                 text   = (String) node.getUserObject();
+                DefaultMutableTreeNode parent =
+                    (DefaultMutableTreeNode) node.getParent();
+                Column column = (Column) parent.getUserObject();
+
+                editPanels.removeText(column, text);
+            }
+        }
+    }
+
+    public static void addMetadataToSelectedImages(Column column, String text) {
+        EditMetadataPanels editPanels =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+
+        if (editPanels.isEditable()) {
+            editPanels.addText(column, text);
+        }
+    }
+
+    public static void removeMetadataFromSelectedImages(Column column,
+            String text) {
+        EditMetadataPanels editPanels =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+
+        if (editPanels.isEditable()) {
+            editPanels.removeText(column, text);
+        }
+    }
 
     /**
      * Returns wether the parent's user object of a specific node is column

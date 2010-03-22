@@ -21,17 +21,20 @@
 
 package org.jphototagger.program.controller.miscmetadata;
 
+import org.jphototagger.lib.event.listener.PopupMenuTree;
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
-import org.jphototagger.lib.generics.Pair;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JTree;
@@ -43,7 +46,8 @@ import javax.swing.tree.TreePath;
  *
  * @author  Elmar Baumann
  */
-public abstract class ControllerMiscMetadata extends Controller {
+public abstract class ControllerMiscMetadata extends Controller
+        implements PopupMenuTree.Listener {
     private static final List<Column>   XMP_COLUMNS = XmpColumns.get();
     private final PopupMenuMiscMetadata popup       =
         PopupMenuMiscMetadata.INSTANCE;
@@ -56,20 +60,49 @@ public abstract class ControllerMiscMetadata extends Controller {
 
     protected abstract void action(Column column, String value);
 
-    private void action(Pair<Column, String> pair) {
-        if (pair != null) {
+    private void action(List<Pair<Column, String>> pairs) {
+        for (Pair<Column, String> pair : pairs) {
             action(pair.getFirst(), pair.getSecond());
         }
     }
 
     @Override
     protected void action(ActionEvent evt) {
-        action(colValueFrom(popup.getSelPath()));
+        assert false;    // should not be triggered
+    }
+
+    @Override
+    public void action(JTree tree, List<TreePath> treePaths) {
+        action(colValuesFrom(treePaths));
+    }
+
+    @Override
+    protected boolean myAction(ActionEvent evt) {
+        return false;
     }
 
     @Override
     protected void action(KeyEvent evt) {
-        action(colValueFrom(tree.getSelectionPath()));
+        action(colValuesFrom(Arrays.asList(tree.getSelectionPaths())));
+    }
+
+    protected List<Pair<Column, String>> colValuesFrom(List<TreePath> paths) {
+        List<Pair<Column, String>> values = new ArrayList<Pair<Column,
+                                                String>>(paths.size());
+
+        if (paths == null) {
+            return values;
+        }
+
+        for (TreePath path : paths) {
+            Pair<Column, String> value = colValueFrom(path);
+
+            if (value != null) {
+                values.add(value);
+            }
+        }
+
+        return values;
     }
 
     protected Pair<Column, String> colValueFrom(TreePath path) {

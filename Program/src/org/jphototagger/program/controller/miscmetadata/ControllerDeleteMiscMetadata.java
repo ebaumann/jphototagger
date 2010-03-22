@@ -25,7 +25,6 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.helper.RenameDeleteXmpValue;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenuItem;
@@ -40,17 +39,12 @@ public final class ControllerDeleteMiscMetadata extends ControllerMiscMetadata {
         PopupMenuMiscMetadata.INSTANCE.getItemDelete();
 
     public ControllerDeleteMiscMetadata() {
-        listenToActionsOf(itemDelete);
+        PopupMenuMiscMetadata.INSTANCE.addListener(itemDelete, this);
     }
 
     @Override
     protected boolean myKey(KeyEvent evt) {
         return evt.getKeyCode() == KeyEvent.VK_DELETE;
-    }
-
-    @Override
-    protected boolean myAction(ActionEvent evt) {
-        return evt.getSource() == itemDelete;
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerRenameMiscMetadata.java    Created on 2010-03-15
+ * @(#)ControllerAddMetadataToSelImages.java    Created on 2010-03-22
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,10 +21,13 @@
 
 package org.jphototagger.program.controller.miscmetadata;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.helper.RenameDeleteXmpValue;
+import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
+
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 
 /**
@@ -32,22 +35,22 @@ import javax.swing.JMenuItem;
  *
  * @author  Elmar Baumann
  */
-public final class ControllerRenameMiscMetadata extends ControllerMiscMetadata {
+public final class ControllerAddMetadataToSelImages
+        extends ControllerMiscMetadata {
+    private final JMenuItem itemAdd =
+        PopupMenuMiscMetadata.INSTANCE.getItemAddToEditPanel();
 
-    private final JMenuItem itemRename =
-        PopupMenuMiscMetadata.INSTANCE.getItemRename();
-
-    public ControllerRenameMiscMetadata() {
-        PopupMenuMiscMetadata.INSTANCE.addListener(itemRename, this);
+    public ControllerAddMetadataToSelImages() {
+        PopupMenuMiscMetadata.INSTANCE.addListener(itemAdd, this);
     }
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return evt.getKeyCode() == KeyEvent.VK_F2;
+        return KeyEventUtil.isControl(evt, KeyEvent.VK_B);
     }
 
     @Override
     protected void action(Column column, String value) {
-        RenameDeleteXmpValue.rename(column, value);
+        MiscMetadataHelper.addMetadataToSelectedImages(column, value);
     }
 }

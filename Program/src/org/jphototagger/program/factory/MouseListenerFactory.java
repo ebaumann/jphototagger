@@ -21,14 +21,19 @@
 
 package org.jphototagger.program.factory;
 
+import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
+import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
+import org.jphototagger.lib.event.listener.TableButtonMouseListener;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.impl.MouseListenerDirectories;
 import org.jphototagger.program.event.listener.impl.MouseListenerFavorites;
-import org.jphototagger.program.event.listener.impl.MouseListenerImageCollections;
+import org.jphototagger.program.event.listener.impl
+    .MouseListenerImageCollections;
 import org.jphototagger.program.event.listener.impl.MouseListenerKeywordsList;
 import org.jphototagger.program.event.listener.impl.MouseListenerKeywordsTree;
-import org.jphototagger.program.event.listener.impl.MouseListenerMetadataTemplates;
-import org.jphototagger.program.event.listener.impl.MouseListenerMiscMetadataTree;
+import org.jphototagger.program.event.listener.impl
+    .MouseListenerMetadataTemplates;
 import org.jphototagger.program.event.listener.impl.MouseListenerSavedSearches;
 import org.jphototagger.program.event.listener.impl.MouseListenerTreeExpand;
 import org.jphototagger.program.resource.GUI;
@@ -37,10 +42,6 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
-import org.jphototagger.lib.event.listener.TableButtonMouseListener;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -83,7 +84,6 @@ public final class MouseListenerFactory {
             new MouseListenerImageCollections());
         appPanel.getTreeFavorites().addMouseListener(
             new MouseListenerFavorites());
-        appPanel.getTreeMiscMetadata().addMouseListener(new MouseListenerMiscMetadataTree());
         appPanel.getTreeTimeline().addMouseListener(listenerTreeExpand);
         appPanel.getTreeSelKeywords().addMouseListener(listenerTreeExpand);
         appPanel.getTreeEditKeywords().addMouseListener(listenerKeywordsTree);
