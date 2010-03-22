@@ -21,11 +21,19 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.program.data.ColumnData;
+import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.view.ViewUtil;
 
+import java.io.File;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
@@ -40,6 +48,32 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public final class MiscMetadataHelper {
     private MiscMetadataHelper() {}
+
+    public static void saveToImageFile(List<ColumnData> colData,
+                                       File imageFile) {
+        if (!ViewUtil.checkImageEditable(imageFile)) {
+            return;
+        }
+
+        if (!imageFile.exists()) {
+            return;
+        }
+
+        Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+
+        if (xmp == null) {
+            xmp = new Xmp();
+        }
+
+        for (ColumnData data : colData) {
+            xmp.setValue(data.getColumn(), data.getData());
+        }
+
+        List<Pair<File, Xmp>> saveList = new ArrayList<Pair<File, Xmp>>();
+
+        saveList.add(new Pair<File, Xmp>(imageFile, xmp));
+        SaveXmp.save(saveList);
+    }
 
     public static void addMetadataToSelectedImages(
             Collection<? extends DefaultMutableTreeNode> nodes) {

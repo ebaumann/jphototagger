@@ -21,11 +21,14 @@
 
 package org.jphototagger.program.view;
 
-import org.jphototagger.program.data.Favorite;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.data.Favorite;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -154,5 +157,45 @@ public class ViewUtil {
         }
 
         return null;
+    }
+
+    /**
+     * Checks whether selected images are editable.
+     *
+     * @param  errorMessage true if an error message shall be displayed
+     * @return              true if the selected images are editable
+     */
+    public static boolean checkSelImagesEditable(boolean errorMessage) {
+        EditMetadataPanels ep =
+            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+
+        if (!ep.isEditable()) {
+            if (errorMessage) {
+                MessageDisplayer.error(null, "ViewUtil.Error.NotEditable");
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks whether a sidecar file can be written for an image file, else
+     * displays an error message.
+     *
+     * @param  imageFile image file
+     * @return           true if a sidecar file can be written.
+     * @see              XmpMetadata#canWriteSidecarFileForImageFile(File)}
+     */
+    public static boolean checkImageEditable(File imageFile) {
+        if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
+            MessageDisplayer.error(null, "ViewUtil.Error.WriteSidecarFile",
+                                   imageFile.getParentFile());
+
+            return false;
+        }
+
+        return true;
     }
 }

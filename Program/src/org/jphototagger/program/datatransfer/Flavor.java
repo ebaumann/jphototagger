@@ -34,20 +34,6 @@ import javax.swing.TransferHandler.TransferSupport;
  * @author  Elmar Baumann
  */
 public final class Flavor {
-    private final class KEYWORDS_TREE {}
-
-
-    private final class IMAGE_COLLECTION {}
-
-
-    private final class KEYWORDS_LIST {}
-
-
-    private final class METADATA_TEMPLATES {}
-
-
-    private final class THUMBNAILS_PANEL {}
-
 
     /**
      * {@link DataFlavor#javaFileListFlavor}
@@ -58,18 +44,18 @@ public final class Flavor {
     /**
      * {@link TransferUtil#getUriListFlavor()}
      */
-    public static final DataFlavor URI_LIST      =
+    public static final DataFlavor URI_LIST         =
         TransferUtil.getUriListFlavor();
+    public static final DataFlavor THUMBNAILS_PANEL =
+        new DataFlavor(THUMBNAILS_PANEL.class, null);
+    public static final DataFlavor METADATA_TEMPLATES =
+        new DataFlavor(METADATA_TEMPLATES.class, null);
     public static final DataFlavor KEYWORDS_TREE =
         new DataFlavor(KEYWORDS_TREE.class, null);
     public static final DataFlavor KEYWORDS_LIST =
         new DataFlavor(KEYWORDS_LIST.class, null);
-    public static final DataFlavor THUMBNAILS_PANEL =
-        new DataFlavor(THUMBNAILS_PANEL.class, null);
     public static final DataFlavor IMAGE_COLLECTION =
         new DataFlavor(IMAGE_COLLECTION.class, null);
-    public static final DataFlavor METADATA_TEMPLATES =
-        new DataFlavor(METADATA_TEMPLATES.class, null);
 
     /**
      * Contains {@link DataFlavor#javaFileListFlavor} and
@@ -78,6 +64,13 @@ public final class Flavor {
     static final DataFlavor[] FILE_FLAVORS = new DataFlavor[] {
                                                  FILE_LIST_FLAVOR,
             URI_LIST };
+    /**
+     * A list of {@link org.jphototagger.program.data.ColumnData} objects.
+     */
+    public static final DataFlavor COLUMN_DATA =
+        new DataFlavor(COLUMN_DATA.class, null);
+
+    private Flavor() {}
 
     /**
      * Returns whether a transferable supports the data flavor
@@ -107,6 +100,10 @@ public final class Flavor {
         return transferSupport.isDataFlavorSupported(METADATA_TEMPLATES);
     }
 
+    public static boolean hasColumnData(TransferSupport transferSupport) {
+        return transferSupport.isDataFlavorSupported(COLUMN_DATA);
+    }
+
     /**
      * Returns whether the data flavor {@link #KEYWORDS_TREE}
      * is supported.
@@ -119,5 +116,20 @@ public final class Flavor {
         return transferSupport.isDataFlavorSupported(KEYWORDS_TREE);
     }
 
-    private Flavor() {}
+    private final class COLUMN_DATA {}
+
+
+    private final class IMAGE_COLLECTION {}
+
+
+    private final class KEYWORDS_LIST {}
+
+
+    private final class KEYWORDS_TREE {}
+
+
+    private final class METADATA_TEMPLATES {}
+
+
+    private final class THUMBNAILS_PANEL {}
 }

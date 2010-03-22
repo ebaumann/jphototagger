@@ -8,11 +8,14 @@ Changelog JPhotoTagger
 0.8.7 2010-03-22
 ----------------
 
-* Umstellung der Pakete auf "org.jphototagger". Fensterpositionen und Größen
-  sind beim ersten Start (einmalig) "zurückgesetzt"
+* Neuer Kartenreiter in "Fenster > Eingabehilfen": Verschiedenes. Enthält
+  verschiedene Metadaten, die über ein Kontextmenü, Tastenkürzel oder Ziehen
+  und Ablegen Bildern zugewiesen werden können
 * Neue Einträge im Kontextmenü des Kartenreites "Verschiedenes":
   * Hinzufügen zu ausgewählten Bildern
   * Entfernen aus ausgewählten Bildern
+* Umstellung der Pakete auf "org.jphototagger". Fensterpositionen und Größen
+  sind beim ersten Start (einmalig) "zurückgesetzt"
 * Bugfix: Kontextmenü "Fenster > Eingabehilfen, Kartenreiter Vorlagen":
   Klick mit rechter Maustaste auf erste Schablone: Bearbeiten-Aktionen sind
   jetzt möglich (bislang nur über die Schaltflächen)

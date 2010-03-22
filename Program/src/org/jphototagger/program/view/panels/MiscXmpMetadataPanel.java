@@ -21,6 +21,7 @@
 package org.jphototagger.program.view.panels;
 
 import javax.swing.JTree;
+import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
 import org.jphototagger.program.view.renderer.TreeCellRendererMiscMetadata;
 
 /**
@@ -50,10 +51,12 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
 
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
+        tree.setTransferHandler(new TransferHandlerMiscMetadataTree());
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new TreeCellRendererMiscMetadata());
+        tree.setDragEnabled(true);
         scrollPane.setViewportView(tree);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
