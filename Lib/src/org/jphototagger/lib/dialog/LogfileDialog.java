@@ -25,10 +25,10 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.model.TableModelLogfiles;
 import org.jphototagger.lib.renderer.TableCellRendererLogfileDialog;
 import org.jphototagger.lib.resource.JslBundle;
-import org.jphototagger.util.logging.ExceptionLogfileRecord;
-import org.jphototagger.util.logging.FrameLogfileRecord;
-import org.jphototagger.util.logging.LogfileParser;
-import org.jphototagger.util.logging.LogfileRecord;
+import org.jphototagger.lib.util.logging.ExceptionLogfileRecord;
+import org.jphototagger.lib.util.logging.FrameLogfileRecord;
+import org.jphototagger.lib.util.logging.LogfileParser;
+import org.jphototagger.lib.util.logging.LogfileRecord;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
