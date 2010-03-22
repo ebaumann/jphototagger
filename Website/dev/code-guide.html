@@ -60,17 +60,17 @@
         </p>
 
         <ol>
-            <li><a href="files/package-summary-jpt.html">Some Implementation
+            <li><a href="files/package-summary-program.html">Some Implementation
                     notes on JPhotoTagger</a></li>
-            <li><a href="files/package-summary-jpt.model.html">Models</a>
+            <li><a href="files/package-summary-program.model.html">Models</a>
             </li>
-            <li><a href="files/package-summary-jpt.controller.html">Controllers</a>
+            <li><a href="files/package-summary-program.controller.html">Controllers</a>
             </li>
         </ol>
 
         <h2>Logging</h2>
 
-        <p>For logging use the class <code>de.elmar_baumann.jpt.app.AppLogger</code>.
+        <p>For logging use the class <code>org.jphototagger.program.app.AppLogger</code>.
            It creates the class' logger, formats messages with an arbitrary
            count of parameters and notifies silently users on  logging level
            <code>WARNING</code> and <code>SEVERE</code>.
@@ -79,13 +79,13 @@
         <h2>Message-, input-, confirmation dialogs</h2>
 
         <p>For displaying messages, getting input and confirmation use
-           the class <code>de.elmar_baumann.jpt.app.MessageDisplayer</code>.
+           the class <code>org.jphototagger.program.app.MessageDisplayer</code>.
         </p>
 
         <h2>Using persistent settings</h2>
 
         <p>For reading and writing settings persistent, use
-            <code>de.elmar_baumann.lib.util.Settings</code> returned by
+            <code>org.jphototagger.lib.util.Settings</code> returned by
             <code>UserSettings#getSettings()</code>. If you want flush changes
             immediately, call <code>UserSettings#writeToFile()</code>, otherwise
             all settings will be written before exiting the VM.
@@ -96,7 +96,7 @@
         <p>All GUI strings and internationalized logging messages are in <em>one</em>
             properties file (per language a variant with the language code, e.g.
             <code>Bundle_en.properties</code> for English):
-            <code>de/elmar_baumann/jpt/resource/properties/Bundle.properties</code>.
+            <code>org/jphototagger/program/resource/properties/Bundle.properties</code>.
             In <strong>NetBeans</strong> open it in the <strong>Projects</strong>
             tab and the context menu item <strong>Open</strong> for comparing
             different translations and sorting the keys and translations to
