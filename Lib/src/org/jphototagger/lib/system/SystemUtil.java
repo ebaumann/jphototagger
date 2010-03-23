@@ -127,4 +127,26 @@ public final class SystemUtil {
         return Desktop.isDesktopSupported()
                && Desktop.getDesktop().isSupported(action);
     }
+
+    /**
+     * Returns whether the VM runs on a Windows operating system.
+     *
+     * @return true if the VM runs on a Windows operating system
+     */
+    public static boolean isWindows() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        return os.contains("windows");
+    }
+
+    /**
+     * Returns whether the VM runs on a Macintosh operating system.
+     *
+     * @return true if the VM runs on a Windows operating system
+     */
+    public static boolean isMac() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        return os.contains("mac");
+    }
 }
