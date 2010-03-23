@@ -118,7 +118,7 @@ public abstract class Plugin {
      *
      * @param listener listener. If the action runs in the background, it's
      *                 important to call
-     *                 {@link PluginListener#action(java.util.Set)} with
+     *                 {@link PluginListener#action(PluginEvent)} with
      *                 one or more of <code>Event#FINISHED_...</code> arguments
      *                 so that it can release resources such as the process'
      *                 progress bar.

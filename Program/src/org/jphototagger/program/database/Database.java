@@ -93,8 +93,8 @@ public class Database {
     /**
      * Returns a file from a file path as stored into the database.
      *
-     * @param   filePath path as returned from {@link #getFilePath(File)}
-     * @return
+     * @param  filePath path as returned from {@link #getFilePath(File)}
+     * @return file
      */
     public static File getFile(String filePath) {
         return new File(filePath);

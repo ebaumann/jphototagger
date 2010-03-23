@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Alle elements are {@code XMPPropertyInfo} instances retrieved through
- * {@link #setPropertyInfosOfFile(java.lang.String, java.util.List)}.
+ * {@link #setPropertyInfosOfFile(File, List)}.
  *
  * @author  Elmar Baumann, Tobias Stening
  */
@@ -68,7 +68,7 @@ public final class TableModelXmp extends DefaultTableModel {
      *
      * @return Dateiname oder null, wenn die Property-Infos entfernt wurden
      *         oder null gesetzt wurde mit
-     *         {@link #setPropertyInfosOfFile(java.lang.String, java.util.List)}
+     *         {@link #setPropertyInfosOfFile(File, List) }
      */
     public File getFile() {
         return file;
