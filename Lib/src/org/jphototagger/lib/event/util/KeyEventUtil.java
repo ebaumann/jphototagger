@@ -21,7 +21,11 @@
 
 package org.jphototagger.lib.event.util;
 
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
+
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -33,13 +37,14 @@ import java.awt.event.KeyEvent;
  * @author  Elmar Baumann
  */
 public final class KeyEventUtil {
+    private KeyEventUtil() {}
 
     /**
-     * Returns whether to copy, i.e. that the key combination
-     * <code>Ctrl+C</code> is pressed.
+     * Returns whether to copy, i.e. that the key combination of
+     * {@link #getMenuShortcutMask()} and the character <code>C</code>.
      *
-     * @param  e  key event
-     * @return true if insert
+     * @param  e    key event
+     * @return true if copy
      */
     public static boolean isCopy(KeyEvent e) {
         if (e == null) {
@@ -47,15 +52,15 @@ public final class KeyEventUtil {
         }
 
         return (e.getKeyCode() == KeyEvent.VK_C)
-               && (e.getModifiers() == KeyEvent.CTRL_MASK);
+               && (e.getModifiers() == getMenuShortcutMask());
     }
 
     /**
-     * Returns whether to cut, i.e. that the key combination
-     * <code>Ctrl+X</code> is pressed.
+     * Returns whether to cut, i.e. that the key combination of
+     * {@link #getMenuShortcutMask()} and the character <code>X</code>.
      *
-     * @param  e  key event
-     * @return true if insert
+     * @param  e    key event
+     * @return true if cut
      */
     public static boolean isCut(KeyEvent e) {
         if (e == null) {
@@ -63,15 +68,15 @@ public final class KeyEventUtil {
         }
 
         return (e.getKeyCode() == KeyEvent.VK_X)
-               && (e.getModifiers() == KeyEvent.CTRL_MASK);
+               && (e.getModifiers() == getMenuShortcutMask());
     }
 
     /**
-     * Returns whether to paste, i.e. that the key combination
-     * <code>Ctrl+V</code> is pressed.
+     * Returns whether to paste, i.e. that the key combination of
+     * {@link #getMenuShortcutMask()} and the character <code>V</code>.
      *
-     * @param  e  key event
-     * @return true if insert
+     * @param  e    key event
+     * @return true if paste
      */
     public static boolean isPaste(KeyEvent e) {
         if (e == null) {
@@ -79,63 +84,141 @@ public final class KeyEventUtil {
         }
 
         return (e.getKeyCode() == KeyEvent.VK_V)
-               && (e.getModifiers() == KeyEvent.CTRL_MASK);
+               && (e.getModifiers() == getMenuShortcutMask());
+    }
+
+    private static boolean isModifier(KeyEvent e, int modifier) {
+        int modifiers = e.getModifiers();
+        return (modifiers & modifier) == modifier;
+    }
+
+    private static boolean isKeyCode(KeyEvent e, int keyCode) {
+        return e.getKeyCode() == keyCode;
+    }
+
+
+    /**
+     * Returns, whether the key event is a menu shortcut: A key in combination
+     * with {@link #getMenuShortcutMask()} and the ALT key down.
+     *
+     * @param e       key event
+     * @param keyCode key code
+     * @return        true if the event is a menu shortcut
+     */
+    public static boolean isMenuShortcutWithAlt(KeyEvent e, int keyCode) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+        int menuShortcutMask = getMenuShortcutMask();
+
+        return isKeyCode(e, keyCode)
+               && (isModifier(e, menuShortcutMask | KeyEvent.ALT_DOWN_MASK)
+               || isModifier(e, menuShortcutMask | KeyEvent.ALT_MASK));
     }
 
     /**
-     * Returns whether a specific key is pressed in combination with the control
-     * key.
+     * Returns, whether the key event is a menu shortcut: A key in combination
+     * with {@link #getMenuShortcutMask()} and the shift key down.
      *
-     * @param  e       key event
-     * @param keyCode  key code
-     * @return         true that key plus control are both pressed
+     * @param e       key event
+     * @param keyCode key code
+     * @return        true if the event is a menu shortcut
      */
-    public static boolean isControl(KeyEvent e, int keyCode) {
+    public static boolean isMenuShortcutWithShiftDown(KeyEvent e, int keyCode) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+        int menuShortcutMask = getMenuShortcutMask();
+        return isKeyCode(e, keyCode)
+               && (isModifier(e, menuShortcutMask | KeyEvent.SHIFT_DOWN_MASK)
+               || isModifier(e, menuShortcutMask | KeyEvent.SHIFT_MASK));
+    }
+
+    /**
+     * Returns, whether the key event is a menu shortcut: A key in combination
+     * with {@link #getMenuShortcutMask()}.
+     *
+     * @param e       key event
+     * @param keyCode key code
+     * @return        true if the event is a menu shortcut
+     */
+    public static boolean isMenuShortcut(KeyEvent e, int keyCode) {
         if (e == null) {
             throw new NullPointerException("e == null");
         }
 
         return (e.getKeyCode() == keyCode)
-               && (e.getModifiers() == KeyEvent.CTRL_MASK);
+               && (e.getModifiers() == getMenuShortcutMask());
     }
 
     /**
-     * Returns whether a specific key is pressed in combination with the control
-     * and alt key.
+     * The same as {@link Toolkit#getMenuShortcutKeyMask()}.
      *
-     * @param  e       key event
-     * @param keyCode  key code
-     * @return         true that key plus control are both pressed
+     * @return mask
      */
-    public static boolean isControlAlt(KeyEvent e, int keyCode) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
-        }
-
-        return (e.getKeyCode() == keyCode)
-               && (e.getModifiers()
-                   == (KeyEvent.ALT_MASK | KeyEvent.CTRL_MASK));
+    public static int getMenuShortcutMask() {
+        return Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
     }
 
     /**
-     * Returns whether the Shift key was down.
+     * Returns a key stroke without modifiers.
      *
-     * Motivation: {@link KeyEvent#getModifiers()} does not always return
-     * {@link KeyEvent#SHIFT_DOWN_MASK} when the Shift key was down so that
-     * also {@link KeyEvent#SHIFT_MASK} has to be compared against the modifiers
-     * return value.
-     *
-     * @param  e key event
-     * @return   true if the Shift key was down
+     * @param  keyCode key code
+     * @return         key stroke
      */
-    public static boolean isShiftDown(KeyEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
-        }
-
-        return (e.getModifiers() == KeyEvent.SHIFT_MASK)
-               || (e.getModifiers() == KeyEvent.SHIFT_DOWN_MASK);
+    public static KeyStroke getKeyStroke(int keyCode) {
+        return KeyStroke.getKeyStroke(keyCode, 0);
     }
 
-    private KeyEventUtil() {}
+    /**
+     * Returns a key stroke with the modifier {@link #getMenuShortcutMask()}.
+     *
+     * @param  keyCode key code
+     * @return         key stroke
+     */
+    public static KeyStroke getKeyStrokeMenuShortcut(int keyCode) {
+        return KeyStroke.getKeyStroke(keyCode, getMenuShortcutMask());
+    }
+
+    /**
+     * Returns a key stroke with the modifiers {@link #getMenuShortcutMask()}
+     * and ALT down.
+     *
+     * @param  keyCode key code
+     * @return         key stroke
+     */
+    public static KeyStroke getKeyStrokeMenuShortcutWithAltDown(int keyCode) {
+        return KeyStroke.getKeyStroke(keyCode,
+                                      getMenuShortcutMask()
+                                      | InputEvent.ALT_DOWN_MASK);
+    }
+
+    /**
+     * Returns a key stroke with the modifiers {@link #getMenuShortcutMask()}
+     * and SHIFT down.
+     *
+     * @param  keyCode key code
+     * @return         key stroke
+     */
+    public static KeyStroke getKeyStrokeMenuShortcutWithShiftDown(
+            int keyCode) {
+        return KeyStroke.getKeyStroke(keyCode,
+                                      getMenuShortcutMask()
+                                      | InputEvent.SHIFT_DOWN_MASK);
+    }
+
+    /**
+     * Returns a key stroke with the modifiers {@link #getMenuShortcutMask()}
+     * and ALT down.
+     *
+     * @param  keyCode key code
+     * @return         key stroke
+     */
+    public static KeyStroke getKeyStrokeMenuShortcutWithShiftAltDown(
+            int keyCode) {
+        return KeyStroke.getKeyStroke(keyCode,
+                                      getMenuShortcutMask()
+                                      | InputEvent.SHIFT_DOWN_MASK
+                                      | InputEvent.ALT_DOWN_MASK);
+    }
 }
