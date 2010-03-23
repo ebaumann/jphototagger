@@ -28,7 +28,7 @@ import org.jphototagger.program.event.listener.ErrorListener;
  * Error-Listener, erspart Klassen die Implementation von
  * <code>add()</code> und <code>removeErrorListener()</code>.
  * Diese rufen statt dessen bei dieser Instanz auf:
- * {@link #notifyListeners(org.jphototagger.program.event.ErrorEvent)}.
+ * {@link #notifyListeners(Object, String)}.
  *
  * Klassen, die sich für Fehler interessieren, melden sich bei der Instanz
  * dieser Klasse an.

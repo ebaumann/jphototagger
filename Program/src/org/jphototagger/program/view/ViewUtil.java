@@ -186,7 +186,7 @@ public class ViewUtil {
      *
      * @param  imageFile image file
      * @return           true if a sidecar file can be written.
-     * @see              XmpMetadata#canWriteSidecarFileForImageFile(File)}
+     * @see              XmpMetadata#canWriteSidecarFileForImageFile(File)
      */
     public static boolean checkImageEditable(File imageFile) {
         if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
