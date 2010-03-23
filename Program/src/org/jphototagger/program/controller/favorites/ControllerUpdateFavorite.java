@@ -49,7 +49,7 @@ public final class ControllerUpdateFavorite extends ControllerFavorite {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return KeyEventUtil.isControl(evt, KeyEvent.VK_E);
+        return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E);
     }
 
     @Override

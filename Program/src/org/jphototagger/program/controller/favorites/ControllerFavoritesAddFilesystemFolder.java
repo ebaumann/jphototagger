@@ -64,7 +64,7 @@ public final class ControllerFavoritesAddFilesystemFolder
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_N)
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_N)
                 &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
 

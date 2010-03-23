@@ -74,6 +74,8 @@ public final class ControllerGoTo implements ActionListener {
                             appPanel.getTabSelectionTimeline());
         componentOfGoTo.put(AppFrame.GoTo.MISC_METADATA,
                             appPanel.getTabSelectionMiscMetadata());
+        componentOfGoTo.put(AppFrame.GoTo.NO_METADATA,
+                            appPanel.getTabSelectionNoMetadata());
         componentOfGoTo.put(AppFrame.GoTo.EDIT_PANELS,
                             appPanel.getTabMetadataEdit());
         componentOfGoTo.put(AppFrame.GoTo.EXIF_METADATA,
@@ -97,6 +99,8 @@ public final class ControllerGoTo implements ActionListener {
         tabbedPaneOfGoTo.put(AppFrame.GoTo.TIMELINE,
                              appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.MISC_METADATA,
+                             appPanel.getTabbedPaneSelection());
+        tabbedPaneOfGoTo.put(AppFrame.GoTo.NO_METADATA,
                              appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.EDIT_PANELS,
                              appPanel.getTabbedPaneMetadata());

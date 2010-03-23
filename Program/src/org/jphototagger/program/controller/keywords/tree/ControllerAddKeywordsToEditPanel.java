@@ -61,7 +61,7 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent e) {
-        return KeyEventUtil.isControl(e, KeyEvent.VK_B);
+            return KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_B);
     }
 
     @Override

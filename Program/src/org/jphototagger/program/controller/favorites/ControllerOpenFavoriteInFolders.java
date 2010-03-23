@@ -77,7 +77,7 @@ public final class ControllerOpenFavoriteInFolders
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_O)
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_O)
                 &&!treeFavoriteDirectories.isSelectionEmpty()) {
             selectDirectory();
         }

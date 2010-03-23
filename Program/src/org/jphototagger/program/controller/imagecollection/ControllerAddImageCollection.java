@@ -75,7 +75,7 @@ public final class ControllerAddImageCollection
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_N)) {
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_N)) {
             createImageCollectionOfSelectedFiles();
         }
     }

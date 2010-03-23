@@ -86,7 +86,7 @@ public final class ControllerPasteFilesFromClipboard
             return;
         }
 
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_V) && canPasteFiles()) {
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_V) && canPasteFiles()) {
             Object source = e.getSource();
 
             if (source == thumbnailsPanel) {

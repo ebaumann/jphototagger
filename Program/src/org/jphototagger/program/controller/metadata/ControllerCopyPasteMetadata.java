@@ -71,11 +71,9 @@ public final class ControllerCopyPasteMetadata
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isShiftDown(e)
-                && KeyEventUtil.isControl(e, KeyEvent.VK_C)) {
+        if (KeyEventUtil.isMenuShortcutWithShiftDown(e, KeyEvent.VK_C)) {
             copy();
-        } else if (KeyEventUtil.isShiftDown(e)
-                   && KeyEventUtil.isControl(e, KeyEvent.VK_V)) {
+        } else if (KeyEventUtil.isMenuShortcutWithShiftDown(e, KeyEvent.VK_V)) {
             paste();
         }
     }

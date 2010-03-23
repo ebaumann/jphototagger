@@ -24,7 +24,6 @@ package org.jphototagger.program.view.popupmenus;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -32,8 +31,8 @@ import java.io.File;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -164,11 +163,11 @@ public final class PopupMenuDirectories extends JPopupMenu {
 
     private void setAccelerators() {
         itemCreateDirectory.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
         itemDeleteDirectory.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemRenameDirectory.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemRefresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemRefresh.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F5));
     }
 }

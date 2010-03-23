@@ -75,9 +75,9 @@ public final class ControllerCopyOrCutFilesToClipboard
             return;
         }
 
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_C)) {
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_C)) {
             perform(FileAction.COPY);
-        } else if (KeyEventUtil.isControl(e, KeyEvent.VK_X)) {
+        } else if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_X)) {
             perform(FileAction.CUT);
         }
     }

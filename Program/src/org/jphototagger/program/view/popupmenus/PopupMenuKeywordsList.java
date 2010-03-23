@@ -21,17 +21,16 @@
 
 package org.jphototagger.program.view.popupmenus;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.KeyStroke;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -55,9 +54,14 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
                         .ICON_NEW);
     private final JMenuItem itemRename =
         new JMenuItem(
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuKeywordsList.DisplayName.Action.Rename"), AppLookAndFeel
+                        .ICON_RENAME);
+    private final JMenuItem itemRemoveFromEditPanel =
+        new JMenuItem(
             JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.Action.Rename"),
-                AppLookAndFeel.ICON_RENAME);
+                "PopupMenuKeywordsList.DisplayName.ActionRemoveFromEditPanel"));
     private final JMenuItem itemEditSynonyms =
         new JMenuItem(
             JptBundle.INSTANCE
@@ -78,10 +82,6 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "PopupMenuKeywordsList.DisplayName.ActionAddToEditPanel"));
-    private final JMenuItem itemRemoveFromEditPanel =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.ActionRemoveFromEditPanel"));
     private JList list;
     private int   selIndex;
 
@@ -148,16 +148,16 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemInsert.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-                InputEvent.CTRL_MASK));
-        itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
-                0));
-        itemEditSynonyms.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                InputEvent.ALT_MASK | InputEvent.CTRL_MASK));
-        itemAddToEditPanel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,
-                InputEvent.CTRL_MASK));
+        itemInsert.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemDelete.setAccelerator(
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemEditSynonyms.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcutWithAltDown(KeyEvent.VK_S));
+        itemAddToEditPanel.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
         itemRemoveFromEditPanel.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
     }
 }

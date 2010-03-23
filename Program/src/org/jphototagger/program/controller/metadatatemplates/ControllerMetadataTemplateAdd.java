@@ -58,7 +58,7 @@ public final class ControllerMetadataTemplateAdd
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return KeyEventUtil.isControl(evt, KeyEvent.VK_N);
+        return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N);
     }
 
     @Override

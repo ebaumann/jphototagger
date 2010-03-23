@@ -21,18 +21,17 @@
 
 package org.jphototagger.program.view.popupmenus;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.KeyStroke;
 
 /**
  * Popup menu for {@link MetadataTemplate}s.
@@ -52,9 +51,10 @@ public final class PopupMenuMetadataTemplates extends JPopupMenu {
                         .getIcon("icon_image.png"));
     private final JMenuItem itemRename =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuMetadataTemplates.DisplayName.Action.Rename"),
-                AppLookAndFeel.ICON_RENAME);
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuMetadataTemplates.DisplayName.Action.Rename"), AppLookAndFeel
+                        .ICON_RENAME);
     private final JMenuItem itemEdit =
         new JMenuItem(
             JptBundle.INSTANCE
@@ -129,13 +129,13 @@ public final class PopupMenuMetadataTemplates extends JPopupMenu {
 
     private void setAccelerators() {
         itemSetToSelImages.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0));
-        itemAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-                InputEvent.CTRL_MASK));
-        itemEdit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
-                InputEvent.CTRL_MASK));
-        itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
-                0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_INSERT));
+        itemAdd.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemEdit.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
+        itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemDelete.setAccelerator(
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
     }
 }

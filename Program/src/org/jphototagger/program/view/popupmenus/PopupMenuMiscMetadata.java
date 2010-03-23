@@ -22,6 +22,7 @@
 package org.jphototagger.program.view.popupmenus;
 
 import org.jphototagger.lib.event.listener.PopupMenuTree;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
@@ -30,7 +31,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.util.List;
@@ -41,7 +41,6 @@ import javax.swing.InputMap;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JTree;
-import javax.swing.KeyStroke;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -53,10 +52,8 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class PopupMenuMiscMetadata extends PopupMenuTree {
-    private static final long                 serialVersionUID =
-        3228757281030616972L;
-
-    private static final List<Column> XMP_COLUMNS = XmpColumns.get();
+    private static final long         serialVersionUID = 3228757281030616972L;
+    private static final List<Column> XMP_COLUMNS      = XmpColumns.get();
     private JMenuItem                 itemAddToEditPanel;
     private JMenuItem                 itemCollapseAllSubitems;
     private JMenuItem                 itemDelete;
@@ -171,21 +168,21 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
         String    keyActionRename = "actionRename";
         String    keyActionDelete = "actionDelete";
 
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0),
+        inputMap.put(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2),
                      keyActionRename);
         actionMap.put(keyActionRename, actionRename);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0),
+        inputMap.put(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE),
                      keyActionDelete);
         actionMap.put(keyActionDelete, actionDelete);
     }
 
     private void setAccelerators() {
-        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
-                0));
-        itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemAddToEditPanel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,
-                InputEvent.CTRL_MASK));
+        itemDelete.setAccelerator(
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemAddToEditPanel.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
         itemRemoveFromEditPanel.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
     }
 }

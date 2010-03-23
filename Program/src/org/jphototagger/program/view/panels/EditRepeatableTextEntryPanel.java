@@ -448,7 +448,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
      * @param evt key event
      */
     private void suggestText(java.awt.event.KeyEvent evt) {
-        if (KeyEventUtil.isControl(evt, KeyEvent.VK_K)) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_K)) {
             suggestText();
         }
     }

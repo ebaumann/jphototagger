@@ -25,14 +25,13 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -208,20 +207,17 @@ public final class PopupMenuFavorites extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemUpdateFavorite.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
-                InputEvent.CTRL_MASK));
-        itemInsertFavorite.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
-                InputEvent.CTRL_MASK));
-        itemOpenInFolders.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-                InputEvent.CTRL_MASK));
+        itemUpdateFavorite.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
+        itemInsertFavorite.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_I));
+        itemOpenInFolders.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_O));
         itemAddFilesystemFolder.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
         itemDeleteFavorite.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemDeleteFilesystemFolder.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemRenameFilesystemFolder.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemRefresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemRefresh.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F5));
     }
 }

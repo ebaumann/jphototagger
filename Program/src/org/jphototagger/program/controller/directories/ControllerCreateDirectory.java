@@ -49,7 +49,7 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return KeyEventUtil.isControl(evt, KeyEvent.VK_N);
+        return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N);
     }
 
     @Override
