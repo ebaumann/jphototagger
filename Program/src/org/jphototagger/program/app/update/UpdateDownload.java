@@ -40,6 +40,7 @@ import java.io.FileOutputStream;
 import java.net.URL;
 
 import javax.swing.JProgressBar;
+import org.jphototagger.lib.system.SystemUtil;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
@@ -137,7 +138,7 @@ public final class UpdateDownload extends Thread {
 
             HttpUtil.write(new URL(getDownloadUrl()), os);
 
-            if (isWindows()) {
+            if (SystemUtil.isWindows()) {
                 setFinalExecutable(downloadFile);
             } else {
                 MessageDisplayer.information(null,
@@ -161,7 +162,7 @@ public final class UpdateDownload extends Thread {
     }
 
     private String getDownloadUrl() {
-        return isWindows()
+        return SystemUtil.isWindows()
                ? URL_WIN_INSTALLER
                : URL_ZIP;
     }
@@ -169,17 +170,11 @@ public final class UpdateDownload extends Thread {
     private File getDownloadFile() {
         String dirname = UserSettings.INSTANCE.getSettingsDirectoryName()
                          + File.separator;
-        String filename = isWindows()
+        String filename = SystemUtil.isWindows()
                           ? FILENAME_WINDOWS
                           : FILENAME_ZIP;
 
         return new File(dirname + File.separator + filename);
-    }
-
-    private boolean isWindows() {
-        String os = System.getProperty("os.name").toLowerCase();
-
-        return os.contains("windows");
     }
 
     private void startProgressBar() {

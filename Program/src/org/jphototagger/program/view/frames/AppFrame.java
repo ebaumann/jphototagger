@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.view.frames;
 
+import java.awt.event.KeyEvent;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -54,6 +55,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 
 /**
  * The application's frame.
@@ -141,6 +143,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(GoTo.IPTC_METADATA, menuItemGotoIptcMetadata);
         menuItemOfGoto.put(GoTo.KEYWORDS_SEL, menuItemGotoKeywordsSel);
         menuItemOfGoto.put(GoTo.MISC_METADATA, menuItemGotoMiscMetadata);
+        menuItemOfGoto.put(GoTo.NO_METADATA, menuItemGotoNoMetadata);
         menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
         menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
         menuItemOfGoto.put(GoTo.TIMELINE, menuItemGotoTimeline);
@@ -155,6 +158,7 @@ public final class AppFrame extends javax.swing.JFrame {
         DIRECTORIES, EDIT_PANELS, EXIF_METADATA, FAST_SEARCH, FAVORITES,
         KEYWORDS_EDIT, IMAGE_COLLECTIONS, IPTC_METADATA, KEYWORDS_SEL,
         MISC_METADATA, SAVED_SEARCHES, THUMBNAILS_PANEL, TIMELINE, XMP_METADATA,
+        NO_METADATA,
     }
 
     ;
@@ -409,6 +413,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywordsSel = new javax.swing.JMenuItem();
         menuItemGotoTimeline = new javax.swing.JMenuItem();
         menuItemGotoMiscMetadata = new javax.swing.JMenuItem();
+        menuItemGotoNoMetadata = new javax.swing.JMenuItem();
         sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
@@ -447,18 +452,18 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuFile.setText(JptBundle.INSTANCE.getString("AppFrame.menuFile.text")); // NOI18N
 
-        menuItemScanDirectory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemScanDirectory.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_R));
         menuItemScanDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png"))); // NOI18N
         menuItemScanDirectory.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemScanDirectory.text")); // NOI18N
         menuFile.add(menuItemScanDirectory);
 
-        menuItemMaintainDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemMaintainDatabase.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_D));
         menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_database.png"))); // NOI18N
         menuItemMaintainDatabase.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
         menuFile.add(menuItemMaintainDatabase);
         menuFile.add(sep1);
 
-        menuImportImageFiles.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuImportImageFiles.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_P));
         menuImportImageFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_card.png"))); // NOI18N
         menuImportImageFiles.setText(JptBundle.INSTANCE.getString("AppFrame.menuImportImageFiles.text")); // NOI18N
         menuFile.add(menuImportImageFiles);
@@ -498,7 +503,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuFile.add(menuItemBackupDatabase);
         menuFile.add(sep3);
 
-        menuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemExit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_Q));
         menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exit.png"))); // NOI18N
         menuItemExit.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExit.text")); // NOI18N
         menuFile.add(menuItemExit);
@@ -507,7 +512,7 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuEdit.setText(JptBundle.INSTANCE.getString("AppFrame.menuEdit.text")); // NOI18N
 
-        menuItemSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSettings.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_S));
         menuItemSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_settings.png"))); // NOI18N
         menuItemSettings.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSettings.text")); // NOI18N
         menuEdit.add(menuItemSettings);
@@ -623,7 +628,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuView.add(menuSort);
         menuView.add(sep15);
 
-        checkBoxMenuItemKeywordOverlay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        checkBoxMenuItemKeywordOverlay.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_O));
         checkBoxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
         checkBoxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText")); // NOI18N
         menuView.add(checkBoxMenuItemKeywordOverlay);
@@ -632,54 +637,59 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuGoto.setText(JptBundle.INSTANCE.getString("AppFrame.menuGoto.text")); // NOI18N
 
-        menuItemGotoFastSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoFastSearch.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_F));
         menuItemGotoFastSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png"))); // NOI18N
         menuItemGotoFastSearch.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
         menuGoto.add(menuItemGotoFastSearch);
 
-        menuItemGotoEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_E));
         menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemGotoEdit.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
         menuGoto.add(menuItemGotoEdit);
         menuGoto.add(sep16);
 
-        menuItemGotoDirectories.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoDirectories.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_1));
         menuItemGotoDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png"))); // NOI18N
         menuItemGotoDirectories.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoDirectories.text")); // NOI18N
         menuGoto.add(menuItemGotoDirectories);
 
-        menuItemGotoSavedSearches.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoSavedSearches.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_2));
         menuItemGotoSavedSearches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png"))); // NOI18N
         menuItemGotoSavedSearches.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
         menuGoto.add(menuItemGotoSavedSearches);
 
-        menuItemGotoCollections.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoCollections.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_3));
         menuItemGotoCollections.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_imagecollection.png"))); // NOI18N
         menuItemGotoCollections.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
         menuGoto.add(menuItemGotoCollections);
 
-        menuItemGotoFavorites.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoFavorites.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_4));
         menuItemGotoFavorites.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_favorite.png"))); // NOI18N
         menuItemGotoFavorites.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoFavorites.text")); // NOI18N
         menuGoto.add(menuItemGotoFavorites);
 
-        menuItemGotoKeywordsSel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoKeywordsSel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_5));
         menuItemGotoKeywordsSel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemGotoKeywordsSel.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoKeywordsSel.text")); // NOI18N
         menuGoto.add(menuItemGotoKeywordsSel);
 
-        menuItemGotoTimeline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoTimeline.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_6));
         menuItemGotoTimeline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_timeline.png"))); // NOI18N
         menuItemGotoTimeline.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoTimeline.text")); // NOI18N
         menuGoto.add(menuItemGotoTimeline);
 
-        menuItemGotoMiscMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoMiscMetadata.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_7));
         menuItemGotoMiscMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_misc_metadata.png"))); // NOI18N
         menuItemGotoMiscMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
+
+        menuItemGotoNoMetadata.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_8));
+        menuItemGotoNoMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_no_metadata.png"))); // NOI18N
+        menuItemGotoNoMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoNoMetadata.text")); // NOI18N
+        menuGoto.add(menuItemGotoNoMetadata);
         menuGoto.add(sep17);
 
-        menuItemGotoThumbnailsPanel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemGotoThumbnailsPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_0));
         menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnails.png"))); // NOI18N
         menuItemGotoThumbnailsPanel.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
         menuGoto.add(menuItemGotoThumbnailsPanel);
@@ -709,12 +719,12 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuTools.setText(JptBundle.INSTANCE.getString("AppFrame.menuTools.text")); // NOI18N
 
-        menuItemToolIptcToXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemToolIptcToXmp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_I));
         menuItemToolIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_iptc.png"))); // NOI18N
         menuItemToolIptcToXmp.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
         menuTools.add(menuItemToolIptcToXmp);
 
-        menuItemExtractEmbeddedXmp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemExtractEmbeddedXmp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_X));
         menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
         menuItemExtractEmbeddedXmp.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExtractEmbeddedXmp.text")); // NOI18N
         menuTools.add(menuItemExtractEmbeddedXmp);
@@ -738,13 +748,13 @@ public final class AppFrame extends javax.swing.JFrame {
         menuWindow.add(menuItemSynonyms);
         menuWindow.add(sep19);
 
-        menuItemOutputWindow.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemOutputWindow.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_T));
         menuItemOutputWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_view_logfile.png"))); // NOI18N
         menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
         menuWindow.add(menuItemOutputWindow);
         menuWindow.add(sep20);
 
-        menuItemDisplayLogfile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemDisplayLogfile.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L));
         menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
         menuItemDisplayLogfile.setEnabled(false);
         menuWindow.add(menuItemDisplayLogfile);
@@ -841,6 +851,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoKeywordsEdit;
     private javax.swing.JMenuItem menuItemGotoKeywordsSel;
     private javax.swing.JMenuItem menuItemGotoMiscMetadata;
+    private javax.swing.JMenuItem menuItemGotoNoMetadata;
     private javax.swing.JMenuItem menuItemGotoSavedSearches;
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoTimeline;

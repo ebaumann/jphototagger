@@ -60,7 +60,7 @@ public class ControllerAddKeyword extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent e) {
-        return KeyEventUtil.isControl(e, KeyEvent.VK_N);
+        return KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_N);
     }
 
     @Override

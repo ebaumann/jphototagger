@@ -21,16 +21,15 @@
 
 package org.jphototagger.program.view.popupmenus;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.KeyStroke;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -63,9 +62,10 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
                         .ICON_NEW);
     private final JMenuItem itemRename =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuSavedSearches.DisplayName.Action.Rename"),
-                AppLookAndFeel.ICON_RENAME);
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel
+                        .ICON_RENAME);
     private transient SavedSearch savedSearch;
 
     private PopupMenuSavedSearches() {
@@ -119,12 +119,12 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-                InputEvent.CTRL_MASK));
-        itemEdit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
-                InputEvent.CTRL_MASK));
-        itemDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
-                0));
-        itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        itemCreate.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemEdit.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
+        itemDelete.setAccelerator(
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
     }
 }

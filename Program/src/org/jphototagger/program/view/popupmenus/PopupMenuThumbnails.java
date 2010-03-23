@@ -21,6 +21,9 @@
 
 package org.jphototagger.program.view.popupmenus;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.plugin.Plugin;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
@@ -30,13 +33,10 @@ import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.helper.ActionsHelper;
-import org.jphototagger.plugin.Plugin;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.image.util.IconUtil;
 
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -53,7 +53,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.KeyStroke;
 
 /**
  * Popup menu of the thumbnails panel.
@@ -668,31 +667,31 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     private void setAccelerators() {
         itemDeleteFromImageCollection.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemFileSystemDeleteFiles.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemFileSystemRenameFiles.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemRefresh.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemRefresh.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F5));
         itemCopyToClipboard.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
-        itemCutToClipboard.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
-                InputEvent.CTRL_MASK));
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_C));
+        itemCutToClipboard.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_X));
         itemPasteFromClipboard.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK));
-        itemCopyMetadata.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-                InputEvent.SHIFT_MASK | InputEvent.CTRL_MASK));
-        itemPasteMetadata.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
-                InputEvent.SHIFT_MASK | InputEvent.CTRL_MASK));
-        itemPick.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0));
-        itemReject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0));
-        itemRating0.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, 0));
-        itemRating1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, 0));
-        itemRating2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, 0));
-        itemRating3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, 0));
-        itemRating4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, 0));
-        itemRating5.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, 0));
-        itemSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
-                InputEvent.CTRL_MASK));
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_V));
+        itemCopyMetadata.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_C));
+        itemPasteMetadata.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_V));
+        itemPick.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_P));
+        itemReject.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_R));
+        itemRating0.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_0));
+        itemRating1.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_1));
+        itemRating2.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_2));
+        itemRating3.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_3));
+        itemRating4.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_4));
+        itemRating5.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_5));
+        itemSelectAll.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_A));
     }
 }

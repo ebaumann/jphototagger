@@ -63,7 +63,7 @@ public final class ControllerEditSavedSearch
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_E)
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_E)
                 &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
 

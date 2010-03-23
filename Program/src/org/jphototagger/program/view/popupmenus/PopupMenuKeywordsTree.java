@@ -21,18 +21,17 @@
 
 package org.jphototagger.program.view.popupmenus;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
-import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
 /**
@@ -67,9 +66,10 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
                         .ICON_DELETE);
     private final JMenuItem itemRename =
         new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"),
-                AppLookAndFeel.ICON_RENAME);
+            JptBundle.INSTANCE
+                .getString(
+                    "PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"), AppLookAndFeel
+                        .ICON_RENAME);
     private final JMenuItem itemToggleReal =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
@@ -227,22 +227,22 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-                InputEvent.CTRL_MASK));
-        itemRemove.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,
-                0));
-        itemRename.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-        itemToggleReal.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
-                InputEvent.CTRL_MASK));
-        itemAddToEditPanel.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,
-                InputEvent.CTRL_MASK));
+        itemAdd.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemRemove.setAccelerator(
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemToggleReal.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_R));
+        itemAddToEditPanel.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
         itemRemoveFromEditPanel.setAccelerator(
-            KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0));
-        itemCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-                InputEvent.CTRL_MASK));
-        itemCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
-                InputEvent.CTRL_MASK));
-        itemPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
-                InputEvent.CTRL_MASK));
+            KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
+        itemCopy.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_C));
+        itemCut.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_X));
+        itemPaste.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_V));
     }
 }

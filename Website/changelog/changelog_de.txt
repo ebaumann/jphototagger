@@ -5,6 +5,14 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.8.8 2010-03-23
+----------------
+
+* Neuer Menü-Eintrag: "Gehe zu > Ohne Metadaten". Zuordnung der Tastenkürzel
+  dort verändert.
+* Ersetzen der "Strg-"-Taste bei Tastenkürzel durch betriebssystemspezifische,
+  beispielsweise "Command" für Macintosh-Rechner
+
 0.8.7 2010-03-22
 ----------------
 

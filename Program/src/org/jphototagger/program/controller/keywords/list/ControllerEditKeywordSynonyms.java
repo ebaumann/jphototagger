@@ -21,19 +21,19 @@
 
 package org.jphototagger.program.controller.keywords.list;
 
+import org.jphototagger.lib.dialog.InputDialog;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.database.DatabaseSynonyms;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.util.ArrayList;
@@ -48,7 +48,6 @@ import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.KeyStroke;
 
 /**
  *
@@ -56,7 +55,8 @@ import javax.swing.KeyStroke;
  */
 public final class ControllerEditKeywordSynonyms extends ControllerKeywords
         implements PopupMenuListener {
-    private final JMenuItem itemEditSynonyms =
+    private static final String DELIM            = ";";
+    private final JMenuItem     itemEditSynonyms =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
@@ -64,9 +64,8 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
         (EditRepeatableTextEntryPanel) GUI.INSTANCE.getAppPanel()
             .getEditMetadataPanels()
             .getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
-    private final JPopupMenu    popupMenuEditPanel = editPanel.getPopupMenu();
-    private final JList         listEditPanel      = editPanel.getList();
-    private static final String DELIM              = ";";
+    private final JPopupMenu popupMenuEditPanel = editPanel.getPopupMenu();
+    private final JList      listEditPanel      = editPanel.getList();
 
     public ControllerEditKeywordSynonyms() {
         addMenuItem();
@@ -81,8 +80,8 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     private void addMenuItem() {
-        itemEditSynonyms.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                InputEvent.CTRL_MASK | InputEvent.CTRL_MASK));
+        itemEditSynonyms.setAccelerator(
+            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_S));
         popupMenuEditPanel.add(new Separator());
         popupMenuEditPanel.add(itemEditSynonyms);
     }
@@ -132,7 +131,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return KeyEventUtil.isControlAlt(evt, KeyEvent.VK_S);
+        return KeyEventUtil.isMenuShortcutWithAlt(evt, KeyEvent.VK_S);
     }
 
     @Override

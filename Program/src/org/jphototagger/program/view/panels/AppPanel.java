@@ -340,6 +340,10 @@ public final class AppPanel extends javax.swing.JPanel {
         return panelMiscMetadata;
     }
 
+    public Component getTabSelectionNoMetadata() {
+        return panelNoMetadata;
+    }
+
     public JPanel getTabSelectionSavedSearches() {
         return panelSavedSearches;
     }

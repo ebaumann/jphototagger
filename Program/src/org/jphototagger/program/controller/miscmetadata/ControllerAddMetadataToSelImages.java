@@ -46,7 +46,7 @@ public final class ControllerAddMetadataToSelImages
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        return KeyEventUtil.isControl(evt, KeyEvent.VK_B);
+        return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_B);
     }
 
     @Override

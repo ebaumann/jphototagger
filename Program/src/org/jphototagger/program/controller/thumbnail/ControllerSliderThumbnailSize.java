@@ -102,9 +102,9 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_PLUS)) {
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_PLUS)) {
             moveSlider(LARGER_STEP_WIDTH, true);
-        } else if (KeyEventUtil.isControl(e, KeyEvent.VK_MINUS)) {
+        } else if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_MINUS)) {
             moveSlider(LARGER_STEP_WIDTH, false);
         }
     }

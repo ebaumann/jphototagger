@@ -72,7 +72,7 @@ public final class ControllerInsertFavorite
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isControl(e, KeyEvent.VK_I)) {
+        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_I)) {
             insertFavorite(null);
         }
     }

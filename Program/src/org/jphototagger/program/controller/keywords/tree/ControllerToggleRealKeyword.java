@@ -51,7 +51,7 @@ public class ControllerToggleRealKeyword extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent e) {
-        return KeyEventUtil.isControl(e, KeyEvent.VK_R);
+        return KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_R);
     }
 
     @Override
