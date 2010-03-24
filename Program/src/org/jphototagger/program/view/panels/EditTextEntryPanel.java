@@ -327,7 +327,7 @@ public final class EditTextEntryPanel extends JPanel
         textAreaEdit.setRows(1);
         textAreaEdit.setWrapStyleWord(true);
         scrollPane.setViewportView(textAreaEdit);
-        textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropEdit());
+        textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

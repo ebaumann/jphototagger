@@ -143,7 +143,7 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textAreaWordsKeyPressed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaWords.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropEdit());"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaWords.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -245,7 +245,7 @@
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldSynonymsKeyPressed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textFieldSynonyms.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropEdit());"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textFieldSynonyms.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="labelListSynonyms">

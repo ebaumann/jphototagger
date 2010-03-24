@@ -5,6 +5,13 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.8.9 2010-03-24
+----------------
+
+* In Textfelder des Dialogs "Erweiterte Suche" können verschiedene Metadaten
+  gezogen werden aus dem Eingabehilfen-Dialog oder dem Programmfenster-
+  Kartenreiter "Verschiedene Metadaten"
+
 0.8.8 2010-03-23
 ----------------
 

@@ -70,7 +70,7 @@ final class MetadataTemplateSupport {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(TransferHandlerDropEdit.class, ex);
+            AppLogger.logSevere(TransferHandlerDropTextComponent.class, ex);
         }
     }
 

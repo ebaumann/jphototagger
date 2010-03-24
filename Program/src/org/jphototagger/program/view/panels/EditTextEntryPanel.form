@@ -53,7 +53,7 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropEdit());"/>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());"/>
           </AuxValues>
         </Component>
       </SubComponents>

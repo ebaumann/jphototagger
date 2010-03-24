@@ -68,6 +68,7 @@ import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextArea;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -220,6 +221,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     public JList getList() {
         return list;
+    }
+
+    public JTextArea getTextArea() {
+        return textAreaInput;
     }
 
     public void setBundleKeyPosRenameDialog(String key) {

@@ -31,7 +31,7 @@ import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.AdvancedSearchColumns;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.datatransfer.TransferHandlerDropEdit;
+import org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent;
 import org.jphototagger.program.event.listener.impl.SearchListenerSupport;
 import org.jphototagger.program.event.listener.SearchListener;
 import org.jphototagger.program.event.SearchEvent;
@@ -541,7 +541,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxColumns          = new javax.swing.JComboBox();
         comboBoxComparators      = new javax.swing.JComboBox();
         textFieldValue           = new javax.swing.JFormattedTextField();
-        textFieldValue.setTransferHandler(new TransferHandlerDropEdit());
+        textFieldValue.setTransferHandler(new TransferHandlerDropTextComponent());
         toggleButtonBracketRight = new javax.swing.JToggleButton();
         buttonCalendar           = new javax.swing.JButton();
         setLayout(new java.awt.GridBagLayout());
