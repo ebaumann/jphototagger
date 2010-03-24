@@ -23,13 +23,13 @@ package org.jphototagger.program.app;
 
 import com.imagero.reader.AbstractImageReader;
 
-import org.jphototagger.program.resource.ImageProperties;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.CommandLineParser;
 import org.jphototagger.lib.util.Version;
+import org.jphototagger.program.resource.ImageProperties;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.frames.AppFrame;
 
 /**
  * Initializes the application.
@@ -47,6 +47,8 @@ public final class AppInit {
     public static final AppInit   INSTANCE = new AppInit();
     private AppCommandLineOptions commandLineOptions;
     private volatile boolean      init;
+
+    private AppInit() {}
 
     public void init(String[] args) {
         synchronized (this) {
@@ -66,6 +68,7 @@ public final class AppInit {
 
     private void init() {
         AppLookAndFeel.set();
+        captureOutput();    // Has to be called before AppLoggingSystem.init()!
         AppLoggingSystem.init();
         checkJavaVersion();
         lock();
@@ -74,7 +77,6 @@ public final class AppInit {
         SplashScreen.INSTANCE.setProgress(75);
         AbstractImageReader.install(ImageProperties.class);
         hideSplashScreen();
-        captureOutput();
         showMainWindow();
     }
 
@@ -137,6 +139,4 @@ public final class AppInit {
         MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion,
                                AppInfo.MIN_JAVA_VERSION);
     }
-
-    private AppInit() {}
 }

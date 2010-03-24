@@ -21,10 +21,10 @@
 
 package org.jphototagger.program.app;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -41,6 +41,13 @@ import java.util.logging.XMLFormatter;
 
 /**
  * Logging system of the application.
+ * <p>
+ * Contains theses handlers:
+ * <ul>
+ * <li>System output handler, level {@link UserSettings#getLogLevel()}</li>
+ * <li>File handler for all messages, level {@link Level#ALL}</li>
+ * <li>File handler for warning messages, level {@link Level#WARNING}</li>
+ * </ul>
  *
  * @author  Elmar Baumann
  */
@@ -76,7 +83,10 @@ public final class AppLoggingSystem implements UserSettingsListener {
             init = true;
             ensureLogDirectoryExists();
             createHandlers();
-            createLogger();
+            setLevelsToHandlers();
+            setFormattersToHandlers();
+            createAppLogger();
+            addHandlersTo(appLogger);
         }
     }
 
@@ -91,33 +101,36 @@ public final class AppLoggingSystem implements UserSettingsListener {
 
     private static void createHandlers() {
         try {
-            addFileHandler();
-            addSystemOutHandler();
+            fileHandlerImportant =
+                new FileHandler(logfileNamePatternImportant(),
+                                MAX_LOGFILE_SIZE_IN_BYTES,
+                                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
+            fileHandlerAllMsgs =
+                new FileHandler(logfileNamePatternAllMessages(),
+                                MAX_LOGFILE_SIZE_IN_BYTES,
+                                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
+            systemOutHandler = new StreamHandler(System.out,
+                    new SimpleFormatter());
+
+            synchronized (HANDLERS) {
+                HANDLERS.add(systemOutHandler);
+                HANDLERS.add(fileHandlerImportant);
+                HANDLERS.add(fileHandlerAllMsgs);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(AppLoggingSystem.class, ex);
         }
     }
 
-    // Publishes only warning and severe events (on severe events the last
-    // 1000 logfile records through it's memory handler)
-    private static void addFileHandler() throws Exception {
-        fileHandlerImportant = new FileHandler(logfileNamePatternImportant(),
-                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
-                APPEND_OUTPUT_TO_LOGFILE);
-        fileHandlerAllMsgs = new FileHandler(logfileNamePatternAllMessages(),
-                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
-                APPEND_OUTPUT_TO_LOGFILE);
-
-        // Ignoring user settings obove (INFO, FINE, ...) and keeping size small
+    private static void setLevelsToHandlers() throws SecurityException {
+        systemOutHandler.setLevel(UserSettings.INSTANCE.getLogLevel());
         fileHandlerImportant.setLevel(Level.WARNING);
-        fileHandlerImportant.setFormatter(new XMLFormatter());
         fileHandlerAllMsgs.setLevel(Level.ALL);
-        fileHandlerAllMsgs.setFormatter(new SimpleFormatter());
+    }
 
-        synchronized (HANDLERS) {
-            HANDLERS.add(fileHandlerImportant);
-            HANDLERS.add(fileHandlerAllMsgs);
-        }
+    private static void setFormattersToHandlers() {
+        fileHandlerImportant.setFormatter(new XMLFormatter());
+        fileHandlerAllMsgs.setFormatter(new SimpleFormatter());
     }
 
     private static String logfileNamePatternImportant() {
@@ -128,25 +141,15 @@ public final class AppLoggingSystem implements UserSettingsListener {
         return getLogfilePrefix() + "-all-%g.txt";
     }
 
-    private static void addSystemOutHandler() {
-        systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
-
-        // Log level shall be restricted only through the logger owning this
-        // handler
-        systemOutHandler.setLevel(Level.FINEST);
-
-        synchronized (HANDLERS) {
-            HANDLERS.add(systemOutHandler);
-        }
-    }
-
-    private static void createLogger() {
+    private static void createAppLogger() {
         try {
             appLogger = Logger.getLogger("org.jphototagger");
-            addHandlersTo(appLogger);
-            appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
-            appLogger.setUseParentHandlers(
-                false);    // Don't log info records twice
+
+            // Handlers are restricting the output
+            appLogger.setLevel(Level.ALL);
+
+            // Don't log info records twice
+            appLogger.setUseParentHandlers(false);
             LogManager.getLogManager().addLogger(appLogger);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -161,33 +164,11 @@ public final class AppLoggingSystem implements UserSettingsListener {
         }
     }
 
-    /**
-     * Returns the name of the current log file (complete path).
-     *
-     * @return log file name
-     */
-    public static String getCurrentLogfileName() {
-        return getLogfilePrefix() + "0." + getLogfileSuffix();
-    }
-
-    public static String getCurrentAllLogifleName() {
-        return getLogfilePrefix() + "-all-0.txt";
-    }
-
-    private static String getLogfilePrefix() {
-        return UserSettings.INSTANCE.getSettingsDirectoryName()
-               + File.separator + "imagemetadataviewerlog";
-    }
-
-    private static String getLogfileSuffix() {
-        return "xml";
-    }
-
     @Override
     public void applySettings(UserSettingsEvent evt) {
         if ((appLogger != null)
                 && evt.getType().equals(UserSettingsEvent.Type.LOG_LEVEL)) {
-            appLogger.setLevel(UserSettings.INSTANCE.getLogLevel());
+            systemOutHandler.setLevel(UserSettings.INSTANCE.getLogLevel());
         }
     }
 
@@ -214,5 +195,27 @@ public final class AppLoggingSystem implements UserSettingsListener {
         default :
             assert false;
         }
+    }
+
+    /**
+     * Returns the name of the current log file (complete path).
+     *
+     * @return log file name
+     */
+    public static String getCurrentLogfileName() {
+        return getLogfilePrefix() + "0." + getLogfileSuffix();
+    }
+
+    public static String getCurrentAllLogifleName() {
+        return getLogfilePrefix() + "-all-0.txt";
+    }
+
+    private static String getLogfilePrefix() {
+        return UserSettings.INSTANCE.getSettingsDirectoryName()
+               + File.separator + "imagemetadataviewerlog";
+    }
+
+    private static String getLogfileSuffix() {
+        return "xml";
     }
 }
