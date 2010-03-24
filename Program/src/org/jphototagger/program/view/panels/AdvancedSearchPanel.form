@@ -75,7 +75,7 @@
             </Component>
             <Component class="org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel" name="panelKeywordsInput">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelKeywordsInput.setPrompt(&quot;&quot;);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelKeywordsInput.setPrompt(&quot;&quot;);&#xa;panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());&#xa;panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropList());"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -258,7 +258,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea()"/>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaCustomSqlQuery.setTransferHandler(new TransferHandlerDropEdit());"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

@@ -21,11 +21,13 @@
 
 package org.jphototagger.program.datatransfer;
 
+import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
 
 import java.awt.datatransfer.Transferable;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -53,7 +55,8 @@ public final class TransferHandlerDropList extends TransferHandler {
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
         return Flavor.hasKeywordsFromList(transferSupport)
                || Flavor.hasKeywordsFromTree(transferSupport)
-               || Flavor.hasMetadataTemplate(transferSupport);
+               || Flavor.hasMetadataTemplate(transferSupport)
+               || Flavor.hasColumnData(transferSupport);
     }
 
     @Override
@@ -69,11 +72,27 @@ public final class TransferHandlerDropList extends TransferHandler {
         if (Flavor.hasKeywordsFromList(transferSupport)) {
             return importKeywords(transferable, listModel);
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
-            return importKeywords(listModel, transferSupport.getTransferable());
+            return importKeywords(listModel, transferable);
+        } else if (Flavor.hasColumnData(transferSupport)) {
+            return importColumnData(listModel, transferable);
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
             MetadataTemplateSupport.setTemplate(transferSupport);
 
             return true;
+        }
+
+        return false;
+    }
+
+    private boolean importColumnData(DefaultListModel listModel,
+                                     Transferable transferable) {
+        Collection<? extends ColumnData> columnData =
+            Support.getColumnData(transferable);
+
+        if (columnData != null) {
+            for (ColumnData data : columnData) {
+                listModel.addElement(data.getData());
+            }
         }
 
         return false;

@@ -1,5 +1,5 @@
 /*
- * @(#)TransferHandlerDropEdit.java    Created on 2009-08-02
+ * @(#)TransferHandlerDropTextComponent.java    Created on 2009-08-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.datatransfer;
 
+import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
 
@@ -30,6 +31,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -51,7 +53,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author  Elmar Baumann
  */
-public final class TransferHandlerDropEdit extends TransferHandler {
+public final class TransferHandlerDropTextComponent extends TransferHandler {
     private static final long serialVersionUID = 4543789065456550151L;
 
     @Override
@@ -59,7 +61,8 @@ public final class TransferHandlerDropEdit extends TransferHandler {
         return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)
                || Flavor.hasKeywordsFromTree(transferSupport)
                || Flavor.hasKeywordsFromList(transferSupport)
-               || Flavor.hasMetadataTemplate(transferSupport);
+               || Flavor.hasMetadataTemplate(transferSupport)
+               || Flavor.hasColumnData(transferSupport);
     }
 
     @Override
@@ -88,6 +91,9 @@ public final class TransferHandlerDropEdit extends TransferHandler {
             string = getStrings(Support.getKeywords(transferable));
         } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
             string = getStrings(Support.getKeywordNodes(transferable));
+        } else if (Flavor.hasColumnData(transferSupport)) {
+            string = Support.getStringFromColumnData(
+                Support.getColumnData(transferable));
         } else if (Flavor.hasMetadataTemplate(transferSupport)) {
             MetadataTemplateSupport.setTemplate(transferSupport);
 

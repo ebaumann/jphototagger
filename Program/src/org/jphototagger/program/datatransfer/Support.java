@@ -22,10 +22,12 @@
 package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.data.ColumnData;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -36,6 +38,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann
  */
 public final class Support {
+    private Support() {}
 
     /**
      * Returns the transferred keywords.
@@ -49,6 +52,25 @@ public final class Support {
         try {
             return (Object[]) transferable.getTransferData(
                 Flavor.KEYWORDS_LIST);
+        } catch (Exception ex) {
+            AppLogger.logSevere(Flavor.class, ex);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns from a transferable a collection of column data.
+     *
+     * @param  transferable transferable supporting {@link Flavor#COLUMN_DATA}
+     * @return              collection or null on errors
+     */
+    @SuppressWarnings("unchecked")
+    public static Collection<? extends ColumnData> getColumnData(
+            Transferable transferable) {
+        try {
+            return (Collection<? extends ColumnData>) transferable
+                .getTransferData(Flavor.COLUMN_DATA);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
@@ -77,6 +99,25 @@ public final class Support {
         return null;
     }
 
+    public static String getStringFromColumnData(
+            Collection<? extends ColumnData> columnData) {
+        if (columnData != null) {
+            StringBuilder sb    = new StringBuilder();
+            int           index = 0;
+
+            for (ColumnData data : columnData) {
+                sb.append((index++ == 0)
+                          ? ""
+                          : ";");
+                sb.append(data.getData().toString());
+            }
+
+            return sb.toString();
+        }
+
+        return "";
+    }
+
     /**
      * Returns a transferred string.
      *
@@ -95,6 +136,4 @@ public final class Support {
 
         return null;
     }
-
-    private Support() {}
 }

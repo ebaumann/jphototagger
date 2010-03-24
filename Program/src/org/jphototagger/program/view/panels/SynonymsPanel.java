@@ -270,7 +270,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
         textAreaWords           = new javax.swing.JTextArea();
         textAreaWords.setTransferHandler(
-            new org.jphototagger.program.datatransfer.TransferHandlerDropEdit());
+            new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
         labelListWords        = new javax.swing.JLabel();
         scrollPaneListWords   = new javax.swing.JScrollPane();
         listWords             = new javax.swing.JList();
@@ -280,7 +280,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         labelTextFieldSynonym = new javax.swing.JLabel();
         textFieldSynonyms     = new javax.swing.JTextField();
         textFieldSynonyms.setTransferHandler(
-            new org.jphototagger.program.datatransfer.TransferHandlerDropEdit());
+            new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
         labelListSynonyms      = new javax.swing.JLabel();
         scrollPaneListSynonyms = new javax.swing.JScrollPane();
         listSynonyms           = new javax.swing.JList();
