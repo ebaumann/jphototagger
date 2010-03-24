@@ -92,9 +92,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelFilter" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableLogfileRecords" pref="71" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableLogfileRecords" pref="69" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTextPaneDetails" pref="61" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTextPaneDetails" pref="59" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -416,7 +416,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneSimple" pref="242" max="32767" attributes="0"/>
+                      <Component id="scrollPaneSimple" pref="239" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
