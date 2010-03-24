@@ -27,6 +27,8 @@ import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.UserSettings;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,12 +83,19 @@ public final class AppLoggingSystem implements UserSettingsListener {
 
         if (!init) {
             init = true;
-            ensureLogDirectoryExists();
-            createHandlers();
-            setLevelsToHandlers();
-            setFormattersToHandlers();
-            createAppLogger();
-            addHandlersTo(appLogger);
+
+            try {
+                ensureLogDirectoryExists();
+                createHandlers();
+                setLevelsToHandlers();
+                setFormattersToHandlers();
+                setEncodingToFileHandlers();
+            } catch (Exception ex) {
+                AppLogger.logSevere(AppLoggingSystem.class, ex);
+            } finally {
+                createAppLogger();
+                addHandlersToLogger(appLogger);
+            }
         }
     }
 
@@ -99,26 +108,19 @@ public final class AppLoggingSystem implements UserSettingsListener {
         }
     }
 
-    private static void createHandlers() {
-        try {
-            fileHandlerImportant =
-                new FileHandler(logfileNamePatternImportant(),
-                                MAX_LOGFILE_SIZE_IN_BYTES,
-                                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
-            fileHandlerAllMsgs =
-                new FileHandler(logfileNamePatternAllMessages(),
-                                MAX_LOGFILE_SIZE_IN_BYTES,
-                                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
-            systemOutHandler = new StreamHandler(System.out,
-                    new SimpleFormatter());
+    private static void createHandlers() throws IOException {
+        fileHandlerImportant = new FileHandler(logfileNamePatternImportant(),
+                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
+                APPEND_OUTPUT_TO_LOGFILE);
+        fileHandlerAllMsgs = new FileHandler(logfileNamePatternAllMessages(),
+                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
+                APPEND_OUTPUT_TO_LOGFILE);
+        systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
 
-            synchronized (HANDLERS) {
-                HANDLERS.add(systemOutHandler);
-                HANDLERS.add(fileHandlerImportant);
-                HANDLERS.add(fileHandlerAllMsgs);
-            }
-        } catch (Exception ex) {
-            AppLogger.logSevere(AppLoggingSystem.class, ex);
+        synchronized (HANDLERS) {
+            HANDLERS.add(systemOutHandler);
+            HANDLERS.add(fileHandlerImportant);
+            HANDLERS.add(fileHandlerAllMsgs);
         }
     }
 
@@ -131,6 +133,13 @@ public final class AppLoggingSystem implements UserSettingsListener {
     private static void setFormattersToHandlers() {
         fileHandlerImportant.setFormatter(new XMLFormatter());
         fileHandlerAllMsgs.setFormatter(new SimpleFormatter());
+    }
+
+    // Else on Windows ANSII will be used
+    private static void setEncodingToFileHandlers()
+            throws SecurityException, UnsupportedEncodingException {
+        fileHandlerImportant.setEncoding("UTF-8");
+        fileHandlerAllMsgs.setEncoding("UTF-8");
     }
 
     private static String logfileNamePatternImportant() {
@@ -156,7 +165,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
         }
     }
 
-    private static void addHandlersTo(Logger logger) {
+    private static void addHandlersToLogger(Logger logger) {
         synchronized (HANDLERS) {
             for (Handler handler : HANDLERS) {
                 logger.addHandler(handler);
