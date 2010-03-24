@@ -42,6 +42,7 @@ import java.util.logging.XMLFormatter;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import org.jphototagger.program.UserSettings;
 
 /**
  * Kontrolliert die Aktion: Logfiledialog anzeigen.
@@ -113,7 +114,7 @@ public final class ControllerLogfileDialog extends MouseAdapter
         LogfileDialog dialog = new LogfileDialog(GUI.INSTANCE.getAppFrame(),
                                    logfilename, formatterClass);
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(), null);
         dialog.setVisible(true);
     }
 
