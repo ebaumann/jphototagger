@@ -66,7 +66,7 @@ import javax.swing.text.html.HTMLDocument;
  *
  * @author  Elmar Baumann
  */
-public final class LogfileDialog extends javax.swing.JDialog
+public final class LogfileDialog extends Dialog
         implements ListSelectionListener, ActionListener {
     private static final long           MAX_BYTES        = 10 * 1024 * 1024;
     private static final long           serialVersionUID = 1L;
@@ -383,11 +383,8 @@ public final class LogfileDialog extends javax.swing.JDialog
                 errorMessageNotSupportedFormat();
                 readSimple();
             }
-
-            super.setVisible(true);
-        } else {
-            super.setVisible(false);
         }
+        super.setVisible(visible);
     }
 
     private void errorMessageNotSupportedFormat() {
