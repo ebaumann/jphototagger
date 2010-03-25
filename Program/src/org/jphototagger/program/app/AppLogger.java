@@ -139,8 +139,12 @@ public final class AppLogger {
         LogRecord lr = new LogRecord(Level.SEVERE, "");
 
         lr.setThrown(ex);
-        lr.setSourceClassName(c.getName());
-        Logger.getLogger(c.getName()).log(lr);
+
+        String className = c.getName();
+
+        lr.setSourceClassName(className);
+        lr.setSourceMethodName(getMethodName(className));
+        Logger.getLogger(className).log(lr);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
         ErrorListeners.INSTANCE.notifyListeners(c, ex.getMessage());
     }
@@ -150,9 +154,24 @@ public final class AppLogger {
         LogRecord lr = new LogRecord(level,
                                      JptBundle.INSTANCE.getString(bundleKey,
                                          params));
+        String className = c.getName();
 
-        lr.setSourceClassName(c.getName());
-        Logger.getLogger(c.getName()).log(lr);
+        lr.setSourceClassName(className);
+        lr.setSourceMethodName(getMethodName(className));
+        Logger.getLogger(className).log(lr);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
+    }
+
+    // If this works false, java.util.logging.LogRecord.inferCaller() maybe
+    // the better implementation
+    private static String getMethodName(String classname) {
+        for (StackTraceElement stackTraceElement :
+                (new Throwable()).getStackTrace()) {
+            if (stackTraceElement.getClassName().equals(classname)) {
+                return stackTraceElement.getMethodName();
+            }
+        }
+
+        return null;
     }
 }
