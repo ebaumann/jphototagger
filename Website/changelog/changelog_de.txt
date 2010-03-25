@@ -1,9 +1,7 @@
 Zeichenkodierung dieser Datei: UTF-8
 
-Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lightroom/imagemetadataviewer.html
-
-Changelog JPhotoTagger
-======================
+Changelog JPhotoTagger http://jphototagger.org/
+===============================================
 
 0.8.11 2010-03-25
 -----------------
