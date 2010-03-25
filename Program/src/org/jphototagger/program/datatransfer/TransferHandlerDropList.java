@@ -53,10 +53,7 @@ public final class TransferHandlerDropList extends TransferHandler {
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return Flavor.hasKeywordsFromList(transferSupport)
-               || Flavor.hasKeywordsFromTree(transferSupport)
-               || Flavor.hasMetadataTemplate(transferSupport)
-               || Flavor.hasColumnData(transferSupport);
+        return Flavor.isMetadataTransferred(transferSupport.getTransferable());
     }
 
     @Override

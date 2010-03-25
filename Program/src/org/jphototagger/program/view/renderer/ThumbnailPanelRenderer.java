@@ -567,16 +567,11 @@ public class ThumbnailPanelRenderer
         return t.isDataFlavorSupported(Flavor.IMAGE_COLLECTION);
     }
 
-    private boolean isMetadataDrag(Transferable t) {
-        return t.isDataFlavorSupported(Flavor.KEYWORDS_LIST)
-               || t.isDataFlavorSupported(Flavor.KEYWORDS_TREE);
-    }
-
     @Override
     public void dragOver(DropTargetDragEvent dtde) {
         panel.setDrag(true);
 
-        if (isMetadataDrag(dtde.getTransferable())) {
+        if (Flavor.isMetadataTransferred(dtde.getTransferable())) {
             Point loc   = dtde.getLocation();
             int   index = panel.getThumbnailIndexAtPoint(loc.x, loc.y);
 
