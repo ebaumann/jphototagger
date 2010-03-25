@@ -5,6 +5,13 @@ Deutsche Projektseite: http://www.elmar-baumann.de/fotografie/tipps/computer/lig
 Changelog JPhotoTagger
 ======================
 
+0.8.11 2010-03-25
+-----------------
+
+* Bugfix: Beim Ziehen von verschiedenen Metadaten über ein Bild des
+  Vorschaubildfensters wird das Bild unter dem Mauszeiger hervorgehoben, falls
+  es nicht (bereits) ausgewählt ist
+
 0.8.10 2010-03-24
 -----------------
 

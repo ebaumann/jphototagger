@@ -32,6 +32,7 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
 import org.jphototagger.program.resource.GUI;
@@ -55,7 +56,6 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
-import org.jphototagger.program.helper.MiscMetadataHelper;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
@@ -74,8 +74,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         ThumbnailsPanel tnPanel =
             (ThumbnailsPanel) transferSupport.getComponent();
 
-        return metadataTransferred(transferSupport)
-               || isImageCollection(tnPanel)
+        return isMetadataDrop(transferSupport) || isImageCollection(tnPanel)
                || (!transferSupport.isDataFlavorSupported(
                    Flavor.THUMBNAILS_PANEL) && canImportFiles(tnPanel)
                        && Flavor.hasFiles(transferSupport.getTransferable()));
@@ -85,16 +84,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         return ContentUtil.isSingleDirectoryContent(tnPanel.getContent());
     }
 
-    private boolean metadataTransferred(TransferSupport transferSupport) {
-        boolean dropOverSelectedThumbnail =
-            isDropOverSelectedThumbnail(transferSupport);
-        boolean isThumbnailPos = isThumbnailPos(transferSupport);
-
-        return (Flavor.hasKeywordsFromList(
-            transferSupport) || Flavor.hasColumnData(
-            transferSupport) || Flavor.hasKeywordsFromTree(
-            transferSupport)) && isThumbnailPos || (Flavor.hasMetadataTemplate(
-            transferSupport) && dropOverSelectedThumbnail);
+    private boolean isMetadataDrop(TransferSupport transferSupport) {
+        return isThumbnailPos(transferSupport)
+               && Flavor.isMetadataTransferred(
+                   transferSupport.getTransferable());
     }
 
     @Override
@@ -131,7 +124,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             (ThumbnailsPanel) transferSupport.getComponent();
         boolean imagesSelected = panel.getSelectionCount() > 0;
 
-        if (metadataTransferred(transferSupport)) {
+        if (isMetadataDrop(transferSupport)) {
             insertMetadata(transferSupport);
 
             return true;
