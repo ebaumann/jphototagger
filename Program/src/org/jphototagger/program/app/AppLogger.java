@@ -28,6 +28,7 @@ import java.text.MessageFormat;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.LogRecord;
 
 /**
  * Logs <strong>localized</strong> messages.
@@ -135,15 +136,23 @@ public final class AppLogger {
      * @param ex  Exception
      */
     public static void logSevere(Class<?> c, Exception ex) {
-        Logger.getLogger(c.getName()).log(Level.SEVERE, null, ex);
+        LogRecord lr = new LogRecord(Level.SEVERE, "");
+
+        lr.setThrown(ex);
+        lr.setSourceClassName(c.getName());
+        Logger.getLogger(c.getName()).log(lr);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
         ErrorListeners.INSTANCE.notifyListeners(c, ex.getMessage());
     }
 
     private static void log(Class<?> c, Level level, String bundleKey,
                             Object... params) {
-        Logger.getLogger(c.getName()).log(level,
-                         JptBundle.INSTANCE.getString(bundleKey, params));
+        LogRecord lr = new LogRecord(level,
+                                     JptBundle.INSTANCE.getString(bundleKey,
+                                         params));
+
+        lr.setSourceClassName(c.getName());
+        Logger.getLogger(c.getName()).log(lr);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
     }
 }
