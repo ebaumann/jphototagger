@@ -54,8 +54,6 @@ import javax.swing.JToggleButton;
  */
 public class DatabaseUpdatePanel extends JPanel
         implements ActionListener, ProgressListener {
-    private static final String BUTTON_TEXT_START =
-        JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Start");
     private static final String BUTTON_TEXT_STOP =
         JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Stop");
     private static final long             serialVersionUID =
@@ -118,8 +116,24 @@ public class DatabaseUpdatePanel extends JPanel
         } else {
             stop = true;
             setEnabledAllButtons(true);
-            button.setText(BUTTON_TEXT_START);
+            setStartButtonTexts();
         }
+    }
+
+    private void setStartButtonTexts() {
+        toggleButtonRefreshExif.setText(JptBundle.INSTANCE.getString(
+                "DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
+        toggleButtonRefreshXmp.setText(JptBundle.INSTANCE.getString(
+                "DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
+        buttonUpdateThumbnails.setText(JptBundle.INSTANCE.getString(
+                "DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
+        buttonRenameFiles.setText(JptBundle.INSTANCE.getString(
+                "DatabaseUpdatePanel.buttonRenameFiles.text"));
+        buttonCopyKeywordsToKeywordsTree.setText(JptBundle.INSTANCE.getString(
+                "DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
+        toggleButtonExifDateToXmpDateCreated.setText(
+                JptBundle.INSTANCE.getString(
+                    "DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
     }
 
     private synchronized void disableOtherButtons(JToggleButton buttonEnabled) {
@@ -140,7 +154,6 @@ public class DatabaseUpdatePanel extends JPanel
         for (AbstractButton button : buttons) {
             if (button instanceof JToggleButton) {
                 ((JToggleButton) button).setSelected(false);
-                button.setText(BUTTON_TEXT_START);
             }
         }
     }
@@ -188,6 +201,7 @@ public class DatabaseUpdatePanel extends JPanel
         checkStop(evt);
         setEnabledAllButtons(true);
         deselectAllToggleButtons();
+        setStartButtonTexts();
     }
 
     @Override
