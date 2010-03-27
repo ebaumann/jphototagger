@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Einstellungen, Kartenreiter &quot;Sonstiges&quot;</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Einstellungen, Kartenreiter &quot;Sonstiges&quot;</h1>
+
+        <h2>Versteckte Ordner einlesen und anzeigen</h2>
+
+        <p>Wollen Sie Bilder archivieren, die in versteckten Ordnern gespeichert
+            sind, kreuzen Sie dieses Kästchen an.
+        </p>
+
+        <h3>Nach dem Programmstart automatisch auf eine neue Version prüfen</h3>
+
+        <p>Ist diese Option angekreuzt, sucht <strong>JPhotoTagger</strong> im
+            Internet nach einer neueren Programmversion. Existiert eine, wird
+            diese zum Download angeboten.
+        </p>
+
+        <h2>Schaltfläche Suchen anzeigen</h2>
+
+        <p>Falls angekreuzt, ist eine Schaltfläche neben dem Eingabefeld für die
+            Schnellsuche. Das ist die Standard-Einstellung. Sie sparen Platz
+            durch Entfernen des Häkchens (wirkt sich erst aus nach Neustart).
+            Mit der <kbd>Enter</kbd>-Taste können Sie eine Suche ebenso starten:
+            Sie tippen einen Suchbegriff ein und betätigen anschließend die
+            <kbd>Enter</kbd>-Taste.
+        </p>
+
+        <h2>Kopieren/Verschieben von Dateien: Quelldatei</h2>
+
+        <h3>Nachfragen, falls gleichnamige Datei im Zielordner existiert</h3>
+
+        <p>Ist diese Option aktiv, wird erst nachgefragt, ob eine existierende
+            Zieldatei überschrieben werden soll, bevor die Datei kopiert wird.
+            Beim Verschieben hat diese Option <em>keine</em> Auswirkung.
+        </p>
+
+        <h3>Automatisch umbenennen , falls gleichnamige Datei im Zielordner
+            existiert
+        </h3>
+
+        <p>Ist diese Option angekreuzt, wird die Quelldatei automatisch
+            umbenannt, falls im Zielordner eine gleichnamige Datei existiert:
+            Vor der Endung wird ein Unterstrich angehängt gefolgt von einer
+            fortlaufenden Nummer.
+        </p>
+
+        <h2>Zeichensatz der IPTC-Daten</h2>
+
+        <p>Stellen Sie hier ein, mit welchem Zeichensatz die
+            <a href="glossary_iptc.html">IPTC</a>-Daten kodiert sind. Leider
+            schreiben dies nicht alle Programme (fehlerfrei) in die IPTC-Daten.
+            Ist der Zeichensatz falsch, werden beispielsweise Umlaute verkehrt
+            angezeigt und Sie können nicht danach suchen, außer, Sie geben die
+            gleichen &quot;Hieroglyphen&quot; ein, die falsch angezeigt werden.
+        </p>
+
+        <h2>Was / wie viel soll protokolliert werden?</h2>
+
+        <p>Der Programmablauf wird laufend protokolliert, Sie können das
+            Protokoll anschauen über <strong>Fenster &gt;
+            Programmausgaben</strong>. Was darin angezeigt wird, stellen Sie
+            hier ein. Bedeutungen:
+        </p>
+
+        <ul>
+            <li><strong>SCHWERWIEGEND</strong>: Nur wichtige Fehler werden
+                protokolliert. Schwer wiegendes wird bei allen anderen
+                Einstellungen zusätzlich protokolliert.
+            </li>
+            <li><strong>WARNUNG</strong>: Nur wichtige Fehler und weniger
+                wichtige werden protokolliert. Warnungen werden bei anderen
+                Einstellungen zusätzlich protokolliert außer bei
+                <strong>SCHWERWIEGEND</strong>.
+            </li>
+            <li><strong>INFO</strong>: Informative Ausgaben, beispielsweise
+                welche Verzeichnisse gerade automatisch eingelesen werden. Dies
+                ist die Grunddeinstellung.
+            </li>
+            <li><strong>KONFIG</strong>: Ausgaben betreffend die Konfiguration,
+                für den Benutzer eines Programms meist unwichtig.
+            </li>
+            <li><strong>FEIN</strong>: Detaillierte Ausgaben über den
+                Programmablauf
+            </li>
+            <li><strong>FEINER</strong>: Noch detailliertere Ausgaben,
+                insbesondere SQL-Statements, die die Datenbank aktualisieren
+            </li>
+            <li><strong>AM FEINSTEN</strong>: SQL-Statements, die die Datenbank
+                abfragen und <em>nicht</em> modifizieren, noch detailliertere
+                Informationen über den Programmablauf
+            </li>
+        </ul>
+
+        <p>Wählen Sie <strong>WARNUNG</strong> oder <strong>INFO</strong>
+            (Voreinstellung), solange keine Probleme bestehen und zur
+            Fehlerbehebung <strong>AM FEINSTEN</strong>.
+        </p>
+
+        <p>Unabhängig davon werden zwei Logdateien geschrieben: Ein
+            Fehlerprotokoll, das nur Fehler enthält (<strong>WARNUNG</strong>)
+            und eines mit allen Ausgaben (<strong>AM FEINSTEN</strong>).
+            Diese Protokolle können angezeigt werden über das Menü
+            <strong>Fenster &gt; Fehlerprotokoll</strong> und <strong>Fenster
+            &gt; Protokoll mit allen Ausgaben</strong>.
+        </p>
+
+        <h2>Datenbankordner</h2>
+
+        <p>Sie können die Datenbank in einem anderen Ordner anlegen lassen.
+            Wollen Sie Ihre bisherigen Daten übernehmen, kopieren Sie aus dem
+            aktuellen Datenbankordner, der im Dialog angezeigt wird, folgende
+            Dateien <em>nach Beenden</em> von <strong>JPhotoTagger</strong> und
+            <em>vor einem Neustart</em>:
+        </p>
+
+        <h3>Ordner für Datenbanksicherungen</h3>
+
+        <p>In diesem Ordner legt <strong>JPhotoTagger</strong>
+            Unterordner an, in die Datenbanken gespeichert werden, falls
+            Sie den Menüeintrag <a href="backup_database.html">Datei &gt;
+            Datenbank sichern</a> auswählen. Standard ist der gleiche Ordner,
+            in dem die Datenbankdateien gespeichert sind.
+        </p>
+
+        <h2>Siehe auch</h2>
+
+        <ul>
+            <li><a href="settings_tasks.html">Automatisieren: Datenbank
+                automatisch sichern</a>
+            </li>
+        </ul>
+
+    </body>
+</html>

@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE helpindex SYSTEM 'helpindex.dtd'>
+<helpindex>
+    <page>
+        <url>intro.html</url>
+        <title>Was erledigt dieses Programm?</title>
+    </page>
+    <page>
+        <url>fiststeps.html</url>
+        <title>Erste Schritte</title>
+    </page>
+    <page>
+        <url>mainwindow.html</url>
+        <title>Das Programmfenster</title>
+    </page>
+    <page>
+        <url>thumbnail_flags.html</url>
+        <title>Kennzeichnungen in den Vorschaubildern</title>
+    </page>
+    <page>
+        <url>fast_search.html</url>
+        <title>Die Schnellsuche</title>
+    </page>
+    <page>
+        <url>autocomplete.html</url>
+        <title>Auto-Vervollständigen</title>
+    </page>
+    <node>
+        <title>Schnell arbeiten (Zeit sparen)</title>
+        <page>
+            <url>tip_work_fast_order_keywords_tree.html</url>
+            <title>Stichwörter im Stichwortbaum ordnen</title>
+        </page>
+        <page>
+            <url>tip_work_fast_scroll_keywords_to_visible.html</url>
+            <title>Stichwortbaum: Stichwörter schnell in den Vordergrund bringen</title>
+        </page>
+        <page>
+            <url>tip_work_fast_moving_in_lists.html</url>
+            <title>Listeninhalte (Stichwörter, ...) schnell in den Vordergrund bringen</title>
+        </page>
+        <page>
+            <url>tip_work_fast_fix_typos.html</url>
+            <title>Tippfehler bei vielen Bildern korrigieren</title>
+        </page>
+        <page>
+            <url>tip_work_fast_add_keywords_to_tree.html</url>
+            <title>Vergessene übergeordnete Stichwörter zuordnen</title>
+        </page>
+    </node>
+    <node>
+        <title>Die Auswahl-Kartenreiter</title>
+        <page>
+            <url>mainwindow_folders.html</url>
+            <title>Ordner</title>
+        </page>
+        <page>
+            <url>mainwindow_searches.html</url>
+            <title>Suchen</title>
+        </page>
+        <page>
+            <url>mainwindow_collections.html</url>
+            <title>Fotoalben</title>
+        </page>
+        <page>
+            <url>mainwindow_keywords_list.html</url>
+            <title>Stichwörter / Listenansicht</title>
+        </page>
+        <page>
+            <url>mainwindow_keywords_tree.html</url>
+            <title>Stichwörter / Baumansicht</title>
+        </page>
+        <page>
+            <url>mainwindow_favorites.html</url>
+            <title>Favoriten</title>
+        </page>
+        <page>
+            <url>mainwindow_timeline.html</url>
+            <title>Zeitleiste</title>
+        </page>
+        <page>
+            <url>mainwindow_misc_metadata.html</url>
+            <title>Verschiedenes</title>
+        </page>
+        <page>
+            <url>mainwindow_no_metadata.html</url>
+            <title>Ohne Metadaten</title>
+        </page>
+    </node>
+    <node>
+        <title>Die Metadaten-Kartenreiter</title>
+        <page>
+            <url>mainwindow_iptc.html</url>
+            <title>IPTC</title>
+        </page>
+        <page>
+            <url>mainwindow_exif.html</url>
+            <title>EXIF</title>
+        </page>
+        <page>
+            <url>mainwindow_xmp.html</url>
+            <title>XMP</title>
+        </page>
+        <page>
+            <url>mainwindow_edit.html</url>
+            <title>Bearbeiten</title>
+        </page>
+    </node>
+    <node>
+        <title>Kontextmenü im Vorschaubildfenster</title>
+        <page>
+            <url>update_thumbnail.html</url>
+            <title>Aktualisieren &gt; Vorschaubild aktualisieren</title>
+        </page>
+        <page>
+            <url>update_metadata.html</url>
+            <title>Aktualisieren &gt; Metadaten aktualisieren</title>
+        </page>
+        <page>
+            <url>remove_images_from_database.html</url>
+            <title>Aktualisieren &gt; Aus der Datenbank entfernen</title>
+        </page>
+        <page>
+            <url>rotate_thumbnail.html</url>
+            <title>Vorschaubild drehen</title>
+        </page>
+        <page>
+            <url>open_images.html</url>
+            <title>Öffnen</title>
+        </page>
+        <page>
+            <url>open_images_with.html</url>
+            <title>Öffnen mit</title>
+        </page>
+        <page>
+            <url>collection_create.html</url>
+            <title>Fotoalbum &gt; Neues Fotoalbum erstellen</title>
+        </page>
+        <page>
+            <url>collection_add_to.html</url>
+            <title>Fotoalbum &gt; Einem Fotoalbum hinzufügen</title>
+        </page>
+        <page>
+            <url>collection_remove_from.html</url>
+            <title>Fotoalbum &gt; Aus dem Fotoalbum entfernen</title>
+        </page>
+        <page>
+            <url>copy_images.html</url>
+            <title>Dateioperationen &gt; In einen Ordner kopieren</title>
+        </page>
+        <page>
+            <url>rename_images.html</url>
+            <title>Dateioperationen &gt; Auf dem Datenträger Umbenennen</title>
+        </page>
+        <page>
+            <url>move_images.html</url>
+            <title>Dateioperationen &gt; Auf dem Datenträger verschieben</title>
+        </page>
+        <page>
+            <url>delete_images.html</url>
+            <title>Dateioperationen &gt; Vom Datenträger löschen</title>
+        </page>
+    </node>
+    <node>
+        <title>Menübefehle</title>
+        <page>
+            <url>scan_directories.html</url>
+            <title>Datei &gt; Ordner einlesen</title>
+        </page>
+        <page>
+            <url>maintain_database.html</url>
+            <title>Datei &gt; Datenbank</title>
+        </page>
+        <page>
+            <url>import_images.html</url>
+            <title>Datei &gt; Bilder importieren</title>
+        </page>
+        <page>
+            <url>export_jpt.html</url>
+            <title>Datei &gt; Exportieren &gt; JPhotoTagger-Daten</title>
+        </page>
+        <page>
+            <url>export_keywords.html</url>
+            <title>Datei &gt; Exportieren &gt; Stichwortbaum</title>
+        </page>
+        <page>
+            <url>import_jpt.html</url>
+            <title>Datei &gt; Importieren &gt; JPhotoTagger-Daten</title>
+        </page>
+        <page>
+            <url>import_keywords.html</url>
+            <title>Datei &gt; Importieren &gt; Stichwortbaum</title>
+        </page>
+        <page>
+            <url>backup_database.html</url>
+            <title>Datei &gt; Datenbank sichern</title>
+        </page>
+        <page>
+            <url>settings.html</url>
+            <title>Bearbeiten &gt; Einstellungen</title>
+        </page>
+        <page>
+            <url>advanced_search.html</url>
+            <title>Bearbeiten &gt; Suchen</title>
+        </page>
+        <page>
+            <url>import_iptc.html</url>
+            <title>Werkzeuge &gt; IPTC-Daten importieren</title>
+        </page>
+        <page>
+            <url>import_xmp.html</url>
+            <title>Werkzeuge &gt; XMP-Daten importieren</title>
+        </page>
+        <page>
+            <url>input_helpers.html</url>
+            <title>Fenster &gt; Eingabehilfen</title>
+        </page>
+        <page>
+            <url>actions.html</url>
+            <title>Fenster &gt; Aktionen</title>
+        </page>
+        <page>
+            <url>synonyms.html</url>
+            <title>Fenster &gt; Synonyme</title>
+        </page>
+        <page>
+            <url>accelerator_keys.html</url>
+            <title>Hilfe &gt; Tastenkombinationen</title>
+        </page>
+    </node>
+    <node>
+        <title>Einstellungen</title>
+        <page>
+            <url>settings_programs.html</url>
+            <title>Bilder öffnen</title>
+        </page>
+        <page>
+            <url>settings_thumbnails.html</url>
+            <title>Vorschaubilder</title>
+        </page>
+        <page>
+            <url>settings_tasks.html</url>
+            <title>Automatisieren</title>
+        </page>
+        <page>
+            <url>settings_performance.html</url>
+            <title>Leistung</title>
+        </page>
+        <page>
+            <url>settings_file_excludepattern.html</url>
+            <title>Ausschließen</title>
+        </page>
+        <page>
+            <url>settings_misc.html</url>
+            <title>Sonstiges</title>
+        </page>
+        <page>
+            <url>settings_actions.html</url>
+            <title>Aktionen</title>
+        </page>
+        <page>
+            <url>settings_plugins.html</url>
+            <title>Plugins</title>
+        </page>
+    </node>
+    <node>
+        <title>Sonstige Dialoge</title>
+        <page>
+            <url>program_properties.html</url>
+            <title>Dialog Programmeigenschaften</title>
+        </page>
+    </node>
+    <node>
+        <title>Tipps</title>
+        <page>
+            <url>tip_use_help.html</url>
+            <title>Nutzen Sie die Hilfe</title>
+        </page>
+        <page>
+            <url>tip_check_logfile.html</url>
+            <title>Öffnen Sie bei Fehlern das Fehlerprotokoll</title>
+        </page>
+        <page>
+            <url>tip_use_shortcuts.html</url>
+            <title>Tastenkombinationen</title>
+        </page>
+        <page>
+            <url>tip_check_settings.html</url>
+            <title>Einstellungen überprüfen</title>
+        </page>
+        <page>
+            <url>tip_save_searches.html</url>
+            <title>Suchen speichern</title>
+        </page>
+        <page>
+            <url>tip_thumbnail_creating_script.html</url>
+            <title>Programm zum Erzeugen von Vorschaubildern</title>
+        </page>
+        <page>
+            <url>tip_action_embed_xmp.html</url>
+            <title>XMP-Metadaten einbetten über ein Skript</title>
+        </page>
+        <page>
+            <url>tip_use_scripts.html</url>
+            <title>Mehr Funktionen hinzufügen</title>
+        </page>
+        <page>
+            <url>tip_more_memory.html</url>
+            <title>Mehr Arbeitsspeicher</title>
+        </page>
+        <page>
+            <url>tipp_export_jpt.html</url>
+            <title>Exportieren Sie regelmäßig JPhotoTagger-Daten</title>
+        </page>
+    </node>
+    <node>
+        <title>Wichtige Fakten</title>
+        <page>
+            <url>facts_which_metadata_is_displayed.html</url>
+            <title>Welche Metadaten werden angezeigt?</title>
+        </page>
+        <page>
+            <url>facts_editable_metadata.html</url>
+            <title>Welche Metadaten können bearbeitet werden?</title>
+        </page>
+        <page>
+            <url>facts_database_and_metadata.html</url>
+            <title>Metadaten und die Datenbank</title>
+        </page>
+        <page>
+            <url>facts_database_image_updates.html</url>
+            <title>Wie oft werden Bilder in die Datenbank geschrieben?</title>
+        </page>
+        <page>
+            <url>facts_which_metadata_is_in_database.html</url>
+            <title>Was ist in der Datenbank gespeichert?</title>
+        </page>
+        <page>
+            <url>facts_database_location.html</url>
+            <title>Wo ist die Datenbank?</title>
+        </page>
+        <page>
+            <url>facts_why_xmp_sidecarfiles.html</url>
+            <title>Warum XMP-Filialdateien?</title>
+        </page>
+        <page>
+            <url>facts_hr_keywords.html</url>
+            <title>Behandlung von Stichworthierarchien</title>
+        </page>
+    </node>
+    <page>
+        <url>parameter_substitution.html</url>
+        <title>Parameter, die ersetzt werden durch Zeichenketten</title>
+    </page>
+    <page>
+        <url>commandline.html</url>
+        <title>Kommandozeilenparameter</title>
+    </page>
+    <node>
+        <title>Glossar</title>
+        <page>
+            <url>glossary_exif.html</url>
+            <title>EXIF</title>
+        </page>
+        <page>
+            <url>glossary_iptc.html</url>
+            <title>IPTC</title>
+        </page>
+        <page>
+            <url>glossary_metadata.html</url>
+            <title>Metadaten</title>
+        </page>
+        <page>
+            <url>glossary_xmp.html</url>
+            <title>XMP</title>
+        </page>
+        <page>
+            <url>glossary_sidecar_file.html</url>
+            <title>XMP-Filialdatei</title>
+        </page>
+    </node>
+</helpindex>

@@ -1,0 +1,2687 @@
+Zeichenkodierung dieser Datei: UTF-8
+
+Changelog JPhotoTagger http://jphototagger.org/
+===============================================
+
+0.8.11 2010-03-25
+-----------------
+
+* Bugfix: Beim Ziehen von verschiedenen Metadaten über ein Bild des
+  Vorschaubildfensters wird das Bild unter dem Mauszeiger hervorgehoben, falls
+  es nicht (bereits) ausgewählt ist
+
+0.8.10 2010-03-24
+-----------------
+
+* Protokoll "Alle Ausgaben" enthält nun ("wirklich") alle Ausgaben
+* Bugfix: Ins Fenster "Systemausgaben" wird wieder protokolliert.
+
+0.8.9 2010-03-24
+----------------
+
+* In Textfelder des Dialogs "Erweiterte Suche" können verschiedene Metadaten
+  gezogen werden aus dem Eingabehilfen-Dialog oder dem Programmfenster-
+  Kartenreiter "Verschiedene Metadaten"
+
+0.8.8 2010-03-23
+----------------
+
+* Neuer Menü-Eintrag: "Gehe zu > Ohne Metadaten". Zuordnung der Tastenkürzel
+  dort verändert.
+* Ersetzen der "Strg-"-Taste bei Tastenkürzel durch betriebssystemspezifische,
+  beispielsweise "Command" für Macintosh-Rechner
+
+0.8.7 2010-03-22
+----------------
+
+* Neuer Kartenreiter in "Fenster > Eingabehilfen": Verschiedenes. Enthält
+  verschiedene Metadaten, die über ein Kontextmenü, Tastenkürzel oder Ziehen
+  und Ablegen Bildern zugewiesen werden können
+* Neue Einträge im Kontextmenü des Kartenreites "Verschiedenes":
+  * Hinzufügen zu ausgewählten Bildern
+  * Entfernen aus ausgewählten Bildern
+* Umstellung der Pakete auf "org.jphototagger". Fensterpositionen und Größen
+  sind beim ersten Start (einmalig) "zurückgesetzt"
+* Bugfix: Kontextmenü "Fenster > Eingabehilfen, Kartenreiter Vorlagen":
+  Klick mit rechter Maustaste auf erste Schablone: Bearbeiten-Aktionen sind
+  jetzt möglich (bislang nur über die Schaltflächen)
+
+0.8.6 2010-03-19
+----------------
+
+* Bugfix: Umbenennen von Favoriten funktionierte nicht
+
+0.8.5 2010-03-18
+----------------
+
+* Bugfix: Ziehen und Ablegen mehrerer Stichwörter aus der Stichwortliste auf
+  *nicht* ausgewählte Bilder speicherte nur eines, Issue
+  http://code.google.com/p/jphototagger/issues/detail?id=1
+* Bugfix: Nach dem Löschen einer Datei springt die Vorschaubildanzeige nicht
+  mehr zum ersten Bild, Issue
+  http://code.google.com/p/jphototagger/issues/detail?id=2
+
+0.8.4 2010-03-17
+----------------
+
+* Neue Option: Bearbeiten > Einstellungen > Leistung > Auto-Vervollständigen:
+  Auto-Vervollständigen-Wortschatz anhand Eingaben fortlaufend aktualisieren.
+  Näheres steht in der Hilfe und im PDF-Benutzerhandbuch.
+* Bugfix: Beim Erzeugen neuer Datenbanken schlug das Erzeugen der XMP-Tabelle
+  fehl (woraufhin JPhotoTagger sich beendete)
+
+0.8.3 2010-03-16
+----------------
+
+* JPhotoTagger prüft, ob eine neuere Datenbank benutzt wird und startet in
+  diesem Fall nicht, da diese beschädigt werden könnte
+* Windows-Installationen: JPhotoTagger darf sich nun maximal (kurzzeitig bis
+  zu) 750 MB RAM holen
+* Bugfix: Ist Autovervollständigen deaktiviert, erzeugte das Drücken von Enter
+  im Schnellsuchen-Eingabefeld einen Zeilenumbruch
+
+0.8.2 2010-03-16
+----------------
+
+* Neue Einträge im Kontextmenü des rechten Stichwort*listen*-Kartenreiters:
+  * Hinzufügen zu ausgewählten Bildern
+  * Entfernen aus ausgewählten Bildern
+  Diese fügen Stichwörtern ausgewählten Bilder hinzu oder entfernen diese, so
+  wie dies bei der Baumansicht (seit längerem) möglich ist
+* Autovervollständigen für Bildtitel und Bildbeschreibung deaktiviert
+  (Performance). Außerdem unterscheidet das Auto-Vervollständigen nun zwischen
+  Groß- und Kleinschreibung
+* Die Datenbank wird nach einmaligem erfolgreichen Aktualisieren nur noch bei
+  neuen JPhotoTagger-Versionen während des Start überprüft. Somit sind keine
+  "Performance-Parameter" mehr in den Einstellungen erforderlich, diese
+  werden auch nicht mehr ausgewertet, wie beschrieben und nun gelöscht unter
+  der Vorgängerversion 0.8.1.
+
+0.8.1 2010-03-15
+----------------
+
+* Neue Einträge im Kontextmenü des Kartenreiters "Verschiedenes": "Löschen" und
+  "Umbenennen": Löscht ausgewählte Metadaten aus allen Filialdateien oder
+  benennt diese dort um, beispielsweise das Copyright.
+
+0.8.0 2010-03-14
+----------------
+
+* Neuer Menüpunkt: Fenster > Protokoll mit allen Ausgaben. Dieses zeigt jede
+  Meldung an, die auch das Ausgabefenster anzeigt und dient insbesondere der
+  Fehleranalyse. Im Gegensatz zum Ausgabefenster sind dort alle Meldungen seit
+  dem Start gespeichert, während das Ausgabefenster einen "Puffer" mit
+  bestimmter Größe hat, das heißt, eine maximale Anzahl an Nachrichten anzeigt.
+* Datenbankdesign modifiziert: 10 verschiedene XMP und 2 EXIF-Werte sind in
+  separaten Tabellen. Für gespeicherte Suchen gilt das gleiche wie hier
+  beschreiben unter "0.7.95 2010-03-12". Das Aktualisieren großer Datenbanken
+  kann einige Zeit dauern!
+
+0.7.95 2010-03-12
+-----------------
+
+* Datenbankdesign modifiziert: Stichwörter sind nun in einer einzigen Tabelle.
+  Gespeicherte Suchen mit einem Stichwort stehen zwischen zwei
+  Ausrufungszeichen, da diese nicht mehr funktionieren (können). Sind es von
+  JPhotoTagger erzeugte Suchen, sollte es ausreichen, die Suchen erneut zu
+  speichern (Klick mit rechter Maustaste auf eine Suche, "Bearbeiten" auswählen
+  und im Dialog die Schaltfläche "Speichern". Eigenes SQL ist (selbst)
+  umzuformulieren.
+
+0.7.94 2010-03-10
+-----------------
+
+* Neue Option: Bearbeiten > Einstellungen > Sonstiges: Auto-Vervollständigen
+  aktivieren. Diese Option ist in der Hilfe (im PDF-Handbuch) beschrieben.
+
+0.7.93 2010-03-09
+-----------------
+
+* Windows: Nach Herunterladen einer neuen Version, wird gefragt, ob diese
+  installiert werden soll nach Beenden von JPhotoTagger
+
+0.7.92 2010-03-08
+-----------------
+
+* JPhotoTagger kann seine Datenbank automatisch sichern: "Bearbeiten >
+  Einstellungen > Automatisieren"
+* URIs für E-Mails und Webseiten umgestellt auf neue Domain jphototagger.org
+
+0.7.91 2010-03-07
+-----------------
+
+* "Datei > Datenbank sichern": Es werden alle Dateien der Datenbank in einen
+  Ordner gespeichert. Dieser kann eingestellt werden unter "Bearbeiten >
+  Einstellungen > Sonstiges".
+
+0.7.90 2010-03-07
+-----------------
+
+* Neuer Menüeintrag: "Datei > Datenbank sichern". Dieser ist beschrieben in der
+  Hilfe und im PDF-Benutzerhandbuch.
+* Hilfe: Neue Menüeinträge:
+  * Benutzerforum besuchen
+  * Website besuchen
+  * Versions-Historie
+* Bearbeiten > Einstellungen: Kartenreiter "Sonstiges" hat keine
+  Unterkartenreiter mehr. Zum Anzeigen von PDF-Dateien und Browsen im Web
+  werden die im System definierten Programme benutzt.
+
+0.7.89 2010-03-06
+-----------------
+
+* Bugfix: Aktionsliste zeigte eine neue Aktion zwei mal an (nach Neustart von
+  JPhotoTagger erschien die Aktion korrekt nur ein mal in der Liste)
+
+0.7.88 2010-03-05
+-----------------
+
+* 2 neue Menüpunkte unter "Hilfe": "Fehler melden" und "Wünsche melden": Startet
+ E-Mail-Programm mit ausgefülltem Empfänger und Betreff
+
+0.7.87 2010-03-04
+-----------------
+
+* Link zur Hilfeseite korrigiert bei Aufruf aus dem Im- und Exportdialog von
+  JPhotoTagger-Daten
+
+0.7.86 2010-03-04
+-----------------
+
+* Ex- und Import von folgenden JPhotoTagger-Daten:
+  * Programme und Aktionen
+  * Favoriten
+  * Überwachte Ordner
+  * Datei-Ausschluss-Muster
+
+0.7.85 2010-03-03
+-----------------
+
+* Neuer Menüpunkt: Datei > Exportieren > JPhotoTagger-Daten
+* Neuer Menüpunkt: Datei > Importieren > JPhotoTagger-Daten
+* Die neuen Menüpunkte können wahlweise folgende Daten in XML-Dateien
+  exportieren:
+  * JPhotoTagger-Stichwortbaum
+  * Synonyme (wurde durch diesen Menüpunkt ersetzt)
+  * Dateinamen-Schablonen (neu)
+  * Gespeicherte Suchen (neu)
+  * Fotoalben (neu)
+  * Bearbeiten-Vorlagen (neu)
+  Weitere Informationen stehen im PDF-Benutzerhandbuch oder in der Hilfe,
+  die Sie bei geöffneten Dialog mit F1 aufrufen können (wobei [ohne Umwege]
+  die richtige Seite angezeigt wird).
+
+0.7.84 2010-03-01
+-----------------
+
+* Umbenennen von Dateien: Es können Schablonen gespeichert und geladen werden
+
+0.7.83 2010-02-28
+-----------------
+
+* Datei > Bilder importieren: Dialog bietet Auswahl einzelner Dateien an und
+  die Möglichkeit, nach dem Import die importierten Bilder vom Quellordner zu
+  löschen.
+
+0.7.82 2010-02-27
+-----------------
+
+* Bearbeiten > Einstellungen: Gefundene Wörter werden markiert
+
+0.7.81 2010-02-25
+-----------------
+
+* Bearbeiten > Einstellungen: Dialog hat Textfeld für Suche
+* Aufklappstatus und Markierungen aller Teilbäume einer Baumansicht (Ordner,
+  Favoriten, Stichwörter, ...) werden beim Beenden gemerkt und wiederhergestellt
+  nach dem Start. Bislang wurde nur der Status *eines* markierten Teilbaums
+  gespeichert.
+
+0.7.80 2010-02-22
+-----------------
+
+* Im Fenstertitel wird bei Auswahl von Ordnern der komplette Pfad angezeigt
+* Bilder importieren: Nach Kopieren der Dateien wird in der Fortschrittsanzeige
+  symbolisiert, dass die importierten Bilder noch in die Datenbank eingefügt
+  werden
+
+0.7.79 2010-02-21
+-----------------
+
+* Bugfix: PDF-Handbuch wird geöffnet, falls Leerzeichen im Pfad sind
+* Bugfix: Beim Ausführen von Aktionen wird auf deren Prozess-Ende gewartet und
+  Fehlermeldungen werden angezeigt
+
+0.7.78 2010-02-17
+-----------------
+
+* Bugfix: Lesen eingebetteter Vorschaubilder sollte keine (weniger) Fehler
+  verursachen, *falls* Vorschaubilder eingebettet sind
+
+0.7.77 2010-02-16
+-----------------
+
+* Bearbeiten > Einstellungen > Plugins > Ein/Ausschließen: Einzelne Plugins
+  können aktiviert oder deaktiviert werden
+* Flickr-Upload: Bestätigungsdialog mit nur noch 2 Schaltflächen: "Ja" und
+  "Nein"
+* Interna modifiziert
+
+0.7.76 2010-02-15
+-----------------
+
+* Plugin Flickr-Upload lädt auf Wunsch Stichwörter (Tags), Bildtitel und
+  Bildbeschreibung hoch mit den Bildern: Bearbeiten > Einstellungen > Plugins >
+  Flickr-Upload. Siehe dort auch die Hilfe (Schaltfläche "Hilfe").
+
+0.7.75 2010-02-14
+-----------------
+
+* Vorschaubilder: Cache nutzt wieder absolute statt kanonische URIs (sonst
+  würden alle bisherige Vorschaubilder neu erzeugt).
+
+
+0.7.74 2010-02-14
+-----------------
+
+* Plugin für Flickr-Upload hinzugefügt. In der ersten Version werden die Bilder
+  einfach (ohne Kommentare, Tags) hochgeladen. Hilfe: "Bearbeiten >
+  Einstellungen > Plugins > Flickr-Upload", Schaltfläche "Hilfe".
+
+0.7.73 2010-02-13
+-----------------
+
+* Datei > Datenban, Kartenreiter Wartung: Angekreuzte Wartungsaufgaben werden
+  nach dem Start wieder angekreuzt (oder nicht, falls nicht angekreuzt)
+* Werkzeuge > XMP-Daten importieren: Nach Auswahl des Verzeichnisses werden die
+  darin enthaltenen Bilddateien in einer Liste angezeigt, es ist nicht mehr
+  erforderlich, einen separaten Dialog zu diesem Zweck zu öffnen.
+* Werkzeuge > XMP-Daten importieren: Status der Ankreuzfelder wird beim
+  Beenden von JPhotoTagger gespeichert und nach dem Start wieder hergestellt.
+* Werkzeuge > IPTC-Daten importieren: Status des Ankreuzfelds, ob
+  Unterverzeichnisse einbezogen werden sollen, wird beim Beenden von
+  JPhotoTagger gespeichert und nach dem Start wieder hergestellt.
+* In der Hilfe/im Handbuch ungültige Links auf kenai.com ersetzt durch gültige
+* Bugfix: Hilfe > Tastenkombinationen ruft Hilfe wieder auf
+
+0.7.72 2010-02-12
+-----------------
+
+* Fenster > Synonyme: In die Textfelder für Wort und Synonym können Stichwörter
+  mit der Maus gezogen werden
+* Bearbeiten > Einstellungen, Kartenreiter "Sonstiges": Inhalt des
+  Unter-Kartenreiters "Datenbankordner" verschoben in den Unter-Kartenreiter
+  "Verschiedenes"
+* Bäume und Listen des Programmfensters: Farbe der temporären Auswahl beim
+  Öffnen des Kontextmenüs ist gleich jender der "Standardauswahl" (Linksklick
+  auf einen Eintrag)
+
+0.7.71 2010-02-12
+-----------------
+
+* Verschieben von Bildern in einem Album: Dreicksspitze nach unten zeigt auf
+  neuen Platz
+* Bäume und Listen des Programmfensters: Wird das Kontextemenü geöffnet,
+  wird temporär nur das Element unter dem Mauszeiger hervorgehoben,
+  andere Auswahl-Hervorhebungen werden ausgeblendet
+
+0.7.70 2010-02-11
+-----------------
+
+* Kartenreiter Bearbeiten: Neuer Menü-Eintrag für das Kontextemenü der
+  Stichwortliste: Synonyme bearbeiten
+* Ziehen und fallen lassen von Stichwörtern im Vorschaubildfenster:
+  Es können Stichwörter auch auf nicht ausgewählte Bilder gezogen werden:
+  * Werden Stichwörter auf ein nicht ausgewähltes Bild fallen gelassen,
+    so werden sie diesem zugeordnet (neu)
+  * Werden Stichwörter auf ein ausgewähltes Bild fallen gelassen, werden
+    sie diesem und allen anderen ausgewählten Bildern zugeordnet
+	(bisheriges Verhalten)
+
+0.7.69 2010-02-10
+-----------------
+
+* Die Anzahl der ausgewählten Bilder steht in der Statuszeile (Programmfenster
+  unten links)
+
+0.7.68 2010-02-10
+-----------------
+
+* Interna modifiziert
+
+0.7.67 2010-02-10
+-----------------
+
+* Vorschaubilder werden neu erzeugt, falls deren Datum der letzten Modifikation
+  älter ist als das der Datei (vorher wurde das Datum aus der Datenbank gelesen).
+  Betrifft automatische Aktualisierung beim Auswählen von Ordnern oder als
+  geplante Aufgabe.
+* Klick mit der rechten Maustaste innerhalb des Vorschaubildfensters:
+  * Klick in ein ausgewähltes Bild behält die Auswahl bei
+  * Klick in ein nicht ausgewähltes Bild wählt dieses aus und löscht die
+    bisherige Auswahl
+  * Klick in einen freien Bereich (unten, kein Bild) löscht die Auswahl
+* Format der Protokolldatei kann nicht mehr definiert werden, dies ist
+  autotamisch "ausführlich" (XML-Datei)
+* Bugfix beim Lesen von Nikon EXIF-Daten
+
+0.7.66 2010-02-09
+-----------------
+
+* Neuer Menü-Eintrag für Stichwörter / Listenansicht, Programmfenster rechts:
+  Synonyme bearbeiten (Definieren, Ändern, Löschen von Synonymen für ein
+  ausgewähltes Stichwort)
+
+0.7.65 2010-02-08
+-----------------
+
+* Schnellsuchfelder können nicht mehr individuell bestimmt werden. Es wird
+  nun in allen bisher definierbaren Feldern gesucht.
+* Es kann nicht mehr bestimmt werden, dass Bearbeiten-Felder ausgeblendet
+  werden können
+* Im Einstellungen-Dialog die Einstellung des IPTC-Zeichensatzes verlagert
+  nach "Sonstiges > Verschiedenes"
+
+0.7.64 2010-02-07
+-----------------
+
+* Neu Synonyme: Für Stichwörter können Synonyme definiert werden, die bei
+  der Schnellsuche berücksichtigt werden. Menü Fenster > Synonyme. Mehr steht
+  in der Hilfe zu diesem Menüpunkt (oder F1 bei geöffnetem Synonymdialog F7).
+* Ex- und Import von Synonymen (Datei > Exportieren > Synonyme und
+  Datei > Importieren > Synonyme). Mehr steht in der Hilfe zu diesen Menüpunkten.
+
+0.7.63 2010-02-05
+-----------------
+
+* Stichwortliste: Umbenennen ist möglich, falls ein gleichnamiges Stichwort int
+  der Liste existiert
+* Stichwortbaum: Umlaute werden wie Selbstlaute sortiert (ä -> a)
+* Neues Stichwort im Stichwortbaum erzeugen: Keine Vorgabe "Neues Stichwort"
+* Nur im bearbeiteten Stichwortbaum wird ein Teilbaum geöffnet beim Hinzufügen
+  neuer Stichwörter
+
+0.7.62 2010-02-03
+-----------------
+
+* Bugfix: "Out of memory" beim Umbenennen von Stichwörtern und größerer
+  Bildanzahl
+
+0.7.61 2010-02-02
+-----------------
+
+* Werden Stichwörter in der  Baumansicht modifiziert, hat das keine (globalen)
+  Auswirkungen mehr auf die Filialdateien, da JPhotoTagger dies nicht sicher
+  durchführen kann, es fehlt die Zuordnung zu Pfaden des Stichwortbaums. Über
+  die Listenansicht können Stichwörter global umbenannt und gelöscht werden.
+  Näheres dazu steht in der Hilfe unter
+  "Die Auswahl-Kartenreiter > Stichwörter / Baumansicht"
+
+0.7.60 2010-02-01
+-----------------
+
+* Stichworthierarchien werden nicht mehr in die Filialdateien geschrieben, da
+  eine konsistente Haltung aktuell zu zeitaufwändig wäre. Siehe hierzu auch die
+  neue Hilfeseite: Wichtige Fakten > Behandlung von Stichworthierarchien (dort
+  steht, worauf dies hinliefe. Der Zeitaufand ohne jene Änderungen läge beim
+  Verschieben und Kopieren von Teilbäumen und dabei Anpassen der
+  Stichworthierarchien.)
+
+0.7.59 2010-01-30
+-----------------
+
+* Es werden mehr als nur eine Stichworthierarchie in die XMP-Filialdateien
+  exportiert
+
+0.7.58 2010-01-29
+-----------------
+
+* Stichworthierarchien werden in den XMP-Filialdateien gespeichert und ausgelesen.
+  Mehr dazu steht in der Hilfe unter "Stichwortbaum", Abschnitt "Wird die
+  Stichworthierarchie in der XMP-Filialdatei gespeichert?"
+* Bugfix: Stichwortbaum im Fenster rechts: Wurde ein Stichwort gezogen und
+  auf sich selbst fallen gelassen, wurde es gelöscht
+
+0.7.57 2010-01-28
+-----------------
+
+* 2 neue Einträge im Kontextmenü des Vorschaubildfensters:
+  * Dateioperationen > Alles auswählen
+  * Dateioperationen > Auswahl aufheben
+
+0.7.56 2010-01-27
+-----------------
+
+* Stichwörter werden zusätzlich in die Adobe Photoshop Lightroom Hierarchical
+  Keywords der XMP-Filialdateien geschrieben. Diese sind dann identisch mit den
+  Dublin Core Subjects (dort speichert JPhotoTagger die Stichwörter). Zusätzlich
+  wird die Hierarchie dort so gespeichert wie in Lightroom: Wird vom
+  Stichwortbaum ein Stichwort per Ziehen und Ablegen auf ein Bild übertragen
+  oder über das Kontextmenü (Strg+B), wird dessen Hierarchie gespeichert, die
+  einzelnen Stichwörter getrennt durch das "|"-Zeichen, wobei die allgemeineren
+  Stichwörter vor den spezielleren stehen. JPhotoTagger liest die hierarchischen
+  Stichwörter ein, berücksichtigt diese aber nicht, da die Dublin
+  Core-Stichwörter verwaltet werden und für diese ist keine Hiearchie definiert.
+* Eingabehilfen, Kartenreiter "Vorlagen" hat Schaltfläche für die
+  Aktionen zusätzlich zum Kontextmenü (gleiche Funktionen)
+
+0.7.55 2010-01-26
+-----------------
+
+* Automatische Wortergänzung: Nach Speichern in die Datenbank wird das
+  Wort angeboten, Neustart ist nicht mehr erforderlich
+* Neue Schaltfläche im Kartenreiter Bearbeiten unten, Kartenreiter
+  Vorlagen: "Neu". Öffnet den Vorlagen-Editor zum Erstellen einer neuen
+  Vorlage.
+* Bugfix: Fehler beim Lesen von EXIF-(MakerNote-) Daten bestimmter
+  Canon-Kameras
+
+0.7.54 2010-01-25
+-----------------
+
+* Bugfix: Für nicht mehr existierende Bilddateien wird kein Fehlerbild erzeugt,
+  dies geschieht nur noch für Bilder, von denen keine Vorschaubilder erzeugt
+  werden konnten
+
+0.7.53 2010-01-25
+-----------------
+
+* Eingabefelder im Kartenreiter "Bearbeiten" können direkt angesprungen werden
+  über Tastenkürzel (Alt+unterstrichener Buchstabe)
+
+0.7.52 2010-01-24
+-----------------
+
+* Schaltflächen und Ankreuzfelder sollten jetzt alle direkt ansprechbar sein
+  über die Tastatur mit Alt+unterstrichenem Buchstaben
+* Aktionen werden dem Kontextmenü für Vorschaubilder hinzugefügt
+* Neue Handbuchseiten:
+  * Wichtige Fakten      > Welche Metadaten werden gelesen?
+  * Tipps                > Exportieren Sie regelmäßig Ihren Stichwortbaum
+  * Einstellungen-Dialog > Plugins
+* Einige sich überall auswirkende Tastenkombinationen starten mit Strg+Umschalt,
+  diese werden in den Menüpunkten des Programmfensters angezeigt
+
+0.7.51 2010-01-23
+-----------------
+
+* Menü "Datei > Bilder von der Kamera-Speicherkarte importieren" umbenannt nach
+  "Bilder importieren". Import-Dialog modifiziert.
+* Kartenreiter entfernt: Bearbeiten > Einstellungen > Sonstiges > Verschiedenes:
+  Kamera-Speicherkarte
+* Option entfernt: Bearbeiten > Einstellungen > Sonstiges > Verschiedenes:
+  Versuchen, nach Programmstart im Kartenreiter Ordner zuletzt ausgewählten
+  Ordner anzuzeigen
+* Bugfix: Umbenennen-Dialog erschien nicht mehr
+
+0.7.50 2010-01-23
+-----------------
+
+* Kommandozeilen-Option für den Start: "-import". Beschreibung in der Hilfe /
+  im PDF-Handbuch unter "Kommandozeilenoptionen"
+
+0.7.49 2010-01-22
+-----------------
+
+* Bugfix: Verzögerung beim Start bis zum Anzeigen der Vorschaubilder
+
+0.7.48 2010-01-21
+-----------------
+
+* Neue Schaltfläche im Kartenreiter "Bearbeiten / Vorlagen": Bearbeiten. So
+  kann eine Vorlage bearbeitet werden ohne Werte einzugeben in die
+  Bearbeiten-Texteingabefelder, deren Änderung sich auswirkt auf ausgewählte
+  Bilder.
+* Stichwortbaum und Stichwortliste: Beim Löschen mehrerer ausgewählter
+  Stichwörter wird nur noch ein Mal um Bestätigung gebeten
+* Bugfix: Im Kontextmenü des Vorschaubildfensters wurden weitere
+  Programme zum Öffnen und Bearbeiten von Bildern deaktiviert, obwohl
+  definiert
+
+0.7.47 2010-01-20
+-----------------
+
+* Stichwortbaum: Es können mehrere markierte Stichwörter gleichzeitig gelöscht
+  werden
+* Bugfix: Wird eine gespeicherte Suche modifiziert, wird diese sofort ver�ndert
+  im Kartenreiter der gespeicherten Suchen. Falls eine Suche unter anderem Namen
+  gespeichert wird, erscheint diese dort als neuer Eintrag.
+* Sortierung wird nur noch bei Suchen mit eigenem SQL deaktiviert
+
+0.7.46 2010-01-19
+-----------------
+
+* Suchen werden nicht sortiert, sodass die SQL-Sortierung benutzt wird. So
+  k�nnen �ber Suchen - "Eigenes SQL" - Bilder nach Bedarf sortiert werden.
+
+0.7.45 2010-01-18
+-----------------
+
+* Bug möglicherweise beseitigt: Abbrechen beim Einlesen von Bildern mit
+  Fehler im Dateiformat
+
+0.7.44 2010-01-18
+-----------------
+
+* Bugfix Favoriten-Ordner: Wurde im Kontextmenü "Ändern" ausgewählt für einen
+  Ordner in der 1. Ebene und anschließend als neuer Ordner ein Unterordner
+  dieses Ordners, wurden nach wie vor die alten Unterordner angezeigt, ebenso,
+  wurde ein übergeordneter Ordner als neuer Ordner ausgewählt.
+
+
+0.7.43 2010-01-17
+-----------------
+
+* Neuer Eintrag im Kontextmenü des rechten Stichwort-Kartenreiters: "Bilder
+  anzeigen"
+
+0.7.42 2010-01-17
+-----------------
+
+* Es wird wieder angezeigt, ob Vorschaubilder geladen werden ("Laden..." im
+  Vorschaubildfenster)
+
+0.7.41 2010-01-16
+-----------------
+
+* Falls für eine Bilddatei keine XMP-Metadaten existieren, wird in dieser nicht
+  automatisch nach IPTC gesucht bei Datenbank-Aktualisierungen (Beschleunigung).
+  IPTC kann wie gewohnt nach XMP übernommen werden (Kontextmenü der
+  Vorschaubilder, Schaltfläche im Kartenreiter IPTC, für ganze Verzeichnisse
+  über "Werkzeuge > IPTC-Daten nach XMP").
+* Interna modifiziert
+
+0.7.40 2010-01-15
+-----------------
+
+* Für Vorschaubilder, die nicht erzeugt werden konnten, wird ein Fehlerbild
+  angezeigt
+* Folgende Canon-spezifischen EXIF-Metadaten werden gelesen: Objektiv und
+  Fokus-Modus. Ob die Werte plausibel sind, kann ich erst nach Feedback von
+  Canon-Fotografen sagen.
+* Interne Überarbeitungen, Bugfixes
+
+0.7.39 2010-01-15
+-----------------
+
+* Beim Start werden Fortschrittsanzeigen in den Splashscreen geschrieben, es
+  erscheint kein Dialog mehr
+
+0.7.38 2010-01-14
+-----------------
+
+* Bearbeiten > Einstellungen > Sonstiges > Protokoll: Wird die Ausführlichkeit
+  (Loglevel) geändert, wirkt sich dies sofort aus ohne Neustart von JPhotoTagger
+* Verschiedene kleinere Änderungen, darunter Bugfixes
+
+0.7.37 2010-01-13
+-----------------
+
+* Automatische Vervollständigung vervollständigt jetzt einzelne Wörter und
+  sollte keine Eingaben mehr löschen. In dieser Version werden neu eingegebene
+  Wörter, die noch nicht in der Datenbank sind, erst nach einem Neustart
+  vorgeschlagen. Wird jetzt eine Textvervollständigung angzeigt nach Eingabe ab
+  2 Zeichen, kann eine Vervollständigung mit ENTER akzeptiert werden und danach
+  das nächste Wort eingegeben.
+* Bugfix: Zeitleiste und XMP-Datum bereitete Probleme nach Umstruktierung des
+  Codes
+* Anzeigen von IPTC ist deaktiviert, falls nicht anders eingestellt in
+  Bearbeiten > Einstellungen > Leistung
+
+0.7.36 2010-01-12
+-----------------
+
+* Kartenreiter "Bearbeiten": Eingabefeld für Beschreibung 2 Zeilen höher
+
+0.7.35 2010-01-11
+-----------------
+
+* Neue Optione: "Bearbeiten > Einstellungen > Leistung": IPTC Metadaten anzeigen
+  (lesen aus den Bilddateien). Sollten Ihre Bilder keine IPTC-Metadaten haben,
+  beschleunigen Sie so die Anzeige der Metadaten, falls Sie ein (einziges) Bild
+  auswählen, da nicht die ganze Datei vergeblich nach IPTC-Metadaten durchsucht
+  wird.
+* Mehrfachauswahl von Dateien: Einlesen gemeinsamer XMP-Daten in den
+  Bearbeiten-Kartenreiter beschleunigt; es wird nicht mehr versucht,
+  eingebettetes XMP zu lesen
+
+0.7.34 2010-01-11
+-----------------
+
+* Bugfix: Kontextmenü Stichwortbaum: "Bilder anzeigen: Hierarchie" und
+  "Bilder anzeigen: Nur Stichwort" funktionieren wieder
+
+0.7.33 2010-01-10
+-----------------
+
+* Bearbeiten > Einstellungen > Vorschaubilder: Sollen die Vorschaubilder nicht
+  mit einem externen Programm erstellt werden eingebettete ausgelesen werden,
+  lässt sich einstellen, ob Imagero diese erzeugen soll oder die Java Image IO.
+  Sie können sofort sehen, wie sich eine Einstellung auswirkt: Schieben Sie den
+  Einstellungen-Dialog zur Seite, wählen ein Vorschaubild aus, klicken mit der
+  linken Maustaste darauf und wählen aus dem Kontextmenü "Aktualisieren >
+  Vorschaubild". Falls Ihnen das Ergebnis nicht gefällt, probieren Sie eine
+  andere Option und lassen erneut ein Vorschaubild erzeugen.
+
+0.7.32 2010-01-09
+-----------------
+
+* Vorlagen können komfortabel bearbeitet und benutzt werden über den Dialog
+  "Fenster > Eingabehilfen" (F9), Kartenreiter "Vorlagen". Die Funktionen sind
+  zu erreichen über das Kontextmenü oder Tastenkürzel (diese stehen unten in
+  Klammern):
+  * Neue anlegen (Strg+N)
+  * Existierende bearbeiten (Strg+E, Doppelklick)
+  * Umbenennen (F2)
+  * Löschen (DEL)
+  * Einfügen in ausgewählte Bilder (Drag & Drop), EINF
+* Bugfix: Über den Kartenreiter "Bearbeiten" hinzugefügte Stichwörter
+  veranlassen sofortiges Speichern, falls so eingestellt (nun Standard)
+
+0.7.31 2010-01-08
+-----------------
+
+* Eingaben werden so früh wie möglich gespeichert, siehe in der Hilfe:
+  Einstellungen > Leistung > Eingaben so früh wie möglich speichern. Im
+  Einstellungen-Dialog kann diese Option abgeschaltet werden.
+* Stichwörter, Listenansicht: In der Listenansicht rechts können Stichwörter
+  umbenannt und gelöscht werden (Kontextemenü, F2, DEL). Die Filialdateien
+  werden dabei aktualisiert.
+* Bugfix: Fortschrittsanzeige bei einigen Prozessen nicht richtig berechnet
+  (seit 0.7.30)
+
+0.7.30 2010-01-07
+-----------------
+
+* Bearbeiten-Stichwortbaum und Eingabehilfen-Stichwortbaum können umgeschaltet
+  werden auf Listenansicht. Die Listenansicht existiert nicht mehr alleine.
+* Bilder mit (nur) XMP-Datum stehen nun in der Zeitleiste
+* Neue Schaltfläche im Kartenreiter EXIF: EXIF nach XMP
+* Neuer Eintrag im Kontextmenü der Vorschaubilder: Verschiedenes > EXIF-Daten
+  nach XMP
+* Beim Aktualisieren der Datenbank wird das EXIF-Aufnahmedatum automatisch in
+  XMP-Filialdateien geschrieben, falls es dort noch nicht existiert
+* Neue Option: Datei > Datenbank > Aktualisieren: EXIF-Datum übertragen nach XMP.
+  Diese ist im Handbuch beschrieben unter Datei > Datenbank > Aktualisieren.
+* Bei der Konvertierung von IPTC nach XMP wird ein IPTC-Datum des Formats
+  JJJJMMTT umgewandelt in ein XMP-Datum des Formats JJJJ-MM-TT
+
+0.7.29 2010-01-06
+-----------------
+
+* Neues Bearbeiten-Feld: Aufnahmedatum. Dies ist gedacht für Bilder ohne
+  EXIF-Metadaten, beispielsweise Scans älterer Fotos. Vorläufig erscheint
+  das Datum noch unter dem Kartenreiter "Verschiedenes > Angaben zu den Bildern
+  > Aufnahmedatum". Vielleicht wird dieses in die Zeitleiste zu übernommen,
+  wobei zu berücksichtigen ist, dass praktisch jeder ungültige Wert eingegeben
+  werden kann (IPTC-"Altlast"). Das Format ist JJJJ-MM-TT, z.B. 2010-01-06 für
+  den 06.01.2010.
+  Die Spalte ist erst aufzunehmen über "Bearbeiten > Einstellungen >
+  Bearbeiten" und erscheint nach Neustart.
+  Außerdem kann nach diesem Datum über die erweiterte Suche (F3) gesucht werden
+  und diese gespeichert
+* Fenster > Eingabehilfen: Neuer Kartenreiter "Vorlagen". Dieser ist in der
+  Hilfe beschrieben.
+
+0.7.28 2010-01-05
+-----------------
+
+* Beim Start von JPhotoTagger wird geprüft, ob im Web eine neue Version existiert
+  und diese zum Download angeboten. Dies kann abgeschaltet werden unter
+  "Bearbeiten > Einstellungen > Sonstiges > Verschiedenes": Nach dem
+  Programmstart automatisch auf eine neue Version prüfen
+* Menüpunkt "Werkzeuge > Stichwörter in den Stichwortbaum kopieren" verlagert
+  in "Bearbeiten > Datenbank > Aktualisieren"; diese Funktion wird in der Regel
+  nur ein Mal benötigt
+* Kartenreiter Bearbeiten: Name der aktuellen Schablone wird angezeigt, auch
+  falls nicht der Kartenreiter mit dem Dropdown-Listenfeld der Schablonen-Namen
+  ausgewählt ist
+* "Bildsammlungen" umbenannt in "Fotoalben"
+* Einige kleinere Layout-Modifikationen
+
+0.7.27 2010-01-04
+-----------------
+
+* "Datei >  Datenbank > Aktualisieren": Neue Funktion: Alle Vorschaubilder neu
+  berechnen
+* "Datei >  Datenbank > Aktualisieren": Neue Funktion: XMP-Metadaten aller
+  bekannten Dateien neu einlesen
+* Text-Suchfeld zeigt Hintergrundbild "Suchen" nur, falls es leer ist, damit
+  es den Text nicht ungünstig überlagert
+* Menü "Ansicht" ohne Einträge "Vorschaubilder vergrößern/verkleinern". Die
+  Funktionalität bleibt erhalten (Strg++/Strg+-)
+* Datenbankbezogene Menü-Einträge aus "Werkzeuge" verschoben in den Dialog
+  "Datei > Datenbank", Kartenreiter "Aktualisieren". Dabei die nicht mehr
+  benötigte Funktion "XMP in ausgewählten Dateien ersetzen" entfernt; dies kann
+  komfortabler erledigt werden über den Bearbeiten-Kartenreiter
+* Bugfix: Beim Umbenennen eines Verzeichnisses werden die Vorschaubilder
+  aktualisiert
+
+0.7.26 2010-01-03
+-----------------
+
+* Kontextmenü Vorschaubilder: "Aus der Datenbank entfernen" befindet sich nun
+  im Untermenü "Aktualisieren"
+* Aktualisieren von XMP-Daten in der Datenbank ist effizienter
+
+0.7.25 2010-01-03
+-----------------
+
+* Neuer Menüpunkt: "Werkzeuge > Datenbank aktualisieren mit EXIF". Dieser
+  schreibt alle EXIF-Daten neu in die Datenbank. Das ist sinnvoll, falls nun
+  neue Eigenschaften der Kamera in die Datenbank geschrieben werden, z.B.
+  Objektive von Nikon-Digital-Spiegelreflexkameras.
+* Wird im Kartenreiter "Verschiedenes" eine übergeordnete Kategorie ausgewählt,
+  werden alle Bilder mit diesen Metadaten angezeigt, z.B. alle Bilder mit
+  einer (beliebigen) Kamera in den EXIF-Metadaten oder mit Brennweitenangabe
+* Bugfixes:
+  * Bewertung: Waren mehrere Bilder mit unterschiedlicher Bewertung
+    ausgewählt und wurde eine Bewertung vergeben, wirkte sich dies aus, auch
+    wenn die Nachfrage mit "Nein" beantwortet wurde
+  * Einlesen bestimmter EXIF-Daten wurde unterbunden, z.B. Kameramodell
+
+0.7.24 2010-01-02
+-----------------
+
+* Für EXIF "Nikon Maker Note Type 3" folgende EXIF-Tags hinzugefügt:
+
+  ** Qualität (RAW, JPEG-Qualität)
+  ** Scharfeinstellung (z.B. AF-S, Manuell)
+  ** Objektiv (Brennweitenbereich, Lichtstärke)
+
+  Getestet für die Kameras Nikon D300 und Nikon D70. Sollte bei allen
+  Nikon-Kameras mit dem gleichen Maker Note funktionieren. Die neuen Tags werden
+  anders eingefärbt im Kartenreiter "EXIF" und erscheinen dort unterhalb der
+  EXIF-Standardwerte. Ausnahme: Daten, die in die Datenbank gespeichert werden,
+  stehen oberhalb eventueller GPS-Daten und sind mit der "Datenbank-Farbe"
+  hinterlegt.
+
+  Da das Format von nicht Nikon veröffentlicht ist (falls doch: Bitte URL
+  mitteilen), habe ich nur jene Tags genommen, die relevant sind für RAW-Bilder
+  (keine JPEG-Bearbeitungsfunktionen wie z.B. Kontrasteinstellung) und für die
+  die im Web gefundenen Interpretationen übereinstimmen.
+
+* Wird ein Objektiv in den EXIF-Daten erkannt (siehe Punkt vorher), wird dieses
+  in die Datanbank gespeichert und kann für Suchen und Schnellzugriff über
+  die Metadaten-Kartenreiter benutzt werden.
+
+
+0.7.23 2009-12-31
+-----------------
+
+* Das Schnellsuch-Textfeld zeigt den Text "Suchen (Strg+F)" an (als dezentes
+  Hintergrundbild), sodass dessen Bedeutung und Schnellzugriff offensichtlich
+  sind
+
+0.7.22 2009-12-30
+-----------------
+
+* Start: Implementierung von Klassen zum Lesen proprietärer EXIF-Tags. Diese
+  Tags werden in separaten Textdateien definiert. Aktuell wird so die ISO-Zahl
+  der Nikon D70 eingelesen, die diese nicht in das vorgesehene Standard-EXIF-Tag
+  schreibt. Besitzer von Nikon-D70-Dateien sollten alle Bilder der D70 auswählen
+  im Kartenreiter "Verschiedenes > Kamera", alle Bilder auswählen (Strg+A) und
+  im Kontextmenü der Vorschaubilder "Aktualisieren > Metadaten" auswählen.
+  Danach befinden sich die ISO-Werte in der Datenbank und können zum Sortieren,
+  Suchen und Anzeigen (Kartenreiter "Verschiedenes") benutzt werden.
+* Tritt ein Fehler auf, wird im Programmfenster unten ein rotes Kreuz angezeigt,
+  das bei Mausklick die Fehler-Logdatei anzeigt
+
+0.7.21 2009-12-29
+-----------------
+
+* Vorschaubilder von JPEG-Dateien sollten mit JPhotoTagger besser gerendert werden
+* Bugfix beim Einlesen von EXIF-Metdaten (falsche Interpretation von Zeichenketten)
+
+0.7.20 2009-12-28
+-----------------
+
+* Stichwort-Teilbäume können kopiert werden und eingefügt unter anderen
+  Teilbäumen
+* Bugfix: Im Stichwortbaum kann ein übergeordnetes Stichwort nicht mehr unter
+  eines seiner untergeordneten verschoben werden
+
+0.7.19 2009-12-27
+-----------------
+
+* Erweiterte Suche > Einfaches SQL: Gesetzte Klammern sind besser zu
+  unterscheiden von nicht gesetzten
+* Erweiterte Suche: Falls *der Benutzer* die Spalte *ändert* auf "Stichwort"
+  wird der Eingabehilfen-Dialog automatisch angezeigt
+* Kontextmenü für Vorschaubilder weiter unterteilt
+* Dialoge zur Texteingabe merken sich Größe und Position (mit Ausnahme jener des
+  Ordner-Kartenreiters und Favoritenordner-Kartenreiters)
+* Dialog "Zuletzt eingegebene Begriffe" entfernt
+* Menü "Fenster > Logdatei mit Fehlern und Warnungen" ist nur auswählbar, falls
+  die Logdatei mindestens einen Eintrag seit Programmstart enthält
+* Bugfixes:
+* Hierarchische Stichwörter: Umschalten zwischen Echt und Helper funktioniert
+  wieder
+* Hierarchische Stichwörter: F2 benennt um
+* Hierarchische Stichwörter in Version 0.7.18 funktionierte nicht richtig,
+  nun korrigiert
+
+0.7.18 2009-12-26
+-----------------
+
+* Kontextmen� f�r Vorschaubilder gegliedert durch Untermen�s
+* Men�punkte aus Men� "Bearbeiten" ins Kontextmen� der Vorschaubilder verlagert,
+  sofern diese sich ausschlie�lich auf die Vorschaubilder bezogen
+* Hilfe: Bildschirmschnappsch�sse aktualisiert, einige
+  Stellen korrigiert
+* Autovervollst�ndigen wieder entfernt aus erweiterter Suche: Konnte zu extrem
+  langen Verz�gerungen f�hren beim �ffnen gespeicherter Suchen
+* Bugfix: Hierarchische Stichwörter können nicht mehr verschoben oder umbenannt
+  werden, falls es auf der gleichen Ebene bereits ein gleichnamiges Stichwort
+  gibt
+
+0.7.17 2009-12-25
+-----------------
+
+* Kategorien entfernt
+
+0.7.16 2009-12-23
+-----------------
+
+* Erweiterte Suche: Kartenreiter "Einfaches SQL" an 2. Stelle verschoben,
+  Layout korrigiert (unter Windows 7 wurden die beiden ersten Elemente nicht
+  vollständig entfernt)
+* Kleinere Oberflächen-Modifikationen
+
+0.7.15 2009-12-22
+-----------------
+
+* Nach dem Start ist das Suchen-Feld ausgewählt, es kann gleich ein Suchbegriff
+  eingetippt werden
+* Erweiterte Suche: In der 1. Zeile des Kartenreiters "Einfaches SQL" wurden die
+  ersten zwei nicht benötigten Elemente entfernt
+
+0.7.14 2009-12-21
+-----------------
+
+* Im Fenstertitel steht eine kurze Information zu den angezeigten Bildern
+
+0.7.13 2009-12-20
+-----------------
+
+* Sortieren nach Dateinamen aufgteilt in
+** Pfad: Alle übergeordneten Verzeichnisse werden berücksichtigt
+** Namen: Nur die Dateinamen werden sortiert, die Verzeichnisse ignoriert
+
+0.7.12 2009-12-20
+-----------------
+
+* Kontextmenüs von Bäumen haben je einen Eintrag zum Öffnen und Schließen
+  aller untergeordneter Knoten bis hin zu den Blättern
+* Bug beseitigt: Vorschaubilder werden nach Erzeugen nicht aktualisiert, auch
+  nicht durch F5
+
+0.7.11 2009-12-19
+-----------------
+
+* Dialog "Erweiterte Suche": Usability verbessert:
+** Andere Schaltflächen- und Informationshinweis-Anordnung
+** Beim Öffnen einer gespeicherten Suche wird der passende Kartenreiter
+   automatisch ausgewählt
+** Beim Auswählen eines Kartenreiters ist der Fokus (Eingababecursor) in einem
+   Eingabe-Textfeld
+** In alle Text-Eingabefelder kann Text aus den Eingabehilfen gezogen und
+   fallengelassen werden (Drag & Drop)
+
+0.7.10 2009-12-19
+-----------------
+
+* Sortieren nach Aufnahmeort möglich
+* Erweiterte Suche: Kartenreiter "Eigenes SQL"
+* Bugfix: Sortieren nach Bewertung: Fehler, falls Bilder ohne Bewertung
+  existierten
+
+0.7.9 2009-12-18
+----------------
+
+* Erweiterte Suche: Automatisches Vervollständigen
+* Erweiterte Suche hat einen neuen Kartenreiter: "Stichwortsammlungen". So
+  können Bilder gefunden werden, die alle eingegebenen Stichwörter enthalten
+  müssen; mit einer einfachen Verknüpfung über UND von 2 oder mehr Stichwörtern
+  kann (konnte bislang) kein Bild gefunden (werden)
+* Programmfenster hat nur noch eine Fortschrittsanzeige
+* Ausgabefenster wird angezeigt über das Menü "Fenster" (vorher Schaltfläche
+  am unteren Programmfenster)
+* Schaltfläche zum Starten und Beenden geplante Tasks verschoben in den
+  Einstellungen-Dialog, Kartenreiter "Automatisieren"
+* Suchen-Texteingabefeld im Hauptfenster unterhalb Dropdown-Listenfeld platziert;
+  so ist mehr Platz für Eingaben vorhanden
+
+0.7.8 2009-12-17
+----------------
+
+* Stichwörter werden einheitlich behandelt:
+** Stichwortbaum ist die Standardansicht (links)
+** Flache Auflistung kann wahlweise eingeblendet werden
+** Bearbeiten im Stichwortbaum rechts modifiziert XMP-Filialdateien und Datenbank
+* Werden mehrere Bilder gleichzeitig ausgewählt, sind Eingabefelder, in denen
+  verschiedene Bilder unterschiedliche Werte haben, gegen Bearbeiten geschützt
+  und müssen explizit zum Bearbeiten freigegeben werden durch Mausklick und
+  Bestätigen einer Abfrage
+
+0.7.7 2009-12-16
+----------------
+
+* Sortierung nach EXIF-ISO, EXIF-Brennweite, EXIF-Kamera, Bewertung
+* Schaltfläche "Suchen" kann ausgeblendet werden: Bearbeiten > Einstellungen
+  > Schnellsuche
+* Der erweiterten Suche (F3) können weitere Spalten hinzugefügt werden
+
+0.7.6 2009-12-14
+----------------
+
+* Sortierung nach EXIF-Aufnahmedatum hinzugefügt, gelesen aus der Datenbank
+* Schnellsuche nach oben links verschoben, Suchbutton hinzugefügt
+
+0.7.5 2009-12-13
+----------------
+
+* Bug beseitigt: Umstellen der IPTC-Codierung von ISO-8859-1 auf UTF-8 wird
+  nicht dauerhaft gespeichert
+* Bug beseitigt: Ist ein Vorschaubild ausgewählt, das bearbeitet werden kann,
+  bleibt der Status "Bearbeiten ist möglich" erhalten, auch falls anschließend
+  in ein anderes Verzeichnis gewechselt wird (obwohl dort kein Bild ausgewählt
+  ist)
+* Bug beseitigt: Nach Speichern einer neuen Vorlage erscheint diese nicht im
+  Vorlagen-Dropdown-Listenfeld
+* Bug beseitigt: Kalender in der erweiterten Suche kann geöffnet werden falls
+  andere Metadaten (als ein Datum) eingestellt sind
+* Feature hinzugefügt: Schaltfläche unter linkem Stichwortbaum: Alle Zweige
+  öffnen
+
+0.7.4 2009-10-23
+----------------
+
+* Externe Programme: Dateipfad kann zerlegt werden in Wurzel, Ordnerpfad,
+  Dateiname und -Erweiterung
+* Externe Programme werden nicht mehr nach einer definierten Zeitspanne beendet
+  (Default vorher: 60 Sekunden). Hintergrund: Wird ein Bild zur Bearbeitung
+  ge�ffnet mit einem Bearbeitungsprogramm, w�rde dieses nach dieser Zeit
+  geschlossen.
+* Fenstertitel ohne JPhotoTaggers Versionsnummer
+* Windows-Installer: Nachdem JPhotoTagger gestartet ist, schlie�t sich die
+  Eingabeaufforderung
+
+0.7.3 2009-10-17
+----------------
+
+* "Datei > Datenbank / Wartung": Neue Funktion "Verwaiste Vorschaubilder löschen".
+  Nähere steht in der Hilfe.
+
+0.7.2 2009-10-14
+----------------
+
+* Ex- und Import von Stichwortbäumen im JPhotoTagger-Format. Hierbei bleiben die
+  Hilfsstichwörter erhalten im Gegensatz zu Lightroom-Exporten
+
+0.7.1 2009-09-28
+----------------
+
+* Bugfix: Positionen des linken und rechten Programmfensters werden nach Start
+  wieder richtig gesetzt
+
+0.7.0 2009-09-14
+----------------
+
+* Umbenannt von 'Bilder' nach 'JPhotoTagger'
+  Hinweis für Windows-Benutzer: Vorher sollte das Programm 'Bilder'
+  de-installiert werden über "Systemsteuerung > Software"
+
+0.6.52 2009-09-11
+------------------
+
+* Hilfe ergänzt mit Kapitel "Schnell arbeiten (Zeit sparen)"
+* Stichwortbaum rechts hat neuen Kontextmenü-Eintrag:
+  "Bilder anzeigen: Nur Stichwort"
+* Geplante Aufgaben können mehrfach gestartet werden, nachdem sie erstmalig
+  ausgeführt wurden
+
+0.6.51 2009-09-10
+------------------
+
+* Stopp-Schaltfläche für geplante Aufgaben wird wieder aktiviert, sobald die
+  geplanten Aufgaben gestartet wurden
+* Stichwortbaum rechts: Kontextmenü hat 3 neue Einträge:
+  ** Ausschneiden
+  ** Einfügen
+  ** Bilder anzeigen
+
+0.6.50 2009-09-09
+------------------
+
+* Stichwortbaum rechts + Eingabehilfe: Es können mehrere Stichwörter
+  (gleichzeitig) ausgewählt werden, per Ziehen und Ablegen Bildern zugewiesen
+  oder verschoben unter ein anderes (hierarchisches) Stichwort
+* Bildsammlungen: Kontextmenü enthält Eintrag "Neu"
+* Stichwortbaum links kann mit Strg+9 ausgewählt werden
+* Vorschaubilder: Interna modifiziert
+
+0.6.49 2009-09-08
+------------------
+
+* Drag&Drop: Interna modifiziert
+
+0.6.48 2009-09-07
+------------------
+
+* Fortschrittsbalken im Anwendungsfelder werden ausgeblendet, nachdem die
+  Aufgabe vollständig erledigt wurde
+
+0.6.47 2009-09-06
+------------------
+
+* Bei Auswahl im Stichwortbaum links wird der Pfad bis zur Wurzel berücksichtigt.
+  Gab es bislang beispielsweise den Pfad "Landschaft > Deutschland > Baum" und
+  es wurde "Deutschland" ausgewählt, wurden alle Bäume in Deutschland angezeigt
+  aber auch alle anderen Bäume. Nun werden nur noch Bäume angezeigt, die das
+  Stichwort "Deutschland" und "Landschaft" zusätzlich enthalten.
+* Fortschrittsanzeigen automatische- und Benutzeraufgaben blenden Text ein mit
+  einer Kurzinformation
+
+0.6.46 2009-09-05
+------------------
+
+* Bugfix Import von Lightroom-Stichwörtern: Tiefe Hierarchien werden ab 2. Ebene
+  nun richtig eingefügt
+* Bugfix Import von Lightroom-Stichwörtern: Kodierung UTF-8 wird berücksichtigt
+
+0.6.45 2009-09-04
+------------------
+
+* Stichwortliste links: Bei Auswahl mehrerer Stichwörter kann bestimmt werden,
+  ob Bilder angezeigt werden, die alle der ausgewählten Stichwörter enthalten
+  oder mindestens eines
+* Stichwortbaum links: Werden mehrere Stichwörter ausgewählt, werden
+  *zusätzlich* Bilder angezeigt, die die ausgewählten Stichwörter enthalten
+  (ODER-Verknüpfung)
+
+0.6.44 2009-09-03
+------------------
+
+* Neuer Menüpunkt: "Werkzeuge > Kategorien kopieren in den Stichwortbaum"
+* Neuer Menüpunkt: "Werkzeuge > Stichwörter kopieren in den Stichwortbaum"
+* Neue Hilfeseite: Kennzeichnungen in den Vorschaubildern
+* Neue Hilfeseite: Fakten: Kategorien
+* Menü "Werkzeuge > Aktionen" verschoben nach "Fenster > Aktionen"
+* Menü "Ansicht > Stichwörter einblenden" wird wiederhergestellt nach Neustart
+  des Programms
+
+0.6.43 2009-09-02
+------------------
+
+* Links im Auswahlbereich ist ein neuer Kartenreiter "Stichwortbaum". Wird ein
+  Stichwort ausgewählt, werden Bilder angezeigt, die dieses Stichwort enthalten
+  oder eines der untergeordneten Stichwörter.
+* Neue Option im Einstellungen-Dialog, Verschiedenes / Verschiedenes: Beim
+  Verschieben und Kopieren von Dateien kann die Quelldatei automatisch umbenannt
+  werden, falls die Zieldatei existiert.
+
+0.6.42 2009-09-01
+------------------
+
+* Bugfix: In der Windows-Distribution konnten JAR-Dateien fehlen, die den
+  Programmstart verhinderten
+* Es kann eingestellt werden, *wo* die Schnellsuche sucht (Eingefeld unten im
+  Programmfenster). Mehr steht in der Hilfe: "Die Schnellsuche".
+
+0.6.41 2009-08-31
+------------------
+
+* Links in der Stichwortliste können mehrere Stichwörter ausgewählt werden. In
+  diesem Fall werden Bilder angezeigt, die alle ausgewählten Stichwörter
+  enthalten.
+
+0.6.40 2009-08-30
+------------------
+
+* Einführung einer Plugin-Schnittstelle: Java-Programmierer können Plugins
+  schreiben (JAR-Pakete, die ein Service-Interface implementieren). Eine kleine
+  Beispielsanwendung existiert: Kopieren der Namen ausgewählter Dateien in die
+  Zwischenablage. Die Plugins können ausgewählt werden über das Kontextmenü des
+  Vorschaubildfensters und eingestellt im Einstellungen-Dialog, Kartenreiter
+  "Plugins".
+* Bugfix Datenbank-Informationen: Gab es keine Datensätze, wurde angezeigt, dass
+  es 1 verschiedenen Datensatz von insgesamt 0 gab
+* Beim Start keine Meldung mehr: "Lade Module", u.U. wurde der sich nach links
+  und rechts bewegende Fortschrittsbalken nicht mehr ausgeschaltet
+
+0.6.39 2009-08-26
+------------------
+
+* Interna modifiziert
+
+0.6.38 2009/08/15
+------------------
+
+* Bugfix: Hierarchische Stichwörter: Shortcuts beziehen sich auf mit Tastatur
+  ausgewähltes Stichwort (vorher: Maus)
+* Bugfix: Versionsinformation in 0.6.37 zeigte 0.6.36 an
+
+0.6.37 2009/08/14
+------------------
+
+* Drag&Drop von Bilddateien erweitert, falls im Kartenreiter "Ordner" ein
+  Dateisystem-Ordner ausgewählt ist oder im Kartenreiter "Favoriten-Ordner":
+  ** Aus dem Vorschaubildfenster funktioniert Drag&Drop von und in andere
+     Anwendungen. Getestet: Von und nach Windows XP Explorer kopieren und
+     verschieben, in Adobe Photoshop CS2 fallen lassen, Bild wird geöffnet durch
+     Photoshop.
+  ** Von anderen Anwendungen können Dateien auf ein Ordnersymbol gezogen werden.
+     Getestet mit dem Windows XP Explorer.
+* Bugfix: Kontextmenü Vorschaubildfenster: Öffnen mit > Programm: Bilddateinamen
+  werden in Anführungszeichen gesetzt, damit diese geöffnet werden, falls sie
+  Leerzeichen enthalten
+
+0.6.36 2009/08/13
+------------------
+
+* Ausgabefenster hat 2 Schaltflächen: Löschen und Kopieren
+* Interna modifiziert
+
+0.6.35 2009/08/12
+------------------
+
+* Es werden bis zu rotierende 5 Logdateien (Protokolldateien) erzeugt. So können
+  Fehler analysiert werden, die länger zurückliegen
+* Vorschaubildnamen im Dateisystem werden erzeugt anhand eines MD5-Hashes
+
+0.6.34 2009/08/11
+------------------
+
+* Neue Menüpunkte unter "Bearbeiten": Kopieren, Ausschneiden und Einfügen von
+  Bildern (bislang über Tastenkürzel)
+* Neue Hilfeseite: Fakten > Welche Metadaten können bearbeitet werden?
+
+0.6.33 2009/08/10
+-----------------
+
+* Interna modifiziert
+
+0.6.32 2009/08/09
+-----------------
+
+* Interna modifiziert
+
+0.6.31 2009/08/09
+-----------------
+
+* Interna modifiziert
+
+0.6.30 2009/08/09
+-----------------
+
+* Interna modifiziert
+
+0.6.29 2009/08/08
+-----------------
+
+* Dialog Aktionen bleibt immer im Vordergrund
+* Interna modifiziert
+
+0.6.28 2009/08/07
+-----------------
+
+* PDF-Handbuch kann vom Programm aus geöffnet werden über das Menü "Hilfe"
+* 2 neue Menüpunkte: "Bearbeiten > Metadaten kopieren" und "Bearbeiten >
+  Metadaten einfügen": Kopieren der XMP Metadaten aus und Einfügen in
+  ausgewählte Bilder
+
+0.6.27 2009/08/06
+-----------------
+
+* PDF-Handbuch im gleichen Verzeichnis wie das Programm
+* Neuer Kartenreiter: "Ohne Metadaten". Hier werden Bilder angezeigt, den
+  bestimmte Metadaten nicht zugeordnet wurden, beispielsweise Bilder ohne
+  Stichwörter oder Kurzbeschreibung.
+* Dateinamenanzeige oben rechts: Falls XMP Metadaten nur eingebettet sind -
+  es existiert keine XMP Filialdatei - steht dies neben dem Dateinamen
+* Dialog "Datei > Ordner einlesen": Interna modifiziert
+
+0.6.26 2009/08/05
+-----------------
+
+* "Fenster > Eingabehilfen": Stichwörter aus dem Stichwortbaum können auf Bilder
+  und Eingabefelder gezogen werden. Es werden das Stichwort und seine echten
+  Elternstichwörter eingefügt.
+* Interna modifiziert
+
+0.6.25 2009/08/04
+-----------------
+
+* Neuer Menüpunkt: "Hilfe > Tastenkombinationen"
+* Interna modifiziert
+
+0.6.24 2009/08/03
+-----------------
+
+* "Fenster > Eingabehilfen": Stichwörter und Kategorien können auch auf
+  ausgewählte Bilder gezogen werden. Mehr steht in der Hilfe unter
+  "Menübefehle > Fenster > Eingabehilfen".
+* Bewertungen können vergeben werden über das Kontextmenü des
+  Vorschaubildfensters und über die Zifferntasten 0-5
+* Bewertungen werden angezeigt im Auswahlkartenreiter der sonstigen Metadaten
+
+0.6.23 2009/08/02
+-----------------
+
+* Bewertungen über Sterne anstelle eines Eingabefelds. Die
+  Bewertungs-Funktionalität ist noch nicht vollständig implementiert, speziell
+  die Auflistung unter den sonstigen Metadaten im Auswahlkartenreiter links!
+
+0.6.22 2009/08/02
+-----------------
+
+* Neu: "Fenster > Eingabehilfen" löst "Fenster > Hierarchische Stichwörter" ab.
+  Zusätzlich zu den hierarchischen Stichwörtern enthält der Dialog (nicht
+  hierarchische) Stichwörter und Kategorien. Diese können auf Eingabefelder
+  gezogen und fallengelassen werden. Mehr steht in der Hilfe unter
+  "Menübefehle > Fenster > Eingabehilfen".
+
+
+0.6.21 2009/08/02
+-----------------
+
+* Neu: Export von Stichwörtern über "Datei > Exportieren > Stichwörter".
+  Aktuell werden Stichwörter importiert, die Adobe Photoshop Lighroom
+  exportiert.
+
+0.6.20 2009/08/02
+-----------------
+
+* Neu: Import von Stichwörtern über "Datei > Importieren > Stichwörter".
+  Aktuell werden Stichwörter importiert, die Adobe Photoshop Lighroom
+  exportiert. Mehr steht in der Hilfe unter "Menübefehle > Datei > Importieren
+  > Stichwörter".
+* Neu, noch nicht abgeschlossen: Bewertungen
+
+0.6.19 2009/08/01
+-----------------
+
+* Bugfix: Pfade, die an Windowsprogramme weitergereicht werden, enthalten wieder
+  Backslashes. Hatte vorher ein Ordner am Anfang 3 Ziffern, wurden der Backslash
+  und drei Ziffern ersetzt durch ein ungültiges Zeichen. Der Bug bestand seit
+  Version 0.6.14
+
+0.6.18 2009/07/31
+-----------------
+
+* Bugfix: Bilddateien werden wieder sortiert über das Menü "Ansicht > Sortieren"
+* Bugfix: Im Stichwortbaum sind die Stichwörter des ausgewählten Bilds wieder
+  die richtige Hintergrundfarbe (in 0.6.17 2009/07/30 waren die Texte nicht mehr
+  zu sehen)
+
+0.6.17 2009/07/30
+-----------------
+
+* Menü "Datei > Bilder von der Kamera-Speicherkarte kopieren...": Es wird
+  nachgefragt, ob der voreingestellte Ordner die Kamera-Speicherkarte ist unf
+  falls nicht, kann der Ordner neu ausgewählt werden.
+* Interna modifiziert
+
+0.6.16 2009/07/29
+-----------------
+
+* Hierarchische Stichwörter: Neuer Menü-Eintrag: "Entfernen aus ausgewählten
+  Bildern"
+* Hierarchische Stichwörter: Kontextmenü-Aktionen beziehen sich auf das
+  Stichwort, über dem der Mauszeiger stand vor dem Öffnen des Menüs
+  (Bislang: Auf ausgewähltes Stichwort)
+
+0.6.15 2009/07/28
+-----------------
+
+* Vorschaubildfenster: Beim Zoomen wird relative Position beibehalten
+
+0.6.14 2009/07/27
+-----------------
+
+* Anzeigen und verstecken der Kartenreiter über Dreiecke an den Griffeln
+* Interna modifiziert
+
+0.6.13 2009/07/26
+-----------------
+
+* Neu: "Ansicht > Metadaten-Kartenreiter anzeigen/verstecken"
+* Datei > Ordner einlesen...:
+** Bugfix: Name der aktuellen Datei wird wieder angezeigt
+** Bugfix: Abbrechen des Einlesens funktioniert wieder
+
+0.6.12 2009/07/25
+-----------------
+
+* Vorschaubildfenster: Interna modifiziert
+
+0.6.11 2009/07/23
+-----------------
+
+* Hierarchische Stichwörter: Wird ein Bild ausgewählt, werden dessen
+  Stichwörter im Stichwortbaum hervorgehoben
+* Bugfix: NullPointerException beim Anzeigen von XMP-Metadaten, existierte
+  seit gestern
+* Interna modifiziert
+
+0.6.10 2009/07/22
+-----------------
+
+* Interna modifiziert
+
+0.6.9 2009/07/21
+----------------
+
+* Es gibt 2 neue Bildsammlungen: "Ausgewählt" und "Verworfen". Diese dienen der
+  Bildauswahl. Beispielsweise können misslungene Bilder zum Löschen in
+  "Verworfen" einsortiert werden und vor dem Löschen noch einmal begutachtet.
+  Sind Bilder markiert, werden diese mit den Tasten "P" in die Bildsammlung
+  ausgewählt kopiert, mit "R" in die Bildsammlung "Verworfen". Alternativ gibt
+  es diese Optionen im Kontextmenü des Vorschaubildfensters. Mehr steht in der
+  Hilfe unter "Die Auswahl-Kartenreiter > Bildsammlungen".
+* Kartenreiter "Bearbeiten": Werden mehrere Bilder ausgewählt, werden deren
+  gemeinsamen Metadaten angezeigt. Diese können geändert oder gelöscht werden
+  und sind dann für alle Bilder gelöscht oder geändert.
+* Kartenreiter "Bearbeiten": Stichwörter und "Weitere Kategorien" haben ein
+  Kontextmenü. Sind ein Stichwort oder eine Kategorie ausgewählt in der Liste
+  und die rechte Maustaste wird gedrückt, erscheint ein Kontextmenü mit den
+  Einträgen "Umbenennen" und "Entfernen"
+* Nachladen der Vorschaubilder modifiziert
+* Interna modifiziert
+
+0.6.8 2009/07/17
+----------------
+
+* Interna modifiziert
+
+0.6.7 2009/07/16
+----------------
+
+* Stichwörter können eingeblendet werden ins Vorschaubildfenster
+
+0.6.6 2009/07/16
+----------------
+
+* Vorschaubildfenster: Tooltips beim Überfahren von Vorschaubildern zeigen
+  außer dem Dateinamen inklusive Ordner folgende weitere Informationen an:
+  ** Größe der Datei
+  ** Datum und Uhrzeit der letzten Modifikation
+  ** Name der XMP-Filialdatei, falls existent
+  ** Flag (aktuell: Nicht mehr existent, soll zukünftig erweitert werden)
+
+0.6.5 2009/07/15
+----------------
+
+* Neuer Kartenreiter: Stichwortbaum. Dieser enthält die hierarchischen
+  Stichwörter
+* Kontextmenü Vorschaubildfenster: Neuer Menü-Eintrag: IPTC-Daten in
+  XMP-Filialdateien schreiben
+* Kartenreiter IPTC hat Schaltfläche zum Schreiben von IPTC-Daten in
+  XMP-Filialdateien
+
+0.6.4 2009/07/15
+----------------
+
+* Vorschaubilder können über die Tastatur vergrößert und verkleinert werden
+  mit Strg+Plus sowie Strg+Minus sowie über das Menü "Ansicht"
+* Hierarchische Stichwörter: Schaltfläche zum Ein- und Ausklappen aller
+  Stichwörter
+* Hierarchische Stichwörter: Zuletzt ausgewähltes Stichwort wird nach Beenden
+  des Programms und Neustart wieder ausgewählt
+* Hierarchische Stichwörter (F9) können aus dem Dialog übernommen werden in
+  den Bearbeiten-Kartenreiter
+* Gehe zu > Bearbeiten hat Tastenkürzel Strg+E (bislang Strg+B)
+* Vorschaubildfenster: Ansicht kompakter, Farben modifiziert
+* Bugfix: Explizites Herunterfahren der Datenbank beim Beenden des Programms;
+  die Automatik funktionierte unzuverlässig
+
+0.6.3 2009/07/14
+----------------
+
+* In den hierarchischen Stichwörtern können Ordner angelegt werden, die
+  dazu dienen, diese nach Belieben zu gruppieren. Diese Ordner werden nicht
+  zur Übernahme vorgeschlagen.
+* Hierarchische Stichwörter werden nicht automatisch eingetragen, sondern
+  falls bei der Eingabe Strg+K gedrückt wird, erscheint ein Dialog, aus dem
+  ausgewählt werden kann, welche Stichwörter übernommen werden sollen
+* Interna modifiziert
+
+0.6.2 2009/07/13
+----------------
+
+* Menü "Fenster > Hierarchische Stichwörter": Stichwörter können verschoben
+  werden
+
+0.6.1 2009/07/13
+----------------
+
+* Bugfix: Aktualisieren von Metadaten funktioniert wieder falls erzwungen
+  über das Kontextmenü im Vorschaubildfenster
+
+0.6.0 2009/07/12
+----------------
+
+* Neu: Menü "Fenster > Hierarchische Stichwörter", Beschreibung siehe in der
+* ZIP-Archiv enthält neues Skript "thumbnail2stdout_fd.sh"
+* Scrollen im Vorschaubildfenster scrollt 30 Pixel nach unten
+* Interna modifiziert
+
+0.5.108 2009/07/09
+------------------
+
+* In den Kartenreitern "IPTC", "EXIF" und "XMP" ausgewählte Zeilen hervorgehoben,
+  auch wenn deren Daten in der Datenbank gespeichert werden (bisher wurden nur
+  Zeilen hervorgehoben, falls sie nicht in der Datenbank gespeichert wurden)
+* Bugfix: Beim Öffnen der Bilder mit externen Anwendungen werden die Dateinamen
+  in Anführungszeichen gesetzt
+* Bugfix: Wird im Einstellungen-Dialog die maximale Länge der Vorschaubilder
+  verändert und mit ENTER bestätigt, werden die Vorschaubilder sofort neu
+  gezeichnet im Vorschaubildfenster
+* Interna modifiziert
+
+0.5.107 2009/07/08
+------------------
+
+* Bugfix: Automatisches Speichern von eingegebenen Metadaten funktionierte nur,
+  falls ein Bild ausgewählt war
+* Bugfix: Werden ein Stichwort oder eine Kategorie eingegeben und Enter
+  gedrückt, wird das Eingabefeld nun geleert
+
+0.5.106 2009/07/08
+------------------
+
+* Im Vorschaubildfenster scrollt das Scrollrad der Maus die Anzeige nach unten
+  um die maximale Länge eines Vorschaubilds (Falls nicht anders definiert,
+  sind das 150 Pixel)
+* Eingegebene Metadaten werden automatisch gespeichert
+* "Datei > Bilder von der Kamera-Speicherkarte kopieren...": Wurden keine Bilder
+  gefunden, kann das Verzeichnis zum Suchen nach Bildern geändert werden
+* Dialog "Datenbank warten": Nachrichten werden in einer Textfläche angezeigt
+  und nur gelöscht, falls dies veranlasst wird über eine Schaltfläche
+* Bugfix: Wurden Metadaten eingegeben und ein neues Bild ausgewählt, wurden
+  die Metadaten nicht gespeichert, auch wenn die Nachfrage mit "Ja" bestätigt
+  wurde
+* Doppelklick in eine der folgenden Tabellen startet nicht das Bearbeiten:
+  ** Kartenreiter IPTC
+  ** Kartenreiter XMP
+  ** Datenbankinformationen
+
+0.5.105 2009/07/07
+------------------
+
+* Umbenennen von Dateien beschleunigt, falls mit einer Schablone umbenannt wird
+* Interna modifiziert
+
+0.5.104 2009/07/06
+------------------
+
+* Werden Bilder von der Kamera-Speicherkarte kopiert, werden die kopierten
+  Bilder angezeigt in der Sammlung "Zuletzt importiert"
+
+0.5.103 2009/07/05
+------------------
+
+* Ziehen und Ablegen von Bildern aus dem Vorschaubildfenster in einen Ordner
+  nun auch im Kartenreiter "Favoriten-Ordner" möglich
+
+0.5.102 2009/07/04
+------------------
+
+* Menü "Gehe zu": Tastenkürzel modifiziert
+* Neues Menü: "Fenster"
+* Menü-Eintrag "Ansicht > Zuletzt eingegebene Begriffe" verschoben ins Menü
+  "Fenster"
+* Menü: Ansicht > Aktualisieren verlagert in das Kontextmenü der Vorschaubilder
+* Kartenreiter "Suchen": Wird die Tastenkombination "Strg+N" gedrückt, wird eine
+  neue Suche angelegt
+* Kartenreiter "Suchen": Wird die Tastenkombination "Strg+E" gedrückt, wird eine
+  neue Suche bearbeitet
+* Kartenreiter "Suchen": Werden die Tastenkombination "Strg+R" oder
+  die Taste F2 gedrückt, wird die ausgewählte Suche umbenannt
+* Kartenreiter "Suchen": Wird die Taste "Entf" gedrückt, wird nach Bestätigung
+  die ausgewählte Suche gelöscht
+* Kartenreiter "Bildsammlungen": Werden die Tastenkombination "Strg+R" oder
+  die Taste F2 gedrückt, wird die ausgewählte Bildsammlung umbenannt
+* Kartenreiter "Bildsammlungen": Wird die Taste "Entf" gedrückt, wird die
+  ausgewählte Bildsammlung nach Bestätigung gelöscht
+* Kartenreiter "Bildsammlungen": Wird die Tastenkombination "Strg+N" gedrückt,
+  wird eine neue Bildsammlung angelegt
+* Kartenreiter "Favoriten-Ordner": Wird die Tastenkombination "Strg+E" gedrückt,
+  kann der ausgewählte Favoriten-Ordner bearbeitet werden
+* Kartenreiter "Favoriten-Ordner": Wird die Taste F5 gedrückt, wird die Ansicht
+  aktualisiert
+* Kartenreiter "Favoriten-Ordner": Werden die Tastenkombination "Strg+R" oder
+  die Taste F2 gedrückt, wird der ausgewählte Ordner umbenannt
+* Kartenreiter "Favoriten-Ordner": Wird die Tastenkombination "Strg+O" gedrückt,
+  wird der ausgewählte Ordner im Kartenreiter "Ordner" geöffnet
+* Kartenreiter "Favoriten-Ordner": Wird die Tastenkombination "Strg+N" gedrückt,
+  wird ein neuer Ordner angelegt unter dem ausgewählten Ordner. Ist kein
+  Ordner ausgewählt, wird ein neuer Favoriten-Ordner erzeugt.
+* Kartenreiter "Favoriten-Ordner": Wird die Taste "Entf" gedrückt, wird der
+  ausgewählte Ordner gelöscht nach Bestätigung
+* Dialog "Hinzufügen zu einer Bildsammlung" merkt sich beim Schließen Position
+  und Größe
+* Kartenreiter "Ordner": Wird die Taste F5 gedrückt, wird die Ansicht
+  aktualisiert
+* Kartenreiter "Ordner": Werden die Tastenkombination "Strg+R" oder die Taste
+  F2 gedrückt, wird der ausgewählte Ordner umbenannt
+* Kartenreiter "Ordner": Wird die Tastenkombination "Strg+N" gedrückt, wird
+  ein neuer Ordner angelegt unter dem ausgewählten Ordner
+* Kartenreiter "Ordner": Wird die Taste "Entf" gedrückt, wird der ausgewählte
+  Ordner gelöscht nach Bestätigung
+* Interna modifiziert
+
+0.5.101 2009/07/03
+------------------
+
+* Start: Tasten Einfg, Entf, F2 arbeiten besser selektiv als bisher, die
+  betroffenen Menüpunkte unter "Bearbeiten" wurden entfernt. Wird fortgesetzt
+* "Zuletzt eingegebene Begriffe" verschoben von "Bearbeiten" nach "Ansicht"
+
+0.5.100 2009/07/02
+------------------
+
+* Ordnerauswahl-Dialog kann neue Ordner anlegen, existierende umbenennen und
+  löschen
+* Ordnerauswahl-Dialog hat eine Aktualisieren-Schaltfläche, die neu hinzugefügte
+  Ordner anzeigt und gelöschte entfernt
+* Ordnerauswahl-Dialog stellt wieder zuletzt geöffneten Ordner ein
+* Kartenreiter "Ordner" und "Favoriten-Ordner": Neue Verzeichnisse werden
+  sortiert eingefügt beim Aktualisieren der Ansicht über das Kontextmenü
+* Bugfix: Favoriten-Ordner wählt beim Start nur noch Bilder aus, falls beim
+  Beenden des Programms "Bilder" ein Favorit ausgewählt war
+
+0.5.99 2009/07/01
+-----------------
+
+* Ausgewählter Ordner im Kartenreiter "Favoriten-Ordner" wird nach dem Start
+  wieder ausgewählt, auch falls dieser "tiefer" in der Ordnerhierarchie ist
+* Kontextmenü im Kartenreiter "Favoriten-Ordner" enthält wieder Menüpunkt
+  "Im Ordner-Kartenreiter öffnen"
+* Kartenreiter "Ordner" kann beim Start wieder den zuletzt ausgewählten Ordner
+  automatisch auswählen
+* Kartenreiter "Zeitleiste" fügt beim Aktualisieren von EXIF-Daten neue Tage
+  hinzu und entfernt nicht mehr existierende
+
+0.5.98 2009/06/30
+-----------------
+
+* Kartenreiter "Favoriten-Ordner" hat im Kontextmenü folgende Datei-Operationen:
+** Neuer Ordner
+** Ordner umbenennen
+** Ordner löschen
+* Kartenreiter "Ordner" und "Favoriten-Ordner" haben im Kontextmenü einen
+  Eintrag "Ansicht aktualisieren". Dieser prüft, ob den sichtbaren Ordnern
+  neue Ordner hinzugefügt wurden oder bisherige gelöscht und aktualisiert
+  in diesem Fall die Ordneransicht.
+* Interna modifiziert
+
+0.5.97 2009/06/29
+-----------------
+
+* Verzeichnisbäume bereiteten unter Windows unter bestimmten Umständen Probleme
+  Das Verhalten wurde modifiziert. Vorerst wird nicht das zuletzt ausgewählte
+  Verzeichnis wiederhergestellt und der Verzeichnisbaum automatisch aktualisiert.
+  Dies ist für eine folgende Version vorgesehen.
+
+0.5.96 2009/06/28
+-----------------
+
+* Favoriten-Ordner wird automatisch aktualisiert beim Klicken auf einen
+  Favoriten-Ordner. Außerdem gibt es einen Eintrag im Kontextmenü zum
+  Aktualisieren (neue Unterordner wurden hinzugefügt oder gelöscht).
+* Alle Kontextmenüs haben Icons
+* Tastenkürzel ist F7 für Bearbeiten > Zuletzt eingegebene Begriffe
+
+0.5.95 2009/06/28
+-----------------
+
+* Favoriten-Ordner: Vorläufig Updatescan der Verzeichnisse entfernt, da unter
+  Umständen Probleme auftreten können
+
+0.5.94 2009/06/27
+-----------------
+
+* Kontextmenü Vorschaubilder mit Icons
+* Tastenkürzel ist F6 für Bearbeiten > Zuletzt eingegebene Begriffe
+* Tastenkürzel ist F3 für die erweiterte Suche
+* Interna modifiziert
+
+0.5.93 2009/06/26
+-----------------
+
+* Neu: Bearbeiten > Zuletzt eingegebene Begriffe (F5): Enthält die zuletzt
+  eingegebenen Begriffe des "Bearbeiten"-Kartenreiters. Diese können schnell
+  eingefügt werden beim Bearbeiten von Metadaten. Mehr steht in der Hilfe
+  (F1) unter "Menübefehle > Zuletzt eingegebene Begriffe".
+* Kartenreiter Metadaten IPTC, EXIF, XMP: Maximale Länge für Texte. Ist diese
+  erreicht, werden Texte umgebrochen.
+
+0.5.92 2009/06/25
+-----------------
+
+* Neu: Datei > Datenbank > Wartung: Nicht mehr benötigte Vorschaubilder löschen
+* Bugfix: Wird ein Bild aus der Datenbank entfernt, so auch sein Vorschaubild
+  im Vorschaubildordner
+* Aus den XMP-Kartenreitern Digest-Info entfernt (MD5-Prüfsummen)
+
+0.5.91 2009/06/24
+-----------------
+
+* Kartenreiter "Bearbeiten": Eingabefelder können eingeklappt und ausgeklappt
+  werden
+
+0.5.90 2009/06/22
+-----------------
+
+* Interna modifiziert
+
+0.5.89 2009/06/22
+-----------------
+
+* Interna modifiziert
+
+0.5.88 2009/06/21
+-----------------
+
+* Interna modifiziert
+
+0.5.87 2009/06/21
+-----------------
+
+* Die Bilder in Bildsammlungen können per Ziehen und Ablegen individuell
+  sortiert werden
+* Entfernt aus Kartenreiter "Verschiedenes": Angaben zu den Bildern:
+** Bildtitel
+** Kurzbeschreibung
+
+0.5.86 2009/06/20
+-----------------
+
+* Weitere Metadaten im Kartenreiter "Verschiedenes": Angaben zu den Bildern:
+** Bildtitel
+** Kurzbeschreibung
+** Aufnahmeort
+** Fotograf
+** Copyright
+** Eigentümer
+
+* 0.5.85 2009/06/19
+-----------------
+
+* 3 neue Aktionen im Kontextmenü des Kartenreiters Ordner: Hinzufügen, Löschen
+  und Umbenennen eines ausgewählten Verzeichnisses
+* Bugfix: Ausgeschnittene Dateien werden verschoben (vorher wurde kopiert)
+* Interna modifiziert
+
+0.5.84 2009/06/17
+-----------------
+
+* Tritt ein Fehler auf, wird kurz ein Popup angezeigt
+* Interna modifiziert
+
+0.5.84 2009/06/17
+-----------------
+
+* Werkzeugen > In der Datenbank Dateinamen umbenennen: Hilfe hinzugefügt
+* Einige Interna modifiziert
+
+0.5.83 2009/06/16
+-----------------
+
+* Neues Werkzeug: "In der Datenbank Dateinamen umbenennen". So können bei Ändern
+  von Verzeichnisnamen oder Laufwerksbuchstaben auf einmal alle Dateinamen in
+  der Datenbank angepasst werden. Die Hilfe ist noch zu schreiben (der Dialog
+  sollte auch ohne Hilfe zu bedienen sein).
+* Verzeichnisauswahldialog merkt sich Größe und Position
+* Interna modifiziert
+
+0.5.82 2009/06/15
+-----------------
+
+* Im Kartenreiter "Favoriten" werden untergeordnete Ordner der Favoritenordner
+  angezeigt
+
+0.5.81 2009/06/14
+-----------------
+
+* Bugfix: "Datei > Datenbank > Wartung": Wurden nicht mehr existierende Dateien
+  entfernt, konnte der Dialog nicht mehr geschlossen werden (aber
+  weitergearbeitet, da der Dialog nicht modal ist)
+
+0.5.80 2009/06/14
+-----------------
+
+* Ordner werden wieder auf Updates geprüft (Hinzufügen und Löschen von Ordnern
+  außerhalb des Programms)
+* Beim Start werden ungültige EXIF-Daten auf NULL gesetzt (diese Werte werden
+  in aktuellen Versionen nicht mehr in die Datenbank geschrieben):
+** Brennweiten kleiner gleich Null
+** ISO-Einstellungen kleiner gleich Null
+** Kamera mit dem String "0" (wurden von Imagero so geliefert)
+* Kartenreiter "Verschiedenes": Werden der Datenbank Bilder hinzugefügt mit
+  im Kartenreiter nicht existierenden EXIF-Metadaten, werden diese hinzugefügt
+  und werden Bilder entfernt, werden nicht mehr existierende EXIF-Metadaten
+  gelöscht
+* Dialog "Datei > Datenbank > Wartung": Komprimieren zeigt Dateigröße vor und
+  nach der Komprimierung
+
+0.5.79 2009/06/14
+-----------------
+
+* Wird ein Symbol ausgewählt in einem linken Kartenreiter, erscheint eine
+  Ladeanzeige bis die Vorschaubilder geladen wurden in der linken unteren
+  Fortschrittsanzeige
+* Zeitleiste: Werden neue Bilder mit EXIF-Metadaten hinzugefügt und deren
+  Datum fehlt in der Zeitleiste, wird dieses hinzugefügt (vorher: Nach
+  Neustart). Wird ein Bild gelöscht, das das letzte dieses Datums war, wird
+  dessen Datum entfernt aus der Zeitleiste (vorher: Nach Neustart)
+
+0.5.78 2009/06/13
+-----------------
+
+* Neuer Kartenreiter links: "Verschiedenes". Dort werden verschiedene Metadaten
+  angezeigt, die nicht in den anderen Kartenreitern sind:
+    * Kamera: Alle Bilder, die Sie mit einer bestimmten Kamera fotografierten
+    * Brennweite: Alle Bilder, die Sie mit einer bestimmten Brennweite
+      fotografierten
+    * ISO: Alle Bilder, die Sie mit einer bestimmten ISO-Einstellung
+      fotografierten
+* Zeitleiste enthält Symbol für Bilder ohne Aufnahmezeitpunkte in den
+  EXIF-Metadaten: Alle Bilder ohne EXIF-Metadaten oder mit EXIF-Metadaten ohne
+  Aufnahmezeitpunkt
+* Bugfix: In die Datenbank wird NULL eingetragen falls die Brennweite und
+  ISO-Einstellung nicht in den EXIF-Metadaten steht (Bislang: -1)
+
+0.5.77 2009/06/12
+-----------------
+
+* Neuer Kartenreiter links: "Zeitleiste". In der Zeitleiste werden alle
+  Aufnahmezeitpunkte zusammengefasst, geordnet nach Jahren > Monaten > Tagen,
+  während derer Bilder fotografiert wurden (und nur diese). Wird ein Jahr
+  ausgewählt, sind alle Bilder des Jahres zu sehen, bei einem Monat alle Bilder
+  dieses Monats und bei einem Tag alle Bilder dieses Tages. Voraussetzung: Die
+  Bilder wurden eingelesen in die Datenbank und enthalten EXIF-Metadaten, in
+  denen der Aufnahmezeitpunkt steht.
+* Einstellungen-Dialog: Kartenreiter "Sonstiges" aufgeteilt in Unterabschnitte
+* Hilfe angepasst an diese Modifikationen
+
+0.5.76 2009/06/10
+-----------------
+
+* Folgende EXIF-Daten werden nun angezeigt, falls eingebettet:
+** Eindeutige Kennzeichnung [ImageUniqueID, Tag-ID: 42016]
+** Farbkanäle/Spektrale Empfindlichkeit [SpectralSensitivity, Tag-ID: 34852]
+* Fenster rechts, Bearbeiten von Metadaten: Minimale Breite, ohne dass eine
+  horizontale Scrollbar angezeigt wird, verringert
+
+0.5.75 2009/06/09
+-----------------
+
+* Folgende EXIF-Daten werden nun angezeigt, falls eingebettet:
+** Bildbeschreibung [ImageDescription, Tag-ID: 270 (10E.H)]
+** Fotograf [Artist, Tag-ID: 315]
+** Copyright des Fotografen [Copyright bis zum ersten 0x0, Tag-ID: 33432]
+* Neues Beispiel-Skript (Verzeichnis "scripts"): rotatejpg.sh
+
+0.5.74 2009/06/08
+-----------------
+
+* Neue Option: Es kann definiert werden, ob Aktionen, die ausgeführt werden,
+  nachdem Bild-Metadaten in die Datenbank geschrieben wurden, immer gestartet
+  werden sollen oder nur, falls das Bild XMP-Metadaten enthält (in
+  Filialdateien): "Bearbeiten > Einstellungen > Aktionen"
+* Neues Verzeichnis: "scripts" mit Beispiel-Skripten
+* Wird eine Aktion entfernt im Aktionen-Dialog (F4) und diese soll ausgeführt
+  werden, nachdem Bild-Metadaten in die Datenbank geschrieben wurden, erscheint
+  eine Warnung mit Hinweis darauf
+* Hilfe überarbeitet
+* Interna: Sortierer für Stichwörter und Kategorien modifiziert
+
+0.5.73 2009/06/07
+-----------------
+
+* Es können (beliebig viele) Aktionen definiert werden, die ausgeführt werden,
+  nachdem Bild-Metadaten in die Datenbank geschrieben wurde. Motivation: Starten
+  eines Skripts, das Metadaten einbetten kann in die Bilddateien. Konfigurieren
+  über "Bearbeiten > Einstellungen > Aktionen". Hilfeseite:
+  "Einstellungen-Dialog > Aktionen" oder F1 drücken im Kartenreiter "Aktionen"
+  des Einstellungen-Dialogs.
+
+
+0.5.72 2009/06/06
+-----------------
+
+* Bugfix "Werkzeuge > XMP-Daten suchen und ersetzen": Umbenennen funktioniert
+  wieder
+* Bugfix Dialog "Bearbeiten > Suchen": Text für die EXIF-Spalte "Aufnahemdatum"
+  wird angezeigt
+
+0.5.71 2009/06/04
+-----------------
+
+* Nach in Bildern eingebetteten XMP-Metadaten wird nur (noch) gesucht, falls
+  das einzustellt ist unter Bearbeiten > Einstellungen > Leistung.
+  Weiteres steht in der Hilfe (F1) unter Einstellungen-Dialog > Leistung.
+* Dialoge geringfügig überarbeitet: Systemfont, alle Schaltflächen rechts
+  angeordnet, Aktionsschaltfläche rechts
+
+0.5.70 2009/06/02
+-----------------
+
+* Systemausgaben wieder als separates Fenster
+
+0.5.69 2009/06/02
+-----------------
+
+* Bugfix: Wartezeit für externe Programme benutzte Sekunden als Millisekunden
+* Systemausgaben sind in das Hauptfenster integriert
+
+0.5.68 2009/06/01
+-----------------
+
+* Für externe Programme kann eine maximale Wartezeit festgelegt werden:
+  Bearbeiten > Einstellungen > Leistung: Maximale Wartezeit in Sekunden,
+  bis externe Programme beendet werden. Vorher war es möglich, dass ein
+  externes Programm verhinderte, dass beispielsweise weitere Vorschaubilder
+  eingelesen wurden, nachdem es "hängen blieb" (falls dieses die Vorschaubilder
+  erzeugte).
+* Interna: Methode zum Liefern von Nachrichten mit Parametern modifiziert,
+  die könnte sich auswirken bei Meldungen (übersehene Fehler)
+
+0.5.67 2009/05/31
+-----------------
+
+* Neues Fenster: "Ausgaben": Zeigt Systemausgaben an. Zu erreichen über
+  eine Schaltfläche am unteren Rand des Hauptfensters (neben der Schaltfläche
+  zum Öffnen der Logdatei)
+* Neue Option: Einstellungen > Sonstiges: Systemausgabenfenster nach
+  Programmstart öffnen: Öffnet das neue Fenster
+
+0.5.66 2009/05/30
+-----------------
+
+* Einlesen von Verzeichnissen beschleunigt gegenüber Version 0.5.65 2009/05/29:
+  Existiert keine Filialdatei und sind in der Datenbank XMP-Metadaten
+  abgespeichert, wird nicht in der Datei nach eingebetteten XMP-Metadaten
+  gesucht
+
+0.5.65 2009/05/29
+-----------------
+
+* In Dateien eingebettete XMP-Metadaten werden nachträglich in die Datenbank
+  eingefügt, falls die Datei *keine* XMP-Filialdatei hat und in der Datenbank
+  keine aktuellen XMP-Metadaten für dieses Datei existieren, auch wenn die
+  Bilddatei in der Datenbank einen aktuellen Zeitstempel besitzt
+
+0.5.64 2009/05/28
+-----------------
+
+* Bugfix: Verschlusszeit im Kartenreiter EXIF
+* Teile der Hilfe überarbeitet und ergänzt
+
+0.5.63 2009/05/27
+-----------------
+
+* Ist IPTC eingebettet in den Bilddateien und existiert keine XMP-Filialdatei,
+  wird eine XMP-Filialdatei geschrieben mit den IPTC-Daten und deren Metadaten
+  in der Datenbank gespeichert
+* Ist XMP eingebettet in den Bilddateien und existiert keine XMP-Filialdatei,
+  wird eine XMP-Filialdatei geschrieben mit den XMP-Daten und deren Metadaten
+  in der Datenbank gespeichert
+* IPTC-Export in XMP-Filialdateien: Die Datenbank wird aktualisiert
+* Export von in Bilddateien eingebetteten XMP-Daten in XMP-Filialdateien:
+  Die Datenbank wird aktualisiert
+
+0.5.62 2009/05/22
+-----------------
+
+* In Bilddateien eingebettete XMP-Daten werden gelesen, falls keine
+  XMP-Filialdatei existiert
+* In Bilddateien eingebettete XMP-Daten können in Filialdateien exportiert
+  werden: Werkzeuge / Eingebettete XMP-Daten in Filialdateien schreiben...
+* Lockdatei im Datenbankverzeichnis anstelle im Einstellungenverzeichnis
+* Datenbankzugriffe synchroisiert nur noch wo erforderlich
+
+0.5.61 2009/04/30
+-----------------
+
+* Beim Starten wird die Java-Version geprüft
+* Verzeichnis, in dem die Datenbank gespeichert wird, kann ausgewählt werden
+* EXIF-Kartenreiter: Datum wird mit Wochentag angezeigt
+* Ordner-Kartenreiter und Verzeichnisauswahl-Dialog: Verzicht auf Threading,
+  bereitete häufiger Probleme beim Rendern. Bei einigen Windows-Installationen
+  könnte sich nun der Start verzögern
+* Einige Interna geändert
+* Übersetzung der Oberfläche und Meldungen ins Englische; startet bei Rechnern
+  mit englischer Betriebssystem-Umgebung (ich bin dankbar für Korrekturen)
+
+0.5.60 2009/04/29
+-----------------
+
+* Vorschaubilder werden im Dateisystem gespeichert: HSQLDB startet langsam,
+  wenn die Datenbankdatei groß wird (ab ca. 64 MB). Hat die Datenbank viele
+  Bilder, startet "Bilder" jetzt schneller. Die bisherigen Vorschaubilder in
+  der Datenbank werden beim ersten Start von "Bilder" übernommen und ins
+  Dateisystem geschrieben.
+
+0.5.59 2009/04/28
+-----------------
+
+* Ordner-Kartenreiter und Verzeichnisauswahl-Dialog: Beim Zeichnen der Icons
+  für Laufwerke und Ordner "hängt" Bilder unter Umständen. Dies sollte beseitigt
+  sein (getestet auf dem einzigen mir zugänglichen Rechner, bei dem das Problem
+  auftrat)
+* EXIF-GPS: War Firefox noch nicht gestartet und hatte beim Start keinen
+  Kartenreiter geöffnet, reagierte Bilder erst wieder nach dem Schließen von
+  Firefox. Dies sollte nun behoben sein.
+* Ordner-Kartenreiter: Standardeinstellung: Zuletzt ausgewähltes Verzeichnis
+  wird wieder ausgewählt beim Start von Bilder, sofern der Ordner-Kartenreiter
+  im Vordergrund ist. Die im Einstellungen-Dialog getroffene Entscheidung
+  bleibt bestehen
+
+0.5.58 2009/04/06
+-----------------
+
+* Kleinigkeiten modifiziert in der Anzeige der EXIF-Werte (Kartenreiter "EXIF")
+
+0.5.57 2009/04/05
+-----------------
+
+* Ordner-Kartenreiter und Verzeichnisauswahl-Dialog: Ordner werden in einem
+  separatem Thread ermittelt. Dabei könnte ein Ordner zuerst ohne Pluszeichen
+  zum Öffnen angezeigt werden, das signalisiert: Dieser Ordner enthält weitere
+  Ordner. Durch Doppelklick auf einen Ordner zu einem späteren Zeitpunkt öffnet
+  dieser sich, falls er weitere Ordner enthält, auch wenn neben seinem Icon kein
+  (Öffnen-) Plus-Zeichen ist.
+
+  Es kann sein, dass nach Programmstart lediglich das Arbeitsplatz-Icon
+  angezeigt wird. Ein Doppelklick darauf zu einem späteren Zeitpunkt zeigt dann
+  die Windows-Laufwerke an bzw. das Wurzelverzeichnis unter
+  Unix-Betriebssystemen.
+
+  Grund für diese Entscheidung: Unter Windows kann das Programm nach Start
+  bis zu mehreren Minuten lang blockiert werden, da die Java-Funktion, die
+  liefert, ob ein Ordner Dateien enthält oder weitere Ordner, unter Windows so
+  lange brauchen kann, beispielsweise wenn ein Ordner sehr viele Dateien enthält
+  oder verknüpft ist mit einem Netzlaufwerk, das nicht verbunden ist (oder
+  lange benötigt, seinen Inhalt zu liefern).
+
+* Im Einstellungen-Dialog (Menü "Bearbeiten / Einstellungen") kann im
+  Kartenreiter "Sonstiges" unter "Ordneranzeige" angekreuzt werden:
+  Versuchen, nach Programmstart im Kartenreiter "Ordner" zuletzt ausgewählten
+  Ordner anzuzeigen. Dann wird versucht, wie bisher nach Programmstart den
+  zuletzt ausgewählten Ordner anzuzeigen. Dies kann nicht garantiert werden.
+
+0.5.56 2009/04/04
+-----------------
+
+* Anzeige von GPS-Versions-ID und GPS-Satelliten
+
+0.5.55 2009/04/03
+-----------------
+
+* Anzeige von GPS-Datum und GPS-Uhrzeit
+
+0.5.54 2009/04/01
+-----------------
+
+* Anzeige von GPS-Daten, die in den EXIF-Informationen von Bildern stehen. Es
+  werden im Register "Exif" Längen- und Breitengrad angezeigt sowie die Höhe.
+
+  Sind EXIF-Informationen vorhanden, kann über eine Schaltfläche ein Webbrowser
+  aufgerufen werden, der den Standort in Google Maps anzeigt.
+
+0.5.53 2009/02/28
+-----------------
+
+* Bugfix: Logdatei-Betrachter zeigte keine Fehler an
+* Fortschrittsanzeige für Aktualisierung des aktuellen Verzeichnisses (links
+  unten): Im Tooltip wird die aktuell zu bearbeitende Datei angezeigt
+* Protokoll: Loglevel "AM FEINSTEN" gibt die Dateien aus (Standardausgabe),
+  für die geprüft wird, ob sie in die Datenbank eingefügt werden sollen
+
+0.5.52 2009/02/26
+-----------------
+
+* Bugfix: Unter Umständen wurden nach dem Start keine Bilder eines ausgewählten
+  Verzeichnisses angezeigt
+* Menüpunkt Bearbeiten/Kopieren ist im Ordner-Kartenreiter immer aktiviert
+  (war vorher abgeblendet, falls keine Dateien ausgewählt waren)
+  TODO: Abhängig vom Inhalt der Zwischenablage aktivieren
+* Einige Interna modifiziert
+
+0.5.51 2009/02/20
+-----------------
+
+* Bugfix: Unter Umständen konnte nicht bis zur letzten Bildreihe gescrollt
+  werden
+* Einige Interna modifiziert
+
+0.5.50 2009/02/19
+-----------------
+
+* Einige Interna modifiziert
+
+0.5.49 2009/02/18
+-----------------
+
+* Einige Interna modifiziert
+
+0.5.48 2009/02/17
+-----------------
+
+* Bugfix: Aktulisieren von Vorschaubild und Metadaten über Kontextmenü im
+  Vorschaubilder-Fenster funktioniert jetzt wie beabsichtigt
+* Einige Interna modifiziert
+
+0.5.47 2009/02/16
+-----------------
+
+* Loggen verschiedener Aktionen auf die Standardausgabe, Level INFO:
+** Umbenennen von Metadaten, beispielsweise den Aufnahmeort verschiedener
+   Dateien
+** Aktualisieren aller Vorschaubilder in der Datenbank
+** Komprimieren der Datenbank
+** Löschen nicht mehr existierender Bilder aus der Datenbank
+** Kopieren von Dateien
+** Einfügen von Bildsammlungen in die Datenbank
+** Einfügen von Vorschaubild, EXIF- und XMP-Daten in die Datenbank
+** Ausführen externer Programme
+** Durchsuchen eines Verzeichnisses nach Bildern, die in die Datenbank
+   einzufügen sind
+* Einige Interna modifiziert
+
+0.5.46 2008/11/11
+-----------------
+
+* Fast alle festgestellten Fehler werden am unteren Fensterrand signalisiert
+  durch ein rotes Kreuz, mit dem die Logdatei geöffnet werden kann, insbesondere
+  auch Ausgaben auf die Standardfehlerausgabe von externen Programmen, die
+  ein Vorschaubild erzeugen oder eine Aktion ausführen
+
+0.5.45 2008/11/10
+-----------------
+
+* Logfile-Dialog lässt sich wieder schließen
+* Datenbank-Informationen-Tabelle vergrößert sich wieder, wenn der Dialog
+  vergrößert wird
+
+0.5.44 2008/11/08
+-----------------
+
+* Datenbank-Informationen: Außer der Anzahl unterschiedlicher Datensätze werden
+  die Anzahl aller Datensätze einer Spalte angezeigt
+* Einige Korrekturen/Verbesserungen
+
+0.5.43 2008/11/07
+-----------------
+
+* Hilfe erweitert
+
+0.5.42 2008/11/06
+-----------------
+
+* Neu: Aktionen (Menü "Werkzeuge / Aktionen")
+* Dialog mit Programmeigenschaften erweitert
+
+0.5.41 2008/11/05
+-----------------
+
+* Kontextmenü Favoriten-Ordner: Menüpunkt "Im Ordner-Kartenreiter öffnen",
+  öffnet das Favoriten-Verzeichnis im Ordner-Kartenreiter
+* Neue gespeicherte Suchen werden in alphabetischer Reihenfolge eingefügt
+* Neue Stichwörter werden sofort in alphabetischer Reihenfolge eingefügt
+* Neue Kategorien werden sofort in alphabetischer Reihenfolge eingefügt
+* Neue Bildsammlungen werden sofort in alphabetischer Reihenfolge eingefügt
+* Entfernte Stichwörter und Kategorien werden sofort aus den Kartenreitern
+  entfernt, wenn kein Bild mehr existiert, das diese enthält
+
+0.5.40 2008/11/04
+-----------------
+
+* Einstellungen / Kartenreiter "Programme": Den Programmen können beliebige
+  Namen vergeben werden sowie Aufrufparameter; das gleiche Programm kann
+  mehrmals aufgerufen werden mit unterschiedlichen Parametern
+
+0.5.39 2008/11/03
+-----------------
+
+* EXIF-Kartenreiter: Datumsformat modifiziert, zeigt nun auch Wochentag an
+
+* 0.5.38 2008/11/03
+-----------------
+
+* Wird ein Ordner vom Datenträger gelöscht, wird ein Favoritenordner dieses
+  Ordners automatisch entfernt
+* Ordnerbaum erkennt automatisch, ob Ordner außerhalb des Programms
+  gelöscht oder hinzugefügt wurden
+* EXIF-Kartenreiter: Datum, Uhrzeit, Brennweiten und Blende formatiert anhand
+  der Ländereinstellung des Betriebssystems
+* Bugfix: Aktualisieren der Anzeige nach Löschen von Dateien vom Datenträger
+* Bugfix: EXIF-Kartenreiter zeigt nun richtig an, ob der Blitz gezündet wurde
+
+0.5.37 2008/11/02
+-----------------
+
+* Kleine Verbesserungen
+
+* 0.5.36 2008/11/02
+-----------------
+
+* Es kann definiert werden, welche Metadaten bearbeitet werden können:
+  Einstellungen-Dialog / Bearbeiten. Alle abgewählten Metadaten werden nicht
+  mehr angezeigt im Berbeiten-Kartenreiter rechts im Programmfenster.
+* Bugfixes
+
+0.5.35 2008/10/31
+-----------------
+
+* Logdatei: Nur Warnungen und wichtige Fehler werden in die Logdatei
+  geschrieben, andere Meldungen auf die Standardausgabe, falls diese angezeigt
+  werden sollen (Einstellungen-Dialog, Dialogseite "Sonstiges"). So gibt es
+  keine riesigen Logdateien.
+* Nicht benötigte ID-Tabellenspalten werden beim nächsten Start einmalig
+  gelöscht:
+  * Stichwörter
+  * Weitere Kategorien
+  * Automatisch einzulesende Ordner
+  * Favoritenordner
+  * Reguläre Ausdrücke auszuschließender Dateien
+  * Vorlagen zum Bearbeiten von Metadaten
+* Kleinere Korrekturen
+
+
+0.5.34 2008/10/30
+-----------------
+
+* Zusätzlich zur Minus-Schaltfläche können beim Bearbeiten der Metadaten
+  Stichwörter und Kategorien mit der Entf-Taste entfernt werden
+* Dialogseite Datenbankwartung verbessert
+* Hilfe geringfügig überarbeitet
+* Bugfix: Wird eine gespeicherte Suche erneut gespeichert, wird sie nicht
+  doppelt angezeigt in der Liste der gespeicherten Suche
+
+0.5.33 2008/10/29
+-----------------
+
+* Beim Wechseln auf ein anderes Vorschaubild und Beenden des Programms wird
+  geprüft, ob Metadaten eingegeben wurden und noch nicht abgespeichert sind.
+  In diesem Fall wird nachgefragt, ob diese abgespeichert werden sollen.
+* Neue Stichwörter werden nach dem Speichern sofort im Stichwörter-Kartenreiter
+  angezeigt
+* 2 Hilfeseiten bearbeitet: Eingabe von Metadaten, Programmfenster
+* Datenbank modifiziert: Spalte der letzten Modifikation der XMP-Filialdatei
+  in andere Tabelle verlagert zum Steigern der Geschwindigkeit des Erkennens
+  modifizierter XMP-Filialdateien
+* Detailkorrekturen
+
+* 0.5.32 2008/10/28
+-----------------
+
+* Eingeben von Metadaten: Sich wiederholende Werte stehen in einer Liste
+* Eingeben von Metadaten: Maximale Zeichenanzahl wird überprüft
+* Eingeben von Daten in den Dialog der erweiterten Suche: Datenformat wird
+  überprüft
+
+0.5.31 2008/10/27
+-----------------
+
+* Hilfe erweitert
+* Kleinere Korrekturen
+
+* 0.5.30 2008/10/26
+-----------------
+
+* Neu: Einfügen von Dateien in den Vorschaubildbereich aus Windows Explorer,
+  Konqueror, Nautilus
+* Neu: Kopieren und Verschieben per Drag & Drop von Vorschaubildern aus dem
+  Vorschaubildbereich in ein Verzeichnis des Verzeichnisbaums
+* Neu: Kopieren und Ausschneiden von Bildern über Tastatur  aus dem
+  Vorschaubildbereich in ein Verzeichnis des Verzeichnisbaums
+* Bugfix: Rotieren von Vorschaubildern geht wieder
+
+0.5.29 2008/10/25
+-----------------
+
+* Neu: Liste mit Stichwörtern zur Auswahl links
+
+* 0.5.28 2008/10/24
+-----------------
+
+* Drag & Drop für Favoritenordner:
+** Aus Anwendungen gezogene Ordner können den Favoriten hinzugefügt
+   werden; getestet unter Windows mit dem Explorer und unter Linux mit dem
+   KDE-Konqueror
+** Favoritenordner können in der Liste mit den Favoritenordner untereinander
+   verschoben werden
+* Drag & Drop für Bildsammlungen:
+** Bilder aus Vorschaubildbereich auf eine Bildsammlung ziehen und ablegen:
+   Bilder werden der Bildsammlung hinzugefügt
+** Bilder aus Vorschaubildbereich auf einen leeren Bereich in der
+   Bildsammlungsliste ziehen und ablegen: Neue Bildsammlung wird erstellt
+
+0.5.27 2008/10/23
+-----------------
+
+* Vorschaubildfenster: Neuer Befehl "Vorschaubild aktualisieren"
+* Datenbank modifiziert: Letzte Modifikation der XMP-Dateien wird separat
+  abgespeichert von der letzten Änderung der Bilddatei; während des Starts
+  wird die neue Spalte automatisch erzeugt und die letzten Änderungsdaten
+  der Dateien übertragen. Bei größeren Datenbeständen kann das *lange*
+  dauern.
+
+0.5.26 2008/10/22
+-----------------
+
+* Bearbeiten: Neue Schaltfläche "Leeren", diese entfernt alle Eingaben
+* Bearbeiten: Reihenfolge verändert, ISO-Ländercode entfernt
+* Hilfe zum Bearbeiten von Metadaten überarbeitet
+
+0.5.25 2008/10/20
+-----------------
+
+* Verschieben von Dateien in andere Verzeichnisse
+
+0.5.24 2008/10/19
+-----------------
+
+* Mehr Platz nach unten zum Bearbeiten der Metadaten
+* Bei "Ansicht / Aktualisieren" werden die Bilder so eingelesen, dass neu
+  hinzugefügte berücksichtigt werden. Bislang wurden nur die angezeigten
+  aufgefrischt.
+
+* 0.5.23 2008/10/19
+-----------------
+
+* Hilfe kontextsensitiv
+* Dialoge können mit ESC geschlossen werden
+* Start weiter beschleunigt
+
+0.5.22 2008/10/19
+-----------------
+
+* Bilder von der Kamera-Speicherkarte kopieren
+
+0.5.21 2008/10/18
+-----------------
+
+* Start beschleunigt
+* Hilfe erweitert
+
+0.5.20 2008/10/17
+-----------------
+
+* Menü "Gehe zu" erweitert
+
+0.5.19 2008/10/15
+-----------------
+
+* Bugfixes
+
+0.5.18 2008/10/14
+-----------------
+
+* Vorschaubilder können sortiert werden: "Ansicht / Sortieren"
+
+0.5.17 2008/10/13
+-----------------
+
+* Umbenennen von Dateien, Kontextmenü der Vorschaubilder, Menü "Bearbeiten /
+  Umbenennen" oder F2
+
+0.5.16 2008/10/12
+-----------------
+
+* Neu: Bilder vom Dateisystem (Festplatte) löschen
+* Einstellungen-Dialog, Kartenreiter "Vorschaubilder": Schaltfläche zum
+  Erneuern aller Vorschaubilder in der Datenbank
+* Die über den Schieberegler eingestellte Bildgröße wird nach dem Start
+  wieder hergestellt
+
+* 0.5.15 2008/10/11
+-----------------
+
+* Anzahl der Vorschaubilder in einer Zeile wird automatisch geregelt anhand
+  der Breite der Vorschaubildfläche
+* Deshalb ist die Anzahl der Vorschaubilder nebeneinander im
+  Einstellungen-Dialog entfallen, da nicht mehr nötig
+* Über einen Schieberegler kann die Größe der Vorschaubilder für eine "Sitzung"
+  angepasst werden von 25% bis 175% in 25%-Schritten
+
+0.5.14 2008/10/10
+-----------------
+
+* Menü "Gehe zu". Mit den Tastaturkürzeln Strg+f wird ins Texteingabefeld
+  für die Schnellsuche gesprungen, mit Strg+b in den Bearbeiten-Abschnitt
+* Sperrdatei wird angelegt, damit nicht zwei Aufrufe zur gleichen Zeit
+* Hilfeseite hinzugefügt für "Einstellungen / Ausschließen"
+
+0.5.13 2008/10/10
+-----------------
+
+* Ausschließen von Dateien über reguläre Ausdrücke möglich
+  (Einstellungen-Dialog)
+
+0.5.12 2008/10/08
+-----------------
+
+* Bugfixes
+
+0.5.11 2008/10/07
+-----------------
+
+* Versteckte Verzeichnisse werden ignoriert, außer im Einstellungen-Dialog
+  wird gegenteiliges eingestellt
+
+0.5.10 2008/10/06
+-----------------
+
+* Bearbeiten-Schaltflächen unter die Bearbeiten-Feldern verschoben. So sind
+  mehr Bearbeiten-Felder sichtbar
+
+* 0.5.9 2008/10/05
+------------------
+
+* Datenbankstruktur geändert (alte Datenbank kann Probleme bereiten)
+* Neues Autocomplete-Textfeld
+
+0.5.8 2008/10/03
+----------------
+
+* Hilfe erweitert
+* Hilfebrowser hat Navigationsbaum
+
+0.5.6 2008/10/01
+----------------
+
+* Kleinere Korrektur
+* Hilfe erweitert (ist noch nicht fertig)
+
+0.5.6 2008/10/01
+----------------
+
+* Kleinere Korrekturen
+
+0.5.5 2008/09/30
+----------------
+
+* Umbenennen und Entfernen von XMP-Daten einer oder mehrerer Dateien
+  über das Kontextmenü im Vorschaubildfenster
+* ITC-Daten in XMP-Filialdateien schreiben, sofern noch keine XMP-Filialdateien
+  existieren
+* Ist eine XMP-Datei neuer als das Datum der letzten Bildmodifikation in
+  der Datenbank, werden in der Datenbank nur die XMP-Daten modifiziert
+
+0.5.4 2008/09/29
+----------------
+
+* Alle angezeigten Bilder werden aktualisiert, z.B. Suchen und Favoriten,
+  nicht nur ausgewählte Verzeichnisse
+* Strukturelle Änderung: Factory für Controller und Models
+
+0.5.3 2008/09/27
+----------------
+
+* Anzeige von Bildern nach Auswahl einer Kategorie beschleunigt
+* Alle Zeichenketten sind in einer einzigen Properties-Datei internationalisiert
+
+0.5.2 2008/09/25
+----------------
+
+* Einstellungen-Dialog: Neuer Kartenreiter "Beschleunigen"
+
+0.5.1 2008/09/25
+----------------
+
+* Favoritenverzeichnisse können verschoben werden
+
+0.5.0 2008/09/24
+----------------
+
+* Favoritenverzeichnisse
+* Löschen von Datensätzen nicht mehr existierender Bilder als geplante Aufgabe
+* Einstellungen-Dialog: Zeit bis zum Start geplanter Aufgaben kann eingestellt
+  werden
+* Sto
+
+0.4.0 2008/09/23
+----------------
+
+* Kategorien werden angezeigt: IPTC-Supplemental-, XMP und XMP-Supplemental-
+  Categories. Die IPTC-Kategorien mit nur 3 Buchstaben werden nicht
+  berücksichtigt
+
+0.3.2 2008/09/22
+----------------
+
+* Vorlagen für das Bearbeiten von Metadaten
+
+0.3.1 2008/09/21
+----------------
+
+* Gleichzeitiges Speichern von Metadaten in mehrere XMP-Filialdateien. Sind
+  mehrere Thumbnails ausgewählt, werden die Einträge *hinzugefügt*, gelöscht
+  wird dann nichts, auch wenn ein Feld im Panel leer ist
+
+0.3.0 2008/09/21
+----------------
+
+* Start: Sichern von Metadaten, diese werden in XMP-Filialdateien geschrieben.
+  Das Originalbild wird nicht verändert und existierende Daten in den XMP-
+  Dateien nicht überschrieben, allerdings: Es wird geschrieben, was im
+  Bearbeiten-Panel steht. Wird dort ein Eintrag gelöscht, so auch in der
+  XMP-Datei. In dieser Version kann nur eine Datei bearbeitet werden. Das soll
+  geändert werden.
+
+0.2.10 2008/09/17
+-----------------
+
+* Datenbankinformationen und -Wartung: Im Kartenreiter "Info" werden die
+  Anzahlen fast aller in der Datenbank gespeicherter Inhalte angezeigt
+* Dialoge angepasst: Aktions-Schaltfläche ist bei allen rechts außen und
+  geschlossen werden alle über den Schließen-Knopf der Fenstertitelleiste
+* Einstellungen / Allgemein: Logdatei im einfachen Format oder ausführlichen
+  kann eingestellt werden
+* Neuer Menüpunkt: Bearbeiten / Suchen
+* Dialog "Einer Bildsammlung hinzufügen" fügt Bilder der Sammlung hinzu, auf
+  die doppelt geklickt wird (vorher nur über Markieren + Schaltfläche)
+
+0.2.9 2008/09/16
+----------------
+
+* Dialog "Datenbank warten" heißt jetzt "Datenbankinformationen und -Wartung"
+* Datenbankinformationen und -Wartung: Im Kartenreiter "Info" werden Änderungen
+  sofort angezeigt
+* Datenbankinformationen und -Wartung: Dialog kann offen bleiben während der
+  weiteren Arbeit
+
+0.2.8 2008/09/15
+----------------
+
+* Fortschrittsbalken (ProgressBar) für automatische Aufgaben (obere) und
+  Einlesen eines Verzeichnisses (untere) zeigen beim Überfahren an, welche
+  Datei gerade eingelesen wird (Tooltip)
+* Einstellungen / Aufgaben: Unterverzeichnisse können automatisch mit
+  eingeschlossen werden
+* Bugfix: Einstellungen / Aufgaben: Entfernen von Ordnern ist jetzt möglich
+* Kontextmenü Thumbnails: Nach Aktualisieren der Metadaten werden diese sofort
+  angezeigt
+
+0.2.7 2008/09/14
+----------------
+
+* Metadaten-Tabellen: Farbmarkierung für Daten, die in die Datenbank gespeichert
+  werden und nach denen dann gesucht werden kann
+* Benutzereinstellungen wirken sich sofort aus, der Einstellungen-Dialog muss
+  nicht mehr geschlossen werden zum Weiterarbeiten
+
+0.2.6 2008/09/14
+----------------
+
+* Einstellungen / Aufgaben: Es können Verzeichnisse ausgewählt werden, die
+  nach Programmstart automatisch nach aktualisierten Bildern suchen und bei
+  Fund Thumbnails und Metadaten in der Datenbank aktualisieren
+
+0.2.4 2008/09/13
+----------------
+
+* Erweiterte Suche: Titel gespeicherter Suchen werden im Fenstertitel angezeigt
+* Erweiterte Suche: Schaltfläche "Speichern unter"
+* Erweiterte Suche: Keine Frage nach Namen beim Bearbeiten gespeicherter Suchen
+* Erweiterte Suche: Beim Bearbeiten gespeicherter Suchen und Schließen ohne
+  Speichern: Nachfrage, ob gespeichert werden soll
+* Erweiterte Suche: In der Spaltenauswahl sind Texte in Klammern abgeblendet
+  und Icons symbolisieren Zugehörigkeit; die Texte in den Klammern benennen
+  die orginalen Exif-, IPTC- und XMP-Bezeichner
+
+0.2.3 2008/09/13
+----------------
+
+* Gespeicherte Suchen benutzen modifizierte Tabellen
+
+0.2.2 2008/09/13
+----------------
+
+* Gespeicherte Suchen werden in der Datenbank gespeichert, nicht mehr in einer
+  Properties-Datei
+
+0.2.2 2008/09/10
+----------------
+
+* Suchvorschläge im Eingabefeld für die Schnellsuche. Vorerst wird dieses
+  nur einmalig beim Start befüllt, neu hinzugekommene Daten werden erst
+  beim nächsten Start der Anwendung vorgeschlagen.
+* Start: Delegation der Behandlung von Benutzereingaben von den Panels an
+  Controller
+
+0.2.1 2008/09/09
+----------------
+
+* Bilder gelöschter Dateien können direkt im Fenster aus der Datenbank
+  entfernt werden (nicht nur über den Wartungsdialog, der dafür alle
+  auf einmal entfernt)
+* Für Thumbnails können Flags gesetzt werden, aktuell nur automatisch für
+  Dateien, die nicht mehr im Dateisystem sind, aber in der Datenbank
+* Neuer Menüpunkt: Ansicht / Aktualisieren. Gilt für ausgewählte Verzeichnisse
+  (nicht für Suchen und Sammlungen)
+* Ausgewählte Bilder werden beim Beenden der Anwendung gemerkt und beim
+  nächsten Start wieder ausgewählt
+* Fortschrittsanzeige für Erneuern der Metadaten ausgewählter Bilder im
+  Anwendungsfenster statt in einem geöffneten Dialog
+* Logdateidialog: Reload
+* Logdateidialog: Suche unterscheidet nicht mehr zwischen Groß- und
+  Kleinschreibung
+
+0.2.0 2008/09/08
+----------------
+
+* Bildsammlungen können erstellt werden
+
+0.1.2 2008/09/07
+----------------
+
+* Bilddateien können mit mehreren Anwendungen geöffnet werden
+
+0.1.1 2008/09/05
+----------------
+
+* Logfile-Dialog verbessert
+* Name der Datei, deren Metadatan angezeigt werden, wird unterhalb
+  Metadaten angezeigt (= ausgewählte Datei)
+* Neuer Kartenreiter in XMP: Camera Raw (Lightroom-Entwicklungseinstellungen)
+* Übersetzungen für XMP
+* Bugfix: Zustand von Comboboxen wird jetzt richtig persistent gespeichert
+* Bugfix: Schnellsuche konnte unter Umständen gleiche Bilder doppelt anzeigen
+
+0.1.0 2008/09/04
+----------------
+
+* Wartezeit beim Beenden verkürzt
+
+0.0.12 2008/09/03
+----------------
+
+* Bugfix: Einstellungen werden wieder dauerhaft gespeichert
+* Bugfix: Durch Internationalisierung der Standard-Lib MissingResourceException
+
+0.0.11 2008/09/03
+----------------
+
+* Erweiterte Suche: Kalender zur Auswahl eines Datums
+* Hilfe ergänzt
+
+0.0.10 2008/09/02
+----------------
+
+* Bugfix: Datum aus EXIF-Daten wurde vorher falsch übernommen
+
+0.0.9 2008/09/02
+----------------
+
+* Erweiterte Suche: Button zum Löschen aller Eingaben
+* Einstellungen: Neuer Kartenreiter "XMP"
+
+0.0.8 2008/09/01
+----------------
+
+* Gespeicherte Suchen können umbenenannt werden
+* Fertig: Schlüssel für String-Ressourcen umbenennen
+
+0.0.7 2008/08/31
+----------------
+
+* Treeview mit gespeicherten Suchen: Bearbeiten und Löschen
+* Start: Schlüssel für String-Ressourcen umbenennen (könnte evtl. zu
+  MissingResourceException führen und damit Programmabsturz)
+
+0.0.6 2008/08/31
+----------------
+
+* Treeview mit gespeicherten Suchen
+* EXIF-Daten werden übersichtlicher dargestellt (dafür weniger)
+* Erweiterte Suche: Klammern möglich
+* Erweiterte Suche: Löschen gespeicherter Suchen implementiert
+
+0.0.5 2008/08/29
+----------------
+
+* Erweiterte Suche: Suchen können gespeichert werden
+* Erweiterte Suche speichert Einstellungen dauerhaft
+* Verzeichnis-Scan-Dialog hat 2 neue Optionen: Erzwingen der Aktualisierung und
+  nur Textmetadaten aktualisieren (keine Thumbnails)
+* Klick außerhalb Thumbnail deselektiert alle selektierten
+* BUGFIX: Fehler beim Zeichnen von Dateinamen mit genau 26 Zeichen (Oberfläche
+  wurde dann nicht aktualisiert)
+
+0.0.4 2008/08/28
+----------------
+
+* Erweiterte Suche (Klick auf Schaltfläche "Suchen" am Fensterrand unten)
+
+0.0.3 2008/08/27
+----------------
+* EXIF-Daten werden eingelesen: Aufnahmedatum, Kamera, Brennweite, ISO
+* Datenbank warten-Dialog mit Fortschrittsbalken beim Löschen von Datensätzen
+  mit nicht mehr existierenden Dateien sowie Abbruchsmöglichkeit
+* Datei wird als aktualisiert betrachtet, wenn die XMP-Filialdatei
+  (Sidecar file)
+  neuer (Datum der letzten Modifikation) ist als beim letzten Abspeichern;
+  in diesem Fall wird als Datum das Datum der XMP-Datei abgespeichert
+* Ausgewählte Suchfelder werden anhand des Klassennamens identifiziert und nicht
+  mehr nach dem String; somit keine Probleme bei Mehrsprachigkeit. Bisherige
+  Felder müssen neu eingestellt werden.
+
+
+0.0.2 2008/08/26
+----------------
+* Ausgewählte Bilder können alle geöffnet werden über das Kontextmenü
+* Hilfe kann aufgerufen werden
+* Hilfedatei auf mehrere aufgeteilt
+* BUGFIX: NullPointerException des Loggers beim Start, falls kein Eintrag in
+  den Benutzersettings
+
+0.0.1 2008/08/24
+----------------
+* Start

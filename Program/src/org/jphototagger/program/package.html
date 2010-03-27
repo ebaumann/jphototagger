@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Implementation notes on JPhotoTagger</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+      Some Implementation notes on JPhotoTagger.
+
+      <p>This article was written after collecting experiences, see the status
+          date at the end of this document. You will see older code that does
+          not follow these notes but newer should it.
+      </p>
+
+      <h2>Main parts</h2>
+
+      <ul>
+          <li>A specialized <strong>database query- and updater</strong> class
+              for specific persistent content. It updates a subset of tables in
+              JPhotoTagger's database and <strong>notifies</strong> database
+              listeners on database changes.
+          </li>
+          <li><strong>Models</strong> containing specific database content. A
+              database model <strong>listens</strong> to changes within its
+              database and updates in that case the model content.
+          </li>
+          <li><strong>Views</strong> displaying different models; some models
+              have a specific renderer.
+          </li>
+          <li><strong>Controllers</strong> are listening to user actions and
+              modifying the database or doing something else. A controller
+              uses other classes to perform something so that the other classes
+              can be re-used.
+          </li>
+      </ul>
+
+      <p>Short: The database is the &quot;real&quot; model, view models
+          reflecting different parts of the database, views displaying their
+          models and controllers acting on user inputs. Because JPhotoTagger
+          has many CRUD operations, the database is queried and updated by
+          different database classes.
+      </p>
+
+      <p>Status: 2010-03-04</p>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>JPhotoTagger Controller</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+      Controllers are responsive to user input (key strokes,
+      mouse clicks). This page describes how to use them and discusses two
+      alternative concepts.
+
+      <h2>How a controller works</h2>
+
+      A controller adds itself to an action source, such as a menu item or a
+      button. If the action source performed an action, the controller verifies,
+      whether the action is valid and does something.
+
+      <p>
+      To do something, for re-usability, a controller invokes other classes. The
+      action code should not be implemented in the controller itself so that it
+      can be used in other contexts.
+
+      <h2>How to write a controller</h2>
+
+      <ul>
+          <li>Create a subclass of {@link org.jphototagger.program.controller.Controller}</li>
+          <li>Connect to the event source objects via <code>listenToActionsOf()</code>
+              and/or <code>listenToKeyEventsOf()</code>.
+          </li>
+          <li>Override <code>myAction()</code> and <code>myKey()</code>, where You
+              define, whether a key event or action event in the event source
+              triggers the action. E.g. if Your controller responses to the
+              <kbd>Del</kbd> key, the code of <code>myKey()</code> may be:
+              <code>return keyEvent.getKeyCode() == KeyEvent.VK_DELETE</code>.
+          </li>
+          <li>Override one or both <code>action()</code> methods, which will be
+              called, if <code>myAction()</code> or <code>myKey()</code> are
+              returning true.
+          </li>
+          <li>Create <em>one</em> instance of the controller class whithin
+              {@link org.jphototagger.program.factory.ControllerFactory} in it's
+              <code>init()</code> method.
+          </li>
+          <li>If the controller listens to a popup menu of a <code>JTree</code>
+              of <code>JList</code>, the best way is: Let extend the popup menu
+              {@link org.jphototagger.lib.event.listener.PopupMenuTree} or
+              {@link org.jphototagger.lib.event.listener.PopupMenuList} and
+              let the controller implement
+              {@link org.jphototagger.lib.event.listener.PopupMenuTree.Listener}
+              or
+              {@link org.jphototagger.lib.event.listener.PopupMenuList.Listener}
+              instead of overriding <code>myAction()</code>.
+          </li>
+      </ul>
+
+      <h2>How to get a controller</h2>
+
+      <p>The controller factory ({@link org.jphototagger.program.factory.ControllerFactory})
+          has the method <code>getControllers()</code> with the controller's
+          static class object as key, which returns all controller instances of
+          that class. <code>getController()</code> returns the first added
+          controller - in most cases only one controller was added so that this
+          maybe the preferred method.
+      </p>
+
+      <h2>Alternative concept: Java Action and Action / Input Maps</h2>
+
+      <p>In <strong>Java</strong>, instances implementing an action ({@link javax.swing.Action})
+          can put into the <strong>action map</strong> ({@link javax.swing.ActionMap})
+          of a component ({@link javax.swing.JComponent}).
+      </p>
+      <p>Advantage: For key events You can assign an action with the component's
+          <strong>input map</strong> ({@link javax.swing.InputMap}) and must not implement a
+          key listener. To use that action in a menu or button You have to
+          write code: Getting the component's action via the action map and
+          add it as listener to the menu or button, e.g. as parameter in their
+          constructors.
+      </p>
+      <p>The disadvantage is, You have to define <strong>unique</strong> action
+          keys for the action map. Commonly strings are used as key. I did not test that,
+          but I think, it's better to use the Action's class object. That
+          should be possible, because the key can be every object, and it avoids
+          defining the same keys for different actions.
+      </p>
+
+      <h2>Alternative concept: NetBeans platform</h2>
+
+      <p>The <a href="http://www.netbeans.org">NetBeans</a> platform has actions
+          in it's so called <strong>System Filesystem</strong>: A hierarchical
+          directory structure where the files of a directory can be every Java
+          object. The platform automatically assigns actions of special folders
+          to the main menu or the toolbar. But that shall not be the main topic
+          here: Actions &quot;know&quot; when they are enabled and get the
+          needed content with the same mechanism: The so called <strong>Lookup</strong>.
+      </p>
+
+      <p>The Lookup is itself a map with classes as key and objects of that class
+          as value. An action connects with the lookup and whenever the lookup
+          contains objects of interest or not, the action will be notified and
+          can enable (objects available) or disable (no object available) itself.
+      </p>
+
+      <p>So are two working steps cleared: When to enable und how to get the
+          content. If in NetBeans a tree item is selected, it's reprensenting
+          objects are put into the lookup, the actions, which can act with these
+          objects, are enabled and having access to the objects. Without the
+          platform You have to write code for enabling / disabling the actions
+          and code for retrieving the objects to act on.
+      </p>
+
+      <p>In a future version a lookup in <strong>JPhotoTagger</strong> maybe
+          implemented.
+      </p>
+  </body>
+</html>

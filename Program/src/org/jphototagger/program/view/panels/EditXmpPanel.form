@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="panelDcSubjects" alignment="1" pref="136" max="32767" attributes="0"/>
+          <Component id="panelDcTitle" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelDcDescription" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopHeadline" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelIptc4xmpcoreLocation" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelIptc4XmpCoreDateCreated" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopAuthorsposition" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelDcCreator" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopCity" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopState" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopCountry" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelDcRights" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopCredit" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopSource" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopTransmissionReference" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopInstructions" alignment="0" pref="136" max="32767" attributes="0"/>
+          <Component id="panelPhotoshopCaptionwriter" alignment="0" pref="136" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="panelDcSubjects" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelDcTitle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelDcDescription" min="-2" pref="60" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopHeadline" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelIptc4xmpcoreLocation" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelIptc4XmpCoreDateCreated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopAuthorsposition" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelDcCreator" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopCity" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopState" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopCountry" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelDcRights" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopCredit" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopSource" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopTransmissionReference" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopInstructions" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="panelPhotoshopCaptionwriter" min="-2" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel" name="panelDcSubjects">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcTitle">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcDescription">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopHeadline">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelIptc4xmpcoreLocation">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelIptc4XmpCoreDateCreated">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopAuthorsposition">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcCreator">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCity">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopState">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCountry">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcRights">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCredit">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopSource">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopTransmissionReference">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopInstructions">
+    </Component>
+    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCaptionwriter">
+    </Component>
+  </SubComponents>
+</Form>

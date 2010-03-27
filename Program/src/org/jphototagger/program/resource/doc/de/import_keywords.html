@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Stichwortbaum importieren</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Stichwortbaum importieren</h1>
+
+        <p>Über das Menü <strong>Datei &gt; Importieren &gt; Stichwortbaum</strong>
+            können Sie Stichwortbäume importieren, die <em>ein anderes
+            Programm</em> exportierte.
+        </p>
+            
+        <p>
+            Die importierten Stichwörter werden eingefügt in den
+            <a href="mainwindow_keywords_tree.html">Stichwortbaum</a>, falls
+            sie dort nicht existieren.
+        </p>
+
+        <h2>Beschreibung der Formate</h2>
+
+        <p>Die Formatbeschreibung ist nur wichtig für Sie, falls Ihr Programm
+            ein anderes Format erzeugt und Sie dieses konvertieren wollen in
+            eines, das importiert werden kann.
+        </p>
+
+        <h3>Adobe Lightroom Photoshop</h3>
+
+        <ul>
+            <li>Textdatei
+            </li>
+            <li>Datei-Endung <code>.txt</code>
+            </li>
+            <li>Zeichenkodierung UTF-8
+            </li>
+            <li>Die Stichwörter stehen zeilenweise untereinander (alphabetisch
+                aufsteigend sortiert)
+            </li>
+            <li>Untergeordnete Stichwörter stehen um ein Tabulatorzeichen weiter
+                eingerückt als das Stichwort in der Zeile zuvor:
+                <ul>
+                    <li>Wurzelstichwörter stehen gleich am Zeilenanfang und sind
+                        nicht eingerückt durch ein Tabulatorzeichen
+                    </li>
+                    <li>Den Wurzelstichwörtern untergeordnete Stichwörter sind
+                        eingerückt mit einem Tabulatorzeichen
+                    </li>
+                    <li>Untergeordneten Stichwörtern untergeordnete Stichwörter
+                        sind ein Tabulatorzeichen weiter eingerückt als diese
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Beispiel</h4>
+
+        <p>Im Beispiel sei ein Tabulator 4 Zeichen &quot;lang&quot;
+        </p>
+
+<pre>
+Geroldshausen
+Landschaft
+    Baum
+    Himmel
+        Wolke
+    Wasser
+        Fluss
+            Donau
+            Main
+            Rhein
+Maibaum
+Nürtingen
+</pre>
+
+        <h2>Siehe auch</h2>
+
+        <ul>
+            <li><a href="import_jpt.html">JPhotoTagger-Daten importieren</a>
+            </li>
+        </ul>
+
+    </body>
+</html>

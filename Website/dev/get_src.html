@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>How to get JPhotoTagger's Source Code</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="../usr/index.html">Users</a></li>
+            <li><a href="index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+        
+        <h1>How to get JPhotoTagger's Source Code</h1>
+
+        <p>Clone the <a href="http://mercurial.selenic.com/wiki/Mercurial">Mercurial</a>
+           source code <a href="http://code.google.com/p/jphototagger/source/checkout">repository</a>:
+
+           <br /><code>hg clone https://jphototagger.googlecode.com/hg/ jphototagger</code>
+        </p>
+
+        <p>On the command line this command has to be on the same line or
+            delimited e.g. whith a backslash within the Bash.
+        </p>
+
+        <h2>Using the source code</h2>
+
+        <p>After getting the source, you can open the projects with the
+            <a href="http://www.netbeans.org">NetBeans</a> IDE: <strong>File &gt;
+            Open Project</strong> [NetBeans 6.8]. If NetBeans displays
+            the <strong>Reference Problems</strong> dialog, you can resolve
+            these through building the projects in that order:
+        </p>
+
+        <ol>
+            <li><strong>JPhotoTagger: Libraray</strong></li>
+            <li><strong>JPhotoTagger: Plugin: Base</strong></li>
+            <li>Other used plugins located in the directory <code>Plugins</code>,
+                currently <strong>JPhotoTagger: Plugin: Copy Filenames To Clipboard</strong> and
+                <strong>JPhotoTagger: Plugin: Flickr Upload</strong>
+            </li>
+        </ol>
+
+        <p>To build a project, right click on it's root node in the
+            <code>Projects</code> tab, open the context menu and choose
+            <strong>Build</strong>.
+        </p>
+
+        <p>Next steps:</p>
+
+        <ul>
+            <li>Choose a <a href="run_cfgs.html">run configuration</a>
+            and verify the <a href="cmd_line_opts.html">command line options</a>
+            of that configuration.
+            </li>
+            <li><a href="netbeans_ins_license.html">Set up the license
+                file</a> in the <strong>NetBeans</strong> IDE.
+            </li>
+        </ul>
+
+        <h2>What is to exclude from repository?</h2>
+
+        <p>Please do not push into the repository unneccessary JAR files,
+            images etc. Here is a sample <a href="files/.hgignore">.hgignore</a>
+            file which you can fit to Your needs.
+        </p>
+
+        <p><strong>Author:</strong> Elmar Baumann
+            <br /><strong>Status of this document:</strong> 2010-02-26
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>

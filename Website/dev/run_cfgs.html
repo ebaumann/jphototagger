@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Run configurations in the NetBeans IDE</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="../usr/index.html">Users</a></li>
+            <li><a href="index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>Run configurations in the NetBeans IDE</h1>
+
+        <p>With a <strong>Run configuration</strong> You can execute a program
+            with different <a href="cmd_line_opts.html">command line options</a>
+            or different Java virtual machine options, using other classes as
+            main class and using different working directories. These are the
+            options whithin <strong>JPhotoTagger's</strong> source code
+            repository [NetBeans 6.8]:
+        </p>
+
+        <ul>
+            <li><strong>Language en:</strong> Starts the Java VM with the language
+                code <code>en</code> (<code>-Duser.language=en</code>) for testing
+                the English GUI strings
+            </li>
+            <li><strong>Memory Windows User:</strong> VM memory settings used
+                whithin windows installations (the installer writes a start
+                batch file with these settings)
+            </li>
+            <li><strong>More Memory:</strong> Gives <strong>JPhotoTagger</strong>
+                more heap memory
+            </li>
+            <li><strong>Output to JPT window:</strong> Does not use the
+                command line option <code>-nocapture</code> for testing
+                <strong>JPhotoTagger's</strong> output window
+            </li>
+            <li><strong>Show Splash Screen:</strong> Displays the splash screen
+            </li>
+        </ul>
+
+        <p>You can switch the configurations either in the toolbar's combo box
+            or via the project settings dialog, category <strong>Run</strong>.
+        </p>
+        
+        <p><strong>Author:</strong> Elmar Baumann
+            <br /><strong>Status of this document:</strong> 2010-02-22
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>

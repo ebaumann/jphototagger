@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Kartenreiter &quot;Bearbeiten&quot;</title>
+        <meta name="author" content="Elmar Baumann" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Kartenreiter &quot;Bearbeiten&quot;</h1>
+
+        <p>Über den Kartenreiter <strong>Bearbeiten</strong> können Sie die
+            <a href="glossary_metadata.html">Metadaten</a> eines oder mehrerer
+            Bilder <strong>gleichzeitig</strong> bearbeiten. Sie benötigen:
+        </p>
+
+        <ul>
+            <li>Schreibrechte im Bilder-Ordner
+            </li>
+            <li>Schreibrechte für existierende
+                <a href="glossary_xmp.html">XMP</a>-Dateien
+            </li>
+        </ul>
+
+        <p>Ohne Schreibrechte sind die Eingabefelder dunkler und es steht am
+            Ende im Kartenreiter <strong>Bearbeiten</strong>, dass Bearbeiten
+            nicht möglich ist.
+        </p>
+
+        <p>Ihre Daten werden gespeichert - in
+            <a href="glossary_sidecar_file.html">XMP-Filialdateien</a>
+            geschrieben - falls Sie ein Eingabefeld verlassen oder
+            <strong>JPhotoTagger</strong> beenden. Sie können
+            <strong>JPhotoTagger</strong> auch so
+            <a href="settings_performance.html">einstellen</a>, dass die Daten
+            erst gespeichert werden, nachdem die Bildauswahl sich ändert.
+        </p>
+
+        <p>Die Schaltflächen links der Eingabefelder mit einem Minus-Zeichen
+            klappen die Eingabefelder ein und jene mit einem Plus-Zeichen
+            klappen die Eingabefelder aus. Sie sparen Platz durch Einklappen
+            jener Felder, in die Sie nur selten Text eingeben.
+        </p>
+
+        <h2>Daten eingeben</h2>
+
+        <p>Mit der <strong>Tabulator</strong>-Taste gehen Sie von Eingabefeld
+            zu Eingabefeld. Ihnen wird in jedem Eingabefeld Text vorgeschlagen,
+            den Sie dort einmal eingaben, falls er in der Datenbank steht.
+        </p>
+
+        <p>Zeigen Sie mit der Maus etwas länger auf die Überschrift eines
+            Eingabefelds, erscheint ein Werkzeugtipp (Tooltip) mit weiteren
+            Informationen, was in das Eingabefeld hineingeschrieben werden soll.
+        </p>
+
+        <h2>Mehrfache Daten eingeben</h2>
+
+        <p>Folgende Daten können mehrfach vorkommen:
+        </p>
+
+        <ul>
+            <li>Stichwörter
+            </li>
+        </ul>
+
+        <p>Ein Bereich mit mehrfachen Daten ist zweigeteilt: Oben ist eine Liste
+            mit den bisherigen Eingaben, unten ein einzeiliges Eingabefeld.
+        </p>
+
+        <p>Geben Sie Daten in das einzeilige Eingabefeld ein und drücken die
+            <kbd>Enter</kbd>-Taste oder klicken mit der Maus auf die
+            <kbd>Plus</kbd>-Schaltfläche (<strong>+</strong>), wird Ihre
+            Eingabe in die Liste übernommen, falls sie dort nicht existiert.
+        </p>
+
+        <p>Wollen Sie Einträge aus der Liste <strong>löschen</strong>, wählen
+            Sie einen Eintrag aus oder mehrere und klicken auf die
+            <strong>Minus</strong>-Schaltfläche (<strong>-</strong>). Sie können
+            auch das Kontextmenü benutzen (rechte Maustaste).
+        </p>
+
+        <p>Wollen Sie einen Eintrag in der Liste <strong>umbenennen</strong>
+            oder mehrere, wählen Sie die Einträge aus, klicken mit der rechten
+            Maustaste und wählen aus dem Kontextmenü "Umbenennen".
+        </p>
+
+        <h2>Die Metadaten eines Bilds bearbeiten</h2>
+
+        <p>Wählen Sie (genau) <strong>ein</strong> Bild aus, werden dessen
+            Metadaten angezeigt. Durch Entfernen aus den Eingabefeldern und
+            der Stichwortliste <strong>löschen</strong> Sie Daten.
+        </p>
+
+        <h2>Die Metadaten mehrerer Bilder bearbeiten</h2>
+
+        <p>Wählen Sie mehrere Bilder aus, werden die <em>gemeinsamen</em>
+            Metadaten angezeigt. Dazu werden die XMP-Filialdateien aller
+            ausgewählten Bilder eingelesen und deren Daten verglichen.
+        </p>
+
+        <p>Text, den Sie eingeben, wird allen ausgewählten Bildern zugewiesen.
+        </p>
+            
+        <p>Falls sich der bisherige Text unterscheidet von Ihrer Eingabe, wird
+            er ersetzt, falls dieser nur einmal vorkommt, wie der Name des
+            Fotografen, das Copyright, der Aufnahmeort (alles außer Stichwörter).
+        </p>
+
+        <p>Geben Sie Text ein in Felder mit sich wiederholenden Metadaten -
+            Stichwörter - wird dieser allen ausgewählten Bildern hinzugefügt,
+            sofern er dort nicht existiert.
+        </p>
+
+        <p>Metadaten, die Sie löschen, werden aus allen ausgewählten Bildern
+           entfernt.
+        </p>
+
+        <h2>Untergeordneter Kartenreiter &quot;Bearbeiten&quot;</h2>
+
+        <p>Schaltflächen und deren Bedeutung, in den Klammern stehen die
+            Tastenkombinationen:
+        </p>
+
+        <dl>
+            <dt>Leeren (<kbd>Alt+L</kbd>)
+            </dt>
+            <dd>Leert alle Eingabefelder
+            </dd>
+            <dt>Als Vorlage speichern (<kbd>Alt+V</kbd>)
+            </dt>
+            <dd>Speichert, was gerade eingegeben ist, als Vorlage
+            </dd>
+            <dt>Vorlage einfügen (<kbd>Alt+E</kbd>)
+            </dt>
+            <dd>Fügt die Daten der ausgewählten (aktuellen) Vorlage ein in die
+                Eingabefelder
+            </dd>
+        </dl>
+
+        <p><em>Die Tastenkombinationen funktionieren nur, falls der
+            untergeordnete Kartenreiter &quot;Bearbeiten&quot; ausgewählt ist!</em>
+        </p>
+
+        <h2>Untergeordneter Kartenreiter &quot;Vorlagen&quot;</h2>
+
+        <p>Vorlagen sind Metadaten, die Sie immer wieder benötigen. Einmal
+            abgespeichert mit der Tastenkombination <kbd>Alt+V</kbd> oder
+            Mausklick auf die Schaltfläche <strong>Als Vorlage speichern</strong>,
+            werden sie in die Eingabefelder eingefügt durch die Tastenkombination
+            <kbd>Alt+E</kbd> oder Klick auf die Schaltfläche <strong>Vorlage
+            einfügen</strong>. Die <em>aktuelle</em> Vorlage wird ausgewählt im
+            Dropdown-Listenfeld des Kartenreiters <strong>Vorlagen</strong>.
+        </p>
+
+        <p>Beim Einfügen wird der Text der Vorlage in alle Felder gesetzt,
+            bestehender Text wird durch den Vorlagentext ersetzt. Wo kein Text
+            in der Vorlage ist, wird existierender Text <em>nicht</em> gelöscht.
+        </p>
+
+        <p>Für eine Vorlage eignen sich besonders Copyright, Adresse des
+            Fotografen und Stichwörter, die Sie immer wieder benutzen.
+        </p>
+
+        <p>Schaltflächen und deren Bedeutung, in den Klammern stehen die
+            Tastenkombinationen:
+        </p>
+
+        <dl>
+            <dt>Umbenennen (<kbd>Alt+M</kbd>)
+            </dt>
+            <dd>Benennt die aktuelle Vorlage um
+            </dd>
+            <dt>Aktualisieren (<kbd>Alt+A</kbd>)
+            </dt>
+            <dd>Frischt die aktuelle Vorlage auf mit den Daten der
+                Eingabefelder
+            </dd>
+            <dt>Löschen (<kbd>Alt+C</kbd>)
+            </dt>
+            <dd>Löscht die aktuelle Vorlage
+            </dd>
+            <dt>Bearbeiten (<kbd>Alt+E</kbd>)
+            </dt>
+            <dd>Sie können die aktuelle Vorlage mit dem Vorlagen-Editor bearbeiten
+            </dd>
+            <dt>Bearbeiten (<kbd>Alt+N</kbd>)
+            </dt>
+            <dd>Sie können eine neue Vorlage mit dem Vorlagen-Editor erstellen
+            </dd>
+        </dl>
+
+        <p><em>Die Tastenkombinationen funktionieren nur, falls der
+            untergeordnete Kartenreiter &quot;Vorlagen&quot; ausgewählt ist!</em>
+        </p>
+
+        <h2>Tipps zur Eingabe von Metadaten</h2>
+
+        <ul>
+            <li>Benutzen Sie Vorlagen.
+            </li>
+            <li>Haben Sie viele Bilder fotografiert, wählen Sie vorher alle aus,
+                die die gleichen Stichwörter, Beschreibung etc. erhalten sollen.
+                Dann geben Sie die Stichwörter, Beschreibung und den Rest ein. Das
+                wiederholen Sie für andere Stichwörter, Beschreibungen, etc.
+            </li>
+        </ul>
+
+    </body>
+</html>
