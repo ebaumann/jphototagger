@@ -21,6 +21,7 @@
 
 package org.jphototagger.lib.dialog;
 
+import java.awt.HeadlessException;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.model.TableModelLogfiles;
 import org.jphototagger.lib.renderer.TableCellRendererLogfileDialog;
@@ -68,8 +69,8 @@ import javax.swing.text.html.HTMLDocument;
  */
 public final class LogfileDialog extends Dialog
         implements ListSelectionListener, ActionListener {
-    private static final long           MAX_BYTES        = 10 * 1024 * 1024;
     private static final long           serialVersionUID = 1L;
+    private long                        maxBytes         = 10 * 1024 * 1024;
     private final Map<JCheckBox, Level> levelOfCheckBox  =
         new HashMap<JCheckBox, Level>();
     private final Map<Class<?>, Integer> paneIndexOfFormatterClass =
@@ -186,32 +187,46 @@ public final class LogfileDialog extends Dialog
         long logfileBytes = new File(logfilename).length();
 
         if (logfileBytes <= 0) {
-            JOptionPane
-                .showMessageDialog(this, JslBundle.INSTANCE
-                    .getString("LogfileDialog.Error.LogfileIsEmpty"), JslBundle
-                    .INSTANCE
-                    .getString("LogfileDialog.Error.LogfileIsEmpty.Title"), JOptionPane
-                    .ERROR_MESSAGE);
-
+            errorMessageEmpty();
             return false;
-        } else if (logfileBytes >= MAX_BYTES) {
-            JOptionPane
-                .showMessageDialog(
-                    this,
-                    JslBundle.INSTANCE
-                        .getString(
-                            "LogfileDialog.Error.MaximumSizeExceeded",
-                            Math
-                            .round((float) logfileBytes
-                                   / (float) MAX_BYTES)), JslBundle.INSTANCE
-                                       .getString(
-                                           "LogfileDialog.Error.MaximumSizeExceeded.Title"), JOptionPane
-                                               .ERROR_MESSAGE);
-
+        } else if (logfileBytes >= maxBytes) {
+            errorMessageMaxBytes(logfileBytes);
             return false;
         }
 
         return true;
+    }
+
+    private void errorMessageEmpty() throws HeadlessException {
+        JOptionPane.showMessageDialog(this, JslBundle.INSTANCE.getString(
+                "LogfileDialog.Error.LogfileIsEmpty"),
+                    JslBundle.INSTANCE.getString(
+                        "LogfileDialog.Error.LogfileIsEmpty.Title"),
+                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void errorMessageMaxBytes(long logfileBytes) {
+        JOptionPane.showMessageDialog(this, JslBundle.INSTANCE.getString(
+                "LogfileDialog.Error.MaximumSizeExceeded",
+                    Math.round((float) logfileBytes / (float) maxBytes)),
+                JslBundle.INSTANCE.getString(
+                    "LogfileDialog.Error.MaximumSizeExceeded.Title"),
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public long getMaxBytes() {
+        return maxBytes;
+    }
+
+    /**
+     * Sets the maximum bytes of the logfile size, which can be displayed.
+     * <p>
+     * Otherwise the dialog does not open the log file.
+     *
+     * @param maxBytes maximum amount of bytes. Default: 10 MB.
+     */
+    public void setMaxBytes(long maxBytes) {
+        this.maxBytes = maxBytes;
     }
 
     private void readLogfileRecords() {
