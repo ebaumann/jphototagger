@@ -45,6 +45,7 @@ public final class AdvancedSearchDialog extends Dialog
         super(GUI.INSTANCE.getAppFrame(), modal,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
+        panel.addSearchListener(this);
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
     }
 
