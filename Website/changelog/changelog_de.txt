@@ -543,7 +543,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Stichwortbaum: Es können mehrere markierte Stichwörter gleichzeitig gelöscht
   werden
-* Bugfix: Wird eine gespeicherte Suche modifiziert, wird diese sofort ver�ndert
+* Bugfix: Wird eine gespeicherte Suche modifiziert, wird diese sofort verändert
   im Kartenreiter der gespeicherten Suchen. Falls eine Suche unter anderem Namen
   gespeichert wird, erscheint diese dort als neuer Eintrag.
 * Sortierung wird nur noch bei Suchen mit eigenem SQL deaktiviert
@@ -552,7 +552,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Suchen werden nicht sortiert, sodass die SQL-Sortierung benutzt wird. So
-  k�nnen �ber Suchen - "Eigenes SQL" - Bilder nach Bedarf sortiert werden.
+  können über Suchen - "Eigenes SQL" - Bilder nach Bedarf sortiert werden.
 
 0.7.45 2010-01-18
 -----------------
@@ -864,13 +864,13 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.7.18 2009-12-26
 -----------------
 
-* Kontextmen� f�r Vorschaubilder gegliedert durch Untermen�s
-* Men�punkte aus Men� "Bearbeiten" ins Kontextmen� der Vorschaubilder verlagert,
-  sofern diese sich ausschlie�lich auf die Vorschaubilder bezogen
-* Hilfe: Bildschirmschnappsch�sse aktualisiert, einige
+* Kontextmenü für Vorschaubilder gegliedert durch Untermenüs
+* Menüpunkte aus Menü "Bearbeiten" ins Kontextmenü der Vorschaubilder verlagert,
+  sofern diese sich ausschließlich auf die Vorschaubilder bezogen
+* Hilfe: Bildschirmschnappschüsse aktualisiert, einige
   Stellen korrigiert
-* Autovervollst�ndigen wieder entfernt aus erweiterter Suche: Konnte zu extrem
-  langen Verz�gerungen f�hren beim �ffnen gespeicherter Suchen
+* Autovervollständigen wieder entfernt aus erweiterter Suche: Konnte zu extrem
+  langen Verzögerungen führen beim Öffnen gespeicherter Suchen
 * Bugfix: Hierarchische Stichwörter können nicht mehr verschoben oder umbenannt
   werden, falls es auf der gleichen Ebene bereits ein gleichnamiges Stichwort
   gibt
@@ -1001,10 +1001,10 @@ Changelog JPhotoTagger http://jphototagger.org/
   Dateiname und -Erweiterung
 * Externe Programme werden nicht mehr nach einer definierten Zeitspanne beendet
   (Default vorher: 60 Sekunden). Hintergrund: Wird ein Bild zur Bearbeitung
-  ge�ffnet mit einem Bearbeitungsprogramm, w�rde dieses nach dieser Zeit
+  geöffnet mit einem Bearbeitungsprogramm, würde dieses nach dieser Zeit
   geschlossen.
 * Fenstertitel ohne JPhotoTaggers Versionsnummer
-* Windows-Installer: Nachdem JPhotoTagger gestartet ist, schlie�t sich die
+* Windows-Installer: Nachdem JPhotoTagger gestartet ist, schließt sich die
   Eingabeaufforderung
 
 0.7.3 2009-10-17
