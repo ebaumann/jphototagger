@@ -53,6 +53,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -511,9 +512,10 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setEnabledCalendarButton() {
+        Object selItem = comboBoxColumns.getModel().getSelectedItem();
         buttonCalendar.setEnabled(
-            comboBoxColumns.getModel().getSelectedItem().equals(
-                ColumnExifDateTimeOriginal.INSTANCE));
+            selItem.equals(ColumnExifDateTimeOriginal.INSTANCE)
+            || selItem.equals(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE));
     }
 
     private void showInputHelpers() {
