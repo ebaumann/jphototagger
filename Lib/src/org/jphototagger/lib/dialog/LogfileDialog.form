@@ -79,9 +79,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="472" max="32767" attributes="2"/>
+                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="602" max="32767" attributes="2"/>
                           <Component id="panelFilter" alignment="1" max="32767" attributes="1"/>
-                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="472" max="32767" attributes="2"/>
+                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="602" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -92,9 +92,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelFilter" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableLogfileRecords" pref="69" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableLogfileRecords" pref="70" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTextPaneDetails" pref="59" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTextPaneDetails" pref="60" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -324,7 +324,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldSearch" pref="397" max="32767" attributes="0"/>
+                              <Component id="textFieldSearch" pref="509" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -407,7 +407,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneSimple" pref="472" max="32767" attributes="0"/>
+                      <Component id="scrollPaneSimple" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -416,7 +416,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneSimple" pref="239" max="32767" attributes="0"/>
+                      <Component id="scrollPaneSimple" pref="238" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>

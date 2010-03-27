@@ -69,9 +69,10 @@ import javax.swing.text.html.HTMLDocument;
  */
 public final class LogfileDialog extends Dialog
         implements ListSelectionListener, ActionListener {
-    private static final long           serialVersionUID = 1L;
-    private long                        maxBytes         = 10 * 1024 * 1024;
-    private final Map<JCheckBox, Level> levelOfCheckBox  =
+    private static final long           serialVersionUID  = 1L;
+    public static final long            DEFAULT_MAX_BYTES = 10 * 1024 * 1024;
+    private long                        maxBytes          = DEFAULT_MAX_BYTES;
+    private final Map<JCheckBox, Level> levelOfCheckBox   =
         new HashMap<JCheckBox, Level>();
     private final Map<Class<?>, Integer> paneIndexOfFormatterClass =
         new HashMap<Class<?>, Integer>();
@@ -223,7 +224,8 @@ public final class LogfileDialog extends Dialog
      * <p>
      * Otherwise the dialog does not open the log file.
      *
-     * @param maxBytes maximum amount of bytes. Default: 10 MB.
+     * @param maxBytes maximum amount of bytes.
+     *                 Default: {@link #DEFAULT_MAX_BYTES}.
      */
     public void setMaxBytes(long maxBytes) {
         this.maxBytes = maxBytes;
