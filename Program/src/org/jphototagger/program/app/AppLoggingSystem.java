@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.app;
 
+import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
@@ -55,7 +56,8 @@ import java.util.logging.XMLFormatter;
  */
 public final class AppLoggingSystem implements UserSettingsListener {
     private static final int LOGFILE_ROTATE_COUNT      = 5;
-    private static final int MAX_LOGFILE_SIZE_IN_BYTES = 1000000;
+    private static final int MAX_LOGFILE_SIZE_IN_BYTES =
+        (int) LogfileDialog.DEFAULT_MAX_BYTES;
 
     // INSTANCE exists only for applying user settings!
     private static final AppLoggingSystem INSTANCE                 =
