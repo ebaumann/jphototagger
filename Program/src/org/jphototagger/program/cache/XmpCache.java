@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.cache;
 
+import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -53,7 +54,8 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
-        update(imageFile);
+        // special case, directly use new xmp in cache
+        update(xmp, imageFile, true);
     }
 
     @Override
@@ -63,7 +65,8 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        update(imageFile);
+        // special case, directly use new xmp in cache
+        update(updatedXmp, imageFile, true);
     }
 
     @Override
