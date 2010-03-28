@@ -31,7 +31,6 @@ import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.AdvancedSearchColumns;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent;
 import org.jphototagger.program.event.listener.impl.SearchListenerSupport;
 import org.jphototagger.program.event.listener.SearchListener;
 import org.jphototagger.program.event.SearchEvent;
@@ -54,6 +53,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -119,7 +119,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         listenToActions = true;
     }
 
-    public void removeFirst() {
+    public void removeFirstOperator() {
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
@@ -136,6 +136,21 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gbc.gridx  = 1;
         gbc.insets = new Insets(0, 6, 0, 0);
         add(panel2, gbc);
+        ComponentUtil.forceRepaint(this);
+    }
+
+    public void removeRemoveButton() {
+        JPanel panelPadding = new JPanel();
+
+        setSize(panelPadding, buttonRemoveColumn.getPreferredSize());
+        remove(buttonRemoveColumn);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.fill  = GridBagConstraints.BOTH;
+        gbc.gridx = 8;
+        gbc.insets = new Insets(0, 6, 0, 0);
+        add(panelPadding, gbc);
         ComponentUtil.forceRepaint(this);
     }
 
@@ -538,126 +553,123 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         toggleButtonBracketLeft1 = new javax.swing.JToggleButton();
-        comboBoxOperators        = new javax.swing.JComboBox();
+        comboBoxOperators = new javax.swing.JComboBox();
         toggleButtonBracketLeft2 = new javax.swing.JToggleButton();
-        comboBoxColumns          = new javax.swing.JComboBox();
-        comboBoxComparators      = new javax.swing.JComboBox();
-        textFieldValue           = new javax.swing.JFormattedTextField();
-        textFieldValue.setTransferHandler(new TransferHandlerDropTextComponent());
+        comboBoxColumns = new javax.swing.JComboBox();
+        comboBoxComparators = new javax.swing.JComboBox();
+        textFieldValue = new javax.swing.JFormattedTextField();
+        textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
         toggleButtonBracketRight = new javax.swing.JToggleButton();
-        buttonCalendar           = new javax.swing.JButton();
+        buttonCalendar = new javax.swing.JButton();
+        buttonRemoveColumn = new javax.swing.JButton();
+
         setLayout(new java.awt.GridBagLayout());
+
         toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft1.setText("(");
-        toggleButtonBracketLeft1.setBorder(
-            javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketLeft1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketLeft1.setContentAreaFilled(false);
         toggleButtonBracketLeft1.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        toggleButtonBracketLeft1.addActionListener(
-            new java.awt.event.ActionListener() {
+        toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft1ActionPerformed(evt);
             }
         });
-        gridBagConstraints       = new java.awt.GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill  = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         add(toggleButtonBracketLeft1, gridBagConstraints);
+
         comboBoxOperators.setModel(new DefaultComboBoxModel(Operator.values()));
-        comboBoxOperators.addActionListener(
-            new java.awt.event.ActionListener() {
+        comboBoxOperators.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxOperatorsActionPerformed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 1;
-        gridBagConstraints.gridy  = 0;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxOperators, gridBagConstraints);
+
         toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft2.setText("(");
-        toggleButtonBracketLeft2.setBorder(
-            javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketLeft2.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketLeft2.setContentAreaFilled(false);
         toggleButtonBracketLeft2.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        toggleButtonBracketLeft2.addActionListener(
-            new java.awt.event.ActionListener() {
+        toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft2ActionPerformed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 2;
-        gridBagConstraints.gridy  = 0;
-        gridBagConstraints.fill   = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.ipadx  = 2;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
-        comboBoxColumns.setModel(
-            new DefaultComboBoxModel(AdvancedSearchColumns.get().toArray()));
+
+        comboBoxColumns.setModel(new DefaultComboBoxModel(AdvancedSearchColumns.get().toArray()));
         comboBoxColumns.setRenderer(columnRenderer);
         comboBoxColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxColumnsActionPerformed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 3;
-        gridBagConstraints.gridy  = 0;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxColumns, gridBagConstraints);
-        comboBoxComparators.setModel(
-            new DefaultComboBoxModel(Comparator.values()));
-        comboBoxComparators.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        comboBoxComparators.setModel(new DefaultComboBoxModel(Comparator.values()));
+        comboBoxComparators.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxComparatorsActionPerformed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 4;
-        gridBagConstraints.gridy  = 0;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxComparators, gridBagConstraints);
-        textFieldValue.setFocusLostBehavior(
-            javax.swing.JFormattedTextField.PERSIST);
+
+        textFieldValue.setColumns(10);
+        textFieldValue.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         textFieldValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textFieldValueKeyTyped(evt);
             }
         });
-        gridBagConstraints         = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx   = 5;
-        gridBagConstraints.gridy   = 0;
-        gridBagConstraints.fill    = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets  = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(textFieldValue, gridBagConstraints);
+
         toggleButtonBracketRight.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketRight.setText(")");
-        toggleButtonBracketRight.setBorder(
-            javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        toggleButtonBracketRight.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketRight.setContentAreaFilled(false);
         toggleButtonBracketRight.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        toggleButtonBracketRight.addActionListener(
-            new java.awt.event.ActionListener() {
+        toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketRightActionPerformed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 6;
-        gridBagConstraints.gridy  = 0;
-        gridBagConstraints.fill   = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.ipadx  = 2;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
-        buttonCalendar.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_calendar.png")));    // NOI18N
+
+        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_calendar.png"))); // NOI18N
         buttonCalendar.setMnemonic('1');
         buttonCalendar.setPreferredSize(new java.awt.Dimension(16, 16));
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
@@ -665,12 +677,22 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
                 buttonCalendarActionPerformed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 7;
-        gridBagConstraints.gridy  = 0;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(buttonCalendar, gridBagConstraints);
-    }    // </editor-fold>//GEN-END:initComponents
+
+        buttonRemoveColumn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete12.png"))); // NOI18N
+        buttonRemoveColumn.setToolTipText(JptBundle.INSTANCE.getString("SearchColumnPanel.buttonRemoveColumn.toolTipText")); // NOI18N
+        buttonRemoveColumn.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonRemoveColumn.setPreferredSize(new java.awt.Dimension(16, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        add(buttonRemoveColumn, gridBagConstraints);
+    }// </editor-fold>//GEN-END:initComponents
 
     private void toggleButtonBracketLeft1ActionPerformed(
             java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft1ActionPerformed
@@ -712,14 +734,14 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_textFieldValueKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton             buttonCalendar;
-    private javax.swing.JComboBox           comboBoxColumns;
-    private javax.swing.JComboBox           comboBoxComparators;
-    private javax.swing.JComboBox           comboBoxOperators;
+    private javax.swing.JButton buttonCalendar;
+    public javax.swing.JButton buttonRemoveColumn;
+    private javax.swing.JComboBox comboBoxColumns;
+    private javax.swing.JComboBox comboBoxComparators;
+    private javax.swing.JComboBox comboBoxOperators;
     private javax.swing.JFormattedTextField textFieldValue;
-    private javax.swing.JToggleButton       toggleButtonBracketLeft1;
-    private javax.swing.JToggleButton       toggleButtonBracketLeft2;
-    private javax.swing.JToggleButton       toggleButtonBracketRight;
-
+    private javax.swing.JToggleButton toggleButtonBracketLeft1;
+    private javax.swing.JToggleButton toggleButtonBracketLeft2;
+    private javax.swing.JToggleButton toggleButtonBracketRight;
     // End of variables declaration//GEN-END:variables
 }
