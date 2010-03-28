@@ -171,7 +171,7 @@ public final class DatabaseFind extends Database {
         StringBuilder sql =
             new StringBuilder("SELECT DISTINCT files.filename FROM ");
 
-        sql.append("files " + Join.getJoinToFiles(tablename, Type.INNER)
+        sql.append("files" + Join.getJoinToFiles(tablename, Type.INNER)
                    + " WHERE ");
 
         boolean isFirstColumn = true;

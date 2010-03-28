@@ -1820,7 +1820,7 @@ public final class DatabaseImageFiles extends Database {
             String tableName  = column.getTablename();
             String columnName = column.getName();
             int    count      = words.size();
-            String sql        = " SELECT files.filename FROM files "
+            String sql        = " SELECT files.filename FROM files"
                                 + Join.getJoinToFiles(tableName, Type.INNER)
                                 + " WHERE " + tableName + "." + columnName
                                 + " IN " + Util.getParamsInParentheses(count)
@@ -2265,7 +2265,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT files.filename FROM files "
+            String sql = "SELECT files.filename FROM files"
                          + Join.getJoinToFiles(tableName, Type.INNER)
                          + " WHERE " + tableName + "." + columnName + " = ?"
                          + " ORDER BY files.filename ASC";

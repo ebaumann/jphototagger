@@ -754,7 +754,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void appendToFrom(StringBuilder statement) {
-        statement.append(" files ");
+        statement.append(" files");
         int index = 0;
         for (String tablename : Util.getDistinctTablenamesOfColumns(getColumns())) {
             statement.append(index++ == 0 ? "" : " ");
