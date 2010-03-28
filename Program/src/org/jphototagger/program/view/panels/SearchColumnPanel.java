@@ -69,10 +69,11 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         new SearchListenerSupport();
     private final ListCellRendererTableColumns columnRenderer =
         new ListCellRendererTableColumns();
-    private boolean isOperatorsEnabled = true;
-    private boolean listenToActions    = true;
-    private boolean isFirst;
-    private boolean changed;
+    private Column.DataType  prevColumnDataType;
+    private boolean          isOperatorsEnabled = true;
+    private boolean          listenToActions    = true;
+    private boolean          isFirst;
+    private boolean          changed;
 
     public SearchColumnPanel() {
         initComponents();
@@ -95,9 +96,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         listenerSupport.remove(listener);
     }
 
-    /**
-     * Setzt alle Werte auf den Ursprungszustand.
-     */
     public void reset() {
         listenToActions = false;
         toggleButtonBracketLeft1.setSelected(false);
@@ -118,9 +116,20 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxOperators.setEnabled(false);
     }
 
+    // TextFiel#setFormatterFactory() removes text; reset text if the column
+    // data type is equal to the previous column data type
     private void setFormatter() {
+        String          value          = textFieldValue.getText();
+        Column          column         = getColumn();
+        Column.DataType columnDataType = column.getDataType();
+
         textFieldValue.setFormatterFactory(
-            FormatterFactory.getFormatterFactory(getColumn()));
+                FormatterFactory.getFormatterFactory(column));
+
+        if (columnDataType.equals(prevColumnDataType) && !value.isEmpty()) {
+            textFieldValue.setText(value);
+        }
+        prevColumnDataType = column.getDataType();
     }
 
     private void setInputVerifier() {
