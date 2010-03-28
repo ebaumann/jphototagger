@@ -36,20 +36,14 @@ import org.jphototagger.program.event.listener.SearchListener;
 import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
@@ -119,45 +113,9 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         listenToActions = true;
     }
 
-    public void removeFirstOperator() {
-        JPanel panel1 = new JPanel();
-        JPanel panel2 = new JPanel();
-
-        setSize(panel1, toggleButtonBracketLeft1.getPreferredSize());
-        setSize(panel2, comboBoxOperators.getPreferredSize());
-        remove(comboBoxOperators);
-        remove(toggleButtonBracketLeft1);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.fill  = GridBagConstraints.BOTH;
-        gbc.gridx = 0;
-        add(panel1, gbc);
-        gbc.gridx  = 1;
-        gbc.insets = new Insets(0, 6, 0, 0);
-        add(panel2, gbc);
-        ComponentUtil.forceRepaint(this);
-    }
-
-    public void removeRemoveButton() {
-        JPanel panelPadding = new JPanel();
-
-        setSize(panelPadding, buttonRemoveColumn.getPreferredSize());
-        remove(buttonRemoveColumn);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.fill  = GridBagConstraints.BOTH;
-        gbc.gridx = 8;
-        gbc.insets = new Insets(0, 6, 0, 0);
-        add(panelPadding, gbc);
-        ComponentUtil.forceRepaint(this);
-    }
-
-    private void setSize(Component c, Dimension d) {
-        c.setSize(d);
-        c.setPreferredSize(d);
-        c.setMinimumSize(d);
+    public void disableFirstOperator() {
+        toggleButtonBracketLeft1.setEnabled(false);
+        comboBoxOperators.setEnabled(false);
     }
 
     private void setFormatter() {
@@ -578,7 +536,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         add(toggleButtonBracketLeft1, gridBagConstraints);
 
         comboBoxOperators.setModel(new DefaultComboBoxModel(Operator.values()));
@@ -606,7 +563,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
@@ -664,13 +620,15 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
 
         buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_calendar.png"))); // NOI18N
         buttonCalendar.setMnemonic('1');
+        buttonCalendar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonCalendar.setMaximumSize(new java.awt.Dimension(16, 16));
+        buttonCalendar.setMinimumSize(new java.awt.Dimension(16, 16));
         buttonCalendar.setPreferredSize(new java.awt.Dimension(16, 16));
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -686,6 +644,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         buttonRemoveColumn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete12.png"))); // NOI18N
         buttonRemoveColumn.setToolTipText(JptBundle.INSTANCE.getString("SearchColumnPanel.buttonRemoveColumn.toolTipText")); // NOI18N
         buttonRemoveColumn.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonRemoveColumn.setMaximumSize(new java.awt.Dimension(16, 16));
+        buttonRemoveColumn.setMinimumSize(new java.awt.Dimension(16, 16));
         buttonRemoveColumn.setPreferredSize(new java.awt.Dimension(16, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;

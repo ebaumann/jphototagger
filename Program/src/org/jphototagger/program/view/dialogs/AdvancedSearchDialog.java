@@ -57,6 +57,7 @@ public final class AdvancedSearchDialog extends Dialog
     public void setVisible(boolean visible) {
         if (visible) {
             panel.readProperties();
+            panel.ensureOneColumn();
         }
 
         super.setVisible(visible);
