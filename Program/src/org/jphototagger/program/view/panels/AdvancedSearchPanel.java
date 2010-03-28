@@ -63,7 +63,6 @@ import javax.swing.JPanel;
  */
 public final class AdvancedSearchPanel extends javax.swing.JPanel
         implements SearchListener, Persistence {
-    private static final int    MIN_COLUMN_COUNT        = 1;
     private static final String SQL_IDENTIFIER_KEYWORDS =
         "dc_subjects.subject IN";
     private static final String KEY_SELECTED_TAB_INDEX =
@@ -89,24 +88,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
-        addPanelPadding();
-        panelColumn1.setOperatorsEnabled(false);
         panelPadding.setSize(10, 2);
-        initSearchColumnPanels();
         listenToSearchPanels();
         setAutocomplete();
         panelKeywordsInput.setBundleKeyPosRenameDialog(
             "AdvancedSearchPanel.Keywords.RenameDialog.Pos");
         setDefaultInputOfComponent();
-        removeFirstLeftBracket();
         MnemonicUtil.setMnemonics((Container) this);
-    }
-
-    private void removeFirstLeftBracket() {
-        synchronized (searchColumnPanels) {
-            
-            searchColumnPanels.get(0).removeFirstOperator();
-        }
     }
 
     private void setAutocomplete() {
@@ -116,30 +104,42 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void setDefaultInputOfComponent() {
-        synchronized (searchColumnPanels) {
-            defaultInputOfComponent.put(
-            panelSimpleSql, searchColumnPanels.get(0).getTextFieldValue());
-        }
         defaultInputOfComponent.put(panelKeywords,
                                     panelKeywordsInput.textAreaInput);
         defaultInputOfComponent.put(panelCustomSql, textAreaCustomSqlQuery);
     }
 
-    private void addPanelPadding() {
+    private synchronized void addPanelPadding() {
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx      = 0;
-        gbc.gridy      = searchColumnPanels.size();
+        gbc.gridy      = GridBagConstraints.RELATIVE;
         gbc.weightx    = 1;
         gbc.weighty    = 1;
         gbc.gridwidth  = 1;
+        gbc.gridheight = GridBagConstraints.REMAINDER;
         gbc.anchor     = GridBagConstraints.NORTHWEST;
         gbc.fill       = GridBagConstraints.BOTH;
-        gbc.gridheight = GridBagConstraints.REMAINDER;
 
         panelColumns.add(panelPadding, gbc);
-        ComponentUtil.forceRepaint(panelColumns);
     }
+
+    private synchronized void setFirstColumn() {
+        assert !searchColumnPanels.isEmpty();
+        SearchColumnPanel scp = searchColumnPanels.get(0);
+
+        scp.setOperatorsEnabled(false);
+        scp.buttonRemoveColumn.setEnabled(searchColumnPanels.size() > 1);
+        defaultInputOfComponent.put(panelSimpleSql, scp.getTextFieldValue());
+        scp.disableFirstOperator();
+    }
+
+    public synchronized void ensureOneColumn() {
+        if (searchColumnPanels.size() < 1) {
+            addColumn();
+        }
+    }
+
     public void willDispose() {
         checkChanged();
         isSavedSearch = false;
@@ -164,72 +164,44 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         UserSettings.INSTANCE.writeToFile();
     }
 
-    private boolean checkIsSearchValid() {
+    private synchronized boolean checkIsSearchValid() {
         if (isCustomSql()) {
             return true;
         }
-        synchronized (searchColumnPanels) {
 
-            boolean valid = existsKeywords();
-            int     count = searchColumnPanels.size();
-            int     index = 0;
+        boolean valid = existsKeywords();
+        int     count = searchColumnPanels.size();
+        int     index = 0;
 
-            while (!valid && (index < count)) {
-                valid = !searchColumnPanels.get(index++).getValue().isEmpty();
-            }
-
-            valid = valid && checkBrackets();
-
-            if (!valid) {
-                MessageDisplayer.error(this,
-                                       "AdvancedSearchPanel.Error.InvalidQuery");
-            }
-
-            return valid;
+        while (!valid && (index < count)) {
+            valid = !searchColumnPanels.get(index++).getValue().isEmpty();
         }
+
+        valid = valid && checkBrackets();
+
+        if (!valid) {
+            MessageDisplayer.error(this,
+                                   "AdvancedSearchPanel.Error.InvalidQuery");
+        }
+
+        return valid;
     }
 
-    private boolean checkBrackets() {
+    private synchronized boolean checkBrackets() {
         int countOpenBrackets   = 0;
         int countClosedBrackets = 0;
 
-        synchronized (searchColumnPanels) {
-
-            for (SearchColumnPanel panel : searchColumnPanels) {
-                countOpenBrackets   += panel.getCountOpenBrackets();
-                countClosedBrackets += panel.getCountClosedBrackets();
-            }
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            countOpenBrackets   += panel.getCountOpenBrackets();
+            countClosedBrackets += panel.getCountClosedBrackets();
         }
 
         return countOpenBrackets == countClosedBrackets;
     }
 
-    private void initSearchColumnPanels() {
-        synchronized (searchColumnPanels) {
-
-            searchColumnPanels.add(panelColumn1);
-            removeRemoveButtons();
-            assert searchColumnPanels.size() == MIN_COLUMN_COUNT :
-                   searchColumnPanels.size();
-        }
-    }
-
-    private void removeRemoveButtons() {
-        for (int i = 0; i < MIN_COLUMN_COUNT; i++) {
-            SearchColumnPanel panelColumn  = searchColumnPanels.get(i);
-
-            assert panelColumn != null : i;
-
-            panelColumn.removeRemoveButton();
-        }
-    }
-
-    private void listenToSearchPanels() {
-        synchronized (searchColumnPanels) {
-
-            for (SearchColumnPanel panel : searchColumnPanels) {
-                panel.addSearchListener(this);
-            }
+    private synchronized void listenToSearchPanels() {
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            panel.addSearchListener(this);
         }
     }
 
@@ -320,41 +292,31 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private void setSavedSearchToPanels(
+    private synchronized void setSavedSearchToPanels(
             List<SavedSearchPanel> savedSearchPanels) {
         if (savedSearchPanels != null) {
             int dataSize = savedSearchPanels.size();
 
             removeAllColumns();
-            panelColumns.remove(panelPadding);
             columnRemoved = false;
             ensureColumnCount(dataSize);
 
-            synchronized (searchColumnPanels) {
+            int panelSize = searchColumnPanels.size();
 
-                int panelSize = searchColumnPanels.size();
-
-                for (int dataIndex = 0; dataIndex < dataSize; dataIndex++) {
-                    if (dataIndex < panelSize) {
-                        searchColumnPanels.get(dataIndex).setSavedSearchPanel(
-                            savedSearchPanels.get(dataIndex));
-                    }
+            for (int dataIndex = 0; dataIndex < dataSize; dataIndex++) {
+                if (dataIndex < panelSize) {
+                    searchColumnPanels.get(dataIndex).setSavedSearchPanel(
+                        savedSearchPanels.get(dataIndex));
                 }
             }
             addPanelPadding();
         }
     }
 
-    private void removeAllColumns() {
-        synchronized (searchColumnPanels) {
-            while (searchColumnPanels.size() > MIN_COLUMN_COUNT) {
-                int removeIndex = searchColumnPanels.size() - 1;
-                SearchColumnPanel panel = searchColumnPanels.get(removeIndex);
-                if (panel != null) {
-                    removeColumn(panel);
-                }
-            }
-        }
+    private synchronized void removeAllColumns() {
+        searchColumnPanels.clear();
+        panelColumns.removeAll();
+        searchPanelOfRemoveButton.clear();
     }
 
     private List<SavedSearchPanel> getSavedSearchPanelsContainingValues(
@@ -428,29 +390,24 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         writeProperties();
     }
 
-    private boolean existsSimpleSqlValue() {
+    private synchronized boolean existsSimpleSqlValue() {
 
-        synchronized (searchColumnPanels) {
-            for (SearchColumnPanel panel : searchColumnPanels) {
-                if (!panel.getValue().trim().isEmpty()) {
-                    return true;
-                }
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            if (!panel.getValue().trim().isEmpty()) {
+                return true;
             }
         }
 
         return false;
     }
 
-    private void ensureColumnCount(int count) {
+    private synchronized void ensureColumnCount(int count) {
         int currentCount = 0;
 
-        synchronized (searchColumnPanels) {
+        currentCount = searchColumnPanels.size();
 
-            currentCount = searchColumnPanels.size();
-
-            if (currentCount >= count) {
-                return;
-            }
+        if (currentCount >= count) {
+            return;
         }
 
         for (int i = currentCount; i < count; i++) {
@@ -458,31 +415,32 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private void addColumn() {
-        GridBagConstraints gbc   = getColumnGridBagConstraints();
-        SearchColumnPanel  panel = new SearchColumnPanel();
+    private synchronized void addColumn() {
+        GridBagConstraints gbc     =  getColumnGridBagConstraints();
+        SearchColumnPanel  scPanel = new SearchColumnPanel();
 
-        synchronized (searchColumnPanels) {
-
-            searchColumnPanels.add(panel);
-        }
-
-        searchPanelOfRemoveButton.put(panel.buttonRemoveColumn, panel);
-        panel.buttonRemoveColumn.addActionListener(new RemoveButtonListener());
         panelColumns.remove(panelPadding);
-        panelColumns.add(panel, gbc);
+        panelColumns.add(scPanel, gbc);
         addPanelPadding();
-        panel.addSearchListener(this);
+        searchColumnPanels.add(scPanel);
+        searchPanelOfRemoveButton.put(scPanel.buttonRemoveColumn, scPanel);
+        scPanel.buttonRemoveColumn.addActionListener(new RemoveButtonListener());
+        setFirstColumn();
+        scPanel.addSearchListener(this);
         ComponentUtil.forceRepaint(this);
     }
 
-    private GridBagConstraints getColumnGridBagConstraints() {
+    private synchronized GridBagConstraints getColumnGridBagConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridx   = 0;
-        gbc.fill    = GridBagConstraints.HORIZONTAL;
-        gbc.anchor  = GridBagConstraints.LINE_START;
-        gbc.weightx = 1.0;
+        gbc.gridx      = 0;
+        gbc.gridy      = GridBagConstraints.RELATIVE;
+        gbc.gridwidth  = GridBagConstraints.REMAINDER;
+        gbc.gridheight = 1;
+        gbc.weightx    = 1.0;
+        gbc.weighty    = 0;
+        gbc.fill       = GridBagConstraints.HORIZONTAL;
+        gbc.anchor     = GridBagConstraints.NORTHWEST;
 
         return gbc;
     }
@@ -502,39 +460,27 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private void removeColumn(SearchColumnPanel searchColumnPanel) {
-        synchronized (searchColumnPanels) {
-
-            int     index      = searchColumnPanels.indexOf(searchColumnPanel);
-            int     colCount   = searchColumnPanels.size();
-            boolean validIndex = index >= MIN_COLUMN_COUNT && index < colCount;
-
-            assert validIndex : index;
-
-            if (validIndex) {
-                searchColumnPanels.remove(index);
-                searchPanelOfRemoveButton.remove(
-                        searchColumnPanel.buttonRemoveColumn);
-                panelColumns.remove(searchColumnPanel);
-                if (searchColumnPanel.hasSql()) {
-                    columnRemoved = true;
-                }
-                ComponentUtil.forceRepaint(this);
-            }
+    private synchronized void removeColumn(SearchColumnPanel scPanel) {
+        panelColumns.remove(panelPadding);
+        panelColumns.remove(scPanel);
+        addPanelPadding();
+        searchColumnPanels.remove(scPanel);
+        searchPanelOfRemoveButton.remove(scPanel.buttonRemoveColumn);
+        if (scPanel.hasSql()) {
+            columnRemoved = true;
         }
+        setFirstColumn();
+        ComponentUtil.forceRepaint(this);
     }
 
-    private void clearInput(boolean allPanels) {
+    private synchronized void clearInput(boolean allPanels) {
         checkChanged();
 
         Component selComponent = tabbedPane.getSelectedComponent();
 
         if (allPanels || (selComponent == panelSimpleSql)) {
-            synchronized (searchColumnPanels) {
-
-                for (SearchColumnPanel panel : searchColumnPanels) {
-                    panel.reset();
-                }
+            for (SearchColumnPanel panel : searchColumnPanels) {
+                panel.reset();
             }
         }
 
@@ -556,13 +502,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private boolean columnChanged() {
-        synchronized (searchColumnPanels) {
-
-            for (SearchColumnPanel panel : searchColumnPanels) {
-                if (panel.isChanged()) {
-                    return true;
-                }
+    private synchronized boolean columnChanged() {
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            if (panel.isChanged()) {
+                return true;
             }
         }
 
@@ -617,12 +560,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private void setPanelsUnchanged() {
-        synchronized (searchColumnPanels) {
-
-            for (SearchColumnPanel panel : searchColumnPanels) {
-                panel.setChanged(false);
-            }
+    private synchronized void setPanelsUnchanged() {
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            panel.setChanged(false);
         }
     }
 
@@ -641,26 +581,22 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return savedSearch;
     }
 
-    private List<SavedSearchPanel> getSavedSearchPanels() {
+    private synchronized List<SavedSearchPanel> getSavedSearchPanels() {
         List<SavedSearchPanel> savedSearchPanels =
             new ArrayList<SavedSearchPanel>();
+        int                    size              = searchColumnPanels.size();
 
-        synchronized (searchColumnPanels) {
+        for (int index = 0; index < size; index++) {
+            SearchColumnPanel panel            = searchColumnPanels.get(index);
+            SavedSearchPanel  savedSearchPanel = panel.getSavedSearchData();
 
-            int size = searchColumnPanels.size();
-
-            for (int index = 0; index < size; index++) {
-                SearchColumnPanel panel            = searchColumnPanels.get(index);
-                SavedSearchPanel  savedSearchPanel = panel.getSavedSearchData();
-
-                savedSearchPanel.setPanelIndex(index);
-                savedSearchPanels.add(savedSearchPanel);
-            }
-
-            return (savedSearchPanels.size() > 0)
-                   ? savedSearchPanels
-                   : null;
+            savedSearchPanel.setPanelIndex(index);
+            savedSearchPanels.add(savedSearchPanel);
         }
+
+        return (savedSearchPanels.size() > 0)
+               ? savedSearchPanels
+               : null;
     }
 
     private void search() {
@@ -697,15 +633,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                                 + columnNameFilename + " FROM");
     }
 
-    private List<Column> getColumns() {
+    private synchronized List<Column> getColumns() {
         List<Column> columns = new ArrayList<Column>();
 
-        synchronized (searchColumnPanels) {
-
-            for (SearchColumnPanel panel : searchColumnPanels) {
-                if (panel.hasSql()) {
-                    columns.add(panel.getSelectedColumn());
-                }
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            if (panel.hasSql()) {
+                columns.add(panel.getSelectedColumn());
             }
         }
 
@@ -737,19 +670,17 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return keywords;
     }
 
-    private void appendWhere(StringBuilder statement, List<String> values) {
+    private synchronized void appendWhere(
+            StringBuilder statement, List<String> values) {
         statement.append(" WHERE");
 
         int index = 0;
 
-        synchronized (searchColumnPanels) {
-
-            for (SearchColumnPanel panel : searchColumnPanels) {
-                if (panel.hasSql()) {
-                    panel.setIsFirst(index++ == 0);
-                    statement.append(panel.getSqlString());
-                    values.add(panel.getValue());
-                }
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            if (panel.hasSql()) {
+                panel.setIsFirst(index++ == 0);
+                statement.append(panel.getSqlString());
+                values.add(panel.getValue());
             }
         }
 
@@ -814,7 +745,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelSimpleSql = new javax.swing.JPanel();
         scrollPaneColumns = new javax.swing.JScrollPane();
         panelColumns = new javax.swing.JPanel();
-        panelColumn1 = new org.jphototagger.program.view.panels.SearchColumnPanel();
         labelInfoDelete = new javax.swing.JLabel();
         buttonAddColumn = new javax.swing.JButton();
         panelCustomSql = new javax.swing.JPanel();
@@ -865,14 +795,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         scrollPaneColumns.setBorder(null);
 
         panelColumns.setLayout(new java.awt.GridBagLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        panelColumns.add(panelColumn1, gridBagConstraints);
-
         scrollPaneColumns.setViewportView(panelColumns);
 
         labelInfoDelete.setForeground(new java.awt.Color(0, 0, 255));
@@ -1046,7 +968,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private javax.swing.JLabel labelInfoDelete;
     private javax.swing.JLabel labelInfoKeywords;
     private javax.swing.JPanel panelButtons;
-    private org.jphototagger.program.view.panels.SearchColumnPanel panelColumn1;
     private javax.swing.JPanel panelColumns;
     private javax.swing.JPanel panelCustomSql;
     private javax.swing.JPanel panelKeywords;
