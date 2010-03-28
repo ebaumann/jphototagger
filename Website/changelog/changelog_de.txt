@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.12 2010-03-26
+-----------------
+
+* Erweiterte Suche:
+  * Minimale Spaltenanzahl ist 1 (bisher: 5)
+  * Beliebige (z.B. leere) Spalten können entfernt werden (bislang: stets
+    die letzte Spalte)
+
 0.8.11 2010-03-25
 -----------------
 
