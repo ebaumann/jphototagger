@@ -3,7 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.8.12 2010-03-26
+0.8.13 2010-03-28
+-----------------
+
+* Erweiterte Suche:
+  * Erste Spalte kann gelöscht werden, falls mehr als eine existiert; aufgrund
+    daraus resultierender Layoutmanager-Probleme sind die erste linke Klammer
+    und der erste Operator wieder sichtbar, jedoch deaktiviert
+  * Eingaben in Textfelder werden nur gelöscht, falls der Datentyp sich geändert
+    hat, z.B. von Text auf Ganzzahlen oder von Ganzzahlen auf Fließkommazahlen
+
+0.8.12 2010-03-27
 -----------------
 
 * Erweiterte Suche:
