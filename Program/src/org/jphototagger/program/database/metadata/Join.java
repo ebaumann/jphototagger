@@ -43,71 +43,71 @@ public final class Join {
         JOIN_FROM_FILES.put("files", "");
         JOIN_FROM_FILES.put(
             "dc_subjects",
-            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
             + " INNER JOIN xmp_dc_subject ON xmp.id = xmp_dc_subject.id_xmp"
             + " INNER JOIN dc_subjects"
             + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id");
         JOIN_FROM_FILES.put("exif",
-                            "\\JOIN_TYPE\\ JOIN exif"
+                            " \\JOIN_TYPE\\ JOIN exif"
                             + " ON files.id = exif.id_files");
         JOIN_FROM_FILES.put(
-            "xmp", "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files");
+            "xmp", " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files");
         JOIN_FROM_FILES.put("exif_recording_equipment",
-                            "\\JOIN_TYPE\\ JOIN exif"
+                            " \\JOIN_TYPE\\ JOIN exif"
                             + " ON files.id = exif.id_files"
                             + " INNER JOIN exif_recording_equipment"
                             + " ON exif.id_exif_recording_equipment"
                             + " = exif_recording_equipment.id");
         JOIN_FROM_FILES.put("exif_lens",
-                            "\\JOIN_TYPE\\ JOIN exif"
+                            " \\JOIN_TYPE\\ JOIN exif"
                             + " ON files.id = exif.id_files"
                             + " INNER JOIN exif_lens"
                             + " ON exif.id_exif_lens = exif_lens.id");
         JOIN_FROM_FILES.put("dc_creator",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN dc_creator"
                             + " ON xmp.id_dc_creator = dc_creator.id");
         JOIN_FROM_FILES.put("dc_rights",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN dc_rights"
                             + " ON xmp.id_dc_rights = dc_rights.id");
         JOIN_FROM_FILES.put("iptc4xmpcore_location",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN iptc4xmpcore_location"
                             + " ON xmp.id_iptc4xmpcore_location"
                             + " = iptc4xmpcore_location.id");
         JOIN_FROM_FILES.put("photoshop_authorsposition",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN photoshop_authorsposition"
                             + " ON xmp.id_photoshop_authorsposition"
                             + " = photoshop_authorsposition.id");
         JOIN_FROM_FILES.put("photoshop_captionwriter",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN photoshop_captionwriter"
                             + " ON xmp.id_photoshop_captionwriter"
                             + " = photoshop_captionwriter.id");
         JOIN_FROM_FILES.put("photoshop_city",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN photoshop_city"
                             + " ON xmp.id_photoshop_city = photoshop_city.id");
         JOIN_FROM_FILES.put("photoshop_country",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN photoshop_country"
                             + " ON xmp.id_photoshop_country"
                             + " = photoshop_country.id");
         JOIN_FROM_FILES.put("photoshop_credit",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN photoshop_credit"
                             + " ON xmp.id_photoshop_credit"
                             + " = photoshop_credit.id");
         JOIN_FROM_FILES.put("photoshop_source",
-                            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+                            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
                             + " INNER JOIN photoshop_source"
                             + " ON xmp.id_photoshop_source"
                             + " = photoshop_source.id");
         JOIN_FROM_FILES.put(
             "photoshop_state",
-            "\\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
+            " \\JOIN_TYPE\\ JOIN xmp ON files.id = xmp.id_files"
             + " INNER JOIN photoshop_state"
             + " ON xmp.id_photoshop_state = photoshop_state.id");
         NULL_SQL_OF.put("exif_recording_equipment",
