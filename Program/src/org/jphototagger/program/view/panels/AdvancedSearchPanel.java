@@ -55,6 +55,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
@@ -80,6 +81,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private boolean                               columnRemoved;
     private final transient SearchListenerSupport listenerSupport =
         new SearchListenerSupport();
+    private final JPanel                          panelPadding    = new JPanel();
 
     public AdvancedSearchPanel() {
         initComponents();
@@ -87,7 +89,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void postInitComponents() {
+        addPanelPadding();
         panelColumn1.setOperatorsEnabled(false);
+        panelPadding.setSize(10, 2);
         initSearchColumnPanels();
         listenToSearchPanels();
         setAutocomplete();
@@ -121,6 +125,21 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         defaultInputOfComponent.put(panelCustomSql, textAreaCustomSqlQuery);
     }
 
+    private void addPanelPadding() {
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx      = 0;
+        gbc.gridy      = searchColumnPanels.size();
+        gbc.weightx    = 1;
+        gbc.weighty    = 1;
+        gbc.gridwidth  = 1;
+        gbc.anchor     = GridBagConstraints.NORTHWEST;
+        gbc.fill       = GridBagConstraints.BOTH;
+        gbc.gridheight = GridBagConstraints.REMAINDER;
+
+        panelColumns.add(panelPadding, gbc);
+        ComponentUtil.forceRepaint(panelColumns);
+    }
     public void willDispose() {
         checkChanged();
         isSavedSearch = false;
@@ -307,6 +326,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             int dataSize = savedSearchPanels.size();
 
             removeAllColumns();
+            panelColumns.remove(panelPadding);
             columnRemoved = false;
             ensureColumnCount(dataSize);
 
@@ -321,6 +341,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                     }
                 }
             }
+            addPanelPadding();
         }
     }
 
@@ -448,7 +469,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
         searchPanelOfRemoveButton.put(panel.buttonRemoveColumn, panel);
         panel.buttonRemoveColumn.addActionListener(new RemoveButtonListener());
+        panelColumns.remove(panelPadding);
         panelColumns.add(panel, gbc);
+        addPanelPadding();
         panel.addSearchListener(this);
         ComponentUtil.forceRepaint(this);
     }
