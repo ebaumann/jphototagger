@@ -457,8 +457,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonSelectFilesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFilesActionPerformed
+    private void buttonSelectFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFilesActionPerformed
         handleSelectFilesActionPerformed();
     }//GEN-LAST:event_buttonSelectFilesActionPerformed
 

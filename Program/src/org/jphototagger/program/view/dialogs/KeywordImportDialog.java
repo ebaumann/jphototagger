@@ -333,8 +333,7 @@ public class KeywordImportDialog extends Dialog {
         handleCancelActionPerformed();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void buttonChooseFileActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
+    private void buttonChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
         chooseFile();
     }//GEN-LAST:event_buttonChooseFileActionPerformed
 

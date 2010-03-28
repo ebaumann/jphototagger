@@ -1294,13 +1294,11 @@ public final class AppPanel extends javax.swing.JPanel {
         add(panelStatusbar, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonDisplaySelKeywordsListActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsListActionPerformed
+    private void buttonDisplaySelKeywordsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsListActionPerformed
         displaySelKeywordsCard("flatKeywords");
     }//GEN-LAST:event_buttonDisplaySelKeywordsListActionPerformed
 
-    private void buttonDisplaySelKeywordsTreeActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsTreeActionPerformed
+    private void buttonDisplaySelKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsTreeActionPerformed
         displaySelKeywordsCard("keywordsTree");
     }//GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
 

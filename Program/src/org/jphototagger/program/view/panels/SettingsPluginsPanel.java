@@ -280,8 +280,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
                                 .addContainerGap()));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonHelpPluginActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
+    private void buttonHelpPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
         showHelp();
     }//GEN-LAST:event_buttonHelpPluginActionPerformed
 

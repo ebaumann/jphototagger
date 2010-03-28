@@ -240,13 +240,11 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboBoxMetadataTemplatesPropertyChange(
-            java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboBoxMetadataTemplatesPropertyChange
+    private void comboBoxMetadataTemplatesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboBoxMetadataTemplatesPropertyChange
         setTemplateName();
     }//GEN-LAST:event_comboBoxMetadataTemplatesPropertyChange
 
-    private void comboBoxMetadataTemplatesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxMetadataTemplatesActionPerformed
+    private void comboBoxMetadataTemplatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxMetadataTemplatesActionPerformed
         setTemplateName();
     }//GEN-LAST:event_comboBoxMetadataTemplatesActionPerformed
 

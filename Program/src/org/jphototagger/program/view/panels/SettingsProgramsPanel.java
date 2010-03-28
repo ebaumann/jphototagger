@@ -298,28 +298,23 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
                                                                 buttonAddProgram)).addContainerGap()));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonChooseDefaultProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDefaultProgramActionPerformed
+    private void buttonChooseDefaultProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDefaultProgramActionPerformed
         setDefaultProgram();
     }//GEN-LAST:event_buttonChooseDefaultProgramActionPerformed
 
-    private void listProgramsValueChanged(
-            javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listProgramsValueChanged
+    private void listProgramsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listProgramsValueChanged
         setEnabled();
     }//GEN-LAST:event_listProgramsValueChanged
 
-    private void buttonRemoveProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveProgramActionPerformed
+    private void buttonRemoveProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveProgramActionPerformed
         removeProgram();
     }//GEN-LAST:event_buttonRemoveProgramActionPerformed
 
-    private void buttonAddProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddProgramActionPerformed
+    private void buttonAddProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddProgramActionPerformed
         addProgram();
     }//GEN-LAST:event_buttonAddProgramActionPerformed
 
-    private void buttonEditProgramActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditProgramActionPerformed
+    private void buttonEditProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditProgramActionPerformed
         updateProgram();
     }//GEN-LAST:event_buttonEditProgramActionPerformed
 

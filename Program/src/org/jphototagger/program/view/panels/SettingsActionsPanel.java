@@ -357,38 +357,31 @@ public class SettingsActionsPanel extends javax.swing.JPanel
                     Short.MAX_VALUE).addContainerGap()));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonActionsAfterDatabaseInsertionEditActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionEditActionPerformed
+    private void buttonActionsAfterDatabaseInsertionEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionEditActionPerformed
         handleActionsAfterDatabaseInsertionEdit();
     }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionEditActionPerformed
 
-    private void buttonActionsAfterDatabaseInsertionMoveUpActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveUpActionPerformed
+    private void buttonActionsAfterDatabaseInsertionMoveUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveUpActionPerformed
         handleActionsAfterDatabaseInsertionMoveUp();
     }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionMoveUpActionPerformed
 
-    private void buttonActionsAfterDatabaseInsertionMoveDownActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveDownActionPerformed
+    private void buttonActionsAfterDatabaseInsertionMoveDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionMoveDownActionPerformed
         handleActionsAfterDatabaseInsertionMoveDown();
     }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionMoveDownActionPerformed
 
-    private void buttonActionsAfterDatabaseInsertionRemoveActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionRemoveActionPerformed
+    private void buttonActionsAfterDatabaseInsertionRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionRemoveActionPerformed
         handleActionsAfterDatabaseInsertionRemove();
     }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionRemoveActionPerformed
 
-    private void buttonActionsAfterDatabaseInsertionAddActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionAddActionPerformed
+    private void buttonActionsAfterDatabaseInsertionAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionsAfterDatabaseInsertionAddActionPerformed
         handleActionsAfterDatabaseInsertionAdd();
     }//GEN-LAST:event_buttonActionsAfterDatabaseInsertionAddActionPerformed
 
-    private void radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed
+    private void radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed
         handleActionsAfterDatabaseInsertionExecuteAlways();
     }//GEN-LAST:event_radioButtonActionsAfterDatabaseInsertionExecuteAlwaysActionPerformed
 
-    private void radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
+    private void radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
         handleActionsAfterDatabaseInsertionExecuteIfXmpExists();
     }//GEN-LAST:event_radioButtonActionsAfterDatabaseInsertionExecuteIfImageHasXmpActionPerformed
 

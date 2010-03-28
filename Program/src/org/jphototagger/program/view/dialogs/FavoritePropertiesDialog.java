@@ -342,8 +342,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonChooseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
+    private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseDirectory();
     }//GEN-LAST:event_buttonChooseDirectoryActionPerformed
 

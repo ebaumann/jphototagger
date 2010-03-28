@@ -412,33 +412,27 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listAutoscanDirectoriesValueChanged(
-            javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesValueChanged
+    private void listAutoscanDirectoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesValueChanged
         setEnabledButtonRemoveAutoscanDirectory();
     }//GEN-LAST:event_listAutoscanDirectoriesValueChanged
 
-    private void listAutoscanDirectoriesKeyReleased(
-            java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesKeyReleased
+    private void listAutoscanDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesKeyReleased
         handleKeyEventListTasksAutoscanDirectories(evt);
     }//GEN-LAST:event_listAutoscanDirectoriesKeyReleased
 
-    private void checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed
+    private void checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed
         handleActionCheckBoxIsAutoscanIncludeSubdirectories();
     }//GEN-LAST:event_checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed
 
-    private void buttonRemoveAutoscanDirectoriesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveAutoscanDirectoriesActionPerformed
+    private void buttonRemoveAutoscanDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveAutoscanDirectoriesActionPerformed
         removeSelectedAutoscanDirectories();
     }//GEN-LAST:event_buttonRemoveAutoscanDirectoriesActionPerformed
 
-    private void buttonAddAutoscanDirectoriesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAutoscanDirectoriesActionPerformed
+    private void buttonAddAutoscanDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAutoscanDirectoriesActionPerformed
         addAutoscanDirectories();
     }//GEN-LAST:event_buttonAddAutoscanDirectoriesActionPerformed
 
-    private void spinnerMinutesToStartScheduledTasksStateChanged(
-            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMinutesToStartScheduledTasksStateChanged
+    private void spinnerMinutesToStartScheduledTasksStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMinutesToStartScheduledTasksStateChanged
         handleStateChangedSpinnerMinutesToStartScheduledTasks();
     }//GEN-LAST:event_spinnerMinutesToStartScheduledTasksStateChanged
 

@@ -541,23 +541,19 @@ public class ImportImageFilesDialog extends Dialog {
         setAccepted(true);
     }//GEN-LAST:event_buttonOkActionPerformed
 
-    private void buttonChooseSourceDirActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseSourceDirActionPerformed
+    private void buttonChooseSourceDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseSourceDirActionPerformed
         chooseSourceDir();
     }//GEN-LAST:event_buttonChooseSourceDirActionPerformed
 
-    private void buttonChooseTargetDirActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseTargetDirActionPerformed
+    private void buttonChooseTargetDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseTargetDirActionPerformed
         chooseTargetDir();
     }//GEN-LAST:event_buttonChooseTargetDirActionPerformed
 
-    private void buttonChooseFilesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFilesActionPerformed
+    private void buttonChooseFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFilesActionPerformed
         chooseSourceFiles();
     }//GEN-LAST:event_buttonChooseFilesActionPerformed
 
-    private void checkBoxDeleteAfterCopyActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteAfterCopyActionPerformed
+    private void checkBoxDeleteAfterCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteAfterCopyActionPerformed
         handleCheckBoxDeleteAfterCopyPerformed();
     }//GEN-LAST:event_checkBoxDeleteAfterCopyActionPerformed
 

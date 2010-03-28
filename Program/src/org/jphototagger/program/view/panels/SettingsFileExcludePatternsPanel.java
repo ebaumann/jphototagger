@@ -338,14 +338,12 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
                                                     buttonCancelUpdateDatabase)).addContainerGap()));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void listPatternsValueChanged(
-            javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listPatternsValueChanged
+    private void listPatternsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listPatternsValueChanged
         setSelectedPatternToInput();
         setEnabledButtons();
     }//GEN-LAST:event_listPatternsValueChanged
 
-    private void textFieldInputPatternsKeyReleased(
-            java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputPatternsKeyReleased
+    private void textFieldInputPatternsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputPatternsKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             insertPattern();
         } else {
@@ -353,23 +351,19 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         }
     }//GEN-LAST:event_textFieldInputPatternsKeyReleased
 
-    private void buttonCancelUpdateDatabaseActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelUpdateDatabaseActionPerformed
+    private void buttonCancelUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelUpdateDatabaseActionPerformed
         cancelUpdateDatabase();
     }//GEN-LAST:event_buttonCancelUpdateDatabaseActionPerformed
 
-    private void buttonDeletePatternsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletePatternsActionPerformed
+    private void buttonDeletePatternsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletePatternsActionPerformed
         deletePattern();
     }//GEN-LAST:event_buttonDeletePatternsActionPerformed
 
-    private void buttonUpdateDatabaseActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateDatabaseActionPerformed
+    private void buttonUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateDatabaseActionPerformed
         updateDatabase();
     }//GEN-LAST:event_buttonUpdateDatabaseActionPerformed
 
-    private void buttonInsertPatternsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertPatternsActionPerformed
+    private void buttonInsertPatternsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertPatternsActionPerformed
         insertPattern();
     }//GEN-LAST:event_buttonInsertPatternsActionPerformed
 

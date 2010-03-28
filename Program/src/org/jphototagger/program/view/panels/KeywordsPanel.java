@@ -259,8 +259,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         add(panelList, "List");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonToggleExpandAllNodesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
+    private void buttonToggleExpandAllNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
         handleButtonToggleExpandAllNodesActionPerformed();
     }//GEN-LAST:event_buttonToggleExpandAllNodesActionPerformed
 

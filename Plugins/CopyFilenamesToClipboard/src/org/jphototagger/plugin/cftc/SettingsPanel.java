@@ -180,8 +180,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboBoxDelimiterActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDelimiterActionPerformed
+    private void comboBoxDelimiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDelimiterActionPerformed
         writeDelimiter();
     }//GEN-LAST:event_comboBoxDelimiterActionPerformed
 

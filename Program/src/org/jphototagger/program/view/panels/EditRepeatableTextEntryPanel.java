@@ -876,8 +876,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         handleButtonAddInputActionPerformed();
     }//GEN-LAST:event_buttonAddInputActionPerformed
 
-    private void buttonRemoveSelectionActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSelectionActionPerformed
+    private void buttonRemoveSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSelectionActionPerformed
         handleButtonRemoveInputActionPerformed();
     }//GEN-LAST:event_buttonRemoveSelectionActionPerformed
 
@@ -889,8 +888,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         handleListKeyPressed(evt);
     }//GEN-LAST:event_listKeyPressed
 
-    private void buttonSuggestionActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSuggestionActionPerformed
+    private void buttonSuggestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSuggestionActionPerformed
         suggestText();
     }//GEN-LAST:event_buttonSuggestionActionPerformed
 

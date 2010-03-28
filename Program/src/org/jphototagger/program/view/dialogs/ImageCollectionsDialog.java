@@ -178,8 +178,7 @@ public final class ImageCollectionsDialog extends Dialog {
         handleButtonOkClicked();
     }//GEN-LAST:event_buttonOkActionPerformed
 
-    private void listImageCollectionNamesMouseClicked(
-            java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listImageCollectionNamesMouseClicked
+    private void listImageCollectionNamesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listImageCollectionNamesMouseClicked
         checkDoubleClick(evt);
     }//GEN-LAST:event_listImageCollectionNamesMouseClicked
 
