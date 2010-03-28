@@ -505,8 +505,7 @@ public final class MoveToDirectoryDialog extends Dialog
         stop();
     }//GEN-LAST:event_buttonStopActionPerformed
 
-    private void buttonChooseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
+    private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseTargetDirectory();
     }//GEN-LAST:event_buttonChooseDirectoryActionPerformed
 

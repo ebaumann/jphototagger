@@ -489,8 +489,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         }
     }//GEN-LAST:event_listDirectoriesKeyReleased
 
-    private void buttonChooseDirectoriesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoriesActionPerformed
+    private void buttonChooseDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoriesActionPerformed
         chooseDirectories();
     }//GEN-LAST:event_buttonChooseDirectoriesActionPerformed
 

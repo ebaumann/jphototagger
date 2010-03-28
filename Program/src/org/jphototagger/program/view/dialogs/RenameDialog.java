@@ -1514,33 +1514,27 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         handleTextFieldAtBeginKeyReleased();
     }//GEN-LAST:event_textFieldAtBeginKeyReleased
 
-    private void spinnerNumberCountStateChanged(
-            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberCountStateChanged
+    private void spinnerNumberCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberCountStateChanged
         handleSpinnerNumberCountStateChanged();
     }//GEN-LAST:event_spinnerNumberCountStateChanged
 
-    private void spinnerNumberStepWidthStateChanged(
-            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberStepWidthStateChanged
+    private void spinnerNumberStepWidthStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerNumberStepWidthStateChanged
         handleSpinnerNumberStepWidthStateChanged();
     }//GEN-LAST:event_spinnerNumberStepWidthStateChanged
 
-    private void spinnerStartNumberStateChanged(
-            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerStartNumberStateChanged
+    private void spinnerStartNumberStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerStartNumberStateChanged
         handleSpinnerStartNumberStateChanged();
     }//GEN-LAST:event_spinnerStartNumberStateChanged
 
-    private void buttonRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameTemplateActionPerformed
+    private void buttonRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameTemplateActionPerformed
         renameViaTemplate();
     }//GEN-LAST:event_buttonRenameTemplateActionPerformed
 
-    private void comboBoxAtBeginActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAtBeginActionPerformed
+    private void comboBoxAtBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAtBeginActionPerformed
         handleComboBoxAtBeginActionPerformed();
     }//GEN-LAST:event_comboBoxAtBeginActionPerformed
 
-    private void comboBoxInTheMiddleActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxInTheMiddleActionPerformed
+    private void comboBoxInTheMiddleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxInTheMiddleActionPerformed
         handleComboBoxInTheMiddleActionPerformed();
     }//GEN-LAST:event_comboBoxInTheMiddleActionPerformed
 
@@ -1552,38 +1546,31 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         handleWindowClosing();
     }//GEN-LAST:event_formWindowClosing
 
-    private void panelInputNameComponentShown(
-            java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelInputNameComponentShown
+    private void panelInputNameComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelInputNameComponentShown
         handlePanelInputNameComponentShown();
     }//GEN-LAST:event_panelInputNameComponentShown
 
-    private void buttonSaveRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveRenameTemplateActionPerformed
+    private void buttonSaveRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveRenameTemplateActionPerformed
         saveAsRenameTemplate();
     }//GEN-LAST:event_buttonSaveRenameTemplateActionPerformed
 
-    private void buttonRenameRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameRenameTemplateActionPerformed
+    private void buttonRenameRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameRenameTemplateActionPerformed
         renameRenameTemplate();
     }//GEN-LAST:event_buttonRenameRenameTemplateActionPerformed
 
-    private void buttonDeleteRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteRenameTemplateActionPerformed
+    private void buttonDeleteRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteRenameTemplateActionPerformed
         deleteRenameTemplate();
     }//GEN-LAST:event_buttonDeleteRenameTemplateActionPerformed
 
-    private void comboBoxRenameTemplatesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRenameTemplatesActionPerformed
+    private void comboBoxRenameTemplatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRenameTemplatesActionPerformed
         handleComboBoxRenameTemplatesActionPerformed();
     }//GEN-LAST:event_comboBoxRenameTemplatesActionPerformed
 
-    private void buttonUpdateRenameTemplateActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateRenameTemplateActionPerformed
+    private void buttonUpdateRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateRenameTemplateActionPerformed
         updateRenameTemplate();
     }//GEN-LAST:event_buttonUpdateRenameTemplateActionPerformed
 
-    private void comboBoxDateDelimiterActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDateDelimiterActionPerformed
+    private void comboBoxDateDelimiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDateDelimiterActionPerformed
         handleComboBoxDateDelimiterActionPerformed();
     }//GEN-LAST:event_comboBoxDateDelimiterActionPerformed
 

@@ -421,33 +421,27 @@ public class DatabaseUpdatePanel extends JPanel
                                                                                                                             javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void toggleButtonRefreshExifActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshExifActionPerformed
+    private void toggleButtonRefreshExifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshExifActionPerformed
         updateExif();
     }//GEN-LAST:event_toggleButtonRefreshExifActionPerformed
 
-    private void buttonRenameFilesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameFilesActionPerformed
+    private void buttonRenameFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameFilesActionPerformed
         renameFilesInDb();
     }//GEN-LAST:event_buttonRenameFilesActionPerformed
 
-    private void toggleButtonRefreshXmpActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshXmpActionPerformed
+    private void toggleButtonRefreshXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshXmpActionPerformed
         updateXmp();
     }//GEN-LAST:event_toggleButtonRefreshXmpActionPerformed
 
-    private void buttonUpdateThumbnailsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateThumbnailsActionPerformed
+    private void buttonUpdateThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateThumbnailsActionPerformed
         updateThumbnails();
     }//GEN-LAST:event_buttonUpdateThumbnailsActionPerformed
 
-    private void buttonCopyKeywordsToKeywordsTreeActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
+    private void buttonCopyKeywordsToKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
         copyKeywordsToKeywordsTree();
     }//GEN-LAST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
 
-    private void toggleButtonExifDateToXmpDateCreatedActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
+    private void toggleButtonExifDateToXmpDateCreatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
         exifDateToXmpDateCreated();
     }//GEN-LAST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
 

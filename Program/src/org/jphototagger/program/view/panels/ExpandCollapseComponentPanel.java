@@ -246,8 +246,7 @@ public class ExpandCollapseComponentPanel extends JPanel
         add(buttonExpandCollapse, gridBagConstraints);
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonExpandCollapseActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExpandCollapseActionPerformed
+    private void buttonExpandCollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExpandCollapseActionPerformed
         toggleExpandCollapse();
     }//GEN-LAST:event_buttonExpandCollapseActionPerformed
 

@@ -557,28 +557,23 @@ public class SynonymsPanel extends javax.swing.JPanel
         addWord();
     }//GEN-LAST:event_buttonAddWordActionPerformed
 
-    private void buttonRemoveWordActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveWordActionPerformed
+    private void buttonRemoveWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveWordActionPerformed
         removeWord();
     }//GEN-LAST:event_buttonRemoveWordActionPerformed
 
-    private void buttonChangeWordActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeWordActionPerformed
+    private void buttonChangeWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeWordActionPerformed
         changeWord();
     }//GEN-LAST:event_buttonChangeWordActionPerformed
 
-    private void buttonAddSynonymActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSynonymActionPerformed
+    private void buttonAddSynonymActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSynonymActionPerformed
         addSynonym();
     }//GEN-LAST:event_buttonAddSynonymActionPerformed
 
-    private void buttonRemoveSynonymActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSynonymActionPerformed
+    private void buttonRemoveSynonymActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveSynonymActionPerformed
         removeSynonym();
     }//GEN-LAST:event_buttonRemoveSynonymActionPerformed
 
-    private void buttonChangeSynonymActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeSynonymActionPerformed
+    private void buttonChangeSynonymActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeSynonymActionPerformed
         changeSynonym();
     }//GEN-LAST:event_buttonChangeSynonymActionPerformed
 
@@ -623,8 +618,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         }
     }//GEN-LAST:event_listWordsKeyPressed
 
-    private void buttonAddAllKeywordsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAllKeywordsActionPerformed
+    private void buttonAddAllKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAllKeywordsActionPerformed
         addAllKeywords();
     }//GEN-LAST:event_buttonAddAllKeywordsActionPerformed
 

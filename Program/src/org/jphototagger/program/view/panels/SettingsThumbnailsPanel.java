@@ -471,38 +471,31 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
                             javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void spinnerMaxThumbnailWidthStateChanged(
-            javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaxThumbnailWidthStateChanged
+    private void spinnerMaxThumbnailWidthStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaxThumbnailWidthStateChanged
         handleStateChangedSpinnerMaxThumbnailWidth();
     }//GEN-LAST:event_spinnerMaxThumbnailWidthStateChanged
 
-    private void buttonUpdateAllThumbnailsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateAllThumbnailsActionPerformed
+    private void buttonUpdateAllThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateAllThumbnailsActionPerformed
         updateAllThumbnails();
     }//GEN-LAST:event_buttonUpdateAllThumbnailsActionPerformed
 
-    private void textFieldExternalThumbnailCreationCommandKeyReleased(
-            java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldExternalThumbnailCreationCommandKeyReleased
+    private void textFieldExternalThumbnailCreationCommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldExternalThumbnailCreationCommandKeyReleased
         handleTextFieldExternalThumbnailCreationCommandKeyReleased();
     }//GEN-LAST:event_textFieldExternalThumbnailCreationCommandKeyReleased
 
-    private void radioButtonCreateThumbnailsWithExternalAppActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithExternalAppActionPerformed
+    private void radioButtonCreateThumbnailsWithExternalAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithExternalAppActionPerformed
         setThumbnailCreator((JRadioButton) evt.getSource());
     }//GEN-LAST:event_radioButtonCreateThumbnailsWithExternalAppActionPerformed
 
-    private void radioButtonUseEmbeddedThumbnailsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonUseEmbeddedThumbnailsActionPerformed
+    private void radioButtonUseEmbeddedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonUseEmbeddedThumbnailsActionPerformed
         setThumbnailCreator((JRadioButton) evt.getSource());
     }//GEN-LAST:event_radioButtonUseEmbeddedThumbnailsActionPerformed
 
-    private void radioButtonCreateThumbnailsWithImageroActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithImageroActionPerformed
+    private void radioButtonCreateThumbnailsWithImageroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithImageroActionPerformed
         setThumbnailCreator((JRadioButton) evt.getSource());
     }//GEN-LAST:event_radioButtonCreateThumbnailsWithImageroActionPerformed
 
-    private void radioButtonCreateThumbnailsWithJavaImageIoActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithJavaImageIoActionPerformed
+    private void radioButtonCreateThumbnailsWithJavaImageIoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithJavaImageIoActionPerformed
         setThumbnailCreator((JRadioButton) evt.getSource());
     }//GEN-LAST:event_radioButtonCreateThumbnailsWithJavaImageIoActionPerformed
 

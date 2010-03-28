@@ -156,28 +156,24 @@ public class SettingsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonDeleteTokenActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteTokenActionPerformed
+    private void buttonDeleteTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteTokenActionPerformed
         deleteToken();
     }//GEN-LAST:event_buttonDeleteTokenActionPerformed
 
-    private void checkBoxDcSubjectsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDcSubjectsActionPerformed
+    private void checkBoxDcSubjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDcSubjectsActionPerformed
         if (settings != null) {
             settings.setAddDcSubjects(checkBoxDcSubjects.isSelected());
         }
     }//GEN-LAST:event_checkBoxDcSubjectsActionPerformed
 
-    private void checkBoxPhotoshopHeadlineActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxPhotoshopHeadlineActionPerformed
+    private void checkBoxPhotoshopHeadlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxPhotoshopHeadlineActionPerformed
         if (settings != null) {
             settings.setAddPhotoshopHeadline(
                 checkBoxPhotoshopHeadline.isSelected());
         }
     }//GEN-LAST:event_checkBoxPhotoshopHeadlineActionPerformed
 
-    private void checkBoxDcDescriptionActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDcDescriptionActionPerformed
+    private void checkBoxDcDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDcDescriptionActionPerformed
         if (settings != null) {
             settings.setAddDcDescription(checkBoxDcDescription.isSelected());
         }

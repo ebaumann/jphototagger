@@ -739,8 +739,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonChooseFileActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
+    private void buttonChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFileActionPerformed
         chooseProgram();
     }//GEN-LAST:event_buttonChooseFileActionPerformed
 
@@ -756,8 +755,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         accept();
     }//GEN-LAST:event_buttonOkActionPerformed
 
-    private void checkBoxInputBeforeExecuteActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxInputBeforeExecuteActionPerformed
+    private void checkBoxInputBeforeExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxInputBeforeExecuteActionPerformed
         handleCheckBoxInputBeforeExecuteActionPerformed();
     }//GEN-LAST:event_checkBoxInputBeforeExecuteActionPerformed
 
@@ -765,13 +763,11 @@ public final class ProgramPropertiesDialog extends Dialog {
         handleTextFieldAliasKeyPressed(evt);
     }//GEN-LAST:event_textFieldAliasKeyPressed
 
-    private void checkBoxUsePatternActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxUsePatternActionPerformed
+    private void checkBoxUsePatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxUsePatternActionPerformed
         handleCheckBoxUsePatternActionPerformed();
     }//GEN-LAST:event_checkBoxUsePatternActionPerformed
 
-    private void buttonInfoUsePatternActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInfoUsePatternActionPerformed
+    private void buttonInfoUsePatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInfoUsePatternActionPerformed
         showPatternHelp();
     }//GEN-LAST:event_buttonInfoUsePatternActionPerformed
 

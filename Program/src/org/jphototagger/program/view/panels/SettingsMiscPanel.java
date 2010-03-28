@@ -423,48 +423,39 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void checkBoxAutoDownloadCheckActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
+    private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
         handleActionPerformedAutoDownload();
     }//GEN-LAST:event_checkBoxAutoDownloadCheckActionPerformed
 
-    private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
+    private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
         handleActionPerformedCopyMoveFiles();
     }//GEN-LAST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
 
-    private void radioButtonCopyMoveFileConfirmOverwriteActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
+    private void radioButtonCopyMoveFileConfirmOverwriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
         handleActionPerformedCopyMoveFiles();
     }//GEN-LAST:event_radioButtonCopyMoveFileConfirmOverwriteActionPerformed
 
-    private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
+    private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
         handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
     }//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
 
-    private void comboBoxLogLevelActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
+    private void comboBoxLogLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
         handleActionPerformedComboBoxLogLevel();
     }//GEN-LAST:event_comboBoxLogLevelActionPerformed
 
-    private void buttonChooseDatabaseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
+    private void buttonChooseDatabaseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
         handleActionPerformedChooseDatabaseDirectory(false);
     }//GEN-LAST:event_buttonChooseDatabaseDirectoryActionPerformed
 
-    private void buttonSetStandardDatabaseDirectoryNameActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
+    private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
         handleActionPerformedSetStandardDatabaseDirectory();
     }//GEN-LAST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
 
-    private void checkBoxDisplaySearchButtonActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
+    private void checkBoxDisplaySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
         handleActionPerformedCheckBoxDisplaySearchButton();
     }//GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
 
-    private void comboBoxIptcCharsetActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
+    private void comboBoxIptcCharsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
         handleActionComboBoxIptcCharset();
     }//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
 

@@ -390,8 +390,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         start();
     }//GEN-LAST:event_buttonStartActionPerformed
 
-    private void buttonChooseDirectoryActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
+    private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseDirectory();
     }//GEN-LAST:event_buttonChooseDirectoryActionPerformed
 

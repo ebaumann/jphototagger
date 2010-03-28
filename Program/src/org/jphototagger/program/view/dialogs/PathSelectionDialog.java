@@ -305,18 +305,15 @@ public class PathSelectionDialog extends Dialog
         pack();
     }    // </editor-fold>//GEN-END:initComponents
 
-    private void buttonSelectNothingActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNothingActionPerformed
+    private void buttonSelectNothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNothingActionPerformed
         handleButtonSelectNothingActionPerformed();
     }//GEN-LAST:event_buttonSelectNothingActionPerformed
 
-    private void buttonSelectAllActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectAllActionPerformed
+    private void buttonSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectAllActionPerformed
         handleButtonSelectAllActionPerformed();
     }//GEN-LAST:event_buttonSelectAllActionPerformed
 
-    private void buttonSelectSelectedActionPerformed(
-            java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectSelectedActionPerformed
+    private void buttonSelectSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectSelectedActionPerformed
         handleButtonSelectSelectedActionPerformed();
     }//GEN-LAST:event_buttonSelectSelectedActionPerformed
 
