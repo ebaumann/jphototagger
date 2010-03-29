@@ -23,27 +23,27 @@ package org.jphototagger.program.data;
 
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.Comparator;
+import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
+
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Daten gespeicherter Suchen für ein {@link org.jphototagger.program.view.panels.SearchColumnPanel}-Objekt.
- * Die Indexe sind Indexe von Listenitems in Comboboxen oder Listboxen.
  *
  * @author  Elmar Baumann
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearchPanel {
-    private int     panelIndex = Integer.MIN_VALUE;
+    private int     columnId     = -1;
+    private int     comparatorId = -1;
+    private int     operatorId   = -1;
+    private int     panelIndex   = Integer.MIN_VALUE;
     private boolean bracketLeft1Selected;
     private boolean bracketLeft2Selected;
     private boolean bracketRightSelected;
-    private int     operatorId   = -1;
-    private int     columnId     = -1;
-    private int     comparatorId = -1;
     private String  value;
 
     public SavedSearchPanel() {}
@@ -123,6 +123,10 @@ public final class SavedSearchPanel {
         return operatorId;
     }
 
+    public Operator getOperator() {
+        return Operator.get(operatorId);
+    }
+
     public void setOperatorId(int id) {
         operatorId = id;
     }
@@ -132,7 +136,7 @@ public final class SavedSearchPanel {
     }
 
     public boolean isTrimmedValueEmpty() {
-        return value == null || value.trim().isEmpty();
+        return (value == null) || value.trim().isEmpty();
     }
 
     public String getValue() {
@@ -141,5 +145,52 @@ public final class SavedSearchPanel {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getSqlString(boolean isFirst) {
+        if (hasSql(isFirst)) {
+            Operator     operator   = getOperator();
+            Column       column     = getColumn();
+            Comparator   comparator = getComparator();
+            StringBuffer sb         = new StringBuffer();
+
+            if (!isFirst) {
+                sb.append(bracketLeft1Selected
+                              ? " ("
+                              : "");
+                sb.append(" " + operator.toSqlString());
+            }
+
+            sb.append(bracketLeft2Selected
+                          ? " ("
+                          : "");
+            sb.append(" " + column.getTablename() + "." + column.getName());
+            sb.append(" " + comparator.toSqlString());
+            sb.append(" ?");
+            sb.append(bracketRightSelected
+                          ? ")"
+                          : "");
+
+            return sb.toString();
+        }
+
+        return null;
+    }
+
+    public boolean hasOperator() {
+        return getOperator() != null;
+    }
+
+    public boolean hasComperator() {
+        return getComparator() != null;
+    }
+
+    public boolean hasColumn() {
+        return getColumn() != null;
+    }
+
+    public boolean hasSql(boolean isFirst) {
+        return (isFirst || hasOperator()) && hasColumn() && hasComperator()
+               && (value != null) &&!value.isEmpty();
     }
 }

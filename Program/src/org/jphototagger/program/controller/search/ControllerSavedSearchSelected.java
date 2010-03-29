@@ -102,7 +102,7 @@ public final class ControllerSavedSearchSelected
 
                 if (savedSearch.hasParamStatement()) {
                     ParamStatement stmt =
-                        savedSearch.getParamStatement().createParamStatement();
+                        savedSearch.getSavedSearchParamStatement().createParamStatement();
 
                     if (stmt != null) {
                         SearchHelper.setSort(savedSearch);

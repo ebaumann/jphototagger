@@ -78,7 +78,7 @@ public final class ModifySavedSearches {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                String searchName = savedSearch.getParamStatement().getName();
+                String searchName = savedSearch.getSavedSearchParamStatement().getName();
 
                 if (confirmDelete(searchName)) {
                     if (getDb().delete(searchName)) {

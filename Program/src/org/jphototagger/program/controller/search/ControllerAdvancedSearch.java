@@ -94,7 +94,7 @@ public final class ControllerAdvancedSearch
 
                 if (savedSearch != null) {
                     SavedSearchParamStatement paramStmt =
-                        savedSearch.getParamStatement();
+                        savedSearch.getSavedSearchParamStatement();
 
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);

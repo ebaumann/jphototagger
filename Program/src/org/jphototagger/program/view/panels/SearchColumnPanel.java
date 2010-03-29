@@ -72,7 +72,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private Column.DataType  prevColumnDataType;
     private boolean          isOperatorsEnabled = true;
     private boolean          listenToActions    = true;
-    private boolean          isFirst;
     private boolean          changed;
 
     public SearchColumnPanel() {
@@ -109,11 +108,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setFormatter();
         setInputVerifier();
         listenToActions = true;
-    }
-
-    public void disableFirstOperator() {
-        toggleButtonBracketLeft1.setEnabled(false);
-        comboBoxOperators.setEnabled(false);
     }
 
     // TextFiel#setFormatterFactory() removes text; reset text if the column
@@ -182,29 +176,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
                        : NOT_SEL_RIGHT_BRACKET);
     }
 
-    /**
-     * Setzt, ob dieses Panel das erste ist. In diesem Fall wird die erste
-     * Verknüpfung (AND, OR) nicht mit dem Statement geliefert.
-     *
-     * @param isFirst true, wenn das Panel das erste von mehreren ist.
-     *                Default: false.
-     */
-    public void setIsFirst(boolean isFirst) {
-        this.isFirst = isFirst;
-    }
-
-    /**
-     * Aktiviert die Combobox mit den Operatoren (AND, OR).
-     *
-     * @param enable true, wenn aktiv.
-     *               Default: true.
-     */
-    public void setOperatorsEnabled(boolean enable) {
-        isOperatorsEnabled = enable;
-        toggleButtonBracketLeft1.setEnabled(enable);
-        comboBoxOperators.setEnabled(enable);
-    }
-
     private void setComboboxSelIndices() {
         listenToActions = false;
         comboBoxOperators.setSelectedIndex(0);
@@ -217,11 +188,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         return textFieldValue;
     }
 
-    /**
-     * Liefert die Anzahl geöffneter Klammern.
-     *
-     * @return Anzahl
-     */
     public int getCountOpenBrackets() {
         int count = 0;
 
@@ -236,11 +202,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         return count;
     }
 
-    /**
-     * Liefert die Anzahl gschlossener Klammern.
-     *
-     * @return Anzahl
-     */
     public int getCountClosedBrackets() {
         int count = 0;
 
@@ -251,101 +212,18 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         return count;
     }
 
-    /**
-     * Liefert, ob ein gültiger SQL-String geliefert werden kann.
-     *
-     * @return true, wenn ein gültiger SQL-String geliefert werden kann
-     */
-    public boolean hasSql() {
+    public boolean canCreateSql() {
         return (comboBoxOperators.getModel().getSelectedItem() != null)
                && (comboBoxColumns.getModel().getSelectedItem() != null)
                && (comboBoxComparators.getModel().getSelectedItem() != null)
                &&!textFieldValue.getText().trim().isEmpty();
     }
 
-    /**
-     * Liefert einen SQL-String mit Parameter.
-     *
-     * @return SQL-String oder null, wenn keiner geliefert werden kann, da
-     *         Auswahlen und Eingaben unvollständig sind
-     * @see    #hasSql()
-     */
-    public String getSqlString() {
-        if (hasSql()) {
-            Operator relation =
-                (Operator) comboBoxOperators.getModel().getSelectedItem();
-            Column column =
-                (Column) comboBoxColumns.getModel().getSelectedItem();
-            Comparator operator =
-                (Comparator) comboBoxComparators.getModel().getSelectedItem();
-            StringBuffer buffer = new StringBuffer();
-
-            buffer.append(toggleButtonBracketLeft1.isSelected()
-                          ? " ("
-                          : "");
-
-            if (!isFirst) {
-                buffer.append(" " + relation.toSqlString());
-            }
-
-            buffer.append(toggleButtonBracketLeft2.isSelected()
-                          ? " ("
-                          : "");
-            buffer.append(" " + column.getTablename() + "." + column.getName());
-            buffer.append(" " + operator.toSqlString());
-            buffer.append(" ?");
-            buffer.append(toggleButtonBracketRight.isSelected()
-                          ? ")"
-                          : "");
-
-            return buffer.toString();
-        }
-
-        return null;
-    }
-
-    /**
-     * Liefert den Wert der Abfrage (zum Einsetzen in den SQL-String).
-     *
-     * @return Wert
-     */
     public String getValue() {
         return textFieldValue.getText();
     }
 
-    /**
-     * Liefert die ausgewählte Spalte.
-     *
-     * @return Spalte oder null, wenn keine ausgewählt ist
-     * @see    #isColumnSelected()
-     */
-    public Column getSelectedColumn() {
-        Object item = comboBoxColumns.getModel().getSelectedItem();
-
-        if ((item != null) && (item instanceof Column)) {
-            return (Column) item;
-        }
-
-        return null;
-    }
-
-    /**
-     * Liefert ob eine Spalte selektiert ist.
-     *
-     * @return true, wenn eine Spalte selektiert ist
-     */
-    public boolean isColumnSelected() {
-        Object item = comboBoxColumns.getModel().getSelectedItem();
-
-        return (item != null) && (item instanceof Column);
-    }
-
-    /**
-     * Liefert Daten für eine gespeicherte Suche.
-     *
-     * @return Daten für eine gespeicherte Suche
-     */
-    public SavedSearchPanel getSavedSearchData() {
+    public SavedSearchPanel getSavedSearchPanel() {
         listenToActions = false;
 
         SavedSearchPanel savedSearchPanel = new SavedSearchPanel();
@@ -376,11 +254,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         return savedSearchPanel;
     }
 
-    /**
-     * Setzt die Daten einer gespeicherten Suche.
-     *
-     * @param savedSearchPanel Paneldaten
-     */
     public void setSavedSearchPanel(SavedSearchPanel savedSearchPanel) {
         listenToActions = false;
         toggleButtonBracketRight.setSelected(

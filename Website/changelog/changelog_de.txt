@@ -3,6 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.14 2010-03-29
+-----------------
+
+* Erweiterte Suche:
+  * Alle Spalten können gelöscht werden
+  * Die Stichwörter des ersten Kartenreiters werden jetzt in die Datenbank
+    gespeichert. Da vorher diese "erraten" wurden, werden die bisherigen
+    Suchen als "Eigenes SQL" angezeigt, falls nicht zusätzlich Spalten
+    definiert wurden, da nicht mehr "geraten" wird
+
 0.8.13 2010-03-28
 -----------------
 
