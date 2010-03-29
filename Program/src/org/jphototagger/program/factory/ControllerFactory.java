@@ -214,6 +214,7 @@ import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 
 import java.util.List;
+import org.jphototagger.program.controller.thumbnail.ControllerThumbnailFileFilter;
 
 /**
  * Erzeugt alle Controller.
@@ -333,6 +334,7 @@ public final class ControllerFactory {
         support.add(new ControllerSetRating());
         support.add(new ControllerCopyPasteMetadata());
         support.add(new ControllerActionsMenuUpdater());
+        support.add(new ControllerThumbnailFileFilter());
     }
 
     private void addMetadataEditPanelsControllers() {

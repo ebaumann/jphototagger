@@ -21,10 +21,16 @@
 
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.MathUtil;
+import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
-import org.jphototagger.program.controller.thumbnail.ControllerDoubleklickThumbnail;
+import org.jphototagger.program.controller.thumbnail
+    .ControllerDoubleklickThumbnail;
 import org.jphototagger.program.data.ThumbnailFlag;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
 import org.jphototagger.program.event.listener.AppExitListener;
@@ -42,9 +48,6 @@ import org.jphototagger.program.types.SizeUnit;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.lib.util.MathUtil;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -63,6 +66,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import java.io.File;
+import java.io.FileFilter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -137,22 +141,23 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Transfer data of dragged thumbnails
      */
-    private boolean                         transferData           = false;
-    private ThumbnailPanelRenderer          renderer               =
+    private boolean                         transferData = false;
+    private ThumbnailPanelRenderer          renderer =
         new ThumbnailPanelRenderer(this);
     public transient RenderedThumbnailCache renderedThumbnailCache =
         RenderedThumbnailCache.INSTANCE;
-    private final Map<Content, List<RefreshListener>> refreshListenersOfContent =
+    private final Map<Content, List<RefreshListener>> refreshListenersOf =
         new HashMap<Content, List<RefreshListener>>();
-    private final PopupMenuThumbnails popupMenu          =
-        PopupMenuThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
     private Comparator<File>          fileSortComparator =
         FileSort.NAMES_ASCENDING.getComparator();
+    private FileFilter fileFilter =
+        AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
     private final List<File> files =
         Collections.synchronizedList(new ArrayList<File>());
     private FileAction                               fileAction =
         FileAction.UNDEFINED;
-    private Content                                  content    =
+    private Content                                  content =
         Content.UNDEFINED;
     private transient ControllerDoubleklickThumbnail controllerDoubleklick;
     private boolean                                  drag;
@@ -465,10 +470,9 @@ public class ThumbnailsPanel extends JPanel
     public Point getTopLeftOfTnIndex(int index) {
         int rowIndex    = getRowIndexAt(index);
         int columnIndex = getColumnIndexAt(index);
-        int x           = MARGIN_THUMBNAIL
-                          + columnIndex
-                            * (renderer.getThumbnailAreaWidth()
-                               + MARGIN_THUMBNAIL);
+        int x = MARGIN_THUMBNAIL
+                + columnIndex
+                  * (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
         int y = MARGIN_THUMBNAIL
                 + rowIndex
                   * (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
@@ -505,8 +509,8 @@ public class ThumbnailsPanel extends JPanel
     private int getColumnCount() {
         int width   = getWidth();
         int tnWidth = renderer.getThumbnailAreaWidth();
-        int count   = (int) ((double) (width - MARGIN_THUMBNAIL)
-                             / (double) tnWidth);
+        int count = (int) ((double) (width - MARGIN_THUMBNAIL)
+                           / (double) tnWidth);
 
         return (count > files.size())
                ? files.size()
@@ -771,7 +775,7 @@ public class ThumbnailsPanel extends JPanel
         paintPanelBackground(g);
 
         if (files.size() > 0) {
-            Rectangle rectClip   = g.getClipBounds();
+            Rectangle rectClip = g.getClipBounds();
             int       firstIndex =
                 Math.min(files.size(), getFirstPaintIndexAtHeight(rectClip.y));
             int lastIndex = Math.min(getLastPaintIndexAtHeight(rectClip.y
@@ -795,9 +799,9 @@ public class ThumbnailsPanel extends JPanel
                                             - thumbnailCountPerRow * 5);
             int prefetchLowEnd    = firstIndex - 1;
             int prefetchHighStart = lastIndex;
-            int prefetchHighEnd   = Math.min(files.size() - 1,
-                                             lastIndex
-                                             + thumbnailCountPerRow * 5);
+            int prefetchHighEnd = Math.min(files.size() - 1,
+                                           lastIndex
+                                           + thumbnailCountPerRow * 5);
 
             prefetch(prefetchHighStart, prefetchHighEnd, isKeywordsOverlay());
             prefetch(prefetchLowStart, prefetchLowEnd, isKeywordsOverlay());
@@ -818,8 +822,8 @@ public class ThumbnailsPanel extends JPanel
 
     private void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
-        Image im      = renderedThumbnailCache.getThumbnail(getFile(index),
-                            renderer.getThumbnailWidth(), isKeywordsOverlay());
+        Image im = renderedThumbnailCache.getThumbnail(getFile(index),
+                       renderer.getThumbnailWidth(), isKeywordsOverlay());
 
         if (im != null) {
             g.drawImage(im, topLeft.x, topLeft.y, viewport);
@@ -833,8 +837,8 @@ public class ThumbnailsPanel extends JPanel
      * @param content   content
      */
     public void addRefreshListener(RefreshListener listener, Content content) {
-        synchronized (refreshListenersOfContent) {
-            refreshListenersOfContent.get(content).add(listener);
+        synchronized (refreshListenersOf) {
+            refreshListenersOf.get(content).add(listener);
         }
     }
 
@@ -957,7 +961,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void initRefreshListeners() {
         for (Content c : Content.values()) {
-            refreshListenersOfContent.put(c, new ArrayList<RefreshListener>());
+            refreshListenersOf.put(c, new ArrayList<RefreshListener>());
         }
     }
 
@@ -1007,11 +1011,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void notifyRefreshListeners(RefreshEvent evt) {
-        synchronized (refreshListenersOfContent) {
+        synchronized (refreshListenersOf) {
             AppLogger.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
 
-            for (RefreshListener listener :
-                    refreshListenersOfContent.get(content)) {
+            for (RefreshListener listener : refreshListenersOf.get(content)) {
                 listener.refresh(evt);
             }
         }
@@ -1167,9 +1170,12 @@ public class ThumbnailsPanel extends JPanel
             AppLogger.logFine(getClass(), "ThumbnailsPanel.SetFiles.Start",
                               files.size());
             clearSelectionAndFlags();
-            Collections.sort(files, fileSortComparator);
+
+            List<File> filteredFiles = FileUtil.filter(files, fileFilter);
+
+            Collections.sort(filteredFiles, fileSortComparator);
             this.files.clear();
-            this.files.addAll(files);
+            this.files.addAll(filteredFiles);
             this.content = content;
             scrollToTop();
             setMissingFilesFlags();
@@ -1197,6 +1203,17 @@ public class ThumbnailsPanel extends JPanel
     public synchronized void setFileSortComparator(
             Comparator<File> comparator) {
         fileSortComparator = comparator;
+    }
+
+    public synchronized void setFileFilter(FileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
+        if (!fileFilter.equals(filter)) {
+            fileFilter = filter;
+            refresh();
+        }
     }
 
     /**
@@ -1288,8 +1305,8 @@ public class ThumbnailsPanel extends JPanel
     private void setCountPerRow() {
         int    width       = getWidth();
         int    tnAreaWidth = renderer.getThumbnailAreaWidth();
-        double count       = (double) (width - MARGIN_THUMBNAIL)
-                             / (double) (tnAreaWidth + MARGIN_THUMBNAIL);
+        double count = (double) (width - MARGIN_THUMBNAIL)
+                       / (double) (tnAreaWidth + MARGIN_THUMBNAIL);
 
         thumbnailCountPerRow = (count >= 1)
                                ? (int) count
@@ -1307,8 +1324,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void setSelectedUp() {
         int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect          = indexSelectedThumbnail
-                                     - thumbnailCountPerRow;
+        int indexToSelect = indexSelectedThumbnail - thumbnailCountPerRow;
 
         if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
             setSelected(indexToSelect);
@@ -1317,8 +1333,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void setSelectedDown() {
         int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect          = indexSelectedThumbnail
-                                     + thumbnailCountPerRow;
+        int indexToSelect = indexSelectedThumbnail + thumbnailCountPerRow;
 
         if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
             setSelected(indexToSelect);
@@ -1384,8 +1399,7 @@ public class ThumbnailsPanel extends JPanel
     private void checkScrollUp() {
         if ((viewport != null) && (getSelectedIndex() >= 0)) {
             int tnHeight      = renderer.getThumbnailAreaHeight();
-            int topSel        = getTopLeftOfTnIndex(getSelectedIndex()).y
-                                - tnHeight;
+            int topSel = getTopLeftOfTnIndex(getSelectedIndex()).y - tnHeight;
             int viewPosBottom = viewport.getViewPosition().y;
 
             if (topSel < viewPosBottom) {
