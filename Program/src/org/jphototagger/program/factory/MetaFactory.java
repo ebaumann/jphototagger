@@ -57,7 +57,8 @@ public final class MetaFactory implements Runnable {
         ControllerFactory.INSTANCE.init();
         ActionKeyListenerFactory.INSTANCE.init();
         MouseListenerFactory.INSTANCE.init();
-        MiscFactory.INSTANCE.init();
+        // No other factory after:
+        TerminateFactory.INSTANCE.init();
         appPersistence.readAppPanelFromProperties();
         UpdateDownload.checkForNewerVersion(60 * 1000);
         ScheduledTaskBackupDatabase.INSTANCE.setBackup();

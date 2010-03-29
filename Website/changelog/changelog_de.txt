@@ -6,6 +6,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.14 2010-03-29
 -----------------
 
+* Programmenster unterhalb Schnellsuche: Die angezeigten Bilder können
+  eingeschränkt werden auf unterschiedliche Dateitypen, z.B. nur RAW- oder
+  TIFF-Bilder
 * Erweiterte Suche:
   * Alle Spalten können gelöscht werden
   * Die Stichwörter des ersten Kartenreiters werden jetzt in die Datenbank

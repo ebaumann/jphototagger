@@ -52,6 +52,7 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.tree.TreeModel;
+import org.jphototagger.program.model.ComboBoxModelFileFilters;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -90,6 +91,14 @@ public final class ModelFactory {
 
     private void setComboBoxModels(AppPanel appPanel) {
         setComboBoxModelMetadataTemplates(appPanel);
+        setComboBoxModelFileFilters();
+    }
+
+    private void setComboBoxModelFileFilters() {
+        ComboBoxModelFileFilters model = new ComboBoxModelFileFilters();
+
+        support.add(model);
+        GUI.INSTANCE.getAppPanel().getComboBoxFileFilters().setModel(model);
     }
 
     private void setComboBoxModelMetadataTemplates(AppPanel appPanel) {
@@ -99,8 +108,8 @@ public final class ModelFactory {
             .setStatusbarText(
                 JptBundle.INSTANCE
                     .getString(
-                        "ModelFactory.Starting.ComboBoxModelMetadataTemplates"), MessageLabel
-                            .MessageType.INFO, -1);
+                        "ModelFactory.Starting.ComboBoxModelMetadataTemplates"),
+                        MessageLabel.MessageType.INFO, -1);
 
         ComboBoxModelMetadataTemplates model =
             new ComboBoxModelMetadataTemplates();

@@ -60,6 +60,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
+import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
 
 /**
  * Panel der Anwendung.
@@ -340,6 +341,10 @@ public final class AppPanel extends javax.swing.JPanel {
         return panelMiscMetadata;
     }
 
+    public JComboBox getComboBoxFileFilters() {
+        return comboBoxFileFilters;
+    }
+
     public Component getTabSelectionNoMetadata() {
         return panelNoMetadata;
     }
@@ -578,6 +583,8 @@ public final class AppPanel extends javax.swing.JPanel {
             AppLookAndFeel.getLocalizedImage(
                 "/org/jphototagger/program/resource/images/textfield_search.png"));
         ((ImageTextArea) textAreaSearch).setConsumeEnter(true);
+        labelFileFilters = new javax.swing.JLabel();
+        comboBoxFileFilters = new javax.swing.JComboBox();
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
@@ -706,6 +713,25 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelSearch.add(scrollPaneTextAreaSearch, gridBagConstraints);
 
+        labelFileFilters.setText(JptBundle.INSTANCE.getString("AppPanel.labelFileFilters.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelSearch.add(labelFileFilters, gridBagConstraints);
+
+        comboBoxFileFilters.setRenderer(new ListCellRendererFileFilters());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        panelSearch.add(comboBoxFileFilters, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -727,11 +753,11 @@ public final class AppPanel extends javax.swing.JPanel {
         panelDirectories.setLayout(panelDirectoriesLayout);
         panelDirectoriesLayout.setHorizontalGroup(
             panelDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
         panelDirectoriesLayout.setVerticalGroup(
             panelDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png")), panelDirectories); // NOI18N
@@ -750,11 +776,11 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSavedSearches.setLayout(panelSavedSearchesLayout);
         panelSavedSearchesLayout.setHorizontalGroup(
             panelSavedSearchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
         panelSavedSearchesLayout.setVerticalGroup(
             panelSavedSearchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(scrollPaneSavedSearches, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelSavedSearches.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png")), panelSavedSearches); // NOI18N
@@ -775,11 +801,11 @@ public final class AppPanel extends javax.swing.JPanel {
         panelImageCollections.setLayout(panelImageCollectionsLayout);
         panelImageCollectionsLayout.setHorizontalGroup(
             panelImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
         panelImageCollectionsLayout.setVerticalGroup(
             panelImageCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(scrollPaneImageCollections, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelImageCollections.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_imagecollection.png")), panelImageCollections); // NOI18N
@@ -800,11 +826,11 @@ public final class AppPanel extends javax.swing.JPanel {
         panelFavorites.setLayout(panelFavoritesLayout);
         panelFavoritesLayout.setHorizontalGroup(
             panelFavoritesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
         panelFavoritesLayout.setVerticalGroup(
             panelFavoritesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_favorite.png")), panelFavorites); // NOI18N
@@ -939,11 +965,11 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTimeline.setLayout(panelTimelineLayout);
         panelTimelineLayout.setHorizontalGroup(
             panelTimelineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
         panelTimelineLayout.setVerticalGroup(
             panelTimelineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelTimeline.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_timeline.png")), panelTimeline); // NOI18N
@@ -963,11 +989,11 @@ public final class AppPanel extends javax.swing.JPanel {
         panelMiscMetadata.setLayout(panelMiscMetadataLayout);
         panelMiscMetadataLayout.setHorizontalGroup(
             panelMiscMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
         panelMiscMetadataLayout.setVerticalGroup(
             panelMiscMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
         );
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_misc_metadata.png")), panelMiscMetadata); // NOI18N
@@ -980,15 +1006,15 @@ public final class AppPanel extends javax.swing.JPanel {
         panelNoMetadata.setLayout(panelNoMetadataLayout);
         panelNoMetadataLayout.setHorizontalGroup(
             panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 203, Short.MAX_VALUE)
+            .addGap(0, 216, Short.MAX_VALUE)
             .addGroup(panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
         );
         panelNoMetadataLayout.setVerticalGroup(
             panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
             .addGroup(panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelNoMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_no_metadata.png")), panelNoMetadata); // NOI18N
@@ -1015,7 +1041,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGap(0, 513, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1028,9 +1054,9 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnailsContent.setLayout(panelThumbnailsContentLayout);
         panelThumbnailsContentLayout.setHorizontalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+            .addGap(0, 516, Short.MAX_VALUE)
             .addGroup(panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE))
+                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE))
         );
         panelThumbnailsContentLayout.setVerticalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1224,9 +1250,9 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 679, Short.MAX_VALUE)
+            .addGap(0, 666, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1310,7 +1336,9 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonIptcToXmp;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JComboBox comboBoxFastSearch;
+    private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JLabel labelError;
+    private javax.swing.JLabel labelFileFilters;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelStatusbarText;
     private javax.swing.JLabel labelThumbnailInfo;

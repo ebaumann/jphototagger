@@ -1,5 +1,5 @@
 /*
- * @(#)MiscFactory.java    Created on 2008-10-16
+ * @(#)TerminateFactory.java    Created on 2008-10-16
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,29 +21,31 @@
 
 package org.jphototagger.program.factory;
 
+import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.search.ControllerFastSearch;
 import org.jphototagger.program.helper.ImportImageFiles;
+import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
+import java.io.FileFilter;
 
 /**
  *
  * @author  Elmar Baumann
  */
-public final class MiscFactory {
-    static final MiscFactory INSTANCE = new MiscFactory();
-    private volatile boolean init     = false;
+public final class TerminateFactory {
+    static final TerminateFactory INSTANCE = new TerminateFactory();
+    private volatile boolean      init     = false;
 
     void init() {
         synchronized (this) {
@@ -65,6 +67,7 @@ public final class MiscFactory {
         ScheduledTasks.INSTANCE.run();
         checkImportImageFiles();
         setAutocomplete();
+        setTnPanelFileFilter();
         AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
         appPanel.setStatusbarText(
             JptBundle.INSTANCE.getString("MiscFactory.Init.Finished"),
@@ -92,5 +95,13 @@ public final class MiscFactory {
 
             ImportImageFiles.importFrom(dir);
         }
+    }
+
+    private void setTnPanelFileFilter() {
+        ComboBoxModelFileFilters model =
+            ModelFactory.INSTANCE.getModel(ComboBoxModelFileFilters.class);
+
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileFilter(
+            (FileFilter) model.getSelectedItem());
     }
 }
