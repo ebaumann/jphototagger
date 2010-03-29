@@ -90,4 +90,36 @@ public final class RegexFileFilter implements java.io.FileFilter {
             String description) {
         return new FileChooserFilter(this, description);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final RegexFileFilter other = (RegexFileFilter) obj;
+
+        if ((this.acceptedPatterns != other.acceptedPatterns)
+                && ((this.acceptedPatterns == null)
+                    ||!this.acceptedPatterns.equals(other.acceptedPatterns))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+
+        hash = 43 * hash + ((this.acceptedPatterns != null)
+                            ? this.acceptedPatterns.hashCode()
+                            : 0);
+
+        return hash;
+    }
 }
