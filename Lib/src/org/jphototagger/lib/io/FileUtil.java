@@ -24,6 +24,7 @@ package org.jphototagger.lib.io;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -291,6 +292,7 @@ public final class FileUtil {
         if (dir == null) {
             throw new NullPointerException("dir == null");
         }
+
         return dir.isDirectory() && dir.canWrite();
     }
 
@@ -304,6 +306,7 @@ public final class FileUtil {
         if (filepath == null) {
             throw new NullPointerException("filepath == null");
         }
+
         return isWritableDirectory(new File(filepath));
     }
 
@@ -588,6 +591,35 @@ public final class FileUtil {
         }
 
         return directories;
+    }
+
+    /**
+     * Filters files in a collection.
+     *
+     * @param  files  files
+     * @param  filter filter
+     * @return        files where {@link FileFilter#accept(java.io.File)} is
+     *                true
+     */
+    public static List<File> filter(Collection<? extends File> files,
+                                    FileFilter filter) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
+        List<File> filteredFiles = new ArrayList<File>(files.size());
+
+        for (File file : files) {
+            if (filter.accept(file)) {
+                filteredFiles.add(file);
+            }
+        }
+
+        return filteredFiles;
     }
 
     /**
