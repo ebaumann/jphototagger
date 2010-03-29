@@ -21,6 +21,13 @@
 
 package org.jphototagger.program.data;
 
+import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
+import org.jphototagger.program.database.metadata.Join;
+import org.jphototagger.program.database.metadata.Util;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,17 +44,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearch {
+
+    /**
+     * Keywords
+     */
+    @XmlElementWrapper(name = "SavedSearchKeywords")
+    @XmlElement(type = String.class)
+    private List<String> keywords;
+
+    /**
+     * Column panels
+     */
+    @XmlElementWrapper(name = "SavedSearchPanels")
+    @XmlElement(type = SavedSearchPanel.class)
+    private List<SavedSearchPanel>    panels;
+    private SavedSearchParamStatement paramStatement;
+    private Type                      type;
+
+    public SavedSearch() {}
+
+    public SavedSearch(SavedSearch other) {
+        set(other);
+    }
+
     public enum Type {
-
-        /**
-         * Saved search was generated through dialog, search column panels
-         */
-        PANELS((short) 0),
-
-        /**
-         * Saved search is a custom SQL Query
-         */
-        CUSTOM_SQL((short) 1),
+        KEYWORDS_AND_PANELS((short) 0), CUSTOM_SQL((short) 1),
         ;
 
         private final short value;
@@ -71,19 +92,11 @@ public final class SavedSearch {
         }
     }
 
-    private SavedSearchParamStatement paramStatement;
-    @XmlElementWrapper(name = "SavedSearchPanels")
-    @XmlElement(type = SavedSearchPanel.class)
-    private List<SavedSearchPanel>    panels;
-    private Type                      type;
-
-    public SavedSearch() {}
-
-    public SavedSearch(SavedSearch other) {
-        set(other);
-    }
-
     public void set(SavedSearch other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         if (other == this) {
             return;
         }
@@ -100,11 +113,7 @@ public final class SavedSearch {
     }
 
     public void setPanels(List<SavedSearchPanel> panels) {
-        if (panels == null) {
-            this.panels = null;
-        } else {
-            setDeepCopyPanels(panels);
-        }
+        setDeepCopyPanels(panels);
     }
 
     public void addPanel(SavedSearchPanel panel) {
@@ -115,13 +124,17 @@ public final class SavedSearch {
         panels.add(panel);
     }
 
-    public SavedSearchParamStatement getParamStatement() {
+    public SavedSearchParamStatement getSavedSearchParamStatement() {
         return (paramStatement == null)
                ? null
                : new SavedSearchParamStatement(paramStatement);
     }
 
     public void setParamStatement(SavedSearchParamStatement paramStatement) {
+        if (paramStatement == null) {
+            throw new NullPointerException("paramStatement == null");
+        }
+
         this.paramStatement = new SavedSearchParamStatement(paramStatement);
     }
 
@@ -134,6 +147,10 @@ public final class SavedSearch {
     }
 
     public void setType(Type type) {
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         this.type = type;
     }
 
@@ -143,6 +160,22 @@ public final class SavedSearch {
 
     public boolean isCustomSql() {
         return (type != null) && type.equals(Type.CUSTOM_SQL);
+    }
+
+    public boolean hasKeywords() {
+        return (keywords != null) &&!keywords.isEmpty();
+    }
+
+    public List<String> getKeywords() {
+        return (keywords == null)
+               ? null
+               : new ArrayList<String>(keywords);
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = (keywords == null)
+                        ? null
+                        : new ArrayList<String>(keywords);
     }
 
     @Override
@@ -193,7 +226,9 @@ public final class SavedSearch {
 
     @Override
     public String toString() {
-        return getName();    // Never change that (will be used to find model items)!
+
+        // Never change that (will be used to find model items)!
+        return getName();
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {
@@ -223,5 +258,117 @@ public final class SavedSearch {
         for (SavedSearchPanel panel : p) {
             panels.add(new SavedSearchPanel(panel));
         }
+    }
+
+    public void createAndSetParamStatementFromCustomSql(String sql) {
+        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
+
+        paramStmt.setQuery(true);
+        setType(Type.CUSTOM_SQL);
+    }
+
+    public void createAndSetParamStatementFromPanels() {
+        StringBuilder  sb     = getStartSelectFrom();
+        List<String>   values = new ArrayList<String>();
+        ParamStatement stmt   = new ParamStatement();
+
+        appendToFrom(sb);
+        appendWhere(sb, values);
+        stmt.setSql(sb.toString());
+        stmt.setValues(values.toArray());
+        stmt.setIsQuery(true);
+
+        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
+
+        paramStmt.setQuery(stmt.isQuery());
+        paramStmt.setSql(stmt.getSql());
+
+        List<String> paramStmtValues = stmt.getValuesAsStringList();
+
+        paramStmt.setValues((paramStmtValues.size() > 0)
+                            ? paramStmtValues
+                            : null);
+        setType(Type.KEYWORDS_AND_PANELS);
+        paramStatement = paramStmt;
+    }
+
+    private synchronized void appendWhere(StringBuilder statement,
+            List<String> values) {
+        statement.append(" WHERE");
+
+        int index = 0;
+
+        if (panels != null) {
+            for (SavedSearchPanel panel : panels) {
+                if (panel.hasSql(index == 0)) {
+                    statement.append(panel.getSqlString(index == 0));
+                    values.add(panel.getValue());
+                    index++;
+                }
+            }
+        }
+
+        appendKeywords(statement, values, index > 0);
+    }
+
+    private void appendKeywords(StringBuilder statement, List<String> values,
+                                boolean and) {
+        int count = keywords.size();
+
+        if (count == 0) {
+            return;
+        }
+
+        statement.append((and
+                          ? " AND"
+                          : "") + " dc_subjects.subject IN "
+                                + org.jphototagger.program.database.Util
+                                    .getParamsInParentheses(
+                                        count) + " GROUP BY files.filename"
+                                            + " HAVING COUNT(*) = "
+                                                + Integer.toString(count));
+        values.addAll(keywords);
+    }
+
+    private void appendToFrom(StringBuilder statement) {
+        statement.append(" files");
+
+        int index = 0;
+
+        for (String tablename :
+                Util.getDistinctTablenamesOfColumns(getColumns())) {
+            statement.append((index++ == 0)
+                             ? ""
+                             : " ");
+            statement.append(Join.getJoinToFiles(tablename, Join.Type.INNER));
+        }
+    }
+
+    private StringBuilder getStartSelectFrom() {
+        Column columnFilename     = ColumnFilesFilename.INSTANCE;
+        String columnNameFilename = columnFilename.getName();
+        String tableNameFiles     = columnFilename.getTablename();
+
+        return new StringBuilder("SELECT DISTINCT " + tableNameFiles + "."
+                                 + columnNameFilename + " FROM");
+    }
+
+    private synchronized List<Column> getColumns() {
+        List<Column> columns = new ArrayList<Column>();
+        int          index   = 0;
+
+        if (panels != null) {
+            for (SavedSearchPanel panel : panels) {
+                if (panel.hasSql(index++ == 0)) {
+                    columns.add(panel.getColumn());
+                }
+            }
+        }
+
+        if (!keywords.isEmpty()) {
+            columns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+        }
+
+        return columns;
     }
 }

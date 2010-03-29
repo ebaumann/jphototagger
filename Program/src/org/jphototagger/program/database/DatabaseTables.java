@@ -380,6 +380,18 @@ public final class DatabaseTables extends Database {
             stmt.execute("CREATE INDEX idx_saved_searches_panels_panel_index"
                          + " ON saved_searches_panels (panel_index)");
         }
+
+        if (!DatabaseMetadata.INSTANCE.existsTable(con, "saved_searches_keywords")) {
+            stmt.execute("CREATE CACHED TABLE saved_searches_keywords ("
+                         + "  id_saved_searches BIGINT"
+                         + ", keyword VARCHAR_IGNORECASE(64)"
+                         + ", FOREIGN KEY (id_saved_searches)"
+                         + " REFERENCES saved_searches (id) ON DELETE CASCADE"
+                         + ");");
+            stmt.execute(
+                "CREATE INDEX idx_saved_searches_keywords_id_saved_searches"
+                + " ON saved_searches_keywords (id_saved_searches)");
+        }
     }
 
     private void createAutoScanDirectoriesTable(Connection con, Statement stmt)

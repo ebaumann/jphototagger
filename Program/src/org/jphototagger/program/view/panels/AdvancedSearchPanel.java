@@ -23,22 +23,15 @@ package org.jphototagger.program.view.panels;
 
 import java.awt.event.ActionEvent;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
 import org.jphototagger.program.data.SavedSearchParamStatement;
-import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
-import org.jphototagger.program.database.metadata.Util;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.impl.SearchListenerSupport;
 import org.jphototagger.program.event.listener.SearchListener;
 import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.database.metadata.Join;
-import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -125,17 +118,17 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private synchronized void setFirstColumn() {
-        assert !searchColumnPanels.isEmpty();
-        SearchColumnPanel scp = searchColumnPanels.get(0);
+        if (!searchColumnPanels.isEmpty()) {
 
-        scp.setOperatorsEnabled(false);
-        scp.buttonRemoveColumn.setEnabled(searchColumnPanels.size() > 1);
-        defaultInputOfComponent.put(panelSimpleSql, scp.getTextFieldValue());
-        scp.disableFirstOperator();
+            SearchColumnPanel scp = searchColumnPanels.get(0);
+
+            defaultInputOfComponent.put(panelSimpleSql, scp.getTextFieldValue());
+        }
     }
 
     public synchronized void ensureOneColumn() {
-        if (searchColumnPanels.size() < 1) {
+        if (searchColumnPanels.size() < 1 && !existsCustomSqlText()
+                && !existsKeywords()) {
             addColumn();
         }
     }
@@ -165,7 +158,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private synchronized boolean checkIsSearchValid() {
-        if (isCustomSql()) {
+        if (!checkConsistent()) {
+            return false;
+        }
+        if (existsCustomSqlText()) {
             return true;
         }
 
@@ -187,6 +183,16 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return valid;
     }
 
+    private boolean checkConsistent() {
+        if (existsCustomSqlText() &&
+                (existsKeywords() || existsSimpleSqlValue())) {
+            MessageDisplayer.error(
+                    this, "AdvancedSearchPanel.Error.Inconsistent");
+            return false;
+        }
+        return true;
+    }
+
     private synchronized boolean checkBrackets() {
         int countOpenBrackets   = 0;
         int countClosedBrackets = 0;
@@ -205,35 +211,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private SavedSearchParamStatement getSavedSearchParamStmt() {
-        if (isCustomSql()) {
-            return getCustomSqlParamStatement();
-        }
-
-        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
-        ParamStatement            stmt      = getParamStatement();
-
-        paramStmt.setQuery(stmt.isQuery());
-        paramStmt.setSql(stmt.getSql());
-
-        List<String> values = stmt.getValuesAsStringList();
-
-        paramStmt.setValues((values.size() > 0)
-                            ? values
-                            : null);
-
-        return paramStmt;
-    }
-
-    private SavedSearchParamStatement getCustomSqlParamStatement() {
-        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
-
-        paramStmt.setQuery(true);
-        paramStmt.setSql(textAreaCustomSqlQuery.getText().trim());
-
-        return paramStmt;
-    }
-
     public void addSearchListener(SearchListener listener) {
         listenerSupport.add(listener);
     }
@@ -244,14 +221,25 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private synchronized void notifySearch() {
         SearchEvent event       = new SearchEvent(SearchEvent.Type.START);
+        
+        event.setData(createSavedSearch());
+        listenerSupport.notifyListeners(event);
+    }
+
+    private SavedSearch createSavedSearch() {
         SavedSearch savedSearch = new SavedSearch();
 
-        savedSearch.setParamStatement(getSavedSearchParamStmt());
-        savedSearch.setType(isCustomSql()
-                            ? SavedSearch.Type.CUSTOM_SQL
-                            : SavedSearch.Type.PANELS);
-        event.setData(savedSearch);
-        listenerSupport.notifyListeners(event);
+        savedSearch.setKeywords(getKeywords());
+        savedSearch.setPanels(getSavedSearchPanels());
+        if (existsCustomSqlText()) {
+            savedSearch.createAndSetParamStatementFromCustomSql(
+                    textAreaCustomSqlQuery.getText().trim());
+        } else {
+            savedSearch.createAndSetParamStatementFromPanels();
+        }
+        // Has to be called after creating the search has created the param stmt
+        savedSearch.setName(searchName);
+        return savedSearch;
     }
 
     private synchronized void notifySave(SavedSearch savedSearch) {
@@ -273,23 +261,26 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         listenerSupport.notifyListeners(event);
     }
 
-    /**
-     * Setzt eine gespeicherte Suche.
-     *
-     * @param search Gespeicherte Suche
-     */
     public void setSavedSearch(SavedSearch search) {
         clearInput(true);
         isSavedSearch = true;
         setSearchName(search.getName());
-        setSavedSearchToPanels(getSavedSearchPanelsContainingValues(
-                search.getPanels()));
-        setKeywordsToPanel(search);
+        if (search.hasPanels()) {
+            setSavedSearchToPanels(getSavedSearchPanelsContainingValues(
+                    search.getPanels()));
+        }
+        if (search.hasKeywords()) {
+            setKeywordsToPanel(search);
+        }
         setCustomSqlToPanel(search);
 
-        if (existsSimpleSqlValue()) {
-            setSelectedComponent(panelSimpleSql);
-        }
+        JPanel selPanel = existsCustomSqlText()
+                ? panelCustomSql
+                : existsSimpleSqlValue()
+                ? panelSimpleSql
+                : panelKeywords;
+
+        setSelectedComponent(selPanel);
     }
 
     private synchronized void setSavedSearchToPanels(
@@ -333,14 +324,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void setKeywordsToPanel(SavedSearch search) {
-        String  sql         = search.getParamStatement().getSql();
+        String  sql         = search.getSavedSearchParamStatement().getSql();
         boolean hasKeywords = sql.contains(SQL_IDENTIFIER_KEYWORDS);
 
         if (!hasKeywords) {
             return;
         }
 
-        List<String> values       = search.getParamStatement().getValues();
+        List<String> values       = search.getSavedSearchParamStatement().getValues();
         List<String> keywords     = new ArrayList<String>();
         int          keywordCount = getKeywordCount(sql);
         int          valueCount   = values.size();
@@ -375,7 +366,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             return;
         }
 
-        SavedSearchParamStatement stmt = search.getParamStatement();
+        SavedSearchParamStatement stmt = search.getSavedSearchParamStatement();
 
         if (stmt.getSql() == null) {
             return;
@@ -399,6 +390,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
 
         return false;
+    }
+
+    private boolean existsCustomSqlText() {
+        return !textAreaCustomSqlQuery.getText().trim().isEmpty();
     }
 
     private synchronized void ensureColumnCount(int count) {
@@ -466,7 +461,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         addPanelPadding();
         searchColumnPanels.remove(scPanel);
         searchPanelOfRemoveButton.remove(scPanel.buttonRemoveColumn);
-        if (scPanel.hasSql()) {
+        if (scPanel.canCreateSql()) {
             columnRemoved = true;
         }
         setFirstColumn();
@@ -497,7 +492,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         if (isSavedSearch && (columnRemoved || columnChanged())) {
             if (MessageDisplayer.confirmYesNo(
                     this, "AdvancedSearchPanel.Confirm.SaveChanges")) {
-                saveSearch();
+                save();
             }
         }
     }
@@ -527,21 +522,21 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private void saveAs() {
         if (isSavedSearch) {
             isSavedSearch = false;
-            saveSearch();
+            save();
             isSavedSearch = true;
         } else {
-            saveSearch();
+            save();
         }
     }
 
-    private boolean saveSearch() {
+    private boolean save() {
         if (checkIsSearchValid()) {
-            String name = askSearchName();
+            String name = getSearchName();
 
             if ((name != null) &&!name.isEmpty()) {
                 setSearchName(name);
                 setPanelsUnchanged();
-                notifySave(getSavedSearch(name));
+                notifySave(createSavedSearch());
 
                 return true;
             }
@@ -550,7 +545,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return false;
     }
 
-    private String askSearchName() {
+    private String getSearchName() {
         if (isSavedSearch) {
             return searchName;
         } else {
@@ -566,36 +561,20 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private SavedSearch getSavedSearch(String name) {
-        SavedSearch               savedSearch          = new SavedSearch();
-        SavedSearchParamStatement savedSearchParamStmt =
-            getSavedSearchParamStmt();
-
-        savedSearch.setType(isCustomSql()
-                            ? SavedSearch.Type.CUSTOM_SQL
-                            : SavedSearch.Type.PANELS);
-        savedSearch.setParamStatement(savedSearchParamStmt);
-        savedSearch.setName(name);    // after setParamStatement()!
-        savedSearch.setPanels(getSavedSearchPanels());
-
-        return savedSearch;
-    }
-
     private synchronized List<SavedSearchPanel> getSavedSearchPanels() {
-        List<SavedSearchPanel> savedSearchPanels =
-            new ArrayList<SavedSearchPanel>();
-        int                    size              = searchColumnPanels.size();
+        List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
+        int                    size   = searchColumnPanels.size();
 
         for (int index = 0; index < size; index++) {
             SearchColumnPanel panel            = searchColumnPanels.get(index);
-            SavedSearchPanel  savedSearchPanel = panel.getSavedSearchData();
+            SavedSearchPanel  savedSearchPanel = panel.getSavedSearchPanel();
 
             savedSearchPanel.setPanelIndex(index);
-            savedSearchPanels.add(savedSearchPanel);
+            panels.add(savedSearchPanel);
         }
 
-        return (savedSearchPanels.size() > 0)
-               ? savedSearchPanels
+        return (panels.size() > 0)
+               ? panels
                : null;
     }
 
@@ -610,51 +589,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         notifyNameChanged();
     }
 
-    private ParamStatement getParamStatement() {
-        StringBuilder   statement = getStartSelectFrom();
-        List<String>   values    = new ArrayList<String>();
-        ParamStatement stmt      = new ParamStatement();
-
-        appendToFrom(statement);
-        appendWhere(statement, values);
-        stmt.setSql(statement.toString());
-        stmt.setValues(values.toArray());
-        stmt.setIsQuery(true);
-
-        return stmt;
-    }
-
-    private StringBuilder getStartSelectFrom() {
-        Column columnFilename     = ColumnFilesFilename.INSTANCE;
-        String columnNameFilename = columnFilename.getName();
-        String tableNameFiles     = columnFilename.getTablename();
-
-        return new StringBuilder("SELECT DISTINCT " + tableNameFiles + "."
-                                + columnNameFilename + " FROM");
-    }
-
-    private synchronized List<Column> getColumns() {
-        List<Column> columns = new ArrayList<Column>();
-
-        for (SearchColumnPanel panel : searchColumnPanels) {
-            if (panel.hasSql()) {
-                columns.add(panel.getSelectedColumn());
-            }
-        }
-
-        if (existsKeywords()) {
-            columns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
-        }
-
-        return columns;
-    }
-
     private boolean existsKeywords() {
         return !getKeywords().isEmpty();
-    }
-
-    private boolean isCustomSql() {
-        return !textAreaCustomSqlQuery.getText().trim().isEmpty();
     }
 
     private List<String> getKeywords() {
@@ -668,52 +604,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
 
         return keywords;
-    }
-
-    private synchronized void appendWhere(
-            StringBuilder statement, List<String> values) {
-        statement.append(" WHERE");
-
-        int index = 0;
-
-        for (SearchColumnPanel panel : searchColumnPanels) {
-            if (panel.hasSql()) {
-                panel.setIsFirst(index++ == 0);
-                statement.append(panel.getSqlString());
-                values.add(panel.getValue());
-            }
-        }
-
-        appendKeywords(statement, values, index > 0);
-    }
-
-    private void appendKeywords(StringBuilder statement, List<String> values,
-                                boolean and) {
-        List<String> keywords = getKeywords();
-        int          count    = keywords.size();
-
-        if (count == 0) {
-            return;
-        }
-
-        statement.append((and
-                          ? " AND"
-                          : "") + " dc_subjects.subject IN "
-                                + org.jphototagger.program.database.Util
-                                    .getParamsInParentheses(
-                                        count) + " GROUP BY files.filename"
-                                            + " HAVING COUNT(*) = "
-                                                + Integer.toString(count));
-        values.addAll(keywords);
-    }
-
-    private void appendToFrom(StringBuilder statement) {
-        statement.append(" files");
-        int index = 0;
-        for (String tablename : Util.getDistinctTablenamesOfColumns(getColumns())) {
-            statement.append(index++ == 0 ? "" : " ");
-            statement.append(Join.getJoinToFiles(tablename, Type.INNER));
-        }
     }
 
     @Override
@@ -935,7 +825,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveSearchActionPerformed
-        saveSearch();
+        save();
     }//GEN-LAST:event_buttonSaveSearchActionPerformed
 
     private void buttonSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveAsActionPerformed
