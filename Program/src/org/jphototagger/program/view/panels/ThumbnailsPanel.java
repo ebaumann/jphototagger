@@ -31,10 +31,17 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail
     .ControllerDoubleklickThumbnail;
+import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.ThumbnailFlag;
 import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.program.data.Xmp;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
 import org.jphototagger.program.event.listener.AppExitListener;
+import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.program.event.listener
+    .DatabaseUserDefinedFileFilterListener;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
@@ -84,8 +91,6 @@ import java.util.TooManyListenersException;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
-import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFilterListener;
 
 /**
  *
@@ -94,7 +99,8 @@ import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFilterList
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
                    KeyListener, ThumbnailUpdateListener, AppExitListener,
-                   DatabaseUserDefinedFileFilterListener {
+                   DatabaseUserDefinedFileFilterListener,
+                   DatabaseImageFilesListener {
     private static final String KEY_THUMBNAIL_WIDTH =
         "ThumbnailsPanel.ThumbnailWidth";
 
@@ -155,7 +161,7 @@ public class ThumbnailsPanel extends JPanel
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
     private Comparator<File>          fileSortComparator =
         FileSort.NAMES_ASCENDING.getComparator();
-    private FileFilter fileFilter =
+    private FileFilter       fileFilter =
         AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
     private final List<File> files =
         Collections.synchronizedList(new ArrayList<File>());
@@ -179,13 +185,14 @@ public class ThumbnailsPanel extends JPanel
         setTransferHandler(new TransferHandlerThumbnailsPanel());
         readProperties();
         renderedThumbnailCache.setRenderer(renderer);
-        renderedThumbnailCache.addThumbnailUpdateListener(this);
-        DatabaseUserDefinedFileFilter.INSTANCE.addListener(this);
         setBackground(COLOR_BACKGROUND_PANEL);
         listen();
     }
 
     private void listen() {
+        renderedThumbnailCache.addThumbnailUpdateListener(this);
+        DatabaseUserDefinedFileFilter.INSTANCE.addListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
         addComponentListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -1107,9 +1114,11 @@ public class ThumbnailsPanel extends JPanel
      * @param filesToRemove  files to remove
      */
     public synchronized void remove(Collection<? extends File> filesToRemove) {
-        List<File> oldFiles = new ArrayList<File>(files);
+        List<File>    oldFiles           = new ArrayList<File>(files);
+        List<Integer> selIndicesToRemove = getSelectedIndicesOf(filesToRemove);
 
         if (files.removeAll(filesToRemove)) {
+            selectedThumbnailIndices.removeAll(selIndicesToRemove);
             convertSelection(oldFiles, files);
 
             Point viewPos = getViewPosition();
@@ -1119,6 +1128,21 @@ public class ThumbnailsPanel extends JPanel
             renderedThumbnailCache.remove(filesToRemove);
             refresh();
         }
+    }
+
+    private synchronized List<Integer> getSelectedIndicesOf(
+            Collection<? extends File> files) {
+        List<Integer> selIndices = new ArrayList<Integer>(files.size());
+
+        for (File file : files) {
+            int index = getIndexOf(file);
+
+            if (selectedThumbnailIndices.contains(index)) {
+                selIndices.add(index);
+            }
+        }
+
+        return selIndices;
     }
 
     /**
@@ -1581,8 +1605,9 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public void filterUpdated(UserDefinedFileFilter filter) {
-        if (fileFilter instanceof UserDefinedFileFilter.RegexFileFilter
-                && filter.filterEquals(filter.getFileFilter(),
+        if ((fileFilter instanceof UserDefinedFileFilter.RegexFileFilter)
+                && filter.filterEquals(
+                    filter.getFileFilter(),
                     (UserDefinedFileFilter.RegexFileFilter) fileFilter)) {
             fileFilter = filter.getFileFilter();
             refresh();
@@ -1591,11 +1616,106 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public void filterInserted(UserDefinedFileFilter filter) {
+
         // ignore
+    }
+
+    public synchronized void insert(Collection<? extends File> imageFiles) {
+        List<File> newFiles = new ArrayList<File>(files.size()
+                                  + imageFiles.size());
+        boolean insert = false;
+
+        for (File imageFile : imageFiles) {
+            if (!files.contains(imageFile)) {
+                newFiles.add(imageFile);
+                insert = true;
+            }
+        }
+
+        if (insert) {
+            newFiles.addAll(files);
+            setFiles(newFiles, content);
+        }
+    }
+
+    private synchronized void updateViaFileFilter(File imageFile) {
+        if (fileFilter.accept(imageFile)) {
+            insert(Collections.singleton(imageFile));
+        } else {
+            remove(Collections.singleton(imageFile));
+        }
     }
 
     @Override
     public void filterDeleted(UserDefinedFileFilter filter) {
+
+        // ignore
+    }
+
+    @Override
+    public void imageFileInserted(File imageFile) {
+        updateViaFileFilter(imageFile);
+    }
+
+    @Override
+    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        updateViaFileFilter(oldImageFile);
+        updateViaFileFilter(newImageFile);
+    }
+
+    @Override
+    public void imageFileDeleted(File imageFile) {
+        updateViaFileFilter(imageFile);
+    }
+
+    @Override
+    public void xmpInserted(File imageFile, Xmp xmp) {
+        updateViaFileFilter(imageFile);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        updateViaFileFilter(imageFile);
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+        updateViaFileFilter(imageFile);
+    }
+
+    @Override
+    public void exifInserted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
+        // ignore
+    }
+
+    @Override
+    public void exifDeleted(File imageFile, Exif exif) {
+
+        // ignore
+    }
+
+    @Override
+    public void thumbnailUpdated(File imageFile) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectInserted(String dcSubject) {
+
+        // ignore
+    }
+
+    @Override
+    public void dcSubjectDeleted(String dcSubject) {
+
         // ignore
     }
 
