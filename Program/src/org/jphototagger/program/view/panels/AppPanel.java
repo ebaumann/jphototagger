@@ -246,6 +246,21 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     /**
+     * Returns components with mnemonics set that can interfer with the
+     * edit metadata panel mnemonics.
+     * <p>
+     * Panels hiding the edit metadata panel are <em>not</em> included.
+     *
+     * @return components
+     */
+    public Component[] getMnemonizedComponents() {
+        return new Component[] {
+          buttonSearch,
+          labelFileFilters
+        };
+    }
+
+    /**
      * Sets text to display in the status bar.
      *
      * @param text         text to display or empty string to remove text
