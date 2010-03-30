@@ -68,11 +68,11 @@ public final class RegexFileFilter implements java.io.FileFilter {
     }
 
     @Override
-    public boolean accept(File pathname) {
-        String filename = pathname.getName();
+    public boolean accept(File file) {
+        String pathname = file.getName();
 
         for (String pattern : acceptedPatterns) {
-            if (filename.matches(pattern)) {
+            if (pathname.matches(pattern)) {
                 return true;
             }
         }
