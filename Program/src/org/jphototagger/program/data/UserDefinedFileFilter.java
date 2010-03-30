@@ -26,12 +26,17 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.io.File;
 import java.io.FileFilter;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class UserDefinedFileFilter {
     private Long    id;
     private Boolean isNot = Boolean.FALSE;
