@@ -46,6 +46,7 @@ public final class JptExporters {
         EXPORTERS.add(FavoritesExporter.INSTANCE);
         EXPORTERS.add(AutoscanDirectoriesExporter.INSTANCE);
         EXPORTERS.add(FileExcludePatternsExporter.INSTANCE);
+        EXPORTERS.add(UserDefinedFileFilterExporter.INSTANCE);
     }
 
     public static List<Exporter> get() {
