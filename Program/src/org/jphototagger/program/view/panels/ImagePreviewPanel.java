@@ -147,7 +147,7 @@ public class ImagePreviewPanel extends JPanel
             JptBundle.INSTANCE.getString(
                 "ImagePreviewPanel.ImageFileFilter.Description");
         private static final RegexFileFilter FILE_FILTER =
-            AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
+            AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
         private static final ImageFileFilter INSTANCE = new ImageFileFilter();
 
         @Override

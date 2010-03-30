@@ -85,7 +85,7 @@ public final class IoUtil {
     public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
         List<File>      imageFiles = new ArrayList<File>();
         RegexFileFilter filter     =
-            AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
+            AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
 
         for (File file : arbitraryFiles) {
             if (filter.accept(file)) {

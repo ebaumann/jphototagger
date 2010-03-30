@@ -67,7 +67,7 @@ public final class ImageUtil {
      * @return      true if the file is an image file
      */
     public static boolean isImageFile(File file) {
-        return AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER.accept(file);
+        return AppFileFilters.ACCEPTED_IMAGE_FILENAMES.accept(file);
     }
 
     /**

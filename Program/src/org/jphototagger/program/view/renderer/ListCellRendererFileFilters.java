@@ -21,10 +21,10 @@
 
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.program.app.AppFileFilters;
 
 import java.awt.Component;
+import java.io.FileFilter;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
@@ -44,9 +44,9 @@ public final class ListCellRendererFileFilters extends DefaultListCellRenderer {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
                            index, isSelected, cellHasFocus);
 
-        if (value instanceof RegexFileFilter) {
+        if (value instanceof FileFilter) {
             String displayName =
-                AppFileFilters.getDisplaynameOf((RegexFileFilter) value);
+                AppFileFilters.getDisplaynameOf((FileFilter) value);
 
             if (displayName != null) {
                 label.setText(displayName);
