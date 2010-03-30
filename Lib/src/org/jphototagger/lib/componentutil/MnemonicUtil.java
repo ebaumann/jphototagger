@@ -27,11 +27,14 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
@@ -299,6 +302,35 @@ public final class MnemonicUtil {
 
     private static boolean hasMnemonic(Pair<Integer, String> p) {
         return MNEMONIC_OF_CHAR.containsValue(p.getFirst());
+    }
+
+    /**
+     * Returns the mnemonic characters of an collection of components.
+     *
+     * @param  components {@link JButton}s and {@link JLabel} will be queried
+     * @return            mnemonics
+     */
+    public static List<Character> getMnemonicCharsOf(
+            Collection<? extends Component> components) {
+        List<Character> mnemonics = new ArrayList<Character>(components.size());
+
+        for (Component component : components) {
+            setMnemonics(component);
+
+            int mnemonic = 0;
+
+            if (component instanceof JButton) {
+                mnemonic = ((JButton) component).getMnemonic();
+            } else if (component instanceof JLabel) {
+                mnemonic = ((JLabel) component).getDisplayedMnemonic();
+            }
+
+            if (mnemonic > 0) {
+                mnemonics.add((char) mnemonic);
+            }
+        }
+
+        return mnemonics;
     }
 
     private MnemonicUtil() {}
