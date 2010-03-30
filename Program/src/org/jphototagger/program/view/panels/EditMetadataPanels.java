@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -35,7 +37,8 @@ import org.jphototagger.program.database.metadata.selections.EditColumns;
 import org.jphototagger.program.database.metadata.selections.EditHints;
 import org.jphototagger.program.database.metadata.selections.EditHints
     .SizeEditField;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
@@ -48,7 +51,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.ViewUtil;
-import org.jphototagger.lib.generics.Pair;
 
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -62,6 +64,7 @@ import java.awt.Insets;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -80,11 +83,10 @@ import javax.swing.JTextField;
  */
 public final class EditMetadataPanels
         implements FocusListener, DatabaseImageFilesListener, AppExitListener {
-    private final List<JPanel>            panels       =
-        new ArrayList<JPanel>();
+    private final List<JPanel>          panels = new ArrayList<JPanel>();
     private final List<Pair<File, Xmp>> imageFilesXmp =
         new ArrayList<Pair<File, Xmp>>();
-    private boolean              editable             = true;
+    private boolean              editable = true;
     private WatchDifferentValues watchDifferentValues =
         new WatchDifferentValues();
     private final EditMetadataPanelsListenerSupport ls =
@@ -279,6 +281,7 @@ public final class EditMetadataPanels
             ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
         } else {
             TextEntry textEntry = (TextEntry) panelAdd;
+
             textEntry.setText(text);
             textEntry.setDirty(true);
         }
@@ -294,7 +297,7 @@ public final class EditMetadataPanels
         }
 
         JPanel panelRemove = null;
-        int    size     = panels.size();
+        int    size        = panels.size();
 
         for (int i = 0; (panelRemove == null) && (i < size); i++) {
             JPanel panel = panels.get(i);
@@ -308,6 +311,7 @@ public final class EditMetadataPanels
             ((EditRepeatableTextEntryPanel) panelRemove).removeText(text);
         } else {
             TextEntry textEntry = (TextEntry) panelRemove;
+
             textEntry.setText("");
             textEntry.setDirty(true);
         }
@@ -400,7 +404,7 @@ public final class EditMetadataPanels
                     }
                 }
             } else if (panel instanceof RatingSelectionPanel) {
-                RatingSelectionPanel p      = (RatingSelectionPanel) panel;
+                RatingSelectionPanel p = (RatingSelectionPanel) panel;
                 Long                 rating =
                     xmp.contains(ColumnXmpRating.INSTANCE)
                     ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
@@ -468,8 +472,7 @@ public final class EditMetadataPanels
 
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            Object    value     =
-                template.getValueOfColumn(textEntry.getColumn());
+            Object    value = template.getValueOfColumn(textEntry.getColumn());
 
             if (value instanceof String) {
                 String string = (String) value;
@@ -710,6 +713,7 @@ public final class EditMetadataPanels
     private void setMnemonics() {
         EditMetadataActionsPanel actionsPanel =
             GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
+        List<Character> mnemonics = new ArrayList<Character>(10);
 
         /*
          * UPDATE IF other components of the application panel containing
@@ -717,17 +721,30 @@ public final class EditMetadataPanels
          * panel is displayed. Else Alt+Mnemonic triggers their button actions
          * even if the components with the buttons are not focussed.
          */
-        ViewUtil
-            .setDisplayedMnemonicsToLabels(container, (char) actionsPanel
-                .buttonEmptyMetadata.getMnemonic(), (char) actionsPanel
-                .buttonMetadataTemplateCreate.getMnemonic(), (char) actionsPanel
-                .buttonMetadataTemplateDelete.getMnemonic(), (char) actionsPanel
-                .buttonMetadataTemplateEdit.getMnemonic(), (char) actionsPanel
-                .buttonMetadataTemplateInsert.getMnemonic(), (char) actionsPanel
-                .buttonMetadataTemplateRename.getMnemonic(), (char) actionsPanel
-                .buttonMetadataTemplateUpdate.getMnemonic(), (char) actionsPanel
-                .buttonMetadataTemplateAdd.getMnemonic(), (char) actionsPanel
-                .labelPromptCurrentTemplate.getDisplayedMnemonic());
+        mnemonics.add((char) actionsPanel.buttonEmptyMetadata.getMnemonic());
+        mnemonics.add(
+            (char) actionsPanel.buttonMetadataTemplateCreate.getMnemonic());
+        mnemonics.add(
+            (char) actionsPanel.buttonMetadataTemplateDelete.getMnemonic());
+        mnemonics.add(
+            (char) actionsPanel.buttonMetadataTemplateEdit.getMnemonic());
+        mnemonics.add(
+            (char) actionsPanel.buttonMetadataTemplateInsert.getMnemonic());
+        mnemonics.add(
+            (char) actionsPanel.buttonMetadataTemplateRename.getMnemonic());
+        mnemonics.add(
+            (char) actionsPanel.buttonMetadataTemplateUpdate.getMnemonic());
+        mnemonics.add(
+            (char) actionsPanel.buttonMetadataTemplateAdd.getMnemonic());
+        mnemonics
+            .add((char) actionsPanel.labelPromptCurrentTemplate
+                .getDisplayedMnemonic());
+        mnemonics.addAll(
+            MnemonicUtil.getMnemonicCharsOf(
+                Arrays.asList(
+                    GUI.INSTANCE.getAppPanel().getMnemonizedComponents())));
+        ViewUtil.setDisplayedMnemonicsToLabels(container,
+                mnemonics.toArray(new Character[] {}));
     }
 
     private GridBagConstraints newConstraints() {
@@ -780,7 +797,7 @@ public final class EditMetadataPanels
 
         for (Column column : columns) {
             EditHints editHints = EditColumns.getEditHints(column);
-            boolean   large     =
+            boolean   large =
                 editHints.getSizeEditField().equals(SizeEditField.LARGE);
             boolean isRepeatable = editHints.isRepeatable();
 
@@ -1022,8 +1039,7 @@ public final class EditMetadataPanels
     }
 
     private class WatchDifferentValues extends MouseAdapter {
-        private final List<TextEntry> entries         =
-            new ArrayList<TextEntry>();
+        private final List<TextEntry> entries = new ArrayList<TextEntry>();
         private final Set<TextEntry>  releasedEntries =
             new HashSet<TextEntry>();
         private volatile boolean      listen;
