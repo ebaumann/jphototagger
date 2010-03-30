@@ -134,6 +134,7 @@ public class DatabaseUpdatePanel extends JPanel
         toggleButtonExifDateToXmpDateCreated.setText(
                 JptBundle.INSTANCE.getString(
                     "DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     private synchronized void disableOtherButtons(JToggleButton buttonEnabled) {
