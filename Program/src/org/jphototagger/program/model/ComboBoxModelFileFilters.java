@@ -42,11 +42,17 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
     }
 
     private void insertElements() {
-        addElement(AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER);
-        addElement(AppFileFilters.JPEG_FILENAME_FILTER);
-        addElement(AppFileFilters.TIFF_FILENAME_FILTER);
-        addElement(AppFileFilters.RAW_FILENAME_FILTER);
-        addElement(AppFileFilters.DNG_FILENAME_FILTER);
+        addElement(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
+        addElement(AppFileFilters.JPEG_FILENAMES);
+        addElement(AppFileFilters.TIFF_FILENAMES);
+        addElement(AppFileFilters.RAW_FILENAMES);
+        addElement(AppFileFilters.DNG_FILENAMES);
+        addElement(AppFileFilters.NO_XMP);
+        addElement(AppFileFilters.XMP_RATING_1_STAR);
+        addElement(AppFileFilters.XMP_RATING_2_STARS);
+        addElement(AppFileFilters.XMP_RATING_3_STARS);
+        addElement(AppFileFilters.XMP_RATING_4_STARS);
+        addElement(AppFileFilters.XMP_RATING_5_STARS);
         selectItem();
     }
 

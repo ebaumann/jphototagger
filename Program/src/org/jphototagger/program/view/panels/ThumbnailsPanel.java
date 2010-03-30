@@ -152,7 +152,7 @@ public class ThumbnailsPanel extends JPanel
     private Comparator<File>          fileSortComparator =
         FileSort.NAMES_ASCENDING.getComparator();
     private FileFilter fileFilter =
-        AppFileFilters.ACCEPTED_IMAGE_FILENAME_FILTER;
+        AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
     private final List<File> files =
         Collections.synchronizedList(new ArrayList<File>());
     private FileAction                               fileAction =

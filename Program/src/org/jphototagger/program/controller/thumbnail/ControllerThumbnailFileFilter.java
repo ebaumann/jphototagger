@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
@@ -29,6 +28,7 @@ import org.jphototagger.program.UserSettings;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.FileFilter;
 
 import javax.swing.JComboBox;
 
@@ -47,9 +47,9 @@ public final class ControllerThumbnailFileFilter implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getItem() instanceof RegexFileFilter) {
+        if (e.getItem() instanceof FileFilter) {
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileFilter(
-                (RegexFileFilter) e.getItem());
+                (FileFilter) e.getItem());
             writeSettings();
         }
     }
