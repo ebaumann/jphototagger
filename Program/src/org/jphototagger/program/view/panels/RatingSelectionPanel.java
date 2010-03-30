@@ -132,7 +132,7 @@ public class RatingSelectionPanel extends JPanel
 
     @Override
     public void empty(boolean dirty) {
-        value      = 0;
+        setText("0");
         this.dirty = dirty;
     }
 
