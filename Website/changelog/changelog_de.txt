@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.15 2010-03-30
+-----------------
+
+* Weitere Filter unterhalb Schnellsuche: Bewertungen 1-5 Sterne, ohne
+  XMP-Metadaten
+* Filter unterhalb Schnellsuche können erweitert werden mit eigenen
+  Dateifiltern: Fenster > Eigene Dateifilter
+
 0.8.14 2010-03-29
 -----------------
 

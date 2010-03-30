@@ -1,5 +1,5 @@
 /*
- * @(#)ListCellRendererFileFilters.java    Created on 2010-03-29
+ * @(#)ListCellRendererUserDefinedFileFilterType.java    Created on 2010-03-30
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,12 +21,10 @@
 
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.data.UserDefinedFileFilter;
 
 import java.awt.Component;
-
-import java.io.FileFilter;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
@@ -38,8 +36,9 @@ import javax.swing.JList;
  *
  * @author Elmar Baumann
  */
-public final class ListCellRendererFileFilters extends DefaultListCellRenderer {
-    private static final long serialVersionUID = 5485874791973375371L;
+public final class ListCellRendererUserDefinedFileFilterType
+        extends DefaultListCellRenderer {
+    private static final long serialVersionUID = 3377131281051796463L;
     private static final Icon ICON             = AppLookAndFeel.ICON_FILTER;
 
     @Override
@@ -48,13 +47,11 @@ public final class ListCellRendererFileFilters extends DefaultListCellRenderer {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
                            index, isSelected, cellHasFocus);
 
-        if (value instanceof FileFilter) {
-            String displayName =
-                AppFileFilters.getDisplaynameOf((FileFilter) value);
+        if (value instanceof UserDefinedFileFilter.Type) {
+            UserDefinedFileFilter.Type type =
+                (UserDefinedFileFilter.Type) value;
 
-            if (displayName != null) {
-                label.setText(displayName);
-            }
+            label.setText(type.getDisplayName());
         }
 
         label.setIcon(ICON);

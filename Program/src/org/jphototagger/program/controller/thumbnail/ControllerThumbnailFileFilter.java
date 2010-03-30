@@ -22,12 +22,18 @@
 package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.view.dialogs.UserDefinedFileFilterDialog;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+
 import java.io.FileFilter;
 
 import javax.swing.JComboBox;
@@ -37,21 +43,36 @@ import javax.swing.JComboBox;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailFileFilter implements ItemListener {
+public final class ControllerThumbnailFileFilter
+        implements ActionListener, ItemListener {
     private final JComboBox combobox =
         GUI.INSTANCE.getAppPanel().getComboBoxFileFilters();
 
     public ControllerThumbnailFileFilter() {
         combobox.addItemListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemUserDefinedFileFilter()
+            .addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new UserDefinedFileFilterDialog().setVisible(true);
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getItem() instanceof FileFilter) {
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileFilter(
-                (FileFilter) e.getItem());
-            writeSettings();
+        Object          item = e.getItem();
+        ThumbnailsPanel tnPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+
+        if (item instanceof FileFilter) {
+            tnPanel.setFileFilter((FileFilter) item);
+        } else if (item instanceof UserDefinedFileFilter) {
+            tnPanel.setFileFilter(
+                ((UserDefinedFileFilter) item).getFileFilter());
         }
+
+        writeSettings();
     }
 
     private void writeSettings() {

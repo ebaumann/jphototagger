@@ -22,6 +22,10 @@
         <title>Die Schnellsuche</title>
     </page>
     <page>
+        <url>filefilter.html</url>
+        <title>Filter: Folgende Bilder anzeigen</title>
+    </page>
+    <page>
         <url>autocomplete.html</url>
         <title>Auto-Vervollständigen</title>
     </page>
@@ -224,6 +228,10 @@
             <title>Fenster &gt; Synonyme</title>
         </page>
         <page>
+            <url>user_defined_file_filter.html</url>
+            <title>Benutzerdefinierte Dateifilter</title>
+        </page>
+        <page>
             <url>accelerator_keys.html</url>
             <title>Hilfe &gt; Tastenkombinationen</title>
         </page>
@@ -268,6 +276,10 @@
         <page>
             <url>program_properties.html</url>
             <title>Dialog Programmeigenschaften</title>
+        </page>
+        <page>
+            <url>user_defined_file_filter_edit.html</url>
+            <title>Benutzerdefinierten Dateifilter bearbeiten</title>
         </page>
     </node>
     <node>

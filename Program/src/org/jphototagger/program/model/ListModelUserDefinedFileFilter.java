@@ -1,5 +1,5 @@
 /*
- * @(#)ComboBoxModelFileFilters.java    Created on 2010-03-29
+ * @(#)ListModelUserDefinedFileFilter.java    Created on 2010-03-30
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,62 +21,31 @@
 
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
 import org.jphototagger.program.event.listener
     .DatabaseUserDefinedFileFilterListener;
-import org.jphototagger.program.UserSettings;
 
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
+public final class ListModelUserDefinedFileFilter extends DefaultListModel
         implements DatabaseUserDefinedFileFilterListener {
-    private static final long  serialVersionUID = -7792330718447905417L;
-    public static final String SETTINGS_KEY_SEL_INDEX =
-        "ComboBoxModelFileFilters.SelIndex";
+    private static final long serialVersionUID = 6723254193291648654L;
 
-    public ComboBoxModelFileFilters() {
-        insertElements();
+    public ListModelUserDefinedFileFilter() {
+        addElements();
         DatabaseUserDefinedFileFilter.INSTANCE.addListener(this);
     }
 
-    private void insertElements() {
-        addElement(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
-        addElement(AppFileFilters.JPEG_FILENAMES);
-        addElement(AppFileFilters.TIFF_FILENAMES);
-        addElement(AppFileFilters.RAW_FILENAMES);
-        addElement(AppFileFilters.DNG_FILENAMES);
-        addElement(AppFileFilters.NO_XMP);
-        addElement(AppFileFilters.XMP_RATING_1_STAR);
-        addElement(AppFileFilters.XMP_RATING_2_STARS);
-        addElement(AppFileFilters.XMP_RATING_3_STARS);
-        addElement(AppFileFilters.XMP_RATING_4_STARS);
-        addElement(AppFileFilters.XMP_RATING_5_STARS);
-
+    private void addElements() {
         for (UserDefinedFileFilter filter :
                 DatabaseUserDefinedFileFilter.INSTANCE.getAll()) {
             addElement(filter);
-        }
-
-        selectItem();
-    }
-
-    private void selectItem() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
-
-        if (settings.containsKey(SETTINGS_KEY_SEL_INDEX)) {
-            int index = settings.getInt(SETTINGS_KEY_SEL_INDEX);
-
-            if ((index >= 0) && (index < getSize())) {
-                setSelectedItem(getElementAt(index));
-            }
         }
     }
 
@@ -92,7 +61,8 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterUpdated(UserDefinedFileFilter filter) {
-        int index = getIndexOf(filter);
+        int index = indexOf(filter);
+
         if (index >= 0) {
             ((UserDefinedFileFilter) getElementAt(index)).set(filter);
             fireContentsChanged(this, index, index);

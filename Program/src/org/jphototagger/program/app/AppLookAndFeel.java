@@ -82,6 +82,7 @@ public final class AppLookAndFeel {
         getIcon("icon_delete.png");
     public static final Icon          ICON_CUT       = getIcon("icon_cut.png");
     public static final Icon          ICON_COPY      = getIcon("icon_copy.png");
+    public static final Icon          ICON_FILTER    = getIcon("icon_filter.png");
     private static final List<Image>  APP_ICONS      = new ArrayList<Image>();
     private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
     private static Color              listBackground;
