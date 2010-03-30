@@ -1639,9 +1639,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized void updateViaFileFilter(File imageFile) {
-        if (fileFilter.accept(imageFile)) {
-            insert(Collections.singleton(imageFile));
-        } else {
+        // Insertion can't be decided because we don't know whether the image
+        // file is e.g. in a displayed directory or matches the criteria of a
+        // search
+        if (!fileFilter.accept(imageFile) && files.contains(imageFile)) {
             remove(Collections.singleton(imageFile));
         }
     }
