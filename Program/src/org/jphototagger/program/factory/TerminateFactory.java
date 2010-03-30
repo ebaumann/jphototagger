@@ -27,6 +27,7 @@ import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.search.ControllerFastSearch;
+import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.helper.ImportImageFiles;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
@@ -34,6 +35,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.io.File;
@@ -100,8 +102,15 @@ public final class TerminateFactory {
     private void setTnPanelFileFilter() {
         ComboBoxModelFileFilters model =
             ModelFactory.INSTANCE.getModel(ComboBoxModelFileFilters.class);
+        Object          selItem = model.getSelectedItem();
+        ThumbnailsPanel tnPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileFilter(
-            (FileFilter) model.getSelectedItem());
+        if (selItem instanceof FileFilter) {
+            tnPanel.setFileFilter((FileFilter) selItem);
+        } else if (selItem instanceof UserDefinedFileFilter) {
+            tnPanel.setFileFilter(
+                ((UserDefinedFileFilter) selItem).getFileFilter());
+        }
     }
 }

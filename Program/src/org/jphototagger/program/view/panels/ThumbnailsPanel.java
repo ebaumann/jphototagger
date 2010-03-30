@@ -32,6 +32,7 @@ import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail
     .ControllerDoubleklickThumbnail;
 import org.jphototagger.program.data.ThumbnailFlag;
+import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.RefreshListener;
@@ -83,6 +84,8 @@ import java.util.TooManyListenersException;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFilterListener;
 
 /**
  *
@@ -90,7 +93,8 @@ import javax.swing.TransferHandler;
  */
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
-                   KeyListener, ThumbnailUpdateListener, AppExitListener {
+                   KeyListener, ThumbnailUpdateListener, AppExitListener,
+                   DatabaseUserDefinedFileFilterListener {
     private static final String KEY_THUMBNAIL_WIDTH =
         "ThumbnailsPanel.ThumbnailWidth";
 
@@ -176,6 +180,7 @@ public class ThumbnailsPanel extends JPanel
         readProperties();
         renderedThumbnailCache.setRenderer(renderer);
         renderedThumbnailCache.addThumbnailUpdateListener(this);
+        DatabaseUserDefinedFileFilter.INSTANCE.addListener(this);
         setBackground(COLOR_BACKGROUND_PANEL);
         listen();
     }
@@ -1572,6 +1577,26 @@ public class ThumbnailsPanel extends JPanel
         int index = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
 
         setToolTipText(createTooltipText(index));
+    }
+
+    @Override
+    public void filterUpdated(UserDefinedFileFilter filter) {
+        if (fileFilter instanceof UserDefinedFileFilter.RegexFileFilter
+                && filter.filterEquals(filter.getFileFilter(),
+                    (UserDefinedFileFilter.RegexFileFilter) fileFilter)) {
+            fileFilter = filter.getFileFilter();
+            refresh();
+        }
+    }
+
+    @Override
+    public void filterInserted(UserDefinedFileFilter filter) {
+        // ignore
+    }
+
+    @Override
+    public void filterDeleted(UserDefinedFileFilter filter) {
+        // ignore
     }
 
     public static class Settings {

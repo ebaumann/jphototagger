@@ -326,6 +326,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemBackupDatabase;
     }
 
+    public JMenuItem getMenuItemUserDefinedFileFilter() {
+        return menuItemUserDefinedFileFilter;
+    }
+
     @Override
     public void setTitle(String title) {
         if (title.equals(AppInfo.APP_NAME)) {
@@ -428,6 +432,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
         menuItemSynonyms = new javax.swing.JMenuItem();
+        menuItemUserDefinedFileFilter = new javax.swing.JMenuItem();
         sep19 = new javax.swing.JPopupMenu.Separator();
         menuItemOutputWindow = new javax.swing.JMenuItem();
         sep20 = new javax.swing.JPopupMenu.Separator();
@@ -746,6 +751,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSynonyms.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         menuItemSynonyms.setText(bundle.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
         menuWindow.add(menuItemSynonyms);
+
+        menuItemUserDefinedFileFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_filter.png"))); // NOI18N
+        menuItemUserDefinedFileFilter.setText(bundle.getString("AppFrame.menuItemUserDefinedFileFilter.text")); // NOI18N
+        menuWindow.add(menuItemUserDefinedFileFilter);
         menuWindow.add(sep19);
 
         menuItemOutputWindow.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_T));
@@ -870,6 +879,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenuItem menuItemSynonyms;
     private javax.swing.JMenuItem menuItemToolIptcToXmp;
+    private javax.swing.JMenuItem menuItemUserDefinedFileFilter;
     private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
