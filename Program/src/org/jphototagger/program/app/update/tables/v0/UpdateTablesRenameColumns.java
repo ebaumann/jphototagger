@@ -50,6 +50,40 @@ final class UpdateTablesRenameColumns {
                                  null), new ColumnInfo(null,
                                      "parameters_before_filename", null,
                                      null)));
+        COLUMNS.add(new Pair<ColumnInfo,
+                             ColumnInfo>(new ColumnInfo("xmp", "id_files",
+                                 null, null), new ColumnInfo(null, "id_file",
+                                     null, null)));
+        COLUMNS.add(new Pair<ColumnInfo,
+                             ColumnInfo>(new ColumnInfo("exif", "id_files",
+                                 null, null), new ColumnInfo(null, "id_file",
+                                     null, null)));
+        COLUMNS.add(new Pair<ColumnInfo,
+                             ColumnInfo>(new ColumnInfo("collections",
+                                 "id_collectionnnames", null,
+                                 null), new ColumnInfo(null,
+                                     "id_collectionnname", null, null)));
+        COLUMNS.add(new Pair<ColumnInfo,
+                             ColumnInfo>(new ColumnInfo("collections",
+                                 "id_files", null, null), new ColumnInfo(null,
+                                     "id_file", null, null)));
+        COLUMNS.add(
+            new Pair<ColumnInfo, ColumnInfo>(
+                new ColumnInfo(
+                    "saved_searches_panels", "id_saved_searches", null,
+                    null), new ColumnInfo(
+                        null, "id_saved_search", null, null)));
+        COLUMNS.add(
+            new Pair<ColumnInfo, ColumnInfo>(
+                new ColumnInfo(
+                    "saved_searches_keywords", "id_saved_searches", null,
+                    null), new ColumnInfo(
+                        null, "id_saved_search", null, null)));
+        COLUMNS.add(
+            new Pair<ColumnInfo, ColumnInfo>(
+                new ColumnInfo(
+                    "actions_after_db_insertion", "id_programs", null,
+                    null), new ColumnInfo(null, "id_program", null, null)));
     }
 
     private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
@@ -87,10 +121,21 @@ final class UpdateTablesRenameColumns {
 
     private void renameColumn(Connection con, Pair<ColumnInfo, ColumnInfo> info)
             throws SQLException {
-        Database.execute(con,
-                         "ALTER TABLE " + info.getFirst().getTableName()
-                         + " ALTER COLUMN " + info.getFirst().getColumnName()
-                         + " RENAME TO " + info.getSecond().getColumnName());
+        String tableName      = info.getFirst().getTableName();
+        String fromColumnName = info.getFirst().getColumnName();
+        String toColumnName   = info.getSecond().getColumnName();
+        String sql = "ALTER TABLE " + tableName + " ALTER COLUMN "
+                     + fromColumnName + " RENAME TO " + toColumnName;
+
+        Database.execute(con, sql);
+
+        String oldIndexName = "idx_" + tableName + "_" + fromColumnName;
+
+        if (DatabaseMetadata.existsIndex(con, oldIndexName, tableName)) {
+            sql = "ALTER INDEX " + oldIndexName + " RENAME TO idx_"
+                   + tableName + "_" + toColumnName;
+            Database.execute(con, sql);
+        }
     }
 
     private void startMessage() {

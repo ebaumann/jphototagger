@@ -26,7 +26,7 @@ import org.jphototagger.program.database.metadata.Column.DataType;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
- * Spalte <code>photoshop_city</code> der Tabelle <code>xmp</code>.
+ * Spalte <code>photoshop_cities</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann
  */
@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopCity extends Column {
         new ColumnXmpPhotoshopCity();
 
     private ColumnXmpPhotoshopCity() {
-        super("city", "photoshop_city", DataType.STRING);
+        super("city", "photoshop_cities", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCity.Description"));

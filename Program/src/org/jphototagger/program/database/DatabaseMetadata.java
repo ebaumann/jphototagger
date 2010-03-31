@@ -21,8 +21,8 @@
 
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.lib.util.Version;
+import org.jphototagger.program.app.AppInfo;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -40,8 +40,7 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class DatabaseMetadata extends Database {
-    public static final DatabaseMetadata INSTANCE               =
-        new DatabaseMetadata();
+    public static final DatabaseMetadata INSTANCE = new DatabaseMetadata();
     private static final String          KEY_JPT_APP_DB_VERSION =
         "VersionLastDbUpdate";
 
@@ -176,6 +175,32 @@ public final class DatabaseMetadata extends Database {
             }
         } finally {
             close(rs, stmt);
+        }
+
+        return exists;
+    }
+
+    public static boolean existsIndex(Connection con, String indexName,
+                                      String tableName)
+            throws SQLException {
+        boolean   exists = false;
+        ResultSet rs     = null;
+
+        try {
+            DatabaseMetaData meta = con.getMetaData();
+
+            rs = meta.getIndexInfo(con.getCatalog(), null,
+                                   tableName.toUpperCase(), false, true);
+
+            while (!exists && rs.next()) {
+                String name = rs.getString("INDEX_NAME");
+
+                if (name != null) {
+                    exists = name.equalsIgnoreCase(indexName);
+                }
+            }
+        } finally {
+            Database.close(rs, null);
         }
 
         return exists;

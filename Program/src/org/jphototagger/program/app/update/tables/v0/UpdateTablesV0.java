@@ -35,7 +35,15 @@ import java.sql.SQLException;
 public final class UpdateTablesV0 implements Updater {
 
     @Override
-    public void update(Connection con) throws SQLException {
+    public void updatePreCreation(Connection con) throws SQLException {
+        // Never change the order!
+        new UpdateTablesMakePlural().update(con);
+    }
+
+    @Override
+    public void updatePostCreation(Connection con) throws SQLException {
+        // Never change the order!
+        new UpdateTablesDropTables().update(con);
         new UpdateTablesDropColumns().update(con);
         new UpdateTablesRenameColumns().update(con);
         new UpdateTablesInsertColumns().update(con);

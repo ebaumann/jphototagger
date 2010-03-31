@@ -32,7 +32,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.UserDefinedFileFilter;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ListModelUserDefinedFileFilter;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileFilterDialog;
@@ -59,7 +59,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         if (dlg.isAccepted()) {
             UserDefinedFileFilter newFilter = dlg.getFilter();
-            if (!DatabaseUserDefinedFileFilter.INSTANCE.insert(newFilter)) {
+            if (!DatabaseUserDefinedFileFilters.INSTANCE.insert(newFilter)) {
                 errorMessageInsert(newFilter);
             }
         }
@@ -79,7 +79,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
             if (dlg.isAccepted()) {
                 UserDefinedFileFilter updatedFilter = dlg.getFilter();
-                if (!DatabaseUserDefinedFileFilter.INSTANCE.update(
+                if (!DatabaseUserDefinedFileFilters.INSTANCE.update(
                         updatedFilter)) {
                     errorMessageUpdate(updatedFilter);
                 }
@@ -95,7 +95,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     private void deleteFilter() {
         if (confirmDelete()) {
             for (UserDefinedFileFilter filter : getSelectedFilters()) {
-                if (!DatabaseUserDefinedFileFilter.INSTANCE.delete(filter)) {
+                if (!DatabaseUserDefinedFileFilters.INSTANCE.delete(filter)) {
                     errorMessageDelete(filter);
                 }
             }

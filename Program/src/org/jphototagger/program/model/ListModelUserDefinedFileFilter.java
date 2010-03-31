@@ -22,9 +22,9 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.data.UserDefinedFileFilter;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener
-    .DatabaseUserDefinedFileFilterListener;
+    .DatabaseUserDefinedFileFiltersListener;
 
 import javax.swing.DefaultListModel;
 
@@ -34,17 +34,17 @@ import javax.swing.DefaultListModel;
  * @author Elmar Baumann
  */
 public final class ListModelUserDefinedFileFilter extends DefaultListModel
-        implements DatabaseUserDefinedFileFilterListener {
+        implements DatabaseUserDefinedFileFiltersListener {
     private static final long serialVersionUID = 6723254193291648654L;
 
     public ListModelUserDefinedFileFilter() {
         addElements();
-        DatabaseUserDefinedFileFilter.INSTANCE.addListener(this);
+        DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
     }
 
     private void addElements() {
         for (UserDefinedFileFilter filter :
-                DatabaseUserDefinedFileFilter.INSTANCE.getAll()) {
+                DatabaseUserDefinedFileFilters.INSTANCE.getAll()) {
             addElement(filter);
         }
     }

@@ -51,6 +51,7 @@ final class UpdateTablesDropColumns {
                                    null));
         COLUMNS.add(new ColumnInfo("metadata_edit_templates",
                                    "iptc4xmpcoreCountrycode", null, null));
+        COLUMNS.add(new ColumnInfo("saved_searches", "is_query", null, null));
     }
 
     private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();

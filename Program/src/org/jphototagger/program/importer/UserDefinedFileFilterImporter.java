@@ -24,7 +24,7 @@ package org.jphototagger.program.importer;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.UserDefinedFileFilter;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter
     .CollectionWrapper;
@@ -51,9 +51,9 @@ public final class UserDefinedFileFilterImporter implements Importer {
                     UserDefinedFileFilterExporter.CollectionWrapper.class);
 
             for (UserDefinedFileFilter filter : wrapper.getCollection()) {
-                if (!DatabaseUserDefinedFileFilter.INSTANCE.exists(
+                if (!DatabaseUserDefinedFileFilters.INSTANCE.exists(
                         filter.getName())) {
-                    DatabaseUserDefinedFileFilter.INSTANCE.insert(filter);
+                    DatabaseUserDefinedFileFilters.INSTANCE.insert(filter);
                 }
             }
         } catch (Exception ex) {

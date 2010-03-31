@@ -25,7 +25,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.UserDefinedFileFilter;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.io.File;
@@ -66,7 +66,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
 
         try {
             Set<UserDefinedFileFilter> filter =
-                DatabaseUserDefinedFileFilter.INSTANCE.getAll();
+                DatabaseUserDefinedFileFilters.INSTANCE.getAll();
 
             XmlObjectExporter.export(new CollectionWrapper(filter), file);
         } catch (Exception ex) {
@@ -92,7 +92,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
 
     @Override
     public String getDefaultFilename() {
-        return "JptFileFilter.xml";
+        return "JptFileFilters.xml";
     }
 
     @XmlRootElement

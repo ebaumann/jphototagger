@@ -27,7 +27,7 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.UserDefinedFileFilter;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ComboBoxModelUserDefinedFileFilterType;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -86,7 +86,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     }
 
     private boolean checkName(String name) {
-        if (DatabaseUserDefinedFileFilter.INSTANCE.exists(name)) {
+        if (DatabaseUserDefinedFileFilters.INSTANCE.exists(name)) {
             MessageDisplayer.error(this,
                     "EditUserDefinedFileFilterDialog.Error.NameExists", name);
             return false;

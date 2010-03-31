@@ -50,9 +50,8 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerSavedSearchSelected
         implements ListSelectionListener, RefreshListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final JList           list            =
-        appPanel.getListSavedSearches();
+    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+    private final JList           list = appPanel.getListSavedSearches();
     private final ThumbnailsPanel thumbnailsPanel =
         appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels =
@@ -98,27 +97,20 @@ public final class ControllerSavedSearchSelected
 
         private void searchSelectedValue(Object selectedValue) {
             if (selectedValue instanceof SavedSearch) {
-                SavedSearch savedSearch = (SavedSearch) selectedValue;
+                SavedSearch    savedSearch = (SavedSearch) selectedValue;
+                ParamStatement stmt        = savedSearch.getParamStatement();
 
-                if (!savedSearch.isCustomSql()) {
-                    savedSearch.createAndSetParamStatementFromPanels();
-                }
-                if (savedSearch.hasParamStatement()) {
-                    ParamStatement stmt =
-                        savedSearch.getSavedSearchParamStatement().createParamStatement();
-
-                    if (stmt != null) {
-                        SearchHelper.setSort(savedSearch);
-                        searchParamStatement(stmt);
-                    }
+                if (stmt != null) {
+                    SearchHelper.setSort(savedSearch);
+                    searchParamStatement(stmt, savedSearch.getName());
                 }
             }
         }
 
-        private void searchParamStatement(ParamStatement stmt) {
+        private void searchParamStatement(ParamStatement stmt, String name) {
             List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
 
-            setTitle(stmt.getName());
+            setTitle(name);
             thumbnailsPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
         }
 

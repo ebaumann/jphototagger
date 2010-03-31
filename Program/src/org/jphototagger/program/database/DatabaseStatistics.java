@@ -128,7 +128,7 @@ public final class DatabaseStatistics extends Database {
 
             String sql =
                 "SELECT COUNT(*)"
-                + " FROM xmp LEFT JOIN files ON xmp.id_files = files.id";
+                + " FROM xmp LEFT JOIN files ON xmp.id_file = files.id";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);

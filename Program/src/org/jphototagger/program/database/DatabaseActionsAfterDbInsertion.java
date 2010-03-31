@@ -62,7 +62,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
                 "INSERT INTO actions_after_db_insertion"
-                + " (id_programs, action_order) VALUES (?, ?)");
+                + " (id_program, action_order) VALUES (?, ?)");
             stmt.setLong(1, action.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
@@ -94,7 +94,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
-                "DELETE FROM actions_after_db_insertion WHERE id_programs = ?");
+                "DELETE FROM actions_after_db_insertion WHERE id_program = ?");
             stmt.setLong(1, action.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -125,7 +125,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con  = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT id_programs FROM actions_after_db_insertion"
+            String sql = "SELECT id_program FROM actions_after_db_insertion"
                          + " ORDER BY action_order ASC";
 
             logFinest(sql);
@@ -170,7 +170,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con  = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) "
                                         + " FROM actions_after_db_insertion"
-                                        + " WHERE id_programs = ?");
+                                        + " WHERE id_program = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -207,7 +207,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
                 "UPDATE actions_after_db_insertion SET action_order = ?"
-                + " WHERE id_programs = ?");
+                + " WHERE id_program = ?");
 
             int index         = startIndex;
             int countAffected = 0;

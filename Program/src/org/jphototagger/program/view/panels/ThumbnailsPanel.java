@@ -36,12 +36,12 @@ import org.jphototagger.program.data.ThumbnailFlag;
 import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener
-    .DatabaseUserDefinedFileFilterListener;
+    .DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
@@ -99,7 +99,7 @@ import javax.swing.TransferHandler;
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
                    KeyListener, ThumbnailUpdateListener, AppExitListener,
-                   DatabaseUserDefinedFileFilterListener,
+                   DatabaseUserDefinedFileFiltersListener,
                    DatabaseImageFilesListener {
     private static final String KEY_THUMBNAIL_WIDTH =
         "ThumbnailsPanel.ThumbnailWidth";
@@ -191,7 +191,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void listen() {
         renderedThumbnailCache.addThumbnailUpdateListener(this);
-        DatabaseUserDefinedFileFilter.INSTANCE.addListener(this);
+        DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
         DatabaseImageFiles.INSTANCE.addListener(this);
         addComponentListener(this);
         addMouseListener(this);

@@ -26,7 +26,7 @@ import org.jphototagger.program.database.metadata.Column.DataType;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
- * Spalte <code>iptc4xmpcore_location</code> der Tabelle <code>xmp</code>.
+ * Spalte <code>iptc4xmpcore_locations</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann
  */
@@ -35,7 +35,7 @@ public final class ColumnXmpIptc4xmpcoreLocation extends Column {
         new ColumnXmpIptc4xmpcoreLocation();
 
     private ColumnXmpIptc4xmpcoreLocation() {
-        super("location", "iptc4xmpcore_location", DataType.STRING);
+        super("location", "iptc4xmpcore_locations", DataType.STRING);
         setLength(64);
         setDescription(
             JptBundle.INSTANCE.getString(

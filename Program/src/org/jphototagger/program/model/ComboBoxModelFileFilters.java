@@ -24,9 +24,9 @@ package org.jphototagger.program.model;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.data.UserDefinedFileFilter;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener
-    .DatabaseUserDefinedFileFilterListener;
+    .DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.program.UserSettings;
 
 import javax.swing.DefaultComboBoxModel;
@@ -37,14 +37,14 @@ import javax.swing.DefaultComboBoxModel;
  * @author Elmar Baumann
  */
 public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
-        implements DatabaseUserDefinedFileFilterListener {
+        implements DatabaseUserDefinedFileFiltersListener {
     private static final long  serialVersionUID = -7792330718447905417L;
     public static final String SETTINGS_KEY_SEL_INDEX =
         "ComboBoxModelFileFilters.SelIndex";
 
     public ComboBoxModelFileFilters() {
         insertElements();
-        DatabaseUserDefinedFileFilter.INSTANCE.addListener(this);
+        DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
     }
 
     private void insertElements() {
@@ -61,7 +61,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
         addElement(AppFileFilters.XMP_RATING_5_STARS);
 
         for (UserDefinedFileFilter filter :
-                DatabaseUserDefinedFileFilter.INSTANCE.getAll()) {
+                DatabaseUserDefinedFileFilters.INSTANCE.getAll()) {
             addElement(filter);
         }
 

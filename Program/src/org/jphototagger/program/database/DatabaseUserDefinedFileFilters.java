@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseUserDefinedFileFilter.java    Created on 2010-03-30
+ * @(#)DatabaseUserDefinedFileFilters.java    Created on 2010-03-30
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -24,7 +24,7 @@ package org.jphototagger.program.database;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.event.listener
-    .DatabaseUserDefinedFileFilterListener;
+    .DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 
 import java.sql.Connection;
@@ -41,14 +41,14 @@ import java.util.Set;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseUserDefinedFileFilter extends Database {
-    public static final DatabaseUserDefinedFileFilter INSTANCE =
-        new DatabaseUserDefinedFileFilter();
-    private final ListenerSupport<DatabaseUserDefinedFileFilterListener> ls =
-        new ListenerSupport<DatabaseUserDefinedFileFilterListener>();
+public final class DatabaseUserDefinedFileFilters extends Database {
+    public static final DatabaseUserDefinedFileFilters INSTANCE =
+        new DatabaseUserDefinedFileFilters();
+    private final ListenerSupport<DatabaseUserDefinedFileFiltersListener> ls =
+        new ListenerSupport<DatabaseUserDefinedFileFiltersListener>();
 
     private String getInsertSql() {
-        return "INSERT INTO user_defined_file_filter"
+        return "INSERT INTO user_defined_file_filters"
                + " (is_not, type, name, expression) VALUES (?, ?, ?, ?)";
     }
 
@@ -80,7 +80,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
                 notifyInserted(filter);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilter.class, ex);
+            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -112,7 +112,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
 
         try {
             String sql =
-                "SELECT id FROM user_defined_file_filter WHERE name = ?";
+                "SELECT id FROM user_defined_file_filters WHERE name = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
@@ -130,7 +130,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
     }
 
     private String getUpdateSql() {
-        return "UPDATE user_defined_file_filter SET is_not = ?, type = ?,"
+        return "UPDATE user_defined_file_filters SET is_not = ?, type = ?,"
                + " name = ?, expression = ? WHERE id = ?";
     }
 
@@ -158,7 +158,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
                 notifyUpdated(filter);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilter.class, ex);
+            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -170,7 +170,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
     }
 
     private String getDeleteSql() {
-        return "DELETE FROM user_defined_file_filter WHERE id = ?";
+        return "DELETE FROM user_defined_file_filters WHERE id = ?";
     }
 
     public boolean delete(UserDefinedFileFilter filter) {
@@ -193,7 +193,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
                 notifyDeleted(filter);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilter.class, ex);
+            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -211,7 +211,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
         ResultSet         rs    = null;
 
         try {
-            String sql = "SELECT COUNT (*) FROM user_defined_file_filter"
+            String sql = "SELECT COUNT (*) FROM user_defined_file_filters"
                          + " WHERE name = ?";
 
             con  = getConnection();
@@ -223,7 +223,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilter.class, ex);
+            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -241,7 +241,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
 
         try {
             String sql = "SELECT id, is_not, type, name, expression FROM"
-                         + " user_defined_file_filter ORDER BY name ASC";
+                         + " user_defined_file_filters ORDER BY name ASC";
 
             con = getConnection();
             stmt = con.createStatement();
@@ -259,7 +259,7 @@ public final class DatabaseUserDefinedFileFilter extends Database {
                 filter.add(f);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilter.class, ex);
+            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -268,43 +268,43 @@ public final class DatabaseUserDefinedFileFilter extends Database {
         return filter;
     }
 
-    public void addListener(DatabaseUserDefinedFileFilterListener listener) {
+    public void addListener(DatabaseUserDefinedFileFiltersListener listener) {
         ls.add(listener);
     }
 
-    public void removeListener(DatabaseUserDefinedFileFilterListener listener) {
+    public void removeListener(DatabaseUserDefinedFileFiltersListener listener) {
         ls.remove(listener);
     }
 
     private void notifyInserted(UserDefinedFileFilter filter) {
-        Set<DatabaseUserDefinedFileFilterListener> listeners = ls.get();
+        Set<DatabaseUserDefinedFileFiltersListener> listeners = ls.get();
 
         synchronized (listeners) {
-            for (DatabaseUserDefinedFileFilterListener listener : listeners) {
+            for (DatabaseUserDefinedFileFiltersListener listener : listeners) {
                 listener.filterInserted(filter);
             }
         }
     }
 
     private void notifyDeleted(UserDefinedFileFilter filter) {
-        Set<DatabaseUserDefinedFileFilterListener> listeners = ls.get();
+        Set<DatabaseUserDefinedFileFiltersListener> listeners = ls.get();
 
         synchronized (listeners) {
-            for (DatabaseUserDefinedFileFilterListener listener : listeners) {
+            for (DatabaseUserDefinedFileFiltersListener listener : listeners) {
                 listener.filterDeleted(filter);
             }
         }
     }
 
     private void notifyUpdated(UserDefinedFileFilter filter) {
-        Set<DatabaseUserDefinedFileFilterListener> listeners = ls.get();
+        Set<DatabaseUserDefinedFileFiltersListener> listeners = ls.get();
 
         synchronized (listeners) {
-            for (DatabaseUserDefinedFileFilterListener listener : listeners) {
+            for (DatabaseUserDefinedFileFiltersListener listener : listeners) {
                 listener.filterUpdated(filter);
             }
         }
     }
 
-    private DatabaseUserDefinedFileFilter() {}
+    private DatabaseUserDefinedFileFilters() {}
 }

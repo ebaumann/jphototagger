@@ -143,8 +143,8 @@ public final class DatabaseImageCollections extends Database {
             stmt = con.prepareStatement(
                 "SELECT files.filename FROM"
                 + " collections INNER JOIN collection_names"
-                + " ON collections.id_collectionnnames = collection_names.id"
-                + " INNER JOIN files ON collections.id_files = files.id"
+                + " ON collections.id_collectionnname = collection_names.id"
+                + " INNER JOIN files ON collections.id_file = files.id"
                 + " WHERE collection_names.name = ?"
                 + " ORDER BY collections.sequence_number ASC");
             stmt.setString(1, collectionName);
@@ -198,7 +198,7 @@ public final class DatabaseImageCollections extends Database {
                 "INSERT INTO collection_names (name) VALUES (?)");
             stmtColl = con.prepareStatement(
                 "INSERT INTO collections"
-                + " (id_collectionnnames, id_files, sequence_number)"
+                + " (id_collectionnname, id_file, sequence_number)"
                 + " VALUES (?, ?, ?)");
             stmtName.setString(1, collectionName);
             logFiner(stmtName);
@@ -293,7 +293,7 @@ public final class DatabaseImageCollections extends Database {
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
                 "DELETE FROM collections"
-                + " WHERE id_collectionnnames = ? AND id_files = ?");
+                + " WHERE id_collectionnname = ? AND id_file = ?");
 
             List<File> deletedFiles = new ArrayList<File>(imageFiles.size());
 
@@ -349,7 +349,7 @@ public final class DatabaseImageCollections extends Database {
                 con.setAutoCommit(false);
                 stmt = con.prepareStatement(
                     "INSERT INTO collections"
-                    + " (id_files, id_collectionnnames, sequence_number)"
+                    + " (id_file, id_collectionnname, sequence_number)"
                     + " VALUES (?, ?, ?)");
 
                 long idCollectionNames = findId(con, collectionName);
@@ -402,7 +402,7 @@ public final class DatabaseImageCollections extends Database {
             stmt = con.prepareStatement(
                 "SELECT MAX(collections.sequence_number)"
                 + " FROM collections INNER JOIN collection_names"
-                + " ON collections.id_collectionnnames = collection_names.id"
+                + " ON collections.id_collectionnname = collection_names.id"
                 + " AND collection_names.name = ?");
             stmt.setString(1, collectionName);
             logFinest(stmt);
@@ -427,7 +427,7 @@ public final class DatabaseImageCollections extends Database {
 
         try {
             stmtIdFiles = con.prepareStatement(
-                "SELECT id_files FROM collections WHERE id_collectionnnames = ?"
+                "SELECT id_file FROM collections WHERE id_collectionnname = ?"
                 + " ORDER BY collections.sequence_number ASC");
             stmtIdFiles.setLong(1, idCollectionName);
             logFinest(stmtIdFiles);
@@ -441,7 +441,7 @@ public final class DatabaseImageCollections extends Database {
 
             stmt = con.prepareStatement(
                 "UPDATE collections SET sequence_number = ?"
-                + " WHERE id_collectionnnames = ? AND id_files = ?");
+                + " WHERE id_collectionnname = ? AND id_file = ?");
 
             int sequenceNumer = 0;
 
@@ -568,8 +568,8 @@ public final class DatabaseImageCollections extends Database {
             stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM"
                 + " collections INNER JOIN collection_names"
-                + " ON collections.id_collectionnnames = collection_names.id"
-                + " INNER JOIN files on collections.id_files = files.id"
+                + " ON collections.id_collectionnname = collection_names.id"
+                + " INNER JOIN files on collections.id_file = files.id"
                 + " WHERE collection_names.name = ? AND files.filename = ?");
             stmt.setString(1, collectionName);
             stmt.setString(2, getFilePath(imageFile));
