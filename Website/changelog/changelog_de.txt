@@ -6,6 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.16 2010-03-31
 -----------------
 
+* Systemausgaben und Logdatei-Betrachter für alle Ausgaben haben eine
+  Suchen-Funktion
 * Bearbeiten > Einstellungen > Kartenreiter "Bilder öffnen": Als
   Standardprogramm zum Öffnen von Bildern wird das erste in der
   Liste benutzt. So lassen sich auch Parameter beim Aufruf benutzen.
