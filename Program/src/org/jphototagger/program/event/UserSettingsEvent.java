@@ -31,7 +31,7 @@ public final class UserSettingsEvent {
     private Type   type;
 
     public enum Type {
-        DEFAULT_IMAGE_OPEN_APP, DISPLAY_IPTC, LOG_LEVEL, MAX_THUMBNAIL_WIDTH
+        DISPLAY_IPTC, LOG_LEVEL, MAX_THUMBNAIL_WIDTH
     }
 
     public UserSettingsEvent(Type type, Object source) {

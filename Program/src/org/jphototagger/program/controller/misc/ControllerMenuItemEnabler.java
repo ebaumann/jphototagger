@@ -57,8 +57,7 @@ public final class ControllerMenuItemEnabler
         PopupMenuThumbnails.INSTANCE;
     private final ThumbnailsPanel thumbnailsPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenu     menPrograms                  =
-        popupThumbnails.getMenuPrograms();
+    private final JMenu     menPrograms = popupThumbnails.getMenuPrograms();
     private final JMenuItem itemOpenFilesWithStandardApp =
         popupThumbnails.getItemOpenFilesWithStandardApp();
     private boolean hasProgram = DatabasePrograms.INSTANCE.hasProgram();
@@ -145,7 +144,8 @@ public final class ControllerMenuItemEnabler
         UserSettings settings = UserSettings.INSTANCE;
 
         itemOpenFilesWithStandardApp.setEnabled(isSelection
-                && settings.hasDefaultImageOpenApp());
+                && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram()
+                    != null));
         menPrograms.setEnabled(isSelection && hasProgram);
     }
 

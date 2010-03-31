@@ -40,13 +40,13 @@ import java.awt.event.ActionListener;
 public final class ControllerOpenFilesWithOtherApp implements ActionListener {
     private final PopupMenuThumbnails popupMenu;
     private final ThumbnailsPanel     thumbnailsPanel;
-    private final StartPrograms       executor;
+    private final StartPrograms       programStarter;
 
     public ControllerOpenFilesWithOtherApp() {
         popupMenu = PopupMenuThumbnails.INSTANCE;
         listen();
         thumbnailsPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-        executor        = new StartPrograms(null);
+        programStarter  = new StartPrograms(null);
     }
 
     private void listen() {
@@ -59,6 +59,6 @@ public final class ControllerOpenFilesWithOtherApp implements ActionListener {
     }
 
     private void openFiles(Program program) {
-        executor.startProgram(program, thumbnailsPanel.getSelectedFiles());
+        programStarter.startProgram(program, thumbnailsPanel.getSelectedFiles());
     }
 }

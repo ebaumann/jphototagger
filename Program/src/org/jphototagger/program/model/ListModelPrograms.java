@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
@@ -44,54 +43,12 @@ import javax.swing.DefaultListModel;
 public final class ListModelPrograms extends DefaultListModel
         implements DatabaseProgramsListener {
     private static final long serialVersionUID = 1107244876982338977L;
-    private boolean           listenToDb       = true;
     private Type              type;
 
     public ListModelPrograms(Type type) {
         this.type = type;
         addElements();
         DatabasePrograms.INSTANCE.addListener(this);
-    }
-
-    public void add(Program program) {
-        listenToDb = false;
-
-        if (!contains(program) && DatabasePrograms.INSTANCE.insert(program)) {
-            addElement(program);
-        } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Add",
-                                   program.getAlias());
-        }
-
-        listenToDb = true;
-    }
-
-    public void delete(Program program) {
-        listenToDb = false;
-
-        if (contains(program) && DatabasePrograms.INSTANCE.delete(program)) {
-            removeElement(program);
-        } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Remove",
-                                   program.getAlias());
-        }
-
-        listenToDb = true;
-    }
-
-    public void update(Program program) {
-        listenToDb = false;
-
-        if (contains(program) && DatabasePrograms.INSTANCE.update(program)) {
-            int index = indexOf(program);
-
-            fireContentsChanged(this, index, index);
-        } else {
-            MessageDisplayer.error(null, "ListModelPrograms.Error.Update",
-                                   program.getAlias());
-        }
-
-        listenToDb = true;
     }
 
     private void addElements() {
@@ -109,25 +66,38 @@ public final class ListModelPrograms extends DefaultListModel
 
     @Override
     public void programDeleted(Program program) {
-        if (listenToDb && isAppropriateProgramType(program)) {
+        if (isAppropriateProgramType(program)) {
             removeElement(program);
         }
     }
 
     @Override
     public void programInserted(Program program) {
-        if (listenToDb && isAppropriateProgramType(program)) {
+        if (isAppropriateProgramType(program)) {
             addElement(program);
         }
     }
 
     @Override
     public void programUpdated(Program program) {
-        if (listenToDb && isAppropriateProgramType(program)) {
+        if (isAppropriateProgramType(program)) {
             int index = indexOf(program);
 
             if (index >= 0) {
-                set(index, program);
+                int     sequenceNumber = program.getSequenceNumber();
+                boolean validSeqNumber = (sequenceNumber >= 0)
+                                         && (sequenceNumber <= getSize());
+
+                assert validSeqNumber :
+                       "Size: " + getSize() + " but seq. no.: "
+                       + sequenceNumber;
+
+                if (index == sequenceNumber) {
+                    set(index, program);
+                } else if (validSeqNumber) {
+                    remove(index);
+                    insertElementAt(program, sequenceNumber);
+                }
             }
         }
     }
