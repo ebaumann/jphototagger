@@ -21,6 +21,7 @@
 
 package org.jphototagger.lib.component;
 
+import java.awt.Container;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 
@@ -30,6 +31,7 @@ import java.io.PrintStream;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 //Most parts of code from http://unserializableone.blogspot.com/2009/01/redirecting-systemout-and-systemerr-to.html
 
@@ -53,6 +55,7 @@ public class SystemOutputPanel extends JPanel {
      */
     public SystemOutputPanel() {
         initComponents();
+        MnemonicUtil.setMnemonics((Container) this);
     }
 
     /**
@@ -122,10 +125,14 @@ public class SystemOutputPanel extends JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        scrollPane            = new javax.swing.JScrollPane();
-        textArea              = new javax.swing.JTextArea();
-        buttonDelete          = new javax.swing.JButton();
+
+        scrollPane = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
+        searchPanel = new org.jphototagger.lib.component.TextAreaSearchPanel();
+        searchPanel.setTextArea(textArea);
+        buttonDelete = new javax.swing.JButton();
         buttonCopyToClipboard = new javax.swing.JButton();
+
         textArea.setColumns(1);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
@@ -133,59 +140,53 @@ public class SystemOutputPanel extends JPanel {
         textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/lib/resource/properties/Bundle");
-
-        buttonDelete.setText(
-            bundle.getString("SystemOutputPanel.buttonDelete.text"));
-        buttonDelete.setToolTipText(
-            bundle.getString("SystemOutputPanel.buttonDelete.toolTipText"));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/resource/properties/Bundle"); // NOI18N
+        buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }
         });
-        buttonCopyToClipboard.setText(
-            bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text"));
-        buttonCopyToClipboard.setToolTipText(
-            bundle.getString(
-                "SystemOutputPanel.buttonCopyToClipboard.toolTipText"));
-        buttonCopyToClipboard.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
+        buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
+        buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyToClipboardActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                      layout.createSequentialGroup().addGap(23, 23, 23)
-                          .addComponent(buttonDelete)
-                          .addPreferredGap(javax.swing.LayoutStyle
-                              .ComponentPlacement.RELATED)
-                                  .addComponent(buttonCopyToClipboard))
-                                      .addComponent(scrollPane,
-                                          javax.swing.GroupLayout.DEFAULT_SIZE,
-                                          204, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                .createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout
-                    .DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle
-                            .ComponentPlacement.RELATED)
-                                .addGroup(layout
-                                    .createParallelGroup(javax.swing.GroupLayout
-                                        .Alignment.BASELINE)
-                                            .addComponent(buttonCopyToClipboard)
-                                                .addComponent(buttonDelete))));
-    }    // </editor-fold>//GEN-END:initComponents
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCopyToClipboard))
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCopyToClipboard, buttonDelete});
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonCopyToClipboard)
+                        .addComponent(buttonDelete))
+                    .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCopyToClipboard, buttonDelete, searchPanel});
+
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCopyToClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyToClipboardActionPerformed
         copyToClipboard();
@@ -196,10 +197,10 @@ public class SystemOutputPanel extends JPanel {
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonCopyToClipboard;
-    private javax.swing.JButton     buttonDelete;
+    private javax.swing.JButton buttonCopyToClipboard;
+    private javax.swing.JButton buttonDelete;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JTextArea   textArea;
-
+    private org.jphototagger.lib.component.TextAreaSearchPanel searchPanel;
+    private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }
