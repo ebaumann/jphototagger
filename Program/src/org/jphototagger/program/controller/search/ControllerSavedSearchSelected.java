@@ -100,6 +100,9 @@ public final class ControllerSavedSearchSelected
             if (selectedValue instanceof SavedSearch) {
                 SavedSearch savedSearch = (SavedSearch) selectedValue;
 
+                if (!savedSearch.isCustomSql()) {
+                    savedSearch.createAndSetParamStatementFromPanels();
+                }
                 if (savedSearch.hasParamStatement()) {
                     ParamStatement stmt =
                         savedSearch.getSavedSearchParamStatement().createParamStatement();
