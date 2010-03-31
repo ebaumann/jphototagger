@@ -50,7 +50,7 @@ public final class SavedSearch {
      */
     @XmlElementWrapper(name = "SavedSearchKeywords")
     @XmlElement(type = String.class)
-    private List<String> keywords;
+    private List<String> keywords = new ArrayList<String>();
 
     /**
      * Column panels
@@ -163,18 +163,16 @@ public final class SavedSearch {
     }
 
     public boolean hasKeywords() {
-        return (keywords != null) &&!keywords.isEmpty();
+        return !keywords.isEmpty();
     }
 
     public List<String> getKeywords() {
-        return (keywords == null)
-               ? null
-               : new ArrayList<String>(keywords);
+        return new ArrayList<String>(keywords);
     }
 
     public void setKeywords(List<String> keywords) {
         this.keywords = (keywords == null)
-                        ? null
+                        ? new ArrayList<String>()
                         : new ArrayList<String>(keywords);
     }
 
