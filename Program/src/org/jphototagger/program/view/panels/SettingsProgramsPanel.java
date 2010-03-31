@@ -27,18 +27,19 @@ import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.image.util.IconUtil;
 
 import java.awt.Container;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.program.database.DatabasePrograms;
 
-import java.io.File;
 
-import javax.swing.JFileChooser;
 
 /**
  *
@@ -58,44 +59,10 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     @Override
     public void readProperties() {
-        String filename = UserSettings.INSTANCE.getDefaultImageOpenApp();
-
-        labelDefaultProgramFile.setText(filename);
-
-        File file = new File(filename);
-
-        if (file.exists()) {
-            labelDefaultProgramFile.setIcon(IconUtil.getSystemIcon(file));
-        }
     }
 
     @Override
-    public void writeProperties() {}
-
-    private void setDefaultProgram() {
-        File file = chooseFile(labelDefaultProgramFile.getText());
-
-        if ((file != null) && file.exists()) {
-            labelDefaultProgramFile.setText(file.getAbsolutePath());
-            UserSettings.INSTANCE.setDefaultImageOpenApp(
-                new File(labelDefaultProgramFile.getText()));
-        }
-    }
-
-    private File chooseFile(String startDirectory) {
-        JFileChooser fileChooser = new JFileChooser(new File(startDirectory));
-
-        fileChooser.setMultiSelectionEnabled(false);
-
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-
-            if (!file.isDirectory()) {
-                return file;
-            }
-        }
-
-        return null;
+    public void writeProperties() {
     }
 
     private void addProgram() {
@@ -104,7 +71,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         dialog.setVisible(true);
 
         if (dialog.accepted()) {
-            model.add(dialog.getProgram());
+            DatabasePrograms.INSTANCE.insert(dialog.getProgram());
         }
     }
 
@@ -116,7 +83,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             dialog.setVisible(true);
 
             if (dialog.accepted()) {
-                model.update(dialog.getProgram());
+                DatabasePrograms.INSTANCE.update(dialog.getProgram());
             }
         }
     }
@@ -125,7 +92,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         int index = listPrograms.getSelectedIndex();
 
         if ((index >= 0) && askRemove(model.getElementAt(index).toString())) {
-            model.delete((Program) model.get(index));
+            DatabasePrograms.INSTANCE.delete((Program) model.get(index));
             setEnabled();
         }
     }
@@ -138,9 +105,13 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     private void setEnabled() {
         boolean programSelected = isProgramSelected();
+        int     selIndex        = listPrograms.getSelectedIndex();
+        int     size            = listPrograms.getModel().getSize();
 
         buttonEditProgram.setEnabled(programSelected);
         buttonRemoveProgram.setEnabled(programSelected);
+        buttonMoveProgramDown.setEnabled(programSelected && selIndex < size - 1);
+        buttonMoveProgramUp.setEnabled(programSelected && selIndex > 0);
     }
 
     private boolean isProgramSelected() {
@@ -148,8 +119,56 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private void handleListOtherProgramsMouseClicked(MouseEvent evt) {
-        if (evt.getClickCount() >= 2) {
+        if (MouseEventUtil.isDoubleClick(evt)) {
             updateProgram();
+        }
+    }
+
+    private void moveProgramDown() {
+        int     size            = model.getSize();
+        int     selIndex        = listPrograms.getSelectedIndex();
+        int     downIndex       = selIndex + 1;
+        boolean programSelected = isProgramSelected();
+
+        assert programSelected;
+        assert downIndex < size : downIndex;
+
+        if (programSelected && downIndex < size) {
+            ListUtil.swapModelElements(model, downIndex, selIndex);
+            reorderPrograms();
+            listPrograms.setSelectedIndex(downIndex);
+        }
+    }
+
+    private void moveProgramUp() {
+        int     selIndex        = listPrograms.getSelectedIndex();
+        int     upIndex         = selIndex - 1;
+        boolean programSelected = isProgramSelected();
+
+        assert programSelected;
+        assert upIndex >= 0 : upIndex;
+
+        if (programSelected && upIndex >= 0) {
+            ListUtil.swapModelElements(model, upIndex, selIndex);
+            reorderPrograms();
+            listPrograms.setSelectedIndex(upIndex);
+        }
+    }
+
+    private void reorderPrograms() {
+        int size = model.getSize();
+        List<Program> programs = new ArrayList<Program>(size);
+
+        for (int sequenceNo = 0; sequenceNo < size; sequenceNo++) {
+            Object o = model.get(sequenceNo);
+            assert o instanceof Program;
+            Program program = (Program) o;
+            program.setSequenceNumber(sequenceNo);
+            programs.add(program);
+        }
+
+        for (Program program : programs) {
+            DatabasePrograms.INSTANCE.update(program);
         }
     }
 
@@ -163,144 +182,126 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelChooseDefaultProgram  = new javax.swing.JLabel();
-        buttonChooseDefaultProgram = new javax.swing.JButton();
-        labelDefaultProgramFile    = new javax.swing.JLabel();
-        labelPrograms              = new javax.swing.JLabel();
-        scrollPanePrograms         = new javax.swing.JScrollPane();
-        listPrograms               = new javax.swing.JList();
-        buttonRemoveProgram        = new javax.swing.JButton();
-        buttonAddProgram           = new javax.swing.JButton();
-        buttonEditProgram          = new javax.swing.JButton();
-        labelChooseDefaultProgram.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.labelChooseDefaultProgram.text"));    // NOI18N
-        buttonChooseDefaultProgram.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.buttonChooseDefaultProgram.text"));    // NOI18N
-        buttonChooseDefaultProgram.addActionListener(
-            new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChooseDefaultProgramActionPerformed(evt);
-            }
-        });
-        labelDefaultProgramFile.setForeground(new java.awt.Color(0, 0, 255));
-        labelDefaultProgramFile.setBorder(
-            javax.swing.BorderFactory.createEtchedBorder());
+
+        labelChooseDefaultProgram = new javax.swing.JLabel();
+        labelPrograms = new javax.swing.JLabel();
+        scrollPanePrograms = new javax.swing.JScrollPane();
+        listPrograms = new javax.swing.JList();
+        buttonRemoveProgram = new javax.swing.JButton();
+        buttonMoveProgramUp = new javax.swing.JButton();
+        buttonMoveProgramDown = new javax.swing.JButton();
+        buttonAddProgram = new javax.swing.JButton();
+        buttonEditProgram = new javax.swing.JButton();
+
+        labelChooseDefaultProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
+
         labelPrograms.setLabelFor(listPrograms);
-        labelPrograms.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.labelPrograms.text"));    // NOI18N
+        labelPrograms.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.labelPrograms.text")); // NOI18N
+
         listPrograms.setModel(model);
-        listPrograms.setSelectionMode(
-            javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listPrograms.setCellRenderer(new ListCellRendererPrograms());
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);
             }
         });
-        listPrograms.addListSelectionListener(
-            new javax.swing.event.ListSelectionListener() {
+        listPrograms.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listProgramsValueChanged(evt);
             }
         });
         scrollPanePrograms.setViewportView(listPrograms);
-        buttonRemoveProgram.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.buttonRemoveProgram.text"));    // NOI18N
-        buttonRemoveProgram.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.buttonRemoveProgram.toolTipText"));    // NOI18N
+
+        buttonRemoveProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonRemoveProgram.text")); // NOI18N
+        buttonRemoveProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
         buttonRemoveProgram.setEnabled(false);
-        buttonRemoveProgram.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveProgramActionPerformed(evt);
             }
         });
-        buttonAddProgram.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.buttonAddProgram.text"));    // NOI18N
-        buttonAddProgram.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.buttonAddProgram.toolTipText"));    // NOI18N
+
+        buttonMoveProgramUp.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonMoveProgramUp.text")); // NOI18N
+        buttonMoveProgramUp.setEnabled(false);
+        buttonMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMoveProgramUpActionPerformed(evt);
+            }
+        });
+
+        buttonMoveProgramDown.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonMoveProgramDown.text")); // NOI18N
+        buttonMoveProgramDown.setEnabled(false);
+        buttonMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMoveProgramDownActionPerformed(evt);
+            }
+        });
+
+        buttonAddProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonAddProgram.text")); // NOI18N
+        buttonAddProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonAddProgram.toolTipText")); // NOI18N
         buttonAddProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddProgramActionPerformed(evt);
             }
         });
-        buttonEditProgram.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.buttonEditProgram.text"));    // NOI18N
-        buttonEditProgram.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "SettingsProgramsPanel.buttonEditProgram.toolTipText"));    // NOI18N
+
+        buttonEditProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonEditProgram.text")); // NOI18N
+        buttonEditProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonEditProgram.toolTipText")); // NOI18N
         buttonEditProgram.setEnabled(false);
-        buttonEditProgram.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonEditProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditProgramActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGap(10, 10, 10).addComponent(
-                    labelChooseDefaultProgram, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE).addContainerGap()).addGroup(
-                        layout.createSequentialGroup().addGap(
-                            10, 10, 10).addComponent(
-                            labelPrograms).addContainerGap(
-                            178, javax.swing.GroupLayout.PREFERRED_SIZE)).addGroup(
-                                javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap().addGroup(
-                                    layout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.TRAILING).addGroup(
-                                        layout.createSequentialGroup().addComponent(
-                                            labelDefaultProgramFile, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE).addPreferredGap(
-                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                    buttonChooseDefaultProgram)).addComponent(
-                                                        scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE).addGroup(
-                                                            layout.createSequentialGroup().addComponent(
-                                                                buttonRemoveProgram).addPreferredGap(
-                                                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                        buttonAddProgram).addPreferredGap(
-                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                                buttonEditProgram))).addGap(
-                                                                                    12, 12, 12)));
-        layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    labelChooseDefaultProgram).addGap(7, 7, 7).addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                        layout.createSequentialGroup().addComponent(
-                            labelDefaultProgramFile,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 22,
-                            javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(
-                                labelPrograms)).addComponent(
-                                    buttonChooseDefaultProgram)).addGap(
-                                        5, 5, 5).addComponent(
-                                        scrollPanePrograms,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        139, Short.MAX_VALUE).addGap(
-                                            11, 11, 11).addGroup(
-                                                layout.createParallelGroup(
-                                                    javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                                        buttonEditProgram).addComponent(
-                                                            buttonRemoveProgram).addComponent(
-                                                                buttonAddProgram)).addContainerGap()));
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addComponent(labelChooseDefaultProgram)
+                    .addComponent(labelPrograms)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonMoveProgramUp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonMoveProgramDown)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonRemoveProgram)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonAddProgram)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonEditProgram)))
+                .addContainerGap())
+        );
 
-    private void buttonChooseDefaultProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDefaultProgramActionPerformed
-        setDefaultProgram();
-    }//GEN-LAST:event_buttonChooseDefaultProgramActionPerformed
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAddProgram, buttonEditProgram, buttonMoveProgramDown, buttonMoveProgramUp, buttonRemoveProgram});
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelPrograms)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelChooseDefaultProgram)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonEditProgram)
+                    .addComponent(buttonAddProgram)
+                    .addComponent(buttonRemoveProgram)
+                    .addComponent(buttonMoveProgramDown)
+                    .addComponent(buttonMoveProgramUp))
+                .addContainerGap())
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonAddProgram, buttonEditProgram, buttonMoveProgramDown, buttonMoveProgramUp, buttonRemoveProgram});
+
+    }// </editor-fold>//GEN-END:initComponents
 
     private void listProgramsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listProgramsValueChanged
         setEnabled();
@@ -322,16 +323,23 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         handleListOtherProgramsMouseClicked(evt);
     }//GEN-LAST:event_listProgramsMouseClicked
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonAddProgram;
-    private javax.swing.JButton     buttonChooseDefaultProgram;
-    private javax.swing.JButton     buttonEditProgram;
-    private javax.swing.JButton     buttonRemoveProgram;
-    private javax.swing.JLabel      labelChooseDefaultProgram;
-    private javax.swing.JLabel      labelDefaultProgramFile;
-    private javax.swing.JLabel      labelPrograms;
-    private javax.swing.JList       listPrograms;
-    private javax.swing.JScrollPane scrollPanePrograms;
+    private void buttonMoveProgramDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMoveProgramDownActionPerformed
+        moveProgramDown();
+    }//GEN-LAST:event_buttonMoveProgramDownActionPerformed
 
+    private void buttonMoveProgramUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMoveProgramUpActionPerformed
+        moveProgramUp();
+    }//GEN-LAST:event_buttonMoveProgramUpActionPerformed
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAddProgram;
+    private javax.swing.JButton buttonEditProgram;
+    private javax.swing.JButton buttonMoveProgramDown;
+    private javax.swing.JButton buttonMoveProgramUp;
+    private javax.swing.JButton buttonRemoveProgram;
+    private javax.swing.JLabel labelChooseDefaultProgram;
+    private javax.swing.JLabel labelPrograms;
+    private javax.swing.JList listPrograms;
+    private javax.swing.JScrollPane scrollPanePrograms;
     // End of variables declaration//GEN-END:variables
 }

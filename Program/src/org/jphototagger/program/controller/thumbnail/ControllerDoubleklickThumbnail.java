@@ -21,9 +21,12 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.io.IoUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.data.Program;
+import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+
+import java.util.Arrays;
 
 /**
  * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von
@@ -44,10 +47,13 @@ public final class ControllerDoubleklickThumbnail {
 
     private void openImage(int index) {
         if (panel.isIndex(index)) {
-            IoUtil.execute(IoUtil
-                .quoteForCommandLine(UserSettings.INSTANCE
-                    .getDefaultImageOpenApp()), IoUtil
-                        .quoteForCommandLine(panel.getFile(index)));
+            Program program =
+                DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
+
+            if (program != null) {
+                new StartPrograms(null).startProgram(program,
+                                  Arrays.asList(panel.getFile(index)));
+            }
         }
     }
 }

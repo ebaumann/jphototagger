@@ -60,7 +60,7 @@ import javax.swing.JPopupMenu.Separator;
  * @author  Elmar Baumann, Tobias Stening
  */
 public final class PopupMenuThumbnails extends JPopupMenu
-        implements UserSettingsListener, DatabaseProgramsListener {
+        implements DatabaseProgramsListener {
     public static final PopupMenuThumbnails INSTANCE =
         new PopupMenuThumbnails();
     private static final long serialVersionUID = 1415777088897583494L;
@@ -431,31 +431,29 @@ public final class PopupMenuThumbnails extends JPopupMenu
     @Override
     public void programDeleted(Program program) {
         setOtherPrograms();
+        setItemsEnabled();
     }
 
     @Override
     public void programInserted(Program program) {
         setOtherPrograms();
+        setItemsEnabled();
     }
 
     @Override
     public void programUpdated(Program program) {
         setOtherPrograms();
+        setItemsEnabled();
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(
-                UserSettingsEvent.Type.DEFAULT_IMAGE_OPEN_APP)) {
-            itemOpenFilesWithStandardApp.setEnabled(
-                existsStandardImageOpenApp());
-        }
+    private void setItemsEnabled() {
+        itemOpenFilesWithStandardApp.setEnabled(existsStandardImageOpenApp());
     }
 
     private boolean existsStandardImageOpenApp() {
-        String app = UserSettings.INSTANCE.getDefaultImageOpenApp();
+        Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
-        return (app != null) &&!app.trim().isEmpty() && new File(app).exists();
+        return (program != null) && program.getFile().exists();
     }
 
     public JMenuItem getItemAddToImageCollection() {
@@ -655,14 +653,9 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private void init() {
         initRatingOfItem();
         addItems();
-        setItemsEnabled();
-        setAccelerators();
-        UserSettings.INSTANCE.addUserSettingsListener(this);
-        DatabasePrograms.INSTANCE.addListener(this);
-    }
-
-    private void setItemsEnabled() {
         itemDeleteFromImageCollection.setEnabled(false);
+        setAccelerators();
+        DatabasePrograms.INSTANCE.addListener(this);
     }
 
     private void setAccelerators() {

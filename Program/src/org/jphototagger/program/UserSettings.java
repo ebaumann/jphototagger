@@ -72,8 +72,6 @@ public final class UserSettings {
         "UserSettings.DatabaseDirectoryName";
     private static final String KEY_DATABASE_SCHEDULED_BACKUP =
         "UserSettings.DbScheduledBackup";
-    private static final String KEY_DEFAULT_IMAGE_OPEN_APP =
-        "UserSettings.DefaultImageOpenApp";
     private static final String KEY_DISPLAY_IPTC          =
         "UserSettings.DisplayIptc";
     private static final String KEY_DISPLAY_SEARCH_BUTTON =
@@ -403,37 +401,6 @@ public final class UserSettings {
         return (level == null)
                ? Level.INFO
                : level;
-    }
-
-    /**
-     * Sets the path to the application which opens images when double
-     * clicking onto a thumbnail.
-     *
-     * @param app path
-     */
-    public void setDefaultImageOpenApp(File app) {
-        settings.set(app.getAbsolutePath(), KEY_DEFAULT_IMAGE_OPEN_APP);
-        writeToFile();
-        notifyListeners(Type.DEFAULT_IMAGE_OPEN_APP);
-    }
-
-    /**
-     * Returns the path to the application which opens images when double
-     * clicking onto a thumbnail.
-     *
-     * @return path or empty string if not defined
-     */
-    public String getDefaultImageOpenApp() {
-        return settings.getString(KEY_DEFAULT_IMAGE_OPEN_APP);
-    }
-
-    /**
-     * Returns whether a default image open application is defined.
-     *
-     * @return true if defined
-     */
-    public boolean hasDefaultImageOpenApp() {
-        return !getDefaultImageOpenApp().isEmpty();
     }
 
     /**

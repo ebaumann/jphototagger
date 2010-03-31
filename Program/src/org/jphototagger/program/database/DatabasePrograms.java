@@ -48,7 +48,7 @@ import java.util.Set;
 public final class DatabasePrograms extends Database {
     public static final DatabasePrograms                    INSTANCE =
         new DatabasePrograms();
-    private final ListenerSupport<DatabaseProgramsListener> ls       =
+    private final ListenerSupport<DatabaseProgramsListener> ls =
         new ListenerSupport<DatabaseProgramsListener>();
 
     /**
@@ -271,7 +271,7 @@ public final class DatabasePrograms extends Database {
     }
 
     /**
-     * Returns all programs ordered by their aliases.
+     * Returns all programs ordered by their sequence numbers and aliases.
      *
      * @param  type program type
      * @return      programs
@@ -285,13 +285,13 @@ public final class DatabasePrograms extends Database {
         try {
             con  = getConnection();
             stmt = con.prepareStatement(
-                getSelectProgramStmt(WhereFilter.ACTION));
+                getSelectProgramSql(WhereFilter.ACTION));
             stmt.setBoolean(1, type.equals(Type.ACTION));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                programs.add(getSelectedProgram(rs));
+                programs.add(createProgramOfCurrentRecord(rs));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
@@ -303,7 +303,7 @@ public final class DatabasePrograms extends Database {
         return programs;
     }
 
-    private String getSelectProgramStmt(WhereFilter filter) {
+    private String getSelectProgramSql(WhereFilter filter) {
         return "SELECT id"                            // --  1 --
                + ", action"                           // --  2 --
                + ", filename"                         // --  3 --
@@ -321,10 +321,11 @@ public final class DatabasePrograms extends Database {
                                      ? " WHERE action = ?"
                                      : filter.equals(WhereFilter.ID)
                                        ? " WHERE id = ?"
-                                       : "") + " ORDER BY alias";
+                                       : "") + " ORDER BY sequence_number, alias";
     }
 
-    private Program getSelectedProgram(ResultSet rs) throws SQLException {
+    private Program createProgramOfCurrentRecord(ResultSet rs)
+            throws SQLException {
         byte[]  parametersBeforeFilename = rs.getBytes(5);
         byte[]  parametersAfterFilename  = rs.getBytes(6);
         byte[]  pattern                  = rs.getBytes(13);
@@ -350,6 +351,57 @@ public final class DatabasePrograms extends Database {
         program.setPattern((pattern == null)
                            ? null
                            : new String(pattern));
+
+        return program;
+    }
+
+    private String getDefaultImageOpenProgramSql() {
+        return "SELECT id"                            // --  1 --
+               + ", action"                           // --  2 --
+               + ", filename"                         // --  3 --
+               + ", alias"                            // --  4 --
+               + ", parameters_before_filename"       // --  5 --
+               + ", parameters_after_filename"        // --  6 --
+               + ", input_before_execute"             // --  7 --
+               + ", input_before_execute_per_file"    // --  8 --
+               + ", single_file_processing"           // --  9 --
+               + ", change_file"                      // -- 10 --
+               + ", sequence_number"                  // -- 11 --
+               + ", use_pattern"                      // -- 12 --
+               + ", pattern"                          // -- 13 --
+               + " FROM programs WHERE action = FALSE AND sequence_number = 0";
+    }
+
+    /**
+     * Returns the default image open program: The program with the sequence
+     * number 0.
+     *
+     * @return program or null if the database has no program or on errors
+     */
+    public Program getDefaultImageOpenProgram() {
+        Program    program = null;
+        Connection con     = null;
+        Statement  stmt    = null;
+        ResultSet  rs      = null;
+
+        try {
+            con = getConnection();
+
+            String sql = getDefaultImageOpenProgramSql();
+
+            stmt = con.createStatement();
+            logFinest(sql);
+            rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                program = createProgramOfCurrentRecord(rs);
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabasePrograms.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
 
         return program;
     }
@@ -406,13 +458,13 @@ public final class DatabasePrograms extends Database {
 
         try {
             con  = getConnection();
-            stmt = con.prepareStatement(getSelectProgramStmt(WhereFilter.ID));
+            stmt = con.prepareStatement(getSelectProgramSql(WhereFilter.ID));
             stmt.setLong(1, id);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                program = getSelectedProgram(rs);
+                program = createProgramOfCurrentRecord(rs);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabasePrograms.class, ex);
@@ -451,7 +503,7 @@ public final class DatabasePrograms extends Database {
         ResultSet         rs    = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM programs WHERE action = " + (action
                     ? "TRUE"

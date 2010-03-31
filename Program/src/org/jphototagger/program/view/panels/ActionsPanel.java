@@ -39,6 +39,7 @@ import java.awt.event.MouseEvent;
 import java.util.Set;
 
 import javax.swing.JProgressBar;
+import org.jphototagger.program.database.DatabasePrograms;
 
 /**
  *
@@ -104,7 +105,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         if (dialog.accepted()) {
             Program program = dialog.getProgram();
 
-            model.add(program);
+            DatabasePrograms.INSTANCE.insert(program);
         }
 
         setButtonsEnabled();
@@ -119,7 +120,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             dialog.setVisible(true);
 
             if (dialog.accepted()) {
-                model.update(program);
+                DatabasePrograms.INSTANCE.update(program);
             }
         }
 
@@ -141,7 +142,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             Program program = getSelectedProgram();
 
             if (confirmDelete(program)) {
-                model.delete(program);
+                DatabasePrograms.INSTANCE.delete(program);
             }
 
             setButtonsEnabled();

@@ -21,36 +21,31 @@
 
 package org.jphototagger.program.controller.programs;
 
-import org.jphototagger.program.io.IoUtil;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.program.data.Program;
+import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Controller für die Aktion: Dateien ausgewählter THUMBNAILS öffnen,
- * ausgelöst von {@link org.jphototagger.program.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author  Elmar Baumann
  */
 public final class ControllerOpenFilesWithStandardApp
         implements ActionListener {
-    private final PopupMenuThumbnails popupMenu       =
-        PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     thumbnailsPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-
     public ControllerOpenFilesWithStandardApp() {
         listen();
     }
 
     private void listen() {
-        popupMenu.getItemOpenFilesWithStandardApp().addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemOpenFilesWithStandardApp()
+            .addActionListener(this);
     }
 
     @Override
@@ -61,19 +56,24 @@ public final class ControllerOpenFilesWithStandardApp
     }
 
     private void openFiles() {
-        if (thumbnailsPanel.getSelectionCount() < 1) {
+        ThumbnailsPanel tnPanel =
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+
+        if (tnPanel.getSelectionCount() < 1) {
             return;
         }
 
-        String allFilenames =
-            IoUtil.quoteForCommandLine(thumbnailsPanel.getSelectedFiles());
+        Program program =
+            DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
-        IoUtil.execute(UserSettings.INSTANCE.getDefaultImageOpenApp(),
-                       allFilenames);
+        if (program != null) {
+            new StartPrograms(null).startProgram(program,
+                              tnPanel.getSelectedFiles());
+        }
     }
 
     private boolean checkOpenAppIsDefined() {
-        if (UserSettings.INSTANCE.getDefaultImageOpenApp().isEmpty()) {
+        if (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram() == null) {
             SettingsDialog dialog = SettingsDialog.INSTANCE;
 
             dialog.selectTab(SettingsDialog.Tab.PROGRAMS);

@@ -17,34 +17,25 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="10" pref="10" max="10" attributes="0"/>
-              <Component id="labelChooseDefaultProgram" pref="465" max="32767" attributes="1"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="10" pref="10" max="10" attributes="0"/>
-              <Component id="labelPrograms" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="178" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="labelDefaultProgramFile" pref="354" max="32767" attributes="2"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="scrollPanePrograms" alignment="1" pref="463" max="32767" attributes="2"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="buttonRemoveProgram" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scrollPanePrograms" alignment="0" pref="549" max="32767" attributes="2"/>
+                  <Component id="labelChooseDefaultProgram" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Component id="labelPrograms" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="buttonMoveProgramUp" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonAddProgram" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonMoveProgramDown" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonEditProgram" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonRemoveProgram" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonAddProgram" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonEditProgram" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,23 +43,18 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="labelPrograms" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="scrollPanePrograms" pref="209" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="labelChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="labelDefaultProgramFile" min="-2" pref="22" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="labelPrograms" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="buttonChooseDefaultProgram" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Component id="scrollPanePrograms" pref="139" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonEditProgram" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonRemoveProgram" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonAddProgram" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonEditProgram" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonAddProgram" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonRemoveProgram" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonMoveProgramDown" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonMoveProgramUp" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -80,28 +66,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.labelChooseDefaultProgram.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="buttonChooseDefaultProgram">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonChooseDefaultProgram.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDefaultProgramActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelDefaultProgramFile">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-            <EtchetBorder/>
-          </Border>
         </Property>
       </Properties>
     </Component>
@@ -151,6 +115,28 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveProgramActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonMoveProgramUp">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonMoveProgramUp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMoveProgramUpActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonMoveProgramDown">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonMoveProgramDown.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMoveProgramDownActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonAddProgram">
