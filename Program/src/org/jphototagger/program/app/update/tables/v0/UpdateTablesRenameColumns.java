@@ -21,12 +21,12 @@
 
 package org.jphototagger.program.app.update.tables.v0;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.ColumnInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.generics.Pair;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -56,12 +56,14 @@ final class UpdateTablesRenameColumns {
         new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
 
     void update(Connection con) throws SQLException {
+        startMessage();
         setColumns(con);
 
         if (renameColumns.size() > 0) {
             renameColumns(con);
         }
-        SplashScreen.INSTANCE.setMessage("");
+
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void setColumns(Connection con) throws SQLException {
@@ -78,30 +80,21 @@ final class UpdateTablesRenameColumns {
     }
 
     private void renameColumns(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesRenameColumns.Info.update"));
-
         for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
             renameColumn(con, info);
         }
     }
 
-    private void renameColumn(Connection con,
-                              Pair<ColumnInfo, ColumnInfo> info)
+    private void renameColumn(Connection con, Pair<ColumnInfo, ColumnInfo> info)
             throws SQLException {
-        setMessage(info.getFirst().getTableName(),
-                   info.getFirst().getColumnName());
         Database.execute(con,
                          "ALTER TABLE " + info.getFirst().getTableName()
                          + " ALTER COLUMN " + info.getFirst().getColumnName()
                          + " RENAME TO " + info.getSecond().getColumnName());
     }
 
-    private void setMessage(String tableName, String columnName) {
+    private void startMessage() {
         SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesRenameColumns.Info.RenameColumn", tableName,
-                columnName));
+            JptBundle.INSTANCE.getString("UpdateTablesRenameColumns.Info"));
     }
 }

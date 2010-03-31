@@ -28,11 +28,11 @@ import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.database.DatabaseMetadata;
+import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.helper.KeywordsHelper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -57,20 +57,16 @@ import java.sql.Statement;
  */
 final class UpdateTablesDropCategories {
     void update(Connection con) throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsTable(con,
-                "xmp_photoshop_supplementalcategories")) {
-            return;
-        }
+        startMessage();
 
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
-
-        if (!categoriesAlreadyDropped(con)
-                && saveCategoriesToFile(con)) {
+        if (DatabaseMetadata.INSTANCE.existsTable(
+                con, "xmp_photoshop_supplementalcategories") &&!categoriesAlreadyDropped(
+                    con) && saveCategoriesToFile(con)) {
             updateDatabase(con);
             fixSavedSearches(con);
         }
-        SplashScreen.INSTANCE.setMessage("");
+
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private boolean categoriesAlreadyDropped(Connection con)
@@ -82,8 +78,7 @@ final class UpdateTablesDropCategories {
                 "supplementalcategory");
     }
 
-    private boolean saveCategoriesToFile(Connection con)
-            throws SQLException {
+    private boolean saveCategoriesToFile(Connection con) throws SQLException {
         String sql = " SELECT DISTINCT photoshop_category FROM xmp"
                      + " WHERE photoshop_category IS NOT NULL UNION ALL"
                      + " SELECT DISTINCT supplementalcategory"
@@ -204,5 +199,10 @@ final class UpdateTablesDropCategories {
                 } catch (Exception ex) {}
             }
         }
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
     }
 }

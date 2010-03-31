@@ -21,12 +21,12 @@
 
 package org.jphototagger.program.app.update.tables.v0;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.IndexInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.generics.Pair;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -58,10 +58,9 @@ final class UpdateTablesIndexes {
     }
 
     void update(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
+        startMessage();
         replaceIndices(con);
-        SplashScreen.INSTANCE.setMessage("");
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void replaceIndices(Connection con) throws SQLException {
@@ -122,5 +121,10 @@ final class UpdateTablesIndexes {
         }
 
         return exists;
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
     }
 }

@@ -50,11 +50,10 @@ final class UpdateTablesPrograms extends Database {
     UpdateTablesPrograms() {}
 
     void update(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesPrograms.Info"));
+        startMessage();
         moveOtherImageOpenApps();
         moveDefaultImageOpenApp();
-        SplashScreen.INSTANCE.setMessage("");
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void moveDefaultImageOpenApp() {
@@ -83,6 +82,7 @@ final class UpdateTablesPrograms extends Database {
                             program.setSequenceNumber(sequenceNo);
                             DatabasePrograms.INSTANCE.update(program);
                         }
+
                         sequenceNo++;
                     }
                 }
@@ -108,5 +108,10 @@ final class UpdateTablesPrograms extends Database {
                 KEY_OTHER_IMAGE_OPEN_APPS);
             UserSettings.INSTANCE.writeToFile();
         }
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesPrograms.Info"));
     }
 }

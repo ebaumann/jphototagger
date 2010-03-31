@@ -84,13 +84,15 @@ final class UpdateTablesInsertColumns {
     private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
 
     void update(Connection con) throws SQLException {
+        startMessage();
         fixBugs(con);
         setColumns(con);
 
         if (missingColumns.size() > 0) {
             addColumns(con);
         }
-        SplashScreen.INSTANCE.setMessage("");
+
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void setColumns(Connection con) throws SQLException {
@@ -107,10 +109,6 @@ final class UpdateTablesInsertColumns {
     }
 
     private void addColumns(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesInsertColumns.Info.update"));
-
         for (ColumnInfo info : missingColumns) {
             addColumn(con, info);
         }
@@ -118,8 +116,6 @@ final class UpdateTablesInsertColumns {
 
     private void addColumn(Connection con, ColumnInfo info)
             throws SQLException {
-        setMessage(info.getTableName(), info.getColumnName());
-
         Statement stmt = null;
 
         try {
@@ -139,12 +135,6 @@ final class UpdateTablesInsertColumns {
         } finally {
             Database.close(stmt);
         }
-    }
-
-    private void setMessage(String tableName, String columnName) {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesInsertColumns.Info", tableName, columnName));
     }
 
     private void fixBugs(Connection con) throws SQLException {
@@ -168,16 +158,12 @@ final class UpdateTablesInsertColumns {
 
         if (hasInfo) {
             DatabaseMetadata.ColumnInfo info    = infos.get(0);
-            boolean                     typeOk  = info.DATA_TYPE
-                                                  == java.sql.Types.BINARY;
+            boolean                     typeOk = info.DATA_TYPE
+                                                 == java.sql.Types.BINARY;
             boolean                     indexOk = info.ORDINAL_POSITION == 21;
             boolean                     isOk    = typeOk && indexOk;
 
             if (!isOk) {
-                SplashScreen.INSTANCE.setMessage(
-                    JptBundle.INSTANCE.getString(
-                        "UpdateTablesInsertColumns.Info.DropColumnMetaDataTemplates",
-                        tableName, columnName));
                 dropColumn(con, tableName, columnName);
             }
         }
@@ -197,5 +183,10 @@ final class UpdateTablesInsertColumns {
         } finally {
             Database.close(stmt);
         }
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info"));
     }
 }

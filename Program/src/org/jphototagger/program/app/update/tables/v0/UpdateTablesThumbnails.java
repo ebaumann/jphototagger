@@ -21,6 +21,10 @@
 
 package org.jphototagger.program.app.update.tables.v0;
 
+import org.jphototagger.lib.image.util.ImageUtil;
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.lib.io.FileLock;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.cache.PersistentThumbnails;
@@ -30,10 +34,6 @@ import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.io.IoUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.image.util.ImageUtil;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
-import org.jphototagger.lib.io.FileLock;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.awt.Image;
 
@@ -56,15 +56,16 @@ import javax.swing.ImageIcon;
  * @author  Elmar Baumann
  */
 final class UpdateTablesThumbnails extends Database {
-    private static final int    FETCH_MAX_ROWS                     = 1000;
+    private static final int    FETCH_MAX_ROWS = 1000;
     private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
         "Updated_Thumbnails_Names_Hash_1";    // Never change this!
     private int count;
 
     void update(Connection con) throws SQLException {
+        startMessage();
         writeThumbnailsFromTableIntoFilesystem(con);
         convertThumbnailIdNamesIntoHashNames(con);
-        SplashScreen.INSTANCE.setMessage("");
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     public void writeThumbnailsFromTableIntoFilesystem(Connection con)
@@ -78,7 +79,7 @@ final class UpdateTablesThumbnails extends Database {
         }
 
         if (count > 0) {
-            compress();
+            DatabaseMaintainance.INSTANCE.compressDatabase();
         }
     }
 
@@ -99,9 +100,6 @@ final class UpdateTablesThumbnails extends Database {
                 InputStream inputStream = rs.getBinaryStream(2);
 
                 setThumbnailNull(con, id);
-                setMessageCurrentFile(
-                    id, current,
-                    "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Table");
                 writeThumbnail(inputStream, id);
             }
         } finally {
@@ -209,8 +207,6 @@ final class UpdateTablesThumbnails extends Database {
 
             stmt = con.prepareStatement(sql);
 
-            int fileIndex = 0;
-
             for (File file : thumbnailFiles) {
                 try {
                     long id = Long.parseLong(file.getName());
@@ -232,10 +228,6 @@ final class UpdateTablesThumbnails extends Database {
                                 file);
                         }
                     }
-
-                    setMessageCurrentFile(
-                        id, ++fileIndex,
-                        "UpdateTablesThumbnails.Info.WriteCurrentThumbnail.Hash");
                 } catch (Exception ex) {
                     AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
                 }
@@ -285,8 +277,7 @@ final class UpdateTablesThumbnails extends Database {
             return;
         }
 
-        File newTnFile =
-            PersistentThumbnails.getThumbnailFile(imgFile);
+        File newTnFile = PersistentThumbnails.getThumbnailFile(imgFile);
 
         if ((newTnFile != null) && newTnFile.exists()) {
             if (!oldTnFile.delete()) {
@@ -327,15 +318,8 @@ final class UpdateTablesThumbnails extends Database {
         return cnt;
     }
 
-    private void compress() {
+    private void startMessage() {
         SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesThumbnails.Info.CompressDatabase"));
-        DatabaseMaintainance.INSTANCE.compressDatabase();
-    }
-
-    private void setMessageCurrentFile(long id, long current, String message) {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString(message,
-                id, current, count));
+            JptBundle.INSTANCE.getString("UpdateTablesThumbnails.Info"));
     }
 }

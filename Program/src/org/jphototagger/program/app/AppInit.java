@@ -86,7 +86,7 @@ public final class AppInit {
         }
 
         SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("AppInit.Info.SplashScreen.InitGui"));
+            JptBundle.INSTANCE.getString("AppInit.Info.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
         SplashScreen.INSTANCE.close();
     }

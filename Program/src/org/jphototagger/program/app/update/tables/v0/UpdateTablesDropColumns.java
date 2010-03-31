@@ -56,12 +56,14 @@ final class UpdateTablesDropColumns {
     private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
 
     void update(Connection con) throws SQLException {
+        startMessage();
         setColumns(con);
 
         if (dropColumns.size() > 0) {
             dropColumns(con);
         }
-        SplashScreen.INSTANCE.setMessage("");
+
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void setColumns(Connection con) throws SQLException {
@@ -78,27 +80,20 @@ final class UpdateTablesDropColumns {
     }
 
     private void dropColumns(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesDropColumns.Info.update"));
-
         for (ColumnInfo info : dropColumns) {
             dropColumn(con, info.getTableName(), info.getColumnName());
         }
     }
 
-    private void dropColumn(Connection con, String tableName,
-                            String columnName)
+    private void dropColumn(Connection con, String tableName, String columnName)
             throws SQLException {
-        setMessage(tableName, columnName);
         Database.execute(con,
                          "ALTER TABLE " + tableName + " DROP COLUMN "
                          + columnName);
     }
 
-    private void setMessage(String tableName, String columnName) {
+    private void startMessage() {
         SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesDropColumns.Info", tableName, columnName));
+            JptBundle.INSTANCE.getString("UpdateTablesDropColumns.Info"));
     }
 }

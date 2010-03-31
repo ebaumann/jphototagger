@@ -48,7 +48,7 @@ public final class AppDatabase {
 
         if (!init) {
             init = true;
-            informationMessageInitDatabase();
+            startMessage();
 
             try {
                 ConnectionPool.INSTANCE.init();
@@ -58,14 +58,10 @@ public final class AppDatabase {
             } catch (SQLException ex) {
                 Database.errorMessageSqlException(ex);
                 AppLifeCycle.quitBeforeGuiWasCreated();
+            } finally {
+                SplashScreen.INSTANCE.removeMessage();
             }
         }
-    }
-
-    private static void informationMessageInitDatabase() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "AppDatabase.Info.SplashScreen.ConnectToDatabase"));
     }
 
     private static void checkDatabaseVersion() {
@@ -87,5 +83,10 @@ public final class AppDatabase {
             MessageDisplayer.error(null, "AppDatabase.Error.TnDir", dir);
             AppLifeCycle.quitBeforeGuiWasCreated();
         }
+    }
+
+    private static void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("AppDatabase.Info.ConnectToDatabase"));
     }
 }

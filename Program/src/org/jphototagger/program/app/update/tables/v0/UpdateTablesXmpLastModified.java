@@ -40,18 +40,16 @@ import java.sql.Statement;
  */
 final class UpdateTablesXmpLastModified {
     void update(Connection con) throws SQLException {
+        startMessage();
         removeColumnXmpLastModifiedFromTableXmp(con);
         addColumnXmpLastModifiedToTableFiles(con);
-        SplashScreen.INSTANCE.setMessage("");
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void removeColumnXmpLastModifiedFromTableXmp(Connection con)
             throws SQLException {
         if (DatabaseMetadata.INSTANCE.existsColumn(con, "xmp",
                 "lastmodified")) {
-            SplashScreen.INSTANCE.setMessage(
-                JptBundle.INSTANCE.getString(
-                    "UpdateTablesXmpLastModified.Info.RemoveColumnXmpLastModified"));
             Database.execute(con, "ALTER TABLE xmp DROP COLUMN lastmodified");
         }
     }
@@ -60,9 +58,6 @@ final class UpdateTablesXmpLastModified {
             throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsColumn(con, "files",
                 "xmp_lastmodified")) {
-            SplashScreen.INSTANCE.setMessage(
-                JptBundle.INSTANCE.getString(
-                    "UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.AddColumn"));
             Database.execute(
                 con, "ALTER TABLE files ADD COLUMN xmp_lastmodified BIGINT");
             copyLastModifiedToXmp(con);
@@ -72,14 +67,12 @@ final class UpdateTablesXmpLastModified {
     // too slow and no feedback:
     // "UPDATE files SET xmp_lastmodified = lastmodified"
     private void copyLastModifiedToXmp(Connection con) throws SQLException {
-        infoMessage();
-
         PreparedStatement stmtUpdate = null;
         Statement         stmtQuery  = null;
         ResultSet         rsQuery    = null;
 
         try {
-            stmtQuery  = con.createStatement();
+            stmtQuery = con.createStatement();
             stmtUpdate = con.prepareStatement(
                 "UPDATE files SET xmp_lastmodified = ? WHERE id = ?");
 
@@ -105,9 +98,8 @@ final class UpdateTablesXmpLastModified {
         }
     }
 
-    private void infoMessage() {
+    private void startMessage() {
         SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesXmpLastModified.Info.AddColumnXmpLastModified.SetLastModified"));
+            JptBundle.INSTANCE.getString("UpdateTablesXmpLastModified.Info"));
     }
 }
