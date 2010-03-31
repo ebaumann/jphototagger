@@ -263,8 +263,14 @@ public final class SavedSearch {
     public void createAndSetParamStatementFromCustomSql(String sql) {
         SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
 
-        paramStmt.setQuery(true);
         setType(Type.CUSTOM_SQL);
+        paramStmt.setQuery(true);
+
+        if (paramStatement != null) {
+            paramStmt.setName(paramStatement.getName());
+        }
+
+        paramStatement = paramStmt;
     }
 
     public void createAndSetParamStatementFromPanels() {
@@ -278,18 +284,23 @@ public final class SavedSearch {
         stmt.setValues(values.toArray());
         stmt.setIsQuery(true);
 
-        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
+        SavedSearchParamStatement ssParamStmt = new SavedSearchParamStatement();
 
-        paramStmt.setQuery(stmt.isQuery());
-        paramStmt.setSql(stmt.getSql());
+        ssParamStmt.setQuery(stmt.isQuery());
+        ssParamStmt.setSql(stmt.getSql());
 
         List<String> paramStmtValues = stmt.getValuesAsStringList();
 
-        paramStmt.setValues((paramStmtValues.size() > 0)
+        ssParamStmt.setValues((paramStmtValues.size() > 0)
                             ? paramStmtValues
                             : null);
         setType(Type.KEYWORDS_AND_PANELS);
-        paramStatement = paramStmt;
+
+        if (paramStatement != null) {
+            ssParamStmt.setName(paramStatement.getName());
+        }
+
+        paramStatement = ssParamStmt;
     }
 
     private synchronized void appendWhere(StringBuilder statement,
