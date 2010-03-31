@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * Creates updaters for updating an older database version and let them update
+ * Creates updaters for updating an older database version and let them updatePostCreation
  * the database.
  *
  * @author  Elmar Baumann
@@ -67,7 +67,7 @@ public final class UpdateTablesFactory {
         }
     }
 
-    public void update(Connection con) throws SQLException {
+    public void updatePreCreation(Connection con) throws SQLException {
         if (isUpdate()) {
             Level defaultLogLevel = UserSettings.INSTANCE.getLogLevel();
 
@@ -75,7 +75,23 @@ public final class UpdateTablesFactory {
 
             try {
                 for (Updater updater : runningUpdaters) {
-                    updater.update(con);
+                    updater.updatePreCreation(con);
+                }
+            } finally {
+                UserSettings.INSTANCE.setLogLevel(defaultLogLevel);
+            }
+        }
+    }
+
+    public void updatePostCreation(Connection con) throws SQLException {
+        if (isUpdate()) {
+            Level defaultLogLevel = UserSettings.INSTANCE.getLogLevel();
+
+            UserSettings.INSTANCE.setLogLevel(Level.FINEST);
+
+            try {
+                for (Updater updater : runningUpdaters) {
+                    updater.updatePostCreation(con);
                 }
 
                 DatabaseMetadata.setCurrentAppVersionToDatabase();
@@ -97,12 +113,12 @@ public final class UpdateTablesFactory {
     }
 
     /**
-     * Returns, whether a database update shall be forced.
+     * Returns, whether a database updatePostCreation shall be forced.
      * <p>
      * This is true, if in the properties file the key
      * <strong>"UdateTables.ForceUpdate"</strong> is set to <code>"1"</code>.
      *
-     * @return true, if an update shall be forced
+     * @return true, if an updatePostCreation shall be forced
      */
     private static boolean isForceUpdate() {
         return UserSettings.INSTANCE.getSettings().getBoolean(
@@ -110,12 +126,12 @@ public final class UpdateTablesFactory {
     }
 
     /**
-     * Returns whether to update the database.
+     * Returns whether to updatePostCreation the database.
      *
      * @return true if {@link #isForceUpdate()} or the current application
      *         version {@link AppInfo#APP_VERSION} is different from the
-     *         last update. This info will be written into the
-     *         {@link DatabaseApplicationProperties} after an successful update.
+     *         last updatePostCreation. This info will be written into the
+     *         {@link DatabaseApplicationProperties} after an successful updatePostCreation.
      */
     private boolean isUpdate() {
         return isForceUpdate() || DatabaseMetadata.isDatabaseOfOlderVersion();
@@ -127,19 +143,27 @@ public final class UpdateTablesFactory {
     public interface Updater {
 
         /**
-         * Updates the database.
+         * Updates the database before the tables were created.
          *
          * @param  con connection
          * @throws SQLException on database errors
          */
-        void update(Connection con) throws SQLException;
+        void updatePreCreation(Connection con) throws SQLException;
+
+        /**
+         * Updates the database after the tables were created.
+         *
+         * @param  con connection
+         * @throws SQLException on database errors
+         */
+        void updatePostCreation(Connection con) throws SQLException;
 
         /**
          * Returns the major version of JPhotoTagger, for that the updates were
          * built for.
          * <p>
          * That is a compromise between the minimum required count of updates
-         * and update everything from "scratch": The updaters are not separated
+         * and updatePostCreation everything from "scratch": The updaters are not separated
          * by Major.Minor.Patch versions, they are bundled within a major
          * version.
          *

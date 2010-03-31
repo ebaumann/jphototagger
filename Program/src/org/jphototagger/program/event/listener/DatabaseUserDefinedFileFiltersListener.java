@@ -1,5 +1,5 @@
 /*
- * @(#)DatabaseUserDefinedFileFilterListener.java    Created on 2010-03-30
+ * @(#)DatabaseUserDefinedFileFiltersListener.java    Created on 2010-03-30
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -28,7 +28,7 @@ import org.jphototagger.program.data.UserDefinedFileFilter;
  *
  * @author Elmar Baumann
  */
-public interface DatabaseUserDefinedFileFilterListener {
+public interface DatabaseUserDefinedFileFiltersListener {
     public void filterInserted(UserDefinedFileFilter filter);
 
     public void filterDeleted(UserDefinedFileFilter filter);

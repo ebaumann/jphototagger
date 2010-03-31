@@ -27,7 +27,8 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.database.metadata.Util;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 
 import java.io.File;
 
@@ -50,12 +51,6 @@ public final class DatabaseFind extends Database {
 
     private DatabaseFind() {}
 
-    /**
-     * Liefert Dateinamen anhand eines Statements.
-     *
-     * @param  paramStatement Korrekt ausgefülltes Statement
-     * @return                Dateien
-     */
     public List<File> findImageFiles(ParamStatement paramStatement) {
         List<File>        imageFiles = new ArrayList<File>();
         Connection        con        = null;
@@ -63,13 +58,17 @@ public final class DatabaseFind extends Database {
         ResultSet         rs         = null;
 
         try {
-            con  = getConnection();
-            stmt = con.prepareStatement(paramStatement.getSql());
+            con = getConnection();
 
-            if (paramStatement.getValues() != null) {
-                for (int i = 0; i < paramStatement.getValues().length; i++) {
-                    stmt.setObject(i + 1, paramStatement.getValues()[i]);
-                }
+            String sql = paramStatement.getSql();
+
+            stmt = con.prepareStatement(sql);
+
+            List<String> values = paramStatement.getValues();
+            int          size   = values.size();
+
+            for (int i = 0; i < size; i++) {
+                stmt.setObject(i + 1, values.get(i));
             }
 
             logFinest(stmt);
@@ -100,7 +99,7 @@ public final class DatabaseFind extends Database {
      */
     public List<File> findImageFilesLikeOr(List<Column> searchColumns,
             String searchString) {
-        List<File>                imageFiles     = new ArrayList<File>();
+        List<File>                imageFiles = new ArrayList<File>();
         Map<String, List<Column>> columnsOfTable =
             Util.getColumnsSeparatedByTables(searchColumns);
 
@@ -121,7 +120,7 @@ public final class DatabaseFind extends Database {
             ResultSet         rs   = null;
 
             try {
-                con  = getConnection();
+                con = getConnection();
                 stmt = con.prepareStatement(
                     getSqlFindImageFilesLikeOr(
                         searchColumns, tablename, searchString));

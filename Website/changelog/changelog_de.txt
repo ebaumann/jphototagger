@@ -6,6 +6,10 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.16 2010-03-31
 -----------------
 
+* Tabellen für gespeicherte Suchen speichern nur noch das Erforderliche
+* Mehrere Datenbanktabellen und -Spalten umbenannt zum Vereinheitlichen der
+  Namen (Plural, Singular). Die gespeicherten Suchen sollten damit nun keine
+  Probleme mehr haben, außer es wird "Eigenes SQL" benutzt.
 * Systemausgaben und Logdatei-Betrachter für alle Ausgaben haben eine
   Suchen-Funktion
 * Bearbeiten > Einstellungen > Kartenreiter "Bilder öffnen": Als

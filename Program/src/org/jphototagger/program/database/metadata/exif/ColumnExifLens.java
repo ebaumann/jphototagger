@@ -25,7 +25,7 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
- * Tabellenspalte <code>exif_lens</code> der Tabelle <code>exif</code>.
+ * Tabellenspalte <code>exif_lenses</code> der Tabelle <code>exif</code>.
  * <ul>
  * <li>EXIF: Maker Note Tag</li>
  * </ul>
@@ -36,7 +36,7 @@ public final class ColumnExifLens extends Column {
     public static final ColumnExifLens INSTANCE = new ColumnExifLens();
 
     private ColumnExifLens() {
-        super("lens", "exif_lens", DataType.STRING);
+        super("lens", "exif_lenses", DataType.STRING);
         setDescription(
             JptBundle.INSTANCE.getString("ColumnExifLens.Description"));
     }

@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-
 package org.jphototagger.program.helper;
 
 import org.jphototagger.program.app.MessageDisplayer;
@@ -48,6 +47,7 @@ public final class ModifySavedSearches {
     public static void insert(final SavedSearch savedSearch, boolean force) {
         if (force || confirmInsert(savedSearch)) {
             SwingUtilities.invokeLater(new Runnable() {
+
                 @Override
                 public void run() {
                     if (getDb().insertOrUpdate(savedSearch)) {
@@ -55,14 +55,14 @@ public final class ModifySavedSearches {
 
                         if (!model.contains(savedSearch)) {
                             ListUtil.insertSorted(
-                                model, savedSearch,
-                                ComparatorSavedSearch.INSTANCE, 0,
-                                model.getSize() - 1);
+                                    model, savedSearch,
+                                    ComparatorSavedSearch.INSTANCE, 0,
+                                    model.getSize() - 1);
                         }
                     } else {
                         MessageDisplayer.error(
-                            null,
-                            "ModifySavedSearches.Error.SearchCouldntBeSaved");
+                                null,
+                                "ModifySavedSearches.Error.SearchCouldntBeSaved");
                     }
                 }
             });
@@ -76,9 +76,10 @@ public final class ModifySavedSearches {
      */
     public static void delete(final SavedSearch savedSearch) {
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
-                String searchName = savedSearch.getSavedSearchParamStatement().getName();
+                String searchName = savedSearch.getName();
 
                 if (confirmDelete(searchName)) {
                     if (getDb().delete(searchName)) {
@@ -87,8 +88,8 @@ public final class ModifySavedSearches {
                         model.removeElement(savedSearch);
                     } else {
                         MessageDisplayer.error(
-                            null,
-                            "ModifySavedSearches.Error.SavedSearchCouldntBeDeleted");
+                                null,
+                                "ModifySavedSearches.Error.SavedSearchCouldntBeDeleted");
                     }
                 }
             }
@@ -102,6 +103,7 @@ public final class ModifySavedSearches {
      */
     public static void rename(final SavedSearch oldSearch) {
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 String oldName = oldSearch.getName();
@@ -115,16 +117,16 @@ public final class ModifySavedSearches {
 
                         if (newSearch == null) {
                             MessageDisplayer.error(
-                                null,
-                                "ModifySavedSearches.Error.SavedSearchWasRenamedButCouldntBeLoaded",
-                                oldName);
+                                    null,
+                                    "ModifySavedSearches.Error.SavedSearchWasRenamedButCouldntBeLoaded",
+                                    oldName);
                         } else {
                             getModel().rename(oldSearch, newSearch);
                         }
                     } else {
                         MessageDisplayer.error(
-                            null, "ModifySavedSearches.Error.RenameFailed",
-                            oldName);
+                                null, "ModifySavedSearches.Error.RenameFailed",
+                                oldName);
                     }
                 }
             }
@@ -133,10 +135,10 @@ public final class ModifySavedSearches {
 
     private static String getNewName(String oldName) {
         boolean hasInput = true;
-        String  input    = null;
+        String input = null;
 
         while (hasInput) {
-            input    = getInput(oldName);
+            input = getInput(oldName);
             hasInput = false;
 
             if ((input != null) && getDb().exists(input)) {
@@ -165,8 +167,8 @@ public final class ModifySavedSearches {
 
     private static String getInput(String oldName) {
         return MessageDisplayer.input("ModifySavedSearches.Input.NewName",
-                                      oldName,
-                                      ModifySavedSearches.class.getName());
+                oldName,
+                ModifySavedSearches.class.getName());
     }
 
     private static boolean confirmInputDifferentName(String input) {
@@ -188,5 +190,6 @@ public final class ModifySavedSearches {
         return true;
     }
 
-    private ModifySavedSearches() {}
+    private ModifySavedSearches() {
+    }
 }

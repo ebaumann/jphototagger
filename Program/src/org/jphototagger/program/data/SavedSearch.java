@@ -57,9 +57,10 @@ public final class SavedSearch {
      */
     @XmlElementWrapper(name = "SavedSearchPanels")
     @XmlElement(type = SavedSearchPanel.class)
-    private List<SavedSearchPanel>    panels;
-    private SavedSearchParamStatement paramStatement;
-    private Type                      type;
+    private List<SavedSearchPanel> panels;
+    private String                 customSql;
+    private Type                   type;
+    private String                 name = "";
 
     public SavedSearch() {}
 
@@ -101,7 +102,6 @@ public final class SavedSearch {
             return;
         }
 
-        paramStatement.set(other.paramStatement);
         panels = other.getDeepCopyPanels();
         type   = other.type;
     }
@@ -124,22 +124,10 @@ public final class SavedSearch {
         panels.add(panel);
     }
 
-    public SavedSearchParamStatement getSavedSearchParamStatement() {
-        return (paramStatement == null)
-               ? null
-               : new SavedSearchParamStatement(paramStatement);
-    }
-
-    public void setParamStatement(SavedSearchParamStatement paramStatement) {
-        if (paramStatement == null) {
-            throw new NullPointerException("paramStatement == null");
-        }
-
-        this.paramStatement = new SavedSearchParamStatement(paramStatement);
-    }
-
-    public boolean hasParamStatement() {
-        return paramStatement != null;
+    public ParamStatement getParamStatement() {
+        return isCustomSql()
+               ? createParamStmtFromCustomSql()
+               : createParamStmtFromPanels();
     }
 
     public Type getType() {
@@ -176,6 +164,23 @@ public final class SavedSearch {
                         : new ArrayList<String>(keywords);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = (name == null)
+                    ? ""
+                    : name;
+    }
+
+    @Override
+    public String toString() {
+
+        // Never change that (will be used to find model items)!
+        return name;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -188,45 +193,32 @@ public final class SavedSearch {
 
         final SavedSearch other = (SavedSearch) obj;
 
-        return paramStatement.equals(other.paramStatement);
+        if ((this.name == null)
+            ? (other.name != null)
+            : !this.name.equals(other.name)) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
 
-        hash = 19 * hash + ((this.paramStatement != null)
-                            ? this.paramStatement.hashCode()
+        hash = 73 * hash + ((this.name != null)
+                            ? this.name.hashCode()
                             : 0);
 
         return hash;
     }
 
-    public String getName() {
-        String string = null;
-
-        if (paramStatement != null) {
-            string = paramStatement.getName();
-        }
-
-        return ((string == null)
-                ? ""
-                : string);
+    public String getCustomSql() {
+        return customSql;
     }
 
-    public void setName(String name) {
-        if (paramStatement == null) {
-            return;
-        }
-
-        paramStatement.setName(name);
-    }
-
-    @Override
-    public String toString() {
-
-        // Never change that (will be used to find model items)!
-        return getName();
+    public void setCustomSql(String customSql) {
+        this.customSql = customSql;
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {
@@ -258,51 +250,44 @@ public final class SavedSearch {
         }
     }
 
-    public void createAndSetParamStatementFromCustomSql(String sql) {
-        SavedSearchParamStatement paramStmt = new SavedSearchParamStatement();
+    private ParamStatement createParamStmtFromCustomSql() {
+        ParamStatement stmt = new ParamStatement();
 
         setType(Type.CUSTOM_SQL);
-        paramStmt.setQuery(true);
+        stmt.setQuery(true);
+        stmt.setSql(customSql);
 
-        if (paramStatement != null) {
-            paramStmt.setName(paramStatement.getName());
-        }
-
-        paramStatement = paramStmt;
+        return stmt;
     }
 
-    public void createAndSetParamStatementFromPanels() {
-        StringBuilder  sb     = getStartSelectFrom();
-        List<String>   values = new ArrayList<String>();
-        ParamStatement stmt   = new ParamStatement();
+    private ParamStatement createParamStmtFromPanels() {
+        StringBuilder  sb   = getStartSelectFrom();
+        ParamStatement stmt = new ParamStatement();
 
-        appendToFrom(sb);
-        appendWhere(sb, values);
-        stmt.setSql(sb.toString());
-        stmt.setValues(values.toArray());
-        stmt.setIsQuery(true);
-
-        SavedSearchParamStatement ssParamStmt = new SavedSearchParamStatement();
-
-        ssParamStmt.setQuery(stmt.isQuery());
-        ssParamStmt.setSql(stmt.getSql());
-
-        List<String> paramStmtValues = stmt.getValuesAsStringList();
-
-        ssParamStmt.setValues((paramStmtValues.size() > 0)
-                            ? paramStmtValues
-                            : null);
         setType(Type.KEYWORDS_AND_PANELS);
+        appendToFrom(sb);
+        appendWhere(sb);
+        stmt.setSql(sb.toString());
+        setValues(stmt);
+        stmt.setQuery(true);
 
-        if (paramStatement != null) {
-            ssParamStmt.setName(paramStatement.getName());
-        }
-
-        paramStatement = ssParamStmt;
+        return stmt;
     }
 
-    private synchronized void appendWhere(StringBuilder statement,
-            List<String> values) {
+    private void setValues(ParamStatement stmt) {
+        List<String> values = new ArrayList<String>(10);
+
+        for (SavedSearchPanel panel : panels) {
+            if (panel.hasValue()) {
+                values.add(panel.getValue());
+            }
+        }
+
+        values.addAll(keywords);
+        stmt.setValues(values);
+    }
+
+    private synchronized void appendWhere(StringBuilder statement) {
         statement.append(" WHERE");
 
         int index = 0;
@@ -311,17 +296,15 @@ public final class SavedSearch {
             for (SavedSearchPanel panel : panels) {
                 if (panel.hasSql(index == 0)) {
                     statement.append(panel.getSqlString(index == 0));
-                    values.add(panel.getValue());
                     index++;
                 }
             }
         }
 
-        appendKeywords(statement, values, index > 0);
+        appendKeywordStmt(statement, index > 0);
     }
 
-    private void appendKeywords(StringBuilder statement, List<String> values,
-                                boolean and) {
+    private void appendKeywordStmt(StringBuilder statement, boolean and) {
         int count = keywords.size();
 
         if (count == 0) {
@@ -336,7 +319,6 @@ public final class SavedSearch {
                                         count) + " GROUP BY files.filename"
                                             + " HAVING COUNT(*) = "
                                                 + Integer.toString(count));
-        values.addAll(keywords);
     }
 
     private void appendToFrom(StringBuilder statement) {

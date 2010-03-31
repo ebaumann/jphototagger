@@ -77,6 +77,7 @@ public final class ControllerCreateSavedSearch
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        AdvancedSearchDialog.INSTANCE.getPanel().empty();
         ControllerFactory.INSTANCE.getController(
             ControllerShowAdvancedSearchDialog.class).showDialog();
     }

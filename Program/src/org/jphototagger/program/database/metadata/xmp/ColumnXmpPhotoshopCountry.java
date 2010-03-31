@@ -26,7 +26,7 @@ import org.jphototagger.program.database.metadata.Column.DataType;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
- * Spalte <code>photoshop_country</code> der Tabelle <code>xmp</code>.
+ * Spalte <code>photoshop_countries</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann
  */
@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopCountry extends Column {
         new ColumnXmpPhotoshopCountry();
 
     private ColumnXmpPhotoshopCountry() {
-        super("country", "photoshop_country", DataType.STRING);
+        super("country", "photoshop_countries", DataType.STRING);
         setLength(64);
         setDescription(
             JptBundle.INSTANCE.getString(

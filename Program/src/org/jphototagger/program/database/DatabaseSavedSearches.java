@@ -22,9 +22,9 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
-import org.jphototagger.program.data.SavedSearchParamStatement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,63 +49,57 @@ public final class DatabaseSavedSearches extends Database {
     private String getInsertSql() {
         return "INSERT INTO saved_searches (name"    // -- 1 --
                + ", sql_string"                      // -- 2 --
-               + ", is_query"                        // -- 3 --
-               + ", search_type"                     // -- 4 --
-               + ") VALUES (?, ?, ?, ?)";
+               + ", search_type"                     // -- 3 --
+               + ") VALUES (?, ?, ?)";
     }
 
-    /**
-     * Fügt eine gespeicherte Suche ein. Existiert die Suche, wird
-     * {@link #update(org.jphototagger.program.data.SavedSearch)}
-     * aufgerufen.
-     *
-     * @param   savedSearch Suche
-     * @return              true bei Erfolg
-     */
-    public boolean insertOrUpdate(SavedSearch savedSearch) {
-        boolean                   inserted  = false;
-        SavedSearchParamStatement paramStmt =
-            savedSearch.getSavedSearchParamStatement();
+    public boolean insert(SavedSearch savedSearch) {
+        boolean           inserted = false;
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
 
-        if ((paramStmt != null) &&!paramStmt.getName().isEmpty()) {
-            if (exists(savedSearch)) {
-                return update(savedSearch);
+        try {
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(getInsertSql());
+            stmt.setString(1, savedSearch.getName());
+
+            String customSql = savedSearch.getCustomSql();
+
+            if (customSql != null) {
+                stmt.setBytes(2, customSql.getBytes());
             }
 
-            Connection        con  = null;
-            PreparedStatement stmt = null;
+            setSearchType(stmt, 3, savedSearch);
+            logFiner(stmt);
+            stmt.executeUpdate();
 
-            try {
-                con = getConnection();
-                con.setAutoCommit(false);
-                stmt = con.prepareStatement(getInsertSql());
-                stmt.setString(1, paramStmt.getName());
-                stmt.setBytes(2, paramStmt.getSql().getBytes());
-                stmt.setBoolean(3, paramStmt.isQuery());
-                setSearchType(stmt, 4, savedSearch);
-                logFiner(stmt);
-                stmt.executeUpdate();
+            long                   id       = findId(con,
+                                                  savedSearch.getName());
+            List<SavedSearchPanel> panels   = savedSearch.getPanels();
+            List<String>           keywords = savedSearch.getKeywords();
 
-                long                   id       = findId(con,
-                                                      paramStmt.getName());
-                List<SavedSearchPanel> panels   = savedSearch.getPanels();
-                List<String>           keywords = savedSearch.getKeywords();
-
-                insertSavedSearchValues(con, id, paramStmt.getValues());
-                insertSavedSearchPanels(con, id, panels);
-                insertSavedSearchKeywords(con, id, keywords);
-                con.commit();
-                inserted = true;
-            } catch (Exception ex) {
-                AppLogger.logSevere(DatabaseSavedSearches.class, ex);
-                rollback(con);
-            } finally {
-                close(stmt);
-                free(con);
-            }
+            insertSavedSearchPanels(con, id, panels);
+            insertSavedSearchKeywords(con, id, keywords);
+            con.commit();
+            inserted = true;
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseSavedSearches.class, ex);
+            rollback(con);
+        } finally {
+            close(stmt);
+            free(con);
         }
 
         return inserted;
+    }
+
+    public boolean insertOrUpdate(SavedSearch savedSearch) {
+        if (exists(savedSearch)) {
+            return update(savedSearch);
+        } else {
+            return insert(savedSearch);
+        }
     }
 
     private void setSearchType(PreparedStatement stmt, int parameterIndex,
@@ -122,47 +116,16 @@ public final class DatabaseSavedSearches extends Database {
         stmt.setShort(parameterIndex, type.getValue());
     }
 
-    private String getInsertSearchValuesSql() {
-        return "INSERT INTO saved_searches_values"
-               + " (id_saved_searches, value, value_index) VALUES (?, ?, ?)";
-    }
-
-    private void insertSavedSearchValues(Connection con, long idSavedSearch,
-            List<String> values)
-            throws SQLException {
-        if ((idSavedSearch > 0) && (values != null) && (values.size() > 0)) {
-            PreparedStatement stmt = null;
-
-            try {
-                stmt = con.prepareStatement(getInsertSearchValuesSql());
-                stmt.setLong(1, idSavedSearch);
-
-                int size = values.size();
-
-                for (int index = 0; index < size; index++) {
-                    String value = values.get(index);
-
-                    stmt.setString(2, value);
-                    stmt.setInt(3, index);
-                    logFiner(stmt);
-                    stmt.executeUpdate();
-                }
-            } finally {
-                close(stmt);
-            }
-        }
-    }
-
     private String getInsertSavedSearchPanelsSql() {
-        return "INSERT INTO saved_searches_panels (id_saved_searches"    // -- 1 --
-               + ", panel_index"       // -- 2 --
-               + ", bracket_left_1"    // -- 3 --
-               + ", operator_id"       // -- 4 --
-               + ", bracket_left_2"    // -- 5 --
-               + ", column_id"         // -- 6 --
-               + ", comparator_id"     // -- 7 --
-               + ", value"             // -- 8 --
-               + ", bracket_right)"    // -- 9 --
+        return "INSERT INTO saved_searches_panels (id_saved_search"    // 1
+               + ", panel_index"                                       // 2
+               + ", bracket_left_1"                                    // 3
+               + ", operator_id"                                       // 4
+               + ", bracket_left_2"                                    // 5
+               + ", column_id"                                         // 6
+               + ", comparator_id"                                     // 7
+               + ", value"                                             // 8
+               + ", bracket_right)"                                    // 9
                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
@@ -195,9 +158,8 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getInsertSavedSearchKeywordsSql() {
-        return "INSERT INTO saved_searches_keywords " +
-                "(id_saved_searches, keyword)"
-               + " VALUES (?, ?)";
+        return "INSERT INTO saved_searches_keywords "
+               + "(id_saved_search, keyword)" + " VALUES (?, ?)";
     }
 
     private void insertSavedSearchKeywords(Connection con, long idSavedSearch,
@@ -301,23 +263,10 @@ public final class DatabaseSavedSearches extends Database {
         return false;
     }
 
-    /**
-     * Liefert, ob eine gespeicherte Suche existiert.
-     *
-     * @param  savedSearch search Gespeicherte Suche
-     * @return true, wenn die gespeicherte Suche existiert
-     * @see    #exists(java.lang.String)
-     */
     public boolean exists(SavedSearch savedSearch) {
         return exists(savedSearch.getName());
     }
 
-    /**
-     * Löscht eine gespeicherte Suche.
-     *
-     * @param  name Name der Suche
-     * @return true bei Erfolg
-     */
     public boolean delete(String name) {
         boolean           deleted = false;
         Connection        con     = null;
@@ -346,14 +295,7 @@ public final class DatabaseSavedSearches extends Database {
         return deleted;
     }
 
-    /**
-     * Benennt eine gespeicherte Suche um.
-     *
-     * @param  oldName Alter Name
-     * @param  newName Neuer Name
-     * @return true bei Erfolg
-     */
-    public boolean updateRename(String oldName, String newName) {
+    public boolean updateRename(String fromName, String toName) {
         boolean           renamed = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -363,8 +305,8 @@ public final class DatabaseSavedSearches extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement(
                 "UPDATE saved_searches SET name = ? WHERE name = ?");
-            stmt.setString(1, newName);
-            stmt.setString(2, oldName);
+            stmt.setString(1, toName);
+            stmt.setString(2, fromName);
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
@@ -374,8 +316,8 @@ public final class DatabaseSavedSearches extends Database {
             if (renamed) {
                 List<String> info = new ArrayList<String>();
 
-                info.add(oldName);
-                info.add(newName);
+                info.add(fromName);
+                info.add(toName);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
@@ -388,28 +330,16 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean update(SavedSearch savedSearch) {
-        if (savedSearch.hasParamStatement()) {
-            boolean updated =
-                delete(savedSearch.getSavedSearchParamStatement().getName())
-                && insertOrUpdate(savedSearch);
+        delete(savedSearch.getName());
 
-            return updated;
-        }
-
-        return false;
+        return insert(savedSearch);
     }
 
     private String getFindSql() {
-        return "SELECT name, sql_string, is_query, search_type"
+        return "SELECT name, sql_string, search_type"
                + " FROM saved_searches WHERE name = ?";
     }
 
-    /**
-     * Liefert eine gespeicherte Suche mit bestimmtem Namen.
-     *
-     * @param  name Name
-     * @return      Suche oder null, wenn die Suche nicht erzeugt wurde
-     */
     public SavedSearch find(String name) {
         SavedSearch       savedSearch = null;
         Connection        con         = null;
@@ -425,16 +355,9 @@ public final class DatabaseSavedSearches extends Database {
 
             if (rs.next()) {
                 savedSearch = new SavedSearch();
-
-                SavedSearchParamStatement paramStmt =
-                    new SavedSearchParamStatement();
-
-                paramStmt.setName(rs.getString(1));
-                paramStmt.setSql(new String(rs.getBytes(2)));
-                paramStmt.setQuery(rs.getBoolean(3));
-                savedSearch.setParamStatement(paramStmt);
-                setSearchType(rs, 4, savedSearch);
-                setSavedSearchValues(con, savedSearch);
+                savedSearch.setName(rs.getString(1));
+                savedSearch.setCustomSql(new String(rs.getBytes(2)));
+                setSearchType(rs, 3, savedSearch);
                 setSavedSearchPanels(con, savedSearch);
                 setSavedSearchKeywords(con, savedSearch);
             }
@@ -461,7 +384,7 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getGetAllSql() {
-        return "SELECT name, sql_string, is_query, search_type"
+        return "SELECT name, sql_string, search_type"
                + " FROM saved_searches ORDER BY name";
     }
 
@@ -471,10 +394,10 @@ public final class DatabaseSavedSearches extends Database {
      * @return Gespeicherte Suchen
      */
     public List<SavedSearch> getAll() {
-        List<SavedSearch> allData = new ArrayList<SavedSearch>();
-        Connection        con     = null;
-        Statement         stmt    = null;
-        ResultSet         rs      = null;
+        List<SavedSearch> searches = new ArrayList<SavedSearch>();
+        Connection        con      = null;
+        Statement         stmt     = null;
+        ResultSet         rs       = null;
 
         try {
             con  = getConnection();
@@ -486,75 +409,29 @@ public final class DatabaseSavedSearches extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                SavedSearch               savedSearch = new SavedSearch();
-                SavedSearchParamStatement paramStmt   =
-                    new SavedSearchParamStatement();
+                SavedSearch savedSearch = new SavedSearch();
 
-                paramStmt.setName(rs.getString(1));
-                paramStmt.setSql(new String(rs.getBytes(2)));
-                paramStmt.setQuery(rs.getBoolean(3));
-                savedSearch.setParamStatement(paramStmt);
-                setSearchType(rs, 4, savedSearch);
-                setSavedSearchValues(con, savedSearch);
+                savedSearch.setName(rs.getString(1));
+                savedSearch.setCustomSql(new String(rs.getBytes(2)));
+                setSearchType(rs, 3, savedSearch);
                 setSavedSearchPanels(con, savedSearch);
                 setSavedSearchKeywords(con, savedSearch);
-                allData.add(savedSearch);
+                searches.add(savedSearch);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
-            allData.clear();
+            searches.clear();
         } finally {
             close(rs, stmt);
             free(con);
         }
 
-        return allData;
-    }
-
-    private String getSetSearchValuesSql() {
-        return "SELECT saved_searches_values.value FROM"
-               + " saved_searches_values INNER JOIN saved_searches"
-               + " ON saved_searches_values.id_saved_searches"
-               + " = saved_searches.id AND saved_searches.name = ?"
-               + " ORDER BY saved_searches_values.value_index ASC";
-    }
-
-    private void setSavedSearchValues(Connection con, SavedSearch savedSearch)
-            throws SQLException {
-        assert savedSearch.getSavedSearchParamStatement() != null;
-
-        PreparedStatement stmt = null;
-        ResultSet         rs   = null;
-
-        try {
-            stmt = con.prepareStatement(getSetSearchValuesSql());
-            stmt.setString(
-                1, savedSearch.getSavedSearchParamStatement().getName());
-            logFinest(stmt);
-            rs = stmt.executeQuery();
-
-            List<String> values = new ArrayList<String>();
-
-            while (rs.next()) {
-                values.add(rs.getString(1));
-            }
-
-            if (values.size() > 0) {
-                SavedSearchParamStatement paramStmt =
-                    savedSearch.getSavedSearchParamStatement();
-
-                paramStmt.setValues(values);
-                savedSearch.setParamStatement(paramStmt);
-            }
-        } finally {
-            close(rs, stmt);
-        }
+        return searches;
     }
 
     public void tagSearchesIfStmtContains(String what, String tag) {
         for (SavedSearch search : getAll()) {
-            SavedSearchParamStatement stmt =
-                search.getSavedSearchParamStatement();
+            ParamStatement stmt = search.getParamStatement();
 
             if ((stmt != null) && stmt.getSql().contains(what)) {
                 String name = search.getName();
@@ -578,22 +455,19 @@ public final class DatabaseSavedSearches extends Database {
                + ", saved_searches_panels.value"             // -- 7 --
                + ", saved_searches_panels.bracket_right"     // -- 8 --
                + " FROM saved_searches_panels INNER JOIN saved_searches"
-               + " ON saved_searches_panels.id_saved_searches"
+               + " ON saved_searches_panels.id_saved_search"
                + " = saved_searches.id AND saved_searches.name = ?"
                + " ORDER BY saved_searches_panels.panel_index ASC";
     }
 
     private void setSavedSearchPanels(Connection con, SavedSearch savedSearch)
             throws SQLException {
-        assert savedSearch.getSavedSearchParamStatement() != null;
-
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
 
         try {
             stmt = con.prepareStatement(getSetSavedSearchPanelsSql());
-            stmt.setString(
-                1, savedSearch.getSavedSearchParamStatement().getName());
+            stmt.setString(1, savedSearch.getName());
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -613,9 +487,7 @@ public final class DatabaseSavedSearches extends Database {
                 panels.add(panel);
             }
 
-            if (panels.size() > 0) {
-                savedSearch.setPanels(panels);
-            }
+            savedSearch.setPanels(panels);
         } finally {
             close(rs, stmt);
         }
@@ -624,22 +496,19 @@ public final class DatabaseSavedSearches extends Database {
     private String getSetSavedSearchKeywordsSql() {
         return "SELECT keyword"    // -- 1 --
                + " FROM saved_searches_keywords INNER JOIN saved_searches"
-               + " ON saved_searches_keywords.id_saved_searches"
+               + " ON saved_searches_keywords.id_saved_search"
                + " = saved_searches.id AND saved_searches.name = ?"
                + " ORDER BY keyword ASC";
     }
 
     private void setSavedSearchKeywords(Connection con, SavedSearch savedSearch)
             throws SQLException {
-        assert savedSearch.getSavedSearchParamStatement() != null;
-
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
 
         try {
             stmt = con.prepareStatement(getSetSavedSearchKeywordsSql());
-            stmt.setString(
-                1, savedSearch.getSavedSearchParamStatement().getName());
+            stmt.setString(1, savedSearch.getName());
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -649,9 +518,7 @@ public final class DatabaseSavedSearches extends Database {
                 keywords.add(rs.getString(1));
             }
 
-            if (keywords.size() > 0) {
-                savedSearch.setKeywords(keywords);
-            }
+            savedSearch.setKeywords(keywords);
         } finally {
             close(rs, stmt);
         }

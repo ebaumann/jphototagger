@@ -68,7 +68,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
-                "INSERT INTO file_exclude_pattern (pattern) VALUES (?)");
+                "INSERT INTO file_exclude_patterns (pattern) VALUES (?)");
             stmt.setString(1, pattern);
             logFiner(stmt);
 
@@ -106,7 +106,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
-                "DELETE FROM file_exclude_pattern WHERE pattern = ?");
+                "DELETE FROM file_exclude_patterns WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFiner(stmt);
 
@@ -144,7 +144,7 @@ public final class DatabaseFileExcludePatterns extends Database {
         try {
             con  = getConnection();
             stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM file_exclude_pattern WHERE pattern = ?");
+                "SELECT COUNT(*) FROM file_exclude_patterns WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -177,7 +177,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             con  = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT pattern FROM file_exclude_pattern"
+            String sql = "SELECT pattern FROM file_exclude_patterns"
                          + " ORDER BY pattern ASC";
 
             logFinest(sql);

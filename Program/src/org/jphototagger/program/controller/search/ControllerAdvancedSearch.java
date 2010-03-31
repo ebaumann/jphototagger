@@ -22,7 +22,7 @@
 package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.data.SavedSearchParamStatement;
+import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.event.listener.SearchListener;
 import org.jphototagger.program.event.SearchEvent;
@@ -93,17 +93,15 @@ public final class ControllerAdvancedSearch
                 SavedSearch savedSearch = e.getSavedSearch();
 
                 if (savedSearch != null) {
-                    SavedSearchParamStatement paramStmt =
-                        savedSearch.getSavedSearchParamStatement();
+                    ParamStatement paramStmt = savedSearch.getParamStatement();
 
                     if (paramStmt != null) {
                         TreeUtil.clearSelection(selectionTrees);
 
                         List<File> imageFiles =
-                            DatabaseFind.INSTANCE.findImageFiles(
-                                paramStmt.createParamStatement());
+                            DatabaseFind.INSTANCE.findImageFiles(paramStmt);
 
-                        setTitle(paramStmt.getName());
+                        setTitle(savedSearch.getName());
                         SearchHelper.setSort(savedSearch);
                         thumbnailsPanel.setFiles(imageFiles,
                                                  Content.SAVED_SEARCH);

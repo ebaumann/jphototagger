@@ -22,38 +22,28 @@
 package org.jphototagger.program.data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+
 /**
- * Parametrisiertes SQL-Statement.
  *
  * @author  Elmar Baumann, Tobias Stening
  */
 public final class ParamStatement {
-    private String   sql;
-    private Object[] values;
-    private boolean  isQuery;
-    private String   name;
+    private String       sql;
+    private List<String> values = new ArrayList<String>();
+    private boolean      query;
 
     public ParamStatement() {}
 
-    /**
-     * Konstruktor.
-     *
-     * @param sql      SQL-Statement-String
-     * @param values   Parameterwerte
-     * @param isQuery  true, wenn das Statement eine Abfrage ist
-     * @param name     Name
-     */
-    public ParamStatement(String sql, Object[] values, boolean isQuery,
-                          String name) {
-        this.sql     = sql;
-        this.values  = (values == null)
-                       ? null
-                       : Arrays.copyOf(values, values.length);
-        this.isQuery = isQuery;
-        this.name    = name;
+    public ParamStatement(ParamStatement stmt) {
+        set(stmt);
+    }
+
+    public void set(ParamStatement stmt) {
+        sql    = stmt.sql;
+        values = new ArrayList<String>(stmt.values);
+        query  = stmt.query;
     }
 
     public String getSql() {
@@ -66,76 +56,31 @@ public final class ParamStatement {
 
     /**
      *
-     * @return parameter values or null
+     * @return parameter values or empty list
      */
-    public Object[] getValues() {
-        return (values == null)
-               ? null
-               : Arrays.copyOf(values, values.length);
+    public List<String> getValues() {
+        return new ArrayList<String>(values);
     }
 
     /**
      *
-     * @param values parameter values. Default: null.
+     * @param values parameter values
      */
-    public void setValues(Object[] values) {
-        if (values == null) {
-            this.values = null;
-        } else {
-            this.values = Arrays.copyOf(values, values.length);
-        }
+    public void setValues(List<String> values) {
+        this.values = (values == null)
+                      ? new ArrayList<String>()
+                      : new ArrayList<String>(values);
     }
 
-    public List<String> getValuesAsStringList() {
-        if (values == null) {
-            return new ArrayList<String>();
-        }
-
-        List<String> list = new ArrayList<String>();
-
-        for (int index = 0; index < values.length; index++) {
-            list.add(values[index].toString());
-        }
-
-        return list;
+    public boolean hasValues() {
+        return !values.isEmpty();
     }
 
     public boolean isQuery() {
-        return isQuery;
+        return query;
     }
 
-    public void setIsQuery(boolean isQuery) {
-        this.isQuery = isQuery;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        String sqlString = (sql == null)
-                           ? "Sql: null"
-                           : "Sql: " + sql;
-
-        return sqlString + " Values:" + getValuesString(" ");
-    }
-
-    private String getValuesString(String delimiter) {
-        if (getValues() == null) {
-            return "";
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < getValues().length; i++) {
-            sb.append(delimiter + getValues()[i].toString());
-        }
-
-        return sb.toString();
+    public void setQuery(boolean query) {
+        this.query = query;
     }
 }

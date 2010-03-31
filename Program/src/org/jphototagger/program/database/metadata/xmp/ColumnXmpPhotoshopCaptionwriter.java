@@ -26,7 +26,7 @@ import org.jphototagger.program.database.metadata.Column.DataType;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
- * Spalte <code>photoshop_captionwriter</code> der Tabelle <code>xmp</code>.
+ * Spalte <code>photoshop_captionwriters</code> der Tabelle <code>xmp</code>.
  *
  * @author  Elmar Baumann
  */
@@ -35,7 +35,7 @@ public final class ColumnXmpPhotoshopCaptionwriter extends Column {
         new ColumnXmpPhotoshopCaptionwriter();
 
     private ColumnXmpPhotoshopCaptionwriter() {
-        super("captionwriter", "photoshop_captionwriter", DataType.STRING);
+        super("captionwriter", "photoshop_captionwriters", DataType.STRING);
         setLength(32);
         setDescription(
             JptBundle.INSTANCE.getString(

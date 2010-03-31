@@ -38,8 +38,8 @@ public final class ComparatorSavedSearch implements Comparator<SavedSearch> {
 
     @Override
     public int compare(SavedSearch o1, SavedSearch o2) {
-        String nameO1 = o1.getSavedSearchParamStatement().getName();
-        String nameO2 = o2.getSavedSearchParamStatement().getName();
+        String nameO1 = o1.getName();
+        String nameO2 = o2.getName();
 
         return ((o1 == o2) || ((nameO1 == null) && (nameO2 == null)))
                ? 0

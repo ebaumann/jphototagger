@@ -29,13 +29,12 @@ import org.jphototagger.program.database.Database;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.jphototagger.program.database.DatabaseMetadata;
 
 /**
  * Updates the tables indexes.
@@ -51,10 +50,10 @@ final class UpdateTablesIndexes {
             new Pair<String, String>("idx_collections_id", "collections"),
             new IndexInfo[] {
                 new IndexInfo(
-                    false, "idx_collections_id_collectionnnames",
-                    "collections", "id_collectionnnames"),
-                new IndexInfo(false, "idx_collections_id_files", "collections",
-                              "id_files") });
+                    false, "idx_collections_id_collectionnname",
+                    "collections", "id_collectionnname"),
+                new IndexInfo(false, "idx_collections_id_file", "collections",
+                              "id_file") });
     }
 
     void update(Connection con) throws SQLException {
@@ -68,7 +67,7 @@ final class UpdateTablesIndexes {
             String indexName = pair.getFirst();
             String tableName = pair.getSecond();
 
-            if (existsIndex(con, indexName, tableName)) {
+            if (DatabaseMetadata.existsIndex(con, indexName, tableName)) {
                 replaceIndex(con, indexName, INDEX_TO_REPLACE.get(pair));
             }
         }
@@ -95,32 +94,6 @@ final class UpdateTablesIndexes {
         } finally {
             Database.close(stmt);
         }
-    }
-
-    private boolean existsIndex(Connection con, String indexName,
-                                String tableName)
-            throws SQLException {
-        boolean   exists = false;
-        ResultSet rs     = null;
-
-        try {
-            DatabaseMetaData meta = con.getMetaData();
-
-            rs = meta.getIndexInfo(con.getCatalog(), null,
-                                   tableName.toUpperCase(), false, true);
-
-            while (!exists && rs.next()) {
-                String name = rs.getString("INDEX_NAME");
-
-                if (name != null) {
-                    exists = name.equalsIgnoreCase(indexName);
-                }
-            }
-        } finally {
-            Database.close(rs, null);
-        }
-
-        return exists;
     }
 
     private void startMessage() {
