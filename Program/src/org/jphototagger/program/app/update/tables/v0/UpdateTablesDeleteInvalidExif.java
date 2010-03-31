@@ -26,8 +26,10 @@ import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
-import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
-import org.jphototagger.program.database.metadata.exif.ColumnExifRecordingEquipment;
+import org.jphototagger.program.database.metadata.exif
+    .ColumnExifIsoSpeedRatings;
+import org.jphototagger.program.database.metadata.exif
+    .ColumnExifRecordingEquipment;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.sql.Connection;
@@ -53,19 +55,14 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     void update(Connection con) throws SQLException {
-        if (DatabaseApplicationProperties.INSTANCE.getBoolean(
+        startMessage();
+        if (!DatabaseApplicationProperties.INSTANCE.getBoolean(
                 KEY_REMOVED_INVALID_EXIF)) {
-            return;
+            setNull(con);
+            DatabaseApplicationProperties.INSTANCE.setBoolean(
+                KEY_REMOVED_INVALID_EXIF, true);
         }
-
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesDeleteInvalidExif.Info.update"));
-        setNull(con);
-        SplashScreen.INSTANCE.setMessage("");
-        DatabaseApplicationProperties.INSTANCE.setBoolean(
-            KEY_REMOVED_INVALID_EXIF, true);
-        SplashScreen.INSTANCE.setMessage("");
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void setNull(Connection con) throws SQLException {
@@ -91,5 +88,10 @@ final class UpdateTablesDeleteInvalidExif {
                          "UPDATE " + column.getTablename() + " SET "
                          + column.getName() + " = NULL WHERE "
                          + column.getName() + " = '0'");
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesDeleteInvalidExif.Info"));
     }
 }

@@ -45,10 +45,9 @@ final class UpdateTablesPrimaryKeys {
         new ArrayList<String>();
 
     void update(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
+        startMessage();
         dropPrimaryKeys(con);
-        SplashScreen.INSTANCE.setMessage("");
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void dropPrimaryKeys(Connection con) throws SQLException {
@@ -82,5 +81,10 @@ final class UpdateTablesPrimaryKeys {
                 Database.close(rs, stmt);
             }
         }
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
     }
 }

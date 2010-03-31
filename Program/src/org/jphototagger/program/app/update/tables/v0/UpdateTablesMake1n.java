@@ -92,10 +92,9 @@ public final class UpdateTablesMake1n {
     UpdateTablesMake1n() {}
 
     void update(Connection con) throws SQLException {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesMake1n.Info"));
+        startMessage();
         moveContent(con);
-        SplashScreen.INSTANCE.setMessage("");
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private String getLinkColumn(String targetTable) {
@@ -120,8 +119,8 @@ public final class UpdateTablesMake1n {
                     String sourceTable  = source.getTableName();
                     String sourceColumn = source.getColumnName();
                     String targetTable  = target.getTableName();
-                    String sql          = "SELECT id, " + sourceColumn
-                                          + " FROM " + sourceTable;
+                    String sql = "SELECT id, " + sourceColumn + " FROM "
+                                 + sourceTable;
 
                     addLinkColumn(con, sourceTable, targetTable);
                     stmt = con.createStatement();
@@ -193,7 +192,7 @@ public final class UpdateTablesMake1n {
                                    sqlAddForeignKey);
                 stmt.executeUpdate(sqlAddForeignKey);
 
-                String indexname      = "idx_" + sourceTable + "_" + newColumn;
+                String indexname = "idx_" + sourceTable + "_" + newColumn;
                 String sqlCreateIndex = "CREATE INDEX " + indexname + " ON "
                                         + sourceTable + " (" + newColumn + ")";
 
@@ -288,5 +287,10 @@ public final class UpdateTablesMake1n {
         } finally {
             Database.close(stmt);
         }
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesMake1n.Info"));
     }
 }

@@ -110,6 +110,10 @@ public final class SplashScreen {
         }
     }
 
+    public void removeMessage() {
+        setMessage("");
+    }
+
     public void setMessage(String message) {
         assert init;
 

@@ -42,21 +42,17 @@ import java.sql.Statement;
  */
 final class UpdateTablesXmpDcSubjects {
     void update(Connection con) throws SQLException {
+        startMessage();
+
         if (DatabaseMetadata.INSTANCE.existsTable(con, "xmp_dc_subjects")) {
-            displayStartMessage();
             populateTableDcSubjects(con);
             populateLinkTable(con);
             Database.execute(con, "DROP TABLE xmp_dc_subjects");
             DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains(
                 "xmp_dc_subjects", "!");
-            SplashScreen.INSTANCE.setMessage("");
         }
-    }
 
-    private void displayStartMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString(
-                "UpdateTablesXmpDcSubjects.Info.Start"));
+        SplashScreen.INSTANCE.removeMessage();
     }
 
     private void populateTableDcSubjects(Connection con) throws SQLException {
@@ -112,8 +108,8 @@ final class UpdateTablesXmpDcSubjects {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                long   idXmp       = rs.getLong(1);
-                String dcSubject   = rs.getString(2);
+                long   idXmp     = rs.getLong(1);
+                String dcSubject = rs.getString(2);
                 Long   idDcSubject =
                     DatabaseImageFiles.INSTANCE.getIdDcSubject(dcSubject);
 
@@ -170,5 +166,10 @@ final class UpdateTablesXmpDcSubjects {
                 Database.close(stmt);
             }
         }
+    }
+
+    private void startMessage() {
+        SplashScreen.INSTANCE.setMessage(
+            JptBundle.INSTANCE.getString("UpdateTablesXmpDcSubjects.Info"));
     }
 }
