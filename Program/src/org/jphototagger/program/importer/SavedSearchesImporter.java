@@ -25,11 +25,9 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
-import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.exporter.SavedSearchesExporter;
 import org.jphototagger.program.exporter.SavedSearchesExporter
     .CollectionWrapper;
-import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 
 import java.io.File;
 
@@ -56,24 +54,12 @@ public final class SavedSearchesImporter implements Importer {
                 if (savedSearch.isValid()
                         &&!DatabaseSavedSearches.INSTANCE.exists(
                             savedSearch.getName())) {
-                    if (DatabaseSavedSearches.INSTANCE.insertOrUpdate(
-                            savedSearch)) {
-                        notifySearchListeners(savedSearch);
-                    }
+                    DatabaseSavedSearches.INSTANCE.insert(savedSearch);
                 }
             }
         } catch (Exception ex) {
             AppLogger.logSevere(SavedSearchesImporter.class, ex);
         }
-    }
-
-    private void notifySearchListeners(SavedSearch savedSearch) {
-        SearchEvent evt = new SearchEvent(SearchEvent.Type.SAVE);
-
-        evt.setSavedSearch(savedSearch);
-        evt.setSearchName(savedSearch.getName());
-        evt.setForceOverwrite(true);
-        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().notify(evt);
     }
 
     @Override

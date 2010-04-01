@@ -20,6 +20,7 @@
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="tabbedPaneStateChanged"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tabbedPaneFocusGained"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -46,7 +47,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelKeywordsInput" alignment="0" pref="636" max="32767" attributes="0"/>
+                          <Component id="panelKeywordsInput" alignment="0" pref="632" max="32767" attributes="0"/>
                           <Component id="labelInfoKeywords" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -59,7 +60,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoKeywords" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelKeywordsInput" pref="161" max="32767" attributes="0"/>
+                      <Component id="panelKeywordsInput" pref="154" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -97,10 +98,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneColumns" alignment="1" pref="636" max="32767" attributes="0"/>
+                          <Component id="scrollPaneColumns" alignment="1" pref="632" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelInfoDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="339" max="32767" attributes="0"/>
+                              <EmptySpace pref="249" max="32767" attributes="0"/>
                               <Component id="buttonAddColumn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -112,7 +113,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneColumns" pref="152" max="32767" attributes="0"/>
+                      <Component id="scrollPaneColumns" pref="144" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonAddColumn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -207,7 +208,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea()"/>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());&#xa;textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -285,9 +286,6 @@
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

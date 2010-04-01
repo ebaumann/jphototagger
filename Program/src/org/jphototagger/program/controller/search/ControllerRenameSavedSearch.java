@@ -22,7 +22,7 @@
 package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.helper.ModifySavedSearches;
+import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 
@@ -65,7 +65,7 @@ public final class ControllerRenameSavedSearch
             Object value = list.getSelectedValue();
 
             if (value instanceof SavedSearch) {
-                ModifySavedSearches.rename((SavedSearch) value);
+                rename((SavedSearch) value);
             }
         }
     }
@@ -80,7 +80,12 @@ public final class ControllerRenameSavedSearch
     }
 
     private void rename() {
-        ModifySavedSearches.rename(actionPopup.getSavedSearch());
+        rename(actionPopup.getSavedSearch());
+    }
+
+    private void rename(SavedSearch savedSearch) {
+        SavedSearchesHelper.rename(savedSearch);
+        SavedSearchesHelper.focusAppPanelList();
     }
 
     @Override

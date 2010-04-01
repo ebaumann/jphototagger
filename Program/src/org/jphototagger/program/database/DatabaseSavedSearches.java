@@ -25,6 +25,8 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
+import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;
+import org.jphototagger.program.event.listener.impl.ListenerSupport;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +36,7 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -43,6 +46,8 @@ import java.util.List;
 public final class DatabaseSavedSearches extends Database {
     public static final DatabaseSavedSearches INSTANCE =
         new DatabaseSavedSearches();
+    private final ListenerSupport<DatabaseSavedSearchesListener> ls =
+        new ListenerSupport<DatabaseSavedSearchesListener>();
 
     private DatabaseSavedSearches() {}
 
@@ -54,6 +59,10 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean insert(SavedSearch savedSearch) {
+        if (savedSearch == null) {
+            throw new NullPointerException("savedSearch == null");
+        }
+
         boolean           inserted = false;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -89,6 +98,7 @@ public final class DatabaseSavedSearches extends Database {
             insertSavedSearchKeywords(con, id, keywords);
             con.commit();
             inserted = true;
+            notifyInserted(savedSearch);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
             rollback(con);
@@ -100,24 +110,10 @@ public final class DatabaseSavedSearches extends Database {
         return inserted;
     }
 
-    public boolean insertOrUpdate(SavedSearch savedSearch) {
-        if (!savedSearch.isValid()) {
-            assert false : savedSearch;
-
-            return false;
-        }
-
-        if (exists(savedSearch.getName())) {
-            return update(savedSearch);
-        } else {
-            return insert(savedSearch);
-        }
-    }
-
     private void setSearchType(PreparedStatement stmt, int parameterIndex,
                                SavedSearch search)
             throws SQLException {
-        if (search == null || !search.isValid()) {
+        if ((search == null) ||!search.isValid()) {
             return;
         }
 
@@ -247,6 +243,10 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean exists(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         Connection con = null;
 
         try {
@@ -265,6 +265,10 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean delete(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -281,6 +285,10 @@ public final class DatabaseSavedSearches extends Database {
 
             con.commit();
             deleted = count > 0;
+
+            if (deleted) {
+                notifyDeleted(name);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
             rollback(con);
@@ -293,6 +301,14 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean updateRename(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         boolean           renamed = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -311,10 +327,7 @@ public final class DatabaseSavedSearches extends Database {
             renamed = count > 0;
 
             if (renamed) {
-                List<String> info = new ArrayList<String>();
-
-                info.add(fromName);
-                info.add(toName);
+                notifyRenamed(fromName, toName);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseSavedSearches.class, ex);
@@ -327,6 +340,10 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean update(SavedSearch savedSearch) {
+        if (savedSearch == null) {
+            throw new NullPointerException("savedSearch == null");
+        }
+
         if (!savedSearch.isValid()) {
             assert false : savedSearch;
 
@@ -335,7 +352,13 @@ public final class DatabaseSavedSearches extends Database {
 
         delete(savedSearch.getName());
 
-        return insert(savedSearch);
+        boolean updated = insert(savedSearch);
+
+        if (updated) {
+            notifyUpdated(savedSearch);
+        }
+
+        return updated;
     }
 
     private String getFindSql() {
@@ -344,6 +367,10 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public SavedSearch find(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         SavedSearch       savedSearch = null;
         Connection        con         = null;
         PreparedStatement stmt        = null;
@@ -433,6 +460,14 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public void tagSearchesIfStmtContains(String what, String tag) {
+        if (what == null) {
+            throw new NullPointerException("what == null");
+        }
+
+        if (tag == null) {
+            throw new NullPointerException("tag == null");
+        }
+
         for (SavedSearch search : getAll()) {
             ParamStatement stmt = search.createParamStatement();
 
@@ -442,7 +477,7 @@ public final class DatabaseSavedSearches extends Database {
                 if (!name.startsWith(tag) &&!name.endsWith(tag)) {
                     delete(name);
                     search.setName(tag + name + tag);
-                    insertOrUpdate(search);
+                    update(search);
                 }
             }
         }
@@ -524,6 +559,62 @@ public final class DatabaseSavedSearches extends Database {
             savedSearch.setKeywords(keywords);
         } finally {
             close(rs, stmt);
+        }
+    }
+
+    public void addListener(DatabaseSavedSearchesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
+        ls.add(listener);
+    }
+
+    public void removeListener(DatabaseSavedSearchesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
+        ls.remove(listener);
+    }
+
+    private void notifyInserted(SavedSearch savedSerch) {
+        Set<DatabaseSavedSearchesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSavedSearchesListener listener : listeners) {
+                listener.searchInserted(savedSerch);
+            }
+        }
+    }
+
+    private void notifyUpdated(SavedSearch savedSerch) {
+        Set<DatabaseSavedSearchesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSavedSearchesListener listener : listeners) {
+                listener.searchUpdated(savedSerch);
+            }
+        }
+    }
+
+    private void notifyDeleted(String name) {
+        Set<DatabaseSavedSearchesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSavedSearchesListener listener : listeners) {
+                listener.searchDeleted(name);
+            }
+        }
+    }
+
+    private void notifyRenamed(String fromName, String toName) {
+        Set<DatabaseSavedSearchesListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseSavedSearchesListener listener : listeners) {
+                listener.searchRenamed(fromName, toName);
+            }
         }
     }
 }

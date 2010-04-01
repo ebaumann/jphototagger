@@ -21,12 +21,11 @@
 
 package org.jphototagger.program.controller.search;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +33,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 
 /**
  * Edits a selected saved search when the
@@ -79,9 +79,9 @@ public final class ControllerEditSavedSearch
     }
 
     private void showAdvancedSearchDialog(SavedSearch savedSearch) {
-        AdvancedSearchDialog.INSTANCE.setSavedSearch(savedSearch);
-        ControllerFactory.INSTANCE.getController(
-            ControllerShowAdvancedSearchDialog.class).showDialog();
+        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().setSavedSearch(
+            savedSearch);
+        ComponentUtil.show(AdvancedSearchDialog.INSTANCE);
     }
 
     @Override
