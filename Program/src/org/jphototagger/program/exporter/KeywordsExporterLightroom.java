@@ -64,6 +64,10 @@ public final class KeywordsExporterLightroom implements Exporter {
 
     @Override
     public void exportFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         TreeModel tm = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
         if (tm instanceof TreeModelKeywords) {

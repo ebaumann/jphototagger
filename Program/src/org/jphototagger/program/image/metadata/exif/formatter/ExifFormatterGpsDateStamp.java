@@ -44,6 +44,10 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_DATE_STAMP);
 
         byte[] rawValue  = exifTag.rawValue();

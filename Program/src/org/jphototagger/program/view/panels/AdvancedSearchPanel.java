@@ -286,6 +286,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     public void setSavedSearch(SavedSearch search) {
+        if (search == null) {
+            throw new NullPointerException("search == null");
+        }
+
         if (!search.isValid()) {
             assert false : search;
             return;
@@ -566,10 +570,18 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     public void addNameListener(NameListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeNameListener(NameListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

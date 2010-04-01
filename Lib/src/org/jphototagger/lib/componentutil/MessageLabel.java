@@ -38,6 +38,10 @@ public final class MessageLabel {
     private final JLabel label;
 
     public MessageLabel(JLabel label) {
+        if (label == null) {
+            throw new NullPointerException("label == null");
+        }
+
         this.label = label;
     }
 
@@ -56,6 +60,19 @@ public final class MessageLabel {
 
     public void showMessage(String message, MessageType type,
                             final long milliseconds) {
+        if (message == null) {
+            throw new NullPointerException("message == null");
+        }
+
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
+        if (milliseconds < 0) {
+            throw new IllegalArgumentException("Negative milliseconds: "
+                                               + milliseconds);
+        }
+
         label.setForeground(type.isError()
                             ? Color.RED
                             : Color.BLACK);

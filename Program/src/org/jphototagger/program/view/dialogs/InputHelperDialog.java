@@ -71,6 +71,10 @@ public class InputHelperDialog extends Dialog {
     }
 
     public void setModelKeywords(ListModel model) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
         panelKeywords.getList().setModel(model);
     }
 

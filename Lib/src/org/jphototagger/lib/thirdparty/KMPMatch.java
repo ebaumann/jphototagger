@@ -17,6 +17,14 @@ public final class KMPMatch {
      * @return first occurrence of the pattern in the text
      */
     public static int indexOf(byte[] data, byte[] pattern) {
+        if (data == null) {
+            throw new NullPointerException("data == null");
+        }
+
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         int[] failure = computeFailure(pattern);
         int   j       = 0;
 

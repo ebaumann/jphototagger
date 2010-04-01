@@ -29,6 +29,9 @@ import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.tiff.TiffReader;
 
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.lib.image.util.ImageTransform;
+import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
@@ -36,9 +39,6 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.types.FileType;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.image.util.ImageTransform;
-import org.jphototagger.lib.runtime.External;
 
 import java.awt.Container;
 import java.awt.Graphics2D;
@@ -74,15 +74,18 @@ public final class ThumbnailUtil {
      * @return      thumbnail or null on errors
      */
     public static Image getThumbnail(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (!file.exists()) {
             return null;
         }
 
-        ThumbnailCreator creator        =
-            UserSettings.INSTANCE.getThumbnailCreator();
-        int              maxLength      =
+        ThumbnailCreator creator = UserSettings.INSTANCE.getThumbnailCreator();
+        int              maxLength =
             UserSettings.INSTANCE.getMaxThumbnailWidth();
-        boolean          isRawImage     = FileType.isRawFile(file.getName());
+        boolean          isRawImage = FileType.isRawFile(file.getName());
         boolean          canCreateImage =
             !isRawImage
             || (isRawImage && creator.equals(ThumbnailCreator.EXTERNAL_APP));
@@ -120,10 +123,26 @@ public final class ThumbnailUtil {
      * @return            thumbnail or null if errors occured
      */
     public static Image getThumbnailFromImagero(File file, int maxLength) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("Invalid length: " + maxLength);
+        }
+
         return getScaledImageImagero(file, maxLength);
     }
 
     public static Image getThumbnailFromJavaImageIo(File file, int maxLength) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("Invalid length: " + maxLength);
+        }
+
         AppLogger.logInfo(ThumbnailUtil.class,
                           "ThumbnailUtil.CreateImage.Information.JavaIo", file,
                           maxLength);
@@ -145,6 +164,10 @@ public final class ThumbnailUtil {
      * @return     thumbnail or null on errors
      */
     public static Image getEmbeddedThumbnail(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return getEmbeddedThumbnailRotated(file);
     }
 
@@ -213,8 +236,7 @@ public final class ThumbnailUtil {
     }
 
     private static Image getEmbeddedThumbnailRotated(File file) {
-        Pair<Image, ImageReader> pair             =
-            getEmbeddedThumbnailWithReader(file);
+        Pair<Image, ImageReader> pair = getEmbeddedThumbnailWithReader(file);
         Image                    thumbnail        = pair.getFirst();
         Image                    rotatedThumbnail = thumbnail;
 
@@ -237,7 +259,8 @@ public final class ThumbnailUtil {
             rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
         }
 
-        closeReader(pair.getSecond());    // Needs to be open for calling ImageTransform.rotate()
+        closeReader(pair
+            .getSecond());    // Needs to be open for calling ImageTransform.rotate()
 
         return rotatedThumbnail;
     }
@@ -252,6 +275,18 @@ public final class ThumbnailUtil {
      */
     public static Image getThumbnailFromExternalApplication(File file,
             String command, int maxLength) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (command == null) {
+            throw new NullPointerException("command == null");
+        }
+
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("Invalid length: " + maxLength);
+        }
+
         if (!file.exists()) {
             return null;
         }
@@ -331,17 +366,21 @@ public final class ThumbnailUtil {
             int minWidth, double qfactor) {
 
         // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
-        assert qfactor < 1.0 : "qfactor must be < 1.0";    // wir wollen nur verkleinern! :-)
+        assert qfactor < 1.0 :
+               "qfactor must be < 1.0";    // wir wollen nur verkleinern! :-)
 
         BufferedImage scaledImage = null;
 
         try {
             int    origHeight = image.getHeight();    // Orignalhöhe
-            int    origWidth  = image.getWidth();    // Originalbreite
-            double factor     = getScaleFactor(origWidth, origHeight, minWidth);    // Skalierungsfaktor von Originalgröße auf Zielgröße
+            int    origWidth  = image.getWidth();     // Originalbreite
+            double factor =
+                getScaleFactor(
+                    origWidth, origHeight,
+                    minWidth);    // Skalierungsfaktor von Originalgröße auf Zielgröße
             int scaledWidth  = (int) (origWidth / factor);     // Zielbreite
             int scaledHeight = (int) (origHeight / factor);    // Zielhöhe
-            int pass         = 1;    // Zähler für die Durchläufe - nur für Debugging
+            int pass = 1;    // Zähler für die Durchläufe - nur für Debugging
 
             // Je nach qfactor läuft diese Schleife unterschiedlich oft durch. Sie prüft vor jedem Schleifendurchlauf,
             // ob die Zielgröße im folgenden Schritt unterschritten werden würde.. Wenn nein, wird ein neuer Duchlauf
@@ -349,13 +388,19 @@ public final class ThumbnailUtil {
             // In jedem Schleifendurchlauf werden origHeight und origWidth auf die aktuelle Größe gesetzt.
             while (((origWidth * qfactor) > scaledWidth)
                     || ((origHeight * qfactor) > scaledHeight)) {
-                int width = (int) (origWidth * qfactor);    // Die Breite in diesesm Skalierungsschritt
-                int height = (int) (origHeight * qfactor);    // Die Höhe in diesem Skalierungsschritt
+                int width =
+                    (int) (origWidth
+                        * qfactor);    // Die Breite in diesesm Skalierungsschritt
+                int height =
+                    (int) (origHeight
+                           * qfactor);    // Die Höhe in diesem Skalierungsschritt
 
                 // Skalierungsschritt
-                image     = scaleImage(width, height, image);
-                origWidth = image.getWidth();    // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
-                origHeight = image.getHeight();    // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
+                image = scaleImage(width, height, image);
+                origWidth = image
+                    .getWidth();    // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
+                origHeight = image
+                    .getHeight();    // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
                 pass++;
             }
 

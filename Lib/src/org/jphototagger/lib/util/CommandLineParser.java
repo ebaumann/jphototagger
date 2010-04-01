@@ -69,6 +69,10 @@ public final class CommandLineParser {
     }
 
     public boolean hasOption(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         for (Option option : options) {
             if (option.name.equalsIgnoreCase(name)) {
                 return true;
@@ -79,6 +83,10 @@ public final class CommandLineParser {
     }
 
     public Option getOption(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         for (Option option : options) {
             if (option.name.equalsIgnoreCase(name)) {
                 return option;

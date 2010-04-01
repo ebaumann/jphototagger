@@ -98,6 +98,10 @@ public final class FavoritesHelper {
     }
 
     public static void deleteFavorite(final Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         if (confirmDelete(favorite.getName())) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
@@ -184,6 +188,13 @@ public final class FavoritesHelper {
 
     public static void setFilesToThumbnailPanel(List<File> files,
             ThumbnailsPanel.Settings settings) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+        if (settings == null) {
+            throw new NullPointerException("settings == null");
+        }
+
         SwingUtilities.invokeLater(new SetFiles(files, settings));
     }
 

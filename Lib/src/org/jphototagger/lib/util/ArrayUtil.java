@@ -74,6 +74,10 @@ public final class ArrayUtil {
      * @return     array with the length of {@link Collection#size()}
      */
     public static <T> int[] toIntArray(Collection<? extends Integer> c) {
+        if (c == null) {
+            throw new NullPointerException("c == null");
+        }
+
         int[] array = new int[c.size()];
         int   index = 0;
 
@@ -91,6 +95,10 @@ public final class ArrayUtil {
      * @return  list
      */
     public static List<Integer> toList(int[] array) {
+        if (array == null) {
+            throw new NullPointerException("array == null");
+        }
+
         List<Integer> list = new ArrayList<Integer>(array.length);
 
         for (int el : array) {

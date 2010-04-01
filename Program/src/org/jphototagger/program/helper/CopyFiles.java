@@ -56,6 +56,14 @@ public final class CopyFiles implements Runnable {
      */
     public CopyFiles(List<Pair<File, File>> sourceTargetFiles,
                      Options options) {
+        if (sourceTargetFiles == null) {
+            throw new NullPointerException("sourceTargetFiles == null");
+        }
+
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         this.sourceTargetFiles = new ArrayList<Pair<File,
                 File>>(sourceTargetFiles);
         this.options = options;

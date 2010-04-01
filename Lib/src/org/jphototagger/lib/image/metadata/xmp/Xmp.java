@@ -256,6 +256,10 @@ public final class Xmp {
     public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(
             String xmpString) {
         try {
+            if (xmpString == null) {
+                throw new NullPointerException("xmpString == null");
+            }
+
             List<XMPPropertyInfo> propertyInfos =
                 new ArrayList<XMPPropertyInfo>();
             XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpString);
@@ -368,12 +372,12 @@ public final class Xmp {
 
             if ((xmpPropertyInfo.getNamespace() != null) && (xmpPropertyInfo
                     .getPath() != null) &&!xmpPropertyInfo.getOptions()
-                    .isQualifier() && xmpPropertyInfo.getNamespace()
-                        .equals(propertyValue.getNamespace()
-                            .getUri()) && xmpPropertyInfo.getPath()
-                                .startsWith(propertyValue
-                                    .getPath()) && (stringValue != null) &&!stringValue
-                                        .isEmpty()) {
+                        .isQualifier() && xmpPropertyInfo.getNamespace()
+                            .equals(propertyValue.getNamespace()
+                                .getUri()) && xmpPropertyInfo.getPath()
+                                    .startsWith(propertyValue
+                                        .getPath()) && (stringValue != null) &&!stringValue
+                                            .isEmpty()) {
                 values.add(stringValue);
             }
         }
@@ -400,6 +404,14 @@ public final class Xmp {
     public static String getPropertyValueFrom(
             Collection<? extends XMPPropertyInfo> xmpPropertyInfos,
             PropertyValue propertyValue) {
+        if (xmpPropertyInfos == null) {
+            throw new NullPointerException("xmpPropertyInfos == null");
+        }
+
+        if (propertyValue == null) {
+            throw new NullPointerException("propertyValue == null");
+        }
+
         List<String> values = getPropertyValuesFrom(xmpPropertyInfos,
                                   propertyValue);
 

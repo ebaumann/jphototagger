@@ -107,11 +107,15 @@ public final class HelpNode {
      * @return child: an object of the type
      *         {@link HelpNode} or {@link HelpPage}
      *         or null if the index is invalid
-     * @throws IndexOutOfBoundsException if {@code index < 0}
+     * @throws IndexOutOfBoundsException if
+     *                                  {@code index < 0 || index >= childCount}
      */
     public Object getChild(int index) {
-        if (index < 0) {
-            throw new IndexOutOfBoundsException("index < 0: " + index);
+        int count = children.size();
+
+        if ((index < 0) || (index >= count)) {
+            throw new IndexOutOfBoundsException("invalid index" + index
+                    + ", size: " + count);
         }
 
         return children.get(index);

@@ -56,6 +56,10 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * @param listener  action listener
      */
     public synchronized void addActionListener(ActionListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         actionListeners.add(listener);
     }
 
@@ -65,6 +69,10 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * @param listener  action listener
      */
     public synchronized void removeActionListener(ActionListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         actionListeners.remove(listener);
     }
 
@@ -101,6 +109,10 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * @param text  Text
      */
     public void setInfoText(String text) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
         labelInfo.setText(text);
     }
 
@@ -111,6 +123,10 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * @param text  text
      */
     public void setCurrentProgressInfoText(String text) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
         labelProgressInfo.setText(text);
     }
 
@@ -133,6 +149,10 @@ public final class ProgressDialog extends javax.swing.JDialog {
     }
 
     public void setProgressBarString(String string) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         progressBar.setString(string);
     }
 

@@ -40,6 +40,10 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_VERSION_ID);
 
         byte[] rawValue = exifTag.rawValue();

@@ -39,6 +39,10 @@ public final class ProgressListenerSupport
      * @param event progress event
      */
     public void notifyStarted(ProgressEvent event) {
+        if (event == null) {
+            throw new NullPointerException("event == null");
+        }
+
         synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressStarted(event);
@@ -55,6 +59,10 @@ public final class ProgressListenerSupport
      *               {@link ProgressEvent#isStop()}
      */
     public boolean notifyPerformed(ProgressEvent event) {
+        if (event == null) {
+            throw new NullPointerException("event == null");
+        }
+
         boolean isStop = false;
 
         synchronized (listeners) {
@@ -73,6 +81,10 @@ public final class ProgressListenerSupport
      * @param event progress event
      */
     public void notifyEnded(ProgressEvent event) {
+        if (event == null) {
+            throw new NullPointerException("event == null");
+        }
+
         synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressEnded(event);

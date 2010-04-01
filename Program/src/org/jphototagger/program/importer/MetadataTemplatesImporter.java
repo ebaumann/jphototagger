@@ -76,6 +76,10 @@ public final class MetadataTemplatesImporter
 
     @Override
     public void importFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             DocumentBuilderFactory docFactory =
                 DocumentBuilderFactory.newInstance();

@@ -43,6 +43,10 @@ public final class FavoritesImporter implements Importer {
 
     @Override
     public void importFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             FavoritesExporter.CollectionWrapper wrapper =
                 (CollectionWrapper) XmlObjectImporter.importObject(file,

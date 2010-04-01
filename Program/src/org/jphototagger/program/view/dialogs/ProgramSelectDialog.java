@@ -54,6 +54,11 @@ public class ProgramSelectDialog extends Dialog {
     public ProgramSelectDialog(Type type) {
         super(GUI.INSTANCE.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
+
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         this.type = type;
         model     = new ListModelPrograms(type);
         initComponents();

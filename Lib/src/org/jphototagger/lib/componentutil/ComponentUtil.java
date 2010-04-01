@@ -31,7 +31,6 @@ import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * All functions with object-reference-parameters are throwing a
@@ -63,6 +62,10 @@ public final class ComponentUtil {
      * @param window window to center
      */
     public static void centerScreen(Window window) {
+        if (window == null) {
+            throw new NullPointerException("window == null");
+        }
+
         Dimension screenDimension = window.getToolkit().getScreenSize();
         Rectangle frameBounds     = window.getBounds();
 
@@ -110,7 +113,8 @@ public final class ComponentUtil {
     /**
      * Returns all elements of a specific class from a container.
      *
-     * <em>Only elements of that class are detected, not sub- and supertyes!</em>
+     * <em>Only elements of that class are detected, not sub- and
+     * supertyes!</em>
      *
      * @param <T>       class type
      * @param container container
@@ -159,6 +163,10 @@ public final class ComponentUtil {
      * @param window window
      */
     public static void show(Window window) {
+        if (window == null) {
+            throw new NullPointerException("window == null");
+        }
+
         if (!window.isVisible()) {
             window.setVisible(true);
         }

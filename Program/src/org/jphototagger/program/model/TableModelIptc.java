@@ -57,6 +57,10 @@ public final class TableModelIptc extends DefaultTableModel {
      * @param file  Datei
      */
     public void setFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (!UserSettings.INSTANCE.isDisplayIptc()) {
             return;
         }

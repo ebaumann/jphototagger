@@ -176,6 +176,10 @@ public final class SavedSearchesHelper {
      * @return             not existing name or null
      */
     public static String getNotExistingName(String suggestName) {
+        if (suggestName == null) {
+            throw new NullPointerException("suggestName == null");
+        }
+
         boolean wantInput = true;
         String  input     = null;
 

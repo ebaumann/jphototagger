@@ -48,10 +48,18 @@ public final class ConvertIptcToXmp implements Runnable {
     private boolean          stop;
 
     public ConvertIptcToXmp(List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         this.imageFiles = new ArrayList<File>(imageFiles);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         progressListeners.add(listener);
     }
 

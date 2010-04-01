@@ -54,6 +54,10 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.METERING_MODE);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {

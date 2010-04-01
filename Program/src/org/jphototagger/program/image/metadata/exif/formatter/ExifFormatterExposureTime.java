@@ -39,6 +39,10 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.EXPOSURE_TIME);
 
         if (ExifRational.byteCount() == exifTag.rawValue().length) {

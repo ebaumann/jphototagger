@@ -112,6 +112,10 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     public void setParentPane(JTabbedPane pane) {
+        if (pane == null) {
+            throw new NullPointerException("pane == null");
+        }
+
         clear();
         traversePane(pane);
         setAllTabsToListAndCache();
@@ -253,6 +257,14 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
      */
     public void addSearchWordsTo(Collection<? extends String> words,
                                  Component tab) {
+        if (words == null) {
+            throw new NullPointerException("words == null");
+        }
+
+        if (tab == null) {
+            throw new NullPointerException("tab == null");
+        }
+        
         for (String word : words) {
             setTabOfWord(word, tab);
         }

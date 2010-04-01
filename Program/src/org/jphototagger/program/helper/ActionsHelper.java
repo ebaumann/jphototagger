@@ -58,14 +58,38 @@ public final class ActionsHelper {
     }
 
     public static boolean existsAction(JMenu actionsMenu, Program action) {
+        if (actionsMenu == null) {
+            throw new NullPointerException("actionsMenu == null");
+        }
+
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         return getIndexOfAction(actionsMenu, action) >= 0;
     }
 
     public static void addAction(JMenu actionsMenu, Program action) {
+        if (actionsMenu == null) {
+            throw new NullPointerException("actionsMenu == null");
+        }
+
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         actionsMenu.add(new ActionStarter(action));
     }
 
     public static void removeAction(JMenu actionsMenu, Program action) {
+        if (actionsMenu == null) {
+            throw new NullPointerException("actionsMenu == null");
+        }
+
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         int index = getIndexOfAction(actionsMenu, action);
 
         if (index >= 0) {

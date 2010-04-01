@@ -105,6 +105,10 @@ public final class HelpBrowser extends Dialog
      */
     public synchronized void addHelpBrowserListener(
             HelpBrowserListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         helpBrowserListeners.add(listener);
     }
 
@@ -115,6 +119,10 @@ public final class HelpBrowser extends Dialog
      */
     public synchronized void removeHelpBrowserListener(
             HelpBrowserListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         helpBrowserListeners.remove(listener);
     }
 
@@ -142,6 +150,10 @@ public final class HelpBrowser extends Dialog
      * @param url  URL
      */
     public synchronized void showUrl(String url) {
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
+
         if (isVisible()) {
             showUrl(getClass().getResource(baseUrl + "/" + url));
         }
@@ -155,6 +167,10 @@ public final class HelpBrowser extends Dialog
      * @param url  URL, eg. <code>firststeps.html</code>
      */
     public synchronized void setDisplayUrl(String url) {
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
+
         startUrl = url;
     }
 
@@ -167,6 +183,10 @@ public final class HelpBrowser extends Dialog
      * @param url URL, eg. <code>/org/jphototagger/program/resource/doc/de/contents.xml</code>
      */
     public synchronized void setContentsUrl(String url) {
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
+
         contentsUrl = url;
         urlHistory.clear();
         tree.setModel(new TreeModelHelpContents(url));
@@ -330,6 +350,10 @@ public final class HelpBrowser extends Dialog
      * @return last path component
      */
     public static String getLastPathComponent(URL url) {
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
+
         String path  = url.getPath();
         int    index = path.lastIndexOf("/");
 

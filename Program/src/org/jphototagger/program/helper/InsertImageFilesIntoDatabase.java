@@ -126,6 +126,14 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * @param what       metadata to insert
      */
     public InsertImageFilesIntoDatabase(List<File> imageFiles, Insert... what) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
+        if (what == null) {
+            throw new NullPointerException("what == null");
+        }
+
         this.imageFiles = new ArrayList<File>(imageFiles);
 
         for (Insert ins : what) {
@@ -383,6 +391,10 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      */
     public void addUpdateMetadataCheckListener(
             UpdateMetadataCheckListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         updateLs.add(listener);
     }
 
@@ -394,6 +406,10 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      */
     public void removeUpdateMetadataCheckListener(
             UpdateMetadataCheckListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         updateLs.remove(listener);
     }
 
@@ -417,10 +433,18 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * @param listener
      */
     public void addProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         progressLs.add(listener);
     }
 
     public void removeProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         progressLs.remove(listener);
     }
 

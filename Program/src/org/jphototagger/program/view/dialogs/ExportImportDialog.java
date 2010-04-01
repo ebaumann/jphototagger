@@ -40,6 +40,11 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     public ExportImportDialog(ExportImportPanel.Context context) {
         super(GUI.INSTANCE.getAppFrame(), UserSettings.INSTANCE.getSettings(),
               "ExportImportDialog");
+
+        if (context == null) {
+            throw new NullPointerException("context == null");
+        }
+
         this.context = context;
         initComponents();
         postInitComponents();

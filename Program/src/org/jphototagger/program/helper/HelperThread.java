@@ -62,6 +62,10 @@ public abstract class HelperThread extends Thread {
      * @param listener progress listener
      */
     public void addProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (progressListeners) {
             progressListeners.add(listener);
         }
@@ -75,6 +79,10 @@ public abstract class HelperThread extends Thread {
      * @param progressBar progress bar
      */
     public synchronized void setProgressBar(JProgressBar progressBar) {
+        if (progressBar == null) {
+            throw new NullPointerException("progressBar == null");
+        }
+
         this.progressBar  = progressBar;
         customProgressBar = true;
     }
@@ -87,6 +95,10 @@ public abstract class HelperThread extends Thread {
      * @param info info
      */
     public synchronized void setInfo(String info) {
+        if (info == null) {
+            throw new NullPointerException("info == null");
+        }
+
         this.info   = info;
         infoChanged = true;
     }
@@ -97,6 +109,10 @@ public abstract class HelperThread extends Thread {
      * @param listener progress listener
      */
     public void removeProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (progressListeners) {
             progressListeners.remove(listener);
         }

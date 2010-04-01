@@ -32,6 +32,10 @@ import com.adobe.xmp.XMPMetaFactory;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
 
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
+import org.jphototagger.lib.io.FileLock;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.Column;
@@ -49,10 +53,6 @@ import org.jphototagger.program.database.metadata.selections.EditColumns;
 import org.jphototagger.program.database.metadata.selections.XmpInDatabase;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
 import org.jphototagger.program.io.IoUtil;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
-import org.jphototagger.lib.io.FileLock;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -111,6 +111,14 @@ public final class XmpMetadata {
      */
     public static List<XMPPropertyInfo> filterPropertyInfosOfNamespace(
             List<XMPPropertyInfo> propertyInfos, String namespace) {
+        if (propertyInfos == null) {
+            throw new NullPointerException("propertyInfos == null");
+        }
+
+        if (namespace == null) {
+            throw new NullPointerException("namespace == null");
+        }
+
         List<XMPPropertyInfo> propertyInfosNs =
             new ArrayList<XMPPropertyInfo>();
 
@@ -126,7 +134,7 @@ public final class XmpMetadata {
     /**
      * Returns XMP metadata embedded in an image file.
      *
-     * @param imageFile image file
+     * @param imageFile image file or null
      * @return          Metadata or null if the image file has no XMP metadata
      *                  or on errors while reading
      */
@@ -214,7 +222,7 @@ public final class XmpMetadata {
      * <code>xmp</code>. If the image file has the name <code>dog.jpg</code>,
      * the sidecar file name is <code>dog.xmp</code>.
      *
-     * @param  imageFile image file
+     * @param  imageFile image file or null
      * @return           sidecar file
      */
     public static File suggestSidecarFile(File imageFile) {
@@ -238,7 +246,7 @@ public final class XmpMetadata {
     /**
      * Returns an image's sidecar file (only) if the image has a sidecar file.
      *
-     * @param imageFile image file
+     * @param imageFile image file or null
      * @return          sidecar file or null, if the image doesn't have a
      *                  sidecar file
      */
@@ -292,6 +300,10 @@ public final class XmpMetadata {
      * @return       true if that string is a known namespace
      */
     public static boolean isKnownNamespace(String string) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         return KNOWN_NAMESPACES.contains(string);
     }
 
@@ -306,6 +318,14 @@ public final class XmpMetadata {
     public static List<XMPPropertyInfo> filterPropertyInfosOfIptcEntryMeta(
             List<XMPPropertyInfo> propertyInfos,
             IPTCEntryMeta matchingIptcEntryMeta) {
+        if (propertyInfos == null) {
+            throw new NullPointerException("propertyInfos == null");
+        }
+
+        if (matchingIptcEntryMeta == null) {
+            throw new NullPointerException("matchingIptcEntryMeta == null");
+        }
+
         List<XMPPropertyInfo> filteredPropertyInfos =
             new ArrayList<XMPPropertyInfo>();
         String startsWith =
@@ -325,7 +345,7 @@ public final class XmpMetadata {
      * Returns whether an image has a sidecar file and the sidecar file exists
      * in the same directory as the image file.
      *
-     * @param  imageFile image file
+     * @param  imageFile image file or null
      * @return           true if the image has a sidecar file
      */
     public static boolean hasImageASidecarFile(File imageFile) {
@@ -338,7 +358,7 @@ public final class XmpMetadata {
      * This is true if the sidecar file exists and is writable or if it does not
      * exist and the directory is writable.
      *
-     * @param  imageFile image file
+     * @param  imageFile image file or null
      * @return           true if possible
      */
     public static boolean canWriteSidecarFileForImageFile(File imageFile) {
@@ -366,6 +386,14 @@ public final class XmpMetadata {
      */
     public static boolean writeXmpToSidecarFile(Xmp fromXmp,
             File toSidecarFile) {
+        if (fromXmp == null) {
+            throw new NullPointerException("fromXmp == null");
+        }
+
+        if (toSidecarFile == null) {
+            throw new NullPointerException("toSidecarFile == null");
+        }
+
         try {
             XMPMeta toXmpMeta = getXmpMetaOfSidecarFile(toSidecarFile);
 
@@ -568,7 +596,7 @@ public final class XmpMetadata {
      * hasn't a sidecar file but embedded XMP metadata, the embedded XMP
      * metadata will be read.
      *
-     * @param  imageFile image file
+     * @param  imageFile image file or null
      * @return           XMP metadata of the image file or null
      */
     public static Xmp getXmpFromSidecarFileOf(File imageFile) {
@@ -588,6 +616,10 @@ public final class XmpMetadata {
      *                    when errors occur while reading the file
      */
     public static Xmp getEmbeddedXmp(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         String xmpString = getEmbeddedXmpAsString(imageFile);
 
         return (xmpString == null)
@@ -694,6 +726,10 @@ public final class XmpMetadata {
      */
     public static List<Pair<File, File>> getImageFilesWithSidecarFiles(
             List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
 
         for (File imageFile : imageFiles) {

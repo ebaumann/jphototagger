@@ -42,6 +42,10 @@ public final class SearchHelper {
      * @param search saved search
      */
     public static void setSort(SavedSearch search) {
+        if (search == null) {
+            throw new NullPointerException("search == null");
+        }
+
         if (search.isCustomSql()) {
             GUI.INSTANCE.getAppPanel().getPanelThumbnails()
                 .setFileSortComparator(FileSort.NO_SORT.getComparator());

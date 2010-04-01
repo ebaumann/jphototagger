@@ -80,6 +80,10 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
      *                  <code>"/com/mydomain/myproject/res/search.png"</code>
      */
     public void setImagePath(String imagePath) {
+        if (imagePath == null) {
+            throw new NullPointerException("imagePath == null");
+        }
+
         this.imagePath = imagePath;
         image          = IconUtil.getIconImage(imagePath);
         paintImage     = image != null;
@@ -89,12 +93,12 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
     /**
      * Sets an image rather than an image path.
      *
-     * @param image image
+     * @param image image, can be null
      */
     public void setImage(Image image) {
+        paintImage     = image != null;
         this.image     = image;
         this.imagePath = null;
-        paintImage     = image != null;
         setOpaque(false);
     }
 

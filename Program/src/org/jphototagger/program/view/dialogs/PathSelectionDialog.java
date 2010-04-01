@@ -64,6 +64,10 @@ public class PathSelectionDialog extends Dialog
                                Mode mode) {
         super(GUI.INSTANCE.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
+        if (mode == null) {
+            throw new NullPointerException("mode == null");
+        }
+
         this.paths = paths;
         this.mode  = mode;
         assert paths != null : "paths == null!";
@@ -88,6 +92,10 @@ public class PathSelectionDialog extends Dialog
     }
 
     public void setInfoMessage(String message) {
+        if (message == null) {
+            throw new NullPointerException("message == null");
+        }
+
         labelInfo.setText(message);
         labelInfo.setDisplayedMnemonic(message.charAt(0));
     }

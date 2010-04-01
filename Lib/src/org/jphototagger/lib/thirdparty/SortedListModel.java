@@ -1,5 +1,5 @@
 /*
- * @(#)SortedListModel.java    Created on 
+ * @(#)SortedListModel.java    Created on
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -85,11 +85,15 @@ public class SortedListModel extends AbstractListModel {
      *
      * @param model
      * @param sortOrder
-     * @param comp
+     * @param comp     comparator or null
      *
      */
     public SortedListModel(ListModel model, SortOrder sortOrder,
                            Comparator<Object> comp) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
         unsortedModel = model;
         unsortedModel.addListDataListener(new ListDataListener() {
             @Override
@@ -174,14 +178,18 @@ public class SortedListModel extends AbstractListModel {
     }
 
     /**
-     * Convert an array of sorted model indices to their unsorted model indices. Sort
-     * the resulting set of indices.
+     * Convert an array of sorted model indices to their unsorted model indices.
+     * Sort the resulting set of indices.
      *
-     * @param sortedSelectedIndices indices of selected elements in the sorted model
-     *       or sorted view
+     * @param sortedSelectedIndices    indices of selected elements in the
+     *                                 sorted  model or sorted view
      * @return unsortedSelectedIndices selected indices in the unsorted model
      */
     public int[] toUnsortedModelIndices(int[] sortedSelectedIndices) {
+        if (sortedSelectedIndices == null) {
+            throw new NullPointerException("sortedSelectedIndices == null");
+        }
+
         int[] unsortedSelectedIndices = new int[sortedSelectedIndices.length];
         int   x                       = 0;
 
@@ -227,6 +235,10 @@ public class SortedListModel extends AbstractListModel {
      * @return an array of selected indices in the sorted model
      */
     public int[] toSortedModelIndices(int[] unsortedModelIndices) {
+        if (unsortedModelIndices == null) {
+            throw new NullPointerException("unsortedModelIndices == null");
+        }
+
         int[] sortedModelIndices = new int[unsortedModelIndices.length];
         int   x                  = 0;
 
@@ -250,6 +262,10 @@ public class SortedListModel extends AbstractListModel {
     @SuppressWarnings("unchecked")
     public void setComparator(Comparator<Object> comp) {
         if (comp == null) {
+            throw new NullPointerException("comp == null");
+        }
+
+        if (comp == null) {
             sortOrder  = SortOrder.UNORDERED;
             comparator = Collator.getInstance();
             resetModelData();
@@ -268,6 +284,10 @@ public class SortedListModel extends AbstractListModel {
      */
     @SuppressWarnings("unchecked")
     public void setSortOrder(SortOrder sortOrder) {
+        if (sortOrder == null) {
+            throw new NullPointerException("sortOrder == null");
+        }
+
         if (this.sortOrder != sortOrder) {
             this.sortOrder = sortOrder;
 

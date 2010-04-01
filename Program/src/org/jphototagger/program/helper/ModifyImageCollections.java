@@ -46,6 +46,10 @@ public final class ModifyImageCollections {
      *                   was created
      */
     public static String insertImageCollection(List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         String name = inputCollectionName("");
 
         if ((name != null) &&!name.isEmpty()) {
@@ -70,6 +74,14 @@ public final class ModifyImageCollections {
      */
     public static boolean deleteImagesFromCollection(String collectionName,
             List<File> imageFiles) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         if (confirmDelete("ModifyImageCollections.Confirm.DeleteSelectedFiles",
                           collectionName)) {
             boolean removed =
@@ -93,6 +105,10 @@ public final class ModifyImageCollections {
      * @return               true wenn gelöscht
      */
     public static boolean deleteImageCollection(String collectionName) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
         boolean deleted = false;
 
         if (confirmDelete("ModifyImageCollections.Confirm.DeleteCollection",
@@ -116,6 +132,14 @@ public final class ModifyImageCollections {
      */
     public static boolean addImagesToCollection(String collectionName,
             List<File> imageFiles) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         boolean added =
             DatabaseImageCollections.INSTANCE.insertImagesInto(collectionName,
                 imageFiles);
@@ -135,6 +159,10 @@ public final class ModifyImageCollections {
      *                wurde
      */
     public static String renameImageCollection(String fromName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
         String newName = inputCollectionName(fromName);
 
         if ((newName != null) &&!newName.isEmpty()) {
@@ -163,6 +191,10 @@ public final class ModifyImageCollections {
      * @return true if allowed
      */
     public static boolean isValidName(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         return !name.trim().equalsIgnoreCase(
             ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT);
     }

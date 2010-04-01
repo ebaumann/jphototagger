@@ -45,6 +45,10 @@ public final class ContentUtil {
      * @return         true if the content is in a single directory
      */
     public static boolean isSingleDirectoryContent(Content content) {
+        if (content == null) {
+            throw new NullPointerException("content == null");
+        }
+
         return CONTENT_IS_A_FILESYSTEM_DIRECTORY.contains(content);
     }
 

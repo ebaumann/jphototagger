@@ -89,18 +89,34 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     public void addProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         pListenerSupport.add(listener);
     }
 
     public void removeProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         pListenerSupport.remove(listener);
     }
 
     public void addFileSystemActionListener(FileSystemListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         fsListenerSupport.add(listener);
     }
 
     public void removeFileSystemActionListener(FileSystemListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         fsListenerSupport.remove(listener);
     }
 
@@ -228,6 +244,10 @@ public final class CopyToDirectoryDialog extends Dialog
      * @param sourceFiles  Quelldateien
      */
     public void setSourceFiles(Collection<File> sourceFiles) {
+        if (sourceFiles == null) {
+            throw new NullPointerException("sourceFiles == null");
+        }
+
         this.sourceFiles = sourceFiles;
     }
 
@@ -237,6 +257,10 @@ public final class CopyToDirectoryDialog extends Dialog
      * @param directory target directory
      */
     public void setTargetDirectory(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (directory.isDirectory() && directory.exists()) {
             targetDirectory = directory;
         }
@@ -251,6 +275,10 @@ public final class CopyToDirectoryDialog extends Dialog
      * @param options copy options
      */
     public void copy(boolean addXmp, Options options) {
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         if (targetDirectory.exists() && (sourceFiles.size() > 0)) {
             labelTargetDirectory.setText(targetDirectory.getAbsolutePath());
             setOptionsToRadioButtons(options);

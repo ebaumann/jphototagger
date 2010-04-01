@@ -42,6 +42,10 @@ public final class UserTasks {
      * @param runnable runnable
      */
     public void add(Runnable runnable) {
+        if (runnable == null) {
+            throw new NullPointerException("runnable == null");
+        }
+
         executor.execute(runnable);
     }
 

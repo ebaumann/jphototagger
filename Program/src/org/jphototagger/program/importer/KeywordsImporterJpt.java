@@ -62,6 +62,10 @@ public final class KeywordsImporterJpt extends KeywordsImporter
 
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             DocumentBuilderFactory docFactory =
                 DocumentBuilderFactory.newInstance();

@@ -48,6 +48,10 @@ public final class ServiceLookup {
      *               if no class implements that service
      */
     public static <T> T lookup(Class<T> clazz) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
+
         Iterator<T> services = ServiceLoader.load(clazz).iterator();
 
         return services.hasNext()
@@ -64,6 +68,10 @@ public final class ServiceLookup {
      *               class implements that service
      */
     public static <T> Collection<? extends T> lookupAll(Class<T> clazz) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
+
         Collection<T> result = new ArrayList<T>();
 
         try {
@@ -71,8 +79,8 @@ public final class ServiceLookup {
                 result.add(service);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ServiceLookup.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(ServiceLookup.class.getName()).log(Level.SEVERE,
+                             null, ex);
         }
 
         return result;

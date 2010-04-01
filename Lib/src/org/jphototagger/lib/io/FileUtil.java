@@ -102,6 +102,10 @@ public final class FileUtil {
             throw new NullPointerException("filename == null");
         }
 
+        if (encoding == null) {
+            throw new NullPointerException("encoding == null");
+        }
+
         return getFileContentAsString(new File(filename), encoding);
     }
 
@@ -456,6 +460,10 @@ public final class FileUtil {
             DirectoryFilter.Option... options) {
         if (directoryname == null) {
             throw new NullPointerException("directoryname == null");
+        }
+
+        if (options == null) {
+            throw new NullPointerException("options == null");
         }
 
         return getSubdirectoriesRecursive(new File(directoryname), options);
@@ -930,6 +938,10 @@ public final class FileUtil {
      * @return       source code path
      */
     public static URL getSourceLocation(Class<?> clazz) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
+
         return clazz.getProtectionDomain().getCodeSource().getLocation();
     }
 
@@ -942,6 +954,14 @@ public final class FileUtil {
      */
     public static File getFileOfPackage(Class<?> classInPackgage,
             String filename) {
+        if (classInPackgage == null) {
+            throw new NullPointerException("classInPackgage == null");
+        }
+
+        if (filename == null) {
+            throw new NullPointerException("filename == null");
+        }
+
         String packagePath = classInPackgage.getName();
         int    index       = packagePath.lastIndexOf(".");
 
@@ -982,6 +1002,14 @@ public final class FileUtil {
      */
     public static long getIndexOf(RandomAccessFile file, byte[] search)
             throws IOException {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (search == null) {
+            throw new NullPointerException("search == null");
+        }
+
         int matched = 0;
         int b       = (file.getFilePointer() < file.length() - 1)
                       ? 0
@@ -1069,6 +1097,10 @@ public final class FileUtil {
     }
 
     public static boolean deleteFile(String filepath) {
+        if (filepath == null) {
+            throw new NullPointerException("filepath == null");
+        }
+
         return new File(filepath).delete();
     }
 }

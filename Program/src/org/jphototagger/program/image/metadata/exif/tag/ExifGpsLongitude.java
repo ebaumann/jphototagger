@@ -56,6 +56,18 @@ public final class ExifGpsLongitude {
 
     public ExifGpsLongitude(byte[] refRawValue, byte[] degreesRawValue,
                             ByteOrder byteOrder) {
+        if (refRawValue == null) {
+            throw new NullPointerException("refRawValue == null");
+        }
+
+        if (degreesRawValue == null) {
+            throw new NullPointerException("degreesRawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         ensureByteCount(refRawValue, degreesRawValue);
         this.ref     = ref(refRawValue);
         this.degrees = new ExifDegrees(degreesRawValue, byteOrder);
@@ -81,10 +93,18 @@ public final class ExifGpsLongitude {
     }
 
     public static boolean byteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == byteCount();
     }
 
     public static boolean refByteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == refByteCount();
     }
 

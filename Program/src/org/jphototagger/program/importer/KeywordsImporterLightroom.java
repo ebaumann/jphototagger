@@ -61,6 +61,10 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
 
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             Node node = root;
 

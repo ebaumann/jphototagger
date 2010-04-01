@@ -43,7 +43,7 @@ public final class TransferableObject implements Transferable {
      * Creates a new instance of this class.
      *
      * @param data        data object returned by
-     *                    {@link #getTransferData(java.awt.datatransfer.DataFlavor)}.
+     *               {@link #getTransferData(java.awt.datatransfer.DataFlavor)}.
      *                    The object has to implement the Interface
      *                    {@link Serializable}!
      * @param dataFlavors data flavors supported data flavors of that object
@@ -53,6 +53,14 @@ public final class TransferableObject implements Transferable {
      *                    MIME type
      */
     public TransferableObject(Object data, DataFlavor... dataFlavors) {
+        if (data == null) {
+            throw new NullPointerException("data == null");
+        }
+
+        if (dataFlavors == null) {
+            throw new NullPointerException("dataFlavors == null");
+        }
+
         this.data        = data;
         this.dataFlavors = new DataFlavor[dataFlavors.length + 1];
         System.arraycopy(dataFlavors, 0, this.dataFlavors, 0,
@@ -68,6 +76,10 @@ public final class TransferableObject implements Transferable {
 
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
+        if (flavor == null) {
+            throw new NullPointerException("flavor == null");
+        }
+
         for (DataFlavor dataFlavor : dataFlavors) {
             if (flavor.equals(dataFlavor)) {
                 return true;

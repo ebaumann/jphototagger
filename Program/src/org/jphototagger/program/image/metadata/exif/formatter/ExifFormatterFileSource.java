@@ -38,6 +38,10 @@ public final class ExifFormatterFileSource extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.FILE_SOURCE);
 
         byte[] rawValue = exifTag.rawValue();

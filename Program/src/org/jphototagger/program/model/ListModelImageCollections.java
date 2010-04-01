@@ -84,6 +84,10 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     public void rename(String fromName, String toName) {
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         if (!checkIsNotSpecialCollection(
                 toName,
                 "ListModelImageCollections.Error.RenameSpecialCollection")) {
@@ -133,6 +137,10 @@ public final class ListModelImageCollections extends DefaultListModel {
      *                        collection
      */
     public static boolean isSpecialCollection(String collectionName) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
         for (String collection : SPECIAL_COLLECTIONS) {
             if (collection.equalsIgnoreCase(collectionName)) {
                 return true;
@@ -156,6 +164,14 @@ public final class ListModelImageCollections extends DefaultListModel {
      */
     public static boolean checkIsNotSpecialCollection(String collectionName,
             String propertyKey) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
+        if (propertyKey == null) {
+            throw new NullPointerException("propertyKey == null");
+        }
+
         if (isSpecialCollection(collectionName)) {
             MessageDisplayer.warning(null, propertyKey, collectionName);
 

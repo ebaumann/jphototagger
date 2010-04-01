@@ -77,6 +77,10 @@ public final class ExifFormatterUserComment extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.USER_COMMENT);
 
         byte[] rawValue = exifTag.rawValue();

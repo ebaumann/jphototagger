@@ -96,11 +96,19 @@ public final class ImageUtil {
      * @return         new dimensions or null if they couldn't be calculated
      */
     public static Dimension getNewDimensions(BufferedImage img, int maxWidth) {
+        if (img == null) {
+            throw new NullPointerException("img == null");
+        }
+
+        if (maxWidth < 0) {
+            throw new IllegalArgumentException("Negative width: " + maxWidth);
+        }
+
         int width  = img.getWidth();
         int height = img.getHeight();
 
-        assert (width > 0) && (height > 0) :
-                "Width " + width + " height " + height + " have to be > 0!";
+        assert(width > 0) && (height > 0) :
+              "Width " + width + " height " + height + " have to be > 0!";
 
         if ((width <= 0) || (height <= 0)) {
             return null;
@@ -118,9 +126,8 @@ public final class ImageUtil {
                                ? lenOtherSide
                                : maxWidth;
 
-        assert (newWidth > 0) && (newHeight > 0) :
-                "Width " + newWidth + " height " + newHeight
-                + " have to be > 0!";
+        assert(newWidth > 0) && (newHeight > 0) :
+              "Width " + newWidth + " height " + newHeight + " have to be > 0!";
 
         if ((newWidth <= 0) || (newHeight <= 0)) {
             return null;

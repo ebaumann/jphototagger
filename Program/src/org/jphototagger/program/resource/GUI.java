@@ -35,10 +35,18 @@ public final class GUI {
     public static final GUI INSTANCE = new GUI();
 
     public void setAppPanel(AppPanel panel) {
+        if (panel == null) {
+            throw new NullPointerException("panel == null");
+        }
+
         appPanel = panel;
     }
 
     public void setAppFrame(AppFrame frame) {
+        if (frame == null) {
+            throw new NullPointerException("frame == null");
+        }
+
         appFrame = frame;
     }
 

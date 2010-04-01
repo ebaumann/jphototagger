@@ -36,6 +36,10 @@ public final class ExifCopyrightFormatter extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.COPYRIGHT);
 
         return ExifCopyright.photographerCopyright(exifTag.rawValue());

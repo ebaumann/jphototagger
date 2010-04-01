@@ -39,6 +39,10 @@ public enum FileSystemError {
     private final String message;
 
     private FileSystemError(String message) {
+        if (message == null) {
+            throw new NullPointerException("message == null");
+        }
+
         this.message = message;
     }
 

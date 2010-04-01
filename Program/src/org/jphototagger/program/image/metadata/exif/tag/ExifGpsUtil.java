@@ -39,12 +39,20 @@ import java.util.Locale;
  */
 public final class ExifGpsUtil {
     public static double degrees(ExifDegrees degrees) {
+        if (degrees == null) {
+            throw new NullPointerException("degrees == null");
+        }
+
         return ExifDatatypeUtil.toDouble(degrees.degrees())
                + ExifDatatypeUtil.toDouble(degrees.minutes()) / 60
                + ExifDatatypeUtil.toDouble(degrees.seconds()) / 3600;
     }
 
     public static double secondsOfMinutes(ExifRational minutes) {
+        if (minutes == null) {
+            throw new NullPointerException("minutes == null");
+        }
+
         double doubleMinutes  = ExifDatatypeUtil.toDouble(minutes);
         double integerMinutes = ExifDatatypeUtil.toLong(minutes);
 
@@ -52,6 +60,10 @@ public final class ExifGpsUtil {
     }
 
     public static String degreesToString(ExifDegrees degrees) {
+        if (degrees == null) {
+            throw new NullPointerException("degrees == null");
+        }
+
         MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''");
         double        deg = ExifDatatypeUtil.toDouble(degrees.degrees());
         double        min = ExifDatatypeUtil.toDouble(degrees.minutes());
@@ -72,6 +84,14 @@ public final class ExifGpsUtil {
 
     public static String googleMapsUrl(ExifGpsLongitude longitude,
                                        ExifGpsLatitude latitude) {
+        if (longitude == null) {
+            throw new NullPointerException("longitude == null");
+        }
+
+        if (latitude == null) {
+            throw new NullPointerException("latitude == null");
+        }
+
         MessageFormat msg =
             new MessageFormat(
                 "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
@@ -89,6 +109,10 @@ public final class ExifGpsUtil {
     }
 
     public static ExifGpsMetadata gpsMetadata(ExifTags exifTags) {
+        if (exifTags == null) {
+            throw new NullPointerException("exifTags == null");
+        }
+
         ExifGpsMetadata gpsMetaData = new ExifGpsMetadata();
 
         setGpsLatitude(gpsMetaData, exifTags);

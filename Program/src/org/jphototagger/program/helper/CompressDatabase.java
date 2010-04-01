@@ -45,6 +45,10 @@ public final class CompressDatabase implements Runnable {
     private long    sizeAfter;
 
     public synchronized void addProgressListener(ProgressListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         listenerSupport.add(l);
     }
 

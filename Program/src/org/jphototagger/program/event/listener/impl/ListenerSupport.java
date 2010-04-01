@@ -34,12 +34,20 @@ public class ListenerSupport<T> {
     protected final Set<T> listeners = new HashSet<T>();
 
     public void add(T listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (listeners) {
             listeners.add(listener);
         }
     }
 
     public void remove(T listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (listeners) {
             listeners.remove(listener);
         }

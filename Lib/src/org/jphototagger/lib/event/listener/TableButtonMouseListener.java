@@ -45,8 +45,8 @@ public final class TableButtonMouseListener implements MouseListener {
             button.dispatchEvent(mouseEvent);
 
             // This is necessary so that when a button is pressed and released
-            // it gets rendered properly.  Otherwise, the button may still appear
-            // pressed down when it has been released.
+            // it gets rendered properly.  Otherwise, the button may still
+            // appear pressed down when it has been released.
             table.repaint();
         }
     }
@@ -70,6 +70,10 @@ public final class TableButtonMouseListener implements MouseListener {
     }
 
     public TableButtonMouseListener(JTable table) {
+        if (table == null) {
+            throw new NullPointerException("table == null");
+        }
+
         this.table = table;
     }
 

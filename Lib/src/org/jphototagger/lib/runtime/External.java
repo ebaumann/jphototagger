@@ -93,6 +93,10 @@ public final class External {
      *                 on errors
      */
     public static ProcessResult execute(String command, boolean wait) {
+        if (command == null) {
+            throw new NullPointerException("command == null");
+        }
+
         try {
             Runtime  runtime = Runtime.getRuntime();
             String[] cmd     = parseQuotedCommandLine(command);
@@ -133,6 +137,11 @@ public final class External {
             long maxMilliseconds) {
         if (command == null) {
             throw new NullPointerException("command == null");
+        }
+
+        if (maxMilliseconds < 0) {
+            throw new IllegalArgumentException("Negative maxMilliseconds: "
+                                               + maxMilliseconds);
         }
 
         Runtime runtime = Runtime.getRuntime();
@@ -266,6 +275,9 @@ public final class External {
 
     public static String[] parseQuotedCommandLine(String command)
             throws IOException {
+        if (command == null) {
+            throw new NullPointerException("command == null");
+        }
 
         // http://gcc.gnu.org/ml/java-patches/2000-q3/msg00026.html:
         // "\nnn (octal esacpe) are converted to the appropriate char values"

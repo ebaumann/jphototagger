@@ -48,6 +48,10 @@ public final class ExifFormatterContrast extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.CONTRAST);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {

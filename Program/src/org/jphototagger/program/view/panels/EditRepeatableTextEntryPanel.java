@@ -104,6 +104,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     public EditRepeatableTextEntryPanel(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         this.column = column;
         initComponents();
         postInitComponents();
@@ -124,6 +128,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     public void setPrompt(String text) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
         labelPrompt.setText(text);
         labelPrompt.setLabelFor(textAreaInput);
     }
@@ -176,6 +184,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
      * @param suggest suggest for keywords
      */
     public void setSuggest(Suggest suggest) {
+        if (suggest == null) {
+            throw new NullPointerException("suggest == null");
+        }
+
         this.suggest = suggest;
         buttonSuggestion.setEnabled(editable && (suggest != null));
         buttonSuggestion.setToolTipText((suggest == null)
@@ -200,6 +212,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
      * @param texts text to set, every text is a list item
      */
     public void setText(Collection<String> texts) {
+        if (texts == null) {
+            throw new NullPointerException("texts == null");
+        }
+
         textAreaInput.setText("");
         model.removeAllElements();
         addToList(texts);
@@ -228,6 +244,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     public void setBundleKeyPosRenameDialog(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         bundleKeyPosRenameDialog = key;
     }
 
@@ -239,9 +259,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     public void removeText(String text) {
-        assert editable : "Edit is not enabled!";
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
 
         if (!editable) {
+            assert false;
             return;
         }
 
@@ -257,9 +280,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel
      * @param text text
      */
     public void addText(String text) {
-        assert editable : "Edit is not enabled!";
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
 
         if (!editable) {
+            assert false;
             return;
         }
 
@@ -565,10 +591,18 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     public void addTextEntryListener(TextEntryListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         textEntryListenerSupport.add(listener);
     }
 
     public void removeTextEntryListener(TextEntryListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         textEntryListenerSupport.remove(listener);
     }
 
@@ -633,6 +667,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     @Override
     public synchronized void removeMouseListenerFromInputComponents(
             MouseListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         List<Component> inputComponents = getInputComponents();
 
         for (Component component : inputComponents) {

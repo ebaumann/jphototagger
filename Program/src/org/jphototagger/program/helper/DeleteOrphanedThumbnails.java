@@ -54,6 +54,10 @@ public final class DeleteOrphanedThumbnails implements Runnable {
     private volatile boolean cancelled        = false;
 
     public synchronized void addProgressListener(ProgressListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         listenerSupport.add(l);
     }
 

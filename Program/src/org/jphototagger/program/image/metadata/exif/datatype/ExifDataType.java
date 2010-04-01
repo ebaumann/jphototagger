@@ -120,6 +120,9 @@ public enum ExifDataType {
     private final String string;
 
     private ExifDataType(int value, int bitCount, String string) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
         this.value    = value;
         this.bitCount = bitCount;
         this.string   = string;

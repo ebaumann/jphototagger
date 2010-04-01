@@ -138,10 +138,14 @@ public class RatingSelectionPanel extends JPanel
 
     @Override
     public void setText(String text) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
         int val = 0;
 
         try {
-            if ((text != null) &&!text.trim().isEmpty()) {
+            if (!text.trim().isEmpty()) {
                 val = Integer.valueOf(text).intValue();
             }
         } catch (Exception e) {
@@ -170,6 +174,10 @@ public class RatingSelectionPanel extends JPanel
      * @param text text
      */
     public void setTextAndNotify(String text) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
         String oldText = getText();
 
         setText(text);
@@ -218,10 +226,18 @@ public class RatingSelectionPanel extends JPanel
     }
 
     public void addTextEntryListener(TextEntryListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         textEntryListenerSupport.add(listener);
     }
 
     public void removeTextEntryListener(TextEntryListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         textEntryListenerSupport.remove(listener);
     }
 
@@ -247,6 +263,10 @@ public class RatingSelectionPanel extends JPanel
     @Override
     public synchronized void addMouseListenerToInputComponents(
             MouseListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         List<Component> inputComponents = getInputComponents();
 
         for (Component component : inputComponents) {
@@ -257,6 +277,10 @@ public class RatingSelectionPanel extends JPanel
     @Override
     public synchronized void removeMouseListenerFromInputComponents(
             MouseListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         List<Component> inputComponents = getInputComponents();
 
         for (Component component : inputComponents) {

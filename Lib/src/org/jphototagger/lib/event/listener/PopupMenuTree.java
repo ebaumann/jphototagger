@@ -66,7 +66,7 @@ public abstract class PopupMenuTree extends JPopupMenu
         implements ActionListener, MouseListener {
     private static final long                          serialVersionUID =
         378844650671466081L;
-    private final Map<JMenuItem, Collection<Listener>> listenersOfItem  =
+    private final Map<JMenuItem, Collection<Listener>> listenersOfItem =
         new HashMap<JMenuItem, Collection<Listener>>();
     private JMenuItem      itemCollapseExpandAllSubItems;
     private JMenuItem      itemExpandAllSubItems;
@@ -116,6 +116,14 @@ public abstract class PopupMenuTree extends JPopupMenu
      *                 was selected, see {@link Listener#action(JTree, List)}
      */
     public void addListener(JMenuItem menuItem, Listener listener) {
+        if (menuItem == null) {
+            throw new NullPointerException("menuItem == null");
+        }
+
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (listenersOfItem) {
             Collection<Listener> listeners = listenersOfItem.get(menuItem);
 
@@ -136,6 +144,14 @@ public abstract class PopupMenuTree extends JPopupMenu
      *                 {@link #addListener(JMenuItem, PopupMenuTree.Listener)}
      */
     public void removeListener(JMenuItem menuItem, Listener listener) {
+        if (menuItem == null) {
+            throw new NullPointerException("menuItem == null");
+        }
+
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (listenersOfItem) {
             Collection<Listener> listeners = listenersOfItem.get(menuItem);
 

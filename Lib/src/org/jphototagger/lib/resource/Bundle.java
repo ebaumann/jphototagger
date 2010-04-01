@@ -53,8 +53,8 @@ public class Bundle {
      * path.
      *
      * @param path path, e.g. <code>"org/jphototagger/lib/resource/properties/Bundle"</code>
-     *             if in that package at least one file <code>Bundle.properties</code>
-     *             does exist
+     *             <code>Bundle.properties</code> if in that package at least
+     *             one file does exist
      */
     public Bundle(String path) {
         if (path == null) {
@@ -80,6 +80,10 @@ public class Bundle {
             throw new NullPointerException("key == null");
         }
 
+        if (params == null) {
+            throw new NullPointerException("params == null");
+        }
+
         try {
             String s = bundle.getString(key);
 
@@ -99,6 +103,10 @@ public class Bundle {
      * @return     true if the bundle contains that key
      */
     public boolean containsKey(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         return bundle.containsKey(key);
     }
 }

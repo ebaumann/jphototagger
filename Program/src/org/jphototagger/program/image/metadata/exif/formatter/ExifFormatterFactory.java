@@ -107,6 +107,10 @@ public final class ExifFormatterFactory {
      *                that tag
      */
     public static ExifFormatter get(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         IfdType ifdType = exifTag.ifdType();
         int     tagId   = exifTag.idValue();
 

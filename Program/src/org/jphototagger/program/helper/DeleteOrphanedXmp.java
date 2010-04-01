@@ -74,6 +74,10 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
      * @param listener Fortschrittsbeobachter
      */
     public synchronized void addProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         listenerSupport.add(listener);
     }
 

@@ -47,6 +47,14 @@ public final class ExifLong {
      *         negativ
      */
     public ExifLong(byte[] rawValue, ByteOrder byteOrder) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         Ensure.length(rawValue, byteCount());
         value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
         Ensure.positive(value);
@@ -62,6 +70,10 @@ public final class ExifLong {
     }
 
     public static boolean byteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == byteCount();
     }
 

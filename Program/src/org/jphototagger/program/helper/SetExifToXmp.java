@@ -80,6 +80,10 @@ public final class SetExifToXmp extends HelperThread {
      */
     public SetExifToXmp(Collection<? extends File> imageFiles,
                         boolean replaceExistingXmpData) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         this.replaceExistingXmpData = replaceExistingXmpData;
         files                       = new ArrayList<File>(imageFiles);
         setInfo();
@@ -126,6 +130,10 @@ public final class SetExifToXmp extends HelperThread {
      *                               Default: false.
      */
     public static void set(File imgFile, boolean replaceExistingXmpData) {
+        if (imgFile == null) {
+            throw new NullPointerException("imgFile == null");
+        }
+
         Exif exif = ExifMetadata.getExif(imgFile);
         Xmp  xmp  = XmpMetadata.getXmpFromSidecarFileOf(imgFile);
 
@@ -163,10 +171,22 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     public static boolean exifHasValues(Exif exif) {
+        if (exif == null) {
+            throw new NullPointerException("exif == null");
+        }
+
         return exif.getDateTimeOriginal() != null;
     }
 
     public static void setDateCreated(Xmp xmp, Exif exif) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
+        if (exif == null) {
+            throw new NullPointerException("exif == null");
+        }
+
         if (exif.getDateTimeOriginal() != null) {
             xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
                          exif.getXmpDateCreated());

@@ -237,6 +237,14 @@ public class ThumbnailsPanel extends JPanel
      *  Convert index-based selection to a new set of files
      */
     public void convertSelection(List<File> oldFiles, List<File> newFiles) {
+        if (oldFiles == null) {
+            throw new NullPointerException("oldFiles == null");
+        }
+
+        if (newFiles == null) {
+            throw new NullPointerException("newFiles == null");
+        }
+
         List<Integer> newSelection = new ArrayList<Integer>();
 
         for (int i : selectedThumbnailIndices) {
@@ -385,6 +393,10 @@ public class ThumbnailsPanel extends JPanel
     public void showPopupMenu(MouseEvent e, int thumbnailIndex) {}
 
     public synchronized void addFlag(int index, ThumbnailFlag flag) {
+        if (flag == null) {
+            throw new NullPointerException("flag == null");
+        }
+
         flagOfThumbnail.put(index, flag);
     }
 
@@ -397,6 +409,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized ThumbnailFlag getFlag(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return flagOfThumbnail.get(getIndexOf(file));
     }
 
@@ -472,6 +488,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized boolean isSelected(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return selectedThumbnailIndices.contains(getIndexOf(file));
     }
 
@@ -497,6 +517,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized int getImageMoveDropIndex(MouseEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         return getImageMoveDropIndex(e.getX(), e.getY());
     }
 
@@ -673,6 +697,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public void setSelected(List<Integer> indices) {
+        if (indices == null) {
+            throw new NullPointerException("indices == null");
+        }
+
         Set<Integer> rerenderTargets = getValidIndicesOf(indices);
 
         synchronized (this) {
@@ -849,6 +877,14 @@ public class ThumbnailsPanel extends JPanel
      * @param content   content
      */
     public void addRefreshListener(RefreshListener listener, Content content) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
+        if (content == null) {
+            throw new NullPointerException("content == null");
+        }
+
         synchronized (refreshListenersOf) {
             refreshListenersOf.get(content).add(listener);
         }
@@ -1104,6 +1140,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized boolean displaysFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return files.contains(file);
     }
 
@@ -1114,6 +1154,10 @@ public class ThumbnailsPanel extends JPanel
      * @param filesToRemove  files to remove
      */
     public synchronized void remove(Collection<? extends File> filesToRemove) {
+        if (filesToRemove == null) {
+            throw new NullPointerException("filesToRemove == null");
+        }
+
         List<File>    oldFiles           = new ArrayList<File>(files);
         List<Integer> selIndicesToRemove = getSelectedIndicesOf(filesToRemove);
 
@@ -1149,14 +1193,22 @@ public class ThumbnailsPanel extends JPanel
      * Renames a file <strong>on the display</strong>, <em>not</em> in the
      * file system.
      *
-     * @param oldFile  old file
-     * @param newFile  new file
+     * @param fromFile  old file
+     * @param toFile  new file
      */
-    public synchronized void rename(File oldFile, File newFile) {
-        int index = files.indexOf(oldFile);
+    public synchronized void rename(File fromFile, File toFile) {
+        if (fromFile == null) {
+            throw new NullPointerException("oldFile == null");
+        }
+
+        if (toFile == null) {
+            throw new NullPointerException("newFile == null");
+        }
+
+        int index = files.indexOf(fromFile);
 
         if (index >= 0) {
-            files.set(index, newFile);
+            files.set(index, toFile);
         }
     }
 
@@ -1166,6 +1218,10 @@ public class ThumbnailsPanel extends JPanel
      * @param file  file
      */
     public synchronized void repaint(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         int index = getIndexOf(file);
 
         if (index > 0) {
@@ -1179,6 +1235,10 @@ public class ThumbnailsPanel extends JPanel
      * @param fileAction  file action
      */
     public synchronized void setFileAction(FileAction fileAction) {
+        if (fileAction == null) {
+            throw new NullPointerException("fileAction == null");
+        }
+
         this.fileAction = fileAction;
     }
 
@@ -1195,6 +1255,14 @@ public class ThumbnailsPanel extends JPanel
      * @param content  content description of the files
      */
     public void setFiles(List<File> files, Content content) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
+        if (content == null) {
+            throw new NullPointerException("content == null");
+        }
+
         synchronized (this) {
             AppLogger.logFine(getClass(), "ThumbnailsPanel.SetFiles.Start",
                               files.size());
@@ -1231,6 +1299,10 @@ public class ThumbnailsPanel extends JPanel
      */
     public synchronized void setFileSortComparator(
             Comparator<File> comparator) {
+        if (comparator == null) {
+            throw new NullPointerException("comparator == null");
+        }
+
         fileSortComparator = comparator;
     }
 
@@ -1288,6 +1360,10 @@ public class ThumbnailsPanel extends JPanel
      * @param listener Beobachter
      */
     public void addThumbnailsPanelListener(ThumbnailsPanelListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (panelListeners) {
             panelListeners.add(listener);
         }
@@ -1410,6 +1486,10 @@ public class ThumbnailsPanel extends JPanel
      * @param viewport  Viewport
      */
     public synchronized void setViewport(JViewport viewport) {
+        if (viewport == null) {
+            throw new NullPointerException("viewport == null");
+        }
+
         this.viewport = viewport;
     }
 
@@ -1573,6 +1653,10 @@ public class ThumbnailsPanel extends JPanel
      * @return Index or -1 if not displayed
      */
     public synchronized int getIndexOf(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return files.indexOf(file);
     }
 
@@ -1621,6 +1705,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized void insert(Collection<? extends File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         List<File> newFiles = new ArrayList<File>(files.size()
                                   + imageFiles.size());
         boolean insert = false;
@@ -1639,6 +1727,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized void updateViaFileFilter(File imageFile) {
+
         // Insertion can't be decided because we don't know whether the image
         // file is e.g. in a displayed directory or matches the criteria of a
         // search

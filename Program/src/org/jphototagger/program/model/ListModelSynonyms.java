@@ -57,6 +57,10 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     public void addWord(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         assert role.equals(Role.WORDS);
 
         if (role.equals(Role.WORDS) &&!contains(word)) {
@@ -65,6 +69,10 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     public void removeWord(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         assert role.equals(Role.WORDS);
 
         if (role.equals(Role.WORDS) && contains(word)) {
@@ -76,6 +84,14 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     public void changeWord(String oldWord, String newWord) {
+        if (oldWord == null) {
+            throw new NullPointerException("oldWord == null");
+        }
+
+        if (newWord == null) {
+            throw new NullPointerException("newWord == null");
+        }
+
         assert role.equals(Role.WORDS) &&!oldWord.equals(newWord);
 
         if (role.equals(Role.WORDS) && contains(oldWord)) {
@@ -87,6 +103,10 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     public void addSynonym(String synonym) {
+        if (synonym == null) {
+            throw new NullPointerException("synonym == null");
+        }
+
         assert role.equals(Role.SYNONYMS) && (word != null);
 
         if (role.equals(Role.SYNONYMS) && (word != null) &&!contains(synonym)) {
@@ -105,6 +125,10 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     public void removeSynonym(String synonym) {
+        if (synonym == null) {
+            throw new NullPointerException("synonym == null");
+        }
+
         assert role.equals(Role.SYNONYMS) && (word != null);
 
         if (role.equals(Role.SYNONYMS) && (word != null) && contains(synonym)) {
@@ -119,6 +143,10 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     public void changeSynonym(String oldSynonym, String newSynonym) {
+        if (newSynonym == null) {
+            throw new NullPointerException("newSynonym == null");
+        }
+
         assert role.equals(Role.SYNONYMS) && (word != null)
                &&!oldSynonym.equals(newSynonym);
 
@@ -136,6 +164,10 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     public void setWord(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         assert role.equals(Role.SYNONYMS);
 
         if (role.equals(Role.SYNONYMS)

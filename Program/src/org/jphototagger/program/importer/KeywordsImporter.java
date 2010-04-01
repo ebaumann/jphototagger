@@ -83,6 +83,10 @@ public abstract class KeywordsImporter implements Importer {
 
     @Override
     public void importFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         Collection<List<Pair<String, Boolean>>> paths = getPaths(file);
 
         if (paths != null) {

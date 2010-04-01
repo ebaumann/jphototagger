@@ -37,6 +37,10 @@ public final class TiffUtil {
      * @return           TIFF header
      */
     public static byte[] tiffHeader(ByteOrder byteOrder) {
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         boolean littleEndian = byteOrder.equals(ByteOrder.LITTLE_ENDIAN);
         byte[]  header       = new byte[8];
         byte[]  bo           = littleEndian

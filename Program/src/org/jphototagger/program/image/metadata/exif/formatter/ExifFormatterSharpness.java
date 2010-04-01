@@ -50,6 +50,10 @@ public final class ExifFormatterSharpness extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.SHARPNESS);
 
         if (ExifShort.byteCount() == exifTag.rawValue().length) {

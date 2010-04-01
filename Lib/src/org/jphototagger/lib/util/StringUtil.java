@@ -43,6 +43,15 @@ public final class StringUtil {
      * @return                lines
      */
     public static List<String> wrapWords(String text, int maxCharsPerLine) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
+        if (maxCharsPerLine <= 0) {
+            throw new IllegalArgumentException("maxCharPerLine <= 0: "
+                                               + maxCharsPerLine);
+        }
+
         return wrapWords(text, maxCharsPerLine, WORD_DELIMITER);
     }
 
@@ -62,6 +71,10 @@ public final class StringUtil {
             String wordDelimiter) {
         if (text == null) {
             throw new NullPointerException("text == null");
+        }
+
+        if (wordDelimiter == null) {
+            throw new NullPointerException("wordDelimiter == null");
         }
 
         if (maxCharsPerLine <= 0) {

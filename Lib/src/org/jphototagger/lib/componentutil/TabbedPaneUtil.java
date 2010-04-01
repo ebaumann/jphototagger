@@ -41,6 +41,10 @@ public final class TabbedPaneUtil {
      * @param pane tabbed pane
      */
     public static void setMnemonics(JTabbedPane pane) {
+        if (pane == null) {
+            throw new NullPointerException("pane == null");
+        }
+
         int tabCount = pane.getTabCount();
 
         for (int tabIndex = 0; tabIndex < tabCount; tabIndex++) {

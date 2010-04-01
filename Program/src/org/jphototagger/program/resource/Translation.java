@@ -37,6 +37,10 @@ public final class Translation {
     private ResourceBundle bundle;
 
     public Translation(String propertiesFileBasename) {
+        if (propertiesFileBasename == null) {
+            throw new NullPointerException("propertiesFileBasename == null");
+        }
+
         try {
             bundle = ResourceBundle.getBundle(PATH_PREFIX
                                               + propertiesFileBasename);
@@ -54,6 +58,10 @@ public final class Translation {
      *               (Key nicht vorhanden in Properties-Datei)
      */
     public String translate(String string) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         try {
             return bundle.getString(string);
         } catch (Exception ex) {
@@ -74,6 +82,10 @@ public final class Translation {
      *                  ist (Key nicht vorhanden in Properties-Datei)
      */
     public String translate(String string, String alternate) {
+        if (alternate == null) {
+            throw new NullPointerException("alternate == null");
+        }
+
         try {
             return bundle.getString(string);
         } catch (Exception ex) {

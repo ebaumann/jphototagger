@@ -54,6 +54,10 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     public EditUserDefinedFileFilterDialog(UserDefinedFileFilter filter) {
         super(GUI.INSTANCE.getAppFrame(), true,
                 UserSettings.INSTANCE.getSettings(), null);
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         udf.set(filter);
         initComponents();
         postInitComponents();

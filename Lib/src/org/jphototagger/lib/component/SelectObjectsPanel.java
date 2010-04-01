@@ -51,12 +51,12 @@ import javax.swing.JPanel;
  * @author  Elmar Baumann
  */
 public final class SelectObjectsPanel extends JPanel implements ActionListener {
-    private static final long            serialVersionUID  =
+    private static final long            serialVersionUID =
         -273547657004917436L;
     private static final String          DELIM_SEL_INDICES = ",";
-    private final List<JCheckBox>        checkBoxes        =
+    private final List<JCheckBox>        checkBoxes =
         new ArrayList<JCheckBox>();
-    private final Map<JCheckBox, Object> objectOfCheckBox  =
+    private final Map<JCheckBox, Object> objectOfCheckBox =
         new LinkedHashMap<JCheckBox, Object>();
     private final Set<SelectionListener> listeners =
         new HashSet<SelectionListener>();
@@ -81,6 +81,14 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * @see                 #applyPropertiesSelectedIndices()
      */
     public SelectObjectsPanel(Properties properties, String keySelIndices) {
+        if (properties == null) {
+            throw new NullPointerException("properties == null");
+        }
+
+        if (keySelIndices == null) {
+            throw new NullPointerException("keySelIndices == null");
+        }
+
         this.properties    = properties;
         this.keySelIndices = keySelIndices;
         init();

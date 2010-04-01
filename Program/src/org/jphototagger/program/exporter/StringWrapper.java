@@ -55,6 +55,10 @@ public final class StringWrapper {
 
     public static List<StringWrapper> getWrappedStrings(
             Collection<? extends String> strings) {
+        if (strings == null) {
+            throw new NullPointerException("strings == null");
+        }
+
         List<StringWrapper> wrapped =
             new ArrayList<StringWrapper>(strings.size());
 

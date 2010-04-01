@@ -44,6 +44,14 @@ public final class HttpUtil {
      */
     public static void write(URL source, OutputStream target)
             throws IOException {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
+        if (target == null) {
+            throw new NullPointerException("target == null");
+        }
+
         HttpURLConnection   connection  = null;
         BufferedInputStream inputStream = null;
 

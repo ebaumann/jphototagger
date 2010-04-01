@@ -73,6 +73,10 @@ public final class EditTextEntryPanel extends JPanel
     }
 
     public EditTextEntryPanel(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         this.column = column;
         initComponents();
         postSetColumn();
@@ -86,6 +90,10 @@ public final class EditTextEntryPanel extends JPanel
     }
 
     public void setColumn(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         this.column = column;
         postSetColumn();
     }
@@ -112,6 +120,10 @@ public final class EditTextEntryPanel extends JPanel
 
     @Override
     public void setText(String text) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
         textAreaEdit.setText(text.trim());
         dirty = false;
     }
@@ -258,10 +270,18 @@ public final class EditTextEntryPanel extends JPanel
     }
 
     public void addTextEntryListener(TextEntryListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         textEntryListenerSupport.add(listener);
     }
 
     public void removeTextEntryListener(TextEntryListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         textEntryListenerSupport.remove(listener);
     }
 
@@ -278,6 +298,10 @@ public final class EditTextEntryPanel extends JPanel
     @Override
     public synchronized void addMouseListenerToInputComponents(
             MouseListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         List<Component> inputComponents = getInputComponents();
 
         for (Component component : inputComponents) {
@@ -288,6 +312,10 @@ public final class EditTextEntryPanel extends JPanel
     @Override
     public synchronized void removeMouseListenerFromInputComponents(
             MouseListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         List<Component> inputComponents = getInputComponents();
 
         for (Component component : inputComponents) {

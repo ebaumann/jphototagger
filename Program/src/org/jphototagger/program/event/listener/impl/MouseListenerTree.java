@@ -48,6 +48,10 @@ public class MouseListenerTree extends MouseAdapter implements ActionListener {
     private JMenuItem itemCollapseExpandAllSubItems;
 
     public void listenExpandAllSubItems(JMenuItem item, boolean listen) {
+        if (item == null) {
+            throw new NullPointerException("item == null");
+        }
+
         itemExpandAllSubItems = listen
                                 ? item
                                 : null;
@@ -60,6 +64,10 @@ public class MouseListenerTree extends MouseAdapter implements ActionListener {
     }
 
     public void listenCollapseAllSubItems(JMenuItem item, boolean listen) {
+        if (item == null) {
+            throw new NullPointerException("item == null");
+        }
+
         itemCollapseExpandAllSubItems = listen
                                         ? item
                                         : null;

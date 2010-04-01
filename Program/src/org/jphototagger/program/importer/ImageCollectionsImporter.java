@@ -56,6 +56,10 @@ public final class ImageCollectionsImporter implements Importer {
 
     @Override
     public void importFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             ImageCollectionsExporter.CollectionWrapper wrapper =
                 (CollectionWrapper) XmlObjectImporter.importObject(file,

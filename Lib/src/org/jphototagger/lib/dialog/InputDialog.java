@@ -89,6 +89,10 @@ public class InputDialog extends Dialog {
      * @param info info text
      */
     public void setInfo(String info) {
+        if (info == null) {
+            throw new NullPointerException("info == null");
+        }
+
         labelPrompt.setText(info);
     }
 
@@ -98,6 +102,10 @@ public class InputDialog extends Dialog {
      * @param input input
      */
     public void setInput(String input) {
+        if (input == null) {
+            throw new NullPointerException("input == null");
+        }
+
         textFieldInput.setText(input);
     }
 
@@ -127,6 +135,14 @@ public class InputDialog extends Dialog {
      * @param propertyKey property key
      */
     public void setProperties(Properties properties, String propertyKey) {
+        if (properties == null) {
+            throw new NullPointerException("properties == null");
+        }
+
+        if (propertyKey == null) {
+            throw new NullPointerException("propertyKey == null");
+        }
+
         settings         = new Settings(properties);
         this.propertyKey = propertyKey;
     }

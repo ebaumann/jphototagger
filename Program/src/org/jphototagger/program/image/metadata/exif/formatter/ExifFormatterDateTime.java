@@ -44,6 +44,10 @@ public final class ExifFormatterDateTime extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.DATE_TIME_ORIGINAL);
 
         byte[] rawValue = exifTag.rawValue();
