@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
@@ -31,7 +30,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,8 +43,22 @@ import java.util.Map;
 final class UpdateTablesMakePlural {
     private static final Map<String, String> TO_TABLE_NAME_OF =
         new HashMap<String, String>();
-    private static final Map<String, String> TO_INDEX_NAME_OF =
-        new HashMap<String, String>();
+    private static final List<IndexRenameInfo> INDICES_TO_RENAME =
+        new ArrayList<IndexRenameInfo>();
+
+    private static class IndexRenameInfo {
+        private final String tableName;
+        private final String fromName;
+        private final String toName;
+
+        public IndexRenameInfo(String tableName, String fromName,
+                               String toName) {
+            this.tableName = tableName;
+            this.fromName  = fromName;
+            this.toName    = toName;
+        }
+    }
+
 
     static {
 
@@ -65,47 +80,59 @@ final class UpdateTablesMakePlural {
         TO_TABLE_NAME_OF.put("file_exclude_pattern", "file_exclude_patterns");
 
         // Indices of renamed tables
-        TO_INDEX_NAME_OF.put("idx_exif_lens_id", "idx_exif_lenses_id");
-        TO_INDEX_NAME_OF.put("idx_exif_lens_lens", "idx_exif_lenses_lens");
-        TO_INDEX_NAME_OF.put("idx_dc_creator_id", "idx_dc_creators_id");
-        TO_INDEX_NAME_OF.put("idx_dc_creator_creator",
-                             "idx_dc_creators_creator");
-        TO_INDEX_NAME_OF.put("idx_iptc4xmpcore_location_id",
-                             "idx_iptc4xmpcore_locations_id");
-        TO_INDEX_NAME_OF.put("idx_iptc4xmpcore_location_location",
-                             "idx_iptc4xmpcore_locations_location");
-        TO_INDEX_NAME_OF.put("idx_photoshop_authorsposition_id",
-                             "idx_photoshop_authorspositions_id");
-        TO_INDEX_NAME_OF.put("idx_photoshop_authorsposition_authorsposition",
-                             "idx_photoshop_authorspositions_authorsposition");
-        TO_INDEX_NAME_OF.put("idx_photoshop_captionwriter_id",
-                             "idx_photoshop_captionwriters_id");
-        TO_INDEX_NAME_OF.put("idx_photoshop_captionwriter_captionwriter",
-                             "idx_photoshop_captionwriters_captionwriter");
-        TO_INDEX_NAME_OF.put("idx_photoshop_city_id",
-                             "idx_photoshop_cities_id");
-        TO_INDEX_NAME_OF.put("idx_photoshop_city_city",
-                             "idx_photoshop_cities_city");
-        TO_INDEX_NAME_OF.put("idx_photoshop_country_id",
-                             "idx_photoshop_countries_id");
-        TO_INDEX_NAME_OF.put("idx_photoshop_country_country",
-                             "idx_photoshop_countries_country");
-        TO_INDEX_NAME_OF.put("idx_photoshop_credit_id",
-                             "idx_photoshop_credits_id");
-        TO_INDEX_NAME_OF.put("idx_photoshop_credit_credit",
-                             "idx_photoshop_credits_credit");
-        TO_INDEX_NAME_OF.put("idx_photoshop_source_id",
-                             "idx_photoshop_sources_id");
-        TO_INDEX_NAME_OF.put("idx_photoshop_source_source",
-                             "idx_photoshop_sources_source");
-        TO_INDEX_NAME_OF.put("idx_photoshop_state_id",
-                             "idx_photoshop_states_id");
-        TO_INDEX_NAME_OF.put("idx_photoshop_state_state",
-                             "idx_photoshop_states_state");
-        TO_INDEX_NAME_OF.put("idx_user_defined_file_filter_name",
-                             "idx_user_defined_file_filters_name");
-        TO_INDEX_NAME_OF.put("idx_file_exclude_pattern_pattern",
-                             "idx_file_exclude_patterns_pattern");
+        INDICES_TO_RENAME.add(new IndexRenameInfo("exif_lenses",
+                "idx_exif_lens_id", "idx_exif_lenses_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("exif_lenses",
+                "idx_exif_lens_lens", "idx_exif_lenses_lens"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("dc_creators",
+                "idx_dc_creator_id", "idx_dc_creators_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("dc_creators",
+                "idx_dc_creator_creator", "idx_dc_creators_creator"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("iptc4xmpcore_locations",
+                "idx_iptc4xmpcore_location_id",
+                "idx_iptc4xmpcore_locations_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("iptc4xmpcore_locations",
+                "idx_iptc4xmpcore_location_location",
+                "idx_iptc4xmpcore_locations_location"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_authorspositions",
+                "idx_photoshop_authorsposition_id",
+                "idx_photoshop_authorspositions_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_authorspositions",
+                "idx_photoshop_authorsposition_authorsposition",
+                "idx_photoshop_authorspositions_authorsposition"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_captionwriters",
+                "idx_photoshop_captionwriter_id",
+                "idx_photoshop_captionwriters_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_captionwriters",
+                "idx_photoshop_captionwriter_captionwriter",
+                "idx_photoshop_captionwriters_captionwriter"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_cities",
+                "idx_photoshop_city_id", "idx_photoshop_cities_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_cities",
+                "idx_photoshop_city_city", "idx_photoshop_cities_city"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_countries",
+                "idx_photoshop_country_id", "idx_photoshop_countries_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_countries",
+                "idx_photoshop_country_country",
+                "idx_photoshop_countries_country"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_credits",
+                "idx_photoshop_credit_id", "idx_photoshop_credits_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_credits",
+                "idx_photoshop_credit_credit", "idx_photoshop_credits_credit"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_sources",
+                "idx_photoshop_source_id", "idx_photoshop_sources_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_sources",
+                "idx_photoshop_source_source", "idx_photoshop_sources_source"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_states",
+                "idx_photoshop_state_id", "idx_photoshop_states_id"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("photoshop_states",
+                "idx_photoshop_state_state", "idx_photoshop_states_state"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("user_defined_file_filters",
+                "idx_user_defined_file_filter_name",
+                "idx_user_defined_file_filters_name"));
+        INDICES_TO_RENAME.add(new IndexRenameInfo("file_exclude_patterns",
+                "idx_file_exclude_pattern_pattern",
+                "idx_file_exclude_patterns_pattern"));
     }
 
     void update(Connection con) throws SQLException {
@@ -143,14 +170,16 @@ final class UpdateTablesMakePlural {
         try {
             stmt = con.createStatement();
 
-            for (String fromName : TO_INDEX_NAME_OF.keySet()) {
-                String sql = "ALTER INDEX " + fromName + " RENAME TO "
-                             + TO_INDEX_NAME_OF.get(fromName);
+            for (IndexRenameInfo info : INDICES_TO_RENAME) {
+                if (DatabaseMetadata
+                        .existsIndex(con, info.fromName, info
+                            .tableName) &&!DatabaseMetadata
+                                .existsIndex(con, info.toName, info
+                                    .tableName)) {
+                    String sql = "ALTER INDEX " + info.fromName + " RENAME TO "
+                                 + info.toName;
 
-                try {
                     stmt.executeUpdate(sql);
-                } catch (SQLException ex) {
-                    AppLogger.logSevere(getClass(), ex);
                 }
             }
         } finally {
