@@ -202,6 +202,10 @@ public final class AppPanel extends javax.swing.JPanel {
     public enum SelectAlso { NOTHING_ELSE, SEL_KEYWORDS_TAB }
 
     public void displaySelKeywordsTree(SelectAlso select) {
+        if (select == null) {
+            throw new NullPointerException("select == null");
+        }
+
         if (select.equals(SelectAlso.SEL_KEYWORDS_TAB)) {
             tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
         }
@@ -210,6 +214,10 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     public void displaySelKeywordsList(SelectAlso select) {
+        if (select == null) {
+            throw new NullPointerException("select == null");
+        }
+
         if (select.equals(SelectAlso.SEL_KEYWORDS_TAB)) {
             tabbedPaneSelection.setSelectedComponent(panelSelKeywords);
         }
@@ -270,6 +278,14 @@ public final class AppPanel extends javax.swing.JPanel {
      */
     public void setStatusbarText(String text, MessageLabel.MessageType type,
                                  final long milliseconds) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         if (milliseconds > 0) {
             messageLabel.showMessage(text, type, milliseconds);
         } else {

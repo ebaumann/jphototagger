@@ -95,6 +95,10 @@ public final class ImageCollectionsImporter implements Importer {
         private final List<ImageCollection> imageCollections;
 
         public ImportThread(List<ImageCollection> imageCollections) {
+            if (imageCollections == null) {
+                throw new NullPointerException("imageCollections == null");
+            }
+
             this.imageCollections = imageCollections;
             super.setName("Importing image collections @ "
                           + getClass().getSimpleName());

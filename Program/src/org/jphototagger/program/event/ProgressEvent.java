@@ -54,6 +54,10 @@ public final class ProgressEvent {
      */
     public ProgressEvent(Object source, int minimum, int maximum, int value,
                          Object info) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
         this.source  = source;
         this.minimum = minimum;
         this.maximum = maximum;
@@ -77,6 +81,10 @@ public final class ProgressEvent {
      */
     public ProgressEvent(Object source, int minimum, int maximum, int value,
                          long milliSecondsRemaining, Object info) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
         this.source                = source;
         this.minimum               = minimum;
         this.maximum               = maximum;
@@ -97,6 +105,10 @@ public final class ProgressEvent {
      * @param info    Beliebige Information
      */
     public ProgressEvent(Object source, Object info) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
         this.source   = source;
         this.info     = info;
         indeterminate = true;

@@ -86,18 +86,30 @@ public final class UpdateAllThumbnails
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         setProgressDialogStarted(evt);
         checkStopEvent(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         setProgressDialogPerformed(evt);
         checkStopEvent(evt);
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         setProgressDialogEnded(evt);
         notifyActionPerformed();
     }

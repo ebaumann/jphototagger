@@ -169,27 +169,51 @@ public final class ListModelKeywords extends DefaultListModel
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         addNewKeywords(getKeywords(xmp));
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         removeKeywordsNotInDb(getKeywords(xmp));
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (oldXmp == null) {
+            throw new NullPointerException("oldXmp == null");
+        }
+
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         addNewKeywords(getKeywords(updatedXmp));
         removeKeywordsNotInDb(getKeywords(oldXmp));
     }
 
     @Override
     public void dcSubjectDeleted(String dcSubject) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
         removeKeywordsNotInDb(Collections.singleton(dcSubject));
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
         addNewKeywords(Collections.singleton(dcSubject));
     }
 

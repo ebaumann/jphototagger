@@ -167,6 +167,10 @@ public final class SettingsDialog extends Dialog {
     }
 
     public void selectTab(Tab tab) {
+        if (tab == null) {
+            throw new NullPointerException("tab == null");
+        }
+
         int index = indexOfTab.get(tab);
 
         if ((index >= 0) && (index < tabbedPane.getComponentCount())) {

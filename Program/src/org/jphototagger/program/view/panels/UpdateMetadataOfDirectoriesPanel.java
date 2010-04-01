@@ -207,6 +207,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
      */
     @Override
     public void actionPerformed(UpdateMetadataCheckEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         if (e.getType().equals(Type.CHECKING_FILE)) {
             File file = e.getImageFile();
 
@@ -231,6 +235,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
@@ -238,11 +246,19 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(evt.getValue());
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(evt.getValue());
     }
 

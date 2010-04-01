@@ -383,6 +383,10 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public synchronized void actionPerformed(ThumbnailUpdateEvent event) {
+        if (event == null) {
+            throw new NullPointerException("event == null");
+        }
+
         int index = getIndexOf(event.getSource());
 
         if (index >= 0) {
@@ -1689,6 +1693,10 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public void filterUpdated(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         if ((fileFilter instanceof UserDefinedFileFilter.RegexFileFilter)
                 && filter.filterEquals(
                     filter.getFileFilter(),
@@ -1744,32 +1752,60 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public void imageFileInserted(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateViaFileFilter(imageFile);
     }
 
     @Override
     public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        if (oldImageFile == null) {
+            throw new NullPointerException("oldImageFile == null");
+        }
+
+        if (newImageFile == null) {
+            throw new NullPointerException("newImageFile == null");
+        }
+
         updateViaFileFilter(oldImageFile);
         updateViaFileFilter(newImageFile);
     }
 
     @Override
     public void imageFileDeleted(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateViaFileFilter(imageFile);
     }
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateViaFileFilter(imageFile);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateViaFileFilter(imageFile);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateViaFileFilter(imageFile);
     }
 
@@ -1814,6 +1850,14 @@ public class ThumbnailsPanel extends JPanel
         private final Point         viewPosition;
 
         public Settings(Point viewPosition, List<Integer> selThumbnails) {
+            if (viewPosition == null) {
+                throw new NullPointerException("viewPosition == null");
+            }
+
+            if (selThumbnails == null) {
+                throw new NullPointerException("selThumbnails == null");
+            }
+
             this.viewPosition  = viewPosition;
             this.selThumbnails = selThumbnails;
         }

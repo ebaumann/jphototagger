@@ -292,6 +292,10 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         buttonStart.setEnabled(false);
         buttonStop.setEnabled(true);
         progressBar.setMinimum(evt.getMinimum());
@@ -303,6 +307,10 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(evt.getValue());
 
         @SuppressWarnings("unchecked") String filename =
@@ -315,6 +323,10 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         synchronized (this) {
             progressBar.setValue(evt.getValue());
             buttonStop.setEnabled(true);
@@ -345,6 +357,10 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     public void fileMoved(File source, File target) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
         movedFiles.add(source);
     }
 

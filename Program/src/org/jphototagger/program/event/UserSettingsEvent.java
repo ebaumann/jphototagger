@@ -35,6 +35,14 @@ public final class UserSettingsEvent {
     }
 
     public UserSettingsEvent(Type type, Object source) {
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
         this.type   = type;
         this.source = source;
     }

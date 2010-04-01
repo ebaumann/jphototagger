@@ -55,6 +55,10 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      * @param template  Template
      */
     public void delete(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         if ((getIndexOf(template) >= 0) && db.delete(template.getName())) {
             removeElement(template);
         } else {
@@ -71,6 +75,10 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      * @param template  Template
      */
     public void insert(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         if (getIndexOf(template) >= 0) {
             return;
         }
@@ -92,6 +100,10 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      * @param template  Template
      */
     public void update(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         int index = getIndexOf(template);
 
         if ((index >= 0) && db.update(template)) {
@@ -113,6 +125,14 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      * @param newName   Neuer Name
      */
     public void rename(MetadataTemplate template, String newName) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
+        if (newName == null) {
+            throw new NullPointerException("newName == null");
+        }
+
         int index = getIndexOf(template);
 
         if ((index >= 0) && db.updateRename(template.getName(), newName)) {
@@ -160,17 +180,33 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateDeleted(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         removeElement(template);
     }
 
     @Override
     public void templateInserted(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         addElement(template);
     }
 
     @Override
     public void templateUpdated(MetadataTemplate oldTemplate,
                                 MetadataTemplate updatedTemplate) {
+        if (oldTemplate == null) {
+            throw new NullPointerException("oldTemplate == null");
+        }
+
+        if (updatedTemplate == null) {
+            throw new NullPointerException("updatedTemplate == null");
+        }
+
         int index = indexOfTemplate(oldTemplate.getName());
 
         if (index >= 0) {
@@ -180,6 +216,14 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateRenamed(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         int index = indexOfTemplate(fromName);
 
         if (index >= 0) {

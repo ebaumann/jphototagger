@@ -44,6 +44,10 @@ public final class FilenameFormatArray implements FilenameFormatListener {
      * @param format  format
      */
     public void addFormat(FilenameFormat format) {
+        if (format == null) {
+            throw new NullPointerException("format == null");
+        }
+
         synchronized (formats) {
             format.addFilenameFormatListener(this);
             formats.add(format);
@@ -111,6 +115,10 @@ public final class FilenameFormatArray implements FilenameFormatListener {
 
     @Override
     public void request(Request request) {
+        if (request == null) {
+            throw new NullPointerException("request == null");
+        }
+
         if (request.equals(FilenameFormatListener.Request.RESTART_SEQUENCE)) {
             restartSequenceFormatter();
         }

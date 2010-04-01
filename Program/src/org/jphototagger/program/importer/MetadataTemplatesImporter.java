@@ -184,6 +184,14 @@ public final class MetadataTemplatesImporter
     @Override
     public InputSource resolveEntity(String publicId, String systemId)
             throws SAXException, IOException {
+        if (publicId == null) {
+            throw new NullPointerException("publicId == null");
+        }
+
+        if (systemId == null) {
+            throw new NullPointerException("systemId == null");
+        }
+
         InputStream stream = null;
         String      dtd    = MetadataTemplatesExporter.DTD;
 

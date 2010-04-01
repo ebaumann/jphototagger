@@ -59,6 +59,10 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
 
     @Override
     public void directoryInserted(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (!contains(directory)) {
             addElement(directory);
         }
@@ -66,6 +70,10 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
 
     @Override
     public void directoryDeleted(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (contains(directory)) {
             removeElement(directory);
         }

@@ -64,6 +64,10 @@ public class PathSelectionDialog extends Dialog
                                Mode mode) {
         super(GUI.INSTANCE.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
+        if (paths == null) {
+            throw new NullPointerException("paths == null");
+        }
+
         if (mode == null) {
             throw new NullPointerException("mode == null");
         }
@@ -143,6 +147,10 @@ public class PathSelectionDialog extends Dialog
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         if (!e.getValueIsAdjusting()) {
             buttonSelectSelected.setEnabled(list.getSelectedIndex() >= 0);
         }

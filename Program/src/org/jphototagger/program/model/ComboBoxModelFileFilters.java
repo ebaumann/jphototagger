@@ -82,16 +82,28 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterInserted(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         addElement(filter);
     }
 
     @Override
     public void filterDeleted(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         removeElement(filter);
     }
 
     @Override
     public void filterUpdated(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         int index = getIndexOf(filter);
         if (index >= 0) {
             ((UserDefinedFileFilter) getElementAt(index)).set(filter);

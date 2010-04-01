@@ -59,32 +59,68 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
 
     @Override
     public void imageFileDeleted(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         fileCache.remove(imageFile);
     }
 
     @Override
     public void imageFileInserted(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         notifyUpdate(imageFile);
     }
 
     @Override
     public void imageFileRenamed(File oldImageFile, File newImageFile) {
+        if (oldImageFile == null) {
+            throw new NullPointerException("oldImageFile == null");
+        }
+
+        if (newImageFile == null) {
+            throw new NullPointerException("newImageFile == null");
+        }
+
         fileCache.remove(oldImageFile);
         notifyUpdate(newImageFile);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         XmpCache.INSTANCE.xmpUpdated(imageFile, oldXmp, updatedXmp);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         XmpCache.INSTANCE.xmpDeleted(imageFile, xmp);
     }
 
     @Override
     public void thumbnailUpdated(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         fileCache.remove(imageFile);
         notifyUpdate(imageFile);
     }
@@ -109,6 +145,14 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         XmpCache.INSTANCE.xmpInserted(imageFile, xmp);
     }
 
@@ -190,6 +234,10 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
 
     @Override
     public void notifyUpdate(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         for (ThumbnailUpdateListener l : updateListeners) {
             l.actionPerformed(new ThumbnailUpdateEvent(file,
                     ThumbnailUpdateEvent.Type.THUMBNAIL_UPDATE));

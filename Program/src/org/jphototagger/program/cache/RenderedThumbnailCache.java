@@ -371,6 +371,10 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     @Override
     public void actionPerformed(ThumbnailUpdateEvent event) {
+        if (event == null) {
+            throw new NullPointerException("event == null");
+        }
+
         RenderedThumbnailCacheIndirection ci;
 
         // drop event if we got an empty xmp update for an image without

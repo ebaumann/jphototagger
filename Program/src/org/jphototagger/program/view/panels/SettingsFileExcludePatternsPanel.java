@@ -146,6 +146,10 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBarUpdateDatabase.setMinimum(evt.getMinimum());
         progressBarUpdateDatabase.setMaximum(evt.getMaximum());
         progressBarUpdateDatabase.setValue(evt.getValue());
@@ -154,12 +158,20 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBarUpdateDatabase.setValue(evt.getValue());
         checkStopEvent(evt);
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBarUpdateDatabase.setValue(evt.getValue());
         isUpdateDatabase = false;
         stop             = false;

@@ -65,21 +65,37 @@ public final class ControllerThumbnailsDatabaseChanges
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateXmpCache(imageFile);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateXmpCache(imageFile);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         updateXmpCache(imageFile);
     }
 
     @Override
     public void thumbnailUpdated(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         final File file = imageFile;
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -93,6 +109,10 @@ public final class ControllerThumbnailsDatabaseChanges
 
     @Override
     public void imageFileDeleted(final File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

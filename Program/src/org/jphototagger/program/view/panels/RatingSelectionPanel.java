@@ -76,6 +76,10 @@ public class RatingSelectionPanel extends JPanel
                                                           String>();
 
     public RatingSelectionPanel(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         this.column = column;
         init();
     }

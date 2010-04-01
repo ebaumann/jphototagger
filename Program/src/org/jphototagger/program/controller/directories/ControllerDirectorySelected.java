@@ -81,6 +81,10 @@ public final class ControllerDirectorySelected
 
     @Override
     public void refresh(RefreshEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         setFilesToThumbnailsPanel(evt.getSettings());
     }
 

@@ -51,6 +51,13 @@ public final class ThumbnailUpdateEvent {
 
     ;
     public ThumbnailUpdateEvent(File _file, Type _type) {
+        if (_file == null) {
+            throw new NullPointerException("_file == null");
+        }
+        if (_type == null) {
+            throw new NullPointerException("_type == null");
+        }
+
         source = _file;
         type   = _type;
     }
@@ -73,6 +80,10 @@ public final class ThumbnailUpdateEvent {
      * @param source the source to set
      */
     public void setSource(File source) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
         this.source = source;
     }
 }

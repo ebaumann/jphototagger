@@ -46,6 +46,10 @@ public final class ListModelPrograms extends DefaultListModel
     private Type              type;
 
     public ListModelPrograms(Type type) {
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         this.type = type;
         addElements();
         DatabasePrograms.INSTANCE.addListener(this);
@@ -66,6 +70,10 @@ public final class ListModelPrograms extends DefaultListModel
 
     @Override
     public void programDeleted(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         if (isAppropriateProgramType(program)) {
             removeElement(program);
         }
@@ -73,6 +81,10 @@ public final class ListModelPrograms extends DefaultListModel
 
     @Override
     public void programInserted(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         if (isAppropriateProgramType(program)) {
             addElement(program);
         }
@@ -80,6 +92,10 @@ public final class ListModelPrograms extends DefaultListModel
 
     @Override
     public void programUpdated(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         if (isAppropriateProgramType(program)) {
             int index = indexOf(program);
 

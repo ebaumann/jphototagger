@@ -234,6 +234,10 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         private final String     string;
 
         public Node(Node parent, int level, String string) {
+            if (string == null) {
+                throw new NullPointerException("string == null");
+            }
+
             this.parent = parent;
             this.level  = level;
             this.string = string;
@@ -273,6 +277,10 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
 
         public Node addNode(int level, String string) {
+            if (string == null) {
+                throw new NullPointerException("string == null");
+            }
+
             assert isLevel(level) : level;
 
             if (!isLevel(level)) {

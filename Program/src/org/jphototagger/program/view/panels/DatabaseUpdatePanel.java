@@ -189,16 +189,28 @@ public class DatabaseUpdatePanel extends JPanel
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         checkStop(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         checkStop(evt);
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         checkStop(evt);
         setEnabledAllButtons(true);
         deselectAllToggleButtons();

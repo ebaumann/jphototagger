@@ -79,16 +79,28 @@ public final class ControllerKeywordsDbUpdates
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         addNotExistingKeywords(updatedXmp);
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
         addNotExistingKeywords(Collections.singleton(dcSubject));
     }
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         addNotExistingKeywords(xmp);
     }
 

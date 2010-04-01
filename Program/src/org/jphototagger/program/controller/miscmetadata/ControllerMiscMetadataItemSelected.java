@@ -74,6 +74,10 @@ public final class ControllerMiscMetadataItemSelected
 
     @Override
     public void refresh(RefreshEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         if (tree.getSelectionCount() == 1) {
             SwingUtilities.invokeLater(
                 new ShowThumbnails(tree.getSelectionPath(), evt.getSettings()));
@@ -86,6 +90,10 @@ public final class ControllerMiscMetadataItemSelected
 
         public ShowThumbnails(TreePath treePath,
                               ThumbnailsPanel.Settings settings) {
+            if (treePath == null) {
+                throw new NullPointerException("treePath == null");
+            }
+
             this.treePath   = treePath;
             tnPanelSettings = settings;
         }

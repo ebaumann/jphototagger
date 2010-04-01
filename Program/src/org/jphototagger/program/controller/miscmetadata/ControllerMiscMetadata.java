@@ -70,6 +70,10 @@ public abstract class ControllerMiscMetadata extends Controller
 
     @Override
     public void action(JTree tree, List<TreePath> treePaths) {
+        if (treePaths == null) {
+            throw new NullPointerException("treePaths == null");
+        }
+
         action(colValuesFrom(treePaths));
     }
 

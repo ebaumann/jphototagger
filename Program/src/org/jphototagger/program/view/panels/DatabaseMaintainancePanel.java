@@ -286,6 +286,10 @@ public final class DatabaseMaintainancePanel extends JPanel
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         appendMessage(evt.getInfo().toString());
         buttonDeleteMessages.setEnabled(false);
         setProgressbarStart(evt);
@@ -296,12 +300,20 @@ public final class DatabaseMaintainancePanel extends JPanel
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(evt.getValue());
         checkStopEvent(evt);
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         setProgressbarEnd(evt);
         appendMessage(evt.getInfo().toString());
 

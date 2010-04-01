@@ -62,6 +62,10 @@ public final class ActionsDialog extends Dialog
     }
 
     public JProgressBar getProgressBar(ControllerActionExecutor executor) {
+        if (executor == null) {
+            throw new NullPointerException("executor == null");
+        }
+
         return panelActions.getProgressBar(executor);
     }
 
@@ -75,6 +79,9 @@ public final class ActionsDialog extends Dialog
     }
 
     public synchronized void addActionListener(ProgramActionListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
         panelActions.addListener(l);
     }
 

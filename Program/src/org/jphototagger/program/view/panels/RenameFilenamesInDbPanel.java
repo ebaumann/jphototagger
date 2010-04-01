@@ -94,6 +94,10 @@ public class RenameFilenamesInDbPanel extends JPanel
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
@@ -101,11 +105,19 @@ public class RenameFilenamesInDbPanel extends JPanel
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(evt.getValue());
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(0);
         setInputEnabled(true);
     }
@@ -133,6 +145,10 @@ public class RenameFilenamesInDbPanel extends JPanel
 
     @Override
     public void readProperties() {
+        if (this == null) {
+            throw new NullPointerException("this == null");
+        }
+
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         textFieldSearch.setText(settings.getString(KEY_SEARCH));
@@ -141,6 +157,10 @@ public class RenameFilenamesInDbPanel extends JPanel
 
     @Override
     public void writeProperties() {
+        if (this == null) {
+            throw new NullPointerException("this == null");
+        }
+
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.set(textFieldSearch.getText(), KEY_SEARCH);

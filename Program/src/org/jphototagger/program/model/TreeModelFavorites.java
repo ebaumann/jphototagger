@@ -88,6 +88,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
         super(new DefaultMutableTreeNode(
             JptBundle.INSTANCE.getString(
                 "TreeModelFavorites.Root.DisplayName")));
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
         this.tree = tree;
         rootNode  = (DefaultMutableTreeNode) getRoot();
         db        = DatabaseFavorites.INSTANCE;
@@ -648,6 +652,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     @Override
     public void favoriteInserted(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         if (listenToDb) {
             addFavorite(favorite);
         }
@@ -655,6 +663,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     @Override
     public void favoriteDeleted(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         if (listenToDb) {
             DefaultMutableTreeNode favNode = getNode(favorite);
 
@@ -668,6 +680,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void favoriteUpdated(Favorite oldFavorite,
                                 Favorite updatedFavorite) {
+        if (updatedFavorite == null) {
+            throw new NullPointerException("updatedFavorite == null");
+        }
+
         if (listenToDb) {
             DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
 
@@ -695,6 +711,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void treeWillExpand(TreeExpansionEvent event)
             throws ExpandVetoException {
+        if (event == null) {
+            throw new NullPointerException("event == null");
+        }
+
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
 
@@ -717,7 +737,9 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
     @Override
     public void treeWillCollapse(TreeExpansionEvent event)
-            throws ExpandVetoException {}
+            throws ExpandVetoException {
+            // ignore
+    }
 
     @Override
     public void appWillExit() {
