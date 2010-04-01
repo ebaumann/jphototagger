@@ -100,6 +100,10 @@ public final class XmpColumnXmpArrayNameMapping {
      * @return        array name or null
      */
     public static String getXmpArrayNameOfColumn(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         return XMP_ARRAY_NAME_OF_COLUMN.get(column);
     }
 
@@ -111,6 +115,10 @@ public final class XmpColumnXmpArrayNameMapping {
      * @return                     column or null if not found
      */
     public static Column findColumn(String stringArrayNameStart) {
+        if (stringArrayNameStart == null) {
+            throw new NullPointerException("stringArrayNameStart == null");
+        }
+
         for (Column column : XMP_ARRAY_NAME_OF_COLUMN.keySet()) {
             if (stringArrayNameStart.startsWith(
                     XMP_ARRAY_NAME_OF_COLUMN.get(column))) {

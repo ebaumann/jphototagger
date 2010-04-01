@@ -53,6 +53,10 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     }
 
     public boolean insert(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         if (exists(filter.getName())) {
             return update(filter);
         }
@@ -205,6 +209,10 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     }
 
     public boolean exists(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -269,10 +277,18 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     }
 
     public void addListener(DatabaseUserDefinedFileFiltersListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseUserDefinedFileFiltersListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

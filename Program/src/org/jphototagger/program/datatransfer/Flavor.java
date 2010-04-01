@@ -118,6 +118,10 @@ public final class Flavor {
      * @return   true if metadata is transferred
      */
     public static boolean isMetadataTransferred(Transferable t) {
+        if (t == null) {
+            throw new NullPointerException("t == null");
+        }
+
         for (DataFlavor flavor : t.getTransferDataFlavors()) {
             if (METADATA_FLAVORS.contains(flavor)) {
                 return true;
@@ -136,6 +140,10 @@ public final class Flavor {
      *                      {@link #FILE_FLAVORS} is supported
      */
     public static boolean hasFiles(Transferable transferable) {
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
         return TransferUtil.isADataFlavorSupported(transferable, FILE_FLAVORS);
     }
 
@@ -148,14 +156,26 @@ public final class Flavor {
      *                         {@link #KEYWORDS_LIST} is supported
      */
     public static boolean hasKeywordsFromList(TransferSupport transferSupport) {
+        if (transferSupport == null) {
+            throw new NullPointerException("transferSupport == null");
+        }
+
         return transferSupport.isDataFlavorSupported(KEYWORDS_LIST);
     }
 
     public static boolean hasMetadataTemplate(TransferSupport transferSupport) {
+        if (transferSupport == null) {
+            throw new NullPointerException("transferSupport == null");
+        }
+
         return transferSupport.isDataFlavorSupported(METADATA_TEMPLATES);
     }
 
     public static boolean hasColumnData(TransferSupport transferSupport) {
+        if (transferSupport == null) {
+            throw new NullPointerException("transferSupport == null");
+        }
+
         return transferSupport.isDataFlavorSupported(COLUMN_DATA);
     }
 
@@ -168,6 +188,10 @@ public final class Flavor {
      *                         {@link #KEYWORDS_TREE} is supported
      */
     public static boolean hasKeywordsFromTree(TransferSupport transferSupport) {
+        if (transferSupport == null) {
+            throw new NullPointerException("transferSupport == null");
+        }
+
         return transferSupport.isDataFlavorSupported(KEYWORDS_TREE);
     }
 

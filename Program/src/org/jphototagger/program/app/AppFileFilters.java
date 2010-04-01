@@ -130,6 +130,10 @@ public final class AppFileFilters {
      *                class
      */
     public static String getDisplaynameOf(FileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         return DISPLAY_NAME_OF_FILTER.get(filter);
     }
 

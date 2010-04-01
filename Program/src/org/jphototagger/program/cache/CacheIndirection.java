@@ -33,6 +33,10 @@ public abstract class CacheIndirection {
     public File file;
 
     public CacheIndirection(File _file) {
+        if (_file == null) {
+            throw new NullPointerException("_file == null");
+        }
+
         file = _file;
     }
 

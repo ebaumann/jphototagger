@@ -105,6 +105,10 @@ public abstract class Controller implements ActionListener, KeyListener {
      * @param objects object with a method <code>addActionListener(ActionListener)</code>
      */
     protected void listenToActionsOf(Object... objects) {
+        if (objects == null) {
+            throw new NullPointerException("objects == null");
+        }
+
         for (Object object : objects) {
             try {
                 Method m = object.getClass().getMethod("addActionListener",
@@ -123,6 +127,10 @@ public abstract class Controller implements ActionListener, KeyListener {
      * @param objects object with a method <code>addKeyListener(KeyListener)</code>
      */
     protected void listenToKeyEventsOf(Object... objects) {
+        if (objects == null) {
+            throw new NullPointerException("objects == null");
+        }
+
         for (Object object : objects) {
             try {
                 Method m = object.getClass().getMethod("addKeyListener",

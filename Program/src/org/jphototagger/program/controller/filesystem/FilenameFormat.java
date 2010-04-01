@@ -55,6 +55,10 @@ public abstract class FilenameFormat {
      * @param format  format
      */
     public void setFormat(String format) {
+        if (format == null) {
+            throw new NullPointerException("format == null");
+        }
+
         this.format = format;
     }
 
@@ -64,6 +68,10 @@ public abstract class FilenameFormat {
      * @param file  file
      */
     public void setFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         this.prevFile = this.file;
         this.file     = file;
     }
@@ -114,6 +122,10 @@ public abstract class FilenameFormat {
      * @param listener listener
      */
     public void addFilenameFormatListener(FilenameFormatListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (listeners) {
             listeners.add(listener);
         }
@@ -125,6 +137,10 @@ public abstract class FilenameFormat {
      * @param listener listener
      */
     public void removeFilenameFormatListener(FilenameFormatListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (listeners) {
             listeners.remove(listener);
         }

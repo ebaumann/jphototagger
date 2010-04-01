@@ -67,6 +67,10 @@ public final class DatabasePrograms extends Database {
      * @return true if inserted
      */
     public boolean insert(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         int               countAffectedRows = 0;
         Connection        con               = null;
         PreparedStatement stmt              = null;
@@ -166,6 +170,10 @@ public final class DatabasePrograms extends Database {
      * @return  true if updated
      */
     public boolean update(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         int               countAffectedRows = 0;
         Connection        con               = null;
         PreparedStatement stmt              = null;
@@ -239,10 +247,14 @@ public final class DatabasePrograms extends Database {
     /**
      * Deletes a program. <em>The ID must exist!</em>
      *
-     * @param  program   program
-     * @return true if deleted
+     * @param  program program
+     * @return         true if deleted
      */
     public boolean delete(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         int               countAffectedRows = 0;
         Connection        con               = null;
         PreparedStatement stmt              = null;
@@ -277,6 +289,10 @@ public final class DatabasePrograms extends Database {
      * @return      programs
      */
     public List<Program> getAll(Type type) {
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         List<Program>     programs = new LinkedList<Program>();
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -415,6 +431,10 @@ public final class DatabasePrograms extends Database {
      * @return         true if the program does exist
      */
     public boolean exists(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         Connection        con    = null;
         PreparedStatement stmt   = null;
         ResultSet         rs     = null;
@@ -525,10 +545,18 @@ public final class DatabasePrograms extends Database {
     }
 
     public void addListener(DatabaseProgramsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseProgramsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

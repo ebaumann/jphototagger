@@ -60,6 +60,14 @@ public class Database {
 
     public static boolean execute(Connection con, String sql)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (sql == null) {
+            throw new NullPointerException("sql == null");
+        }
+
         Statement stmt        = null;
         boolean   isResultSet = false;
 
@@ -87,6 +95,10 @@ public class Database {
      * @return      path as stored in the database
      */
     public static String getFilePath(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return file.getAbsolutePath();
     }
 
@@ -97,6 +109,10 @@ public class Database {
      * @return file
      */
     public static File getFile(String filePath) {
+        if (filePath == null) {
+            throw new NullPointerException("filePath == null");
+        }
+
         return new File(filePath);
     }
 
@@ -200,6 +216,18 @@ public class Database {
     public static Long getId(Connection con, String tablename,
                              String columnName, String value)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
         Long              id   = null;
@@ -295,6 +323,18 @@ public class Database {
     public static long getCount(Connection con, String tablename,
                                 String columnName, String value)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
         long              count = 0;
         PreparedStatement stmt  = null;
         ResultSet         rs    = null;
@@ -319,6 +359,18 @@ public class Database {
     public static boolean exists(Connection con, String tablename,
                                  String columnName, String value)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
         return getCount(con, tablename, columnName, value) > 0;
     }
 

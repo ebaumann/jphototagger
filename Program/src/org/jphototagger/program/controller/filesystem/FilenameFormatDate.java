@@ -44,6 +44,10 @@ public final class FilenameFormatDate extends FilenameFormat {
     Date           prevDate;
 
     public FilenameFormatDate(String delimiter) {
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
+
         this.delimiter = delimiter;
     }
 
@@ -68,6 +72,10 @@ public final class FilenameFormatDate extends FilenameFormat {
     }
 
     public void setDelimiter(String delimiter) {
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
+
         this.delimiter = delimiter;
     }
 

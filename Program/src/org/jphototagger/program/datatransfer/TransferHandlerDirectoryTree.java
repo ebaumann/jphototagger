@@ -105,6 +105,14 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
      */
     public static void handleDroppedFiles(int dropAction,
             List<File> sourceFiles, File targetDirectory) {
+        if (sourceFiles == null) {
+            throw new NullPointerException("sourceFiles == null");
+        }
+
+        if (targetDirectory == null) {
+            throw new NullPointerException("targetDirectory == null");
+        }
+
         List<File> imageFiles = IoUtil.filterImageFiles(sourceFiles);
 
         if (imageFiles.isEmpty()) {

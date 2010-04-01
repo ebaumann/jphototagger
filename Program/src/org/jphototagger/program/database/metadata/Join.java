@@ -292,6 +292,10 @@ public final class Join {
     }
 
     public static String getUnjoinedFilesSqlWhere(String tablename) {
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
         assert tablename.equals("exif") || tablename.equals("xmp") : tablename;
 
         return "WHERE files.id NOT IN ("

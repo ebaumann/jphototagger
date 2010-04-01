@@ -186,13 +186,15 @@ public final class FavoritesHelper {
         return new ArrayList<File>();
     }
 
+    /**
+     *
+     * @param files
+     * @param settings can be null
+     */
     public static void setFilesToThumbnailPanel(List<File> files,
             ThumbnailsPanel.Settings settings) {
         if (files == null) {
             throw new NullPointerException("files == null");
-        }
-        if (settings == null) {
-            throw new NullPointerException("settings == null");
         }
 
         SwingUtilities.invokeLater(new SetFiles(files, settings));

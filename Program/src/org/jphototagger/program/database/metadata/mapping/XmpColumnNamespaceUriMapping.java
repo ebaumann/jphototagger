@@ -106,6 +106,10 @@ public final class XmpColumnNamespaceUriMapping {
      * @return Namespace-URI oder null bei unbekannter Spalte
      */
     public static String getNamespaceUriOfColumn(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         return NAMESPACE_URI_OF_COLUMN.get(column);
     }
 

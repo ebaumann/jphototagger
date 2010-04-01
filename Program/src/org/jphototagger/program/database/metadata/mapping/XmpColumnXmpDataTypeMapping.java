@@ -149,6 +149,10 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return Typ oder null bei ungültiger Spalte
      */
     public static XmpValueType getXmpValueTypeOfColumn(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         return XMP_VALUE_TYPE_OF_COLUMN.get(column);
     }
 
@@ -159,6 +163,10 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return true, wenn der Wert in einem Array zu speichern ist
      */
     public static boolean isArray(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
 
         if (valueType != null) {
@@ -179,6 +187,10 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return  true, wenn der Spaltenwert für eine alternative Sprache gilt
      */
     public static boolean isLanguageAlternative(Column xmpColumn) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
         XmpValueType type =
             XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
 
@@ -192,6 +204,10 @@ public final class XmpColumnXmpDataTypeMapping {
      * @return true, wenn der Spaltenwert ein einfacher String ist
      */
     public static boolean isText(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
 
         if (valueType != null) {

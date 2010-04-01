@@ -162,6 +162,10 @@ public final class AppLookAndFeel {
      *              exist.
      */
     public static Image getLocalizedImage(String path) {
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
+
         java.net.URL imgURL = IconUtil.class.getResource(toLocalizedPath(path));
 
         if (imgURL != null) {
@@ -172,6 +176,10 @@ public final class AppLookAndFeel {
     }
 
     public static ImageIcon getIcon(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         return IconUtil.getImageIcon(ICONS_PATH + "/" + name);
     }
 

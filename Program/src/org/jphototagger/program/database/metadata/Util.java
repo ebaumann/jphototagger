@@ -47,6 +47,10 @@ public final class Util {
      */
     public static Map<String, List<Column>> getColumnsSeparatedByTables(
             Collection<? extends Column> columns) {
+        if (columns == null) {
+            throw new NullPointerException("columns == null");
+        }
+
         Map<String, List<Column>> columnsOfTable = new HashMap<String,
                                                        List<Column>>();
 
@@ -73,6 +77,10 @@ public final class Util {
      */
     public static Set<String> getDistinctTablenamesOfColumns(
             Collection<? extends Column> columns) {
+        if (columns == null) {
+            throw new NullPointerException("columns == null");
+        }
+
         Set<String> tablenames = new HashSet<String>();
 
         for (Column column : columns) {

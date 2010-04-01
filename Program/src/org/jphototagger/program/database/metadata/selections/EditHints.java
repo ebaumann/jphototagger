@@ -58,6 +58,10 @@ public final class EditHints {
      * @param sizeEditField  Größenvorschlag
      */
     public EditHints(boolean repeatable, SizeEditField sizeEditField) {
+        if (sizeEditField == null) {
+            throw new NullPointerException("sizeEditField == null");
+        }
+
         this.repeatable    = repeatable;
         this.sizeEditField = sizeEditField;
     }

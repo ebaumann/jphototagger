@@ -113,6 +113,10 @@ public final class EditColumns {
     }
 
     public static EditHints getEditHints(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         return EDIT_HINT_OF_COLUMN.get(column);
     }
 

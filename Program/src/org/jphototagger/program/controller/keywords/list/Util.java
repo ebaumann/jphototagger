@@ -30,6 +30,10 @@ import java.util.List;
  */
 final class Util {
     public static String keywordPathString(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         StringBuilder sb    = new StringBuilder();
         int           index = 0;
 

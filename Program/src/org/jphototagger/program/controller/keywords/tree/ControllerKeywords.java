@@ -56,6 +56,10 @@ public abstract class ControllerKeywords
     abstract protected boolean canHandleMultipleNodes();
 
     public ControllerKeywords(KeywordsPanel _panel) {
+        if (_panel == null) {
+            throw new NullPointerException("_panel == null");
+        }
+
         panel = _panel;
         listen();
     }

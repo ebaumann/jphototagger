@@ -91,6 +91,10 @@ public final class XmpRepeatableValues {
      *         the column has repeatable values
      */
     public static boolean isRepeatable(Column xmpColumn) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
         Boolean repeatable = IS_REPEATABLE.get(xmpColumn);
 
         if (repeatable == null) {

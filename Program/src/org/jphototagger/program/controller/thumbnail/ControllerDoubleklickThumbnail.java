@@ -38,6 +38,10 @@ public final class ControllerDoubleklickThumbnail {
     private final ThumbnailsPanel panel;
 
     public ControllerDoubleklickThumbnail(ThumbnailsPanel panel) {
+        if (panel == null) {
+            throw new NullPointerException("panel == null");
+        }
+
         this.panel = panel;
     }
 

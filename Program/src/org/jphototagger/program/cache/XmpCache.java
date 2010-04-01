@@ -221,6 +221,14 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
     public synchronized void update(final Xmp xmp, final File file,
                                     boolean repaint) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (!fileCache.containsKey(file)) {
             return;    // stale entry
         }
@@ -253,6 +261,10 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
      * @return      XMP metadata
      */
     public synchronized Xmp getXmp(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         XmpCacheIndirection ci = fileCache.get(file);
 
         if (ci == null) {
@@ -273,6 +285,14 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
     }
 
     public void notifyUpdate(File file, ThumbnailUpdateEvent.Type type) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         for (ThumbnailUpdateListener l : updateListeners) {
             l.actionPerformed(new ThumbnailUpdateEvent(file, type));
         }

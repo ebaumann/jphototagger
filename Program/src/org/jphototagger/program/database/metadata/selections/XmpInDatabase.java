@@ -63,6 +63,10 @@ public final class XmpInDatabase {
      * @return true, falls gespeichert
      */
     public static boolean isInDatabase(String path) {
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
+
         for (String storedPathStartsWith : STORED_PATHS_PREFIXES) {
             if (path.startsWith(storedPathStartsWith)) {
                 return true;

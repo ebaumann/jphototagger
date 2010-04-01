@@ -190,6 +190,10 @@ public final class UserSettings {
      * @param directoryName directory name
      */
     public void setDatabaseDirectoryName(String directoryName) {
+        if (directoryName == null) {
+            throw new NullPointerException("directoryName == null");
+        }
+
         settings.set(directoryName, KEY_DATABASE_DIRECTORY);
         writeToFile();
     }
@@ -213,6 +217,10 @@ public final class UserSettings {
      * @param directoryName directory name
      */
     public void setDatabaseBackupDirectoryName(String directoryName) {
+        if (directoryName == null) {
+            throw new NullPointerException("directoryName == null");
+        }
+
         settings.set(directoryName, KEY_DATABASE_BACKUP_DIRECTORY);
         writeToFile();
     }
@@ -250,6 +258,10 @@ public final class UserSettings {
      * @return      filename
      */
     public String getDatabaseFileName(Filename name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         assert name.equals(Filename.FULL_PATH)
                || name.equals(Filename.FULL_PATH_NO_SUFFIX) :
                name;
@@ -326,6 +338,10 @@ public final class UserSettings {
      * @param creator thumbnail creator
      */
     public void setThumbnailCreator(ThumbnailCreator creator) {
+        if (creator == null) {
+            throw new NullPointerException("creator == null");
+        }
+
         properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
         writeToFile();
     }
@@ -350,6 +366,10 @@ public final class UserSettings {
      * @param command command line
      */
     public void setExternalThumbnailCreationCommand(String command) {
+        if (command == null) {
+            throw new NullPointerException("command == null");
+        }
+
         settings.set(command, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
         writeToFile();
     }
@@ -370,6 +390,10 @@ public final class UserSettings {
      * @param logLevel log level
      */
     public void setLogLevel(Level logLevel) {
+        if (logLevel == null) {
+            throw new NullPointerException("logLevel == null");
+        }
+
         settings.set(logLevel.toString(), KEY_LOG_LEVEL);
         writeToFile();
         notifyListeners(Type.LOG_LEVEL);
@@ -454,6 +478,10 @@ public final class UserSettings {
      * @param options options
      */
     public void setCopyMoveFilesOptions(Options options) {
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         settings.set(options.getInt(), KEY_OPTIONS_COPY_MOVE_FILES);
         writeToFile();
     }
@@ -538,6 +566,10 @@ public final class UserSettings {
      * @param charset charset
      */
     public void setIptcCharset(String charset) {
+        if (charset == null) {
+            throw new NullPointerException("charset == null");
+        }
+
         settings.set(charset, KEY_IPTC_CHARSET);
         writeToFile();
     }
@@ -659,6 +691,14 @@ public final class UserSettings {
      * @param seconds time in seconds
      */
     public void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
+        if (seconds == null) {
+            throw new NullPointerException("seconds == null");
+        }
+
+        if (seconds.intValue() < 0) {
+            throw new IllegalArgumentException("Invalid time: " + seconds.intValue());
+        }
+
         settings.set(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
         writeToFile();
     }
@@ -833,6 +873,10 @@ public final class UserSettings {
      * @param listener listener
      */
     public void addUserSettingsListener(UserSettingsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         listenerSupport.add(listener);
     }
 
@@ -842,6 +886,10 @@ public final class UserSettings {
      * @param listener listener
      */
     public void removeUserSettingsListener(UserSettingsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         listenerSupport.remove(listener);
     }
 

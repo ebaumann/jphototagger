@@ -131,6 +131,14 @@ public final class DatabaseMetadata extends Database {
 
     public boolean existsTable(Connection con, String tablename)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
         boolean          exists = false;
         DatabaseMetaData dbm    = con.getMetaData();
         String[]         names  = { "TABLE" };
@@ -148,6 +156,18 @@ public final class DatabaseMetadata extends Database {
     public boolean existsColumn(Connection con, String tableName,
                                 String columnName)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (tableName == null) {
+            throw new NullPointerException("tableName == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
         if (!existsTable(con, tableName)) {
             return false;
         }
@@ -183,6 +203,18 @@ public final class DatabaseMetadata extends Database {
     public static boolean existsIndex(Connection con, String indexName,
                                       String tableName)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (indexName == null) {
+            throw new NullPointerException("indexName == null");
+        }
+
+        if (tableName == null) {
+            throw new NullPointerException("tableName == null");
+        }
+
         boolean   exists = false;
         ResultSet rs     = null;
 
@@ -218,6 +250,18 @@ public final class DatabaseMetadata extends Database {
     public List<ColumnInfo> getColumnInfo(Connection con, String tableName,
             String columnName)
             throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (tableName == null) {
+            throw new NullPointerException("tableName == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
         ResultSet        rs    = null;
         List<ColumnInfo> infos = new ArrayList<ColumnInfo>();
 

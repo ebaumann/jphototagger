@@ -60,6 +60,10 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @see    #exists(java.lang.String)
      */
     public boolean insert(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         boolean           inserted = false;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -98,6 +102,10 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @return true if deleted
      */
     public boolean delete(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -136,6 +144,10 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @return true if existsValueIn
      */
     public boolean exists(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -200,11 +212,15 @@ public final class DatabaseFileExcludePatterns extends Database {
      * Deletes files from the database which matches against some patterns.
      *
      * @param   patterns  patterns
-     * @param   listener  progress listener, can cancel the action
+     * @param   listener  progress listener or null, can cancel the action
      * @return  count of deleted files
      */
     public int deleteMatchingFiles(List<String> patterns,
                                    ProgressListener listener) {
+        if (patterns == null) {
+            throw new NullPointerException("patterns == null");
+        }
+
         int               count      = 0;
         Connection        con        = null;
         PreparedStatement stmtUpdate = null;
@@ -285,10 +301,18 @@ public final class DatabaseFileExcludePatterns extends Database {
     }
 
     public void addListener(DatabaseFileExcludePatternsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseFileExcludePatternsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

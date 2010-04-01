@@ -55,6 +55,14 @@ public final class PersistentThumbnails {
      */
     public static void writeThumbnail(Image thumbnail,
             File imageFile) {
+        if (thumbnail == null) {
+            throw new NullPointerException("thumbnail == null");
+        }
+
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         FileOutputStream fos    = null;
         File             tnFile = getThumbnailFile(imageFile);
 
@@ -95,6 +103,10 @@ public final class PersistentThumbnails {
     }
 
     public static boolean deleteThumbnail(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         File tnFile = getThumbnailFile(imageFile);
 
         if ((tnFile != null) &&!tnFile.delete()) {
@@ -153,6 +165,10 @@ public final class PersistentThumbnails {
      * @return           thumbnail or null if the thumbnail does not exist
      */
     public static Image getThumbnail(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         String md5Filename = getMd5Filename(imageFile);
 
         return getThumbnail(md5Filename);
@@ -166,6 +182,10 @@ public final class PersistentThumbnails {
      *                   exists, {@link File#exists()} can be false.
      */
     public static File getThumbnailFile(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         String md5Filename = getMd5Filename(imageFile);
 
         return (md5Filename == null)
@@ -180,6 +200,10 @@ public final class PersistentThumbnails {
      * @return           true if the image file has a thumbnail
      */
     public static boolean existsThumbnail(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         File tnFile = getThumbnailFile(imageFile);
 
         return (tnFile == null)
@@ -201,6 +225,14 @@ public final class PersistentThumbnails {
 
     public static boolean renameThumbnail(File fromImageFile,
             File toImageFile) {
+        if (fromImageFile == null) {
+            throw new NullPointerException("fromImageFile == null");
+        }
+
+        if (toImageFile == null) {
+            throw new NullPointerException("toImageFile == null");
+        }
+
         final String fromMd5Filename = getMd5Filename(fromImageFile);
 
         if (fromMd5Filename == null) {

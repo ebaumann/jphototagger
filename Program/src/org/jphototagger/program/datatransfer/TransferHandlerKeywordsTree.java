@@ -167,6 +167,18 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
     public static void moveKeywords(TransferSupport transferSupport,
                                     TreeModelKeywords treeModel,
                                     DefaultMutableTreeNode dropNode) {
+        if (transferSupport == null) {
+            throw new NullPointerException("transferSupport == null");
+        }
+
+        if (treeModel == null) {
+            throw new NullPointerException("treeModel == null");
+        }
+
+        if (dropNode == null) {
+            throw new NullPointerException("dropNode == null");
+        }
+
         try {
             List<DefaultMutableTreeNode> sourceNodes =
                 (List<DefaultMutableTreeNode>) transferSupport.getTransferable()

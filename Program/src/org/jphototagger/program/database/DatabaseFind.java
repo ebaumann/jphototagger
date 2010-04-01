@@ -52,6 +52,10 @@ public final class DatabaseFind extends Database {
     private DatabaseFind() {}
 
     public List<File> findImageFiles(ParamStatement paramStatement) {
+        if (paramStatement == null) {
+            throw new NullPointerException("paramStatement == null");
+        }
+
         List<File>        imageFiles = new ArrayList<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -99,6 +103,14 @@ public final class DatabaseFind extends Database {
      */
     public List<File> findImageFilesLikeOr(List<Column> searchColumns,
             String searchString) {
+        if (searchColumns == null) {
+            throw new NullPointerException("searchColumns == null");
+        }
+
+        if (searchString == null) {
+            throw new NullPointerException("searchString == null");
+        }
+
         List<File>                imageFiles = new ArrayList<File>();
         Map<String, List<Column>> columnsOfTable =
             Util.getColumnsSeparatedByTables(searchColumns);

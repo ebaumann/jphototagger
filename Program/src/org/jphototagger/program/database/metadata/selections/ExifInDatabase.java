@@ -52,6 +52,10 @@ public final class ExifInDatabase {
      * @return           true, falls gespeichert
      */
     public static boolean isInDatabase(ExifTag.Id exifTagId) {
+        if (exifTagId == null) {
+            throw new NullPointerException("exifTagId == null");
+        }
+
         return STORED_TAG_IDS_EXIF_IFD.contains(exifTagId);
     }
 
@@ -60,10 +64,14 @@ public final class ExifInDatabase {
      * werden.
      *
      * @param ifdType IFD type
-     * @param id      id
+     * @param id      id or null
      * @return        true, falls gespeichert
      */
     public static boolean isInDatabase(IfdType ifdType, ExifTag.Id id) {
+        if (id == null) {
+            throw new NullPointerException("id == null");
+        }
+
         if (id != null) {
             switch (ifdType) {
             case EXIF :

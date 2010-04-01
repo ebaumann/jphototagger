@@ -53,6 +53,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return true if inserted
      */
     public boolean insert(Program action, int order) {
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         int               countAffectedRows = 0;
         Connection        con               = null;
         PreparedStatement stmt              = null;
@@ -86,6 +90,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return true if deleted
      */
     public boolean delete(Program action) {
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         int               countAffectedRows = 0;
         Connection        con               = null;
         PreparedStatement stmt              = null;
@@ -161,6 +169,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return true if the action exists
      */
     public boolean exists(Program action) {
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -198,6 +210,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @return            true if reordered all actions
      */
     public boolean setOrder(List<Program> actions, int startIndex) {
+        if (actions == null) {
+            throw new NullPointerException("actions == null");
+        }
+
         Connection        con          = null;
         boolean           allReordered = false;
         PreparedStatement stmt         = null;

@@ -113,6 +113,10 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     public void rerender(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         generateEntry(file, renderer.getThumbnailWidth(), false);
     }
 
@@ -195,24 +199,44 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
      *  Set renderer object used for constructing the actual images
      */
     public synchronized void setRenderer(ThumbnailPanelRenderer _renderer) {
+        if (_renderer == null) {
+            throw new NullPointerException("_renderer == null");
+        }
+
         renderer = _renderer;
     }
 
     public void addThumbnailUpdateListener(ThumbnailUpdateListener _listener) {
+        if (_listener == null) {
+            throw new NullPointerException("_listener == null");
+        }
+
         updateListeners.add(_listener);
     }
 
     public void removeThumbnailUpdateListener(
             ThumbnailUpdateListener _listener) {
+        if (_listener == null) {
+            throw new NullPointerException("_listener == null");
+        }
+
         updateListeners.remove(_listener);
     }
 
     public void notifyUpdate(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         notifyUpdate(new ThumbnailUpdateEvent(file,
                 ThumbnailUpdateEvent.Type.RENDERED_THUMBNAIL_UPDATE));
     }
 
     public void notifyUpdate(ThumbnailUpdateEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         for (ThumbnailUpdateListener l : updateListeners) {
             l.actionPerformed(e);
         }
@@ -223,6 +247,10 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     public boolean contains(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return fileCache.containsKey(file);
     }
 
@@ -234,6 +262,10 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
      */
     public synchronized Image getThumbnail(File file, int length,
             boolean overlay) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         RenderedThumbnailCacheIndirection ci;
 
         while (null == (ci = fileCache.get(file))) {
@@ -283,13 +315,21 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         }
     }
 
-    public synchronized void remove(Collection<? extends File> list) {
-        for (File file : list) {
+    public synchronized void remove(Collection<? extends File> files) {
+        if (files == null) {
+            throw new NullPointerException("list == null");
+        }
+
+        for (File file : files) {
             remove(file);
         }
     }
 
     public synchronized void remove(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         fileCache.remove(file);
     }
 
@@ -346,10 +386,22 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     public void updateFiles(File oldFile, File newFile) {
+        if (oldFile == null) {
+            throw new NullPointerException("oldFile == null");
+        }
+
+        if (newFile == null) {
+            throw new NullPointerException("newFile == null");
+        }
+
         remove(oldFile);
     }
 
     public void prefetch(File file, int length, boolean xmp) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (fileCache.containsKey(file)) {
             return;
         }

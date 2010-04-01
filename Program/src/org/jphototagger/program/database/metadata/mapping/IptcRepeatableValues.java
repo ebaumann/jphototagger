@@ -65,6 +65,10 @@ public final class IptcRepeatableValues {
      * @throws IllegalArgumentException if metadata is unknown
      */
     public static boolean isRepeatable(IPTCEntryMeta meta) {
+        if (meta == null) {
+            throw new NullPointerException("meta == null");
+        }
+
         Boolean repeatable = IS_REPEATABLE.get(meta);
 
         return (repeatable == null)

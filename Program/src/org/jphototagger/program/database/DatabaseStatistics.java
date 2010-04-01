@@ -50,6 +50,10 @@ public final class DatabaseStatistics extends Database {
      * <code>column</code> is not null
      */
     public int getTotalRecordCountOf(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         int        count = -1;
         Connection con   = null;
         Statement  stmt  = null;
@@ -154,6 +158,10 @@ public final class DatabaseStatistics extends Database {
      * @return true if the value existsValueIn into the column
      */
     public boolean existsValueIn(List<Column> columns, String value) {
+        if (columns == null) {
+            throw new NullPointerException("columns == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -199,6 +207,10 @@ public final class DatabaseStatistics extends Database {
      * @return true if the value existsValueIn in the column
      */
     public boolean existsValueIn(Column column, String value) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;

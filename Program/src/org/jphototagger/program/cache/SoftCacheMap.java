@@ -46,11 +46,19 @@ public class SoftCacheMap<C extends CacheIndirection> {
     final WorkQueue<C> w;
 
     public SoftCacheMap(int maxEntries, WorkQueue<C> _w) {
+        if (_w == null) {
+            throw new NullPointerException("_w == null");
+        }
+
         MAX_ENTRIES = maxEntries;
         w           = _w;
     }
 
     public C get(File k) {
+        if (k == null) {
+            throw new NullPointerException("k == null");
+        }
+
         SoftReference<C> sr = _map.get(k);
 
         if (sr == null) {
@@ -61,6 +69,14 @@ public class SoftCacheMap<C extends CacheIndirection> {
     }
 
     public C put(File k, C v) {
+        if (k == null) {
+            throw new NullPointerException("k == null");
+        }
+
+        if (v == null) {
+            throw new NullPointerException("v == null");
+        }
+
         SoftReference<C> sr = _map.put(k, new SoftReference<C>(v));
 
         if (sr == null) {
@@ -71,6 +87,10 @@ public class SoftCacheMap<C extends CacheIndirection> {
     }
 
     public C remove(File k) {
+        if (k == null) {
+            throw new NullPointerException("k == null");
+        }
+
         SoftReference<C> sr = _map.remove(k);
 
         if (sr == null) {

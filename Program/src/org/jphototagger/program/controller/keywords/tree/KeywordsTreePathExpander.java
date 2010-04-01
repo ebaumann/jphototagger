@@ -34,6 +34,14 @@ import javax.swing.tree.TreePath;
  */
 public final class KeywordsTreePathExpander {
     public static void expand(JTree tree, DefaultMutableTreeNode node) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
         TreePath path = new TreePath(node.getPath());
 
         tree.expandPath(path);

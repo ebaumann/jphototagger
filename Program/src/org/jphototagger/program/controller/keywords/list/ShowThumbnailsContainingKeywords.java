@@ -58,6 +58,10 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
      */
     public ShowThumbnailsContainingKeywords(List<String> keywords,
             ThumbnailsPanel.Settings settings) {
+        if (settings == null) {
+            throw new NullPointerException("settings == null");
+        }
+
         this.keywords   = new ArrayList<String>(keywords);
         tnPanelSettings = settings;
     }

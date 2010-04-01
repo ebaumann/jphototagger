@@ -83,7 +83,9 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public boolean insert(RenameTemplate template) {
-        assert template.getId() == null : template.getId();
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
 
         boolean           inserted = false;
         Connection        con      = null;
@@ -134,6 +136,10 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public boolean update(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         Connection        con   = null;
         PreparedStatement stmt  = null;
         int               count = 0;
@@ -163,6 +169,10 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public int delete(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         Connection        con   = null;
         PreparedStatement stmt  = null;
         int               count = 0;
@@ -287,6 +297,10 @@ public final class DatabaseRenameTemplates extends Database {
      * @return      template or null if not found
      */
     public RenameTemplate find(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         RenameTemplate    template = null;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -313,6 +327,10 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public boolean exists(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -371,10 +389,18 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     public void addListener(DatabaseRenameTemplatesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseRenameTemplatesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

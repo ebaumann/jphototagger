@@ -56,6 +56,10 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
      */
     public ShowThumbnailsContainingAllKeywords2(
             List<List<String>> keywordLists) {
+        if (keywordLists == null) {
+            throw new NullPointerException("keywordLists == null");
+        }
+
         this.keywordLists = deepCopy(keywordLists);
     }
 

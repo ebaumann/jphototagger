@@ -37,6 +37,10 @@ public final class ControllerRenameMiscMetadata extends ControllerMiscMetadata {
     private final JMenuItem itemRename;
 
     public ControllerRenameMiscMetadata(PopupMenuMiscMetadata popup) {
+        if (popup == null) {
+            throw new NullPointerException("popup == null");
+        }
+
         itemRename = popup.getItemRename();
         popup.addListener(itemRename, this);
     }

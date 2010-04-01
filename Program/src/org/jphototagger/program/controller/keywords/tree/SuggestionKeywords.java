@@ -40,6 +40,10 @@ import java.util.List;
 public class SuggestionKeywords implements Suggest {
     @Override
     public Collection<String> suggest(String keywordName) {
+        if (keywordName == null) {
+            throw new NullPointerException("keywordName == null");
+        }
+
         List<String>                    parentKeywordNames =
             new ArrayList<String>();
         Collection<Collection<Keyword>> parentKeywords     =

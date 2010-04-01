@@ -21,6 +21,10 @@
 
 package org.jphototagger.program.app.update;
 
+import org.jphototagger.lib.net.HttpUtil;
+import org.jphototagger.lib.net.NetVersion;
+import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
@@ -29,9 +33,6 @@ import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBar;
-import org.jphototagger.lib.net.HttpUtil;
-import org.jphototagger.lib.net.NetVersion;
-import org.jphototagger.lib.util.Version;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -40,7 +41,6 @@ import java.io.FileOutputStream;
 import java.net.URL;
 
 import javax.swing.JProgressBar;
-import org.jphototagger.lib.system.SystemUtil;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
@@ -49,9 +49,8 @@ import org.jphototagger.lib.system.SystemUtil;
  * @author  Elmar Baumann
  */
 public final class UpdateDownload extends Thread {
-    private static final String FILENAME_WINDOWS       =
-        "JPhotoTagger-Setup.exe";
-    private static final String FILENAME_ZIP           = "JPhotoTagger.zip";
+    private static final String FILENAME_WINDOWS = "JPhotoTagger-Setup.exe";
+    private static final String FILENAME_ZIP = "JPhotoTagger.zip";
     private static final String URL_VERSION_CHECK_FILE =
         "http://www.jphototagger.org/jphototagger-version.txt";
     private static final String URL_WIN_INSTALLER =
@@ -74,6 +73,11 @@ public final class UpdateDownload extends Thread {
      * @param millisecondsToWait milliseconds to wait before starting the check
      */
     public static void checkForNewerVersion(final int millisecondsToWait) {
+        if (millisecondsToWait < 0) {
+            throw new IllegalArgumentException("Invalid milliseconds: "
+                                               + millisecondsToWait);
+        }
+
         if (!UserSettings.INSTANCE.isAutoDownloadNewerVersions()) {
             return;
         }
@@ -133,7 +137,7 @@ public final class UpdateDownload extends Thread {
     private void download() {
         try {
             File                 downloadFile = getDownloadFile();
-            BufferedOutputStream os           =
+            BufferedOutputStream os =
                 new BufferedOutputStream(new FileOutputStream(downloadFile));
 
             HttpUtil.write(new URL(getDownloadUrl()), os);

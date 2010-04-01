@@ -114,6 +114,10 @@ public final class DatabaseKeywords extends Database {
      * @return         true if updated
      */
     public boolean update(Keyword keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         boolean           updated = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -166,6 +170,10 @@ public final class DatabaseKeywords extends Database {
      * @return         true if updated
      */
     public boolean insert(Keyword keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         boolean inserted = false;
 
         assert keyword.getName() != null : "Keyword is null!";
@@ -231,6 +239,10 @@ public final class DatabaseKeywords extends Database {
      * @return          true if successfull
      */
     public boolean delete(Collection<Keyword> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -298,6 +310,10 @@ public final class DatabaseKeywords extends Database {
      * @return         Parents or empty List if the keyword has no parent
      */
     public List<Keyword> getParents(Keyword keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         List<Keyword> parents = new ArrayList<Keyword>();
         Connection    con     = null;
 
@@ -439,6 +455,10 @@ public final class DatabaseKeywords extends Database {
      * @return         true if the keyword exists
      */
     public boolean hasParentChildWithEqualName(Keyword keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         boolean exists       = false;
         boolean parentIsRoot = keyword.getIdParent() == null;
 
@@ -493,6 +513,10 @@ public final class DatabaseKeywords extends Database {
      * @return         true if that keyword exists
      */
     public boolean existsRootKeyword(String keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -523,6 +547,10 @@ public final class DatabaseKeywords extends Database {
     }
 
     public boolean exists(String keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -561,6 +589,14 @@ public final class DatabaseKeywords extends Database {
      * @return          count of renamed subjects
      */
     public int updateRenameAll(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -601,6 +637,14 @@ public final class DatabaseKeywords extends Database {
      */
     public Collection<Collection<Keyword>> getParents(String keywordName,
             Select select) {
+        if (keywordName == null) {
+            throw new NullPointerException("keywordName == null");
+        }
+
+        if (select == null) {
+            throw new NullPointerException("select == null");
+        }
+
         List<Collection<Keyword>> paths = new ArrayList<Collection<Keyword>>();
         Connection                con   = null;
         PreparedStatement         stmt  = null;

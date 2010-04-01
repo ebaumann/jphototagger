@@ -53,17 +53,29 @@ public abstract class Cache<CI extends CacheIndirection> {
     }
 
     public void addThumbnailUpdateListener(ThumbnailUpdateListener _listener) {
+        if (_listener == null) {
+            throw new NullPointerException("_listener == null");
+        }
+
         updateListeners.add(_listener);
     }
 
     public void removeThumbnailUpdateListener(
             ThumbnailUpdateListener _listener) {
+        if (_listener == null) {
+            throw new NullPointerException("_listener == null");
+        }
+
         updateListeners.remove(_listener);
     }
 
     public abstract void notifyUpdate(File file);
 
     public synchronized void prefetch(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (fileCache.containsKey(file)) {
             return;
         }
@@ -72,6 +84,14 @@ public abstract class Cache<CI extends CacheIndirection> {
     }
 
     public synchronized void updateFiles(File oldFile, File newFile) {
+        if (oldFile == null) {
+            throw new NullPointerException("oldFile == null");
+        }
+
+        if (newFile == null) {
+            throw new NullPointerException("newFile == null");
+        }
+
         CI sci = fileCache.remove(oldFile);
 
         if (sci != null) {
@@ -83,6 +103,10 @@ public abstract class Cache<CI extends CacheIndirection> {
     }
 
     public synchronized void remove(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         fileCache.remove(file);
     }
 
