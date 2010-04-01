@@ -1,5 +1,5 @@
 /*
- * @(#)InputVerifiersOr.java    Created on 2010-01-06
+ * @(#)InputVerifiers.java    Created on 2010-01-06
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -19,39 +19,48 @@
  * MA  02110-1301, USA.
  */
 
-package org.jphototagger.lib.componentutil;
+package org.jphototagger.lib.inputverifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 
 /**
- * One of the added input verifiers must return true for a valid input.
+ * A collection of input verifiers.
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifiersOr extends InputVerifiers {
+public class InputVerifiers extends InputVerifier {
+    private final List<InputVerifier> verifiers =
+        new ArrayList<InputVerifier>();
+
+    public void addVerifier(InputVerifier verifier) {
+        synchronized (verifiers) {
+            verifiers.add(verifier);
+        }
+    }
+
+    public void removeVerifier(InputVerifier verifier) {
+        synchronized (verifiers) {
+            verifiers.remove(verifier);
+        }
+    }
+
+    protected List<InputVerifier> getVerifiers() {
+        return verifiers;
+    }
 
     /**
-     * One of the added verifiers must verify the input as true for a valid input.
+     * Does not verify, this has to be done by a specialized class.
      *
      * @param  input input
-     * @return       true if one of the added verifiers returns true, false
-     *               if all of the added verifiers returns false
+     * @return       nothing
+     * @throws UnsupportedOperationException always, shall never be called
      */
     @Override
     public boolean verify(JComponent input) {
-        List<InputVerifier> verifiers = getVerifiers();
-
-        synchronized (verifiers) {
-            for (InputVerifier verifier : verifiers) {
-                if (verifier.verify(input)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

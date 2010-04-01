@@ -19,7 +19,7 @@
  * MA  02110-1301, USA.
  */
 
-package org.jphototagger.lib.componentutil;
+package org.jphototagger.lib.inputverifier;
 
 import org.jphototagger.lib.resource.JslBundle;
 
@@ -36,6 +36,7 @@ import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 
 /**
  * Verifies whether the input is a date and, if not, displays an error

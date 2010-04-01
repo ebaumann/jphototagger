@@ -19,7 +19,7 @@
  * MA  02110-1301, USA.
  */
 
-package org.jphototagger.lib.componentutil;
+package org.jphototagger.lib.inputverifier;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
