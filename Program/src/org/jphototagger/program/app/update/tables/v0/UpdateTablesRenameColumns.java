@@ -84,11 +84,11 @@ final class UpdateTablesRenameColumns {
                 new ColumnInfo(
                     "actions_after_db_insertion", "id_programs", null,
                     null), new ColumnInfo(null, "id_program", null, null)));
-        COLUMNS.add(
-            new Pair<ColumnInfo, ColumnInfo>(
-                new ColumnInfo(
-                    "saved_searches", "sql_string", null,
-                    null), new ColumnInfo(null, "custom_sql", null, null)));
+        COLUMNS.add(new Pair<ColumnInfo,
+                             ColumnInfo>(new ColumnInfo("saved_searches",
+                                 "sql_string", null,
+                                 null), new ColumnInfo(null, "custom_sql",
+                                     null, null)));
     }
 
     private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
@@ -129,17 +129,25 @@ final class UpdateTablesRenameColumns {
         String tableName      = info.getFirst().getTableName();
         String fromColumnName = info.getFirst().getColumnName();
         String toColumnName   = info.getSecond().getColumnName();
-        String sql = "ALTER TABLE " + tableName + " ALTER COLUMN "
-                     + fromColumnName + " RENAME TO " + toColumnName;
 
-        Database.execute(con, sql);
+        if (DatabaseMetadata.INSTANCE.existsColumn(con, tableName,
+                fromColumnName) &&!DatabaseMetadata.INSTANCE.existsColumn(con,
+                    tableName, toColumnName)) {
+            String sql = "ALTER TABLE " + tableName + " ALTER COLUMN "
+                         + fromColumnName + " RENAME TO " + toColumnName;
 
-        String oldIndexName = "idx_" + tableName + "_" + fromColumnName;
-
-        if (DatabaseMetadata.existsIndex(con, oldIndexName, tableName)) {
-            sql = "ALTER INDEX " + oldIndexName + " RENAME TO idx_"
-                   + tableName + "_" + toColumnName;
             Database.execute(con, sql);
+
+            String fromIndexName = "idx_" + tableName + "_" + fromColumnName;
+            String toIndexName   = "idx_" + tableName + "_" + toColumnName;
+
+            if (DatabaseMetadata.existsIndex(con, fromIndexName, tableName)
+                    &&!DatabaseMetadata.existsIndex(con, toIndexName,
+                        tableName)) {
+                sql = "ALTER INDEX " + fromIndexName + " RENAME TO "
+                      + toIndexName;
+                Database.execute(con, sql);
+            }
         }
     }
 
