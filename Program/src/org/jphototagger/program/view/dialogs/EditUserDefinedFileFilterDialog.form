@@ -107,6 +107,9 @@
       <BindingProperties>
         <BindingProperty name="text" source="filter" sourcePath="${name}" target="textFieldName" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+          <Property name="validator" type="org.jdesktop.beansbinding.Validator" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+            <Connection code="new MaxLengthValidator(45)" type="code"/>
+          </Property>
         </BindingProperty>
       </BindingProperties>
     </Component>
@@ -127,6 +130,9 @@
       <BindingProperties>
         <BindingProperty name="text" source="filter" sourcePath="${expression}" target="textFieldExpression" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+          <Property name="validator" type="org.jdesktop.beansbinding.Validator" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+            <Connection code="new MaxLengthValidator(128)" type="code"/>
+          </Property>
         </BindingProperty>
       </BindingProperties>
     </Component>

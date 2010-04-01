@@ -22,6 +22,7 @@
 package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
+import org.jphototagger.lib.beansbinding.MaxLengthValidator;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
@@ -122,6 +123,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         textFieldName.setColumns(45);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${name}"), textFieldName, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setValidator(new MaxLengthValidator(45));
         bindingGroup.addBinding(binding);
 
         comboBoxType.setModel(new ComboBoxModelUserDefinedFileFilterType());
@@ -131,6 +133,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         bindingGroup.addBinding(binding);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${expression}"), textFieldExpression, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setValidator(new MaxLengthValidator(128));
         bindingGroup.addBinding(binding);
 
         checkBoxNot.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileFilterDialog.checkBoxNot.text")); // NOI18N
