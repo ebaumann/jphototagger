@@ -189,9 +189,9 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     @Override
-    public void wordRenamed(String oldName, String newName) {
-        if (listen && role.equals(Role.WORDS) && contains(oldName)) {
-            setElementAt(newName, indexOf(oldName));
+    public void wordRenamed(String fromName, String toName) {
+        if (listen && role.equals(Role.WORDS) && contains(fromName)) {
+            setElementAt(toName, indexOf(fromName));
         }
     }
 

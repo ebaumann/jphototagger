@@ -374,14 +374,14 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      * <p>
      * Renames the keywords in the database, does not touch the sidecar files.
      *
-     * @param oldName old name
-     * @param newName new name
+     * @param fromName old name
+     * @param toName   new name
      */
     @SuppressWarnings("unchecked")
-    public synchronized void setAllRenamed(String oldName, String newName) {
-        assert !newName.equalsIgnoreCase(oldName) : oldName;
+    public synchronized void setAllRenamed(String fromName, String toName) {
+        assert !toName.equalsIgnoreCase(fromName) : fromName;
 
-        if (db.updateRenameAll(oldName, newName) > 0) {
+        if (db.updateRenameAll(fromName, toName) > 0) {
             for (Enumeration<DefaultMutableTreeNode> e =
                     ROOT.depthFirstEnumeration();
                     e.hasMoreElements(); ) {
@@ -391,8 +391,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                 if (userObject instanceof Keyword) {
                     Keyword kw = (Keyword) userObject;
 
-                    if (kw.isReal() && kw.getName().equalsIgnoreCase(oldName)) {
-                        kw.setName(newName);
+                    if (kw.isReal() && kw.getName().equalsIgnoreCase(fromName)) {
+                        kw.setName(toName);
                     }
                 }
             }

@@ -56,10 +56,10 @@ public interface DatabaseImageCollectionsListener {
      * Will be called if an image collection was renamed from
      * {@link org.jphototagger.program.database.DatabaseImageCollections}.
      *
-     * @param oldName old name of the image collection
-     * @param newName new name of the image collection
+     * @param fromName old name of the image collection
+     * @param toName   new name of the image collection
      */
-    public void collectionRenamed(String oldName, String newName);
+    public void collectionRenamed(String fromName, String toName);
 
     /**
      * Will be called if images were inserted into

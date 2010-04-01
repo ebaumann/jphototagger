@@ -433,12 +433,12 @@ public final class DatabaseSynonyms extends Database {
         }
     }
 
-    private void notifyWordRenamed(String oldName, String newName) {
+    private void notifyWordRenamed(String fromName, String toName) {
         Set<DatabaseSynonymsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseSynonymsListener listener : listeners) {
-                listener.wordRenamed(oldName, newName);
+                listener.wordRenamed(fromName, toName);
             }
         }
     }

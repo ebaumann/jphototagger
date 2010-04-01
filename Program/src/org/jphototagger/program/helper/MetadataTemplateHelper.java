@@ -38,19 +38,19 @@ public final class MetadataTemplateHelper {
     /**
      * Returns a not existing template name.
      *
-     * @param  oldName old name or null. If not null, the new name has to be
-     *                 different from <code>oldName</code>.
+     * @param  fromName old name or null. If not null, the new name has to be
+     *                 different from <code>fromName</code>.
      * @return         name or null
      */
-    public static String getNewTemplateName(String oldName) {
+    public static String getNewTemplateName(String fromName) {
         InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE);
 
         dlg.setInfo(
             JptBundle.INSTANCE.getString(
                 "MetadataTemplateHelper.Info.InputName"));
 
-        if (oldName != null) {
-            dlg.setInput(oldName);
+        if (fromName != null) {
+            dlg.setInput(fromName);
         }
 
         while (true) {
@@ -66,8 +66,8 @@ public final class MetadataTemplateHelper {
                 return null;
             }
 
-            boolean namesEqual = (oldName != null)
-                                 && name.equalsIgnoreCase(oldName);
+            boolean namesEqual = (fromName != null)
+                                 && name.equalsIgnoreCase(fromName);
 
             if (namesEqual) {
                 if (!MessageDisplayer.confirmYesNo(

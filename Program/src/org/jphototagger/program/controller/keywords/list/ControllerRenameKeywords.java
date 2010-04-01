@@ -60,11 +60,11 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
         int size = keywords.size();
 
         if (size == 1) {
-            String oldName = keywords.get(0);
-            String newName = getNewName(oldName);
+            String fromName = keywords.get(0);
+            String toName   = getNewName(fromName);
 
-            if ((newName != null) &&!newName.equalsIgnoreCase(oldName)) {
-                KeywordsHelper.renameDcSubject(oldName, newName);
+            if ((toName != null) &&!toName.equalsIgnoreCase(fromName)) {
+                KeywordsHelper.renameDcSubject(fromName, toName);
             }
         } else if (size > 1) {
             MessageDisplayer.information(
@@ -72,15 +72,15 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
         }
     }
 
-    private String getNewName(String oldName) {
-        assert (oldName != null) && (oldName.trim().length() > 0) : oldName;
+    private String getNewName(String fromName) {
+        assert (fromName != null) && (fromName.trim().length() > 0) : fromName;
 
         boolean     finished = false;
         InputDialog dlg      =
             new InputDialog(
                 InputHelperDialog.INSTANCE,
                 JptBundle.INSTANCE.getString(
-                    "ControllerRenameKeywords.Info.Input"), oldName,
+                    "ControllerRenameKeywords.Info.Input"), fromName,
                         UserSettings.INSTANCE.getProperties(),
                         "ControllerRenameKeyword.Input");
 
@@ -91,7 +91,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
             if (dlg.isAccepted()) {
                 String  newName = dlg.getInput();
                 boolean equals  = (newName != null) &&!newName.trim().isEmpty()
-                                  && newName.equalsIgnoreCase(oldName);
+                                  && newName.equalsIgnoreCase(fromName);
 
                 if (equals) {
                     finished = !MessageDisplayer.confirmYesNo(dlg,

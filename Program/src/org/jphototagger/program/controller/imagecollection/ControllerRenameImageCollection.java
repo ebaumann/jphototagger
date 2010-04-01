@@ -86,17 +86,17 @@ public final class ControllerRenameImageCollection
         return e.getKeyCode() == KeyEvent.VK_F2;
     }
 
-    private void renameImageCollection(final String oldName) {
-        if (oldName != null) {
-            if (!ListModelImageCollections.checkIsNotSpecialCollection(oldName,
+    private void renameImageCollection(final String fromName) {
+        if (fromName != null) {
+            if (!ListModelImageCollections.checkIsNotSpecialCollection(fromName,
                     "ListModelImageCollections.Error.RenameSpecialCollection")) {
                 return;
             }
 
-            final String newName =
-                ModifyImageCollections.renameImageCollection(oldName);
+            final String toName =
+                ModifyImageCollections.renameImageCollection(fromName);
 
-            if (newName != null) {
+            if (toName != null) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -104,7 +104,7 @@ public final class ControllerRenameImageCollection
                             ModelFactory.INSTANCE.getModel(
                                 ListModelImageCollections.class);
 
-                        model.rename(oldName, newName);
+                        model.rename(fromName, toName);
                     }
                 });
             }

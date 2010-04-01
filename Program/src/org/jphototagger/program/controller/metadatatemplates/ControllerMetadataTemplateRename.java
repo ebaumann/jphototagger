@@ -76,14 +76,14 @@ public final class ControllerMetadataTemplateRename
 
     @Override
     protected void action(MetadataTemplate template) {
-        String oldName = template.getName();
-        String newName = MetadataTemplateHelper.getNewTemplateName(oldName);
+        String fromName = template.getName();
+        String toName   = MetadataTemplateHelper.getNewTemplateName(fromName);
 
-        if (newName != null) {
-            if (!DatabaseMetadataTemplates.INSTANCE.updateRename(oldName,
-                    newName)) {
+        if (toName != null) {
+            if (!DatabaseMetadataTemplates.INSTANCE.updateRename(fromName,
+                    toName)) {
                 MessageDisplayer.error(
-                    null, "ControllerMetadataTemplateRename.Error", oldName);
+                    null, "ControllerMetadataTemplateRename.Error", fromName);
             }
         }
 

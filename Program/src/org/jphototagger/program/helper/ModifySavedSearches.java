@@ -143,19 +143,19 @@ public final class ModifySavedSearches {
         });
     }
 
-    private static String getNewName(String oldName) {
+    private static String getNewName(String fromName) {
         boolean hasInput = true;
         String  input    = null;
 
         while (hasInput) {
-            input    = getInput(oldName);
+            input    = getInput(fromName);
             hasInput = false;
 
             if ((input != null) && getDb().exists(input)) {
                 hasInput = confirmInputDifferentName(input);
 
                 if (hasInput) {
-                    oldName = input;
+                    fromName = input;
                 }
 
                 input = null;
@@ -175,9 +175,9 @@ public final class ModifySavedSearches {
         return ModelFactory.INSTANCE.getModel(ListModelSavedSearches.class);
     }
 
-    private static String getInput(String oldName) {
+    private static String getInput(String fromName) {
         return MessageDisplayer.input("ModifySavedSearches.Input.NewName",
-                                      oldName,
+                                      fromName,
                                       ModifySavedSearches.class.getName());
     }
 

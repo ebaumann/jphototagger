@@ -79,21 +79,21 @@ public final class ListModelKeywords extends DefaultListModel
      * Renames a keyword whithin this model, does <em>not</em> update the
      * database or sidecar files.
      *
-     * @param  oldName old keyword name
-     * @param  newName new keyword name
+     * @param  fromName old keyword name
+     * @param  toName new keyword name
      * @return         true if renamed
      */
-    public synchronized boolean rename(String oldName, String newName) {
-        assert !oldName.equals(newName);
+    public synchronized boolean rename(String fromName, String toName) {
+        assert !fromName.equals(toName);
 
-        int index = indexOf(oldName);
+        int index = indexOf(fromName);
 
         if (index < 0) {
             return false;
         }
 
         remove(index);
-        add(index, newName);
+        add(index, toName);
 
         return true;
     }
