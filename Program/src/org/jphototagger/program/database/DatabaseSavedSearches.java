@@ -48,7 +48,7 @@ public final class DatabaseSavedSearches extends Database {
 
     private String getInsertSql() {
         return "INSERT INTO saved_searches (name"    // -- 1 --
-               + ", sql_string"                      // -- 2 --
+               + ", custom_sql"                      // -- 2 --
                + ", search_type"                     // -- 3 --
                + ") VALUES (?, ?, ?)";
     }
@@ -57,6 +57,12 @@ public final class DatabaseSavedSearches extends Database {
         boolean           inserted = false;
         Connection        con      = null;
         PreparedStatement stmt     = null;
+
+        if (!savedSearch.isValid()) {
+            assert false : savedSearch;
+
+            return false;
+        }
 
         try {
             con = getConnection();
@@ -95,7 +101,13 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean insertOrUpdate(SavedSearch savedSearch) {
-        if (exists(savedSearch)) {
+        if (!savedSearch.isValid()) {
+            assert false : savedSearch;
+
+            return false;
+        }
+
+        if (exists(savedSearch.getName())) {
             return update(savedSearch);
         } else {
             return insert(savedSearch);
@@ -105,15 +117,11 @@ public final class DatabaseSavedSearches extends Database {
     private void setSearchType(PreparedStatement stmt, int parameterIndex,
                                SavedSearch search)
             throws SQLException {
-        if (search == null) {
+        if (search == null || !search.isValid()) {
             return;
         }
 
-        SavedSearch.Type type = (search.getType() == null)
-                                ? SavedSearch.Type.KEYWORDS_AND_PANELS
-                                : search.getType();
-
-        stmt.setShort(parameterIndex, type.getValue());
+        stmt.setShort(parameterIndex, search.getType().getValue());
     }
 
     private String getInsertSavedSearchPanelsSql() {
@@ -238,13 +246,6 @@ public final class DatabaseSavedSearches extends Database {
         return count;
     }
 
-    /**
-     * Liefert, ob eine gespeicherte Suche existiert.
-     *
-     * @param  name Name der gespeicherten Suche
-     * @return true, wenn die gespeicherte Suche existiert
-     * @see    #exists(org.jphototagger.program.data.SavedSearch)
-     */
     public boolean exists(String name) {
         Connection con = null;
 
@@ -261,10 +262,6 @@ public final class DatabaseSavedSearches extends Database {
         }
 
         return false;
-    }
-
-    public boolean exists(SavedSearch savedSearch) {
-        return exists(savedSearch.getName());
     }
 
     public boolean delete(String name) {
@@ -330,13 +327,19 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     public boolean update(SavedSearch savedSearch) {
+        if (!savedSearch.isValid()) {
+            assert false : savedSearch;
+
+            return false;
+        }
+
         delete(savedSearch.getName());
 
         return insert(savedSearch);
     }
 
     private String getFindSql() {
-        return "SELECT name, sql_string, search_type"
+        return "SELECT name, custom_sql, search_type"
                + " FROM saved_searches WHERE name = ?";
     }
 
@@ -384,7 +387,7 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getGetAllSql() {
-        return "SELECT name, sql_string, search_type"
+        return "SELECT name, custom_sql, search_type"
                + " FROM saved_searches ORDER BY name";
     }
 
@@ -431,9 +434,9 @@ public final class DatabaseSavedSearches extends Database {
 
     public void tagSearchesIfStmtContains(String what, String tag) {
         for (SavedSearch search : getAll()) {
-            ParamStatement stmt = search.getParamStatement();
+            ParamStatement stmt = search.createParamStatement();
 
-            if ((stmt != null) && stmt.getSql().contains(what)) {
+            if (search.isCustomSql() && stmt.getSql().contains(what)) {
                 String name = search.getName();
 
                 if (!name.startsWith(tag) &&!name.endsWith(tag)) {

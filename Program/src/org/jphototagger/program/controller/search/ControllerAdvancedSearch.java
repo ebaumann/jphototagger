@@ -21,8 +21,9 @@
 
 package org.jphototagger.program.controller.search;
 
-import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.ParamStatement;
+import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.event.listener.SearchListener;
 import org.jphototagger.program.event.SearchEvent;
@@ -35,7 +36,6 @@ import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.lib.componentutil.TreeUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,12 +55,12 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerAdvancedSearch
         implements ActionListener, SearchListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel =
         appPanel.getPanelThumbnails();
     private final List<JTree>        selectionTrees =
         appPanel.getSelectionTrees();
-    private final EditMetadataPanels editPanels     =
+    private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
 
     public ControllerAdvancedSearch() {
@@ -92,20 +92,19 @@ public final class ControllerAdvancedSearch
             public void run() {
                 SavedSearch savedSearch = e.getSavedSearch();
 
-                if (savedSearch != null) {
-                    ParamStatement paramStmt = savedSearch.getParamStatement();
+                assert savedSearch.isValid() : savedSearch;
 
-                    if (paramStmt != null) {
-                        TreeUtil.clearSelection(selectionTrees);
+                if (savedSearch.isValid()) {
+                    ParamStatement stmt = savedSearch.createParamStatement();
 
-                        List<File> imageFiles =
-                            DatabaseFind.INSTANCE.findImageFiles(paramStmt);
+                    TreeUtil.clearSelection(selectionTrees);
 
-                        setTitle(savedSearch.getName());
-                        SearchHelper.setSort(savedSearch);
-                        thumbnailsPanel.setFiles(imageFiles,
-                                                 Content.SAVED_SEARCH);
-                    }
+                    List<File> imageFiles =
+                            DatabaseFind.INSTANCE.findImageFiles(stmt);
+
+                    setTitle(savedSearch.getName());
+                    SearchHelper.setSort(savedSearch);
+                    thumbnailsPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
                 }
             }
             private void setTitle(String name) {

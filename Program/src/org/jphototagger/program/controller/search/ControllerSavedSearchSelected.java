@@ -97,13 +97,17 @@ public final class ControllerSavedSearchSelected
 
         private void searchSelectedValue(Object selectedValue) {
             if (selectedValue instanceof SavedSearch) {
-                SavedSearch    savedSearch = (SavedSearch) selectedValue;
-                ParamStatement stmt        = savedSearch.getParamStatement();
+                SavedSearch savedSearch = (SavedSearch) selectedValue;
 
-                if (stmt != null) {
-                    SearchHelper.setSort(savedSearch);
-                    searchParamStatement(stmt, savedSearch.getName());
+                if (!savedSearch.isValid()) {
+                    assert false : savedSearch;
+                    return;
                 }
+
+                ParamStatement stmt = savedSearch.createParamStatement();
+
+                SearchHelper.setSort(savedSearch);
+                searchParamStatement(stmt, savedSearch.getName());
             }
         }
 

@@ -122,9 +122,12 @@ final class UpdateTablesMakePlural {
             stmt = con.createStatement();
 
             for (String fromName : TO_TABLE_NAME_OF.keySet()) {
-                if (DatabaseMetadata.INSTANCE.existsTable(con, fromName)) {
+                String toName = TO_TABLE_NAME_OF.get(fromName);
+
+                if (DatabaseMetadata.INSTANCE.existsTable(con, fromName)
+                        &&!DatabaseMetadata.INSTANCE.existsTable(con, toName)) {
                     String sql = "ALTER TABLE " + fromName + " RENAME TO "
-                                 + TO_TABLE_NAME_OF.get(fromName);
+                                 + toName;
 
                     stmt.executeUpdate(sql);
                 }

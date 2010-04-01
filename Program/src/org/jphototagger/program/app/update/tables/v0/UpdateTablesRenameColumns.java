@@ -84,6 +84,11 @@ final class UpdateTablesRenameColumns {
                 new ColumnInfo(
                     "actions_after_db_insertion", "id_programs", null,
                     null), new ColumnInfo(null, "id_program", null, null)));
+        COLUMNS.add(
+            new Pair<ColumnInfo, ColumnInfo>(
+                new ColumnInfo(
+                    "saved_searches", "sql_string", null,
+                    null), new ColumnInfo(null, "custom_sql", null, null)));
     }
 
     private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns =
