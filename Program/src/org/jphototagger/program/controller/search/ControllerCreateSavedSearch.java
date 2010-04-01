@@ -21,20 +21,17 @@
 
 package org.jphototagger.program.controller.search;
 
-import org.jphototagger.program.event.listener.SearchListener;
-import org.jphototagger.program.event.SearchEvent;
+import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.helper.ModifySavedSearches;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 
 /**
  * Creates a saved search when the
@@ -46,51 +43,38 @@ import javax.swing.JList;
  *
  * @author  Elmar Baumann
  */
-public final class ControllerCreateSavedSearch
-        implements ActionListener, KeyListener, SearchListener {
+public final class ControllerCreateSavedSearch extends Controller {
+    private final JMenuItem menuItem =
+        PopupMenuSavedSearches.INSTANCE.getItemCreate();
+
     public ControllerCreateSavedSearch() {
-        listen();
+        listenToActionsOf(menuItem);
+        listenToKeyEventsOf(GUI.INSTANCE.getAppPanel().getListSavedSearches());
     }
 
-    private void listen() {
-        PopupMenuSavedSearches.INSTANCE.getItemCreate().addActionListener(this);
-        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel()
-            .addSearchListener(this);
-        GUI.INSTANCE.getAppPanel().getListSavedSearches().addKeyListener(this);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_N) {
-            ControllerFactory.INSTANCE.getController(
-                ControllerShowAdvancedSearchDialog.class).showDialog();
-        }
-    }
-
-    @Override
-    public void actionPerformed(SearchEvent evt) {
-        if (evt.getType().equals(SearchEvent.Type.SAVE)) {
-            ModifySavedSearches.insert(evt.getSavedSearch(),
-                                       evt.isForceOverwrite());
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void displayEmptySearchDialog() {
         AdvancedSearchDialog.INSTANCE.getPanel().empty();
         ControllerFactory.INSTANCE.getController(
             ControllerShowAdvancedSearchDialog.class).showDialog();
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-        // ignore
+    protected boolean myKey(KeyEvent evt) {
+        return evt.getKeyCode() == KeyEvent.VK_N;
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    protected boolean myAction(ActionEvent evt) {
+        return evt.getSource() == menuItem;
+    }
 
-        // ignore
+    @Override
+    protected void action(ActionEvent evt) {
+        displayEmptySearchDialog();
+    }
+
+    @Override
+    protected void action(KeyEvent evt) {
+        displayEmptySearchDialog();
     }
 }

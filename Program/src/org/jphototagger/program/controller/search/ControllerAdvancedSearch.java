@@ -25,14 +25,12 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.event.listener.SearchListener;
-import org.jphototagger.program.event.SearchEvent;
-import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.SearchHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
+import org.jphototagger.program.view.panels.AdvancedSearchPanel;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -44,6 +42,7 @@ import java.io.File;
 
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
@@ -53,9 +52,11 @@ import javax.swing.SwingUtilities;
  *
  * @author  Elmar Baumann
  */
-public final class ControllerAdvancedSearch
-        implements ActionListener, SearchListener {
-    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+public final class ControllerAdvancedSearch implements ActionListener {
+    private final AppPanel            appPanel = GUI.INSTANCE.getAppPanel();
+    private final AdvancedSearchPanel searchPanel =
+        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel();
+    private final JButton         buttonSearch = searchPanel.getButtonSearch();
     private final ThumbnailsPanel thumbnailsPanel =
         appPanel.getPanelThumbnails();
     private final List<JTree>        selectionTrees =
@@ -64,48 +65,25 @@ public final class ControllerAdvancedSearch
         appPanel.getEditMetadataPanels();
 
     public ControllerAdvancedSearch() {
-        listen();
+        buttonSearch.addActionListener(this);
     }
 
-    private void listen() {
-        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel()
-            .addSearchListener(this);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        ControllerFactory.INSTANCE.getController(
-            ControllerShowAdvancedSearchDialog.class).showDialog();
-    }
-
-    @Override
-    public void actionPerformed(SearchEvent e) {
-        if (e.getType().equals(SearchEvent.Type.START)) {
-            applySavedSearch(e);
-            setMetadataEditable();
-        }
-    }
-
-    private void applySavedSearch(final SearchEvent e) {
+    private void applySavedSearch(final SavedSearch savedSearch) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                SavedSearch savedSearch = e.getSavedSearch();
-
                 assert savedSearch.isValid() : savedSearch;
 
-                if (savedSearch.isValid()) {
-                    ParamStatement stmt = savedSearch.createParamStatement();
+                ParamStatement stmt = savedSearch.createParamStatement();
 
-                    TreeUtil.clearSelection(selectionTrees);
+                TreeUtil.clearSelection(selectionTrees);
 
-                    List<File> imageFiles =
-                            DatabaseFind.INSTANCE.findImageFiles(stmt);
+                List<File> imageFiles =
+                    DatabaseFind.INSTANCE.findImageFiles(stmt);
 
-                    setTitle(savedSearch.getName());
-                    SearchHelper.setSort(savedSearch);
-                    thumbnailsPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
-                }
+                setTitle(savedSearch.getName());
+                SearchHelper.setSort(savedSearch);
+                thumbnailsPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
             }
             private void setTitle(String name) {
                 GUI.INSTANCE.getAppFrame().setTitle((name == null)
@@ -121,6 +99,22 @@ public final class ControllerAdvancedSearch
     private void setMetadataEditable() {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             editPanels.setEditable(false);
+        }
+    }
+
+    /**
+     * Takes a search via {@link AdvancedSearchPanel#createSavedSearch()} and
+     * performs it (searches).
+     *
+     * @param e can be null
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        SavedSearch savedSearch = searchPanel.createSavedSearch();
+
+        if (savedSearch.isValid()) {
+            applySavedSearch(savedSearch);
+            setMetadataEditable();
         }
     }
 }

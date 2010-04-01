@@ -22,13 +22,12 @@
 package org.jphototagger.program.view.panels;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.event.DocumentEvent;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
 import org.jphototagger.program.data.ParamStatement;
-import org.jphototagger.program.event.listener.impl.SearchListenerSupport;
-import org.jphototagger.program.event.listener.SearchListener;
-import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
@@ -40,6 +39,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,17 +47,23 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
+import javax.swing.event.DocumentListener;
+import org.jphototagger.program.controller.search.ControllerAdvancedSearch;
+import org.jphototagger.program.event.listener.impl.ListenerSupport;
+import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.helper.SavedSearchesHelper;
 
 /**
  *
  * @author  Elmar Baumann
  */
 public final class AdvancedSearchPanel extends javax.swing.JPanel
-        implements SearchListener, Persistence {
+        implements Persistence {
     private static final String KEY_SELECTED_TAB_INDEX =
         "AdvancedSearchPanel.SelectedTabIndex";
     private static final long             serialVersionUID   =
@@ -72,9 +78,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName");
     private boolean                               isSavedSearch;
     private boolean                               columnRemoved;
-    private final transient SearchListenerSupport listenerSupport =
-        new SearchListenerSupport();
+    private boolean                               customSqlChanged;
+    private final transient ListenerSupport<NameListener> ls =
+        new ListenerSupport<NameListener>();
     private final JPanel                          panelPadding    = new JPanel();
+
+    public interface NameListener {
+        public void nameChanged(String newName);
+    }
 
     public AdvancedSearchPanel() {
         initComponents();
@@ -88,6 +99,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelKeywordsInput.setBundleKeyPosRenameDialog(
             "AdvancedSearchPanel.Keywords.RenameDialog.Pos");
         setDefaultInputOfComponent();
+        setFocusToInputInTab(tabbedPane.getSelectedComponent());
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -143,10 +155,30 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelKeywordsInput.getTextArea().setText("");
     }
 
+    private class CustomSqlChangeListener implements DocumentListener {
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            customSqlChanged = true;
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            customSqlChanged = true;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            customSqlChanged = true;
+        }
+
+    }
+
     public void willDispose() {
         checkChanged();
-        isSavedSearch = false;
-        columnRemoved = false;
+        isSavedSearch    = false;
+        columnRemoved    = false;
+        customSqlChanged = false;
         setSearchName(JptBundle.INSTANCE.getString(
                                           "AdvancedSearchPanel.UndefinedName"));
     }
@@ -216,31 +248,30 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return countOpenBrackets == countClosedBrackets;
     }
 
+    private void search() {
+        if (checkIsSearchValid()) {
+            ControllerFactory.INSTANCE.getController(
+                    ControllerAdvancedSearch.class).actionPerformed(null);
+        }
+    }
+
     private synchronized void listenToSearchPanels() {
         for (SearchColumnPanel panel : searchColumnPanels) {
-            panel.addSearchListener(this);
+            panel.getTextFieldValue().addKeyListener(new KeyListener() );
         }
     }
 
-    public void addSearchListener(SearchListener listener) {
-        listenerSupport.add(listener);
-    }
+    private class KeyListener extends KeyAdapter {
 
-    public void removeSearchListener(SearchListener listener) {
-        listenerSupport.remove(listener);
-    }
-
-    private synchronized void notifySearch() {
-        SearchEvent event       = new SearchEvent(SearchEvent.Type.START);
-        SavedSearch savedSearch = createSavedSearch();
-
-        if (savedSearch.isValid()) {
-            event.setSavedSearch(savedSearch);
-            listenerSupport.notifyListeners(event);
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                search();
+            }
         }
     }
 
-    private SavedSearch createSavedSearch() {
+    public SavedSearch createSavedSearch() {
         SavedSearch savedSearch = new SavedSearch();
 
         savedSearch.setName(searchName);
@@ -252,29 +283,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 : SavedSearch.Type.KEYWORDS_AND_PANELS);
 
         return savedSearch;
-    }
-
-    private synchronized void notifySave(SavedSearch savedSearch) {
-        if (!savedSearch.isValid()) {
-            return;
-        }
-
-        SearchEvent event = new SearchEvent(SearchEvent.Type.SAVE);
-
-        event.setSavedSearch(savedSearch);
-        event.setForceOverwrite(isSavedSearch);
-        listenerSupport.notifyListeners(event);
-    }
-
-    public synchronized void notify(SearchEvent event) {
-        listenerSupport.notifyListeners(event);
-    }
-
-    private synchronized void notifyNameChanged() {
-        SearchEvent event = new SearchEvent(SearchEvent.Type.NAME_CHANGED);
-
-        event.setSearchName(searchName);
-        listenerSupport.notifyListeners(event);
     }
 
     public void setSavedSearch(SavedSearch search) {
@@ -300,6 +308,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
                 : panelKeywords;
 
         setSelectedComponent(selPanel);
+        customSqlChanged = false;
+        columnRemoved    = false;
     }
 
     private synchronized void setSavedSearchPanels(
@@ -307,7 +317,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         int panelCount = panels.size();
 
         removeAllColumns();
-        columnRemoved = false;
         ensureColumnCount(panelCount);
 
         int columnCount = searchColumnPanels.size();
@@ -390,7 +399,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         searchPanelOfRemoveButton.put(scPanel.buttonRemoveColumn, scPanel);
         scPanel.buttonRemoveColumn.addActionListener(new RemoveButtonListener());
         setFirstColumn();
-        scPanel.addSearchListener(this);
+        scPanel.getTextFieldValue().addKeyListener(new KeyListener());
         ComponentUtil.forceRepaint(this);
     }
 
@@ -458,10 +467,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void checkChanged() {
-        if (isSavedSearch && (columnRemoved || columnChanged())) {
+        if (columnRemoved || columnChanged() || customSqlChanged
+                || panelKeywordsInput.isDirty()) {
+
             if (MessageDisplayer.confirmYesNo(
                     this, "AdvancedSearchPanel.Confirm.SaveChanges")) {
-                save();
+                save(createSavedSearch(), true);
             }
         }
     }
@@ -488,39 +499,41 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
+    private void save() {
+        if (!checkIsSearchValid()) {
+            return;
+        }
+
+        save(createSavedSearch(), isSavedSearch);
+    }
+
     private void saveAs() {
-        if (isSavedSearch) {
-            isSavedSearch = false;
-            save();
+        if (!checkIsSearchValid()) {
+            return;
+        }
+
+        String suggestName = searchName == null
+                ? ""
+                : searchName;
+
+        String name = SavedSearchesHelper.getNotExistingName(suggestName);
+
+        if ((name != null) &&!name.isEmpty()) {
+            SavedSearch savedSearch = createSavedSearch();
+            savedSearch.setName(name);
+            save(savedSearch, false);
+        }
+    }
+
+    private void save(SavedSearch savedSearch, boolean update) {
+        boolean saved = update
+                ? SavedSearchesHelper.update(savedSearch)
+                : SavedSearchesHelper.insert(savedSearch);
+        
+        if (saved) {
+            setSearchName(savedSearch.getName());
+            setPanelsUnchanged();
             isSavedSearch = true;
-        } else {
-            save();
-        }
-    }
-
-    private boolean save() {
-        if (checkIsSearchValid()) {
-            String name = getSearchName();
-
-            if ((name != null) &&!name.isEmpty()) {
-                setSearchName(name);
-                setPanelsUnchanged();
-                notifySave(createSavedSearch());
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private String getSearchName() {
-        if (isSavedSearch) {
-            return searchName;
-        } else {
-            return MessageDisplayer.input(
-                "AdvancedSearchPanel.Input.SearchName", searchName,
-                getClass().getName());
         }
     }
 
@@ -547,15 +560,25 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         search.setPanels(panels);
     }
 
-    private void search() {
-        if (checkIsSearchValid()) {
-            notifySearch();
-        }
-    }
-
     private void setSearchName(String name) {
         searchName = name;
         notifyNameChanged();
+    }
+
+    public void addNameListener(NameListener listener) {
+        ls.add(listener);
+    }
+
+    public void removeNameListener(NameListener listener) {
+        ls.remove(listener);
+    }
+
+    private void notifyNameChanged() {
+        Set<NameListener> listeners = ls.get();
+
+        for (NameListener listener : listeners) {
+            listener.nameChanged(searchName);
+        }
     }
 
     private boolean existsKeywords() {
@@ -575,11 +598,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return keywords;
     }
 
-    @Override
-    public void actionPerformed(SearchEvent evt) {
-        if (evt.getType().equals(SearchEvent.Type.START)) {
-            search();
-        }
+    public JButton getButtonSearch() {
+        return buttonSearch;
+    }
+
+    public String getSearchName() {
+        return searchName;
     }
 
     /**
@@ -611,6 +635,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         scrollPaneCustomSqlQuery = new javax.swing.JScrollPane();
         textAreaCustomSqlQuery = new TabOrEnterLeavingTextArea();
         textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());
         panelButtons = new javax.swing.JPanel();
         buttonSaveSearch = new javax.swing.JButton();
         buttonSaveAs = new javax.swing.JButton();
@@ -622,6 +647,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 tabbedPaneStateChanged(evt);
+            }
+        });
+        tabbedPane.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tabbedPaneFocusGained(evt);
             }
         });
 
@@ -757,11 +787,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         });
 
         buttonSearch.setText(JptBundle.INSTANCE.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
-        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSearchActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
         panelButtons.setLayout(panelButtonsLayout);
@@ -805,10 +830,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         clearInput(false);
     }//GEN-LAST:event_buttonResetColumnsActionPerformed
 
-    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
-        search();
-    }//GEN-LAST:event_buttonSearchActionPerformed
-
     private void buttonAddColumnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddColumnActionPerformed
         addColumn();
     }//GEN-LAST:event_buttonAddColumnActionPerformed
@@ -816,6 +837,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
         setFocusToInputInTab(tabbedPane.getSelectedComponent());
     }//GEN-LAST:event_tabbedPaneStateChanged
+
+    private void tabbedPaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabbedPaneFocusGained
+        setFocusToInputInTab(tabbedPane.getSelectedComponent());
+    }//GEN-LAST:event_tabbedPaneFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddColumn;

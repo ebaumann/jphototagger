@@ -21,9 +21,6 @@
 
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.event.listener.SearchListener;
-import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
@@ -36,7 +33,7 @@ import org.jphototagger.lib.dialog.Dialog;
  * @author  Elmar Baumann
  */
 public final class AdvancedSearchDialog extends Dialog
-        implements SearchListener {
+        implements AdvancedSearchPanel.NameListener {
     public static final AdvancedSearchDialog INSTANCE =
         new AdvancedSearchDialog(false);
     private static final long serialVersionUID = -7381253840654600441L;
@@ -45,18 +42,15 @@ public final class AdvancedSearchDialog extends Dialog
         super(GUI.INSTANCE.getAppFrame(), modal,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        panel.addSearchListener(this);
+        panel.addNameListener(this);
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-    }
-
-    public void setSavedSearch(SavedSearch savedSearch) {
-        panel.setSavedSearch(savedSearch);
     }
 
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
             panel.readProperties();
+            setSearchName(panel.getSearchName());
         }
 
         super.setVisible(visible);
@@ -87,17 +81,17 @@ public final class AdvancedSearchDialog extends Dialog
     }
 
     @Override
-    public void actionPerformed(SearchEvent evt) {
-        if (evt.getType().equals(SearchEvent.Type.NAME_CHANGED)) {
-            String name      = evt.getSearchName();
-            String separator = name.isEmpty()
-                               ? ""
-                               : ": ";
-
-            setTitle(
-                JptBundle.INSTANCE.getString(
-                    "AdvancedSearchDialog.TitlePrefix") + separator + name);
+    public void nameChanged(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
         }
+
+        setSearchName(name);
+    }
+
+    private void setSearchName(String name) {
+        setTitle(JptBundle.INSTANCE.getString(
+                "AdvancedSearchDialog.TitlePrefix") + ": " + name);
     }
 
     /**

@@ -31,9 +31,6 @@ import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.AdvancedSearchColumns;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.event.listener.impl.SearchListenerSupport;
-import org.jphototagger.program.event.listener.SearchListener;
-import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
@@ -65,8 +62,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
     private static final String NOT_SEL_RIGHT_BRACKET =
         "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
-    private final transient SearchListenerSupport listenerSupport =
-        new SearchListenerSupport();
     private final ListCellRendererTableColumns columnRenderer =
         new ListCellRendererTableColumns();
     private Column.DataType  prevColumnDataType;
@@ -85,14 +80,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setToggleButtonsTexts(toggleButtonBracketLeft1, true);
         setToggleButtonsTexts(toggleButtonBracketLeft2, true);
         setToggleButtonsTexts(toggleButtonBracketRight, false);
-    }
-
-    public void addSearchListener(SearchListener listener) {
-        listenerSupport.add(listener);
-    }
-
-    public void removeSearchListener(SearchListener listener) {
-        listenerSupport.remove(listener);
     }
 
     public void reset() {
@@ -132,13 +119,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private Column getColumn() {
         return (Column) comboBoxColumns.getSelectedItem();
-    }
-
-    private void checkKey(KeyEvent evt) {
-        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            listenerSupport.notifyListeners(
-                new SearchEvent(SearchEvent.Type.START));
-        }
     }
 
     private void checkToggleButtons() {
@@ -353,7 +333,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
     private void handleTextFieldValueKeyTyped(KeyEvent evt) {
         if (listenToActions) {
-            checkKey(evt);
             setChanged(true);
         }
     }

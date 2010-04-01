@@ -25,28 +25,25 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.comparator.ComparatorSavedSearch;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
-import org.jphototagger.program.event.listener.SearchListener;
-import org.jphototagger.program.event.SearchEvent;
-import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
+import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;
+import org.jphototagger.program.helper.SavedSearchesHelper;
 
 import java.util.List;
 
 import javax.swing.DefaultListModel;
 
 /**
- * Elements are {@link SavedSearch}es retrieved through
- * {@link DatabaseSavedSearches#getAll()}.
+ * Elements are {@link SavedSearch}es.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListModelSavedSearches extends DefaultListModel
-        implements SearchListener {
+        implements DatabaseSavedSearchesListener {
     private static final long serialVersionUID = 1979666986802551310L;
 
     public ListModelSavedSearches() {
         addElements();
-        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel()
-            .addSearchListener(this);
+        DatabaseSavedSearches.INSTANCE.addListener(this);
     }
 
     private void addElements() {
@@ -58,58 +55,65 @@ public final class ListModelSavedSearches extends DefaultListModel
         }
     }
 
-    public void rename(SavedSearch oldSavedSearch, SavedSearch newSavedSearch) {
-        set(newSavedSearch, oldSavedSearch);
-    }
-
-    private void set(SavedSearch from, SavedSearch to) {
-        int index = indexOf(to);
-
-        if (index >= 0) {
-            to.set(from);
-            fireContentsChanged(to, index, index);
-        }
-    }
-
     private void insertSorted(SavedSearch search) {
         ListUtil.insertSorted(this, search, ComparatorSavedSearch.INSTANCE, 0,
                               getSize() - 1);
     }
 
     @Override
-    public void actionPerformed(SearchEvent evt) {
-        if (evt.getType().equals(SearchEvent.Type.SAVE)) {
-            SavedSearch savedSearch = evt.getSavedSearch();
+    public void searchInserted(SavedSearch savedSearch) {
+        if (savedSearch == null) {
+            throw new NullPointerException("savedSearch == null");
+        }
 
-            assert savedSearch.isValid() : savedSearch;
+        insertSorted(savedSearch);
+    }
 
-            if (savedSearch.isValid()) {
-                SavedSearch foundSearch = findByName(savedSearch.getName());
+    @Override
+    public void searchUpdated(SavedSearch savedSearch) {
+        if (savedSearch == null) {
+            throw new NullPointerException("savedSearch == null");
+        }
 
-                if (foundSearch != null) {
-                    set(savedSearch, foundSearch);
-                } else {
-                    insertSorted(savedSearch);
-                }
-            }
+        int index = indexOf(savedSearch);
+
+        if (index >= 0) {
+            set(index, savedSearch);
+        } else {
+            insertSorted(savedSearch);
         }
     }
 
-    private SavedSearch findByName(String name) {
-        int size = size();
-
-        for (int i = 0; i < size; i++) {
-            Object element = get(i);
-
-            if (element instanceof SavedSearch) {
-                SavedSearch savedSearch = (SavedSearch) element;
-
-                if (savedSearch.getName().equals(name)) {
-                    return savedSearch;
-                }
-            }
+    @Override
+    public void searchDeleted(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
         }
 
-        return null;
+        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, name);
+
+        if (index >= 0) {
+            remove(index);
+        }
+    }
+
+    @Override
+    public void searchRenamed(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
+        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, fromName);
+
+        if (index >= 0) {
+            SavedSearch savedSearch = (SavedSearch) get(index);
+
+            savedSearch.setName(toName);
+            fireContentsChanged(this, index, index);
+        }
     }
 }

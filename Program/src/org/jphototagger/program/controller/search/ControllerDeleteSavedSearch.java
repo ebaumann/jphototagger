@@ -22,7 +22,7 @@
 package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.helper.ModifySavedSearches;
+import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 
@@ -65,14 +65,19 @@ public final class ControllerDeleteSavedSearch
             Object value = list.getSelectedValue();
 
             if (value instanceof SavedSearch) {
-                ModifySavedSearches.delete((SavedSearch) value);
+                delete((SavedSearch) value);
             }
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ModifySavedSearches.delete(actionPopup.getSavedSearch());
+        delete(actionPopup.getSavedSearch());
+    }
+
+    private void delete(SavedSearch savedSearch) {
+        SavedSearchesHelper.delete(savedSearch);
+        SavedSearchesHelper.focusAppPanelList();
     }
 
     @Override
