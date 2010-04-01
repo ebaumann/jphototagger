@@ -657,6 +657,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     @Override
     public synchronized void addMouseListenerToInputComponents(
             MouseListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         List<Component> inputComponents = getInputComponents();
 
         for (Component component : inputComponents) {
@@ -690,11 +694,19 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         addToAutocomplete(xmp);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         addToAutocomplete(updatedXmp);
     }
 
@@ -745,6 +757,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
         if (isAutocomplete()) {
             AutocompleteHelper.addAutocompleteData(
                     ColumnXmpDcSubjectsSubject.INSTANCE, autocomplete,

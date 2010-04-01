@@ -145,6 +145,10 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         Object o = evt.getInfo();
 
         if (o instanceof Pair<?, ?>) {
@@ -164,6 +168,10 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         addFilesToCollection();
 
         if (deleteScrFilesAfterCopying) {

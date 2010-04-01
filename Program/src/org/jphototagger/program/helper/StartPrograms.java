@@ -96,6 +96,14 @@ public final class StartPrograms {
         private Program    program;
 
         public Execute(Program program, List<File> imageFiles) {
+            if (program == null) {
+                throw new NullPointerException("program == null");
+            }
+
+            if (imageFiles == null) {
+                throw new NullPointerException("imageFiles == null");
+            }
+
             this.imageFiles = new ArrayList<File>(imageFiles);
             this.program    = program;
             setName("Executing program " + program.getAlias() + " @ "

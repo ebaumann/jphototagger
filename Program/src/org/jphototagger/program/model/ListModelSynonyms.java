@@ -42,6 +42,10 @@ public final class ListModelSynonyms extends DefaultListModel
     public enum Role { WORDS, SYNONYMS }
 
     public ListModelSynonyms(Role role) {
+        if (role == null) {
+            throw new NullPointerException("role == null");
+        }
+
         this.role = role;
         addElements();
         listen();
@@ -147,6 +151,10 @@ public final class ListModelSynonyms extends DefaultListModel
             throw new NullPointerException("newSynonym == null");
         }
 
+        if (newSynonym == null) {
+            throw new NullPointerException("newSynonym == null");
+        }
+
         assert role.equals(Role.SYNONYMS) && (word != null)
                &&!oldSynonym.equals(newSynonym);
 
@@ -179,6 +187,14 @@ public final class ListModelSynonyms extends DefaultListModel
 
     @Override
     public void synonymOfWordDeleted(String word, String synonym) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
+        if (synonym == null) {
+            throw new NullPointerException("synonym == null");
+        }
+
         if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
             removeElement(synonym);
         } else if (listen && role.equals(Role.WORDS) && contains(word)
@@ -189,6 +205,14 @@ public final class ListModelSynonyms extends DefaultListModel
 
     @Override
     public void synonymInserted(String word, String synonym) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
+        if (synonym == null) {
+            throw new NullPointerException("synonym == null");
+        }
+
         if (listen && role.equals(Role.WORDS) &&!contains(word)) {
             addElement(word);
         } else if (listen && isRoleSynonymForWord(word) &&!contains(synonym)) {
@@ -199,6 +223,18 @@ public final class ListModelSynonyms extends DefaultListModel
     @Override
     public void synonymOfWordRenamed(String word, String oldSynonymName,
                                      String newSynonymName) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
+        if (oldSynonymName == null) {
+            throw new NullPointerException("oldSynonymName == null");
+        }
+
+        if (newSynonymName == null) {
+            throw new NullPointerException("newSynonymName == null");
+        }
+
         if (listen && isRoleSynonymForWord(word) && contains(oldSynonymName)) {
             setElementAt(newSynonymName, indexOf(oldSynonymName));
         }
@@ -206,6 +242,14 @@ public final class ListModelSynonyms extends DefaultListModel
 
     @Override
     public void synonymRenamed(String oldSynonymName, String newSynonymName) {
+        if (oldSynonymName == null) {
+            throw new NullPointerException("oldSynonymName == null");
+        }
+
+        if (newSynonymName == null) {
+            throw new NullPointerException("newSynonymName == null");
+        }
+
         if (listen && role.equals(Role.SYNONYMS) && contains(oldSynonymName)) {
             setElementAt(newSynonymName, indexOf(oldSynonymName));
         }
@@ -213,6 +257,10 @@ public final class ListModelSynonyms extends DefaultListModel
 
     @Override
     public void wordDeleted(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         if (listen && role.equals(Role.WORDS) && contains(word)) {
             removeElement(word);
         } else if (listen && isRoleSynonymForWord(word)) {
@@ -222,6 +270,14 @@ public final class ListModelSynonyms extends DefaultListModel
 
     @Override
     public void wordRenamed(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         if (listen && role.equals(Role.WORDS) && contains(fromName)) {
             setElementAt(toName, indexOf(fromName));
         }

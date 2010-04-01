@@ -67,17 +67,33 @@ public final class ListModelMetadataTemplates extends DefaultListModel
 
     @Override
     public void templateDeleted(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         removeElement(template);
     }
 
     @Override
     public void templateInserted(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         addElement(template);
     }
 
     @Override
     public void templateUpdated(MetadataTemplate oldTemplate,
                                 MetadataTemplate updatedTemplate) {
+        if (oldTemplate == null) {
+            throw new NullPointerException("oldTemplate == null");
+        }
+
+        if (updatedTemplate == null) {
+            throw new NullPointerException("updatedTemplate == null");
+        }
+
         int index = indexOfTemplate(oldTemplate.getName());
 
         if (index >= 0) {
@@ -87,6 +103,14 @@ public final class ListModelMetadataTemplates extends DefaultListModel
 
     @Override
     public void templateRenamed(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         int index = indexOfTemplate(fromName);
 
         if (index >= 0) {

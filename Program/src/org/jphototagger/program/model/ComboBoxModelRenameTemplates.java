@@ -50,17 +50,29 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateDeleted(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         removeElement(template);
     }
 
     @Override
     public void templateInserted(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         addElement(template);
         setSelectedItem(template);
     }
 
     @Override
     public void templateUpdated(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         int index = getIndexOf(template);
 
         if (index >= 0) {

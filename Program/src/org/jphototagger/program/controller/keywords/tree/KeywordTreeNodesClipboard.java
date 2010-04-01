@@ -49,12 +49,28 @@ public final class KeywordTreeNodesClipboard {
     }
 
     public void setContent(DefaultMutableTreeNode node, Action action) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         nodes.clear();
         nodes.add(node);
         this.action = action;
     }
 
     public void setContent(List<DefaultMutableTreeNode> nodes, Action action) {
+        if (nodes == null) {
+            throw new NullPointerException("nodes == null");
+        }
+
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         nodes.clear();
         this.nodes.addAll(nodes);
         this.action = action;

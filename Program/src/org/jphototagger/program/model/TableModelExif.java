@@ -93,6 +93,10 @@ public final class TableModelExif extends DefaultTableModel {
      * @param file file
      */
     public void setFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         this.file = file;
         removeAllElements();
 

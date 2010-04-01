@@ -53,17 +53,45 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         // special case, directly use new xmp in cache
         update(xmp, imageFile, true);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         update(imageFile);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (oldXmp == null) {
+            throw new NullPointerException("oldXmp == null");
+        }
+
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         // special case, directly use new xmp in cache
         update(updatedXmp, imageFile, true);
     }
@@ -300,6 +328,10 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
     @Override
     public void notifyUpdate(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         for (ThumbnailUpdateListener l : updateListeners) {
             l.actionPerformed(new ThumbnailUpdateEvent(file,
                     ThumbnailUpdateEvent.Type.XMP_UPDATE));

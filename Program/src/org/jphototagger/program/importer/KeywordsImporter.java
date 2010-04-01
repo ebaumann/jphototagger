@@ -101,6 +101,10 @@ public abstract class KeywordsImporter implements Importer {
         private JProgressBar progressBar;
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
+            if (paths == null) {
+                throw new NullPointerException("paths == null");
+            }
+
             this.paths = paths;
             setName("Importing keywords @ " + getClass().getSimpleName());
         }

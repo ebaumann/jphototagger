@@ -69,6 +69,10 @@ public final class ControllerFavoriteSelected
 
     @Override
     public void refresh(RefreshEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         if (treeFavoriteDirectories.getSelectionCount() > 0) {
             FavoritesHelper.setFilesToThumbnailPanel(
                 FavoritesHelper.getFilesOfSelectedtDirectory(),

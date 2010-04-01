@@ -174,16 +174,28 @@ public final class ControllerShowMetadata
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         showUpdates(imageFile, Collections.singleton(Metadata.XMP));
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         showUpdates(imageFile, Collections.singleton(Metadata.XMP));
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         showUpdates(imageFile, Collections.singleton(Metadata.XMP));
     }
 
@@ -195,11 +207,19 @@ public final class ControllerShowMetadata
 
     @Override
     public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         showUpdates(imageFile, Collections.singleton(Metadata.EXIF));
     }
 
     @Override
     public void exifInserted(File imageFile, Exif exif) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         showUpdates(imageFile, Collections.singleton(Metadata.EXIF));
     }
 

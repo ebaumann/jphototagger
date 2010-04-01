@@ -169,6 +169,10 @@ public class ThumbnailPanelRenderer
     private final ThumbnailsPanel panel;
 
     public ThumbnailPanelRenderer(ThumbnailsPanel _panel) {
+        if (_panel == null) {
+            throw new NullPointerException("_panel == null");
+        }
+
         panel = _panel;
         computeFontHeight();
         loadRatingImages();
@@ -203,6 +207,14 @@ public class ThumbnailPanelRenderer
     public Image getRenderedThumbnail(Image scaled,
                                       RenderedThumbnailCacheIndirection rtci,
                                       boolean dummy) {
+        if (scaled == null) {
+            throw new NullPointerException("scaled == null");
+        }
+
+        if (rtci == null) {
+            throw new NullPointerException("rtci == null");
+        }
+
         synchronized (panel) {
             int           sw     = scaled.getWidth(null);
             int           sh     = scaled.getHeight(null);
@@ -512,6 +524,10 @@ public class ThumbnailPanelRenderer
      */
     @SuppressWarnings("unchecked")
     public synchronized List<String> getKeywords(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         Xmp xmp = xmpCache.getXmp(file);
 
         if ((xmp == null)
@@ -529,6 +545,10 @@ public class ThumbnailPanelRenderer
      * @return      rating
      */
     public synchronized int getRating(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         Xmp xmp = xmpCache.getXmp(file);
 
         if (xmp == null) {

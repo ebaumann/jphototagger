@@ -94,12 +94,24 @@ public final class ControllerPlugins implements ActionListener {
         private final Object progressBarOwner;
 
         public Listener(Plugin plugin, Object progressBarOwner) {
+            if (plugin == null) {
+                throw new NullPointerException("plugin == null");
+            }
+
+            if (progressBarOwner == null) {
+                throw new NullPointerException("progressBarOwner == null");
+            }
+
             this.plugin           = plugin;
             this.progressBarOwner = progressBarOwner;
         }
 
         @Override
         public void action(PluginEvent evt) {
+            if (evt == null) {
+                throw new NullPointerException("evt == null");
+            }
+
             if (evt.filesChanged()) {
                 for (File changedFile : evt.getChangedFiles()) {
                     GUI.INSTANCE.getAppPanel().getPanelThumbnails().repaint(

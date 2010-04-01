@@ -84,6 +84,10 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     public void rename(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
         if (toName == null) {
             throw new NullPointerException("toName == null");
         }

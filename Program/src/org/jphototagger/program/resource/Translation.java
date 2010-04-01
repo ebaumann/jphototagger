@@ -82,6 +82,10 @@ public final class Translation {
      *                  ist (Key nicht vorhanden in Properties-Datei)
      */
     public String translate(String string, String alternate) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         if (alternate == null) {
             throw new NullPointerException("alternate == null");
         }

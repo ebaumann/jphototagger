@@ -51,16 +51,28 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel
 
     @Override
     public void filterInserted(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         addElement(filter);
     }
 
     @Override
     public void filterDeleted(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         removeElement(filter);
     }
 
     @Override
     public void filterUpdated(UserDefinedFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         int index = indexOf(filter);
 
         if (index >= 0) {

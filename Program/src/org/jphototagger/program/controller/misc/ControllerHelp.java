@@ -112,6 +112,10 @@ public final class ControllerHelp
 
     @Override
     public void actionPerformed(HelpBrowserEvent action) {
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         if (action.getType().equals(HelpBrowserEvent.Type.URL_CHANGED)) {
             setCurrentUrl(action);
         }

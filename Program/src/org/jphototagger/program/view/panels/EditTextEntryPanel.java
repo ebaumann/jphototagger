@@ -166,11 +166,19 @@ public final class EditTextEntryPanel extends JPanel
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         addToAutocomplete(xmp);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         addToAutocomplete(updatedXmp);
     }
 
@@ -220,6 +228,10 @@ public final class EditTextEntryPanel extends JPanel
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
         if (isAutocomplete()) {
             AutocompleteHelper.addAutocompleteData(column, autocomplete,
                     Collections.singleton(dcSubject));

@@ -83,6 +83,10 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         evt.setInfo(getStartMessage(evt));
 
         // Getting listeners to catch stop request
@@ -101,6 +105,9 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
 
         // Getting listeners to catch stop request
         Set<ProgressListener> listeners = listenerSupport.get();
@@ -127,6 +134,10 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     }
 
     private Object getStartMessage(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return new MessageFormat(startMessage).format(new Object[] {
             evt.getMaximum() });
     }

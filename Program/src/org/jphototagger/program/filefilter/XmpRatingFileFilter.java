@@ -56,6 +56,10 @@ public final class XmpRatingFileFilter implements FileFilter {
      */
     @Override
     public boolean accept(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
         if (xmp == null) {

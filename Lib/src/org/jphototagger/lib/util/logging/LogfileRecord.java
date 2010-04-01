@@ -303,6 +303,10 @@ public final class LogfileRecord {
      * @see         #setMessage(java.lang.String)
      */
     public void addParam(String param) {
+        if (param == null) {
+            throw new NullPointerException("param == null");
+        }
+
         if (params == null) {
             params = new ArrayList<String>();
         }

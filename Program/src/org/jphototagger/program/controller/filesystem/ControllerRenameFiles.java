@@ -112,6 +112,14 @@ public final class ControllerRenameFiles
 
     @Override
     public void fileRenamed(final File fromFile, final File toFile) {
+        if (fromFile == null) {
+            throw new NullPointerException("fromFile == null");
+        }
+
+        if (toFile == null) {
+            throw new NullPointerException("toFile == null");
+        }
+
         AppLogger.logInfo(ControllerRenameFiles.class,
                           "ControllerRenameFiles.Info.Rename", fromFile,
                           toFile);

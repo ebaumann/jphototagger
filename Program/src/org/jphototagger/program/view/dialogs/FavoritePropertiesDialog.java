@@ -112,6 +112,10 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     public void setDirectory(File dir) {
+        if (dir == null) {
+            throw new NullPointerException("dir == null");
+        }
+
         labelDirectoryname.setText(dir.getAbsolutePath());
     }
 

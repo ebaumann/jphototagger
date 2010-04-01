@@ -83,6 +83,14 @@ public final class ControllerMoveFiles
 
     @Override
     public void fileMoved(File source, File target) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
+        if (target == null) {
+            throw new NullPointerException("target == null");
+        }
+
         if (!isXmpFile(source)) {
             db.updateRename(source, target);
         }

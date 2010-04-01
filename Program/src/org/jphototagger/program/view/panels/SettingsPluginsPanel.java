@@ -140,6 +140,10 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
         private transient final Plugin plugin;
 
         public ActionExcludePlugin(Plugin plugin) {
+            if (plugin == null) {
+                throw new NullPointerException("plugin == null");
+            }
+
             this.plugin = plugin;
             putValue(Action.NAME, plugin.getName());
         }

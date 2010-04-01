@@ -109,6 +109,10 @@ public class SoftCacheMap<C extends CacheIndirection> {
     }
 
     public boolean containsKey(File k) {
+        if (k == null) {
+            throw new NullPointerException("k == null");
+        }
+
         if (!_map.containsKey(k)) {
             return false;
         }

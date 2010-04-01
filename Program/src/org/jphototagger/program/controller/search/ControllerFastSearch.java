@@ -265,6 +265,10 @@ public final class ControllerFastSearch
 
     @Override
     public void refresh(RefreshEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         if (textFieldSearch.isEnabled()) {
             search(textFieldSearch.getText());
         }
@@ -302,16 +306,28 @@ public final class ControllerFastSearch
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         addAutocompleteWordsOf(xmp);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         addAutocompleteWordsOf(xmp);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         addAutocompleteWordsOf(updatedXmp);
     }
 

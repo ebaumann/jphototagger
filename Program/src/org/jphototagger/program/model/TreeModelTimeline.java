@@ -149,33 +149,65 @@ public final class TreeModelTimeline extends DefaultTreeModel
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         checkInserted(xmp);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (oldXmp == null) {
+            throw new NullPointerException("oldXmp == null");
+        }
+
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         checkDeleted(oldXmp);
         checkInserted(updatedXmp);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         checkDeleted(xmp);
     }
 
     @Override
     public void exifInserted(File imageFile, Exif exif) {
+        if (exif == null) {
+            throw new NullPointerException("exif == null");
+        }
+
         checkInserted(exif);
     }
 
     @Override
     public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+        if (oldExif == null) {
+            throw new NullPointerException("oldExif == null");
+        }
+
+        if (updatedExif == null) {
+            throw new NullPointerException("updatedExif == null");
+        }
+
         checkDeleted(oldExif);
         checkInserted(updatedExif);
     }
 
     @Override
     public void exifDeleted(File imageFile, Exif exif) {
+        if (exif == null) {
+            throw new NullPointerException("exif == null");
+        }
+
         checkDeleted(exif);
     }
 

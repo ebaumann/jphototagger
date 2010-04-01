@@ -127,6 +127,10 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternInserted(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         if (listenToDb) {
             addElement(pattern);
             patterns.add(pattern);
@@ -135,6 +139,10 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternDeleted(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         if (listenToDb) {
             removeElement(pattern);
             patterns.remove(pattern);

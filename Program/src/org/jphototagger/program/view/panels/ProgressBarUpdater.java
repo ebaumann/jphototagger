@@ -72,16 +72,28 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         updateProgressBar(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         updateProgressBar(evt);
     }
 
     @Override
     public synchronized void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         updateProgressBar(evt);
 
         if (progressBar != null) {

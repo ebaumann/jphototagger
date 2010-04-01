@@ -170,6 +170,10 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
 
     @Override
     public void programUpdated(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         int index = indexOf(program);
 
         if (index >= 0) {

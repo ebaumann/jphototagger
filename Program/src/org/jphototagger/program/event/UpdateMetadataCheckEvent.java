@@ -53,7 +53,16 @@ public final class UpdateMetadataCheckEvent {
         CHECK_FINISHED,
     }
 
+    /**
+     *
+     * @param type      can be null
+     * @param imageFile
+     */
     public UpdateMetadataCheckEvent(Type type, File imageFile) {
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         this.type      = type;
         this.imageFile = imageFile;
     }

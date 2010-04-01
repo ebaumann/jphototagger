@@ -194,16 +194,28 @@ public final class ControllerMenuItemEnabler
 
     @Override
     public void programDeleted(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         setEnabledProgramsMenu();
     }
 
     @Override
     public void programInserted(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         setEnabledProgramsMenu();
     }
 
     @Override
     public void programUpdated(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         setEnabledProgramsMenu();
     }
 }

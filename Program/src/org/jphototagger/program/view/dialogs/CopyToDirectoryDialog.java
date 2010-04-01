@@ -358,6 +358,10 @@ public final class CopyToDirectoryDialog extends Dialog
 
     @Override
     public void progressStarted(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         copy = true;
         buttonStart.setEnabled(false);
         buttonStop.setEnabled(true);
@@ -370,6 +374,10 @@ public final class CopyToDirectoryDialog extends Dialog
     @SuppressWarnings("unchecked")
     @Override
     public void progressPerformed(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(evt.getValue());
 
         Pair<File, File> files = (Pair<File, File>) evt.getInfo();
@@ -383,6 +391,10 @@ public final class CopyToDirectoryDialog extends Dialog
     @SuppressWarnings("unchecked")
     @Override
     public void progressEnded(ProgressEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         progressBar.setValue(evt.getValue());
 
         List<String> errorFiles = (List<String>) evt.getInfo();

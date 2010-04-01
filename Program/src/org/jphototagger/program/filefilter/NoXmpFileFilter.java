@@ -37,6 +37,10 @@ public final class NoXmpFileFilter implements FileFilter {
 
     @Override
     public boolean accept(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         return !XmpMetadata.hasImageASidecarFile(imageFile);
     }
 

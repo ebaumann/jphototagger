@@ -1021,16 +1021,40 @@ public final class EditMetadataPanels
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         setModifiedXmp(imageFile, xmp);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (updatedXmp == null) {
+            throw new NullPointerException("updatedXmp == null");
+        }
+
         setModifiedXmp(imageFile, updatedXmp);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         setModifiedXmp(imageFile, xmp);
     }
 
@@ -1136,6 +1160,10 @@ public final class EditMetadataPanels
         }
 
         public synchronized void setEntries(Collection<TextEntry> entries) {
+            if (entries == null) {
+                throw new NullPointerException("entries == null");
+            }
+
             releaseAllEntries();
             this.releasedEntries.clear();
             this.entries.clear();
@@ -1179,6 +1207,10 @@ public final class EditMetadataPanels
         }
 
         public boolean enableEdit(TextEntry entry) {
+            if (entry == null) {
+                throw new NullPointerException("entry == null");
+            }
+
             if (MessageDisplayer.confirmYesNo(
                     null,
                     "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit")) {
