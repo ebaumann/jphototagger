@@ -38,6 +38,10 @@ public final class ControllerDeleteMiscMetadata extends ControllerMiscMetadata {
     private final JMenuItem itemDelete;
 
     public ControllerDeleteMiscMetadata(PopupMenuMiscMetadata popup) {
+        if (popup == null) {
+            throw new NullPointerException("popup == null");
+        }
+
         itemDelete = popup.getItemDelete();
         popup.addListener(itemDelete, this);
     }

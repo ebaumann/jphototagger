@@ -81,6 +81,10 @@ public final class AutoCompleteData {
 
     // Consider to do that in a separate thread
     public boolean add(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         assert UserSettings.INSTANCE.isAutocomplete();
 
         if (UserSettings.INSTANCE.isUpdateAutocomplete()) {

@@ -104,6 +104,10 @@ public final class ColumnIcons {
      * @return        icon
      */
     public static Icon getIcon(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         Icon icon = ICON_OF_COLUMN.get(column);
 
         return (icon == null)

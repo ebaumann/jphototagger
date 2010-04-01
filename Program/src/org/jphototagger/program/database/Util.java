@@ -41,10 +41,8 @@ public final class Util {
      *               if count equals 3
      */
     public static String getParamsInParentheses(int count) {
-        assert count > 0 : "Count has to be > 0: " + count;
-
-        if (count <= 0) {
-            return "";
+        if (count < 1) {
+            throw new IllegalArgumentException("Count < 1: " + count);
         }
 
         StringBuilder sb = new StringBuilder(count * 2);

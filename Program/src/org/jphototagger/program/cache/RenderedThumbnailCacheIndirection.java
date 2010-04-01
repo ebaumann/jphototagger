@@ -38,7 +38,12 @@ public class RenderedThumbnailCacheIndirection extends CacheIndirection {
     public RenderedThumbnailCacheIndirection(File _file, int _length) {
         super(_file);
         thumbnail = null;
-        length    = _length;
+
+        if (length < 0) {
+            throw new IllegalArgumentException("Invalid length: " + length);
+        }
+
+        length = _length;
     }
 
     @Override

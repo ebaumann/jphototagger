@@ -46,6 +46,18 @@ public final class DatabaseSynonyms extends Database {
 
     public int updateSynonymOf(String word, String oldSynonym,
                                String newSynonym) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
+        if (oldSynonym == null) {
+            throw new NullPointerException("oldSynonym == null");
+        }
+
+        if (newSynonym == null) {
+            throw new NullPointerException("newSynonym == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -78,6 +90,14 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public int updateWord(String oldWord, String newWord) {
+        if (oldWord == null) {
+            throw new NullPointerException("oldWord == null");
+        }
+
+        if (newWord == null) {
+            throw new NullPointerException("newWord == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -109,6 +129,14 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public int updateSynonym(String oldSynonym, String newSynonym) {
+        if (oldSynonym == null) {
+            throw new NullPointerException("oldSynonym == null");
+        }
+
+        if (newSynonym == null) {
+            throw new NullPointerException("newSynonym == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -140,6 +168,10 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public boolean existsWord(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         long              count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -171,6 +203,14 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public boolean exists(String word, String synonym) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
+        if (synonym == null) {
+            throw new NullPointerException("synonym == null");
+        }
+
         long              count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -204,6 +244,14 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public int insert(String word, String synonym) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
+        if (synonym == null) {
+            throw new NullPointerException("synonym == null");
+        }
+
         if (exists(word, synonym)) {
             return 0;
         }
@@ -239,6 +287,14 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public int delete(String word, String synonym) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
+        if (synonym == null) {
+            throw new NullPointerException("synonym == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -276,6 +332,10 @@ public final class DatabaseSynonyms extends Database {
      * @return      count of deleted word synonym pairs
      */
     public int deleteWord(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -317,6 +377,10 @@ public final class DatabaseSynonyms extends Database {
      * @return      synonyms or empty set
      */
     public Set<String> getSynonymsOf(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         Set<String>       synonyms = new LinkedHashSet<String>();
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -373,10 +437,18 @@ public final class DatabaseSynonyms extends Database {
     }
 
     public void addListener(DatabaseSynonymsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseSynonymsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

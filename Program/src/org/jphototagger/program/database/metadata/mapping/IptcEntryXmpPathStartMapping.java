@@ -93,6 +93,10 @@ public final class IptcEntryXmpPathStartMapping {
      */
     public static String getXmpPathStartOfIptcEntryMeta(
             IPTCEntryMeta entryMeta) {
+        if (entryMeta == null) {
+            throw new NullPointerException("entryMeta == null");
+        }
+
         return XMP_PATH_START_OF_IPTC_ENTRY_META.get(entryMeta);
     }
 

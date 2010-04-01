@@ -65,6 +65,10 @@ public final class AutocompleteColumns {
     private AutocompleteColumns() {}
 
     public static boolean contains(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         return COLUMNS.contains(column);
     }
 

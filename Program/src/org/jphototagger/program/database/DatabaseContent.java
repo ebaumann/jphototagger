@@ -48,6 +48,10 @@ public final class DatabaseContent extends Database {
      * @return        distinct sorted values of that column
      */
     public Set<String> getDistinctValuesOf(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         Set<String> content = new LinkedHashSet<String>();
         Connection  con     = null;
         Statement   stmt    = null;
@@ -89,6 +93,10 @@ public final class DatabaseContent extends Database {
      * @return         distinct values of columns (not sorted)
      */
     public Set<String> getDistinctValuesOf(Set<Column> columns) {
+        if (columns == null) {
+            throw new NullPointerException("columns == null");
+        }
+
         Set<String> content = new LinkedHashSet<String>();
 
         for (Column column : columns) {

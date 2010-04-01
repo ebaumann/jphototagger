@@ -50,6 +50,10 @@ public final class DatabaseAutoscanDirectories extends Database {
     private DatabaseAutoscanDirectories() {}
 
     public boolean insert(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         boolean inserted = false;
 
         if (!exists(directory)) {
@@ -83,6 +87,10 @@ public final class DatabaseAutoscanDirectories extends Database {
     }
 
     public boolean delete(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -113,6 +121,10 @@ public final class DatabaseAutoscanDirectories extends Database {
     }
 
     public boolean exists(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -171,10 +183,18 @@ public final class DatabaseAutoscanDirectories extends Database {
     }
 
     public void addListener(DatabaseAutoscanDirectoriesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseAutoscanDirectoriesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

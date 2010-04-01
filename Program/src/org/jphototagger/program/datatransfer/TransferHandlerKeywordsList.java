@@ -53,6 +53,10 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
      * @return              keywords or null on errors
      */
     public static Object[] getKeywords(Transferable transferable) {
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
         try {
             return (Object[]) transferable.getTransferData(
                 Flavor.KEYWORDS_LIST);

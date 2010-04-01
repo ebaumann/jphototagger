@@ -31,34 +31,34 @@ import java.io.File;
  */
 public final class FileSystemListenerSupport
         extends ListenerSupport<FileSystemListener> {
-    public void notifyCopied(File source, File target) {
-        if (source == null) {
+    public void notifyCopied(File fromFile, File toFile) {
+        if (fromFile == null) {
             throw new NullPointerException("source == null");
         }
 
-        if (target == null) {
+        if (toFile == null) {
             throw new NullPointerException("target == null");
         }
 
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
-                listener.fileCopied(source, target);
+                listener.fileCopied(fromFile, toFile);
             }
         }
     }
 
-    public void notifyMoved(File source, File target) {
-        if (source == null) {
+    public void notifyMoved(File fromFile, File toFile) {
+        if (fromFile == null) {
             throw new NullPointerException("source == null");
         }
 
-        if (target == null) {
+        if (toFile == null) {
             throw new NullPointerException("target == null");
         }
 
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
-                listener.fileMoved(source, target);
+                listener.fileMoved(fromFile, toFile);
             }
         }
     }

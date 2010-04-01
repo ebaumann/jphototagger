@@ -135,6 +135,10 @@ public final class ColumnIds {
      * @return ID
      */
     public static int getId(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         return ID_OF_COLUMN.get(column);
     }
 }

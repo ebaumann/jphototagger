@@ -103,6 +103,14 @@ public final class DatabaseImageFiles extends Database {
      * @return               count of renamed files (0 or 1)
      */
     public int updateRename(File fromImageFile, File toImageFile) {
+        if (fromImageFile == null) {
+            throw new NullPointerException("fromImageFile == null");
+        }
+
+        if (toImageFile == null) {
+            throw new NullPointerException("toImageFile == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -189,8 +197,8 @@ public final class DatabaseImageFiles extends Database {
      * Renames filenames starting with a substring. Usage: Renaming a directory
      * in the filesystem.
      *
-     * @param  start           start substring of the old filenames
-     * @param  newStart        new start substring
+     * @param  before          start substring of the old filenames
+     * @param  after           new start substring
      * @param progressListener null or progress listener. The progress listener
      *                         can stop renaming via
      *                         {@link ProgressEvent#setStop(boolean)}
@@ -198,14 +206,22 @@ public final class DatabaseImageFiles extends Database {
      * @return                 count of renamed files
      */
     public synchronized int updateRenameFilenamesStartingWith(
-            final String start, final String newStart,
+            final String before, final String after,
             final ProgressListener progressListener) {
-        if (start.equals(newStart)) {
+        if (before == null) {
+            throw new NullPointerException("before == null");
+        }
+
+        if (after == null) {
+            throw new NullPointerException("after == null");
+        }
+
+        if (before.equals(after)) {
             return 0;
         }
 
         int               countRenamed  = 0;
-        int               startLength   = start.length();
+        int               startLength   = before.length();
         Connection        con           = null;
         PreparedStatement stmt          = null;
         ResultSet         rs            = null;
@@ -217,18 +233,18 @@ public final class DatabaseImageFiles extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement(
                 "SELECT filename FROM files WHERE filename LIKE ?");
-            stmt.setString(1, start + "%");
+            stmt.setString(1, before + "%");
             logFinest(stmt);
             rs = stmt.executeQuery();
             progressEvent.setMaximum((int) getFileCountNameStartingWith(con,
-                    start));
+                    before));
 
             boolean stop = notifyProgressListenerStart(progressListener,
                                progressEvent);
 
             while (!stop && rs.next()) {
                 String from = rs.getString(1);
-                String to   = newStart + from.substring(startLength);
+                String to   = after + from.substring(startLength);
 
                 updateImageFilename(con, getFile(from), getFile(to));
                 countRenamed++;
@@ -292,6 +308,14 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public synchronized boolean insertOrUpdateExif(File imageFile, Exif exif) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (exif == null) {
+            throw new NullPointerException("exif == null");
+        }
+
         Connection con = null;
 
         try {
@@ -315,6 +339,14 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public synchronized boolean insertOrUpdateXmp(File imageFile, Xmp xmp) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         Connection con = null;
 
         try {
@@ -360,6 +392,10 @@ public final class DatabaseImageFiles extends Database {
      * @return           true if inserted
      */
     public synchronized boolean insertOrUpdate(ImageFile imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         boolean success = false;
 
         if (exists(imageFile.getFile())) {
@@ -432,6 +468,10 @@ public final class DatabaseImageFiles extends Database {
      * @return         image file
      */
     public ImageFile getImageFile(File imgFile) {
+        if (imgFile == null) {
+            throw new NullPointerException("imgFile == null");
+        }
+
         ImageFile imageFile = new ImageFile();
 
         imageFile.setExif(getExifOfImageFile(imgFile));
@@ -465,6 +505,10 @@ public final class DatabaseImageFiles extends Database {
      * @return          true bei Erfolg
      */
     public boolean update(ImageFile imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         boolean           success = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -527,8 +571,8 @@ public final class DatabaseImageFiles extends Database {
      * Updates all thumbnails, reads the files from the file system and creates
      * thumbnails from the files.
      *
-     * @param  listener progress listener, can stop action via event and receive
-     *                  the current filename
+     * @param  listener progress listener or null, can stop action via event and
+     *                  receives the current filename
      * @return          count of updated thumbnails
      */
     public int updateAllThumbnails(ProgressListener listener) {
@@ -587,6 +631,14 @@ public final class DatabaseImageFiles extends Database {
      * @return true if updated
      */
     public boolean updateThumbnail(File imageFile, Image thumbnail) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (thumbnail == null) {
+            throw new NullPointerException("thumbnail == null");
+        }
+
         Connection con = null;
 
         try {
@@ -620,6 +672,10 @@ public final class DatabaseImageFiles extends Database {
      *                   not in the database or when errors occured
      */
     public long getImageFileLastModified(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         long              lastModified = -1;
         Connection        con          = null;
         PreparedStatement stmt         = null;
@@ -647,12 +703,16 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Returns whether an file is stored in the database.
+     * Returns whether an image file is stored in the database.
      *
-     * @param  file file
-     * @return      true if existsValueIn
+     * @param  imageFile file
+     * @return           true if exists
      */
-    public boolean exists(File file) {
+    public boolean exists(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -662,7 +722,7 @@ public final class DatabaseImageFiles extends Database {
             con  = getConnection();
             stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM files WHERE filename = ?");
-            stmt.setString(1, getFilePath(file));
+            stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -680,12 +740,15 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
-     * Removes an image file from the database.
      *
-     * @param files full qualified paths of the images files to delete
-     * @return          Count of deleted files
+     * @param  imageFiles
+     * @return            count of deleted files
      */
-    public int delete(List<File> files) {
+    public int delete(List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("files == null");
+        }
+
         int               countDeleted = 0;
         Connection        con          = null;
         PreparedStatement stmt         = null;
@@ -695,7 +758,7 @@ public final class DatabaseImageFiles extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
 
-            for (File imageFile : files) {
+            for (File imageFile : imageFiles) {
                 stmt.setString(1, getFilePath(imageFile));
                 logFiner(stmt);
 
@@ -840,6 +903,10 @@ public final class DatabaseImageFiles extends Database {
      *                       or -1 if not defined
      */
     public long getLastModifiedXmp(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         long              lastModified = -1;
         Connection        con          = null;
         PreparedStatement stmt         = null;
@@ -874,6 +941,10 @@ public final class DatabaseImageFiles extends Database {
      * @return           true if set
      */
     public boolean setLastModifiedXmp(File imageFile, long time) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         boolean           set  = false;
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -1014,6 +1085,10 @@ public final class DatabaseImageFiles extends Database {
      * @see              #existsDcSubject(java.lang.String)
      */
     public boolean insertDcSubject(String dcSubject) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
         boolean    inserted = false;
         Connection con      = null;
 
@@ -1200,7 +1275,7 @@ public final class DatabaseImageFiles extends Database {
      * Deletes XMP-Data of image files when a XMP sidecar file does not
      * exist but in the database is XMP data for this image file.
      *
-     * @param  listener  progress listener
+     * @param  listener  progress listener or null
      * @return           count of deleted XMP data (one per image file)
      */
     public int deleteOrphanedXmp(ProgressListener listener) {
@@ -1329,6 +1404,10 @@ public final class DatabaseImageFiles extends Database {
      */
     public List<Pair<File, Xmp>> getXmpOfImageFiles(
             Collection<? extends File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         List<Pair<File, Xmp>> list = new ArrayList<Pair<File, Xmp>>();
         Connection            con  = null;
         PreparedStatement     stmt = null;
@@ -1482,6 +1561,10 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public Xmp getXmpOfImageFile(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         Xmp               xmp  = new Xmp();
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -1585,6 +1668,10 @@ public final class DatabaseImageFiles extends Database {
      * @return           dc subjects (keywords) ordered ascending
      */
     public List<String> getDcSubjectsOf(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         List<String>      dcSubjects = new ArrayList<String>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -1629,6 +1716,14 @@ public final class DatabaseImageFiles extends Database {
      */
     public Set<File> getImageFilesOfDcSubject(String dcSubject,
             DcSubjectOption... options) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         Set<File>            imageFiles = new LinkedHashSet<File>();
         Connection           con        = null;
         PreparedStatement    stmt       = null;
@@ -1711,6 +1806,10 @@ public final class DatabaseImageFiles extends Database {
      */
     public Set<File> getImageFilesOfAllDcSubjects(
             List<? extends String> dcSubjects) {
+        if (dcSubjects == null) {
+            throw new NullPointerException("dcSubjects == null");
+        }
+
         Set<File>         imageFiles = new LinkedHashSet<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -1760,6 +1859,10 @@ public final class DatabaseImageFiles extends Database {
      */
     public Set<File> getImageFilesOfDcSubjects(
             List<? extends String> dcSubjects) {
+        if (dcSubjects == null) {
+            throw new NullPointerException("dcSubjects == null");
+        }
+
         Set<File>         imageFiles = new LinkedHashSet<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -1809,6 +1912,14 @@ public final class DatabaseImageFiles extends Database {
      */
     public Set<File> getImageFilesOfAll(Column column,
             List<? extends String> words) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (words == null) {
+            throw new NullPointerException("words == null");
+        }
+
         Set<File>         imageFiles = new LinkedHashSet<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -2156,6 +2267,10 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public Set<String> getAllDistinctValuesOf(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         Set<String> values = new LinkedHashSet<String>();
         Connection  con    = null;
         Statement   stmt   = null;
@@ -2206,6 +2321,10 @@ public final class DatabaseImageFiles extends Database {
      * @return        all distinct files with values in that column
      */
     public List<File> getFilesNotNullIn(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         List<File> files = new ArrayList<File>();
         Connection con   = null;
         Statement  stmt  = null;
@@ -2255,6 +2374,10 @@ public final class DatabaseImageFiles extends Database {
      */
     public List<File> getImageFilesWithColumnContent(Column column,
             String exactValue) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         List<File>        files      = new ArrayList<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -2310,6 +2433,10 @@ public final class DatabaseImageFiles extends Database {
      *                   metadata
      */
     public Exif getExifOfImageFile(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         Exif              exif = null;
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -2341,6 +2468,10 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public boolean existsExifDate(java.sql.Date date) {
+        if (date == null) {
+            throw new NullPointerException("date == null");
+        }
+
         boolean    exists = false;
         Connection con    = null;
         Statement  stmt   = null;
@@ -2379,6 +2510,10 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public boolean existsXMPDateCreated(String date) {
+        if (date == null) {
+            throw new NullPointerException("date == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -2413,9 +2548,13 @@ public final class DatabaseImageFiles extends Database {
      *
      * @param  column column of the table, where the value shall exist
      * @param  value  value
-     * @return        true if the value existsValueIn
+     * @return        true if the value exists
      */
     public boolean exists(Column column, Object value) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -2466,6 +2605,10 @@ public final class DatabaseImageFiles extends Database {
      * @return         image files without metadata for that column
      */
     public List<File> getImageFilesWithoutMetadataIn(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         List<File>        imageFiles = new ArrayList<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -2569,6 +2712,14 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public void deleteValueOfJoinedColumn(Column column, String value) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (value == null) {
+            throw new NullPointerException("value == null");
+        }
+
         String            sql  = Join.getDeleteSql(column.getTablename());
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -2596,6 +2747,10 @@ public final class DatabaseImageFiles extends Database {
      * @param dcSubject subject
      */
     public void deleteDcSubject(String dcSubject) {
+        if (dcSubject == null) {
+            throw new NullPointerException("dcSubject == null");
+        }
+
         Connection        con  = null;
         PreparedStatement stmt = null;
 
@@ -2624,6 +2779,10 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public boolean existsDcSubject(String subject) {
+        if (subject == null) {
+            throw new NullPointerException("subject == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -2651,6 +2810,10 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public Long getIdDcSubject(String subject) {
+        if (subject == null) {
+            throw new NullPointerException("subject == null");
+        }
+
         Long              id   = null;
         Connection        con  = null;
         PreparedStatement stmt = null;
@@ -2707,10 +2870,18 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public void addListener(DatabaseImageFilesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseImageFilesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

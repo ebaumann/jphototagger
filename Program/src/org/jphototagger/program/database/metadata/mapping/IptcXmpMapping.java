@@ -121,10 +121,18 @@ public final class IptcXmpMapping {
 
     public static Column getXmpColumnOfIptcEntryMeta(
             IPTCEntryMeta iptcEntryMeta) {
+        if (iptcEntryMeta == null) {
+            throw new NullPointerException("iptcEntryMeta == null");
+        }
+
         return XMP_COLUMN_OF_IPTC_ENTRY_META.get(iptcEntryMeta);
     }
 
     public static IPTCEntryMeta getIptcEntryMetaOfXmpColumn(Column xmpColumn) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
         return IPTC_ENTRY_META_OF_XMP_COLUMN.get(xmpColumn);
     }
 
@@ -142,25 +150,6 @@ public final class IptcXmpMapping {
         }
 
         return pairs;
-    }
-
-    /**
-     * Liefert die beiden Spalten gemeinsame Beschreibung: Es wird die IPTC-
-     * Beschreibung geliefert ausschließlich " [...".
-     *
-     * @param  iptcColumn IPTC-Spalte
-     * @return Beschreibung
-     */
-    public static String getCommonDiscription(Column iptcColumn) {
-        String description       = iptcColumn.getDescription();
-        String commonDescription = description;
-        int    index             = description.indexOf("[");
-
-        if (index > 0) {
-            commonDescription = description.substring(0, index - 1);
-        }
-
-        return commonDescription;
     }
 
     private IptcXmpMapping() {}

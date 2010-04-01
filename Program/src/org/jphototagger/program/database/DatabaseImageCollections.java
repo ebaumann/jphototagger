@@ -105,6 +105,14 @@ public final class DatabaseImageCollections extends Database {
      * @return         count of renamed image collections (0 or 1)
      */
     public int updateRename(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -133,6 +141,10 @@ public final class DatabaseImageCollections extends Database {
     }
 
     public List<File> getImageFilesOf(String collectionName) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
         List<File>        imageFiles = new ArrayList<File>();
         Connection        con        = null;
         PreparedStatement stmt       = null;
@@ -166,6 +178,10 @@ public final class DatabaseImageCollections extends Database {
     }
 
     public boolean insert(ImageCollection collection) {
+        if (collection == null) {
+            throw new NullPointerException("collection == null");
+        }
+
         return insert(collection.getName(), collection.getFiles());
     }
 
@@ -181,6 +197,14 @@ public final class DatabaseImageCollections extends Database {
      * @see                  #exists(java.lang.String)
      */
     public boolean insert(String collectionName, List<File> imageFiles) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         boolean added = false;
 
         if (exists(collectionName)) {
@@ -250,6 +274,10 @@ public final class DatabaseImageCollections extends Database {
      * @return               true if successfully deleted
      */
     public boolean delete(String collectioNname) {
+        if (collectioNname == null) {
+            throw new NullPointerException("collectioNname == null");
+        }
+
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -284,6 +312,10 @@ public final class DatabaseImageCollections extends Database {
      * @return               count of deleted images
      */
     public int deleteImagesFrom(String collectionName, List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         int               delCount = 0;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -339,6 +371,14 @@ public final class DatabaseImageCollections extends Database {
      */
     public boolean insertImagesInto(String collectionName,
                                     List<File> imageFiles) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         boolean           added = false;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -465,6 +505,10 @@ public final class DatabaseImageCollections extends Database {
      * @return               true if an image collection of that name exists
      */
     public boolean exists(String collectionName) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -610,10 +654,18 @@ public final class DatabaseImageCollections extends Database {
     }
 
     public void addListener(DatabaseImageCollectionsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseImageCollectionsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

@@ -69,6 +69,10 @@ public final class FormatterFactory {
     }
 
     public static DefaultFormatterFactory getFormatterFactory(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         DataType type = column.getDataType();
 
         if (type.equals(DataType.DATE)) {

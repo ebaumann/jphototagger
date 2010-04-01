@@ -147,6 +147,14 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
     }
 
     public synchronized void update(Image image, final File file) {
+        if (image == null) {
+            throw new NullPointerException("image == null");
+        }
+
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (!fileCache.containsKey(file)) {
             return;    // stale entry
         }
@@ -165,6 +173,10 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
     }
 
     public synchronized Image getThumbnail(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         ThumbnailCacheIndirection ci;
 
         while (null == (ci = fileCache.get(file))) {

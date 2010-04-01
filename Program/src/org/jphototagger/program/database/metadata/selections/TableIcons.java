@@ -67,6 +67,10 @@ public final class TableIcons {
     private TableIcons() {}
 
     public static Icon getIcon(String tablename) {
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
         Icon icon = ICON_OF_TABLENAME.get(tablename);
 
         return (icon == null)

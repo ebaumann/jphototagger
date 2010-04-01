@@ -50,8 +50,11 @@ public final class AutoCompleteDataOfColumn {
      * @return        autocomplete data of that column
      */
     public AutoCompleteData get(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         assert UserSettings.INSTANCE.isAutocomplete();
-        assert column != null;
 
         synchronized (DATA_OF_COLUMN) {
             AutoCompleteData data = DATA_OF_COLUMN.get(column);

@@ -98,6 +98,10 @@ public final class FilenameFormatArray implements FilenameFormatListener {
      * @param file file
      */
     public void setFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         synchronized (formats) {
             for (FilenameFormat format : formats) {
                 format.setFile(file);

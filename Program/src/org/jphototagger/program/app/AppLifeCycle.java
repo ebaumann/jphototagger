@@ -62,6 +62,10 @@ public final class AppLifeCycle {
      * @param appFrame the application's frame
      */
     public void started(AppFrame appFrame) {
+        if (appFrame == null) {
+            throw new NullPointerException("appFrame == null");
+        }
+
         synchronized (this) {
             assert !started;
 
@@ -92,12 +96,20 @@ public final class AppLifeCycle {
      * @param task task
      */
     public void addFinalTask(FinalTask task) {
+        if (task == null) {
+            throw new NullPointerException("task == null");
+        }
+
         synchronized (finalTasks) {
             finalTasks.add(task);
         }
     }
 
     public void removeFinalTask(FinalTask task) {
+        if (task == null) {
+            throw new NullPointerException("task == null");
+        }
+
         synchronized (finalTasks) {
             finalTasks.remove(task);
         }
@@ -114,6 +126,10 @@ public final class AppLifeCycle {
      * @param saveObject object that saves data.
      */
     public void addSaveObject(Object saveObject) {
+        if (saveObject == null) {
+            throw new NullPointerException("saveObject == null");
+        }
+
         synchronized (saveObjects) {
             saveObjects.add(saveObject);
         }
@@ -125,6 +141,10 @@ public final class AppLifeCycle {
      * @param saveObject save object to remove
      */
     public void removeSaveObject(Object saveObject) {
+        if (saveObject == null) {
+            throw new NullPointerException("saveObject == null");
+        }
+
         synchronized (saveObjects) {
             saveObjects.remove(saveObject);
         }
@@ -136,6 +156,10 @@ public final class AppLifeCycle {
      * @param listener listener
      */
     public void addAppExitListener(AppExitListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         listenerSupport.add(listener);
     }
 
@@ -146,6 +170,10 @@ public final class AppLifeCycle {
      * @param listener listener
      */
     public void removeAppExitListener(AppExitListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         listenerSupport.remove(listener);
     }
 
@@ -299,10 +327,18 @@ public final class AppLifeCycle {
             new ListenerSupport<FinalTaskListener>();
 
         public void addListener(FinalTaskListener listener) {
+            if (listener == null) {
+                throw new NullPointerException("listener == null");
+            }
+
             listenerSupport.add(listener);
         }
 
         public void removeListener(FinalTaskListener listener) {
+            if (listener == null) {
+                throw new NullPointerException("listener == null");
+            }
+
             listenerSupport.remove(listener);
         }
 

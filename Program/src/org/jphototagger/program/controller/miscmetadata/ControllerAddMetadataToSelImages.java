@@ -40,6 +40,10 @@ public final class ControllerAddMetadataToSelImages
     private final JMenuItem itemAdd;
 
     public ControllerAddMetadataToSelImages(PopupMenuMiscMetadata popup) {
+        if (popup == null) {
+            throw new NullPointerException("popup == null");
+        }
+
         itemAdd = popup.getItemAddToEditPanel();
         popup.addListener(itemAdd, this);
     }

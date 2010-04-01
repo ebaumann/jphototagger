@@ -38,6 +38,10 @@ public final class ControllerRemoveMetadataFromSelImages extends ControllerMiscM
     private final JMenuItem itemRemove;
 
     public ControllerRemoveMetadataFromSelImages(PopupMenuMiscMetadata popup) {
+        if (popup == null) {
+            throw new NullPointerException("popup == null");
+        }
+
         itemRemove = popup.getItemRemoveFromEditPanel();
         popup.addListener(itemRemove, this);
     }

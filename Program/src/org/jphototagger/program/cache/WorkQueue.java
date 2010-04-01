@@ -42,6 +42,10 @@ public class WorkQueue<E> {
      * @param e
      */
     public synchronized void push(E e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         queue.remove(e);    // maybe remove ...
         queue.push(e);      // and insert at head again
         notify();
@@ -55,6 +59,10 @@ public class WorkQueue<E> {
      * @param e
      */
     public synchronized void append(E e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         if (!queue.contains(e)) {
             queue.add(e);    // append at end
             notify();
@@ -91,6 +99,10 @@ public class WorkQueue<E> {
      * @param e
      */
     public synchronized void remove(E e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         queue.remove(e);
     }
 }

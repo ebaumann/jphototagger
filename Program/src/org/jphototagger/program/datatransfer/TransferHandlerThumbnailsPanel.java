@@ -146,6 +146,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     public boolean isImageCollection(ThumbnailsPanel panel) {
+        if (panel == null) {
+            throw new NullPointerException("panel == null");
+        }
+
         return panel.getContent().equals(Content.IMAGE_COLLECTION);
     }
 
@@ -222,9 +226,24 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         return true;
     }
 
+    /**
+     * 
+     * @param dataFlavor
+     * @param strings                    can be null
+     * @param dropOverSelectedThumbnail
+     * @param imageFile
+     */
     public void importStrings(DataFlavor dataFlavor, Object[] strings,
                               boolean dropOverSelectedThumbnail,
                               File imageFile) {
+        if (dataFlavor == null) {
+            throw new NullPointerException("dataFlavor == null");
+        }
+
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         if ((strings == null) || (strings.length <= 0)) {
             return;
         }
@@ -252,6 +271,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     public boolean isDropOverSelectedThumbnail(
             TransferSupport transferSupport) {
+        if (transferSupport == null) {
+            throw new NullPointerException("transferSupport == null");
+        }
+
         Point           p     =
             transferSupport.getDropLocation().getDropPoint();
         ThumbnailsPanel panel =

@@ -51,6 +51,10 @@ public final class DatabaseApplicationProperties extends Database {
      * @return     true if the key exists
      */
     public boolean existsKey(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         Connection        con  = null;
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
@@ -88,6 +92,10 @@ public final class DatabaseApplicationProperties extends Database {
      * @param key key to delete
      */
     public void deleteKey(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         Connection        con  = null;
         PreparedStatement stmt = null;
 
@@ -118,6 +126,10 @@ public final class DatabaseApplicationProperties extends Database {
      *             a key with {@link #existsKey(String)}.
      */
     public boolean getBoolean(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         String value = getString(key);
 
         return (value == null)
@@ -132,6 +144,10 @@ public final class DatabaseApplicationProperties extends Database {
      * @param value value to set
      */
     public void setBoolean(String key, boolean value) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         setString(key, value
                        ? VALUE_TRUE
                        : VALUE_FALSE);
@@ -152,6 +168,14 @@ public final class DatabaseApplicationProperties extends Database {
      * @param string string to set
      */
     public void setString(String key, String string) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         Connection        con  = null;
         PreparedStatement stmt = null;
 
@@ -180,6 +204,10 @@ public final class DatabaseApplicationProperties extends Database {
      *             the inserted string was null or on database errors
      */
     public String getString(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         Connection        con    = null;
         PreparedStatement stmt   = null;
         ResultSet         rs     = null;

@@ -71,6 +71,10 @@ public class ControllerCopyCutPasteKeyword
     private final JMenuItem             itemPaste = popup.getItemPaste();
 
     public ControllerCopyCutPasteKeyword(KeywordsPanel panel) {
+        if (panel == null) {
+            throw new NullPointerException("panel == null");
+        }
+
         this.panel = panel;
         listen();
     }

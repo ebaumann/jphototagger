@@ -50,6 +50,10 @@ public final class DatabaseFavorites extends Database {
     private DatabaseFavorites() {}
 
     public boolean insertOrUpdate(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         boolean           inserted = false;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -90,6 +94,10 @@ public final class DatabaseFavorites extends Database {
     }
 
     public boolean delete(String favoriteName) {
+        if (favoriteName == null) {
+            throw new NullPointerException("favoriteName == null");
+        }
+
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -125,6 +133,14 @@ public final class DatabaseFavorites extends Database {
 
     public boolean updateRename(String fromFavoriteName,
                                 String toFavoriteName) {
+        if (fromFavoriteName == null) {
+            throw new NullPointerException("fromFavoriteName == null");
+        }
+
+        if (toFavoriteName == null) {
+            throw new NullPointerException("toFavoriteName == null");
+        }
+
         PreparedStatement stmt  = null;
         ResultSet         rs    = null;
         int               count = 0;
@@ -167,6 +183,10 @@ public final class DatabaseFavorites extends Database {
      * @return          true if updated
      */
     public boolean update(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         boolean           updated = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -269,6 +289,10 @@ public final class DatabaseFavorites extends Database {
     }
 
     public boolean exists(String favoriteName) {
+        if (favoriteName == null) {
+            throw new NullPointerException("favoriteName == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -301,10 +325,18 @@ public final class DatabaseFavorites extends Database {
     }
 
     public void addListener(DatabaseFavoritesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseFavoritesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

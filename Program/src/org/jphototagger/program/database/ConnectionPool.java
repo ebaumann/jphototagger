@@ -293,6 +293,10 @@ public final class ConnectionPool implements Runnable {
      * @param con The connection to be released.
      */
     public synchronized void free(Connection con) {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
         assert init;
 
         busyConnections.remove(con);

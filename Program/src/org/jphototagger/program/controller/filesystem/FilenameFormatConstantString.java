@@ -30,6 +30,10 @@ import org.jphototagger.program.resource.JptBundle;
  */
 public final class FilenameFormatConstantString extends FilenameFormat {
     public FilenameFormatConstantString(String string) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         setFormat(string);
     }
 

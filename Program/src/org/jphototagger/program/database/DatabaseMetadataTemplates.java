@@ -84,6 +84,10 @@ public class DatabaseMetadataTemplates extends Database {
      * @return           true bei Erfolg
      */
     public boolean insertOrUpdate(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         if (exists(template.getName())) {
             return update(template);
         }
@@ -290,6 +294,10 @@ public class DatabaseMetadataTemplates extends Database {
      * @return      template or null if no template has that name or on errors
      */
     public MetadataTemplate find(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         MetadataTemplate  template = null;
         Connection        con      = null;
         PreparedStatement stmt     = null;
@@ -476,6 +484,10 @@ public class DatabaseMetadataTemplates extends Database {
      * @return true bei Erfolg
      */
     public boolean update(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         boolean           updated = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -533,6 +545,10 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     public boolean updateRename(String fromName, String toName) {
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         boolean           renamed = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -572,6 +588,10 @@ public class DatabaseMetadataTemplates extends Database {
      * @return true bei Erfolg
      */
     public boolean delete(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         boolean           deleted = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -607,6 +627,10 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     public boolean exists(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         boolean           exists = false;
         Connection        con    = null;
         PreparedStatement stmt   = null;
@@ -635,10 +659,18 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     public void addListener(DatabaseMetadataTemplatesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeListener(DatabaseMetadataTemplatesListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

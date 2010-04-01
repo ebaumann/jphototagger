@@ -49,6 +49,10 @@ public final class Support {
      * @return              keywords or null on errors
      */
     public static Object[] getKeywords(Transferable transferable) {
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
         try {
             return (Object[]) transferable.getTransferData(
                 Flavor.KEYWORDS_LIST);
@@ -68,6 +72,10 @@ public final class Support {
     @SuppressWarnings("unchecked")
     public static Collection<? extends ColumnData> getColumnData(
             Transferable transferable) {
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
         try {
             return (Collection<? extends ColumnData>) transferable
                 .getTransferData(Flavor.COLUMN_DATA);
@@ -89,6 +97,10 @@ public final class Support {
     @SuppressWarnings("unchecked")
     public static List<DefaultMutableTreeNode> getKeywordNodes(
             Transferable transferable) {
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
         try {
             return (List<DefaultMutableTreeNode>) transferable.getTransferData(
                 Flavor.KEYWORDS_TREE);
@@ -99,6 +111,11 @@ public final class Support {
         return null;
     }
 
+    /**
+     *
+     * @param  columnData can be null
+     * @return
+     */
     public static String getStringFromColumnData(
             Collection<? extends ColumnData> columnData) {
         if (columnData != null) {
@@ -127,6 +144,10 @@ public final class Support {
      * @return              string or null on errors
      */
     public static String getString(Transferable transferable) {
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
         try {
             return (String) transferable.getTransferData(
                 DataFlavor.stringFlavor);
