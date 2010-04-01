@@ -1,5 +1,5 @@
 /*
- * @(#)InputVerifierEmpty.java    Created on 2010-01-06
+ * @(#)InputVerifiersOr.java    Created on 2010-01-06
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -19,42 +19,37 @@
  * MA  02110-1301, USA.
  */
 
-package org.jphototagger.lib.componentutil;
+package org.jphototagger.lib.inputverifier;
+
+import java.util.List;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
-import javax.swing.text.JTextComponent;
 
 /**
- * A valid input of a <code>JTextComponent</code> has to be empty.
+ * One of the added input verifiers must return true for a valid input.
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierEmpty extends InputVerifier {
-    private final boolean trim;
+public final class InputVerifiersOr extends InputVerifiers {
 
     /**
-     * Constructor setting whether the text shall be trimmed.
+     * One of the added verifiers must verify the input as true for a valid input.
      *
-     * @param trim true if the text shall be trimmed before verifying.
-     *             Default: false.
+     * @param  input input
+     * @return       true if one of the added verifiers returns true, false
+     *               if all of the added verifiers returns false
      */
-    public InputVerifierEmpty(boolean trim) {
-        this.trim = trim;
-    }
-
-    public InputVerifierEmpty() {
-        trim = false;
-    }
-
     @Override
     public boolean verify(JComponent input) {
-        if (input instanceof JTextComponent) {
-            String text = ((JTextComponent) input).getText();
+        List<InputVerifier> verifiers = getVerifiers();
 
-            return trim
-                   ? text.trim().isEmpty()
-                   : text.isEmpty();
+        synchronized (verifiers) {
+            for (InputVerifier verifier : verifiers) {
+                if (verifier.verify(input)) {
+                    return true;
+                }
+            }
         }
 
         return false;

@@ -24,9 +24,9 @@ package org.jphototagger.program.database.metadata.xmp;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.componentutil.InputVerifierEmpty;
-import org.jphototagger.lib.componentutil.InputVerifiersOr;
-import org.jphototagger.lib.componentutil.InputVerifierStringPattern;
+import org.jphototagger.lib.inputverifier.InputVerifierEmpty;
+import org.jphototagger.lib.inputverifier.InputVerifiersOr;
+import org.jphototagger.lib.inputverifier.InputVerifierStringPattern;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;

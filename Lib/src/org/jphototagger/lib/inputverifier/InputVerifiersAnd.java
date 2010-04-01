@@ -1,5 +1,5 @@
 /*
- * @(#)InputVerifiers.java    Created on 2010-01-06
+ * @(#)InputVerifiersAnd.java    Created on 2010-01-06
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -19,48 +19,39 @@
  * MA  02110-1301, USA.
  */
 
-package org.jphototagger.lib.componentutil;
+package org.jphototagger.lib.inputverifier;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 
 /**
- * A collection of input verifiers.
+ * All added input verifiers must return true for a valid input.
  *
  * @author  Elmar Baumann
  */
-public class InputVerifiers extends InputVerifier {
-    private final List<InputVerifier> verifiers =
-        new ArrayList<InputVerifier>();
-
-    public void addVerifier(InputVerifier verifier) {
-        synchronized (verifiers) {
-            verifiers.add(verifier);
-        }
-    }
-
-    public void removeVerifier(InputVerifier verifier) {
-        synchronized (verifiers) {
-            verifiers.remove(verifier);
-        }
-    }
-
-    protected List<InputVerifier> getVerifiers() {
-        return verifiers;
-    }
+public final class InputVerifiersAnd extends InputVerifiers {
 
     /**
-     * Does not verify, this has to be done by a specialized class.
+     * All added verifiers must verify the input as true for a valid input.
      *
      * @param  input input
-     * @return       nothing
-     * @throws UnsupportedOperationException always, shall never be called
+     * @return       true if all of the added verifiers returning true, false
+     *               if one of the added verifiers returns false
      */
     @Override
     public boolean verify(JComponent input) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<InputVerifier> verifiers = getVerifiers();
+
+        synchronized (verifiers) {
+            for (InputVerifier verifier : verifiers) {
+                if (!verifier.verify(input)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

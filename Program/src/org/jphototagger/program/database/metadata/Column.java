@@ -22,10 +22,10 @@
 package org.jphototagger.program.database.metadata;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.lib.componentutil.InputVerifierAlwaysTrue;
-import org.jphototagger.lib.componentutil.InputVerifierDate;
-import org.jphototagger.lib.componentutil.InputVerifierMaxLength;
-import org.jphototagger.lib.componentutil.InputVerifierNumber;
+import org.jphototagger.lib.inputverifier.InputVerifierAlwaysTrue;
+import org.jphototagger.lib.inputverifier.InputVerifierDate;
+import org.jphototagger.lib.inputverifier.InputVerifierMaxLength;
+import org.jphototagger.lib.inputverifier.InputVerifierNumber;
 
 import java.text.DateFormat;
 
