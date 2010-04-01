@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.comparator.ComparatorSavedSearch;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.event.listener.SearchListener;
 import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
-import org.jphototagger.lib.componentutil.ListUtil;
 
 import java.util.List;
 
@@ -81,7 +81,9 @@ public final class ListModelSavedSearches extends DefaultListModel
         if (evt.getType().equals(SearchEvent.Type.SAVE)) {
             SavedSearch savedSearch = evt.getSavedSearch();
 
-            if (savedSearch != null) {
+            assert savedSearch.isValid() : savedSearch;
+
+            if (savedSearch.isValid()) {
                 SavedSearch foundSearch = findByName(savedSearch.getName());
 
                 if (foundSearch != null) {

@@ -89,7 +89,7 @@ public final class SearchEvent {
      *
      * @param savedSearch Daten
      */
-    public void setData(SavedSearch savedSearch) {
+    public void setSavedSearch(SavedSearch savedSearch) {
         this.savedSearch = savedSearch;
     }
 

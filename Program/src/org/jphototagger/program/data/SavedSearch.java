@@ -46,21 +46,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 public final class SavedSearch {
 
     /**
-     * Keywords
+     * Keywords if type equals KEYWORDS_AND_PANELS
      */
-    @XmlElementWrapper(name = "SavedSearchKeywords")
+    @XmlElementWrapper(name = "Keywords")
     @XmlElement(type = String.class)
     private List<String> keywords = new ArrayList<String>();
 
     /**
-     * Column panels
+     * Column panels if type equals KEYWORDS_AND_PANELS
      */
-    @XmlElementWrapper(name = "SavedSearchPanels")
+    @XmlElementWrapper(name = "Panels")
     @XmlElement(type = SavedSearchPanel.class)
-    private List<SavedSearchPanel> panels;
-    private String                 customSql;
-    private Type                   type;
-    private String                 name = "";
+    private List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
+
+    /**
+     * Custom SQL if type equals CUSTOM_SQL
+     */
+    private String customSql;
+
+    /**
+     * Type
+     */
+    private Type type;
+
+    /**
+     * Name and identifier
+     */
+    private String name;
 
     public SavedSearch() {}
 
@@ -106,44 +118,64 @@ public final class SavedSearch {
         type   = other.type;
     }
 
+    public boolean hasPanels() {
+        return (panels != null) &&!panels.isEmpty();
+    }
+
+    /**
+     * Returns the saved search panels.
+     *
+     * @return panels or empty list
+     */
     public List<SavedSearchPanel> getPanels() {
-        return (panels == null)
-               ? null
-               : getDeepCopyPanels();
+        return getDeepCopyPanels();
     }
 
     public void setPanels(List<SavedSearchPanel> panels) {
         setDeepCopyPanels(panels);
     }
 
-    public void addPanel(SavedSearchPanel panel) {
-        if (panels == null) {
-            panels = new ArrayList<SavedSearchPanel>();
-        }
-
-        panels.add(panel);
-    }
-
-    public ParamStatement getParamStatement() {
-        return isCustomSql()
-               ? createParamStmtFromCustomSql()
-               : createParamStmtFromPanels();
-    }
-
+    /**
+     * Returns the type.
+     *
+     * @return type or null
+     */
     public Type getType() {
         return type;
     }
 
     public void setType(Type type) {
-        if (type == null) {
-            throw new NullPointerException("type == null");
-        }
-
         this.type = type;
     }
 
-    public boolean hasPanels() {
-        return (panels != null) &&!panels.isEmpty();
+    /**
+     * A search is valid if it has a name, a type, its type is
+     * {@link Type#CUSTOM_SQL} and {@link #getCustomSql()} is a not empty string
+     * or if its type is {@link Type#KEYWORDS_AND_PANELS} and it has panels
+     * and/or keywords.
+     *
+     * @return true if this search is valid
+     */
+    public boolean isValid() {
+        if ((name == null) || name.isEmpty() || (type == null)) {
+            return false;
+        }
+
+        if (type.equals(Type.CUSTOM_SQL)) {
+            return (customSql != null) &&!customSql.isEmpty();
+        } else if (type.equals(Type.KEYWORDS_AND_PANELS)) {
+            return hasKeywords() || hasPanels();
+        } else {
+            assert false : type;
+
+            return false;
+        }
+    }
+
+    public ParamStatement createParamStatement() {
+        return isCustomSql()
+               ? createParamStmtFromCustomSql()
+               : createParamStmtFromPanels();
     }
 
     public boolean isCustomSql() {
@@ -154,33 +186,60 @@ public final class SavedSearch {
         return !keywords.isEmpty();
     }
 
+    /**
+     * Returns the keywords.
+     *
+     * @return keywords or empty list
+     */
     public List<String> getKeywords() {
         return new ArrayList<String>(keywords);
     }
 
     public void setKeywords(List<String> keywords) {
-        this.keywords = (keywords == null)
-                        ? new ArrayList<String>()
-                        : new ArrayList<String>(keywords);
+        setNotEmptyKeywords(keywords);
     }
 
+    /**
+     * Returns the name (identifier).
+     *
+     * @return name or null
+     */
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = (name == null)
-                    ? ""
-                    : name;
+                    ? null
+                    : name.trim();
+    }
+
+    /**
+     * Returns the custom SQL.
+     *
+     * @return SQL string or null
+     */
+    public String getCustomSql() {
+        return customSql;
+    }
+
+    public void setCustomSql(String customSql) {
+        this.customSql = (customSql == null)
+                         ? null
+                         : customSql.trim();
     }
 
     @Override
     public String toString() {
-
-        // Never change that (will be used to find model items)!
         return name;
     }
 
+    /**
+     * Two saved searches are equals if their names are equals.
+     *
+     * @param  obj object
+     * @return     true if equals
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -213,19 +272,7 @@ public final class SavedSearch {
         return hash;
     }
 
-    public String getCustomSql() {
-        return customSql;
-    }
-
-    public void setCustomSql(String customSql) {
-        this.customSql = customSql;
-    }
-
     private List<SavedSearchPanel> getDeepCopyPanels() {
-        if (panels == null) {
-            return null;
-        }
-
         List<SavedSearchPanel> copy =
             new ArrayList<SavedSearchPanel>(panels.size());
 
@@ -236,17 +283,37 @@ public final class SavedSearch {
         return copy;
     }
 
-    private void setDeepCopyPanels(List<SavedSearchPanel> p) {
-        if (p == null) {
-            panels = null;
+    private void setNotEmptyKeywords(List<String> keywords) {
+        if (keywords == null) {
+            this.keywords = new ArrayList<String>();
 
             return;
         }
 
-        panels = new ArrayList<SavedSearchPanel>(p.size());
+        this.keywords = new ArrayList<String>(keywords.size());
 
-        for (SavedSearchPanel panel : p) {
-            panels.add(new SavedSearchPanel(panel));
+        for (String keyword : keywords) {
+            keyword = keyword.trim();
+
+            if (!keyword.isEmpty()) {
+                this.keywords.add(keyword);
+            }
+        }
+    }
+
+    private void setDeepCopyPanels(List<SavedSearchPanel> panels) {
+        if (panels == null) {
+            this.panels = new ArrayList<SavedSearchPanel>();
+
+            return;
+        }
+
+        this.panels = new ArrayList<SavedSearchPanel>(panels.size());
+
+        for (SavedSearchPanel panel : panels) {
+            if (panel.hasValue()) {
+                this.panels.add(new SavedSearchPanel(panel));
+            }
         }
     }
 
@@ -254,8 +321,8 @@ public final class SavedSearch {
         ParamStatement stmt = new ParamStatement();
 
         setType(Type.CUSTOM_SQL);
-        stmt.setQuery(true);
         stmt.setSql(customSql);
+        stmt.setQuery(true);
 
         return stmt;
     }
@@ -267,20 +334,23 @@ public final class SavedSearch {
         setType(Type.KEYWORDS_AND_PANELS);
         appendToFrom(sb);
         appendWhere(sb);
-        stmt.setSql(sb.toString());
-        setValues(stmt);
-        stmt.setQuery(true);
+        setStmt(stmt, sb);
 
         return stmt;
     }
 
+    private void setStmt(ParamStatement stmt, StringBuilder sb) {
+        stmt.setSql(sb.toString());
+        setValues(stmt);
+        stmt.setQuery(true);
+    }
+
     private void setValues(ParamStatement stmt) {
-        List<String> values = new ArrayList<String>(10);
+        List<String> values = new ArrayList<String>(panels.size()
+                                  + keywords.size());
 
         for (SavedSearchPanel panel : panels) {
-            if (panel.hasValue()) {
-                values.add(panel.getValue());
-            }
+            values.add(panel.getValue());
         }
 
         values.addAll(keywords);
@@ -292,12 +362,10 @@ public final class SavedSearch {
 
         int index = 0;
 
-        if (panels != null) {
-            for (SavedSearchPanel panel : panels) {
-                if (panel.hasSql(index == 0)) {
-                    statement.append(panel.getSqlString(index == 0));
-                    index++;
-                }
+        for (SavedSearchPanel panel : panels) {
+            if (panel.hasSql(index == 0)) {
+                statement.append(panel.getSqlString(index == 0));
+                index++;
             }
         }
 
@@ -311,14 +379,17 @@ public final class SavedSearch {
             return;
         }
 
+        String paramsInParentheses =
+            org.jphototagger.program.database.Util.getParamsInParentheses(
+                count);
+
         statement.append((and
                           ? " AND"
                           : "") + " dc_subjects.subject IN "
-                                + org.jphototagger.program.database.Util
-                                    .getParamsInParentheses(
-                                        count) + " GROUP BY files.filename"
-                                            + " HAVING COUNT(*) = "
-                                                + Integer.toString(count));
+                                + paramsInParentheses
+                                + " GROUP BY files.filename"
+                                + " HAVING COUNT(*) = "
+                                + Integer.toString(count));
     }
 
     private void appendToFrom(StringBuilder statement) {

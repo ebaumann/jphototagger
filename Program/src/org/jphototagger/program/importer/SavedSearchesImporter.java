@@ -27,7 +27,8 @@ import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.event.SearchEvent;
 import org.jphototagger.program.exporter.SavedSearchesExporter;
-import org.jphototagger.program.exporter.SavedSearchesExporter.CollectionWrapper;
+import org.jphototagger.program.exporter.SavedSearchesExporter
+    .CollectionWrapper;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 
 import java.io.File;
@@ -52,8 +53,9 @@ public final class SavedSearchesImporter implements Importer {
                     SavedSearchesExporter.CollectionWrapper.class);
 
             for (SavedSearch savedSearch : wrapper.getCollection()) {
-                if (!DatabaseSavedSearches.INSTANCE.exists(
-                        savedSearch.getName())) {
+                if (savedSearch.isValid()
+                        &&!DatabaseSavedSearches.INSTANCE.exists(
+                            savedSearch.getName())) {
                     if (DatabaseSavedSearches.INSTANCE.insertOrUpdate(
                             savedSearch)) {
                         notifySearchListeners(savedSearch);
@@ -68,7 +70,7 @@ public final class SavedSearchesImporter implements Importer {
     private void notifySearchListeners(SavedSearch savedSearch) {
         SearchEvent evt = new SearchEvent(SearchEvent.Type.SAVE);
 
-        evt.setData(savedSearch);
+        evt.setSavedSearch(savedSearch);
         evt.setSearchName(savedSearch.getName());
         evt.setForceOverwrite(true);
         AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().notify(evt);

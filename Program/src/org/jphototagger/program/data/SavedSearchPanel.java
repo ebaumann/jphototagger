@@ -132,7 +132,7 @@ public final class SavedSearchPanel {
     }
 
     public boolean hasValue() {
-        return value != null;
+        return (value != null) &&!value.isEmpty();
     }
 
     public boolean isTrimmedValueEmpty() {
@@ -144,7 +144,9 @@ public final class SavedSearchPanel {
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.value = (value == null)
+                     ? null
+                     : value.trim();
     }
 
     public String getSqlString(boolean isFirst) {
@@ -156,20 +158,20 @@ public final class SavedSearchPanel {
 
             if (!isFirst) {
                 sb.append(bracketLeft1Selected
-                              ? " ("
-                              : "");
+                          ? " ("
+                          : "");
                 sb.append(" " + operator.toSqlString());
             }
 
             sb.append(bracketLeft2Selected
-                          ? " ("
-                          : "");
+                      ? " ("
+                      : "");
             sb.append(" " + column.getTablename() + "." + column.getName());
             sb.append(" " + comparator.toSqlString());
             sb.append(" ?");
             sb.append(bracketRightSelected
-                          ? ")"
-                          : "");
+                      ? ")"
+                      : "");
 
             return sb.toString();
         }
