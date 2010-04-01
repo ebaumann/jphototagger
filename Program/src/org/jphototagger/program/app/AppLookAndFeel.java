@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.app;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 
@@ -184,26 +183,26 @@ public final class AppLookAndFeel {
 
     private static void setUiColors() {
         treeSelectionForeground =
-            ComponentUtil.getUiColor("Tree.selectionForeground");
+            LookAndFeelUtil.getUiColor("Tree.selectionForeground");
         treeSelectionBackground =
-            ComponentUtil.getUiColor("Tree.selectionBackground");
+            LookAndFeelUtil.getUiColor("Tree.selectionBackground");
         treeTextBackground      =
-            ComponentUtil.getUiColor("Tree.textBackground");
+            LookAndFeelUtil.getUiColor("Tree.textBackground");
         treeTextForeground      =
-            ComponentUtil.getUiColor("Tree.textForeground");
+            LookAndFeelUtil.getUiColor("Tree.textForeground");
         listSelectionForeground =
-            ComponentUtil.getUiColor("List.selectionForeground");
+            LookAndFeelUtil.getUiColor("List.selectionForeground");
         listSelectionBackground =
-            ComponentUtil.getUiColor("List.selectionBackground");
-        listBackground           = ComponentUtil.getUiColor("List.background");
-        listForeground           = ComponentUtil.getUiColor("List.foreground");
-        tableForeground          = ComponentUtil.getUiColor("Table.foreground");
+            LookAndFeelUtil.getUiColor("List.selectionBackground");
+        listBackground           = LookAndFeelUtil.getUiColor("List.background");
+        listForeground           = LookAndFeelUtil.getUiColor("List.foreground");
+        tableForeground          = LookAndFeelUtil.getUiColor("Table.foreground");
         tableBackground          =
-            ComponentUtil.getUiColor("Table.background ");
+            LookAndFeelUtil.getUiColor("Table.background ");
         tableSelectionForeground =
-            ComponentUtil.getUiColor("Table.selectionForeground");
+            LookAndFeelUtil.getUiColor("Table.selectionForeground");
         tableSelectionBackground =
-            ComponentUtil.getUiColor("Table.selectionBackground ");
+            LookAndFeelUtil.getUiColor("Table.selectionBackground ");
         tableStoredInDatabaseForeground = new Color(0, 0, 200);
         tableStoredInDatabaseBackground = tableBackground;
         tableExifMakerNoteForeground    = new Color(0, 125, 0);

@@ -27,7 +27,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.image.util.IconUtil;
@@ -41,6 +40,7 @@ import java.io.File;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JFileChooser;
+import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 
 /**
  * Modal Dialog to change or define the properties of a program which can
@@ -60,7 +60,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private boolean            action;
     private static final Color FG_COLOR_LABEL_FILE_EXISTS = Color.BLUE;
     private static final Color BG_COLOR_LABEL_FILE_EXISTS =
-        ComponentUtil.getUiColor("Label.background");
+        LookAndFeelUtil.getUiColor("Label.background");
     private static final Color FG_COLOR_LABEL_FILE_NOT_EXISTS = Color.WHITE;
     private static final Color BG_COLOR_LABEL_FILE_NOT_EXISTS = Color.RED;
 
