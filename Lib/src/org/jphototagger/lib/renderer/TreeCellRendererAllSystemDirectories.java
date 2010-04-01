@@ -21,7 +21,6 @@
 
 package org.jphototagger.lib.renderer;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
@@ -39,6 +38,7 @@ import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 
 /**
  * Renders items of {@link TreeModelAllSystemDirectories}. Ddisplays only the
@@ -59,13 +59,13 @@ public final class TreeCellRendererAllSystemDirectories
             "TreeCellRendererAllSystemDirectories.DisplayName.Root");
     private int                tempSelRow                = -1;
     private static final Color TREE_SELECTION_FOREGROUND =
-        ComponentUtil.getUiColor("Tree.selectionForeground");
+        LookAndFeelUtil.getUiColor("Tree.selectionForeground");
     private static final Color TREE_SELECTION_BACKGROUND =
-        ComponentUtil.getUiColor("Tree.selectionBackground");
+        LookAndFeelUtil.getUiColor("Tree.selectionBackground");
     private static final Color TREE_TEXT_BACKGROUND =
-        ComponentUtil.getUiColor("Tree.textBackground");
+        LookAndFeelUtil.getUiColor("Tree.textBackground");
     private static final Color TREE_TEXT_FOREGROUND =
-        ComponentUtil.getUiColor("Tree.textForeground");
+        LookAndFeelUtil.getUiColor("Tree.textForeground");
 
     public TreeCellRendererAllSystemDirectories() {
         setOpaque(true);
