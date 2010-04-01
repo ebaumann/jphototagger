@@ -41,9 +41,12 @@ public final class DirectoryInfo {
      * @param directory Verzeichnis
      */
     public DirectoryInfo(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         this.directory = directory;
-        imageFiles     =
-            ImageFilteredDirectory.getImageFilesOfDirectory(directory);
+        imageFiles = ImageFilteredDirectory.getImageFilesOfDirectory(directory);
     }
 
     /**

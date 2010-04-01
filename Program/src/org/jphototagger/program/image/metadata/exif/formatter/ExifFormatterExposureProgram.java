@@ -56,6 +56,10 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.EXPOSURE_PROGRAM);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {

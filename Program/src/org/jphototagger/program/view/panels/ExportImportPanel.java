@@ -80,6 +80,10 @@ public class ExportImportPanel extends javax.swing.JPanel
     }
 
     public ExportImportPanel(Context context) {
+        if (context == null) {
+            throw new NullPointerException("context == null");
+        }
+
         this.context = context;
         initComponents();
         postInitComponents();
@@ -108,6 +112,10 @@ public class ExportImportPanel extends javax.swing.JPanel
     }
 
     public void setContext(Context context) {
+        if (context == null) {
+            throw new NullPointerException("context == null");
+        }
+
         this.context = context;
         setInfoLabel();
         addObjects();
@@ -272,10 +280,18 @@ public class ExportImportPanel extends javax.swing.JPanel
 
 
     public void addListener(ExportImportListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         exImportListenerSupport.add(listener);
     }
 
     public void removeListener(ExportImportListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         exImportListenerSupport.remove(listener);
     }
 

@@ -39,6 +39,14 @@ public final class ErrorListeners extends ListenerSupport<ErrorListener> {
     public static final ErrorListeners INSTANCE = new ErrorListeners();
 
     public void notifyListeners(Object source, String message) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
+        if (message == null) {
+            throw new NullPointerException("message == null");
+        }
+
         synchronized (listeners) {
             for (ErrorListener listener : listeners) {
                 listener.error(source, message);

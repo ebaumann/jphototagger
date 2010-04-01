@@ -48,6 +48,10 @@ public final class IptcEntry {
      * @param entry IPTC-Eintrag
      */
     public IptcEntry(IPTCEntry entry) {
+        if (entry == null) {
+            throw new NullPointerException("entry == null");
+        }
+
         name          = entry.getEntryMeta().getName();
         data          = Arrays.copyOf(entry.getData(), entry.getData().length);
         recordNumber  = entry.getRecordNumber();

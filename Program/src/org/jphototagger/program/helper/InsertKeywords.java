@@ -42,6 +42,10 @@ public final class InsertKeywords extends Thread {
     private final List<String> keywords;
 
     public InsertKeywords(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         this.keywords = new ArrayList<String>(keywords);
         setName("Inserting string list into keywords @ "
                 + getClass().getSimpleName());

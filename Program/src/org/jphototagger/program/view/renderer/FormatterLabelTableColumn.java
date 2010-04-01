@@ -40,6 +40,14 @@ public final class FormatterLabelTableColumn {
      * @param column  Tabellenspalte
      */
     public static void setLabelText(JLabel label, Column column) {
+        if (label == null) {
+            throw new NullPointerException("label == null");
+        }
+
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         label.setIcon(TableIcons.getIcon(column.getTablename()));
         label.setText(column.getDescription());
     }

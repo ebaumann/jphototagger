@@ -47,6 +47,10 @@ public final class AutoscanDirectoriesImporter implements Importer {
 
     @Override
     public void importFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             AutoscanDirectoriesExporter.CollectionWrapper wrapper =
                 (CollectionWrapper) XmlObjectImporter.importObject(file,

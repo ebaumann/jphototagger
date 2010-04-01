@@ -58,6 +58,10 @@ public final class SaveXmp extends Thread {
 
     public synchronized static void save(Collection<Pair<File,
             Xmp>> imageFilesXmp) {
+        if (imageFilesXmp == null) {
+            throw new NullPointerException("imageFilesXmp == null");
+        }
+
         final int fileCount = imageFilesXmp.size();
 
         if (fileCount >= 1) {

@@ -37,6 +37,14 @@ public final class ExifCopyright {
     private final String editorCopyright;
 
     public ExifCopyright(byte[] photographerCopyright, byte[] editorCopyright) {
+        if (photographerCopyright == null) {
+            throw new NullPointerException("photographerCopyright == null");
+        }
+
+        if (editorCopyright == null) {
+            throw new NullPointerException("editorCopyright == null");
+        }
+
         this.photographerCopyright =
             photographerCopyright(photographerCopyright);
         this.editorCopyright = editorCopyright(editorCopyright);
@@ -59,6 +67,10 @@ public final class ExifCopyright {
      *
      */
     public static String photographerCopyright(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         Pair<Integer, Integer> photographerOffsets =
             photographerOffsets(rawValue);
 
@@ -75,6 +87,10 @@ public final class ExifCopyright {
      *
      */
     public static String editorCopyright(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         Pair<Integer, Integer> editorOffsets = editorOffsets(rawValue);
 
         return string(rawValue, editorOffsets.getFirst(),

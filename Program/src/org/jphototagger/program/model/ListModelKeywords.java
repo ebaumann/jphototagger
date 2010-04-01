@@ -68,10 +68,14 @@ public final class ListModelKeywords extends DefaultListModel
      * Returns whether a keyword existsValueIn whithin this model, does
      * <em>not</em> check the database.
      *
-     * @param  keyword keywords
+     * @param  keyword keyword
      * @return         true if this model contains that keyword
      */
     public synchronized boolean exists(String keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         return contains(keyword);
     }
 
@@ -84,6 +88,14 @@ public final class ListModelKeywords extends DefaultListModel
      * @return         true if renamed
      */
     public synchronized boolean rename(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         assert !fromName.equals(toName);
 
         int index = indexOf(fromName);
@@ -106,6 +118,10 @@ public final class ListModelKeywords extends DefaultListModel
      * @return         true if removed
      */
     public synchronized boolean delete(String keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         int index = indexOf(keyword);
 
         if (index < 0) {

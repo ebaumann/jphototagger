@@ -31,6 +31,10 @@ import java.nio.ByteOrder;
  */
 public final class ExifDatatypeUtil {
     public static double toDouble(ExifRational rational) {
+        if (rational == null) {
+            throw new NullPointerException("rational == null");
+        }
+
         double numerator   = rational.numerator();
         double denominator = rational.denominator();
 
@@ -40,10 +44,22 @@ public final class ExifDatatypeUtil {
     }
 
     public static long toLong(ExifRational rational) {
+        if (rational == null) {
+            throw new NullPointerException("rational == null");
+        }
+
         return (long) Math.floor(toDouble(rational));
     }
 
     public static int intFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
 
         return buf.getInt();
@@ -51,6 +67,14 @@ public final class ExifDatatypeUtil {
 
     public static short shortFromRawValue(byte[] rawValue,
             ByteOrder byteOrder) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
 
         return buf.getShort();

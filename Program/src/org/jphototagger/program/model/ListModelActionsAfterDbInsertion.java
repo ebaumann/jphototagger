@@ -53,6 +53,10 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     public void insert(Program action) {
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         assert action.isAction() : action;
 
         if (!contains(action)
@@ -109,6 +113,10 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     public void delete(Program action) {
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
         if (contains(action)
                 && DatabaseActionsAfterDbInsertion.INSTANCE.delete(action)) {
             removeElement(action);

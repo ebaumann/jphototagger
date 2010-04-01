@@ -67,6 +67,10 @@ public final class ImageUtil {
      * @return      true if the file is an image file
      */
     public static boolean isImageFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return AppFileFilters.ACCEPTED_IMAGE_FILENAMES.accept(file);
     }
 
@@ -77,6 +81,10 @@ public final class ImageUtil {
      * @return       image files of that files
      */
     public static List<File> getImageFiles(Collection<? extends File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
         List<File> imageFiles = new ArrayList<File>(files.size());
 
         for (File file : files) {
@@ -99,6 +107,18 @@ public final class ImageUtil {
     public static void copyImageFiles(List<File> sourceFiles,
                                       File targetDirectory,
                                       ConfirmOverwrite confirm) {
+        if (sourceFiles == null) {
+            throw new NullPointerException("sourceFiles == null");
+        }
+
+        if (targetDirectory == null) {
+            throw new NullPointerException("targetDirectory == null");
+        }
+
+        if (confirm == null) {
+            throw new NullPointerException("confirm == null");
+        }
+
         if (confirm.yes()
                 &&!confirmFileAction("ImageUtil.Confirm.Copy",
                                      sourceFiles.size(),
@@ -197,6 +217,10 @@ public final class ImageUtil {
      * @return            image files and their sidecar files
      */
     public static List<File> addSidecarFiles(List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         List<File> files = new ArrayList<File>(imageFiles.size() * 2);
 
         for (File imageFile : imageFiles) {

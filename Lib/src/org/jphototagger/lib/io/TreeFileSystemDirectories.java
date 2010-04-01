@@ -45,13 +45,18 @@ import javax.swing.tree.TreePath;
 public final class TreeFileSystemDirectories {
 
     /**
-     * Deletes a directory from the file system. Let's the user confirm deletion.
+     * Deletes a directory from the file system. Let's the user confirm
+     * deletion.
      *
      * @param  directory directory
      * @return           true if deleted
      *
      */
     public static boolean delete(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (directory.isDirectory()) {
             if (confirmDelete(directory.getName())) {
                 try {
@@ -79,6 +84,10 @@ public final class TreeFileSystemDirectories {
      *
      */
     public static File rename(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (directory.isDirectory()) {
             String newDirectoryName = getNewName(directory);
 
@@ -112,6 +121,10 @@ public final class TreeFileSystemDirectories {
      * @return                 created subdirectory or null if not created
      */
     public static File createDirectoryIn(File parentDirectory) {
+        if (parentDirectory == null) {
+            throw new NullPointerException("parentDirectory == null");
+        }
+
         if (parentDirectory.isDirectory()) {
             String subdirectoryName = getSubDirectoryName();
 
@@ -145,6 +158,10 @@ public final class TreeFileSystemDirectories {
      */
     public static DefaultMutableTreeNode getNodeOfLastPathComponent(
             TreePath path) {
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
+
         Object lastPathComponent = path.getLastPathComponent();
 
         if (lastPathComponent instanceof DefaultMutableTreeNode) {
@@ -182,6 +199,14 @@ public final class TreeFileSystemDirectories {
      */
     public static void updateInTreeModel(TreeModel model,
             MutableTreeNode node) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
         if (model instanceof DefaultTreeModel) {
             ((DefaultTreeModel) model).nodeChanged(node);
         }
@@ -199,6 +224,14 @@ public final class TreeFileSystemDirectories {
      */
     public static void insertIntoTreeModel(TreeModel model,
             DefaultMutableTreeNode parentNode, File file) {
+        if (parentNode == null) {
+            throw new NullPointerException("parentNode == null");
+        }
+
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (model instanceof DefaultTreeModel) {
             ((DefaultTreeModel) model).insertNodeInto(
                 new DefaultMutableTreeNode(file), parentNode,
@@ -216,6 +249,14 @@ public final class TreeFileSystemDirectories {
      */
     public static void removeFromTreeModel(TreeModel model,
             MutableTreeNode node) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
         if (model instanceof DefaultTreeModel) {
             ((DefaultTreeModel) model).removeNodeFromParent(node);
         }
@@ -228,6 +269,10 @@ public final class TreeFileSystemDirectories {
      * @return      new name or null if the user didn't input a name
      */
     public static String getNewName(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return JOptionPane.showInputDialog(
             ComponentUtil.getFrameWithIcon(),
             JslBundle.INSTANCE.getString(
@@ -243,6 +288,10 @@ public final class TreeFileSystemDirectories {
      * @return true if the file does <em>not</em> exist
      */
     public static boolean checkDoesNotExist(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (file.exists()) {
             JOptionPane
                 .showMessageDialog(
@@ -268,6 +317,10 @@ public final class TreeFileSystemDirectories {
      * @return true if the directory shall be deleted
      */
     public static boolean confirmDelete(String directoryName) {
+        if (directoryName == null) {
+            throw new NullPointerException("directoryName == null");
+        }
+
         return JOptionPane
             .showConfirmDialog(
                 ComponentUtil.getFrameWithIcon(),
@@ -287,6 +340,10 @@ public final class TreeFileSystemDirectories {
      * @param directoryName name of the directory
      */
     public static void errorMessageDelete(String directoryName) {
+        if (directoryName == null) {
+            throw new NullPointerException("directoryName == null");
+        }
+
         JOptionPane
             .showMessageDialog(
                 ComponentUtil.getFrameWithIcon(),

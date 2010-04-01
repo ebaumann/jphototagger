@@ -111,6 +111,10 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     }
 
     public void setSelImgKeywords(Collection<? extends String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.clear();
             this.highLightKeywords.addAll(keywords);
@@ -118,24 +122,40 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     }
 
     public void addSelImgKeywords(Collection<? extends String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.addAll(keywords);
         }
     }
 
     public void removeSelImgKeywords(Collection<? extends String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.removeAll(keywords);
         }
     }
 
     public void addSelImgKeyword(String keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         synchronized (highLightKeywords) {
             highLightKeywords.add(keyword);
         }
     }
 
     public void removeSelImgKeyword(String keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         synchronized (highLightKeywords) {
             highLightKeywords.remove(keyword);
         }

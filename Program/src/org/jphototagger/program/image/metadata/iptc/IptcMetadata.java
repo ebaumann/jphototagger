@@ -45,7 +45,7 @@ public final class IptcMetadata {
     /**
      * Returns {@link IptcEntry} instances of an image file.
      *
-     * @param  imageFile image file
+     * @param  imageFile image file or null
      * @return           Metadata or empty list if the image has no IPTC
      *                   metadata or when errors occur
      */
@@ -117,6 +117,13 @@ public final class IptcMetadata {
      */
     public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries,
             IPTCEntryMeta filter) {
+        if (entries == null) {
+            throw new NullPointerException("entries == null");
+        }
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         List<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
 
         for (IptcEntry entry : entries) {
@@ -131,7 +138,7 @@ public final class IptcMetadata {
     /**
      * Returns a {@link Iptc} instance of an image file.
      *
-     * @param  imageFile image file
+     * @param  imageFile image file or null
      * @return           IPTC of that image file or null if the image has no
      *                   IPTC metadata or when errors occur
      */

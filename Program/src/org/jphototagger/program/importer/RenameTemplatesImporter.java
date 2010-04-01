@@ -44,6 +44,10 @@ public final class RenameTemplatesImporter implements Importer {
 
     @Override
     public void importFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             RenameTemplatesExporter.CollectionWrapper wrapper =
                 (CollectionWrapper) XmlObjectImporter.importObject(file,

@@ -57,6 +57,14 @@ public final class TableModelXmp extends DefaultTableModel {
      */
     public void setPropertyInfosOfFile(File file,
                                        List<XMPPropertyInfo> propertyInfos) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (propertyInfos == null) {
+            throw new NullPointerException("propertyInfos == null");
+        }
+
         this.file          = file;
         this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
         removeAllRows();

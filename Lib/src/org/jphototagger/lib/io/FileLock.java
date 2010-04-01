@@ -38,7 +38,7 @@ import java.util.Map;
  * @author  Elmar Baumann
  */
 public final class FileLock {
-    public static final FileLock    INSTANCE          = new FileLock();
+    public static final FileLock    INSTANCE = new FileLock();
     private final Map<File, Object> ownerOfLockedFile =
         Collections.synchronizedMap(new HashMap<File, Object>());
 
@@ -50,6 +50,14 @@ public final class FileLock {
      * @return       true if locked. false if the file is already locked.
      */
     public boolean lock(File file, Object owner) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (owner == null) {
+            throw new NullPointerException("owner == null");
+        }
+
         synchronized (ownerOfLockedFile) {
             if (!ownerOfLockedFile.containsKey(file)) {
                 ownerOfLockedFile.put(file, owner);
@@ -68,6 +76,10 @@ public final class FileLock {
      * @return      owner or null if no object owns a lock of that file
      */
     public Object getOwner(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         return ownerOfLockedFile.get(file);
     }
 
@@ -79,6 +91,14 @@ public final class FileLock {
      * @return true if unlocked
      */
     public boolean unlock(File file, Object owner) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (owner == null) {
+            throw new NullPointerException("owner == null");
+        }
+
         synchronized (ownerOfLockedFile) {
             if (ownerOfLockedFile.containsKey(file)
                     && ownerOfLockedFile.get(file).equals(owner)) {

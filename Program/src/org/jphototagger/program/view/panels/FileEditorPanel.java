@@ -90,6 +90,10 @@ public final class FileEditorPanel extends javax.swing.JPanel {
      *                    if the user shall select files
      */
     public FileEditorPanel(FileEditor fileEditor, boolean selectDirs) {
+        if (fileEditor == null) {
+            throw new NullPointerException("fileEditor == null");
+        }
+
         this.fileEditor = fileEditor;
         this.selectDirs = selectDirs;
         initComponents();
@@ -110,6 +114,10 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void setFileChooserFilter(FileFilter fileChooserFileFilter) {
+        if (fileChooserFileFilter == null) {
+            throw new NullPointerException("fileChooserFileFilter == null");
+        }
+
         this.fileChooserFileFilter = fileChooserFileFilter;
     }
 
@@ -118,10 +126,18 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void setDescription(String description) {
+        if (description == null) {
+            throw new NullPointerException("description == null");
+        }
+
         labelDescription.setText(asHtml(description));
     }
 
     public void setTitle(String title) {
+        if (title == null) {
+            throw new NullPointerException("title == null");
+        }
+
         this.title = title;
     }
 
@@ -134,14 +150,26 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void setFileChooserFileFilter(FileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         fileChooserFileFilter = filter;
     }
 
     public void setDirChooserFileFilter(RegexFileFilter filter) {
+        if (filter == null) {
+            throw new NullPointerException("filter == null");
+        }
+
         dirChooserFileFilter = filter;
     }
 
     public void setEditor(FileEditor fileEditor) {
+        if (fileEditor == null) {
+            throw new NullPointerException("fileEditor == null");
+        }
+
         if (!isRunning) {
             this.fileEditor = fileEditor;
         }

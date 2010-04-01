@@ -98,6 +98,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     public void insert(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         synchronized (monitor) {
             listenToDb = false;
             favorite.setIndex(getNextNewFavoriteIndex());
@@ -118,6 +122,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     public void delete(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         synchronized (monitor) {
             listenToDb = false;
 
@@ -171,6 +179,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     public void moveUpFavorite(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         synchronized (monitor) {
             DefaultMutableTreeNode nodeToMoveUp = getNode(favorite);
 
@@ -196,6 +208,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     public void moveDownFavorite(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         synchronized (monitor) {
             DefaultMutableTreeNode nodeToMoveDown = getNode(favorite);
 

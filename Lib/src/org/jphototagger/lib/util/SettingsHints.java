@@ -51,6 +51,10 @@ public final class SettingsHints {
     public SettingsHints() {}
 
     public SettingsHints(Option... options) {
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         for (Option option : options) {
             this.options.add(option);
         }
@@ -73,6 +77,10 @@ public final class SettingsHints {
     }
 
     boolean isOption(Option option) {
+        if (option == null) {
+            throw new NullPointerException("option == null");
+        }
+
         return options.contains(option);
     }
 }

@@ -450,6 +450,10 @@ public final class ModelFactory {
      *                    instanciated
      */
     public <T> List<T> getModels(Class<T> modelClass) {
+        if (modelClass == null) {
+            throw new NullPointerException("modelClass == null");
+        }
+
         return support.getAll(modelClass);
     }
 
@@ -462,6 +466,10 @@ public final class ModelFactory {
      *                    instanciated
      */
     public <T> T getModel(Class<T> modelClass) {
+        if (modelClass == null) {
+            throw new NullPointerException("modelClass == null");
+        }
+
         return support.getFirst(modelClass);
     }
 

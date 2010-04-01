@@ -63,6 +63,15 @@ public final class TreeItemTempSelectionRowSetter
      */
     public TreeItemTempSelectionRowSetter(JTree tree, JPopupMenu popupMenu) {
         this.tree = tree;
+
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (popupMenu == null) {
+            throw new NullPointerException("popupMenu == null");
+        }
+
         tree.addMouseListener(this);
         popupMenu.addPopupMenuListener(this);
     }

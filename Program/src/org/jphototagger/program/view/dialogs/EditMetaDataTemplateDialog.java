@@ -70,6 +70,10 @@ public class EditMetaDataTemplateDialog extends Dialog {
      *                 save action
      */
     public void setTemplate(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         this.template = template;
 
         String name = template.getName();

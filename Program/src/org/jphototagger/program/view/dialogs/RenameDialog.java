@@ -122,10 +122,18 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     public void addFileSystemListener(FileSystemListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeFileSystemListener(FileSystemListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 
@@ -148,11 +156,23 @@ public final class RenameDialog extends Dialog implements ListDataListener {
      * @param imageFiles image files
      */
     public void setImageFiles(List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         this.imageFiles = imageFiles;
     }
 
     public synchronized void notifyFileSystemListeners(File fromImageFile,
             File toImageFile) {
+        if (fromImageFile == null) {
+            throw new NullPointerException("fromImageFile == null");
+        }
+
+        if (toImageFile == null) {
+            throw new NullPointerException("toImageFile == null");
+        }
+
         ls.notifyRenamed(fromImageFile, toImageFile);
     }
 

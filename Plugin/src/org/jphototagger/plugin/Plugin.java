@@ -42,7 +42,7 @@ import javax.swing.JProgressBar;
 public abstract class Plugin {
     private Properties                properties;
     private JProgressBar              progressBar;
-    private final List<File>          files           = new ArrayList<File>();
+    private final List<File>          files = new ArrayList<File>();
     private final Set<PluginListener> pluginListeners =
         new HashSet<PluginListener>();
     private boolean pBarStringPainted;
@@ -78,6 +78,10 @@ public abstract class Plugin {
      *                   qualified class and field name
      */
     public void setProperties(Properties properties) {
+        if (properties == null) {
+            throw new NullPointerException("properties == null");
+        }
+
         this.properties = properties;
     }
 
@@ -96,6 +100,10 @@ public abstract class Plugin {
      * @param files files to process
      */
     public void setFiles(List<File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
         synchronized (files) {
             this.files.clear();
             this.files.addAll(files);
@@ -124,6 +132,10 @@ public abstract class Plugin {
      *                 progress bar.
      */
     public void addPluginListener(PluginListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (pluginListeners) {
             pluginListeners.add(listener);
         }
@@ -135,6 +147,10 @@ public abstract class Plugin {
      * @param listener listener to remove
      */
     public void removePluginListener(PluginListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         synchronized (pluginListeners) {
             pluginListeners.remove(listener);
         }
@@ -146,6 +162,10 @@ public abstract class Plugin {
      * @param event event
      */
     public void notifyPluginListeners(PluginEvent event) {
+        if (event == null) {
+            throw new NullPointerException("event == null");
+        }
+
         synchronized (pluginListeners) {
             if (pluginListeners.size() > 0) {
                 for (PluginListener listener : pluginListeners) {

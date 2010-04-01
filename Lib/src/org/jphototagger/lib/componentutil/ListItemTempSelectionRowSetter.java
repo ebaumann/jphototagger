@@ -63,6 +63,14 @@ public final class ListItemTempSelectionRowSetter
      * @param popupMenu the list's popup menu
      */
     public ListItemTempSelectionRowSetter(JList list, JPopupMenu popupMenu) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
+        if (popupMenu == null) {
+            throw new NullPointerException("popupMenu == null");
+        }
+
         this.list = list;
         list.addMouseListener(this);
         popupMenu.addPopupMenuListener(this);

@@ -51,6 +51,14 @@ public final class DeleteImageFiles {
      */
     public static List<File> delete(List<File> imageFiles,
                                     DeleteOption... options) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         List<File>         deletedImageFiles =
             new ArrayList<File>(imageFiles.size());
         List<DeleteOption> optionList        = Arrays.asList(options);

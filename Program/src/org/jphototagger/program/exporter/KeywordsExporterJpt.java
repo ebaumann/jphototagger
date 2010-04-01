@@ -116,6 +116,10 @@ public final class KeywordsExporterJpt implements Exporter {
 
     @Override
     public void exportFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             Document           doc   = getXml();
             DOMSource          ds    = new DOMSource(doc);

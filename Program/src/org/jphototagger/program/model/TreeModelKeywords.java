@@ -21,14 +21,14 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,8 +54,7 @@ import javax.swing.tree.TreeNode;
 public final class TreeModelKeywords extends DefaultTreeModel {
     private static final long                serialVersionUID =
         -1044898256327030256L;
-    private final transient DatabaseKeywords db               =
-        DatabaseKeywords.INSTANCE;
+    private final transient DatabaseKeywords db = DatabaseKeywords.INSTANCE;
     private final DefaultMutableTreeNode     ROOT;
 
     public TreeModelKeywords() {
@@ -77,6 +76,14 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     @SuppressWarnings("unchecked")
     public DefaultMutableTreeNode findChildByName(
             DefaultMutableTreeNode parent, String name) {
+        if (parent == null) {
+            throw new NullPointerException("parent == null");
+        }
+
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         for (Enumeration<DefaultMutableTreeNode> e = parent.children();
                 e.hasMoreElements(); ) {
             DefaultMutableTreeNode child      = e.nextElement();
@@ -102,6 +109,14 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      */
     public synchronized DefaultMutableTreeNode insert(
             DefaultMutableTreeNode parentNode, String keyword, boolean real) {
+        if (parentNode == null) {
+            throw new NullPointerException("parentNode == null");
+        }
+
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         if (!ensureIsNotChild(parentNode, keyword)) {
             return null;
         }
@@ -137,6 +152,14 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
     public synchronized void copySubtree(DefaultMutableTreeNode source,
             DefaultMutableTreeNode target) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
+        if (target == null) {
+            throw new NullPointerException("target == null");
+        }
+
         if (!ensureIsNotChild(target, source.getUserObject().toString())
                 ||!ensureTargetIsNotBelowSource(source, target)) {
             return;
@@ -160,8 +183,9 @@ public final class TreeModelKeywords extends DefaultTreeModel {
             DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
         Keyword srcKeyword    = (Keyword) source.getUserObject();
         Keyword targetKeyword = (Keyword) target.getUserObject();
-        Keyword keyword       = new Keyword(null, targetKeyword.getId(),
-                                    srcKeyword.getName(), srcKeyword.isReal());
+        Keyword keyword = new Keyword(null, targetKeyword.getId(),
+                                      srcKeyword.getName(),
+                                      srcKeyword.isReal());
 
         if (db.insert(keyword)) {
             KeywordsHelper.insertDcSubject(keyword.getName());
@@ -243,6 +267,10 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     }
 
     public synchronized void delete(DefaultMutableTreeNode keywordNode) {
+        if (keywordNode == null) {
+            throw new NullPointerException("keywordNode == null");
+        }
+
         List<Keyword> delKeywords = new ArrayList<Keyword>();
 
         for (Enumeration<?> e = keywordNode.preorderEnumeration();
@@ -276,6 +304,14 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      * @param keyword keyword that was changed
      */
     public void changed(DefaultMutableTreeNode node, Keyword keyword) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         assert node.getUserObject().equals(keyword) : node.getUserObject();
 
         TreeNode parent = node.getParent();
@@ -305,6 +341,18 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      */
     public void move(DefaultMutableTreeNode source,
                      DefaultMutableTreeNode target, Keyword keyword) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
+        if (target == null) {
+            throw new NullPointerException("target == null");
+        }
+
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         if (ensureIsNotChild(target, keyword.getName())
                 && ensureTargetIsNotBelowSource(source, target)
                 && setIdParent(keyword, target)) {
@@ -379,6 +427,14 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      */
     @SuppressWarnings("unchecked")
     public synchronized void setAllRenamed(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
         assert !toName.equalsIgnoreCase(fromName) : fromName;
 
         if (db.updateRenameAll(fromName, toName) > 0) {
@@ -391,7 +447,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                 if (userObject instanceof Keyword) {
                     Keyword kw = (Keyword) userObject;
 
-                    if (kw.isReal() && kw.getName().equalsIgnoreCase(fromName)) {
+                    if (kw.isReal()
+                            && kw.getName().equalsIgnoreCase(fromName)) {
                         kw.setName(toName);
                     }
                 }
@@ -408,6 +465,10 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      */
     @SuppressWarnings("unchecked")
     public synchronized void removeRootItemWithoutChildren(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         for (Enumeration<DefaultMutableTreeNode> e = ROOT.children();
                 e.hasMoreElements(); ) {
             DefaultMutableTreeNode node       = e.nextElement();

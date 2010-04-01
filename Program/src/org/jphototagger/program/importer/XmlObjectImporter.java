@@ -40,6 +40,14 @@ import javax.xml.bind.Unmarshaller;
 public final class XmlObjectImporter {
     public static Object importObject(File file, Class<?> clazz)
             throws JAXBException, FileNotFoundException {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
+
         FileInputStream fis = null;
 
         try {

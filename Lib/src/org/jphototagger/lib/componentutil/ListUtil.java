@@ -211,7 +211,7 @@ public final class ListUtil {
             throw new NullPointerException("model == null");
         }
 
-        int     size    = model.getSize();
+        int     size = model.getSize();
         boolean canSwap = (indexFirstElement >= 0)
                           && (indexFirstElement < size)
                           && (indexSecondElement >= 0)
@@ -240,6 +240,14 @@ public final class ListUtil {
      * @return        true if the model contains that string
      */
     public static boolean containsString(ListModel model, String string) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         int size = model.getSize();
 
         for (int i = 0; i < size; i++) {
@@ -261,6 +269,10 @@ public final class ListUtil {
      *           position isn't an item
      */
     public static int getItemIndex(MouseEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         Object source = e.getSource();
 
         if (source instanceof JList) {
@@ -282,6 +294,10 @@ public final class ListUtil {
      * @return       string or null if the index isn't valid
      */
     public static String getItemString(JList list, int index) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
         if (index >= 0) {
             Object o = list.getModel().getElementAt(index);
 
@@ -302,6 +318,10 @@ public final class ListUtil {
      * @return       strings of that model
      */
     public static List<String> toStringList(ListModel model) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
         int          size = model.getSize();
         List<String> list = new ArrayList<String>(size);
 
@@ -323,6 +343,14 @@ public final class ListUtil {
      *                   selected
      */
     public static int select(JList list, Object element, int startIndex) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
+        if (element == null) {
+            throw new NullPointerException("element == null");
+        }
+
         int       selIndex = -1;
         ListModel model    = list.getModel();
         int       size     = model.getSize();
@@ -383,6 +411,14 @@ public final class ListUtil {
      */
     public static List<Integer> getIndicesOfItems(ListModel model,
             Collection<? extends String> toStrings) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        if (toStrings == null) {
+            throw new NullPointerException("toStrings == null");
+        }
+
         List<Integer> indices = new ArrayList<Integer>(toStrings.size());
         int           size    = model.getSize();
 

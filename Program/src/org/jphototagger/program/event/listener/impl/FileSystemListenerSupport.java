@@ -32,6 +32,14 @@ import java.io.File;
 public final class FileSystemListenerSupport
         extends ListenerSupport<FileSystemListener> {
     public void notifyCopied(File source, File target) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
+        if (target == null) {
+            throw new NullPointerException("target == null");
+        }
+
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
                 listener.fileCopied(source, target);
@@ -40,6 +48,14 @@ public final class FileSystemListenerSupport
     }
 
     public void notifyMoved(File source, File target) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
+        }
+
+        if (target == null) {
+            throw new NullPointerException("target == null");
+        }
+
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
                 listener.fileMoved(source, target);
@@ -48,6 +64,10 @@ public final class FileSystemListenerSupport
     }
 
     public void notifyDeleted(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
                 listener.fileDeleted(file);
@@ -55,10 +75,18 @@ public final class FileSystemListenerSupport
         }
     }
 
-    public void notifyRenamed(File oldFile, File newFile) {
+    public void notifyRenamed(File fromFile, File toFile) {
+        if (fromFile == null) {
+            throw new NullPointerException("oldFile == null");
+        }
+
+        if (toFile == null) {
+            throw new NullPointerException("newFile == null");
+        }
+
         synchronized (listeners) {
             for (FileSystemListener listener : listeners) {
-                listener.fileRenamed(oldFile, newFile);
+                listener.fileRenamed(fromFile, toFile);
             }
         }
     }

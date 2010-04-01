@@ -45,6 +45,10 @@ public final class SerialExecutor implements Executor {
     private Exec                active;
 
     public SerialExecutor(Executor executor) {
+        if (executor == null) {
+            throw new NullPointerException("executor == null");
+        }
+
         this.executor = executor;
     }
 

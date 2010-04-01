@@ -53,7 +53,7 @@ import javax.swing.TransferHandler.TransferSupport;
 public final class TransferUtil {
     private static final String MIME_TYPE_URI_LIST =
         "text/uri-list;class=java.lang.String";
-    private static final DataFlavor STRING_FLAVOR    = DataFlavor.stringFlavor;
+    private static final DataFlavor STRING_FLAVOR = DataFlavor.stringFlavor;
     private static final DataFlavor FILE_LIST_FLAVOR =
         DataFlavor.javaFileListFlavor;
     private static DataFlavor URI_LIST_FLAVOR;
@@ -363,6 +363,10 @@ public final class TransferUtil {
             throw new NullPointerException("transferable == null");
         }
 
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
         return containsFiles(transferable);
     }
 
@@ -416,6 +420,10 @@ public final class TransferUtil {
      */
     public static boolean isDataFlavorSupported(DataFlavor[] flavors,
             DataFlavor flavor) {
+        if (flavors == null) {
+            throw new NullPointerException("flavors == null");
+        }
+
         if (flavor == null) {
             throw new NullPointerException("flavor == null");
         }
@@ -439,6 +447,14 @@ public final class TransferUtil {
      */
     public static boolean isADataFlavorSupported(Transferable transferable,
             DataFlavor... flavors) {
+        if (transferable == null) {
+            throw new NullPointerException("transferable == null");
+        }
+
+        if (flavors == null) {
+            throw new NullPointerException("flavors == null");
+        }
+
         for (DataFlavor flavor : flavors) {
             if (transferable.isDataFlavorSupported(flavor)) {
                 return true;
@@ -457,7 +473,13 @@ public final class TransferUtil {
      * @return         true if the data shall be copied
      */
     public static boolean isCopy(TransferSupport support) {
-        assert support.isDrop();
+        if (support == null) {
+            throw new NullPointerException("support == null");
+        }
+
+        if (!support.isDrop()) {
+            throw new IllegalStateException("No drop!");
+        }
 
         return (support.getSourceDropActions() & TransferHandler.COPY)
                == TransferHandler.COPY;
@@ -472,7 +494,13 @@ public final class TransferUtil {
      * @return         true if the data shall be moved
      */
     public static boolean isMove(TransferSupport support) {
-        assert support.isDrop();
+        if (support == null) {
+            throw new NullPointerException("support == null");
+        }
+
+        if (!support.isDrop()) {
+            throw new IllegalStateException("No drop!");
+        }
 
         return (support.getSourceDropActions() & TransferHandler.MOVE)
                == TransferHandler.MOVE;
@@ -487,7 +515,13 @@ public final class TransferUtil {
      * @return         true if the data shall be linked
      */
     public static boolean isLink(TransferSupport support) {
-        assert support.isDrop();
+        if (support == null) {
+            throw new NullPointerException("support == null");
+        }
+
+        if (!support.isDrop()) {
+            throw new IllegalStateException("No drop!");
+        }
 
         return (support.getSourceDropActions() & TransferHandler.LINK)
                == TransferHandler.LINK;

@@ -78,6 +78,15 @@ public final class DirectoryChooser extends Dialog
     public DirectoryChooser(java.awt.Frame parent, File startDirectory,
                             Option... options) {
         super(parent, true);
+
+        if (startDirectory == null) {
+            throw new NullPointerException("startDirectory == null");
+        }
+
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         this.startDirectory  = startDirectory;
         this.directoryFilter = Arrays.asList(options);
         initComponents();

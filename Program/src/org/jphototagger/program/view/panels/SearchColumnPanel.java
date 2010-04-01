@@ -235,6 +235,10 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     public void setSavedSearchPanel(SavedSearchPanel savedSearchPanel) {
+        if (savedSearchPanel == null) {
+            throw new NullPointerException("savedSearchPanel == null");
+        }
+
         listenToActions = false;
         toggleButtonBracketRight.setSelected(
             savedSearchPanel.isBracketRightSelected());

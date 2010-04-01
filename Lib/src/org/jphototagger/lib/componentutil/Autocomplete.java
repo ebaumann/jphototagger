@@ -54,15 +54,11 @@ import javax.swing.SwingUtilities;
  */
 public final class Autocomplete implements DocumentListener, Serializable {
     private static final String      COMMIT_ACTION               = "commit";
-    private static final String      FOCUS_BACKWARD_ACTION       =
-        "focus_backward";
-    private static final String      FOCUS_FORWARD_ACTION        =
-        "focus_forward";
+    private static final String      FOCUS_BACKWARD_ACTION = "focus_backward";
+    private static final String      FOCUS_FORWARD_ACTION = "focus_forward";
     private static final int         MIN_CHARS                   = 2;
-    private static final long        serialVersionUID            =
-        7533238660594168356L;
-    private final LinkedList<String> words                       =
-        new LinkedList<String>();
+    private static final long        serialVersionUID = 7533238660594168356L;
+    private final LinkedList<String> words = new LinkedList<String>();
     private volatile boolean         transferFocusForwardOnEnter = true;
     private Mode                     mode                        = Mode.INSERT;
     private JTextArea                textArea;
@@ -72,6 +68,14 @@ public final class Autocomplete implements DocumentListener, Serializable {
     ;
     public void decorate(JTextArea textArea, List<String> words,
                          boolean sorted) {
+        if (textArea == null) {
+            throw new NullPointerException("textArea == null");
+        }
+
+        if (words == null) {
+            throw new NullPointerException("words == null");
+        }
+
         if (textArea != this.textArea) {
             this.textArea = textArea;
             textArea.getDocument().addDocumentListener(this);
@@ -127,6 +131,10 @@ public final class Autocomplete implements DocumentListener, Serializable {
      * @param word word
      */
     public void add(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         synchronized (words) {
             if (!contains(word)) {
                 CollectionUtil.binaryInsert(words, word);
@@ -141,6 +149,10 @@ public final class Autocomplete implements DocumentListener, Serializable {
      * @return      true if the word is known
      */
     public boolean contains(String word) {
+        if (word == null) {
+            throw new NullPointerException("word == null");
+        }
+
         synchronized (words) {
             return Collections.binarySearch(words, word) >= 0;
         }

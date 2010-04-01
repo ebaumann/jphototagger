@@ -149,6 +149,14 @@ public final class ExifTag {
     private final int    byteOrderId;
 
     public ExifTag(IFDEntry entry, ExifMetadata.IfdType ifdType) {
+        if (entry == null) {
+            throw new NullPointerException("entry == null");
+        }
+
+        if (ifdType == null) {
+            throw new NullPointerException("ifdType == null");
+        }
+
         idValue      = entry.getTag();
         valueCount   = entry.getCount();
         valueOffset  = entry.getValueOffset();
@@ -160,6 +168,18 @@ public final class ExifTag {
         this.ifdType = ifdType;
     }
 
+    /**
+     *
+     * @param tagId
+     * @param dataTypeId
+     * @param valueCount
+     * @param valueOffset
+     * @param rawValue    can be null
+     * @param stringValue can be null
+     * @param byteOrderId
+     * @param name        can be null
+     * @param ifdType     
+     */
     public ExifTag(int tagId, int dataTypeId, int valueCount, long valueOffset,
                    byte[] rawValue, String stringValue, int byteOrderId,
                    String name, ExifMetadata.IfdType ifdType) {

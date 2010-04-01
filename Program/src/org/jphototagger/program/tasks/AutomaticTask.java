@@ -51,6 +51,10 @@ public final class AutomaticTask {
      * @param runnable runnable
      */
     public synchronized void setTask(Runnable runnable) {
+        if (runnable == null) {
+            throw new NullPointerException("runnable == null");
+        }
+
         stopCurrentTask();
         this.runnable = runnable;
         startTask(runnable);

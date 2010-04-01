@@ -68,8 +68,21 @@ public final class TableUtil {
             throw new NullPointerException("label == null");
         }
 
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+
+        if (style == null) {
+            throw new NullPointerException("style == null");
+        }
+
+        if (maxCharsPerLine <= 0) {
+            throw new IllegalArgumentException("Negative max chars: "
+                                               + maxCharsPerLine);
+        }
+
         List<String>  lines = StringUtil.wrapWords(text, maxCharsPerLine);
-        StringBuilder sb    =
+        StringBuilder sb =
             new StringBuilder("<html><style type=\"text/css\">body { " + style
                               + " }</style></head><body>");
         int lineCount = lines.size();

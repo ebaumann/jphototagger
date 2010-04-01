@@ -91,6 +91,10 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         pListenerSupport.add(listener);
     }
 
@@ -149,6 +153,10 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     public void addFileSystemListener(FileSystemListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         listenerSupport.add(listener);
     }
 
@@ -212,6 +220,10 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     public void setSourceFiles(List<File> sourceFiles) {
+        if (sourceFiles == null) {
+            throw new NullPointerException("sourceFiles == null");
+        }
+
         this.sourceFiles = sourceFiles;
         addXmpFiles();
         Collections.sort(sourceFiles);
@@ -225,6 +237,10 @@ public final class MoveToDirectoryDialog extends Dialog
      * @param directory  target directory
      */
     public void setTargetDirectory(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (directory.exists()) {
             targetDirectory = directory;
             buttonStart.setEnabled(false);

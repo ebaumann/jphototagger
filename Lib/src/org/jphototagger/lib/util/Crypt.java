@@ -74,6 +74,10 @@ public final class Crypt {
     private Cipher dcipher;
 
     public Crypt(SecretKey key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         try {
             ecipher = Cipher.getInstance("DESede");
             dcipher = Cipher.getInstance("DESede");
@@ -91,6 +95,10 @@ public final class Crypt {
      * @return     encrypted string <code>Base64</code> encoded or null on errors
      */
     public String encrypt(String str) {
+        if (str == null) {
+            throw new NullPointerException("str == null");
+        }
+
         try {
             byte[] utf8 = str.getBytes("UTF8");
             byte[] enc  = ecipher.doFinal(utf8);
@@ -110,6 +118,10 @@ public final class Crypt {
      * @return     decrpyted string or null on errors
      */
     public String decrypt(String str) {
+        if (str == null) {
+            throw new NullPointerException("str == null");
+        }
+
         try {
             byte[] dec  = Base64.decode(str);
             byte[] utf8 = dcipher.doFinal(dec);

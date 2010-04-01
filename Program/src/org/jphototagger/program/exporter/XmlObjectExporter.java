@@ -41,6 +41,14 @@ import javax.xml.bind.Marshaller;
 public final class XmlObjectExporter {
     public static void export(Object object, File file)
             throws JAXBException, IOException {
+        if (object == null) {
+            throw new NullPointerException("object == null");
+        }
+
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         Writer writer = createWriter(file);
 
         if (writer == null) {

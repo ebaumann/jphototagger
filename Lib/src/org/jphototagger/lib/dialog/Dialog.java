@@ -153,6 +153,10 @@ public class Dialog extends JDialog implements WindowListener {
      * @param url  URL
      */
     public void setHelpPageUrl(String url) {
+        if (url == null) {
+            throw new NullPointerException("url == null");
+        }
+
         helpPageUrl = url;
     }
 
@@ -225,6 +229,10 @@ public class Dialog extends JDialog implements WindowListener {
      *                    the key for size and location, else null
      */
     public void setSettings(Settings settings, String settingsKey) {
+        if (settings == null) {
+            throw new NullPointerException("settings == null");
+        }
+
         this.settings    = settings;
         this.settingsKey = settingsKey;
     }

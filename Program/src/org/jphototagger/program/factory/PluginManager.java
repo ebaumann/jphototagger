@@ -83,6 +83,10 @@ public final class PluginManager {
      * @param exclude true if exclude, else false
      */
     public void exclude(Plugin plugin, boolean exclude) {
+        if (plugin == null) {
+            throw new NullPointerException("plugin == null");
+        }
+
         Properties properties = UserSettings.INSTANCE.getProperties();
         String     key        = plugin.getClass().getName();
 
@@ -105,6 +109,10 @@ public final class PluginManager {
     }
 
     public boolean isExcluded(Plugin plugin) {
+        if (plugin == null) {
+            throw new NullPointerException("plugin == null");
+        }
+
         return !PLUGINS.contains(plugin);
     }
 

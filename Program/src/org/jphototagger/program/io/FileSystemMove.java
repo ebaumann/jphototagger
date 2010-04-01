@@ -21,10 +21,10 @@
 
 package org.jphototagger.program.io;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.event.ProgressEvent;
 
 import java.io.File;
 
@@ -56,6 +56,14 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      */
     public FileSystemMove(List<File> sourceFiles, File targetDirectory,
                           boolean renameIfTargetFileExists) {
+        if (sourceFiles == null) {
+            throw new NullPointerException("sourceFiles == null");
+        }
+
+        if (targetDirectory == null) {
+            throw new NullPointerException("targetDirectory == null");
+        }
+
         this.sourceFiles.clear();
         this.sourceFiles.addAll(sourceFiles);
         this.targetDirectory          = targetDirectory;
@@ -74,6 +82,14 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      */
     public FileSystemMove(List<File> sourceFiles, List<File> targetFiles,
                           boolean renameIfTargetFileExists) {
+        if (sourceFiles == null) {
+            throw new NullPointerException("sourceFiles == null");
+        }
+
+        if (targetFiles == null) {
+            throw new NullPointerException("targetFiles == null");
+        }
+
         this.targetDirectory = new File("");
         this.sourceFiles.clear();
         this.targetFiles.clear();

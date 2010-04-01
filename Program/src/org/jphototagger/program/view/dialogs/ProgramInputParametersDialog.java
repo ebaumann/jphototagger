@@ -45,10 +45,18 @@ public final class ProgramInputParametersDialog extends Dialog {
     }
 
     public void setProgram(String program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         labelContextProgram.setText(program);
     }
 
     public void setFilename(String filename) {
+        if (filename == null) {
+            throw new NullPointerException("filename == null");
+        }
+
         labelContextFile.setText(filename);
     }
 

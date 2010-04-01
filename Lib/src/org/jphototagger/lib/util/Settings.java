@@ -1004,6 +1004,10 @@ public final class Settings {
      * @return     true if the properties contains that key
      */
     public boolean containsKey(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+        
         return properties.containsKey(key);
     }
 

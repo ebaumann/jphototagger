@@ -88,22 +88,42 @@ public final class ExifTags {
     }
 
     public void addExifTag(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         exifTags.add(exifTag);
     }
 
     public void addGpsTag(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         gpsTags.add(exifTag);
     }
 
     public void addInteroperabilityTag(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         interoperabilityTags.add(exifTag);
     }
 
     public void addMakerNoteTags(Collection<ExifTag> tags) {
+        if (tags == null) {
+            throw new NullPointerException("tags == null");
+        }
+
         makerNoteTags.addAll(tags);
     }
 
     public void addMakerNoteTag(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         makerNoteTags.add(exifTag);
     }
 
@@ -112,6 +132,10 @@ public final class ExifTags {
     }
 
     public void setMakerNoteDescription(String makerNoteDescription) {
+        if (makerNoteDescription == null) {
+            throw new NullPointerException("makerNoteDescription == null");
+        }
+
         this.makerNoteDescription = makerNoteDescription;
     }
 
@@ -132,18 +156,34 @@ public final class ExifTags {
     }
 
     public void removeExifTag(ExifTag tag) {
+        if (tag == null) {
+            throw new NullPointerException("tag == null");
+        }
+
         exifTags.remove(tag);
     }
 
     public void removeMakerNoteTag(ExifTag tag) {
+        if (tag == null) {
+            throw new NullPointerException("tag == null");
+        }
+
         makerNoteTags.remove(tag);
     }
 
     public void removeInteroperabilityTag(ExifTag tag) {
+        if (tag == null) {
+            throw new NullPointerException("tag == null");
+        }
+
         interoperabilityTags.remove(tag);
     }
 
     public void removeGpsTag(ExifTag tag) {
+        if (tag == null) {
+            throw new NullPointerException("tag == null");
+        }
+
         gpsTags.remove(tag);
     }
 

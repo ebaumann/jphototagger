@@ -39,6 +39,10 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.ISO_SPEED_RATINGS);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {

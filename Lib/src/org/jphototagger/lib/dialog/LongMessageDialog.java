@@ -35,6 +35,10 @@ public class LongMessageDialog extends javax.swing.JDialog {
     }
 
     public void setMessage(String message) {
+        if (message == null) {
+            throw new NullPointerException("message == null");
+        }
+
         textArea.setText(message);
     }
 

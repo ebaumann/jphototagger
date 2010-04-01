@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.io;
 
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
+import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.MessageDisplayer;
 
 import java.io.File;
 
@@ -60,6 +60,14 @@ public final class IoUtil {
      * @param arguments arguments added to the path
      */
     public static void execute(String appPath, String arguments) {
+        if (appPath == null) {
+            throw new NullPointerException("appPath == null");
+        }
+
+        if (arguments == null) {
+            throw new NullPointerException("arguments == null");
+        }
+
         if (!appPath.isEmpty()) {
             String openCommand = appPath + getDefaultCommandLineSeparator()
                                  + arguments;
@@ -83,9 +91,12 @@ public final class IoUtil {
      * @return                image files of <code>files</code>
      */
     public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
+        if (arbitraryFiles == null) {
+            throw new NullPointerException("arbitraryFiles == null");
+        }
+
         List<File>      imageFiles = new ArrayList<File>();
-        RegexFileFilter filter     =
-            AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
+        RegexFileFilter filter     = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
 
         for (File file : arbitraryFiles) {
             if (filter.accept(file)) {
@@ -115,6 +126,10 @@ public final class IoUtil {
     }
 
     public static String quoteForCommandLine(String string) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         String quote = getDefaultCommandlineQuote();
 
         return quote + string + quote;
@@ -129,6 +144,14 @@ public final class IoUtil {
      * @return         quoted string
      */
     public static String quoteForCommandLine(String string, File file) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         String quote     = getDefaultCommandlineQuote();
         String separator = getDefaultCommandLineSeparator();
 
@@ -144,6 +167,10 @@ public final class IoUtil {
      * @return       quoted string
      */
     public static String quoteForCommandLine(File... files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
         return getQuotedForCommandLine(Arrays.asList(files),
                                        getDefaultCommandLineSeparator(),
                                        getDefaultCommandlineQuote());
@@ -157,6 +184,10 @@ public final class IoUtil {
      * @return       quoted string
      */
     public static String quoteForCommandLine(Collection<? extends File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
         return getQuotedForCommandLine(files, getDefaultCommandLineSeparator(),
                                        getDefaultCommandlineQuote());
     }
@@ -176,17 +207,25 @@ public final class IoUtil {
      * @return         string with replaced
      */
     public static String substitudePattern(File file, String pattern) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         String path      = file.getAbsolutePath();
         String root      = FileUtil.getRootName(path);
         String dirPath   = FileUtil.getDirPath(file);
         String name      = FileUtil.getPrefix(file.getName());
         String extension = FileUtil.getSuffix(file.getName());
 
-        return pattern.replace(PATTERN_FS_DIR_PATH,
-                               dirPath).replace(PATTERN_FS_FILE_EXT,
-                                   extension).replace(PATTERN_FS_FILE_NAME,
-                                       name).replace(PATTERN_FS_PATH,
-                                           path).replace(PATTERN_FS_ROOT, root)
+        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath)
+                      .replace(PATTERN_FS_FILE_EXT, extension)
+                      .replace(PATTERN_FS_FILE_NAME, name)
+                      .replace(PATTERN_FS_PATH, path)
+                      .replace(PATTERN_FS_ROOT, root)
         ;
     }
 
@@ -221,6 +260,14 @@ public final class IoUtil {
      * @return       true if the file was locked
      */
     public static boolean lockLogWarning(File file, Object owner) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (owner == null) {
+            throw new NullPointerException("owner == null");
+        }
+
         if (!FileLock.INSTANCE.lock(file, owner)) {
             AppLogger.logWarning(owner.getClass(), "IoUtil.Error.lock", file,
                                  owner, FileLock.INSTANCE.getOwner(file));

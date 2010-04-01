@@ -40,6 +40,9 @@ public final class Settings {
     private final Properties    properties;
 
     public Settings(Properties properties) {
+        if (properties == null) {
+            throw new NullPointerException("properties == null");
+        }
         this.properties = properties;
     }
 

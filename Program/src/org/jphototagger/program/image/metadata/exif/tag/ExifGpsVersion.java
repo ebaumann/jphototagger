@@ -42,6 +42,10 @@ public final class ExifGpsVersion {
         this.fourth = fourth;
     }
 
+    /**
+     * 
+     * @param rawValue can be null
+     */
     public ExifGpsVersion(byte[] rawValue) {
         if ((rawValue != null) && byteCountOk(rawValue)) {
             first  = ByteUtil.toInt(rawValue[0]);
@@ -56,6 +60,10 @@ public final class ExifGpsVersion {
     }
 
     public static boolean byteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == byteCount();
     }
 

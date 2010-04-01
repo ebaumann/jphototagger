@@ -37,6 +37,10 @@ public class SettingsDialog extends javax.swing.JDialog {
     }
 
     public void setProperties(Properties properties) {
+        if (properties == null) {
+            throw new NullPointerException("properties == null");
+        }
+
         panelSettings.setProperties(properties);
     }
 

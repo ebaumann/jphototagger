@@ -21,11 +21,11 @@
 
 package org.jphototagger.program.io;
 
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.RegexUtil;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.RegexUtil;
 
 import java.io.File;
 
@@ -57,6 +57,10 @@ public final class ImageFilteredDirectory {
      * @param directory Verzeichnis
      */
     public void setDirectory(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         this.directory = directory;
         refresh();
     }
@@ -76,6 +80,10 @@ public final class ImageFilteredDirectory {
      * @return Bilddateien dieses Verzeichnisses
      */
     public static List<File> getImageFilesOfDirectory(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         File[] filteredFiles =
             directory.listFiles(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
         List<String> excludePatterns =
@@ -104,6 +112,10 @@ public final class ImageFilteredDirectory {
      */
     public static List<File> getImageFilesOfDirectories(
             List<File> directories) {
+        if (directories == null) {
+            throw new NullPointerException("directories == null");
+        }
+
         List<File> files = new ArrayList<File>();
 
         for (File directory : directories) {
@@ -120,6 +132,10 @@ public final class ImageFilteredDirectory {
      * @return image files
      */
     public static List<File> getImageFilesOfDirAndSubDirs(File dir) {
+        if (dir == null) {
+            throw new NullPointerException("dir == null");
+        }
+
         List<File> dirAndSubdirs =
             FileUtil.getSubdirectoriesRecursive(dir,
                 UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());

@@ -69,6 +69,10 @@ public final class ExifRational {
     }
 
     public static boolean byteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == byteCount();
     }
 

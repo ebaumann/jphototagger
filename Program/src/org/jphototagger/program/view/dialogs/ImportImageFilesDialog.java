@@ -118,6 +118,10 @@ public class ImportImageFilesDialog extends Dialog {
      * @param dir
      */
     public void setSourceDir(File dir) {
+        if (dir == null) {
+            throw new NullPointerException("dir == null");
+        }
+
         sourceDir = dir;
         init();
     }
@@ -128,6 +132,10 @@ public class ImportImageFilesDialog extends Dialog {
      * @param dir
      */
     public void setTargetDir(File dir) {
+        if (dir == null) {
+            throw new NullPointerException("dir == null");
+        }
+
         targetDir = dir;
         init();
     }

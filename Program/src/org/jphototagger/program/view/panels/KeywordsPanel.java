@@ -66,10 +66,18 @@ public class KeywordsPanel extends javax.swing.JPanel {
     }
 
     public void setKeyCard(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         keyCard = key;
     }
 
     public void setKeyTree(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
         keyTree = key;
     }
 

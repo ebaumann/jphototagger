@@ -103,6 +103,10 @@ public final class FavoritePropertiesDialog extends Dialog {
      * @param name  Name
      */
     public void setFavoriteName(String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
         textFieldFavoriteName.setText(name);
         isUpdate = true;
     }

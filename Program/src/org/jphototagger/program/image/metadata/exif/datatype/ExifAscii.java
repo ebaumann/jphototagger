@@ -31,6 +31,10 @@ public final class ExifAscii {
     private final String value;
 
     public ExifAscii(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         value = decode(rawValue);
     }
 
@@ -41,6 +45,10 @@ public final class ExifAscii {
      * @return          decoded value
      */
     public static String decode(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         String nullTerminatedValue = new String(rawValue);
         int    length              = nullTerminatedValue.length();
 

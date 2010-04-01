@@ -96,6 +96,10 @@ public final class EditMetadataPanels
     private Component                lastFocussedEditControl;
 
     public EditMetadataPanels(JComponent container) {
+        if (container == null) {
+            throw new NullPointerException("container == null");
+        }
+
         this.container = container;
         createEditPanels();
         addPanels();
@@ -173,6 +177,10 @@ public final class EditMetadataPanels
     }
 
     public synchronized void setImageFiles(Collection<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         emptyPanels(false);
         setXmpOfImageFiles(imageFiles);
         setXmpToEditPanels();
@@ -242,6 +250,10 @@ public final class EditMetadataPanels
      *                exist
      */
     public JPanel getEditPanel(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         for (JPanel panel : panels) {
             if (((TextEntry) panel).getColumn().equals(column)) {
                 return panel;
@@ -260,9 +272,17 @@ public final class EditMetadataPanels
      * @param text   text to add
      */
     public void addText(Column column, String text) {
-        assert isEditable();
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
 
         if (!isEditable()) {
+            assert false;
+
             return;
         }
 
@@ -290,9 +310,17 @@ public final class EditMetadataPanels
     }
 
     public void removeText(Column column, String text) {
-        assert isEditable();
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
 
         if (!isEditable()) {
+            assert false;
+
             return;
         }
 
@@ -372,9 +400,13 @@ public final class EditMetadataPanels
      * @param xmp xmp object
      */
     public void setXmp(Xmp xmp) {
-        assert isEditable();
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
 
         if (!isEditable()) {
+            assert false;
+
             return;
         }
 
@@ -428,9 +460,13 @@ public final class EditMetadataPanels
      * @param rating rating
      */
     public void setRating(Long rating) {
-        assert isEditable();
+        if (rating == null) {
+            throw new NullPointerException("rating == null");
+        }
 
         if (!isEditable()) {
+            assert false;
+
             return;
         }
 
@@ -466,7 +502,13 @@ public final class EditMetadataPanels
      * @param template  Template
      */
     public void setMetadataTemplate(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         if (!isEditable()) {
+            assert false;
+
             return;
         }
 
@@ -496,7 +538,7 @@ public final class EditMetadataPanels
      * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
      *
      * @return Template <em>ohne</em> Name
-     *         ({@link org.jphototagger.program.data.MetadataTemplate#getName()})
+     *        ({@link org.jphototagger.program.data.MetadataTemplate#getName()})
      */
     public MetadataTemplate getMetadataTemplate() {
         MetadataTemplate template = new MetadataTemplate();
@@ -961,11 +1003,19 @@ public final class EditMetadataPanels
 
     public void addEditMetadataPanelsListener(
             EditMetadataPanelsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.add(listener);
     }
 
     public void removeEditMetadataPanelsListener(
             EditMetadataPanelsListener listener) {
+        if (listener == null) {
+            throw new NullPointerException("listener == null");
+        }
+
         ls.remove(listener);
     }
 

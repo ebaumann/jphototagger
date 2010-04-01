@@ -41,6 +41,10 @@ public final class RenameTemplateHelper {
      * @param  template new template
      */
     public static void insert(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         assert template.getId() == null;
 
         String name = getUniqueName(null);
@@ -57,6 +61,10 @@ public final class RenameTemplateHelper {
     }
 
     public static void update(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         assert template.getId() != null : template.getId();
 
         if (!DatabaseRenameTemplates.INSTANCE.update(template)) {
@@ -66,6 +74,10 @@ public final class RenameTemplateHelper {
     }
 
     public static void rename(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         assert template.getId() != null : template.getId();
 
         String name = getUniqueName(template.getName());
@@ -77,6 +89,10 @@ public final class RenameTemplateHelper {
     }
 
     public static void delete(RenameTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         assert template.getId() != null : template.getId();
 
         if (MessageDisplayer.confirmYesNo(

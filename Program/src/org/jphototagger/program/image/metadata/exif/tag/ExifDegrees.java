@@ -48,6 +48,14 @@ public final class ExifDegrees {
      *         to {@link #byteCount()}
      */
     public ExifDegrees(byte[] rawValue, ByteOrder byteOrder) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         Ensure.length(rawValue, byteCount());
         degrees = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8),
                                    byteOrder);
@@ -67,6 +75,10 @@ public final class ExifDegrees {
     }
 
     public boolean byteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == byteCount();
     }
 

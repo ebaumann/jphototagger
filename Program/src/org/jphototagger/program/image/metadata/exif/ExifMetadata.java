@@ -54,7 +54,7 @@ public final class ExifMetadata {
     /**
      * Returns {@link ExifTag} instances of an image file.
      *
-     * @param  imageFile image file
+     * @param  imageFile image file or null
      * @return           EXIF entries or null if errors occured
      */
     public static ExifTags getExifTags(File imageFile) {
@@ -204,6 +204,10 @@ public final class ExifMetadata {
      * @return           EXIF metadata or null if errors occured
      */
     public static Exif getExif(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         return ExifFactory.getExif(imageFile);
     }
 
@@ -218,6 +222,10 @@ public final class ExifMetadata {
      *         modification time of the file will be returned
      */
     public static long timestampDateTimeOriginal(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         Exif exif = getExif(imageFile);
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
@@ -240,6 +248,10 @@ public final class ExifMetadata {
      *         modification time of the file will be returned
      */
     public static long timestampDateTimeOriginalDb(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         Exif exif = DatabaseImageFiles.INSTANCE.getExifOfImageFile(imageFile);
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {

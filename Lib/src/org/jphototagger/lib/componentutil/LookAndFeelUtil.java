@@ -22,6 +22,7 @@
 package org.jphototagger.lib.componentutil;
 
 import java.awt.Color;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,6 +53,10 @@ public final class LookAndFeelUtil {
     //
     //
     public static Color getUiColor(String propertyKey) {
+        if (propertyKey == null) {
+            throw new NullPointerException("propertyKey == null");
+        }
+
         Color col = UIManager.getColor(propertyKey);
 
         return (col == null)

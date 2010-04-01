@@ -78,6 +78,10 @@ public final class MetadataTemplatesExporter implements Exporter {
 
     @Override
     public void exportFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         try {
             Document           doc   = getDoc();
             DOMSource          ds    = new DOMSource(doc);

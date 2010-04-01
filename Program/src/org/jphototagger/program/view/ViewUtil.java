@@ -63,6 +63,10 @@ public class ViewUtil {
      * @return      file or null if no node with a file user object is selected
      */
     public static File getSelectedFile(JTree tree) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
         TreePath path = tree.getSelectionPath();
 
         if (path != null) {
@@ -110,8 +114,16 @@ public class ViewUtil {
 
     public static void setDisplayedMnemonicsToLabels(Container container,
             Character... exclude) {
-        List<JLabel>    labels    = ComponentUtil.getAllOf(container,
-                                        JLabel.class);
+        if (container == null) {
+            throw new NullPointerException("container == null");
+        }
+
+        if (exclude == null) {
+            throw new NullPointerException("exclude == null");
+        }
+
+        List<JLabel>    labels = ComponentUtil.getAllOf(container,
+                                     JLabel.class);
         List<Character> mnemonics = new ArrayList<Character>(labels.size());
         final char      invalidMn = '\0';
 
@@ -129,8 +141,19 @@ public class ViewUtil {
         }
     }
 
+    /**
+     *
+     * @param  keyCurrentDir
+     * @param  filter        can be null
+     * @param  parent        can be null
+     * @return               choosed file or null
+     */
     public static File chooseFile(String keyCurrentDir, FileFilter filter,
                                   Component parent) {
+        if (keyCurrentDir == null) {
+            throw new NullPointerException("keyCurrentDir == null");
+        }
+
         String prevCurrentDir =
             UserSettings.INSTANCE.getSettings().getString(keyCurrentDir);
         File currentDir = new File(prevCurrentDir.isEmpty()
@@ -189,6 +212,10 @@ public class ViewUtil {
      * @see              XmpMetadata#canWriteSidecarFileForImageFile(File)
      */
     public static boolean checkImageEditable(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
             MessageDisplayer.error(null, "ViewUtil.Error.WriteSidecarFile",
                                    imageFile.getParentFile());

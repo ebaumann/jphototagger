@@ -88,6 +88,10 @@ public final class ExifTagsToDisplay {
      * @return          subset of entries (displayable metadata)
      */
     public static List<ExifTag> get(Collection<ExifTag> exifTags) {
+        if (exifTags == null) {
+            throw new NullPointerException("exifTags == null");
+        }
+
         List<ExifTag> displayableExifTags =
             new ArrayList<ExifTag>(exifTags.size());
 

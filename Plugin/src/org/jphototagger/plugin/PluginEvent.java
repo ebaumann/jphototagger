@@ -54,6 +54,10 @@ public class PluginEvent {
     private final List<File> changedFiles   = new ArrayList<File>();
 
     public PluginEvent(Type type) {
+        if (type == null) {
+            throw new NullPointerException("type == null");
+        }
+
         this.type = type;
     }
 
@@ -62,6 +66,10 @@ public class PluginEvent {
     }
 
     public void setChangedFiles(List<File> changedFiles) {
+        if (changedFiles == null) {
+            throw new NullPointerException("changedFiles == null");
+        }
+
         this.changedFiles.clear();
         this.changedFiles.addAll(changedFiles);
     }
@@ -71,6 +79,10 @@ public class PluginEvent {
     }
 
     public void setProcessedFiles(List<File> processedFiles) {
+        if (processedFiles == null) {
+            throw new NullPointerException("processedFiles == null");
+        }
+
         this.processedFiles.clear();
         this.processedFiles.addAll(processedFiles);
     }

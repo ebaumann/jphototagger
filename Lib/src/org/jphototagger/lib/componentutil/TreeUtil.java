@@ -63,6 +63,10 @@ public final class TreeUtil {
     @SuppressWarnings("unchecked")
     public static DefaultMutableTreeNode findNodeWithUserObject(
             DefaultMutableTreeNode parent, Object userObject) {
+        if (parent == null) {
+            throw new NullPointerException("parent == null");
+        }
+
         if (userObject == null) {
             return null;
         }
@@ -366,6 +370,10 @@ public final class TreeUtil {
      *           position isn't a tree path
      */
     public static TreePath getTreePath(MouseEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         Object source = e.getSource();
 
         if (source instanceof JTree) {
@@ -442,6 +450,11 @@ public final class TreeUtil {
             throw new NullPointerException("userObject == null");
         }
 
+        if (maxCount < 0) {
+            throw new IllegalArgumentException("Negative max count: "
+                                               + maxCount);
+        }
+
         int foundNodeCount = foundNodes.size();
 
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children();
@@ -469,6 +482,14 @@ public final class TreeUtil {
      */
     public static DefaultMutableTreeNode findChildNodeWithFile(
             DefaultMutableTreeNode parentNode, File file) {
+        if (parentNode == null) {
+            throw new NullPointerException("parentNode == null");
+        }
+
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         int childCount = parentNode.getChildCount();
 
         for (int i = 0; i < childCount; i++) {
@@ -502,6 +523,10 @@ public final class TreeUtil {
      * @param expand true if expand all nodes
      */
     public static void expandAll(JTree tree, boolean expand) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
         TreeNode root = (TreeNode) tree.getModel().getRoot();
 
         // Traverse tree from root
@@ -518,6 +543,13 @@ public final class TreeUtil {
      */
     @SuppressWarnings("unchecked")
     public static void expandAll(JTree tree, TreePath parent, boolean expand) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (parent == null) {
+            throw new NullPointerException("parent == null");
+        }
 
         // Traverse children
         TreeNode node = (TreeNode) parent.getLastPathComponent();
@@ -551,12 +583,24 @@ public final class TreeUtil {
     public static void expandAll(JTree tree,
                                  Collection<? extends TreePath> parentPaths,
                                  boolean expand) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (parentPaths == null) {
+            throw new NullPointerException("parentPaths == null");
+        }
+
         for (TreePath treePath : parentPaths) {
             expandAll(tree, treePath, expand);
         }
     }
 
     public static void deselectAll(JTree tree) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
         TreeSelectionModel m = tree.getSelectionModel();
 
         assert m != null;
@@ -580,6 +624,14 @@ public final class TreeUtil {
      *               parents
      */
     public static boolean isAbove(TreeNode above, TreeNode below) {
+        if (above == null) {
+            throw new NullPointerException("above == null");
+        }
+
+        if (below == null) {
+            throw new NullPointerException("below == null");
+        }
+
         TreeNode parent = below.getParent();
 
         while (parent != null) {

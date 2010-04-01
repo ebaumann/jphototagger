@@ -124,6 +124,10 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     public void setProgram(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
         this.program = program;
         file         = program.getFile();
 

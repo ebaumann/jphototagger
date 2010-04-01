@@ -55,6 +55,10 @@ public final class TransferableFileCollection implements Transferable {
     }
 
     public TransferableFileCollection(Collection<? extends File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
         this.files = new ArrayList<File>(files);
         createUriList();
     }
@@ -90,6 +94,10 @@ public final class TransferableFileCollection implements Transferable {
      */
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
+        if (flavor == null) {
+            throw new NullPointerException("flavor == null");
+        }
+
         return flavor.equals(FILE_LIST_FLAVOR)
                || flavor.equals(URI_LIST_FLAVOR);
     }
@@ -109,6 +117,10 @@ public final class TransferableFileCollection implements Transferable {
     @Override
     public Object getTransferData(DataFlavor flavor)
             throws UnsupportedFlavorException {
+        if (flavor == null) {
+            throw new NullPointerException("flavor == null");
+        }
+
         if (flavor.equals(FILE_LIST_FLAVOR)) {
             return new ArrayList<File>(files);
         } else if (flavor.equals(URI_LIST_FLAVOR)) {

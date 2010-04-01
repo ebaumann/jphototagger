@@ -36,6 +36,10 @@ public final class ExifFormatterAscii extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifDataType(exifTag, ExifDataType.ASCII);
 
         return ExifAscii.decode(exifTag.rawValue());

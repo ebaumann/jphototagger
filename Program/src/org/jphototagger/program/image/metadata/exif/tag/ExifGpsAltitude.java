@@ -63,6 +63,18 @@ public final class ExifGpsAltitude {
 
     public ExifGpsAltitude(byte[] refRawValue, byte[] rawValue,
                            ByteOrder byteOrder) {
+        if (refRawValue == null) {
+            throw new NullPointerException("refRawValue == null");
+        }
+
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         ensureByteCount(refRawValue, rawValue);
         this.ref   = ref(refRawValue);
         this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8),
@@ -88,10 +100,18 @@ public final class ExifGpsAltitude {
     }
 
     public static boolean byteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == byteCount();
     }
 
     public static boolean refByteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == refByteCount();
     }
 

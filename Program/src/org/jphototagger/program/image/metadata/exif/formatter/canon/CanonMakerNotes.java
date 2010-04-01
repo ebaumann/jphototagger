@@ -43,6 +43,18 @@ public final class CanonMakerNotes implements ExifMakerNotes {
 
     @Override
     public void add(File file, ExifTags exifTags, ExifTag makerNoteTag) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (exifTags == null) {
+            throw new NullPointerException("exifTags == null");
+        }
+
+        if (makerNoteTag == null) {
+            throw new NullPointerException("makerNoteTag == null");
+        }
+
         CanonIfd ifd = new CanonIfd(makerNoteTag.rawValue(),
                                     makerNoteTag.byteOrder());
         short[] tag1Values = CanonMakerNote.getTag1Values(file, ifd);

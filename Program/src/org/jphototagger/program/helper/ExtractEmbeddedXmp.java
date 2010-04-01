@@ -44,6 +44,10 @@ import java.util.Arrays;
 public final class ExtractEmbeddedXmp extends FileEditor {
     @Override
     public void edit(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         if (!IoUtil.lockLogWarning(file, this)) {
             return;
         }

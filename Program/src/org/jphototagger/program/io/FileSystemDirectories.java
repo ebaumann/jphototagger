@@ -21,10 +21,10 @@
 
 package org.jphototagger.program.io;
 
-import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.database.DatabaseImageFiles;
 
 import java.io.File;
 
@@ -50,6 +50,10 @@ public final class FileSystemDirectories {
      *
      */
     public static boolean delete(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (directory.isDirectory()) {
             if (TreeFileSystemDirectories.confirmDelete(directory.getName())) {
                 try {
@@ -84,6 +88,10 @@ public final class FileSystemDirectories {
      *
      */
     public static File rename(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
         if (directory.isDirectory()) {
             String newDirectoryName =
                 TreeFileSystemDirectories.getNewName(directory);

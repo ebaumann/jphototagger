@@ -81,6 +81,10 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
      *              XMP sidecar files
      */
     public synchronized void setFiles(List<File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
         this.files = new ArrayList<File>(files);
     }
 

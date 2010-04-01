@@ -45,7 +45,8 @@ public final class NetVersion {
      * string must be parsable by
      * {@link Version#parseVersion(java.lang.String, java.lang.String)}.
      *
-     * @param httpUrl          HTTP URL, e.g. <code>http://mysite.com/version.html</code>
+     * @param httpUrl          HTTP URL, e.g.
+     *                         <code>http://mysite.com/version.html</code>
      * @param versionDelimiter delimiter in the version string within the Stream
      *                         of <code>httpUrl</code>
      * @return                 Version or null if the version format is not
@@ -53,13 +54,22 @@ public final class NetVersion {
      *
      * @throws MalformedURLException     if the URL string is bad formed
      * @throws IOException               on read/write errors
-     * @throws NumberFormatException     if the version are not delimited integers
+     * @throws NumberFormatException     if the version are not delimited
+     *                                   integers
      * @throws IllegalArgumentException  if the version does not contain 2 up to
      *                                   4 integer numbers
      */
     public static Version getOverHttp(String httpUrl, String versionDelimiter)
             throws MalformedURLException, IOException, NumberFormatException,
                    IllegalArgumentException {
+        if (httpUrl == null) {
+            throw new NullPointerException("httpUrl == null");
+        }
+
+        if (versionDelimiter == null) {
+            throw new NullPointerException("versionDelimiter == null");
+        }
+
         URL                   url = new URL(httpUrl);
         ByteArrayOutputStream os  = new ByteArrayOutputStream(10 * 1024);
 

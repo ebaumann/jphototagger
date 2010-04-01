@@ -62,6 +62,14 @@ public final class RenameDeleteXmpValue {
      *                 {@link ColumnXmpDcSubjectsSubject}
      */
     public static void rename(Column column, String oldValue) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (oldValue == null) {
+            throw new NullPointerException("oldValue == null");
+        }
+
         checkColumn(column);
 
         String newValue =
@@ -94,6 +102,14 @@ public final class RenameDeleteXmpValue {
      *               {@link ColumnXmpDcSubjectsSubject}
      */
     public static void delete(Column column, String value) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (value == null) {
+            throw new NullPointerException("value == null");
+        }
+
         checkColumn(column);
 
         if (value.trim().isEmpty()) {

@@ -60,6 +60,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     public synchronized JProgressBar getProgressBar(Object owner) {
+        if (owner == null) {
+            throw new NullPointerException("owner == null");
+        }
+
         if (progressBarOwner == null) {
             progressBarOwner = owner;
 
@@ -74,6 +78,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     public synchronized void releaseProgressBar(Object owner) {
+        if (owner == null) {
+            throw new NullPointerException("owner == null");
+        }
+
         if (progressBarOwner == owner) {
             progressBarOwner = null;
         }
@@ -162,6 +170,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     public synchronized void addListener(ProgramActionListener l) {
+        if (l == null) {
+            throw new NullPointerException("l == null");
+        }
+
         listenerSupport.add(l);
     }
 

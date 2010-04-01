@@ -39,6 +39,14 @@ public final class Ensure {
      */
     public static void exifTagId(ExifTag exifTag, ExifTag.Id id)
             throws IllegalArgumentException {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
+        if (id == null) {
+            throw new NullPointerException("id == null");
+        }
+
         if (exifTag.idValue() != id.value()) {
             throw new IllegalArgumentException("Wrong tag: "
                                                + exifTag.idValue()
@@ -55,6 +63,14 @@ public final class Ensure {
      */
     public static void exifDataType(ExifTag exifTag, ExifDataType dataType)
             throws IllegalArgumentException {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
+        if (dataType == null) {
+            throw new NullPointerException("dataType == null");
+        }
+
         if (!exifTag.dataType().equals(dataType)) {
             throw new IllegalArgumentException("Wrong type: "
                                                + exifTag.dataType()
@@ -116,6 +132,10 @@ public final class Ensure {
      */
     public static void length(byte[] bytes, int length)
             throws IllegalArgumentException {
+        if (bytes == null) {
+            throw new NullPointerException("bytes == null");
+        }
+
         if (bytes.length != length) {
             throw new IllegalArgumentException("Illegal length: "
                                                + bytes.length + ". Required: "

@@ -42,6 +42,10 @@ public final class ExifFormatterFnumber extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.F_NUMBER);
 
         if (ExifRational.byteCount() == exifTag.rawValue().length) {

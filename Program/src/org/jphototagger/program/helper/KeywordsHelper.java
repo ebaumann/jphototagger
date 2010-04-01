@@ -77,6 +77,10 @@ public final class KeywordsHelper {
      *             instance of {@link DefaultMutableTreeNode}!</em>
      */
     public static void addKeywordsToEditPanel(DefaultMutableTreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
         EditMetadataPanels editPanels =
             GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
         List<String> keywordStrings = getKeywordStrings(node, true);
@@ -144,6 +148,14 @@ public final class KeywordsHelper {
 
     public static void saveKeywordsToImageFile(List<String> keywordStrings,
             File imageFile) {
+        if (keywordStrings == null) {
+            throw new NullPointerException("keywordStrings == null");
+        }
+
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
         if (!imageFile.exists()) {
             return;
         }
@@ -231,6 +243,14 @@ public final class KeywordsHelper {
      */
     @SuppressWarnings("unchecked")
     public static void selectNode(JTree tree, Keyword keyword) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         TreeModelKeywords model =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         DefaultMutableTreeNode root    =
@@ -281,6 +301,10 @@ public final class KeywordsHelper {
     }
 
     public static void addHighlightKeywords(Collection<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         for (TreeCellRendererKeywords r : getCellRenderer()) {
             r.addSelImgKeywords(keywords);
         }
@@ -318,6 +342,10 @@ public final class KeywordsHelper {
     }
 
     public static void selectInSelKeywordsList(List<Integer> indices) {
+        if (indices == null) {
+            throw new NullPointerException("indices == null");
+        }
+
         JList selKeywordsList = GUI.INSTANCE.getAppPanel().getListSelKeywords();
 
         selKeywordsList.clearSelection();
@@ -337,11 +365,17 @@ public final class KeywordsHelper {
      * @param toName   new name
      */
     public static void renameDcSubject(String fromName, String toName) {
-        boolean valid = (fromName != null) && (toName != null)
-                        &&!fromName.equalsIgnoreCase(toName);
-        assert valid;
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
 
-        if (valid) {
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+
+        assert !fromName.equalsIgnoreCase(toName);
+
+        if (!fromName.equalsIgnoreCase(toName)) {
             UserTasks.INSTANCE.add(new RenameDcSubject(fromName, toName));
         }
     }
@@ -352,12 +386,11 @@ public final class KeywordsHelper {
      * @param keyword keyword
      */
     public static void deleteDcSubject(String keyword) {
-        boolean valid = keyword != null;
-        assert  valid;
-
-        if (valid) {
-            UserTasks.INSTANCE.add(new DeleteDcSubject(keyword));
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
         }
+
+        UserTasks.INSTANCE.add(new DeleteDcSubject(keyword));
     }
 
     private static void updateXmp(Xmp xmp, File imgFile, File sidecarFile) {

@@ -144,7 +144,10 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     }
 
     public void setXmp(Xmp xmp) {
-        assert xmp != null;
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         this.xmp = xmp;
         setXmpToInputComponents();
     }

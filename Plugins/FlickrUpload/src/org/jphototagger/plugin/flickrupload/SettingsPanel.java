@@ -38,6 +38,10 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     public void setProperties(Properties properties) {
+        if (properties == null) {
+            throw new NullPointerException("properties == null");
+        }
+
         this.properties = properties;
         settings        = new Settings(properties);
         readProperties();

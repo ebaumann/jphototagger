@@ -92,6 +92,14 @@ public final class CanonIfd {
 
 
     public CanonIfd(byte[] rawValue, ByteOrder byteOrder) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
         this.rawValue   = copy(rawValue);
         this.byteOrder  = byteOrder;
         this.entryCount = entryCountFromRaw();

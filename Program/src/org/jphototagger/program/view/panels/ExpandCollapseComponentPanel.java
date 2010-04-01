@@ -68,6 +68,10 @@ public class ExpandCollapseComponentPanel extends JPanel
     private boolean           expanded = true;
 
     public ExpandCollapseComponentPanel(Component component) {
+        if (component == null) {
+            throw new NullPointerException("component == null");
+        }
+
         this.component = component;
         initComponents();
         createFillLabel();

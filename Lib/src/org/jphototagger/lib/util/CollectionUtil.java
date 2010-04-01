@@ -50,7 +50,19 @@ public final class CollectionUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> void binaryInsert(LinkedList<? super T> list, T element) {
-        assert element instanceof Comparable<?>;
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
+        if (element == null) {
+            throw new NullPointerException("element == null");
+        }
+
+        boolean isComparable = element instanceof Comparable<?>;
+
+        if (!isComparable) {
+            throw new IllegalArgumentException("Not a comparable: " + element);
+        }
 
         int size  = list.size();
         int low   = 0;
@@ -136,8 +148,7 @@ public final class CollectionUtil {
         }
 
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
-        List<String>    list      =
-            new ArrayList<String>(tokenizer.countTokens());
+        List<String>    list = new ArrayList<String>(tokenizer.countTokens());
 
         while (tokenizer.hasMoreTokens()) {
             list.add(tokenizer.nextToken());
@@ -194,6 +205,10 @@ public final class CollectionUtil {
      * @return true if the index is valid
      */
     public static boolean isValidIndex(List<?> list, int index) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
         return (index >= 0) && (index < list.size());
     }
 
@@ -233,6 +248,18 @@ public final class CollectionUtil {
     public static String toTokenString(Collection<? extends Object> collection,
                                        String delimiter,
                                        String delimiterReplacement) {
+        if (collection == null) {
+            throw new NullPointerException("collection == null");
+        }
+
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
+
+        if (delimiterReplacement == null) {
+            throw new NullPointerException("delimiterReplacement == null");
+        }
+
         StringBuilder tokenString = new StringBuilder();
         int           index       = 0;
 

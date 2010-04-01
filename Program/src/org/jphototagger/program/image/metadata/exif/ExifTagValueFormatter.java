@@ -37,6 +37,10 @@ public final class ExifTagValueFormatter {
      * @return         formatted tag value
      */
     public static String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         ExifFormatter formatter = ExifFormatterFactory.get(exifTag);
 
         if (formatter != null) {

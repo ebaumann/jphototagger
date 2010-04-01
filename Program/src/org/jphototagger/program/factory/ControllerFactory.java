@@ -457,6 +457,10 @@ public final class ControllerFactory {
      *                         that class was instanciated
      */
     public <T> List<T> getControllers(Class<T> controllerClass) {
+        if (controllerClass == null) {
+            throw new NullPointerException("controllerClass == null");
+        }
+
         return support.getAll(controllerClass);
     }
 
@@ -469,6 +473,10 @@ public final class ControllerFactory {
      *                         that class was instanciated
      */
     public <T> T getController(Class<T> controllerClass) {
+        if (controllerClass == null) {
+            throw new NullPointerException("controllerClass == null");
+        }
+
         return support.getFirst(controllerClass);
     }
 

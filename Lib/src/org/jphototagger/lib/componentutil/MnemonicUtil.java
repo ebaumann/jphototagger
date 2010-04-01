@@ -235,6 +235,10 @@ public final class MnemonicUtil {
      * @throws NullPointerException if <code>component</code> is null
      */
     public static void setMnemonics(Container container) {
+        if (container == null) {
+            throw new NullPointerException("container == null");
+        }
+
         int count = container.getComponentCount();
 
         setMnemonics((Component) container);
@@ -269,6 +273,10 @@ public final class MnemonicUtil {
      * @throws NullPointerException if <code>component</code> is null
      */
     public static void setMnemonics(Component component) {
+        if (component == null) {
+            throw new NullPointerException("component == null");
+        }
+
         Pair<Integer, String> mnPair = null;
 
         if (component instanceof JLabel) {
@@ -312,6 +320,10 @@ public final class MnemonicUtil {
      */
     public static List<Character> getMnemonicCharsOf(
             Collection<? extends Component> components) {
+        if (components == null) {
+            throw new NullPointerException("components == null");
+        }
+
         List<Character> mnemonics = new ArrayList<Character>(components.size());
 
         for (Component component : components) {

@@ -42,6 +42,10 @@ public final class ExifByte {
      *         equals to {@link #byteCount()} or negativ
      */
     public ExifByte(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         Ensure.length(rawValue, byteCount());
         value = (int) rawValue[0];
         Ensure.positive(value);
@@ -57,6 +61,10 @@ public final class ExifByte {
     }
 
     public static boolean byteCountOk(byte[] rawValue) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
         return rawValue.length == byteCount();
     }
 

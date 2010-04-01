@@ -99,6 +99,14 @@ public final class ByteUtil {
      *            byte array
      */
     public static int compareTo(byte[] a1, byte[] a2) {
+        if (a1 == null) {
+            throw new NullPointerException("a1 == null");
+        }
+
+        if (a2 == null) {
+            throw new NullPointerException("a2 == null");
+        }
+
         ByteBuffer buf1 = ByteBuffer.wrap(a1);
         ByteBuffer buf2 = ByteBuffer.wrap(a2);
 

@@ -87,6 +87,18 @@ public final class NikonMakerNotes implements ExifMakerNotes {
 
     @Override
     public void add(File file, ExifTags exifTags, ExifTag makerNoteTag) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (exifTags == null) {
+            throw new NullPointerException("exifTags == null");
+        }
+
+        if (makerNoteTag == null) {
+            throw new NullPointerException("makerNoteTag == null");
+        }
+
         add(makerNoteTag, exifTags);
     }
 

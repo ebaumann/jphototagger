@@ -42,6 +42,10 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
 
     @Override
     public String format(ExifTag exifTag) {
+        if (exifTag == null) {
+            throw new NullPointerException("exifTag == null");
+        }
+
         Ensure.exifTagId(exifTag, ExifTag.Id.FOCAL_LENGTH);
 
         if (ExifRational.byteCountOk(exifTag.rawValue())) {

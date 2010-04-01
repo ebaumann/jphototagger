@@ -44,6 +44,18 @@ public final class AutocompleteHelper {
 
     public static void addAutocompleteData(Column column, Autocomplete ac,
             Xmp xmp) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (ac == null) {
+            throw new NullPointerException("ac == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         assert UserSettings.INSTANCE.isAutocomplete();
 
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
@@ -56,6 +68,14 @@ public final class AutocompleteHelper {
     }
 
     public static void addFastSearchAutocompleteData(Autocomplete ac, Xmp xmp) {
+        if (ac == null) {
+            throw new NullPointerException("ac == null");
+        }
+
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         assert UserSettings.INSTANCE.isAutocomplete();
 
         AutoCompleteData acData =
@@ -104,6 +124,18 @@ public final class AutocompleteHelper {
     // Consider to do that in a separate thread
     public static void addAutocompleteData(Column column, Autocomplete ac,
             Collection<String> words) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (ac == null) {
+            throw new NullPointerException("ac == null");
+        }
+
+        if (words == null) {
+            throw new NullPointerException("words == null");
+        }
+
         assert UserSettings.INSTANCE.isAutocomplete();
 
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);

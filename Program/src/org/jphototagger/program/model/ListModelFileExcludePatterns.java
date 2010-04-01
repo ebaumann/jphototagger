@@ -58,6 +58,10 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
     }
 
     public void insert(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         listenToDb = false;
 
         String trimmedPattern = pattern.trim();
@@ -77,6 +81,10 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
     }
 
     public void delete(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
         listenToDb = false;
 
         String trimmedPattern = pattern.trim();
