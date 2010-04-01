@@ -96,35 +96,35 @@ public class ControllerRenameKeyword extends ControllerKeywords
 
     static String getName(Keyword keyword, DatabaseKeywords database,
                           JTree tree) {
-        String      newName = null;
-        String      oldName = keyword.getName();
-        boolean     input   = true;
-        InputDialog dlg     =
+        String      toName   = null;
+        String      fromName = keyword.getName();
+        boolean     input    = true;
+        InputDialog dlg      =
             new InputDialog(
                 InputHelperDialog.INSTANCE,
                 JptBundle.INSTANCE.getString(
-                    "ControllerRenameKeyword.Input.Name", oldName), oldName,
+                    "ControllerRenameKeyword.Input.Name", fromName), fromName,
                         UserSettings.INSTANCE.getProperties(),
                         ControllerRenameKeyword.class.getName());
 
-        while (input && (newName == null)) {
+        while (input && (toName == null)) {
             dlg.setVisible(true);
-            newName = dlg.getInput();
+            toName = dlg.getInput();
             input   = false;
 
-            if (dlg.isAccepted() && (newName != null)
-                    &&!newName.trim().isEmpty()) {
+            if (dlg.isAccepted() && (toName != null)
+                    &&!toName.trim().isEmpty()) {
                 Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(),
-                                        newName.trim(), keyword.isReal());
+                                        toName.trim(), keyword.isReal());
 
                 if (database.hasParentChildWithEqualName(s)) {
-                    newName = null;
+                    toName = null;
                     input   = MessageDisplayer.confirmYesNo(null,
                             "ControllerRenameKeyword.Confirm.Exists", s);
                 }
             }
         }
 
-        return newName;
+        return toName;
     }
 }

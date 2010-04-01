@@ -83,18 +83,18 @@ public final class ListModelImageCollections extends DefaultListModel {
         }
     }
 
-    public void rename(String oldName, String newName) {
+    public void rename(String fromName, String toName) {
         if (!checkIsNotSpecialCollection(
-                newName,
+                toName,
                 "ListModelImageCollections.Error.RenameSpecialCollection")) {
             return;
         }
 
-        int index = indexOf(oldName);
+        int index = indexOf(fromName);
 
         if (index >= 0) {
             remove(index);
-            ListUtil.insertSorted(this, newName,
+            ListUtil.insertSorted(this, toName,
                                   ComparatorStringAscending.INSTANCE,
                                   getSpecialCollectionCount(), getSize() - 1);
         }

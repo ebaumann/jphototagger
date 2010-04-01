@@ -61,8 +61,8 @@ public interface DatabaseMetadataTemplatesListener {
      * Called if a template was renamed in
      * {@link org.jphototagger.program.database.DatabaseMetadataTemplates}.
      *
-     * @param oldName old template name
-     * @param newName new template name
+     * @param fromName old template name
+     * @param toName   new template name
      */
-    public void templateRenamed(String oldName, String newName);
+    public void templateRenamed(String fromName, String toName);
 }

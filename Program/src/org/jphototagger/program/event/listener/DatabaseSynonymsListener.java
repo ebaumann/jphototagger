@@ -79,8 +79,8 @@ public interface DatabaseSynonymsListener {
      * Called if a synonym word renamed in
      * {@link org.jphototagger.program.database.DatabaseSynonyms}.
      *
-     * @param oldName old name of the word
-     * @param newName new name of the word
+     * @param fromName old name of the word
+     * @param toName   new name of the word
      */
-    public void wordRenamed(String oldName, String newName);
+    public void wordRenamed(String fromName, String toName);
 }

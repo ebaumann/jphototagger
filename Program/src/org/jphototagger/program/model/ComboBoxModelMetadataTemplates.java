@@ -179,13 +179,13 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
     }
 
     @Override
-    public void templateRenamed(String oldName, String newName) {
-        int index = indexOfTemplate(oldName);
+    public void templateRenamed(String fromName, String toName) {
+        int index = indexOfTemplate(fromName);
 
         if (index >= 0) {
             MetadataTemplate template = (MetadataTemplate) getElementAt(index);
 
-            template.setName(newName);
+            template.setName(toName);
             fireContentsChanged(this, index, index);
         }
     }

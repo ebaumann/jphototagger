@@ -661,12 +661,12 @@ public final class DatabaseImageCollections extends Database {
         }
     }
 
-    private void notifyCollectionRenamed(String oldName, String newName) {
+    private void notifyCollectionRenamed(String fromName, String toName) {
         Set<DatabaseImageCollectionsListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.collectionRenamed(oldName, newName);
+                listener.collectionRenamed(fromName, toName);
             }
         }
     }

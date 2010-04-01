@@ -556,11 +556,11 @@ public final class DatabaseKeywords extends Database {
      * Renames all real subjects whith a specific name regardless of their
      * parent.
      *
-     * @param  oldName old name
-     * @param  newName new name
-     * @return         count of renamed subjects
+     * @param  fromName old name
+     * @param  toName   new name
+     * @return          count of renamed subjects
      */
-    public int updateRenameAll(String oldName, String newName) {
+    public int updateRenameAll(String fromName, String toName) {
         int               count = 0;
         Connection        con   = null;
         PreparedStatement stmt  = null;
@@ -573,8 +573,8 @@ public final class DatabaseKeywords extends Database {
                          + " WHERE subject = ? AND real = TRUE";
 
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, newName);
-            stmt.setString(2, oldName);
+            stmt.setString(1, toName);
+            stmt.setString(2, fromName);
             logFinest(stmt);
             count = stmt.executeUpdate();
         } catch (Exception ex) {

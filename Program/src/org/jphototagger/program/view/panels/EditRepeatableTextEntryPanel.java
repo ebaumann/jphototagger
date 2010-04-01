@@ -518,38 +518,38 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private void renameListItem(int index) {
-        boolean ready   = false;
-        String  oldName = model.getElementAt(index).toString();
-        String  newName = null;
+        boolean ready    = false;
+        String  fromName = model.getElementAt(index).toString();
+        String  toName   = null;
 
         do {
             bundleKeyPosRenameDialog = getClass().getName();
-            newName                  = MessageDisplayer.input(
-                "EditRepeatableTextEntryPanel.Input.RenameListItem", oldName,
+            toName                   = MessageDisplayer.input(
+                "EditRepeatableTextEntryPanel.Input.RenameListItem", fromName,
                 bundleKeyPosRenameDialog);
-            ready = newName == null;
+            ready = toName == null;
 
-            if ((newName != null) && newName.trim().equalsIgnoreCase(oldName)) {
+            if ((toName != null) && toName.trim().equalsIgnoreCase(fromName)) {
                 ready = !MessageDisplayer.confirmYesNo(list,
                         "EditRepeatableTextEntryPanel.Confirm.SameNames");
-                newName = null;
-            } else if ((newName != null)
+                toName = null;
+            } else if ((toName != null)
                        && ListUtil.containsString(list.getModel(),
-                           newName.trim())) {
+                           toName.trim())) {
                 ready = !MessageDisplayer.confirmYesNo(list,
                         "EditRepeatableTextEntryPanel.Confirm.NameExists",
-                        newName);
-                newName = null;
-            } else if ((newName != null) &&!newName.trim().isEmpty()) {
+                        toName);
+                toName = null;
+            } else if ((toName != null) &&!toName.trim().isEmpty()) {
                 ready   = true;
-                newName = newName.trim();
+                toName = toName.trim();
             }
         } while (!ready);
 
-        if (newName != null) {
-            model.set(index, newName);
+        if (toName != null) {
+            model.set(index, toName);
             dirty = true;
-            notifyTextChanged(column, oldName, newName);
+            notifyTextChanged(column, fromName, toName);
         }
     }
 

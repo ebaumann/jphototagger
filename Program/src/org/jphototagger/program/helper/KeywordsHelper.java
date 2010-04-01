@@ -333,16 +333,16 @@ public final class KeywordsHelper {
     /**
      * Renames in the database and all sidecar files a Dublin Core subject.
      *
-     * @param oldName old name
-     * @param newName new name
+     * @param fromName old name
+     * @param toName   new name
      */
-    public static void renameDcSubject(String oldName, String newName) {
-        boolean valid = (oldName != null) && (newName != null)
-                        &&!oldName.equalsIgnoreCase(newName);
+    public static void renameDcSubject(String fromName, String toName) {
+        boolean valid = (fromName != null) && (toName != null)
+                        &&!fromName.equalsIgnoreCase(toName);
         assert valid;
 
         if (valid) {
-            UserTasks.INSTANCE.add(new RenameDcSubject(oldName, newName));
+            UserTasks.INSTANCE.add(new RenameDcSubject(fromName, toName));
         }
     }
 
@@ -435,13 +435,13 @@ public final class KeywordsHelper {
 
 
     private static class RenameDcSubject extends HelperThread {
-        private final String     newName;
-        private final String     oldName;
+        private final String     toName;
+        private final String     fromName;
         private volatile boolean stop;
 
-        public RenameDcSubject(String oldName, String newName) {
-            this.oldName = oldName;
-            this.newName = newName;
+        public RenameDcSubject(String fromName, String toName) {
+            this.fromName = fromName;
+            this.toName   = toName;
             setName("Renaming DC subject @ " + getClass().getSimpleName());
             setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Rename"));
         }
@@ -451,9 +451,9 @@ public final class KeywordsHelper {
             List<File> imageFiles =
                 new ArrayList<File>(
                     DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
-                        oldName));
+                        fromName));
 
-            logStartRename(oldName, newName);
+            logStartRename(fromName, toName);
             progressStarted(0, 0, imageFiles.size(), null);
 
             int size  = imageFiles.size();
@@ -467,8 +467,8 @@ public final class KeywordsHelper {
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                    oldName);
-                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, newName);
+                                    fromName);
+                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, toName);
                     updateXmp(xmp, imageFile, sidecarFile);
                 }
 
@@ -478,10 +478,10 @@ public final class KeywordsHelper {
             progressEnded(index);
         }
 
-        private static void logStartRename(String oldName, String newName) {
+        private static void logStartRename(String fromName, String toName) {
             AppLogger.logInfo(KeywordsHelper.class,
-                              "KeywordsHelper.Info.StartRename", oldName,
-                              newName);
+                              "KeywordsHelper.Info.StartRename", fromName,
+                              toName);
         }
 
         @Override

@@ -532,14 +532,7 @@ public class DatabaseMetadataTemplates extends Database {
         return updated;
     }
 
-    /**
-     * Benennt ein Metadaten-Edit-Template um.
-     *
-     * @param  oldName  Alter Name
-     * @param  newName  Neuer Name
-     * @return true bei Erfolg
-     */
-    public boolean updateRename(String oldName, String newName) {
+    public boolean updateRename(String fromName, String toName) {
         boolean           renamed = false;
         Connection        con     = null;
         PreparedStatement stmt    = null;
@@ -549,8 +542,8 @@ public class DatabaseMetadataTemplates extends Database {
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
                 "UPDATE metadata_edit_templates SET name = ? WHERE name = ?");
-            stmt.setString(1, newName);
-            stmt.setString(2, oldName);
+            stmt.setString(1, toName);
+            stmt.setString(2, fromName);
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
@@ -559,7 +552,7 @@ public class DatabaseMetadataTemplates extends Database {
             renamed = count > 0;
 
             if (renamed) {
-                notifyRenamed(oldName, newName);
+                notifyRenamed(fromName, toName);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
@@ -680,12 +673,12 @@ public class DatabaseMetadataTemplates extends Database {
         }
     }
 
-    private void notifyRenamed(String oldName, String newName) {
+    private void notifyRenamed(String fromName, String toName) {
         Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
 
         synchronized (listeners) {
             for (DatabaseMetadataTemplatesListener listener : listeners) {
-                listener.templateRenamed(oldName, newName);
+                listener.templateRenamed(fromName, toName);
             }
         }
     }

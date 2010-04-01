@@ -130,22 +130,22 @@ public final class ModifyImageCollections {
     /**
      * Benennt eine Bildsammlung um.
      *
-     * @param oldName Alter Name, der neue wird durch eine Eingabe erfragt.
+     * @param fromName Alter Name, der neue wird durch eine Eingabe erfragt.
      * @return        Neuer Name oder null, wenn die Sammlung nicht umbenannt
      *                wurde
      */
-    public static String renameImageCollection(String oldName) {
-        String newName = inputCollectionName(oldName);
+    public static String renameImageCollection(String fromName) {
+        String newName = inputCollectionName(fromName);
 
         if ((newName != null) &&!newName.isEmpty()) {
             boolean renamed =
-                DatabaseImageCollections.INSTANCE.updateRename(oldName,
+                DatabaseImageCollections.INSTANCE.updateRename(fromName,
                     newName) > 0;
 
             if (renamed) {
                 return newName;
             } else {
-                errorMessageRenameImageCollection(oldName);
+                errorMessageRenameImageCollection(fromName);
 
                 return null;
             }
