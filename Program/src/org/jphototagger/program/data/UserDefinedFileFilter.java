@@ -26,8 +26,10 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.io.File;
 import java.io.FileFilter;
-import javax.xml.bind.annotation.XmlAccessType;
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,12 +39,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class UserDefinedFileFilter {
-    private Long    id;
-    private Boolean isNot = Boolean.FALSE;
-    private Type    type  = Type.CONTAINS;
-    private String  name;
-    private String  expression;
+public final class UserDefinedFileFilter implements Serializable {
+    private static final long serialVersionUID = 1211554910220214424L;
+    private Long              id;
+    private Boolean           isNot = Boolean.FALSE;
+    private Type              type  = Type.CONTAINS;
+    private String            name;
+    private String            expression;
 
     public enum Type {
         STARTS_WITH(
@@ -108,9 +111,10 @@ public final class UserDefinedFileFilter {
         private String makeIgnoreCase(String s) {
             int           length = s.length();
             StringBuilder sb = new StringBuilder(length * 4);    // * 4: A -> [Aa]
-            String        escaped = s.replace("\\", "\\\\").replace("*",
-                                              "\\*").replace("[",
-                                                  "\\[").replace("]", "\\]");
+            String        escaped = s.replace("\\", "\\\\")
+                                     .replace("*", "\\*")
+                                     .replace("[", "\\[")
+                                     .replace("]", "\\]");
             int escLength = escaped.length();
 
             for (int i = 0; i < escLength; i++) {
@@ -259,7 +263,7 @@ public final class UserDefinedFileFilter {
         return hash;
     }
 
-    public static class RegexFileFilter implements FileFilter {
+    public static class RegexFileFilter implements FileFilter, Serializable {
         private final String  pattern;
         private final boolean isNot;
         private final long    id;

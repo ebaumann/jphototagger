@@ -258,10 +258,6 @@ public final class DatabaseMetadata extends Database {
             throw new NullPointerException("tableName == null");
         }
 
-        if (columnName == null) {
-            throw new NullPointerException("columnName == null");
-        }
-
         ResultSet        rs    = null;
         List<ColumnInfo> infos = new ArrayList<ColumnInfo>();
 

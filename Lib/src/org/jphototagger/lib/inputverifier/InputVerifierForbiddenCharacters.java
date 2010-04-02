@@ -21,6 +21,8 @@
 
 package org.jphototagger.lib.inputverifier;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,9 @@ import javax.swing.text.JTextComponent;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierForbiddenCharacters extends InputVerifier {
+public final class InputVerifierForbiddenCharacters extends InputVerifier
+        implements Serializable {
+    private static final long     serialVersionUID = -137243048239784843L;
     private final List<Character> forbiddenCharacters =
         new ArrayList<Character>();
 

@@ -23,6 +23,8 @@ package org.jphototagger.lib.inputverifier;
 
 import org.jphototagger.lib.resource.JslBundle;
 
+import java.io.Serializable;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -34,9 +36,11 @@ import javax.swing.text.JTextComponent;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierMaxLength extends InputVerifier {
-    private final int maxLength;
-    private boolean   message = true;
+public final class InputVerifierMaxLength extends InputVerifier
+        implements Serializable {
+    private static final long serialVersionUID = 3511123914461892781L;
+    private final int         maxLength;
+    private boolean           message = true;
 
     /**
      * Constructor.

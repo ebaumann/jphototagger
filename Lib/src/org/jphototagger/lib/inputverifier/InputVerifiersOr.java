@@ -21,6 +21,8 @@
 
 package org.jphototagger.lib.inputverifier;
 
+import java.io.Serializable;
+
 import java.util.List;
 
 import javax.swing.InputVerifier;
@@ -31,10 +33,13 @@ import javax.swing.JComponent;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifiersOr extends InputVerifiers {
+public final class InputVerifiersOr extends InputVerifiers
+        implements Serializable {
+    private static final long serialVersionUID = -9086823766117067406L;
 
     /**
-     * One of the added verifiers must verify the input as true for a valid input.
+     * One of the added verifiers must verify the input as true for a valid
+     * input.
      *
      * @param  input input
      * @return       true if one of the added verifiers returns true, false

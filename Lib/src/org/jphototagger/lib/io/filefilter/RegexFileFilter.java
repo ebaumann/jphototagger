@@ -22,6 +22,7 @@
 package org.jphototagger.lib.io.filefilter;
 
 import java.io.File;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,9 @@ import java.util.StringTokenizer;
  *
  * @author  Elmar Baumann
  */
-public final class RegexFileFilter implements java.io.FileFilter {
+public final class RegexFileFilter implements java.io.FileFilter, Serializable {
+    private static final long serialVersionUID = 5995205186843465364L;
+
     private List<String> acceptedPatterns = new ArrayList<String>();
 
     /**

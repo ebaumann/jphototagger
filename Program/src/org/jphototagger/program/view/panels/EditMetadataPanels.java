@@ -299,11 +299,13 @@ public final class EditMetadataPanels
 
         if (panelAdd instanceof EditRepeatableTextEntryPanel) {
             ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
-        } else {
+        } else if (panelAdd instanceof TextEntry) {
             TextEntry textEntry = (TextEntry) panelAdd;
 
             textEntry.setText(text);
             textEntry.setDirty(true);
+        } else {
+            assert false : panelAdd;
         }
 
         checkSaveOnChanges();
@@ -337,11 +339,13 @@ public final class EditMetadataPanels
 
         if (panelRemove instanceof EditRepeatableTextEntryPanel) {
             ((EditRepeatableTextEntryPanel) panelRemove).removeText(text);
-        } else {
+        } else if (panelRemove instanceof TextEntry) {
             TextEntry textEntry = (TextEntry) panelRemove;
 
             textEntry.setText("");
             textEntry.setDirty(true);
+        } else {
+            assert false;
         }
 
         checkSaveOnChanges();

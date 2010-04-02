@@ -21,9 +21,12 @@
 
 package org.jphototagger.lib.inputverifier;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.resource.JslBundle;
 
 import java.awt.HeadlessException;
+
+import java.io.Serializable;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,7 +39,6 @@ import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 
 /**
  * Verifies whether the input is a date and, if not, displays an error
@@ -44,8 +46,10 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierDate extends InputVerifier {
-    private final String pattern;
+public final class InputVerifierDate extends InputVerifier
+        implements Serializable {
+    private static final long serialVersionUID = 1163686474402473633L;
+    private final String      pattern;
 
     /**
      * Verifies via {@link DateFormat#getInstance()}.

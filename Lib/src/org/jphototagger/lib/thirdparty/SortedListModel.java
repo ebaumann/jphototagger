@@ -262,10 +262,6 @@ public class SortedListModel extends AbstractListModel {
     @SuppressWarnings("unchecked")
     public void setComparator(Comparator<Object> comp) {
         if (comp == null) {
-            throw new NullPointerException("comp == null");
-        }
-
-        if (comp == null) {
             sortOrder  = SortOrder.UNORDERED;
             comparator = Collator.getInstance();
             resetModelData();

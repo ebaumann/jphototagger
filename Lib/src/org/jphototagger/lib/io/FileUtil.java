@@ -334,25 +334,26 @@ public final class FileUtil {
             return;
         }
 
-        FileChannel inChannel  = new FileInputStream(source).getChannel();
-        FileChannel outChannel = new FileOutputStream(target).getChannel();
+        FileChannel      inChannel  = null;
+        FileChannel      outChannel = null;
+        FileInputStream  fis        = null;
+        FileOutputStream fos        = null;
 
         try {
+            fis        = new FileInputStream(source);
+            inChannel  = fis.getChannel();
+            fos        = new FileOutputStream(target);
+            outChannel = fos.getChannel();
             inChannel.transferTo(0, inChannel.size(), outChannel);
-        } catch (IOException e) {
-            throw e;
         } finally {
-            if (inChannel != null) {
-                inChannel.close();
-            }
+            close(inChannel);
+            close(outChannel);
+            closeStream(fis);
+            closeStream(fos);
 
-            if (outChannel != null) {
-                outChannel.close();
-
-                if (!target.setLastModified(source.lastModified())) {
-                    throw new IOException("Last modified couldn't be set to "
-                                          + target + " from " + source);
-                }
+            if (!target.setLastModified(source.lastModified())) {
+                throw new IOException("Last modified couldn't be set to "
+                                      + target + " from " + source);
             }
         }
     }
@@ -1089,6 +1090,25 @@ public final class FileUtil {
         if (os != null) {
             try {
                 os.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
+                                 null, ex);
+            }
+        }
+    }
+
+    /**
+     * Closes a file channel and catches a possible exception.
+     * <p>
+     * Use this method, if the {@link IOException} thrown by the stream shall
+     * not be handled.
+     *
+     * @param fc file channel, can be null
+     */
+    public static void close(FileChannel fc) {
+        if (fc != null) {
+            try {
+                fc.close();
             } catch (IOException ex) {
                 Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
                                  null, ex);

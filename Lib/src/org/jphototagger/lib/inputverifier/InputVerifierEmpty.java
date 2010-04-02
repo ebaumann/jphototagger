@@ -21,6 +21,8 @@
 
 package org.jphototagger.lib.inputverifier;
 
+import java.io.Serializable;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.text.JTextComponent;
@@ -30,8 +32,10 @@ import javax.swing.text.JTextComponent;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierEmpty extends InputVerifier {
-    private final boolean trim;
+public final class InputVerifierEmpty extends InputVerifier
+        implements Serializable {
+    private static final long serialVersionUID = -7155052662328216344L;
+    private final boolean     trim;
 
     /**
      * Constructor setting whether the text shall be trimmed.

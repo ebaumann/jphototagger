@@ -22,6 +22,7 @@
 package org.jphototagger.lib.io.filefilter;
 
 import java.io.File;
+import java.io.Serializable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +38,7 @@ import javax.swing.filechooser.FileSystemView;
  *
  * @author  Elmar Baumann
  */
-public final class DirectoryFilter implements java.io.FileFilter {
+public final class DirectoryFilter implements java.io.FileFilter, Serializable {
 
     /**
      * Instance which accepts hidden files.
@@ -52,6 +53,7 @@ public final class DirectoryFilter implements java.io.FileFilter {
         new DirectoryFilter(Option.NO_OPTION);
     private static final FileSystemView FILE_SYSTEM_VIEW =
         FileSystemView.getFileSystemView();
+    private static final long serialVersionUID = 5618213820669639267L;
     private final List<Option> options;
 
     public enum Option {

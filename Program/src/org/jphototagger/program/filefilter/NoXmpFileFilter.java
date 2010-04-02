@@ -33,7 +33,7 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
  */
 public final class NoXmpFileFilter implements FileFilter {
 
-    public static NoXmpFileFilter INSTANCE = new NoXmpFileFilter();
+    public static final NoXmpFileFilter INSTANCE = new NoXmpFileFilter();
 
     @Override
     public boolean accept(File imageFile) {
