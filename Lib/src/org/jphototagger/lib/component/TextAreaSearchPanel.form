@@ -19,12 +19,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="label" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="textField" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="buttonDown" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="buttonUp" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="textField" pref="118" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="buttonDown" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="buttonUp" linkSize="1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -33,8 +33,8 @@
           <Group type="103" groupAlignment="3" attributes="0">
               <Component id="label" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="textField" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="buttonDown" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="buttonUp" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonDown" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonUp" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,7 +52,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textField">
       <Properties>
-        <Property name="columns" type="int" value="20"/>
+        <Property name="columns" type="int" value="10"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonDown">
