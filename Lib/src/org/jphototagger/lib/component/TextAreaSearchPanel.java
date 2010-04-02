@@ -185,7 +185,7 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
         label.setLabelFor(textField);
         label.setText(JslBundle.INSTANCE.getString("TextAreaSearchPanel.label.text")); // NOI18N
 
-        textField.setColumns(20);
+        textField.setColumns(10);
 
         buttonDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_down.png"))); // NOI18N
         buttonDown.setText(JslBundle.INSTANCE.getString("TextAreaSearchPanel.buttonDown.text")); // NOI18N
@@ -212,12 +212,15 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
             .addGroup(layout.createSequentialGroup()
                 .addComponent(label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonDown)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonUp))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonDown, buttonUp});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -226,6 +229,9 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
                 .addComponent(buttonDown)
                 .addComponent(buttonUp))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonDown, buttonUp});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
