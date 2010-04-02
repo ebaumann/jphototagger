@@ -21,6 +21,10 @@
 
 package org.jphototagger.program.controller.misc;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.dialog.HelpBrowser;
+import org.jphototagger.lib.event.HelpBrowserEvent;
+import org.jphototagger.lib.event.listener.HelpBrowserListener;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLoggingSystem;
@@ -30,10 +34,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.frames.AppFrame;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.dialog.HelpBrowser;
-import org.jphototagger.lib.event.HelpBrowserEvent;
-import org.jphototagger.lib.event.listener.HelpBrowserListener;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -62,26 +62,13 @@ public final class ControllerHelp
         JptBundle.INSTANCE.getString("Help.Url.Contents");
     private static final String KEY_CURRENT_URL =
         ControllerHelp.class.getName() + ".CurrentURL";
-    private static final String TO_ADDRESS_BUGS     = "support@jphototagger.org";
-    private static final String TO_ADDRESS_FEATURES = "support@jphototagger.org";
-    private static final String URI_USER_FORUM      =
-        JptBundle.INSTANCE.getString("ControllerHelp.URI.UserForum");
-    private static final String URI_WEBSITE =
-        JptBundle.INSTANCE.getString("ControllerHelp.URI.Website");
-    private static final String URI_CHANGELOG =
-        JptBundle.INSTANCE.getString("ControllerHelp.URI.Changelog");
-    private static final String SUBJECT_FEATURES =
-        JptBundle.INSTANCE.getString("ControllerSendMail.Subject.Features");
-    private static final String SUBJECT_BUGS =
-        JptBundle.INSTANCE.getString("ControllerSendMail.Subject.Bugs");
-    private final AppFrame    appFrame   = GUI.INSTANCE.getAppFrame();
-    private final HelpBrowser help       = HelpBrowser.INSTANCE;
+    private final AppFrame    appFrame = GUI.INSTANCE.getAppFrame();
+    private final HelpBrowser help     = HelpBrowser.INSTANCE;
     private String            currentUrl =
         UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
     private final JMenuItem menuItemAcceleratorKeys =
         appFrame.getMenuItemAcceleratorKeys();
-    private final JMenuItem menuItemHelp              =
-        appFrame.getMenuItemHelp();
+    private final JMenuItem menuItemHelp = appFrame.getMenuItemHelp();
     private final JMenuItem menuItemOpenPdfUserManual =
         appFrame.getMenuItemOpenPdfUserManual();
     private final JMenuItem menuItemBrowseWebsite =
@@ -132,11 +119,11 @@ public final class ControllerHelp
         } else if (source == menuItemOpenPdfUserManual) {
             openPdfUserManual();
         } else if (source == menuItemBrowseUserForum) {
-            browse(URI_USER_FORUM);
+            browse(AppInfo.URI_USER_FORUM);
         } else if (source == menuItemBrowseWebsite) {
-            browse(URI_WEBSITE);
+            browse(AppInfo.URI_WEBSITE);
         } else if (source == menuItemBrowseChangelog) {
-            browse(URI_CHANGELOG);
+            browse(AppInfo.URI_CHANGELOG);
         } else if (source == menuItemSendBugMail) {
             sendBugMail();
         } else if (source == menuItemSendFeatureMail) {
@@ -181,14 +168,15 @@ public final class ControllerHelp
 
     private void sendBugMail() {
         sendMail(
-            TO_ADDRESS_BUGS, SUBJECT_BUGS,
+            AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS,
             JptBundle.INSTANCE.getString(
                 "ControllerSendMail.Info.AttachLogfile",
                 AppLoggingSystem.getCurrentAllLogifleName()));
     }
 
     private void sendFeatureMail() {
-        sendMail(TO_ADDRESS_FEATURES, SUBJECT_FEATURES, null);
+        sendMail(AppInfo.MAIL_TO_ADDRESS_FEATURES,
+                 AppInfo.MAIL_SUBJECT_FEATURES, null);
     }
 
     private void sendMail(String to, String subject, String body) {
@@ -251,7 +239,7 @@ public final class ControllerHelp
             logJar(jarPath);
 
             if (jarPath.exists() && (jarPath.getParentFile() != null)) {
-                File   dir        = jarPath.getParentFile();
+                File   dir = jarPath.getParentFile();
                 String pathPrefix = dir.getAbsolutePath() + File.separator
                                     + "Manual";
 

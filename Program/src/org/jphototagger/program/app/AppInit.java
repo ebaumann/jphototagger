@@ -31,6 +31,8 @@ import org.jphototagger.program.resource.ImageProperties;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.frames.AppFrame;
 
+import java.awt.Toolkit;
+
 /**
  * Initializes the application.
  *
@@ -78,6 +80,7 @@ public final class AppInit {
         AbstractImageReader.install(ImageProperties.class);
         hideSplashScreen();
         showMainWindow();
+        setJptEventQueue();
     }
 
     private void hideSplashScreen() {
@@ -123,6 +126,11 @@ public final class AppInit {
                 new AppFrame().setVisible(true);
             }
         });
+    }
+
+    private void setJptEventQueue() {
+        Toolkit.getDefaultToolkit().getSystemEventQueue().push(
+            new JptEventQueue());
     }
 
     private static void checkJavaVersion() {
