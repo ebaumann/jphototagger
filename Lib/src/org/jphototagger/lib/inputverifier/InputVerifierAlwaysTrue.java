@@ -21,6 +21,8 @@
 
 package org.jphototagger.lib.inputverifier;
 
+import java.io.Serializable;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 
@@ -29,9 +31,11 @@ import javax.swing.JComponent;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierAlwaysTrue extends InputVerifier {
+public final class InputVerifierAlwaysTrue extends InputVerifier
+        implements Serializable {
     public static final InputVerifierAlwaysTrue INSTANCE =
         new InputVerifierAlwaysTrue();
+    private static final long serialVersionUID = -8801246866926026861L;
 
     private InputVerifierAlwaysTrue() {}
 

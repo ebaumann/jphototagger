@@ -260,7 +260,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
                 UserDefinedFileFilter f = new UserDefinedFileFilter();
 
                 f.setId(getLong(rs, 1));
-                f.setIsNot(getBoolean(rs, 2));
+                f.setIsNot(rs.getBoolean(2));
                 f.setType(UserDefinedFileFilter.Type.parseValue(getInt(rs, 3)));
                 f.setName(getString(rs, 4));
                 f.setExpression(getString(rs, 5));

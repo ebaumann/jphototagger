@@ -23,6 +23,8 @@ package org.jphototagger.lib.inputverifier;
 
 import org.jphototagger.lib.resource.JslBundle;
 
+import java.io.Serializable;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,10 +39,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierNumberRange extends InputVerifier {
-    private final double min;
-    private final double max;
-    private boolean      message = true;
+public final class InputVerifierNumberRange extends InputVerifier
+        implements Serializable {
+    private static final long serialVersionUID = -8805199830659169644L;
+    private final double      min;
+    private final double      max;
+    private boolean           message = true;
 
     /**
      * Constructor.

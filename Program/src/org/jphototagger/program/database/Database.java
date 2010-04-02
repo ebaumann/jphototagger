@@ -374,16 +374,6 @@ public class Database {
         return getCount(con, tablename, columnName, value) > 0;
     }
 
-    protected Boolean getBoolean(ResultSet rs, int colIndex) throws SQLException {
-        boolean b = rs.getBoolean(colIndex);
-
-        if (rs.wasNull()) {
-            return null;
-        }
-
-        return b;
-    }
-
     protected Double getDouble(ResultSet rs, int colIndex) throws SQLException {
         double d = rs.getDouble(colIndex);
 

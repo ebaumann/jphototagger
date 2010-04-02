@@ -84,16 +84,15 @@ public abstract class ControllerMiscMetadata extends Controller
 
     @Override
     protected void action(KeyEvent evt) {
-        action(colValuesFrom(Arrays.asList(tree.getSelectionPaths())));
+        TreePath[] selPaths = tree.getSelectionPaths();
+        if (selPaths != null) {
+            action(colValuesFrom(Arrays.asList(selPaths)));
+        }
     }
 
     protected List<Pair<Column, String>> colValuesFrom(List<TreePath> paths) {
         List<Pair<Column, String>> values = new ArrayList<Pair<Column,
                                                 String>>(paths.size());
-
-        if (paths == null) {
-            return values;
-        }
 
         for (TreePath path : paths) {
             Pair<Column, String> value = colValueFrom(path);

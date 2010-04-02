@@ -27,7 +27,6 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
@@ -140,8 +139,6 @@ public final class ControllerMenuItemEnabler
                 && contentsOfItemsRequiresSelImages.get(item).contains(
                     content));
         }
-
-        UserSettings settings = UserSettings.INSTANCE;
 
         itemOpenFilesWithStandardApp.setEnabled(isSelection
                 && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram()

@@ -72,17 +72,13 @@ public final class ExifInDatabase {
             throw new NullPointerException("id == null");
         }
 
-        if (id != null) {
-            switch (ifdType) {
-            case EXIF :
-                return STORED_TAG_IDS_EXIF_IFD.contains(id);
+        switch (ifdType) {
+        case EXIF :
+            return STORED_TAG_IDS_EXIF_IFD.contains(id);
 
-            default :
-                return false;
-            }
+        default :
+            return false;
         }
-
-        return false;
     }
 
     private ExifInDatabase() {}

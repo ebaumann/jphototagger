@@ -46,9 +46,9 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
     private JTextArea textArea;
     private static final Color ERROR_BG = Color.RED;
     private final Color textFieldBg;
-    private final Highlighter                  hilit   =
+    private final transient Highlighter                  hilit   =
             new DefaultHighlighter();
-    private final Highlighter.HighlightPainter painter =
+    private final transient Highlighter.HighlightPainter painter =
             new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
     private final List<Integer> foundIndices      = new ArrayList<Integer>();
     private int                 currentFoundIndex = -1;

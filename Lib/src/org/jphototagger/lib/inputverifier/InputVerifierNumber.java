@@ -21,9 +21,12 @@
 
 package org.jphototagger.lib.inputverifier;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.resource.JslBundle;
 
 import java.awt.HeadlessException;
+
+import java.io.Serializable;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -35,7 +38,6 @@ import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 
 /**
  * Verifies whether the input is a number and, if not, displays an error
@@ -43,9 +45,11 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
  *
  * @author  Elmar Baumann
  */
-public final class InputVerifierNumber extends InputVerifier {
+public final class InputVerifierNumber extends InputVerifier
+        implements Serializable {
     public static final InputVerifierNumber INSTANCE =
         new InputVerifierNumber();
+    private static final long serialVersionUID = -7544590339781154133L;
 
     private InputVerifierNumber() {}
 

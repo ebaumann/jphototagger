@@ -190,9 +190,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
         this.suggest = suggest;
         buttonSuggestion.setEnabled(editable && (suggest != null));
-        buttonSuggestion.setToolTipText((suggest == null)
-                                        ? ""
-                                        : suggest.getDescription());
+        buttonSuggestion.setToolTipText(suggest.getDescription());
     }
 
     /**
