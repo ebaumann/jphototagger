@@ -80,7 +80,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
 
     private void handleOkButtonClicked() {
         if (filter.isValid()) {
-            if (checkName(textFieldName.getName())) {
+            if (checkName(textFieldName.getText())) {
                 accepted = true;
                 setVisible(false);
             }
