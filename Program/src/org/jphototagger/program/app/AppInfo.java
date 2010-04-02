@@ -21,8 +21,8 @@
 
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.util.Version;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Informations about this application.
@@ -41,7 +41,7 @@ public final class AppInfo {
      */
 
     // Never change that scheme: "[0-9]+\.[0-9]+\.[0-9]+"!
-    public static final String APP_VERSION = "0.8.17";
+    public static final String APP_VERSION = "0.8.18";
 
     /**
      * ("Historical") Name of this project.
@@ -52,7 +52,7 @@ public final class AppInfo {
      * the old to the new name. Also check the code accessing this field.
      */
 
-    // IF CHANGING IS REQUIRED, SEE COMMENT ABOVE!
+    // IF CHANGING, SEE COMMENT ABOVE!
     public static final String PROJECT_NAME = "ImageMetaDataViewer";
 
     /**
@@ -65,6 +65,48 @@ public final class AppInfo {
      */
     public static final String APP_DESCRIPTION =
         JptBundle.INSTANCE.getString("AppInfo.AppDescription");
+
+    /**
+     * To mail address for bug reports
+     */
+    public static final String MAIL_TO_ADDRESS_BUGS =
+        "support@jphototagger.org";
+
+    /**
+     * Localized subject for  mails
+     */
+    public static final String MAIL_SUBJECT_BUGS =
+        JptBundle.INSTANCE.getString("AppInfo.Subject.Bugs");
+
+    /**
+     * To mail address for feature requests
+     */
+    public static final String MAIL_TO_ADDRESS_FEATURES =
+        "support@jphototagger.org";
+
+    /**
+     * Localized subject for  mails
+     */
+    public static final String MAIL_SUBJECT_FEATURES =
+        JptBundle.INSTANCE.getString("AppInfo.Subject.Features");
+
+    /**
+     * Localized URI to JPhotoTagger's user forum
+     */
+    public static final String URI_USER_FORUM =
+        JptBundle.INSTANCE.getString("AppInfo.URI.UserForum");
+
+    /**
+     * Localized URI to JPhotoTagger's website
+     */
+    public static final String URI_WEBSITE =
+        JptBundle.INSTANCE.getString("AppInfo.URI.Website");
+
+    /**
+     * Localized URI to JPhotoTagger's change log
+     */
+    public static final String URI_CHANGELOG =
+        JptBundle.INSTANCE.getString("AppInfo.URI.Changelog");
 
     private AppInfo() {}
 }

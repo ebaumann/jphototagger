@@ -49,7 +49,7 @@ public class Database {
 
         dlg.setTitle(
             JptBundle.INSTANCE.getString("DatabaseTables.Error.Title"));
-        dlg.setMessage(getExceptionMessage(ex));
+        dlg.setLongMessage(getExceptionMessage(ex));
         dlg.setVisible(true);
     }
 

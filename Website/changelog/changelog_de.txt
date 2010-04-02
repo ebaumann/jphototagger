@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.18 2010-04-02
+-----------------
+
+* Bei unerwarteten Fehlern erscheint ein Dialog, über den Sie den Fehler an
+  den JPhotoTagger-Support schicken können
+
 0.8.17 2010-04-01
 -----------------
 
