@@ -196,17 +196,17 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dialog =
+        DirectoryChooser dlg =
             new DirectoryChooser(
                 GUI.INSTANCE.getAppFrame(), targetDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "CopyToDirectoryDialog.DirChooser");
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            List<File> files = dialog.getSelectedDirectories();
+        if (dlg.isAccepted()) {
+            List<File> files = dlg.getSelectedDirectories();
 
             if (files.size() > 0) {
                 targetDirectory = files.get(0);

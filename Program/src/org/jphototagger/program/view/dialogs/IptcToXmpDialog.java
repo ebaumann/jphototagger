@@ -96,17 +96,17 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog =
+        DirectoryChooser dlg =
             new DirectoryChooser(
                 GUI.INSTANCE.getAppFrame(), directory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "IptcToXmpDialog.DirChooser");
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            directory = dialog.getSelectedDirectories().get(0);
+        if (dlg.isAccepted()) {
+            directory = dlg.getSelectedDirectories().get(0);
             labelDirectoryName.setText(directory.getAbsolutePath());
             setIconToDirectoryLabel();
             progressBar.setValue(0);

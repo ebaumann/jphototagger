@@ -96,23 +96,23 @@ public final class ControllerInsertFavorite
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                FavoritePropertiesDialog dialog =
+                FavoritePropertiesDialog dlg =
                     new FavoritePropertiesDialog();
 
                 if (directory != null) {
-                    dialog.setDirectory(directory);
-                    dialog.setEnabledButtonChooseDirectory(false);
+                    dlg.setDirectory(directory);
+                    dlg.setEnabledButtonChooseDirectory(false);
                 }
 
-                dialog.setVisible(true);
+                dlg.setVisible(true);
 
-                if (dialog.isAccepted()) {
+                if (dlg.isAccepted()) {
                     TreeModelFavorites model = ModelFactory.INSTANCE.getModel(
                                                    TreeModelFavorites.class);
                     Favorite favorite = new Favorite();
 
-                    favorite.setName(dialog.getFavoriteName());
-                    favorite.setDirectory(dialog.getDirectory());
+                    favorite.setName(dlg.getFavoriteName());
+                    favorite.setDirectory(dlg.getDirectory());
                     model.insert(favorite);
                 }
             }

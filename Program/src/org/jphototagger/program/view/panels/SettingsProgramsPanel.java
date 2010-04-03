@@ -66,24 +66,24 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private void addProgram() {
-        ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(false);
+        ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(false);
 
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            DatabasePrograms.INSTANCE.insert(dialog.getProgram());
+        if (dlg.isAccepted()) {
+            DatabasePrograms.INSTANCE.insert(dlg.getProgram());
         }
     }
 
     private void updateProgram() {
         if (listPrograms.getSelectedIndex() >= 0) {
-            ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(false);
+            ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(false);
 
-            dialog.setProgram((Program) listPrograms.getSelectedValue());
-            dialog.setVisible(true);
+            dlg.setProgram((Program) listPrograms.getSelectedValue());
+            dlg.setVisible(true);
 
-            if (dialog.isAccepted()) {
-                DatabasePrograms.INSTANCE.update(dialog.getProgram());
+            if (dlg.isAccepted()) {
+                DatabasePrograms.INSTANCE.update(dlg.getProgram());
             }
         }
     }

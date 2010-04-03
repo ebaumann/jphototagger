@@ -65,10 +65,10 @@ public final class ControllerAddToImageCollection implements ActionListener {
     }
 
     private String selectCollectionName() {
-        ImageCollectionsDialog dialog = new ImageCollectionsDialog();
+        ImageCollectionsDialog dlg = new ImageCollectionsDialog();
 
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        return dialog.getSelectedCollectionName();
+        return dlg.getSelectedCollectionName();
     }
 }

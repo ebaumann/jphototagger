@@ -106,12 +106,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     private void handleButtonNewActionPerformed() {
-        ProgramPropertiesDialog dialog = new ProgramPropertiesDialog(true);
+        ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(true);
 
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            Program program = dialog.getProgram();
+        if (dlg.isAccepted()) {
+            Program program = dlg.getProgram();
 
             DatabasePrograms.INSTANCE.insert(program);
         }
@@ -122,12 +122,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void handleButtonEditActionPerformed() {
         if (list.getSelectedIndex() >= 0) {
             Program                 program = getSelectedProgram();
-            ProgramPropertiesDialog dialog  = new ProgramPropertiesDialog(true);
+            ProgramPropertiesDialog dlg     = new ProgramPropertiesDialog(true);
 
-            dialog.setProgram(program);
-            dialog.setVisible(true);
+            dlg.setProgram(program);
+            dlg.setVisible(true);
 
-            if (dialog.isAccepted()) {
+            if (dlg.isAccepted()) {
                 DatabasePrograms.INSTANCE.update(program);
             }
         }

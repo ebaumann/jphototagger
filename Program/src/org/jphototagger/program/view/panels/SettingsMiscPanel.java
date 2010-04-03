@@ -53,17 +53,17 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     private File chooseDirectory(File startDirectory) {
         File             dir    = null;
-        DirectoryChooser dialog =
+        DirectoryChooser dlg =
             new DirectoryChooser(
                 GUI.INSTANCE.getAppFrame(), startDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "SettingsMiscPanel.DirChooser");
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            dir = dialog.getSelectedDirectories().get(0);
+        if (dlg.isAccepted()) {
+            dir = dlg.getSelectedDirectories().get(0);
         }
 
         return dir;

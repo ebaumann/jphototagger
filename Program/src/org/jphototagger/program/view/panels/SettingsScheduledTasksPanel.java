@@ -113,18 +113,18 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     private void addAutoscanDirectories() {
-        DirectoryChooser dialog =
+        DirectoryChooser dlg =
             new DirectoryChooser(
                 GUI.INSTANCE.getAppFrame(),
                 new File(lastSelectedAutoscanDirectory),
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "SettingsScheduledTasksPanel.DirChooser");
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            List<File> directories = dialog.getSelectedDirectories();
+        if (dlg.isAccepted()) {
+            List<File> directories = dlg.getSelectedDirectories();
 
             for (File directory : directories) {
                 if (!modelAutoscanDirectories.contains(directory)) {

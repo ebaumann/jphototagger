@@ -53,8 +53,8 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
     }
 
     private void showDialog() {
-        FileEditorDialog dialog = new FileEditorDialog();
-        FileEditorPanel  panel  = dialog.getFileEditorPanel();
+        FileEditorDialog dlg   = new FileEditorDialog();
+        FileEditorPanel  panel = dlg.getFileEditorPanel();
 
         panel.setEditor(new ExtractEmbeddedXmp());
         panel.setTitle(
@@ -66,8 +66,8 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
         panel.setDirChooserFileFilter(
             AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
         panel.setSelectDirs(true);
-        dialog.setHelpPageUrl(
+        dlg.setHelpPageUrl(
             JptBundle.INSTANCE.getString("Help.Url.ExtractEmbeddedXmp"));
-        dialog.setVisible(true);
+        dlg.setVisible(true);
     }
 }
