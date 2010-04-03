@@ -69,6 +69,10 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
         textArea.setHighlighter(hilit);
     }
 
+    public void focusTextInput() {
+        textField.requestFocusInWindow();
+    }
+
     private int search(int startIndex) {
         String searchText = textField.getText().toLowerCase();
         if (textArea == null || searchText.isEmpty()) {
@@ -79,19 +83,22 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
 
         String text = textArea.getText().toLowerCase();
         int index = text.indexOf(searchText, startIndex);
-        if (index >= startIndex) {
-            try {
-                int end = index + searchText.length();
-                hilit.addHighlight(index, end, painter);
-                textArea.setCaretPosition(end);
-                textField.setBackground(textFieldBg);
-                return index;
-            } catch (BadLocationException ex) {
-                Logger.getLogger(TextAreaSearchPanel.class.getName()).log(
-                        Level.SEVERE, null, ex);
+
+        synchronized (foundIndices) {
+            if (index >= startIndex) {
+                try {
+                    int end = index + searchText.length();
+                    hilit.addHighlight(index, end, painter);
+                    textArea.setCaretPosition(end);
+                    textField.setBackground(textFieldBg);
+                    return index;
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(TextAreaSearchPanel.class.getName()).log(
+                            Level.SEVERE, null, ex);
+                }
+            } else if (foundIndices.isEmpty()) {
+                textField.setBackground(ERROR_BG);
             }
-        } else {
-            textField.setBackground(ERROR_BG);
         }
 
         return -1;
@@ -115,14 +122,16 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
     private void searchFromTextStart() {
         int     foundIndex = search(0);
         boolean found      = foundIndex >= 0;
-        
-        foundIndices.clear();
-        
-        if (found) {
-            currentFoundIndex = foundIndex;
 
-            if (!foundIndices.contains(foundIndex)) {
-                foundIndices.add(foundIndex);
+        synchronized (foundIndices) {
+            foundIndices.clear();
+
+            if (found) {
+                currentFoundIndex = foundIndex;
+
+                if (!foundIndices.contains(foundIndex)) {
+                    foundIndices.add(foundIndex);
+                }
             }
         }
 
@@ -138,33 +147,38 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
         int     foundIndex = search(currentFoundIndex + 1);
         boolean found      = foundIndex > 0;
 
-        if (found) {
-            currentFoundIndex = foundIndex;
+        synchronized (foundIndices) {
+            if (found) {
+                currentFoundIndex = foundIndex;
 
-            if (!foundIndices.contains(foundIndex)) {
-                foundIndices.add(foundIndex);
+                    if (!foundIndices.contains(foundIndex)) {
+                        foundIndices.add(foundIndex);
+                    }
             }
+            buttonDown.setEnabled(found);
+            buttonUp.setEnabled(found || !found && !foundIndices.isEmpty());
         }
-        buttonUp.setEnabled(found);
     }
 
     private void searchUp() {
-        if (textArea == null || foundIndices.isEmpty()) {
-            return;
-        }
-
-        int indexCurFoundIndex = foundIndices.indexOf(currentFoundIndex);
-        int prevFoundIndex     = -1;
-
-        if (indexCurFoundIndex > 0) {
-            prevFoundIndex = search(foundIndices.get(indexCurFoundIndex - 1));
-            boolean found  = prevFoundIndex >= 0;
-
-            if (found) {
-                currentFoundIndex = prevFoundIndex;
+        synchronized (foundIndices) {
+            if (textArea == null || foundIndices.isEmpty()) {
+                return;
             }
-            buttonUp.setEnabled(foundIndices.indexOf(prevFoundIndex) > 0);
-            buttonDown.setEnabled(found);
+
+            int indexCurFoundIndex = foundIndices.indexOf(currentFoundIndex);
+            int prevFoundIndex     = -1;
+
+            if (indexCurFoundIndex > 0) {
+                prevFoundIndex = search(foundIndices.get(indexCurFoundIndex - 1));
+                boolean found  = prevFoundIndex >= 0;
+
+                if (found) {
+                    currentFoundIndex = prevFoundIndex;
+                }
+                buttonUp.setEnabled(foundIndices.indexOf(prevFoundIndex) > 0);
+                buttonDown.setEnabled(found);
+            }
         }
     }
 
