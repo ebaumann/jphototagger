@@ -25,6 +25,7 @@ import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -43,7 +44,7 @@ public final class ProgressBarUpdater implements ProgressListener {
         this.progressBarString = progressBarString;
     }
 
-    private void getProgressBar() {
+    private synchronized void getProgressBar() {
         if (progressBar != null) {
             return;
         }
@@ -51,23 +52,29 @@ public final class ProgressBarUpdater implements ProgressListener {
         progressBar = ProgressBar.INSTANCE.getResource(this);
     }
 
-    private void updateProgressBar(ProgressEvent evt) {
+    private synchronized void updateProgressBar(final ProgressEvent evt) {
         getProgressBar();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setMinimum(evt.getMinimum());
+                    progressBar.setMaximum(evt.getMaximum());
+                    progressBar.setValue(evt.getValue());
 
-        if (progressBar != null) {
-            progressBar.setMinimum(evt.getMinimum());
-            progressBar.setMaximum(evt.getMaximum());
-            progressBar.setValue(evt.getValue());
+                    if ((progressBarString != null)
+                            &&!progressBar.isStringPainted()) {
+                        progressBar.setStringPainted(true);
+                    }
 
-            if ((progressBarString != null) &&!progressBar.isStringPainted()) {
-                progressBar.setStringPainted(true);
+                    if ((progressBarString != null)
+                            &&!progressBarString.equals(
+                                progressBar.getString())) {
+                        progressBar.setString(progressBarString);
+                    }
+                }
             }
-
-            if ((progressBarString != null)
-                    &&!progressBarString.equals(progressBar.getString())) {
-                progressBar.setString(progressBarString);
-            }
-        }
+        });
     }
 
     @Override
@@ -89,22 +96,25 @@ public final class ProgressBarUpdater implements ProgressListener {
     }
 
     @Override
-    public synchronized void progressEnded(ProgressEvent evt) {
+    public synchronized void progressEnded(final ProgressEvent evt) {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
 
         updateProgressBar(evt);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    if (progressBar.isStringPainted()) {
+                        progressBar.setString("");
+                    }
 
-        if (progressBar != null) {
-            if (progressBar.isStringPainted()) {
-                progressBar.setString("");
+                    progressBar.setValue(0);
+                    ProgressBar.INSTANCE.releaseResource(this);
+                    progressBar = null;
+                }
             }
-
-            progressBar.setValue(0);
-        }
-
-        ProgressBar.INSTANCE.releaseResource(this);
-        progressBar = null;
+        });
     }
 }

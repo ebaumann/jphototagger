@@ -41,6 +41,7 @@ import java.io.FileOutputStream;
 import java.net.URL;
 
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
@@ -183,31 +184,45 @@ public final class UpdateDownload extends Thread {
 
     private void startProgressBar() {
         progressBar = ProgressBar.INSTANCE.getResource(this);
-
-        if (progressBar != null) {
-            progressBar.setIndeterminate(true);
-            progressBar.setStringPainted(true);
-            progressBar.setString(
-                JptBundle.INSTANCE.getString(
-                    "UpdateDownload.Info.ProgressBar"));
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setIndeterminate(true);
+                    progressBar.setStringPainted(true);
+                    progressBar.setString(
+                        JptBundle.INSTANCE.getString(
+                            "UpdateDownload.Info.ProgressBar"));
+                }
+            }
+        });
     }
 
     private void progressBarDownloadInfo() {
-        if (progressBar != null) {
-            progressBar.setString(
-                JptBundle.INSTANCE.getString(
-                    "UpdateDownload.Info.ProgressBarDownload"));
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setString(
+                        JptBundle.INSTANCE.getString(
+                            "UpdateDownload.Info.ProgressBarDownload"));
+                }
+            }
+        });
     }
 
     private void stopProgressBar() {
-        if (progressBar != null) {
-            progressBar.setIndeterminate(false);
-            progressBar.setString("");
-            progressBar.setStringPainted(false);
-            ProgressBar.INSTANCE.releaseResource(this);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setIndeterminate(false);
+                    progressBar.setString("");
+                    progressBar.setStringPainted(false);
+                    ProgressBar.INSTANCE.releaseResource(this);
+                }
+            }
+        });
     }
 
     private boolean hasNewerVersion() throws Exception {

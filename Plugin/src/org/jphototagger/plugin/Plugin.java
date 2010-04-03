@@ -33,6 +33,7 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Base class for Plugins.
@@ -282,27 +283,35 @@ public abstract class Plugin {
      * Paints the progress bar progress event.
      */
     public void progressEnded() {
-        if (progressBar != null) {
-            if (progressBar.isStringPainted()) {
-                progressBar.setString("");
-            }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                if (progressBar != null) {
+                    if (progressBar.isStringPainted()) {
+                        progressBar.setString("");
+                    }
 
-            progressBar.setStringPainted(pBarStringPainted);
-            progressBar.setValue(0);
-        }
+                    progressBar.setStringPainted(pBarStringPainted);
+                    progressBar.setValue(0);
+                }
+            }
+        });
     }
 
     private void setProgressBar(final int minimum, final int maximum,
                                 final int value, final String string) {
-        if (progressBar != null) {
-            progressBar.setMinimum(minimum);
-            progressBar.setMaximum(maximum);
-            progressBar.setValue(value);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setMinimum(minimum);
+                    progressBar.setMaximum(maximum);
+                    progressBar.setValue(value);
 
-            if (string != null) {
-                progressBar.setStringPainted(true);
-                progressBar.setString(string);
+                    if (string != null) {
+                        progressBar.setStringPainted(true);
+                        progressBar.setString(string);
+                    }
+                }
             }
-        }
+        });
     }
 }
