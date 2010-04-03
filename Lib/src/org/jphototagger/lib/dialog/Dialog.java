@@ -248,7 +248,7 @@ public class Dialog extends JDialog implements WindowListener {
         settings.setLocation(this, key);
     }
 
-    private void applySizeAndLocation() {
+    protected void applySizeAndLocation() {
         if (settings == null) {
             return;
         }
