@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jphototagger.program.app.AppLogger;
 
 /**
  *
@@ -156,6 +157,7 @@ final class UpdateTablesMakePlural {
                     String sql = "ALTER TABLE " + fromName + " RENAME TO "
                                  + toName;
 
+                    AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
                     stmt.executeUpdate(sql);
                 }
             }
@@ -179,6 +181,7 @@ final class UpdateTablesMakePlural {
                     String sql = "ALTER INDEX " + info.fromName + " RENAME TO "
                                  + info.toName;
 
+                    AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
                     stmt.executeUpdate(sql);
                 }
             }

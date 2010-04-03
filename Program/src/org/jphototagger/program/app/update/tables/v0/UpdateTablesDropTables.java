@@ -32,6 +32,7 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jphototagger.program.app.AppLogger;
 
 /**
  *
@@ -61,6 +62,7 @@ public final class UpdateTablesDropTables {
                 if (DatabaseMetadata.INSTANCE.existsTable(con, table)) {
                     String sql = "DROP TABLE " + table;
 
+                    AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
                     stmt.executeUpdate(sql);
                 }
             }

@@ -260,6 +260,7 @@ public final class UpdateTablesMake1n {
 
                 stmt = con.prepareStatement(sql);
                 stmt.setString(1, value);
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
                 stmt.executeUpdate();
             } finally {
                 Database.close(stmt);
