@@ -50,7 +50,7 @@ public class MutualExcludedResource<T> {
     private T       resource = null;
     private boolean locked   = false;
     private Object  owner    = null;
-    private Logger  logger   =
+    private Logger  logger =
         Logger.getLogger(MutualExcludedResource.class.getName());
 
     /**
@@ -88,7 +88,8 @@ public class MutualExcludedResource<T> {
                 JslBundle.INSTANCE.getString(
                     "MutualExcludedResource.Info.Get",
                     resource.getClass().getSimpleName(),
-                    owner.getClass().getSimpleName(), owner.hashCode()));
+                    owner.getClass().getSimpleName(), owner.hashCode(),
+                    owner.toString()));
 
             return resource;
         }
@@ -117,7 +118,8 @@ public class MutualExcludedResource<T> {
                 JslBundle.INSTANCE.getString(
                     "MutualExcludedResource.Info.Release",
                     resource.getClass().getSimpleName(),
-                    owner.getClass().getSimpleName(), owner.hashCode()));
+                    owner.getClass().getSimpleName(), owner.hashCode(),
+                    owner.toString()));
 
             return true;
         }
