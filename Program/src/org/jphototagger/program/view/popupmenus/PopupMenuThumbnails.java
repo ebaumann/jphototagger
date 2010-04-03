@@ -29,17 +29,13 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-import org.jphototagger.program.event.listener.UserSettingsListener;
-import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import java.io.File;
 
 import java.util.ArrayList;
 import java.util.HashMap;
