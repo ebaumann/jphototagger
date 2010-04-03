@@ -1,5 +1,5 @@
 /*
- * @(#)ConnectionPool.java    Created on 1.0
+ * @(#)ConnectionPool.java    Created 2005-10-03
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -36,44 +36,25 @@ import java.util.List;
  * A class for preallocating, recycling, and managing
  * JDBC connections.
  * <p />
- * <b>Usage</b><br />
- * ConnectionPool pool = ConnectionPool.getInstance();<br />
- * Connection con = pool.getConnection();<br />
- * Statement st = con.createStatement();<br />
- * ResultSet result = st.executeQuery("select * from users");<br />
+ * <b>Usage</b>
+ * <pre>
+ * ConnectionPool pool = ConnectionPool.getInstance();
+ * Connection con = pool.getConnection();
+ * Statement st = con.createStatement();
+ * ResultSet result = st.executeQuery("select * from users");
  * result.close();
  * st.close();
- * con.close();
- * <p />
- * <b>Configuration</b><br />
- * The configuration properties are located in the file config.properties.
- * <p />
- * webUserImport.mysqlUrl = jdbc:mysql://localhost:3306/typo3<br />
- * webUserImport.mysqlDriver = org.gjt.mm.mysql.Driver<br />
- * webUserImport.mysqlUsername = root<br />
- * webUserImport.mysqlPassword = <br />
- * webUserImport.initialConnections = 3<br />
- * webUserImport.maxConnections = 10<br />
- * webUserImport.waitIfBusy = true;<br />
+ * pool.free(con.close());
+ * </pre>
  * <p />
  * <b>Notice:</b><br />
  * Compatible with J2SE 1.6.0 and above</b>
  *
- * @since 2005-10-03
  * @author Tobias Stening
  */
 public final class ConnectionPool implements Runnable {
-    public static final ConnectionPool INSTANCE = new ConnectionPool();
-
-    /**
-     * The unique connection poll instance
-     */
-    private static ConnectionPool instance;
-
-    /**
-     *
-     */
-    private boolean connectionPending = false;
+    public static final ConnectionPool INSTANCE          = new ConnectionPool();
+    private boolean                    connectionPending = false;
 
     /**
      * The list of available connections
@@ -81,7 +62,7 @@ public final class ConnectionPool implements Runnable {
     private LinkedList<Connection> availableConnections;
 
     /**
-     * Zhe list of busy connections
+     * The list of busy connections
      */
     private LinkedList<Connection> busyConnections;
 
@@ -94,7 +75,12 @@ public final class ConnectionPool implements Runnable {
     /**
      * The maximum number of connections.
      */
-    private int maxConnections;
+    private static final int MAX_CONNECTIONS = 15;
+
+    /**
+     * Number of initial connections.
+     */
+    private static final int INITIAL_CONNECTIONS = 3;
 
     /**
      * The database password.
@@ -127,26 +113,21 @@ public final class ConnectionPool implements Runnable {
         }
 
         init = true;
-        url  = "jdbc:hsqldb:file:"
-               + UserSettings.INSTANCE.getDatabaseFileName(
-                   Filename.FULL_PATH_NO_SUFFIX) + ";shutdown=true";
+
+        String file = UserSettings.INSTANCE.getDatabaseFileName(
+                          Filename.FULL_PATH_NO_SUFFIX);
+
+        url      = "jdbc:hsqldb:file:" + file + ";shutdown=true";
         driver   = "org.hsqldb.jdbcDriver";
         username = "sa";
         password = "";
 
-        int initialConnections = 3;
-
-        maxConnections = 15;
-        waitIfBusy     = true;
-
-        if (initialConnections > maxConnections) {
-            initialConnections = maxConnections;
-        }
+        waitIfBusy = true;
 
         busyConnections      = new LinkedList<Connection>();
         availableConnections = new LinkedList<Connection>();
 
-        for (int i = 0; i < initialConnections; i++) {
+        for (int i = 0; i < INITIAL_CONNECTIONS; i++) {
             availableConnections.add(makeNewConnection());
         }
     }
@@ -160,9 +141,7 @@ public final class ConnectionPool implements Runnable {
         assert init;
 
         if (!availableConnections.isEmpty()) {
-            Connection existingConnection = availableConnections.getLast();
-
-            availableConnections.removeLast();
+            Connection existingConnection = availableConnections.pollLast();
 
             // If connection on available list is closed (e.g.,
             // it timed out), then remove it from available list
@@ -191,7 +170,7 @@ public final class ConnectionPool implements Runnable {
             // 3) You reached maxConnections limit and waitIfBusy
             // flag is true. Then do the same thing as in second
             // part of step 1: wait for next available connection.
-            if ((totalConnections() < maxConnections) &&!connectionPending) {
+            if ((totalConnections() < MAX_CONNECTIONS) &&!connectionPending) {
                 makeBackgroundConnection();
             } else if (!waitIfBusy) {
                 throw new SQLException("Connection limit reached");
@@ -200,9 +179,13 @@ public final class ConnectionPool implements Runnable {
             // Wait for either a new connection to be established
             // (if you called makeBackgroundConnection) or for
             // an existing connection to be freed up.
-            try {
-                wait();
-            } catch (Exception ie) {}
+            while (availableConnections.isEmpty()) {
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    AppLogger.logSevere(getClass(), ex);
+                }
+            }
 
             // Someone freed up a connection, so try again.
             return (getConnection());
@@ -258,8 +241,6 @@ public final class ConnectionPool implements Runnable {
 
             // Give up on new connection and wait for existing one
             // to free up.
-            AppLogger.logSevere(getClass(), ex);
-        } catch (RuntimeException ex) {    // OutOfMemoryException
             AppLogger.logSevere(getClass(), ex);
         }
     }
@@ -356,12 +337,12 @@ public final class ConnectionPool implements Runnable {
      */
     @Override
     public synchronized String toString() {
-        StringBuffer info = new StringBuffer();
+        StringBuilder info = new StringBuilder();
 
         info.append("ConnectionPool(" + url + "," + username + ")");
         info.append(", available=" + availableConnections.size());
         info.append(", busy=" + busyConnections.size());
-        info.append(", max=" + maxConnections);
+        info.append(", max=" + MAX_CONNECTIONS);
 
         return info.toString();
     }
