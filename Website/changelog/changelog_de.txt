@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.20 2010-04-04
+-----------------
+
+* Bugfix: Verzeichnis eines existierend Favoriten kann wieder geändert werden
+
 0.8.19 2010-04-03
 -----------------
 

@@ -35,9 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Favorite {
-    private File   directory;
-    private int    index;
+    private Long   id;
+    private int    index = Integer.MIN_VALUE;
     private String name;
+    private File   directory;
 
     public Favorite() {}
 
@@ -45,23 +46,19 @@ public final class Favorite {
         set(favorite);
     }
 
-    /**
-     * Constructor.
-     *
-     * @param name       name (alias) of the favorite
-     * @param directory  directory
-     * @param index      order within the favorites
-     */
-    public Favorite(String name, File directory, int index) {
-        this.name      = name;
-        this.directory = directory;
-        this.index     = index;
-    }
-
     public void set(Favorite favorite) {
+        this.id        = favorite.id;
+        this.index     = favorite.index;
         this.name      = favorite.name;
         this.directory = favorite.directory;
-        this.index     = favorite.index;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public File getDirectory() {
@@ -105,7 +102,8 @@ public final class Favorite {
 
         final Favorite other = (Favorite) obj;
 
-        if (((this.name == null) ||!this.name.equals(other.name))) {
+        if ((this.id != other.id)
+                && ((this.id == null) ||!this.id.equals(other.id))) {
             return false;
         }
 
@@ -116,8 +114,8 @@ public final class Favorite {
     public int hashCode() {
         int hash = 7;
 
-        hash = 53 * hash + ((this.name != null)
-                            ? this.name.hashCode()
+        hash = 59 * hash + ((this.id != null)
+                            ? this.id.hashCode()
                             : 0);
 
         return hash;

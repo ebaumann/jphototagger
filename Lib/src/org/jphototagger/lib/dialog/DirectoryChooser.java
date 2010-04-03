@@ -28,6 +28,7 @@ import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
 
 import java.awt.Container;
+import java.awt.Cursor;
 
 import java.io.File;
 
@@ -40,6 +41,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -130,6 +132,7 @@ public final class DirectoryChooser extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
+            applySizeAndLocation();
             setSelectionMode();
             selectStartDirectory();
         }
@@ -178,7 +181,13 @@ public final class DirectoryChooser extends Dialog
 
     private void selectStartDirectory() {
         if (startDirectory.isDirectory()) {
-            model.expandToFile(startDirectory, true);
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    model.expandToFile(startDirectory, true);
+                }
+            });
         }
     }
 

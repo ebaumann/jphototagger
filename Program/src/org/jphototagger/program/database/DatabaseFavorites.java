@@ -44,7 +44,7 @@ import java.util.Set;
 public final class DatabaseFavorites extends Database {
     public static final DatabaseFavorites                    INSTANCE =
         new DatabaseFavorites();
-    private final ListenerSupport<DatabaseFavoritesListener> ls       =
+    private final ListenerSupport<DatabaseFavoritesListener> ls =
         new ListenerSupport<DatabaseFavoritesListener>();
 
     private DatabaseFavorites() {}
@@ -200,11 +200,11 @@ public final class DatabaseFavorites extends Database {
             stmt = con.prepareStatement(
                 "UPDATE favorite_directories SET"
                 + " favorite_name = ?, directory_name = ?, favorite_index = ?"
-                + " WHERE favorite_name = ?");
+                + " WHERE id = ?");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
-            stmt.setString(4, favorite.getName());
+            stmt.setLong(4, favorite.getId());
             logFiner(stmt);
 
             int count = stmt.executeUpdate();
@@ -237,16 +237,20 @@ public final class DatabaseFavorites extends Database {
             stmt = con.createStatement();
 
             String sql =
-                "SELECT favorite_name, directory_name, favorite_index"
+                "SELECT id, favorite_name, directory_name, favorite_index"
                 + " FROM favorite_directories ORDER BY favorite_index ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                favorites.add(new Favorite(rs.getString(1),
-                                           getFile(rs.getString(2)),
-                                           rs.getInt(3)));
+                Favorite favorite = new Favorite();
+
+                favorite.setId(rs.getLong(1));
+                favorite.setName(rs.getString(2));
+                favorite.setDirectory(getFile(rs.getString(3)));
+                favorite.setIndex(rs.getInt(4));
+                favorites.add(favorite);
             }
         } catch (Exception ex) {
             favorites.clear();
@@ -266,17 +270,20 @@ public final class DatabaseFavorites extends Database {
         ResultSet         rs       = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(
-                "SELECT" + " favorite_name, directory_name, favorite_index"
+                "SELECT id, favorite_name, directory_name, favorite_index"
                 + " FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                favorite = new Favorite(rs.getString(1),
-                                        getFile(rs.getString(2)), rs.getInt(3));
+                favorite = new Favorite();
+                favorite.setId(rs.getLong(1));
+                favorite.setName(rs.getString(2));
+                favorite.setDirectory(getFile(rs.getString(3)));
+                favorite.setIndex(rs.getInt(4));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseFavorites.class, ex);
@@ -299,7 +306,7 @@ public final class DatabaseFavorites extends Database {
         ResultSet         rs     = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(
                 "SELECT COUNT(*) FROM favorite_directories"
                 + " WHERE favorite_name = ?");
