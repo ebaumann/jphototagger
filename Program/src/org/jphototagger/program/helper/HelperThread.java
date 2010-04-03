@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Base class for helper threads managing progress listeners and providing a
@@ -151,32 +152,41 @@ public abstract class HelperThread extends Thread {
     }
 
     private void getProgressBar() {
-        if (progressBar == null) {
-            progressBar = ProgressBar.INSTANCE.getResource(this);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar == null) {
+                    progressBar = ProgressBar.INSTANCE.getResource(this);
 
-            if (progressBar != null) {
-                progressBar.setIndeterminate(false);
+                    if (progressBar != null) {
+                        progressBar.setIndeterminate(false);
+                    }
+                }
             }
-        }
+        });
     }
 
-    private void setProgressBar(int value) {
+    private void setProgressBar(final int value) {
         getProgressBar();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    if (infoChanged && (info != null)) {
+                        if (!progressBar.isStringPainted()) {
+                            progressBar.setStringPainted(true);
+                        }
 
-        if (progressBar != null) {
-            if (infoChanged && (info != null)) {
-                if (!progressBar.isStringPainted()) {
-                    progressBar.setStringPainted(true);
+                        progressBar.setString(info);
+                        infoChanged = false;
+                    }
+
+                    progressBar.setMinimum(minimum);
+                    progressBar.setMaximum(maximum);
+                    progressBar.setValue(value);
                 }
-
-                progressBar.setString(info);
-                infoChanged = false;
             }
-
-            progressBar.setMinimum(minimum);
-            progressBar.setMaximum(maximum);
-            progressBar.setValue(value);
-        }
+        });
     }
 
     private ProgressEvent progressEvent(int value, Object info) {
@@ -192,7 +202,8 @@ public abstract class HelperThread extends Thread {
      * @param minimum minium value
      * @param value   current value
      * @param maximum maximum value
-     * @param info    null or object set as {@link ProgressEvent#setInfo(java.lang.Object)}
+     * @param info    null or object set as
+     *                {@link ProgressEvent#setInfo(Object)}
      */
     protected void progressStarted(int minimum, int value, int maximum,
                                    Object info) {
@@ -206,7 +217,7 @@ public abstract class HelperThread extends Thread {
      * updates the progress bar.
      *
      * @param value current value
-     * @param info  null or object set as {@link ProgressEvent#setInfo(java.lang.Object)}
+     * @param info  null or object set as {@link ProgressEvent#setInfo(Object)}
      */
     protected void progressPerformed(int value, Object info) {
         notifyProgressPerformed(progressEvent(value, info));
@@ -216,19 +227,23 @@ public abstract class HelperThread extends Thread {
      * Notifies all progress listeners that the progress has been ended and
      * updates the progress bar.
      *
-     * @param info null or object set as {@link ProgressEvent#setInfo(java.lang.Object)}
+     * @param info null or object set as {@link ProgressEvent#setInfo(Object)}
      */
     protected void progressEnded(Object info) {
         notifyProgressEnded(progressEvent(0, info));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setString("");
+                    progressBar.setStringPainted(false);
 
-        if (progressBar != null) {
-            progressBar.setString("");
-            progressBar.setStringPainted(false);
-
-            if (!customProgressBar) {
-                ProgressBar.INSTANCE.releaseResource(this);
-                progressBar = null;
+                    if (!customProgressBar) {
+                        ProgressBar.INSTANCE.releaseResource(this);
+                        progressBar = null;
+                    }
+                }
             }
-        }
+        });
     }
 }

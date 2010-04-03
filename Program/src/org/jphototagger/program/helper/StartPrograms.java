@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Queue;
 
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Executes in a thread programs which processes image files.
@@ -254,17 +255,29 @@ public final class StartPrograms {
         }
 
         private void initProgressBar() {
-            if (progressBar != null) {
-                progressBar.setMinimum(0);
-                progressBar.setMaximum(imageFiles.size());
-                progressBar.setValue(0);
-            }
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (progressBar != null) {
+                        progressBar.setMinimum(0);
+                        progressBar.setMaximum(imageFiles.size());
+                        progressBar.setValue(0);
+                    }
+                }
+            });
         }
 
         private void setValueToProgressBar(final int value) {
-            if (progressBar != null) {
-                progressBar.setValue(value);
-            }
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (progressBar != null) {
+                        progressBar.setValue(value);
+                    }
+                }
+            });
         }
 
         private void updateDatabase() {

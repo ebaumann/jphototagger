@@ -21,12 +21,12 @@
 
 package org.jphototagger.program.importer;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
-import org.jphototagger.lib.generics.Pair;
 
 import java.io.File;
 
@@ -35,6 +35,7 @@ import java.util.List;
 
 import javax.swing.JProgressBar;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -162,34 +163,44 @@ public abstract class KeywordsImporter implements Importer {
                 new TreePath(((DefaultMutableTreeNode) root).getPath()));
         }
 
-        private void updateProgressBar(int value) {
+        private void updateProgressBar(final int value) {
             getProgressBar();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    if (progressBar != null) {
+                        progressBar.setMinimum(0);
+                        progressBar.setMaximum(paths.size());
+                        progressBar.setValue(value);
 
-            if (progressBar != null) {
-                progressBar.setMinimum(0);
-                progressBar.setMaximum(paths.size());
-                progressBar.setValue(value);
+                        if (!progressBar.isStringPainted()) {
+                            progressBar.setStringPainted(true);
+                        }
 
-                if (!progressBar.isStringPainted()) {
-                    progressBar.setStringPainted(true);
+                        if (!PROGRESSBAR_STRING.equals(
+                                progressBar.getString())) {
+                            progressBar.setString(PROGRESSBAR_STRING);
+                        }
+                    }
                 }
-
-                if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
-                    progressBar.setString(PROGRESSBAR_STRING);
-                }
-            }
+            });
         }
 
         private void releaseProgressBar() {
-            if (progressBar != null) {
-                if (progressBar.isStringPainted()) {
-                    progressBar.setString("");
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    if (progressBar != null) {
+                        if (progressBar.isStringPainted()) {
+                            progressBar.setString("");
+                        }
+
+                        progressBar.setValue(0);
+                    }
+
+                    ProgressBar.INSTANCE.releaseResource(this);
                 }
-
-                progressBar.setValue(0);
-            }
-
-            ProgressBar.INSTANCE.releaseResource(this);
+            });
         }
     }
 }

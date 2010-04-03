@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
@@ -28,7 +29,6 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBar;
-import org.jphototagger.lib.generics.Pair;
 
 import java.io.File;
 
@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
@@ -106,33 +107,42 @@ public final class SaveXmp extends Thread {
         progressBar = ProgressBar.INSTANCE.getResource(this);
     }
 
-    private void updateProgressBar(int value) {
+    private void updateProgressBar(final int value) {
         getProgressBar();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    progressBar.setMinimum(0);
+                    progressBar.setMaximum(imageFilesXmp.size());
+                    progressBar.setValue(value);
 
-        if (progressBar != null) {
-            progressBar.setMinimum(0);
-            progressBar.setMaximum(imageFilesXmp.size());
-            progressBar.setValue(value);
+                    if (!progressBar.isStringPainted()) {
+                        progressBar.setStringPainted(true);
+                    }
 
-            if (!progressBar.isStringPainted()) {
-                progressBar.setStringPainted(true);
+                    if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
+                        progressBar.setString(PROGRESSBAR_STRING);
+                    }
+                }
             }
-
-            if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
-                progressBar.setString(PROGRESSBAR_STRING);
-            }
-        }
+        });
     }
 
     private void releaseProgressBar() {
-        if (progressBar != null) {
-            if (progressBar.isStringPainted()) {
-                progressBar.setString("");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar != null) {
+                    if (progressBar.isStringPainted()) {
+                        progressBar.setString("");
+                    }
+
+                    progressBar.setValue(0);
+                }
+
+                ProgressBar.INSTANCE.releaseResource(this);
             }
-
-            progressBar.setValue(0);
-        }
-
-        ProgressBar.INSTANCE.releaseResource(this);
+        });
     }
 }
