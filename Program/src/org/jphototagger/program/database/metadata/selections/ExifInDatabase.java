@@ -68,6 +68,10 @@ public final class ExifInDatabase {
      * @return        true, falls gespeichert
      */
     public static boolean isInDatabase(IfdType ifdType, ExifTag.Id id) {
+        if (ifdType == null) {
+            throw new NullPointerException("ifdType == null");
+        }
+
         if (id == null) {
             throw new NullPointerException("id == null");
         }

@@ -28,6 +28,8 @@ import org.jphototagger.program.view.panels.KeywordsPanel;
 
 import java.awt.event.KeyEvent;
 
+import java.util.Arrays;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -46,7 +48,7 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuKeywordsTree extends JPopupMenu {
     private static final long                 serialVersionUID =
         2140903704744267916L;
-    public static final PopupMenuKeywordsTree INSTANCE         =
+    public static final PopupMenuKeywordsTree INSTANCE =
         new PopupMenuKeywordsTree();
     private final JMenuItem itemAdd =
         new JMenuItem(
@@ -179,12 +181,24 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
         return treePath;
     }
 
+    /**
+     *
+     * @param treePaths (temporary) selected tree paths or null
+     */
     public void setTreePaths(TreePath[] treePaths) {
-        this.treePaths = treePaths;
+        this.treePaths = (treePaths == null)
+                         ? null
+                         : Arrays.copyOf(treePaths, treePaths.length);
     }
 
+    /**
+     *
+     * @return (temporary) selected tree paths or null
+     */
     public TreePath[] getTreePaths() {
-        return treePaths;
+        return (treePaths == null)
+               ? null
+               : Arrays.copyOf(treePaths, treePaths.length);
     }
 
     public JTree getTree() {
