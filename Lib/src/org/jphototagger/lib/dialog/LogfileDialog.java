@@ -395,15 +395,18 @@ public final class LogfileDialog extends Dialog
             boolean simpleFormatter = formatterClass.equals(SimpleFormatter.class);
             boolean xmlFormatter    = formatterClass.equals(XMLFormatter.class);
 
+            panelSearchSimple.setEnabled(simpleFormatter);
+
             if (xmlFormatter) {
                 readXml();
+                panelSearchXml.requestFocusInWindow();
             } else if (simpleFormatter) {
                 readSimple();
+                panelSearchSimple.focusTextInput();
             } else {
                 errorMessageNotSupportedFormat();
                 readSimple();
             }
-            panelSearch.setEnabled(simpleFormatter);
         }
         super.setVisible(visible);
     }
@@ -475,7 +478,7 @@ public final class LogfileDialog extends Dialog
         checkBoxFiner = new javax.swing.JCheckBox();
         labelIconFinest = new javax.swing.JLabel();
         checkBoxFinest = new javax.swing.JCheckBox();
-        panelSearch = new javax.swing.JPanel();
+        panelSearchXml = new javax.swing.JPanel();
         labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
         scrollPaneTableLogfileRecords = new javax.swing.JScrollPane();
@@ -483,10 +486,10 @@ public final class LogfileDialog extends Dialog
         scrollPaneTextPaneDetails = new javax.swing.JScrollPane();
         textPaneDetails = new javax.swing.JTextPane();
         panelSimple = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPanePanelSimple = new javax.swing.JScrollPane();
         textAreaSimple = new javax.swing.JTextArea();
-        searchPanel = new org.jphototagger.lib.component.TextAreaSearchPanel();
-        searchPanel.setTextArea(textAreaSimple);
+        panelSearchSimple = new org.jphototagger.lib.component.TextAreaSearchPanel();
+        panelSearchSimple.setTextArea(textAreaSimple);
         buttonReload = new javax.swing.JButton();
         buttonExit = new javax.swing.JButton();
 
@@ -605,18 +608,18 @@ public final class LogfileDialog extends Dialog
             }
         });
 
-        javax.swing.GroupLayout panelSearchLayout = new javax.swing.GroupLayout(panelSearch);
-        panelSearch.setLayout(panelSearchLayout);
-        panelSearchLayout.setHorizontalGroup(
-            panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSearchLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelSearchXmlLayout = new javax.swing.GroupLayout(panelSearchXml);
+        panelSearchXml.setLayout(panelSearchXmlLayout);
+        panelSearchXmlLayout.setHorizontalGroup(
+            panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchXmlLayout.createSequentialGroup()
                 .addComponent(labelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
         );
-        panelSearchLayout.setVerticalGroup(
-            panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+        panelSearchXmlLayout.setVerticalGroup(
+            panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(labelSearch)
                 .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -628,7 +631,7 @@ public final class LogfileDialog extends Dialog
             .addGroup(panelFilterLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSearchXml, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -637,7 +640,7 @@ public final class LogfileDialog extends Dialog
             .addGroup(panelFilterLayout.createSequentialGroup()
                 .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelSearchXml, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -677,7 +680,7 @@ public final class LogfileDialog extends Dialog
 
         textAreaSimple.setColumns(20);
         textAreaSimple.setRows(5);
-        jScrollPane1.setViewportView(textAreaSimple);
+        scrollPanePanelSimple.setViewportView(textAreaSimple);
 
         javax.swing.GroupLayout panelSimpleLayout = new javax.swing.GroupLayout(panelSimple);
         panelSimple.setLayout(panelSimpleLayout);
@@ -685,14 +688,14 @@ public final class LogfileDialog extends Dialog
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSimpleLayout.setVerticalGroup(
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -727,7 +730,7 @@ public final class LogfileDialog extends Dialog
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                        .addComponent(panelSearchSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonReload)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -743,7 +746,7 @@ public final class LogfileDialog extends Dialog
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(buttonExit)
                     .addComponent(buttonReload)
-                    .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelSearchSimple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -798,7 +801,6 @@ public final class LogfileDialog extends Dialog
     private javax.swing.JCheckBox checkBoxInfo;
     private javax.swing.JCheckBox checkBoxSevere;
     private javax.swing.JCheckBox checkBoxWarning;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelIconConfig;
     private javax.swing.JLabel labelIconFine;
     private javax.swing.JLabel labelIconFiner;
@@ -809,12 +811,13 @@ public final class LogfileDialog extends Dialog
     private javax.swing.JLabel labelSearch;
     private javax.swing.JPanel panelFilter;
     private javax.swing.JPanel panelFilterCheckBoxes;
-    private javax.swing.JPanel panelSearch;
+    private org.jphototagger.lib.component.TextAreaSearchPanel panelSearchSimple;
+    private javax.swing.JPanel panelSearchXml;
     private javax.swing.JPanel panelSimple;
     private javax.swing.JPanel panelXml;
+    private javax.swing.JScrollPane scrollPanePanelSimple;
     private javax.swing.JScrollPane scrollPaneTableLogfileRecords;
     private javax.swing.JScrollPane scrollPaneTextPaneDetails;
-    private org.jphototagger.lib.component.TextAreaSearchPanel searchPanel;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableLogfileRecords;
     private javax.swing.JTextArea textAreaSimple;

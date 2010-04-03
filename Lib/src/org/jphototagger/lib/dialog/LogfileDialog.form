@@ -33,7 +33,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="tabbedPane" alignment="0" pref="509" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="searchPanel" pref="437" max="32767" attributes="0"/>
+                      <Component id="panelSearchSimple" pref="437" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="buttonReload" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -53,7 +53,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="buttonExit" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonReload" min="-2" max="-2" attributes="0"/>
-                  <Component id="searchPanel" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelSearchSimple" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -121,7 +121,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="panelSearch" alignment="0" max="32767" attributes="2"/>
+                              <Component id="panelSearchXml" alignment="0" max="32767" attributes="2"/>
                               <Component id="panelFilterCheckBoxes" alignment="0" pref="452" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -133,7 +133,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="panelFilterCheckBoxes" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="panelSearch" min="-2" max="-2" attributes="0"/>
+                          <Component id="panelSearchXml" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -319,7 +319,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="panelSearch">
+                <Container class="javax.swing.JPanel" name="panelSearchXml">
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -410,7 +410,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="480" max="32767" attributes="0"/>
+                      <Component id="scrollPanePanelSimple" pref="480" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -419,14 +419,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="253" max="32767" attributes="0"/>
+                      <Component id="scrollPanePanelSimple" pref="253" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="scrollPanePanelSimple">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -445,9 +445,10 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="org.jphototagger.lib.component.TextAreaSearchPanel" name="searchPanel">
+    <Component class="org.jphototagger.lib.component.TextAreaSearchPanel" name="panelSearchSimple">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="searchPanel.setTextArea(textAreaSimple);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new org.jphototagger.lib.component.TextAreaSearchPanel()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelSearchSimple.setTextArea(textAreaSimple);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="buttonReload">
