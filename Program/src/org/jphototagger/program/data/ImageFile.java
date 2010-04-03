@@ -44,38 +44,6 @@ public final class ImageFile {
     private Image thumbnail;
     private Xmp   xmp;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if ((obj instanceof File) && (file != null)) {
-            return file.equals(((File) obj));
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final ImageFile other = (ImageFile) obj;
-
-        if ((this.file == null)
-            ? (other.file != null)
-            : !this.file.equals(other.file)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return (this.file != null)
-               ? this.file.hashCode()
-               : 0;
-    }
-
     public File getFile() {
         return file;
     }
@@ -162,5 +130,42 @@ public final class ImageFile {
      */
     public void addInsertIntoDb(InsertImageFilesIntoDatabase.Insert insert) {
         insertIntoDb.add(insert);
+    }
+
+    /**
+     * Two image files are equals if their file objects are equals.
+     *
+     * @param  obj object
+     * @return     true if equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final ImageFile other = (ImageFile) obj;
+
+        if ((this.file != other.file)
+                && ((this.file == null) ||!this.file.equals(other.file))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+
+        hash = 59 * hash + ((this.file != null)
+                            ? this.file.hashCode()
+                            : 0);
+
+        return hash;
     }
 }

@@ -92,8 +92,6 @@ public final class DirectoryInfo {
             DirectoryInfo otherDirectoryInfo = (DirectoryInfo) object;
 
             return directory.equals(otherDirectoryInfo.directory);
-        } else if (object instanceof File) {
-            return directory.equals(object);
         }
 
         return false;

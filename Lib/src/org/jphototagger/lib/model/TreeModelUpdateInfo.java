@@ -103,32 +103,23 @@ public final class TreeModelUpdateInfo {
      * Update info of a node with one child.
      *
      * Usage in
-     * {@link javax.swing.tree.DefaultTreeModel#nodesWereRemoved(javax.swing.tree.TreeNode, int[], java.lang.Object[])}
+     * {@link DefaultTreeModel#nodesWereRemoved(TreeNode, int[], Object[])}
      * where the node is the not deleted parent.
      *
      * @author Elmar Baumann
      */
     public static class NodeAndChild {
         private TreeNode node;
-        private Object[] updatedChild      = new Object[1];
-        private int[]    updatedChildIndex = new int[1];
+        private Object[] updatedChildren     = new Object[1];
+        private int[]    updatedChildIndices = new int[1];
 
-        /**
-         * Returns the index of updated child.
-         *
-         * @return child updated child
-         */
         public int[] getUpdatedChildIndex() {
-            return updatedChildIndex;
+            return Arrays.copyOf(updatedChildIndices,
+                                 updatedChildIndices.length);
         }
 
-        /**
-         * Returns the updated child.
-         *
-         * @return child updated child
-         */
         public Object[] getUpdatedChild() {
-            return updatedChild;
+            return Arrays.copyOf(updatedChildren, updatedChildren.length);
         }
 
         /**
@@ -138,8 +129,8 @@ public final class TreeModelUpdateInfo {
          * @param index index of that child
          */
         public void setUpdatedChild(Object child, int index) {
-            updatedChild[0]      = child;
-            updatedChildIndex[0] = index;
+            updatedChildren[0]     = child;
+            updatedChildIndices[0] = index;
         }
 
         /**
