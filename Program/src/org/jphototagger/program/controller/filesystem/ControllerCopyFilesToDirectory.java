@@ -64,12 +64,12 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
         List<File> files = thumbnailsPanel.getSelectedFiles();
 
         if (files.size() > 0) {
-            CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
+            CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
 
-            dialog.setSourceFiles(files);
-            dialog.addFileSystemActionListener(
+            dlg.setSourceFiles(files);
+            dlg.addFileSystemActionListener(
                 new FilesystemDatabaseUpdater(true));
-            dialog.setVisible(true);
+            dlg.setVisible(true);
         } else {
             AppLogger.logWarning(
                 ControllerCopyFilesToDirectory.class,

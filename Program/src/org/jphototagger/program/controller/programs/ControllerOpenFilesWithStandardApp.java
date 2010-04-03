@@ -74,10 +74,10 @@ public final class ControllerOpenFilesWithStandardApp
 
     private boolean checkOpenAppIsDefined() {
         if (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram() == null) {
-            SettingsDialog dialog = SettingsDialog.INSTANCE;
+            SettingsDialog dlg = SettingsDialog.INSTANCE;
 
-            dialog.selectTab(SettingsDialog.Tab.PROGRAMS);
-            ComponentUtil.show(dialog);
+            dlg.selectTab(SettingsDialog.Tab.PROGRAMS);
+            ComponentUtil.show(dlg);
 
             return false;
         }

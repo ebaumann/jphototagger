@@ -237,19 +237,19 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void selectDirectories() {
-        DirectoryChooser dialog =
+        DirectoryChooser dlg =
             new DirectoryChooser(GUI.INSTANCE.getAppFrame(),
                                  prevSelectedDirectory, getDirChooserOptions());
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "FileEditorPanel.DirChooser");
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            selectedDirectories = dialog.getSelectedDirectories();
+        if (dlg.isAccepted()) {
+            selectedDirectories = dlg.getSelectedDirectories();
             selectedFiles       = getFilesOfDirectories(selectedDirectories);
             setFilesToList(selectedFiles);
-            prevSelectedDirectory = dialog.getSelectedDirectories().get(0);
+            prevSelectedDirectory = dlg.getSelectedDirectories().get(0);
         }
     }
 

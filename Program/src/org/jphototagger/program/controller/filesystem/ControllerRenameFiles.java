@@ -87,14 +87,14 @@ public final class ControllerRenameFiles
         List<File> files = thumbnailsPanel.getSelectedFiles();
 
         if (files.size() > 0) {
-            RenameDialog dialog = new RenameDialog();
+            RenameDialog dlg = new RenameDialog();
 
             Collections.sort(files);
-            dialog.setImageFiles(files);
-            dialog.addFileSystemListener(this);
-            dialog.setEnabledTemplates(
+            dlg.setImageFiles(files);
+            dlg.addFileSystemListener(this);
+            dlg.setEnabledTemplates(
                 thumbnailsPanel.getContent().isUniqueFileSystemDirectory());
-            dialog.setVisible(true);
+            dlg.setVisible(true);
         }
     }
 

@@ -262,17 +262,17 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void chooseDirectories() {
-        final DirectoryChooser dialog =
+        final DirectoryChooser dlg =
             new DirectoryChooser(
                 GUI.INSTANCE.getAppFrame(), lastDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "UpdateMetadataOfDirectoriesPanel.DirChooser");
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            List<File> selDirs = dialog.getSelectedDirectories();
+        if (dlg.isAccepted()) {
+            List<File> selDirs = dlg.getSelectedDirectories();
 
             lastDirectory = selDirs.get(0);
             addNotContainedDirectories(selDirs);

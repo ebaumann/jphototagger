@@ -69,17 +69,16 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dialog =
-            new DirectoryChooser(
+        DirectoryChooser dlg = new DirectoryChooser(
                 GUI.INSTANCE.getAppFrame(), dir,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "FavoritePropertiesDialog.DirChooser");
-        dialog.setVisible(true);
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            setDirectory(dialog.getSelectedDirectories().get(0));
+        if (dlg.isAccepted()) {
+            setDirectory(dlg.getSelectedDirectories().get(0));
         }
 
         setOkEnabled();

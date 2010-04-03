@@ -126,13 +126,13 @@ public final class ImageUtil {
             return;
         }
 
-        CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
+        CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
 
-        dialog.setTargetDirectory(targetDirectory);
-        dialog.setSourceFiles(sourceFiles);
-        dialog.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
-        addProgressListener(dialog);
-        dialog.copy(true, UserSettings.INSTANCE.getCopyMoveFilesOptions());
+        dlg.setTargetDirectory(targetDirectory);
+        dlg.setSourceFiles(sourceFiles);
+        dlg.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
+        addProgressListener(dlg);
+        dlg.copy(true, UserSettings.INSTANCE.getCopyMoveFilesOptions());
     }
 
     /**
@@ -153,12 +153,12 @@ public final class ImageUtil {
             return;
         }
 
-        MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
+        MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
 
-        dialog.setTargetDirectory(targetDirectory);
-        dialog.setSourceFiles(sourceFiles);
-        addProgressListener(dialog);
-        dialog.setVisible(true);
+        dlg.setTargetDirectory(targetDirectory);
+        dlg.setSourceFiles(sourceFiles);
+        addProgressListener(dlg);
+        dlg.setVisible(true);
     }
 
     private static boolean confirmFileAction(String bundleKey, int size,
@@ -168,8 +168,8 @@ public final class ImageUtil {
     }
 
     private synchronized static void addProgressListener(
-            MoveToDirectoryDialog dialog) {
-        dialog.addProgressListener(new ProgressListener() {
+            MoveToDirectoryDialog dlg) {
+        dlg.addProgressListener(new ProgressListener() {
             @Override
             public void progressStarted(ProgressEvent evt) {
 
@@ -188,8 +188,8 @@ public final class ImageUtil {
     }
 
     private synchronized static void addProgressListener(
-            CopyToDirectoryDialog dialog) {
-        dialog.addProgressListener(new ProgressListener() {
+            CopyToDirectoryDialog dlg) {
+        dlg.addProgressListener(new ProgressListener() {
             @Override
             public void progressStarted(ProgressEvent evt) {
 

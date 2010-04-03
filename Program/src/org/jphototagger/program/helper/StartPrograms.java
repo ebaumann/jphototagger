@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
@@ -28,7 +29,6 @@ import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.io.IoUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
-import org.jphototagger.lib.runtime.External;
 
 import java.io.File;
 
@@ -91,10 +91,9 @@ public final class StartPrograms {
     }
 
     private class Execute extends Thread {
-        ProgramInputParametersDialog dialog =
-            new ProgramInputParametersDialog();
-        private List<File> imageFiles;
-        private Program    program;
+        ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
+        private List<File>           imageFiles;
+        private Program              program;
 
         public Execute(Program program, List<File> imageFiles) {
             if (program == null) {
@@ -188,7 +187,7 @@ public final class StartPrograms {
                            getAdditionalParameters(
                                JptBundle.INSTANCE
                                    .getString(
-                                       "StartPrograms.GetInput.Title"), 2), dialog
+                                       "StartPrograms.GetInput.Title"), 2), dlg
                                            .isParametersBeforeFilename());
         }
 
@@ -221,7 +220,7 @@ public final class StartPrograms {
                        Arrays.asList(file),
                        getAdditionalParameters(
                            file.getAbsolutePath(),
-                           count + 1), dialog.isParametersBeforeFilename());
+                           count + 1), dlg.isParametersBeforeFilename());
         }
 
         private String getAdditionalParameters(String filename, int count) {
@@ -234,15 +233,15 @@ public final class StartPrograms {
             }
 
             if ((!program.isInputBeforeExecutePerFile() && (count > 1))) {
-                return dialog.getParameters();
+                return dlg.getParameters();
             }
 
-            dialog.setProgram(program.getAlias());
-            dialog.setFilename(filename);
-            dialog.setVisible(true);
+            dlg.setProgram(program.getAlias());
+            dlg.setFilename(filename);
+            dlg.setVisible(true);
 
-            if (dialog.isAccepted()) {
-                return dialog.getParameters();
+            if (dlg.isAccepted()) {
+                return dlg.getParameters();
             }
 
             return "";
@@ -256,7 +255,6 @@ public final class StartPrograms {
 
         private void initProgressBar() {
             SwingUtilities.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -270,7 +268,6 @@ public final class StartPrograms {
 
         private void setValueToProgressBar(final int value) {
             SwingUtilities.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
                     if (progressBar != null) {

@@ -59,17 +59,17 @@ public final class FavoritesHelper {
             throw new NullPointerException("favorite == null");
         }
 
-        FavoritePropertiesDialog dialog = new FavoritePropertiesDialog();
+        FavoritePropertiesDialog dlg = new FavoritePropertiesDialog();
 
-        dialog.setFavoriteName(favorite.getName());
-        dialog.setDirectory(favorite.getDirectory());
-        dialog.setVisible(true);
+        dlg.setFavoriteName(favorite.getName());
+        dlg.setDirectory(favorite.getDirectory());
+        dlg.setVisible(true);
 
-        if (dialog.isAccepted() &&!dialog.isEqualsTo(favorite)) {
+        if (dlg.isAccepted() &&!dlg.isEqualsTo(favorite)) {
             File oldDir = favorite.getDirectory();
 
-            favorite.setName(dialog.getFavoriteName());
-            favorite.setDirectory(dialog.getDirectory());
+            favorite.setName(dlg.getFavoriteName());
+            favorite.setDirectory(dlg.getDirectory());
 
             final boolean dirChanged = !favorite.getDirectory().equals(oldDir);
 

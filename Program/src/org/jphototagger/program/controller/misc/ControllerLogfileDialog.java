@@ -111,11 +111,11 @@ public final class ControllerLogfileDialog extends MouseAdapter
 
     private void showLogfileDialog(String logfilename,
                                    Class<?> formatterClass) {
-        LogfileDialog dialog = new LogfileDialog(GUI.INSTANCE.getAppFrame(),
-                                   logfilename, formatterClass);
+        LogfileDialog dlg = new LogfileDialog(GUI.INSTANCE.getAppFrame(),
+                                              logfilename, formatterClass);
 
-        dialog.setSettings(UserSettings.INSTANCE.getSettings(), null);
-        dialog.setVisible(true);
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
+        dlg.setVisible(true);
     }
 
     @Override

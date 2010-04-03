@@ -65,11 +65,11 @@ public final class ControllerMoveFiles
         List<File> files = thumbnailsPanel.getSelectedFiles();
 
         if (files.size() > 0) {
-            MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
+            MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
 
-            dialog.setSourceFiles(files);
-            dialog.addFileSystemListener(this);
-            dialog.setVisible(true);
+            dlg.setSourceFiles(files);
+            dlg.addFileSystemListener(this);
+            dlg.setVisible(true);
         } else {
             AppLogger.logWarning(
                 ControllerMoveFiles.class,
