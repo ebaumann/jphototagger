@@ -326,7 +326,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     public Component getTabMetadataExif() {
-        return scrollPaneExif;
+        return panelExif;
     }
 
     public Component getTabMetadataXmp() {

@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.19 2010-04-03
+-----------------
+
+* Bugfix: "Gehe zu > EXIF-Metadaten" wählt wieder Kartenreiter EXIF aus
+
 0.8.18 2010-04-02
 -----------------
 
