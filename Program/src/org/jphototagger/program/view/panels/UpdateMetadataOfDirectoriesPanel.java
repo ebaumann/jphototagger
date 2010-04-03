@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.program.event.ProgressEvent;
@@ -268,7 +267,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                 GUI.INSTANCE.getAppFrame(), lastDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+                           "UpdateMetadataOfDirectoriesPanel.DirChooser");
         dialog.setVisible(true);
 
         if (dialog.isAccepted()) {

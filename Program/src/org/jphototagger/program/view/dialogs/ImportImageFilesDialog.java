@@ -25,7 +25,6 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.view.panels.ImagePreviewPanel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -264,7 +263,8 @@ public class ImportImageFilesDialog extends Dialog {
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
-        dlg.addWindowListener(new SizeAndLocationController());
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
+                        "ImportImageFilesDialog.DirChooser");
         dlg.setVisible(true);
 
         return dlg.isAccepted()

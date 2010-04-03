@@ -30,7 +30,6 @@ import org.jphototagger.program.importer.JptImporters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.lib.component.SelectObjectsPanel;
 import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -172,7 +171,8 @@ public class ExportImportPanel extends javax.swing.JPanel
                 GUI.INSTANCE.getAppFrame(), new File(""),
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dlg.addWindowListener(new SizeAndLocationController());
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
+                        "ExportImportPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
