@@ -51,7 +51,8 @@ public final class ActionsHelper {
                              "ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
-            menu.add(new JMenuItem(new ActionStarter(action)));
+            menu.add(new JMenuItem(new ActionStarter(action,
+                    "ActionsHelper#actionsAsMenu()")));
         }
 
         return menu;
@@ -78,7 +79,7 @@ public final class ActionsHelper {
             throw new NullPointerException("action == null");
         }
 
-        actionsMenu.add(new ActionStarter(action));
+        actionsMenu.add(new ActionStarter(action, "ActionsHelper#addAction()"));
     }
 
     public static void removeAction(JMenu actionsMenu, Program action) {
@@ -118,10 +119,12 @@ public final class ActionsHelper {
     private static class ActionStarter extends AbstractAction {
         private static final long       serialVersionUID = 1L;
         private final transient Program action;
+        private final String            progressBarOwner;
 
-        public ActionStarter(Program action) {
+        public ActionStarter(Program action, String progressBarOwner) {
             super(action.getAlias());
-            this.action = action;
+            this.action           = action;
+            this.progressBarOwner = progressBarOwner;
         }
 
         public Program getAction() {
@@ -137,12 +140,12 @@ public final class ActionsHelper {
                 return;
             }
 
-            ProgressBar   progressBar = ProgressBar.INSTANCE;
-            StartPrograms starter     =
-                new StartPrograms(progressBar.getResource(this));
+            StartPrograms starter = new StartPrograms(
+                                        ProgressBar.INSTANCE.getResource(
+                                            progressBarOwner));
 
             starter.startProgram(action, thumbnailsPanel.getSelectedFiles());
-            progressBar.releaseResource(this);
+            ProgressBar.INSTANCE.releaseResource(progressBarOwner);
         }
     }
 

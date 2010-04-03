@@ -91,7 +91,7 @@ public abstract class KeywordsImporter implements Importer {
         Collection<List<Pair<String, Boolean>>> paths = getPaths(file);
 
         if (paths != null) {
-            new ImportTask(paths).start();
+            new ImportTask(paths, "KeywordsImporter#importFile()").start();
         }
     }
 
@@ -100,13 +100,16 @@ public abstract class KeywordsImporter implements Importer {
         private final TreeModel                               treeModel =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         private JProgressBar progressBar;
+        private final String progressBarOwner;
 
-        public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
+        public ImportTask(Collection<List<Pair<String, Boolean>>> paths,
+                          String progressBarOwner) {
             if (paths == null) {
                 throw new NullPointerException("paths == null");
             }
 
-            this.paths = paths;
+            this.paths            = paths;
+            this.progressBarOwner = progressBarOwner;
             setName("Importing keywords @ " + getClass().getSimpleName());
         }
 
@@ -115,7 +118,7 @@ public abstract class KeywordsImporter implements Importer {
                 return;
             }
 
-            progressBar = ProgressBar.INSTANCE.getResource(this);
+            progressBar = ProgressBar.INSTANCE.getResource(progressBarOwner);
         }
 
         @Override
@@ -198,7 +201,8 @@ public abstract class KeywordsImporter implements Importer {
                         progressBar.setValue(0);
                     }
 
-                    ProgressBar.INSTANCE.releaseResource(this);
+                    ProgressBar.INSTANCE.releaseResource(progressBarOwner);
+                    progressBar = null;
                 }
             });
         }

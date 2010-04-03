@@ -50,6 +50,7 @@ public final class SaveXmp extends Thread {
         JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
     private final Collection<Pair<File, Xmp>> imageFilesXmp;
     private JProgressBar                      progressBar;
+    private final String                      progressBarOwner = "SaveXmp";
 
     private SaveXmp(Collection<Pair<File, Xmp>> imageFilesXmp) {
         AppLifeCycle.INSTANCE.addSaveObject(this);
@@ -104,7 +105,7 @@ public final class SaveXmp extends Thread {
             return;
         }
 
-        progressBar = ProgressBar.INSTANCE.getResource(this);
+        progressBar = ProgressBar.INSTANCE.getResource(progressBarOwner);
     }
 
     private void updateProgressBar(final int value) {
@@ -139,9 +140,9 @@ public final class SaveXmp extends Thread {
                     }
 
                     progressBar.setValue(0);
+                    ProgressBar.INSTANCE.releaseResource(progressBarOwner);
+                    progressBar = null;
                 }
-
-                ProgressBar.INSTANCE.releaseResource(this);
             }
         });
     }
