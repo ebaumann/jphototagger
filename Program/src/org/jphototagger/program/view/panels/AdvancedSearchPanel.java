@@ -115,7 +115,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         defaultInputOfComponent.put(panelCustomSql, textAreaCustomSqlQuery);
     }
 
-    private synchronized void addPanelPadding() {
+    private void addPanelPadding() {
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx      = 0;
@@ -130,7 +130,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelColumns.add(panelPadding, gbc);
     }
 
-    private synchronized void setFirstColumn() {
+    private void setFirstColumn() {
         if (!searchColumnPanels.isEmpty()) {
 
             SearchColumnPanel scp = searchColumnPanels.get(0);
@@ -200,7 +200,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         UserSettings.INSTANCE.writeToFile();
     }
 
-    private synchronized boolean checkIsSearchValid() {
+    private boolean checkIsSearchValid() {
         if (!checkConsistent()) {
             return false;
         }
@@ -236,7 +236,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return true;
     }
 
-    private synchronized boolean checkBrackets() {
+    private boolean checkBrackets() {
         int countOpenBrackets   = 0;
         int countClosedBrackets = 0;
 
@@ -255,7 +255,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private synchronized void listenToSearchPanels() {
+    private void listenToSearchPanels() {
         for (SearchColumnPanel panel : searchColumnPanels) {
             panel.getTextFieldValue().addKeyListener(new KeyListener() );
         }
@@ -316,8 +316,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         columnRemoved    = false;
     }
 
-    private synchronized void setSavedSearchPanels(
-            List<SavedSearchPanel> panels) {
+    private void setSavedSearchPanels(List<SavedSearchPanel> panels) {
         int panelCount = panels.size();
 
         removeAllColumns();
@@ -333,7 +332,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         addPanelPadding();
     }
 
-    private synchronized void removeAllColumns() {
+    private void removeAllColumns() {
         searchColumnPanels.clear();
         panelColumns.removeAll();
         searchPanelOfRemoveButton.clear();
@@ -363,7 +362,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         writeProperties();
     }
 
-    private synchronized boolean existsSimpleSqlValue() {
+    private boolean existsSimpleSqlValue() {
 
         for (SearchColumnPanel panel : searchColumnPanels) {
             if (!panel.getValue().trim().isEmpty()) {
@@ -378,7 +377,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         return !textAreaCustomSqlQuery.getText().trim().isEmpty();
     }
 
-    private synchronized void ensureColumnCount(int count) {
+    private void ensureColumnCount(int count) {
         int currentCount = 0;
 
         currentCount = searchColumnPanels.size();
@@ -392,7 +391,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private synchronized void addColumn() {
+    private void addColumn() {
         GridBagConstraints gbc     =  getColumnGridBagConstraints();
         SearchColumnPanel  scPanel = new SearchColumnPanel();
 
@@ -407,7 +406,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         ComponentUtil.forceRepaint(this);
     }
 
-    private synchronized GridBagConstraints getColumnGridBagConstraints() {
+    private GridBagConstraints getColumnGridBagConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx      = 0;
@@ -437,7 +436,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private synchronized void removeColumn(SearchColumnPanel scPanel) {
+    private void removeColumn(SearchColumnPanel scPanel) {
         panelColumns.remove(panelPadding);
         panelColumns.remove(scPanel);
         addPanelPadding();
@@ -450,7 +449,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         ComponentUtil.forceRepaint(this);
     }
 
-    private synchronized void clearInput(boolean allPanels) {
+    private void clearInput(boolean allPanels) {
         checkChanged();
 
         Component selComponent = tabbedPane.getSelectedComponent();
@@ -481,7 +480,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private synchronized boolean columnChanged() {
+    private boolean columnChanged() {
         for (SearchColumnPanel panel : searchColumnPanels) {
             if (panel.isChanged()) {
                 return true;
@@ -541,13 +540,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
     }
 
-    private synchronized void setPanelsUnchanged() {
+    private void setPanelsUnchanged() {
         for (SearchColumnPanel panel : searchColumnPanels) {
             panel.setChanged(false);
         }
     }
 
-    private synchronized void setSavedSearchPanels(SavedSearch search) {
+    private void setSavedSearchPanels(SavedSearch search) {
         List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
         int                    size   = searchColumnPanels.size();
         int                    pIndex = 0;
