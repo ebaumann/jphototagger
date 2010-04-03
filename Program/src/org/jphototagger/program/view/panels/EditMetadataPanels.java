@@ -758,7 +758,7 @@ public final class EditMetadataPanels
 
     private void setMnemonics() {
         EditMetadataActionsPanel actionsPanel =
-            GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
+            GUI.INSTANCE.getAppPanel().getPanelEditMetadataActions();
         List<Character> mnemonics = new ArrayList<Character>(10);
 
         /*
@@ -812,7 +812,7 @@ public final class EditMetadataPanels
 
     private void addActionPanel() {
         editActionsPanel =
-            GUI.INSTANCE.getAppPanel().getMetadataEditActionsPanel();
+            GUI.INSTANCE.getAppPanel().getPanelEditMetadataActions();
 
         GridBagConstraints gbc = newConstraints();
 

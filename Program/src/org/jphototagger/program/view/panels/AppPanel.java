@@ -88,7 +88,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private final List<JList>                  selectionLists =
         new ArrayList<JList>();
     private transient EditMetadataPanels       editMetadtaPanels;
-    private transient EditMetadataActionsPanel editActionsPanel;
+    private transient EditMetadataActionsPanel panelEditActions;
 
     public AppPanel() {
         GUI.INSTANCE.setAppPanel(this);
@@ -297,12 +297,12 @@ public final class AppPanel extends javax.swing.JPanel {
         return editMetadtaPanels;
     }
 
-    public EditMetadataActionsPanel getMetadataEditActionsPanel() {
-        if (editActionsPanel == null) {
-            editActionsPanel = new EditMetadataActionsPanel();
+    public EditMetadataActionsPanel getPanelEditMetadataActions() {
+        if (panelEditActions == null) {
+            panelEditActions = new EditMetadataActionsPanel();
         }
 
-        return editActionsPanel;
+        return panelEditActions;
     }
 
     public JScrollPane getScrollPaneThumbnailsPanel() {
@@ -450,35 +450,35 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     public JButton getButtonEmptyMetadata() {
-        return editActionsPanel.buttonEmptyMetadata;
+        return panelEditActions.buttonEmptyMetadata;
     }
 
     public JButton getButtonMetadataTemplateAdd() {
-        return editActionsPanel.buttonMetadataTemplateAdd;
+        return panelEditActions.buttonMetadataTemplateAdd;
     }
 
     public JButton getButtonMetadataTemplateCreate() {
-        return editActionsPanel.buttonMetadataTemplateCreate;
+        return panelEditActions.buttonMetadataTemplateCreate;
     }
 
     public JButton getButtonMetadataTemplateUpdate() {
-        return editActionsPanel.buttonMetadataTemplateUpdate;
+        return panelEditActions.buttonMetadataTemplateUpdate;
     }
 
     public JButton getButtonMetadataTemplateRename() {
-        return editActionsPanel.buttonMetadataTemplateRename;
+        return panelEditActions.buttonMetadataTemplateRename;
     }
 
     public JButton getButtonMetadataTemplateEdit() {
-        return editActionsPanel.buttonMetadataTemplateEdit;
+        return panelEditActions.buttonMetadataTemplateEdit;
     }
 
     public JButton getButtonMetadataTemplateInsert() {
-        return editActionsPanel.buttonMetadataTemplateInsert;
+        return panelEditActions.buttonMetadataTemplateInsert;
     }
 
     public JButton getButtonMetadataTemplateDelete() {
-        return editActionsPanel.buttonMetadataTemplateDelete;
+        return panelEditActions.buttonMetadataTemplateDelete;
     }
 
     public JButton getButtonIptcToXmp() {
@@ -498,11 +498,11 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     public JComboBox getComboBoxMetadataTemplates() {
-        return editActionsPanel.comboBoxMetadataTemplates;
+        return panelEditActions.comboBoxMetadataTemplates;
     }
 
     public JLabel getLabelMetadataInfoEditable() {
-        return editActionsPanel.labelMetadataInfoEditable;
+        return panelEditActions.labelMetadataInfoEditable;
     }
 
     public JLabel getLabelThumbnailInfo() {

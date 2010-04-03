@@ -115,7 +115,7 @@ public final class ModelFactory {
             new ComboBoxModelMetadataTemplates();
 
         support.add(model);
-        appPanel.getMetadataEditActionsPanel().getComboBoxMetadataTemplates()
+        appPanel.getPanelEditMetadataActions().getComboBoxMetadataTemplates()
             .setModel(model);
         AppLogger.logFine(
             getClass(), "ModelFactory.Finished.ComboBoxModelMetadataTemplates");
