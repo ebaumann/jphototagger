@@ -146,7 +146,14 @@ public final class AppLogger {
         lr.setSourceMethodName(getMethodName(className));
         Logger.getLogger(className).log(lr);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
-        ErrorListeners.INSTANCE.notifyListeners(c, ex.getMessage());
+
+        String message = ex.getMessage();
+
+        if ((message == null) || message.isEmpty()) {
+            message = "Exception without message: " + ex.getClass();
+        }
+
+        ErrorListeners.INSTANCE.notifyListeners(c, message);
     }
 
     private static void log(Class<?> c, Level level, String bundleKey,
