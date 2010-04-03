@@ -51,7 +51,6 @@ public final class DatabaseMetadata extends Database {
      * version.
      *
      * @return true, if the database is for a newer version
-     * @since  0.8.3
      */
     public static boolean isDatabaseOfNewerVersion() {
         String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(
@@ -73,7 +72,6 @@ public final class DatabaseMetadata extends Database {
      * version.
      *
      * @return true, if the database is from this version
-     * @since  0.8.3
      */
     public static boolean isDatabaseOfCurrentVersion() {
         String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(
@@ -89,7 +87,6 @@ public final class DatabaseMetadata extends Database {
      * version.
      *
      * @return true, if the database is from an older version
-     * @since  0.8.3
      */
     public static boolean isDatabaseOfOlderVersion() {
         String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(
