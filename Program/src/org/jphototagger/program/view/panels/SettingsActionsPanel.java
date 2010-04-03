@@ -80,7 +80,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         Program action = dlg.getSelectedProgram();
 
-        if (dlg.accepted() &&!modelActionsAfterDbInsertion.contains(action)) {
+        if (dlg.isAccepted() &&!modelActionsAfterDbInsertion.contains(action)) {
             modelActionsAfterDbInsertion.insert(action);
             setButtonsEnabled();
         }

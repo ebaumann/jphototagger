@@ -110,7 +110,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             Program program = dialog.getProgram();
 
             DatabasePrograms.INSTANCE.insert(program);
@@ -127,7 +127,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             dialog.setProgram(program);
             dialog.setVisible(true);
 
-            if (dialog.accepted()) {
+            if (dialog.isAccepted()) {
                 DatabasePrograms.INSTANCE.update(program);
             }
         }

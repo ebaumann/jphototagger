@@ -105,7 +105,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             directory = dialog.getSelectedDirectories().get(0);
             labelDirectoryName.setText(directory.getAbsolutePath());
             setIconToDirectoryLabel();

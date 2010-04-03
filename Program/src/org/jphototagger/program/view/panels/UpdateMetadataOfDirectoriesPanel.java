@@ -271,7 +271,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             List<File> selDirs = dialog.getSelectedDirectories();
 
             lastDirectory = selDirs.get(0);

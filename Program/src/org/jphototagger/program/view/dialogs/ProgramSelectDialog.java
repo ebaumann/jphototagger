@@ -71,7 +71,7 @@ public class ProgramSelectDialog extends Dialog {
      *
      * @return  true if a program was selected
      */
-    public boolean accepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 
@@ -79,7 +79,7 @@ public class ProgramSelectDialog extends Dialog {
      * Returns the selected program.
      *
      * @return program or null if no program was selected. You can determine
-     *         whether an program was selected through {@link #accepted()}.
+     *         whether an program was selected through {@link #isAccepted()}.
      */
     public Program getSelectedProgram() {
         Program program  = null;

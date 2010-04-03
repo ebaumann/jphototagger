@@ -267,7 +267,7 @@ public class ImportImageFilesDialog extends Dialog {
         dlg.addWindowListener(new SizeAndLocationController());
         dlg.setVisible(true);
 
-        return dlg.accepted()
+        return dlg.isAccepted()
                ? dlg.getSelectedDirectories().get(0)
                : null;
     }

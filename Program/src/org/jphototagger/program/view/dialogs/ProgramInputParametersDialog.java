@@ -60,7 +60,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         labelContextFile.setText(filename);
     }
 
-    public boolean accepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 

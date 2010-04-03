@@ -143,7 +143,7 @@ public final class DirectoryChooser extends Dialog
      * @return true, wenn ein Verzeichnis ausgewählt wurde und der Dialog
      *         nicht abgebrochen wurde
      */
-    public boolean accepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 

@@ -175,7 +175,7 @@ public class ExportImportPanel extends javax.swing.JPanel
         dlg.addWindowListener(new SizeAndLocationController());
         dlg.setVisible(true);
 
-        if (dlg.accepted()) {
+        if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);
             UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(),
                     KEY_LAST_DIR);

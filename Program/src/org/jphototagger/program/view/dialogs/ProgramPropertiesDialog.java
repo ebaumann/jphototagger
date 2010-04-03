@@ -189,7 +189,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         return program;
     }
 
-    public boolean accepted() {
+    public boolean isAccepted() {
         return accecpted;
     }
 

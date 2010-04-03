@@ -123,7 +123,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             List<File> directories = dialog.getSelectedDirectories();
 
             for (File directory : directories) {

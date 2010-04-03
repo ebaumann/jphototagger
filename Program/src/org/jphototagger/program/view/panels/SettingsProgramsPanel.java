@@ -70,7 +70,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             DatabasePrograms.INSTANCE.insert(dialog.getProgram());
         }
     }
@@ -82,7 +82,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             dialog.setProgram((Program) listPrograms.getSelectedValue());
             dialog.setVisible(true);
 
-            if (dialog.accepted()) {
+            if (dialog.isAccepted()) {
                 DatabasePrograms.INSTANCE.update(dialog.getProgram());
             }
         }

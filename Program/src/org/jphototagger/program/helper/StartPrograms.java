@@ -241,7 +241,7 @@ public final class StartPrograms {
             dialog.setFilename(filename);
             dialog.setVisible(true);
 
-            if (dialog.accepted()) {
+            if (dialog.isAccepted()) {
                 return dialog.getParameters();
             }
 
