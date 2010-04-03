@@ -211,11 +211,22 @@ public class ThumbnailsPanel extends JPanel
         flagOfThumbnail.clear();
     }
 
+    /**
+     *
+     * @param  index valid index
+     * @throws       IllegalArgumentException if index is not vaid
+     */
     public synchronized void rerender(int index) {
+        if (index < 0) {
+            throw new IllegalArgumentException("Illegal index: " + index);
+        }
+
         File file = getFile(index);
 
-        assert file != null :
-               "index: " + index + ", filecount: " + files.size();
+        if (file == null) {
+            throw new IllegalArgumentException("Illegal index: " + index);
+        }
+
         renderedThumbnailCache.rerender(file);
     }
 
