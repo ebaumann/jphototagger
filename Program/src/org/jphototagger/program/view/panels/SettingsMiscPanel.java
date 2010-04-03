@@ -62,7 +62,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             dir = dialog.getSelectedDirectories().get(0);
         }
 

@@ -108,7 +108,7 @@ public final class ControllerInsertFavorite
 
                 dialog.setVisible(true);
 
-                if (dialog.accepted()) {
+                if (dialog.isAccepted()) {
                     TreeModelFavorites model = ModelFactory.INSTANCE.getModel(
                                                    TreeModelFavorites.class);
 

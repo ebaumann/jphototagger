@@ -61,7 +61,7 @@ public final class FavoritesHelper {
         dialog.setDirectory(favorite.getDirectory());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             final String  newFavName = dialog.getFavoriteName();
             final String  oldFavName = favorite.getName();
             final File    dir        = dialog.getDirectory();

@@ -205,7 +205,7 @@ public final class CopyToDirectoryDialog extends Dialog
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             List<File> files = dialog.getSelectedDirectories();
 
             if (files.size() > 0) {

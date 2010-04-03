@@ -245,7 +245,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             selectedDirectories = dialog.getSelectedDirectories();
             selectedFiles       = getFilesOfDirectories(selectedDirectories);
             setFilesToList(selectedFiles);

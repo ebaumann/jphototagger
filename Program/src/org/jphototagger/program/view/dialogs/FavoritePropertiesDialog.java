@@ -79,7 +79,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         dialog.addWindowListener(new SizeAndLocationController());
         dialog.setVisible(true);
 
-        if (dialog.accepted()) {
+        if (dialog.isAccepted()) {
             List<File> files         = dialog.getSelectedDirectories();
             String     directoryName = files.get(0).getAbsolutePath();
 
@@ -117,6 +117,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         }
 
         labelDirectoryname.setText(dir.getAbsolutePath());
+        lastDirectory = dir.getAbsolutePath();
     }
 
     /**
@@ -147,7 +148,7 @@ public final class FavoritePropertiesDialog extends Dialog {
      *
      * @return true, wenn ok
      */
-    public boolean accepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 
