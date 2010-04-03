@@ -71,12 +71,12 @@ public final class ControllerPlugins implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object     src      = e.getSource();
+        Object     src = e.getSource();
         List<File> selFiles =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
 
         if (selFiles.size() > 0) {
-            JMenuItem item   = (JMenuItem) src;
+            JMenuItem item = (JMenuItem) src;
             Action    action =
                 PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
             Plugin    plugin =

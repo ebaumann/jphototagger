@@ -46,6 +46,7 @@ public abstract class HelperThread extends Thread {
     private volatile boolean infoChanged;
     private volatile int     minimum;
     private volatile int     maximum;
+    private final String     progressBarOwner = "HelperThread";
 
     protected abstract void stopRequested();
 
@@ -156,7 +157,8 @@ public abstract class HelperThread extends Thread {
             @Override
             public void run() {
                 if (progressBar == null) {
-                    progressBar = ProgressBar.INSTANCE.getResource(this);
+                    progressBar =
+                        ProgressBar.INSTANCE.getResource(progressBarOwner);
 
                     if (progressBar != null) {
                         progressBar.setIndeterminate(false);
@@ -239,7 +241,7 @@ public abstract class HelperThread extends Thread {
                     progressBar.setStringPainted(false);
 
                     if (!customProgressBar) {
-                        ProgressBar.INSTANCE.releaseResource(this);
+                        ProgressBar.INSTANCE.releaseResource(progressBarOwner);
                         progressBar = null;
                     }
                 }
