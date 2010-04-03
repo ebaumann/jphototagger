@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:ns="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,12 +14,14 @@
    height="300"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.45pre1"
    version="1.0"
    sodipodi:docname="splash.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="D:\projekte\JPhotoTagger\Program\src\org\jphototagger\program\resource\images"
+   sodipodi:modified="true">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -50,11 +53,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.38"
-     inkscape:cx="52.716807"
+     inkscape:zoom="2.39"
+     inkscape:cx="250"
      inkscape:cy="150"
      inkscape:document-units="px"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer7"
      width="500px"
      height="300px"
      objecttolerance="50"
@@ -62,33 +65,33 @@
      gridtolerance="50"
      guidetolerance="50"
      inkscape:window-width="1280"
-     inkscape:window-height="1006"
-     inkscape:window-x="242"
-     inkscape:window-y="17"
+     inkscape:window-height="1002"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:grid-bbox="false" />
   <metadata
      id="metadata7">
     <rdf:RDF>
-      <cc:Work
+      <ns:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title>Splash Screen Image Metadata Viewer</dc:title>
         <dc:creator>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:creator>
         <dc:rights>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:rights>
         <dc:publisher>
-          <cc:Agent>
+          <ns:Agent>
             <dc:title>Elmar Baumann &lt;eb@elmar-baumann.de&gt;</dc:title>
-          </cc:Agent>
+          </ns:Agent>
         </dc:publisher>
         <dc:identifier>org.jphototagger.program.resource.images.splash.svg</dc:identifier>
         <dc:source>http://www.elmar-baumann.de/JPhotoTagger/</dc:source>
@@ -99,9 +102,15 @@
           </rdf:Bag>
         </dc:subject>
         <dc:coverage>computer program, icon</dc:coverage>
-        <cc:license
+        <ns:license
            rdf:resource="http://elmar-baumann.de/fotografie/copyright.html" />
         <dc:date>2008-10-03</dc:date>
+      </ns:Work>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -166,18 +175,18 @@
      inkscape:label="Galerie">
     <text
        xml:space="preserve"
-       style="font-size:28;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Sans"
-       x="244.6582"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Sans"
+       x="252.6582"
        y="36.84082"
        id="text3168"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         x="244.6582"
+         x="252.6582"
          y="36.84082"
-         id="tspan4141">elmar-baumann.de</tspan></text>
+         id="tspan4141">jphototagger.org</tspan></text>
     <g
        id="g2196"
-       transform="translate(-1.2605042,4.6218487)">
+       transform="translate(6.7394958,4.6218487)">
       <text
          sodipodi:linespacing="100%"
          id="text5112"
@@ -191,11 +200,11 @@
            id="tspan5114"
            sodipodi:role="line" /><tspan
            id="tspan6085"
-           y="98.767294"
+           y="97.460468"
            x="248.00391"
            sodipodi:role="line">imagero.com</tspan><tspan
            id="tspan6087"
-           y="126.76729"
+           y="125.46047"
            x="248.00391"
            sodipodi:role="line">hsqldb.org</tspan></text>
       <text
@@ -208,7 +217,7 @@
            y="66.422363"
            x="245.89526"
            id="tspan2177"
-           sodipodi:role="line">This program is powered by:</tspan></text>
+           sodipodi:role="line">Powered by:</tspan></text>
     </g>
   </g>
 </svg>
