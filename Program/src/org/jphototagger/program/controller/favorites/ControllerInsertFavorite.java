@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
@@ -29,7 +30,6 @@ import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,10 +52,8 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerInsertFavorite
         implements ActionListener, KeyListener {
-    private final AppPanel             appPanel         =
-        GUI.INSTANCE.getAppPanel();
-    private final JTree                tree             =
-        appPanel.getTreeFavorites();
+    private final AppPanel             appPanel = GUI.INSTANCE.getAppPanel();
+    private final JTree                tree = appPanel.getTreeFavorites();
     private final PopupMenuDirectories popupDirectories =
         PopupMenuDirectories.INSTANCE;
 
@@ -83,7 +81,7 @@ public final class ControllerInsertFavorite
     }
 
     private File getDirectory(Object o) {
-        File    directory        = null;
+        File    directory = null;
         boolean isAddToFavorites =
             popupDirectories.getItemAddToFavorites().equals(o);
 
@@ -111,9 +109,11 @@ public final class ControllerInsertFavorite
                 if (dialog.isAccepted()) {
                     TreeModelFavorites model = ModelFactory.INSTANCE.getModel(
                                                    TreeModelFavorites.class);
+                    Favorite favorite = new Favorite();
 
-                    model.insert(new Favorite(dialog.getFavoriteName(),
-                                              dialog.getDirectory(), -1));
+                    favorite.setName(dialog.getFavoriteName());
+                    favorite.setDirectory(dialog.getDirectory());
+                    model.insert(favorite);
                 }
             }
         });

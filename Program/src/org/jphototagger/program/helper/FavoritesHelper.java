@@ -55,42 +55,40 @@ public final class FavoritesHelper {
     private FavoritesHelper() {}
 
     public static void updateFavorite(final Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         FavoritePropertiesDialog dialog = new FavoritePropertiesDialog();
 
         dialog.setFavoriteName(favorite.getName());
         dialog.setDirectory(favorite.getDirectory());
         dialog.setVisible(true);
 
-        if (dialog.isAccepted()) {
-            final String  newFavName = dialog.getFavoriteName();
-            final String  oldFavName = favorite.getName();
-            final File    dir        = dialog.getDirectory();
-            final boolean renamed    = !newFavName.equals(oldFavName);
-            final int     index      = favorite.getIndex();
+        if (dialog.isAccepted() &&!dialog.isEqualsTo(favorite)) {
+            File oldDir = favorite.getDirectory();
+
+            favorite.setName(dialog.getFavoriteName());
+            favorite.setDirectory(dialog.getDirectory());
+
+            final boolean dirChanged = !favorite.getDirectory().equals(oldDir);
 
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     DatabaseFavorites db = DatabaseFavorites.INSTANCE;
 
-                    if (renamed) {
-                        if (db.updateRename(oldFavName, newFavName)) {
-                            favorite.setName(newFavName);
-                        } else {
-                            MessageDisplayer.error(
-                                null, "FavoritesHelper.Error.Rename",
-                                oldFavName);
-
-                            return;
+                    if (db.update(favorite)) {
+                        if (dirChanged) {
+                            GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+                                .refresh();
                         }
-                    }
-
-                    Favorite newFavorite = new Favorite(newFavName, dir, index);
-
-                    if (!db.update(newFavorite)) {
+                    } else {
                         MessageDisplayer.error(null,
                                                "FavoritesHelper.Error.Update",
-                                               newFavName);
+                                               favorite);
+
+                        return;
                     }
                 }
             });
@@ -165,7 +163,7 @@ public final class FavoritesHelper {
             GUI.INSTANCE.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
-            File                   dir  = null;
+            File                   dir = null;
             DefaultMutableTreeNode node =
                 (DefaultMutableTreeNode) path.getLastPathComponent();
             Object userObject = node.getUserObject();
@@ -201,8 +199,7 @@ public final class FavoritesHelper {
     }
 
     private static class SetFiles implements Runnable {
-        private final AppPanel        appPanel        =
-            GUI.INSTANCE.getAppPanel();
+        private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
         private final ThumbnailsPanel thumbnailsPanel =
             appPanel.getPanelThumbnails();
         private final EditMetadataPanels editPanels =

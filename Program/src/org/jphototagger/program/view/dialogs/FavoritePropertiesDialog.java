@@ -22,7 +22,6 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -30,17 +29,16 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
+import org.jphototagger.program.data.Favorite;
 
-import java.util.List;
 
 /**
- * Neues Favoritenverzeichnis erstellen oder modifiziertes aktualisieren.
+ * Changes the properties of a {@link org.jphototagger.program.data.Favorite}.
  *
  * @author  Elmar Baumann
  */
@@ -51,9 +49,9 @@ public final class FavoritePropertiesDialog extends Dialog {
         750583413264344283L;
     private final transient DatabaseFavorites db               =
         DatabaseFavorites.INSTANCE;
-    private String                            lastDirectory    = "";
+    private File                              dir              = new File("");
     private boolean                           accepted;
-    private boolean                           isUpdate;
+    private boolean                           update;
 
     public FavoritePropertiesDialog() {
         super(GUI.INSTANCE.getAppFrame(), true,
@@ -73,34 +71,36 @@ public final class FavoritePropertiesDialog extends Dialog {
     private void chooseDirectory() {
         DirectoryChooser dialog =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), new File(lastDirectory),
+                GUI.INSTANCE.getAppFrame(), dir,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+                           "FavoritePropertiesDialog.DirChooser");
         dialog.setVisible(true);
 
         if (dialog.isAccepted()) {
-            List<File> files         = dialog.getSelectedDirectories();
-            String     directoryName = files.get(0).getAbsolutePath();
-
-            labelDirectoryname.setText(directoryName);
-            lastDirectory = directoryName;
-
-            if (textFieldFavoriteName.getText().trim().isEmpty()) {
-                textFieldFavoriteName.setText(directoryName);
-            }
+            setDirectory(dialog.getSelectedDirectories().get(0));
         }
 
         setOkEnabled();
     }
 
+    public boolean isEqualsTo(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
+        if (!valuesOk()) {
+            return false;
+        }
+
+        return dir.equals(favorite.getDirectory())
+                          && getName().equalsIgnoreCase(favorite.getName());
+    }
+
     /**
-     * Setzt den Namen des Favoriten (Alias). Ist dieser gesetzt, wird
-     * nicht geprüft, ob er bereits in der Datenbank vorhanden ist; es
-     * wird angenommen, das Verzeichnis soll aktualisiert werden oder
-     * der Name umbenannt.
      *
-     * @param name  Name
+     * @param name name (alias)
      */
     public void setFavoriteName(String name) {
         if (name == null) {
@@ -108,7 +108,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         }
 
         textFieldFavoriteName.setText(name);
-        isUpdate = true;
+        update = true;
     }
 
     public void setDirectory(File dir) {
@@ -116,21 +116,22 @@ public final class FavoritePropertiesDialog extends Dialog {
             throw new NullPointerException("dir == null");
         }
 
-        labelDirectoryname.setText(dir.getAbsolutePath());
-        lastDirectory = dir.getAbsolutePath();
+        this.dir = dir;
+        
+        String dirName = dir.getAbsolutePath();
+
+        labelDirectoryname.setText(dirName);
+
+        if (textFieldFavoriteName.getText().trim().isEmpty()) {
+            textFieldFavoriteName.setText(dirName);
+        }
     }
 
-    /**
-     * Aktiviert den Button zur Auswahl eines Verzeichnisses.
-     *
-     * @param enabled  true, wenn aktiv. Default: true.
-     */
     public void setEnabledButtonChooseDirectory(boolean enabled) {
         buttonChooseDirectory.setEnabled(enabled);
     }
 
     /**
-     * Liefert den Namen des Favoritenverzeichnisses.
      *
      * @return Name (Alias)
      */
@@ -139,14 +140,12 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     public File getDirectory() {
-        return new File(labelDirectoryname.getText().trim());
+        return dir;
     }
 
     /**
-     * Liefert, ob der Dialog mit Ok abgeschlossen werden konnte:
-     * Es existiert ein Favoritentext sowie das Verzeichnis.
      *
-     * @return true, wenn ok
+     * @return true, if closed with Ok
      */
     public boolean isAccepted() {
         return accepted;
@@ -157,7 +156,7 @@ public final class FavoritePropertiesDialog extends Dialog {
             String  favoriteName = textFieldFavoriteName.getText().trim();
             boolean exists       = db.exists(favoriteName);
 
-            if (!isUpdate && exists) {
+            if (!update && exists) {
                 MessageDisplayer.error(
                     this, "FavoritePropertiesDialog.Error.FavoriteExists",
                     favoriteName);
@@ -180,36 +179,32 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private boolean valuesOk() {
-        String directoryName = labelDirectoryname.getText().trim();
-        String favoriteName  = textFieldFavoriteName.getText().trim();
-
-        return !directoryName.isEmpty() &&!favoriteName.isEmpty()
-               && FileUtil.existsDirectory(directoryName);
+        return dir.isDirectory() && !getFavoriteName().isEmpty();
     }
 
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            lastDirectoryFromSettings();
+            directoryFromSettings();
         } else {
-            lastDirectoryToSettings();
+            directoryToSettings();
         }
 
         super.setVisible(visible);
     }
 
-    private void lastDirectoryFromSettings() {
-        lastDirectory =
-            UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
+    private void directoryFromSettings() {
+        dir = new File(UserSettings.INSTANCE.getSettings().getString(
+                       KEY_LAST_DIRECTORY));
     }
 
     private void setOkEnabled() {
         buttonOk.setEnabled(valuesOk());
     }
 
-    private void lastDirectoryToSettings() {
-        UserSettings.INSTANCE.getSettings().set(lastDirectory,
-                KEY_LAST_DIRECTORY);
+    private void directoryToSettings() {
+        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(),
+                                                KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 
