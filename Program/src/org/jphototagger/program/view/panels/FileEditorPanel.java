@@ -22,7 +22,6 @@
 package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.FileEditor;
@@ -242,7 +241,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             new DirectoryChooser(GUI.INSTANCE.getAppFrame(),
                                  prevSelectedDirectory, getDirChooserOptions());
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+                           "FileEditorPanel.DirChooser");
         dialog.setVisible(true);
 
         if (dialog.isAccepted()) {

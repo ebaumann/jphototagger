@@ -22,7 +22,6 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.event.listener.FileSystemListener;
 import org.jphototagger.program.event.listener.impl.FileSystemListenerSupport;
 import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
@@ -202,7 +201,8 @@ public final class CopyToDirectoryDialog extends Dialog
                 GUI.INSTANCE.getAppFrame(), targetDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+                           "CopyToDirectoryDialog.DirChooser");
         dialog.setVisible(true);
 
         if (dialog.isAccepted()) {

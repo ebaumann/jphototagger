@@ -22,7 +22,6 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
@@ -102,7 +101,8 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 GUI.INSTANCE.getAppFrame(), directory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+                           "IptcToXmpDialog.DirChooser");
         dialog.setVisible(true);
 
         if (dialog.isAccepted()) {

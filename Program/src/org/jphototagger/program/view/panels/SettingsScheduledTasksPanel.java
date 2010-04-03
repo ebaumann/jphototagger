@@ -22,7 +22,6 @@
 package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.model.ListModelAutoscanDirectories;
 import org.jphototagger.program.resource.GUI;
@@ -120,7 +119,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                 new File(lastSelectedAutoscanDirectory),
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+                           "SettingsScheduledTasksPanel.DirChooser");
         dialog.setVisible(true);
 
         if (dialog.isAccepted()) {

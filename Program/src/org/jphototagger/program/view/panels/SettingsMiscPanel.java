@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -59,7 +58,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 GUI.INSTANCE.getAppFrame(), startDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dialog.addWindowListener(new SizeAndLocationController());
+        dialog.setSettings(UserSettings.INSTANCE.getSettings(),
+                           "SettingsMiscPanel.DirChooser");
         dialog.setVisible(true);
 
         if (dialog.isAccepted()) {
