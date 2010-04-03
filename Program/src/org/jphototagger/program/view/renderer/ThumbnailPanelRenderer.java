@@ -193,7 +193,7 @@ public class ThumbnailPanelRenderer
         }
     }
 
-    private boolean isDragOver(File file) {
+    private synchronized boolean isDragOver(File file) {
         if ((file == null) || (dragIndex < 0)) {
             return false;
         }
@@ -303,7 +303,7 @@ public class ThumbnailPanelRenderer
         }
     }
 
-    public void paintImgDropMarker(Graphics g) {    // similar to capitalized letter "I"
+    public synchronized void paintImgDropMarker(Graphics g) {    // similar to capitalized letter "I"
         if (dropIndex < 0) {
             return;
         }
@@ -566,7 +566,7 @@ public class ThumbnailPanelRenderer
         return rating.intValue();
     }
 
-    private void clearDrag() {
+    private synchronized void clearDrag() {
         panel.setDrag(false);
 
         if ((dropIndex >= 0) || (oldDropIndex >= 0)) {
@@ -579,7 +579,9 @@ public class ThumbnailPanelRenderer
             int oldDragIndex = dragIndex;
 
             dragIndex = -1;
-            panel.rerender(oldDragIndex);
+            if (panel.isIndex(oldDragIndex)) {
+                panel.rerender(oldDragIndex);
+            }
         }
     }
 
@@ -588,7 +590,7 @@ public class ThumbnailPanelRenderer
     }
 
     @Override
-    public void dragOver(DropTargetDragEvent dtde) {
+    public synchronized void dragOver(DropTargetDragEvent dtde) {
         panel.setDrag(true);
 
         if (Flavor.isMetadataTransferred(dtde.getTransferable())) {
@@ -619,12 +621,12 @@ public class ThumbnailPanelRenderer
     }
 
     @Override
-    public void dragExit(DropTargetEvent dte) {
+    public synchronized void dragExit(DropTargetEvent dte) {
         clearDrag();
     }
 
     @Override
-    public void drop(DropTargetDropEvent dtde) {
+    public synchronized void drop(DropTargetDropEvent dtde) {
         clearDrag();
     }
 
