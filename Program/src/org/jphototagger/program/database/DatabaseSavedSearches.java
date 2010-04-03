@@ -163,7 +163,7 @@ public final class DatabaseSavedSearches extends Database {
 
     private String getInsertSavedSearchKeywordsSql() {
         return "INSERT INTO saved_searches_keywords "
-               + "(id_saved_search, keyword)" + " VALUES (?, ?)";
+               + "(id_saved_search, keyword) VALUES (?, ?)";
     }
 
     private void insertSavedSearchKeywords(Connection con, long idSavedSearch,
