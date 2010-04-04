@@ -62,7 +62,9 @@ public final class UpdateDownload extends Thread {
     private Version             currentVersion;
     private Version             netVersion;
     private JProgressBar        progressBar;
-    private final String        progressBarOwner = "UpdateDownload";
+
+    // new String(), NO literal
+    private final String progressBarOwner = new String("UpdateDownload");
 
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ "

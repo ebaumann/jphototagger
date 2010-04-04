@@ -50,7 +50,9 @@ public final class SaveXmp extends Thread {
         JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
     private final Collection<Pair<File, Xmp>> imageFilesXmp;
     private JProgressBar                      progressBar;
-    private final String                      progressBarOwner = "SaveXmp";
+
+    // new String(), NO literal
+    private final String progressBarOwner = new String("SaveXmp");
 
     private SaveXmp(Collection<Pair<File, Xmp>> imageFilesXmp) {
         AppLifeCycle.INSTANCE.addSaveObject(this);
