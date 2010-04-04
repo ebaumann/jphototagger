@@ -1,5 +1,5 @@
 /*
- * @(#)JptEventQueue.java    Created on 2010-04-02
+ * @(#)AppEventQueue.java    Created on 2010-04-02
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -34,17 +34,17 @@ import java.io.PrintStream;
 /**
  * JPhotoTagger's event queue.
  * <p>
- * Displays on uncaught exceptions a dialog with information about the cause.
+ * Catches throwables and displays a dialog with information about the cause.
  *
  * @author Elmar Baumann
  */
-public final class JptEventQueue extends java.awt.EventQueue {
+public final class AppEventQueue extends java.awt.EventQueue {
     @Override
-    protected void dispatchEvent(AWTEvent newEvent) {
+    protected void dispatchEvent(AWTEvent event) {
         try {
-            super.dispatchEvent(newEvent);
+            super.dispatchEvent(event);
         } catch (Throwable t) {
-            t.printStackTrace();
+            AppLogger.logSevere(AppEventQueue.class, t);
             getDialog(t).setVisible(true);
         }
     }
@@ -54,11 +54,11 @@ public final class JptEventQueue extends java.awt.EventQueue {
             new LongMessageDialog(GUI.INSTANCE.getAppFrame(), true,
                                   UserSettings.INSTANCE.getSettings(), null);
 
-        dlg.setTitle(JptBundle.INSTANCE.getString("JptEventQueue.Error.Title"));
+        dlg.setTitle(JptBundle.INSTANCE.getString("AppEventQueue.Error.Title"));
         dlg.setErrorIcon();
         dlg.setMail(AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS);
         dlg.setShortMessage(
-            JptBundle.INSTANCE.getString("JptEventQueue.Error.Message"));
+            JptBundle.INSTANCE.getString("AppEventQueue.Error.Message"));
         dlg.setLongMessage(createMessage(t));
 
         return dlg;
