@@ -45,24 +45,23 @@ public final class JptEventQueue extends java.awt.EventQueue {
             super.dispatchEvent(newEvent);
         } catch (Throwable t) {
             t.printStackTrace();
-
-            LongMessageDialog dlg =
-                new LongMessageDialog(GUI.INSTANCE.getAppFrame(), true,
-                                      UserSettings.INSTANCE.getSettings(),
-                                      null);
-
-            setDialog(dlg, t);
-            dlg.setVisible(true);
+            getDialog(t).setVisible(true);
         }
     }
 
-    private void setDialog(LongMessageDialog dlg, Throwable t) {
+    private LongMessageDialog getDialog(Throwable t) {
+        LongMessageDialog dlg =
+            new LongMessageDialog(GUI.INSTANCE.getAppFrame(), true,
+                                  UserSettings.INSTANCE.getSettings(), null);
+
         dlg.setTitle(JptBundle.INSTANCE.getString("JptEventQueue.Error.Title"));
         dlg.setErrorIcon();
         dlg.setMail(AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS);
         dlg.setShortMessage(
             JptBundle.INSTANCE.getString("JptEventQueue.Error.Message"));
         dlg.setLongMessage(createMessage(t));
+
+        return dlg;
     }
 
     private String createMessage(Throwable t) {
