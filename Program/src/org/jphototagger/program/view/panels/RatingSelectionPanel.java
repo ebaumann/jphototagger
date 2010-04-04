@@ -152,8 +152,8 @@ public class RatingSelectionPanel extends JPanel
             if (!text.trim().isEmpty()) {
                 val = Integer.valueOf(text).intValue();
             }
-        } catch (Exception e) {
-            AppLogger.logSevere(getClass(), e);
+        } catch (Exception ex) {
+            AppLogger.logSevere(getClass(), ex);
         }
 
         value = val;

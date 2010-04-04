@@ -60,8 +60,8 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
         try {
             return (Object[]) transferable.getTransferData(
                 Flavor.KEYWORDS_LIST);
-        } catch (Exception e) {
-            AppLogger.logSevere(TransferHandlerKeywordsList.class, e);
+        } catch (Exception ex) {
+            AppLogger.logSevere(TransferHandlerKeywordsList.class, ex);
         }
 
         return null;

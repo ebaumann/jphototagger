@@ -30,6 +30,8 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -175,8 +177,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
         try {
             content = textArea.getText(0, pos + 1);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(Autocomplete.class.getName()).log(Level.SEVERE,
+                             null, ex);
         }
 
         // Find where the word starts
