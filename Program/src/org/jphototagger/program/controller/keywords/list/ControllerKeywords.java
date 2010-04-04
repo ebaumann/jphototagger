@@ -57,11 +57,19 @@ public abstract class ControllerKeywords extends Controller {
 
     @Override
     protected void action(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         action(Arrays.asList(getStringOfPopupMenu()));
     }
 
     @Override
     protected void action(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         action(getSelStrings((JList) evt.getSource()));
     }
 

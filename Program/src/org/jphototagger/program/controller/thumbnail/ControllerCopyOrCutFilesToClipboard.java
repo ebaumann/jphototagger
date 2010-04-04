@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import org.jphototagger.lib.clipboard.ClipboardUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.lib.clipboard.ClipboardUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.datatransfer.Clipboard;
 import java.awt.event.ActionEvent;
@@ -51,11 +51,10 @@ public final class ControllerCopyOrCutFilesToClipboard
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
     private final ThumbnailsPanel thumbnailsPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final PopupMenuThumbnails popup        =
-        PopupMenuThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
     private final JMenuItem           menuItemCopy =
         popup.getItemCopyToClipboard();
-    private final JMenuItem           menuItemCut  =
+    private final JMenuItem           menuItemCut =
         popup.getItemCutToClipboard();
 
     public ControllerCopyOrCutFilesToClipboard() {
@@ -119,7 +118,9 @@ public final class ControllerCopyOrCutFilesToClipboard
         final boolean imagesSelected = thumbnailsPanel.getSelectionCount() > 0;
 
         menuItemCopy.setEnabled(imagesSelected);
-        menuItemCut.setEnabled(imagesSelected);    // ignore possibility of write protected files
+
+        // ignore possibility of write protected files
+        menuItemCut.setEnabled(imagesSelected);
     }
 
     @Override

@@ -44,6 +44,10 @@ public class FormatterLabelMetadata {
      */
     protected static void setDefaultCellColors(JLabel cellLabel,
             boolean isSelected) {
+        if (cellLabel == null) {
+            throw new NullPointerException("cellLabel == null");
+        }
+
         cellLabel.setForeground(isSelected
                                 ? AppLookAndFeel.getTableSelectionForeground()
                                 : AppLookAndFeel.getTableForeground());
@@ -59,6 +63,10 @@ public class FormatterLabelMetadata {
      * @param cellLabel  Label
      */
     protected void setHeaderFont(JLabel cellLabel) {
+        if (cellLabel == null) {
+            throw new NullPointerException("cellLabel == null");
+        }
+
         initFonts(cellLabel);
         cellLabel.setFont(headerFont);
     }
@@ -69,6 +77,10 @@ public class FormatterLabelMetadata {
      * @param cellLabel  Label
      */
     protected void setContentFont(JLabel cellLabel) {
+        if (cellLabel == null) {
+            throw new NullPointerException("cellLabel == null");
+        }
+
         initFonts(cellLabel);
         cellLabel.setFont(contentFont);
     }
@@ -82,6 +94,10 @@ public class FormatterLabelMetadata {
      */
     protected void setIsStoredInDatabaseColors(JLabel cellLabel,
             boolean isSelected) {
+        if (cellLabel == null) {
+            throw new NullPointerException("cellLabel == null");
+        }
+
         cellLabel.setForeground(isSelected
                                 ? AppLookAndFeel.getTableSelectionForeground()
                                 : AppLookAndFeel
@@ -94,6 +110,10 @@ public class FormatterLabelMetadata {
 
     protected void setIsExifMakerNoteColors(JLabel cellLabel,
             boolean isSelected) {
+        if (cellLabel == null) {
+            throw new NullPointerException("cellLabel == null");
+        }
+
         cellLabel.setForeground(isSelected
                                 ? AppLookAndFeel.getTableSelectionForeground()
                                 : AppLookAndFeel

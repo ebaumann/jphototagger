@@ -54,6 +54,10 @@ public class ControllerDeleteKeywords extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         return e.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
@@ -64,6 +68,10 @@ public class ControllerDeleteKeywords extends ControllerKeywords
 
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
+        if (nodes == null) {
+            throw new NullPointerException("nodes == null");
+        }
+
         if (!ensureNoChild(nodes) ||!confirmDeleteMultiple(nodes)) {
             return;
         }

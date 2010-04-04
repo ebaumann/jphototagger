@@ -49,6 +49,10 @@ public final class ControllerAddKeywordsToEditPanel extends ControllerKeywords {
 
     @Override
     protected void action(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         EditMetadataPanels editPanels =
             GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
 
@@ -62,11 +66,19 @@ public final class ControllerAddKeywordsToEditPanel extends ControllerKeywords {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_B);
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource() == menuItem;
     }
 }

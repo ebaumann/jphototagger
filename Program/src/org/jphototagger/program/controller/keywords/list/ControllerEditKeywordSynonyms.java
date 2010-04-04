@@ -131,17 +131,29 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return KeyEventUtil.isMenuShortcutWithAlt(evt, KeyEvent.VK_S);
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource()
                == PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms();
     }
 
     @Override
     protected void action(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         for (String keyword : keywords) {
             editSynonyms(keyword);
         }

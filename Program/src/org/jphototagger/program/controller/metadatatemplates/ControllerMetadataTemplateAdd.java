@@ -58,6 +58,10 @@ public final class ControllerMetadataTemplateAdd
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N);
     }
 
@@ -75,12 +79,20 @@ public final class ControllerMetadataTemplateAdd
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource()
                == PopupMenuMetadataTemplates.INSTANCE.getItemAdd();
     }
 
     @Override
     protected void action(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
         MetadataTemplate           t   = new MetadataTemplate();
 

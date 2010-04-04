@@ -61,7 +61,11 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent e) {
-            return KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_B);
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
+        return KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_B);
     }
 
     @Override
@@ -71,6 +75,10 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
 
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
+        if (nodes == null) {
+            throw new NullPointerException("nodes == null");
+        }
+
         DefaultMutableTreeNode node         = nodes.get(0);
         List<String>           keywordNames = new ArrayList<String>();
 

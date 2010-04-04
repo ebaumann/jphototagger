@@ -21,11 +21,11 @@
 
 package org.jphototagger.program.database;
 
+import org.jphototagger.lib.dialog.LongMessageDialog;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.dialog.LongMessageDialog;
 
 import java.io.File;
 
@@ -129,7 +129,8 @@ public class Database {
      * Frees a connection in the Connection Pool so it can be reused at a late
      * time.
      *
-     * @param con  The connection to be freed.
+     * @param con the connection to be freed; null is allowed
+     *            (then this mehtod does nothing)
      */
     protected void free(Connection con) {
         if (con == null) {
@@ -257,6 +258,14 @@ public class Database {
 
     protected Long getId(String tablename, String columnName, String value)
             throws SQLException {
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
         Connection        con  = null;
         PreparedStatement stmt = null;
         ResultSet         rs   = null;
@@ -290,6 +299,14 @@ public class Database {
     protected Long ensureValueExists(String tablename, String columnName,
                                      String value)
             throws SQLException {
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
         if (value == null) {
             return null;
         }
@@ -375,6 +392,10 @@ public class Database {
     }
 
     protected Double getDouble(ResultSet rs, int colIndex) throws SQLException {
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
         double d = rs.getDouble(colIndex);
 
         if (rs.wasNull()) {
@@ -385,6 +406,10 @@ public class Database {
     }
 
     protected Short getShort(ResultSet rs, int colIndex) throws SQLException {
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
         short s = rs.getShort(colIndex);
 
         if (rs.wasNull()) {
@@ -395,6 +420,10 @@ public class Database {
     }
 
     protected Integer getInt(ResultSet rs, int colIndex) throws SQLException {
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
         int i = rs.getInt(colIndex);
 
         if (rs.wasNull()) {
@@ -405,6 +434,10 @@ public class Database {
     }
 
     protected Long getLong(ResultSet rs, int colIndex) throws SQLException {
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
         long l = rs.getLong(colIndex);
 
         if (rs.wasNull()) {
@@ -416,7 +449,13 @@ public class Database {
 
     protected Long getLongMinMax(ResultSet rs, int colIndex, long min, long max)
             throws SQLException {
-        assert min <= max : "min: " + min + ", max: " + max;
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
+        if (min > max) {
+            throw new IllegalArgumentException("min > max!");
+        }
 
         long l = rs.getLong(colIndex);
 
@@ -432,6 +471,10 @@ public class Database {
     }
 
     protected String getString(ResultSet rs, int colIndex) throws SQLException {
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
         String s = rs.getString(colIndex);
 
         if (rs.wasNull()) {
@@ -443,6 +486,10 @@ public class Database {
 
     protected Class<?> getClassFromName(ResultSet rs, int colIndex)
             throws SQLException {
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
         String classname = rs.getString(colIndex);
 
         if (classname == null) {
@@ -459,6 +506,10 @@ public class Database {
     }
 
     protected Date getDate(ResultSet rs, int colIndex) throws SQLException {
+        if (rs == null) {
+            throw new NullPointerException("rs == null");
+        }
+
         Date d = rs.getDate(colIndex);
 
         if (rs.wasNull()) {
@@ -471,6 +522,10 @@ public class Database {
     protected void setBoolean(Boolean value, PreparedStatement stmt,
                               int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BOOLEAN);
         } else {
@@ -481,6 +536,10 @@ public class Database {
     protected void setDouble(Double value, PreparedStatement stmt,
                              int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DOUBLE);
         } else {
@@ -490,6 +549,10 @@ public class Database {
 
     protected void setShort(Short value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.SMALLINT);
         } else {
@@ -499,6 +562,10 @@ public class Database {
 
     protected void setInt(Integer value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.INTEGER);
         } else {
@@ -508,6 +575,10 @@ public class Database {
 
     protected void setLong(Long value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
         } else {
@@ -518,6 +589,10 @@ public class Database {
     protected void setString(String value, PreparedStatement stmt,
                              int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
         } else {
@@ -528,6 +603,10 @@ public class Database {
     protected void setClassname(Class<?> clazz, PreparedStatement stmt,
                                 int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (clazz == null) {
             stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
         } else {
@@ -537,6 +616,10 @@ public class Database {
 
     protected void setDate(Date value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DATE);
         } else {
@@ -547,7 +630,15 @@ public class Database {
     protected void setBoolean(Object value, PreparedStatement stmt,
                               int paramIndex)
             throws SQLException {
-        assert(value == null) || (value instanceof Boolean) : value;
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        boolean isBoolean = (value == null) || (value instanceof Boolean);
+
+        if (!isBoolean) {
+            throw new IllegalArgumentException("Not a Boolean: " + value);
+        }
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BOOLEAN);
@@ -559,7 +650,15 @@ public class Database {
     protected void setDouble(Object value, PreparedStatement stmt,
                              int paramIndex)
             throws SQLException {
-        assert(value == null) || (value instanceof Double) : value;
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        boolean isDouble = (value == null) || (value instanceof Double);
+
+        if (!isDouble) {
+            throw new IllegalArgumentException("Not a Double: " + value);
+        }
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DOUBLE);
@@ -571,6 +670,16 @@ public class Database {
     protected void setShort(Object value, PreparedStatement stmt,
                             int paramIndex)
             throws SQLException {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        boolean isShort = (value == null) || (value instanceof Short);
+
+        if (!isShort) {
+            throw new IllegalArgumentException("Not a Short: " + value);
+        }
+
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.SMALLINT);
         } else {
@@ -580,7 +689,15 @@ public class Database {
 
     protected void setInt(Object value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
-        assert(value == null) || (value instanceof Integer) : value;
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        boolean isInteger = (value == null) || (value instanceof Integer);
+
+        if (!isInteger) {
+            throw new IllegalArgumentException("Not an Integer: " + value);
+        }
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.INTEGER);
@@ -591,7 +708,15 @@ public class Database {
 
     protected void setLong(Object value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
-        assert(value == null) || (value instanceof Long) : value;
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        boolean isLong = (value == null) || (value instanceof Long);
+
+        if (!isLong) {
+            throw new IllegalArgumentException("Not a Long: " + value);
+        }
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
@@ -603,8 +728,19 @@ public class Database {
     protected void setLongMinMax(Object value, long min, long max,
                                  PreparedStatement stmt, int paramIndex)
             throws SQLException {
-        assert min <= max : "min: " + min + ", max: " + max;
-        assert(value == null) || (value instanceof Long) : value;
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        if (min > max) {
+            throw new IllegalArgumentException("min > max");
+        }
+
+        boolean isLong = (value == null) || (value instanceof Long);
+
+        if (!isLong) {
+            throw new IllegalArgumentException("Not a Long: " + value);
+        }
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
@@ -622,7 +758,15 @@ public class Database {
     protected void setString(Object value, PreparedStatement stmt,
                              int paramIndex)
             throws SQLException {
-        assert(value == null) || (value instanceof String) : value;
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        boolean isString = (value == null) || (value instanceof String);
+
+        if (!isString) {
+            throw new IllegalArgumentException("Not a string: " + value);
+        }
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
@@ -633,7 +777,15 @@ public class Database {
 
     protected void setDate(Object value, PreparedStatement stmt, int paramIndex)
             throws SQLException {
-        assert(value == null) || (value instanceof Date) : value;
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
+        boolean isDate = (value == null) || (value instanceof Date);
+
+        if (!isDate) {
+            throw new IllegalArgumentException("Not a Date: " + value);
+        }
 
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DATE);
@@ -642,6 +794,13 @@ public class Database {
         }
     }
 
+    /**
+     * Notifies a progress listener, that the progress has been started.
+     *
+     * @param  listener listener, can be null
+     * @param  event     event
+     * @return          {@link ProgressEvent#isStop()}
+     */
     protected boolean notifyProgressListenerStart(ProgressListener listener,
             ProgressEvent event) {
         if (listener != null) {
@@ -653,6 +812,13 @@ public class Database {
         return false;
     }
 
+    /**
+     * Notifies a progress listener, that the progress has been performed.
+     *
+     * @param  listener listener, can be null
+     * @param  event     event
+     * @return          {@link ProgressEvent#isStop()}
+     */
     protected boolean notifyProgressListenerPerformed(
             ProgressListener listener, ProgressEvent event) {
         if (listener != null) {
@@ -664,6 +830,12 @@ public class Database {
         return false;
     }
 
+    /**
+     * Notifies a progress listener, that the progress has been ended.
+     *
+     * @param  listener listener, can be null
+     * @param  event     event
+     */
     protected void notifyProgressListenerEnd(ProgressListener listener,
             ProgressEvent event) {
         if (listener != null) {
@@ -672,18 +844,34 @@ public class Database {
     }
 
     protected void logFiner(String sql) {
+        if (sql == null) {
+            throw new NullPointerException("sql == null");
+        }
+
         AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
     }
 
     protected void logFiner(PreparedStatement stmt) {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt.toString());
     }
 
     protected void logFinest(String sql) {
+        if (sql == null) {
+            throw new NullPointerException("sql == null");
+        }
+
         AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
     }
 
     protected void logFinest(PreparedStatement stmt) {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt.toString());
     }
 }

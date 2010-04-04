@@ -233,7 +233,9 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
      */
     @Override
     protected synchronized void generateEntry(File file, boolean prefetch) {
-        assert file != null : "Received request with null file";
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
 
         XmpCacheIndirection ci = new XmpCacheIndirection(file);
 

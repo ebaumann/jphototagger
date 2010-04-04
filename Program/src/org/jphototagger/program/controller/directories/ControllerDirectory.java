@@ -52,6 +52,10 @@ abstract class ControllerDirectory extends Controller {
 
     @Override
     protected void action(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         DefaultMutableTreeNode node =
             TreeFileSystemDirectories.getNodeOfLastPathComponent(
                 popup.getTreePath());
@@ -63,6 +67,10 @@ abstract class ControllerDirectory extends Controller {
 
     @Override
     protected void action(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         if (!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
 
@@ -73,6 +81,10 @@ abstract class ControllerDirectory extends Controller {
     }
 
     protected File getDirOfNode(DefaultMutableTreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
         File dir = TreeFileSystemDirectories.getFile(node);
 
         if ((dir != null) && dir.isDirectory()) {

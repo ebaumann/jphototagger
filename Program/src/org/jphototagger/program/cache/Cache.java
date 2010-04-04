@@ -49,6 +49,10 @@ public abstract class Cache<CI extends CacheIndirection> {
     Cache() {}
 
     protected void updateUsageTime(CacheIndirection ci) {
+        if (ci == null) {
+            throw new NullPointerException("ci == null");
+        }
+
         ci.usageTime = currentAge++;
     }
 

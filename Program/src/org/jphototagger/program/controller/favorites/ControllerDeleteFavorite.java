@@ -47,17 +47,29 @@ public final class ControllerDeleteFavorite extends ControllerFavorite {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource()
                == PopupMenuFavorites.INSTANCE.getItemDeleteFavorite();
     }
 
     @Override
     protected void action(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         FavoritesHelper.deleteFavorite(favorite);
     }
 

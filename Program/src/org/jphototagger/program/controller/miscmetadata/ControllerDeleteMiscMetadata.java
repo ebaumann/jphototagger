@@ -48,11 +48,19 @@ public final class ControllerDeleteMiscMetadata extends ControllerMiscMetadata {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
     @Override
     protected void action(Column column, String value) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
+        }
+
         RenameDeleteXmpValue.delete(column, value);
     }
 }

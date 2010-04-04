@@ -48,11 +48,19 @@ public final class ControllerRemoveMetadataFromSelImages extends ControllerMiscM
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_BACK_SPACE;
     }
 
     @Override
     protected void action(Column column, String value) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
+        }
+
         MiscMetadataHelper.removeMetadataFromSelectedImages(column, value);
     }
 }

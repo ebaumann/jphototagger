@@ -46,17 +46,29 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_F2;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource()
                == PopupMenuKeywordsList.INSTANCE.getItemRename();
     }
 
     @Override
     protected void action(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         int size = keywords.size();
 
         if (size == 1) {

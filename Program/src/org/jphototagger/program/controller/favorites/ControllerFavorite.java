@@ -48,6 +48,10 @@ public abstract class ControllerFavorite extends Controller {
 
     @Override
     protected void action(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         if (GUI.INSTANCE.getAppPanel().getTreeFavorites().isSelectionEmpty()) {
             return;
         }
@@ -64,6 +68,10 @@ public abstract class ControllerFavorite extends Controller {
 
     @Override
     protected void action(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         Favorite favorite = PopupMenuFavorites.INSTANCE.getFavorite();
 
         if (favorite != null) {

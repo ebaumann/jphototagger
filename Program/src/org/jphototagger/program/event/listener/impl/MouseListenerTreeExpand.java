@@ -61,6 +61,14 @@ public final class MouseListenerTreeExpand extends MouseListenerTree
 
     @Override
     protected void popupTrigger(JTree tree, TreePath path, int x, int y) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
+
         popupMenu.show(tree, x, y);
     }
 }

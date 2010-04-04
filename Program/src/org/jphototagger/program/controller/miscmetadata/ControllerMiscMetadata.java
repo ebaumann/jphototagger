@@ -47,8 +47,8 @@ import javax.swing.tree.TreePath;
  */
 public abstract class ControllerMiscMetadata extends Controller
         implements PopupMenuTree.Listener {
-    private static final List<Column>   XMP_COLUMNS = XmpColumns.get();
-    private final JTree                 tree        =
+    private static final List<Column> XMP_COLUMNS = XmpColumns.get();
+    private final JTree               tree =
         GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
 
     protected ControllerMiscMetadata() {
@@ -65,7 +65,7 @@ public abstract class ControllerMiscMetadata extends Controller
 
     @Override
     protected void action(ActionEvent evt) {
-        assert false;    // should not be triggered
+        throw new IllegalStateException("Shall never be called!");
     }
 
     @Override
@@ -84,13 +84,22 @@ public abstract class ControllerMiscMetadata extends Controller
 
     @Override
     protected void action(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         TreePath[] selPaths = tree.getSelectionPaths();
+
         if (selPaths != null) {
             action(colValuesFrom(Arrays.asList(selPaths)));
         }
     }
 
     protected List<Pair<Column, String>> colValuesFrom(List<TreePath> paths) {
+        if (paths == null) {
+            throw new NullPointerException("paths == null");
+        }
+
         List<Pair<Column, String>> values = new ArrayList<Pair<Column,
                                                 String>>(paths.size());
 
@@ -106,20 +115,20 @@ public abstract class ControllerMiscMetadata extends Controller
     }
 
     protected Pair<Column, String> colValueFrom(TreePath path) {
-        if (path != null) {
-            DefaultMutableTreeNode node =
-                (DefaultMutableTreeNode) path.getLastPathComponent();
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
 
-            if (MiscMetadataHelper.isParentUserObjectAColumnOf(node,
-                    XMP_COLUMNS)) {
-                String                 value      =
-                    node.getUserObject().toString();
-                DefaultMutableTreeNode parentNode =
-                    (DefaultMutableTreeNode) node.getParent();
-                Column column = (Column) parentNode.getUserObject();
+        DefaultMutableTreeNode node =
+            (DefaultMutableTreeNode) path.getLastPathComponent();
 
-                return new Pair<Column, String>(column, value);
-            }
+        if (MiscMetadataHelper.isParentUserObjectAColumnOf(node, XMP_COLUMNS)) {
+            String                 value = node.getUserObject().toString();
+            DefaultMutableTreeNode parentNode =
+                (DefaultMutableTreeNode) node.getParent();
+            Column column = (Column) parentNode.getUserObject();
+
+            return new Pair<Column, String>(column, value);
         }
 
         return null;

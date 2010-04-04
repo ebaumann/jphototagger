@@ -37,6 +37,10 @@ public final class MouseListenerKeywordsList extends MouseListenerList {
 
     @Override
     protected void showPopup(JList list, int x, int y) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
         popup.setSelIndex(getIndex());
         popup.setList(list);
         setEnabled();

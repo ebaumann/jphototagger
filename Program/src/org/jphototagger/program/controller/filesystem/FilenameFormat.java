@@ -152,6 +152,10 @@ public abstract class FilenameFormat {
      * @param request request
      */
     protected void requestListeners(FilenameFormatListener.Request request) {
+        if (request == null) {
+            throw new NullPointerException("request == null");
+        }
+
         synchronized (listeners) {
             for (FilenameFormatListener listener : listeners) {
                 listener.request(request);

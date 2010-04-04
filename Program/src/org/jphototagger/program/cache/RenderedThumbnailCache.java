@@ -243,6 +243,10 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     protected void updateUsageTime(CacheIndirection ci) {
+        if (ci == null) {
+            throw new NullPointerException("ci == null");
+        }
+
         ci.usageTime = currentAge++;
     }
 
@@ -300,7 +304,9 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     protected synchronized void generateEntry(File file, int length,
             boolean prefetch) {
-        assert(file != null);
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
 
         RenderedThumbnailCacheIndirection ci =
             new RenderedThumbnailCacheIndirection(file, length);

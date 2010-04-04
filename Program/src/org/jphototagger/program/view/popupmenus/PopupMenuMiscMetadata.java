@@ -94,6 +94,10 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
 
     @Override
     protected void setMenuItemsEnabled(List<TreePath> selTreePaths) {
+        if (selTreePaths == null) {
+            throw new NullPointerException("selTreePaths == null");
+        }
+
         boolean xmpValues = allNodesXmpValues(selTreePaths);
         boolean editable  = isEditable();
 

@@ -52,6 +52,10 @@ public final class ControllerDeleteKeywordsFromEditPanel
 
     @Override
     protected void action(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         EditMetadataPanels editPanels =
             GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
 
@@ -68,11 +72,19 @@ public final class ControllerDeleteKeywordsFromEditPanel
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_BACK_SPACE;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource() == menuItem;
     }
 }

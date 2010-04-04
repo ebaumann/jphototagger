@@ -98,6 +98,10 @@ public abstract class ControllerKeywords
     }
 
     protected List<DefaultMutableTreeNode> getSelNodes(ActionEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         TreePath[] selPaths = PopupMenuKeywordsTree.INSTANCE.getTreePaths();
 
         if (selPaths == null) {
@@ -119,6 +123,10 @@ public abstract class ControllerKeywords
     }
 
     protected List<DefaultMutableTreeNode> getSelNodes(KeyEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         if (e.getComponent() instanceof JTree) {
             JTree tree = (JTree) e.getComponent();
 
@@ -156,6 +164,10 @@ public abstract class ControllerKeywords
     }
 
     protected boolean ensureNoChild(List<DefaultMutableTreeNode> nodes) {
+        if (nodes == null) {
+            throw new NullPointerException("nodes == null");
+        }
+
         int size = nodes.size();
 
         if (size <= 1) {
