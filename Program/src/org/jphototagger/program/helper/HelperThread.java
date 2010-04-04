@@ -46,7 +46,9 @@ public abstract class HelperThread extends Thread {
     private volatile boolean infoChanged;
     private volatile int     minimum;
     private volatile int     maximum;
-    private final String     progressBarOwner = "HelperThread";
+
+    // new String(), NO literal
+    public final String progressBarOwner = new String("HelperThread");
 
     protected abstract void stopRequested();
 

@@ -91,7 +91,10 @@ public abstract class KeywordsImporter implements Importer {
         Collection<List<Pair<String, Boolean>>> paths = getPaths(file);
 
         if (paths != null) {
-            new ImportTask(paths, "KeywordsImporter#importFile()").start();
+
+            // new String(), NO literal
+            new ImportTask(paths,
+                           new String("KeywordsImporter#importFile()")).start();
         }
     }
 
@@ -100,10 +103,10 @@ public abstract class KeywordsImporter implements Importer {
         private final TreeModel                               treeModel =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         private JProgressBar progressBar;
-        private final String progressBarOwner;
+        private final Object progressBarOwner;
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths,
-                          String progressBarOwner) {
+                          Object progressBarOwner) {
             if (paths == null) {
                 throw new NullPointerException("paths == null");
             }

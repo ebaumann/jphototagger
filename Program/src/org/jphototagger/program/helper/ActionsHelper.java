@@ -51,8 +51,10 @@ public final class ActionsHelper {
                              "ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
+
+            // new String(), NO literal
             menu.add(new JMenuItem(new ActionStarter(action,
-                    "ActionsHelper#actionsAsMenu()")));
+                    new String("ActionsHelper#actionsAsMenu()"))));
         }
 
         return menu;
@@ -79,7 +81,10 @@ public final class ActionsHelper {
             throw new NullPointerException("action == null");
         }
 
-        actionsMenu.add(new ActionStarter(action, "ActionsHelper#addAction()"));
+        actionsMenu.add(
+
+        // new String(), NO literal
+        new ActionStarter(action, new String("ActionsHelper#addAction()")));
     }
 
     public static void removeAction(JMenu actionsMenu, Program action) {

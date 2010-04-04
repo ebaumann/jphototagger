@@ -35,7 +35,9 @@ import javax.swing.SwingUtilities;
 public final class ProgressBarUpdater implements ProgressListener {
     private final String progressBarString;
     private JProgressBar progressBar;
-    private final String progressBarOwner = "ProgressBarUpdater";
+
+    // new String(), NO literal
+    private final String progressBarOwner = new String("ProgressBarUpdater");
 
     /**
      *
