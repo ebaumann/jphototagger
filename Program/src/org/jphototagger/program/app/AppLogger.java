@@ -63,6 +63,18 @@ public final class AppLogger {
      */
     public static void logFinest(Class<?> c, String bundleKey,
                                  Object... params) {
+        if (c == null) {
+            throw new NullPointerException("c == null");
+        }
+
+        if (bundleKey == null) {
+            throw new NullPointerException("bundleKey == null");
+        }
+
+        if (params == null) {
+            throw new NullPointerException("params == null");
+        }
+
         log(c, Level.FINEST, bundleKey, params);
     }
 
@@ -78,6 +90,18 @@ public final class AppLogger {
      */
     public static void logFiner(Class<?> c, String bundleKey,
                                 Object... params) {
+        if (c == null) {
+            throw new NullPointerException("c == null");
+        }
+
+        if (bundleKey == null) {
+            throw new NullPointerException("bundleKey == null");
+        }
+
+        if (params == null) {
+            throw new NullPointerException("params == null");
+        }
+
         log(c, Level.FINER, bundleKey, params);
     }
 
@@ -92,6 +116,18 @@ public final class AppLogger {
      * @param params    optional params for the message string
      */
     public static void logFine(Class<?> c, String bundleKey, Object... params) {
+        if (c == null) {
+            throw new NullPointerException("c == null");
+        }
+
+        if (bundleKey == null) {
+            throw new NullPointerException("bundleKey == null");
+        }
+
+        if (params == null) {
+            throw new NullPointerException("params == null");
+        }
+
         log(c, Level.FINE, bundleKey, params);
     }
 
@@ -106,6 +142,18 @@ public final class AppLogger {
      * @param params    optional params for the message string
      */
     public static void logInfo(Class<?> c, String bundleKey, Object... params) {
+        if (c == null) {
+            throw new NullPointerException("c == null");
+        }
+
+        if (bundleKey == null) {
+            throw new NullPointerException("bundleKey == null");
+        }
+
+        if (params == null) {
+            throw new NullPointerException("params == null");
+        }
+
         log(c, Level.INFO, bundleKey, params);
     }
 
@@ -121,6 +169,18 @@ public final class AppLogger {
      */
     public static void logWarning(Class<?> c, String bundleKey,
                                   Object... params) {
+        if (c == null) {
+            throw new NullPointerException("c == null");
+        }
+
+        if (bundleKey == null) {
+            throw new NullPointerException("bundleKey == null");
+        }
+
+        if (params == null) {
+            throw new NullPointerException("params == null");
+        }
+
         log(c, Level.WARNING, bundleKey, params);
         ErrorListeners.INSTANCE.notifyListeners(c,
                 JptBundle.INSTANCE.getString(bundleKey, params));
@@ -136,37 +196,73 @@ public final class AppLogger {
      * @param ex  Exception
      */
     public static void logSevere(Class<?> c, Exception ex) {
-        LogRecord lr = new LogRecord(Level.SEVERE, "");
-
-        lr.setThrown(ex);
-
-        String className = c.getName();
-
-        lr.setSourceClassName(className);
-        lr.setSourceMethodName(getMethodName(className));
-        Logger.getLogger(className).log(lr);
-        AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
-
-        String message = ex.getMessage();
-
-        if ((message == null) || message.isEmpty()) {
-            message = "Exception without message: " + ex.getClass();
+        if (c == null) {
+            throw new NullPointerException("c == null");
         }
 
+        if (ex == null) {
+            throw new NullPointerException("ex == null");
+        }
+
+        String    className  = c.getName();
+        String    loggerName = className;
+        String    message    = getMessage(ex);
+        LogRecord lr         = new LogRecord(Level.SEVERE, message);
+
+        setLogRecord(lr, loggerName, className);
+        lr.setThrown(ex);
+        Logger.getLogger(loggerName).log(lr);
+        AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
         ErrorListeners.INSTANCE.notifyListeners(c, message);
     }
 
     private static void log(Class<?> c, Level level, String bundleKey,
                             Object... params) {
-        LogRecord lr = new LogRecord(level,
-                                     JptBundle.INSTANCE.getString(bundleKey,
-                                         params));
-        String className = c.getName();
+        String    className  = c.getName();
+        String    loggerName = className;
+        LogRecord lr = new LogRecord(level, getMessage(bundleKey, params));
 
+        setLogRecord(lr, loggerName, className);
+        Logger.getLogger(loggerName).log(lr);
+        AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
+    }
+
+    private static void setLogRecord(LogRecord lr, String loggerName,
+                                     String className) {
+        lr.setLoggerName(loggerName);
+        lr.setMillis(System.currentTimeMillis());
         lr.setSourceClassName(className);
         lr.setSourceMethodName(getMethodName(className));
-        Logger.getLogger(className).log(lr);
-        AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
+    }
+
+    /**
+     * Returns {@link Throwable#getLocalizedMessage()} prepended by
+     * {@link AppInfo#APP_NAME} and {@link AppInfo#APP_VERSION}.
+     *
+     * @param  t throwable
+     * @return   message
+     */
+    public static String getMessage(Throwable t) {
+        if (t == null) {
+            throw new NullPointerException("t == null");
+        }
+
+        String message = t.getLocalizedMessage();
+
+        if ((message == null) || message.isEmpty()) {
+            message = "Severe: " + t.getClass();
+        }
+
+        return prependVersionInfo(message);
+    }
+
+    private static String getMessage(String bundleKey, Object[] params) {
+        return prependVersionInfo(JptBundle.INSTANCE.getString(bundleKey,
+                params));
+    }
+
+    private static String prependVersionInfo(String s) {
+        return AppInfo.APP_NAME + " " + AppInfo.APP_VERSION + ": " + s;
     }
 
     // If this works false, java.util.logging.LogRecord.inferCaller() maybe

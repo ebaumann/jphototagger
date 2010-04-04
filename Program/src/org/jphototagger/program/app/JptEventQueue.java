@@ -51,27 +51,24 @@ public final class JptEventQueue extends java.awt.EventQueue {
                                       UserSettings.INSTANCE.getSettings(),
                                       null);
 
-            dlg.setTitle(
-                JptBundle.INSTANCE.getString("JptEventQueue.Error.Title"));
-            dlg.setErrorIcon();
-            dlg.setMail(AppInfo.MAIL_TO_ADDRESS_BUGS,
-                        AppInfo.MAIL_SUBJECT_BUGS);
-            dlg.setShortMessage(
-                JptBundle.INSTANCE.getString("JptEventQueue.Error.Message"));
-            dlg.setLongMessage(createMessage(t));
+            setDialog(dlg, t);
             dlg.setVisible(true);
         }
     }
 
+    private void setDialog(LongMessageDialog dlg, Throwable t) {
+        dlg.setTitle(JptBundle.INSTANCE.getString("JptEventQueue.Error.Title"));
+        dlg.setErrorIcon();
+        dlg.setMail(AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS);
+        dlg.setShortMessage(
+            JptBundle.INSTANCE.getString("JptEventQueue.Error.Message"));
+        dlg.setLongMessage(createMessage(t));
+    }
+
     private String createMessage(Throwable t) {
-        String message = t.getLocalizedMessage();
-
-        if ((message == null) || (message.length() == 0)) {
-            message = "No message: " + t.getClass();
-        }
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream           ps   = new PrintStream(baos);
+        String                message = AppLogger.getMessage(t);
+        ByteArrayOutputStream baos    = new ByteArrayOutputStream();
+        PrintStream           ps      = new PrintStream(baos);
 
         t.printStackTrace(ps);
 
