@@ -292,8 +292,8 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                     }
 
                     cache.update(image, imageFile);
-                } catch (Exception e) {
-                    AppLogger.logSevere(getClass(), e);
+                } catch (Exception ex) {
+                    AppLogger.logSevere(getClass(), ex);
                 }
             }
         }
