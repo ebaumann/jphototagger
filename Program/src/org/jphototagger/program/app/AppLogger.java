@@ -47,7 +47,8 @@ import java.util.logging.LogRecord;
  * @author  Elmar Baumann
  */
 public final class AppLogger {
-    public static final String USE_STRING = "AppLog.UseString";
+    public static final String  USE_STRING = "AppLog.UseString";
+    private static final String OS_VM_INFO = getOsVmInfo();
 
     private AppLogger() {}
 
@@ -218,9 +219,12 @@ public final class AppLogger {
 
     private static void log(Class<?> c, Level level, String bundleKey,
                             Object... params) {
-        String    className  = c.getName();
-        String    loggerName = className;
-        LogRecord lr = new LogRecord(level, getMessage(bundleKey, params));
+        String  className  = c.getName();
+        String  loggerName = className;
+        boolean osVmInfo = level.equals(Level.WARNING)
+                           || level.equals(Level.SEVERE);
+        LogRecord lr = new LogRecord(level,
+                                     getMessage(bundleKey, params, osVmInfo));
 
         setLogRecord(lr, loggerName, className);
         Logger.getLogger(loggerName).log(lr);
@@ -253,16 +257,21 @@ public final class AppLogger {
             message = "Severe: " + t.getClass();
         }
 
-        return prependVersionInfo(message);
+        return prependVersionInfo(true, message);
     }
 
-    private static String getMessage(String bundleKey, Object[] params) {
-        return prependVersionInfo(JptBundle.INSTANCE.getString(bundleKey,
-                params));
+    private static String getMessage(String bundleKey, Object[] params,
+                                     boolean vInfo) {
+        return prependVersionInfo(vInfo,
+                                  JptBundle.INSTANCE.getString(bundleKey,
+                                      params));
     }
 
-    private static String prependVersionInfo(String s) {
-        return AppInfo.APP_NAME + " " + AppInfo.APP_VERSION + ": " + s;
+    private static String prependVersionInfo(boolean prepend, String s) {
+        return prepend
+               ? MessageFormat.format("{0} {1}, {2}: {3}", AppInfo.APP_NAME,
+                                      AppInfo.APP_VERSION, OS_VM_INFO, s)
+               : s;
     }
 
     // If this works false, java.util.logging.LogRecord.inferCaller() maybe
@@ -276,5 +285,14 @@ public final class AppLogger {
         }
 
         return null;
+    }
+
+    private static String getOsVmInfo() {
+        return MessageFormat.format("{0} {1} {2}, {3} {4}",
+                                    System.getProperty("os.name"),
+                                    System.getProperty("os.version"),
+                                    System.getProperty("os.arch"),
+                                    System.getProperty("java.vm.name"),
+                                    System.getProperty("java.version"));
     }
 }
