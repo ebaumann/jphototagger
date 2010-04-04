@@ -247,7 +247,8 @@ public class ThumbnailsPanel extends JPanel
     /*
      *  Convert index-based selection to a new set of files
      */
-    public synchronized void convertSelection(List<File> oldFiles, List<File> newFiles) {
+    public synchronized void convertSelection(List<File> oldFiles,
+            List<File> newFiles) {
         if (oldFiles == null) {
             throw new NullPointerException("oldFiles == null");
         }
@@ -596,7 +597,8 @@ public class ThumbnailsPanel extends JPanel
         }
 
         if (isLeftClick) {
-            int thumbnailIndex = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
+            int thumbnailIndex = getThumbnailIndexAtPoint(evt.getX(),
+                                     evt.getY());
 
             if (isValidIndex(thumbnailIndex)) {
                 transferData = true;
@@ -826,7 +828,7 @@ public class ThumbnailsPanel extends JPanel
         if (!isIndex(high)) {
             throw new IllegalArgumentException("Illegal high index: " + high);
         }
-        
+
         File file = null;
 
         for (int i = low; i <= high; i++) {
@@ -870,8 +872,14 @@ public class ThumbnailsPanel extends JPanel
                                            lastIndex
                                            + thumbnailCountPerRow * 5);
 
-            prefetch(prefetchHighStart, prefetchHighEnd, isKeywordsOverlay());
-            prefetch(prefetchLowStart, prefetchLowEnd, isKeywordsOverlay());
+            if (isIndex(prefetchHighStart) && isIndex(prefetchHighEnd)) {
+                prefetch(prefetchHighStart, prefetchHighEnd,
+                         isKeywordsOverlay());
+            }
+
+            if (isIndex(prefetchLowStart) && isIndex(prefetchLowEnd)) {
+                prefetch(prefetchLowStart, prefetchLowEnd, isKeywordsOverlay());
+            }
         }
 
         if (drag) {
@@ -1012,7 +1020,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized List<Integer> getIndices(List<File> fileArray,
-                                     boolean onlyIfExists) {
+            boolean onlyIfExists) {
         List<Integer> indices = new ArrayList<Integer>(fileArray.size());
 
         for (File file : fileArray) {
