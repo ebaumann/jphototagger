@@ -47,17 +47,29 @@ public final class ControllerDisplayKeyword extends ControllerKeywords {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return false;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource().equals(
             PopupMenuKeywordsList.INSTANCE.getItemDisplayImages());
     }
 
     @Override
     protected void action(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         ListModel model =
             ModelFactory.INSTANCE.getModel(ListModelKeywords.class);
         List<Integer> indices = ListUtil.getIndicesOfItems(model, keywords);

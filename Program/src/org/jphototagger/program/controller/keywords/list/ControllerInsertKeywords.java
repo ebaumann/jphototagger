@@ -47,16 +47,28 @@ public final class ControllerInsertKeywords extends ControllerKeywords {
 
     @Override
     protected void action(List<String> keywords) {
+        if (keywords == null) {
+            throw new NullPointerException("keywords == null");
+        }
+
         KeywordsHelper.insertDcSubject();
     }
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N);
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource() == itemInsert;
     }
 }

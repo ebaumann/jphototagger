@@ -52,11 +52,19 @@ public abstract class ControllerMetadataTemplate extends Controller {
 
     @Override
     protected void action(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         action(getTemplateOfPopupMenu());
     }
 
     @Override
     protected void action(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         action(getTemplateOfInputHelperList());
     }
 

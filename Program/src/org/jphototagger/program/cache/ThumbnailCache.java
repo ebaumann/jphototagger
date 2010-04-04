@@ -178,6 +178,10 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
      */
     @Override
     protected synchronized void generateEntry(File file, boolean prefetch) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         ThumbnailCacheIndirection ci = new ThumbnailCacheIndirection(file);
 
         updateUsageTime(ci);

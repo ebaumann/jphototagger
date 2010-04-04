@@ -52,17 +52,29 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_F2;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource()
                == PopupMenuDirectories.INSTANCE.getItemRenameDirectory();
     }
 
     @Override
     protected void action(DefaultMutableTreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
         File dir = getDirOfNode(node);
 
         if (dir != null) {

@@ -96,6 +96,10 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
 
     protected void handleDroppedThumbnails(int itemIndex,
             List<File> imageFiles) {
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         if (itemIndex >= 0) {
             addToImageCollection(itemIndex, imageFiles);
         } else {

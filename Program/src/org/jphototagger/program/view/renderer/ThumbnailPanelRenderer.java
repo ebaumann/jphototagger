@@ -505,6 +505,10 @@ public class ThumbnailPanelRenderer
     }
 
     protected String getText(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
         String filename           = file.getAbsolutePath();
         int    indexPathSeparator = filename.lastIndexOf(File.separator);
 

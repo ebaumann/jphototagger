@@ -49,17 +49,29 @@ public final class ControllerUpdateFavorite extends ControllerFavorite {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E);
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource()
                == PopupMenuFavorites.INSTANCE.getItemUpdateFavorite();
     }
 
     @Override
     protected void action(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         FavoritesHelper.updateFavorite(favorite);
     }
 

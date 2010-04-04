@@ -65,17 +65,29 @@ public final class ControllerMetadataTemplateRename
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_F2;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource()
                == PopupMenuMetadataTemplates.INSTANCE.getItemRename();
     }
 
     @Override
     protected void action(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         String fromName = template.getName();
         String toName   = MetadataTemplateHelper.getNewTemplateName(fromName);
 

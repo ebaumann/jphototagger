@@ -229,6 +229,10 @@ public class Column {
     }
 
     protected void setDescription(String description) {
+        if (description == null) {
+            throw new NullPointerException("description == null");
+        }
+
         this.description = description;
     }
 
@@ -238,6 +242,10 @@ public class Column {
      * @param description longer description
      */
     protected void setLongerDescription(String description) {
+        if (description == null) {
+            throw new NullPointerException("description == null");
+        }
+
         longerDescription = description;
     }
 

@@ -387,6 +387,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     protected synchronized void repaint(Collection<Integer> indices) {
+        if (indices == null) {
+            throw new NullPointerException("indices == null");
+        }
+
         for (int index : indices) {
             repaint(index);
         }
@@ -815,7 +819,15 @@ public class ThumbnailsPanel extends JPanel
     }
 
     protected synchronized void prefetch(int low, int high, boolean xmp) {
-        File file;
+        if (!isIndex(low)) {
+            throw new IllegalArgumentException("Illegal low index: " + low);
+        }
+
+        if (!isIndex(high)) {
+            throw new IllegalArgumentException("Illegal high index: " + high);
+        }
+        
+        File file = null;
 
         for (int i = low; i <= high; i++) {
             file = getFile(i);
@@ -1695,10 +1707,18 @@ public class ThumbnailsPanel extends JPanel
     }
 
     protected void showPopupMenu(MouseEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         popupMenu.show(this, e.getX(), e.getY());
     }
 
     protected void showToolTip(MouseEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         int index = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
 
         setToolTipText(createTooltipText(index));

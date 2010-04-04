@@ -40,6 +40,10 @@ public final class MouseListenerMetadataTemplates extends MouseListenerList {
 
     @Override
     protected void showPopup(JList list, int x, int y) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
         assert list.getSelectionMode() == ListSelectionModel.SINGLE_SELECTION;
         PopupMenuMetadataTemplates.INSTANCE.setSelIndex(getIndex());
         PopupMenuMetadataTemplates.INSTANCE.setList(list);

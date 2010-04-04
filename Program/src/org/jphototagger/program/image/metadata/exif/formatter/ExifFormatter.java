@@ -52,6 +52,14 @@ public abstract class ExifFormatter {
     public abstract String format(ExifTag exifTag);
 
     protected String translate(IfdType ifdType, String propertyKey) {
+        if (ifdType == null) {
+            throw new NullPointerException("ifdType == null");
+        }
+
+        if (propertyKey == null) {
+            throw new NullPointerException("propertyKey == null");
+        }
+
         Translation translation = TRANSLATION_OF_IFD.get(ifdType);
 
         return (translation == null)

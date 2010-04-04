@@ -60,21 +60,37 @@ public final class ControllerCreateSavedSearch extends Controller {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getKeyCode() == KeyEvent.VK_N;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         return evt.getSource() == menuItem;
     }
 
     @Override
     protected void action(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         displayEmptySearchDialog();
     }
 
     @Override
     protected void action(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
         displayEmptySearchDialog();
     }
 }

@@ -60,6 +60,10 @@ public class ControllerAddKeyword extends ControllerKeywords
 
     @Override
     protected boolean myKey(KeyEvent e) {
+        if (e == null) {
+            throw new NullPointerException("e == null");
+        }
+
         return KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_N);
     }
 
@@ -70,6 +74,10 @@ public class ControllerAddKeyword extends ControllerKeywords
 
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
+        if (nodes == null) {
+            throw new NullPointerException("nodes == null");
+        }
+
         DefaultMutableTreeNode node       = nodes.get(0);
         Object                 userObject = node.getUserObject();
 
