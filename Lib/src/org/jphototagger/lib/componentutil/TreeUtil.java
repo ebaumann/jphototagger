@@ -102,7 +102,8 @@ public final class TreeUtil {
 
         if (evt.getSource() instanceof JTree) {
             JTree    tree      = (JTree) evt.getSource();
-            TreePath mousePath = tree.getPathForLocation(evt.getX(), evt.getY());
+            TreePath mousePath = tree.getPathForLocation(evt.getX(),
+                                     evt.getY());
 
             if (mousePath != null) {
                 Object root      = tree.getModel().getRoot();
@@ -643,5 +644,17 @@ public final class TreeUtil {
         }
 
         return false;
+    }
+
+    public static boolean isMouseOverTreePath(MouseEvent evt, JTree tree) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+
+        return tree.getRowForLocation(evt.getX(), evt.getY()) > 0;
     }
 }
