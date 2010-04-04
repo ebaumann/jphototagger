@@ -34,7 +34,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerMaintainDatabase implements ActionListener {
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         maintainDatabase();
     }
 

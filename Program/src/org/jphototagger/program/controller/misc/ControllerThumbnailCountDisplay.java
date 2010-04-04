@@ -72,7 +72,7 @@ public final class ControllerThumbnailCountDisplay
     }
 
     @Override
-    public void stateChanged(ChangeEvent e) {
+    public void stateChanged(ChangeEvent evt) {
         setZoom();
     }
 

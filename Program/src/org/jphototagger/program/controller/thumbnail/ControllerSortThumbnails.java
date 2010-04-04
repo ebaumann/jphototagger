@@ -59,8 +59,8 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        sortThumbnails(e);
+    public void actionPerformed(ActionEvent evt) {
+        sortThumbnails(evt);
     }
 
     public static void setLastSort() {
@@ -72,12 +72,12 @@ public final class ControllerSortThumbnails implements ActionListener {
         GUI.INSTANCE.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
     }
 
-    private void sortThumbnails(final ActionEvent e) {
+    private void sortThumbnails(final ActionEvent evt) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JRadioButtonMenuItem item =
-                    (JRadioButtonMenuItem) e.getSource();
+                    (JRadioButtonMenuItem) evt.getSource();
                 Comparator<File> sortCmp = appFrame.getSortCmpOfMenuItem(item);
 
                 ControllerFactory.INSTANCE

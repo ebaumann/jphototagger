@@ -90,8 +90,8 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        rotateSelectedImages(getRotateAngle(e.getSource()));
+    public void actionPerformed(ActionEvent evt) {
+        rotateSelectedImages(getRotateAngle(evt.getSource()));
     }
 
     private void rotateSelectedImages(final float rotateAngle) {

@@ -42,7 +42,7 @@ public final class ControllerImportImageFiles implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         ImportImageFiles.importFrom(null);
     }
 }

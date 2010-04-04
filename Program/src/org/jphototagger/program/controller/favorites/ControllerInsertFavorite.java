@@ -69,15 +69,15 @@ public final class ControllerInsertFavorite
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_I)) {
+    public void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_I)) {
             insertFavorite(null);
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        insertFavorite(getDirectory(e.getSource()));
+    public void actionPerformed(ActionEvent evt) {
+        insertFavorite(getDirectory(evt.getSource()));
     }
 
     private File getDirectory(Object o) {
@@ -120,13 +120,13 @@ public final class ControllerInsertFavorite
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

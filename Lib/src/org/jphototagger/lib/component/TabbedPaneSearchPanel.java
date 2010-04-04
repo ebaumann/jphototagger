@@ -330,17 +330,17 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void insertUpdate(DocumentEvent e) {
+    public void insertUpdate(DocumentEvent evt) {
         startSearch();
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {
+    public void removeUpdate(DocumentEvent evt) {
         startSearch();
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
+    public void changedUpdate(DocumentEvent evt) {
         startSearch();
     }
 
@@ -353,26 +353,26 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void componentMoved(ComponentEvent e) {
+    public void componentMoved(ComponentEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void componentShown(ComponentEvent e) {
-        visibleComponent = e.getComponent();
+    public void componentShown(ComponentEvent evt) {
+        visibleComponent = evt.getComponent();
         traverseGetOriginalTexts(visibleComponent);
-        setSearchWordHighlighted(e.getComponent());
+        setSearchWordHighlighted(evt.getComponent());
     }
 
     @Override
-    public void componentHidden(ComponentEvent e) {
+    public void componentHidden(ComponentEvent evt) {
         setOriginalTexts();
         originalTextOf.clear();    // release memory
         visibleComponent = null;

@@ -77,14 +77,14 @@ public final class TreeItemTempSelectionRowSetter
     }
 
     @Override
-    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent evt) {
         setRowIndex(-1);
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        if (MouseEventUtil.isPopupTrigger(e)) {
-            int index = tree.getRowForLocation(e.getX(), e.getY());
+    public void mousePressed(MouseEvent evt) {
+        if (MouseEventUtil.isPopupTrigger(evt)) {
+            int index = tree.getRowForLocation(evt.getX(), evt.getY());
 
             if (index < 0) {
                 return;
@@ -129,37 +129,37 @@ public final class TreeItemTempSelectionRowSetter
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+    public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void popupMenuCanceled(PopupMenuEvent e) {
+    public void popupMenuCanceled(PopupMenuEvent evt) {
 
         // ignore
     }

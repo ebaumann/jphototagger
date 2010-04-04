@@ -149,8 +149,8 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            JCheckBox cb = (JCheckBox) e.getSource();
+        public void actionPerformed(ActionEvent evt) {
+            JCheckBox cb = (JCheckBox) evt.getSource();
 
             PluginManager.INSTANCE.exclude(plugin, !cb.isSelected());
         }
@@ -185,7 +185,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void stateChanged(ChangeEvent e) {
+    public void stateChanged(ChangeEvent evt) {
         setEnabledHelpButton();
     }
 

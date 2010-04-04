@@ -169,7 +169,7 @@ public final class ScheduledTasks
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         synchronized (button) {
             if (isRunning) {
                 stopCurrentTasks();

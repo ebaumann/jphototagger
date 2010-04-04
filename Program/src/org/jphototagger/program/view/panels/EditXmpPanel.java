@@ -217,8 +217,8 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     }
 
     @Override
-    public void focusGained(FocusEvent e) {
-        lastFocussedComponent = e.getComponent();
+    public void focusGained(FocusEvent evt) {
+        lastFocussedComponent = evt.getComponent();
 
         if (lastFocussedComponent instanceof JTextComponent) {
             ((JTextComponent) lastFocussedComponent).selectAll();
@@ -228,8 +228,8 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     }
 
     @Override
-    public void focusLost(FocusEvent e) {
-        Component c = e.getComponent();
+    public void focusLost(FocusEvent evt) {
+        Component c = evt.getComponent();
 
         if (c == lastInputComponent) {
             firstInputComponent.requestFocusInWindow();

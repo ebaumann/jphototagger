@@ -76,15 +76,15 @@ public final class ControllerOpenFavoriteInFolders
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_O)
+    public void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_O)
                 &&!treeFavoriteDirectories.isSelectionEmpty()) {
             selectDirectory();
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         if (treeFavoriteDirectories.getSelectionCount() >= 0) {
             selectDirectory();
         }
@@ -130,13 +130,13 @@ public final class ControllerOpenFavoriteInFolders
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

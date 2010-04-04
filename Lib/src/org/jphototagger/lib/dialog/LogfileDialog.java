@@ -378,13 +378,13 @@ public final class LogfileDialog extends Dialog
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
+    public void valueChanged(ListSelectionEvent evt) {
         showDetails();
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (isCheckbox(e.getSource())) {
+    public void actionPerformed(ActionEvent evt) {
+        if (isCheckbox(evt.getSource())) {
             resetVisibeLevels();
         }
     }

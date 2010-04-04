@@ -51,11 +51,11 @@ public final class MouseListenerFavorites extends MouseListenerTree {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        super.mousePressed(e);
+    public void mousePressed(MouseEvent evt) {
+        super.mousePressed(evt);
 
-        if (MouseEventUtil.isPopupTrigger(e)) {
-            TreePath path        = TreeUtil.getTreePath(e);
+        if (MouseEventUtil.isPopupTrigger(evt)) {
+            TreePath path        = TreeUtil.getTreePath(evt);
             boolean  isFavorite  = false;
             boolean  isDirectory = false;
 
@@ -71,7 +71,7 @@ public final class MouseListenerFavorites extends MouseListenerTree {
                     DefaultMutableTreeNode parent     =
                         (DefaultMutableTreeNode) node.getParent();
                     TreeNode root =
-                        (TreeNode) ((JTree) e.getSource()).getModel().getRoot();
+                        (TreeNode) ((JTree) evt.getSource()).getModel().getRoot();
 
                     isDirectory = userObject instanceof File;
 
@@ -93,7 +93,7 @@ public final class MouseListenerFavorites extends MouseListenerTree {
                     || isDirectory);
             popupMenu.getItemRenameFilesystemFolder().setEnabled(isDirectory);
             popupMenu.getItemDeleteFilesystemFolder().setEnabled(isDirectory);
-            popupMenu.show((JTree) e.getSource(), e.getX(), e.getY());
+            popupMenu.show((JTree) evt.getSource(), evt.getX(), evt.getY());
         }
     }
 }

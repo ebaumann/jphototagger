@@ -101,11 +101,11 @@ public class ProgramSelectDialog extends Dialog {
         super.setVisible(visible);
     }
 
-    private void handleMousClicked(MouseEvent e) {
+    private void handleMousClicked(MouseEvent evt) {
         int     selIndex   = listPrograms.getSelectedIndex();
         boolean isSelected = selIndex >= 0;
 
-        if ((e.getClickCount() >= 2) && isSelected) {
+        if ((evt.getClickCount() >= 2) && isSelected) {
             handleButtonSelectAction();
         }
 

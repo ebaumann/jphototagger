@@ -34,7 +34,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerShowUserSettingsDialog implements ActionListener {
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         showDialog();
     }
 

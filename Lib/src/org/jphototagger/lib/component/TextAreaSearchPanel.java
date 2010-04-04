@@ -105,17 +105,17 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
     }
 
     @Override
-    public void insertUpdate(DocumentEvent e) {
+    public void insertUpdate(DocumentEvent evt) {
         searchFromTextStart();
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {
+    public void removeUpdate(DocumentEvent evt) {
         searchFromTextStart();
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
+    public void changedUpdate(DocumentEvent evt) {
         // ignore
     }
 

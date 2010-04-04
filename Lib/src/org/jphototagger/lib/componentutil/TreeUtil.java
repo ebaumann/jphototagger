@@ -92,17 +92,17 @@ public final class TreeUtil {
     /**
      * Liefert, ob der Mauszeiger über dem Wurzelitem steht.
      *
-     * @param  e  Mausereigenis
+     * @param  evt  Mausereigenis
      * @return true, falls der Zeiger über dem Wurzelitem steht
      */
-    public static boolean isRootItemPosition(MouseEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static boolean isRootItemPosition(MouseEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        if (e.getSource() instanceof JTree) {
-            JTree    tree      = (JTree) e.getSource();
-            TreePath mousePath = tree.getPathForLocation(e.getX(), e.getY());
+        if (evt.getSource() instanceof JTree) {
+            JTree    tree      = (JTree) evt.getSource();
+            TreePath mousePath = tree.getPathForLocation(evt.getX(), evt.getY());
 
             if (mousePath != null) {
                 Object root      = tree.getModel().getRoot();
@@ -365,20 +365,20 @@ public final class TreeUtil {
     /**
      * Returns the tree path below a mouse position got by a mouse event.
      *
-     * @param  e mouse event within a {@link JTree}
+     * @param  evt mouse event within a {@link JTree}
      * @return   tree path below the mouse position or null if below the mouse
      *           position isn't a tree path
      */
-    public static TreePath getTreePath(MouseEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static TreePath getTreePath(MouseEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        Object source = e.getSource();
+        Object source = evt.getSource();
 
         if (source instanceof JTree) {
-            int mousePosX = e.getX();
-            int mousePosY = e.getY();
+            int mousePosX = evt.getX();
+            int mousePosY = evt.getY();
 
             return ((JTree) source).getPathForLocation(mousePosX, mousePosY);
         }

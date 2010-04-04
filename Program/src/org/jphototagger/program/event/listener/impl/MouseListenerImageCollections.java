@@ -43,25 +43,25 @@ public final class MouseListenerImageCollections extends MouseAdapter {
         PopupMenuImageCollections.INSTANCE;
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        int index = ListUtil.getItemIndex(e);
+    public void mousePressed(MouseEvent evt) {
+        int index = ListUtil.getItemIndex(evt);
 
         popupMenu.setItemIndex(index);
 
-        if (MouseEventUtil.isPopupTrigger(e)) {
-            JList   list                = (JList) e.getSource();
+        if (MouseEventUtil.isPopupTrigger(evt)) {
+            JList   list                = (JList) evt.getSource();
             boolean isItem              = index >= 0;
             boolean isSpecialCollection = isSpecialCollection(list, index);
 
             popupMenu.getItemDelete().setEnabled(isItem &&!isSpecialCollection);
             popupMenu.getItemRename().setEnabled(isItem &&!isSpecialCollection);
-            popupMenu.show(list, e.getX(), e.getY());
+            popupMenu.show(list, evt.getX(), evt.getY());
         }
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-        ((JList) e.getSource()).setCursor(Cursor.getDefaultCursor());
+    public void mouseExited(MouseEvent evt) {
+        ((JList) evt.getSource()).setCursor(Cursor.getDefaultCursor());
     }
 
     private boolean isSpecialCollection(JList list, int index) {

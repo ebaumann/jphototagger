@@ -50,7 +50,7 @@ public final class ControllerToggleButtonSelKeywords implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         boolean selected = toggleButtonExpandAllNodesSelKeywords.isSelected();
 
         TreeUtil.expandAll(GUI.INSTANCE.getAppPanel().getTreeSelKeywords(),

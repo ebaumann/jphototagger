@@ -81,13 +81,13 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent evt) {
         if (!menuItemPaste.isEnabled()) {
             return;
         }
 
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_V) && canPasteFiles()) {
-            Object source = e.getSource();
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_V) && canPasteFiles()) {
+            Object source = evt.getSource();
 
             if (source == thumbnailsPanel) {
                 insertFiles(getDirectory());
@@ -106,7 +106,7 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         if (thumbnailsPanel.getContent().canInsertImagesFromFileSystem()) {
             insertFiles(getDirectory());
             menuItemPaste.setEnabled(false);
@@ -174,30 +174,30 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     @Override
-    public void menuSelected(MenuEvent e) {
+    public void menuSelected(MenuEvent evt) {
         menuItemPaste.setEnabled(canPasteFiles());
     }
 
     @Override
-    public void menuDeselected(MenuEvent e) {
+    public void menuDeselected(MenuEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void menuCanceled(MenuEvent e) {
+    public void menuCanceled(MenuEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

@@ -105,7 +105,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent evt) {
             new Upload(getFiles()).start();
         }
     }

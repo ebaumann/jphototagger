@@ -79,9 +79,9 @@ public class SynonymsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
-            if (e.getSource() == listWords) {
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
+            if (evt.getSource() == listWords) {
                 setSynonyms();
             }
 
@@ -135,7 +135,7 @@ public class SynonymsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void insertUpdate(DocumentEvent e) {
+    public void insertUpdate(DocumentEvent evt) {
         if (!listenToDocuments) {
             return;
         }
@@ -144,7 +144,7 @@ public class SynonymsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {
+    public void removeUpdate(DocumentEvent evt) {
         if (!listenToDocuments) {
             return;
         }
@@ -153,7 +153,7 @@ public class SynonymsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
+    public void changedUpdate(DocumentEvent evt) {
         if (!listenToDocuments) {
             return;
         }

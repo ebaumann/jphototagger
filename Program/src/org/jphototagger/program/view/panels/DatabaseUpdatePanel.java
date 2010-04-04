@@ -218,9 +218,9 @@ public class DatabaseUpdatePanel extends JPanel
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         synchronized (this) {
-            if (e.getSource() == thumbnailUpdater) {
+            if (evt.getSource() == thumbnailUpdater) {
                 thumbnailUpdater = null;
                 buttonUpdateThumbnails.setEnabled(true);
                 setEnabledAllButtons(true);

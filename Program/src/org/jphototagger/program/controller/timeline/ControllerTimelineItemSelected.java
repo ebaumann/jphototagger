@@ -79,9 +79,9 @@ public final class ControllerTimelineItemSelected
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath()) {
-            setFilesOfTreePathToThumbnailsPanel(e.getNewLeadSelectionPath(),
+    public void valueChanged(TreeSelectionEvent evt) {
+        if (evt.isAddedPath()) {
+            setFilesOfTreePathToThumbnailsPanel(evt.getNewLeadSelectionPath(),
                     null);
         }
     }

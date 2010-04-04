@@ -232,13 +232,13 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
                 ThumbnailUpdateEvent.Type.RENDERED_THUMBNAIL_UPDATE));
     }
 
-    public void notifyUpdate(ThumbnailUpdateEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public void notifyUpdate(ThumbnailUpdateEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.actionPerformed(e);
+            l.actionPerformed(evt);
         }
     }
 

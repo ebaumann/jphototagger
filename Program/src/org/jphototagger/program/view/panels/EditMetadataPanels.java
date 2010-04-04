@@ -908,19 +908,19 @@ public final class EditMetadataPanels
     }
 
     @Override
-    public void focusGained(FocusEvent e) {
-        Component source = (Component) e.getSource();
+    public void focusGained(FocusEvent evt) {
+        Component source = (Component) evt.getSource();
 
         if (isEditControl(source)) {
             lastFocussedEditControl = source;
         }
 
-        scrollToVisible(e.getSource());
+        scrollToVisible(evt.getSource());
     }
 
     @Override
-    public void focusLost(FocusEvent e) {
-        if (isEditComponent(e.getOppositeComponent())) {
+    public void focusLost(FocusEvent evt) {
+        if (isEditComponent(evt.getOppositeComponent())) {
             checkSaveOnChanges();
         }
     }
@@ -1175,13 +1175,13 @@ public final class EditMetadataPanels
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
+        public void mousePressed(MouseEvent evt) {
             synchronized (this) {
                 if (!editable ||!listen) {
                     return;
                 }
 
-                TextEntry entry = getTextEntry(e.getSource());
+                TextEntry entry = getTextEntry(evt.getSource());
 
                 if (enableEdit(entry)
                         && (entry instanceof RatingSelectionPanel)) {

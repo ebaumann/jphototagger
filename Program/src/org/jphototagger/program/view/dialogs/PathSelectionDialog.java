@@ -146,12 +146,12 @@ public class PathSelectionDialog extends Dialog
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public void valueChanged(ListSelectionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        if (!e.getValueIsAdjusting()) {
+        if (!evt.getValueIsAdjusting()) {
             buttonSelectSelected.setEnabled(list.getSelectedIndex() >= 0);
         }
     }

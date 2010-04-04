@@ -82,19 +82,19 @@ public class MouseListenerTree extends MouseAdapter implements ActionListener {
     protected void popupTrigger(JTree tree, TreePath path, int x, int y) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        if (!MouseEventUtil.isPopupTrigger(e)) {
+    public void mousePressed(MouseEvent evt) {
+        if (!MouseEventUtil.isPopupTrigger(evt)) {
             return;
         }
 
-        reset(TreeUtil.getTreePath(e));
+        reset(TreeUtil.getTreePath(evt));
 
         if (path != null) {
-            Object source = e.getSource();
+            Object source = evt.getSource();
 
             if (source instanceof JTree) {
                 tree = (JTree) source;
-                popupTrigger(tree, path, e.getX(), e.getY());
+                popupTrigger(tree, path, evt.getX(), evt.getY());
             }
         }
     }

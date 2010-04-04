@@ -88,15 +88,15 @@ public final class ProgramPropertiesDialog extends Dialog {
         textFieldAlias.getDocument().addDocumentListener(
             new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(DocumentEvent evt) {
                 setEnabledButtonOk();
             }
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(DocumentEvent evt) {
                 setEnabledButtonOk();
             }
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(DocumentEvent evt) {
                 setEnabledButtonOk();
             }
         });

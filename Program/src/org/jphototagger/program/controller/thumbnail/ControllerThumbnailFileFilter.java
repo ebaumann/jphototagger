@@ -55,13 +55,13 @@ public final class ControllerThumbnailFileFilter
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         new UserDefinedFileFilterDialog().setVisible(true);
     }
 
     @Override
-    public void itemStateChanged(ItemEvent e) {
-        Object          item = e.getItem();
+    public void itemStateChanged(ItemEvent evt) {
+        Object          item = evt.getItem();
         ThumbnailsPanel tnPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 

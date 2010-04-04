@@ -35,7 +35,7 @@ import java.awt.event.ActionListener;
 public final class ControllerShowAdvancedSearchDialog
         implements ActionListener {
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         showDialog();
     }
 

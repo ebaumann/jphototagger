@@ -106,10 +106,10 @@ public final class ControllerAdvancedSearch implements ActionListener {
      * Takes a search via {@link AdvancedSearchPanel#createSavedSearch()} and
      * performs it (searches).
      *
-     * @param e can be null
+     * @param evt can be null
      */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         SavedSearch savedSearch = searchPanel.createSavedSearch();
 
         if (savedSearch.isValid()) {

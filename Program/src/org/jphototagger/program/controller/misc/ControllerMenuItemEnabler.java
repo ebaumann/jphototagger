@@ -147,8 +147,8 @@ public final class ControllerMenuItemEnabler
     }
 
     @Override
-    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-        Object source = e.getSource();
+    public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
+        Object source = evt.getSource();
 
         if (source == popupThumbnails) {
             popupMenuThumbnailsBecomeVisible();
@@ -173,13 +173,13 @@ public final class ControllerMenuItemEnabler
     }
 
     @Override
-    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void popupMenuCanceled(PopupMenuEvent e) {
+    public void popupMenuCanceled(PopupMenuEvent evt) {
 
         // ignore
     }

@@ -59,8 +59,8 @@ public final class ControllerNoMetadataItemSelected
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
             setFiles();
         }
     }

@@ -53,12 +53,12 @@ public class ControllerDeleteKeywords extends ControllerKeywords
     }
 
     @Override
-    protected boolean myKey(KeyEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        return e.getKeyCode() == KeyEvent.VK_DELETE;
+        return evt.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
     @Override

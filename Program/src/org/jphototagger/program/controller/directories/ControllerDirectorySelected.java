@@ -73,8 +73,9 @@ public final class ControllerDirectorySelected
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath() &&!PopupMenuDirectories.INSTANCE.isTreeSelected()) {
+    public void valueChanged(TreeSelectionEvent evt) {
+        if (evt.isAddedPath()
+                &&!PopupMenuDirectories.INSTANCE.isTreeSelected()) {
             setFilesToThumbnailsPanel(null);
         }
     }

@@ -60,8 +60,8 @@ public final class ControllerDeleteSavedSearch
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if ((e.getKeyCode() == KeyEvent.VK_DELETE) &&!list.isSelectionEmpty()) {
+    public void keyPressed(KeyEvent evt) {
+        if ((evt.getKeyCode() == KeyEvent.VK_DELETE) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
 
             if (value instanceof SavedSearch) {
@@ -71,7 +71,7 @@ public final class ControllerDeleteSavedSearch
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         delete(actionPopup.getSavedSearch());
     }
 
@@ -81,13 +81,13 @@ public final class ControllerDeleteSavedSearch
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

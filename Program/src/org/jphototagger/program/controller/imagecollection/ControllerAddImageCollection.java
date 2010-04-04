@@ -74,14 +74,14 @@ public final class ControllerAddImageCollection
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_N)) {
+    public void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)) {
             createImageCollectionOfSelectedFiles();
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         createImageCollectionOfSelectedFiles();
     }
 
@@ -109,13 +109,13 @@ public final class ControllerAddImageCollection
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

@@ -93,8 +93,8 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+    public void actionPerformed(ActionEvent evt) {
+        Object source = evt.getSource();
 
         if (source == buttonMetadataTemplateCreate) {
             createTemplate();

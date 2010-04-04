@@ -69,14 +69,14 @@ public final class ControllerCopyOrCutFilesToClipboard
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent evt) {
         if (thumbnailsPanel.getSelectionCount() <= 0) {
             return;
         }
 
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_C)) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_C)) {
             perform(FileAction.COPY);
-        } else if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_X)) {
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_X)) {
             perform(FileAction.CUT);
         }
     }
@@ -88,9 +88,9 @@ public final class ControllerCopyOrCutFilesToClipboard
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         if (thumbnailsPanel.getSelectionCount() > 0) {
-            setFileAction(e.getSource());
+            setFileAction(evt.getSource());
             transferSelectedFiles();
             popup.getItemPasteFromClipboard().setEnabled(true);
         }
@@ -130,13 +130,13 @@ public final class ControllerCopyOrCutFilesToClipboard
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

@@ -75,19 +75,19 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_P) {
+    public void keyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_P) {
             addOrRemove(true);
-        } else if (e.getKeyCode() == KeyEvent.VK_R) {
+        } else if (evt.getKeyCode() == KeyEvent.VK_R) {
             addOrRemove(false);
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(itemPick)) {
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource().equals(itemPick)) {
             addOrRemove(true);
-        } else if (e.getSource().equals(itemReject)) {
+        } else if (evt.getSource().equals(itemReject)) {
             addOrRemove(false);
         }
     }
@@ -160,13 +160,13 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

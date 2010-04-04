@@ -264,19 +264,19 @@ public final class EditTextEntryPanel extends JPanel
     }
 
     @Override
-    public void insertUpdate(DocumentEvent e) {
+    public void insertUpdate(DocumentEvent evt) {
         notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {
+    public void removeUpdate(DocumentEvent evt) {
         notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
+    public void changedUpdate(DocumentEvent evt) {
         notifyTextChanged(column, "", textAreaEdit.getText());
         dirty = true;
     }

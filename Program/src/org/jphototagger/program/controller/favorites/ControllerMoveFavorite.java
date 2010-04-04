@@ -58,8 +58,8 @@ public final class ControllerMoveFavorite implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        boolean moveUp = popup.getItemMoveUp().equals(e.getSource());
+    public void actionPerformed(ActionEvent evt) {
+        boolean moveUp = popup.getItemMoveUp().equals(evt.getSource());
 
         SwingUtilities.invokeLater(new MoveDir(moveUp));
     }

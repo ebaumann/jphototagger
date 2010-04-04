@@ -62,8 +62,8 @@ public final class ControllerEditSavedSearch
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_E)
+    public void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E)
                 &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
 
@@ -74,7 +74,7 @@ public final class ControllerEditSavedSearch
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         showAdvancedSearchDialog(actionPopup.getSavedSearch());
     }
 
@@ -85,13 +85,13 @@ public final class ControllerEditSavedSearch
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

@@ -268,7 +268,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent evt) {
             textArea.transferFocusBackward();
         }
     }
@@ -278,7 +278,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent evt) {
             textArea.transferFocus();
         }
     }

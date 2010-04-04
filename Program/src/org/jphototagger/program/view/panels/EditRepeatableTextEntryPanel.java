@@ -423,20 +423,20 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     /**
      * Removes the list's selected elements from the list.
      *
-     * @param e action event
+     * @param evt action event
      */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         removeSelectedElements();
     }
 
     /**
      * The input text field's document was changed: Sets the dirty flag.
      *
-     * @param e document event
+     * @param evt document event
      */
     @Override
-    public void insertUpdate(DocumentEvent e) {
+    public void insertUpdate(DocumentEvent evt) {
 
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
@@ -447,10 +447,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     /**
      * The input text field's document was changed: Sets the dirty flag.
      *
-     * @param e document event
+     * @param evt document event
      */
     @Override
-    public void removeUpdate(DocumentEvent e) {
+    public void removeUpdate(DocumentEvent evt) {
 
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
@@ -461,10 +461,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     /**
      * The input text field's document was changed: Sets the dirty flag.
      *
-     * @param e document event
+     * @param evt document event
      */
     @Override
-    public void changedUpdate(DocumentEvent e) {
+    public void changedUpdate(DocumentEvent evt) {
 
         // Don't notify TextEntryListener listeners because the model doesn't
         // change
@@ -618,14 +618,14 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     @Override
-    public void intervalAdded(ListDataEvent e) {
+    public void intervalAdded(ListDataEvent evt) {
         if (ignoreIntervalAdded) {
             return;
         }
 
         // drop
-        int index0 = e.getIndex0();
-        int index1 = e.getIndex1();
+        int index0 = evt.getIndex0();
+        int index1 = evt.getIndex1();
 
         for (int i = index0; i <= index1; i++) {
             notifyTextAdded(column, model.get(i).toString());
@@ -634,12 +634,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     @Override
-    public void intervalRemoved(ListDataEvent e) {
+    public void intervalRemoved(ListDataEvent evt) {
         dirty = true;
     }
 
     @Override
-    public void contentsChanged(ListDataEvent e) {
+    public void contentsChanged(ListDataEvent evt) {
         buttonRemoveSelection.setEnabled(list.getModel().getSize() > 0);
     }
 

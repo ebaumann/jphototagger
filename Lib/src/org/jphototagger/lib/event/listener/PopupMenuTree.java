@@ -205,15 +205,15 @@ public abstract class PopupMenuTree extends JPopupMenu
         itemCollapseExpandAllSubItems = item;
     }
 
-    private void showPopupMenu(MouseEvent e) {
-        if (setLastSelTreePaths(e)) {
+    private void showPopupMenu(MouseEvent evt) {
+        if (setLastSelTreePaths(evt)) {
             setMenuItemsEnabled(new ArrayList<TreePath>(lastSelTreePaths));
-            show(tree, e.getX(), e.getY());
+            show(tree, evt.getX(), evt.getY());
         }
     }
 
-    private boolean setLastSelTreePaths(MouseEvent e) {
-        TreePath mouseCursorPath = TreeUtil.getTreePath(e);
+    private boolean setLastSelTreePaths(MouseEvent evt) {
+        TreePath mouseCursorPath = TreeUtil.getTreePath(evt);
 
         if (mouseCursorPath == null) {
             return false;
@@ -263,36 +263,36 @@ public abstract class PopupMenuTree extends JPopupMenu
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        if (!MouseEventUtil.isPopupTrigger(e)) {
+    public void mousePressed(MouseEvent evt) {
+        if (!MouseEventUtil.isPopupTrigger(evt)) {
             return;
         }
 
-        if (e.getSource() == tree) {
-            showPopupMenu(e);
+        if (evt.getSource() == tree) {
+            showPopupMenu(evt);
         }
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent evt) {
 
         // ignore
     }

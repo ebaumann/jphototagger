@@ -76,14 +76,14 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        setRating(popup.getRatingOfItem((JMenuItem) e.getSource()));
+    public void actionPerformed(ActionEvent evt) {
+        setRating(popup.getRatingOfItem((JMenuItem) evt.getSource()));
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (isRatingKey(e)) {
-            setRating(RATING_OF_KEY_CODE.get(e.getKeyCode()));
+    public void keyPressed(KeyEvent evt) {
+        if (isRatingKey(evt)) {
+            setRating(RATING_OF_KEY_CODE.get(evt.getKeyCode()));
         }
     }
 
@@ -96,18 +96,18 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
         }
     }
 
-    private boolean isRatingKey(KeyEvent e) {
-        return RATING_OF_KEY_CODE.containsKey(e.getKeyCode());
+    private boolean isRatingKey(KeyEvent evt) {
+        return RATING_OF_KEY_CODE.containsKey(evt.getKeyCode());
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

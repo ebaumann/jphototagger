@@ -104,8 +104,8 @@ public final class ControllerMetadataTemplateEdit
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        if (MouseEventUtil.isDoubleClick(e)) {
+    public void mouseClicked(MouseEvent evt) {
+        if (MouseEventUtil.isDoubleClick(evt)) {
             Object selValue =
                 InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
                     .getSelectedValue();
@@ -117,25 +117,25 @@ public final class ControllerMetadataTemplateEdit
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent evt) {
 
         // ignore
     }

@@ -613,17 +613,17 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     @Override
-    public void intervalAdded(ListDataEvent e) {
+    public void intervalAdded(ListDataEvent evt) {
         setEnabledRenameTemplateButtons();
     }
 
     @Override
-    public void intervalRemoved(ListDataEvent e) {
+    public void intervalRemoved(ListDataEvent evt) {
         setEnabledRenameTemplateButtons();
     }
 
     @Override
-    public void contentsChanged(ListDataEvent e) {
+    public void contentsChanged(ListDataEvent evt) {
         setEnabledRenameTemplateButtons();
     }
 

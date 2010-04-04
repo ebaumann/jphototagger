@@ -172,15 +172,15 @@ public abstract class PopupMenuList extends JPopupMenu
         }
     }
 
-    private void showPopupMenu(MouseEvent e) {
-        if (setLastSelValues(e)) {
+    private void showPopupMenu(MouseEvent evt) {
+        if (setLastSelValues(evt)) {
             setMenuItemsEnabled(new ArrayList<Object>(lastSelValues));
-            show(list, e.getX(), e.getY());
+            show(list, evt.getX(), evt.getY());
         }
     }
 
-    private boolean setLastSelValues(MouseEvent e) {
-        int mouseCursorIndex = ListUtil.getItemIndex(e);
+    private boolean setLastSelValues(MouseEvent evt) {
+        int mouseCursorIndex = ListUtil.getItemIndex(evt);
 
         if (mouseCursorIndex < 0) {
             return false;
@@ -226,36 +226,36 @@ public abstract class PopupMenuList extends JPopupMenu
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        if (!MouseEventUtil.isPopupTrigger(e)) {
+    public void mousePressed(MouseEvent evt) {
+        if (!MouseEventUtil.isPopupTrigger(evt)) {
             return;
         }
 
-        if (e.getSource() == list) {
-            showPopupMenu(e);
+        if (evt.getSource() == list) {
+            showPopupMenu(evt);
         }
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent evt) {
 
         // ignore
     }

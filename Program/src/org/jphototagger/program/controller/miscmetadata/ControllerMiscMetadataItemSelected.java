@@ -65,10 +65,10 @@ public final class ControllerMiscMetadataItemSelected
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath()) {
+    public void valueChanged(TreeSelectionEvent evt) {
+        if (evt.isAddedPath()) {
             SwingUtilities.invokeLater(
-                new ShowThumbnails(e.getNewLeadSelectionPath(), null));
+                new ShowThumbnails(evt.getNewLeadSelectionPath(), null));
         }
     }
 

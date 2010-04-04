@@ -107,8 +107,8 @@ public final class ControllerFastSearch
         DatabaseImageFiles.INSTANCE.addListener(this);
         textFieldSearch.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            public void keyReleased(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                     search();
                 }
             }
@@ -133,11 +133,11 @@ public final class ControllerFastSearch
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (isAutocomplete && (e.getSource() == comboboxFastSearch)
+    public void actionPerformed(ActionEvent evt) {
+        if (isAutocomplete && (evt.getSource() == comboboxFastSearch)
                 && (comboboxFastSearch.getSelectedIndex() >= 0)) {
             decorateTextFieldSearch();
-        } else if (e.getSource() == appPanel.getButtonSearch()) {
+        } else if (evt.getSource() == appPanel.getButtonSearch()) {
             search();
         }
     }

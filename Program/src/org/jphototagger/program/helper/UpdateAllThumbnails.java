@@ -132,7 +132,7 @@ public final class UpdateAllThumbnails
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         stop = true;
     }
 

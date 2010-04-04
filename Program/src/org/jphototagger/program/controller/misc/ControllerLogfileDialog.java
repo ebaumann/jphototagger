@@ -78,8 +78,8 @@ public final class ControllerLogfileDialog extends MouseAdapter
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        if (MouseEventUtil.isLeftClick(e)
+    public void mouseClicked(MouseEvent evt) {
+        if (MouseEventUtil.isLeftClick(evt)
                 && itemShowDlgErrorLogfile.isEnabled()) {
             showLogfileDialog(AppLoggingSystem.getCurrentLogfileName(),
                               XMLFormatter.class);
@@ -97,8 +97,8 @@ public final class ControllerLogfileDialog extends MouseAdapter
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+    public void actionPerformed(ActionEvent evt) {
+        Object source = evt.getSource();
 
         if (source == itemShowDlgErrorLogfile) {
             showLogfileDialog(AppLoggingSystem.getCurrentLogfileName(),

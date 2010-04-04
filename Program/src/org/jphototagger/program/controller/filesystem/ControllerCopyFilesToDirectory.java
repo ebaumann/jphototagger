@@ -56,7 +56,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         copySelectedFiles();
     }
 

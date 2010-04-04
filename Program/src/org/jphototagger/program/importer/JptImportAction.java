@@ -39,7 +39,7 @@ public final class JptImportAction extends AbstractAction {
         new JptImportAction();
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         new ExportImportDialog(Context.IMPORT).setVisible(true);
     }
 

@@ -49,7 +49,7 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         toggleKeywordOverlay();
         writePersistent();
     }

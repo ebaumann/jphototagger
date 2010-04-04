@@ -308,13 +308,13 @@ public class RatingSelectionPanel extends JPanel
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if ((e.getKeyCode() != KeyEvent.VK_ENTER)
-                && (e.getKeyCode() != KeyEvent.VK_SPACE)) {
+    public void keyPressed(KeyEvent evt) {
+        if ((evt.getKeyCode() != KeyEvent.VK_ENTER)
+                && (evt.getKeyCode() != KeyEvent.VK_SPACE)) {
             return;
         }
 
-        Object src = e.getSource();
+        Object src = evt.getSource();
 
         if (src instanceof JButton) {
             handleButtonPressed((JButton) src);
@@ -322,30 +322,36 @@ public class RatingSelectionPanel extends JPanel
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }
 
     // Visualize Focus
     @Override
-    public void focusGained(FocusEvent e) {
-        assert e.getSource() instanceof JButton : e.getSource();
-        ((JButton) e.getSource()).setBorder(
+    public void focusGained(FocusEvent evt) {
+        boolean isButton = evt.getSource() instanceof JButton;
+
+        if (!isButton) {
+            throw new IllegalArgumentException("Not ab button: "
+                                               + evt.getSource());
+        }
+
+        ((JButton) evt.getSource()).setBorder(
             BorderFactory.createLineBorder(Color.GRAY));
     }
 
     // Visualize Focus
     @Override
-    public void focusLost(FocusEvent e) {
-        assert e.getSource() instanceof JButton : e.getSource();
-        ((JButton) e.getSource()).setBorder(null);
+    public void focusLost(FocusEvent evt) {
+        assert evt.getSource() instanceof JButton : evt.getSource();
+        ((JButton) evt.getSource()).setBorder(null);
     }
 
     /**

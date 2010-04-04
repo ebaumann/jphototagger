@@ -97,16 +97,16 @@ public class SortedListModel extends AbstractListModel {
         unsortedModel = model;
         unsortedModel.addListDataListener(new ListDataListener() {
             @Override
-            public void intervalAdded(ListDataEvent e) {
-                unsortedIntervalAdded(e);
+            public void intervalAdded(ListDataEvent evt) {
+                unsortedIntervalAdded(evt);
             }
             @Override
-            public void intervalRemoved(ListDataEvent e) {
-                unsortedIntervalRemoved(e);
+            public void intervalRemoved(ListDataEvent evt) {
+                unsortedIntervalRemoved(evt);
             }
             @Override
-            public void contentsChanged(ListDataEvent e) {
-                unsortedContentsChanged(e);
+            public void contentsChanged(ListDataEvent evt) {
+                unsortedContentsChanged(evt);
             }
         });
         this.sortOrder = sortOrder;
@@ -303,9 +303,9 @@ public class SortedListModel extends AbstractListModel {
      * are added to the original/decorated model.
      *
      */
-    private void unsortedIntervalAdded(ListDataEvent e) {
-        int begin          = e.getIndex0();
-        int end            = e.getIndex1();
+    private void unsortedIntervalAdded(ListDataEvent evt) {
+        int begin          = evt.getIndex0();
+        int end            = evt.getIndex1();
         int nElementsAdded = end - begin + 1;
 
         /*
@@ -339,9 +339,9 @@ public class SortedListModel extends AbstractListModel {
      * Update this model when items are removed from the original/decorated
      * model. Also, let our listeners know that we've removed items.
      */
-    private void unsortedIntervalRemoved(ListDataEvent e) {
-        int begin            = e.getIndex0();
-        int end              = e.getIndex1();
+    private void unsortedIntervalRemoved(ListDataEvent evt) {
+        int begin            = evt.getIndex0();
+        int end              = evt.getIndex1();
         int nElementsRemoved = end - begin + 1;
 
         /*
@@ -380,7 +380,7 @@ public class SortedListModel extends AbstractListModel {
      * track specific changes, sort everywhere and redisplay all items.
      */
     @SuppressWarnings("unchecked")
-    private void unsortedContentsChanged(ListDataEvent e) {
+    private void unsortedContentsChanged(ListDataEvent evt) {
         Collections.sort(sortedModel);
         fireContentsChanged(ListDataEvent.CONTENTS_CHANGED, 0,
                             sortedModel.size() - 1);

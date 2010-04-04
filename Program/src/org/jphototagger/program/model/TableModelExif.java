@@ -205,7 +205,7 @@ public final class TableModelExif extends DefaultTableModel {
         public GpsButtonListener() {}
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent evt) {
             browse();
         }
 

@@ -54,8 +54,8 @@ public final class ControllerOpenFilesWithOtherApp implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        openFiles(popupMenu.getProgram(e.getSource()));
+    public void actionPerformed(ActionEvent evt) {
+        openFiles(popupMenu.getProgram(evt.getSource()));
     }
 
     private void openFiles(Program program) {

@@ -66,8 +66,8 @@ public final class ControllerRenameImageCollection
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (isRename(e) &&!list.isSelectionEmpty()) {
+    public void keyPressed(KeyEvent evt) {
+        if (isRename(evt) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
 
             if (value instanceof String) {
@@ -77,13 +77,13 @@ public final class ControllerRenameImageCollection
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         renameImageCollection(ListUtil.getItemString(list,
                 popupMenu.getItemIndex()));
     }
 
-    private boolean isRename(KeyEvent e) {
-        return e.getKeyCode() == KeyEvent.VK_F2;
+    private boolean isRename(KeyEvent evt) {
+        return evt.getKeyCode() == KeyEvent.VK_F2;
     }
 
     private void renameImageCollection(final String fromName) {
@@ -116,13 +116,13 @@ public final class ControllerRenameImageCollection
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

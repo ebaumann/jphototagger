@@ -133,9 +133,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     public void writeProperties() {}
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         synchronized (this) {
-            if (e.getSource() == thumbnailsUpdater) {
+            if (evt.getSource() == thumbnailsUpdater) {
                 buttonUpdateAllThumbnails.setEnabled(true);
             }
         }

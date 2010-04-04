@@ -54,7 +54,7 @@ public final class ControllerEnableInsertMetadataTemplate
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         setButtonEnabled();
     }
 

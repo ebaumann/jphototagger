@@ -62,19 +62,19 @@ public final class ControllerItemsMutualExcludeSelection
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        Object o = e.getSource();
+    public void valueChanged(TreeSelectionEvent evt) {
+        Object o = evt.getSource();
 
-        if (listen && e.isAddedPath() && (o instanceof JTree)) {
+        if (listen && evt.isAddedPath() && (o instanceof JTree)) {
             handleTreeSelected((JTree) o);
         }
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        Object o = e.getSource();
+    public void valueChanged(ListSelectionEvent evt) {
+        Object o = evt.getSource();
 
-        if (listen &&!e.getValueIsAdjusting() && (o instanceof JList)) {
+        if (listen &&!evt.getValueIsAdjusting() && (o instanceof JList)) {
             JList list = (JList) o;
 
             if (list.getSelectedIndex() >= 0) {
