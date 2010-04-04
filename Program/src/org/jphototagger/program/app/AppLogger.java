@@ -192,25 +192,25 @@ public final class AppLogger {
      * <p>
      * The log level is {@link java.util.logging.Level#SEVERE}.
      *
-     * @param c   logger's class
-     * @param ex  Exception
+     * @param c  logger's class
+     * @param t  Throwable
      */
-    public static void logSevere(Class<?> c, Exception ex) {
+    public static void logSevere(Class<?> c, Throwable t) {
         if (c == null) {
             throw new NullPointerException("c == null");
         }
 
-        if (ex == null) {
+        if (t == null) {
             throw new NullPointerException("ex == null");
         }
 
         String    className  = c.getName();
         String    loggerName = className;
-        String    message    = getMessage(ex);
+        String    message    = getMessage(t);
         LogRecord lr         = new LogRecord(Level.SEVERE, message);
 
         setLogRecord(lr, loggerName, className);
-        lr.setThrown(ex);
+        lr.setThrown(t);
         Logger.getLogger(loggerName).log(lr);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
         ErrorListeners.INSTANCE.notifyListeners(c, message);
