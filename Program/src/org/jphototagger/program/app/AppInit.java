@@ -130,7 +130,7 @@ public final class AppInit {
 
     private void setJptEventQueue() {
         Toolkit.getDefaultToolkit().getSystemEventQueue().push(
-            new JptEventQueue());
+            new AppEventQueue());
     }
 
     private static void checkJavaVersion() {
