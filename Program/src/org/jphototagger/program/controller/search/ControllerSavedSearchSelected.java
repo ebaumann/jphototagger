@@ -67,8 +67,8 @@ public final class ControllerSavedSearchSelected
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
             search();
         }
     }

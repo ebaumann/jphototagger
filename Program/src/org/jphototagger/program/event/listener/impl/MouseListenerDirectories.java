@@ -50,17 +50,17 @@ public final class MouseListenerDirectories extends MouseListenerTree {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        super.mousePressed(e);
+    public void mousePressed(MouseEvent evt) {
+        super.mousePressed(evt);
 
-        TreePath path = TreeUtil.getTreePath(e);
+        TreePath path = TreeUtil.getTreePath(evt);
 
         if (path == null) {
             return;
         }
 
-        if (MouseEventUtil.isPopupTrigger(e)) {
-            if (!TreeUtil.isRootItemPosition(e)) {
+        if (MouseEventUtil.isPopupTrigger(evt)) {
+            if (!TreeUtil.isRootItemPosition(evt)) {
                 Object lastPathComponent = path.getLastPathComponent();
 
                 if (lastPathComponent instanceof DefaultMutableTreeNode) {
@@ -77,7 +77,7 @@ public final class MouseListenerDirectories extends MouseListenerTree {
                 }
             }
 
-            popupMenu.show((JTree) e.getSource(), e.getX(), e.getY());
+            popupMenu.show((JTree) evt.getSource(), evt.getX(), evt.getY());
         }
     }
 }

@@ -70,19 +70,19 @@ public final class ControllerCopyPasteMetadata
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isMenuShortcutWithShiftDown(e, KeyEvent.VK_C)) {
+    public void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isMenuShortcutWithShiftDown(evt, KeyEvent.VK_C)) {
             copy();
-        } else if (KeyEventUtil.isMenuShortcutWithShiftDown(e, KeyEvent.VK_V)) {
+        } else if (KeyEventUtil.isMenuShortcutWithShiftDown(evt, KeyEvent.VK_V)) {
             paste();
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == menuItemCopy) {
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == menuItemCopy) {
             copy();
-        } else if (e.getSource() == menuItemPaste) {
+        } else if (evt.getSource() == menuItemPaste) {
             paste();
         }
     }
@@ -148,13 +148,13 @@ public final class ControllerCopyPasteMetadata
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

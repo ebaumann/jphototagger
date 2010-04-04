@@ -57,7 +57,7 @@ public final class ControllerMoveFiles
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         moveSelectedFiles();
     }
 

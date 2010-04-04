@@ -56,22 +56,22 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        super.mousePressed(e);
+    public void mousePressed(MouseEvent evt) {
+        super.mousePressed(evt);
 
-        if (MouseEventUtil.isPopupTrigger(e)) {
-            TreePath mouseCursorPath = TreeUtil.getTreePath(e);
+        if (MouseEventUtil.isPopupTrigger(evt)) {
+            TreePath mouseCursorPath = TreeUtil.getTreePath(evt);
             boolean  isHkNode        =
-                (mouseCursorPath != null) &&!TreeUtil.isRootItemPosition(e)
+                (mouseCursorPath != null) &&!TreeUtil.isRootItemPosition(evt)
                 && (mouseCursorPath.getLastPathComponent()
                     instanceof DefaultMutableTreeNode);
-            JTree tree = (JTree) e.getSource();
+            JTree tree = (JTree) evt.getSource();
 
             popupMenu.setTree(tree);
             setTreePathsToPopupMenu(tree, mouseCursorPath);
             setMenuItemsEnabled(isHkNode);
             popupMenu.getItemAdd().setEnabled(mouseCursorPath != null);
-            popupMenu.show(tree, e.getX(), e.getY());
+            popupMenu.show(tree, evt.getX(), evt.getY());
         }
     }
 

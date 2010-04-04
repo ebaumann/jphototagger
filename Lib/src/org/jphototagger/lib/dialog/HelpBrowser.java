@@ -278,11 +278,11 @@ public final class HelpBrowser extends Dialog
         buttonNext.setEnabled(canGoNext());
     }
 
-    private void showPopupMenu(MouseEvent e) {
-        if (e.isPopupTrigger()) {
+    private void showPopupMenu(MouseEvent evt) {
+        if (evt.isPopupTrigger()) {
             itemPrevious.setEnabled(canGoPrevious());
             itemNext.setEnabled(canGoNext());
-            popupMenu.show(editorPanePage, e.getX(), e.getY());
+            popupMenu.show(editorPanePage, evt.getX(), evt.getY());
         }
     }
 
@@ -305,18 +305,18 @@ public final class HelpBrowser extends Dialog
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == itemPrevious) {
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == itemPrevious) {
             goPrevious();
-        } else if (e.getSource() == itemNext) {
+        } else if (evt.getSource() == itemNext) {
             goNext();
         }
     }
 
     @Override
-    public void hyperlinkUpdate(HyperlinkEvent e) {
-        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-            URL      url               = e.getURL();
+    public void hyperlinkUpdate(HyperlinkEvent evt) {
+        if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+            URL      url               = evt.getURL();
             String   lastPathComponent = getLastPathComponent(url);
             Object[] path              =
                 ((HelpNode) tree.getModel().getRoot()).getPagePath(
@@ -365,10 +365,10 @@ public final class HelpBrowser extends Dialog
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
+    public void valueChanged(TreeSelectionEvent evt) {
         synchronized (this) {
-            if (!settingPath && e.isAddedPath()) {
-                Object o = e.getNewLeadSelectionPath().getLastPathComponent();
+            if (!settingPath && evt.isAddedPath()) {
+                Object o = evt.getNewLeadSelectionPath().getLastPathComponent();
 
                 if (o instanceof HelpPage) {
                     HelpPage helpPage    = (HelpPage) o;
@@ -387,21 +387,21 @@ public final class HelpBrowser extends Dialog
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent evt) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        showPopupMenu(e);
+    public void mousePressed(MouseEvent evt) {
+        showPopupMenu(evt);
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent evt) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent evt) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent evt) {}
 
     /**
      * This method is called from within the constructor to

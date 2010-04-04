@@ -40,16 +40,16 @@ public abstract class MouseListenerList extends MouseAdapter {
     private boolean popupAlways;
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        assert e.getSource() instanceof JList : e.getSource();
+    public void mousePressed(MouseEvent evt) {
+        assert evt.getSource() instanceof JList : evt.getSource();
 
-        if (MouseEventUtil.isPopupTrigger(e)) {
-            JList list = (JList) e.getSource();
+        if (MouseEventUtil.isPopupTrigger(evt)) {
+            JList list = (JList) evt.getSource();
 
-            index = list.locationToIndex(new Point(e.getX(), e.getY()));
+            index = list.locationToIndex(new Point(evt.getX(), evt.getY()));
 
             if (popupAlways || (index >= 0)) {
-                showPopup(list, e.getX(), e.getY());
+                showPopup(list, evt.getX(), evt.getY());
             }
         }
     }

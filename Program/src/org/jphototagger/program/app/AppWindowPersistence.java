@@ -95,8 +95,8 @@ public final class AppWindowPersistence
     }
 
     @Override
-    public void componentShown(ComponentEvent e) {
-        Component c                 = e.getComponent();
+    public void componentShown(ComponentEvent evt) {
+        Component c                 = evt.getComponent();
         boolean   isSelKeywordsCard = isSelKeywordsCard(c);
         boolean   knownCardName     = NAME_OF_CARD.containsKey(c);
 
@@ -214,19 +214,19 @@ public final class AppWindowPersistence
     }
 
     @Override
-    public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void componentMoved(ComponentEvent e) {
+    public void componentMoved(ComponentEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void componentHidden(ComponentEvent e) {
+    public void componentHidden(ComponentEvent evt) {
 
         // ignore
     }

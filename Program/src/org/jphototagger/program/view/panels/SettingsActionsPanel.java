@@ -143,8 +143,8 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
             setButtonsEnabled();
         }
     }

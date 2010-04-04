@@ -70,8 +70,8 @@ public final class ControllerPlugins implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Object     src = e.getSource();
+    public void actionPerformed(ActionEvent evt) {
+        Object     src = evt.getSource();
         List<File> selFiles =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
 
@@ -85,7 +85,7 @@ public final class ControllerPlugins implements ActionListener {
             plugin.setFiles(selFiles);
             plugin.setProperties(UserSettings.INSTANCE.getProperties());
             plugin.setProgressBar(ProgressBar.INSTANCE.getResource(this));
-            action.actionPerformed(e);
+            action.actionPerformed(evt);
         }
     }
 

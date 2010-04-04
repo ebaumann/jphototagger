@@ -274,7 +274,7 @@ public final class DirectoryChooser extends Dialog
     }
 
     @Override
-    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+    public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
         Object  node          = tree.getLastSelectedPathComponent();
         boolean allDirOptions = allDirActionsPossible();
 
@@ -284,19 +284,19 @@ public final class DirectoryChooser extends Dialog
     }
 
     @Override
-    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void popupMenuCanceled(PopupMenuEvent e) {
+    public void popupMenuCanceled(PopupMenuEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
+    public void valueChanged(TreeSelectionEvent evt) {
         Object  node          = tree.getLastSelectedPathComponent();
         boolean allDirActions = allDirActionsPossible();
         boolean isWorkspace   = isWorkspace(node);

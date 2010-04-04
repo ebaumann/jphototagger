@@ -49,7 +49,7 @@ public final class ControllerOpenFilesWithStandardApp
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         if (checkOpenAppIsDefined()) {
             openFiles();
         }

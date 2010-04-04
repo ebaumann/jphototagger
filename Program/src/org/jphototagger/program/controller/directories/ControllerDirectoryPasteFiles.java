@@ -62,9 +62,9 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isPaste(e)) {
-            Object source = e.getSource();
+    public void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isPaste(evt)) {
+            Object source = evt.getSource();
 
             if (source instanceof JTree) {
                 copyOrMovePastedFilesTo((JTree) source);
@@ -110,13 +110,13 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

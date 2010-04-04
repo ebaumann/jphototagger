@@ -49,7 +49,7 @@ public abstract class ControllerKeywords
         implements ActionListener, KeyListener {
     private final KeywordsPanel panel;
 
-    abstract protected boolean myKey(KeyEvent e);
+    abstract protected boolean myKey(KeyEvent evt);
 
     abstract protected void localAction(List<DefaultMutableTreeNode> nodes);
 
@@ -76,9 +76,9 @@ public abstract class ControllerKeywords
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (myKey(e)) {
-            List<DefaultMutableTreeNode> selNodes = getSelNodes(e);
+    public void keyPressed(KeyEvent evt) {
+        if (myKey(evt)) {
+            List<DefaultMutableTreeNode> selNodes = getSelNodes(evt);
 
             if ((selNodes != null) &&!selNodes.isEmpty()
                     && checkNodeCount(selNodes)) {
@@ -88,8 +88,8 @@ public abstract class ControllerKeywords
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        List<DefaultMutableTreeNode> selNodes = getSelNodes(e);
+    public void actionPerformed(ActionEvent evt) {
+        List<DefaultMutableTreeNode> selNodes = getSelNodes(evt);
 
         if ((selNodes != null) &&!selNodes.isEmpty()
                 && checkNodeCount(selNodes)) {
@@ -97,9 +97,9 @@ public abstract class ControllerKeywords
         }
     }
 
-    protected List<DefaultMutableTreeNode> getSelNodes(ActionEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    protected List<DefaultMutableTreeNode> getSelNodes(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
         TreePath[] selPaths = PopupMenuKeywordsTree.INSTANCE.getTreePaths();
@@ -122,13 +122,13 @@ public abstract class ControllerKeywords
         return selNodes;
     }
 
-    protected List<DefaultMutableTreeNode> getSelNodes(KeyEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    protected List<DefaultMutableTreeNode> getSelNodes(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        if (e.getComponent() instanceof JTree) {
-            JTree tree = (JTree) e.getComponent();
+        if (evt.getComponent() instanceof JTree) {
+            JTree tree = (JTree) evt.getComponent();
 
             if (tree.isSelectionEmpty()) {
                 return null;
@@ -152,13 +152,13 @@ public abstract class ControllerKeywords
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

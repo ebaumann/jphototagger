@@ -87,8 +87,8 @@ public class ControllerCopyCutPasteKeyword
     // because listening to 2 actions: cut is only 1 line of code - too less
     // to implement a separate class
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Object                 source            = e.getSource();
+    public void actionPerformed(ActionEvent evt) {
+        Object                 source            = evt.getSource();
         Object                 lastPathComponent =
             popup.getTreePath().getLastPathComponent();
         DefaultMutableTreeNode node              =
@@ -104,22 +104,22 @@ public class ControllerCopyCutPasteKeyword
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        assert e.getSource() instanceof JTree : e.getSource();
+    public void keyPressed(KeyEvent evt) {
+        assert evt.getSource() instanceof JTree : evt.getSource();
 
-        JTree tree = (JTree) e.getSource();
+        JTree tree = (JTree) evt.getSource();
 
         if (tree.isSelectionEmpty()) {
             return;
         }
 
-        if (KeyEventUtil.isCopy(e)) {
+        if (KeyEventUtil.isCopy(evt)) {
             KeywordTreeNodesClipboard.INSTANCE.setContent(
                 getFirstSelectedNode(tree), Action.COPY);
-        } else if (KeyEventUtil.isCut(e)) {
+        } else if (KeyEventUtil.isCut(evt)) {
             KeywordTreeNodesClipboard.INSTANCE.setContent(
                 getFirstSelectedNode(tree), Action.MOVE);
-        } else if (isPasteCopyFromClipBoard(e)) {
+        } else if (isPasteCopyFromClipBoard(evt)) {
             pasteCopy(tree);
         }
     }
@@ -199,20 +199,20 @@ public class ControllerCopyCutPasteKeyword
                && KeywordTreeNodesClipboard.INSTANCE.isMove();
     }
 
-    private boolean isPasteCopyFromClipBoard(KeyEvent e) {
+    private boolean isPasteCopyFromClipBoard(KeyEvent evt) {
         return !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
-               && KeyEventUtil.isPaste(e)
+               && KeyEventUtil.isPaste(evt)
                && KeywordTreeNodesClipboard.INSTANCE.isCopy();
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

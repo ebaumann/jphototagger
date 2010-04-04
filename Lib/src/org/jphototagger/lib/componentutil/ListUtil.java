@@ -264,20 +264,20 @@ public final class ListUtil {
     /**
      * Returns the item index below a mouse position got by a mouse event.
      *
-     * @param  e mouse event within a {@link JList}
+     * @param  evt mouse event within a {@link JList}
      * @return   item index below the mouse position or -1 if below the mouse
      *           position isn't an item
      */
-    public static int getItemIndex(MouseEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static int getItemIndex(MouseEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        Object source = e.getSource();
+        Object source = evt.getSource();
 
         if (source instanceof JList) {
-            int mousePosX = e.getX();
-            int mousePosY = e.getY();
+            int mousePosX = evt.getX();
+            int mousePosY = evt.getY();
 
             return ((JList) source).locationToIndex(new Point(mousePosX,
                     mousePosY));

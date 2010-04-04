@@ -37,17 +37,17 @@ public final class TabOrEnterLeavingTextArea extends JTextArea {
     private static final long serialVersionUID = -6104921627665799043L;
 
     @Override
-    protected void processComponentKeyEvent(KeyEvent e) {
-        if ((e.getID() == KeyEvent.KEY_PRESSED) && isLeave(e.getKeyCode())) {
-            e.consume();
+    protected void processComponentKeyEvent(KeyEvent evt) {
+        if ((evt.getID() == KeyEvent.KEY_PRESSED) && isLeave(evt.getKeyCode())) {
+            evt.consume();
 
-            if (e.isShiftDown()) {
+            if (evt.isShiftDown()) {
                 transferFocusBackward();
             } else {
                 transferFocus();
             }
         } else {
-            super.processComponentKeyEvent(e);
+            super.processComponentKeyEvent(evt);
         }
     }
 

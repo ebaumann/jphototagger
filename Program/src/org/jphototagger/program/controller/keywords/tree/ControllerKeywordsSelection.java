@@ -56,8 +56,8 @@ public final class ControllerKeywordsSelection
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath()) {
+    public void valueChanged(TreeSelectionEvent evt) {
+        if (evt.isAddedPath()) {
             showThumbnailsOfSelKeywords();
         }
     }

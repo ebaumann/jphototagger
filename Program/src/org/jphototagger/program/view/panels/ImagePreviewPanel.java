@@ -65,13 +65,13 @@ public class ImagePreviewPanel extends JPanel
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent e) {
-        if (!e.getPropertyName().equals(
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (!evt.getPropertyName().equals(
                 JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) {
             return;
         }
 
-        File selFile = (File) e.getNewValue();
+        File selFile = (File) evt.getNewValue();
 
         if ((selFile == null) ||!ImageUtil.isImageFile(selFile)) {
             image = null;

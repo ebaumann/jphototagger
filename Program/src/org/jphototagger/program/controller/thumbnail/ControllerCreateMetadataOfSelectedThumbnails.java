@@ -86,9 +86,9 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         if (thumbnailsPanel.getSelectionCount() > 0) {
-            updateMetadata(getMetadataToInsertIntoDatabase(e.getSource()));
+            updateMetadata(getMetadataToInsertIntoDatabase(evt.getSource()));
         }
     }
 

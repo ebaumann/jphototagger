@@ -317,8 +317,8 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+    public void actionPerformed(ActionEvent evt) {
+        Object source = evt.getSource();
 
         if (source instanceof JCheckBox) {
             writeSelectedIndicesToProperties();

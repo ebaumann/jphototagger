@@ -56,14 +56,14 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         Keyword keyword = getKeyword();
 
         if (keyword == null) {
             return;
         }
 
-        Object source = e.getSource();
+        Object source = evt.getSource();
 
         if (source == itemHk) {
             showImages(keyword);

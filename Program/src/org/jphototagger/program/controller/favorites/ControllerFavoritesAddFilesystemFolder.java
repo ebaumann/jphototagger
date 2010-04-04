@@ -63,8 +63,8 @@ public final class ControllerFavoritesAddFilesystemFolder
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_N)
+    public void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)
                 &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
 
@@ -77,7 +77,7 @@ public final class ControllerFavoritesAddFilesystemFolder
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         createDirectory(popup.getTreePath());
     }
 
@@ -90,13 +90,13 @@ public final class ControllerFavoritesAddFilesystemFolder
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

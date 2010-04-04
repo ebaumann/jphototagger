@@ -51,7 +51,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         addSelectedFilesToImageCollection();
     }
 

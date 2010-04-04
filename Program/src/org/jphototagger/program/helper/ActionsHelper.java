@@ -132,7 +132,7 @@ public final class ActionsHelper {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent evt) {
             ThumbnailsPanel thumbnailsPanel =
                 GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 

@@ -42,10 +42,10 @@ public final class MouseListenerSavedSearches extends MouseAdapter {
         PopupMenuSavedSearches.INSTANCE;
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        if (MouseEventUtil.isPopupTrigger(e)) {
-            int     index  = ListUtil.getItemIndex(e);
-            JList   list   = (JList) e.getSource();
+    public void mousePressed(MouseEvent evt) {
+        if (MouseEventUtil.isPopupTrigger(evt)) {
+            int     index  = ListUtil.getItemIndex(evt);
+            JList   list   = (JList) evt.getSource();
             boolean isItem = index >= 0;
 
             if (isItem) {
@@ -61,7 +61,7 @@ public final class MouseListenerSavedSearches extends MouseAdapter {
             popupMenu.getItemEdit().setEnabled(isItem);
             popupMenu.getItemDelete().setEnabled(isItem);
             popupMenu.getItemRename().setEnabled(isItem);
-            popupMenu.show(list, e.getX(), e.getY());
+            popupMenu.show(list, evt.getX(), evt.getY());
         }
     }
 }

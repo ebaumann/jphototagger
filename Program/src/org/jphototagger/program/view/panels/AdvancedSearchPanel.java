@@ -158,17 +158,17 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private class CustomSqlChangeListener implements DocumentListener {
 
         @Override
-        public void insertUpdate(DocumentEvent e) {
+        public void insertUpdate(DocumentEvent evt) {
             customSqlChanged = true;
         }
 
         @Override
-        public void removeUpdate(DocumentEvent e) {
+        public void removeUpdate(DocumentEvent evt) {
             customSqlChanged = true;
         }
 
         @Override
-        public void changedUpdate(DocumentEvent e) {
+        public void changedUpdate(DocumentEvent evt) {
             customSqlChanged = true;
         }
 
@@ -264,8 +264,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private class KeyListener extends KeyAdapter {
 
         @Override
-        public void keyTyped(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        public void keyTyped(KeyEvent evt) {
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 search();
             }
         }
@@ -424,11 +424,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private class RemoveButtonListener implements ActionListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            assert e.getSource() instanceof JButton : e.getSource();
+        public void actionPerformed(ActionEvent evt) {
+            assert evt.getSource() instanceof JButton : evt.getSource();
 
             SearchColumnPanel panel =
-                    searchPanelOfRemoveButton.get((JButton) e.getSource());
+                    searchPanelOfRemoveButton.get((JButton) evt.getSource());
 
             if (panel != null) {
                 removeColumn(panel);

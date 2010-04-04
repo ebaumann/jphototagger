@@ -39,7 +39,7 @@ import javax.swing.JOptionPane;
  */
 public final class ControllerAboutApp implements ActionListener {
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         JOptionPane.showMessageDialog(
             GUI.INSTANCE.getAppFrame(),
             JptBundle.INSTANCE.getString(

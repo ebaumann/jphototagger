@@ -47,7 +47,7 @@ public final class ControllerExifToXmp implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         processSelectedFiles();
     }
 

@@ -81,8 +81,8 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
             boolean selected = list.getSelectedIndex() >= 0;
 
             buttonDelete.setEnabled(selected);

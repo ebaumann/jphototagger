@@ -43,57 +43,57 @@ public final class KeyEventUtil {
      * Returns whether to copy, i.e. that the key combination of
      * {@link #getMenuShortcutMask()} and the character <code>C</code>.
      *
-     * @param  e    key event
-     * @return true if copy
+     * @param  evt key event
+     * @return     true if copy
      */
-    public static boolean isCopy(KeyEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static boolean isCopy(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        return (e.getKeyCode() == KeyEvent.VK_C)
-               && (e.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == KeyEvent.VK_C)
+               && (evt.getModifiers() == getMenuShortcutMask());
     }
 
     /**
      * Returns whether to cut, i.e. that the key combination of
      * {@link #getMenuShortcutMask()} and the character <code>X</code>.
      *
-     * @param  e    key event
-     * @return true if cut
+     * @param  evt key event
+     * @return     true if cut
      */
-    public static boolean isCut(KeyEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static boolean isCut(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        return (e.getKeyCode() == KeyEvent.VK_X)
-               && (e.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == KeyEvent.VK_X)
+               && (evt.getModifiers() == getMenuShortcutMask());
     }
 
     /**
      * Returns whether to paste, i.e. that the key combination of
      * {@link #getMenuShortcutMask()} and the character <code>V</code>.
      *
-     * @param  e    key event
-     * @return true if paste
+     * @param  evt key event
+     * @return     true if paste
      */
-    public static boolean isPaste(KeyEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static boolean isPaste(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        return (e.getKeyCode() == KeyEvent.VK_V)
-               && (e.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == KeyEvent.VK_V)
+               && (evt.getModifiers() == getMenuShortcutMask());
     }
 
-    private static boolean isModifier(KeyEvent e, int modifier) {
-        int modifiers = e.getModifiers();
+    private static boolean isModifier(KeyEvent evt, int modifier) {
+        int modifiers = evt.getModifiers();
         return (modifiers & modifier) == modifier;
     }
 
-    private static boolean isKeyCode(KeyEvent e, int keyCode) {
-        return e.getKeyCode() == keyCode;
+    private static boolean isKeyCode(KeyEvent evt, int keyCode) {
+        return evt.getKeyCode() == keyCode;
     }
 
 
@@ -101,54 +101,55 @@ public final class KeyEventUtil {
      * Returns, whether the key event is a menu shortcut: A key in combination
      * with {@link #getMenuShortcutMask()} and the ALT key down.
      *
-     * @param e       key event
+     * @param evt     key event
      * @param keyCode key code
      * @return        true if the event is a menu shortcut
      */
-    public static boolean isMenuShortcutWithAlt(KeyEvent e, int keyCode) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static boolean isMenuShortcutWithAlt(KeyEvent evt, int keyCode) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
         int menuShortcutMask = getMenuShortcutMask();
 
-        return isKeyCode(e, keyCode)
-               && (isModifier(e, menuShortcutMask | KeyEvent.ALT_DOWN_MASK)
-               || isModifier(e, menuShortcutMask | KeyEvent.ALT_MASK));
+        return isKeyCode(evt, keyCode)
+               && (isModifier(evt, menuShortcutMask | KeyEvent.ALT_DOWN_MASK)
+               || isModifier(evt, menuShortcutMask | KeyEvent.ALT_MASK));
     }
 
     /**
      * Returns, whether the key event is a menu shortcut: A key in combination
      * with {@link #getMenuShortcutMask()} and the shift key down.
      *
-     * @param e       key event
+     * @param evt     key event
      * @param keyCode key code
      * @return        true if the event is a menu shortcut
      */
-    public static boolean isMenuShortcutWithShiftDown(KeyEvent e, int keyCode) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static boolean isMenuShortcutWithShiftDown(KeyEvent evt, int keyCode) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
+
         int menuShortcutMask = getMenuShortcutMask();
-        return isKeyCode(e, keyCode)
-               && (isModifier(e, menuShortcutMask | KeyEvent.SHIFT_DOWN_MASK)
-               || isModifier(e, menuShortcutMask | KeyEvent.SHIFT_MASK));
+        return isKeyCode(evt, keyCode)
+               && (isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_DOWN_MASK)
+               || isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_MASK));
     }
 
     /**
      * Returns, whether the key event is a menu shortcut: A key in combination
      * with {@link #getMenuShortcutMask()}.
      *
-     * @param e       key event
+     * @param evt     key event
      * @param keyCode key code
      * @return        true if the event is a menu shortcut
      */
-    public static boolean isMenuShortcut(KeyEvent e, int keyCode) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public static boolean isMenuShortcut(KeyEvent evt, int keyCode) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        return (e.getKeyCode() == keyCode)
-               && (e.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == keyCode)
+               && (evt.getModifiers() == getMenuShortcutMask());
     }
 
     /**

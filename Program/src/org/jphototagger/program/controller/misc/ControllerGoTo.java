@@ -126,8 +126,8 @@ public final class ControllerGoTo implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        selectComponent((JMenuItem) e.getSource());
+    public void actionPerformed(ActionEvent evt) {
+        selectComponent((JMenuItem) evt.getSource());
     }
 
     private void selectComponent(JMenuItem item) {

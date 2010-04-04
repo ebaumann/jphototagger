@@ -93,7 +93,7 @@ public final class CopyFilenamesToClipboard extends Plugin
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent evt) {
             notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
             setDelimiter();
 

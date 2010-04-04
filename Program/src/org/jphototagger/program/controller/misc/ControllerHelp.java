@@ -109,8 +109,8 @@ public final class ControllerHelp
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+    public void actionPerformed(ActionEvent evt) {
+        Object source = evt.getSource();
 
         if (source.equals(menuItemHelp)) {
             showHelp();

@@ -121,7 +121,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     @Override
-    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+    public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
         boolean selected = itemsInEditListSelected();
 
         editPanel.getItemRename().setEnabled(selected);
@@ -219,13 +219,13 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     @Override
-    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void popupMenuCanceled(PopupMenuEvent e) {
+    public void popupMenuCanceled(PopupMenuEvent evt) {
 
         // ignore
     }

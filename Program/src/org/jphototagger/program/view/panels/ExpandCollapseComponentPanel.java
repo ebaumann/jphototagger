@@ -218,6 +218,18 @@ public class ExpandCollapseComponentPanel extends JPanel
         }
     }
 
+    @Override
+    public void focusGained(FocusEvent evt) {
+        Object source = evt.getSource();
+
+        if (!expanded && (source instanceof JTextComponent)) {
+            ((JTextComponent) source).transferFocus();
+        }
+    }
+
+    @Override
+    public void focusLost(FocusEvent evt) {}
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -258,16 +270,4 @@ public class ExpandCollapseComponentPanel extends JPanel
     private javax.swing.JButton buttonExpandCollapse;
 
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void focusGained(FocusEvent e) {
-        Object source = e.getSource();
-
-        if (!expanded && (source instanceof JTextComponent)) {
-            ((JTextComponent) source).transferFocus();
-        }
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {}
 }

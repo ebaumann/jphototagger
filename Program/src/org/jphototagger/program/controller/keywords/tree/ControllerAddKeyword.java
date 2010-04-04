@@ -59,12 +59,12 @@ public class ControllerAddKeyword extends ControllerKeywords
     }
 
     @Override
-    protected boolean myKey(KeyEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    protected boolean myKey(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        return KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_N);
+        return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N);
     }
 
     @Override

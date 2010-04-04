@@ -63,8 +63,8 @@ public final class ControllerFavoritesDeleteFilesystemFolder
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if ((e.getKeyCode() == KeyEvent.VK_DELETE) &&!tree.isSelectionEmpty()) {
+    public void keyPressed(KeyEvent evt) {
+        if ((evt.getKeyCode() == KeyEvent.VK_DELETE) &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
 
             if (node instanceof DefaultMutableTreeNode) {
@@ -74,7 +74,7 @@ public final class ControllerFavoritesDeleteFilesystemFolder
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         deleteDirectory(
             TreeFileSystemDirectories.getNodeOfLastPathComponent(
                 popup.getTreePath()));
@@ -95,13 +95,13 @@ public final class ControllerFavoritesDeleteFilesystemFolder
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

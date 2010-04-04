@@ -56,15 +56,15 @@ public final class ControllerRefreshFavorites
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_F5) {
+    public void keyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_F5) {
             refresh();
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (popup.getItemRefresh().equals(e.getSource())) {
+    public void actionPerformed(ActionEvent evt) {
+        if (popup.getItemRefresh().equals(evt.getSource())) {
             refresh();
         }
     }
@@ -74,13 +74,13 @@ public final class ControllerRefreshFavorites
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

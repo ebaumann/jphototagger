@@ -75,7 +75,7 @@ public final class ControllerKeywordItemSelected
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         if (listKeywords.getSelectedIndex() >= 0) {
             writePersistent();
             update(null);
@@ -90,8 +90,8 @@ public final class ControllerKeywordItemSelected
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()
                 && (listKeywords.getSelectedIndex() >= 0)) {
             update(null);
         }

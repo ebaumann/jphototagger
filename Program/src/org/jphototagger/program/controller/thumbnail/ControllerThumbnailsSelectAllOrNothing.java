@@ -54,8 +54,8 @@ public final class ControllerThumbnailsSelectAllOrNothing
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+    public void actionPerformed(ActionEvent evt) {
+        Object source = evt.getSource();
 
         if (source == itemSelectAll) {
             thumbnailsPanel.selectAll();

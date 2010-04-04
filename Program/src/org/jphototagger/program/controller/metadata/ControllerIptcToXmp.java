@@ -50,8 +50,8 @@ public final class ControllerIptcToXmp implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (usingSelectedFiles(e)) {
+    public void actionPerformed(ActionEvent evt) {
+        if (usingSelectedFiles(evt)) {
             processSelectedFiles();
         } else {
             showIptcToXmpDialog();
@@ -70,8 +70,8 @@ public final class ControllerIptcToXmp implements ActionListener {
         }
     }
 
-    private boolean usingSelectedFiles(ActionEvent e) {
-        Object source = e.getSource();
+    private boolean usingSelectedFiles(ActionEvent evt) {
+        Object source = evt.getSource();
 
         return source.equals(PopupMenuThumbnails.INSTANCE.getItemIptcToXmp())
                || source.equals(

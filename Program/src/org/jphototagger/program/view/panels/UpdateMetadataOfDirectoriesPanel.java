@@ -202,23 +202,23 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     /**
      * Called from the current updater.
      *
-     * @param e event containing the current filename
+     * @param evt event containing the current filename
      */
     @Override
-    public void actionPerformed(UpdateMetadataCheckEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public void actionPerformed(UpdateMetadataCheckEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        if (e.getType().equals(Type.CHECKING_FILE)) {
-            File file = e.getImageFile();
+        if (evt.getType().equals(Type.CHECKING_FILE)) {
+            File file = evt.getImageFile();
 
             assert file != null : "File is null!";
 
             if (file != null) {
                 labelCurrentFilename.setText(file.getAbsolutePath());
             }
-        } else if (e.getType().equals(Type.CHECK_FINISHED)) {
+        } else if (evt.getType().equals(Type.CHECK_FINISHED)) {
             imageFileInserter.removeUpdateMetadataCheckListener(this);
             imageFileInserter = null;
             updateFinished();

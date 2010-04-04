@@ -69,7 +69,7 @@ public final class ControllerImageCollectionSelected
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
+    public void valueChanged(ListSelectionEvent evt) {
         if (list.getSelectedIndex() >= 0) {
             showImageCollection(null);
         }

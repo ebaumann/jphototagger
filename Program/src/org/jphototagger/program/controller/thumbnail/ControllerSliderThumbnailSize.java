@@ -88,7 +88,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     @Override
-    public void stateChanged(ChangeEvent e) {
+    public void stateChanged(ChangeEvent evt) {
         handleSliderMoved();
     }
 
@@ -101,10 +101,10 @@ public final class ControllerSliderThumbnailSize
         }
     }
 
-    private void keyPressed(KeyEvent e) {
-        if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_PLUS)) {
+    private void keyPressed(KeyEvent evt) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_PLUS)) {
             moveSlider(LARGER_STEP_WIDTH, true);
-        } else if (KeyEventUtil.isMenuShortcut(e, KeyEvent.VK_MINUS)) {
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_MINUS)) {
             moveSlider(LARGER_STEP_WIDTH, false);
         }
     }

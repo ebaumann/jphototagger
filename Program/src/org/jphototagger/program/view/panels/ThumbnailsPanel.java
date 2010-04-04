@@ -409,7 +409,7 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    public void showPopupMenu(MouseEvent e, int thumbnailIndex) {}
+    public void showPopupMenu(MouseEvent evt, int thumbnailIndex) {}
 
     public synchronized void addFlag(int index, ThumbnailFlag flag) {
         if (flag == null) {
@@ -535,12 +535,12 @@ public class ThumbnailsPanel extends JPanel
         this.drag = drag;
     }
 
-    public synchronized int getImageMoveDropIndex(MouseEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    public synchronized int getImageMoveDropIndex(MouseEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        return getImageMoveDropIndex(e.getX(), e.getY());
+        return getImageMoveDropIndex(evt.getX(), evt.getY());
     }
 
     public synchronized int getImageMoveDropIndex(int x, int y) {
@@ -572,48 +572,48 @@ public class ThumbnailsPanel extends JPanel
                : count;
     }
 
-    private void transferData(MouseEvent e) {
+    private void transferData(MouseEvent evt) {
         if (dragEnabled && (getSelectionCount() > 0)) {
             TransferHandler transferHandler = getTransferHandler();
 
             if (transferHandler != null) {
-                transferHandler.exportAsDrag(this, e, TransferHandler.COPY);
+                transferHandler.exportAsDrag(this, evt, TransferHandler.COPY);
             }
         }
     }
 
-    private synchronized boolean isClickInSelection(MouseEvent e) {
-        int clickIndex = getThumbnailIndexAtPoint(e.getX(), e.getY());
+    private synchronized boolean isClickInSelection(MouseEvent evt) {
+        int clickIndex = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
 
         return selectedThumbnailIndices.contains(clickIndex);
     }
 
-    private synchronized void handleMousePressed(MouseEvent e) {
-        boolean isLeftClick = MouseEventUtil.isLeftClick(e);
+    private synchronized void handleMousePressed(MouseEvent evt) {
+        boolean isLeftClick = MouseEventUtil.isLeftClick(evt);
 
         if (isLeftClick &&!hasFocus()) {
             requestFocus();
         }
 
         if (isLeftClick) {
-            int thumbnailIndex = getThumbnailIndexAtPoint(e.getX(), e.getY());
+            int thumbnailIndex = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
 
             if (isValidIndex(thumbnailIndex)) {
                 transferData = true;
 
-                if (MouseEventUtil.isDoubleClick(e)) {
+                if (MouseEventUtil.isDoubleClick(evt)) {
                     doubleClickAt(thumbnailIndex);
                     setSelected(thumbnailIndex);
-                } else if (e.isControlDown()) {
+                } else if (evt.isControlDown()) {
                     if (!isSelected(thumbnailIndex)) {
                         addToSelection(thumbnailIndex);
                     } else {
                         removeSelection(thumbnailIndex);
                     }
-                } else if (e.isShiftDown()) {
+                } else if (evt.isShiftDown()) {
                     enhanceSelectionTo(thumbnailIndex);
                 } else {
-                    if (isClickInSelection(e)) {
+                    if (isClickInSelection(evt)) {
                         clickInSelection = thumbnailIndex;
                     } else {
                         setSelected(thumbnailIndex);
@@ -622,13 +622,13 @@ public class ThumbnailsPanel extends JPanel
             } else {
                 setSelectedAll(false);
             }
-        } else if (MouseEventUtil.isPopupTrigger(e)) {
-            handlePopupTrigger(e);
+        } else if (MouseEventUtil.isPopupTrigger(evt)) {
+            handlePopupTrigger(evt);
         }
     }
 
-    private synchronized void handlePopupTrigger(MouseEvent e) {
-        int     clickIndex   = getThumbnailIndexAtPoint(e.getX(), e.getY());
+    private synchronized void handlePopupTrigger(MouseEvent evt) {
+        int     clickIndex   = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
         boolean isClickInSel = selectedThumbnailIndices.contains(clickIndex);
 
         if (!isClickInSel) {
@@ -640,7 +640,7 @@ public class ThumbnailsPanel extends JPanel
             }
         }
 
-        showPopupMenu(e);
+        showPopupMenu(evt);
     }
 
     private synchronized void handleMouseReleased() {
@@ -650,21 +650,21 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    private synchronized void handleMouseDragged(MouseEvent e) {
+    private synchronized void handleMouseDragged(MouseEvent evt) {
         clickInSelection = -1;
 
         if (dragEnabled && transferData && (getSelectionCount() > 0)) {
-            transferData(e);
+            transferData(evt);
             transferData = false;
         }
     }
 
-    private void handleMouseMoved(MouseEvent e) {
+    private void handleMouseMoved(MouseEvent evt) {
         if (dragEnabled) {
             setCursor(Cursor.getDefaultCursor());
         }
 
-        showToolTip(e);
+        showToolTip(evt);
     }
 
     private synchronized void setSelectedAll(boolean select) {
@@ -1432,7 +1432,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent evt) {
         setCountPerRow();
     }
 
@@ -1448,13 +1448,13 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void componentMoved(ComponentEvent e) {}
+    public void componentMoved(ComponentEvent evt) {}
 
     @Override
-    public void componentShown(ComponentEvent e) {}
+    public void componentShown(ComponentEvent evt) {}
 
     @Override
-    public void componentHidden(ComponentEvent e) {}
+    public void componentHidden(ComponentEvent evt) {}
 
     private synchronized void setSelectedUp() {
         int indexSelectedThumbnail = getSelectedIndex();
@@ -1584,40 +1584,40 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent evt) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent evt) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        handleMousePressed(e);
+    public void mousePressed(MouseEvent evt) {
+        handleMousePressed(evt);
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent evt) {
         handleMouseReleased();
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent evt) {}
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-        handleMouseMoved(e);
+    public void mouseMoved(MouseEvent evt) {
+        handleMouseMoved(evt);
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) {
-        handleMouseDragged(e);
+    public void mouseDragged(MouseEvent evt) {
+        handleMouseDragged(evt);
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent evt) {}
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
+    public void keyPressed(KeyEvent evt) {
+        int keyCode = evt.getKeyCode();
 
         if (keyCode == KeyEvent.VK_F5) {
             refresh();
@@ -1635,7 +1635,7 @@ public class ThumbnailsPanel extends JPanel
             checkScrollDown();
         } else if (keyCode == KeyEvent.VK_ENTER) {
             handleMouseDoubleKlicked();
-        } else if ((e.getModifiers() & KeyEvent.CTRL_MASK)
+        } else if ((evt.getModifiers() & KeyEvent.CTRL_MASK)
                    == KeyEvent.CTRL_MASK && (keyCode == KeyEvent.VK_A)) {
             setSelectedAll(true);
         } else if (keyCode == KeyEvent.VK_HOME) {
@@ -1651,7 +1651,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent evt) {}
 
     @Override
     public boolean isFocusable() {
@@ -1706,12 +1706,12 @@ public class ThumbnailsPanel extends JPanel
         controllerDoubleklick.doubleClickAtIndex(index);
     }
 
-    protected void showPopupMenu(MouseEvent e) {
-        if (e == null) {
-            throw new NullPointerException("e == null");
+    protected void showPopupMenu(MouseEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
         }
 
-        popupMenu.show(this, e.getX(), e.getY());
+        popupMenu.show(this, evt.getX(), evt.getY());
     }
 
     protected void showToolTip(MouseEvent evt) {

@@ -185,8 +185,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     public void writeProperties() {}
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
             setEnabledButtons();
         }
     }

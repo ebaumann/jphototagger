@@ -35,11 +35,11 @@ import javax.swing.SwingUtilities;
 public final class TableButtonMouseListener implements MouseListener {
     private final JTable table;
 
-    private void forwardEventToButton(MouseEvent e) {
-        JButton button = getButton(e);
+    private void forwardEventToButton(MouseEvent evt) {
+        JButton button = getButton(evt);
 
         if (button != null) {
-            MouseEvent mouseEvent = SwingUtilities.convertMouseEvent(table, e,
+            MouseEvent mouseEvent = SwingUtilities.convertMouseEvent(table, evt,
                                         button);
 
             button.dispatchEvent(mouseEvent);
@@ -51,9 +51,9 @@ public final class TableButtonMouseListener implements MouseListener {
         }
     }
 
-    private JButton getButton(MouseEvent e) {
-        int row    = e.getY() / table.getRowHeight();
-        int column = table.getColumnModel().getColumnIndexAtX(e.getX());
+    private JButton getButton(MouseEvent evt) {
+        int row    = evt.getY() / table.getRowHeight();
+        int column = table.getColumnModel().getColumnIndexAtX(evt.getX());
 
         if ((row >= table.getRowCount()) || (row < 0)
                 || (column >= table.getColumnCount()) || (column < 0)) {
@@ -78,8 +78,8 @@ public final class TableButtonMouseListener implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        JButton button = getButton(e);
+    public void mouseClicked(MouseEvent evt) {
+        JButton button = getButton(evt);
 
         if (button != null) {
             button.doClick();
@@ -87,22 +87,22 @@ public final class TableButtonMouseListener implements MouseListener {
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-        forwardEventToButton(e);
+    public void mouseEntered(MouseEvent evt) {
+        forwardEventToButton(evt);
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-        forwardEventToButton(e);
+    public void mouseExited(MouseEvent evt) {
+        forwardEventToButton(evt);
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        forwardEventToButton(e);
+    public void mousePressed(MouseEvent evt) {
+        forwardEventToButton(evt);
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        forwardEventToButton(e);
+    public void mouseReleased(MouseEvent evt) {
+        forwardEventToButton(evt);
     }
 }

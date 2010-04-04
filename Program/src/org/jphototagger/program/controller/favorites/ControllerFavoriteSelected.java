@@ -60,8 +60,8 @@ public final class ControllerFavoriteSelected
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent e) {
-        if (e.isAddedPath()) {
+    public void valueChanged(TreeSelectionEvent evt) {
+        if (evt.isAddedPath()) {
             FavoritesHelper.setFilesToThumbnailPanel(
                 FavoritesHelper.getFilesOfSelectedtDirectory(), null);
         }

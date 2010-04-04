@@ -122,30 +122,30 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        paintImage = (getDocument().getLength() <= 0) && (e.getKeyChar() < 20);
+    public void keyTyped(KeyEvent evt) {
+        paintImage = (getDocument().getLength() <= 0) && (evt.getKeyChar() < 20);
         setOpaque(!paintImage);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    protected void processComponentKeyEvent(KeyEvent e) {
-        if (consumeEnter && (e.getID() == KeyEvent.KEY_PRESSED)
-                && (e.getKeyCode() == KeyEvent.VK_ENTER)) {
-            e.consume();
+    protected void processComponentKeyEvent(KeyEvent evt) {
+        if (consumeEnter && (evt.getID() == KeyEvent.KEY_PRESSED)
+                && (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            evt.consume();
         } else {
-            super.processComponentKeyEvent(e);
+            super.processComponentKeyEvent(evt);
         }
     }
 }

@@ -126,8 +126,8 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
+    public void valueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
             setEnabledButtons();
         }
     }

@@ -68,8 +68,8 @@ public final class ControllerDeleteFiles
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+    public void keyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
             if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)) {
                 return;
             }
@@ -79,7 +79,7 @@ public final class ControllerDeleteFiles
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         delete();
     }
 
@@ -109,13 +109,13 @@ public final class ControllerDeleteFiles
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

@@ -52,7 +52,7 @@ public final class ControllerEmptyMetadata implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

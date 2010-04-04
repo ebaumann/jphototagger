@@ -65,8 +65,8 @@ public final class ControllerFavoritesRenameFilesystemFolder
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (isRename(e) &&!tree.isSelectionEmpty()) {
+    public void keyPressed(KeyEvent evt) {
+        if (isRename(evt) &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
 
             if (node instanceof DefaultMutableTreeNode) {
@@ -76,14 +76,14 @@ public final class ControllerFavoritesRenameFilesystemFolder
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         renameDirectory(
             TreeFileSystemDirectories.getNodeOfLastPathComponent(
                 popup.getTreePath()));
     }
 
-    private boolean isRename(KeyEvent e) {
-        return e.getKeyCode() == KeyEvent.VK_F2;
+    private boolean isRename(KeyEvent evt) {
+        return evt.getKeyCode() == KeyEvent.VK_F2;
     }
 
     private void renameDirectory(DefaultMutableTreeNode node) {
@@ -114,13 +114,13 @@ public final class ControllerFavoritesRenameFilesystemFolder
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }

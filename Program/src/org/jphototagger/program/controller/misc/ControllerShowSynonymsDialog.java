@@ -44,7 +44,7 @@ public final class ControllerShowSynonymsDialog implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
         ComponentUtil.show(SynonymsDialog.INSTANCE);
     }
 }

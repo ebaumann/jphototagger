@@ -70,10 +70,10 @@ public final class ImageCollectionsDialog extends Dialog {
                : value.toString();
     }
 
-    private void checkDoubleClick(MouseEvent e) {
-        if (e.getClickCount() == 2) {
+    private void checkDoubleClick(MouseEvent evt) {
+        if (evt.getClickCount() == 2) {
             int       index =
-                listImageCollectionNames.locationToIndex(e.getPoint());
+                listImageCollectionNames.locationToIndex(evt.getPoint());
             ListModel model = listImageCollectionNames.getModel();
             Object    item  = model.getElementAt(index);
 

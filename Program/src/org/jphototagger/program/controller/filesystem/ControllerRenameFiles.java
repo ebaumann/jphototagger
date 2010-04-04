@@ -70,15 +70,15 @@ public final class ControllerRenameFiles
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_F2) {
+    public void keyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
             renameSelectedFiles();
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(menuItemRename)) {
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource().equals(menuItemRename)) {
             renameSelectedFiles();
         }
     }
@@ -99,13 +99,13 @@ public final class ControllerRenameFiles
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent evt) {
 
         // ignore
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent evt) {
 
         // ignore
     }
