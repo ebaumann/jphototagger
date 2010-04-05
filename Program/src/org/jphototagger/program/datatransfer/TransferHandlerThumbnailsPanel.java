@@ -70,24 +70,22 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     private static final long serialVersionUID = 1831860682951562565L;
 
     @Override
-    public boolean canImport(TransferSupport transferSupport) {
-        ThumbnailsPanel tnPanel =
-            (ThumbnailsPanel) transferSupport.getComponent();
+    public boolean canImport(TransferSupport support) {
+        ThumbnailsPanel tnPanel = (ThumbnailsPanel) support.getComponent();
 
-        return isMetadataDrop(transferSupport) || isImageCollection(tnPanel)
-               || (!transferSupport.isDataFlavorSupported(
-                   Flavor.THUMBNAILS_PANEL) && canImportFiles(tnPanel)
-                       && Flavor.hasFiles(transferSupport.getTransferable()));
+        return isMetadataDrop(support) || isImageCollection(tnPanel)
+               || (!support.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL)
+                   && canImportFiles(tnPanel)
+                   && Flavor.hasFiles(support.getTransferable()));
     }
 
     private boolean canImportFiles(ThumbnailsPanel tnPanel) {
         return ContentUtil.isSingleDirectoryContent(tnPanel.getContent());
     }
 
-    private boolean isMetadataDrop(TransferSupport transferSupport) {
-        return isThumbnailPos(transferSupport)
-               && Flavor.isMetadataTransferred(
-                   transferSupport.getTransferable());
+    private boolean isMetadataDrop(TransferSupport support) {
+        return isThumbnailPos(support)
+               && Flavor.isMetadataTransferred(support.getTransferable());
     }
 
     @Override
@@ -115,28 +113,27 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     @Override
-    public boolean importData(TransferSupport transferSupport) {
-        if (!transferSupport.isDrop()) {
+    public boolean importData(TransferSupport support) {
+        if (!support.isDrop()) {
             return false;
         }
 
-        ThumbnailsPanel panel =
-            (ThumbnailsPanel) transferSupport.getComponent();
-        boolean imagesSelected = panel.getSelectionCount() > 0;
+        ThumbnailsPanel panel = (ThumbnailsPanel) support.getComponent();
+        boolean         imagesSelected = panel.getSelectionCount() > 0;
 
-        if (isMetadataDrop(transferSupport)) {
-            insertMetadata(transferSupport);
+        if (isMetadataDrop(support)) {
+            insertMetadata(support);
 
             return true;
         }
 
         if (imagesSelected && isImageCollection(panel)) {
-            moveSelectedImages(transferSupport, panel);
+            moveSelectedImages(support, panel);
 
             return true;
         }
 
-        if (importFiles(getCurrentDirectory(), transferSupport)) {
+        if (importFiles(getCurrentDirectory(), support)) {
             panel.refresh();
 
             return true;
@@ -159,9 +156,9 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         // ignore, moving removes files from source directory
     }
 
-    private void moveSelectedImages(TransferSupport transferSupport,
+    private void moveSelectedImages(TransferSupport support,
                                     ThumbnailsPanel panel) {
-        Point dropPoint = transferSupport.getDropLocation().getDropPoint();
+        Point dropPoint = support.getDropLocation().getDropPoint();
 
         panel.moveSelectedToIndex(panel.getImageMoveDropIndex(dropPoint.x,
                 dropPoint.y));
@@ -189,17 +186,16 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
                : selElement.toString();
     }
 
-    private boolean insertMetadata(TransferSupport transferSupport) {
-        Transferable t                         =
-            transferSupport.getTransferable();
+    private boolean insertMetadata(TransferSupport support) {
+        Transferable t = support.getTransferable();
         boolean      dropOverSelectedThumbnail =
-            isDropOverSelectedThumbnail(transferSupport);
-        File imageFile = getImageFile(transferSupport);
+            isDropOverSelectedThumbnail(support);
+        File imageFile = getImageFile(support);
 
-        if (Flavor.hasKeywordsFromList(transferSupport)) {
+        if (Flavor.hasKeywordsFromList(support)) {
             importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t),
                           dropOverSelectedThumbnail, imageFile);
-        } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
+        } else if (Flavor.hasKeywordsFromTree(support)) {
             List<String> keywords = new ArrayList<String>();
 
             for (DefaultMutableTreeNode node : Support.getKeywordNodes(t)) {
@@ -214,11 +210,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             if (!keywords.isEmpty()) {
                 KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
             }
-        } else if (Flavor.hasMetadataTemplate(transferSupport)) {
-            importMetadataTemplate(transferSupport);
-        } else if (Flavor.hasColumnData(transferSupport)) {
-            importColumnData(transferSupport, dropOverSelectedThumbnail,
-                             imageFile);
+        } else if (Flavor.hasMetadataTemplate(support)) {
+            importMetadataTemplate(support);
+        } else if (Flavor.hasColumnData(support)) {
+            importColumnData(support, dropOverSelectedThumbnail, imageFile);
         } else {
             return false;
         }
@@ -227,7 +222,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     /**
-     * 
+     *
      * @param dataFlavor
      * @param strings                    can be null
      * @param dropOverSelectedThumbnail
@@ -269,36 +264,29 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         }
     }
 
-    public boolean isDropOverSelectedThumbnail(
-            TransferSupport transferSupport) {
-        if (transferSupport == null) {
-            throw new NullPointerException("transferSupport == null");
+    public boolean isDropOverSelectedThumbnail(TransferSupport support) {
+        if (support == null) {
+            throw new NullPointerException("support == null");
         }
 
-        Point           p     =
-            transferSupport.getDropLocation().getDropPoint();
-        ThumbnailsPanel panel =
-            (ThumbnailsPanel) transferSupport.getComponent();
+        Point           p     = support.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel = (ThumbnailsPanel) support.getComponent();
 
         return panel.isSelected(panel.getImageMoveDropIndex(p.x, p.y));
     }
 
-    private boolean isThumbnailPos(TransferSupport transferSupport) {
-        Point           p     =
-            transferSupport.getDropLocation().getDropPoint();
-        ThumbnailsPanel panel =
-            (ThumbnailsPanel) transferSupport.getComponent();
-        int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
+    private boolean isThumbnailPos(TransferSupport support) {
+        Point           p     = support.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel = (ThumbnailsPanel) support.getComponent();
+        int             index = panel.getThumbnailIndexAtPoint(p.x, p.y);
 
         return (panel.isIndex(index));
     }
 
-    private File getImageFile(TransferSupport transferSupport) {
-        Point           p     =
-            transferSupport.getDropLocation().getDropPoint();
-        ThumbnailsPanel panel =
-            (ThumbnailsPanel) transferSupport.getComponent();
-        int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
+    private File getImageFile(TransferSupport support) {
+        Point           p     = support.getDropLocation().getDropPoint();
+        ThumbnailsPanel panel = (ThumbnailsPanel) support.getComponent();
+        int             index = panel.getThumbnailIndexAtPoint(p.x, p.y);
 
         if (panel.isIndex(index)) {
             return panel.getFile(index);
@@ -307,16 +295,14 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         }
     }
 
-    private boolean importFiles(File targetDir,
-                                TransferSupport transferSupport) {
+    private boolean importFiles(File targetDir, TransferSupport support) {
         if (targetDir == null) {
             return false;
         }
 
-        List<File> srcFiles =
-            TransferUtil.getFiles(transferSupport.getTransferable(),
+        List<File> srcFiles = TransferUtil.getFiles(support.getTransferable(),
                                   FilenameDelimiter.EMPTY);
-        int dropAction = transferSupport.getDropAction();
+        int dropAction = support.getDropAction();
 
         if (dropAction == TransferHandler.COPY) {
             ImageUtil.copyImageFiles(ImageUtil.getImageFiles(srcFiles),
@@ -346,10 +332,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         return null;
     }
 
-    private void importMetadataTemplate(TransferSupport transferSupport) {
+    private void importMetadataTemplate(TransferSupport support) {
         try {
             Object[] selTemplates =
-                (Object[]) transferSupport.getTransferable().getTransferData(
+                (Object[]) support.getTransferable().getTransferData(
                     Flavor.METADATA_TEMPLATES);
 
             if (selTemplates == null) {
@@ -365,13 +351,13 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     @SuppressWarnings(value = "unchecked")
-    private void importColumnData(TransferSupport transferSupport,
+    private void importColumnData(TransferSupport support,
                                   boolean dropOverSelectedThumbnail,
                                   File imageFile) {
         try {
             List<ColumnData> colData =
-                (List<ColumnData>) transferSupport.getTransferable()
-                    .getTransferData(Flavor.COLUMN_DATA);
+                (List<ColumnData>) support.getTransferable().getTransferData(
+                    Flavor.COLUMN_DATA);
 
             if (dropOverSelectedThumbnail) {
                 if (!ViewUtil.checkSelImagesEditable(true)) {

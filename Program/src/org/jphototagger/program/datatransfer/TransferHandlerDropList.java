@@ -52,28 +52,28 @@ public final class TransferHandlerDropList extends TransferHandler {
     private static final long serialVersionUID = -3654778661471221382L;
 
     @Override
-    public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return Flavor.isMetadataTransferred(transferSupport.getTransferable());
+    public boolean canImport(TransferHandler.TransferSupport support) {
+        return Flavor.isMetadataTransferred(support.getTransferable());
     }
 
     @Override
-    public boolean importData(TransferHandler.TransferSupport transferSupport) {
-        if (!transferSupport.isDrop()) {
+    public boolean importData(TransferHandler.TransferSupport support) {
+        if (!support.isDrop()) {
             return false;
         }
 
-        JList            list         = (JList) transferSupport.getComponent();
+        JList            list         = (JList) support.getComponent();
         DefaultListModel listModel    = (DefaultListModel) list.getModel();
-        Transferable     transferable = transferSupport.getTransferable();
+        Transferable     transferable = support.getTransferable();
 
-        if (Flavor.hasKeywordsFromList(transferSupport)) {
+        if (Flavor.hasKeywordsFromList(support)) {
             return importKeywords(transferable, listModel);
-        } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
+        } else if (Flavor.hasKeywordsFromTree(support)) {
             return importKeywords(listModel, transferable);
-        } else if (Flavor.hasColumnData(transferSupport)) {
+        } else if (Flavor.hasColumnData(support)) {
             return importColumnData(listModel, transferable);
-        } else if (Flavor.hasMetadataTemplate(transferSupport)) {
-            MetadataTemplateSupport.setTemplate(transferSupport);
+        } else if (Flavor.hasMetadataTemplate(support)) {
+            MetadataTemplateSupport.setTemplate(support);
 
             return true;
         }

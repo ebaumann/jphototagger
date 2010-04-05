@@ -21,12 +21,12 @@
 
 package org.jphototagger.program.datatransfer;
 
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
 import org.jphototagger.program.io.IoUtil;
-import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 
 import java.awt.datatransfer.Transferable;
 
@@ -49,13 +49,13 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
     private static final long serialVersionUID = 667981391265349868L;
 
     @Override
-    public boolean canImport(TransferSupport transferSupport) {
-        if (!Flavor.hasFiles(transferSupport.getTransferable())) {
+    public boolean canImport(TransferSupport support) {
+        if (!Flavor.hasFiles(support.getTransferable())) {
             return false;
         }
 
         JTree.DropLocation dropLocation =
-            (JTree.DropLocation) transferSupport.getDropLocation();
+            (JTree.DropLocation) support.getDropLocation();
 
         return dropLocation.getPath() != null;
     }
@@ -71,19 +71,19 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
     }
 
     @Override
-    public boolean importData(TransferSupport transferSupport) {
-        if (!transferSupport.isDrop()) {
+    public boolean importData(TransferSupport support) {
+        if (!support.isDrop()) {
             return false;
         }
 
-        File       targetDirectory = getTargetDirectory(transferSupport);
-        List<File> sourceFiles     =
-            TransferUtil.getFiles(transferSupport.getTransferable(),
+        File       targetDirectory = getTargetDirectory(support);
+        List<File> sourceFiles =
+            TransferUtil.getFiles(support.getTransferable(),
                                   FilenameDelimiter.EMPTY);
 
         if ((targetDirectory != null) &&!sourceFiles.isEmpty()) {
-            handleDroppedFiles(transferSupport.getUserDropAction(),
-                               sourceFiles, targetDirectory);
+            handleDroppedFiles(support.getUserDropAction(), sourceFiles,
+                               targetDirectory);
         }
 
         return true;
@@ -128,9 +128,9 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
         }
     }
 
-    private File getTargetDirectory(TransferSupport transferSupport) {
+    private File getTargetDirectory(TransferSupport support) {
         TreePath path =
-            ((JTree.DropLocation) transferSupport.getDropLocation()).getPath();
+            ((JTree.DropLocation) support.getDropLocation()).getPath();
         Object selNode = path.getLastPathComponent();
 
         if (selNode instanceof DefaultMutableTreeNode) {

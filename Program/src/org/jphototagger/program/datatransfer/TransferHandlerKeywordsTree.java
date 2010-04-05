@@ -21,15 +21,17 @@
 
 package org.jphototagger.program.datatransfer;
 
+import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.keywords.tree.KeywordsTreePathExpander;
-import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
+import org.jphototagger.program.controller.keywords.tree
+    .KeywordsTreePathExpander;
+import org.jphototagger.program.controller.keywords.tree
+    .KeywordTreeNodesClipboard;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.lib.datatransfer.TransferableObject;
 
 import java.awt.datatransfer.Transferable;
 
@@ -51,9 +53,10 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
     private static final long serialVersionUID = 1714818504305178611L;
 
     @Override
-    public boolean canImport(TransferSupport transferSupport) {
-        return (Flavor.hasKeywordsFromList(transferSupport)
-                || Flavor.hasKeywordsFromTree(transferSupport));
+    public boolean canImport(TransferSupport support) {
+        return (Flavor.hasKeywordsFromList(support)
+                || Flavor.hasKeywordsFromTree(support)
+                || Flavor.hasFiles(support.getTransferable()));
     }
 
     @Override
@@ -90,22 +93,22 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
     }
 
     @Override
-    public boolean importData(TransferSupport transferSupport) {
-        DefaultMutableTreeNode dropNode = Support.getDropNode(transferSupport);
+    public boolean importData(TransferSupport support) {
+        DefaultMutableTreeNode dropNode = Support.getDropNode(support);
 
         if (dropNode != null) {
             TreeModelKeywords model =
                 ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
-            if (Flavor.hasKeywordsFromList(transferSupport)) {
-                addKeywords(model, dropNode, transferSupport);
-            } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
-                moveKeywords(transferSupport, model, dropNode);
+            if (Flavor.hasKeywordsFromList(support)) {
+                addKeywords(model, dropNode, support);
+            } else if (Flavor.hasKeywordsFromTree(support)) {
+                moveKeywords(support, model, dropNode);
                 KeywordTreeNodesClipboard.INSTANCE.empty();
             }
 
-            KeywordsTreePathExpander.expand(
-                (JTree) transferSupport.getComponent(), dropNode);
+            KeywordsTreePathExpander.expand((JTree) support.getComponent(),
+                                            dropNode);
         }
 
         return true;
@@ -124,9 +127,9 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
     private void addKeywords(TreeModelKeywords treeModel,
                              DefaultMutableTreeNode node,
-                             TransferSupport transferSupport) {
-        Object[] keywords = TransferHandlerKeywordsList.getKeywords(
-                                transferSupport.getTransferable());
+                             TransferSupport support) {
+        Object[] keywords =
+            TransferHandlerKeywordsList.getKeywords(support.getTransferable());
 
         if (keywords == null) {
             return;
@@ -138,11 +141,11 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public static void moveKeywords(TransferSupport transferSupport,
+    public static void moveKeywords(TransferSupport support,
                                     TreeModelKeywords treeModel,
                                     DefaultMutableTreeNode dropNode) {
-        if (transferSupport == null) {
-            throw new NullPointerException("transferSupport == null");
+        if (support == null) {
+            throw new NullPointerException("support == null");
         }
 
         if (treeModel == null) {
@@ -155,7 +158,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
         try {
             List<DefaultMutableTreeNode> sourceNodes =
-                (List<DefaultMutableTreeNode>) transferSupport.getTransferable()
+                (List<DefaultMutableTreeNode>) support.getTransferable()
                     .getTransferData(Flavor.KEYWORDS_TREE);
 
             if (!checkSelCount(sourceNodes.size())) {

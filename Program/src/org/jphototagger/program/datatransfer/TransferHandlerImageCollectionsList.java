@@ -51,13 +51,11 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     private static final long serialVersionUID = 1375965940535469098L;
 
     @Override
-    public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL)
-               && transferSupport
-                   .isDataFlavorSupported(DataFlavor
-                       .javaFileListFlavor) && ((JList
-                           .DropLocation) transferSupport.getDropLocation())
-                               .getIndex() >= 0;
+    public boolean canImport(TransferHandler.TransferSupport support) {
+        return support.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL)
+               && support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)
+               && ((JList.DropLocation) support.getDropLocation()).getIndex()
+                  >= 0;
     }
 
     @Override
@@ -67,15 +65,15 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean importData(TransferHandler.TransferSupport transferSupport) {
-        if (!transferSupport.isDrop()) {
+    public boolean importData(TransferHandler.TransferSupport support) {
+        if (!support.isDrop()) {
             return false;
         }
 
         List<File> imageFiles = null;
 
         try {
-            Transferable transferable = transferSupport.getTransferable();
+            Transferable transferable = support.getTransferable();
 
             imageFiles = getImageFiles(
                 (List<File>) transferable.getTransferData(
@@ -87,7 +85,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         }
 
         int listIndex =
-            ((JList.DropLocation) transferSupport.getDropLocation()).getIndex();
+            ((JList.DropLocation) support.getDropLocation()).getIndex();
 
         handleDroppedThumbnails(listIndex, imageFiles);
 

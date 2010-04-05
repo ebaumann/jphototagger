@@ -57,10 +57,9 @@ public final class TransferHandlerDropTextComponent extends TransferHandler {
     private static final long serialVersionUID = 4543789065456550151L;
 
     @Override
-    public boolean canImport(TransferHandler.TransferSupport transferSupport) {
-        return transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)
-               || Flavor.isMetadataTransferred(
-                   transferSupport.getTransferable());
+    public boolean canImport(TransferHandler.TransferSupport support) {
+        return support.isDataFlavorSupported(DataFlavor.stringFlavor)
+               || Flavor.isMetadataTransferred(support.getTransferable());
     }
 
     @Override
@@ -78,22 +77,22 @@ public final class TransferHandlerDropTextComponent extends TransferHandler {
     }
 
     @Override
-    public boolean importData(TransferHandler.TransferSupport transferSupport) {
-        Component    component    = transferSupport.getComponent();
+    public boolean importData(TransferHandler.TransferSupport support) {
+        Component    component    = support.getComponent();
         String       string       = null;
-        Transferable transferable = transferSupport.getTransferable();
+        Transferable transferable = support.getTransferable();
 
-        if (transferSupport.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+        if (support.isDataFlavorSupported(DataFlavor.stringFlavor)) {
             string = Support.getString(transferable);
-        } else if (Flavor.hasKeywordsFromList(transferSupport)) {
+        } else if (Flavor.hasKeywordsFromList(support)) {
             string = getStrings(Support.getKeywords(transferable));
-        } else if (Flavor.hasKeywordsFromTree(transferSupport)) {
+        } else if (Flavor.hasKeywordsFromTree(support)) {
             string = getStrings(Support.getKeywordNodes(transferable));
-        } else if (Flavor.hasColumnData(transferSupport)) {
+        } else if (Flavor.hasColumnData(support)) {
             string = Support.getStringFromColumnData(
                 Support.getColumnData(transferable));
-        } else if (Flavor.hasMetadataTemplate(transferSupport)) {
-            MetadataTemplateSupport.setTemplate(transferSupport);
+        } else if (Flavor.hasMetadataTemplate(support)) {
+            MetadataTemplateSupport.setTemplate(support);
 
             return true;
         }
