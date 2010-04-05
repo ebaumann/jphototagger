@@ -160,29 +160,4 @@ public final class Support {
 
         return null;
     }
-
-    public static DefaultMutableTreeNode getDropNode(TransferSupport support) {
-        if (support.isDrop()) {
-            JTree.DropLocation dropLocation =
-                (JTree.DropLocation) support.getDropLocation();
-            Object dropObject = dropLocation.getPath().getLastPathComponent();
-
-            return (dropObject instanceof DefaultMutableTreeNode)
-                   ? (DefaultMutableTreeNode) dropObject
-                   : null;
-        }
-
-        JTree    tree    = (JTree) support.getComponent();
-        TreePath selPath = tree.getSelectionPath();
-
-        if (selPath != null) {
-            Object o = selPath.getLastPathComponent();
-
-            if (o instanceof DefaultMutableTreeNode) {
-                return (DefaultMutableTreeNode) o;
-            }
-        }
-
-        return null;
-    }
 }

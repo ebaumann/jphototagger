@@ -68,7 +68,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
             return false;
         }
 
-        DefaultMutableTreeNode dropNode = Support.getDropNode(support);
+        DefaultMutableTreeNode dropNode = TransferUtil.getTreeDropNode(support);
 
         return (dropNode != null)
                && MiscMetadataHelper.isParentUserObjectAColumnOf(dropNode,
@@ -81,7 +81,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
             return false;
         }
 
-        DefaultMutableTreeNode dropNode = Support.getDropNode(support);
+        DefaultMutableTreeNode dropNode = TransferUtil.getTreeDropNode(support);
 
         if (dropNode == null) {
             return false;
@@ -104,6 +104,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
             MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd),
                     imageFiles);
+            return true;
         }
 
         return false;

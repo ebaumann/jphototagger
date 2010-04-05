@@ -21,11 +21,23 @@
 
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.data.ColumnData;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.io.ImageUtil;
+import org.jphototagger.program.view.panels.KeywordsPanel;
 
 import java.awt.datatransfer.Transferable;
+
+import java.io.File;
+
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -42,6 +54,49 @@ import javax.swing.TransferHandler;
  */
 public final class TransferHandlerKeywordsList extends TransferHandler {
     private static final long serialVersionUID = -4156977618928448144L;
+
+    @Override
+    public boolean canImport(TransferSupport support) {
+        return Flavor.hasFiles(support.getTransferable())
+               && (TransferUtil.getListDropIndex(support) >= 0);
+    }
+
+    @Override
+    public boolean importData(TransferSupport support) {
+        int index = TransferUtil.getListDropIndex(support);
+
+        if (index < 0) {
+            return false;
+        }
+
+        JList  list  = (JList) support.getComponent();
+        Object value = list.getModel().getElementAt(index);
+
+        if (value instanceof String) {
+            String     keyword = (String) value;
+            List<File> files = TransferUtil.getFiles(support.getTransferable(),
+                                   TransferUtil.FilenameDelimiter.NEWLINE);
+            List<File> imageFiles = ImageUtil.getImageFiles(files);
+            int        fileCount  = imageFiles.size();
+
+            if ((fileCount > 0) && confirmImport(keyword, fileCount)) {
+                ColumnData cd =
+                    new ColumnData(ColumnXmpDcSubjectsSubject.INSTANCE, value);
+
+                MiscMetadataHelper.saveToImageFiles(
+                    Collections.singletonList(cd), imageFiles);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean confirmImport(String keyword, int fileCount) {
+        return MessageDisplayer.confirmYesNo(null,
+                "TransferHandlerKeywordsList.Confirm.Import", keyword,
+                fileCount);
+    }
 
     /**
      * Returns the keywords in a transferable object.
@@ -65,11 +120,6 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
         }
 
         return null;
-    }
-
-    @Override
-    public boolean canImport(TransferSupport support) {
-        return false;
     }
 
     @Override
