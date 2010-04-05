@@ -1779,9 +1779,11 @@ public class ThumbnailsPanel extends JPanel
 
         // Insertion can't be decided because we don't know whether the image
         // file is e.g. in a displayed directory or matches the criteria of a
-        // search
+        // search. So we call the less efficient refresh() in that case
         if (!fileFilter.accept(imageFile) && files.contains(imageFile)) {
             remove(Collections.singleton(imageFile));
+        } else if (!files.contains(imageFile)) {
+            refresh();
         }
     }
 
