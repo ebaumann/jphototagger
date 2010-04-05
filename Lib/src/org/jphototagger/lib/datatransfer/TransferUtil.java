@@ -38,8 +38,11 @@ import java.util.logging.Logger;
 import java.util.StringTokenizer;
 
 import javax.swing.JList;
+import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.TransferHandler.TransferSupport;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * Utilities for data transfer.
@@ -525,6 +528,81 @@ public final class TransferUtil {
 
         return (support.getSourceDropActions() & TransferHandler.LINK)
                == TransferHandler.LINK;
+    }
+
+    /**
+     * Returns the index of the drop location where the <em>target has to be an
+     * instance of {@link JList}</em>.
+     *
+     * @param  support transfer support
+     * @return         index or -1 if the drop location is not over a list item
+     *                 or if the action is not a drop
+     */
+    public static int getListDropIndex(TransferSupport support) {
+        if (support == null) {
+            throw new NullPointerException("support == null");
+        }
+
+        boolean isList = support.getComponent() instanceof JList;
+
+        if (!isList) {
+            throw new IllegalArgumentException("Component is not a JList: "
+                                               + support.getComponent());
+        }
+
+        if (!support.isDrop()) {
+            return -1;
+        }
+
+        JList.DropLocation dl = (JList.DropLocation) support.getDropLocation();
+
+        return dl.getIndex();
+    }
+
+    /**
+     * Returns the drop node where <em>the target has to be an instance of
+     * {@link JTree} and its nodes {@link DefaultMutableTreeNode}s</em>.
+     *
+     * @param  support transfer support
+     * @return         node or null if the last path component of the drop is
+     *                 not a default mutable tree node or if the action is not a
+     *                 drop
+     */
+    public static DefaultMutableTreeNode getTreeDropNode(
+            TransferSupport support) {
+        if (support == null) {
+            throw new NullPointerException("support == null");
+        }
+
+        boolean isTree = support.getComponent() instanceof JTree;
+
+        if (!isTree) {
+            throw new IllegalArgumentException("Component is not a JTree: "
+                                               + support.getComponent());
+        }
+
+        if (support.isDrop()) {
+            JTree.DropLocation dropLocation =
+                (JTree.DropLocation) support.getDropLocation();
+            Object dropObject = dropLocation.getPath().getLastPathComponent();
+
+            return (dropObject instanceof DefaultMutableTreeNode)
+                   ? (DefaultMutableTreeNode) dropObject
+                   : null;
+        }
+
+        JTree    tree    = (JTree) support.getComponent();
+        TreePath selPath = tree.getSelectionPath();
+
+        if (selPath != null) {
+            Object o = selPath.getLastPathComponent();
+
+            if (o instanceof DefaultMutableTreeNode) {
+                return (DefaultMutableTreeNode) o;
+            }
+        }
+
+        return null;
     }
 
     private TransferUtil() {}
