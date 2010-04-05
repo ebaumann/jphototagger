@@ -91,7 +91,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
     @Override
     public boolean importData(TransferSupport transferSupport) {
-        DefaultMutableTreeNode dropNode = getDropNode(transferSupport);
+        DefaultMutableTreeNode dropNode = Support.getDropNode(transferSupport);
 
         if (dropNode != null) {
             TreeModelKeywords model =
@@ -109,32 +109,6 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
         }
 
         return true;
-    }
-
-    private DefaultMutableTreeNode getDropNode(
-            TransferSupport transferSupport) {
-        if (transferSupport.isDrop()) {
-            JTree.DropLocation dropLocation =
-                (JTree.DropLocation) transferSupport.getDropLocation();
-            Object dropObject = dropLocation.getPath().getLastPathComponent();
-
-            return (dropObject instanceof DefaultMutableTreeNode)
-                   ? (DefaultMutableTreeNode) dropObject
-                   : null;
-        }
-
-        JTree    tree    = (JTree) transferSupport.getComponent();
-        TreePath selPath = tree.getSelectionPath();
-
-        if (selPath != null) {
-            Object o = selPath.getLastPathComponent();
-
-            if (o instanceof DefaultMutableTreeNode) {
-                return (DefaultMutableTreeNode) o;
-            }
-        }
-
-        return null;
     }
 
     private static boolean checkSelCount(int selCount) {

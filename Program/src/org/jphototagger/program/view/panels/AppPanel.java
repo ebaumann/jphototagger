@@ -60,6 +60,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
+import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
 import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
 
 /**
@@ -649,6 +650,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelMiscMetadata = new javax.swing.JPanel();
         scrollPaneMiscMetadata = new javax.swing.JScrollPane();
         treeMiscMetadata = new javax.swing.JTree();
+        treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());
         panelNoMetadata = new javax.swing.JPanel();
         scrollPaneNoMetadata = new javax.swing.JScrollPane();
         listNoMetadata = new javax.swing.JList();
@@ -1014,6 +1016,7 @@ public final class AppPanel extends javax.swing.JPanel {
         treeNode1.add(treeNode2);
         treeMiscMetadata.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         treeMiscMetadata.setCellRenderer(new TreeCellRendererMiscMetadata());
+        treeMiscMetadata.setDragEnabled(true);
         treeMiscMetadata.setRootVisible(false);
         treeMiscMetadata.setShowsRootHandles(true);
         scrollPaneMiscMetadata.setViewportView(treeMiscMetadata);

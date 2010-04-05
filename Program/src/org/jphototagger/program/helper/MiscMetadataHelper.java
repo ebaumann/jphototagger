@@ -35,11 +35,13 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  *
@@ -47,7 +49,40 @@ import javax.swing.tree.DefaultTreeModel;
  * @author  Elmar Baumann
  */
 public final class MiscMetadataHelper {
-    private MiscMetadataHelper() {}
+    private static final List<Column> XMP_COLUMNS = XmpColumns.get();
+
+    public static void saveToImageFiles(List<ColumnData> colData,
+            Collection<? extends File> imageFiles) {
+        if (colData == null) {
+            throw new NullPointerException("colData == null");
+        }
+
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        List<Pair<File, Xmp>> saveList = new ArrayList<Pair<File, Xmp>>();
+
+        for (File imageFile : imageFiles) {
+            if (imageFile.exists() && ViewUtil.checkImageEditable(imageFile)) {
+                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+
+                if (xmp == null) {
+                    xmp = new Xmp();
+                }
+
+                for (ColumnData data : colData) {
+                    xmp.setValue(data.getColumn(), data.getData());
+                }
+
+                saveList.add(new Pair<File, Xmp>(imageFile, xmp));
+            }
+        }
+
+        if (!saveList.isEmpty()) {
+            SaveXmp.save(saveList);
+        }
+    }
 
     public static void saveToImageFile(List<ColumnData> colData,
                                        File imageFile) {
@@ -59,28 +94,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("imageFile == null");
         }
 
-        if (!ViewUtil.checkImageEditable(imageFile)) {
-            return;
-        }
-
-        if (!imageFile.exists()) {
-            return;
-        }
-
-        Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
-
-        if (xmp == null) {
-            xmp = new Xmp();
-        }
-
-        for (ColumnData data : colData) {
-            xmp.setValue(data.getColumn(), data.getData());
-        }
-
-        List<Pair<File, Xmp>> saveList = new ArrayList<Pair<File, Xmp>>();
-
-        saveList.add(new Pair<File, Xmp>(imageFile, xmp));
-        SaveXmp.save(saveList);
+        saveToImageFiles(colData, Collections.singleton(imageFile));
     }
 
     public static void addMetadataToSelectedImages(
@@ -99,7 +113,7 @@ public final class MiscMetadataHelper {
 
         for (DefaultMutableTreeNode node : nodes) {
             if (isParentUserObjectAColumnOf(node, xmpColumns)) {
-                String                 text   = (String) node.getUserObject();
+                String                 text = (String) node.getUserObject();
                 DefaultMutableTreeNode parent =
                     (DefaultMutableTreeNode) node.getParent();
                 Column column = (Column) parent.getUserObject();
@@ -125,7 +139,7 @@ public final class MiscMetadataHelper {
 
         for (DefaultMutableTreeNode node : nodes) {
             if (isParentUserObjectAColumnOf(node, xmpColumns)) {
-                String                 text   = (String) node.getUserObject();
+                String                 text = (String) node.getUserObject();
                 DefaultMutableTreeNode parent =
                     (DefaultMutableTreeNode) node.getParent();
                 Column column = (Column) parent.getUserObject();
@@ -139,6 +153,7 @@ public final class MiscMetadataHelper {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
+
         if (text == null) {
             throw new NullPointerException("text == null");
         }
@@ -267,4 +282,70 @@ public final class MiscMetadataHelper {
             }
         }
     }
+
+    /**
+     *
+     * @param  paths
+     * @return       values or empty list
+     */
+    public static List<Pair<Column,
+                            String>> getColValuesFrom(List<TreePath> paths) {
+        if (paths == null) {
+            throw new NullPointerException("paths == null");
+        }
+
+        List<Pair<Column, String>> values = new ArrayList<Pair<Column,
+                                                String>>(paths.size());
+
+        for (TreePath path : paths) {
+            Pair<Column, String> value = getColValueFrom(path);
+
+            if (value != null) {
+                values.add(value);
+            }
+        }
+
+        return values;
+    }
+
+    /**
+     *
+     * @param  path
+     * @return       value or null
+     */
+    public static Pair<Column, String> getColValueFrom(TreePath path) {
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
+
+        DefaultMutableTreeNode node =
+            (DefaultMutableTreeNode) path.getLastPathComponent();
+
+        return getColValueFrom(node);
+    }
+
+    /**
+     *
+     * @param  node
+     * @return       value or null
+     */
+    public static Pair<Column,
+                       String> getColValueFrom(DefaultMutableTreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
+        if (isParentUserObjectAColumnOf(node, XMP_COLUMNS)) {
+            String                 value = node.getUserObject().toString();
+            DefaultMutableTreeNode parentNode =
+                (DefaultMutableTreeNode) node.getParent();
+            Column column = (Column) parentNode.getUserObject();
+
+            return new Pair<Column, String>(column, value);
+        }
+
+        return null;
+    }
+
+    private MiscMetadataHelper() {}
 }
