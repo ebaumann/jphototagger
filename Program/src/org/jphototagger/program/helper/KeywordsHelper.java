@@ -186,7 +186,7 @@ public final class KeywordsHelper {
      * @param node node with keyword. <em>All parents of that node have to be
      *             instances of {@link DefaultMutableTreeNode}!</em>
      * @param real true if only real keywords shall be added
-     * @return     all keywords
+     * @return     all keywords or empty list
      */
     public static List<Keyword> getKeywords(DefaultMutableTreeNode node,
             boolean real) {

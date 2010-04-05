@@ -21,19 +21,21 @@
 
 package org.jphototagger.program.datatransfer;
 
+import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.ColumnData;
+import org.jphototagger.program.io.ImageUtil;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 
+import java.io.File;
+
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.JTree;
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 
 /**
  * Support for data transfer.
@@ -159,5 +161,12 @@ public final class Support {
         }
 
         return null;
+    }
+
+    public static List<File> getImageFiles(TransferSupport support) {
+        List<File> files = TransferUtil.getFiles(support.getTransferable(),
+                               TransferUtil.FilenameDelimiter.NEWLINE);
+
+        return ImageUtil.getImageFiles(files);
     }
 }
