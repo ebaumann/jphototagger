@@ -173,6 +173,14 @@ public final class Program {
     public String getCommandlineParameters(List<File> files,
             String additionalParameters,
             boolean additionalParametersBeforeFilenames) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
+        if (additionalParameters == null) {
+            throw new NullPointerException("additionalParameters == null");
+        }
+
         String sep              = IoUtil.getDefaultCommandLineSeparator();
         String parametersBefore = ((parametersBeforeFilename == null)
                                    ? EMPTY

@@ -49,6 +49,18 @@ public final class SavedSearchPanel {
     public SavedSearchPanel() {}
 
     public SavedSearchPanel(SavedSearchPanel other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
+        set(other);
+    }
+
+    public void set(SavedSearchPanel other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         panelIndex           = other.panelIndex;
         bracketLeft1Selected = other.bracketLeft1Selected;
         bracketLeft2Selected = other.bracketLeft2Selected;

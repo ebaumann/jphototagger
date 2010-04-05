@@ -21,10 +21,10 @@
 
 package org.jphototagger.program.data;
 
-import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.model.TreeModelUpdateInfo;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.resource.JptBundle;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -83,6 +83,10 @@ public final class Timeline {
      */
     public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
             Calendar cal) {
+        if (cal == null) {
+            throw new NullPointerException("cal == null");
+        }
+
         TreeModelUpdateInfo.NodesAndChildIndices info =
             new TreeModelUpdateInfo.NodesAndChildIndices();
         Date date = new Date(cal);
@@ -96,12 +100,19 @@ public final class Timeline {
     /**
      * Adds a date.
      *
-     * @param date date taken of the image, must be valid ({@link Date#isValid()}
+     * @param date date taken of the image, must be valid
+     *             ({@link Date#isValid()}
      * @return     information about the inserted children
      */
     public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
             Date date) {
-        assert date.isValid() : date;
+        if (date == null) {
+            throw new NullPointerException("date == null");
+        }
+
+        if (!date.isValid()) {
+            throw new IllegalArgumentException("Illegal date: " + date);
+        }
 
         TreeModelUpdateInfo.NodesAndChildIndices info =
             new TreeModelUpdateInfo.NodesAndChildIndices();
@@ -127,6 +138,10 @@ public final class Timeline {
      * @return     update information
      */
     public synchronized TreeModelUpdateInfo.NodeAndChild removeDay(Date date) {
+        if (date == null) {
+            throw new NullPointerException("date == null");
+        }
+
         TreeModelUpdateInfo.NodeAndChild info =
             new TreeModelUpdateInfo.NodeAndChild();
         DefaultMutableTreeNode dayNode = getNodeOfDay(date);
@@ -178,6 +193,10 @@ public final class Timeline {
      * @return  true if that day exists
      */
     public synchronized boolean existsDate(Date date) {
+        if (date == null) {
+            throw new NullPointerException("date == null");
+        }
+
         return getNodeOfDay(date) != null;
     }
 

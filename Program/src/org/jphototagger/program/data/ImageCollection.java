@@ -48,6 +48,14 @@ public final class ImageCollection {
     public ImageCollection() {}
 
     public ImageCollection(String name, List<File> imageFiles) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+
+        if (imageFiles == null) {
+            throw new NullPointerException("imageFiles == null");
+        }
+
         this.name       = name;
         this.imageFiles = new ArrayList<File>(imageFiles);
     }

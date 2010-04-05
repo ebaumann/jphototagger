@@ -58,6 +58,18 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
     }
 
     public Keyword(Keyword keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+        
+        set(keyword);
+    }
+
+    public void set(Keyword keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("keyword == null");
+        }
+
         id       = keyword.id;
         idParent = keyword.idParent;
         name     = keyword.name;

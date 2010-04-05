@@ -43,10 +43,18 @@ public final class Favorite {
     public Favorite() {}
 
     public Favorite(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         set(favorite);
     }
 
     public void set(Favorite favorite) {
+        if (favorite == null) {
+            throw new NullPointerException("favorite == null");
+        }
+
         this.id        = favorite.id;
         this.index     = favorite.index;
         this.name      = favorite.name;

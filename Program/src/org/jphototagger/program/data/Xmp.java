@@ -23,6 +23,7 @@ package org.jphototagger.program.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.mapping.IptcXmpMapping;
@@ -31,9 +32,9 @@ import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.event.listener.TextEntryListener;
-import org.jphototagger.lib.generics.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -52,29 +53,69 @@ public final class Xmp implements TextEntryListener {
     public Xmp() {}
 
     public Xmp(Xmp other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         set(other);
     }
 
     public boolean contains(Column xmpColumn) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
         return valueOfColumn.get(xmpColumn) != null;
     }
 
     public Object remove(Column xmpColumn) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
         return valueOfColumn.remove(xmpColumn);
     }
 
     @Override
     public void textRemoved(Column column, String removedText) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (removedText == null) {
+            throw new NullPointerException("removedText == null");
+        }
+
         removeValue(column, removedText);
     }
 
     @Override
     public void textAdded(Column column, String addedText) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (addedText == null) {
+            throw new NullPointerException("addedText == null");
+        }
+
         setValue(column, addedText);
     }
 
     @Override
     public void textChanged(Column xmpColumn, String oldText, String newText) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
+        if (oldText == null) {
+            throw new NullPointerException("oldText == null");
+        }
+
+        if (newText == null) {
+            throw new NullPointerException("newText == null");
+        }
+
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
             Object o = valueOfColumn.get(xmpColumn);
 
@@ -97,6 +138,10 @@ public final class Xmp implements TextEntryListener {
     }
 
     public void setMetaDataTemplate(MetadataTemplate template) {
+        if (template == null) {
+            throw new NullPointerException("template == null");
+        }
+
         for (Column column : XmpColumns.get()) {
             valueOfColumn.put(column, template.getValueOfColumn(column));
         }
@@ -104,6 +149,14 @@ public final class Xmp implements TextEntryListener {
 
     @SuppressWarnings("element-type-mismatch")
     public boolean containsValue(Column column, Object value) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (value == null) {
+            throw new NullPointerException("value == null");
+        }
+
         Object o = valueOfColumn.get(column);
 
         if (o == null) {
@@ -134,6 +187,14 @@ public final class Xmp implements TextEntryListener {
 
     ;
     public void setIptc(Iptc iptc, SetIptc options) {
+        if (iptc == null) {
+            throw new NullPointerException("iptc == null");
+        }
+
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
         if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             clear();
         }
@@ -142,7 +203,7 @@ public final class Xmp implements TextEntryListener {
             IptcXmpMapping.getAllPairs();
 
         for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
-            Column        xmpColumn     = mappingPair.getSecond();
+            Column        xmpColumn = mappingPair.getSecond();
             IPTCEntryMeta iptcEntryMeta =
                 IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
@@ -150,7 +211,7 @@ public final class Xmp implements TextEntryListener {
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String  iptcString = (String) iptcValue;
-                    boolean isSet      =
+                    boolean isSet =
                         options.equals(SetIptc.REPLACE_EXISTING_VALUES)
                         || (getValue(xmpColumn) == null);
 
@@ -208,18 +269,30 @@ public final class Xmp implements TextEntryListener {
     }
 
     public Object getValue(Column xmpColumn) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
         Object o = valueOfColumn.get(xmpColumn);
 
-        return (o instanceof List<?>)
-               ? new ArrayList<Object>((List<?>) o)    // Returning a copy
+        return (o instanceof Collection<?>)
+               ? new ArrayList<Object>((Collection<?>) o)
                : o;
     }
 
     public void setValue(Column xmpColumn, Object value) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
+        if (value == null) {
+            valueOfColumn.remove(xmpColumn);
+
+            return;
+        }
+
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
-            if (value != null) {
-                addToCollection(xmpColumn, value);
-            }
+            addToCollection(xmpColumn, value);
         } else {
             valueOfColumn.put(xmpColumn, value);
         }
@@ -235,6 +308,14 @@ public final class Xmp implements TextEntryListener {
      * @param value     value not null
      */
     public void removeValue(Column xmpColumn, Object value) {
+        if (xmpColumn == null) {
+            throw new NullPointerException("xmpColumn == null");
+        }
+
+        if (value == null) {
+            throw new NullPointerException("value == null");
+        }
+
         Object  o      = valueOfColumn.get(xmpColumn);
         boolean remove = true;
 
@@ -289,10 +370,6 @@ public final class Xmp implements TextEntryListener {
     }
 
     private void addToCollection(Column column, Object value) {
-        if (value == null) {
-            return;
-        }
-
         Collection<? super Object> collection = collectionReferenceOf(column);
 
         if (collection == null) {
@@ -300,12 +377,26 @@ public final class Xmp implements TextEntryListener {
             valueOfColumn.put(column, collection);
         }
 
-        if (!collection.contains(value)) {
-            collection.add(value);
+        Collection<?> values = null;
+
+        if (value instanceof Collection<?>) {
+            values = (Collection<?>) value;
+        } else {
+            values = Arrays.asList(value);
+        }
+
+        for (Object v : values) {
+            if (!collection.contains(v)) {
+                collection.add(v);
+            }
         }
     }
 
     public void set(Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         if (xmp == this) {
             return;
         }

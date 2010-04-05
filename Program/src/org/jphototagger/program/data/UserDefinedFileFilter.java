@@ -137,10 +137,18 @@ public final class UserDefinedFileFilter implements Serializable {
     public UserDefinedFileFilter() {}
 
     public UserDefinedFileFilter(UserDefinedFileFilter other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         set(other);
     }
 
     public void set(UserDefinedFileFilter other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         if (other != this) {
             id         = other.id;
             isNot      = other.isNot;
@@ -264,11 +272,16 @@ public final class UserDefinedFileFilter implements Serializable {
     }
 
     public static class RegexFileFilter implements FileFilter, Serializable {
-        private final String  pattern;
-        private final boolean isNot;
-        private final long    id;
+        private static final long serialVersionUID = -1657911795602944754L;
+        private final String      pattern;
+        private final boolean     isNot;
+        private final long        id;
 
         public RegexFileFilter(String pattern, boolean not, long id) {
+            if (pattern == null) {
+                throw new NullPointerException("pattern == null");
+            }
+
             this.pattern = pattern;
             this.isNot   = not;
             this.id      = id;

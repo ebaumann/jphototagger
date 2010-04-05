@@ -67,6 +67,10 @@ public final class MetadataTemplate {
      * @return        value or null if the column has no value
      */
     public Object getValueOfColumn(Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         return fieldOfColumn.get(column);
     }
 
@@ -76,16 +80,25 @@ public final class MetadataTemplate {
      * @param column  Spalte
      * @param data    Wert
      */
-    @SuppressWarnings("unchecked")
     public void setValueOfColumn(Column column, Object data) {
-        fieldOfColumn.put(column, data);
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
+        if (data == null) {
+            fieldOfColumn.remove(column);
+        } else {
+            fieldOfColumn.put(column, data);
+        }
     }
 
     @Override
+
+    // Never change this implementation (will be used to find model items)!
     public String toString() {
         return (name == null)
                ? ""
-               : name;    // Never change that (will be used to find model items)!
+               : name;
     }
 
     @Override
@@ -119,6 +132,10 @@ public final class MetadataTemplate {
     }
 
     public void setXmp(Xmp xmp) {
+        if (xmp == null) {
+            throw new NullPointerException("xmp == null");
+        }
+
         for (Column column : XmpColumns.get()) {
             fieldOfColumn.put(column, xmp.getValue(column));
         }

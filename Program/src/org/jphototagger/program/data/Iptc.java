@@ -40,12 +40,17 @@ public final class Iptc {
         new HashMap<IPTCEntryMeta, Object>();
 
     public Object getValue(IPTCEntryMeta iptcEntry) {
+        if (iptcEntry == null) {
+            throw new NullPointerException("iptcEntry == null");
+        }
+
         Object value = valueOfEntryMeta.get(iptcEntry);
 
         return (value == null)
                ? null
                : (value instanceof Collection<?>)
-                 ? new ArrayList<Object>((Collection<?>) value)    // Returning a copy
+                 ? new ArrayList<Object>(
+                     (Collection<?>) value)    // Returning a copy
                  : value;
     }
 
@@ -57,6 +62,16 @@ public final class Iptc {
      * @param value     value of the entry
      */
     public void setValue(IPTCEntryMeta iptcEntry, Object value) {
+        if (iptcEntry == null) {
+            throw new NullPointerException("iptcEntry == null");
+        }
+
+        if (value == null) {
+            valueOfEntryMeta.remove(iptcEntry);
+
+            return;
+        }
+
         if (IptcRepeatableValues.isRepeatable(iptcEntry)) {
             addToCollection(iptcEntry, value);
         } else {
@@ -75,10 +90,6 @@ public final class Iptc {
 
     @SuppressWarnings("unchecked")
     private void addToCollection(IPTCEntryMeta meta, Object o) {
-        if (o == null) {
-            return;
-        }
-
         Collection<? super Object> collection = collectionReference(meta);
 
         if (collection == null) {

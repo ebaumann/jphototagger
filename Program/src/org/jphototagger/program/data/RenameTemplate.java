@@ -55,10 +55,18 @@ public final class RenameTemplate {
     public RenameTemplate() {}
 
     public RenameTemplate(RenameTemplate other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         set(other);
     }
 
     public void set(RenameTemplate other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         id                     = other.id;
         name                   = other.name;
         startNumber            = other.startNumber;
