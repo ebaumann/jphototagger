@@ -43,6 +43,7 @@ import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.datatransfer.TransferUtil;
 
 /**
  * Handles drags and drops for a {@link KeywordsPanel}'s tree.
@@ -94,7 +95,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
     @Override
     public boolean importData(TransferSupport support) {
-        DefaultMutableTreeNode dropNode = Support.getDropNode(support);
+        DefaultMutableTreeNode dropNode = TransferUtil.getTreeDropNode(support);
 
         if (dropNode != null) {
             TreeModelKeywords model =

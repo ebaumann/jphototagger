@@ -60,6 +60,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
+import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
 import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
 import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
 
@@ -640,6 +641,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSelKeywordsList = new javax.swing.JPanel();
         scrollPaneSelKeywordsList = new javax.swing.JScrollPane();
         listSelKeywords = new javax.swing.JList();
+        listSelKeywords.setTransferHandler(new TransferHandlerKeywordsList());
         panelSelKeywordsListMultipleSelection = new javax.swing.JPanel();
         radioButtonSelKeywordsMultipleSelAll = new javax.swing.JRadioButton();
         radioButtonSelKeywordsMultipleSelOne = new javax.swing.JRadioButton();
