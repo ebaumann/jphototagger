@@ -654,9 +654,13 @@
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new TreeCellRendererMiscMetadata()" type="code"/>
                             </Property>
+                            <Property name="dragEnabled" type="boolean" value="true"/>
                             <Property name="rootVisible" type="boolean" value="false"/>
                             <Property name="showsRootHandles" type="boolean" value="true"/>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>

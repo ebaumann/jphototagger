@@ -29,8 +29,11 @@ import java.awt.datatransfer.Transferable;
 
 import java.util.Collection;
 import java.util.List;
+import javax.swing.JTree;
+import javax.swing.TransferHandler.TransferSupport;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * Support for data transfer.
@@ -153,6 +156,32 @@ public final class Support {
                 DataFlavor.stringFlavor);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
+        }
+
+        return null;
+    }
+
+    public static DefaultMutableTreeNode getDropNode(
+            TransferSupport transferSupport) {
+        if (transferSupport.isDrop()) {
+            JTree.DropLocation dropLocation =
+                (JTree.DropLocation) transferSupport.getDropLocation();
+            Object dropObject = dropLocation.getPath().getLastPathComponent();
+
+            return (dropObject instanceof DefaultMutableTreeNode)
+                   ? (DefaultMutableTreeNode) dropObject
+                   : null;
+        }
+
+        JTree    tree    = (JTree) transferSupport.getComponent();
+        TreePath selPath = tree.getSelectionPath();
+
+        if (selPath != null) {
+            Object o = selPath.getLastPathComponent();
+
+            if (o instanceof DefaultMutableTreeNode) {
+                return (DefaultMutableTreeNode) o;
+            }
         }
 
         return null;

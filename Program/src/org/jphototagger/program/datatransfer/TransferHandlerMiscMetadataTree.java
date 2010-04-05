@@ -22,14 +22,22 @@
 package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.io.ImageUtil;
+import org.jphototagger.program.resource.GUI;
 
 import java.awt.datatransfer.Transferable;
 
+import java.io.File;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -47,11 +55,62 @@ import javax.swing.tree.TreePath;
 public final class TransferHandlerMiscMetadataTree extends TransferHandler {
     private static final long         serialVersionUID = -260820309332646425L;
     private static final List<Column> XMP_COLS         = XmpColumns.get();
+    private final JTree               tree =
+        GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
+
+    @Override
+    public boolean canImport(TransferSupport support) {
+        if (!Flavor.hasFiles(support.getTransferable())) {
+            return false;
+        }
+
+        DefaultMutableTreeNode dropNode = Support.getDropNode(support);
+
+        return (dropNode != null)
+               && MiscMetadataHelper.isParentUserObjectAColumnOf(dropNode,
+                   XMP_COLS);
+    }
+
+    @Override
+    public boolean importData(TransferSupport support) {
+        DefaultMutableTreeNode dropNode = Support.getDropNode(support);
+
+        if (dropNode == null) {
+            return false;
+        }
+
+        Pair<Column, String> colValue =
+            MiscMetadataHelper.getColValueFrom(dropNode);
+
+        if (colValue == null) {
+            return false;
+        }
+
+        List<File> files = TransferUtil.getFiles(support.getTransferable(),
+                               TransferUtil.FilenameDelimiter.NEWLINE);
+        List<File> imageFiles = ImageUtil.getImageFiles(files);
+        String     value      = colValue.getSecond();
+
+        if (!imageFiles.isEmpty() && confirmImport(value, imageFiles.size())) {
+            ColumnData cd = new ColumnData(colValue.getFirst(), value);
+
+            MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd),
+                    imageFiles);
+        }
+
+        return false;
+    }
+
+    private boolean confirmImport(Object value, int fileCount) {
+        return MessageDisplayer.confirmYesNo(null,
+                "TransferHandlerMiscMetadataTree.Confirm.Import", value,
+                fileCount);
+    }
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        JTree      tree     = (JTree) c;
-        TreePath[] selPaths = tree.getSelectionPaths();
+        JTree      t        = (JTree) c;
+        TreePath[] selPaths = t.getSelectionPaths();
 
         if (selPaths != null) {
             List<ColumnData> colData =
@@ -65,8 +124,8 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
                     if (MiscMetadataHelper.isParentUserObjectAColumnOf(node,
                             XMP_COLS)) {
-                        Object   nodeUserObject   = node.getUserObject();
-                        TreeNode parent           = node.getParent();
+                        Object   nodeUserObject = node.getUserObject();
+                        TreeNode parent         = node.getParent();
                         Object   parentUserObject =
                             ((DefaultMutableTreeNode) parent).getUserObject();
 
