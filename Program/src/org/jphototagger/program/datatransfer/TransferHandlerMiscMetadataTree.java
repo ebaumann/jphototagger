@@ -60,6 +60,10 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport support) {
+        if (!support.isDrop()) {
+            return false;
+        }
+
         if (!Flavor.hasFiles(support.getTransferable())) {
             return false;
         }
