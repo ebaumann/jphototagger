@@ -326,7 +326,7 @@ public final class TransferUtil {
      *
      * @param  transferable transferable
      * @param  delimiter    delimiter
-     * @return              files
+     * @return              files or empty list
      */
     public static List<File> getFiles(Transferable transferable,
                                       FilenameDelimiter delimiter) {
