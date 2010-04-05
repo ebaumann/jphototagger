@@ -29,7 +29,6 @@ import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
 import java.awt.datatransfer.Transferable;
@@ -73,10 +72,8 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
         Object value = list.getModel().getElementAt(index);
 
         if (value instanceof String) {
-            String     keyword = (String) value;
-            List<File> files = TransferUtil.getFiles(support.getTransferable(),
-                                   TransferUtil.FilenameDelimiter.NEWLINE);
-            List<File> imageFiles = ImageUtil.getImageFiles(files);
+            String     keyword    = (String) value;
+            List<File> imageFiles = Support.getImageFiles(support);
             int        fileCount  = imageFiles.size();
 
             if ((fileCount > 0) && confirmImport(keyword, fileCount)) {
@@ -85,6 +82,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
 
                 MiscMetadataHelper.saveToImageFiles(
                     Collections.singletonList(cd), imageFiles);
+
                 return true;
             }
         }

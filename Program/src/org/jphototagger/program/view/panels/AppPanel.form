@@ -412,6 +412,9 @@
                                 </Property>
                                 <Property name="showsRootHandles" type="boolean" value="true"/>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeSelKeywords.setTransferHandler(new TransferHandlerKeywordsTree());"/>
+                              </AuxValues>
                             </Component>
                           </SubComponents>
                         </Container>

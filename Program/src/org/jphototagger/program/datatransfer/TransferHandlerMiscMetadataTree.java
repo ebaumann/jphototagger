@@ -29,7 +29,6 @@ import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.resource.GUI;
 
 import java.awt.datatransfer.Transferable;
@@ -94,9 +93,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
             return false;
         }
 
-        List<File> files = TransferUtil.getFiles(support.getTransferable(),
-                               TransferUtil.FilenameDelimiter.NEWLINE);
-        List<File> imageFiles = ImageUtil.getImageFiles(files);
+        List<File> imageFiles = Support.getImageFiles(support);
         String     value      = colValue.getSecond();
 
         if (!imageFiles.isEmpty() && confirmImport(value, imageFiles.size())) {
@@ -104,6 +101,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
             MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd),
                     imageFiles);
+
             return true;
         }
 

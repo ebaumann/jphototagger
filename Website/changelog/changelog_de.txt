@@ -8,7 +8,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Bilder können aus der Vorschaubild-Ansicht auf folgendes gezogen werden, wobei
   den Bilder deren Werte zugwiesen werden, z.B. den Aufnahmeort:
-  ** Verschiedenes / Angaben zu den Bildern
+  * Verschiedenes / Angaben zu den Bildern
+  * Stichwörter / Listenansicht
+  * Stichwörter / Baumansicht
   
 
 0.8.21 2010-04-04

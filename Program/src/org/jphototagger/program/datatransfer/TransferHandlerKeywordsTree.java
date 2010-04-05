@@ -22,18 +22,26 @@
 package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.keywords.tree
     .KeywordsTreePathExpander;
 import org.jphototagger.program.controller.keywords.tree
     .KeywordTreeNodesClipboard;
+import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.Keyword;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
 import java.awt.datatransfer.Transferable;
+
+import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +51,6 @@ import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-import org.jphototagger.lib.datatransfer.TransferUtil;
 
 /**
  * Handles drags and drops for a {@link KeywordsPanel}'s tree.
@@ -106,6 +113,8 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
             } else if (Flavor.hasKeywordsFromTree(support)) {
                 moveKeywords(support, model, dropNode);
                 KeywordTreeNodesClipboard.INSTANCE.empty();
+            } else if (Flavor.hasFiles(support.getTransferable())) {
+                return addKeywordsToFiles(support);
             }
 
             KeywordsTreePathExpander.expand((JTree) support.getComponent(),
@@ -139,6 +148,43 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
         for (Object keyword : keywords) {
             treeModel.insert(node, keyword.toString(), true);
         }
+    }
+
+    private boolean addKeywordsToFiles(TransferSupport support) {
+        DefaultMutableTreeNode dropNode = TransferUtil.getTreeDropNode(support);
+
+        if (dropNode == null) {
+            return false;
+        }
+
+        List<Keyword> keywords = KeywordsHelper.getKeywords(dropNode, true);
+
+        if (keywords.isEmpty()) {
+            return false;
+        }
+
+        List<ColumnData> cd = new ArrayList<ColumnData>(keywords.size());
+
+        for (Keyword keyword : keywords) {
+            cd.add(new ColumnData(ColumnXmpDcSubjectsSubject.INSTANCE,
+                                  keyword.getName()));
+        }
+
+        List<File> imageFiles = Support.getImageFiles(support);
+        int        fileCount  = imageFiles.size();
+
+        if ((fileCount > 0) && confirmImport(fileCount)) {
+            MiscMetadataHelper.saveToImageFiles(cd, imageFiles);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean confirmImport(int fileCount) {
+        return MessageDisplayer.confirmYesNo(null,
+                "TransferHandlerKeywords.Confirm.Import", fileCount);
     }
 
     @SuppressWarnings("unchecked")
