@@ -73,6 +73,10 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
     @Override
     public boolean importData(TransferSupport support) {
+        if (!support.isDrop()) {
+            return false;
+        }
+
         DefaultMutableTreeNode dropNode = Support.getDropNode(support);
 
         if (dropNode == null) {
