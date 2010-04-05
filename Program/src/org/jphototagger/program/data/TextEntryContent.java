@@ -39,6 +39,10 @@ public final class TextEntryContent implements TextEntry {
     private Column column;
 
     public TextEntryContent(String text, Column column) {
+        if (column == null) {
+            throw new NullPointerException("column == null");
+        }
+
         this.text   = text;
         this.column = column;
     }

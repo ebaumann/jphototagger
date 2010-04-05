@@ -39,6 +39,14 @@ public final class ThumbnailFlag {
             JptBundle.INSTANCE.getString("ThumbnailFlag.Error.FileNotFound"));
 
     public ThumbnailFlag(Color color, String string) {
+        if (color == null) {
+            throw new NullPointerException("color == null");
+        }
+
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
         this.color  = color;
         this.string = string;
     }

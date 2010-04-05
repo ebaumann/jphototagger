@@ -37,10 +37,18 @@ public final class ParamStatement {
     public ParamStatement() {}
 
     public ParamStatement(ParamStatement stmt) {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         set(stmt);
     }
 
     public void set(ParamStatement stmt) {
+        if (stmt == null) {
+            throw new NullPointerException("stmt == null");
+        }
+
         sql    = stmt.sql;
         values = new ArrayList<String>(stmt.values);
         query  = stmt.query;

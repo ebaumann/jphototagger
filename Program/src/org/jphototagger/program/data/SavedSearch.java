@@ -77,6 +77,10 @@ public final class SavedSearch {
     public SavedSearch() {}
 
     public SavedSearch(SavedSearch other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
         set(other);
     }
 
@@ -110,12 +114,10 @@ public final class SavedSearch {
             throw new NullPointerException("other == null");
         }
 
-        if (other == this) {
-            return;
+        if (other != this) {
+            panels = other.getDeepCopyPanels();
+            type   = other.type;
         }
-
-        panels = other.getDeepCopyPanels();
-        type   = other.type;
     }
 
     public boolean hasPanels() {

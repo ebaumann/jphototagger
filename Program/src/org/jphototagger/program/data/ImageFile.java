@@ -129,6 +129,10 @@ public final class ImageFile {
      * @param insert metadata to insert
      */
     public void addInsertIntoDb(InsertImageFilesIntoDatabase.Insert insert) {
+        if (insert == null) {
+            throw new NullPointerException("insert == null");
+        }
+
         insertIntoDb.add(insert);
     }
 
