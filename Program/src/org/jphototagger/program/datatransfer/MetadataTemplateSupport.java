@@ -40,13 +40,12 @@ import javax.swing.TransferHandler.TransferSupport;
  */
 final class MetadataTemplateSupport {
     @SuppressWarnings({ "unchecked", "unchecked" })
-    public static void setTemplate(TransferSupport transferSupport) {
+    public static void setTemplate(TransferSupport support) {
         try {
             Object[] selTemplates =
-                (Object[]) transferSupport.getTransferable().getTransferData(
+                (Object[]) support.getTransferable().getTransferData(
                     Flavor.METADATA_TEMPLATES);
-            TextEntry textEntry =
-                findParentTextEntry(transferSupport.getComponent());
+            TextEntry textEntry = findParentTextEntry(support.getComponent());
 
             if ((selTemplates != null) && (textEntry != null)) {
                 Column           column   = textEntry.getColumn();
@@ -58,8 +57,7 @@ final class MetadataTemplateSupport {
                     textEntry.setDirty(true);
                 } else if (value instanceof Collection<?>) {
                     EditRepeatableTextEntryPanel panel =
-                        findRepeatableTextEntryPanel(
-                            transferSupport.getComponent());
+                        findRepeatableTextEntryPanel(support.getComponent());
 
                     if (panel == null) {
                         return;

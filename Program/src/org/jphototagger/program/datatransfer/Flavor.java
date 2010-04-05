@@ -151,48 +151,48 @@ public final class Flavor {
      * Returns whether the data flavor {@link #KEYWORDS_LIST}
      * is supported.
      *
-     * @param  transferSupport transfer support
+     * @param  support transfer support
      * @return                 true if the data flavor
      *                         {@link #KEYWORDS_LIST} is supported
      */
-    public static boolean hasKeywordsFromList(TransferSupport transferSupport) {
-        if (transferSupport == null) {
-            throw new NullPointerException("transferSupport == null");
+    public static boolean hasKeywordsFromList(TransferSupport support) {
+        if (support == null) {
+            throw new NullPointerException("support == null");
         }
 
-        return transferSupport.isDataFlavorSupported(KEYWORDS_LIST);
+        return support.isDataFlavorSupported(KEYWORDS_LIST);
     }
 
-    public static boolean hasMetadataTemplate(TransferSupport transferSupport) {
-        if (transferSupport == null) {
-            throw new NullPointerException("transferSupport == null");
+    public static boolean hasMetadataTemplate(TransferSupport support) {
+        if (support == null) {
+            throw new NullPointerException("support == null");
         }
 
-        return transferSupport.isDataFlavorSupported(METADATA_TEMPLATES);
+        return support.isDataFlavorSupported(METADATA_TEMPLATES);
     }
 
-    public static boolean hasColumnData(TransferSupport transferSupport) {
-        if (transferSupport == null) {
-            throw new NullPointerException("transferSupport == null");
+    public static boolean hasColumnData(TransferSupport support) {
+        if (support == null) {
+            throw new NullPointerException("support == null");
         }
 
-        return transferSupport.isDataFlavorSupported(COLUMN_DATA);
+        return support.isDataFlavorSupported(COLUMN_DATA);
     }
 
     /**
      * Returns whether the data flavor {@link #KEYWORDS_TREE}
      * is supported.
      *
-     * @param  transferSupport transfer support
-     * @return                 true if the data flavor
-     *                         {@link #KEYWORDS_TREE} is supported
+     * @param  support transfer support
+     * @return         true if the data flavor {@link #KEYWORDS_TREE} is
+     *                 supported
      */
-    public static boolean hasKeywordsFromTree(TransferSupport transferSupport) {
-        if (transferSupport == null) {
-            throw new NullPointerException("transferSupport == null");
+    public static boolean hasKeywordsFromTree(TransferSupport support) {
+        if (support == null) {
+            throw new NullPointerException("support == null");
         }
 
-        return transferSupport.isDataFlavorSupported(KEYWORDS_TREE);
+        return support.isDataFlavorSupported(KEYWORDS_TREE);
     }
 
     private final class COLUMN_DATA {}
