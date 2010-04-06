@@ -80,6 +80,8 @@ public final class AppLookAndFeel {
     public static final Icon          ICON_CUT       = getIcon("icon_cut.png");
     public static final Icon          ICON_COPY      = getIcon("icon_copy.png");
     public static final Icon          ICON_FILTER = getIcon("icon_filter.png");
+    public static final Icon          ICON_START     =
+        getIcon("icon_start.png");
     public static final Icon          ICON_CANCEL = getIcon("icon_cancel.png");
     private static final List<Image>  APP_ICONS      = new ArrayList<Image>();
     private static final List<String> APP_ICON_PATHS = new ArrayList<String>();

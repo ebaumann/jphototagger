@@ -53,43 +53,37 @@ import javax.swing.JButton;
  */
 public final class ScheduledTasks
         implements ActionListener, UpdateMetadataCheckListener {
-    public static final ScheduledTasks          INSTANCE = new ScheduledTasks();
     private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE =
         new HashMap<ButtonState, Icon>();
     private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE =
         new HashMap<ButtonState, String>();
-
-    static {
-        ICON_OF_BUTTON_STATE.put(
-            ButtonState.START,
-            AppLookAndFeel.getIcon("icon_start_scheduled_tasks.png"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(
-            ButtonState.START,
-            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(
-            ButtonState.CANCEL,
-            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Cancel"));
-        ICON_OF_BUTTON_STATE.put(
-            ButtonState.CANCEL,
-            AppLookAndFeel.getIcon("icon_cancel_scheduled_tasks_enabled.png"));
-    }
-
-    private final SerialExecutor executor =
+    public static final ScheduledTasks INSTANCE = new ScheduledTasks();
+    private final SerialExecutor       executor =
         new SerialExecutor(Executors.newCachedThreadPool());
     private final JButton button =
         SettingsDialog.INSTANCE.getButtonScheduledTasks();
     private final long MINUTES_WAIT_BEFORE_PERFORM =
         UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
     private volatile boolean isRunning;
+    private volatile boolean runnedManual;
 
     private enum ButtonState { START, CANCEL }
 
     private ScheduledTasks() {
-        if (MINUTES_WAIT_BEFORE_PERFORM <= 0) {
-            setButtonState(ButtonState.START);
-        }
-
+        init();
         button.addActionListener(this);
+    }
+
+    private static void init() {
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(
+            ButtonState.START,
+            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(
+            ButtonState.CANCEL,
+            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Cancel"));
+        ICON_OF_BUTTON_STATE.put(ButtonState.START, AppLookAndFeel.ICON_START);
+        ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL,
+                                 AppLookAndFeel.ICON_CANCEL);
     }
 
     /**
@@ -97,19 +91,20 @@ public final class ScheduledTasks
      * {@link UserSettings#getMinutesToStartScheduledTasks()}.
      */
     public synchronized void run() {
-        if (isRunning || (MINUTES_WAIT_BEFORE_PERFORM <= 0)) {
+        if (isRunning || runnedManual || (MINUTES_WAIT_BEFORE_PERFORM <= 0)) {
             return;
         }
-
-        isRunning = true;
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     TimeUnit.MINUTES.sleep(MINUTES_WAIT_BEFORE_PERFORM);
-                    setStart();
-                    startUpdate();
+
+                    if (!runnedManual) {
+                        setStart();
+                        startUpdate();
+                    }
                 } catch (Exception ex) {
                     AppLogger.logSevere(getClass(), ex);
                 }
@@ -147,13 +142,21 @@ public final class ScheduledTasks
     }
 
     private void startUpdate() {
-        InsertImageFilesIntoDatabase inserter =
-            ScheduledTaskInsertImageFilesIntoDatabase.getThread();
 
-        if (inserter != null) {
-            inserter.addUpdateMetadataCheckListener(this);
-            executor.execute(inserter);
-        }
+        // Thread because the button does not redraw until the longer operation
+        // to gather the files has been finished
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                InsertImageFilesIntoDatabase inserter =
+                    ScheduledTaskInsertImageFilesIntoDatabase.getThread();
+
+                if (inserter != null) {
+                    inserter.addUpdateMetadataCheckListener(INSTANCE);
+                    executor.execute(inserter);
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -170,6 +173,7 @@ public final class ScheduledTasks
             if (isRunning) {
                 cancelCurrentTasks();
             } else {
+                runnedManual = true;
                 setStart();
                 startUpdate();
             }
@@ -184,7 +188,6 @@ public final class ScheduledTasks
     }
 
     private void setButtonState(ButtonState state) {
-        button.setEnabled(true);
         button.setIcon(ICON_OF_BUTTON_STATE.get(state));
         button.setToolTipText(TOOLTIP_TEXT_OF_BUTTON_STATE.get(state));
     }
