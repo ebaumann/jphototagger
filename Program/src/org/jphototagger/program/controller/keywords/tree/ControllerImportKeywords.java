@@ -61,7 +61,7 @@ public final class ControllerImportKeywords implements ActionListener {
             assert importer != null : "Importer is null!";
 
             if (importer != null) {
-                importer.getPaths(dlg.getFile());
+                importer.importFile(dlg.getFile());
             }
         }
     }
