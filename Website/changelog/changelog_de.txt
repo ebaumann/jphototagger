@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.23 2010-04-06
+-----------------
+
+* Einige Aktionen können abgebrochen werden, neben der Fortschrittsanzeige des
+  Programmfensters erscheint in diesem Fall eine Abbrechen-Schaltfläche
+
 0.8.22 2010-04-05
 -----------------
 
