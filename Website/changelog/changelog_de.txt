@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.24 2010-04-06
+-----------------
+
+* Bugfix: Import des Lightroom-Stichwortbaums funktioniert wieder
+
 0.8.23 2010-04-06
 -----------------
 
