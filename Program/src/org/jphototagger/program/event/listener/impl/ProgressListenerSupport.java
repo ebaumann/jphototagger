@@ -56,14 +56,14 @@ public final class ProgressListenerSupport
      *
      * @param  event progress event
      * @return       true if one of the of the events returns
-     *               {@link ProgressEvent#isStop()}
+     *               {@link ProgressEvent#isCancel()}
      */
     public boolean notifyPerformed(ProgressEvent event) {
         if (event == null) {
             throw new NullPointerException("event == null");
         }
 
-        boolean isStop = false;
+        boolean cancel = false;
 
         synchronized (listeners) {
             for (ProgressListener listener : listeners) {
@@ -71,7 +71,7 @@ public final class ProgressListenerSupport
             }
         }
 
-        return isStop;
+        return cancel;
     }
 
     /**

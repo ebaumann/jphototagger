@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.tasks;
 
+import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.event.listener.UpdateMetadataCheckListener;
@@ -30,7 +31,6 @@ import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
-import org.jphototagger.lib.concurrent.SerialExecutor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,14 +38,14 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
 
 /**
- * Runs scheduled tasks after {@link UserSettings#getMinutesToStartScheduledTasks()}.
+ * Runs scheduled tasks after
+ * {@link UserSettings#getMinutesToStartScheduledTasks()}.
  *
  * To work initially, {@link #run()} has to be called.
  *
@@ -53,8 +53,7 @@ import javax.swing.JButton;
  */
 public final class ScheduledTasks
         implements ActionListener, UpdateMetadataCheckListener {
-    public static final ScheduledTasks          INSTANCE             =
-        new ScheduledTasks();
+    public static final ScheduledTasks          INSTANCE = new ScheduledTasks();
     private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE =
         new HashMap<ButtonState, Icon>();
     private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE =
@@ -68,11 +67,11 @@ public final class ScheduledTasks
             ButtonState.START,
             JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
         TOOLTIP_TEXT_OF_BUTTON_STATE.put(
-            ButtonState.STOP,
-            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Stop"));
+            ButtonState.CANCEL,
+            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Cancel"));
         ICON_OF_BUTTON_STATE.put(
-            ButtonState.STOP,
-            AppLookAndFeel.getIcon("icon_stop_scheduled_tasks_enabled.png"));
+            ButtonState.CANCEL,
+            AppLookAndFeel.getIcon("icon_cancel_scheduled_tasks_enabled.png"));
     }
 
     private final SerialExecutor executor =
@@ -83,7 +82,7 @@ public final class ScheduledTasks
         UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
     private volatile boolean isRunning;
 
-    private enum ButtonState { START, STOP }
+    private enum ButtonState { START, CANCEL }
 
     private ScheduledTasks() {
         if (MINUTES_WAIT_BEFORE_PERFORM <= 0) {
@@ -94,7 +93,8 @@ public final class ScheduledTasks
     }
 
     /**
-     * Runs the tasks after {@link UserSettings#getMinutesToStartScheduledTasks()}.
+     * Runs the tasks after
+     * {@link UserSettings#getMinutesToStartScheduledTasks()}.
      */
     public synchronized void run() {
         if (isRunning || (MINUTES_WAIT_BEFORE_PERFORM <= 0)) {
@@ -134,29 +134,25 @@ public final class ScheduledTasks
      * currently running runnable if it's an instance of
      * <code>java.lang.Thread</code>.
      *
-     * This means: The currently running task stops only when it is a thread
+     * This means: The currently running task cancels only when it is a thread
      * that will periodically check {@link Thread#isInterrupted()}.
      *
      * If the active runnable has a method named <strong>cancel</strong> with
      * no parameters, it will be invoked instead of <strong>interrupt</strong>.
      */
-    public void stopCurrentTasks() {
+    public void cancelCurrentTasks() {
         executor.shutdown();
         setButtonState(ButtonState.START);
         isRunning = false;
     }
 
     private void startUpdate() {
-        List<InsertImageFilesIntoDatabase> updaters =
-            ScheduledTaskInsertImageFilesIntoDatabase.getThreads();
+        InsertImageFilesIntoDatabase inserter =
+            ScheduledTaskInsertImageFilesIntoDatabase.getThread();
 
-        for (InsertImageFilesIntoDatabase updater : updaters) {
-            executor.execute(updater);
-        }
-
-        if (updaters.size() > 0) {
-            updaters.get(updaters.size()
-                         - 1).addUpdateMetadataCheckListener(this);
+        if (inserter != null) {
+            inserter.addUpdateMetadataCheckListener(this);
+            executor.execute(inserter);
         }
     }
 
@@ -172,7 +168,7 @@ public final class ScheduledTasks
     public void actionPerformed(ActionEvent evt) {
         synchronized (button) {
             if (isRunning) {
-                stopCurrentTasks();
+                cancelCurrentTasks();
             } else {
                 setStart();
                 startUpdate();
@@ -183,7 +179,7 @@ public final class ScheduledTasks
     private void setStart() {
         synchronized (button) {
             isRunning = true;
-            setButtonState(ButtonState.STOP);
+            setButtonState(ButtonState.CANCEL);
         }
     }
 

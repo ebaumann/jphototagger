@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.data.Exif;
@@ -44,7 +45,6 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.image.util.IconUtil;
 
 import java.awt.Image;
 
@@ -67,8 +67,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
         IconUtil.getIconImage(
             JptBundle.INSTANCE.getString(
                 "InsertImageFilesIntoDatabase.ErrorThumbnailPath"));
-    private final DatabaseImageFiles      db         =
-        DatabaseImageFiles.INSTANCE;
+    private final DatabaseImageFiles      db = DatabaseImageFiles.INSTANCE;
     private final ProgressListenerSupport progressLs =
         new ProgressListenerSupport();
     private final ListenerSupport<UpdateMetadataCheckListener> updateLs =
@@ -76,7 +75,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     private ProgressEvent     progressEvent = new ProgressEvent(this, null);
     private final Set<Insert> what          = new HashSet<Insert>();
     private final List<File>  imageFiles;
-    private boolean           stop;
+    private boolean           cancel;
 
     /**
      * Metadata to insert.
@@ -151,7 +150,8 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         notifyStarted();
 
-        for (index = 0; !isInterrupted() &&!stop && (index < count); index++) {
+        for (index = 0; !cancel && !isInterrupted() && (index < count);
+                index++) {
             File imgFile = imageFiles.get(index);
 
             // Notify before inserting to enable progress listeners displaying
@@ -233,8 +233,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private boolean isThumbnailUpToDate(File imageFile) {
-        File tnFile =
-            PersistentThumbnails.getThumbnailFile(imageFile);
+        File tnFile = PersistentThumbnails.getThumbnailFile(imageFile);
 
         if ((tnFile == null) ||!tnFile.exists()) {
             return false;
@@ -318,10 +317,10 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void setExifDateToXmpDateCreated(ImageFile imageFile) {
-        Exif    exif              = imageFile.getExif();
-        Xmp     xmp               = imageFile.getXmp();
-        boolean hasExif           = exif != null;
-        boolean hasXmp            = xmp != null;
+        Exif    exif    = imageFile.getExif();
+        Xmp     xmp     = imageFile.getXmp();
+        boolean hasExif = exif != null;
+        boolean hasXmp  = xmp != null;
         boolean hasXmpDateCreated =
             hasXmp && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         boolean hasExifDate = hasExif && (exif.getDateTimeOriginal() != null);
@@ -381,7 +380,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * process.
      */
     public void cancel() {
-        stop = true;
+        cancel = true;
     }
 
     /**
@@ -414,7 +413,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
     }
 
     private void notifyUpdateMetadataCheckListener(Type type, File file) {
-        UpdateMetadataCheckEvent         evt       =
+        UpdateMetadataCheckEvent         evt =
             new UpdateMetadataCheckEvent(type, file);
         Set<UpdateMetadataCheckListener> listeners = updateLs.get();
 

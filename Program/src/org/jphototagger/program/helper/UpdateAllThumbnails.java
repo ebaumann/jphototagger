@@ -44,7 +44,7 @@ import java.util.Set;
 public final class UpdateAllThumbnails
         implements Runnable, ProgressListener, ActionListener {
     private ProgressDialog            progressDialog;
-    private boolean                   stop            = false;
+    private boolean                   cancel;
     private final Set<ActionListener> actionListeners =
         new HashSet<ActionListener>();
 
@@ -78,9 +78,9 @@ public final class UpdateAllThumbnails
         progressDialog.setVisible(true);
     }
 
-    private void checkStopEvent(ProgressEvent evt) {
-        if (stop) {
-            evt.stop();
+    private void checkCancel(ProgressEvent evt) {
+        if (cancel) {
+            evt.cancel();
         }
     }
 
@@ -91,7 +91,7 @@ public final class UpdateAllThumbnails
         }
 
         setProgressDialogStarted(evt);
-        checkStopEvent(evt);
+        checkCancel(evt);
     }
 
     @Override
@@ -101,7 +101,7 @@ public final class UpdateAllThumbnails
         }
 
         setProgressDialogPerformed(evt);
-        checkStopEvent(evt);
+        checkCancel(evt);
     }
 
     @Override
@@ -133,7 +133,7 @@ public final class UpdateAllThumbnails
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        stop = true;
+        cancel = true;
     }
 
     private void logUpdateAllThumbnails() {
@@ -143,7 +143,7 @@ public final class UpdateAllThumbnails
 
     private synchronized void notifyActionPerformed() {
         for (ActionListener listener : actionListeners) {
-            listener.actionPerformed(new ActionEvent(this, 0, "Stop"));
+            listener.actionPerformed(new ActionEvent(this, 0, "Cancel"));
         }
     }
 }

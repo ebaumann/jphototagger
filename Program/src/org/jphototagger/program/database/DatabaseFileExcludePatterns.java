@@ -249,12 +249,12 @@ public final class DatabaseFileExcludePatterns extends Database {
 
             notifyProgressListenerStart(listener, event);
 
-            boolean stop = event.isStop();
+            boolean cancel = event.isCancel();
 
-            while (!stop && rs.next()) {
+            while (!cancel && rs.next()) {
                 String filepath = rs.getString(1);
 
-                for (int i = 0; !stop && (i < patternCount); i++) {
+                for (int i = 0; !cancel && (i < patternCount); i++) {
                     progress++;
 
                     String pattern = patterns.get(i);
@@ -277,7 +277,7 @@ public final class DatabaseFileExcludePatterns extends Database {
                                 imageFile);
                         }
 
-                        stop = event.isStop();
+                        cancel = event.isCancel();
                     }
 
                     event.setInfo(filepath);

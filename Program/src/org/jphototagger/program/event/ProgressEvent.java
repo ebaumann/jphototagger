@@ -34,7 +34,7 @@ public final class ProgressEvent {
     private int          value;
     private long         milliSecondsRemaining;
     private Object       info;
-    private boolean      stop;
+    private boolean      cancel;
 
     /**
      * Konstruktor für Ereignisse mit bekanntem Umfang (Minimum, Maximum und
@@ -189,8 +189,8 @@ public final class ProgressEvent {
     /**
      * Teilt der Quelle mit, dass die Aktion abgebrochen werden soll.
      */
-    public void stop() {
-        stop = true;
+    public void cancel() {
+        cancel = true;
     }
 
     /**
@@ -198,8 +198,8 @@ public final class ProgressEvent {
      *
      * @return true, wenn die Aktion abgebrochen werden soll
      */
-    public boolean isStop() {
-        return stop;
+    public boolean isCancel() {
+        return cancel;
     }
 
     /**
@@ -227,7 +227,7 @@ public final class ProgressEvent {
         this.minimum = minimum;
     }
 
-    public void setStop(boolean stop) {
-        this.stop = stop;
+    public void setCancel(boolean cancel) {
+        this.cancel = cancel;
     }
 }

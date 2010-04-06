@@ -32,9 +32,8 @@ import java.lang.reflect.Method;
  * @author  Elmar Baumann
  */
 public final class AutomaticTask {
-    public static final AutomaticTask INSTANCE                  =
-        new AutomaticTask();
-    private static final String       ALT_METHOD_NAME_INTERRUPT = "cancel";
+    public static final AutomaticTask INSTANCE           = new AutomaticTask();
+    private static final String       METHOD_NAME_CANCEL = "cancel";
     private Runnable                  runnable;
 
     /**
@@ -42,7 +41,7 @@ public final class AutomaticTask {
      * currently running task if it's an instance of
      * <code>java.lang.Thread</code>.
      *
-     * This means: The currently running task stops only when it is a thread
+     * This means: The currently running task cancels only when it is a thread
      * that will periodically check {@link Thread#isInterrupted()}.
      *
      * If the active has a method named <strong>cancel</strong> with no
@@ -55,7 +54,7 @@ public final class AutomaticTask {
             throw new NullPointerException("runnable == null");
         }
 
-        stopCurrentTask();
+        cancelCurrentTask();
         this.runnable = runnable;
         startTask(runnable);
     }
@@ -64,13 +63,13 @@ public final class AutomaticTask {
      * Interrupts the currently running tasks. For limitations see remarks:
      * {@link #setTask(java.lang.Runnable)}.
      */
-    public void stopCurrentTask() {
+    public void cancelCurrentTask() {
         if (runnable != null) {
-            interrupt(runnable);
+            cancel(runnable);
         }
     }
 
-    private synchronized void interrupt(Runnable r) {
+    private synchronized void cancel(Runnable r) {
         if (r == null) {
             return;
         }
@@ -79,8 +78,7 @@ public final class AutomaticTask {
 
         if (hasCancelMethod(r)) {
             try {
-                methodCancel =
-                    r.getClass().getMethod(ALT_METHOD_NAME_INTERRUPT);
+                methodCancel = r.getClass().getMethod(METHOD_NAME_CANCEL);
                 methodCancel.invoke(r);
             } catch (Exception ex) {
                 AppLogger.logSevere(AutomaticTask.class, ex);
@@ -96,7 +94,7 @@ public final class AutomaticTask {
         Method[] methods = runnable.getClass().getDeclaredMethods();
 
         for (Method method : methods) {
-            if (method.getName().equals(ALT_METHOD_NAME_INTERRUPT)
+            if (method.getName().equals(METHOD_NAME_CANCEL)
                     && (method.getParameterTypes().length == 0)) {
                 return true;
             }

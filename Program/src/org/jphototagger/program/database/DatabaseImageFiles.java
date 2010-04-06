@@ -200,8 +200,8 @@ public final class DatabaseImageFiles extends Database {
      * @param  before          start substring of the old filenames
      * @param  after           new start substring
      * @param progressListener null or progress listener. The progress listener
-     *                         can stop renaming via
-     *                         {@link ProgressEvent#setStop(boolean)}
+     *                         can cancel renaming via
+     *                         {@link ProgressEvent#setCancel(boolean)}
      *                         (no rollback).
      * @return                 count of renamed files
      */
@@ -239,17 +239,17 @@ public final class DatabaseImageFiles extends Database {
             progressEvent.setMaximum((int) getFileCountNameStartingWith(con,
                     before));
 
-            boolean stop = notifyProgressListenerStart(progressListener,
+            boolean cancel = notifyProgressListenerStart(progressListener,
                                progressEvent);
 
-            while (!stop && rs.next()) {
+            while (!cancel && rs.next()) {
                 String from = rs.getString(1);
                 String to   = after + from.substring(startLength);
 
                 updateImageFilename(con, getFile(from), getFile(to));
                 countRenamed++;
                 progressEvent.setValue(countRenamed);
-                stop = notifyProgressListenerPerformed(progressListener,
+                cancel = notifyProgressListenerPerformed(progressListener,
                         progressEvent);
             }
         } catch (Exception ex) {
@@ -571,7 +571,7 @@ public final class DatabaseImageFiles extends Database {
      * Updates all thumbnails, reads the files from the file system and creates
      * thumbnails from the files.
      *
-     * @param  listener progress listener or null, can stop action via event and
+     * @param  listener progress listener or null, can cancel action via event and
      *                  receives the current filename
      * @return          count of updated thumbnails
      */
@@ -600,7 +600,7 @@ public final class DatabaseImageFiles extends Database {
 
             notifyProgressListenerStart(listener, progressEvent);
 
-            while (!progressEvent.isStop() && rs.next()) {
+            while (!progressEvent.isCancel() && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
 
                 updateThumbnailFile(
@@ -804,7 +804,7 @@ public final class DatabaseImageFiles extends Database {
      *                 {@link ProgressEvent#getInfo()}
      *                 ein Int-Objekt liefert mit der Anzahl der gelöschten
      *                 Datensätze.
-     *                 {@link org.jphototagger.program.event.ProgressEvent#isStop()}
+     *                 {@link org.jphototagger.program.event.ProgressEvent#isCancel()}
      *                 wird ausgewertet (Abbruch des Löschens).
      * @return         Anzahl gelöschter Datensätze
      */
@@ -828,9 +828,9 @@ public final class DatabaseImageFiles extends Database {
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
-            boolean stop = notifyProgressListenerStart(listener, event);
+            boolean cancel = notifyProgressListenerStart(listener, event);
 
-            while (!stop && rs.next()) {
+            while (!cancel && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
 
                 if (!imgFile.exists()) {
@@ -857,7 +857,7 @@ public final class DatabaseImageFiles extends Database {
 
                 event.setValue(event.getValue() + 1);
                 notifyProgressListenerPerformed(listener, event);
-                stop = event.isStop();
+                cancel = event.isCancel();
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1300,10 +1300,10 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery(sql);
 
             File    imageFile = null;
-            boolean abort     = notifyProgressListenerStart(listener,
+            boolean cancel    = notifyProgressListenerStart(listener,
                                     progressEvent);
 
-            while (!abort && rs.next()) {
+            while (!cancel && rs.next()) {
                 imageFile = getFile(rs.getString(1));
 
                 if (XmpMetadata.getSidecarFile(imageFile) == null) {
@@ -1312,7 +1312,7 @@ public final class DatabaseImageFiles extends Database {
 
                 progressEvent.setValue(progressEvent.getValue() + 1);
                 notifyProgressListenerPerformed(listener, progressEvent);
-                abort = progressEvent.isStop();
+                cancel = progressEvent.isCancel();
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);

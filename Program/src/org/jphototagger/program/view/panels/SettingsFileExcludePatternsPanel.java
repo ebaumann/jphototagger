@@ -53,7 +53,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     private final ListModelFileExcludePatterns model =
         new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
-    private boolean stop             = false;
+    private boolean cancel           = false;
 
     public SettingsFileExcludePatternsPanel() {
         initComponents();
@@ -64,7 +64,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            stop             = false;
+            cancel             = false;
             isUpdateDatabase = false;
             setEnabledButtons();
         } else {
@@ -128,19 +128,19 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
         if (patterns.size() > 0) {
             isUpdateDatabase = true;
-            stop             = false;
+            cancel           = false;
             setEnabledButtons();
             db.deleteMatchingFiles(patterns, this);
         }
     }
 
     private void cancelUpdateDatabase() {
-        stop = true;
+        cancel = true;
     }
 
-    private void checkStopEvent(ProgressEvent evt) {
-        if (stop) {
-            evt.stop();
+    private void checkCancel(ProgressEvent evt) {
+        if (cancel) {
+            evt.cancel();
         }
     }
 
@@ -153,7 +153,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         progressBarUpdateDatabase.setMinimum(evt.getMinimum());
         progressBarUpdateDatabase.setMaximum(evt.getMaximum());
         progressBarUpdateDatabase.setValue(evt.getValue());
-        checkStopEvent(evt);
+        checkCancel(evt);
     }
 
     @Override
@@ -163,7 +163,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         }
 
         progressBarUpdateDatabase.setValue(evt.getValue());
-        checkStopEvent(evt);
+        checkCancel(evt);
     }
 
     @Override
@@ -174,7 +174,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
         progressBarUpdateDatabase.setValue(evt.getValue());
         isUpdateDatabase = false;
-        stop             = false;
+        cancel           = false;
         setEnabledButtons();
     }
 

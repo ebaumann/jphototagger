@@ -37,7 +37,7 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class RefreshExifInDbOfKnownFiles extends HelperThread {
-    private volatile boolean stop;
+    private volatile boolean cancel;
 
     public RefreshExifInDbOfKnownFiles() {
         setName("Refreshing EXIF in the database of known files @ "
@@ -56,7 +56,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
                                          ? imageFiles.get(0)
                                          : null);
 
-        for (int i = 0; !stop && (i < fileCount); i++) {
+        for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
             Exif exif      = ExifMetadata.getExif(imageFile);
 
@@ -71,7 +71,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
     }
 
     @Override
-    protected void stopRequested() {
-        stop = true;
+    public void cancel() {
+        cancel = true;
     }
 }

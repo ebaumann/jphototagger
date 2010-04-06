@@ -799,14 +799,14 @@ public class Database {
      *
      * @param  listener listener, can be null
      * @param  event     event
-     * @return          {@link ProgressEvent#isStop()}
+     * @return          {@link ProgressEvent#isCancel()}
      */
     protected boolean notifyProgressListenerStart(ProgressListener listener,
             ProgressEvent event) {
         if (listener != null) {
             listener.progressStarted(event);
 
-            return event.isStop();
+            return event.isCancel();
         }
 
         return false;
@@ -817,14 +817,14 @@ public class Database {
      *
      * @param  listener listener, can be null
      * @param  event     event
-     * @return          {@link ProgressEvent#isStop()}
+     * @return          {@link ProgressEvent#isCancel()}
      */
     protected boolean notifyProgressListenerPerformed(
             ProgressListener listener, ProgressEvent event) {
         if (listener != null) {
             listener.progressPerformed(event);
 
-            return event.isStop();
+            return event.isCancel();
         }
 
         return false;

@@ -38,7 +38,7 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
-    private volatile boolean stop;
+    private volatile boolean cancel;
 
     public RefreshXmpInDbOfKnownFiles() {
         setName("Refreshing XMP in the database of known files @ "
@@ -57,7 +57,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
                                          ? imageFiles.get(0)
                                          : null);
 
-        for (int i = 0; !stop && (i < fileCount); i++) {
+        for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
             Xmp  xmp       = XmpMetadata.hasImageASidecarFile(imageFile)
                              ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
@@ -76,7 +76,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
     }
 
     @Override
-    protected void stopRequested() {
-        stop = true;
+    public void cancel() {
+        cancel = true;
     }
 }

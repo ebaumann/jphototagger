@@ -20,18 +20,18 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneListFiles" alignment="0" pref="490" max="32767" attributes="0"/>
+                  <Component id="scrollPaneListFiles" alignment="0" pref="562" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonSelectFiles" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="panelOptions" alignment="1" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="1" pref="490" max="32767" attributes="0"/>
-                  <Component id="labelFilename" alignment="0" pref="490" max="32767" attributes="0"/>
-                  <Component id="labelDescription" alignment="1" pref="490" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="1" pref="562" max="32767" attributes="0"/>
+                  <Component id="labelFilename" alignment="0" pref="562" max="32767" attributes="0"/>
+                  <Component id="labelDescription" alignment="1" pref="562" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -52,7 +52,7 @@
               <Component id="labelFilename" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonStop" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonSelectFiles" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonStart" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -156,15 +156,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectFilesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonStop">
+    <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="FileEditorPanel.buttonStop.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="FileEditorPanel.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStopActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonStart">

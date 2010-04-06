@@ -84,7 +84,7 @@ public final class CompressDatabase implements Runnable {
     }
 
     /**
-     * Compresses the database. The process can't be stopped and the progress
+     * Compresses the database. The process can't be cancelled and the progress
      * values can't submitted to them. The listeners are only notified about
      * the start and end of compressing.
      */

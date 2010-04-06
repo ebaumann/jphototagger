@@ -47,7 +47,7 @@ public abstract class HelperThread extends Thread {
     private volatile int     minimum;
     private volatile int     maximum;
 
-    protected abstract void stopRequested();
+    public abstract void cancel();
 
     /**
      * Adds a progress listener.
@@ -57,8 +57,8 @@ public abstract class HelperThread extends Thread {
      * {@link #progressEnded(java.lang.Object)} all progress listeners will
      * be notified through the apporpriate progress listener interface method.
      * <p>
-     * If a progress listener calls {@link ProgressEvent#stop()},
-     * {@link #stopRequested()} will called.
+     * If a progress listener calls {@link ProgressEvent#cancel()},
+     * {@link #cancel()} will called.
      *
      * @param listener progress listener
      */
@@ -124,8 +124,8 @@ public abstract class HelperThread extends Thread {
             for (ProgressListener listener : progressListeners) {
                 listener.progressStarted(evt);
 
-                if (evt.isStop()) {
-                    stopRequested();
+                if (evt.isCancel()) {
+                    cancel();
                 }
             }
         }
@@ -136,8 +136,8 @@ public abstract class HelperThread extends Thread {
             for (ProgressListener listener : progressListeners) {
                 listener.progressPerformed(evt);
 
-                if (evt.isStop()) {
-                    stopRequested();
+                if (evt.isCancel()) {
+                    cancel();
                 }
             }
         }
