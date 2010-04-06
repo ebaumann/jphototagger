@@ -192,7 +192,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     public JButton getButtonScheduledTasks() {
-        return buttonCancelScheduledTasks;
+        return buttonScheduledTasks;
     }
 
     private void handleCheckBoxBackupDbActionPerformed() {
@@ -240,7 +240,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         buttonAddAutoscanDirectories = new javax.swing.JButton();
         checkBoxScheduledBackupDb = new javax.swing.JCheckBox();
         comboBoxScheduledBackupDb = new javax.swing.JComboBox();
-        buttonCancelScheduledTasks = new javax.swing.JButton();
+        buttonScheduledTasks = new javax.swing.JButton();
         labelTasksMinutesToStartScheduledTasks = new javax.swing.JLabel();
         spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
 
@@ -353,15 +353,13 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
             }
         });
 
-        buttonCancelScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_cancel_scheduled_tasks_disabled.png"))); // NOI18N
-        buttonCancelScheduledTasks.setMnemonic('s');
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        buttonCancelScheduledTasks.setToolTipText(bundle.getString("SettingsScheduledTasksPanel.buttonCancelScheduledTasks.toolTipText")); // NOI18N
-        buttonCancelScheduledTasks.setAlignmentY(0.0F);
-        buttonCancelScheduledTasks.setBorder(null);
-        buttonCancelScheduledTasks.setEnabled(false);
-        buttonCancelScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        buttonCancelScheduledTasks.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_start.png"))); // NOI18N
+        buttonScheduledTasks.setAlignmentY(0.0F);
+        buttonScheduledTasks.setBorder(null);
+        buttonScheduledTasks.setBorderPainted(false);
+        buttonScheduledTasks.setContentAreaFilled(false);
+        buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        buttonScheduledTasks.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         labelTasksMinutesToStartScheduledTasks.setLabelFor(spinnerMinutesToStartScheduledTasks);
         labelTasksMinutesToStartScheduledTasks.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
@@ -382,7 +380,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkBoxScheduledBackupDb, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkBoxScheduledBackupDb)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxScheduledBackupDb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -390,7 +388,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(buttonCancelScheduledTasks)))
+                        .addComponent(buttonScheduledTasks)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -399,14 +397,14 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkBoxScheduledBackupDb)
                     .addComponent(comboBoxScheduledBackupDb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTasksMinutesToStartScheduledTasks)
-                    .addComponent(buttonCancelScheduledTasks))
+                    .addComponent(buttonScheduledTasks))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -445,8 +443,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddAutoscanDirectories;
-    private javax.swing.JButton buttonCancelScheduledTasks;
     private javax.swing.JButton buttonRemoveAutoscanDirectories;
+    private javax.swing.JButton buttonScheduledTasks;
     private javax.swing.JCheckBox checkBoxIsAutoscanIncludeSubdirectories;
     private javax.swing.JCheckBox checkBoxScheduledBackupDb;
     private javax.swing.JComboBox comboBoxScheduledBackupDb;

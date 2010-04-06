@@ -21,9 +21,9 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelTasksAutoscan" alignment="0" pref="659" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="1">
-                      <Component id="checkBoxScheduledBackupDb" min="-2" pref="187" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="checkBoxScheduledBackupDb" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboBoxScheduledBackupDb" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="1">
@@ -31,7 +31,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="spinnerMinutesToStartScheduledTasks" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace pref="97" max="32767" attributes="0"/>
-                      <Component id="buttonCancelScheduledTasks" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonScheduledTasks" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -44,15 +44,15 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelTasksAutoscan" pref="213" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="checkBoxScheduledBackupDb" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboBoxScheduledBackupDb" alignment="2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxScheduledBackupDb" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBoxScheduledBackupDb" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="spinnerMinutesToStartScheduledTasks" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="labelTasksMinutesToStartScheduledTasks" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonCancelScheduledTasks" alignment="2" min="-2" max="-2" attributes="1"/>
+                  <Component id="buttonScheduledTasks" alignment="2" min="-2" max="-2" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -200,20 +200,17 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxScheduledBackupDbActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonCancelScheduledTasks">
+    <Component class="javax.swing.JButton" name="buttonScheduledTasks">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_cancel_scheduled_tasks_disabled.png"/>
-        </Property>
-        <Property name="mnemonic" type="int" value="115"/>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsScheduledTasksPanel.buttonCancelScheduledTasks.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_start.png"/>
         </Property>
         <Property name="alignmentY" type="float" value="0.0"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>

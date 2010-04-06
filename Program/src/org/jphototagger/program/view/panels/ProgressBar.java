@@ -32,10 +32,8 @@ import java.awt.event.ActionListener;
 
 import java.lang.reflect.Method;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
-import javax.swing.UIManager;
 
 /**
  * Synchronized access to {@link AppPanel#getProgressBar()}.
@@ -48,8 +46,6 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
     private static final String     METHOD_NAME_CANCEL = "cancel";
     private final JButton           buttonCancel;
     private volatile boolean        cancelEnabled = true;
-    private static final Icon       ICON_CANCEL =
-        AppLookAndFeel.getIcon("icon_cancel_scheduled_tasks_enabled.png");
 
     private ProgressBar() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
@@ -98,12 +94,10 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
         if (enabled) {
             buttonCancel.setToolTipText(
                 JptBundle.INSTANCE.getString("ProgressBar.TooltipText.Cancel"));
-            buttonCancel.setIcon(ICON_CANCEL);
-            buttonCancel.setBorder(UIManager.getBorder("Button.border"));
+            buttonCancel.setIcon(AppLookAndFeel.ICON_CANCEL);
         } else {
             buttonCancel.setToolTipText("");
             buttonCancel.setIcon(null);
-            buttonCancel.setBorder(null);
         }
     }
 
