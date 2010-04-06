@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -28,8 +30,6 @@ import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,11 +91,11 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
             File tnBackupDir =
                 new File(backupDir.getAbsolutePath() + File.separator
                          + UserSettings.getThumbnailDirBasename());
+            String pBarString = JptBundle.INSTANCE.getString(
+                                    "BackupDatabase.ProgressBar.String");
 
-            progressBarUpdater = new ProgressBarUpdater(
-                JptBundle.INSTANCE.getString(
-                    "BackupDatabase.ProgressBar.String"));
-            filecount = dbFiles.size() + tnFiles.size();
+            progressBarUpdater = new ProgressBarUpdater(this, pBarString);
+            filecount          = dbFiles.size() + tnFiles.size();
             notifyProgressStarted();
 
             if (backup(dbFiles, backupDir) &&!cancel) {
@@ -149,7 +149,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
 
     private List<File> getTnFiles() {
         String tnPattern = ".*\\.jpeg";
-        File   tnDir     =
+        File   tnDir =
             new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
         File[] tnFileArray = tnDir.listFiles(new RegexFileFilter(tnPattern,
                                  ""));
@@ -162,11 +162,11 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
     }
 
     private File getBackupDir() {
-        DateFormat df      = new SimpleDateFormat("yyyy-MM-dd_kk-mm-ss");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd_kk-mm-ss");
         String     dirname =
             UserSettings.INSTANCE.getDatabaseBackupDirectoryName()
             + File.separator + df.format(new Date());
-        File dir   = new File(dirname);
+        File dir = new File(dirname);
         File tnDir = new File(dirname + File.separator
                               + UserSettings.getThumbnailDirBasename());
 

@@ -51,10 +51,7 @@ public final class ActionsHelper {
                              "ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
-
-            // new String(), NO literal
-            menu.add(new JMenuItem(new ActionStarter(action,
-                    new String("ActionsHelper#actionsAsMenu()"))));
+            menu.add(new JMenuItem(new ActionStarter(action, action)));
         }
 
         return menu;
@@ -81,10 +78,7 @@ public final class ActionsHelper {
             throw new NullPointerException("action == null");
         }
 
-        actionsMenu.add(
-
-        // new String(), NO literal
-        new ActionStarter(action, new String("ActionsHelper#addAction()")));
+        actionsMenu.add(new ActionStarter(action, action));
     }
 
     public static void removeAction(JMenu actionsMenu, Program action) {
@@ -124,9 +118,9 @@ public final class ActionsHelper {
     private static class ActionStarter extends AbstractAction {
         private static final long       serialVersionUID = 1L;
         private final transient Program action;
-        private final String            progressBarOwner;
+        private final Object            progressBarOwner;
 
-        public ActionStarter(Program action, String progressBarOwner) {
+        public ActionStarter(Program action, Object progressBarOwner) {
             super(action.getAlias());
             this.action           = action;
             this.progressBarOwner = progressBarOwner;

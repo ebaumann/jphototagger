@@ -51,8 +51,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         implements ActionListener {
     private final Map<JMenuItem, Insert[]> databaseUpdateOfMenuItem =
         new HashMap<JMenuItem, Insert[]>();
-    private final PopupMenuThumbnails popupMenu       =
-        PopupMenuThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
     private final ThumbnailsPanel     thumbnailsPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
@@ -96,11 +95,12 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
         InsertImageFilesIntoDatabase inserter =
             new InsertImageFilesIntoDatabase(
                 thumbnailsPanel.getSelectedFiles(), what);
+        String pBarString =
+            JptBundle.INSTANCE.getString(
+                "ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String");
 
-        inserter.addProgressListener(
-            new ProgressBarUpdater(
-                JptBundle.INSTANCE.getString(
-                    "ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String")));
+        inserter.addProgressListener(new ProgressBarUpdater(inserter,
+                pBarString));
         UserTasks.INSTANCE.add(inserter);
     }
 }

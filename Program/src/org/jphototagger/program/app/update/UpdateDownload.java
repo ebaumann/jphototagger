@@ -63,9 +63,6 @@ public final class UpdateDownload extends Thread {
     private Version             netVersion;
     private JProgressBar        progressBar;
 
-    // new String(), NO literal
-    private final String progressBarOwner = new String("UpdateDownload");
-
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ "
                 + getClass().getSimpleName());
@@ -186,7 +183,7 @@ public final class UpdateDownload extends Thread {
     }
 
     private void startProgressBar() {
-        progressBar = ProgressBar.INSTANCE.getResource(progressBarOwner);
+        progressBar = ProgressBar.INSTANCE.getResource(this);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -222,7 +219,7 @@ public final class UpdateDownload extends Thread {
                     progressBar.setIndeterminate(false);
                     progressBar.setString("");
                     progressBar.setStringPainted(false);
-                    ProgressBar.INSTANCE.releaseResource(progressBarOwner);
+                    ProgressBar.INSTANCE.releaseResource(this);
                     progressBar = null;
                 }
             }

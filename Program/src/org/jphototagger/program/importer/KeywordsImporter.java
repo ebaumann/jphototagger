@@ -91,10 +91,7 @@ public abstract class KeywordsImporter implements Importer {
         Collection<List<Pair<String, Boolean>>> paths = getPaths(file);
 
         if (paths != null) {
-
-            // new String(), NO literal
-            new ImportTask(paths,
-                           new String("KeywordsImporter#importFile()")).start();
+            new ImportTask(paths).start();
         }
     }
 
@@ -103,17 +100,19 @@ public abstract class KeywordsImporter implements Importer {
         private final TreeModel                               treeModel =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         private JProgressBar progressBar;
-        private final Object progressBarOwner;
+        private volatile boolean cancel;
 
-        public ImportTask(Collection<List<Pair<String, Boolean>>> paths,
-                          Object progressBarOwner) {
+        public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             if (paths == null) {
                 throw new NullPointerException("paths == null");
             }
 
             this.paths            = paths;
-            this.progressBarOwner = progressBarOwner;
             setName("Importing keywords @ " + getClass().getSimpleName());
+        }
+
+        public void cancel() {
+            cancel = true;
         }
 
         private void getProgressBar() {
@@ -121,7 +120,7 @@ public abstract class KeywordsImporter implements Importer {
                 return;
             }
 
-            progressBar = ProgressBar.INSTANCE.getResource(progressBarOwner);
+            progressBar = ProgressBar.INSTANCE.getResource(this);
         }
 
         @Override
@@ -136,6 +135,9 @@ public abstract class KeywordsImporter implements Importer {
                 int progressValue = 0;
 
                 for (List<Pair<String, Boolean>> path : paths) {
+                    if (cancel) {
+                        break;
+                    }
                     DefaultMutableTreeNode node =
                         (DefaultMutableTreeNode) model.getRoot();
 
@@ -204,7 +206,7 @@ public abstract class KeywordsImporter implements Importer {
                         progressBar.setValue(0);
                     }
 
-                    ProgressBar.INSTANCE.releaseResource(progressBarOwner);
+                    ProgressBar.INSTANCE.releaseResource(this);
                     progressBar = null;
                 }
             });

@@ -25,7 +25,8 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
@@ -135,17 +136,23 @@ public final class RenameDeleteXmpValue {
 
     private static class Rename extends Thread {
         ProgressBarUpdater pb = new ProgressBarUpdater(
+                                    this,
                                     JptBundle.INSTANCE.getString(
                                         "RenameXmpValue.ProgressBar.String"));
         private final Column column;
         private final String newValue;
         private final String oldValue;
+        private volatile boolean cancel;
 
         public Rename(Column column, String oldValue, String newValue) {
             this.column   = column;
             this.oldValue = oldValue.trim();
             this.newValue = newValue.trim();
             setName("Renaming XMP value @ " + getClass().getSimpleName());
+        }
+
+        public void cancel() {
+            cancel = true;
         }
 
         @Override
@@ -159,6 +166,9 @@ public final class RenameDeleteXmpValue {
             notifyStarted(size);
 
             for (File imageFile : imageFiles) {
+                if (cancel) {
+                    break;
+                }
                 Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp != null) {
