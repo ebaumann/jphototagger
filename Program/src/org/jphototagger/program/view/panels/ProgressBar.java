@@ -23,7 +23,9 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.lib.resource.MutualExcludedResource;
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +34,7 @@ import java.lang.reflect.Method;
 
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
+import javax.swing.UIManager;
 
 /**
  * Synchronized access to {@link AppPanel#getProgressBar()}.
@@ -55,9 +58,12 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
 
     @Override
     public synchronized JProgressBar getResource(Object owner) {
-        JProgressBar pb = getResource(owner);
+        JProgressBar pb            = getResource(owner);
+        boolean      cancelEnabled = (pb != null) && hasCancelMethod(owner);
 
-        buttonCancel.setEnabled((pb != null) && hasCancelMethod(owner));
+        if (cancelEnabled) {
+            setEnabledCancelButton(true);
+        }
 
         return pb;
     }
@@ -66,12 +72,27 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
     public synchronized boolean releaseResource(Object owner) {
         boolean released = super.releaseResource(owner);
 
-        // Avoid releases through not owners
+        // Only the owner can deactivate the button
         if (released) {
-            buttonCancel.setEnabled(false);
+            setEnabledCancelButton(false);
         }
 
         return released;
+    }
+
+    private void setEnabledCancelButton(boolean enabled) {
+        buttonCancel.setEnabled(enabled);
+
+        if (enabled) {
+            buttonCancel.setToolTipText(
+                JptBundle.INSTANCE.getString("ProgressBar.TooltipText.Cancel"));
+            buttonCancel.setIcon(AppLookAndFeel.ICON_CANCEL);
+            buttonCancel.setBorder(UIManager.getBorder("Button.border"));
+        } else {
+            buttonCancel.setToolTipText("");
+            buttonCancel.setIcon(null);
+            buttonCancel.setBorder(null);
+        }
     }
 
     private synchronized void cancel() {

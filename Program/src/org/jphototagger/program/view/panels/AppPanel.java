@@ -1327,7 +1327,8 @@ public final class AppPanel extends javax.swing.JPanel {
         labelError.setOpaque(true);
         labelError.setPreferredSize(new java.awt.Dimension(12, 12));
 
-        buttonCancelProgress.setPreferredSize(new java.awt.Dimension(12, 12));
+        buttonCancelProgress.setBorder(null);
+        buttonCancelProgress.setPreferredSize(new java.awt.Dimension(16, 16));
 
         progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
         progressBar.setName("progressBar"); // NOI18N
@@ -1337,9 +1338,9 @@ public final class AppPanel extends javax.swing.JPanel {
         panelStatusbarLayout.setHorizontalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatusbarLayout.createSequentialGroup()
-                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
