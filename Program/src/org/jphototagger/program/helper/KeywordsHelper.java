@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.ImageFile;
@@ -28,7 +30,8 @@ import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
@@ -40,8 +43,6 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.util.ArrayUtil;
 
 import java.io.File;
 
@@ -253,8 +254,7 @@ public final class KeywordsHelper {
 
         TreeModelKeywords model =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        DefaultMutableTreeNode root    =
-            (DefaultMutableTreeNode) model.getRoot();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         DefaultMutableTreeNode selNode = null;
 
         for (Enumeration<DefaultMutableTreeNode> e =
@@ -409,7 +409,7 @@ public final class KeywordsHelper {
 
     private static class DeleteDcSubject extends HelperThread {
         private final String     dcSubject;
-        private volatile boolean stop;
+        private volatile boolean cancel;
 
         public DeleteDcSubject(String keyword) {
             this.dcSubject = keyword;
@@ -430,11 +430,11 @@ public final class KeywordsHelper {
             int size  = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !stop && (index < size); index++) {
+            for (index = 0; !cancel && !isInterrupted() && (index < size);
+                    index++) {
                 File imageFile   = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
-                Xmp  xmp         =
-                    XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                Xmp  xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
@@ -455,8 +455,8 @@ public final class KeywordsHelper {
         }
 
         @Override
-        protected void stopRequested() {
-            stop = true;
+        public void cancel() {
+            cancel = true;
         }
 
         private void checkDatabase() {
@@ -470,7 +470,7 @@ public final class KeywordsHelper {
     private static class RenameDcSubject extends HelperThread {
         private final String     toName;
         private final String     fromName;
-        private volatile boolean stop;
+        private volatile boolean cancel;
 
         public RenameDcSubject(String fromName, String toName) {
             this.fromName = fromName;
@@ -492,11 +492,11 @@ public final class KeywordsHelper {
             int size  = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !stop && (index < size); index++) {
+            for (index = 0; !cancel && !isInterrupted() && (index < size);
+                    index++) {
                 File imageFile   = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
-                Xmp  xmp         =
-                    XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                Xmp  xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
@@ -518,8 +518,8 @@ public final class KeywordsHelper {
         }
 
         @Override
-        protected void stopRequested() {
-            stop = true;
+        public void cancel() {
+            cancel = true;
         }
     }
 }

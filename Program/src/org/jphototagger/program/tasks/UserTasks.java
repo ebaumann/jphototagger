@@ -63,10 +63,10 @@ public final class UserTasks {
      * currently running runnable if it's an instance of
      * <code>java.lang.Thread</code>.
      *
-     * Thus means: The currently running task stops only when it is a thread
+     * Thus means: The currently running task cancels only when it is a thread
      * that will periodically check {@link Thread#isInterrupted()}.
      */
-    public void stopCurrentTasks() {
+    public void cancelCurrentTasks() {
         executor.shutdown();
     }
 

@@ -147,7 +147,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                : new Insert[] { Insert.OUT_OF_DATE };
     }
 
-    private void stopUpdate() {
+    private void cancelUpdate() {
         interruptImageFileInsterter();
     }
 
@@ -160,7 +160,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     private void setEnabledButtons(boolean isUpdate) {
         buttonChooseDirectories.setEnabled(!isUpdate);
         buttonStart.setEnabled(!isUpdate);
-        buttonStop.setEnabled(isUpdate);
+        buttonCancel.setEnabled(isUpdate);
     }
 
     private void setEnabledCheckboxes(boolean isUpdate) {
@@ -338,74 +338,68 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelHeadingListDirectories   = new javax.swing.JLabel();
-        scrollPaneListDirectories     = new javax.swing.JScrollPane();
-        listDirectories               = new javax.swing.JList();
-        labelInfoFilecount            = new javax.swing.JLabel();
-        labelFilecount                = new javax.swing.JLabel();
-        checkBoxForce                 = new javax.swing.JCheckBox();
+
+        labelHeadingListDirectories = new javax.swing.JLabel();
+        scrollPaneListDirectories = new javax.swing.JScrollPane();
+        listDirectories = new javax.swing.JList();
+        labelInfoFilecount = new javax.swing.JLabel();
+        labelFilecount = new javax.swing.JLabel();
+        checkBoxForce = new javax.swing.JCheckBox();
         checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
-        labelInfoCurrentFilename      = new javax.swing.JLabel();
-        labelCurrentFilename          = new javax.swing.JLabel();
-        progressBar                   = new javax.swing.JProgressBar();
-        buttonChooseDirectories       = new javax.swing.JButton();
-        buttonStop                    = new javax.swing.JButton();
-        buttonStart                   = new javax.swing.JButton();
+        labelInfoCurrentFilename = new javax.swing.JLabel();
+        labelCurrentFilename = new javax.swing.JLabel();
+        progressBar = new javax.swing.JProgressBar();
+        buttonChooseDirectories = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
+        buttonStart = new javax.swing.JButton();
+
         labelHeadingListDirectories.setLabelFor(listDirectories);
-        labelHeadingListDirectories.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text"));    // NOI18N
+        labelHeadingListDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
+
         listDirectories.setModel(listModelDirectories);
-        listDirectories
-            .setCellRenderer(new org.jphototagger.program.view.renderer
-                .ListCellRendererDirectories());
+        listDirectories.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererDirectories());
         listDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 listDirectoriesKeyReleased(evt);
             }
         });
         scrollPaneListDirectories.setViewportView(listDirectories);
-        labelInfoFilecount.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text"));    // NOI18N
+
+        labelInfoFilecount.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
+
         labelFilecount.setForeground(new java.awt.Color(0, 153, 0));
         labelFilecount.setText("0");
         labelFilecount.setPreferredSize(new java.awt.Dimension(4, 20));
-        checkBoxForce.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.checkBoxForce.text"));    // NOI18N
+
+        checkBoxForce.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
+
         checkBoxIncludeSubdirectories.setSelected(true);
-        checkBoxIncludeSubdirectories.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text"));    // NOI18N
-        labelInfoCurrentFilename.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text"));    // NOI18N
+        checkBoxIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+
+        labelInfoCurrentFilename.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text")); // NOI18N
+
         labelCurrentFilename.setForeground(new java.awt.Color(51, 51, 255));
         labelCurrentFilename.setPreferredSize(new java.awt.Dimension(4, 20));
+
         progressBar.setFocusable(false);
         progressBar.setStringPainted(true);
-        buttonChooseDirectories.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text"));    // NOI18N
-        buttonChooseDirectories.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonChooseDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
+        buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoriesActionPerformed(evt);
             }
         });
-        buttonStop.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.buttonStop.text"));    // NOI18N
-        buttonStop.setEnabled(false);
-        buttonStop.addActionListener(new java.awt.event.ActionListener() {
+
+        buttonCancel.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonCancel.text")); // NOI18N
+        buttonCancel.setEnabled(false);
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStopActionPerformed(evt);
+                buttonCancelActionPerformed(evt);
             }
         });
-        buttonStart.setText(
-            JptBundle.INSTANCE.getString(
-                "UpdateMetadataOfDirectoriesPanel.buttonStart.text"));    // NOI18N
+
+        buttonStart.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -414,90 +408,62 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        scrollPaneListDirectories,
-                        javax.swing.GroupLayout.Alignment.TRAILING,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, 522,
-                        Short.MAX_VALUE).addComponent(
-                            checkBoxIncludeSubdirectories).addComponent(
-                            checkBoxForce).addGroup(
-                            layout.createSequentialGroup().addComponent(
-                                labelInfoFilecount).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                labelFilecount,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 143,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)).addComponent(
-                                    progressBar,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, 522,
-                                    Short.MAX_VALUE).addGroup(
-                                        javax.swing.GroupLayout.Alignment.TRAILING,
-                                        layout.createSequentialGroup().addComponent(
-                                            buttonChooseDirectories).addPreferredGap(
-                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                    buttonStop).addPreferredGap(
-                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                            buttonStart)).addGroup(
-                                                                layout.createSequentialGroup().addComponent(
-                                                                    labelInfoCurrentFilename).addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                            labelCurrentFilename,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                    424,
-                                                                                    Short.MAX_VALUE)).addComponent(
-                                                                                        labelHeadingListDirectories,
-                                                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                522,
-                                                                                                Short.MAX_VALUE)).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addComponent(checkBoxIncludeSubdirectories)
+                    .addComponent(checkBoxForce)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelInfoFilecount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonChooseDirectories)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonStart))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelInfoCurrentFilename)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
+                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    labelHeadingListDirectories,
-                    javax.swing.GroupLayout.PREFERRED_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                        scrollPaneListDirectories,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, 94,
-                        Short.MAX_VALUE).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                labelFilecount,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 20,
-                                javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(
-                                    labelInfoFilecount)).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                        checkBoxForce).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                        checkBoxIncludeSubdirectories).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(
-                                        layout.createParallelGroup(
-                                            javax.swing.GroupLayout.Alignment.LEADING,
-                                                false).addComponent(
-                                                    labelCurrentFilename, 0, 0,
-                                                        Short.MAX_VALUE).addComponent(
-                                                            labelInfoCurrentFilename)).addPreferredGap(
-                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                    progressBar,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                            23,
-                                                                            javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(
-                                                                                    layout.createParallelGroup(
-                                                                                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                                                                            buttonStart).addComponent(
-                                                                                                buttonStop).addComponent(
-                                                                                                    buttonChooseDirectories)).addContainerGap()));
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelInfoFilecount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxForce)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIncludeSubdirectories)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelCurrentFilename, 0, 0, Short.MAX_VALUE)
+                    .addComponent(labelInfoCurrentFilename))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonStart)
+                    .addComponent(buttonCancel)
+                    .addComponent(buttonChooseDirectories))
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
     private void listDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listDirectoriesKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
@@ -513,24 +479,23 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         startUpdate();
     }//GEN-LAST:event_buttonStartActionPerformed
 
-    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
-        stopUpdate();
-    }//GEN-LAST:event_buttonStopActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        cancelUpdate();
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton      buttonChooseDirectories;
-    private javax.swing.JButton      buttonStart;
-    private javax.swing.JButton      buttonStop;
-    private javax.swing.JCheckBox    checkBoxForce;
-    private javax.swing.JCheckBox    checkBoxIncludeSubdirectories;
-    private javax.swing.JLabel       labelCurrentFilename;
-    private javax.swing.JLabel       labelFilecount;
-    private javax.swing.JLabel       labelHeadingListDirectories;
-    private javax.swing.JLabel       labelInfoCurrentFilename;
-    private javax.swing.JLabel       labelInfoFilecount;
-    private javax.swing.JList        listDirectories;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonChooseDirectories;
+    private javax.swing.JButton buttonStart;
+    private javax.swing.JCheckBox checkBoxForce;
+    private javax.swing.JCheckBox checkBoxIncludeSubdirectories;
+    private javax.swing.JLabel labelCurrentFilename;
+    private javax.swing.JLabel labelFilecount;
+    private javax.swing.JLabel labelHeadingListDirectories;
+    private javax.swing.JLabel labelInfoCurrentFilename;
+    private javax.swing.JLabel labelInfoFilecount;
+    private javax.swing.JList listDirectories;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JScrollPane  scrollPaneListDirectories;
-
+    private javax.swing.JScrollPane scrollPaneListDirectories;
     // End of variables declaration//GEN-END:variables
 }

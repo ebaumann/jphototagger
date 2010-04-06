@@ -80,7 +80,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         new FileSystemListenerSupport();
     private int               fileIndex = 0;
     private boolean           lockClose = false;
-    private boolean           stop      = false;
+    private boolean           cancel    = false;
     private transient boolean listen    = true;
 
     public RenameDialog() {
@@ -223,7 +223,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         int countRenamed = 0;
         int size         = imageFiles.size();
 
-        for (int i = 0; !stop && (i < size); i++) {
+        for (int i = 0; !cancel && (i < size); i++) {
             fileIndex = i;
 
             File   oldFile = imageFiles.get(i);
@@ -448,7 +448,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private void errorMessageNotRenamed(String filename) {
         if (!MessageDisplayer.confirmYesNo(
                 this, "RenameDialog.Confirm.RenameNextFile", filename)) {
-            stop = true;
+            cancel = true;
             setVisible(false);
             dispose();
         }

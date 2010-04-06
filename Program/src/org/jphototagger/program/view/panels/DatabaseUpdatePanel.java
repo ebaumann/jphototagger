@@ -54,13 +54,13 @@ import javax.swing.JToggleButton;
  */
 public class DatabaseUpdatePanel extends JPanel
         implements ActionListener, ProgressListener {
-    private static final String BUTTON_TEXT_STOP =
-        JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Stop");
+    private static final String BUTTON_TEXT_CANCEL =
+        JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Cancel");
     private static final long             serialVersionUID =
         3148751698141558616L;
     private transient UpdateAllThumbnails thumbnailUpdater;
     private final AbstractButton[]        buttons;
-    private volatile boolean              stop;
+    private volatile boolean              cancel;
 
     public DatabaseUpdatePanel() {
         initComponents();
@@ -83,21 +83,21 @@ public class DatabaseUpdatePanel extends JPanel
     }
 
     private synchronized void updateExif() {
-        startOrStopHelperThread(toggleButtonRefreshExif,
+        startOrCancelHelperThread(toggleButtonRefreshExif,
                                 RefreshExifInDbOfKnownFiles.class);
     }
 
     private void updateXmp() {
-        startOrStopHelperThread(toggleButtonRefreshXmp,
+        startOrCancelHelperThread(toggleButtonRefreshXmp,
                                 RefreshXmpInDbOfKnownFiles.class);
     }
 
     private void exifDateToXmpDateCreated() {
-        startOrStopHelperThread(toggleButtonExifDateToXmpDateCreated,
+        startOrCancelHelperThread(toggleButtonExifDateToXmpDateCreated,
                                 SetExifToXmp.class);
     }
 
-    private synchronized void startOrStopHelperThread(JToggleButton button,
+    private synchronized void startOrCancelHelperThread(JToggleButton button,
             Class<?> helperThreadClass) {
         if (button.isSelected()) {
             try {
@@ -107,14 +107,14 @@ public class DatabaseUpdatePanel extends JPanel
                 disableOtherButtons(button);
                 helperThread.setProgressBar(progressBar);
                 helperThread.addProgressListener(this);
-                stop = false;
+                cancel = false;
                 helperThread.start();
-                button.setText(BUTTON_TEXT_STOP);
+                button.setText(BUTTON_TEXT_CANCEL);
             } catch (Exception ex) {
                 AppLogger.logSevere(DatabaseUpdatePanel.class, ex);
             }
         } else {
-            stop = true;
+            cancel = true;
             setEnabledAllButtons(true);
             setStartButtonTexts();
         }
@@ -181,9 +181,9 @@ public class DatabaseUpdatePanel extends JPanel
         }
     }
 
-    private void checkStop(ProgressEvent evt) {
-        if (stop) {
-            evt.setStop(stop);
+    private void checkCancel(ProgressEvent evt) {
+        if (cancel) {
+            evt.setCancel(cancel);
         }
     }
 
@@ -193,7 +193,7 @@ public class DatabaseUpdatePanel extends JPanel
             throw new NullPointerException("evt == null");
         }
 
-        checkStop(evt);
+        checkCancel(evt);
     }
 
     @Override
@@ -202,7 +202,7 @@ public class DatabaseUpdatePanel extends JPanel
             throw new NullPointerException("evt == null");
         }
 
-        checkStop(evt);
+        checkCancel(evt);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class DatabaseUpdatePanel extends JPanel
             throw new NullPointerException("evt == null");
         }
 
-        checkStop(evt);
+        checkCancel(evt);
         setEnabledAllButtons(true);
         deselectAllToggleButtons();
         setStartButtonTexts();

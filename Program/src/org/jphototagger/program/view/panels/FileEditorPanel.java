@@ -72,7 +72,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         new RegexFileFilter(".*", ";");
     private String           title = "";
     private volatile boolean selectDirs;
-    private volatile boolean stop;
+    private volatile boolean cancel;
     private volatile boolean isRunning;
 
     public FileEditorPanel() {
@@ -318,7 +318,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
             initProgressBar(filesCount);
 
-            for (int i = 0; (i < filesCount) &&!stop; i++) {
+            for (int i = 0; (i < filesCount) &&!cancel; i++) {
                 File file = selectedFiles.get(i);
 
                 fileEditor.edit(file);
@@ -337,13 +337,13 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         private void setIsRunning(boolean runs) {
             buttonStart.setEnabled(!runs);
-            buttonStop.setEnabled(runs);
+            buttonCancel.setEnabled(runs);
             buttonSelectFiles.setEnabled(!runs);
             checkBoxIncludeSubdirectories.setEnabled(!runs);
             checkBoxReplaceExistingFiles.setEnabled(!runs);
             labelFilename.setText("");
             isRunning = runs;
-            stop      = false;
+            cancel    = false;
         }
     }
 
@@ -383,7 +383,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         progressBar = new javax.swing.JProgressBar();
         labelFilename = new javax.swing.JLabel();
         buttonSelectFiles = new javax.swing.JButton();
-        buttonStop = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
@@ -427,11 +427,11 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonStop.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonStop.text")); // NOI18N
-        buttonStop.setEnabled(false);
-        buttonStop.addActionListener(new java.awt.event.ActionListener() {
+        buttonCancel.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonCancel.text")); // NOI18N
+        buttonCancel.setEnabled(false);
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStopActionPerformed(evt);
+                buttonCancelActionPerformed(evt);
             }
         });
 
@@ -450,17 +450,17 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonSelectFiles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStop)
+                        .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStart))
                     .addComponent(panelOptions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                    .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                    .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -478,7 +478,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 .addComponent(labelFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonStop)
+                    .addComponent(buttonCancel)
                     .addComponent(buttonSelectFiles)
                     .addComponent(buttonStart))
                 .addContainerGap())
@@ -493,14 +493,14 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         handleStartActionPerformed();
     }//GEN-LAST:event_buttonStartActionPerformed
 
-    private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
-        stop = true;
-    }//GEN-LAST:event_buttonStopActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        cancel = true;
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSelectFiles;
     private javax.swing.JButton buttonStart;
-    private javax.swing.JButton buttonStop;
     private javax.swing.JCheckBox checkBoxIncludeSubdirectories;
     private javax.swing.JCheckBox checkBoxReplaceExistingFiles;
     private javax.swing.JLabel labelDescription;

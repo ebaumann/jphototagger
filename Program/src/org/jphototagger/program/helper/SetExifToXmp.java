@@ -47,7 +47,7 @@ import java.util.List;
 public final class SetExifToXmp extends HelperThread {
     private List<File>       files;
     private final boolean    replaceExistingXmpData;
-    private volatile boolean stop;
+    private volatile boolean cancel;
 
     /**
      * Checks all known image files and does not replace existing XMP data.
@@ -106,7 +106,7 @@ public final class SetExifToXmp extends HelperThread {
                                          ? imgFiles.get(0)
                                          : null);
 
-        for (int i = 0; !stop && (i < fileCount); i++) {
+        for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
             File imgFile = imgFiles.get(i);
 
             set(imgFile, replaceExistingXmpData);
@@ -194,7 +194,7 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     @Override
-    protected void stopRequested() {
-        stop = true;
+    public void cancel() {
+        cancel = true;
     }
 }

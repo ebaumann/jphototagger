@@ -135,7 +135,7 @@ public abstract class KeywordsImporter implements Importer {
                 int progressValue = 0;
 
                 for (List<Pair<String, Boolean>> path : paths) {
-                    if (cancel) {
+                    if (cancel || isInterrupted()) {
                         break;
                     }
                     DefaultMutableTreeNode node =

@@ -37,11 +37,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Creates a {@link InsertImageFilesIntoDatabase} instance for every directory
- * defined in {@link DatabaseAutoscanDirectories#getAll()} and
- * their subdirectories if
- * {@link UserSettings#isAutoscanIncludeSubdirectories()}
- * is true.
+ * Creates a {@link InsertImageFilesIntoDatabase} instance for the image files
+ * in the directroies defined in {@link DatabaseAutoscanDirectories#getAll()}
+ * and their subdirectories if
+ * {@link UserSettings#isAutoscanIncludeSubdirectories()} is true.
  *
  * @author  Elmar Baumann
  */
@@ -57,34 +56,33 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     private ScheduledTaskInsertImageFilesIntoDatabase() {}
 
     /**
-     * Returns the inserter threads, each for a specific directory.
+     * Returns the inserter thread.
      *
-     * @return inserters
+     * @return inserter thread or null if no image file is to insert into the
+     *         database
      */
-    static List<InsertImageFilesIntoDatabase> getThreads() {
-        List<File>                         directories = getDirectories();
-        List<InsertImageFilesIntoDatabase> updaters =
-            new ArrayList<InsertImageFilesIntoDatabase>(directories.size());
+    static InsertImageFilesIntoDatabase getThread() {
+        List<File> directories = getDirectories();
+        List<File> imageFiles  = new ArrayList<File>(directories.size());
 
         if (!directories.isEmpty()) {
             for (File directory : directories) {
                 if (!isSystemDirectory(directory.getAbsolutePath())) {
-                    InsertImageFilesIntoDatabase inserter =
-                        new InsertImageFilesIntoDatabase(
-                            getImageFilesOfDirectory(directory),
-                            Insert.OUT_OF_DATE);
-                    String pBarString =
-                        JptBundle.INSTANCE.getString(
-                            "ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
-
-                    inserter.addProgressListener(
-                        new ProgressBarUpdater(inserter, pBarString));
-                    updaters.add(inserter);
+                    imageFiles.addAll(getImageFilesOfDirectory(directory));
                 }
             }
         }
 
-        return updaters;
+        InsertImageFilesIntoDatabase inserter =
+            new InsertImageFilesIntoDatabase(imageFiles, Insert.OUT_OF_DATE);
+        String pBarString =
+            JptBundle.INSTANCE.getString(
+                "ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
+
+        inserter.addProgressListener(new ProgressBarUpdater(inserter,
+                pBarString));
+
+        return inserter;
     }
 
     private static List<File> getImageFilesOfDirectory(File directory) {

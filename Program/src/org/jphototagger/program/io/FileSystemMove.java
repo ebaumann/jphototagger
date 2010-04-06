@@ -114,9 +114,9 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
         notifyProgressListenerStarted(progressEvent);
 
-        boolean stop = progressEvent.isStop();
+        boolean cancel = progressEvent.isCancel();
 
-        for (int i = 0; !stop && (i < size); i++) {
+        for (int i = 0; !cancel && (i < size); i++) {
             File sourceFile = sourceFiles.get(i);
             File targetFile = getTargetFile(targetFiles.get(i));
 
@@ -129,7 +129,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
             progressEvent.setValue(i + 1);
             progressEvent.setInfo(new Pair<File, File>(sourceFile, targetFile));
             notifyProgressListenerPerformed(progressEvent);
-            stop = progressEvent.isStop();
+            cancel = progressEvent.isCancel();
         }
 
         notifyProgressListenerEnded(progressEvent);

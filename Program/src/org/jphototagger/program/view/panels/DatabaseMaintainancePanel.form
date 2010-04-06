@@ -21,7 +21,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonDeleteMessages" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="137" max="32767" attributes="0"/>
-              <Component id="buttonAbortAction" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonCancelAction" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="12" pref="12" max="12" attributes="0"/>
@@ -85,7 +85,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonStartMaintain" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonAbortAction" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonCancelAction" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonDeleteMessages" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -207,15 +207,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteMessagesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonAbortAction">
+    <Component class="javax.swing.JButton" name="buttonCancelAction">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.buttonAbortAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.buttonCancelAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAbortActionActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonStartMaintain">

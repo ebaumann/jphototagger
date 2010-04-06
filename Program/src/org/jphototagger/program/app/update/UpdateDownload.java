@@ -120,7 +120,7 @@ public final class UpdateDownload extends Thread {
                               "UpdateDownload.Error.Compare",
                               ex.getLocalizedMessage());
         } finally {
-            stopProgressBar();
+            releaseProgressBar();
         }
     }
 
@@ -211,7 +211,7 @@ public final class UpdateDownload extends Thread {
         });
     }
 
-    private void stopProgressBar() {
+    private void releaseProgressBar() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
 
 import java.lang.reflect.Method;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.UIManager;
@@ -46,6 +47,9 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
     public static final ProgressBar INSTANCE           = new ProgressBar();
     private static final String     METHOD_NAME_CANCEL = "cancel";
     private final JButton           buttonCancel;
+    private volatile boolean        cancelEnabled = true;
+    private static final Icon       ICON_CANCEL =
+        AppLookAndFeel.getIcon("icon_cancel_scheduled_tasks_enabled.png");
 
     private ProgressBar() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
@@ -56,12 +60,18 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
         buttonCancel.setEnabled(false);
     }
 
+    public synchronized void setEnabledCancel(Object owner, boolean enabled) {
+        if (owner == getOwner()) {
+            cancelEnabled = enabled;
+        }
+    }
+
     @Override
     public synchronized JProgressBar getResource(Object owner) {
-        JProgressBar pb            = getResource(owner);
-        boolean      cancelEnabled = (pb != null) && hasCancelMethod(owner);
+        JProgressBar pb             = super.getResource(owner);
+        boolean      ownerCanCancel = (pb != null) && hasCancelMethod(owner);
 
-        if (cancelEnabled) {
+        if (cancelEnabled && ownerCanCancel) {
             setEnabledCancelButton(true);
         }
 
@@ -72,9 +82,11 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
     public synchronized boolean releaseResource(Object owner) {
         boolean released = super.releaseResource(owner);
 
-        // Only the owner can deactivate the button
+        // Only the owner can deactivate the button (released is only true if
+        // the owner did call it)
         if (released) {
             setEnabledCancelButton(false);
+            cancelEnabled = true;
         }
 
         return released;
@@ -86,7 +98,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
         if (enabled) {
             buttonCancel.setToolTipText(
                 JptBundle.INSTANCE.getString("ProgressBar.TooltipText.Cancel"));
-            buttonCancel.setIcon(AppLookAndFeel.ICON_CANCEL);
+            buttonCancel.setIcon(ICON_CANCEL);
             buttonCancel.setBorder(UIManager.getBorder("Button.border"));
         } else {
             buttonCancel.setToolTipText("");

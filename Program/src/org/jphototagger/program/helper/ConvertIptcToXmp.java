@@ -45,7 +45,7 @@ public final class ConvertIptcToXmp implements Runnable {
     private final List<ProgressListener> progressListeners =
         new ArrayList<ProgressListener>();
     private final List<File> imageFiles;
-    private boolean          stop;
+    private boolean          cancel;
 
     public ConvertIptcToXmp(List<File> imageFiles) {
         if (imageFiles == null) {
@@ -63,8 +63,8 @@ public final class ConvertIptcToXmp implements Runnable {
         progressListeners.add(listener);
     }
 
-    public void stop() {
-        stop = true;
+    public void cancel() {
+        cancel = true;
     }
 
     @Override
@@ -74,7 +74,7 @@ public final class ConvertIptcToXmp implements Runnable {
         int size  = imageFiles.size();
         int index = 0;
 
-        for (index = 0; !stop && (index < size); index++) {
+        for (index = 0; !cancel && (index < size); index++) {
             File imageFile = imageFiles.get(index);
             File xmpFile   = XmpMetadata.suggestSidecarFile(imageFile);
             Iptc iptc      = IptcMetadata.getIptc(imageFile);
@@ -108,9 +108,9 @@ public final class ConvertIptcToXmp implements Runnable {
         insert.run();    // Shall run in this thread!
     }
 
-    private void checkStopEvent(ProgressEvent event) {
-        if (event.isStop()) {
-            stop();
+    private void checkCancel(ProgressEvent event) {
+        if (event.isCancel()) {
+            cancel();
         }
     }
 
@@ -128,7 +128,7 @@ public final class ConvertIptcToXmp implements Runnable {
 
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressStarted(event);
-            checkStopEvent(event);
+            checkCancel(event);
         }
     }
 
@@ -138,7 +138,7 @@ public final class ConvertIptcToXmp implements Runnable {
 
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressPerformed(event);
-            checkStopEvent(event);
+            checkCancel(event);
         }
     }
 

@@ -42,7 +42,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     private final ProgressListenerSupport listenerSupport =
         new ProgressListenerSupport();
     private volatile boolean notifyProgressEnded;
-    private volatile boolean stop;
+    private volatile boolean cancel;
     private volatile int     countDeleted = 0;
     private String           startMessage;
     private String           endMessage;
@@ -56,7 +56,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
         db.deleteNotExistingImageFiles(this);
 
-        if (!stop) {
+        if (!cancel) {
             setMessagesXmp();
             notifyProgressEnded = true;    // called before last action
             db.deleteOrphanedXmp(this);
@@ -89,15 +89,17 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
         evt.setInfo(getStartMessage(evt));
 
-        // Getting listeners to catch stop request
+        // Getting listeners to catch cancel request
         Set<ProgressListener> listeners = listenerSupport.get();
 
         synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressStarted(evt);
 
-                if (evt.isStop()) {
-                    stop = true;    // stop = evt.isStop() can be wrong when more than 1 listener
+                if (evt.isCancel()) {
+                    // cancel = evt.isCancel() can be wrong when more than 1
+                    // listener
+                    cancel = true;
                 }
             }
         }
@@ -109,15 +111,15 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
             throw new NullPointerException("evt == null");
         }
 
-        // Getting listeners to catch stop request
+        // Getting listeners to catch cancel request
         Set<ProgressListener> listeners = listenerSupport.get();
 
         synchronized (listeners) {
             for (ProgressListener listener : listeners) {
                 listener.progressPerformed(evt);
 
-                if (evt.isStop()) {
-                    stop = true;    // stop = evt.isStop() can be wrong when more than 1 listener
+                if (evt.isCancel()) {
+                    cancel = true;    // cancel = evt.isCancel() can be wrong when more than 1 listener
                 }
             }
         }
@@ -128,7 +130,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
         countDeleted += (Integer) evt.getInfo();
         evt.setInfo(getEndMessage());
 
-        if (stop || notifyProgressEnded) {
+        if (cancel || notifyProgressEnded) {
             listenerSupport.notifyEnded(evt);
         }
     }

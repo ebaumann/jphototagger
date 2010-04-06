@@ -166,7 +166,7 @@ public final class RenameDeleteXmpValue {
             notifyStarted(size);
 
             for (File imageFile : imageFiles) {
-                if (cancel) {
+                if (cancel || isInterrupted()) {
                     break;
                 }
                 Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);

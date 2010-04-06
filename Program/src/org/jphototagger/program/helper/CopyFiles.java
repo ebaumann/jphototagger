@@ -43,9 +43,9 @@ public final class CopyFiles implements Runnable {
     private final ProgressListenerSupport listenerSupport =
         new ProgressListenerSupport();
     private final List<File>             errorFiles = new ArrayList<File>();
-    private boolean                      stop       = false;
     private final Options                options;
     private final List<Pair<File, File>> sourceTargetFiles;
+    private volatile boolean cancel;
 
     /**
      * Konstruktor
@@ -67,6 +67,10 @@ public final class CopyFiles implements Runnable {
         this.sourceTargetFiles = new ArrayList<Pair<File,
                 File>>(sourceTargetFiles);
         this.options = options;
+    }
+
+    public synchronized void cancel() {
+        cancel = true;
     }
 
     /**
@@ -108,13 +112,6 @@ public final class CopyFiles implements Runnable {
     }
 
     /**
-     * Beendet das Kopieren.
-     */
-    public void stop() {
-        stop = true;
-    }
-
-    /**
      * Fügt einen Aktionsbeobachter hinzu.
      * {@link org.jphototagger.program.event.listener.ProgressListener#progressPerformed(org.jphototagger.program.event.ProgressEvent)}
      * liefert ein
@@ -142,7 +139,7 @@ public final class CopyFiles implements Runnable {
 
         int size = sourceTargetFiles.size();
 
-        for (int i = 0; !stop && (i < size); i++) {
+        for (int i = 0; !cancel && (i < size); i++) {
             Pair<File, File> filePair = sourceTargetFiles.get(i);
 
             if (checkDifferent(filePair) && checkOverwrite(filePair)) {
@@ -219,7 +216,7 @@ public final class CopyFiles implements Runnable {
                     filePair.getSecond(), filePair.getFirst());
 
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
-                stop();
+                cancel();
             } else {
                 return action.equals(MessageDisplayer.ConfirmAction.YES);
             }
