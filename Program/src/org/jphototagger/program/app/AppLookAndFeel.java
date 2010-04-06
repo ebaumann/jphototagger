@@ -48,7 +48,7 @@ public final class AppLookAndFeel {
         "margin-left:3px;margin-right:3px;";
     public static final int    TABLE_MAX_CHARS_CELL       = 45;
     public static final int    TABLE_MAX_CHARS_ROW_HEADER = 40;
-    public static final String TABLE_ROW_HEADER_CSS       =
+    public static final String TABLE_ROW_HEADER_CSS =
         "margin-left:3px;margin-right:3px;";
     private static Color tableStoredInDatabaseForeground = Color.BLACK;
     private static Color tableStoredInDatabaseBackground = new Color(251, 249,
@@ -60,7 +60,7 @@ public final class AppLookAndFeel {
     private static Color tableExifMakerNoteForeground = Color.BLACK;
     private static Color tableExifMakerNoteBackground = new Color(226, 226,
                                                             255);
-    private static Color      tableBackground                     = Color.WHITE;
+    private static Color      tableBackground = Color.WHITE;
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND =
         new Color(100, 100, 100);
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND =
@@ -69,19 +69,18 @@ public final class AppLookAndFeel {
                                                       + "/icon_app_small.png";
     private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH
                                                        + "/icon_app_medium.png";
-    public static final Icon          ICON_RENAME    =
-        getIcon("icon_rename.png");
-    public static final Icon          ICON_REFRESH   =
+    public static final Icon          ICON_RENAME = getIcon("icon_rename.png");
+    public static final Icon          ICON_REFRESH =
         getIcon("icon_refresh.png");
     public static final Icon          ICON_PASTE     =
         getIcon("icon_paste.png");
     public static final Icon          ICON_NEW       = getIcon("icon_new.png");
     public static final Icon          ICON_EDIT      = getIcon("icon_edit.png");
-    public static final Icon          ICON_DELETE    =
-        getIcon("icon_delete.png");
+    public static final Icon          ICON_DELETE = getIcon("icon_delete.png");
     public static final Icon          ICON_CUT       = getIcon("icon_cut.png");
     public static final Icon          ICON_COPY      = getIcon("icon_copy.png");
-    public static final Icon          ICON_FILTER    = getIcon("icon_filter.png");
+    public static final Icon          ICON_FILTER = getIcon("icon_filter.png");
+    public static final Icon          ICON_CANCEL = getIcon("icon_cancel.png");
     private static final List<Image>  APP_ICONS      = new ArrayList<Image>();
     private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
     private static Color              listBackground;
@@ -153,10 +152,10 @@ public final class AppLookAndFeel {
      * code before the last path component.
      *
      * @param  path not localized path, e.g.
-     *             <code>"/org/jphototagger/program/resoure/images/image.png"</code>
+     *         <code>"/org/jphototagger/program/resoure/images/image.png"</code>
      * @return      localized icon, e.g. if the path is the same as in the
      *              the parameter doc obove, the icon of the path
-     *         <code>"/org/jphototagger/program/resoure/images/de/image.png"</code>.
+     *     <code>"/org/jphototagger/program/resoure/images/de/image.png"</code>.
      *              If a localized icon does not exist, the icon of the path
      *              will be returned or null if the icon of the path does not
      *              exist.
@@ -194,19 +193,16 @@ public final class AppLookAndFeel {
             LookAndFeelUtil.getUiColor("Tree.selectionForeground");
         treeSelectionBackground =
             LookAndFeelUtil.getUiColor("Tree.selectionBackground");
-        treeTextBackground      =
-            LookAndFeelUtil.getUiColor("Tree.textBackground");
-        treeTextForeground      =
-            LookAndFeelUtil.getUiColor("Tree.textForeground");
+        treeTextBackground = LookAndFeelUtil.getUiColor("Tree.textBackground");
+        treeTextForeground = LookAndFeelUtil.getUiColor("Tree.textForeground");
         listSelectionForeground =
             LookAndFeelUtil.getUiColor("List.selectionForeground");
         listSelectionBackground =
             LookAndFeelUtil.getUiColor("List.selectionBackground");
-        listBackground           = LookAndFeelUtil.getUiColor("List.background");
-        listForeground           = LookAndFeelUtil.getUiColor("List.foreground");
-        tableForeground          = LookAndFeelUtil.getUiColor("Table.foreground");
-        tableBackground          =
-            LookAndFeelUtil.getUiColor("Table.background ");
+        listBackground = LookAndFeelUtil.getUiColor("List.background");
+        listForeground = LookAndFeelUtil.getUiColor("List.foreground");
+        tableForeground = LookAndFeelUtil.getUiColor("Table.foreground");
+        tableBackground = LookAndFeelUtil.getUiColor("Table.background ");
         tableSelectionForeground =
             LookAndFeelUtil.getUiColor("Table.selectionForeground");
         tableSelectionBackground =
