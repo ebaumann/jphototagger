@@ -21,20 +21,21 @@
 
 package org.jphototagger.program.importer;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
 import org.jphototagger.program.data.ImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.exporter.ImageCollectionsExporter;
-import org.jphototagger.program.exporter.ImageCollectionsExporter.CollectionWrapper;
+import org.jphototagger.program.exporter.ImageCollectionsExporter
+    .CollectionWrapper;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import org.jphototagger.lib.componentutil.ListUtil;
 
 import java.io.File;
 
@@ -135,6 +136,7 @@ public final class ImageCollectionsImporter implements Importer {
 
             inserter.addProgressListener(
                 new ProgressBarUpdater(
+                    inserter,
                     JptBundle.INSTANCE.getString(
                         "ImageCollectionsImporter.ProgressBar.String")));
             inserter.run();    // Not as thread!

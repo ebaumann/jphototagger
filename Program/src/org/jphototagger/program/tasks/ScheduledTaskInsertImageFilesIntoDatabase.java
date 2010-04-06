@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.tasks;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
@@ -28,7 +29,6 @@ import org.jphototagger.program.io.ImageFilteredDirectory;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -63,7 +63,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
      */
     static List<InsertImageFilesIntoDatabase> getThreads() {
         List<File>                         directories = getDirectories();
-        List<InsertImageFilesIntoDatabase> updaters    =
+        List<InsertImageFilesIntoDatabase> updaters =
             new ArrayList<InsertImageFilesIntoDatabase>(directories.size());
 
         if (!directories.isEmpty()) {
@@ -73,11 +73,12 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
                         new InsertImageFilesIntoDatabase(
                             getImageFilesOfDirectory(directory),
                             Insert.OUT_OF_DATE);
+                    String pBarString =
+                        JptBundle.INSTANCE.getString(
+                            "ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
 
                     inserter.addProgressListener(
-                        new ProgressBarUpdater(
-                            JptBundle.INSTANCE.getString(
-                                "ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String")));
+                        new ProgressBarUpdater(inserter, pBarString));
                     updaters.add(inserter);
                 }
             }

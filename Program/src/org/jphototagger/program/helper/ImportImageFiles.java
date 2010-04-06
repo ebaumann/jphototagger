@@ -21,8 +21,11 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.controller.filesystem.ControllerImportImageFiles;
+import org.jphototagger.program.controller.filesystem
+    .ControllerImportImageFiles;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.ProgressListener;
@@ -36,8 +39,6 @@ import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -57,18 +58,18 @@ import java.util.List;
 public final class ImportImageFiles extends Thread implements ProgressListener {
     private static final String progressBarString =
         JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
-    private final List<File>         copiedTargetFiles  = new ArrayList<File>();
-    private final List<File>         copiedSourceFiles  = new ArrayList<File>();
-    private final ProgressBarUpdater progressBarUpdater =
-        new ProgressBarUpdater(progressBarString);
-    private final CopyFiles copier;
-    private final boolean   deleteScrFilesAfterCopying;
+    private final List<File>             copiedTargetFiles =
+        new ArrayList<File>();
+    private final List<File>             copiedSourceFiles =
+        new ArrayList<File>();
+    private final List<Pair<File, File>> sourceTargetFiles;
+    private final boolean                deleteScrFilesAfterCopying;
 
     private ImportImageFiles(List<Pair<File, File>> sourceTargetFiles,
                              boolean deleteScrFilesAfterCopying) {
+        this.sourceTargetFiles = new ArrayList<Pair<File,
+                File>>(sourceTargetFiles);
         this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
-        copier                          = new CopyFiles(sourceTargetFiles,
-                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
         setName("Importing image files @ "
                 + ControllerImportImageFiles.class.getSimpleName());
     }
@@ -132,9 +133,16 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void run() {
-        copier.addProgressListener(this);
-        copier.addProgressListener(progressBarUpdater);
-        copier.run();    // No separate thread!
+        CopyFiles copyFiles =
+            new CopyFiles(
+                sourceTargetFiles,
+                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
+        ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(copyFiles,
+                                             progressBarString);
+
+        copyFiles.addProgressListener(this);
+        copyFiles.addProgressListener(pBarUpdater);
+        copyFiles.run();    // No separate thread!
     }
 
     @Override
@@ -191,19 +199,20 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void insertCopiedFilesIntoDb() {
-        InsertImageFilesIntoDatabase dbInserter =
+        InsertImageFilesIntoDatabase inserter =
             new InsertImageFilesIntoDatabase(copiedTargetFiles,
                 Insert.OUT_OF_DATE);
+        ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(inserter,
+                                             progressBarString);
 
-        dbInserter.addProgressListener(progressBarUpdater);
-        dbInserter.run();    // No separate thread!
+        inserter.addProgressListener(pBarUpdater);
+        inserter.run();    // No separate thread!
     }
 
     private void insertCopiedFilesAsCollectionIntoDb() {
         String collectionName =
             ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT;
-        DatabaseImageCollections db                  =
-            DatabaseImageCollections.INSTANCE;
+        DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
         List<File>               prevCollectionFiles =
             db.getImageFilesOf(collectionName);
 

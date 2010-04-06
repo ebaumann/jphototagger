@@ -35,15 +35,20 @@ import javax.swing.SwingUtilities;
 public final class ProgressBarUpdater implements ProgressListener {
     private final String progressBarString;
     private JProgressBar progressBar;
-
-    // new String(), NO literal
-    private final String progressBarOwner = new String("ProgressBarUpdater");
+    private final Object progressBarOwner;
 
     /**
      *
+     * @param progressBarOwner  owner of the progress bar
      * @param progressBarString string to paint on the progress bar or null
      */
-    public ProgressBarUpdater(String progressBarString) {
+    public ProgressBarUpdater(Object progressBarOwner,
+                              String progressBarString) {
+        if (progressBarOwner == null) {
+            throw new NullPointerException("progressBarOwner == null");
+        }
+
+        this.progressBarOwner  = progressBarOwner;
         this.progressBarString = progressBarString;
     }
 

@@ -47,7 +47,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  */
 public final class ControllerCreateMetadataOfDisplayedThumbnails
         implements ThumbnailsPanelListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
+    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
     private final ThumbnailsPanel thumbnailsPanel =
         appPanel.getPanelThumbnails();
 
@@ -72,11 +72,12 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
         InsertImageFilesIntoDatabase inserter =
             new InsertImageFilesIntoDatabase(thumbnailsPanel.getFiles(),
                 Insert.OUT_OF_DATE);
+        String pBarString =
+            JptBundle.INSTANCE.getString(
+                "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
 
-        inserter.addProgressListener(
-            new ProgressBarUpdater(
-                JptBundle.INSTANCE.getString(
-                    "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String")));
+        inserter.addProgressListener(new ProgressBarUpdater(inserter,
+                pBarString));
         AutomaticTask.INSTANCE.setTask(inserter);
     }
 
