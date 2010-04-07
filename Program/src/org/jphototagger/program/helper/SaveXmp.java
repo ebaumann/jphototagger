@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.data.Xmp;
@@ -45,11 +46,12 @@ import javax.swing.SwingUtilities;
  *
  * @author  Elmar Baumann
  */
-public final class SaveXmp extends Thread {
+public final class SaveXmp extends Thread implements Cancelable {
     private static final String PROGRESSBAR_STRING =
         JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
     private final Collection<Pair<File, Xmp>> imageFilesXmp;
     private JProgressBar                      progressBar;
+    private volatile boolean                  cancel;
 
     private SaveXmp(Collection<Pair<File, Xmp>> imageFilesXmp) {
         AppLifeCycle.INSTANCE.addSaveObject(this);
@@ -76,6 +78,10 @@ public final class SaveXmp extends Thread {
 
         // Ignore isInterrupted() because saving user input has high priority
         for (Pair<File, Xmp> pair : imageFilesXmp) {
+            if (cancel) {
+                break;
+            }
+
             File imageFile   = pair.getFirst();
             Xmp  xmp         = pair.getSecond();
             File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
@@ -144,5 +150,10 @@ public final class SaveXmp extends Thread {
                 }
             }
         });
+    }
+
+    @Override
+    public void cancel() {
+        cancel = true;
     }
 }
