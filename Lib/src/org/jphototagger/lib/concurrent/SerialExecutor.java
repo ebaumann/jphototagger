@@ -49,8 +49,8 @@ public final class SerialExecutor implements Executor {
     /**
      * Empties the queue and interrupts the current active runnable.
      *
-     * If the active runnable implements {@link Cancelling}, its method
-     * {@link Cancelling#cancel()} will be called. If it does not implement
+     * If the active runnable implements {@link Cancelable}, its method
+     * {@link Cancelable#cancel()} will be called. If it does not implement
      * that interface and it is an instance of {@link Thread},
      * {@link Thread#interrupt()} will be called.
      */
@@ -64,8 +64,8 @@ public final class SerialExecutor implements Executor {
             return;
         }
 
-        if (active.r instanceof Cancelling) {
-            ((Cancelling) active.r).cancel();
+        if (active.r instanceof Cancelable) {
+            ((Cancelable) active.r).cancel();
         } else if (active.r instanceof Thread) {
             ((Thread) active.r).interrupt();
         }
