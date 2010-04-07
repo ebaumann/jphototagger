@@ -38,11 +38,16 @@ public final class HttpUtil {
     /**
      * Writes from a source URL into an output stream.
      *
-     * @param  source      source URL
-     * @param  target      buffer for writing the content of <code>source</code>
+     * @param  source       source URL
+     * @param  target       buffer for writing the content of
+     *                      <code>source</code>
+     * @param cancelRequest canel request or null. If not null, reading will be
+     *                      terminated if {@link CancelRequest#isCancel()}
+     *                      returns true
      * @throws IOException on read/write errors
      */
-    public static void write(URL source, OutputStream target)
+    public static void write(URL source, OutputStream target,
+                             CancelRequest cancelRequest)
             throws IOException {
         if (source == null) {
             throw new NullPointerException("source == null");
@@ -61,9 +66,15 @@ public final class HttpUtil {
             connection.connect();
             inputStream = new BufferedInputStream(connection.getInputStream());
 
-            for (int singleByte = inputStream.read(); singleByte != -1;
+            boolean cancel = false;
+
+            for (int singleByte = inputStream.read();
+                    !cancel && (singleByte != -1);
                     singleByte = inputStream.read()) {
                 target.write(singleByte);
+                cancel = (cancelRequest == null)
+                         ? false
+                         : cancelRequest.isCancel();
             }
         } finally {
             if (inputStream != null) {

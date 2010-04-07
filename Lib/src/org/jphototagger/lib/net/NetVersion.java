@@ -73,7 +73,7 @@ public final class NetVersion {
         URL                   url = new URL(httpUrl);
         ByteArrayOutputStream os  = new ByteArrayOutputStream(10 * 1024);
 
-        HttpUtil.write(url, os);
+        HttpUtil.write(url, os, null);
 
         String content    = os.toString();
         int    beginIndex = content.indexOf("<span class=\"version\">");
