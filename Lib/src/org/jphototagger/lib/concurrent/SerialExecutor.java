@@ -21,15 +21,11 @@
 
 package org.jphototagger.lib.concurrent;
 
-import java.lang.reflect.Method;
-
 import java.util.ArrayDeque;
 import java.util.concurrent.Executor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Queue;
 
-//Code from java.util.concurrent.Executor javadoc. Added shutdown()
+//Code from java.util.concurrent.Executor javadoc. Added cancel()
 
 /**
  * Executes runnables serial: The next runnable will be executed when the
@@ -38,11 +34,9 @@ import java.util.Queue;
  * @author  Elmar Baumann
  */
 public final class SerialExecutor implements Executor {
-    private final Queue<Exec>   runnables                 =
-        new ArrayDeque<Exec>();
-    private static final String ALT_METHOD_NAME_INTERRUPT = "cancel";
-    private final Executor      executor;
-    private Exec                active;
+    private final Queue<Exec> runnables = new ArrayDeque<Exec>();
+    private final Executor    executor;
+    private Exec              active;
 
     public SerialExecutor(Executor executor) {
         if (executor == null) {
@@ -55,51 +49,26 @@ public final class SerialExecutor implements Executor {
     /**
      * Empties the queue and interrupts the current active runnable.
      *
-     * To interrupt it, the runnable has to be a {@link Thread} and periodically
-     * calling {@link Thread#isInterrupted()}.
-     *
-     * If the active runnable has a method named <strong>cancel</strong> with
-     * no parameters, it will be invoked instead of <strong>interrupt</strong>.
+     * If the active runnable implements {@link Cancelling}, its method
+     * {@link Cancelling#cancel()} will be called. If it does not implement
+     * that interface and it is an instance of {@link Thread},
+     * {@link Thread#interrupt()} will be called.
      */
-    public synchronized void shutdown() {
+    public synchronized void cancel() {
         runnables.clear();
-        interruptActive(active);
+        cancel(active);
     }
 
-    private synchronized void interruptActive(Exec active) {
+    private synchronized void cancel(Exec active) {
         if (active == null) {
             return;
         }
 
-        Method methodCancel = null;
-
-        if (hasCancelMethod(active.r)) {
-            try {
-                methodCancel =
-                    active.r.getClass().getMethod(ALT_METHOD_NAME_INTERRUPT);
-                methodCancel.invoke(active.r);
-            } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "",
-                                 ex);
-            }
-        }
-
-        if ((methodCancel == null) && (active.r instanceof Thread)) {
+        if (active.r instanceof Cancelling) {
+            ((Cancelling) active.r).cancel();
+        } else if (active.r instanceof Thread) {
             ((Thread) active.r).interrupt();
         }
-    }
-
-    private boolean hasCancelMethod(Runnable runnable) {
-        Method[] methods = runnable.getClass().getDeclaredMethods();
-
-        for (Method method : methods) {
-            if (method.getName().equals(ALT_METHOD_NAME_INTERRUPT)
-                    && (method.getParameterTypes().length == 0)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
