@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.25 2010-04-07
+-----------------
+
+* Hilfe merkt sich die Position des senkrechten Fensterteilers
+* Speichern von XMP-Metadaten (vieler Dateien) kann unterbrochen werden
+
 0.8.24 2010-04-06
 -----------------
 
