@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.app.update;
 
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.net.CancelRequest;
 import org.jphototagger.lib.net.HttpUtil;
 import org.jphototagger.lib.net.NetVersion;
 import org.jphototagger.lib.system.SystemUtil;
@@ -49,7 +51,8 @@ import javax.swing.SwingUtilities;
  *
  * @author  Elmar Baumann
  */
-public final class UpdateDownload extends Thread {
+public final class UpdateDownload extends Thread
+        implements CancelRequest, Cancelable {
     private static final String FILENAME_WINDOWS = "JPhotoTagger-Setup.exe";
     private static final String FILENAME_ZIP = "JPhotoTagger.zip";
     private static final String URL_VERSION_CHECK_FILE =
@@ -62,6 +65,7 @@ public final class UpdateDownload extends Thread {
     private Version             currentVersion;
     private Version             netVersion;
     private JProgressBar        progressBar;
+    private volatile boolean    cancel;
 
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ "
@@ -114,6 +118,17 @@ public final class UpdateDownload extends Thread {
                         currentVersion.toString3(), netVersion.toString3())) {
                 progressBarDownloadInfo();
                 download();
+
+                File downloadFile = getDownloadFile();
+
+                if (cancel && downloadFile.exists()) {
+                    if (!downloadFile.delete()) {
+                        AppLogger.logWarning(
+                            getClass(),
+                            "UpdateDownload.Error.DeleteDownloadFile",
+                            downloadFile);
+                    }
+                }
             }
         } catch (Exception ex) {
             AppLogger.logInfo(UpdateDownload.class,
@@ -125,12 +140,8 @@ public final class UpdateDownload extends Thread {
     }
 
     private Version currentVersion() {
-        int    index         = AppInfo.APP_VERSION.indexOf(" ");
-        String versionString = AppInfo.APP_VERSION.substring(0, (index > 0)
-                ? index
-                : AppInfo.APP_VERSION.length());
-
-        currentVersion = Version.parseVersion(versionString, VERSION_DELIMITER);
+        currentVersion = Version.parseVersion(AppInfo.APP_VERSION,
+                VERSION_DELIMITER);
 
         return currentVersion;
     }
@@ -141,7 +152,11 @@ public final class UpdateDownload extends Thread {
             BufferedOutputStream os =
                 new BufferedOutputStream(new FileOutputStream(downloadFile));
 
-            HttpUtil.write(new URL(getDownloadUrl()), os);
+            HttpUtil.write(new URL(getDownloadUrl()), os, this);
+
+            if (cancel) {
+                return;
+            }
 
             if (SystemUtil.isWindows()) {
                 setFinalExecutable(downloadFile);
@@ -212,6 +227,8 @@ public final class UpdateDownload extends Thread {
     }
 
     private void releaseProgressBar() {
+        final Object pBarOwner = this;
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -219,7 +236,7 @@ public final class UpdateDownload extends Thread {
                     progressBar.setIndeterminate(false);
                     progressBar.setString("");
                     progressBar.setStringPainted(false);
-                    ProgressBar.INSTANCE.releaseResource(this);
+                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
                     progressBar = null;
                 }
             }
@@ -231,5 +248,15 @@ public final class UpdateDownload extends Thread {
                 VERSION_DELIMITER);
 
         return currentVersion().compareTo(netVersion) < 0;
+    }
+
+    @Override
+    public boolean isCancel() {
+        return cancel;
+    }
+
+    @Override
+    public void cancel() {
+        cancel = true;
     }
 }

@@ -7,6 +7,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Hilfe merkt sich die Position des senkrechten Fensterteilers
+* Herunterladen neuer JPhotoTagger-Versionen kann abgebrochen werden
 * Speichern von XMP-Metadaten (vieler Dateien) kann unterbrochen werden
 
 0.8.24 2010-04-06

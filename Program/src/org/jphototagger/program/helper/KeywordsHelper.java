@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.program.app.AppLogger;
@@ -408,8 +407,7 @@ public final class KeywordsHelper {
         }
     }
 
-    private static class DeleteDcSubject extends HelperThread
-            implements Cancelable {
+    private static class DeleteDcSubject extends HelperThread {
         private final String     dcSubject;
         private volatile boolean cancel;
 
@@ -469,8 +467,7 @@ public final class KeywordsHelper {
     }
 
 
-    private static class RenameDcSubject extends HelperThread
-            implements Cancelable {
+    private static class RenameDcSubject extends HelperThread {
         private final String     toName;
         private final String     fromName;
         private volatile boolean cancel;

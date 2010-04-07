@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Iptc;
 import org.jphototagger.program.data.Xmp;
@@ -35,7 +36,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
@@ -43,7 +43,7 @@ import org.jphototagger.lib.concurrent.Cancelable;
  * @author  Elmar Baumann
  */
 public final class ConvertIptcToXmp implements Runnable, Cancelable {
-    private final List<ProgressListener> progressListeners =
+    private final List<ProgressListener> prLs =
         new ArrayList<ProgressListener>();
     private final List<File> imageFiles;
     private boolean          cancel;
@@ -61,7 +61,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
             throw new NullPointerException("listener == null");
         }
 
-        progressListeners.add(listener);
+        prLs.add(listener);
     }
 
     @Override
@@ -128,7 +128,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                                   ? imageFiles.get(0)
                                   : "");
 
-        for (ProgressListener progressListener : progressListeners) {
+        for (ProgressListener progressListener : prLs) {
             progressListener.progressStarted(event);
             checkCancel(event);
         }
@@ -138,7 +138,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
         ProgressEvent event = new ProgressEvent(this, 0, imageFiles.size(),
                                   index + 1, imageFiles.get(index));
 
-        for (ProgressListener progressListener : progressListeners) {
+        for (ProgressListener progressListener : prLs) {
             progressListener.progressPerformed(event);
             checkCancel(event);
         }
@@ -148,7 +148,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
         ProgressEvent event = new ProgressEvent(this, 0, imageFiles.size(),
                                   index + 1, "");
 
-        for (ProgressListener progressListener : progressListeners) {
+        for (ProgressListener progressListener : prLs) {
             progressListener.progressEnded(event);
         }
     }

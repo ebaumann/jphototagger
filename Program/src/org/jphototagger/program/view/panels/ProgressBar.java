@@ -54,12 +54,26 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
         buttonCancel.setEnabled(false);
     }
 
+    /**
+     * Enables or disables a cancel button if the owner implements
+     * {@link Cancelable}.
+     * 
+     * @param owner   owner
+     * @param enabled true if enable a cancel button. Default: true.
+     */
     public synchronized void setEnabledCancel(Object owner, boolean enabled) {
         if (owner == getOwner()) {
             cancelEnabled = enabled;
         }
     }
 
+    /**
+     * Returns the progress bar and offers a cancel button if the owner
+     * implements {@link Cancelable}.
+     *
+     * @param  owner
+     * @return       progress bar or null if locked through another owner
+     */
     @Override
     public synchronized JProgressBar getResource(Object owner) {
         JProgressBar pb        = super.getResource(owner);

@@ -37,7 +37,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Sets EXIF metadata to XMP whithout time stamp check, currently only the date
@@ -45,7 +44,7 @@ import org.jphototagger.lib.concurrent.Cancelable;
  *
  * @author  Elmar Baumann
  */
-public final class SetExifToXmp extends HelperThread implements Cancelable {
+public final class SetExifToXmp extends HelperThread {
     private List<File>       files;
     private final boolean    replaceExistingXmpData;
     private volatile boolean cancel;
