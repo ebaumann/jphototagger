@@ -22,7 +22,6 @@
 package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.actions.ControllerActionExecutor;
@@ -441,11 +440,9 @@ public final class ControllerFactory {
     }
 
     private void addSizeAndLocationController() {
-        SizeAndLocationController ctrl = new SizeAndLocationController();
+        SizeAndLocationController sizeLocCtrl = new SizeAndLocationController();
 
-        support.add(ctrl);
-        SystemOutputDialog.INSTANCE.addWindowListener(ctrl);
-        HelpBrowser.INSTANCE.addWindowListener(ctrl);
+        SystemOutputDialog.INSTANCE.addWindowListener(sizeLocCtrl);
     }
 
     /**
