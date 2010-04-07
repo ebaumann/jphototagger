@@ -35,6 +35,7 @@ import java.io.File;
 
 import java.util.Arrays;
 import java.util.Set;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Deletes thumbnails without an image file in the database.
@@ -45,7 +46,7 @@ import java.util.Set;
  *
  * @author  Elmar Baumann
  */
-public final class DeleteOrphanedThumbnails implements Runnable {
+public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private final ProgressListenerSupport listenerSupport =
         new ProgressListenerSupport();
     private int              countFilesInDir  = 0;
@@ -65,6 +66,7 @@ public final class DeleteOrphanedThumbnails implements Runnable {
      * A <em>soft</em> interrupt: I/O operations can finishing their current
      * process.
      */
+    @Override
     public synchronized void cancel() {
         cancelled = true;
     }

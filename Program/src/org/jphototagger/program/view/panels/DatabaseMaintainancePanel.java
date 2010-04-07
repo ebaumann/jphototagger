@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.ProgressListener;
@@ -48,6 +47,7 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Database maintainance tasks.
@@ -58,7 +58,6 @@ public final class DatabaseMaintainancePanel extends JPanel
         implements ProgressListener {
     private static final Icon ICON_FINISHED =
         AppLookAndFeel.getIcon("icon_finished.png");
-    private static final String METHOD_NAME_CANCEL              = "cancel";
     private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES =
         "DatabaseMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
     private static final String KEY_COMPRESS_DB =
@@ -207,32 +206,13 @@ public final class DatabaseMaintainancePanel extends JPanel
 
         Method methodCancel = null;
 
-        if (hasCancelMethod(currentRunnable)) {
-            try {
-                methodCancel =
-                    currentRunnable.getClass().getMethod(METHOD_NAME_CANCEL);
-                methodCancel.invoke(currentRunnable);
-            } catch (Exception ex) {
-                AppLogger.logSevere(getClass(), ex);
-            }
+        if (currentRunnable instanceof Cancelable) {
+                ((Cancelable) currentRunnable).cancel();
         }
 
         if ((methodCancel == null) && (currentRunnable instanceof Thread)) {
             ((Thread) currentRunnable).interrupt();
         }
-    }
-
-    private boolean hasCancelMethod(Runnable runnable) {
-        Method[] methods = runnable.getClass().getDeclaredMethods();
-
-        for (Method method : methods) {
-            if (method.getName().equals(METHOD_NAME_CANCEL)
-                    && (method.getParameterTypes().length == 0)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void startMaintain() {

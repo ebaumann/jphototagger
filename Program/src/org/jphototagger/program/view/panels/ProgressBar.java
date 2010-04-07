@@ -21,8 +21,8 @@
 
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.resource.MutualExcludedResource;
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -30,7 +30,6 @@ import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.lang.reflect.Method;
 
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
@@ -42,8 +41,7 @@ import javax.swing.JProgressBar;
  */
 public final class ProgressBar extends MutualExcludedResource<JProgressBar>
         implements ActionListener {
-    public static final ProgressBar INSTANCE           = new ProgressBar();
-    private static final String     METHOD_NAME_CANCEL = "cancel";
+    public static final ProgressBar INSTANCE = new ProgressBar();
     private final JButton           buttonCancel;
     private volatile boolean        cancelEnabled = true;
 
@@ -64,10 +62,10 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
 
     @Override
     public synchronized JProgressBar getResource(Object owner) {
-        JProgressBar pb             = super.getResource(owner);
-        boolean      ownerCanCancel = (pb != null) && hasCancelMethod(owner);
+        JProgressBar pb        = super.getResource(owner);
+        boolean      canCancel = (pb != null) && (owner instanceof Cancelable);
 
-        if (cancelEnabled && ownerCanCancel) {
+        if (cancelEnabled && canCancel) {
             setEnabledCancelButton(true);
         }
 
@@ -102,30 +100,11 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
     }
 
     private synchronized void cancel() {
-        Object o            = getOwner();
-        Method methodCancel = null;
+        Object owner = getOwner();
 
-        if (hasCancelMethod(o)) {
-            try {
-                methodCancel = o.getClass().getMethod(METHOD_NAME_CANCEL);
-                methodCancel.invoke(o);
-            } catch (Exception ex) {
-                AppLogger.logSevere(ProgressBar.class, ex);
-            }
+        if (owner instanceof Cancelable) {
+            ((Cancelable) owner).cancel();
         }
-    }
-
-    private boolean hasCancelMethod(Object o) {
-        Method[] methods = o.getClass().getDeclaredMethods();
-
-        for (Method method : methods) {
-            if (method.getName().equals(METHOD_NAME_CANCEL)
-                    && (method.getParameterTypes().length == 0)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override

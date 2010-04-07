@@ -42,6 +42,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  *
@@ -49,7 +50,7 @@ import java.util.regex.Pattern;
  * @author  Elmar Baumann
  */
 public final class BackupDatabase extends AppLifeCycle.FinalTask
-        implements Runnable {
+        implements Runnable, Cancelable {
     public static final BackupDatabase INSTANCE         = new BackupDatabase();
     volatile int                       currentFileIndex = 0;
     volatile int                       filecount        = 0;
@@ -64,6 +65,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
         notifyFinished();
     }
 
+    @Override
     public void cancel() {
         cancel = true;
     }

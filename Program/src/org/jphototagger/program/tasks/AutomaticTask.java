@@ -21,9 +21,8 @@
 
 package org.jphototagger.program.tasks;
 
-import org.jphototagger.program.app.AppLogger;
 
-import java.lang.reflect.Method;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * An automatic task is a background task running as long as the next task
@@ -32,20 +31,12 @@ import java.lang.reflect.Method;
  * @author  Elmar Baumann
  */
 public final class AutomaticTask {
-    public static final AutomaticTask INSTANCE           = new AutomaticTask();
-    private static final String       METHOD_NAME_CANCEL = "cancel";
+    public static final AutomaticTask INSTANCE = new AutomaticTask();
     private Runnable                  runnable;
 
     /**
-     * Sets a new automatic task and calls {@link Thread#interrupt()} to the
-     * currently running task if it's an instance of
-     * <code>java.lang.Thread</code>.
-     *
-     * This means: The currently running task cancels only when it is a thread
-     * that will periodically check {@link Thread#isInterrupted()}.
-     *
-     * If the active has a method named <strong>cancel</strong> with no
-     * parameters, it will be invoked instead of <strong>interrupt</strong>.
+     * Sets a new automatic task and calls {@link #cancelCurrentTask()} to the
+     * currently running task.
      *
      * @param runnable runnable
      */
@@ -60,8 +51,12 @@ public final class AutomaticTask {
     }
 
     /**
-     * Interrupts the currently running tasks. For limitations see remarks:
-     * {@link #setTask(java.lang.Runnable)}.
+     * Cancels the current task.
+     * <p>
+     * If the active runnable implements {@link Cancelable}, its method
+     * {@link Cancelable#cancel()} will be called. If it does not implement
+     * that interface and it is an instance of {@link Thread},
+     * {@link Thread#interrupt()} will be called.
      */
     public void cancelCurrentTask() {
         if (runnable != null) {
@@ -74,33 +69,11 @@ public final class AutomaticTask {
             return;
         }
 
-        Method methodCancel = null;
-
-        if (hasCancelMethod(r)) {
-            try {
-                methodCancel = r.getClass().getMethod(METHOD_NAME_CANCEL);
-                methodCancel.invoke(r);
-            } catch (Exception ex) {
-                AppLogger.logSevere(AutomaticTask.class, ex);
-            }
-        }
-
-        if ((methodCancel == null) && (r instanceof Thread)) {
+        if (r instanceof Cancelable) {
+            ((Cancelable) r).cancel();
+        } else if (r instanceof Thread) {
             ((Thread) r).interrupt();
         }
-    }
-
-    private boolean hasCancelMethod(Runnable runnable) {
-        Method[] methods = runnable.getClass().getDeclaredMethods();
-
-        for (Method method : methods) {
-            if (method.getName().equals(METHOD_NAME_CANCEL)
-                    && (method.getParameterTypes().length == 0)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void startTask(final Runnable runnable) {
