@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
@@ -38,8 +37,7 @@ import java.util.List;
  *
  * @author  Elmar Baumann
  */
-public final class RefreshXmpInDbOfKnownFiles extends HelperThread
-        implements Cancelable {
+public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
     private volatile boolean cancel;
 
     public RefreshXmpInDbOfKnownFiles() {

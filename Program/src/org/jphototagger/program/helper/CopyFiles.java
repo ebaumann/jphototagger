@@ -41,12 +41,11 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class CopyFiles implements Runnable, Cancelable {
-    private final ProgressListenerSupport listenerSupport =
-        new ProgressListenerSupport();
-    private final List<File>             errorFiles = new ArrayList<File>();
-    private final Options                options;
-    private final List<Pair<File, File>> sourceTargetFiles;
-    private volatile boolean             cancel;
+    private final ProgressListenerSupport ls = new ProgressListenerSupport();
+    private final List<File>              errorFiles = new ArrayList<File>();
+    private final Options                 options;
+    private final List<Pair<File, File>>  sourceTargetFiles;
+    private volatile boolean              cancel;
 
     /**
      * Konstruktor
@@ -115,24 +114,24 @@ public final class CopyFiles implements Runnable, Cancelable {
 
     /**
      * Fügt einen Aktionsbeobachter hinzu.
-     * {@link org.jphototagger.program.event.listener.ProgressListener#progressPerformed(org.jphototagger.program.event.ProgressEvent)}
+     * {@link ProgressListener#progressPerformed(ProgressEvent)}
      * liefert ein
      * {@link  org.jphototagger.program.event.ProgressEvent}-Objekt,
      * das mit {@link  org.jphototagger.program.event.ProgressEvent#getInfo()}
      * ein {@link org.jphototagger.lib.generics.Pair}-Objekt liefert mit der
      * aktuellen Quelldatei als erstes Element und der Zieldatei als zweites.
      *
-     * {@link org.jphototagger.program.event.listener.ProgressListener#progressEnded(org.jphototagger.program.event.ProgressEvent)}
+     * {@link ProgressListener#progressEnded(ProgressEvent)}
      * liefert ein
      * {@link  org.jphototagger.program.event.ProgressEvent}-Objekt,
-     * das mit {@link  org.jphototagger.program.event.ProgressEvent#getInfo()}
-     * ein {@link java.util.List}-Objekt mit den Dateinamen der Dateien, die nicht
-     * kopiert werden konnten.
+     * das mit {@link  ProgressEvent#getInfo()}
+     * ein {@link java.util.List}-Objekt mit den Dateinamen der Dateien, die
+     * nicht kopiert werden konnten.
      *
      * @param listener  Beobachter
      */
     public synchronized void addProgressListener(ProgressListener listener) {
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     @Override
@@ -183,7 +182,7 @@ public final class CopyFiles implements Runnable, Cancelable {
         ProgressEvent evt = new ProgressEvent(this, 0,
                                 sourceTargetFiles.size(), 0, null);
 
-        listenerSupport.notifyStarted(evt);
+        ls.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(int value,
@@ -191,7 +190,7 @@ public final class CopyFiles implements Runnable, Cancelable {
         ProgressEvent evt = new ProgressEvent(this, 0,
                                 sourceTargetFiles.size(), value, filePair);
 
-        listenerSupport.notifyPerformed(evt);
+        ls.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
@@ -199,7 +198,7 @@ public final class CopyFiles implements Runnable, Cancelable {
                                 sourceTargetFiles.size(),
                                 sourceTargetFiles.size(), errorFiles);
 
-        listenerSupport.notifyEnded(evt);
+        ls.notifyEnded(evt);
     }
 
     private boolean checkOverwrite(Pair<File, File> filePair) {

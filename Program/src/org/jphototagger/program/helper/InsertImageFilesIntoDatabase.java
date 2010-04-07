@@ -22,7 +22,6 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.data.Exif;
@@ -56,6 +55,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the
@@ -65,14 +65,11 @@ import java.util.Set;
  */
 public final class InsertImageFilesIntoDatabase extends Thread
         implements Cancelable {
-    private static final Image ERROR_THUMBNAIL =
-        IconUtil.getIconImage(
-            JptBundle.INSTANCE.getString(
-                "InsertImageFilesIntoDatabase.ErrorThumbnailPath"));
-    private final DatabaseImageFiles      db = DatabaseImageFiles.INSTANCE;
-    private final ProgressListenerSupport progressLs =
+    private final DatabaseImageFiles                           db =
+        DatabaseImageFiles.INSTANCE;
+    private final ProgressListenerSupport                      pls =
         new ProgressListenerSupport();
-    private final ListenerSupport<UpdateMetadataCheckListener> updateLs =
+    private final ListenerSupport<UpdateMetadataCheckListener> uls =
         new ListenerSupport<UpdateMetadataCheckListener>();
     private ProgressEvent     progressEvent = new ProgressEvent(this, null);
     private final Set<Insert> what          = new HashSet<Insert>();
@@ -289,7 +286,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
 
         if (thumbnail == null) {
             errorMessageNullThumbnail(file);
-            imageFile.setThumbnail(ERROR_THUMBNAIL);
+            imageFile.setThumbnail(AppLookAndFeel.ERROR_THUMBNAIL);
         }
     }
 
@@ -397,7 +394,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
             throw new NullPointerException("listener == null");
         }
 
-        updateLs.add(listener);
+        uls.add(listener);
     }
 
     /**
@@ -412,13 +409,13 @@ public final class InsertImageFilesIntoDatabase extends Thread
             throw new NullPointerException("listener == null");
         }
 
-        updateLs.remove(listener);
+        uls.remove(listener);
     }
 
     private void notifyUpdateMetadataCheckListener(Type type, File file) {
         UpdateMetadataCheckEvent         evt =
             new UpdateMetadataCheckEvent(type, file);
-        Set<UpdateMetadataCheckListener> listeners = updateLs.get();
+        Set<UpdateMetadataCheckListener> listeners = uls.get();
 
         synchronized (listeners) {
             for (UpdateMetadataCheckListener listener : listeners) {
@@ -439,7 +436,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
             throw new NullPointerException("listener == null");
         }
 
-        progressLs.add(listener);
+        pls.add(listener);
     }
 
     public void removeProgressListener(ProgressListener listener) {
@@ -447,7 +444,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
             throw new NullPointerException("listener == null");
         }
 
-        progressLs.remove(listener);
+        pls.remove(listener);
     }
 
     private void notifyStarted() {
@@ -455,7 +452,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
         progressEvent.setMinimum(0);
         progressEvent.setMaximum(imageFiles.size());
         progressEvent.setValue(0);
-        progressLs.notifyStarted(progressEvent);
+        pls.notifyStarted(progressEvent);
     }
 
     private void notifyPerformed(int value, File file) {
@@ -463,13 +460,13 @@ public final class InsertImageFilesIntoDatabase extends Thread
         notifyUpdateMetadataCheckListener(Type.CHECKING_FILE, file);
         progressEvent.setValue(value);
         progressEvent.setInfo(file);
-        progressLs.notifyPerformed(progressEvent);
+        pls.notifyPerformed(progressEvent);
     }
 
     private void notifyEnded(int filecount) {
         informationMessageEnded(filecount);
         notifyUpdateMetadataCheckListener(Type.CHECK_FINISHED, null);
-        progressLs.notifyEnded(progressEvent);
+        pls.notifyEnded(progressEvent);
     }
 
     private void errorMessageNullThumbnail(File file) {

@@ -181,7 +181,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568542"
-     inkscape:cx="29.086602"
+     inkscape:cx="-5.8267956"
      inkscape:cy="0.32102763"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -229,6 +229,6 @@
        sodipodi:nodetypes="ccccccccccccc"
        id="polygon25"
        d="M 14,4.3477475 L 11.6,1.9129125 L 8,5.7065265 L 4.4000001,1.9129125 L 2,4.3477475 L 5.5999999,7.9999995 L 2,11.652253 L 4.4000001,14.087087 L 8,10.434835 L 11.6,14.087087 L 14,11.652253 L 10.4,7.9999995 L 14,4.3477475 z"
-       style="fill:#c20000;fill-opacity:1" />
+       style="fill:#777777;fill-opacity:1" />
   </g>
 </svg>

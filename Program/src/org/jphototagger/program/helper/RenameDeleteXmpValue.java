@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -39,7 +40,6 @@ import java.io.File;
 
 import java.util.Collections;
 import java.util.List;
-import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Renames or deletes values in XMP sidecar files.
@@ -140,9 +140,9 @@ public final class RenameDeleteXmpValue {
                                     this,
                                     JptBundle.INSTANCE.getString(
                                         "RenameXmpValue.ProgressBar.String"));
-        private final Column column;
-        private final String newValue;
-        private final String oldValue;
+        private final Column     column;
+        private final String     newValue;
+        private final String     oldValue;
         private volatile boolean cancel;
 
         public Rename(Column column, String oldValue, String newValue) {
@@ -171,6 +171,7 @@ public final class RenameDeleteXmpValue {
                 if (cancel || isInterrupted()) {
                     break;
                 }
+
                 Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp != null) {

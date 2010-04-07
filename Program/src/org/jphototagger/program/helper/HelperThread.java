@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.view.panels.ProgressBar;
@@ -30,7 +31,6 @@ import java.util.Set;
 
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
-import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Base class for helper threads managing progress listeners and providing a
@@ -40,16 +40,12 @@ import org.jphototagger.lib.concurrent.Cancelable;
  */
 public abstract class HelperThread extends Thread implements Cancelable {
     private String                      info;
-    private final Set<ProgressListener> progressListeners =
-        new HashSet<ProgressListener>();
-    private JProgressBar     progressBar;
-    private volatile boolean customProgressBar;
-    private volatile boolean infoChanged;
-    private volatile int     minimum;
-    private volatile int     maximum;
-
-    @Override
-    public abstract void cancel();
+    private final Set<ProgressListener> prLs = new HashSet<ProgressListener>();
+    private JProgressBar                progressBar;
+    private volatile boolean            customProgressBar;
+    private volatile boolean            infoChanged;
+    private volatile int                minimum;
+    private volatile int                maximum;
 
     /**
      * Adds a progress listener.
@@ -69,8 +65,8 @@ public abstract class HelperThread extends Thread implements Cancelable {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (progressListeners) {
-            progressListeners.add(listener);
+        synchronized (prLs) {
+            prLs.add(listener);
         }
     }
 
@@ -116,14 +112,14 @@ public abstract class HelperThread extends Thread implements Cancelable {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (progressListeners) {
-            progressListeners.remove(listener);
+        synchronized (prLs) {
+            prLs.remove(listener);
         }
     }
 
     private void notifyProgressStarted(ProgressEvent evt) {
-        synchronized (progressListeners) {
-            for (ProgressListener listener : progressListeners) {
+        synchronized (prLs) {
+            for (ProgressListener listener : prLs) {
                 listener.progressStarted(evt);
 
                 if (evt.isCancel()) {
@@ -134,8 +130,8 @@ public abstract class HelperThread extends Thread implements Cancelable {
     }
 
     private void notifyProgressPerformed(ProgressEvent evt) {
-        synchronized (progressListeners) {
-            for (ProgressListener listener : progressListeners) {
+        synchronized (prLs) {
+            for (ProgressListener listener : prLs) {
                 listener.progressPerformed(evt);
 
                 if (evt.isCancel()) {
@@ -146,8 +142,8 @@ public abstract class HelperThread extends Thread implements Cancelable {
     }
 
     private void notifyProgressEnded(ProgressEvent evt) {
-        synchronized (progressListeners) {
-            for (ProgressListener listener : progressListeners) {
+        synchronized (prLs) {
+            for (ProgressListener listener : prLs) {
                 listener.progressEnded(evt);
             }
         }
@@ -158,8 +154,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
             @Override
             public void run() {
                 if (progressBar == null) {
-                    progressBar =
-                        ProgressBar.INSTANCE.getResource(this);
+                    progressBar = ProgressBar.INSTANCE.getResource(this);
 
                     if (progressBar != null) {
                         progressBar.setIndeterminate(false);

@@ -22,7 +22,10 @@
 package org.jphototagger.program.app;
 
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
+import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.UserSettings;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -36,8 +39,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.UIManager;
-import org.jphototagger.lib.dialog.HelpBrowser;
-import org.jphototagger.program.UserSettings;
 
 /**
  *
@@ -71,20 +72,20 @@ public final class AppLookAndFeel {
                                                       + "/icon_app_small.png";
     private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH
                                                        + "/icon_app_medium.png";
-    public static final Icon          ICON_RENAME = getIcon("icon_rename.png");
-    public static final Icon          ICON_REFRESH =
-        getIcon("icon_refresh.png");
-    public static final Icon          ICON_PASTE     =
-        getIcon("icon_paste.png");
-    public static final Icon          ICON_NEW       = getIcon("icon_new.png");
-    public static final Icon          ICON_EDIT      = getIcon("icon_edit.png");
-    public static final Icon          ICON_DELETE = getIcon("icon_delete.png");
-    public static final Icon          ICON_CUT       = getIcon("icon_cut.png");
-    public static final Icon          ICON_COPY      = getIcon("icon_copy.png");
-    public static final Icon          ICON_FILTER = getIcon("icon_filter.png");
-    public static final Icon          ICON_START     =
-        getIcon("icon_start.png");
-    public static final Icon          ICON_CANCEL = getIcon("icon_cancel.png");
+    public static final Icon  ICON_RENAME  = getIcon("icon_rename.png");
+    public static final Icon  ICON_REFRESH = getIcon("icon_refresh.png");
+    public static final Icon  ICON_PASTE   = getIcon("icon_paste.png");
+    public static final Icon  ICON_NEW     = getIcon("icon_new.png");
+    public static final Icon  ICON_EDIT    = getIcon("icon_edit.png");
+    public static final Icon  ICON_DELETE  = getIcon("icon_delete.png");
+    public static final Icon  ICON_CUT     = getIcon("icon_cut.png");
+    public static final Icon  ICON_COPY    = getIcon("icon_copy.png");
+    public static final Icon  ICON_FILTER  = getIcon("icon_filter.png");
+    public static final Icon  ICON_START   = getIcon("icon_start.png");
+    public static final Icon  ICON_CANCEL  = getIcon("icon_cancel.png");
+    public static final Image ERROR_THUMBNAIL =
+        IconUtil.getIconImage(
+            JptBundle.INSTANCE.getString("ErrorThumbnailPath"));
     private static final List<Image>  APP_ICONS      = new ArrayList<Image>();
     private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
     private static Color              listBackground;
@@ -106,9 +107,7 @@ public final class AppLookAndFeel {
         APP_ICONS.add(IconUtil.getIconImage(MEDIUM_APP_ICON_PATH));
     }
 
-    private AppLookAndFeel() {
-    }
-
+    private AppLookAndFeel() {}
 
     public static List<Image> getAppIcons() {
         return APP_ICONS;
@@ -197,7 +196,8 @@ public final class AppLookAndFeel {
 
     private static void setHelp() {
         HelpBrowser.INSTANCE.setIconImages(getAppIcons());
-        HelpBrowser.INSTANCE.setSettings(UserSettings.INSTANCE.getSettings(), null);
+        HelpBrowser.INSTANCE.setSettings(UserSettings.INSTANCE.getSettings(),
+                                         null);
     }
 
     private static void setUiColors() {

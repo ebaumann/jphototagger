@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
@@ -37,8 +36,7 @@ import java.util.List;
  *
  * @author  Elmar Baumann
  */
-public final class RefreshExifInDbOfKnownFiles extends HelperThread
-        implements Cancelable {
+public final class RefreshExifInDbOfKnownFiles extends HelperThread {
     private volatile boolean cancel;
 
     public RefreshExifInDbOfKnownFiles() {
