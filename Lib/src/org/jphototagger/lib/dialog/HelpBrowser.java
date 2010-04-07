@@ -52,6 +52,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+import org.jphototagger.lib.util.Settings;
 
 /**
  * Browser for HTML help files. Usually those are packaged with the application
@@ -62,6 +63,8 @@ import javax.swing.tree.TreeSelectionModel;
 public final class HelpBrowser extends Dialog
         implements ActionListener, HyperlinkListener, MouseListener,
                    TreeSelectionListener {
+    private static final String KEY_DIVIDER_LOCATION         =
+        "HelpBrowser.DividerLocation";
     private static final String DISPLAY_NAME_ACTION_PREVIOUS =
         JslBundle.INSTANCE.getString("HelpBrowser.Action.Previous");
     private static final String DISPLAY_NAME_ACTION_NEXT =
@@ -298,10 +301,27 @@ public final class HelpBrowser extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
+            readDividerLocationFromProperties();
             selectStartUrl();
+        } else {
+            writeDividerLocationToProperties();
         }
 
         super.setVisible(visible);
+    }
+
+    private void readDividerLocationFromProperties() {
+        Settings settings = getSettings();
+        if (settings != null && settings.containsKey(KEY_DIVIDER_LOCATION)) {
+            splitPane.setDividerLocation(settings.getInt(KEY_DIVIDER_LOCATION));
+        }
+    }
+
+    private void writeDividerLocationToProperties() {
+        Settings settings = getSettings();
+        if (settings != null) {
+            settings.set(splitPane.getDividerLocation(), KEY_DIVIDER_LOCATION);
+        }
     }
 
     @Override
@@ -413,76 +433,69 @@ public final class HelpBrowser extends Dialog
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        splitPane      = new javax.swing.JSplitPane();
-        panelTree      = new javax.swing.JPanel();
+
+        splitPane = new javax.swing.JSplitPane();
+        panelTree = new javax.swing.JPanel();
         scrollPaneTree = new javax.swing.JScrollPane();
-        tree           = new javax.swing.JTree();
-        panelPage      = new javax.swing.JPanel();
+        tree = new javax.swing.JTree();
+        panelPage = new javax.swing.JPanel();
         scrollPanePage = new javax.swing.JScrollPane();
         editorPanePage = new javax.swing.JEditorPane();
         buttonPrevious = new javax.swing.JButton();
-        buttonNext     = new javax.swing.JButton();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        buttonNext = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/lib/resource/properties/Bundle");    // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/resource/properties/Bundle"); // NOI18N
+        setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
 
-        setTitle(bundle.getString("HelpBrowser.title"));    // NOI18N
         splitPane.setDividerLocation(250);
         splitPane.setDividerSize(2);
+
         tree.setModel(null);
         tree.setCellRenderer(new TreeCellRendererHelpContents());
         scrollPaneTree.setViewportView(tree);
 
-        javax.swing.GroupLayout panelTreeLayout =
-            new javax.swing.GroupLayout(panelTree);
-
+        javax.swing.GroupLayout panelTreeLayout = new javax.swing.GroupLayout(panelTree);
         panelTree.setLayout(panelTreeLayout);
         panelTreeLayout.setHorizontalGroup(
-            panelTreeLayout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 100,
-                Short.MAX_VALUE));
+            panelTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
         panelTreeLayout.setVerticalGroup(
-            panelTreeLayout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 456,
-                Short.MAX_VALUE));
+            panelTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+        );
+
         splitPane.setLeftComponent(panelTree);
+
         editorPanePage.setEditable(false);
         scrollPanePage.setViewportView(editorPanePage);
 
-        javax.swing.GroupLayout panelPageLayout =
-            new javax.swing.GroupLayout(panelPage);
-
+        javax.swing.GroupLayout panelPageLayout = new javax.swing.GroupLayout(panelPage);
         panelPage.setLayout(panelPageLayout);
         panelPageLayout.setHorizontalGroup(
-            panelPageLayout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING,
-                javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE));
+            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+        );
         panelPageLayout.setVerticalGroup(
-            panelPageLayout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                scrollPanePage, javax.swing.GroupLayout.DEFAULT_SIZE, 456,
-                Short.MAX_VALUE));
+            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanePage, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+        );
+
         splitPane.setRightComponent(panelPage);
+
         buttonPrevious.setMnemonic('z');
-        buttonPrevious.setText(
-            bundle.getString("HelpBrowser.buttonPrevious.text"));    // NOI18N
-        buttonPrevious.setToolTipText(
-            bundle.getString("HelpBrowser.buttonPrevious.toolTipText"));    // NOI18N
+        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
+        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
         buttonPrevious.setEnabled(false);
         buttonPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPreviousActionPerformed(evt);
             }
         });
+
         buttonNext.setMnemonic('v');
-        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text"));    // NOI18N
-        buttonNext.setToolTipText(
-            bundle.getString("HelpBrowser.buttonNext.toolTipText"));    // NOI18N
+        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text")); // NOI18N
+        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
         buttonNext.setEnabled(false);
         buttonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -490,41 +503,34 @@ public final class HelpBrowser extends Dialog
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                .createSequentialGroup().addContainerGap()
-                .addGroup(layout
-                    .createParallelGroup(javax.swing.GroupLayout.Alignment
-                        .TRAILING)
-                            .addComponent(splitPane, javax.swing.GroupLayout
-                                .DEFAULT_SIZE, 573, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(buttonPrevious)
-                                        .addPreferredGap(javax.swing.LayoutStyle
-                                            .ComponentPlacement.RELATED)
-                                                .addComponent(buttonNext)))
-                                                    .addContainerGap()));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                .createSequentialGroup().addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout
-                    .DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle
-                            .ComponentPlacement.RELATED)
-                                .addGroup(layout
-                                    .createParallelGroup(javax.swing.GroupLayout
-                                        .Alignment.BASELINE)
-                                            .addComponent(buttonNext)
-                                                .addComponent(buttonPrevious))
-                                                    .addContainerGap()));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonPrevious)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonNext)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonNext)
+                    .addComponent(buttonPrevious))
+                .addContainerGap())
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
         goNext();
@@ -547,15 +553,14 @@ public final class HelpBrowser extends Dialog
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonNext;
-    private javax.swing.JButton     buttonPrevious;
+    private javax.swing.JButton buttonNext;
+    private javax.swing.JButton buttonPrevious;
     private javax.swing.JEditorPane editorPanePage;
-    private javax.swing.JPanel      panelPage;
-    private javax.swing.JPanel      panelTree;
+    private javax.swing.JPanel panelPage;
+    private javax.swing.JPanel panelTree;
     private javax.swing.JScrollPane scrollPanePage;
     private javax.swing.JScrollPane scrollPaneTree;
-    private javax.swing.JSplitPane  splitPane;
-    private javax.swing.JTree       tree;
-
+    private javax.swing.JSplitPane splitPane;
+    private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
 }
