@@ -1,5 +1,5 @@
 /*
- * @(#)Cancelling.java    Created on 2010-04-07
+ * @(#)Cancelable.java    Created on 2010-04-07
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -25,7 +25,7 @@ package org.jphototagger.lib.concurrent;
  *
  * @author Elmar Baumann
  */
-public interface Cancelling {
+public interface Cancelable {
 
     /**
      * Does cancel the operation.
