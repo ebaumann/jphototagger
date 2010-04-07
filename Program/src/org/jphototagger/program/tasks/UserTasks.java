@@ -59,15 +59,15 @@ public final class UserTasks {
     }
 
     /**
-     * Removes all added user tasks and calls {@link Thread#interrupt()} of the
-     * currently running runnable if it's an instance of
-     * <code>java.lang.Thread</code>.
-     *
-     * Thus means: The currently running task cancels only when it is a thread
-     * that will periodically check {@link Thread#isInterrupted()}.
+     * Removes all added user tasks.
+     * <p>
+     * If the active runnable implements {@link Cancelable}, its method
+     * {@link Cancelable#cancel()} will be called. If it does not implement
+     * that interface and it is an instance of {@link Thread},
+     * {@link Thread#interrupt()} will be called.
      */
     public void cancelCurrentTasks() {
-        executor.shutdown();
+        executor.cancel();
     }
 
     private UserTasks() {}

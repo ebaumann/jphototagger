@@ -39,6 +39,7 @@ import java.io.File;
 
 import java.util.Collections;
 import java.util.List;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Renames or deletes values in XMP sidecar files.
@@ -134,7 +135,7 @@ public final class RenameDeleteXmpValue {
         }
     }
 
-    private static class Rename extends Thread {
+    private static class Rename extends Thread implements Cancelable {
         ProgressBarUpdater pb = new ProgressBarUpdater(
                                     this,
                                     JptBundle.INSTANCE.getString(
@@ -151,6 +152,7 @@ public final class RenameDeleteXmpValue {
             setName("Renaming XMP value @ " + getClass().getSimpleName());
         }
 
+        @Override
         public void cancel() {
             cancel = true;
         }

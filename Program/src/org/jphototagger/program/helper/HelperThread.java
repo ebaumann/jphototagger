@@ -30,6 +30,7 @@ import java.util.Set;
 
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Base class for helper threads managing progress listeners and providing a
@@ -37,7 +38,7 @@ import javax.swing.SwingUtilities;
  *
  * @author  Elmar Baumann
  */
-public abstract class HelperThread extends Thread {
+public abstract class HelperThread extends Thread implements Cancelable {
     private String                      info;
     private final Set<ProgressListener> progressListeners =
         new HashSet<ProgressListener>();
@@ -47,6 +48,7 @@ public abstract class HelperThread extends Thread {
     private volatile int     minimum;
     private volatile int     maximum;
 
+    @Override
     public abstract void cancel();
 
     /**

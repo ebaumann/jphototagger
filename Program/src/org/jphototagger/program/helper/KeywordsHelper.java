@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.program.app.AppLogger;
@@ -407,7 +408,8 @@ public final class KeywordsHelper {
         }
     }
 
-    private static class DeleteDcSubject extends HelperThread {
+    private static class DeleteDcSubject extends HelperThread
+            implements Cancelable {
         private final String     dcSubject;
         private volatile boolean cancel;
 
@@ -430,7 +432,7 @@ public final class KeywordsHelper {
             int size  = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !cancel && !isInterrupted() && (index < size);
+            for (index = 0; !cancel &&!isInterrupted() && (index < size);
                     index++) {
                 File imageFile   = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
@@ -467,7 +469,8 @@ public final class KeywordsHelper {
     }
 
 
-    private static class RenameDcSubject extends HelperThread {
+    private static class RenameDcSubject extends HelperThread
+            implements Cancelable {
         private final String     toName;
         private final String     fromName;
         private volatile boolean cancel;
@@ -492,7 +495,7 @@ public final class KeywordsHelper {
             int size  = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !cancel && !isInterrupted() && (index < size);
+            for (index = 0; !cancel &&!isInterrupted() && (index < size);
                     index++) {
                 File imageFile   = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);

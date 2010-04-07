@@ -35,13 +35,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
  *
  * @author  Elmar Baumann
  */
-public final class ConvertIptcToXmp implements Runnable {
+public final class ConvertIptcToXmp implements Runnable, Cancelable {
     private final List<ProgressListener> progressListeners =
         new ArrayList<ProgressListener>();
     private final List<File> imageFiles;
@@ -63,6 +64,7 @@ public final class ConvertIptcToXmp implements Runnable {
         progressListeners.add(listener);
     }
 
+    @Override
     public void cancel() {
         cancel = true;
     }

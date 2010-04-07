@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
@@ -62,7 +63,8 @@ import java.util.Set;
  *
  * @author  Elmar Baumann
  */
-public final class InsertImageFilesIntoDatabase extends Thread {
+public final class InsertImageFilesIntoDatabase extends Thread
+        implements Cancelable {
     private static final Image ERROR_THUMBNAIL =
         IconUtil.getIconImage(
             JptBundle.INSTANCE.getString(
@@ -150,7 +152,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
 
         notifyStarted();
 
-        for (index = 0; !cancel && !isInterrupted() && (index < count);
+        for (index = 0; !cancel &&!isInterrupted() && (index < count);
                 index++) {
             File imgFile = imageFiles.get(index);
 
@@ -379,6 +381,7 @@ public final class InsertImageFilesIntoDatabase extends Thread {
      * A <em>soft</em> interrupt: I/O operations can finishing their current
      * process.
      */
+    @Override
     public void cancel() {
         cancel = true;
     }

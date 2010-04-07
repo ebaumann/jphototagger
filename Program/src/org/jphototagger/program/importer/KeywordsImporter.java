@@ -39,6 +39,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Imports keywords.
@@ -95,7 +96,7 @@ public abstract class KeywordsImporter implements Importer {
         }
     }
 
-    private static class ImportTask extends Thread {
+    private static class ImportTask extends Thread implements Cancelable {
         private final Collection<List<Pair<String, Boolean>>> paths;
         private final TreeModel                               treeModel =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
@@ -111,6 +112,7 @@ public abstract class KeywordsImporter implements Importer {
             setName("Importing keywords @ " + getClass().getSimpleName());
         }
 
+        @Override
         public void cancel() {
             cancel = true;
         }

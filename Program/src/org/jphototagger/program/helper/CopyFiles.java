@@ -21,13 +21,14 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -39,13 +40,13 @@ import java.util.List;
  *
  * @author  Elmar Baumann
  */
-public final class CopyFiles implements Runnable {
+public final class CopyFiles implements Runnable, Cancelable {
     private final ProgressListenerSupport listenerSupport =
         new ProgressListenerSupport();
     private final List<File>             errorFiles = new ArrayList<File>();
     private final Options                options;
     private final List<Pair<File, File>> sourceTargetFiles;
-    private volatile boolean cancel;
+    private volatile boolean             cancel;
 
     /**
      * Konstruktor
@@ -69,6 +70,7 @@ public final class CopyFiles implements Runnable {
         this.options = options;
     }
 
+    @Override
     public synchronized void cancel() {
         cancel = true;
     }
