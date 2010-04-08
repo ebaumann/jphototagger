@@ -127,10 +127,11 @@ public final class ScheduledTasks
     /**
      * Removes all added user tasks.
      * <p>
-     * If the active runnable implements {@link Cancelable}, its method
-     * {@link Cancelable#cancel()} will be called. If it does not implement
-     * that interface and it is an instance of {@link Thread},
-     * {@link Thread#interrupt()} will be called.
+     * If the active runnable implements
+     * {@link org.jphototagger.lib.concurrent.Cancelable}, its method
+     * {@link org.jphototagger.lib.concurrent.Cancelable#cancel()} will be
+     * called. If it does not implement that interface and it is an instance of
+     * {@link Thread}, {@link Thread#interrupt()} will be called.
      */
     public void cancelCurrentTasks() {
         executor.cancel();
