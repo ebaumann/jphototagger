@@ -60,6 +60,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
+import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
@@ -294,6 +295,8 @@ public final class AppPanel extends javax.swing.JPanel {
         } else {
             labelStatusbarText.setText(text);
         }
+
+        AppLogger.logInfo(AppPanel.class, AppLogger.USE_STRING, text);
     }
 
     public EditMetadataPanels getEditMetadataPanels() {
