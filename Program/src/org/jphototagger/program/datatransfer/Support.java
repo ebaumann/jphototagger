@@ -119,7 +119,7 @@ public final class Support {
     /**
      *
      * @param  columnData can be null
-     * @return
+     * @return            string, can be empty
      */
     public static String getStringFromColumnData(
             Collection<? extends ColumnData> columnData) {

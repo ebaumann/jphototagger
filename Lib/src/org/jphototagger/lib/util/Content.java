@@ -54,11 +54,6 @@ public class Content<T> {
         }
     }
 
-    /**
-     * Returns the conent.
-     *
-     * @return
-     */
     public synchronized T getContent() {
         return content;
     }
