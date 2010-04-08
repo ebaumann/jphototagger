@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.importer;
 
+import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
@@ -39,7 +41,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  * Imports keywords.
@@ -100,7 +101,7 @@ public abstract class KeywordsImporter implements Importer {
         private final Collection<List<Pair<String, Boolean>>> paths;
         private final TreeModel                               treeModel =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        private JProgressBar progressBar;
+        private JProgressBar     progressBar;
         private volatile boolean cancel;
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
@@ -108,7 +109,7 @@ public abstract class KeywordsImporter implements Importer {
                 throw new NullPointerException("paths == null");
             }
 
-            this.paths            = paths;
+            this.paths = paths;
             setName("Importing keywords @ " + getClass().getSimpleName());
         }
 
@@ -135,11 +136,13 @@ public abstract class KeywordsImporter implements Importer {
                 updateProgressBar(0);
 
                 int progressValue = 0;
+                int importCount   = 0;
 
                 for (List<Pair<String, Boolean>> path : paths) {
                     if (cancel || isInterrupted()) {
                         break;
                     }
+
                     DefaultMutableTreeNode node =
                         (DefaultMutableTreeNode) model.getRoot();
 
@@ -152,6 +155,7 @@ public abstract class KeywordsImporter implements Importer {
                                          keyword.getSecond());
                             node = model.findChildByName(node,
                                                          keyword.getFirst());
+                            importCount++;
                         } else {
                             node = existingNode;
                         }
@@ -161,6 +165,7 @@ public abstract class KeywordsImporter implements Importer {
                 }
 
                 releaseProgressBar();
+                messageImported(importCount);
                 expandRootSelHk();
             }
         }
@@ -212,6 +217,15 @@ public abstract class KeywordsImporter implements Importer {
                     progressBar = null;
                 }
             });
+        }
+
+        private void messageImported(int importCount) {
+            String message =
+                JptBundle.INSTANCE.getString("ImportTask.Info.Imported",
+                                             importCount);
+
+            GUI.INSTANCE.getAppPanel().setStatusbarText(message,
+                    MessageType.INFO, 2000);
         }
     }
 }
