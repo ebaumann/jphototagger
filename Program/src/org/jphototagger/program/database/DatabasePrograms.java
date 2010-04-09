@@ -95,6 +95,7 @@ public final class DatabasePrograms extends Database {
             con.setAutoCommit(false);
             setId(con, program);
             stmt = con.prepareStatement(sql);
+            ensureSequenceNumber(con, program);
             setValuesInsert(stmt, program);
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -196,6 +197,7 @@ public final class DatabasePrograms extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(sql);
+            ensureSequenceNumber(con, program);
             setValuesUpdate(stmt, program);
             stmt.setLong(13, program.getId());
             logFiner(stmt);
@@ -587,6 +589,78 @@ public final class DatabasePrograms extends Database {
             for (DatabaseProgramsListener listener : listeners) {
                 listener.programUpdated(program);
             }
+        }
+    }
+
+    /**
+     * Returns the number of programs or actions.
+     *
+     * @param  actions true if the number of actions shall be returned, false,
+     *                 if the number of actions shall be returned
+     * @return         number of programs or actions
+     */
+    public int getCount(boolean actions) {
+        int               count = 0;
+        Connection        con   = null;
+        PreparedStatement stmt  = null;
+        ResultSet         rs    = null;
+
+        try {
+            String sql = "SELECT COUNT(*) FROM programs WHERE action = ?";
+
+            con  = getConnection();
+            stmt = con.prepareStatement(sql);
+            stmt.setBoolean(1, actions);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            AppLogger.logSevere(getClass(), ex);
+        } finally {
+            close(rs, stmt);
+        }
+
+        return count;
+    }
+
+    private void ensureSequenceNumber(Connection con, Program program)
+            throws SQLException {
+        if (program.getSequenceNumber() >= 0) {
+            return;
+        }
+
+        int count = getCount(program.isAction());
+
+        if (count <= 0) {
+            program.setSequenceNumber(0);
+
+            return;
+        }
+
+        PreparedStatement stmt = null;
+        ResultSet         rs   = null;
+
+        try {
+            String sql =
+                "SELECT MAX(sequence_number) FROM programs WHERE action = ?";
+
+            stmt = con.prepareStatement(sql);
+            stmt.setBoolean(1, program.isAction());
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int max = rs.getInt(1);
+
+                program.setSequenceNumber((max < 0)
+                                          ? 0
+                                          : max + 1);
+            }
+        } finally {
+            close(rs, stmt);
         }
     }
 }
