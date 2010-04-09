@@ -45,11 +45,11 @@ public final class IoUtil {
     private static final String QUOTE                = "\"";
     private static final String SEPARATOR            = " ";
     private static final String EMPTY                = "";
-    private static final String PATTERN_FS_PATH      = "%s";
-    private static final String PATTERN_FS_ROOT      = "%d";
-    private static final String PATTERN_FS_DIR_PATH  = "%p";
-    private static final String PATTERN_FS_FILE_NAME = "%n";
-    private static final String PATTERN_FS_FILE_EXT  = "%x";
+    public static final String PATTERN_FS_PATH      = "%s";
+    public static final String PATTERN_FS_ROOT      = "%d";
+    public static final String PATTERN_FS_DIR_PATH  = "%p";
+    public static final String PATTERN_FS_FILE_NAME = "%n";
+    public static final String PATTERN_FS_FILE_EXT  = "%x";
 
     /**
      * Executes an application and desplays a message dialog on errors.
