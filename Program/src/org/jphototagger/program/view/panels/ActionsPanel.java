@@ -34,11 +34,14 @@ import org.jphototagger.program.view.renderer.ListCellRendererActions;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 import java.awt.Container;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import java.util.Set;
 
 import javax.swing.JProgressBar;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.database.DatabasePrograms;
 
 /**
@@ -56,7 +59,18 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     public ActionsPanel() {
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
+        menuItemCreate.setAccelerator(
+                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        menuItemEdit.setAccelerator(
+                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
+        if (list.getModel().getSize() > 0) {
+            list.setSelectedIndex(0);
+        }
     }
 
     public synchronized JProgressBar getProgressBar(Object owner) {
@@ -95,17 +109,17 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonExecute.setEnabled(selectedIndex);
     }
 
-    private Program getSelectedProgram() {
+    private Program getSelectedAction() {
         return (Program) list.getSelectedValue();
     }
 
-    private void execute() {
+    private void executeAction() {
         if (list.getSelectedIndex() >= 0) {
-            notifyProgramExecuted(getSelectedProgram());
+            notifyProgramExecuted(getSelectedAction());
         }
     }
 
-    private void handleButtonNewActionPerformed() {
+    private void createAction() {
         ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(true);
 
         dlg.setVisible(true);
@@ -113,15 +127,25 @@ public final class ActionsPanel extends javax.swing.JPanel {
         if (dlg.isAccepted()) {
             Program program = dlg.getProgram();
 
-            DatabasePrograms.INSTANCE.insert(program);
+            if (DatabasePrograms.INSTANCE.insert(program)) {
+                selectLastListItem();
+            }
         }
 
         setButtonsEnabled();
+        list.requestFocusInWindow();
     }
 
-    private void handleButtonEditActionPerformed() {
+    private void selectLastListItem() {
+        int size = list.getModel().getSize();
+        if (size > 0) {
+            list.setSelectedIndex(size - 1);
+        }
+    }
+
+    private void editAction() {
         if (list.getSelectedIndex() >= 0) {
-            Program                 program = getSelectedProgram();
+            Program                 program = getSelectedAction();
             ProgramPropertiesDialog dlg     = new ProgramPropertiesDialog(true);
 
             dlg.setProgram(program);
@@ -133,27 +157,41 @@ public final class ActionsPanel extends javax.swing.JPanel {
         }
 
         setButtonsEnabled();
+        list.requestFocusInWindow();
+    }
+
+    private void handleListKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            executeAction();
+        } else if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            deleteAction();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E)) {
+            editAction();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)) {
+            createAction();
+        }
     }
 
     private void handleListMouseClicked(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             if (evt.getClickCount() == 1) {
                 setButtonsEnabled();
-            } else if (evt.getClickCount() >= 2) {
-                execute();
+            } else if (MouseEventUtil.isDoubleClick(evt)) {
+                executeAction();
             }
         }
     }
 
-    private void handleButtonDeleteActionPerformed() {
+    private void deleteAction() {
         if (list.getSelectedIndex() >= 0) {
-            Program program = getSelectedProgram();
+            Program program = getSelectedAction();
 
             if (confirmDelete(program)) {
                 DatabasePrograms.INSTANCE.delete(program);
             }
 
             setButtonsEnabled();
+            list.requestFocusInWindow();
         }
     }
 
@@ -187,6 +225,14 @@ public final class ActionsPanel extends javax.swing.JPanel {
         }
     }
 
+    private void setEnabledPopupMenuItems() {
+        boolean isSelected = list.getSelectedIndex() >= 0;
+
+        menuItemDelete.setEnabled(isSelected);
+        menuItemEdit.setEnabled(isSelected);
+        menuItemExecute.setEnabled(isSelected);
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -199,23 +245,85 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        popupMenu = new javax.swing.JPopupMenu();
+        menuItemExecute = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menuItemCreate = new javax.swing.JMenuItem();
+        menuItemEdit = new javax.swing.JMenuItem();
+        menuItemDelete = new javax.swing.JMenuItem();
+        labelActionList = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
         progressBar = new javax.swing.JProgressBar();
         panelButtons = new javax.swing.JPanel();
         buttonDelete = new javax.swing.JButton();
         buttonEdit = new javax.swing.JButton();
-        buttonNew = new javax.swing.JButton();
+        buttonCreate = new javax.swing.JButton();
         buttonExecute = new javax.swing.JButton();
+
+        popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                popupMenuPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
+        menuItemExecute.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
+        menuItemExecute.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemExecute.text")); // NOI18N
+        menuItemExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExecuteActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemExecute);
+        popupMenu.add(jSeparator1);
+
+        menuItemCreate.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemCreate.text")); // NOI18N
+        menuItemCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCreateActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemCreate);
+
+        menuItemEdit.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemEdit.text")); // NOI18N
+        menuItemEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEditActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemEdit);
+
+        menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemDelete.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDeleteActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemDelete);
 
         setFocusable(false);
         setLayout(new java.awt.GridBagLayout());
+
+        labelActionList.setLabelFor(list);
+        labelActionList.setText(JptBundle.INSTANCE.getString("ActionsPanel.labelActionList.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        add(labelActionList, gridBagConstraints);
 
         scrollPane.setFocusable(false);
 
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new ListCellRendererActions());
+        list.setComponentPopupMenu(popupMenu);
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
@@ -226,11 +334,16 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 listValueChanged(evt);
             }
         });
+        list.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listKeyPressed(evt);
+            }
+        });
         scrollPane.setViewportView(list);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
@@ -241,7 +354,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         progressBar.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
@@ -265,11 +378,11 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonNew.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.text")); // NOI18N
-        buttonNew.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonNew.toolTipText")); // NOI18N
-        buttonNew.addActionListener(new java.awt.event.ActionListener() {
+        buttonCreate.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonCreate.text")); // NOI18N
+        buttonCreate.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonCreate.toolTipText")); // NOI18N
+        buttonCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNewActionPerformed(evt);
+                buttonCreateActionPerformed(evt);
             }
         });
 
@@ -291,7 +404,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEdit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonNew)
+                .addComponent(buttonCreate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonExecute))
         );
@@ -299,16 +412,16 @@ public final class ActionsPanel extends javax.swing.JPanel {
             panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(buttonExecute)
-                .addComponent(buttonNew)
+                .addComponent(buttonCreate)
                 .addComponent(buttonEdit)
                 .addComponent(buttonDelete))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 3, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 3, 5);
         add(panelButtons, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -323,28 +436,59 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_listMouseClicked
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        handleButtonDeleteActionPerformed();
+        deleteAction();
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     private void buttonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditActionPerformed
-        handleButtonEditActionPerformed();
+        editAction();
     }//GEN-LAST:event_buttonEditActionPerformed
 
-    private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
-        handleButtonNewActionPerformed();
-    }//GEN-LAST:event_buttonNewActionPerformed
+    private void buttonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateActionPerformed
+        createAction();
+    }//GEN-LAST:event_buttonCreateActionPerformed
 
     private void buttonExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExecuteActionPerformed
-        execute();
+        executeAction();
     }//GEN-LAST:event_buttonExecuteActionPerformed
 
+    private void menuItemExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExecuteActionPerformed
+       executeAction();
+    }//GEN-LAST:event_menuItemExecuteActionPerformed
+
+    private void menuItemEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditActionPerformed
+        editAction();
+    }//GEN-LAST:event_menuItemEditActionPerformed
+
+    private void menuItemCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateActionPerformed
+        createAction();
+    }//GEN-LAST:event_menuItemCreateActionPerformed
+
+    private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDeleteActionPerformed
+        deleteAction();
+    }//GEN-LAST:event_menuItemDeleteActionPerformed
+
+    private void popupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popupMenuPopupMenuWillBecomeVisible
+        setEnabledPopupMenuItems();
+    }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
+
+    private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
+        handleListKeyPressed(evt);
+    }//GEN-LAST:event_listKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCreate;
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonEdit;
     private javax.swing.JButton buttonExecute;
-    private javax.swing.JButton buttonNew;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JLabel labelActionList;
     private javax.swing.JList list;
+    private javax.swing.JMenuItem menuItemCreate;
+    private javax.swing.JMenuItem menuItemDelete;
+    private javax.swing.JMenuItem menuItemEdit;
+    private javax.swing.JMenuItem menuItemExecute;
     private javax.swing.JPanel panelButtons;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
