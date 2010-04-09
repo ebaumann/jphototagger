@@ -45,8 +45,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneListSynonyms" pref="208" max="32767" attributes="2"/>
-                          <Component id="textFieldSynonyms" alignment="1" pref="208" max="32767" attributes="2"/>
+                          <Component id="scrollPaneListSynonyms" pref="214" max="32767" attributes="2"/>
+                          <Component id="textFieldSynonyms" alignment="1" pref="214" max="32767" attributes="2"/>
                           <Component id="labelListSynonyms" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -55,11 +55,15 @@
                           <Component id="buttonChangeSynonym" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonRemoveSynonym" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelTextFieldSynonym" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="labelInfoAddSynonym" min="-2" pref="236" max="-2" attributes="0"/>
+                      <EmptySpace pref="24" max="32767" attributes="1"/>
                   </Group>
               </Group>
           </Group>
@@ -102,12 +106,15 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonChangeWord" linkSize="6" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="scrollPaneListWords" alignment="0" pref="191" max="32767" attributes="2"/>
-                  <Component id="scrollPaneListSynonyms" alignment="0" pref="191" max="32767" attributes="2"/>
+                  <Component id="scrollPaneListWords" alignment="0" pref="186" max="32767" attributes="2"/>
+                  <Component id="scrollPaneListSynonyms" alignment="0" pref="186" max="32767" attributes="2"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="buttonAddAllKeywords" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="labelInfoAddSynonym" pref="25" max="32767" attributes="1"/>
+                  <Component id="buttonAddAllKeywords" alignment="0" max="32767" attributes="1"/>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -342,6 +349,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddAllKeywordsActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelInfoAddSynonym">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.labelInfoAddSynonym.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
