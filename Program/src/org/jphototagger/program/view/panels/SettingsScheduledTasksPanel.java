@@ -354,10 +354,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         });
 
         buttonScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_start.png"))); // NOI18N
+        buttonScheduledTasks.setToolTipText(JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
         buttonScheduledTasks.setAlignmentY(0.0F);
-        buttonScheduledTasks.setBorder(null);
-        buttonScheduledTasks.setBorderPainted(false);
-        buttonScheduledTasks.setContentAreaFilled(false);
         buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         buttonScheduledTasks.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
@@ -395,7 +393,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkBoxScheduledBackupDb)
