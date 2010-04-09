@@ -39,6 +39,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -266,40 +267,36 @@ public class SynonymsPanel extends javax.swing.JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelTextAreaWord       = new javax.swing.JLabel();
+
+        labelTextAreaWord = new javax.swing.JLabel();
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
-        textAreaWords           = new javax.swing.JTextArea();
-        textAreaWords.setTransferHandler(
-            new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
-        labelListWords        = new javax.swing.JLabel();
-        scrollPaneListWords   = new javax.swing.JScrollPane();
-        listWords             = new javax.swing.JList();
-        buttonAddWord         = new javax.swing.JButton();
-        buttonRemoveWord      = new javax.swing.JButton();
-        buttonChangeWord      = new javax.swing.JButton();
+        textAreaWords = new javax.swing.JTextArea();
+        textAreaWords.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        labelListWords = new javax.swing.JLabel();
+        scrollPaneListWords = new javax.swing.JScrollPane();
+        listWords = new javax.swing.JList();
+        buttonAddWord = new javax.swing.JButton();
+        buttonRemoveWord = new javax.swing.JButton();
+        buttonChangeWord = new javax.swing.JButton();
         labelTextFieldSynonym = new javax.swing.JLabel();
-        textFieldSynonyms     = new javax.swing.JTextField();
-        textFieldSynonyms.setTransferHandler(
-            new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
-        labelListSynonyms      = new javax.swing.JLabel();
+        textFieldSynonyms = new javax.swing.JTextField();
+        textFieldSynonyms.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        labelListSynonyms = new javax.swing.JLabel();
         scrollPaneListSynonyms = new javax.swing.JScrollPane();
-        listSynonyms           = new javax.swing.JList();
-        buttonAddSynonym       = new javax.swing.JButton();
-        buttonRemoveSynonym    = new javax.swing.JButton();
-        buttonChangeSynonym    = new javax.swing.JButton();
-        buttonAddAllKeywords   = new javax.swing.JButton();
+        listSynonyms = new javax.swing.JList();
+        buttonAddSynonym = new javax.swing.JButton();
+        buttonRemoveSynonym = new javax.swing.JButton();
+        buttonChangeSynonym = new javax.swing.JButton();
+        buttonAddAllKeywords = new javax.swing.JButton();
+        labelInfoAddSynonym = new javax.swing.JLabel();
+
         labelTextAreaWord.setLabelFor(textAreaWords);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
+        labelTextAreaWord.setText(bundle.getString("SynonymsPanel.labelTextAreaWord.text")); // NOI18N
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/program/resource/properties/Bundle");    // NOI18N
+        scrollPaneTextAreaWords.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneTextAreaWords.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        labelTextAreaWord.setText(
-            bundle.getString("SynonymsPanel.labelTextAreaWord.text"));    // NOI18N
-        scrollPaneTextAreaWords.setHorizontalScrollBarPolicy(
-            javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneTextAreaWords.setVerticalScrollBarPolicy(
-            javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         textAreaWords.setColumns(20);
         textAreaWords.setRows(1);
         textAreaWords.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -308,12 +305,12 @@ public class SynonymsPanel extends javax.swing.JPanel
             }
         });
         scrollPaneTextAreaWords.setViewportView(textAreaWords);
+
         labelListWords.setLabelFor(listWords);
-        labelListWords.setText(
-            bundle.getString("SynonymsPanel.labelListWords.text"));    // NOI18N
+        labelListWords.setText(bundle.getString("SynonymsPanel.labelListWords.text")); // NOI18N
+
         listWords.setModel(modelWords);
-        listWords.setSelectionMode(
-            javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listWords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listWords.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listWordsMouseClicked(evt);
@@ -325,10 +322,9 @@ public class SynonymsPanel extends javax.swing.JPanel
             }
         });
         scrollPaneListWords.setViewportView(listWords);
-        buttonAddWord.setText(
-            bundle.getString("SynonymsPanel.buttonAddWord.text"));    // NOI18N
-        buttonAddWord.setToolTipText(
-            bundle.getString("SynonymsPanel.buttonAddWord.toolTipText"));    // NOI18N
+
+        buttonAddWord.setText(bundle.getString("SynonymsPanel.buttonAddWord.text")); // NOI18N
+        buttonAddWord.setToolTipText(bundle.getString("SynonymsPanel.buttonAddWord.toolTipText")); // NOI18N
         buttonAddWord.setEnabled(false);
         buttonAddWord.setMargin(new java.awt.Insets(0, 2, 0, 2));
         buttonAddWord.addActionListener(new java.awt.event.ActionListener() {
@@ -336,10 +332,9 @@ public class SynonymsPanel extends javax.swing.JPanel
                 buttonAddWordActionPerformed(evt);
             }
         });
-        buttonRemoveWord.setText(
-            bundle.getString("SynonymsPanel.buttonRemoveWord.text"));    // NOI18N
-        buttonRemoveWord.setToolTipText(
-            bundle.getString("SynonymsPanel.buttonRemoveWord.toolTipText"));    // NOI18N
+
+        buttonRemoveWord.setText(bundle.getString("SynonymsPanel.buttonRemoveWord.text")); // NOI18N
+        buttonRemoveWord.setToolTipText(bundle.getString("SynonymsPanel.buttonRemoveWord.toolTipText")); // NOI18N
         buttonRemoveWord.setEnabled(false);
         buttonRemoveWord.setMargin(new java.awt.Insets(0, 2, 0, 2));
         buttonRemoveWord.addActionListener(new java.awt.event.ActionListener() {
@@ -347,10 +342,9 @@ public class SynonymsPanel extends javax.swing.JPanel
                 buttonRemoveWordActionPerformed(evt);
             }
         });
-        buttonChangeWord.setText(
-            bundle.getString("SynonymsPanel.buttonChangeWord.text"));    // NOI18N
-        buttonChangeWord.setToolTipText(
-            bundle.getString("SynonymsPanel.buttonChangeWord.toolTipText"));    // NOI18N
+
+        buttonChangeWord.setText(bundle.getString("SynonymsPanel.buttonChangeWord.text")); // NOI18N
+        buttonChangeWord.setToolTipText(bundle.getString("SynonymsPanel.buttonChangeWord.toolTipText")); // NOI18N
         buttonChangeWord.setEnabled(false);
         buttonChangeWord.setMargin(new java.awt.Insets(0, 2, 0, 2));
         buttonChangeWord.addActionListener(new java.awt.event.ActionListener() {
@@ -358,20 +352,21 @@ public class SynonymsPanel extends javax.swing.JPanel
                 buttonChangeWordActionPerformed(evt);
             }
         });
+
         labelTextFieldSynonym.setLabelFor(textFieldSynonyms);
-        labelTextFieldSynonym.setText(
-            bundle.getString("SynonymsPanel.labelTextFieldSynonym.text"));    // NOI18N
+        labelTextFieldSynonym.setText(bundle.getString("SynonymsPanel.labelTextFieldSynonym.text")); // NOI18N
+
         textFieldSynonyms.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldSynonymsKeyPressed(evt);
             }
         });
+
         labelListSynonyms.setLabelFor(listSynonyms);
-        labelListSynonyms.setText(
-            bundle.getString("SynonymsPanel.labelListSynonyms.text"));    // NOI18N
+        labelListSynonyms.setText(bundle.getString("SynonymsPanel.labelListSynonyms.text")); // NOI18N
+
         listSynonyms.setModel(modelSynonyms);
-        listSynonyms.setSelectionMode(
-            javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listSynonyms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listSynonyms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listSynonymsMouseClicked(evt);
@@ -383,10 +378,9 @@ public class SynonymsPanel extends javax.swing.JPanel
             }
         });
         scrollPaneListSynonyms.setViewportView(listSynonyms);
-        buttonAddSynonym.setText(
-            bundle.getString("SynonymsPanel.buttonAddSynonym.text"));    // NOI18N
-        buttonAddSynonym.setToolTipText(
-            bundle.getString("SynonymsPanel.buttonAddSynonym.toolTipText"));    // NOI18N
+
+        buttonAddSynonym.setText(bundle.getString("SynonymsPanel.buttonAddSynonym.text")); // NOI18N
+        buttonAddSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonAddSynonym.toolTipText")); // NOI18N
         buttonAddSynonym.setEnabled(false);
         buttonAddSynonym.setMargin(new java.awt.Insets(0, 2, 0, 2));
         buttonAddSynonym.addActionListener(new java.awt.event.ActionListener() {
@@ -394,164 +388,126 @@ public class SynonymsPanel extends javax.swing.JPanel
                 buttonAddSynonymActionPerformed(evt);
             }
         });
-        buttonRemoveSynonym.setText(
-            bundle.getString("SynonymsPanel.buttonRemoveSynonym.text"));    // NOI18N
-        buttonRemoveSynonym.setToolTipText(
-            bundle.getString("SynonymsPanel.buttonRemoveSynonym.toolTipText"));    // NOI18N
+
+        buttonRemoveSynonym.setText(bundle.getString("SynonymsPanel.buttonRemoveSynonym.text")); // NOI18N
+        buttonRemoveSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonRemoveSynonym.toolTipText")); // NOI18N
         buttonRemoveSynonym.setEnabled(false);
         buttonRemoveSynonym.setMargin(new java.awt.Insets(0, 2, 0, 2));
-        buttonRemoveSynonym.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSynonymActionPerformed(evt);
             }
         });
-        buttonChangeSynonym.setText(
-            bundle.getString("SynonymsPanel.buttonChangeSynonym.text"));    // NOI18N
-        buttonChangeSynonym.setToolTipText(
-            bundle.getString("SynonymsPanel.buttonChangeSynonym.toolTipText"));    // NOI18N
+
+        buttonChangeSynonym.setText(bundle.getString("SynonymsPanel.buttonChangeSynonym.text")); // NOI18N
+        buttonChangeSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonChangeSynonym.toolTipText")); // NOI18N
         buttonChangeSynonym.setEnabled(false);
         buttonChangeSynonym.setMargin(new java.awt.Insets(0, 2, 0, 2));
-        buttonChangeSynonym.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChangeSynonymActionPerformed(evt);
             }
         });
-        buttonAddAllKeywords.setText(
-            bundle.getString("SynonymsPanel.buttonAddAllKeywords.text"));    // NOI18N
-        buttonAddAllKeywords.setToolTipText(
-            bundle.getString("SynonymsPanel.buttonAddAllKeywords.toolTipText"));    // NOI18N
-        buttonAddAllKeywords.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonAddAllKeywords.setText(bundle.getString("SynonymsPanel.buttonAddAllKeywords.text")); // NOI18N
+        buttonAddAllKeywords.setToolTipText(bundle.getString("SynonymsPanel.buttonAddAllKeywords.toolTipText")); // NOI18N
+        buttonAddAllKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddAllKeywordsActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        labelInfoAddSynonym.setText(JptBundle.INSTANCE.getString("SynonymsPanel.labelInfoAddSynonym.text")); // NOI18N
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                        layout.createSequentialGroup().addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                scrollPaneListWords,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 208,
-                                Short.MAX_VALUE).addComponent(
-                                    scrollPaneTextAreaWords,
-                                    javax.swing.GroupLayout.Alignment.TRAILING,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, 208,
-                                    Short.MAX_VALUE).addComponent(
-                                        labelListWords).addComponent(
-                                        buttonAddAllKeywords,
-                                        javax.swing.GroupLayout.Alignment.TRAILING)).addPreferredGap(
-                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                layout.createParallelGroup(
-                                                    javax.swing.GroupLayout.Alignment.TRAILING).addComponent(
-                                                        buttonAddWord).addGroup(
-                                                            layout.createParallelGroup(
-                                                                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                                                    buttonRemoveWord).addComponent(
-                                                                        buttonChangeWord))).addPreferredGap(
-                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)).addGroup(
-                                                                                layout.createSequentialGroup().addComponent(
-                                                                                    labelTextAreaWord).addGap(
-                                                                                        124,
-                                                                                        124,
-                                                                                        124))).addGroup(
-                                                                                            layout.createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                                                                                                    layout.createSequentialGroup().addGroup(
-                                                                                                        layout.createParallelGroup(
-                                                                                                            javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                                                                                                scrollPaneListSynonyms,
-                                                                                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                        208,
-                                                                                                                        Short.MAX_VALUE).addComponent(
-                                                                                                                            textFieldSynonyms,
-                                                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                        208,
-                                                                                                                                        Short.MAX_VALUE).addComponent(
-                                                                                                                                            labelListSynonyms)).addPreferredGap(
-                                                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                                                                                                                    layout.createParallelGroup(
-                                                                                                                                                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                                                                                                                                            buttonAddSynonym).addComponent(
-                                                                                                                                                                buttonChangeSynonym).addComponent(
-                                                                                                                                                                    buttonRemoveSynonym)).addGap(
-                                                                                                                                                                        14,
-                                                                                                                                                                        14,
-                                                                                                                                                                        14)).addGroup(
-                                                                                                                                                                            layout.createSequentialGroup().addComponent(labelTextFieldSynonym).addGap(137, 137, 137)))));
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
-                        new java.awt.Component[] {
-            buttonAddSynonym, buttonAddWord, buttonChangeSynonym,
-            buttonChangeWord, buttonRemoveSynonym, buttonRemoveWord
-        });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollPaneListWords, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(scrollPaneTextAreaWords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(labelListWords)
+                            .addComponent(buttonAddAllKeywords, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonAddWord)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(buttonRemoveWord)
+                                .addComponent(buttonChangeWord)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelTextAreaWord)
+                        .addGap(124, 124, 124)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollPaneListSynonyms, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(textFieldSynonyms, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(labelListSynonyms))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonAddSynonym)
+                            .addComponent(buttonChangeSynonym)
+                            .addComponent(buttonRemoveSynonym))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelTextFieldSynonym)
+                        .addGap(143, 143, 143))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelInfoAddSynonym, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(24, Short.MAX_VALUE))))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAddSynonym, buttonAddWord, buttonChangeSynonym, buttonChangeWord, buttonRemoveSynonym, buttonRemoveWord});
+
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                        labelTextAreaWord).addComponent(
-                        labelTextFieldSynonym)).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                                layout.createSequentialGroup().addComponent(
-                                    scrollPaneTextAreaWords,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 20,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                        labelListWords)).addGroup(
-                                            layout.createSequentialGroup().addGroup(
-                                                layout.createParallelGroup(
-                                                    javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                                        buttonAddWord).addComponent(
-                                                            textFieldSynonyms,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(
-                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                                labelListSynonyms)).addComponent(
-                                                                                    buttonAddSynonym)).addPreferredGap(
-                                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                                                            layout.createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                                                                                                    layout.createSequentialGroup().addComponent(
-                                                                                                        buttonRemoveSynonym).addPreferredGap(
-                                                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                                                                buttonChangeSynonym)).addGroup(
-                                                                                                                    layout.createSequentialGroup().addComponent(
-                                                                                                                        buttonRemoveWord).addPreferredGap(
-                                                                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                                                                                buttonChangeWord)).addComponent(
-                                                                                                                                    scrollPaneListWords,
-                                                                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                            191,
-                                                                                                                                            Short.MAX_VALUE).addComponent(
-                                                                                                                                                scrollPaneListSynonyms,
-                                                                                                                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                        191,
-                                                                                                                                                        Short.MAX_VALUE)).addPreferredGap(
-                                                                                                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(buttonAddAllKeywords).addContainerGap()));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] {
-            buttonAddSynonym, buttonAddWord, buttonChangeSynonym,
-            buttonChangeWord, buttonRemoveSynonym, buttonRemoveWord
-        });
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { scrollPaneTextAreaWords,
-                textFieldSynonyms });
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTextAreaWord)
+                    .addComponent(labelTextFieldSynonym))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollPaneTextAreaWords, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelListWords))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAddWord)
+                            .addComponent(textFieldSynonyms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelListSynonyms))
+                    .addComponent(buttonAddSynonym))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonRemoveSynonym)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonChangeSynonym))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonRemoveWord)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonChangeWord))
+                    .addComponent(scrollPaneListWords, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListSynonyms, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelInfoAddSynonym, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(buttonAddAllKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonAddSynonym, buttonAddWord, buttonChangeSynonym, buttonChangeWord, buttonRemoveSynonym, buttonRemoveWord});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {scrollPaneTextAreaWords, textFieldSynonyms});
+
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAddWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddWordActionPerformed
         addWord();
@@ -623,24 +579,24 @@ public class SynonymsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_buttonAddAllKeywordsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonAddAllKeywords;
-    private javax.swing.JButton     buttonAddSynonym;
-    private javax.swing.JButton     buttonAddWord;
-    private javax.swing.JButton     buttonChangeSynonym;
-    private javax.swing.JButton     buttonChangeWord;
-    private javax.swing.JButton     buttonRemoveSynonym;
-    private javax.swing.JButton     buttonRemoveWord;
-    private javax.swing.JLabel      labelListSynonyms;
-    private javax.swing.JLabel      labelListWords;
-    private javax.swing.JLabel      labelTextAreaWord;
-    private javax.swing.JLabel      labelTextFieldSynonym;
-    private javax.swing.JList       listSynonyms;
-    private javax.swing.JList       listWords;
+    private javax.swing.JButton buttonAddAllKeywords;
+    private javax.swing.JButton buttonAddSynonym;
+    private javax.swing.JButton buttonAddWord;
+    private javax.swing.JButton buttonChangeSynonym;
+    private javax.swing.JButton buttonChangeWord;
+    private javax.swing.JButton buttonRemoveSynonym;
+    private javax.swing.JButton buttonRemoveWord;
+    private javax.swing.JLabel labelInfoAddSynonym;
+    private javax.swing.JLabel labelListSynonyms;
+    private javax.swing.JLabel labelListWords;
+    private javax.swing.JLabel labelTextAreaWord;
+    private javax.swing.JLabel labelTextFieldSynonym;
+    private javax.swing.JList listSynonyms;
+    private javax.swing.JList listWords;
     private javax.swing.JScrollPane scrollPaneListSynonyms;
     private javax.swing.JScrollPane scrollPaneListWords;
     private javax.swing.JScrollPane scrollPaneTextAreaWords;
-    private javax.swing.JTextArea   textAreaWords;
-    private javax.swing.JTextField  textFieldSynonyms;
-
+    private javax.swing.JTextArea textAreaWords;
+    private javax.swing.JTextField textFieldSynonyms;
     // End of variables declaration//GEN-END:variables
 }

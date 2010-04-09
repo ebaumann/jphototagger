@@ -291,7 +291,7 @@ public final class ListModelSynonyms extends DefaultListModel
             for (String w : DatabaseSynonyms.INSTANCE.getAllWords()) {
                 addElement(w);
             }
-        } else if (role.equals(Role.SYNONYMS)) {
+        } else if (role.equals(Role.SYNONYMS) && word != null) {
             for (String s : DatabaseSynonyms.INSTANCE.getSynonymsOf(word)) {
                 addElement(s);
             }
