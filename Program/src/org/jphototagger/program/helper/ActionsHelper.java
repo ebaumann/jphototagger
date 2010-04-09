@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.resource.GUI;
@@ -79,6 +80,7 @@ public final class ActionsHelper {
         }
 
         actionsMenu.add(new ActionStarter(action, action));
+        actionsMenu.setEnabled(true);
     }
 
     public static void removeAction(JMenu actionsMenu, Program action) {
@@ -94,6 +96,39 @@ public final class ActionsHelper {
 
         if (index >= 0) {
             actionsMenu.remove(index);
+            actionsMenu.setEnabled(actionsMenu.getItemCount() > 0);
+        }
+    }
+
+    public static void updateAction(JMenu actionsMenu, Program action) {
+        if (actionsMenu == null) {
+            throw new NullPointerException("actionsMenu == null");
+        }
+
+        if (action == null) {
+            throw new NullPointerException("action == null");
+        }
+
+        int index = getIndexOfAction(actionsMenu, action);
+
+        if (index >= 0) {
+            Action a = actionsMenu.getItem(index).getAction();
+
+            if (a instanceof ActionStarter) {
+                Program actionProgram = ((ActionStarter) a).getAction();
+
+                actionProgram.set(action);
+                setNameAndIcon(a, actionProgram);
+            }
+        }
+    }
+
+    private static void setNameAndIcon(Action action, Program ap) {
+        action.putValue(Action.NAME, ap.getAlias());
+
+        if (ap.getFile().exists()) {
+            action.putValue(Action.SMALL_ICON,
+                            IconUtil.getSystemIcon(ap.getFile()));
         }
     }
 
@@ -121,9 +156,9 @@ public final class ActionsHelper {
         private final Object            progressBarOwner;
 
         public ActionStarter(Program action, Object progressBarOwner) {
-            super(action.getAlias());
             this.action           = action;
             this.progressBarOwner = progressBarOwner;
+            setNameAndIcon(this, action);
         }
 
         public Program getAction() {
