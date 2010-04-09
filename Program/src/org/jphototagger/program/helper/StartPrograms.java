@@ -157,7 +157,16 @@ public final class StartPrograms {
         private String getProcessPatternCommand(File file) {
             return IoUtil.quoteForCommandLine(program.getFile())
                    + IoUtil.getDefaultCommandLineSeparator()
-                   + IoUtil.substitudePattern(file, program.getPattern());
+                   + IoUtil.substitudePattern(file, getPattern());
+        }
+
+        private String getPattern() {
+            String pattern = program.getPattern();
+
+            return (program.isUsePattern() && (pattern != null)
+                    &&!pattern.isEmpty())
+                   ? program.getPattern()
+                   : IoUtil.PATTERN_FS_PATH;
         }
 
         private void processAll() {
