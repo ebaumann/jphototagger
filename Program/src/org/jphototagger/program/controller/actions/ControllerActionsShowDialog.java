@@ -30,11 +30,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Displays the dialog {@link org.jphototagger.program.view.dialogs.ActionsDialog}
- * when the menu item {@link AppFrame#getMenuItemActions()} was klicked or the
- * accelerator keys (F4) were pressed.
+ * Displays the dialog {@link ActionsDialog} when the menu item
+ * {@link AppFrame#getMenuItemActions()} was klicked or the accelerator key
+ * F4 was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerActionsShowDialog implements ActionListener {
     public ControllerActionsShowDialog() {
