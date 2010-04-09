@@ -104,9 +104,11 @@ public final class ListModelPrograms extends DefaultListModel
                 boolean validSeqNumber = (sequenceNumber >= 0)
                                          && (sequenceNumber <= getSize());
 
-                assert validSeqNumber :
-                       "Size: " + getSize() + " but seq. no.: "
-                       + sequenceNumber;
+                if (!validSeqNumber) {
+                    throw new IllegalArgumentException(
+                        "Invalid sequence number. Size: " + getSize()
+                        + ". Sequence number: " + sequenceNumber);
+                }
 
                 if (index == sequenceNumber) {
                     set(index, program);
