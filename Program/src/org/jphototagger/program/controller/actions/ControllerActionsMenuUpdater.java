@@ -37,9 +37,10 @@ import javax.swing.JMenu;
  */
 public final class ControllerActionsMenuUpdater
         implements DatabaseProgramsListener {
-    public ControllerActionsMenuUpdater() {
-        JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
+    private final JMenu actionMenu =
+        PopupMenuThumbnails.INSTANCE.getMenuActions();
 
+    public ControllerActionsMenuUpdater() {
         actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
         listen();
     }
@@ -50,21 +51,22 @@ public final class ControllerActionsMenuUpdater
 
     @Override
     public void programDeleted(Program program) {
-        JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
-
-        ActionsHelper.removeAction(actionMenu, program);
+        if (program.isAction()) {
+            ActionsHelper.removeAction(actionMenu, program);
+        }
     }
 
     @Override
     public void programInserted(Program program) {
-        JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
-
-        ActionsHelper.addAction(actionMenu, program);
+        if (program.isAction()) {
+            ActionsHelper.addAction(actionMenu, program);
+        }
     }
 
     @Override
     public void programUpdated(Program program) {
-
-        // ignore
+        if (program.isAction()) {
+            ActionsHelper.updateAction(actionMenu, program);
+        }
     }
 }
