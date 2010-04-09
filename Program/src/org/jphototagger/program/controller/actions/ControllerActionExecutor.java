@@ -40,16 +40,16 @@ public final class ControllerActionExecutor implements ProgramActionListener {
 
     private final ActionsDialog actionsDialog = ActionsDialog.INSTANCE;
 
-    // no other executor expected, so it got the progress bar
+    // No other executor expected, so this instance gets the progress bar
     private final StartPrograms programStarter =
-        new StartPrograms(actionsDialog.getProgressBar(this));
+        new StartPrograms(actionsDialog.getPanelActions().getProgressBar(this));
 
     public ControllerActionExecutor() {
         listen();
     }
 
     private void listen() {
-        actionsDialog.addActionListener(this);
+        actionsDialog.getPanelActions().addListener(this);
     }
 
     @Override
