@@ -6,6 +6,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.26 2010-04-09
 -----------------
 
+* Neuer Menü-Eintrag: Hilfe > Auf neueste Version überprüfen
 * Liste des Aktionen-Dialogs (F4) hat Kontextmenü und Tastenkürzel
 
 0.8.25 2010-04-07

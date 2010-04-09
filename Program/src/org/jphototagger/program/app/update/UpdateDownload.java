@@ -66,6 +66,7 @@ public final class UpdateDownload extends Thread
     private Version             netVersion;
     private JProgressBar        progressBar;
     private volatile boolean    cancel;
+    private static boolean      checkPending;
 
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ "
@@ -73,38 +74,29 @@ public final class UpdateDownload extends Thread
     }
 
     /**
-     * Creates a new <code>UpdateDownload</code> thread.
+     * Returns whether a check is Pending.
      *
-     * @param millisecondsToWait milliseconds to wait before starting the check
+     * @return true if a check is pending
      */
-    public static void checkForNewerVersion(final int millisecondsToWait) {
-        if (millisecondsToWait < 0) {
-            throw new IllegalArgumentException("Invalid milliseconds: "
-                                               + millisecondsToWait);
+    public static boolean isCheckPending() {
+        synchronized (UpdateDownload.class) {
+            return checkPending;
         }
+    }
 
-        if (!UserSettings.INSTANCE.isAutoDownloadNewerVersions()) {
-            return;
-        }
-
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (millisecondsToWait > 0) {
-                        Thread.sleep(millisecondsToWait);
-                    }
-
-                    new UpdateDownload().start();
-                } catch (Exception ex) {
-                    AppLogger.logSevere(UpdateDownload.class, ex);
-                }
+    /**
+     * Checks for a newer version if not {@link #isCheckPending()}.
+     */
+    public static void checkForNewerVersion() {
+        synchronized (UpdateDownload.class) {
+            if (checkPending) {
+                return;
             }
-        });
 
-        t.setName("Waiting for version check @ "
-                  + UpdateDownload.class.getSimpleName());
-        t.start();
+            checkPending = true;
+        }
+
+        new UpdateDownload().start();
     }
 
     @Override
@@ -136,6 +128,10 @@ public final class UpdateDownload extends Thread
                               ex.getLocalizedMessage());
         } finally {
             releaseProgressBar();
+
+            synchronized (UpdateDownload.class) {
+                checkPending = false;
+            }
         }
     }
 
