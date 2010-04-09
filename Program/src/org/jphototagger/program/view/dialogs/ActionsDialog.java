@@ -32,6 +32,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.Dialog;
 
 import javax.swing.JProgressBar;
+import org.jphototagger.program.view.panels.ActionsPanel;
 
 /**
  * Non modal dialog for actions: {@link org.jphototagger.program.data.Program}
@@ -61,12 +62,8 @@ public final class ActionsDialog extends Dialog
         setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ActionsDialog"));
     }
 
-    public JProgressBar getProgressBar(ControllerActionExecutor executor) {
-        if (executor == null) {
-            throw new NullPointerException("executor == null");
-        }
-
-        return panelActions.getProgressBar(executor);
+    public ActionsPanel getPanelActions() {
+        return panelActions;
     }
 
     @Override
@@ -76,13 +73,6 @@ public final class ActionsDialog extends Dialog
         }
 
         super.setVisible(visible);
-    }
-
-    public synchronized void addActionListener(ProgramActionListener l) {
-        if (l == null) {
-            throw new NullPointerException("l == null");
-        }
-        panelActions.addListener(l);
     }
 
     private void toFrontIfVisible() {
