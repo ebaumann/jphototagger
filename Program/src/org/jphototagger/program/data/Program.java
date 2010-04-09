@@ -43,8 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Program {
     @XmlTransient
-    private long                id     = Long.MIN_VALUE;
     private static final String EMPTY  = "";
+    private long                id     = Long.MIN_VALUE;
     private boolean             action = false;
     private File                file;
     private String              alias;
@@ -52,17 +52,47 @@ public final class Program {
     private String              parametersAfterFilename;
     private String              pattern;
     private boolean             usePattern;
-    private boolean             inputBeforeExecute        = false;
-    private boolean             inputBeforeExecutePerFile = false;
-    private boolean             singleFileProcessing      = false;
-    private boolean             changeFile                = false;
-    private int                 sequenceNumber            = Integer.MIN_VALUE;
+    private boolean             inputBeforeExecute;
+    private boolean             inputBeforeExecutePerFile;
+    private boolean             singleFileProcessing;
+    private boolean             changeFile;
+    private int                 sequenceNumber = Integer.MIN_VALUE;
 
     public Program() {}
 
     public Program(File file, String alias) {
         this.file  = file;
         this.alias = alias;
+    }
+
+    public Program(Program program) {
+        if (program == null) {
+            throw new NullPointerException("program == null");
+        }
+
+        set(program);
+    }
+
+    public void set(Program other) {
+        if (other == null) {
+            throw new NullPointerException("program == null");
+        }
+
+        if (other != this) {
+            this.id                        = other.id;
+            this.action                    = other.action;
+            this.alias                     = other.alias;
+            this.changeFile                = other.changeFile;
+            this.file                      = other.file;
+            this.inputBeforeExecute        = other.inputBeforeExecute;
+            this.inputBeforeExecutePerFile = other.inputBeforeExecutePerFile;
+            this.parametersAfterFilename   = other.parametersAfterFilename;
+            this.parametersBeforeFilename  = other.parametersBeforeFilename;
+            this.pattern                   = other.pattern;
+            this.sequenceNumber            = other.sequenceNumber;
+            this.singleFileProcessing      = other.singleFileProcessing;
+            this.usePattern                = other.usePattern;
+        }
     }
 
     public long getId() {
@@ -227,6 +257,8 @@ public final class Program {
 
     @Override
     public String toString() {
-        return alias;    // Never change that (will be used to find model items)!
+
+        // Never change that (will be used to find model items)!
+        return alias;
     }
 }
