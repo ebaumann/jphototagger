@@ -330,6 +330,10 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemUserDefinedFileFilter;
     }
 
+    public JMenuItem getMenuItemCheckForUpdates() {
+        return menuItemCheckForUpdates;
+    }
+
     @Override
     public void setTitle(String title) {
         if (title.equals(AppInfo.APP_NAME)) {
@@ -450,6 +454,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSendBugMail = new javax.swing.JMenuItem();
         menuItemSendFeatureMail = new javax.swing.JMenuItem();
         sep23 = new javax.swing.JPopupMenu.Separator();
+        menuItemCheckForUpdates = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -817,6 +823,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuHelp.add(menuItemSendFeatureMail);
         menuHelp.add(sep23);
 
+        menuItemCheckForUpdates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_refresh.png"))); // NOI18N
+        menuItemCheckForUpdates.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemCheckForUpdates.text")); // NOI18N
+        menuHelp.add(menuItemCheckForUpdates);
+        menuHelp.add(jSeparator1);
+
         menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_about.png"))); // NOI18N
         menuItemAbout.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemAbout.text")); // NOI18N
         menuHelp.add(menuItemAbout);
@@ -829,6 +840,7 @@ public final class AppFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSort;
     private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuExport;
@@ -844,6 +856,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemBrowseChangelog;
     private javax.swing.JMenuItem menuItemBrowseUserForum;
     private javax.swing.JMenuItem menuItemBrowseWebsite;
+    private javax.swing.JMenuItem menuItemCheckForUpdates;
     private javax.swing.JMenuItem menuItemDisplayAllLogfile;
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;

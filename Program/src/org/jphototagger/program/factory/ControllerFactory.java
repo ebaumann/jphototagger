@@ -213,6 +213,7 @@ import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 
 import java.util.List;
+import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.controller.thumbnail.ControllerThumbnailFileFilter;
 
 /**
@@ -360,6 +361,7 @@ public final class ControllerFactory {
         support.add(new ControllerRenameMiscMetadata(popupInputHelper));
         support.add(new ControllerAddMetadataToSelImages(popupInputHelper));
         support.add(new ControllerRemoveMetadataFromSelImages(popupInputHelper));
+        support.add(new ControllerUpdateCheck());
     }
 
     private void addFavoritesControllers() {

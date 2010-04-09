@@ -21,9 +21,11 @@
 
 package org.jphototagger.program.factory;
 
+import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
+import org.jphototagger.program.UserSettings;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -57,10 +59,29 @@ public final class MetaFactory implements Runnable {
         ControllerFactory.INSTANCE.init();
         ActionKeyListenerFactory.INSTANCE.init();
         MouseListenerFactory.INSTANCE.init();
+
         // No other factory after:
         TerminateFactory.INSTANCE.init();
         appPersistence.readAppPanelFromProperties();
-        UpdateDownload.checkForNewerVersion(60 * 1000);
+        checkForDownload();
         ScheduledTaskBackupDatabase.INSTANCE.setBackup();
+    }
+
+    private void checkForDownload() {
+        if (UserSettings.INSTANCE.isAutoDownloadNewerVersions()) {
+
+            // Returning immediately
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(60 * 1000);
+                        UpdateDownload.checkForNewerVersion();
+                    } catch (Exception ex) {
+                        AppLogger.logSevere(getClass(), ex);
+                    }
+                }
+            }).start();
+        }
     }
 }
