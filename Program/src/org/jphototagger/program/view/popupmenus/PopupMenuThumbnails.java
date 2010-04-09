@@ -36,7 +36,6 @@ import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +59,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     public static final PopupMenuThumbnails INSTANCE =
         new PopupMenuThumbnails();
     private static final long serialVersionUID = 1415777088897583494L;
-    private final JMenu       menuRefresh      =
+    private final JMenu       menuRefresh =
         new JMenu(
             JptBundle.INSTANCE.getString(
                 "PopupMenuThumbnails.DisplayName.MenuRefresh"));
@@ -96,7 +95,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
         new JMenu(
             JptBundle.INSTANCE.getString(
                 "PopupMenuThumbnails.DisplayName.MenuFileSystemOps"));
-    private final JMenu     menuActions         = ActionsHelper.actionsAsMenu();
+    private final JMenu     menuActions = ActionsHelper.actionsAsMenu();
     private final JMenuItem itemUpdateThumbnail =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
@@ -362,7 +361,7 @@ public final class PopupMenuThumbnails extends JPopupMenu
     private void addItemsOf(Plugin plugin) {
         List<? extends Action> pluginActions = plugin.getActions();
         int                    actionCount   = pluginActions.size();
-        List<JMenuItem>        pluginItems   =
+        List<JMenuItem>        pluginItems =
             new ArrayList<JMenuItem>(actionCount);
 
         for (Action action : pluginActions) {
@@ -426,28 +425,30 @@ public final class PopupMenuThumbnails extends JPopupMenu
 
     @Override
     public void programDeleted(Program program) {
-        setOtherPrograms();
-        setItemsEnabled();
+        updatePrograms(program);
     }
 
     @Override
     public void programInserted(Program program) {
-        setOtherPrograms();
-        setItemsEnabled();
+        updatePrograms(program);
     }
 
     @Override
     public void programUpdated(Program program) {
-        setOtherPrograms();
-        setItemsEnabled();
+        updatePrograms(program);
     }
 
-    private void setItemsEnabled() {
-        itemOpenFilesWithStandardApp.setEnabled(existsStandardImageOpenApp());
+    private void updatePrograms(Program updatedProgram) {
+        if (!updatedProgram.isAction()) {
+            setOtherPrograms();
+            itemOpenFilesWithStandardApp.setEnabled(
+                existsStandardImageOpenApp());
+        }
     }
 
     private boolean existsStandardImageOpenApp() {
-        Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
+        Program program =
+            DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
         return (program != null) && program.getFile().exists();
     }
