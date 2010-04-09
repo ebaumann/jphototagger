@@ -30,8 +30,8 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import javax.swing.JMenu;
 
 /**
- * Listens to {@link DatabasePrograms} events and inserts or removes action from
- * the {@link PopupMenuThumbnails#getMenuActions()}.
+ * Listens to {@link DatabasePrograms} events and inserts or removes actions
+ * from the {@link PopupMenuThumbnails#getMenuActions()}.
  *
  * @author  Elmar Baumann
  */
