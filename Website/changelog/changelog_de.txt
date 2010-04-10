@@ -6,8 +6,11 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.27 2010--
 -----------------
 
-* Bearbeiten > Einstellungen > Programme: Programme können in der Liste via
-  Ziehen und Ablegen angeordnet werden
+* Bearbeiten > Einstellungen > Programme: 
+  * Programme können in der Liste via Ziehen und Ablegen angeordnet werden
+  * Liste hat Kontextmenü und Tastenkürzel mit den gleichen Aktionen wie die
+    Schaltflächen unter der Liste (Tastenkürzel sind dem Kontextmenü zu
+    entnehmen)
 
 0.8.26 2010-04-09
 -----------------

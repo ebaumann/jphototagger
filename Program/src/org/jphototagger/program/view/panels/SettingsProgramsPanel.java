@@ -22,6 +22,7 @@
 package org.jphototagger.program.view.panels;
 
 import java.awt.Container;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 
 
@@ -66,6 +68,12 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         MnemonicUtil.setMnemonics((Container) this);
         setEnabled();
         model.addListDataListener(new ReorderProgramsListener());
+        menuItemAddProgram.setAccelerator(
+                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        menuItemMoveProgramUp.setAccelerator(
+                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
+        menuItemMoveProgramDown.setAccelerator(
+                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
     }
 
     private class ReorderProgramsListener implements ListDataListener {
@@ -116,7 +124,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         }
     }
 
-    private void updateProgram() {
+    private void editProgram() {
         if (listPrograms.getSelectedIndex() >= 0) {
             ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(false);
 
@@ -150,9 +158,29 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         int     size            = listPrograms.getModel().getSize();
 
         buttonEditProgram.setEnabled(programSelected);
+        menuItemEditProgram.setEnabled(programSelected);
         buttonRemoveProgram.setEnabled(programSelected);
+        menuItemRemoveProgram.setEnabled(programSelected);
         buttonMoveProgramDown.setEnabled(programSelected && selIndex < size - 1);
+        menuItemMoveProgramDown.setEnabled(programSelected && selIndex < size - 1);
         buttonMoveProgramUp.setEnabled(programSelected && selIndex > 0);
+        menuItemMoveProgramUp.setEnabled(programSelected && selIndex > 0);
+    }
+
+    private void handleListProgramsKeyPressed(KeyEvent evt) {
+        int keyCode = evt.getKeyCode();
+
+        if (keyCode == KeyEvent.VK_DELETE) {
+            removeProgram();
+        } else if (keyCode == KeyEvent.VK_ENTER) {
+            editProgram();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)) {
+            addProgram();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_UP)) {
+            moveProgramUp();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_DOWN)) {
+            moveProgramDown();
+        }
     }
 
     private boolean isProgramSelected() {
@@ -161,7 +189,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
     private void handleListOtherProgramsMouseClicked(MouseEvent evt) {
         if (MouseEventUtil.isDoubleClick(evt)) {
-            updateProgram();
+            editProgram();
         }
     }
 
@@ -228,6 +256,14 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu = new javax.swing.JPopupMenu();
+        menuItemAddProgram = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menuItemEditProgram = new javax.swing.JMenuItem();
+        menuItemRemoveProgram = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        menuItemMoveProgramUp = new javax.swing.JMenuItem();
+        menuItemMoveProgramDown = new javax.swing.JMenuItem();
         labelChooseDefaultProgram = new javax.swing.JLabel();
         labelPrograms = new javax.swing.JLabel();
         scrollPanePrograms = new javax.swing.JScrollPane();
@@ -238,6 +274,55 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         buttonAddProgram = new javax.swing.JButton();
         buttonEditProgram = new javax.swing.JButton();
 
+        menuItemAddProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
+        menuItemAddProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemAddProgram.text")); // NOI18N
+        menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAddProgramActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemAddProgram);
+        popupMenu.add(jSeparator1);
+
+        menuItemEditProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
+        menuItemEditProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
+        menuItemEditProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemEditProgram.text")); // NOI18N
+        menuItemEditProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEditProgramActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemEditProgram);
+
+        menuItemRemoveProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemRemoveProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
+        menuItemRemoveProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemRemoveProgram.text")); // NOI18N
+        menuItemRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRemoveProgramActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemRemoveProgram);
+        popupMenu.add(jSeparator2);
+
+        menuItemMoveProgramUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
+        menuItemMoveProgramUp.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemMoveProgramUp.text")); // NOI18N
+        menuItemMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMoveProgramUpActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemMoveProgramUp);
+
+        menuItemMoveProgramDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
+        menuItemMoveProgramDown.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemMoveProgramDown.text")); // NOI18N
+        menuItemMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMoveProgramDownActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemMoveProgramDown);
+
         labelChooseDefaultProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
 
         labelPrograms.setLabelFor(listPrograms);
@@ -246,6 +331,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listPrograms.setCellRenderer(new ListCellRendererPrograms());
+        listPrograms.setComponentPopupMenu(popupMenu);
         listPrograms.setDragEnabled(true);
         listPrograms.setDropMode(javax.swing.DropMode.INSERT);
         listPrograms.setTransferHandler(new TransferHandlerReorderListItems(listPrograms));
@@ -257,6 +343,11 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         listPrograms.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listProgramsValueChanged(evt);
+            }
+        });
+        listPrograms.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listProgramsKeyPressed(evt);
             }
         });
         scrollPanePrograms.setViewportView(listPrograms);
@@ -364,7 +455,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_buttonAddProgramActionPerformed
 
     private void buttonEditProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditProgramActionPerformed
-        updateProgram();
+        editProgram();
     }//GEN-LAST:event_buttonEditProgramActionPerformed
 
     private void listProgramsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProgramsMouseClicked
@@ -379,15 +470,47 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         moveProgramUp();
     }//GEN-LAST:event_buttonMoveProgramUpActionPerformed
 
+    private void menuItemAddProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddProgramActionPerformed
+        addProgram();
+    }//GEN-LAST:event_menuItemAddProgramActionPerformed
+
+    private void menuItemEditProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditProgramActionPerformed
+        editProgram();
+    }//GEN-LAST:event_menuItemEditProgramActionPerformed
+
+    private void menuItemRemoveProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemoveProgramActionPerformed
+        removeProgram();
+    }//GEN-LAST:event_menuItemRemoveProgramActionPerformed
+
+    private void menuItemMoveProgramUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMoveProgramUpActionPerformed
+        moveProgramUp();
+    }//GEN-LAST:event_menuItemMoveProgramUpActionPerformed
+
+    private void menuItemMoveProgramDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMoveProgramDownActionPerformed
+        moveProgramDown();
+    }//GEN-LAST:event_menuItemMoveProgramDownActionPerformed
+
+    private void listProgramsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listProgramsKeyPressed
+        handleListProgramsKeyPressed(evt);
+    }//GEN-LAST:event_listProgramsKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddProgram;
     private javax.swing.JButton buttonEditProgram;
     private javax.swing.JButton buttonMoveProgramDown;
     private javax.swing.JButton buttonMoveProgramUp;
     private javax.swing.JButton buttonRemoveProgram;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel labelChooseDefaultProgram;
     private javax.swing.JLabel labelPrograms;
     private javax.swing.JList listPrograms;
+    private javax.swing.JMenuItem menuItemAddProgram;
+    private javax.swing.JMenuItem menuItemEditProgram;
+    private javax.swing.JMenuItem menuItemMoveProgramDown;
+    private javax.swing.JMenuItem menuItemMoveProgramUp;
+    private javax.swing.JMenuItem menuItemRemoveProgram;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPanePrograms;
     // End of variables declaration//GEN-END:variables
 }
