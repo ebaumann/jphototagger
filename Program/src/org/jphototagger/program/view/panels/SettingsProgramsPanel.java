@@ -24,15 +24,12 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms.Type;
+import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
@@ -42,9 +39,9 @@ import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.program.helper.ProgramsHelper;
 
 
 
@@ -57,7 +54,8 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     private static final long       serialVersionUID = 6156362511361451187L;
     private final ListModelPrograms model            =
         new ListModelPrograms(Type.PROGRAM);
-    private volatile boolean listenToModel = true;
+    private final ReorderListener   reorderListener  =
+        new ProgramsHelper.ReorderListener(model);
 
     public SettingsProgramsPanel() {
         initComponents();
@@ -67,43 +65,16 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
         setEnabled();
-        model.addListDataListener(new ReorderProgramsListener());
+        setAccelerators();
+    }
+
+    private void setAccelerators() {
         menuItemAddProgram.setAccelerator(
                 KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
         menuItemMoveProgramUp.setAccelerator(
                 KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
         menuItemMoveProgramDown.setAccelerator(
                 KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
-    }
-
-    private class ReorderProgramsListener implements ListDataListener {
-
-        @Override
-        public void intervalAdded(ListDataEvent e) {
-            if (listenToModel) {
-                listenToModel = false;
-                reorderPrograms();
-                listenToModel = true;
-            }
-        }
-
-        @Override
-        public void intervalRemoved(ListDataEvent e) {
-            if (listenToModel) {
-                listenToModel = false;
-                reorderPrograms();
-                listenToModel = true;
-            }
-        }
-
-        @Override
-        public void contentsChanged(ListDataEvent e) {
-            if (listenToModel) {
-                listenToModel = false;
-                reorderPrograms();
-                listenToModel = true;
-            }
-        }
     }
 
     @Override
@@ -156,15 +127,17 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         boolean programSelected = isProgramSelected();
         int     selIndex        = listPrograms.getSelectedIndex();
         int     size            = listPrograms.getModel().getSize();
+        boolean canMoveDown     = programSelected && selIndex < size - 1;
+        boolean canMoveUp       = programSelected && selIndex > 0;
 
         buttonEditProgram.setEnabled(programSelected);
         menuItemEditProgram.setEnabled(programSelected);
         buttonRemoveProgram.setEnabled(programSelected);
         menuItemRemoveProgram.setEnabled(programSelected);
-        buttonMoveProgramDown.setEnabled(programSelected && selIndex < size - 1);
-        menuItemMoveProgramDown.setEnabled(programSelected && selIndex < size - 1);
-        buttonMoveProgramUp.setEnabled(programSelected && selIndex > 0);
-        menuItemMoveProgramUp.setEnabled(programSelected && selIndex > 0);
+        buttonMoveProgramDown.setEnabled(canMoveDown);
+        menuItemMoveProgramDown.setEnabled(canMoveDown);
+        buttonMoveProgramUp.setEnabled(canMoveUp);
+        menuItemMoveProgramUp.setEnabled(canMoveUp);
     }
 
     private void handleListProgramsKeyPressed(KeyEvent evt) {
@@ -176,10 +149,10 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             editProgram();
         } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)) {
             addProgram();
-        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_UP)) {
-            moveProgramUp();
         } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_DOWN)) {
             moveProgramDown();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_UP)) {
+            moveProgramUp();
         }
     }
 
@@ -194,55 +167,15 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private void moveProgramDown() {
-        int     size            = model.getSize();
-        int     selIndex        = listPrograms.getSelectedIndex();
-        int     downIndex       = selIndex + 1;
-        boolean programSelected = isProgramSelected();
-
-        assert programSelected;
-        assert downIndex < size : downIndex;
-
-        if (programSelected && downIndex < size) {
-            listenToModel = false;
-            ListUtil.swapModelElements(model, downIndex, selIndex);
-            reorderPrograms();
-            listPrograms.setSelectedIndex(downIndex);
-            listenToModel = true;
-        }
+        reorderListener.setListenToModel(false);
+        ProgramsHelper.moveProgramDown(listPrograms);
+        reorderListener.setListenToModel(true);
     }
 
     private void moveProgramUp() {
-        int     selIndex        = listPrograms.getSelectedIndex();
-        int     upIndex         = selIndex - 1;
-        boolean programSelected = isProgramSelected();
-
-        assert programSelected;
-        assert upIndex >= 0 : upIndex;
-
-        if (programSelected && upIndex >= 0) {
-            listenToModel = false;
-            ListUtil.swapModelElements(model, upIndex, selIndex);
-            reorderPrograms();
-            listPrograms.setSelectedIndex(upIndex);
-            listenToModel = true;
-        }
-    }
-
-    private void reorderPrograms() {
-        int size = model.getSize();
-        List<Program> programs = new ArrayList<Program>(size);
-
-        for (int sequenceNo = 0; sequenceNo < size; sequenceNo++) {
-            Object o = model.get(sequenceNo);
-            assert o instanceof Program;
-            Program program = (Program) o;
-            program.setSequenceNumber(sequenceNo);
-            programs.add(program);
-        }
-
-        for (Program program : programs) {
-            DatabasePrograms.INSTANCE.update(program);
-        }
+        reorderListener.setListenToModel(false);
+        ProgramsHelper.moveProgramUp(listPrograms);
+        reorderListener.setListenToModel(true);
     }
 
     /**

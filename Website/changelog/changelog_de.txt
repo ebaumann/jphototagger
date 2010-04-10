@@ -6,6 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.27 2010--
 -----------------
 
+* Aktionen (F4): Reihenfolge kann geändert werden über das Kontextmenü oder
+  Ziehen und Ablegen
 * Bearbeiten > Einstellungen > Programme: 
   * Programme können in der Liste via Ziehen und Ablegen angeordnet werden
   * Liste hat Kontextmenü und Tastenkürzel mit den gleichen Aktionen wie die

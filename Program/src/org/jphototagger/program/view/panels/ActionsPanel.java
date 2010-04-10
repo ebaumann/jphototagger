@@ -43,6 +43,9 @@ import javax.swing.JProgressBar;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
+import org.jphototagger.program.helper.ProgramsHelper;
+import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
 
 /**
  *
@@ -56,6 +59,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private final ListenerSupport<ProgramActionListener> listenerSupport  =
         new ListenerSupport<ProgramActionListener>();
     private Object progressBarOwner;
+    private final ReorderListener                        reorderListener  =
+        new ProgramsHelper.ReorderListener(model);
 
     public ActionsPanel() {
         initComponents();
@@ -64,13 +69,25 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
+        setAccelerators();
+        selectFirstItem();
+    }
+
+    private void selectFirstItem() {
+        if (list.getModel().getSize() > 0) {
+            list.setSelectedIndex(0);
+        }
+    }
+
+    private void setAccelerators() {
         menuItemCreate.setAccelerator(
                 KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
         menuItemEdit.setAccelerator(
                 KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
-        if (list.getModel().getSize() > 0) {
-            list.setSelectedIndex(0);
-        }
+        menuItemMoveActionDown.setAccelerator(
+                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
+        menuItemMoveActionUp.setAccelerator(
+                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
     }
 
     public synchronized JProgressBar getProgressBar(Object owner) {
@@ -101,12 +118,21 @@ public final class ActionsPanel extends javax.swing.JPanel {
         }
     }
 
-    public void setButtonsEnabled() {
-        boolean selectedIndex = list.getSelectedIndex() >= 0;
+    public void setEnabled() {
+        boolean isActionSelected = list.getSelectedIndex() >= 0;
+        int     selIndex         = list.getSelectedIndex();
+        int     size             = list.getModel().getSize();
+        boolean canMoveDown      = isActionSelected && selIndex < size - 1;
+        boolean canMoveUp        = isActionSelected && selIndex > 0;
 
-        buttonDelete.setEnabled(selectedIndex);
-        buttonEdit.setEnabled(selectedIndex);
-        buttonExecute.setEnabled(selectedIndex);
+        buttonDelete.setEnabled(isActionSelected);
+        menuItemDelete.setEnabled(isActionSelected);
+        buttonEdit.setEnabled(isActionSelected);
+        menuItemEdit.setEnabled(isActionSelected);
+        buttonExecute.setEnabled(isActionSelected);
+        menuItemExecute.setEnabled(isActionSelected);
+        menuItemMoveActionDown.setEnabled(canMoveDown);
+        menuItemMoveActionUp.setEnabled(canMoveUp);
     }
 
     private Program getSelectedAction() {
@@ -132,7 +158,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         }
 
-        setButtonsEnabled();
+        setEnabled();
         list.requestFocusInWindow();
     }
 
@@ -156,7 +182,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         }
 
-        setButtonsEnabled();
+        setEnabled();
         list.requestFocusInWindow();
     }
 
@@ -169,13 +195,17 @@ public final class ActionsPanel extends javax.swing.JPanel {
             editAction();
         } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)) {
             createAction();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_DOWN)) {
+            moveActionDown();
+        } else if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_UP)) {
+            moveActionUp();
         }
     }
 
     private void handleListMouseClicked(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             if (evt.getClickCount() == 1) {
-                setButtonsEnabled();
+                setEnabled();
             } else if (MouseEventUtil.isDoubleClick(evt)) {
                 executeAction();
             }
@@ -190,7 +220,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 DatabasePrograms.INSTANCE.delete(program);
             }
 
-            setButtonsEnabled();
+            setEnabled();
             list.requestFocusInWindow();
         }
     }
@@ -225,12 +255,16 @@ public final class ActionsPanel extends javax.swing.JPanel {
         }
     }
 
-    private void setEnabledPopupMenuItems() {
-        boolean isSelected = list.getSelectedIndex() >= 0;
+    private void moveActionDown() {
+        reorderListener.setListenToModel(false);
+        ProgramsHelper.moveProgramDown(list);
+        reorderListener.setListenToModel(true);
+    }
 
-        menuItemDelete.setEnabled(isSelected);
-        menuItemEdit.setEnabled(isSelected);
-        menuItemExecute.setEnabled(isSelected);
+    private void moveActionUp() {
+        reorderListener.setListenToModel(false);
+        ProgramsHelper.moveProgramUp(list);
+        reorderListener.setListenToModel(true);
     }
 
     /**
@@ -251,6 +285,9 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemCreate = new javax.swing.JMenuItem();
         menuItemEdit = new javax.swing.JMenuItem();
         menuItemDelete = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        menuItemMoveActionUp = new javax.swing.JMenuItem();
+        menuItemMoveActionDown = new javax.swing.JMenuItem();
         labelActionList = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
@@ -261,17 +298,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonCreate = new javax.swing.JButton();
         buttonExecute = new javax.swing.JButton();
 
-        popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                popupMenuPopupMenuWillBecomeVisible(evt);
-            }
-        });
-
         menuItemExecute.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
+        menuItemExecute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
         menuItemExecute.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemExecute.text")); // NOI18N
         menuItemExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,6 +309,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         popupMenu.add(menuItemExecute);
         popupMenu.add(jSeparator1);
 
+        menuItemCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
         menuItemCreate.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemCreate.text")); // NOI18N
         menuItemCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +318,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
         popupMenu.add(menuItemCreate);
 
+        menuItemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemEdit.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemEdit.text")); // NOI18N
         menuItemEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,6 +328,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         popupMenu.add(menuItemEdit);
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemDelete.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,6 +336,25 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
         popupMenu.add(menuItemDelete);
+        popupMenu.add(jSeparator2);
+
+        menuItemMoveActionUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
+        menuItemMoveActionUp.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemMoveActionUp.text")); // NOI18N
+        menuItemMoveActionUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMoveActionUpActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemMoveActionUp);
+
+        menuItemMoveActionDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
+        menuItemMoveActionDown.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemMoveActionDown.text")); // NOI18N
+        menuItemMoveActionDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMoveActionDownActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemMoveActionDown);
 
         setFocusable(false);
         setLayout(new java.awt.GridBagLayout());
@@ -324,6 +374,9 @@ public final class ActionsPanel extends javax.swing.JPanel {
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new ListCellRendererActions());
         list.setComponentPopupMenu(popupMenu);
+        list.setDragEnabled(true);
+        list.setDropMode(javax.swing.DropMode.INSERT);
+        list.setTransferHandler(new TransferHandlerReorderListItems(list));
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
@@ -427,7 +480,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         if (!evt.getValueIsAdjusting()) {
-            setButtonsEnabled();
+            setEnabled();
         }
     }//GEN-LAST:event_listValueChanged
 
@@ -467,13 +520,17 @@ public final class ActionsPanel extends javax.swing.JPanel {
         deleteAction();
     }//GEN-LAST:event_menuItemDeleteActionPerformed
 
-    private void popupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popupMenuPopupMenuWillBecomeVisible
-        setEnabledPopupMenuItems();
-    }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
-
     private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
         handleListKeyPressed(evt);
     }//GEN-LAST:event_listKeyPressed
+
+    private void menuItemMoveActionUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMoveActionUpActionPerformed
+        moveActionUp();
+}//GEN-LAST:event_menuItemMoveActionUpActionPerformed
+
+    private void menuItemMoveActionDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMoveActionDownActionPerformed
+        moveActionDown();
+}//GEN-LAST:event_menuItemMoveActionDownActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCreate;
@@ -481,12 +538,15 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonEdit;
     private javax.swing.JButton buttonExecute;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel labelActionList;
     private javax.swing.JList list;
     private javax.swing.JMenuItem menuItemCreate;
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemEdit;
     private javax.swing.JMenuItem menuItemExecute;
+    private javax.swing.JMenuItem menuItemMoveActionDown;
+    private javax.swing.JMenuItem menuItemMoveActionUp;
     private javax.swing.JPanel panelButtons;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBar;
