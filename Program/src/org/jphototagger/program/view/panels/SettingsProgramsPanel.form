@@ -20,7 +20,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPanePrograms" alignment="0" pref="549" max="32767" attributes="2"/>
+                  <Component id="scrollPanePrograms" alignment="0" pref="614" max="32767" attributes="2"/>
                   <Component id="labelChooseDefaultProgram" alignment="0" min="-2" max="-2" attributes="1"/>
                   <Component id="labelPrograms" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -95,11 +95,18 @@
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new ListCellRendererPrograms()" type="code"/>
             </Property>
+            <Property name="dragEnabled" type="boolean" value="true"/>
+            <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.editors.EnumEditor">
+              <Value id="INSERT"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listProgramsMouseClicked"/>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listProgramsValueChanged"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="listPrograms.setTransferHandler(new TransferHandlerReorderListItems(listPrograms));"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
