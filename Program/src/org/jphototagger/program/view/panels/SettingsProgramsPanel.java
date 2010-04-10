@@ -21,6 +21,14 @@
 
 package org.jphototagger.program.view.panels;
 
+import java.awt.Container;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms.Type;
@@ -29,15 +37,12 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
 
-import java.awt.Container;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.database.DatabasePrograms;
 
 
 
@@ -50,11 +55,47 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     private static final long       serialVersionUID = 6156362511361451187L;
     private final ListModelPrograms model            =
         new ListModelPrograms(Type.PROGRAM);
+    private volatile boolean listenToModel = true;
 
     public SettingsProgramsPanel() {
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
         setEnabled();
+        model.addListDataListener(new ReorderProgramsListener());
+    }
+
+    private class ReorderProgramsListener implements ListDataListener {
+
+        @Override
+        public void intervalAdded(ListDataEvent e) {
+            if (listenToModel) {
+                listenToModel = false;
+                reorderPrograms();
+                listenToModel = true;
+            }
+        }
+
+        @Override
+        public void intervalRemoved(ListDataEvent e) {
+            if (listenToModel) {
+                listenToModel = false;
+                reorderPrograms();
+                listenToModel = true;
+            }
+        }
+
+        @Override
+        public void contentsChanged(ListDataEvent e) {
+            if (listenToModel) {
+                listenToModel = false;
+                reorderPrograms();
+                listenToModel = true;
+            }
+        }
     }
 
     @Override
@@ -134,9 +175,11 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         assert downIndex < size : downIndex;
 
         if (programSelected && downIndex < size) {
+            listenToModel = false;
             ListUtil.swapModelElements(model, downIndex, selIndex);
             reorderPrograms();
             listPrograms.setSelectedIndex(downIndex);
+            listenToModel = true;
         }
     }
 
@@ -149,9 +192,11 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         assert upIndex >= 0 : upIndex;
 
         if (programSelected && upIndex >= 0) {
+            listenToModel = false;
             ListUtil.swapModelElements(model, upIndex, selIndex);
             reorderPrograms();
             listPrograms.setSelectedIndex(upIndex);
+            listenToModel = true;
         }
     }
 
@@ -201,6 +246,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listPrograms.setCellRenderer(new ListCellRendererPrograms());
+        listPrograms.setDragEnabled(true);
+        listPrograms.setDropMode(javax.swing.DropMode.INSERT);
+        listPrograms.setTransferHandler(new TransferHandlerReorderListItems(listPrograms));
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);
@@ -262,7 +310,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
                     .addComponent(labelChooseDefaultProgram)
                     .addComponent(labelPrograms)
                     .addGroup(layout.createSequentialGroup()
