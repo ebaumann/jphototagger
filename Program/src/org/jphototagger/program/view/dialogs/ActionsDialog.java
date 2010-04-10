@@ -69,7 +69,7 @@ public final class ActionsDialog extends Dialog
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            panelActions.setButtonsEnabled();
+            panelActions.setEnabled();
         }
 
         super.setVisible(visible);
