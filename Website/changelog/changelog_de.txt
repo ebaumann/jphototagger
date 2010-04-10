@@ -3,7 +3,7 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.8.27 2010--
+0.8.27 2010-04-11
 -----------------
 
 * Aktionen (F4): Reihenfolge kann geändert werden über das Kontextmenü oder
