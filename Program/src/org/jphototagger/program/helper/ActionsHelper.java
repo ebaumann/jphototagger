@@ -58,6 +58,17 @@ public final class ActionsHelper {
         return menu;
     }
 
+    private static void reorderActions(JMenu actionsMenu) {
+        actionsMenu.removeAll();
+
+        List<Program> actions =
+            DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
+
+        for (Program action : actions) {
+            actionsMenu.add(new JMenuItem(new ActionStarter(action, action)));
+        }
+    }
+
     public static boolean existsAction(JMenu actionsMenu, Program action) {
         if (actionsMenu == null) {
             throw new NullPointerException("actionsMenu == null");
@@ -110,8 +121,9 @@ public final class ActionsHelper {
         }
 
         int index = getIndexOfAction(actionsMenu, action);
+        int seqNr = action.getSequenceNumber();
 
-        if (index >= 0) {
+        if ((index >= 0) && (index == seqNr)) {
             Action a = actionsMenu.getItem(index).getAction();
 
             if (a instanceof ActionStarter) {
@@ -120,6 +132,8 @@ public final class ActionsHelper {
                 actionProgram.set(action);
                 setNameAndIcon(a, actionProgram);
             }
+        } else if ((index >= 0) && (index != seqNr)) {
+            reorderActions(actionsMenu);
         }
     }
 
