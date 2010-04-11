@@ -110,8 +110,7 @@ public final class ProgramsHelper {
         List<Program> programs = new ArrayList<Program>(size);
 
         for (int sequenceNo = 0; sequenceNo < size; sequenceNo++) {
-            Object  o       = model.get(sequenceNo);
-            Program program = (Program) o;
+            Program program = (Program) model.get(sequenceNo);
 
             program.setSequenceNumber(sequenceNo);
             programs.add(program);
@@ -141,27 +140,23 @@ public final class ProgramsHelper {
 
         @Override
         public void intervalAdded(ListDataEvent e) {
-            if (listenToModel) {
-                listenToModel = false;
-                ProgramsHelper.reorderPrograms(model);
-                listenToModel = true;
-            }
+            reorder();
         }
 
         @Override
         public void intervalRemoved(ListDataEvent e) {
-            if (listenToModel) {
-                listenToModel = false;
-                ProgramsHelper.reorderPrograms(model);
-                listenToModel = true;
-            }
+            reorder();
         }
 
         @Override
         public void contentsChanged(ListDataEvent e) {
+            reorder();
+        }
+
+        private void reorder() {
             if (listenToModel) {
                 listenToModel = false;
-                ProgramsHelper.reorderPrograms(model);
+                reorderPrograms(model);
                 listenToModel = true;
             }
         }

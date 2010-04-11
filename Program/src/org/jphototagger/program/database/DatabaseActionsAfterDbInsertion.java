@@ -23,6 +23,9 @@ package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Program;
+import org.jphototagger.program.event.listener
+    .DatabaseActionsAfterDbInsertionListener;
+import org.jphototagger.program.event.listener.impl.ListenerSupport;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,6 +34,7 @@ import java.sql.Statement;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Contains (links to) external Programs to execute after inserting metadata
@@ -39,6 +43,8 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
+    private final ListenerSupport<DatabaseActionsAfterDbInsertionListener> ls =
+        new ListenerSupport<DatabaseActionsAfterDbInsertionListener>();
     public static final DatabaseActionsAfterDbInsertion INSTANCE =
         new DatabaseActionsAfterDbInsertion();
 
@@ -48,12 +54,12 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * Inserts a new action. Prevoius You should call
      * {@link DatabasePrograms#hasProgram()}.
      *
-     * @param action  action
+     * @param program action
      * @param order   order of the action
-     * @return true if inserted
+     * @return        true if inserted
      */
-    public boolean insert(Program action, int order) {
-        if (action == null) {
+    public boolean insert(Program program, int order) {
+        if (program == null) {
             throw new NullPointerException("action == null");
         }
 
@@ -67,11 +73,15 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             stmt = con.prepareStatement(
                 "INSERT INTO actions_after_db_insertion"
                 + " (id_program, action_order) VALUES (?, ?)");
-            stmt.setLong(1, action.getId());
+            stmt.setLong(1, program.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             con.commit();
+
+            if (countAffectedRows > 0) {
+                notifyInserted(program);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(con);
@@ -84,13 +94,13 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     }
 
     /**
-     * Deletes an action. <em>The ID must exist!</em>
+     * Deletes an action. <em>The ID {@link Program#getId()} must exist!</em>
      *
-     * @param  action  action to delete
-     * @return true if deleted
+     * @param  program action to delete
+     * @return         true if deleted
      */
-    public boolean delete(Program action) {
-        if (action == null) {
+    public boolean delete(Program program) {
+        if (program == null) {
             throw new NullPointerException("action == null");
         }
 
@@ -103,10 +113,14 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
                 "DELETE FROM actions_after_db_insertion WHERE id_program = ?");
-            stmt.setLong(1, action.getId());
+            stmt.setLong(1, program.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             con.commit();
+
+            if (countAffectedRows > 0) {
+                notifyDeleted(program);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(con);
@@ -179,7 +193,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         ResultSet         rs     = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) "
                                         + " FROM actions_after_db_insertion"
                                         + " WHERE id_program = ?");
@@ -198,6 +212,34 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         }
 
         return exists;
+    }
+
+    public int getCount() {
+        int        count = 0;
+        Connection con   = null;
+        Statement  stmt  = null;
+        ResultSet  rs    = null;
+
+        try {
+            con = getConnection();
+
+            String sql = "SELECT COUNT(*) FROM actions_after_db_insertion";
+
+            stmt = con.createStatement();
+            logFinest(sql);
+            rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return count;
     }
 
     /**
@@ -237,6 +279,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
 
             con.commit();
             allReordered = countAffected == actions.size();
+
+            if (allReordered) {
+                notifyReordered();
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
             rollback(con);
@@ -246,5 +292,44 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         }
 
         return allReordered;
+    }
+
+    public void addListener(DatabaseActionsAfterDbInsertionListener listener) {
+        ls.add(listener);
+    }
+
+    public void removeListener(
+            DatabaseActionsAfterDbInsertionListener listener) {
+        ls.remove(listener);
+    }
+
+    private void notifyInserted(Program program) {
+        Set<DatabaseActionsAfterDbInsertionListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseActionsAfterDbInsertionListener listener : listeners) {
+                listener.programInserted(program);
+            }
+        }
+    }
+
+    private void notifyDeleted(Program program) {
+        Set<DatabaseActionsAfterDbInsertionListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseActionsAfterDbInsertionListener listener : listeners) {
+                listener.programDeleted(program);
+            }
+        }
+    }
+
+    private void notifyReordered() {
+        Set<DatabaseActionsAfterDbInsertionListener> listeners = ls.get();
+
+        synchronized (listeners) {
+            for (DatabaseActionsAfterDbInsertionListener listener : listeners) {
+                listener.programsReordered();
+            }
+        }
     }
 }

@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.28 2010-04-11
+-----------------
+
+* Bearbeiten > Einstellungen > Aktionen:
+  * Aktionen können in der Liste via Ziehen und Ablegen angeordnet werden
+  * Liste hat Kontextmenü und Tastenkürzel mit den gleichen Aktionen wie die
+    Schaltflächen unter der Liste (Tastenkürzel sind dem Kontextmenü zu
+    entnehmen)
+
 0.8.27 2010-04-11
 -----------------
 
