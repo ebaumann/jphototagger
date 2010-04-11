@@ -46,6 +46,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     private volatile boolean            infoChanged;
     private volatile int                minimum;
     private volatile int                maximum;
+    private final Object                pBarOwner = this;
 
     /**
      * Adds a progress listener.
@@ -154,7 +155,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
             @Override
             public void run() {
                 if (progressBar == null) {
-                    progressBar = ProgressBar.INSTANCE.getResource(this);
+                    progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
 
                     if (progressBar != null) {
                         progressBar.setIndeterminate(false);
@@ -237,7 +238,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
                     progressBar.setStringPainted(false);
 
                     if (!customProgressBar) {
-                        ProgressBar.INSTANCE.releaseResource(this);
+                        ProgressBar.INSTANCE.releaseResource(pBarOwner);
                         progressBar = null;
                     }
                 }

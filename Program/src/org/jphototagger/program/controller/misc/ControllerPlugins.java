@@ -47,6 +47,7 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  */
 public final class ControllerPlugins implements ActionListener {
+    private final Object pBarOwner = this;
 
     // Possible enhancement: Listen to selected thumbnails and calling on all
     // plugins Plugin#setFiles() to enable/disable actions of the plugin through
@@ -65,7 +66,7 @@ public final class ControllerPlugins implements ActionListener {
             Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
 
             PopupMenuThumbnails.INSTANCE.getPluginOfItem(
-                item).addPluginListener(new Listener(plugin, this));
+                item).addPluginListener(new Listener(plugin, pBarOwner));
         }
     }
 
@@ -84,14 +85,14 @@ public final class ControllerPlugins implements ActionListener {
 
             plugin.setFiles(selFiles);
             plugin.setProperties(UserSettings.INSTANCE.getProperties());
-            plugin.setProgressBar(ProgressBar.INSTANCE.getResource(this));
+            plugin.setProgressBar(ProgressBar.INSTANCE.getResource(pBarOwner));
             action.actionPerformed(evt);
         }
     }
 
     private static class Listener implements PluginListener {
         private final Plugin plugin;
-        private final Object progressBarOwner;
+        private final Object pBarOwner;
 
         public Listener(Plugin plugin, Object progressBarOwner) {
             if (plugin == null) {
@@ -102,8 +103,8 @@ public final class ControllerPlugins implements ActionListener {
                 throw new NullPointerException("progressBarOwner == null");
             }
 
-            this.plugin           = plugin;
-            this.progressBarOwner = progressBarOwner;
+            this.plugin    = plugin;
+            this.pBarOwner = progressBarOwner;
         }
 
         @Override
@@ -123,7 +124,7 @@ public final class ControllerPlugins implements ActionListener {
                 UserSettings.INSTANCE.writeToFile();
                 plugin.setProgressBar(null);
                 plugin.setFiles(new ArrayList<File>());
-                ProgressBar.INSTANCE.releaseResource(progressBarOwner);
+                ProgressBar.INSTANCE.releaseResource(pBarOwner);
             }
         }
     }

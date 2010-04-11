@@ -103,6 +103,7 @@ public abstract class KeywordsImporter implements Importer {
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         private JProgressBar     progressBar;
         private volatile boolean cancel;
+        private final Object     pBarOwner = this;
 
         public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             if (paths == null) {
@@ -123,7 +124,7 @@ public abstract class KeywordsImporter implements Importer {
                 return;
             }
 
-            progressBar = ProgressBar.INSTANCE.getResource(this);
+            progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
         }
 
         @Override
@@ -213,7 +214,7 @@ public abstract class KeywordsImporter implements Importer {
                         progressBar.setValue(0);
                     }
 
-                    ProgressBar.INSTANCE.releaseResource(this);
+                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
                     progressBar = null;
                 }
             });
