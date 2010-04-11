@@ -167,11 +167,11 @@ public final class ActionsHelper {
     private static class ActionStarter extends AbstractAction {
         private static final long       serialVersionUID = 1L;
         private final transient Program action;
-        private final Object            progressBarOwner;
+        private final Object            pBarOwner;
 
         public ActionStarter(Program action, Object progressBarOwner) {
             this.action           = action;
-            this.progressBarOwner = progressBarOwner;
+            this.pBarOwner = progressBarOwner;
             setNameAndIcon(this, action);
         }
 
@@ -190,10 +190,10 @@ public final class ActionsHelper {
 
             StartPrograms starter = new StartPrograms(
                                         ProgressBar.INSTANCE.getResource(
-                                            progressBarOwner));
+                                            pBarOwner));
 
             starter.startProgram(action, tnPanel.getSelectedFiles());
-            ProgressBar.INSTANCE.releaseResource(progressBarOwner);
+            ProgressBar.INSTANCE.releaseResource(pBarOwner);
         }
     }
 

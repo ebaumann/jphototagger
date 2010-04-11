@@ -67,6 +67,7 @@ public final class UpdateDownload extends Thread
     private JProgressBar        progressBar;
     private volatile boolean    cancel;
     private static boolean      checkPending;
+    private final Object        pBarOwner = this;
 
     public UpdateDownload() {
         setName("Checking for and downloading newer version @ "
@@ -194,7 +195,7 @@ public final class UpdateDownload extends Thread
     }
 
     private void startProgressBar() {
-        progressBar = ProgressBar.INSTANCE.getResource(this);
+        progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -223,8 +224,6 @@ public final class UpdateDownload extends Thread
     }
 
     private void releaseProgressBar() {
-        final Object pBarOwner = this;
-
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

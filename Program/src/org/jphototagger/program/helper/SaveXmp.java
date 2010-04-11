@@ -52,6 +52,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     private final Collection<Pair<File, Xmp>> imageFilesXmp;
     private JProgressBar                      progressBar;
     private volatile boolean                  cancel;
+    private final Object                      pBarOwner = this;
 
     private SaveXmp(Collection<Pair<File, Xmp>> imageFilesXmp) {
         AppLifeCycle.INSTANCE.addSaveObject(this);
@@ -110,7 +111,7 @@ public final class SaveXmp extends Thread implements Cancelable {
             return;
         }
 
-        progressBar = ProgressBar.INSTANCE.getResource(this);
+        progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
     }
 
     private void updateProgressBar(final int value) {
@@ -145,7 +146,7 @@ public final class SaveXmp extends Thread implements Cancelable {
                     }
 
                     progressBar.setValue(0);
-                    ProgressBar.INSTANCE.releaseResource(this);
+                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
                     progressBar = null;
                 }
             }

@@ -35,7 +35,7 @@ import javax.swing.SwingUtilities;
 public final class ProgressBarUpdater implements ProgressListener {
     private final String progressBarString;
     private JProgressBar progressBar;
-    private final Object progressBarOwner;
+    private final Object pBarOwner;
 
     /**
      *
@@ -48,7 +48,7 @@ public final class ProgressBarUpdater implements ProgressListener {
             throw new NullPointerException("progressBarOwner == null");
         }
 
-        this.progressBarOwner  = progressBarOwner;
+        this.pBarOwner         = progressBarOwner;
         this.progressBarString = progressBarString;
     }
 
@@ -57,7 +57,7 @@ public final class ProgressBarUpdater implements ProgressListener {
             return;
         }
 
-        progressBar = ProgressBar.INSTANCE.getResource(progressBarOwner);
+        progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
     }
 
     private synchronized void updateProgressBar(final ProgressEvent evt) {
@@ -118,7 +118,7 @@ public final class ProgressBarUpdater implements ProgressListener {
                     }
 
                     progressBar.setValue(0);
-                    ProgressBar.INSTANCE.releaseResource(progressBarOwner);
+                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
                     progressBar = null;
                 }
             }
