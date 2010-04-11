@@ -35,9 +35,8 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  * @author  Elmar Baumann
  */
 public final class ControllerActionExecutor implements ProgramActionListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-
     private final ActionsDialog actionsDialog = ActionsDialog.INSTANCE;
 
     // No other executor expected, so this instance gets the progress bar
@@ -54,7 +53,6 @@ public final class ControllerActionExecutor implements ProgramActionListener {
 
     @Override
     public void programShallBeExecuted(Program program) {
-        programStarter.startProgram(program,
-                                    thumbnailsPanel.getSelectedFiles());
+        programStarter.startProgram(program, tnPanel.getSelectedFiles());
     }
 }

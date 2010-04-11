@@ -72,13 +72,11 @@ public final class ControllerHighlightKeywordsTree
         removeKeywords();
 
         if (tnPanel.getSelectionCount() == 1) {
-            List<File> selFile = tnPanel.getSelectedFiles();
+            List<File> selFiles = tnPanel.getSelectedFiles();
 
-            assert selFile.size() == 1;
-
-            if ((selFile.size() == 1) && hasSidecarFile(selFile)) {
+            if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
                 Collection<String> keywords =
-                    db.getDcSubjectsOf(selFile.get(0));
+                    db.getDcSubjectsOf(selFiles.get(0));
 
                 setKeywords(treeAppPanel, keywords);
                 setKeywords(treeDialog, keywords);

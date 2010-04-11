@@ -21,6 +21,9 @@
 
 package org.jphototagger.program.controller.search;
 
+import org.jphototagger.lib.componentutil.Autocomplete;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
@@ -30,7 +33,8 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.selections
     .AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
@@ -43,9 +47,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.TreeUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,7 +81,7 @@ public final class ControllerFastSearch
         appPanel.getTextAreaSearch();
     private final JComboBox     comboboxFastSearch     =
         appPanel.getComboBoxFastSearch();
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel    tnPanel        =
         appPanel.getPanelThumbnails();
     private final List<JTree>        selectionTrees =
         appPanel.getSelectionTrees();
@@ -115,7 +116,7 @@ public final class ControllerFastSearch
         });
         appPanel.getButtonSearch().addActionListener(this);
         comboboxFastSearch.addActionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.FAST_SEARCH);
+        tnPanel.addRefreshListener(this, Content.FAST_SEARCH);
     }
 
     public void setAutocomplete(boolean ac) {
@@ -185,8 +186,7 @@ public final class ControllerFastSearch
                         setTitle(userInput);
                         GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
                         ControllerSortThumbnails.setLastSort();
-                        thumbnailsPanel.setFiles(imageFiles,
-                                                 Content.SAVED_SEARCH);
+                        tnPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
                     }
                 }
             }
@@ -275,7 +275,7 @@ public final class ControllerFastSearch
     }
 
     private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
+        if (!tnPanel.isFileSelected()) {
             editPanels.setEditable(false);
         }
     }

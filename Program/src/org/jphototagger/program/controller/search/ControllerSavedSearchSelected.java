@@ -50,10 +50,10 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerSavedSearchSelected
         implements ListSelectionListener, RefreshListener {
-    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList           list = appPanel.getListSavedSearches();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
+    private final JList              list       =
+        appPanel.getListSavedSearches();
+    private final ThumbnailsPanel    tnPanel    = appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
 
@@ -63,7 +63,7 @@ public final class ControllerSavedSearchSelected
 
     private void listen() {
         list.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.SAVED_SEARCH);
+        tnPanel.addRefreshListener(this, Content.SAVED_SEARCH);
     }
 
     @Override
@@ -101,6 +101,7 @@ public final class ControllerSavedSearchSelected
 
                 if (!savedSearch.isValid()) {
                     assert false : savedSearch;
+
                     return;
                 }
 
@@ -115,7 +116,7 @@ public final class ControllerSavedSearchSelected
             List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
 
             setTitle(name);
-            thumbnailsPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
+            tnPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
         }
 
         private void setTitle(String name) {
@@ -126,7 +127,7 @@ public final class ControllerSavedSearchSelected
         }
 
         private void setMetadataEditable() {
-            if (thumbnailsPanel.getSelectionCount() <= 0) {
+            if (!tnPanel.isFileSelected()) {
                 editPanels.setEditable(false);
             }
         }

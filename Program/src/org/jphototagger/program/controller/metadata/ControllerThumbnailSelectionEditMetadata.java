@@ -50,23 +50,20 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerThumbnailSelectionEditMetadata
         implements ThumbnailsPanelListener {
-    private final AppPanel appPanel                  =
-        GUI.INSTANCE.getAppPanel();
-    private final JButton  buttonEmpty               =
-        appPanel.getButtonEmptyMetadata();
-    private final JLabel   labelMetadataInfoEditable =
+    private final AppPanel appPanel      = GUI.INSTANCE.getAppPanel();
+    private final JButton  buttonEmpty   = appPanel.getButtonEmptyMetadata();
+    private final JLabel   labelEditable =
         appPanel.getLabelMetadataInfoEditable();
     private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
 
     public ControllerThumbnailSelectionEditMetadata() {
         listen();
     }
 
     private void listen() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
     }
 
     @Override
@@ -86,11 +83,10 @@ public final class ControllerThumbnailSelectionEditMetadata
             public void run() {
                 boolean canEdit = false;
 
-                if (thumbnailsPanel.getSelectionCount() > 0) {
+                if (tnPanel.isFileSelected()) {
                     canEdit = canEdit();
                     setEnabled(canEdit);
-                    editPanels.setImageFiles(
-                        thumbnailsPanel.getSelectedFiles());
+                    editPanels.setImageFiles(tnPanel.getSelectedFiles());
                 } else {
                     appPanel.getEditMetadataPanels().emptyPanels(false);
                     setEnabled(false);
@@ -107,22 +103,22 @@ public final class ControllerThumbnailSelectionEditMetadata
     }
 
     private void setInfoLabel(boolean canEdit) {
-        labelMetadataInfoEditable.setText(canEdit
-                                          ? multipleThumbnailsSelected()
-                ? JptBundle.INSTANCE.getString(
-                "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
-                : JptBundle.INSTANCE.getString(
-                "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
-                                          : JptBundle.INSTANCE.getString(
-                                          "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
+        labelEditable.setText(canEdit
+                              ? multipleThumbnailsSelected()
+                                ? JptBundle.INSTANCE.getString(
+                                "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
+                                : JptBundle.INSTANCE.getString(
+                                "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
+                              : JptBundle.INSTANCE.getString(
+                              "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {
-        return thumbnailsPanel.getSelectionCount() > 1;
+        return tnPanel.getSelectionCount() > 1;
     }
 
     private boolean canEdit() {
-        List<File> selFiles = thumbnailsPanel.getSelectedFiles();
+        List<File> selFiles = tnPanel.getSelectedFiles();
 
         for (File selFile : selFiles) {
             if (!XmpMetadata.canWriteSidecarFileForImageFile(selFile)) {

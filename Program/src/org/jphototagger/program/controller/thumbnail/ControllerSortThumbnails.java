@@ -42,14 +42,14 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann
  */
 public final class ControllerSortThumbnails implements ActionListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerSortThumbnails() {
         listen();
         appFrame.getMenuItemOfSortCmp(
-            thumbnailsPanel.getFileSortComparator()).setSelected(true);
+            tnPanel.getFileSortComparator()).setSelected(true);
     }
 
     private void listen() {
@@ -84,8 +84,8 @@ public final class ControllerSortThumbnails implements ActionListener {
                     .getController(ControllerThumbnailsPanelPersistence.class)
                     .setFileSortComparator(sortCmp);
                 item.setSelected(true);
-                thumbnailsPanel.setFileSortComparator(sortCmp);
-                thumbnailsPanel.sort();
+                tnPanel.setFileSortComparator(sortCmp);
+                tnPanel.sort();
             }
         });
     }

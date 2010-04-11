@@ -52,13 +52,11 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerDeleteFromImageCollection
         implements ActionListener, KeyListener {
-    private final AppPanel            appPanel        =
-        GUI.INSTANCE.getAppPanel();
-    private final JList               list            =
+    private final AppPanel            appPanel  = GUI.INSTANCE.getAppPanel();
+    private final JList               list      =
         appPanel.getListImageCollections();
-    private final PopupMenuThumbnails popupMenu       =
-        PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     thumbnailsPanel =
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     tnPanel   =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteFromImageCollection() {
@@ -67,7 +65,7 @@ public final class ControllerDeleteFromImageCollection
 
     private void listen() {
         popupMenu.getItemDeleteFromImageCollection().addActionListener(this);
-        thumbnailsPanel.addKeyListener(this);
+        tnPanel.addKeyListener(this);
     }
 
     @Override
@@ -83,8 +81,8 @@ public final class ControllerDeleteFromImageCollection
     }
 
     private void delete() {
-        if (thumbnailsPanel.getContent().equals(Content.IMAGE_COLLECTION)
-                && (thumbnailsPanel.getSelectionCount() > 0)) {
+        if (tnPanel.getContent().equals(Content.IMAGE_COLLECTION)
+                && (tnPanel.isFileSelected())) {
             deleteSelectedFilesFromImageCollection();
         }
     }
@@ -96,12 +94,11 @@ public final class ControllerDeleteFromImageCollection
                 Object selectedValue = list.getSelectedValue();
 
                 if (selectedValue != null) {
-                    List<File> selectedFiles =
-                        thumbnailsPanel.getSelectedFiles();
+                    List<File> selectedFiles = tnPanel.getSelectedFiles();
 
                     if (ModifyImageCollections.deleteImagesFromCollection(
                             selectedValue.toString(), selectedFiles)) {
-                        thumbnailsPanel.remove(selectedFiles);
+                        tnPanel.remove(selectedFiles);
                     }
                 } else {
                     AppLogger.logWarning(

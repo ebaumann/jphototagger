@@ -59,8 +59,7 @@ public final class ControllerKeywordItemSelected
         appPanel.getRadioButtonSelKeywordsMultipleSelAll();
     private final JRadioButton radioButtonOneKeyword =
         appPanel.getRadioButtonSelKeywordsMultipleSelOne();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
 
     public ControllerKeywordItemSelected() {
         readPersistent();
@@ -71,7 +70,7 @@ public final class ControllerKeywordItemSelected
         listKeywords.addListSelectionListener(this);
         radioButtonAllKeywords.addActionListener(this);
         radioButtonOneKeyword.addActionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.KEYWORD);
+        tnPanel.addRefreshListener(this, Content.KEYWORD);
     }
 
     @Override

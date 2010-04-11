@@ -181,10 +181,10 @@ public final class ActionsHelper {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            ThumbnailsPanel thumbnailsPanel =
+            ThumbnailsPanel tnPanel =
                 GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
-            if (thumbnailsPanel.getSelectionCount() <= 0) {
+            if (!tnPanel.isFileSelected()) {
                 return;
             }
 
@@ -192,7 +192,7 @@ public final class ActionsHelper {
                                         ProgressBar.INSTANCE.getResource(
                                             progressBarOwner));
 
-            starter.startProgram(action, thumbnailsPanel.getSelectedFiles());
+            starter.startProgram(action, tnPanel.getSelectedFiles());
             ProgressBar.INSTANCE.releaseResource(progressBarOwner);
         }
     }

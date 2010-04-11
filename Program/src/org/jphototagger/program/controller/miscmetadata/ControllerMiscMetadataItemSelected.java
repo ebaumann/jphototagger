@@ -49,11 +49,9 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerMiscMetadataItemSelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final JTree           tree            =
-        appPanel.getTreeMiscMetadata();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+    private final JTree           tree     = appPanel.getTreeMiscMetadata();
+    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
 
     public ControllerMiscMetadataItemSelected() {
         listen();
@@ -61,7 +59,7 @@ public final class ControllerMiscMetadataItemSelected
 
     private void listen() {
         tree.addTreeSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.MISC_METADATA);
+        tnPanel.addRefreshListener(this, Content.MISC_METADATA);
     }
 
     @Override
@@ -126,11 +124,10 @@ public final class ControllerMiscMetadataItemSelected
 
                     setTitle(column, userObject);
                     ControllerSortThumbnails.setLastSort();
-                    thumbnailsPanel
-                        .setFiles(DatabaseImageFiles.INSTANCE
-                            .getImageFilesWithColumnContent(column,
-                                userObject.toString()), Content.MISC_METADATA);
-                    thumbnailsPanel.apply(tnPanelSettings);
+                    tnPanel.setFiles(DatabaseImageFiles.INSTANCE
+                        .getImageFilesWithColumnContent(column,
+                            userObject.toString()), Content.MISC_METADATA);
+                    tnPanel.apply(tnPanelSettings);
                 } else {
                     setTitle();
                 }
@@ -139,20 +136,19 @@ public final class ControllerMiscMetadataItemSelected
 
                 setTitle(column);
                 ControllerSortThumbnails.setLastSort();
-                thumbnailsPanel.setFiles(
+                tnPanel.setFiles(
                     DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column),
                     Content.MISC_METADATA);
-                thumbnailsPanel.apply(tnPanelSettings);
+                tnPanel.apply(tnPanelSettings);
             } else {
                 ControllerSortThumbnails.setLastSort();
-                thumbnailsPanel.setFiles(new ArrayList<File>(),
-                                         Content.MISC_METADATA);
-                thumbnailsPanel.apply(tnPanelSettings);
+                tnPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
+                tnPanel.apply(tnPanelSettings);
                 setTitle();
             }
         }
 
-        // 1 path where thumbnailsPanel.apply(tnPanelSettings) is not to call
+        // 1 path where tnPanel.apply(tnPanelSettings) is not to call
         private void setTitle() {
             GUI.INSTANCE.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(

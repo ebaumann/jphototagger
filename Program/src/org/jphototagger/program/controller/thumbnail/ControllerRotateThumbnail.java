@@ -21,12 +21,12 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import org.jphototagger.lib.image.util.ImageTransform;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.lib.image.util.ImageTransform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,11 +49,9 @@ import javax.swing.SwingUtilities;
  * @author Elmar Baumann
  */
 public final class ControllerRotateThumbnail implements ActionListener {
-    private final DatabaseImageFiles  db              =
-        DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu       =
-        PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     thumbnailsPanel =
+    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     tnPanel   =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem,
                                                           Float>();
@@ -98,11 +96,11 @@ public final class ControllerRotateThumbnail implements ActionListener {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<Integer> selIndices = thumbnailsPanel.getSelectedIndices();
+                List<Integer> selIndices = tnPanel.getSelectedIndices();
 
                 for (Integer selIndex : selIndices) {
-                    File imageFile =
-                        thumbnailsPanel.getFile(selIndex.intValue());
+                    File        imageFile   =
+                        tnPanel.getFile(selIndex.intValue());
                     final Image unrotatedTn =
                         PersistentThumbnails.getThumbnail(imageFile);
 

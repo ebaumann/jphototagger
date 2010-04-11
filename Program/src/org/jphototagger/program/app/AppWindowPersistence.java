@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.app;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
@@ -31,8 +33,6 @@ import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.util.Settings;
 
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
@@ -41,6 +41,7 @@ import java.awt.event.ComponentListener;
 import java.io.File;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.table.TableModel;
@@ -206,9 +207,13 @@ public final class AppWindowPersistence
             TableModel model = appPanel.getTableIptc().getModel();
 
             if (model instanceof TableModelIptc) {
-                File file = tnPanel.getSelectedFiles().get(0);
+                final List<File> selFiles = tnPanel.getSelectedFiles();
 
-                ((TableModelIptc) model).setFile(file);
+                if (selFiles.size() == 1) {
+                    File file = selFiles.get(0);
+
+                    ((TableModelIptc) model).setFile(file);
+                }
             }
         }
     }

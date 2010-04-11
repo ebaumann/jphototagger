@@ -54,9 +54,10 @@ public final class ControllerMenuItemEnabler
         new ArrayList<JMenuItem>();
     private final PopupMenuThumbnails popupThumbnails =
         PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenu     menPrograms = popupThumbnails.getMenuPrograms();
+    private final JMenu     menPrograms                  =
+        popupThumbnails.getMenuPrograms();
     private final JMenuItem itemOpenFilesWithStandardApp =
         popupThumbnails.getItemOpenFilesWithStandardApp();
     private boolean hasProgram = DatabasePrograms.INSTANCE.hasProgram();
@@ -67,7 +68,7 @@ public final class ControllerMenuItemEnabler
     }
 
     private void listen() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
         DatabasePrograms.INSTANCE.addListener(this);
         popupThumbnails.addPopupMenuListener(this);
     }
@@ -126,24 +127,24 @@ public final class ControllerMenuItemEnabler
     }
 
     private void setEnabled() {
-        Content content     = thumbnailsPanel.getContent();
-        boolean isSelection = thumbnailsPanel.getSelectionCount() > 0;
+        Content content      = tnPanel.getContent();
+        boolean fileSelected = tnPanel.isFileSelected();
 
         for (JMenuItem item : itemsRequiresSelImages) {
-            item.setEnabled(isSelection);
+            item.setEnabled(fileSelected);
         }
 
         for (JMenuItem item : contentsOfItemsRequiresSelImages.keySet()) {
             item.setEnabled(
-                isSelection
+                fileSelected
                 && contentsOfItemsRequiresSelImages.get(item).contains(
                     content));
         }
 
-        itemOpenFilesWithStandardApp.setEnabled(isSelection
+        itemOpenFilesWithStandardApp.setEnabled(fileSelected
                 && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram()
                     != null));
-        menPrograms.setEnabled(isSelection && hasProgram);
+        menPrograms.setEnabled(fileSelected && hasProgram);
     }
 
     @Override
@@ -156,10 +157,9 @@ public final class ControllerMenuItemEnabler
     }
 
     private void popupMenuThumbnailsBecomeVisible() {
-        popupThumbnails.getItemSelectAll().setEnabled(
-            thumbnailsPanel.getFileCount() > 0);
+        popupThumbnails.getItemSelectAll().setEnabled(tnPanel.hasFiles());
         popupThumbnails.getItemSelectNothing().setEnabled(
-            thumbnailsPanel.getSelectionCount() > 0);
+                tnPanel.isFileSelected());
     }
 
     @Override

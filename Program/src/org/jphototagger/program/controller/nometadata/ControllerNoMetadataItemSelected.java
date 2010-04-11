@@ -75,11 +75,11 @@ public final class ControllerNoMetadataItemSelected
 
             setTitle((Column) selValue);
 
-            ThumbnailsPanel thumbnailsPanel =
+            ThumbnailsPanel tnPanel =
                 GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
             ControllerSortThumbnails.setLastSort();
-            thumbnailsPanel.setFiles(imageFiles, Content.MISSING_METADATA);
+            tnPanel.setFiles(imageFiles, Content.MISSING_METADATA);
         }
     }
 

@@ -24,10 +24,13 @@ package org.jphototagger.program.controller.metadata;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.adobe.xmp.XMPConst;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.metadata.selections.MetadataTableModels;
+import org.jphototagger.program.database.metadata.selections
+    .MetadataTableModels;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
@@ -39,8 +42,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.TableUtil;
 
 import java.io.File;
 
@@ -159,12 +160,12 @@ public final class ControllerShowMetadata
 
     @Override
     public void thumbnailsSelectionChanged() {
-        final ThumbnailsPanel panel = appPanel.getPanelThumbnails();
+        final ThumbnailsPanel panel    = appPanel.getPanelThumbnails();
+        final List<File>      selFiles = panel.getSelectedFiles();
 
-        if (panel.getSelectionCount() == 1) {
-            SwingUtilities.invokeLater(
-                new ShowMetadata(
-                    panel.getSelectedFiles().get(0), Metadata.getAll()));
+        if (selFiles.size() == 1) {
+            SwingUtilities.invokeLater(new ShowMetadata(selFiles.get(0),
+                    Metadata.getAll()));
         } else {
             appPanel.getButtonIptcToXmp().setEnabled(false);
             appPanel.getButtonExifToXmp().setEnabled(false);
@@ -266,9 +267,11 @@ public final class ControllerShowMetadata
     }
 
     private void showUpdates(File file, Set<Metadata> metadata) {
-        if (appPanel.getPanelThumbnails().getSelectionCount() == 1) {
-            File selectedFile =
-                appPanel.getPanelThumbnails().getSelectedFiles().get(0);
+        final List<File> selFiles =
+            appPanel.getPanelThumbnails().getSelectedFiles();
+
+        if (selFiles.size() == 1) {
+            File selectedFile = selFiles.get(0);
 
             if (file.equals(selectedFile)) {
                 SwingUtilities.invokeLater(new ShowMetadata(file, metadata));
@@ -331,6 +334,12 @@ public final class ControllerShowMetadata
         @Override
         public void run() {
             removeMetadataFromTables(metadata);
+
+            // In a multithreading environment this is possible
+            if (GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+                    .getSelectedFiles().isEmpty()) {
+                return;
+            }
 
             if (metadata.contains(Metadata.EXIF)) {
                 metadataTableModels.getExifTableModel().setFile(file);

@@ -21,6 +21,9 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
+import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.AppExitListener;
@@ -28,9 +31,6 @@ import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -54,7 +54,7 @@ public final class ControllerThumbnailsPanelPersistence
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
         "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private volatile boolean      propertiesRead;
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private List<File> persistentSelectedFiles = new ArrayList<File>();
 
@@ -64,7 +64,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void listen() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
@@ -93,7 +93,7 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringCollection(
-            FileUtil.getAsFilenames(thumbnailsPanel.getSelectedFiles()),
+            FileUtil.getAsFilenames(tnPanel.getSelectedFiles()),
             KEY_SELECTED_FILES);
         UserSettings.INSTANCE.writeToFile();
     }
@@ -102,14 +102,14 @@ public final class ControllerThumbnailsPanelPersistence
         List<Integer> indices = new ArrayList<Integer>();
 
         for (File file : persistentSelectedFiles) {
-            int index = thumbnailsPanel.getIndexOf(file);
+            int index = tnPanel.getIndexOf(file);
 
             if (index >= 0) {
                 indices.add(index);
             }
         }
 
-        thumbnailsPanel.setSelected(indices);
+        tnPanel.setSelected(indices);
     }
 
     private void readProperties() {
@@ -121,7 +121,7 @@ public final class ControllerThumbnailsPanelPersistence
 
     @SuppressWarnings("unchecked")
     private void readSortFromProperties() {
-        thumbnailsPanel.setFileSortComparator(getFileSortComparator());
+        tnPanel.setFileSortComparator(getFileSortComparator());
     }
 
     public void setFileSortComparator(Comparator<File> cmp) {

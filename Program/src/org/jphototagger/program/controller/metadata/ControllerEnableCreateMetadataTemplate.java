@@ -33,9 +33,9 @@ import javax.swing.JButton;
  */
 public final class ControllerEnableCreateMetadataTemplate
         implements ThumbnailsPanelListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JButton buttonMetadataTemplateCreate =
+    private final JButton buttonCreate =
         GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateCreate();
 
     public ControllerEnableCreateMetadataTemplate() {
@@ -43,13 +43,12 @@ public final class ControllerEnableCreateMetadataTemplate
     }
 
     private void listen() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
-        buttonMetadataTemplateCreate.setEnabled(
-            thumbnailsPanel.getSelectionCount() > 0);
+        buttonCreate.setEnabled(tnPanel.isFileSelected());
     }
 
     @Override

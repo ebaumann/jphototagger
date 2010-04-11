@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.event.listener.RefreshListener;
@@ -31,7 +32,6 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.lib.comparator.FileSort;
 
 import java.io.File;
 
@@ -51,9 +51,8 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerImageCollectionSelected
         implements ListSelectionListener, RefreshListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel    tnPanel    = appPanel.getPanelThumbnails();
     private final JList              list       =
         appPanel.getListImageCollections();
     private final EditMetadataPanels editPanels =
@@ -65,7 +64,7 @@ public final class ControllerImageCollectionSelected
 
     private void listen() {
         list.addListSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.IMAGE_COLLECTION);
+        tnPanel.addRefreshListener(this, Content.IMAGE_COLLECTION);
     }
 
     @Override
@@ -115,10 +114,9 @@ public final class ControllerImageCollectionSelected
                         collectionName);
 
                 setTitle();
-                thumbnailsPanel.setFileSortComparator(
-                    FileSort.NO_SORT.getComparator());
-                thumbnailsPanel.setFiles(imageFiles, Content.IMAGE_COLLECTION);
-                thumbnailsPanel.apply(settings);
+                tnPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
+                tnPanel.setFiles(imageFiles, Content.IMAGE_COLLECTION);
+                tnPanel.apply(settings);
             }
             private void setTitle() {
                 GUI.INSTANCE.getAppFrame().setTitle(
@@ -130,7 +128,7 @@ public final class ControllerImageCollectionSelected
     }
 
     private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
+        if (!tnPanel.isFileSelected()) {
             editPanels.setEditable(false);
         }
     }

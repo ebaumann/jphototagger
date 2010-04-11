@@ -52,13 +52,11 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerDirectorySelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel           appPanel        =
-        GUI.INSTANCE.getAppPanel();
-    private final JTree              treeDirectories =
-        appPanel.getTreeDirectories();
-    private final EditMetadataPanels editPanels      =
+    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
+    private final JTree              tree       = appPanel.getTreeDirectories();
+    private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel        tnPanel                =
         appPanel.getPanelThumbnails();
     private final ImageFilteredDirectory imageFilteredDirectory =
         new ImageFilteredDirectory();
@@ -68,8 +66,8 @@ public final class ControllerDirectorySelected
     }
 
     private void listen() {
-        treeDirectories.addTreeSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.DIRECTORY);
+        tree.addTreeSelectionListener(this);
+        tnPanel.addRefreshListener(this, Content.DIRECTORY);
     }
 
     @Override
@@ -102,7 +100,7 @@ public final class ControllerDirectorySelected
 
         @Override
         public void run() {
-            if (treeDirectories.getSelectionCount() > 0) {
+            if (tree.getSelectionCount() > 0) {
                 File selectedDirectory = new File(getDirectorynameFromTree());
 
                 imageFilteredDirectory.setDirectory(selectedDirectory);
@@ -113,8 +111,8 @@ public final class ControllerDirectorySelected
 
                 setTitle(selectedDirectory);
                 ControllerSortThumbnails.setLastSort();
-                thumbnailsPanel.setFiles(files, Content.DIRECTORY);
-                thumbnailsPanel.apply(panelSettings);
+                tnPanel.setFiles(files, Content.DIRECTORY);
+                tnPanel.apply(panelSettings);
                 setMetadataEditable();
             }
         }
@@ -127,7 +125,7 @@ public final class ControllerDirectorySelected
         }
 
         private String getDirectorynameFromTree() {
-            TreePath treePath = treeDirectories.getSelectionPath();
+            TreePath treePath = tree.getSelectionPath();
 
             if (treePath.getLastPathComponent() instanceof File) {
                 return ((File) treePath.getLastPathComponent())
@@ -138,7 +136,7 @@ public final class ControllerDirectorySelected
         }
 
         private void setMetadataEditable() {
-            if (thumbnailsPanel.getSelectionCount() <= 0) {
+            if (!tnPanel.isFileSelected()) {
                 editPanels.setEditable(false);
             }
         }

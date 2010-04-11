@@ -52,11 +52,11 @@ public final class ControllerExifToXmp implements ActionListener {
     }
 
     private void processSelectedFiles() {
-        final List<File> selectedFiles =
+        final List<File> selFiles =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
 
-        if (selectedFiles.size() > 0) {
-            new SetExifToXmp(selectedFiles, true).start();
+        if (selFiles.size() > 0) {
+            new SetExifToXmp(selFiles, true).start();
         }
     }
 }

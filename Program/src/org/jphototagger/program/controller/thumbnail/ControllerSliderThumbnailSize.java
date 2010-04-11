@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
@@ -28,7 +29,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.AWTEvent;
 import java.awt.event.AWTEventListener;
@@ -48,16 +48,17 @@ import javax.swing.SwingUtilities;
 public final class ControllerSliderThumbnailSize
         implements AWTEventListener, ChangeListener, ThumbnailsPanelListener,
                    UserSettingsListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final AppPanel        appPanel                  =
+        GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel tnPanel                   =
         appPanel.getPanelThumbnails();
-    private final JSlider       slider                    =
+    private final JSlider         slider                    =
         appPanel.getSliderThumbnailSize();
-    private static final int    STEP_WIDTH                = 1;
-    private static final int    LARGER_STEP_WIDTH         = 10;
-    private static final int    MIN_MAGINFICATION_PERCENT = 10;
-    private static final int    MAX_MAGINFICATION_PERCENT = 100;
-    private static final String KEY_SLIDER_VALUE          =
+    private static final int      STEP_WIDTH                = 1;
+    private static final int      LARGER_STEP_WIDTH         = 10;
+    private static final int      MIN_MAGINFICATION_PERCENT = 10;
+    private static final int      MAX_MAGINFICATION_PERCENT = 100;
+    private static final String   KEY_SLIDER_VALUE          =
         "org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize."
         + "SliderValue";
     private int currentValue      = 100;
@@ -70,7 +71,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void listen() {
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
         slider.addChangeListener(this);
         UserSettings.INSTANCE.addUserSettingsListener(this);
         Toolkit.getDefaultToolkit().addAWTEventListener(this,
@@ -172,7 +173,7 @@ public final class ControllerSliderThumbnailSize
                 int width = (int) ((double) maxThumbnailWidth
                                    * ((double) currentValue / 100.0));
 
-                thumbnailsPanel.setThumbnailWidth(width);
+                tnPanel.setThumbnailWidth(width);
             }
         });
     }
