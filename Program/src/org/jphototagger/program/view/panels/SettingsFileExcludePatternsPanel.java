@@ -43,9 +43,6 @@ import javax.swing.event.ListSelectionListener;
  */
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         implements ProgressListener, Persistence, ListSelectionListener {
-    private static final String ADD_INFO_TEXT =
-        JptBundle.INSTANCE.getString(
-            "SettingsFileExcludePatternsPanel.AddInfoText");
     private static final long                           serialVersionUID =
         -3083582823254767001L;
     private final transient DatabaseFileExcludePatterns db               =
@@ -57,7 +54,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     public SettingsFileExcludePatternsPanel() {
         initComponents();
-        textFieldInputPatterns.requestFocusInWindow();
+        textFieldInputPattern.requestFocusInWindow();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -66,7 +63,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         if (visible) {
             cancel             = false;
             isUpdateDatabase = false;
-            setEnabledButtons();
+            setEnabled();
         } else {
             cancelUpdateDatabase();
         }
@@ -75,51 +72,78 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     }
 
     private void deletePattern() {
-        if (listPatterns.getSelectedIndex() < 0) {
+        if (list.getSelectedIndex() < 0) {
             return;
         }
 
-        String pattern = (String) listPatterns.getSelectedValue();
+        String pattern = (String) list.getSelectedValue();
 
         model.delete(pattern);
-        setEnabledButtons();
-        listPatterns.requestFocusInWindow();
+        setEnabled();
+        list.requestFocusInWindow();
+    }
+
+    private void handleListValueChanged(ListSelectionEvent evt) {
+        if (!evt.getValueIsAdjusting()) {
+            setSelectedPatternToInput();
+            setEnabled();
+        }
+    }
+
+    private void handleTextFieldInputPatternKeyReleased(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            insertPattern();
+        } else {
+            setEnabledButtonInsertPattern();
+        }
+    }
+
+    private void handleListKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            deletePattern();
+        }
     }
 
     private void insertPattern() {
-        String input = textFieldInputPatterns.getText().trim();
+        String input = textFieldInputPattern.getText().trim();
 
-        if (canInsertPattern(input)) {
+        if (!input.isEmpty() && !model.contains(input)) {
             model.insert(input);
+            textFieldInputPattern.setText("");
         }
 
-        setEnabledButtons();
-    }
-
-    private boolean canInsertPattern(String input) {
-        return !input.isEmpty() &&!input.equals(ADD_INFO_TEXT);
+        setEnabled();
     }
 
     private void setEnabledButtonInsertPattern() {
-        buttonInsertPatterns.setEnabled(
-            canInsertPattern(textFieldInputPatterns.getText().trim()));
+        buttonInsertPattern.setEnabled(hasInput() && !existsInput());
     }
 
-    private void setEnabledButtons() {
-        int     size         = model.getSize();
-        boolean itemSelected = listPatterns.getSelectedIndex() >= 0;
+    private boolean hasInput() {
+        return !textFieldInputPattern.getText().trim().isEmpty();
+    }
+    private boolean existsInput() {
+        String input = textFieldInputPattern.getText().trim();
 
-        buttonDeletePatterns.setEnabled(itemSelected);
+        return !input.isEmpty() && model.contains(input);
+    }
+
+    private void setEnabled() {
+        int     size         = model.getSize();
+        boolean itemSelected = list.getSelectedIndex() >= 0;
+
         setEnabledButtonInsertPattern();
+        buttonDeletePattern.setEnabled(itemSelected);
+        menuItemDeletePattern.setEnabled(itemSelected);
         buttonUpdateDatabase.setEnabled((size > 0) &&!isUpdateDatabase);
         buttonCancelUpdateDatabase.setEnabled(isUpdateDatabase);
     }
 
     private void setSelectedPatternToInput() {
-        String pattern = (String) listPatterns.getSelectedValue();
+        String pattern = (String) list.getSelectedValue();
 
         if (pattern != null) {
-            textFieldInputPatterns.setText(pattern);
+            textFieldInputPattern.setText(pattern);
         }
     }
 
@@ -129,7 +153,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         if (patterns.size() > 0) {
             isUpdateDatabase = true;
             cancel           = false;
-            setEnabledButtons();
+            setEnabled();
             db.deleteMatchingFiles(patterns, this);
         }
     }
@@ -175,7 +199,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         progressBarUpdateDatabase.setValue(evt.getValue());
         isUpdateDatabase = false;
         cancel           = false;
-        setEnabledButtons();
+        setEnabled();
     }
 
     @Override
@@ -187,7 +211,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     @Override
     public void valueChanged(ListSelectionEvent evt) {
         if (!evt.getValueIsAdjusting()) {
-            setEnabledButtons();
+            setEnabled();
         }
     }
 
@@ -201,195 +225,200 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelInfoList              = new javax.swing.JLabel();
-        scrollPaneListPatterns     = new javax.swing.JScrollPane();
-        listPatterns               = new javax.swing.JList();
-        textFieldInputPatterns     = new javax.swing.JTextField();
-        buttonDeletePatterns       = new javax.swing.JButton();
-        buttonInsertPatterns       = new javax.swing.JButton();
-        labelInfoDatabase          = new javax.swing.JLabel();
-        progressBarUpdateDatabase  = new javax.swing.JProgressBar();
+
+        popupMenu = new javax.swing.JPopupMenu();
+        menuItemDeletePattern = new javax.swing.JMenuItem();
+        labelInfoList = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        list = new javax.swing.JList();
+        labelTextFieldInputPattern = new javax.swing.JLabel();
+        textFieldInputPattern = new javax.swing.JTextField();
+        buttonDeletePattern = new javax.swing.JButton();
+        buttonInsertPattern = new javax.swing.JButton();
+        labelInfoDatabase = new javax.swing.JLabel();
+        progressBarUpdateDatabase = new javax.swing.JProgressBar();
         buttonCancelUpdateDatabase = new javax.swing.JButton();
-        buttonUpdateDatabase       = new javax.swing.JButton();
-        labelInfoList.setLabelFor(listPatterns);
-        labelInfoList.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.labelInfoList.text"));    // NOI18N
-        listPatterns.setModel(model);
-        listPatterns.setSelectionMode(
-            javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPatterns.addListSelectionListener(
-            new javax.swing.event.ListSelectionListener() {
+        buttonUpdateDatabase = new javax.swing.JButton();
+
+        menuItemDeletePattern.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemDeletePattern.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
+        menuItemDeletePattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.menuItemDeletePattern.text")); // NOI18N
+        menuItemDeletePattern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDeletePatternActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemDeletePattern);
+
+        labelInfoList.setLabelFor(list);
+        labelInfoList.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
+
+        list.setModel(model);
+        list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list.setComponentPopupMenu(popupMenu);
+        list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listPatternsValueChanged(evt);
+                listValueChanged(evt);
             }
         });
-        scrollPaneListPatterns.setViewportView(listPatterns);
-        textFieldInputPatterns.setText(ADD_INFO_TEXT);
-        textFieldInputPatterns.addKeyListener(new java.awt.event.KeyAdapter() {
+        list.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listKeyPressed(evt);
+            }
+        });
+        scrollPane.setViewportView(list);
+
+        labelTextFieldInputPattern.setLabelFor(textFieldInputPattern);
+        labelTextFieldInputPattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelTextFieldInputPattern.text")); // NOI18N
+
+        textFieldInputPattern.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textFieldInputPatternFocusGained(evt);
+            }
+        });
+        textFieldInputPattern.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                textFieldInputPatternsKeyReleased(evt);
+                textFieldInputPatternKeyReleased(evt);
             }
         });
-        buttonDeletePatterns.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.buttonDeletePatterns.text"));    // NOI18N
-        buttonDeletePatterns.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.buttonDeletePatterns.toolTipText"));    // NOI18N
-        buttonDeletePatterns.setEnabled(false);
-        buttonDeletePatterns.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonDeletePattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
+        buttonDeletePattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
+        buttonDeletePattern.setEnabled(false);
+        buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDeletePatternsActionPerformed(evt);
+                buttonDeletePatternActionPerformed(evt);
             }
         });
-        buttonInsertPatterns.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.buttonInsertPatterns.text"));    // NOI18N
-        buttonInsertPatterns.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.buttonInsertPatterns.toolTipText"));    // NOI18N
-        buttonInsertPatterns.setEnabled(false);
-        buttonInsertPatterns.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonInsertPattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
+        buttonInsertPattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
+        buttonInsertPattern.setEnabled(false);
+        buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonInsertPatternsActionPerformed(evt);
+                buttonInsertPatternActionPerformed(evt);
             }
         });
+
         labelInfoDatabase.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDatabase.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.labelInfoDatabase.text"));    // NOI18N
-        buttonCancelUpdateDatabase.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text"));    // NOI18N
+        labelInfoDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
+
+        buttonCancelUpdateDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
         buttonCancelUpdateDatabase.setEnabled(false);
-        buttonCancelUpdateDatabase.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonCancelUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelUpdateDatabaseActionPerformed(evt);
             }
         });
-        buttonUpdateDatabase.setText(
-            JptBundle.INSTANCE.getString(
-                "SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text"));    // NOI18N
-        buttonUpdateDatabase.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonUpdateDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
+        buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateDatabaseActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.TRAILING).addComponent(
-                        scrollPaneListPatterns,
-                        javax.swing.GroupLayout.Alignment.LEADING,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, 455,
-                        Short.MAX_VALUE).addComponent(
-                            labelInfoList,
-                            javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                textFieldInputPatterns,
-                                javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 455,
-                                Short.MAX_VALUE).addGroup(
-                                    layout.createSequentialGroup().addComponent(
-                                        buttonDeletePatterns).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                        buttonInsertPatterns)).addComponent(
-                                            labelInfoDatabase,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    455,
-                                                    Short.MAX_VALUE).addComponent(
-                                                        progressBarUpdateDatabase,
-                                                            javax.swing.GroupLayout.Alignment.LEADING,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                    455,
-                                                                    Short.MAX_VALUE).addGroup(
-                                                                        layout.createSequentialGroup().addComponent(
-                                                                            buttonCancelUpdateDatabase).addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                                    buttonUpdateDatabase))).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                    .addComponent(labelInfoList, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonDeletePattern)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonInsertPattern))
+                    .addComponent(labelInfoDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                    .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonCancelUpdateDatabase)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonUpdateDatabase))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(labelTextFieldInputPattern)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldInputPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    labelInfoList).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    scrollPaneListPatterns,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, 43,
-                    Short.MAX_VALUE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                        textFieldInputPatterns,
-                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                buttonInsertPatterns).addComponent(
-                                buttonDeletePatterns)).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                    labelInfoDatabase).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(
-                                    progressBarUpdateDatabase,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 22,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(
-                                        layout.createParallelGroup(
-                                            javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                                buttonUpdateDatabase).addComponent(
-                                                    buttonCancelUpdateDatabase)).addContainerGap()));
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelInfoList)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldInputPattern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTextFieldInputPattern))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonInsertPattern)
+                    .addComponent(buttonDeletePattern))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelInfoDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonUpdateDatabase)
+                    .addComponent(buttonCancelUpdateDatabase))
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void listPatternsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listPatternsValueChanged
-        setSelectedPatternToInput();
-        setEnabledButtons();
-    }//GEN-LAST:event_listPatternsValueChanged
+    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
+        handleListValueChanged(evt);
+    }//GEN-LAST:event_listValueChanged
 
-    private void textFieldInputPatternsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputPatternsKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            insertPattern();
-        } else {
-            setEnabledButtonInsertPattern();
-        }
-    }//GEN-LAST:event_textFieldInputPatternsKeyReleased
+    private void textFieldInputPatternKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputPatternKeyReleased
+        handleTextFieldInputPatternKeyReleased(evt);
+    }//GEN-LAST:event_textFieldInputPatternKeyReleased
 
     private void buttonCancelUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelUpdateDatabaseActionPerformed
         cancelUpdateDatabase();
     }//GEN-LAST:event_buttonCancelUpdateDatabaseActionPerformed
 
-    private void buttonDeletePatternsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletePatternsActionPerformed
+    private void buttonDeletePatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletePatternActionPerformed
         deletePattern();
-    }//GEN-LAST:event_buttonDeletePatternsActionPerformed
+    }//GEN-LAST:event_buttonDeletePatternActionPerformed
 
     private void buttonUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateDatabaseActionPerformed
         updateDatabase();
     }//GEN-LAST:event_buttonUpdateDatabaseActionPerformed
 
-    private void buttonInsertPatternsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertPatternsActionPerformed
+    private void buttonInsertPatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertPatternActionPerformed
         insertPattern();
-    }//GEN-LAST:event_buttonInsertPatternsActionPerformed
+    }//GEN-LAST:event_buttonInsertPatternActionPerformed
+
+    private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
+        handleListKeyPressed(evt);
+    }//GEN-LAST:event_listKeyPressed
+
+    private void menuItemDeletePatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDeletePatternActionPerformed
+        deletePattern();
+    }//GEN-LAST:event_menuItemDeletePatternActionPerformed
+
+    private void textFieldInputPatternFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldInputPatternFocusGained
+        textFieldInputPattern.selectAll();
+    }//GEN-LAST:event_textFieldInputPatternFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton      buttonCancelUpdateDatabase;
-    private javax.swing.JButton      buttonDeletePatterns;
-    private javax.swing.JButton      buttonInsertPatterns;
-    private javax.swing.JButton      buttonUpdateDatabase;
-    private javax.swing.JLabel       labelInfoDatabase;
-    private javax.swing.JLabel       labelInfoList;
-    private javax.swing.JList        listPatterns;
+    private javax.swing.JButton buttonCancelUpdateDatabase;
+    private javax.swing.JButton buttonDeletePattern;
+    private javax.swing.JButton buttonInsertPattern;
+    private javax.swing.JButton buttonUpdateDatabase;
+    private javax.swing.JLabel labelInfoDatabase;
+    private javax.swing.JLabel labelInfoList;
+    private javax.swing.JLabel labelTextFieldInputPattern;
+    private javax.swing.JList list;
+    private javax.swing.JMenuItem menuItemDeletePattern;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBarUpdateDatabase;
-    private javax.swing.JScrollPane  scrollPaneListPatterns;
-    private javax.swing.JTextField   textFieldInputPatterns;
-
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTextField textFieldInputPattern;
     // End of variables declaration//GEN-END:variables
 }
