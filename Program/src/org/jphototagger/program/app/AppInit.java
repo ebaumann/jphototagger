@@ -72,6 +72,7 @@ public final class AppInit {
         AppLookAndFeel.set();
         captureOutput();    // Has to be called before AppLoggingSystem.init()!
         AppLoggingSystem.init();
+        AppLogger.logSystemInfo();
         checkJavaVersion();
         lock();
         showSplashScreen();

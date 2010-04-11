@@ -49,8 +49,7 @@ import java.util.logging.LogRecord;
 public final class AppLogger {
     public static final String  USE_STRING = "AppLog.UseString";
     private static final String OS_VM_INFO = getOsVmInfo();
-
-    private AppLogger() {}
+    private static final String LINE_SEP = System.getProperty("line.separator");
 
     /**
      * Logs a message with the class' logger and the log level
@@ -295,4 +294,75 @@ public final class AppLogger {
                                     System.getProperty("java.vm.name"),
                                     System.getProperty("java.version"));
     }
+
+    private static String getSystemInfo() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(LINE_SEP + "Java Runtime Environment version: "
+                  + System.getProperty("java.version"));
+        sb.append(LINE_SEP + "Java Runtime Environment vendor: "
+                  + System.getProperty("java.vendor"));
+        sb.append(LINE_SEP + "Java vendor URL: "
+                  + System.getProperty("java.vendor.url"));
+        sb.append(LINE_SEP + "Java installation directory: "
+                  + System.getProperty("java.home"));
+        sb.append(LINE_SEP + "Java Virtual Machine specification version: "
+                  + System.getProperty("java.vm.specification.version"));
+        sb.append(LINE_SEP + "Java Virtual Machine specification vendor: "
+                  + System.getProperty("java.vm.specification.vendor"));
+        sb.append(LINE_SEP + "Java Virtual Machine specification name: "
+                  + System.getProperty("java.vm.specification.name"));
+        sb.append(LINE_SEP + "Java Virtual Machine implementation version: "
+                  + System.getProperty("java.vm.version"));
+        sb.append(LINE_SEP + "Java Virtual Machine implementation vendor: "
+                  + System.getProperty("java.vm.vendor"));
+        sb.append(LINE_SEP + "Java Virtual Machine implementation name: "
+                  + System.getProperty("java.vm.name"));
+        sb.append(LINE_SEP + "Java Runtime Environment specification version: "
+                  + System.getProperty("java.specification.version"));
+        sb.append(LINE_SEP + "Java Runtime Environment specification vendor: "
+                  + System.getProperty("java.specification.vendor"));
+        sb.append(LINE_SEP + "Java Runtime Environment specification name: "
+                  + System.getProperty("java.specification.name"));
+        sb.append(LINE_SEP + "Java class format version number: "
+                  + System.getProperty("java.class.version"));
+        sb.append(LINE_SEP + "Java class path: "
+                  + System.getProperty("java.class.path"));
+        sb.append(LINE_SEP + "List of paths to search when loading libraries: "
+                  + System.getProperty("java.library.path"));
+        sb.append(LINE_SEP + "Default temp file path: "
+                  + System.getProperty("java.io.tmpdir"));
+        sb.append(LINE_SEP + "Name of JIT compiler to use: "
+                  + System.getProperty("java.compiler"));
+        sb.append(LINE_SEP + "Path of extension directory or directories: "
+                  + System.getProperty("java.ext.dirs"));
+        sb.append(LINE_SEP + "Operating system name: "
+                  + System.getProperty("os.name"));
+        sb.append(LINE_SEP + "Operating system architecture: "
+                  + System.getProperty("os.arch"));
+        sb.append(LINE_SEP + "Operating system version: "
+                  + System.getProperty("os.version"));
+        sb.append(LINE_SEP + "File separator: "
+                  + System.getProperty("file.separator"));
+        sb.append(LINE_SEP + "Path separator: "
+                  + System.getProperty("path.separator"));
+        sb.append(LINE_SEP + "User's account name: "
+                  + System.getProperty("user.name"));
+        sb.append(LINE_SEP + "User's home directory: "
+                  + System.getProperty("user.home"));
+        sb.append(LINE_SEP + "User's current working directory: "
+                  + System.getProperty("user.dir"));
+
+        return sb.toString();
+    }
+
+    public static void logSystemInfo() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(LINE_SEP + "JPhotoTagger " + AppInfo.APP_VERSION);
+        sb.append(getSystemInfo());
+        logInfo(AppLogger.class, USE_STRING, sb.toString());
+    }
+
+    private AppLogger() {}
 }
