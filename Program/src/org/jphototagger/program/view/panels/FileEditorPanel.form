@@ -36,7 +36,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="labelCurrentFile" pref="397" max="32767" attributes="1"/>
+                          <Component id="labelCurrentFile" pref="419" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
@@ -100,7 +100,7 @@
                       <Component id="checkBoxReplaceExistingFiles" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="122" max="32767" attributes="0"/>
+                  <EmptySpace pref="194" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

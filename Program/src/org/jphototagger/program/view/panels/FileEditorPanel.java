@@ -35,6 +35,7 @@ import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
+import java.awt.Cursor;
 
 import java.io.File;
 
@@ -217,6 +218,11 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void handleSelectFilesActionPerformed() {
+        Cursor cursor = getCursor();
+
+        buttonSelectFiles.setEnabled(false);
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
         if (selectDirs) {
             selectDirectories();
         } else {
@@ -225,6 +231,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         boolean hasFiles = !selectedFiles.isEmpty();
 
+        setCursor(cursor);
+        buttonSelectFiles.setEnabled(true);
         buttonStart.setEnabled(hasFiles);
     }
 

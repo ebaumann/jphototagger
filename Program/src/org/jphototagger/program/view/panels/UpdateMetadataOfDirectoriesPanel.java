@@ -40,6 +40,7 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -50,6 +51,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import org.jphototagger.lib.componentutil.ListUtil;
 
 /**
  *
@@ -87,13 +89,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void removeSelectedDirectories() {
-        if (list.getSelectedIndex() >= 0) {
+        final int selIndex = list.getSelectedIndex();
+        if (selIndex >= 0) {
             for (Object selectedValue : list.getSelectedValues()) {
                 listModelDirectories.removeElement(selectedValue);
             }
 
             buttonStart.setEnabled(!listModelDirectories.isEmpty());
             labelFilecount.setText(Integer.toString(getFileCount()));
+            ListUtil.selectNearestIndex(list, selIndex);
+            list.requestFocusInWindow();
         }
     }
 
@@ -280,6 +285,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "UpdateMetadataOfDirectoriesPanel.DirChooser");
+
+        Cursor cursor = getCursor();
+
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        buttonChooseDirectories.setEnabled(false);
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
@@ -288,6 +298,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             lastDirectory = selDirs.get(0);
             addNotContainedDirectories(selDirs);
         }
+        setCursor(cursor);
+        buttonChooseDirectories.setEnabled(true);
     }
 
     private void addNotContainedDirectories(List<File> directories) {
@@ -465,10 +477,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
                     .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonChooseDirectories, buttonStart});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()

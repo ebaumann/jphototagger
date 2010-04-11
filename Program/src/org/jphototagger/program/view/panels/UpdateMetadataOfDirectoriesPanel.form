@@ -59,16 +59,16 @@
                   </Group>
                   <Component id="progressBar" alignment="0" pref="522" max="32767" attributes="2"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="buttonChooseDirectories" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonChooseDirectories" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonCancel" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonStart" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoCurrentFilename" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCurrentFilename" pref="424" max="32767" attributes="0"/>
+                      <Component id="labelCurrentFilename" pref="446" max="32767" attributes="0"/>
                   </Group>
                   <Component id="labelHeadingListDirectories" alignment="0" pref="522" max="32767" attributes="1"/>
               </Group>
