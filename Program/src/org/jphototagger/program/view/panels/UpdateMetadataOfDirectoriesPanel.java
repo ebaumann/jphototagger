@@ -80,15 +80,20 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         writeProperties();
     }
 
-    public void handleRemoveSelectedDirectories() {
-        removeSelectedDirectories();
-        buttonStart.setEnabled(!listModelDirectories.isEmpty());
-        labelFilecount.setText(Integer.toString(getFileCount()));
+    private void handleListKeyReleased(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            removeSelectedDirectories();
+        }
     }
 
     private void removeSelectedDirectories() {
-        for (Object selectedValue : listDirectories.getSelectedValues()) {
-            listModelDirectories.removeElement(selectedValue);
+        if (list.getSelectedIndex() >= 0) {
+            for (Object selectedValue : list.getSelectedValues()) {
+                listModelDirectories.removeElement(selectedValue);
+            }
+
+            buttonStart.setEnabled(!listModelDirectories.isEmpty());
+            labelFilecount.setText(Integer.toString(getFileCount()));
         }
     }
 
@@ -114,7 +119,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         setEnabledButtons(true);
         setEnabledCheckboxes(true);
         setProgressBarPreStartUpdate(filecount);
-        listDirectories.setEnabled(false);
+        list.setEnabled(false);
     }
 
     private void setProgressBarPreStartUpdate(int filecount) {
@@ -166,6 +171,12 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     private void setEnabledCheckboxes(boolean isUpdate) {
         checkBoxForce.setEnabled(!isUpdate);
         checkBoxIncludeSubdirectories.setEnabled(!isUpdate);
+    }
+
+    private void setEnabledMenuItems() {
+        boolean itemSelected = list.getSelectedIndex() >= 0;
+
+        menuItemDelete.setEnabled(itemSelected && list.isEnabled());
     }
 
     private void readProperties() {
@@ -229,7 +240,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         setEnabledButtons(false);
         setEnabledCheckboxes(false);
         labelCurrentFilename.setText("-");
-        listDirectories.setEnabled(true);
+        list.setEnabled(true);
     }
 
     @Override
@@ -339,9 +350,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu = new javax.swing.JPopupMenu();
+        menuItemDelete = new javax.swing.JMenuItem();
         labelHeadingListDirectories = new javax.swing.JLabel();
-        scrollPaneListDirectories = new javax.swing.JScrollPane();
-        listDirectories = new javax.swing.JList();
+        scrollPane = new javax.swing.JScrollPane();
+        list = new javax.swing.JList();
         labelInfoFilecount = new javax.swing.JLabel();
         labelFilecount = new javax.swing.JLabel();
         checkBoxForce = new javax.swing.JCheckBox();
@@ -353,17 +366,38 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
-        labelHeadingListDirectories.setLabelFor(listDirectories);
-        labelHeadingListDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
-
-        listDirectories.setModel(listModelDirectories);
-        listDirectories.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererDirectories());
-        listDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                listDirectoriesKeyReleased(evt);
+        popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                popupMenuPopupMenuWillBecomeVisible(evt);
             }
         });
-        scrollPaneListDirectories.setViewportView(listDirectories);
+
+        menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
+        menuItemDelete.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDeleteActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemDelete);
+
+        labelHeadingListDirectories.setLabelFor(list);
+        labelHeadingListDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
+
+        list.setModel(listModelDirectories);
+        list.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererDirectories());
+        list.setComponentPopupMenu(popupMenu);
+        list.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                listKeyReleased(evt);
+            }
+        });
+        scrollPane.setViewportView(list);
 
         labelInfoFilecount.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
 
@@ -414,7 +448,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
                     .addComponent(checkBoxIncludeSubdirectories)
                     .addComponent(checkBoxForce)
                     .addGroup(layout.createSequentialGroup()
@@ -441,7 +475,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                 .addContainerGap()
                 .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -465,11 +499,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listDirectoriesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listDirectoriesKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            handleRemoveSelectedDirectories();
-        }
-    }//GEN-LAST:event_listDirectoriesKeyReleased
+    private void listKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyReleased
+        handleListKeyReleased(evt);
+    }//GEN-LAST:event_listKeyReleased
 
     private void buttonChooseDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoriesActionPerformed
         chooseDirectories();
@@ -483,6 +515,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         cancelUpdate();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
+    private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDeleteActionPerformed
+        removeSelectedDirectories();
+    }//GEN-LAST:event_menuItemDeleteActionPerformed
+
+    private void popupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popupMenuPopupMenuWillBecomeVisible
+        setEnabledMenuItems();
+    }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseDirectories;
@@ -494,8 +534,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     private javax.swing.JLabel labelHeadingListDirectories;
     private javax.swing.JLabel labelInfoCurrentFilename;
     private javax.swing.JLabel labelInfoFilecount;
-    private javax.swing.JList listDirectories;
+    private javax.swing.JList list;
+    private javax.swing.JMenuItem menuItemDelete;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JScrollPane scrollPaneListDirectories;
+    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }
