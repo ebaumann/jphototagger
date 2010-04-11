@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ModifyImageCollections;
@@ -30,8 +32,6 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,10 +56,10 @@ public final class ControllerAddImageCollection
         PopupMenuThumbnails.INSTANCE;
     private final PopupMenuImageCollections popupMenuImageCollections =
         PopupMenuImageCollections.INSTANCE;
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final JList listImageCollections =
+    private final AppPanel appPanel             = GUI.INSTANCE.getAppPanel();
+    private final JList    listImageCollections =
         appPanel.getListImageCollections();
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerAddImageCollection() {
@@ -88,7 +88,7 @@ public final class ControllerAddImageCollection
     private void createImageCollectionOfSelectedFiles() {
         final String collectionName =
             ModifyImageCollections.insertImageCollection(
-                thumbnailsPanel.getSelectedFiles());
+                tnPanel.getSelectedFiles());
 
         if (collectionName != null) {
             SwingUtilities.invokeLater(new Runnable() {

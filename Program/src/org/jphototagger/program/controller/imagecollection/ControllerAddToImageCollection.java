@@ -37,9 +37,8 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann
  */
 public final class ControllerAddToImageCollection implements ActionListener {
-    private final PopupMenuThumbnails popupMenu       =
-        PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     thumbnailsPanel =
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     tnPanel   =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerAddToImageCollection() {
@@ -60,7 +59,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
 
         if (collectionName != null) {
             ModifyImageCollections.addImagesToCollection(collectionName,
-                    thumbnailsPanel.getSelectedFiles());
+                    tnPanel.getSelectedFiles());
         }
     }
 

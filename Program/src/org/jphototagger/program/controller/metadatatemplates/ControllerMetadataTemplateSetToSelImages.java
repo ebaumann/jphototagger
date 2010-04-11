@@ -97,7 +97,6 @@ public final class ControllerMetadataTemplateSetToSelImages
     }
 
     private boolean imagesSelected() {
-        return GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-            .getSelectionCount() > 0;
+        return GUI.INSTANCE.getAppPanel().getPanelThumbnails().isFileSelected();
     }
 }

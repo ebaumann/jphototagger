@@ -41,9 +41,8 @@ import java.util.Set;
  * @author  Elmar Baumann
  */
 public final class ShowThumbnailsContainingKeywords implements Runnable {
-    private final DatabaseImageFiles db              =
-        DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel    thumbnailsPanel =
+    private final DatabaseImageFiles db      = DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel    tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final EditMetadataPanels editPanels =
         GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
@@ -58,7 +57,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
      */
     public ShowThumbnailsContainingKeywords(List<String> keywords,
             ThumbnailsPanel.Settings settings) {
-            if (keywords == null) {
+        if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
 
@@ -78,8 +77,8 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
 
         if (imageFiles != null) {
             ControllerSortThumbnails.setLastSort();
-            thumbnailsPanel.setFiles(imageFiles, Content.KEYWORD);
-            thumbnailsPanel.apply(tnPanelSettings);
+            tnPanel.setFiles(imageFiles, Content.KEYWORD);
+            tnPanel.apply(tnPanelSettings);
         }
     }
 
@@ -115,7 +114,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     }
 
     private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
+        if (!tnPanel.isFileSelected()) {
             editPanels.setEditable(false);
         }
     }

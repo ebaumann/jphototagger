@@ -49,12 +49,13 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerCopyOrCutFilesToClipboard
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popup        =
+        PopupMenuThumbnails.INSTANCE;
     private final JMenuItem           menuItemCopy =
         popup.getItemCopyToClipboard();
-    private final JMenuItem           menuItemCut =
+    private final JMenuItem           menuItemCut  =
         popup.getItemCutToClipboard();
 
     public ControllerCopyOrCutFilesToClipboard() {
@@ -64,13 +65,13 @@ public final class ControllerCopyOrCutFilesToClipboard
     private void listen() {
         menuItemCopy.addActionListener(this);
         menuItemCut.addActionListener(this);
-        thumbnailsPanel.addThumbnailsPanelListener(this);
-        thumbnailsPanel.addKeyListener(this);
+        tnPanel.addThumbnailsPanelListener(this);
+        tnPanel.addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
+        if (!tnPanel.isFileSelected()) {
             return;
         }
 
@@ -82,14 +83,14 @@ public final class ControllerCopyOrCutFilesToClipboard
     }
 
     private void perform(FileAction fa) {
-        thumbnailsPanel.setFileAction(fa);
+        tnPanel.setFileAction(fa);
         transferSelectedFiles();
         popup.getItemPasteFromClipboard().setEnabled(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (thumbnailsPanel.getSelectionCount() > 0) {
+        if (tnPanel.isFileSelected()) {
             setFileAction(evt.getSource());
             transferSelectedFiles();
             popup.getItemPasteFromClipboard().setEnabled(true);
@@ -98,9 +99,9 @@ public final class ControllerCopyOrCutFilesToClipboard
 
     public void setFileAction(Object source) {
         if (source == menuItemCopy) {
-            thumbnailsPanel.setFileAction(FileAction.COPY);
+            tnPanel.setFileAction(FileAction.COPY);
         } else if (source == menuItemCut) {
-            thumbnailsPanel.setFileAction(FileAction.CUT);
+            tnPanel.setFileAction(FileAction.CUT);
         } else {
             assert false : "Invalid source: " + source;
         }
@@ -109,13 +110,13 @@ public final class ControllerCopyOrCutFilesToClipboard
     private void transferSelectedFiles() {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
-        ClipboardUtil.copyToClipboard(thumbnailsPanel.getSelectedFiles(),
-                                      clipboard, null);
+        ClipboardUtil.copyToClipboard(tnPanel.getSelectedFiles(), clipboard,
+                                      null);
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
-        final boolean imagesSelected = thumbnailsPanel.getSelectionCount() > 0;
+        final boolean imagesSelected = tnPanel.isFileSelected();
 
         menuItemCopy.setEnabled(imagesSelected);
 

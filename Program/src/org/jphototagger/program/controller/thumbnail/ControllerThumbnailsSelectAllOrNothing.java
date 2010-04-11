@@ -37,7 +37,7 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerThumbnailsSelectAllOrNothing
         implements ActionListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem itemSelectAll =
         PopupMenuThumbnails.INSTANCE.getItemSelectAll();
@@ -58,9 +58,9 @@ public final class ControllerThumbnailsSelectAllOrNothing
         Object source = evt.getSource();
 
         if (source == itemSelectAll) {
-            thumbnailsPanel.selectAll();
+            tnPanel.selectAll();
         } else if (source == itemSelectNoting) {
-            thumbnailsPanel.clearSelection();
+            tnPanel.clearSelection();
         }
     }
 }

@@ -137,8 +137,7 @@ public final class ControllerCopyPasteMetadata
     @Override
     public void thumbnailsSelectionChanged() {
         menuItemCopy.setEnabled(
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectionCount()
-            > 0);
+            GUI.INSTANCE.getAppPanel().getPanelThumbnails().isFileSelected());
     }
 
     @Override

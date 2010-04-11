@@ -88,19 +88,18 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
             buttonDelete.setEnabled(selected);
             buttonEdit.setEnabled(selected);
             buttonRename.setEnabled(selected);
-            buttonAddToSelImages
-                .setEnabled(selected
-                            && (GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-                                .getSelectionCount() > 0));
+            final ThumbnailsPanel tnPanel =
+                    GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+            buttonAddToSelImages.setEnabled(selected 
+                                            && (tnPanel.isFileSelected()));
         }
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
-        buttonAddToSelImages
-            .setEnabled((list.getSelectedIndex() >= 0)
-                        && (GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-                            .getSelectionCount() > 0));
+        final ThumbnailsPanel tnPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) 
+                                        && tnPanel.isFileSelected());
     }
 
     @Override

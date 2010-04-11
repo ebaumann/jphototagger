@@ -59,7 +59,7 @@ public final class ControllerOpenFilesWithStandardApp
         ThumbnailsPanel tnPanel =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
-        if (tnPanel.getSelectionCount() < 1) {
+        if (!tnPanel.isFileSelected()) {
             return;
         }
 

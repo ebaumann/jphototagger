@@ -52,7 +52,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private final Map<JMenuItem, Insert[]> databaseUpdateOfMenuItem =
         new HashMap<JMenuItem, Insert[]>();
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     thumbnailsPanel =
+    private final ThumbnailsPanel     tnPanel   =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     /**
@@ -86,15 +86,14 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (thumbnailsPanel.getSelectionCount() > 0) {
+        if (tnPanel.isFileSelected()) {
             updateMetadata(getMetadataToInsertIntoDatabase(evt.getSource()));
         }
     }
 
     private void updateMetadata(Insert[] what) {
         InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(
-                thumbnailsPanel.getSelectedFiles(), what);
+            new InsertImageFilesIntoDatabase(tnPanel.getSelectedFiles(), what);
         String pBarString =
             JptBundle.INSTANCE.getString(
                 "ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String");

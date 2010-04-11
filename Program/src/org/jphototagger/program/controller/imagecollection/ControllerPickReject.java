@@ -97,7 +97,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
             return;
         }
 
-        if (panelThumbnails.getSelectionCount() > 0) {
+        if (panelThumbnails.isFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
 
             GUI.INSTANCE.getAppPanel().setStatusbarText(getPopupMessage(pick),

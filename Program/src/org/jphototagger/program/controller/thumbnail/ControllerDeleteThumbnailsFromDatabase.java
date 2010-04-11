@@ -46,11 +46,9 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerDeleteThumbnailsFromDatabase
         implements ActionListener {
-    private final DatabaseImageFiles  db              =
-        DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu       =
-        PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     thumbnailsPanel =
+    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPanel     tnPanel   =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerDeleteThumbnailsFromDatabase() {
@@ -71,17 +69,16 @@ public final class ControllerDeleteThumbnailsFromDatabase
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    List<File> files        =
-                        thumbnailsPanel.getSelectedFiles();
-                    int        countFiles   = files.size();
-                    int        countDeleted = db.delete(files);
+                    List<File> selFiles     = tnPanel.getSelectedFiles();
+                    int        countFiles   = selFiles.size();
+                    int        countDeleted = db.delete(selFiles);
 
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
                     }
 
-                    repaint(files);
-                    thumbnailsPanel.repaint();
+                    repaint(selFiles);
+                    tnPanel.repaint();
                 }
             });
         }
@@ -96,14 +93,14 @@ public final class ControllerDeleteThumbnailsFromDatabase
             }
         }
 
-        thumbnailsPanel.remove(deleted);
+        tnPanel.remove(deleted);
     }
 
     private boolean confirmDelete() {
         return MessageDisplayer.confirmYesNo(
             null,
             "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
-            thumbnailsPanel.getSelectionCount());
+            tnPanel.getSelectionCount());
     }
 
     private void errorMessageDeleteImageFiles(int countFiles,

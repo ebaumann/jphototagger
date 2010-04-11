@@ -43,7 +43,7 @@ import java.util.List;
  */
 public final class ControllerMoveFiles
         implements ActionListener, FileSystemListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
@@ -62,12 +62,12 @@ public final class ControllerMoveFiles
     }
 
     private void moveSelectedFiles() {
-        List<File> files = thumbnailsPanel.getSelectedFiles();
+        List<File> selFiles = tnPanel.getSelectedFiles();
 
-        if (files.size() > 0) {
+        if (!selFiles.isEmpty()) {
             MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
 
-            dlg.setSourceFiles(files);
+            dlg.setSourceFiles(selFiles);
             dlg.addFileSystemListener(this);
             dlg.setVisible(true);
         } else {

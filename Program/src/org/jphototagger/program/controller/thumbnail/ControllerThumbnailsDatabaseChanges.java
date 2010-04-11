@@ -42,7 +42,7 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseImageFilesListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
 
     public ControllerThumbnailsDatabaseChanges() {
@@ -116,7 +116,7 @@ public final class ControllerThumbnailsDatabaseChanges
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                thumbnailsPanel.remove(Collections.singleton(imageFile));
+                tnPanel.remove(Collections.singleton(imageFile));
             }
         });
     }

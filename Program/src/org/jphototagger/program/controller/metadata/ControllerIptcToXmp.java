@@ -59,13 +59,13 @@ public final class ControllerIptcToXmp implements ActionListener {
     }
 
     private void processSelectedFiles() {
-        List<File> selectedFiles =
+        List<File> selFiles =
             GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
 
-        if (selectedFiles.size() > 0) {
+        if (selFiles.size() > 0) {
             IptcToXmpDialog dlg = new IptcToXmpDialog();
 
-            dlg.setFiles(selectedFiles);
+            dlg.setFiles(selFiles);
             dlg.setVisible(true);
         }
     }

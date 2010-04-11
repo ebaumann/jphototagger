@@ -44,9 +44,8 @@ import javax.swing.JTextArea;
  * @author  Elmar Baumann
  */
 public final class ControllerGoTo implements ActionListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel    tnPanel    = appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
     private final JTextArea                     textFieldSearch =
@@ -140,7 +139,7 @@ public final class ControllerGoTo implements ActionListener {
         } else if (goTo.equals(AppFrame.GoTo.FAST_SEARCH)) {
             textFieldSearch.requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.THUMBNAILS_PANEL)) {
-            thumbnailsPanel.requestFocusInWindow();
+            tnPanel.requestFocusInWindow();
         }
 
         if (goTo.equals(AppFrame.GoTo.EDIT_PANELS)) {

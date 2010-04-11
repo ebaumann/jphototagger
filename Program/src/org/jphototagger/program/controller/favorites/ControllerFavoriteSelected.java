@@ -42,21 +42,17 @@ import javax.swing.JTree;
  */
 public final class ControllerFavoriteSelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel        appPanel                =
-        GUI.INSTANCE.getAppPanel();
-    private final JTree           treeFavoriteDirectories =
-        appPanel.getTreeFavorites();
-    private final ThumbnailsPanel thumbnailsPanel         =
-        appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+    private final JTree           tree     = appPanel.getTreeFavorites();
+    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
 
     public ControllerFavoriteSelected() {
         listen();
     }
 
     private void listen() {
-        treeFavoriteDirectories.getSelectionModel().addTreeSelectionListener(
-            this);
-        thumbnailsPanel.addRefreshListener(this, Content.FAVORITE);
+        tree.getSelectionModel().addTreeSelectionListener(this);
+        tnPanel.addRefreshListener(this, Content.FAVORITE);
     }
 
     @Override
@@ -73,7 +69,7 @@ public final class ControllerFavoriteSelected
             throw new NullPointerException("evt == null");
         }
 
-        if (treeFavoriteDirectories.getSelectionCount() > 0) {
+        if (tree.getSelectionCount() > 0) {
             FavoritesHelper.setFilesToThumbnailPanel(
                 FavoritesHelper.getFilesOfSelectedtDirectory(),
                 evt.getSettings());

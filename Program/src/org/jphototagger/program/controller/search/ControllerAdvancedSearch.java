@@ -53,15 +53,16 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann
  */
 public final class ControllerAdvancedSearch implements ActionListener {
-    private final AppPanel            appPanel = GUI.INSTANCE.getAppPanel();
+    private final AppPanel            appPanel    = GUI.INSTANCE.getAppPanel();
     private final AdvancedSearchPanel searchPanel =
         AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel();
-    private final JButton         buttonSearch = searchPanel.getButtonSearch();
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final JButton            buttonSearch   =
+        searchPanel.getButtonSearch();
+    private final ThumbnailsPanel    tnPanel        =
         appPanel.getPanelThumbnails();
     private final List<JTree>        selectionTrees =
         appPanel.getSelectionTrees();
-    private final EditMetadataPanels editPanels =
+    private final EditMetadataPanels editPanels     =
         appPanel.getEditMetadataPanels();
 
     public ControllerAdvancedSearch() {
@@ -83,7 +84,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
 
                 setTitle(savedSearch.getName());
                 SearchHelper.setSort(savedSearch);
-                thumbnailsPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
+                tnPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
             }
             private void setTitle(String name) {
                 GUI.INSTANCE.getAppFrame().setTitle((name == null)
@@ -97,7 +98,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
     }
 
     private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
+        if (!tnPanel.isFileSelected()) {
             editPanels.setEditable(false);
         }
     }

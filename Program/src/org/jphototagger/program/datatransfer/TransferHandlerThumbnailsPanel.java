@@ -118,8 +118,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             return false;
         }
 
-        ThumbnailsPanel panel = (ThumbnailsPanel) support.getComponent();
-        boolean         imagesSelected = panel.getSelectionCount() > 0;
+        ThumbnailsPanel tnPanel = (ThumbnailsPanel) support.getComponent();
 
         if (isMetadataDrop(support)) {
             insertMetadata(support);
@@ -127,14 +126,14 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             return true;
         }
 
-        if (imagesSelected && isImageCollection(panel)) {
-            moveSelectedImages(support, panel);
+        if (tnPanel.isFileSelected() && isImageCollection(tnPanel)) {
+            moveSelectedImages(support, tnPanel);
 
             return true;
         }
 
         if (importFiles(getCurrentDirectory(), support)) {
-            panel.refresh();
+            tnPanel.refresh();
 
             return true;
         }

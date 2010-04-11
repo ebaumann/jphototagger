@@ -163,7 +163,7 @@ public final class FavoritesHelper {
             GUI.INSTANCE.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
-            File                   dir = null;
+            File                   dir  = null;
             DefaultMutableTreeNode node =
                 (DefaultMutableTreeNode) path.getLastPathComponent();
             Object userObject = node.getUserObject();
@@ -199,8 +199,9 @@ public final class FavoritesHelper {
     }
 
     private static class SetFiles implements Runnable {
-        private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
-        private final ThumbnailsPanel thumbnailsPanel =
+        private final AppPanel           appPanel   =
+            GUI.INSTANCE.getAppPanel();
+        private final ThumbnailsPanel    tnPanel    =
             appPanel.getPanelThumbnails();
         private final EditMetadataPanels editPanels =
             appPanel.getEditMetadataPanels();
@@ -220,8 +221,8 @@ public final class FavoritesHelper {
         public void run() {
             ControllerSortThumbnails.setLastSort();
             setTitle();
-            thumbnailsPanel.setFiles(files, Content.FAVORITE);
-            thumbnailsPanel.apply(tnPanelSettings);
+            tnPanel.setFiles(files, Content.FAVORITE);
+            tnPanel.apply(tnPanelSettings);
             setMetadataEditable();
         }
 
@@ -237,7 +238,7 @@ public final class FavoritesHelper {
         }
 
         private void setMetadataEditable() {
-            if (thumbnailsPanel.getSelectionCount() <= 0) {
+            if (!tnPanel.isFileSelected()) {
                 editPanels.setEditable(false);
             }
         }

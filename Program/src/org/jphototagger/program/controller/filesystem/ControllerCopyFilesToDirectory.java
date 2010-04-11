@@ -42,9 +42,8 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ControllerCopyFilesToDirectory implements ActionListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
 
     public ControllerCopyFilesToDirectory() {
         listen();
@@ -61,12 +60,12 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     }
 
     private void copySelectedFiles() {
-        List<File> files = thumbnailsPanel.getSelectedFiles();
+        List<File> selFiles = tnPanel.getSelectedFiles();
 
-        if (files.size() > 0) {
+        if (!selFiles.isEmpty()) {
             CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
 
-            dlg.setSourceFiles(files);
+            dlg.setSourceFiles(selFiles);
             dlg.addFileSystemActionListener(
                 new FilesystemDatabaseUpdater(true));
             dlg.setVisible(true);

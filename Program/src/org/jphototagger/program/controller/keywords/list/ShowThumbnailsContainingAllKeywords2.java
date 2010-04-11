@@ -41,9 +41,8 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
-    private final DatabaseImageFiles db              =
-        DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel    thumbnailsPanel =
+    private final DatabaseImageFiles db      = DatabaseImageFiles.INSTANCE;
+    private final ThumbnailsPanel    tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final EditMetadataPanels editPanels =
         GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
@@ -73,7 +72,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         List<File> imageFiles = getImageFilesOfKeywords();
 
         ControllerSortThumbnails.setLastSort();
-        thumbnailsPanel.setFiles(imageFiles, Content.KEYWORD);
+        tnPanel.setFiles(imageFiles, Content.KEYWORD);
     }
 
     private List<File> getImageFilesOfKeywords() {
@@ -110,7 +109,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     }
 
     private void setMetadataEditable() {
-        if (thumbnailsPanel.getSelectionCount() <= 0) {
+        if (!tnPanel.isFileSelected()) {
             editPanels.setEditable(false);
         }
     }

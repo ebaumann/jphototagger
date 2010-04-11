@@ -56,10 +56,9 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerTimelineItemSelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel        appPanel        = GUI.INSTANCE.getAppPanel();
-    private final JTree           treeTimeline    = appPanel.getTreeTimeline();
-    private final ThumbnailsPanel thumbnailsPanel =
-        appPanel.getPanelThumbnails();
+    private final AppPanel        appPanel     = GUI.INSTANCE.getAppPanel();
+    private final JTree           treeTimeline = appPanel.getTreeTimeline();
+    private final ThumbnailsPanel tnPanel      = appPanel.getPanelThumbnails();
 
     public ControllerTimelineItemSelected() {
         listen();
@@ -67,7 +66,7 @@ public final class ControllerTimelineItemSelected
 
     private void listen() {
         treeTimeline.addTreeSelectionListener(this);
-        thumbnailsPanel.addRefreshListener(this, Content.TIMELINE);
+        tnPanel.addRefreshListener(this, Content.TIMELINE);
     }
 
     @Override
@@ -100,7 +99,7 @@ public final class ControllerTimelineItemSelected
                         public void run() {
                             setFilesOfPossibleNodeToThumbnailsPanel(
                                 lastPathComponent);
-                            thumbnailsPanel.apply(settings);
+                            tnPanel.apply(settings);
                         }
                     });
                 }
@@ -126,7 +125,7 @@ public final class ControllerTimelineItemSelected
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             ControllerSortThumbnails.setLastSort();
-            thumbnailsPanel.setFiles(
+            tnPanel.setFiles(
                 DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(),
                 Content.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
@@ -151,7 +150,7 @@ public final class ControllerTimelineItemSelected
                                            date.year, month, day));
 
                 ControllerSortThumbnails.setLastSort();
-                thumbnailsPanel.setFiles(files, Content.TIMELINE);
+                tnPanel.setFiles(files, Content.TIMELINE);
             }
         }
     }

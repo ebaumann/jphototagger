@@ -54,7 +54,7 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerRenameFiles
         implements ActionListener, KeyListener, FileSystemListener {
-    private final ThumbnailsPanel thumbnailsPanel =
+    private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final JMenuItem menuItemRename =
         PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles();
@@ -65,7 +65,7 @@ public final class ControllerRenameFiles
     }
 
     private void listen() {
-        thumbnailsPanel.addKeyListener(this);
+        tnPanel.addKeyListener(this);
         menuItemRename.addActionListener(this);
     }
 
@@ -84,16 +84,16 @@ public final class ControllerRenameFiles
     }
 
     private void renameSelectedFiles() {
-        List<File> files = thumbnailsPanel.getSelectedFiles();
+        List<File> selFiles = tnPanel.getSelectedFiles();
 
-        if (files.size() > 0) {
+        if (selFiles.size() > 0) {
             RenameDialog dlg = new RenameDialog();
 
-            Collections.sort(files);
-            dlg.setImageFiles(files);
+            Collections.sort(selFiles);
+            dlg.setImageFiles(selFiles);
             dlg.addFileSystemListener(this);
             dlg.setEnabledTemplates(
-                thumbnailsPanel.getContent().isUniqueFileSystemDirectory());
+                tnPanel.getContent().isUniqueFileSystemDirectory());
             dlg.setVisible(true);
         }
     }
@@ -130,7 +130,7 @@ public final class ControllerRenameFiles
                 ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
                 XmpCache.INSTANCE.updateFiles(fromFile, toFile);
                 RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                thumbnailsPanel.rename(fromFile, toFile);
+                tnPanel.rename(fromFile, toFile);
             }
         });
     }
