@@ -211,7 +211,7 @@ public final class ListUtil {
             throw new NullPointerException("model == null");
         }
 
-        int     size = model.getSize();
+        int     size    = model.getSize();
         boolean canSwap = (indexFirstElement >= 0)
                           && (indexFirstElement < size)
                           && (indexSecondElement >= 0)
@@ -431,5 +431,28 @@ public final class ListUtil {
         }
 
         return indices;
+    }
+
+    /**
+     * Selects an item in the list with the nearest index to a given index.
+     *
+     * @param  list  list
+     * @param  index index
+     * @throws       IllegalArgumentException if index is negative
+     */
+    public static void selectNearestIndex(JList list, int index) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
+        if (index < 0) {
+            throw new IllegalArgumentException("Negative index: " + index);
+        }
+
+        int size = list.getModel().getSize();
+
+        if (size > 0) {
+            list.setSelectedIndex(Math.min(size - 1, index));
+        }
     }
 }
