@@ -68,6 +68,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
         if (db.exists(trimmedPattern)) {
             errorMessageExists(trimmedPattern);
+            return;
         }
 
         if (db.insert(trimmedPattern)) {
