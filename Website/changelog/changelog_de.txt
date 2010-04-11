@@ -6,6 +6,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.28 2010-04-11
 -----------------
 
+* Synonyme (F7): Kontextmenü hinzugefügt für ausgewählte Wörter und Synonyme
 * Bearbeiten > Einstellungen > Aktionen:
   * Aktionen können in der Liste via Ziehen und Ablegen angeordnet werden
   * Liste hat Kontextmenü und Tastenkürzel mit den gleichen Aktionen wie die

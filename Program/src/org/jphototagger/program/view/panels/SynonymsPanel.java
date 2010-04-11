@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.view.panels;
 
+import java.awt.event.MouseEvent;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -68,6 +69,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         textFieldSynonyms.getDocument().addDocumentListener(this);
         MnemonicUtil.setMnemonics((Container) this);
         setAutocomplete();
+        setEnabled();
     }
 
     private void setAutocomplete() {
@@ -86,7 +88,7 @@ public class SynonymsPanel extends javax.swing.JPanel
                 setSynonyms();
             }
 
-            setEnabledButtons();
+            setEnabled();
         }
     }
 
@@ -104,13 +106,13 @@ public class SynonymsPanel extends javax.swing.JPanel
         }
     }
 
-    private void setEnabledButtons() {
-        setEnabledAddButtons();
-        setEnabledRemoveButtons();
-        setEnabledChangeButtons();
+    private void setEnabled() {
+        setEnabledAdd();
+        setEnabledRemove();
+        setEnabledChange();
     }
 
-    private void setEnabledAddButtons() {
+    private void setEnabledAdd() {
         boolean wordExists    = !textAreaWords.getText().trim().isEmpty();
         boolean synonymExists = !textFieldSynonyms.getText().trim().isEmpty();
         boolean wordSelected  = listWords.getSelectedValue() != null;
@@ -119,20 +121,24 @@ public class SynonymsPanel extends javax.swing.JPanel
         buttonAddSynonym.setEnabled(synonymExists && wordSelected);
     }
 
-    private void setEnabledRemoveButtons() {
+    private void setEnabledRemove() {
         boolean wordSel    = listWords.getSelectedValue() != null;
         boolean synonymSel = listSynonyms.getSelectedValue() != null;
 
         buttonRemoveWord.setEnabled(wordSel);
+        menuItemRemoveWord.setEnabled(wordSel);
         buttonRemoveSynonym.setEnabled(synonymSel);
+        menuItemRemoveSynonym.setEnabled(synonymSel);
     }
 
-    private void setEnabledChangeButtons() {
+    private void setEnabledChange() {
         boolean wordSel    = listWords.getSelectedValue() != null;
         boolean synonymSel = listSynonyms.getSelectedValue() != null;
 
         buttonChangeWord.setEnabled(wordSel);
+        menuItemChangeWord.setEnabled(wordSel);
         buttonChangeSynonym.setEnabled(synonymSel);
+        menuItemChangeSynonym.setEnabled(synonymSel);
     }
 
     @Override
@@ -141,7 +147,7 @@ public class SynonymsPanel extends javax.swing.JPanel
             return;
         }
 
-        setEnabledButtons();
+        setEnabled();
     }
 
     @Override
@@ -150,7 +156,7 @@ public class SynonymsPanel extends javax.swing.JPanel
             return;
         }
 
-        setEnabledButtons();
+        setEnabled();
     }
 
     @Override
@@ -159,7 +165,7 @@ public class SynonymsPanel extends javax.swing.JPanel
             return;
         }
 
-        setEnabledButtons();
+        setEnabled();
     }
 
     private void addWord() {
@@ -170,7 +176,7 @@ public class SynonymsPanel extends javax.swing.JPanel
             listenToDocuments = false;
             textAreaWords.setText("");
             listenToDocuments = true;
-            setEnabledButtons();
+            setEnabled();
             textAreaWords.requestFocusInWindow();
         }
     }
@@ -214,7 +220,7 @@ public class SynonymsPanel extends javax.swing.JPanel
             listenToDocuments = false;
             textFieldSynonyms.setText("");
             listenToDocuments = true;
-            setEnabledButtons();
+            setEnabled();
             textFieldSynonyms.requestFocusInWindow();
         }
     }
@@ -257,6 +263,47 @@ public class SynonymsPanel extends javax.swing.JPanel
         MessageDisplayer.information(this, "SynonymsPanel.Info.AddAllKeywords");
     }
 
+    private void handleListSynonymsKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            removeSynonym();
+        } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            changeSynonym();
+        }
+    }
+
+    private void handleListSynonymsMouseClicked(MouseEvent evt) {
+        if (MouseEventUtil.isDoubleClick(evt)) {
+            changeSynonym();
+        }
+    }
+
+    private void handleListWordsKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            removeWord();
+        } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            changeWord();
+        }
+    }
+
+    private void handleListWordsMouseClicked(MouseEvent evt) {
+        if (MouseEventUtil.isDoubleClick(evt)) {
+            changeWord();
+        }
+    }
+
+    private void handleTextAreaWordsKeyPressed(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            addWord();
+        }
+    }
+
+    private void handleTextFieldSynonymsKeyPressed(KeyEvent evt) {
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)
+                && (listWords.getSelectedValue() != null)) {
+            addSynonym();
+        }
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -268,6 +315,12 @@ public class SynonymsPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenuWords = new javax.swing.JPopupMenu();
+        menuItemChangeWord = new javax.swing.JMenuItem();
+        menuItemRemoveWord = new javax.swing.JMenuItem();
+        popupMenuSynonyms = new javax.swing.JPopupMenu();
+        menuItemChangeSynonym = new javax.swing.JMenuItem();
+        menuItemRemoveSynonym = new javax.swing.JMenuItem();
         labelTextAreaWord = new javax.swing.JLabel();
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
         textAreaWords = new javax.swing.JTextArea();
@@ -290,6 +343,46 @@ public class SynonymsPanel extends javax.swing.JPanel
         buttonAddAllKeywords = new javax.swing.JButton();
         labelInfoAddSynonym = new javax.swing.JLabel();
 
+        menuItemChangeWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuItemChangeWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_rename.png"))); // NOI18N
+        menuItemChangeWord.setText(JptBundle.INSTANCE.getString("SynonymsPanel.menuItemChangeWord.text")); // NOI18N
+        menuItemChangeWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemChangeWordActionPerformed(evt);
+            }
+        });
+        popupMenuWords.add(menuItemChangeWord);
+
+        menuItemRemoveWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemRemoveWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
+        menuItemRemoveWord.setText(JptBundle.INSTANCE.getString("SynonymsPanel.menuItemRemoveWord.text")); // NOI18N
+        menuItemRemoveWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRemoveWordActionPerformed(evt);
+            }
+        });
+        popupMenuWords.add(menuItemRemoveWord);
+
+        menuItemChangeSynonym.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuItemChangeSynonym.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_rename.png"))); // NOI18N
+        menuItemChangeSynonym.setText(JptBundle.INSTANCE.getString("SynonymsPanel.menuItemChangeSynonym.text")); // NOI18N
+        menuItemChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemChangeSynonymActionPerformed(evt);
+            }
+        });
+        popupMenuSynonyms.add(menuItemChangeSynonym);
+
+        menuItemRemoveSynonym.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        menuItemRemoveSynonym.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
+        menuItemRemoveSynonym.setText(JptBundle.INSTANCE.getString("SynonymsPanel.menuItemRemoveSynonym.text")); // NOI18N
+        menuItemRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRemoveSynonymActionPerformed(evt);
+            }
+        });
+        popupMenuSynonyms.add(menuItemRemoveSynonym);
+
         labelTextAreaWord.setLabelFor(textAreaWords);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
         labelTextAreaWord.setText(bundle.getString("SynonymsPanel.labelTextAreaWord.text")); // NOI18N
@@ -311,6 +404,7 @@ public class SynonymsPanel extends javax.swing.JPanel
 
         listWords.setModel(modelWords);
         listWords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listWords.setComponentPopupMenu(popupMenuWords);
         listWords.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listWordsMouseClicked(evt);
@@ -367,6 +461,7 @@ public class SynonymsPanel extends javax.swing.JPanel
 
         listSynonyms.setModel(modelSynonyms);
         listSynonyms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listSynonyms.setComponentPopupMenu(popupMenuSynonyms);
         listSynonyms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listSynonymsMouseClicked(evt);
@@ -456,7 +551,7 @@ public class SynonymsPanel extends javax.swing.JPanel
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelTextFieldSynonym)
-                        .addGap(143, 143, 143))
+                        .addGap(149, 149, 149))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoAddSynonym, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(24, Short.MAX_VALUE))))
@@ -534,49 +629,48 @@ public class SynonymsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_buttonChangeSynonymActionPerformed
 
     private void textAreaWordsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaWordsKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            addWord();
-        }
+        handleTextAreaWordsKeyPressed(evt);
     }//GEN-LAST:event_textAreaWordsKeyPressed
 
     private void textFieldSynonymsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSynonymsKeyPressed
-        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)
-                && (listWords.getSelectedValue() != null)) {
-            addSynonym();
-        }
+        handleTextFieldSynonymsKeyPressed(evt);
     }//GEN-LAST:event_textFieldSynonymsKeyPressed
 
     private void listSynonymsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listSynonymsKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            removeSynonym();
-        } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            changeSynonym();
-        }
+        handleListSynonymsKeyPressed(evt);
     }//GEN-LAST:event_listSynonymsKeyPressed
 
     private void listWordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listWordsMouseClicked
-        if (MouseEventUtil.isDoubleClick(evt)) {
-            changeWord();
-        }
+        handleListWordsMouseClicked(evt);
     }//GEN-LAST:event_listWordsMouseClicked
 
     private void listSynonymsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSynonymsMouseClicked
-        if (MouseEventUtil.isDoubleClick(evt)) {
-            changeSynonym();
-        }
+        handleListSynonymsMouseClicked(evt);
     }//GEN-LAST:event_listSynonymsMouseClicked
 
     private void listWordsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listWordsKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            removeWord();
-        } else if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            changeWord();
-        }
+        handleListWordsKeyPressed(evt);
     }//GEN-LAST:event_listWordsKeyPressed
 
     private void buttonAddAllKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddAllKeywordsActionPerformed
         addAllKeywords();
     }//GEN-LAST:event_buttonAddAllKeywordsActionPerformed
+
+    private void menuItemChangeWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemChangeWordActionPerformed
+        changeWord();
+    }//GEN-LAST:event_menuItemChangeWordActionPerformed
+
+    private void menuItemRemoveWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemoveWordActionPerformed
+        removeWord();
+    }//GEN-LAST:event_menuItemRemoveWordActionPerformed
+
+    private void menuItemRemoveSynonymActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRemoveSynonymActionPerformed
+        removeSynonym();
+    }//GEN-LAST:event_menuItemRemoveSynonymActionPerformed
+
+    private void menuItemChangeSynonymActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemChangeSynonymActionPerformed
+        changeSynonym();
+    }//GEN-LAST:event_menuItemChangeSynonymActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddAllKeywords;
@@ -593,6 +687,12 @@ public class SynonymsPanel extends javax.swing.JPanel
     private javax.swing.JLabel labelTextFieldSynonym;
     private javax.swing.JList listSynonyms;
     private javax.swing.JList listWords;
+    private javax.swing.JMenuItem menuItemChangeSynonym;
+    private javax.swing.JMenuItem menuItemChangeWord;
+    private javax.swing.JMenuItem menuItemRemoveSynonym;
+    private javax.swing.JMenuItem menuItemRemoveWord;
+    private javax.swing.JPopupMenu popupMenuSynonyms;
+    private javax.swing.JPopupMenu popupMenuWords;
     private javax.swing.JScrollPane scrollPaneListSynonyms;
     private javax.swing.JScrollPane scrollPaneListWords;
     private javax.swing.JScrollPane scrollPaneTextAreaWords;
