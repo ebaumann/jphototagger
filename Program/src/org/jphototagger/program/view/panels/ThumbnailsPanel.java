@@ -151,28 +151,30 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Transfer data of dragged thumbnails
      */
-    private boolean                         transferData           = false;
-    private ThumbnailPanelRenderer          renderer               =
+    private boolean                         transferData = false;
+    private ThumbnailPanelRenderer          renderer =
         new ThumbnailPanelRenderer(this);
     public transient RenderedThumbnailCache renderedThumbnailCache =
         RenderedThumbnailCache.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOf =
         new HashMap<Content, List<RefreshListener>>();
-    private final PopupMenuThumbnails popupMenu          =
-        PopupMenuThumbnails.INSTANCE;
+    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
     private Comparator<File>          fileSortComparator =
         FileSort.NAMES_ASCENDING.getComparator();
     private FileFilter       fileFilter =
         AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
-    private final List<File> files      =
+    private final List<File> files =
         Collections.synchronizedList(new ArrayList<File>());
     private FileAction                               fileAction =
         FileAction.UNDEFINED;
-    private Content                                  content    =
+    private Content                                  content =
         Content.UNDEFINED;
     private transient ControllerDoubleklickThumbnail controllerDoubleklick;
     private boolean                                  drag;
     private boolean                                  keywordsOverlay;
+    private volatile boolean                         notifySelChanged;
+    private volatile boolean                         notifyTnsChanged;
+    private volatile boolean                         notifyRefresh;
 
     /**
      * The viewport of this
@@ -522,7 +524,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Returns whether at least one image file is selected.
-     * 
+     *
      * @return true if ore more image files are selected
      */
     public synchronized boolean isFileSelected() {
@@ -532,10 +534,9 @@ public class ThumbnailsPanel extends JPanel
     public Point getTopLeftOfTnIndex(int index) {
         int rowIndex    = getRowIndexAt(index);
         int columnIndex = getColumnIndexAt(index);
-        int x           = MARGIN_THUMBNAIL
-                          + columnIndex
-                            * (renderer.getThumbnailAreaWidth()
-                               + MARGIN_THUMBNAIL);
+        int x = MARGIN_THUMBNAIL
+                + columnIndex
+                  * (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL);
         int y = MARGIN_THUMBNAIL
                 + rowIndex
                   * (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
@@ -576,8 +577,8 @@ public class ThumbnailsPanel extends JPanel
     private synchronized int getColumnCount() {
         int width   = getWidth();
         int tnWidth = renderer.getThumbnailAreaWidth();
-        int count   = (int) ((double) (width - MARGIN_THUMBNAIL)
-                             / (double) tnWidth);
+        int count = (int) ((double) (width - MARGIN_THUMBNAIL)
+                           / (double) tnWidth);
 
         return (count > files.size())
                ? files.size()
@@ -855,7 +856,7 @@ public class ThumbnailsPanel extends JPanel
         paintPanelBackground(g);
 
         if (files.size() > 0) {
-            Rectangle rectClip   = g.getClipBounds();
+            Rectangle rectClip = g.getClipBounds();
             int       firstIndex =
                 Math.min(files.size(), getFirstPaintIndexAtHeight(rectClip.y));
             int lastIndex = Math.min(getLastPaintIndexAtHeight(rectClip.y
@@ -879,9 +880,9 @@ public class ThumbnailsPanel extends JPanel
                                             - thumbnailCountPerRow * 5);
             int prefetchLowEnd    = firstIndex - 1;
             int prefetchHighStart = lastIndex;
-            int prefetchHighEnd   = Math.min(files.size() - 1,
-                                             lastIndex
-                                             + thumbnailCountPerRow * 5);
+            int prefetchHighEnd = Math.min(files.size() - 1,
+                                           lastIndex
+                                           + thumbnailCountPerRow * 5);
 
             if (isIndex(prefetchHighStart) && isIndex(prefetchHighEnd)) {
                 prefetch(prefetchHighStart, prefetchHighEnd,
@@ -908,8 +909,8 @@ public class ThumbnailsPanel extends JPanel
 
     private synchronized void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
-        Image im      = renderedThumbnailCache.getThumbnail(getFile(index),
-                            renderer.getThumbnailWidth(), isKeywordsOverlay());
+        Image im = renderedThumbnailCache.getThumbnail(getFile(index),
+                       renderer.getThumbnailWidth(), isKeywordsOverlay());
 
         if (im != null) {
             g.drawImage(im, topLeft.x, topLeft.y, viewport);
@@ -1112,10 +1113,16 @@ public class ThumbnailsPanel extends JPanel
 
     private void notifyRefreshListeners(RefreshEvent evt) {
         synchronized (refreshListenersOf) {
-            AppLogger.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
+            if (!notifyRefresh) {
+                notifyRefresh = true;
+                AppLogger.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
 
-            for (RefreshListener listener : refreshListenersOf.get(content)) {
-                listener.refresh(evt);
+                for (RefreshListener listener : refreshListenersOf.get(
+                        content)) {
+                    listener.refresh(evt);
+                }
+
+                notifyRefresh = false;
             }
         }
     }
@@ -1423,16 +1430,28 @@ public class ThumbnailsPanel extends JPanel
 
     private void notifySelectionChanged() {
         synchronized (panelListeners) {
-            for (ThumbnailsPanelListener listener : panelListeners) {
-                listener.thumbnailsSelectionChanged();
+            if (!notifySelChanged) {
+                notifySelChanged = true;
+
+                for (ThumbnailsPanelListener listener : panelListeners) {
+                    listener.thumbnailsSelectionChanged();
+                }
+
+                notifySelChanged = false;
             }
         }
     }
 
     private void notifyThumbnailsChanged() {
         synchronized (panelListeners) {
-            for (ThumbnailsPanelListener listener : panelListeners) {
-                listener.thumbnailsChanged();
+            if (!notifyTnsChanged) {
+                notifyTnsChanged = true;
+
+                for (ThumbnailsPanelListener listener : panelListeners) {
+                    listener.thumbnailsChanged();
+                }
+
+                notifyTnsChanged = false;
             }
         }
     }
@@ -1462,8 +1481,8 @@ public class ThumbnailsPanel extends JPanel
     private synchronized void setCountPerRow() {
         int    width       = getWidth();
         int    tnAreaWidth = renderer.getThumbnailAreaWidth();
-        double count       = (double) (width - MARGIN_THUMBNAIL)
-                             / (double) (tnAreaWidth + MARGIN_THUMBNAIL);
+        double count = (double) (width - MARGIN_THUMBNAIL)
+                       / (double) (tnAreaWidth + MARGIN_THUMBNAIL);
 
         thumbnailCountPerRow = (count >= 1)
                                ? (int) count
@@ -1481,8 +1500,7 @@ public class ThumbnailsPanel extends JPanel
 
     private synchronized void setSelectedUp() {
         int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect          = indexSelectedThumbnail
-                                     - thumbnailCountPerRow;
+        int indexToSelect = indexSelectedThumbnail - thumbnailCountPerRow;
 
         if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
             setSelected(indexToSelect);
@@ -1491,8 +1509,7 @@ public class ThumbnailsPanel extends JPanel
 
     private synchronized void setSelectedDown() {
         int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect          = indexSelectedThumbnail
-                                     + thumbnailCountPerRow;
+        int indexToSelect = indexSelectedThumbnail + thumbnailCountPerRow;
 
         if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
             setSelected(indexToSelect);
@@ -1562,8 +1579,7 @@ public class ThumbnailsPanel extends JPanel
     private void checkScrollUp() {
         if ((viewport != null) && (getSelectedIndex() >= 0)) {
             int tnHeight      = renderer.getThumbnailAreaHeight();
-            int topSel        = getTopLeftOfTnIndex(getSelectedIndex()).y
-                                - tnHeight;
+            int topSel = getTopLeftOfTnIndex(getSelectedIndex()).y - tnHeight;
             int viewPosBottom = viewport.getViewPosition().y;
 
             if (topSel < viewPosBottom) {
