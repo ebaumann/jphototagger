@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.30 2010-04-12
+-----------------
+
+* Bugfix: Möglicher Deadlock beim Ziehen von Stichwörtern über das
+  Vorschaubildfenster (hoffentlich) behoben
+
 0.8.29 2010-04-11
 -----------------
 
