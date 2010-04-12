@@ -151,10 +151,10 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Transfer data of dragged thumbnails
      */
-    private boolean                         transferData = false;
-    private ThumbnailPanelRenderer          renderer =
+    private boolean                      transferData = false;
+    private final ThumbnailPanelRenderer renderer =
         new ThumbnailPanelRenderer(this);
-    private transient RenderedThumbnailCache renderedThumbnailCache =
+    private final transient RenderedThumbnailCache renderedThumbnailCache =
         RenderedThumbnailCache.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOf =
         new HashMap<Content, List<RefreshListener>>();
@@ -165,16 +165,16 @@ public class ThumbnailsPanel extends JPanel
         AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
     private final List<File> files =
         Collections.synchronizedList(new ArrayList<File>());
-    private FileAction                               fileAction =
+    private FileAction                                     fileAction =
         FileAction.UNDEFINED;
-    private Content                                  content =
+    private Content                                        content =
         Content.UNDEFINED;
-    private transient ControllerDoubleklickThumbnail controllerDoubleklick;
-    private boolean                                  drag;
-    private boolean                                  keywordsOverlay;
-    private volatile boolean                         notifySelChanged;
-    private volatile boolean                         notifyTnsChanged;
-    private volatile boolean                         notifyRefresh;
+    private final transient ControllerDoubleklickThumbnail controllerDoubleklick;
+    private boolean          drag;
+    private boolean          keywordsOverlay;
+    private volatile boolean notifySelChanged;
+    private volatile boolean notifyTnsChanged;
+    private volatile boolean notifyRefresh;
 
     /**
      * The viewport of this
@@ -539,7 +539,7 @@ public class ThumbnailsPanel extends JPanel
      * <p>
      * This is different to the drop index when other content will be dropped,
      * e.g. metadata.
-     * 
+     *
      * @param  x x coordinate of current move position
      * @param  y y coordinate of current move position
      * @return     index or -1 if no valid index is near the move position

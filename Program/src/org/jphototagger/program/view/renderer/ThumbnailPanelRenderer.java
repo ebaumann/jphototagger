@@ -26,7 +26,8 @@ import org.jphototagger.program.cache.ThumbnailRenderer;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.program.data.ThumbnailFlag;
 import org.jphototagger.program.data.Xmp;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -164,8 +165,8 @@ public class ThumbnailPanelRenderer
     private int                   dragIndex    = -1;
     private int                   dropIndex    = -1;
     private int                   oldDropIndex = -1;
-    private XmpCache              xmpCache     = XmpCache.INSTANCE;
-    private Image                 starImage[]  = new Image[5];
+    private final XmpCache        xmpCache     = XmpCache.INSTANCE;
+    private final Image           starImage[]  = new Image[5];
     private final ThumbnailsPanel panel;
 
     public ThumbnailPanelRenderer(ThumbnailsPanel _panel) {
@@ -179,7 +180,7 @@ public class ThumbnailPanelRenderer
     }
 
     private void computeFontHeight() {
-        FONT_PIXEL_HEIGHT  = panel.getFontMetrics(FONT).getHeight();
+        FONT_PIXEL_HEIGHT = panel.getFontMetrics(FONT).getHeight();
         FONT_PIXEL_DESCENT = panel.getFontMetrics(FONT).getDescent()
                              + panel.getFontMetrics(FONT).getLeading() / 2;
     }
@@ -193,14 +194,16 @@ public class ThumbnailPanelRenderer
         }
     }
 
-    private synchronized boolean isDragOver(File file) {
-        if ((file == null) || (dragIndex < 0)) {
-            return false;
+    private boolean isDragOver(File file) {
+        synchronized (panel) {
+            if ((file == null) || (dragIndex < 0)) {
+                return false;
+            }
+
+            File dragOverFile = panel.getFile(dragIndex);
+
+            return (panel.getIndexOf(file) >= 0) && file.equals(dragOverFile);
         }
-
-        File dragOverFile = panel.getFile(dragIndex);
-
-        return (panel.getIndexOf(file) >= 0) && file.equals(dragOverFile);
     }
 
     @Override
@@ -221,11 +224,11 @@ public class ThumbnailPanelRenderer
             int           length = (sw > sh)
                                    ? sw
                                    : sh;
-            int           w      = length + 2 * MARGIN_THUMBNAIL
-                                   + 2 * WIDHT_BORDER_THUMBNAIL;
+            int           w = length + 2 * MARGIN_THUMBNAIL
+                              + 2 * WIDHT_BORDER_THUMBNAIL;
             int           h      = w + FONT_PIXEL_HEIGHT;
-            BufferedImage bi     = new BufferedImage(w, h,
-                                       BufferedImage.TYPE_INT_RGB);
+            BufferedImage bi = new BufferedImage(w, h,
+                                   BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = bi.createGraphics();
 
             // switch this for performance / beauty
@@ -303,24 +306,28 @@ public class ThumbnailPanelRenderer
         }
     }
 
-    public synchronized void paintImgDropMarker(Graphics g) {    // similar to capitalized letter "I"
-        if (dropIndex < 0) {
-            return;
+    // similar to capitalized letter "I"
+    public void paintImgDropMarker(Graphics g) {
+        synchronized (panel) {
+            if (dropIndex < 0) {
+                return;
+            }
+
+            Point topLeft  = panel.getTopLeftOfTnIndex(dropIndex);
+            Color oldColor = g.getColor();
+
+            g.setColor(COLOR_DROP_MARKER);
+
+            final int xCenter = topLeft.x + WIDHT_BORDER_THUMBNAIL
+                                + thumbnailWidth / 2;
+            final int y            = topLeft.y - 4;
+            final int halfTopWidth = 10;
+            final int height       = 10;
+
+            g.fillPolygon(getDropMarkerTriangle(xCenter, y, halfTopWidth,
+                    height));
+            g.setColor(oldColor);
         }
-
-        Point topLeft  = panel.getTopLeftOfTnIndex(dropIndex);
-        Color oldColor = g.getColor();
-
-        g.setColor(COLOR_DROP_MARKER);
-
-        final int xCenter = topLeft.x + WIDHT_BORDER_THUMBNAIL
-                            + thumbnailWidth / 2;
-        final int y            = topLeft.y - 4;
-        final int halfTopWidth = 10;
-        final int height       = 10;
-
-        g.fillPolygon(getDropMarkerTriangle(xCenter, y, halfTopWidth, height));
-        g.setColor(oldColor);
     }
 
     private Polygon getDropMarkerTriangle(int xCenter, int y, int halfTopWidth,
@@ -367,8 +374,8 @@ public class ThumbnailPanelRenderer
 
         int           width  = getThumbnailAreaWidth();
         int           height = getThumbnailAreaHeightNoText();
-        BufferedImage bi     = new BufferedImage(width, height,
-                                   BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bi = new BufferedImage(width, height,
+                               BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = bi.createGraphics();
 
         g2.setColor(new Color(0, 0, 0, 0));
@@ -386,8 +393,8 @@ public class ThumbnailPanelRenderer
         for (int i = 0; is.hasNext(); i++) {
             String text = is.next();
             int    x    = WIDHT_BORDER_THUMBNAIL;
-            int    y    = WIDHT_BORDER_THUMBNAIL + (i + 1) * FONT_PIXEL_HEIGHT
-                          - FONT_PIXEL_DESCENT;
+            int    y = WIDHT_BORDER_THUMBNAIL + (i + 1) * FONT_PIXEL_HEIGHT
+                       - FONT_PIXEL_DESCENT;
 
             g2.drawString(text, x + 1, y);
             g2.drawString(text, x - 1, y);
@@ -401,8 +408,8 @@ public class ThumbnailPanelRenderer
         float[]    kernel = {
             frac, frac, frac, frac, frac, frac, frac, frac, frac
         };
-        ConvolveOp op     = new ConvolveOp(new Kernel(3, 3, kernel),
-                                           ConvolveOp.EDGE_NO_OP, null);
+        ConvolveOp op = new ConvolveOp(new Kernel(3, 3, kernel),
+                                       ConvolveOp.EDGE_NO_OP, null);
         BufferedImage bi2 = op.filter(bi, null);
 
         // draw foreground
@@ -495,7 +502,7 @@ public class ThumbnailPanelRenderer
     }
 
     public void setThumbnailWidth(int width) {
-        thumbnailWidth   = width;
+        thumbnailWidth = width;
         maxCharCountText = (int) (((double) MAX_CHAR_COUNT_PER_150_PX
                                    * (double) width / 150.0));
     }
@@ -527,19 +534,22 @@ public class ThumbnailPanelRenderer
      * @return      keywords
      */
     @SuppressWarnings("unchecked")
-    public synchronized List<String> getKeywords(File file) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
+    public List<String> getKeywords(File file) {
+        synchronized (panel) {
+            if (file == null) {
+                throw new NullPointerException("file == null");
+            }
+
+            Xmp xmp = xmpCache.getXmp(file);
+
+            if ((xmp == null)
+                    ||!xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+                return null;
+            }
+
+            return (List<String>) xmp.getValue(
+                ColumnXmpDcSubjectsSubject.INSTANCE);
         }
-
-        Xmp xmp = xmpCache.getXmp(file);
-
-        if ((xmp == null)
-                ||!xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-            return null;
-        }
-
-        return (List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 
     /**
@@ -548,43 +558,48 @@ public class ThumbnailPanelRenderer
      * @param file  File designating the thumbnail
      * @return      rating
      */
-    public synchronized int getRating(File file) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
+    public int getRating(File file) {
+        synchronized (panel) {
+            if (file == null) {
+                throw new NullPointerException("file == null");
+            }
+
+            Xmp xmp = xmpCache.getXmp(file);
+
+            if (xmp == null) {
+                return 0;
+            }
+
+            Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
+                          ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
+                          : null;
+
+            if (rating == null) {
+                return 0;
+            }
+
+            return rating.intValue();
         }
-
-        Xmp xmp = xmpCache.getXmp(file);
-
-        if (xmp == null) {
-            return 0;
-        }
-
-        Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
-                      ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
-                      : null;
-
-        if (rating == null) {
-            return 0;
-        }
-
-        return rating.intValue();
     }
 
-    private synchronized void clearDrag() {
-        panel.setDrag(false);
+    private void clearDrag() {
+        synchronized (panel) {
+            panel.setDrag(false);
 
-        if ((dropIndex >= 0) || (oldDropIndex >= 0)) {
-            dropIndex    = -1;
-            oldDropIndex = -1;
-            panel.repaint();
-        }
+            if ((dropIndex >= 0) || (oldDropIndex >= 0)) {
+                dropIndex    = -1;
+                oldDropIndex = -1;
+                panel.repaint();
+            }
 
-        if (panel.isIndex(dragIndex)) {
-            int oldDragIndex = dragIndex;
+            if (panel.isIndex(dragIndex)) {
+                int oldDragIndex = dragIndex;
 
-            dragIndex = -1;
-            if (panel.isIndex(oldDragIndex)) {
-                panel.rerender(oldDragIndex);
+                dragIndex = -1;
+
+                if (panel.isIndex(oldDragIndex)) {
+                    panel.rerender(oldDragIndex);
+                }
             }
         }
     }
@@ -594,44 +609,50 @@ public class ThumbnailPanelRenderer
     }
 
     @Override
-    public synchronized void dragOver(DropTargetDragEvent dtde) {
-        panel.setDrag(true);
+    public void dragOver(DropTargetDragEvent dtde) {
+        synchronized (panel) {
+            panel.setDrag(true);
 
-        if (Flavor.isMetadataTransferred(dtde.getTransferable())) {
-            Point loc   = dtde.getLocation();
-            int   index = panel.getThumbnailIndexAtPoint(loc.x, loc.y);
+            if (Flavor.isMetadataTransferred(dtde.getTransferable())) {
+                Point loc   = dtde.getLocation();
+                int   index = panel.getThumbnailIndexAtPoint(loc.x, loc.y);
 
-            if ((index != dragIndex) && panel.isIndex(index)) {
-                int oldDragIndex = dragIndex;
+                if ((index != dragIndex) && panel.isIndex(index)) {
+                    int oldDragIndex = dragIndex;
 
-                dragIndex = index;
+                    dragIndex = index;
 
-                if (panel.isIndex(oldDragIndex)) {
-                    panel.rerender(oldDragIndex);
+                    if (panel.isIndex(oldDragIndex)) {
+                        panel.rerender(oldDragIndex);
+                    }
+
+                    panel.rerender(index);
                 }
+            } else if (isImageCollectionDrag(dtde.getTransferable())) {
+                Point loc   = dtde.getLocation();
+                int   index = panel.getImageMoveDropIndex(loc.x, loc.y);
 
-                panel.rerender(index);
-            }
-        } else if (isImageCollectionDrag(dtde.getTransferable())) {
-            Point loc   = dtde.getLocation();
-            int   index = panel.getImageMoveDropIndex(loc.x, loc.y);
-
-            if ((index != dropIndex) && panel.isIndex(index)) {
-                oldDropIndex = dropIndex;
-                dropIndex    = index;
-                panel.repaint();
+                if ((index != dropIndex) && panel.isIndex(index)) {
+                    oldDropIndex = dropIndex;
+                    dropIndex    = index;
+                    panel.repaint();
+                }
             }
         }
     }
 
     @Override
-    public synchronized void dragExit(DropTargetEvent dte) {
-        clearDrag();
+    public void dragExit(DropTargetEvent dte) {
+        synchronized (panel) {
+            clearDrag();
+        }
     }
 
     @Override
-    public synchronized void drop(DropTargetDropEvent dtde) {
-        clearDrag();
+    public void drop(DropTargetDropEvent dtde) {
+        synchronized (panel) {
+            clearDrag();
+        }
     }
 
     @Override
