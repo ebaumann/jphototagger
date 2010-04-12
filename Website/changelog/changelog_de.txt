@@ -6,6 +6,11 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.30 2010-04-12
 -----------------
 
+* Logdatei-Präfixe umbenannt in "jphototagger"
+  (Vorher: imagemetadataviewer, können gelöscht werden, falls keine
+  Fehler gesucht werden sollen)
+* Favoritenverzeichnis wird nicht mehr aus der Datenbank entfernt,
+  falls dieses nicht existiert
 * Bugfix: Möglicher Deadlock beim Ziehen von Stichwörtern über das
   Vorschaubildfenster (hoffentlich) behoben
 

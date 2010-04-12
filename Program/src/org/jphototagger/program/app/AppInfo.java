@@ -45,9 +45,9 @@ public final class AppInfo {
 
     /**
      * ("Historical") Name of this project.
-     *
+     * <p>
      * This is also the name of the user settings subdirectory (properties file)
-     * and the default thumbnails' parent directory. When changing, the first or
+     * and the default thumbnails parent directory. When changing, the first or
      * second action in the main() mehtod has to be renaming that directory from
      * the old to the new name. Also check the code accessing this field.
      */

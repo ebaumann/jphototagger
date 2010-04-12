@@ -81,7 +81,7 @@ public final class ControllerLogfileDialog extends MouseAdapter
     public void mouseClicked(MouseEvent evt) {
         if (MouseEventUtil.isLeftClick(evt)
                 && itemShowDlgErrorLogfile.isEnabled()) {
-            showLogfileDialog(AppLoggingSystem.getCurrentLogfileName(),
+            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(),
                               XMLFormatter.class);
             labelError.setIcon(null);
             labelError.setToolTipText("");
@@ -101,10 +101,10 @@ public final class ControllerLogfileDialog extends MouseAdapter
         Object source = evt.getSource();
 
         if (source == itemShowDlgErrorLogfile) {
-            showLogfileDialog(AppLoggingSystem.getCurrentLogfileName(),
+            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(),
                               XMLFormatter.class);
         } else if (source == itemShowDlgAllLogfile) {
-            showLogfileDialog(AppLoggingSystem.getCurrentAllLogifleName(),
+            showLogfileDialog(AppLoggingSystem.geLogfilePathAllMessages(),
                               SimpleFormatter.class);
         }
     }

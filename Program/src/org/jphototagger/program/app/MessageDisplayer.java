@@ -215,7 +215,7 @@ public final class MessageDisplayer {
             return;
         }
 
-        String logfile = AppLoggingSystem.getCurrentLogfileName();
+        String logfile = AppLoggingSystem.getLogfilePathErrorMessages();
         long   len     = new File(logfile).length();
 
         if (len > 0) {
