@@ -154,7 +154,7 @@ public class ThumbnailsPanel extends JPanel
     private boolean                         transferData = false;
     private ThumbnailPanelRenderer          renderer =
         new ThumbnailPanelRenderer(this);
-    public transient RenderedThumbnailCache renderedThumbnailCache =
+    private transient RenderedThumbnailCache renderedThumbnailCache =
         RenderedThumbnailCache.INSTANCE;
     private final Map<Content, List<RefreshListener>> refreshListenersOf =
         new HashMap<Content, List<RefreshListener>>();
@@ -250,7 +250,7 @@ public class ThumbnailsPanel extends JPanel
     /*
      *  Convert index-based selection to a new set of files
      */
-    public synchronized void convertSelection(List<File> oldFiles,
+    private synchronized void convertSelection(List<File> oldFiles,
             List<File> newFiles) {
         if (oldFiles == null) {
             throw new NullPointerException("oldFiles == null");
@@ -368,29 +368,25 @@ public class ThumbnailsPanel extends JPanel
      *
      * @param enabled true if enabled. Default: false
      */
-    public synchronized void setDragEnabled(boolean enabled) {
+    private synchronized void setDragEnabled(boolean enabled) {
         dragEnabled = enabled;
     }
 
-    protected synchronized boolean isValidIndex(int thumbnailIndex) {
-        return (thumbnailIndex >= 0) && (thumbnailIndex < files.size());
-    }
-
-    public synchronized int getThumbnailWidth() {
+    private synchronized int getThumbnailWidth() {
         return renderer.getThumbnailWidth();
     }
 
-    public synchronized List<Integer> getSelectedIndices() {
+    private synchronized List<Integer> getSelectedIndices() {
         return new ArrayList<Integer>(selectedThumbnailIndices);
     }
 
-    protected synchronized void repaint(int index) {
+    private synchronized void repaint(int index) {
         repaint(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y,
                 renderer.getThumbnailAreaWidth(),
                 renderer.getThumbnailAreaHeight());
     }
 
-    protected synchronized void repaint(Collection<Integer> indices) {
+    private synchronized void repaint(Collection<Integer> indices) {
         if (indices == null) {
             throw new NullPointerException("indices == null");
         }
@@ -401,7 +397,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public synchronized void actionPerformed(ThumbnailUpdateEvent event) {
+    public synchronized void thumbnailUpdated(ThumbnailUpdateEvent event) {
         if (event == null) {
             throw new NullPointerException("event == null");
         }
@@ -413,21 +409,11 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    public void showPopupMenu(MouseEvent evt, int thumbnailIndex) {}
-
-    public synchronized void addFlag(int index, ThumbnailFlag flag) {
-        if (flag == null) {
-            throw new NullPointerException("flag == null");
-        }
-
+    private synchronized void addFlag(int index, ThumbnailFlag flag) {
         flagOfThumbnail.put(index, flag);
     }
 
-    public synchronized boolean isFlagged(int index) {
-        return flagOfThumbnail.containsKey(index);
-    }
-
-    public synchronized ThumbnailFlag getFlag(int index) {
+    private synchronized ThumbnailFlag getFlag(int index) {
         return flagOfThumbnail.get(index);
     }
 
@@ -548,14 +534,16 @@ public class ThumbnailsPanel extends JPanel
         this.drag = drag;
     }
 
-    public synchronized int getImageMoveDropIndex(MouseEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
-        return getImageMoveDropIndex(evt.getX(), evt.getY());
-    }
-
+    /**
+     * Returns the drop index when images moved within the panel itself.
+     * <p>
+     * This is different to the drop index when other content will be dropped,
+     * e.g. metadata.
+     * 
+     * @param  x x coordinate of current move position
+     * @param  y y coordinate of current move position
+     * @return     index or -1 if no valid index is near the move position
+     */
     public synchronized int getImageMoveDropIndex(int x, int y) {
         int row = Math.max(0, (y - MARGIN_THUMBNAIL)
                            / (renderer.getThumbnailAreaHeight()
@@ -612,7 +600,7 @@ public class ThumbnailsPanel extends JPanel
             int thumbnailIndex = getThumbnailIndexAtPoint(evt.getX(),
                                      evt.getY());
 
-            if (isValidIndex(thumbnailIndex)) {
+            if (isIndex(thumbnailIndex)) {
                 transferData = true;
 
                 if (MouseEventUtil.isDoubleClick(evt)) {
@@ -827,12 +815,12 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    public void forceRepaint() {
+    private void forceRepaint() {
         revalidate();
         repaint();
     }
 
-    protected synchronized void prefetch(int low, int high, boolean xmp) {
+    private synchronized void prefetch(int low, int high, boolean xmp) {
         if (!isIndex(low)) {
             throw new IllegalArgumentException("Illegal low index: " + low);
         }
@@ -1023,7 +1011,7 @@ public class ThumbnailsPanel extends JPanel
      * @param  indices  file indices
      * @return files of valid indices
      */
-    public synchronized List<File> getFiles(List<Integer> indices) {
+    private synchronized List<File> getFiles(List<Integer> indices) {
         List<File> f = new ArrayList<File>();
 
         for (Integer index : indices) {
@@ -1077,7 +1065,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized void moveSelectedToIndex(int index) {
-        if (!isValidIndex(index)) {
+        if (!isIndex(index)) {
             return;
         }
 
@@ -1198,7 +1186,7 @@ public class ThumbnailsPanel extends JPanel
                : vp.getViewPosition();
     }
 
-    public synchronized boolean displaysFile(File file) {
+    public synchronized boolean containsFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -1568,11 +1556,11 @@ public class ThumbnailsPanel extends JPanel
         return viewport;
     }
 
-    protected void scrollToTop() {
+    private void scrollToTop() {
         setViewPosition(new Point(0, 0));
     }
 
-    protected void scrollToBottom() {
+    private void scrollToBottom() {
         setViewPosition(new Point(0, getHeight()));
     }
 
@@ -1744,11 +1732,11 @@ public class ThumbnailsPanel extends JPanel
                : null;
     }
 
-    protected void doubleClickAt(int index) {
+    private void doubleClickAt(int index) {
         controllerDoubleklick.doubleClickAtIndex(index);
     }
 
-    protected void showPopupMenu(MouseEvent evt) {
+    private void showPopupMenu(MouseEvent evt) {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
@@ -1756,7 +1744,7 @@ public class ThumbnailsPanel extends JPanel
         popupMenu.show(this, evt.getX(), evt.getY());
     }
 
-    protected void showToolTip(MouseEvent evt) {
+    private void showToolTip(MouseEvent evt) {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
@@ -1785,28 +1773,6 @@ public class ThumbnailsPanel extends JPanel
     public void filterInserted(UserDefinedFileFilter filter) {
 
         // ignore
-    }
-
-    public synchronized void insert(Collection<? extends File> imageFiles) {
-        if (imageFiles == null) {
-            throw new NullPointerException("imageFiles == null");
-        }
-
-        List<File> newFiles = new ArrayList<File>(files.size()
-                                  + imageFiles.size());
-        boolean insert = false;
-
-        for (File imageFile : imageFiles) {
-            if (!files.contains(imageFile)) {
-                newFiles.add(imageFile);
-                insert = true;
-            }
-        }
-
-        if (insert) {
-            newFiles.addAll(files);
-            setFiles(newFiles, content);
-        }
     }
 
     private synchronized void updateViaFileFilter(File imageFile) {

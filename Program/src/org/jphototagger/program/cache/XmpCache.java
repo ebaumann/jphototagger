@@ -324,7 +324,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.actionPerformed(new ThumbnailUpdateEvent(file, type));
+            l.thumbnailUpdated(new ThumbnailUpdateEvent(file, type));
         }
     }
 
@@ -335,7 +335,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.actionPerformed(new ThumbnailUpdateEvent(file,
+            l.thumbnailUpdated(new ThumbnailUpdateEvent(file,
                     ThumbnailUpdateEvent.Type.XMP_UPDATE));
         }
     }

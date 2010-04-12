@@ -96,7 +96,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
                 if (fileInDir.delete()) {
                     countDeleted++;
 
-                    if (tnPanel.displaysFile(fileInDir)) {
+                    if (tnPanel.containsFile(fileInDir)) {
                         tnPanel.remove(Arrays.asList(fileInDir));
                     }
                 } else {
