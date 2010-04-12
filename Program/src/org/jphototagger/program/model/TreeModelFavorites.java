@@ -262,7 +262,6 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 addFavorite(directory);
             } else {
                 errorMessageAddDirectory(directory);
-                db.delete(directory.getName());
             }
         }
     }
