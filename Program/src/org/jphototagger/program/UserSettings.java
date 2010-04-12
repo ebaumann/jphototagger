@@ -21,6 +21,11 @@
 
 package org.jphototagger.program;
 
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.util.PropertiesFile;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.lib.util.SettingsHints;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.update.UpdateUserSettings;
@@ -32,11 +37,6 @@ import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreator;
 import org.jphototagger.program.types.Filename;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.util.PropertiesFile;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.lib.util.SettingsHints;
 
 import java.io.File;
 
@@ -54,10 +54,12 @@ import java.util.Properties;
  * @author  Elmar Baumann
  */
 public final class UserSettings {
-    private static final int    DEFAULT_MAX_THUMBNAIL_WIDTH              = 150;
-    private static final int    DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
-    private static final String DOMAIN_NAME                              =
-        "de.elmar_baumann";    // NEVER CHANGE!
+    private static final int DEFAULT_MAX_THUMBNAIL_WIDTH              = 150;
+    private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
+
+    // When changing see comment for AppInfo.PROJECT_NAME
+    private static final String DOMAIN_NAME                   =
+        "de.elmar_baumann";
     private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES =
         "UserSettings.IsAcceptHiddenDirectories";
     private static final String KEY_AUTO_DOWNLOAD_NEWER_VERSIONS =
@@ -696,7 +698,8 @@ public final class UserSettings {
         }
 
         if (seconds.intValue() < 0) {
-            throw new IllegalArgumentException("Invalid time: " + seconds.intValue());
+            throw new IllegalArgumentException("Invalid time: "
+                                               + seconds.intValue());
         }
 
         settings.set(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);

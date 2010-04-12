@@ -171,7 +171,7 @@ public final class ControllerHelp
             AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS,
             JptBundle.INSTANCE.getString(
                 "ControllerSendMail.Info.AttachLogfile",
-                AppLoggingSystem.getCurrentAllLogifleName()));
+                AppLoggingSystem.geLogfilePathAllMessages()));
     }
 
     private void sendFeatureMail() {

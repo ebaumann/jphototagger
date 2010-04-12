@@ -58,6 +58,8 @@ public final class AppLoggingSystem implements UserSettingsListener {
     private static final int LOGFILE_ROTATE_COUNT      = 5;
     private static final int MAX_LOGFILE_SIZE_IN_BYTES =
         (int) LogfileDialog.DEFAULT_MAX_BYTES;
+    private static final String LOGFILE_PATH_DIR =
+        UserSettings.INSTANCE.getSettingsDirectoryName();
 
     // INSTANCE exists only for applying user settings!
     private static final AppLoggingSystem INSTANCE                 =
@@ -90,7 +92,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
                 ensureLogDirectoryExists();
                 createHandlers();
                 setLevelsToHandlers();
-                setFormattersToHandlers();
+                setFormattersToFileHandlers();
                 setEncodingToFileHandlers();
             } catch (Exception ex) {
                 AppLogger.logSevere(AppLoggingSystem.class, ex);
@@ -111,10 +113,10 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     private static void createHandlers() throws IOException {
-        fileHandlerImportant = new FileHandler(logfileNamePatternImportant(),
+        fileHandlerImportant = new FileHandler(getLogfilePathPatternErrorMessages(),
                 MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
                 APPEND_OUTPUT_TO_LOGFILE);
-        fileHandlerAllMsgs = new FileHandler(logfileNamePatternAllMessages(),
+        fileHandlerAllMsgs = new FileHandler(getLogfilePathPatternAllMessages(),
                 MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
                 APPEND_OUTPUT_TO_LOGFILE);
         systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
@@ -132,7 +134,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
         fileHandlerAllMsgs.setLevel(Level.ALL);
     }
 
-    private static void setFormattersToHandlers() {
+    private static void setFormattersToFileHandlers() {
         fileHandlerImportant.setFormatter(new XMLFormatter());
         fileHandlerAllMsgs.setFormatter(new SimpleFormatter());
     }
@@ -142,14 +144,6 @@ public final class AppLoggingSystem implements UserSettingsListener {
             throws SecurityException, UnsupportedEncodingException {
         fileHandlerImportant.setEncoding("UTF-8");
         fileHandlerAllMsgs.setEncoding("UTF-8");
-    }
-
-    private static String logfileNamePatternImportant() {
-        return getLogfilePrefix() + "%g." + getLogfileSuffix();
-    }
-
-    private static String logfileNamePatternAllMessages() {
-        return getLogfilePrefix() + "-all-%g.txt";
     }
 
     private static void createAppLogger() {
@@ -209,24 +203,30 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     /**
-     * Returns the name of the current log file (complete path).
      *
-     * @return log file name
+     * @return full path name
      */
-    public static String getCurrentLogfileName() {
-        return getLogfilePrefix() + "0." + getLogfileSuffix();
+    public static String getLogfilePathErrorMessages() {
+        return getLogfilePathPrefix() + "-error-0.xml";
     }
 
-    public static String getCurrentAllLogifleName() {
-        return getLogfilePrefix() + "-all-0.txt";
+    /**
+     *
+     * @return full path name
+     */
+    public static String geLogfilePathAllMessages() {
+        return getLogfilePathPrefix() + "-all-0.txt";
     }
 
-    private static String getLogfilePrefix() {
-        return UserSettings.INSTANCE.getSettingsDirectoryName()
-               + File.separator + "imagemetadataviewerlog";
+    private static String getLogfilePathPatternErrorMessages() {
+        return getLogfilePathPrefix() + "-error-%g.xml";
     }
 
-    private static String getLogfileSuffix() {
-        return "xml";
+    private static String getLogfilePathPatternAllMessages() {
+        return getLogfilePathPrefix() + "-all-%g.txt";
+    }
+
+    private static String getLogfilePathPrefix() {
+        return LOGFILE_PATH_DIR + File.separator + "jphototagger-log";
     }
 }
