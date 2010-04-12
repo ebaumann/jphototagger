@@ -31,8 +31,8 @@ import java.io.File;
  * @author  Martin Pohlack
  */
 public final class ThumbnailUpdateEvent {
-    private Type type;
-    private File source;
+    private final Type type;
+    private final File source;
 
     public enum Type {
 
@@ -74,16 +74,5 @@ public final class ThumbnailUpdateEvent {
      */
     public File getSource() {
         return source;
-    }
-
-    /**
-     * @param source the source to set
-     */
-    public void setSource(File source) {
-        if (source == null) {
-            throw new NullPointerException("source == null");
-        }
-
-        this.source = source;
     }
 }

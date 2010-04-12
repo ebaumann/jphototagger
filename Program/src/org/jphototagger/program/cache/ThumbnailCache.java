@@ -243,7 +243,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.actionPerformed(new ThumbnailUpdateEvent(file,
+            l.thumbnailUpdated(new ThumbnailUpdateEvent(file,
                     ThumbnailUpdateEvent.Type.THUMBNAIL_UPDATE));
         }
     }

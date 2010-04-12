@@ -51,7 +51,7 @@ import javax.swing.SwingUtilities;
 public final class ControllerRotateThumbnail implements ActionListener {
     private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     tnPanel   =
+    private final ThumbnailsPanel     tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem,
                                                           Float>();
@@ -96,11 +96,9 @@ public final class ControllerRotateThumbnail implements ActionListener {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<Integer> selIndices = tnPanel.getSelectedIndices();
+                List<File> selFiles = tnPanel.getSelectedFiles();
 
-                for (Integer selIndex : selIndices) {
-                    File        imageFile   =
-                        tnPanel.getFile(selIndex.intValue());
+                for (File imageFile : selFiles) {
                     final Image unrotatedTn =
                         PersistentThumbnails.getThumbnail(imageFile);
 

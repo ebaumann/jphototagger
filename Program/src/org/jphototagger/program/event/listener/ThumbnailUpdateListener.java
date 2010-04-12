@@ -35,5 +35,5 @@ public interface ThumbnailUpdateListener {
      *
      * @param event  Event
      */
-    public void actionPerformed(ThumbnailUpdateEvent event);
+    public void thumbnailUpdated(ThumbnailUpdateEvent event);
 }

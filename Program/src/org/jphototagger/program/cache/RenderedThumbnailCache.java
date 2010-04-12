@@ -238,7 +238,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.actionPerformed(evt);
+            l.thumbnailUpdated(evt);
         }
     }
 
@@ -376,7 +376,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     @Override
-    public void actionPerformed(ThumbnailUpdateEvent event) {
+    public void thumbnailUpdated(ThumbnailUpdateEvent event) {
         if (event == null) {
             throw new NullPointerException("event == null");
         }
