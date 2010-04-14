@@ -9,23 +9,34 @@
 
         <h1>Behandlung von Stichworthierarchien</h1>
 
-        <p>In der aktuellen Version kennt <strong>JPhotoTagger</strong> keine
-            Stichworthierarchien. Fügen Sie einem Bild ein Stichwort aus dem
-            Stichwortbaum hinzu, werden dieses und seine übergeordneten
-            Stichwörter als einzelne &quot;flache&quot; Stichwörter hinzugefügt.
+        <p><strong>JPhotoTagger</strong> kennt keine Stichworthierarchien. Fügen
+            Sie einem Bild ein Stichwort aus dem Stichwortbaum hinzu, werden
+            dieses und seine übergeordneten Stichwörter als unabhängige
+            (&quot;gleichwertige&quot;, &quot;flache&quot;) Stichwörter
+            hinzugefügt.
         </p>
 
         <p>Wählen Sie im linken Baum ein Stichwort aus, wird durch einen
             &quot;Trick&quot; dessen Hierarchie berücksichtigt: Gezeigt werden
             alle Bilder, die das Stichwort und alle dessen übergeordnete
             Stichwörter enthalten. Das ist vermutlich in den meisten Fällen
-            korrekt, muss es aber nicht sein.
+            korrekt, aber nicht garantiert.
         </p>
 
-        <p>Damit hierarchische Stichwörter exakt behandelt werden, wäre die
-            Datenbank umzustellen und zahlreiche Codestellen zu
-            modifizieren. Dem Autor dieses Textes gefiele das besser, es ist
-            eine Frage der Zeit ob und wann es umgesetzt wird.
+        <p>Ein Ziel von <strong>JPhotoTagger</strong> ist, austauschbar zu sein
+            mit anderen Programmen, was (offene) Standards erfordert. Es gibt
+            noch keinen XMP-Standard für hierarchische Stichwörter. Speicherte
+            <strong>JPhotoTagger</strong> Stichwörter hierarchisch in die
+            XMP-Filialdateien, wäre es so gut wie sicher, dass kein anderes
+            Programm damit etwas anfangen kann (anfangen will). Es wäre auch
+            möglich, für jedes verbreitete Programm Stichwörter in dessen Format
+            abzuspeichern, beispielsweise für <strong>Adobe Photoshop
+            Lightroom</strong> (zurzeit das einzige, das hierarchische
+            Stichwörter in XMP-Dateien speichert, jedoch nicht unterscheidet
+            zwischen echten und Hilfsstichwörtern). Dies wäre redundant (das
+            heißt: Platz verschwendend, fehleranfällig und nicht
+            &quot;elegant&quot;) und für das <strong>JPhotoTagger</strong>-Team,
+            das in seiner Freizeit programmiert, zu arbeitsaufwändig.
         </p>
 
     </body>
