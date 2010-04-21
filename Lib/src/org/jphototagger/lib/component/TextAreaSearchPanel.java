@@ -119,6 +119,18 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
         // ignore
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        textField.setEnabled(enabled);
+        textField.setEditable(enabled);
+
+        if (!enabled) {
+            buttonUp.setEnabled(false);
+            buttonDown.setEnabled(false);
+        }
+        super.setEnabled(enabled);
+    }
+
     private void searchFromTextStart() {
         int     foundIndex = search(0);
         boolean found      = foundIndex >= 0;
