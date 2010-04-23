@@ -29,6 +29,10 @@
         <url>autocomplete.html</url>
         <title>Auto-Vervollständigen</title>
     </page>
+    <page>
+        <url>issues.html</url>
+        <title>Wie melde ich Fehler und Wünsche?</title>
+    </page>
     <node>
         <title>Schnell arbeiten (Zeit sparen)</title>
         <page>
