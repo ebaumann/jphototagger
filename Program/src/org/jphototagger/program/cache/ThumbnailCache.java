@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.cache;
 
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
@@ -29,7 +30,6 @@ import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.image.util.IconUtil;
 
 import java.awt.Image;
 
@@ -43,8 +43,7 @@ import javax.swing.SwingUtilities;
  */
 public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         implements DatabaseImageFilesListener {
-    public static final ThumbnailCache INSTANCE           =
-        new ThumbnailCache();
+    public static final ThumbnailCache INSTANCE = new ThumbnailCache();
     private Image                      noPreviewThumbnail =
         IconUtil.getIconImage(
             JptBundle.INSTANCE.getString(
@@ -90,32 +89,6 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
     }
 
     @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
-        XmpCache.INSTANCE.xmpUpdated(imageFile, oldXmp, updatedXmp);
-    }
-
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        XmpCache.INSTANCE.xmpDeleted(imageFile, xmp);
-    }
-
-    @Override
     public void thumbnailUpdated(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
@@ -123,6 +96,18 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
 
         fileCache.remove(imageFile);
         notifyUpdate(imageFile);
+    }
+
+    @Override
+    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+
+        // ignore
+    }
+
+    @Override
+    public void xmpDeleted(File imageFile, Xmp xmp) {
+
+        // ignore
     }
 
     @Override
@@ -145,15 +130,8 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
 
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        XmpCache.INSTANCE.xmpInserted(imageFile, xmp);
+        // ignore
     }
 
     @Override
@@ -273,8 +251,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                                              "ThumbnailCache.Info.FileIsNull");
                     } else {
                         File tnFile =
-                            PersistentThumbnails.getThumbnailFile(
-                                imageFile);
+                            PersistentThumbnails.getThumbnailFile(imageFile);
 
                         if (tnFile == null) {
                             AppLogger.logWarning(
@@ -282,8 +259,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                                 "ThumbnailCache.Info.NoTnFilename", imageFile);
                         } else {
                             image =
-                                PersistentThumbnails.getThumbnail(
-                                    imageFile);
+                                PersistentThumbnails.getThumbnail(imageFile);
                         }
                     }
 
