@@ -166,7 +166,8 @@ public class ThumbnailPanelRenderer
     private int                   dropIndex    = -1;
     private int                   oldDropIndex = -1;
     private final XmpCache        xmpCache     = XmpCache.INSTANCE;
-    private final Image           starImage[]  = new Image[5];
+    private static final int      STAR_COUNT   = 6;
+    private final Image           starImage[]  = new Image[STAR_COUNT];
     private final ThumbnailsPanel panel;
 
     public ThumbnailPanelRenderer(ThumbnailsPanel _panel) {
@@ -186,11 +187,11 @@ public class ThumbnailPanelRenderer
     }
 
     private void loadRatingImages() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < STAR_COUNT; i++) {
             starImage[i] = new ImageIcon(
                 getClass().getResource(
                     "/org/jphototagger/program/resource/icons/icon_xmp_rating_"
-                    + Integer.toString(i + 1) + ".png")).getImage();
+                    + Integer.toString(i) + ".png")).getImage();
         }
     }
 
@@ -437,8 +438,8 @@ public class ThumbnailPanelRenderer
     private boolean paintThumbnailStars(Graphics g, File file) {
         int stars = getRating(file);
 
-        if (stars > 0) {
-            int i = Math.min(4, stars - 1);
+        if (stars >= 0) {
+            int i = Math.min(STAR_COUNT - 1, stars);
 
             g.drawImage(starImage[i],
                         getThumbnailAreaWidth() - starImage[i].getWidth(null),
