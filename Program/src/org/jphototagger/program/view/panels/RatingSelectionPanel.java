@@ -127,8 +127,8 @@ public class RatingSelectionPanel extends JPanel
 
     @Override
     public String getText() {
-        if (value <= 0) {
-            return null;
+        if (value < 0) {
+            return "";
         } else {
             return String.valueOf(value);
         }
