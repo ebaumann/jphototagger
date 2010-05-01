@@ -405,32 +405,20 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     private void notifyDeleted(RenameTemplate template) {
-        Set<DatabaseRenameTemplatesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseRenameTemplatesListener listener : listeners) {
-                listener.templateDeleted(template);
-            }
+        for (DatabaseRenameTemplatesListener listener : ls.get()) {
+            listener.templateDeleted(template);
         }
     }
 
     private void notifyInserted(RenameTemplate template) {
-        Set<DatabaseRenameTemplatesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseRenameTemplatesListener listener : listeners) {
-                listener.templateInserted(template);
-            }
+        for (DatabaseRenameTemplatesListener listener : ls.get()) {
+            listener.templateInserted(template);
         }
     }
 
     private void notifyUpdated(RenameTemplate template) {
-        Set<DatabaseRenameTemplatesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseRenameTemplatesListener listener : listeners) {
-                listener.templateUpdated(template);
-            }
+        for (DatabaseRenameTemplatesListener listener : ls.get()) {
+            listener.templateUpdated(template);
         }
     }
 }

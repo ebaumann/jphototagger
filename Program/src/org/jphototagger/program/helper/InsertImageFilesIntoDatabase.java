@@ -69,7 +69,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
         DatabaseImageFiles.INSTANCE;
     private final ProgressListenerSupport                      pls =
         new ProgressListenerSupport();
-    private final ListenerSupport<UpdateMetadataCheckListener> uls =
+    private final ListenerSupport<UpdateMetadataCheckListener> ls =
         new ListenerSupport<UpdateMetadataCheckListener>();
     private ProgressEvent     progressEvent = new ProgressEvent(this, null);
     private final Set<Insert> what          = new HashSet<Insert>();
@@ -394,7 +394,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
             throw new NullPointerException("listener == null");
         }
 
-        uls.add(listener);
+        ls.add(listener);
     }
 
     /**
@@ -409,18 +409,14 @@ public final class InsertImageFilesIntoDatabase extends Thread
             throw new NullPointerException("listener == null");
         }
 
-        uls.remove(listener);
+        ls.remove(listener);
     }
 
     private void notifyUpdateMetadataCheckListener(Type type, File file) {
         UpdateMetadataCheckEvent         evt =
             new UpdateMetadataCheckEvent(type, file);
-        Set<UpdateMetadataCheckListener> listeners = uls.get();
-
-        synchronized (listeners) {
-            for (UpdateMetadataCheckListener listener : listeners) {
-                listener.actionPerformed(evt);
-            }
+        for (UpdateMetadataCheckListener listener : ls.get()) {
+            listener.actionPerformed(evt);
         }
     }
 

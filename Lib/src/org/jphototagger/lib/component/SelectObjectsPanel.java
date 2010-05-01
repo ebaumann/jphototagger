@@ -27,7 +27,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -59,7 +59,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private final Map<JCheckBox, Object> objectOfCheckBox =
         new LinkedHashMap<JCheckBox, Object>();
     private final Set<SelectionListener> listeners =
-        new HashSet<SelectionListener>();
+        new CopyOnWriteArraySet<SelectionListener>();
     private String     keySelIndices;
     private Properties properties;
     private int        componentCount;
@@ -126,24 +126,18 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
 
     public void addSelectionListener(SelectionListener listener) {
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
+        listeners.add(listener);
     }
 
     public void removeSelectionListener(SelectionListener listener) {
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
+        listeners.remove(listener);
     }
 
     private void notifyListeners(Object selObject) {
         SelectionEvent evt = new SelectionEvent(selObject, getSelectionCount());
 
-        synchronized (listeners) {
-            for (SelectionListener listener : listeners) {
-                listener.objectSelected(evt);
-            }
+        for (SelectionListener listener : listeners) {
+            listener.objectSelected(evt);
         }
     }
 
@@ -270,7 +264,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     /**
      * Selects all check boxes if their index is in the properties set via
-     * {@link SelectObjectsPanel#SelectObjectsPanel(java.util.Properties, java.lang.String)}
+     * {@link SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
      */
     public void applyPropertiesSelectedIndices() {
         if ((properties == null) ||!properties.containsKey(keySelIndices)) {

@@ -26,11 +26,13 @@ import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpPhotoshopAuthorsposition;
 import org.jphototagger.program.database.metadata.xmp
@@ -38,7 +40,8 @@ import org.jphototagger.program.database.metadata.xmp
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpPhotoshopHeadline;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpPhotoshopInstructions;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
@@ -46,7 +49,8 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
-import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
+import org.jphototagger.program.event.listener
+    .DatabaseMetadataTemplatesListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 
 import java.sql.Connection;
@@ -58,7 +62,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
@@ -69,7 +72,7 @@ import java.util.StringTokenizer;
 public class DatabaseMetadataTemplates extends Database {
     private static final String                   DELIM_REPEATABLE_STRINGS =
         "\t";
-    public static final DatabaseMetadataTemplates INSTANCE                 =
+    public static final DatabaseMetadataTemplates INSTANCE =
         new DatabaseMetadataTemplates();
     private final ListenerSupport<DatabaseMetadataTemplatesListener> ls =
         new ListenerSupport<DatabaseMetadataTemplatesListener>();
@@ -276,7 +279,7 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     private List<String> toRepeatable(String string) {
-        List<String>    strings   = new ArrayList<String>();
+        List<String>    strings = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(string,
                                         DELIM_REPEATABLE_STRINGS);
 
@@ -637,7 +640,7 @@ public class DatabaseMetadataTemplates extends Database {
         ResultSet         rs     = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(
                 "SELECT COUNT(*)"
                 + " FROM metadata_edit_templates WHERE name = ?");
@@ -675,43 +678,27 @@ public class DatabaseMetadataTemplates extends Database {
     }
 
     private void notifyDelted(MetadataTemplate template) {
-        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseMetadataTemplatesListener listener : listeners) {
-                listener.templateDeleted(template);
-            }
+        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
+            listener.templateDeleted(template);
         }
     }
 
     private void notifyInserted(MetadataTemplate template) {
-        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseMetadataTemplatesListener listener : listeners) {
-                listener.templateInserted(template);
-            }
+        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
+            listener.templateInserted(template);
         }
     }
 
     private void notifyUpdated(MetadataTemplate oldTemplate,
                                MetadataTemplate updatedTemplate) {
-        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseMetadataTemplatesListener listener : listeners) {
-                listener.templateUpdated(oldTemplate, updatedTemplate);
-            }
+        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
+            listener.templateUpdated(oldTemplate, updatedTemplate);
         }
     }
 
     private void notifyRenamed(String fromName, String toName) {
-        Set<DatabaseMetadataTemplatesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseMetadataTemplatesListener listener : listeners) {
-                listener.templateRenamed(fromName, toName);
-            }
+        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
+            listener.templateRenamed(fromName, toName);
         }
     }
 }

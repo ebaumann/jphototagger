@@ -34,7 +34,6 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -199,22 +198,14 @@ public final class DatabaseAutoscanDirectories extends Database {
     }
 
     private void notifyInserted(File dir) {
-        Set<DatabaseAutoscanDirectoriesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseAutoscanDirectoriesListener listener : listeners) {
-                listener.directoryInserted(dir);
-            }
+        for (DatabaseAutoscanDirectoriesListener listener : ls.get()) {
+            listener.directoryInserted(dir);
         }
     }
 
     private void notifyDeleted(File dir) {
-        Set<DatabaseAutoscanDirectoriesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseAutoscanDirectoriesListener listener : listeners) {
-                listener.directoryDeleted(dir);
-            }
+        for (DatabaseAutoscanDirectoriesListener listener : ls.get()) {
+            listener.directoryDeleted(dir);
         }
     }
 }

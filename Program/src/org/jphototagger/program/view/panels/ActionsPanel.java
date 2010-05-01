@@ -37,7 +37,6 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import java.util.Set;
 
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -56,7 +55,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         8875330844851092391L;
     private final ListModelPrograms                      model            =
         new ListModelPrograms(Type.ACTION);
-    private final ListenerSupport<ProgramActionListener> listenerSupport  =
+    private final ListenerSupport<ProgramActionListener> ls               =
         new ListenerSupport<ProgramActionListener>();
     private Object progressBarOwner;
     private final ReorderListener                        reorderListener  =
@@ -242,16 +241,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
             throw new NullPointerException("l == null");
         }
 
-        listenerSupport.add(l);
+        ls.add(l);
     }
 
     private synchronized void notifyProgramExecuted(Program program) {
-        Set<ProgramActionListener> listeners = listenerSupport.get();
-
-        synchronized (listeners) {
-            for (ProgramActionListener l : listeners) {
-                l.programShallBeExecuted(program);
-            }
+        for (ProgramActionListener listener : ls.get()) {
+            listener.programShallBeExecuted(program);
         }
     }
 

@@ -453,65 +453,41 @@ public final class DatabaseSynonyms extends Database {
     }
 
     private void notifySynonymOfWordDeleted(String word, String synonym) {
-        Set<DatabaseSynonymsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSynonymsListener listener : listeners) {
-                listener.synonymOfWordDeleted(word, synonym);
-            }
+        for (DatabaseSynonymsListener listener : ls.get()) {
+            listener.synonymOfWordDeleted(word, synonym);
         }
     }
 
     private void notifyWordDeleted(String word) {
-        Set<DatabaseSynonymsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSynonymsListener listener : listeners) {
-                listener.wordDeleted(word);
-            }
+        for (DatabaseSynonymsListener listener : ls.get()) {
+            listener.wordDeleted(word);
         }
     }
 
     private void notifySynonymInserted(String word, String synonym) {
-        Set<DatabaseSynonymsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSynonymsListener listener : listeners) {
-                listener.synonymInserted(word, synonym);
-            }
+        for (DatabaseSynonymsListener listener : ls.get()) {
+            listener.synonymInserted(word, synonym);
         }
     }
 
     private void notifySynonymOfWordRenamed(String word, String oldSynonymName,
             String newSynonymName) {
-        Set<DatabaseSynonymsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSynonymsListener listener : listeners) {
-                listener.synonymOfWordRenamed(word, oldSynonymName,
-                                              newSynonymName);
-            }
+        for (DatabaseSynonymsListener listener : ls.get()) {
+            listener.synonymOfWordRenamed(word, oldSynonymName,
+                                          newSynonymName);
         }
     }
 
     private void notifySynonymRenamed(String oldSynonymName,
                                       String newSynonymName) {
-        Set<DatabaseSynonymsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSynonymsListener listener : listeners) {
-                listener.synonymRenamed(oldSynonymName, newSynonymName);
-            }
+        for (DatabaseSynonymsListener listener : ls.get()) {
+            listener.synonymRenamed(oldSynonymName, newSynonymName);
         }
     }
 
     private void notifyWordRenamed(String fromName, String toName) {
-        Set<DatabaseSynonymsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSynonymsListener listener : listeners) {
-                listener.wordRenamed(fromName, toName);
-            }
+        for (DatabaseSynonymsListener listener : ls.get()) {
+            listener.wordRenamed(fromName, toName);
         }
     }
 }

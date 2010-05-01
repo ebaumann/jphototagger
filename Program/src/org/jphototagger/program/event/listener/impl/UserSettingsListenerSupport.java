@@ -35,10 +35,8 @@ public final class UserSettingsListenerSupport
             throw new NullPointerException("evt == null");
         }
 
-        synchronized (listeners) {
-            for (UserSettingsListener l : listeners) {
-                l.applySettings(evt);
-            }
+        for (UserSettingsListener l : listeners) {
+            l.applySettings(evt);
         }
     }
 }

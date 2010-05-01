@@ -37,7 +37,6 @@ import java.sql.Statement;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -317,22 +316,14 @@ public final class DatabaseFileExcludePatterns extends Database {
     }
 
     private void notifyInserted(String pattern) {
-        Set<DatabaseFileExcludePatternsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseFileExcludePatternsListener listener : listeners) {
-                listener.patternInserted(pattern);
-            }
+        for (DatabaseFileExcludePatternsListener listener : ls.get()) {
+            listener.patternInserted(pattern);
         }
     }
 
     private void notifyDeleted(String pattern) {
-        Set<DatabaseFileExcludePatternsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseFileExcludePatternsListener listener : listeners) {
-                listener.patternDeleted(pattern);
-            }
+        for (DatabaseFileExcludePatternsListener listener : ls.get()) {
+            listener.patternDeleted(pattern);
         }
     }
 }

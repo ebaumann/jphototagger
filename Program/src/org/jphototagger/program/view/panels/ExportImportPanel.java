@@ -42,7 +42,6 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -66,7 +65,7 @@ public class ExportImportPanel extends javax.swing.JPanel
     private Context                                               context =
         Context.EXPORT;
     private File                                                  dir;
-    private final transient ListenerSupport<ExportImportListener> exImportListenerSupport =
+    private final transient ListenerSupport<ExportImportListener> ls =
         new ListenerSupport<ExportImportListener>();
 
     public enum Context { EXPORT, IMPORT }
@@ -284,7 +283,7 @@ public class ExportImportPanel extends javax.swing.JPanel
             throw new NullPointerException("listener == null");
         }
 
-        exImportListenerSupport.add(listener);
+        ls.add(listener);
     }
 
     public void removeListener(ExportImportListener listener) {
@@ -292,16 +291,12 @@ public class ExportImportPanel extends javax.swing.JPanel
             throw new NullPointerException("listener == null");
         }
 
-        exImportListenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
     private void notifyExportImportListeners() {
-        Set<ExportImportListener> listeners = exImportListenerSupport.get();
-
-        synchronized (listeners) {
-            for (ExportImportListener listener : listeners) {
-                listener.done();
-            }
+        for (ExportImportListener listener : ls.get()) {
+            listener.done();
         }
     }
 

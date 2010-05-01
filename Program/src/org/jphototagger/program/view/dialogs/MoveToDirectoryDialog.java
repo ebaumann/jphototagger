@@ -46,7 +46,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.filechooser.FileSystemView;
 
@@ -72,7 +71,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private File                                      targetDirectory =
         new File("");
     private boolean                                   moveIfVisible   = false;
-    private final transient FileSystemListenerSupport listenerSupport =
+    private final transient FileSystemListenerSupport ls =
         new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
@@ -156,19 +155,15 @@ public final class MoveToDirectoryDialog extends Dialog
             throw new NullPointerException("listener == null");
         }
 
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     private synchronized void addListenerToMoveTask() {
         moveTask.addFileSystemListener(this);
         moveTask.addProgressListener(this);
 
-        Set<FileSystemListener> listeners = listenerSupport.get();
-
-        synchronized (listeners) {
-            for (FileSystemListener listener : listenerSupport.get()) {
-                moveTask.addFileSystemListener(listener);
-            }
+        for (FileSystemListener listener : ls.get()) {
+            moveTask.addFileSystemListener(listener);
         }
     }
 
@@ -254,10 +249,10 @@ public final class MoveToDirectoryDialog extends Dialog
         if (visible) {
             if (moveIfVisible) {
                 start();
-                listenerSupport.add(this);
+                ls.add(this);
             } else {
                 setTargetDirectory();
-                listenerSupport.remove(this);
+                ls.remove(this);
             }
         } else {
             targetDirectoryToSettings();

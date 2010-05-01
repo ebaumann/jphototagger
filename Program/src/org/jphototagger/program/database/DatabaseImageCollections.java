@@ -36,7 +36,6 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -671,55 +670,35 @@ public final class DatabaseImageCollections extends Database {
 
     private void notifyImagesInserted(String collectionName,
                                       List<File> insertedImageFiles) {
-        Set<DatabaseImageCollectionsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.imagesInserted(collectionName, insertedImageFiles);
-            }
+        for (DatabaseImageCollectionsListener listener : ls.get()) {
+            listener.imagesInserted(collectionName, insertedImageFiles);
         }
     }
 
     private void notifyImagesDeleted(String collectionName,
                                      List<File> deletedImageFiles) {
-        Set<DatabaseImageCollectionsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.imagesDeleted(collectionName, deletedImageFiles);
-            }
+        for (DatabaseImageCollectionsListener listener : ls.get()) {
+            listener.imagesDeleted(collectionName, deletedImageFiles);
         }
     }
 
     private void notifyCollectionInserted(String collectionName,
             List<File> insertedImageFiles) {
-        Set<DatabaseImageCollectionsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.collectionInserted(collectionName, insertedImageFiles);
-            }
+        for (DatabaseImageCollectionsListener listener : ls.get()) {
+            listener.collectionInserted(collectionName, insertedImageFiles);
         }
     }
 
     private void notifyCollectionDeleted(String collectionName,
             List<File> deletedImageFiles) {
-        Set<DatabaseImageCollectionsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.collectionDeleted(collectionName, deletedImageFiles);
-            }
+        for (DatabaseImageCollectionsListener listener : ls.get()) {
+            listener.collectionDeleted(collectionName, deletedImageFiles);
         }
     }
 
     private void notifyCollectionRenamed(String fromName, String toName) {
-        Set<DatabaseImageCollectionsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageCollectionsListener listener : listeners) {
-                listener.collectionRenamed(fromName, toName);
-            }
+        for (DatabaseImageCollectionsListener listener : ls.get()) {
+            listener.collectionRenamed(fromName, toName);
         }
     }
 }

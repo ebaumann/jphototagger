@@ -36,7 +36,6 @@ import java.sql.Statement;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Contains external Programs to start within the application. The primary
@@ -563,32 +562,20 @@ public final class DatabasePrograms extends Database {
     }
 
     private void notifyDeleted(Program program) {
-        Set<DatabaseProgramsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseProgramsListener listener : listeners) {
-                listener.programDeleted(program);
-            }
+        for (DatabaseProgramsListener listener : ls.get()) {
+            listener.programDeleted(program);
         }
     }
 
     private void notifyInserted(Program program) {
-        Set<DatabaseProgramsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseProgramsListener listener : listeners) {
-                listener.programInserted(program);
-            }
+        for (DatabaseProgramsListener listener : ls.get()) {
+            listener.programInserted(program);
         }
     }
 
     private void notifyUpdated(Program program) {
-        Set<DatabaseProgramsListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseProgramsListener listener : listeners) {
-                listener.programUpdated(program);
-            }
+        for (DatabaseProgramsListener listener : ls.get()) {
+            listener.programUpdated(program);
         }
     }
 
