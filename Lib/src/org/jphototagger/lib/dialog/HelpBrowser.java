@@ -40,9 +40,9 @@ import java.awt.PopupMenu;
 
 import java.net.URL;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,8 +73,8 @@ public final class HelpBrowser extends Dialog
         6909713450716449838L;
     private final LinkedList<URL>           urlHistory           =
         new LinkedList<URL>();
-    private final List<HelpBrowserListener> helpBrowserListeners =
-        new ArrayList<HelpBrowserListener>();
+    private final Set<HelpBrowserListener>  listeners =
+        new CopyOnWriteArraySet<HelpBrowserListener>();
     private int                     currentHistoryIndex = -1;
     private PopupMenu               popupMenu;
     private MenuItem                itemPrevious;
@@ -106,13 +106,12 @@ public final class HelpBrowser extends Dialog
      *
      * @param listener  listener
      */
-    public synchronized void addHelpBrowserListener(
-            HelpBrowserListener listener) {
+    public void addHelpBrowserListener(HelpBrowserListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
 
-        helpBrowserListeners.add(listener);
+        listeners.add(listener);
     }
 
     /**
@@ -120,20 +119,19 @@ public final class HelpBrowser extends Dialog
      *
      * @param listener  listener
      */
-    public synchronized void removeHelpBrowserListener(
-            HelpBrowserListener listener) {
+    public void removeHelpBrowserListener(HelpBrowserListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
 
-        helpBrowserListeners.remove(listener);
+        listeners.remove(listener);
     }
 
-    private synchronized void notifyUrlChanged(URL url) {
+    private void notifyUrlChanged(URL url) {
         HelpBrowserEvent action = new HelpBrowserEvent(this,
                                       HelpBrowserEvent.Type.URL_CHANGED, url);
 
-        for (HelpBrowserListener listener : helpBrowserListeners) {
+        for (HelpBrowserListener listener : listeners) {
             listener.actionPerformed(action);
         }
     }

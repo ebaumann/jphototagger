@@ -21,7 +21,7 @@
 
 package org.jphototagger.program.event.listener.impl;
 
-import java.util.HashSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.Set;
 
 /**
@@ -31,16 +31,14 @@ import java.util.Set;
  * @author  Elmar Baumann
  */
 public class ListenerSupport<T> {
-    protected final Set<T> listeners = new HashSet<T>();
+    protected final Set<T> listeners = new CopyOnWriteArraySet<T>();
 
     public void add(T listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
+        listeners.add(listener);
     }
 
     public void remove(T listener) {
@@ -48,14 +46,16 @@ public class ListenerSupport<T> {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
+        listeners.remove(listener);
     }
 
+    /**
+     * Returns added listeners.
+     * 
+     * @return thread save set (that does not reflect added or removed
+     *         listeners after calling this mehtod)
+     */
     public Set<T> get() {
-        synchronized (listeners) {
-            return listeners;
-        }
+        return listeners;
     }
 }

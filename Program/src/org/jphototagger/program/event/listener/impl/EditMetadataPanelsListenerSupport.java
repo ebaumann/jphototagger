@@ -30,18 +30,14 @@ import org.jphototagger.program.event.listener.EditMetadataPanelsListener;
 public final class EditMetadataPanelsListenerSupport
         extends ListenerSupport<EditMetadataPanelsListener> {
     public void notifyEditEnabled() {
-        synchronized (listeners) {
-            for (EditMetadataPanelsListener listener : listeners) {
-                listener.editEnabled();
-            }
+        for (EditMetadataPanelsListener listener : listeners) {
+            listener.editEnabled();
         }
     }
 
     public void notifyEditDisabled() {
-        synchronized (listeners) {
-            for (EditMetadataPanelsListener listener : listeners) {
-                listener.editDisabled();
-            }
+        for (EditMetadataPanelsListener listener : listeners) {
+            listener.editDisabled();
         }
     }
 }

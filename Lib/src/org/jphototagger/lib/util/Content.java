@@ -21,6 +21,7 @@
 
 package org.jphototagger.lib.util;
 
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +36,8 @@ import java.util.Set;
  */
 public class Content<T> {
     private T                      content;
-    private final Set<Listener<T>> listeners = new HashSet<Listener<T>>();
+    private final Set<Listener<T>> listeners =
+        new CopyOnWriteArraySet<Listener<T>>();
 
     private enum Type { ADDED, REMOVED }
 
@@ -49,9 +51,7 @@ public class Content<T> {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
+        listeners.add(listener);
     }
 
     public synchronized T getContent() {
@@ -72,19 +72,15 @@ public class Content<T> {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
+        listeners.remove(listener);
     }
 
     private void notifyListeners(Type type) {
-        synchronized (listeners) {
-            for (Listener<T> listener : listeners) {
-                if (type.equals(Type.ADDED)) {
-                    listener.contentAdded(content);
-                } else if (type.equals(Type.REMOVED)) {
-                    listener.contentRemoved();
-                }
+        for (Listener<T> listener : listeners) {
+            if (type.equals(Type.ADDED)) {
+                listener.contentAdded(content);
+            } else if (type.equals(Type.REMOVED)) {
+                listener.contentRemoved();
             }
         }
     }

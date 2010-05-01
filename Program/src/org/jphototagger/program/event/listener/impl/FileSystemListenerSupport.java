@@ -40,10 +40,8 @@ public final class FileSystemListenerSupport
             throw new NullPointerException("target == null");
         }
 
-        synchronized (listeners) {
-            for (FileSystemListener listener : listeners) {
-                listener.fileCopied(fromFile, toFile);
-            }
+        for (FileSystemListener listener : listeners) {
+            listener.fileCopied(fromFile, toFile);
         }
     }
 
@@ -56,10 +54,8 @@ public final class FileSystemListenerSupport
             throw new NullPointerException("target == null");
         }
 
-        synchronized (listeners) {
-            for (FileSystemListener listener : listeners) {
-                listener.fileMoved(fromFile, toFile);
-            }
+        for (FileSystemListener listener : listeners) {
+            listener.fileMoved(fromFile, toFile);
         }
     }
 
@@ -68,10 +64,8 @@ public final class FileSystemListenerSupport
             throw new NullPointerException("file == null");
         }
 
-        synchronized (listeners) {
-            for (FileSystemListener listener : listeners) {
-                listener.fileDeleted(file);
-            }
+        for (FileSystemListener listener : listeners) {
+            listener.fileDeleted(file);
         }
     }
 
@@ -84,10 +78,8 @@ public final class FileSystemListenerSupport
             throw new NullPointerException("newFile == null");
         }
 
-        synchronized (listeners) {
-            for (FileSystemListener listener : listeners) {
-                listener.fileRenamed(fromFile, toFile);
-            }
+        for (FileSystemListener listener : listeners) {
+            listener.fileRenamed(fromFile, toFile);
         }
     }
 }

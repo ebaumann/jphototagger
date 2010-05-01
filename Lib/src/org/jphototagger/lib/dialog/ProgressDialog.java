@@ -26,8 +26,8 @@ import org.jphototagger.lib.resource.JslBundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Nichtmodaler Dialog mit Fortschrittsbalken.
@@ -35,10 +35,10 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ProgressDialog extends javax.swing.JDialog {
-    private static final long          serialVersionUID = 4604786111382584915L;
-    private final List<ActionListener> actionListeners  =
-        new ArrayList<ActionListener>();
-    private boolean closeEnabled = true;
+    private static final long         serialVersionUID = 4604786111382584915L;
+    private final Set<ActionListener> actionListeners  =
+        new CopyOnWriteArraySet<ActionListener>();
+    private boolean                   closeEnabled     = true;
 
     /**
      * Konstruktor.
@@ -51,11 +51,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Adds an action listener. It is called, when a user clicks the stop button.
+     * Adds an action listener. It is called, when a user clicks the stop
+     * button.
      *
      * @param listener  action listener
      */
-    public synchronized void addActionListener(ActionListener listener) {
+    public void addActionListener(ActionListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
@@ -68,7 +69,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
      *
      * @param listener  action listener
      */
-    public synchronized void removeActionListener(ActionListener listener) {
+    public void removeActionListener(ActionListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }

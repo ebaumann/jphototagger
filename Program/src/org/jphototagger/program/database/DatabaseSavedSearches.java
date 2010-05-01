@@ -36,7 +36,6 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -579,42 +578,26 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private void notifyInserted(SavedSearch savedSerch) {
-        Set<DatabaseSavedSearchesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSavedSearchesListener listener : listeners) {
-                listener.searchInserted(savedSerch);
-            }
+        for (DatabaseSavedSearchesListener listener : ls.get()) {
+            listener.searchInserted(savedSerch);
         }
     }
 
     private void notifyUpdated(SavedSearch savedSerch) {
-        Set<DatabaseSavedSearchesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSavedSearchesListener listener : listeners) {
-                listener.searchUpdated(savedSerch);
-            }
+        for (DatabaseSavedSearchesListener listener : ls.get()) {
+            listener.searchUpdated(savedSerch);
         }
     }
 
     private void notifyDeleted(String name) {
-        Set<DatabaseSavedSearchesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSavedSearchesListener listener : listeners) {
-                listener.searchDeleted(name);
-            }
+        for (DatabaseSavedSearchesListener listener : ls.get()) {
+            listener.searchDeleted(name);
         }
     }
 
     private void notifyRenamed(String fromName, String toName) {
-        Set<DatabaseSavedSearchesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseSavedSearchesListener listener : listeners) {
-                listener.searchRenamed(fromName, toName);
-            }
+        for (DatabaseSavedSearchesListener listener : ls.get()) {
+            listener.searchRenamed(fromName, toName);
         }
     }
 }

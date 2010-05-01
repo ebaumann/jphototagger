@@ -34,7 +34,7 @@ public final class ProgressListenerSupport
 
     /**
      * Calls on every added progress listener
-     * {@link ProgressListener#progressStarted(org.jphototagger.program.event.ProgressEvent)}.
+     * {@link ProgressListener#progressStarted(ProgressEvent)}.
      *
      * @param event progress event
      */
@@ -43,16 +43,14 @@ public final class ProgressListenerSupport
             throw new NullPointerException("event == null");
         }
 
-        synchronized (listeners) {
-            for (ProgressListener listener : listeners) {
-                listener.progressStarted(event);
-            }
+        for (ProgressListener listener : listeners) {
+            listener.progressStarted(event);
         }
     }
 
     /**
      * Calls on every added progress listener
-     * {@link ProgressListener#progressPerformed(org.jphototagger.program.event.ProgressEvent)}.
+     * {@link ProgressListener#progressPerformed(ProgressEvent)}.
      *
      * @param  event progress event
      * @return       true if one of the of the events returns
@@ -65,10 +63,8 @@ public final class ProgressListenerSupport
 
         boolean cancel = false;
 
-        synchronized (listeners) {
-            for (ProgressListener listener : listeners) {
-                listener.progressPerformed(event);
-            }
+        for (ProgressListener listener : listeners) {
+            listener.progressPerformed(event);
         }
 
         return cancel;
@@ -76,7 +72,7 @@ public final class ProgressListenerSupport
 
     /**
      * Calls on every added progress listener
-     * {@link ProgressListener#progressEnded(org.jphototagger.program.event.ProgressEvent)}.
+     * {@link ProgressListener#progressEnded(ProgressEvent)}.
      *
      * @param event progress event
      */
@@ -85,10 +81,8 @@ public final class ProgressListenerSupport
             throw new NullPointerException("event == null");
         }
 
-        synchronized (listeners) {
-            for (ProgressListener listener : listeners) {
-                listener.progressEnded(event);
-            }
+        for (ProgressListener listener : listeners) {
+            listener.progressEnded(event);
         }
     }
 }

@@ -23,7 +23,6 @@ package org.jphototagger.program.event.listener.impl;
 
 import org.jphototagger.program.event.listener.ErrorListener;
 
-
 /**
  * Error-Listener, erspart Klassen die Implementation von
  * <code>add()</code> und <code>removeErrorListener()</code>.
@@ -47,10 +46,8 @@ public final class ErrorListeners extends ListenerSupport<ErrorListener> {
             throw new NullPointerException("message == null");
         }
 
-        synchronized (listeners) {
-            for (ErrorListener listener : listeners) {
-                listener.error(source, message);
-            }
+        for (ErrorListener listener : listeners) {
+            listener.error(source, message);
         }
     }
 

@@ -47,7 +47,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -585,9 +584,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void notifyNameChanged() {
-        Set<NameListener> listeners = ls.get();
-
-        for (NameListener listener : listeners) {
+        for (NameListener listener : ls.get()) {
             listener.nameChanged(searchName);
         }
     }

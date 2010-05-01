@@ -293,32 +293,20 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     }
 
     private void notifyInserted(UserDefinedFileFilter filter) {
-        Set<DatabaseUserDefinedFileFiltersListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseUserDefinedFileFiltersListener listener : listeners) {
-                listener.filterInserted(filter);
-            }
+        for (DatabaseUserDefinedFileFiltersListener listener : ls.get()) {
+            listener.filterInserted(filter);
         }
     }
 
     private void notifyDeleted(UserDefinedFileFilter filter) {
-        Set<DatabaseUserDefinedFileFiltersListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseUserDefinedFileFiltersListener listener : listeners) {
-                listener.filterDeleted(filter);
-            }
+        for (DatabaseUserDefinedFileFiltersListener listener : ls.get()) {
+            listener.filterDeleted(filter);
         }
     }
 
     private void notifyUpdated(UserDefinedFileFilter filter) {
-        Set<DatabaseUserDefinedFileFiltersListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseUserDefinedFileFiltersListener listener : listeners) {
-                listener.filterUpdated(filter);
-            }
+        for (DatabaseUserDefinedFileFiltersListener listener : ls.get()) {
+            listener.filterUpdated(filter);
         }
     }
 

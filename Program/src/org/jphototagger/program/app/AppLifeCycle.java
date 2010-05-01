@@ -48,7 +48,7 @@ public final class AppLifeCycle {
         new AppLifeCycle();
     private final Set<Object>                      saveObjects     =
         new HashSet<Object>();
-    private final ListenerSupport<AppExitListener> listenerSupport =
+    private final ListenerSupport<AppExitListener> ls =
         new ListenerSupport<AppExitListener>();
     private final Set<FinalTask> finalTasks = new LinkedHashSet<FinalTask>();
     private AppFrame             appFrame;
@@ -160,7 +160,7 @@ public final class AppLifeCycle {
             throw new NullPointerException("listener == null");
         }
 
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     /**
@@ -174,14 +174,12 @@ public final class AppLifeCycle {
             throw new NullPointerException("listener == null");
         }
 
-        listenerSupport.remove(listener);
+        ls.remove(listener);
     }
 
     private void notifyExitListeners() {
-        synchronized (listenerSupport) {
-            for (AppExitListener listener : listenerSupport.get()) {
-                listener.appWillExit();
-            }
+        for (AppExitListener listener : ls.get()) {
+            listener.appWillExit();
         }
     }
 
@@ -323,7 +321,7 @@ public final class AppLifeCycle {
 
 
     public static abstract class FinalTask {
-        private final ListenerSupport<FinalTaskListener> listenerSupport =
+        private final ListenerSupport<FinalTaskListener> ls =
             new ListenerSupport<FinalTaskListener>();
 
         public void addListener(FinalTaskListener listener) {
@@ -331,7 +329,7 @@ public final class AppLifeCycle {
                 throw new NullPointerException("listener == null");
             }
 
-            listenerSupport.add(listener);
+            ls.add(listener);
         }
 
         public void removeListener(FinalTaskListener listener) {
@@ -339,16 +337,12 @@ public final class AppLifeCycle {
                 throw new NullPointerException("listener == null");
             }
 
-            listenerSupport.remove(listener);
+            ls.remove(listener);
         }
 
         protected void notifyFinished() {
-            Set<FinalTaskListener> listeners = listenerSupport.get();
-
-            synchronized (listeners) {
-                for (FinalTaskListener listener : listeners) {
-                    listener.finished();
-                }
+            for (FinalTaskListener listener : ls.get()) {
+                listener.finished();
             }
         }
 

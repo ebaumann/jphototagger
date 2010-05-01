@@ -34,7 +34,6 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -348,32 +347,20 @@ public final class DatabaseFavorites extends Database {
     }
 
     private void notifyInserted(Favorite favorite) {
-        Set<DatabaseFavoritesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseFavoritesListener listener : listeners) {
-                listener.favoriteInserted(favorite);
-            }
+        for (DatabaseFavoritesListener listener : ls.get()) {
+            listener.favoriteInserted(favorite);
         }
     }
 
     private void notifyDeleted(Favorite favorite) {
-        Set<DatabaseFavoritesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseFavoritesListener listener : listeners) {
-                listener.favoriteDeleted(favorite);
-            }
+        for (DatabaseFavoritesListener listener : ls.get()) {
+            listener.favoriteDeleted(favorite);
         }
     }
 
     private void notifyUpdated(Favorite oldFavorite, Favorite updatedFavorite) {
-        Set<DatabaseFavoritesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseFavoritesListener listener : listeners) {
-                listener.favoriteUpdated(oldFavorite, updatedFavorite);
-            }
+        for (DatabaseFavoritesListener listener : ls.get()) {
+            listener.favoriteUpdated(oldFavorite, updatedFavorite);
         }
     }
 }

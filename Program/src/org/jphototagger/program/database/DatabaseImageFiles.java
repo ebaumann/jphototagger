@@ -2886,123 +2886,75 @@ public final class DatabaseImageFiles extends Database {
     }
 
     void notifyImageFileDeleted(File imageFile) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.imageFileDeleted(imageFile);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.imageFileDeleted(imageFile);
         }
     }
 
     private void notifyImageFileInserted(File imageFile) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.imageFileInserted(imageFile);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.imageFileInserted(imageFile);
         }
     }
 
     private void notifyImageFileRenamed(File oldFile, File newFile) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.imageFileRenamed(oldFile, newFile);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.imageFileRenamed(oldFile, newFile);
         }
     }
 
     private void notifyXmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.xmpUpdated(imageFile, oldXmp, updatedXmp);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.xmpUpdated(imageFile, oldXmp, updatedXmp);
         }
     }
 
     private void notifyXmpInserted(File imageFile, Xmp xmp) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.xmpInserted(imageFile, xmp);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.xmpInserted(imageFile, xmp);
         }
     }
 
     private void notifyXmpDeleted(File imageFile, Xmp xmp) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.xmpDeleted(imageFile, xmp);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.xmpDeleted(imageFile, xmp);
         }
     }
 
     private void notifyExifUpdated(File imageFile, Exif oldExif,
                                    Exif updatedExif) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.exifUpdated(imageFile, oldExif, updatedExif);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.exifUpdated(imageFile, oldExif, updatedExif);
         }
     }
 
     private void notifyExifInserted(File imageFile, Exif eExif) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.exifInserted(imageFile, eExif);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.exifInserted(imageFile, eExif);
         }
     }
 
     private void notifyExifDeleted(File imageFile, Exif eExif) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.exifDeleted(imageFile, eExif);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.exifDeleted(imageFile, eExif);
         }
     }
 
     private void notifyThumbnailUpdated(File imageFile) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.thumbnailUpdated(imageFile);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.thumbnailUpdated(imageFile);
         }
     }
 
     private void notifyDcSubjectInserted(String dcSubject) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.dcSubjectInserted(dcSubject);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.dcSubjectInserted(dcSubject);
         }
     }
 
     private void notifyDcSubjectDeleted(String dcSubject) {
-        Set<DatabaseImageFilesListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseImageFilesListener listener : listeners) {
-                listener.dcSubjectDeleted(dcSubject);
-            }
+        for (DatabaseImageFilesListener listener : ls.get()) {
+            listener.dcSubjectDeleted(dcSubject);
         }
     }
 }

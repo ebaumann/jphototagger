@@ -30,22 +30,20 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.text.MessageFormat;
 
-import java.util.Set;
 
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
  * @author  Elmar Baumann
- * @see     DatabaseImageFiles#deleteOrphanedXmp(org.jphototagger.program.event.listener.ProgressListener)
+ * @see     DatabaseImageFiles#deleteOrphanedXmp(ProgressListener)
  */
 public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
-    private final ProgressListenerSupport listenerSupport =
-        new ProgressListenerSupport();
-    private volatile boolean notifyProgressEnded;
-    private volatile boolean cancel;
-    private volatile int     countDeleted = 0;
-    private String           startMessage;
-    private String           endMessage;
+    private final ProgressListenerSupport ls = new ProgressListenerSupport();
+    private volatile boolean              notifyProgressEnded;
+    private volatile boolean              cancel;
+    private volatile int                  countDeleted = 0;
+    private String                        startMessage;
+    private String                        endMessage;
 
     @Override
     public void run() {
@@ -78,7 +76,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
             throw new NullPointerException("listener == null");
         }
 
-        listenerSupport.add(listener);
+        ls.add(listener);
     }
 
     @Override
@@ -89,18 +87,15 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
         evt.setInfo(getStartMessage(evt));
 
-        // Getting listeners to catch cancel request
-        Set<ProgressListener> listeners = listenerSupport.get();
+        // Catching cancellation request
+        for (ProgressListener listener : ls.get()) {
+            listener.progressStarted(evt);
 
-        synchronized (listeners) {
-            for (ProgressListener listener : listeners) {
-                listener.progressStarted(evt);
+            if (evt.isCancel()) {
 
-                if (evt.isCancel()) {
-                    // cancel = evt.isCancel() can be wrong when more than 1
-                    // listener
-                    cancel = true;
-                }
+                // cancel = evt.isCancel() can be wrong when more than 1
+                // listener
+                cancel = true;
             }
         }
     }
@@ -111,16 +106,15 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
             throw new NullPointerException("evt == null");
         }
 
-        // Getting listeners to catch cancel request
-        Set<ProgressListener> listeners = listenerSupport.get();
+        // Catching cancellation request
+        for (ProgressListener listener : ls.get()) {
+            listener.progressPerformed(evt);
 
-        synchronized (listeners) {
-            for (ProgressListener listener : listeners) {
-                listener.progressPerformed(evt);
+            if (evt.isCancel()) {
 
-                if (evt.isCancel()) {
-                    cancel = true;    // cancel = evt.isCancel() can be wrong when more than 1 listener
-                }
+                // cancel = evt.isCancel() can be wrong when more than
+                // 1 listener
+                cancel = true;
             }
         }
     }
@@ -131,7 +125,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
         evt.setInfo(getEndMessage());
 
         if (cancel || notifyProgressEnded) {
-            listenerSupport.notifyEnded(evt);
+            ls.notifyEnded(evt);
         }
     }
 

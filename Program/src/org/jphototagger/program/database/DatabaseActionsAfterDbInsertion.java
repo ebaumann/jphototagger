@@ -34,7 +34,6 @@ import java.sql.Statement;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Contains (links to) external Programs to execute after inserting metadata
@@ -304,32 +303,20 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     }
 
     private void notifyInserted(Program program) {
-        Set<DatabaseActionsAfterDbInsertionListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseActionsAfterDbInsertionListener listener : listeners) {
-                listener.programInserted(program);
-            }
+        for (DatabaseActionsAfterDbInsertionListener listener : ls.get()) {
+            listener.programInserted(program);
         }
     }
 
     private void notifyDeleted(Program program) {
-        Set<DatabaseActionsAfterDbInsertionListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseActionsAfterDbInsertionListener listener : listeners) {
-                listener.programDeleted(program);
-            }
+        for (DatabaseActionsAfterDbInsertionListener listener : ls.get()) {
+            listener.programDeleted(program);
         }
     }
 
     private void notifyReordered() {
-        Set<DatabaseActionsAfterDbInsertionListener> listeners = ls.get();
-
-        synchronized (listeners) {
-            for (DatabaseActionsAfterDbInsertionListener listener : listeners) {
-                listener.programsReordered();
-            }
+        for (DatabaseActionsAfterDbInsertionListener listener : ls.get()) {
+            listener.programsReordered();
         }
     }
 }

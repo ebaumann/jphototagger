@@ -24,10 +24,10 @@ package org.jphototagger.plugin;
 import java.io.File;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -45,7 +45,7 @@ public abstract class Plugin {
     private JProgressBar              progressBar;
     private final List<File>          files = new ArrayList<File>();
     private final Set<PluginListener> pluginListeners =
-        new HashSet<PluginListener>();
+        new CopyOnWriteArraySet<PluginListener>();
     private boolean pBarStringPainted;
 
     /**
@@ -137,9 +137,7 @@ public abstract class Plugin {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (pluginListeners) {
-            pluginListeners.add(listener);
-        }
+        pluginListeners.add(listener);
     }
 
     /**
@@ -152,9 +150,7 @@ public abstract class Plugin {
             throw new NullPointerException("listener == null");
         }
 
-        synchronized (pluginListeners) {
-            pluginListeners.remove(listener);
-        }
+        pluginListeners.remove(listener);
     }
 
     /**
@@ -167,11 +163,9 @@ public abstract class Plugin {
             throw new NullPointerException("event == null");
         }
 
-        synchronized (pluginListeners) {
-            if (pluginListeners.size() > 0) {
-                for (PluginListener listener : pluginListeners) {
-                    listener.action(event);
-                }
+        if (pluginListeners.size() > 0) {
+            for (PluginListener listener : pluginListeners) {
+                listener.action(event);
             }
         }
     }

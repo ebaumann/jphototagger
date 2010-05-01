@@ -40,10 +40,8 @@ public final class TextEntryListenerSupport
             throw new NullPointerException("removedText == null");
         }
 
-        synchronized (listeners) {
-            for (TextEntryListener listener : listeners) {
-                listener.textRemoved(column, removedText);
-            }
+        for (TextEntryListener listener : listeners) {
+            listener.textRemoved(column, removedText);
         }
     }
 
@@ -56,10 +54,8 @@ public final class TextEntryListenerSupport
             throw new NullPointerException("addedText == null");
         }
 
-        synchronized (listeners) {
-            for (TextEntryListener listener : listeners) {
-                listener.textAdded(column, addedText);
-            }
+        for (TextEntryListener listener : listeners) {
+            listener.textAdded(column, addedText);
         }
     }
 
@@ -77,10 +73,8 @@ public final class TextEntryListenerSupport
             throw new NullPointerException("newText == null");
         }
 
-        synchronized (listeners) {
-            for (TextEntryListener listener : listeners) {
-                listener.textChanged(column, oldText, newText);
-            }
+        for (TextEntryListener listener : listeners) {
+            listener.textChanged(column, oldText, newText);
         }
     }
 }
