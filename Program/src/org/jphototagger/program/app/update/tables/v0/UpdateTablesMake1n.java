@@ -57,35 +57,35 @@ public final class UpdateTablesMake1n {
             new ColumnInfo(
                 "exif_recording_equipment", "equipment", null, null));
         TARGET_COL_OF.put(new ColumnInfo("exif", "exif_lens", null, null),
-                          new ColumnInfo("exif_lens", "lens", null, null));
+                          new ColumnInfo("exif_lenses", "lens", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "dc_creator", null, null),
-                          new ColumnInfo("dc_creator", "creator", null, null));
+                          new ColumnInfo("dc_creators", "creator", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "dc_rights", null, null),
                           new ColumnInfo("dc_rights", "rights", null, null));
         TARGET_COL_OF.put(
             new ColumnInfo("xmp", "iptc4xmpcore_location", null, null),
-            new ColumnInfo("iptc4xmpcore_location", "location", null, null));
+            new ColumnInfo("iptc4xmpcore_locations", "location", null, null));
         TARGET_COL_OF.put(
             new ColumnInfo("xmp", "photoshop_authorsposition", null, null),
             new ColumnInfo(
-                "photoshop_authorsposition", "authorsposition", null, null));
+                "photoshop_authorspositions", "authorsposition", null, null));
         TARGET_COL_OF.put(
             new ColumnInfo("xmp", "photoshop_captionwriter", null, null),
             new ColumnInfo(
-                "photoshop_captionwriter", "captionwriter", null, null));
+                "photoshop_captionwriters", "captionwriter", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_city", null, null),
-                          new ColumnInfo("photoshop_city", "city", null, null));
+                          new ColumnInfo("photoshop_cities", "city", null, null));
         TARGET_COL_OF.put(
             new ColumnInfo("xmp", "photoshop_country", null, null),
-            new ColumnInfo("photoshop_country", "country", null, null));
+            new ColumnInfo("photoshop_countries", "country", null, null));
         TARGET_COL_OF.put(
             new ColumnInfo("xmp", "photoshop_credit", null, null),
-            new ColumnInfo("photoshop_credit", "credit", null, null));
+            new ColumnInfo("photoshop_credits", "credit", null, null));
         TARGET_COL_OF.put(
             new ColumnInfo("xmp", "photoshop_source", null, null),
-            new ColumnInfo("photoshop_source", "source", null, null));
+            new ColumnInfo("photoshop_sources", "source", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_state", null, null),
-                          new ColumnInfo("photoshop_state", "state", null,
+                          new ColumnInfo("photoshop_states", "state", null,
                                          null));
     }
 
