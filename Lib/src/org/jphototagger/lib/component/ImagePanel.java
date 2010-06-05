@@ -39,6 +39,12 @@ import javax.swing.JPanel;
 public class ImagePanel extends JPanel {
     private static final long serialVersionUID = 6103175417678650145L;
     private Image             image;
+    private Align             align            = Align.CENTER;
+
+    public static enum Align {
+        CENTER,
+        LEFT_TOP,
+    }
 
     /**
      * Sets the image.
@@ -47,6 +53,14 @@ public class ImagePanel extends JPanel {
      */
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public void setAlign(Align align) {
+        if (align == null) {
+            throw new NullPointerException("align == null");
+        }
+
+        this.align = align;
     }
 
     @Override
@@ -59,10 +73,10 @@ public class ImagePanel extends JPanel {
         if (image != null) {
             int imgHeight = image.getHeight(this);
             int imgWidth  = image.getWidth(this);
-            int x         = ((imgWidth < width)
+            int x         = ((imgWidth < width) && align.equals(Align.CENTER)
                              ? (width - imgWidth) / 2
                              : 0);
-            int y         = ((imgHeight < height)
+            int y         = ((imgHeight < height) && align.equals(Align.CENTER)
                              ? (height - imgHeight) / 2
                              : 0);
 
