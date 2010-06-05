@@ -16,7 +16,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelXmp" alignment="0" max="32767" attributes="0"/>
@@ -25,6 +25,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonDeleteToken" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="labelVersionInfo" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -40,7 +41,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelXmp" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="1"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="labelVersionInfo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,7 +87,7 @@
                       <Component id="checkBoxPhotoshopHeadline" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxDcDescription" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="142" max="32767" attributes="0"/>
+                  <EmptySpace pref="288" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -134,5 +137,12 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="labelVersionInfo">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="SettingsPanel.labelVersionInfo.text" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
