@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.33 2010-06-05
+-----------------
+
+* Flickr-Plugin zeigt vor Upload alle Bilder zur Auswahl und deren
+  Metadaten zur Bearbeitung
+
 0.8.32 2010-05-31
 -----------------
 
