@@ -92,7 +92,7 @@ public final class ControllerLogfileDialog extends MouseAdapter
         GUI.INSTANCE.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT,
                 MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         itemShowDlgErrorLogfile.setEnabled(true);
-        labelError.setIcon(AppLookAndFeel.getIcon("icon_error12.png"));
+        labelError.setIcon(AppLookAndFeel.getIcon("icon_error.png"));
         labelError.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);
     }
 
