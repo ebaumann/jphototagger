@@ -76,6 +76,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         checkBoxDcSubjects = new javax.swing.JCheckBox();
         checkBoxPhotoshopHeadline = new javax.swing.JCheckBox();
         checkBoxDcDescription = new javax.swing.JCheckBox();
+        labelVersionInfo = new javax.swing.JLabel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle"); // NOI18N
         label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
@@ -120,7 +121,7 @@ public class SettingsPanel extends javax.swing.JPanel {
                     .addComponent(checkBoxDcSubjects)
                     .addComponent(checkBoxPhotoshopHeadline)
                     .addComponent(checkBoxDcDescription))
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
         panelXmpLayout.setVerticalGroup(
             panelXmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,6 +134,8 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        labelVersionInfo.setText(bundle.getString("SettingsPanel.labelVersionInfo.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,7 +147,8 @@ public class SettingsPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonDeleteToken)))
+                        .addComponent(buttonDeleteToken))
+                    .addComponent(labelVersionInfo))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,7 +160,9 @@ public class SettingsPanel extends javax.swing.JPanel {
                     .addComponent(buttonDeleteToken))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelXmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelVersionInfo)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -189,6 +195,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkBoxDcSubjects;
     private javax.swing.JCheckBox checkBoxPhotoshopHeadline;
     private javax.swing.JLabel label;
+    private javax.swing.JLabel labelVersionInfo;
     private javax.swing.JPanel panelXmp;
     // End of variables declaration//GEN-END:variables
 }
