@@ -231,7 +231,7 @@ public final class Xmp {
             throw new NullPointerException("imageFile == null");
         }
 
-        String imgFilename    = imageFile.getName();
+        String imgFilename    = imageFile.getAbsolutePath();
         int    indexExtension = imgFilename.lastIndexOf(".");
 
         if (indexExtension > 0) {
