@@ -487,7 +487,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
 
     private boolean checkExists(File imageFile) {
         if (!imageFile.exists()) {
-            AppLogger.logInfo(
+            AppLogger.logWarning(
                 getClass(),
                 "InsertImageFilesIntoDatabase.Error.ImageFileDoesNotExist",
                 imageFile);
