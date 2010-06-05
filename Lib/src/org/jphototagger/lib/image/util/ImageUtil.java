@@ -21,13 +21,18 @@
 
 package org.jphototagger.lib.image.util;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.MediaTracker;
+import java.awt.RenderingHints;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -134,6 +139,111 @@ public final class ImageUtil {
         }
 
         return new Dimension(newWidth, newHeight);
+    }
+
+    /**
+     * Returns a thumbnail from an image file.
+     *
+     * @param  imageFile image file readable through the Java Imaging I/O
+     * @param  maxLength length in pixel of the longer image dimension (width or
+     *                   height)
+     * @return           image or null
+     */
+    public static Image getThumbnail(File imageFile, int maxLength) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("Invalid length: " + maxLength);
+        }
+
+        BufferedImage image       = loadImage(imageFile);
+        BufferedImage scaledImage = null;
+
+        if (image != null) {
+            scaledImage = stepScaleImage(image, maxLength, 0.5);
+        }
+
+        return scaledImage;
+    }
+
+    private static BufferedImage stepScaleImage(BufferedImage image,
+            int minWidth, double qfactor) {
+        assert qfactor < 1.0 : "qfactor must be < 1.0";
+
+        BufferedImage scaledImage = null;
+
+        try {
+            int    origHeight   = image.getHeight();
+            int    origWidth    = image.getWidth();
+            double factor = getScaleFactor(origWidth, origHeight, minWidth);
+            int    scaledWidth  = (int) (origWidth / factor);
+            int    scaledHeight = (int) (origHeight / factor);
+            int    pass         = 1;
+
+            while (((origWidth * qfactor) > scaledWidth)
+                    || ((origHeight * qfactor) > scaledHeight)) {
+                int width  = (int) (origWidth * qfactor);
+                int height = (int) (origHeight * qfactor);
+
+                image      = scaleImage(width, height, image);
+                origWidth  = image.getWidth();
+                origHeight = image.getHeight();
+                pass++;
+            }
+
+            scaledImage = scaleImage(scaledWidth, scaledHeight, image);
+        } catch (Exception ex) {
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null,
+                             ex);
+        }
+
+        return scaledImage;
+    }
+
+    private static double getScaleFactor(int width, int height, int maxWidth) {
+        double longer = (width > height)
+                        ? width
+                        : height;
+
+        return longer / (double) maxWidth;
+    }
+
+    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight,
+            BufferedImage image) {
+        BufferedImage scaledImage = new BufferedImage(scaledWidth,
+                                        scaledHeight,
+                                        BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = scaledImage.createGraphics();
+
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                    RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,
+                                    RenderingHints.VALUE_RENDER_QUALITY);
+        graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
+
+        return scaledImage;
+    }
+
+    private static BufferedImage loadImage(File file) {
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(file);
+
+            MediaTracker mediaTracker = new MediaTracker(new Container());
+
+            mediaTracker.addImage(image, 0);
+            mediaTracker.waitForID(0);
+        } catch (Exception ex) {
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null,
+                             ex);
+        }
+
+        return image;
     }
 
     private ImageUtil() {}
