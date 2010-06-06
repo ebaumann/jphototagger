@@ -63,10 +63,10 @@ import javax.swing.JPanel;
  */
 public final class FlickrUpload extends Plugin implements Serializable {
     private static final long serialVersionUID = -2935460271965834936L;
-    private static final Icon icon             =
+    private static final Icon icon =
         IconUtil.getImageIcon(
             "/org/jphototagger/plugin/flickrupload/flickr.png");
-    private final UploadAction  uploadAction        = new UploadAction();
+    private final UploadAction  uploadAction = new UploadAction();
     private static final String PROGRESS_BAR_STRING =
         FlickrBundle.INSTANCE.getString("FlickrUpload.ProgressBar.String");
 
@@ -140,7 +140,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
             }
 
             Uploader              uploader = createUploader();
-            FlickrImageInfoDialog dlg      =
+            FlickrImageInfoDialog dlg =
                 new FlickrImageInfoDialog(getProperties());
 
             addImages(dlg);
@@ -246,8 +246,8 @@ public final class FlickrUpload extends Plugin implements Serializable {
 
         private ImageInfo getImageInfo(File imageFile, Settings settings) {
             File  sidecarFile = Xmp.getSidecarfileOf(imageFile);
-            Image image       = ImageUtil.getThumbnail(imageFile,
-                                    FlickrImageInfoPanel.IMAGE_WIDTH);
+            Image image = ImageUtil.getScaledInstance(getThumbnail(imageFile),
+                              FlickrImageInfoPanel.IMAGE_WIDTH);
             ImageInfo emptyImageInfo = getEmptyImageInfo(image, imageFile);
 
             if (sidecarFile == null) {
