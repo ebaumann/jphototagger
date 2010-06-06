@@ -142,6 +142,36 @@ public final class ImageUtil {
     }
 
     /**
+     * Returns a scaled instance of an image with a maximum length of the longer
+     * image dimension.
+     * 
+     * @param image     image
+     * @param maxLength maximum length of the maximum dimension
+     * @return          scaled instance
+     */
+    public static Image getScaledInstance(Image image, int maxLength) {
+        if (image == null) {
+            throw new NullPointerException("image == null");
+        }
+
+        if (maxLength <= 0) {
+            throw new IllegalArgumentException("Illegal length: " + maxLength);
+        }
+
+        int    width       = image.getWidth(null);
+        int    height      = image.getHeight(null);
+        double scaleFactor = getScaleFactor(width, height, maxLength);
+
+        if (scaleFactor == 1 || scaleFactor == 0) {
+            return image;
+        } else {
+            return image.getScaledInstance((int) (width / scaleFactor + 0.5),
+                                           (int) (height / scaleFactor + 0.5),
+                                           Image.SCALE_DEFAULT);
+        }
+    }
+
+    /**
      * Returns a thumbnail from an image file.
      *
      * @param  imageFile image file readable through the Java Imaging I/O
@@ -154,8 +184,8 @@ public final class ImageUtil {
             throw new NullPointerException("imageFile == null");
         }
 
-        if (maxLength < 0) {
-            throw new IllegalArgumentException("Invalid length: " + maxLength);
+        if (maxLength <= 0) {
+            throw new IllegalArgumentException("Illegal length: " + maxLength);
         }
 
         BufferedImage image       = loadImage(imageFile);
