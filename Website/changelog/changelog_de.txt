@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.34 2010-06-06
+-----------------
+
+* Flickr-Plugin nutzt JPhotoTaggers Vorschaubilder anstatt diese selbst zu
+  erzeugen (schneller)
+
 0.8.33 2010-06-05
 -----------------
 
