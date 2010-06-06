@@ -21,9 +21,11 @@
 
 package org.jphototagger.program.controller.misc;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.plugin.PluginEvent;
 import org.jphototagger.plugin.PluginListener;
+import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBar;
@@ -31,6 +33,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
 
 import java.io.File;
 
@@ -59,8 +62,8 @@ public final class ControllerPlugins implements ActionListener {
     }
 
     private void listen() {
-        for (JMenuItem item : PopupMenuThumbnails.INSTANCE
-                .getPluginMenuItems()) {
+        for (JMenuItem item :
+                PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
             item.addActionListener(this);
 
             Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
@@ -83,11 +86,24 @@ public final class ControllerPlugins implements ActionListener {
             Plugin    plugin =
                 PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
 
-            plugin.setFiles(selFiles);
+            plugin.setFiles(getFiles(selFiles));
             plugin.setProperties(UserSettings.INSTANCE.getProperties());
             plugin.setProgressBar(ProgressBar.INSTANCE.getResource(pBarOwner));
             action.actionPerformed(evt);
         }
+    }
+
+    private static List<Pair<File, Image>> getFiles(List<File> selFiles) {
+        List<Pair<File, Image>> files = new ArrayList<Pair<File,
+                                            Image>>(selFiles.size());
+
+        for (File file : selFiles) {
+            assert file != null;
+            files.add(new Pair<File, Image>(file,
+                               ThumbnailCache.INSTANCE.getThumbnail(file)));
+        }
+
+        return files;
     }
 
     private static class Listener implements PluginListener {
@@ -123,7 +139,7 @@ public final class ControllerPlugins implements ActionListener {
             if (evt.isFinished()) {
                 UserSettings.INSTANCE.writeToFile();
                 plugin.setProgressBar(null);
-                plugin.setFiles(new ArrayList<File>());
+                plugin.setFiles(getFiles(new ArrayList<File>()));
                 ProgressBar.INSTANCE.releaseResource(pBarOwner);
             }
         }
