@@ -21,13 +21,19 @@
 
 package org.jphototagger.plugin;
 
+import org.jphototagger.lib.generics.Pair;
+
+import java.awt.Image;
+
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -41,9 +47,10 @@ import javax.swing.SwingUtilities;
  * @author  Elmar Baumann
  */
 public abstract class Plugin {
-    private Properties                properties;
-    private JProgressBar              progressBar;
-    private final List<File>          files = new ArrayList<File>();
+    private Properties             properties;
+    private JProgressBar           progressBar;
+    private final Map<File, Image> thumbnailOfFile = new LinkedHashMap<File,
+                                                         Image>();
     private final Set<PluginListener> pluginListeners =
         new CopyOnWriteArraySet<PluginListener>();
     private boolean pBarStringPainted;
@@ -98,16 +105,27 @@ public abstract class Plugin {
     /**
      * Sets the files to process.
      *
-     * @param files files to process
+     * @param files files to process. The first element of the pair is the image
+     *              file, the second it's thumbnail or null
      */
-    public void setFiles(List<File> files) {
+    public void setFiles(List<Pair<File, Image>> files) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
 
         synchronized (files) {
-            this.files.clear();
-            this.files.addAll(files);
+            thumbnailOfFile.clear();
+
+            for (Pair<File, Image> tnOfFile : files) {
+                File  file = tnOfFile.getFirst();
+                Image tn   = tnOfFile.getSecond();
+
+                if (file == null) {
+                    throw new IllegalArgumentException("File is null!");
+                }
+
+                thumbnailOfFile.put(file, tn);
+            }
         }
     }
 
@@ -117,9 +135,23 @@ public abstract class Plugin {
      * @return files
      */
     public List<File> getFiles() {
-        synchronized (files) {
-            return new ArrayList<File>(files);
+        synchronized (thumbnailOfFile) {
+            return new ArrayList<File>(thumbnailOfFile.keySet());
         }
+    }
+
+    /**
+     * Returns a thumbnail of a file.
+     *
+     * @param  file file
+     * @return      thumbnail or null
+     */
+    public Image getThumbnail(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        return thumbnailOfFile.get(file);
     }
 
     /**
