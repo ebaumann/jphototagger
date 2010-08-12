@@ -116,8 +116,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         checkBoxUpdateAutocomplete = new javax.swing.JCheckBox();
 
         labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
+        labelMaximumSecondsToTerminateExternalPrograms.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
         spinnerMaximumSecondsToTerminateExternalPrograms.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -133,14 +132,14 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxDisplayIptc.setText(bundle.getString("SettingsPerformancePanel.checkBoxDisplayIptc.text")); // NOI18N
+        checkBoxDisplayIptc.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxDisplayIptc.text")); // NOI18N
         checkBoxDisplayIptc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplayIptcActionPerformed(evt);
             }
         });
 
-        checkBoxSaveInputEarly.setText(bundle.getString("SettingsPerformancePanel.checkBoxSaveInputEarly.text")); // NOI18N
+        checkBoxSaveInputEarly.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxSaveInputEarly.text")); // NOI18N
         checkBoxSaveInputEarly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSaveInputEarlyActionPerformed(evt);
@@ -172,7 +171,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 .addGroup(panelAutocompleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxEnableAutocomplete)
                     .addComponent(checkBoxUpdateAutocomplete))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         panelAutocompleteLayout.setVerticalGroup(
             panelAutocompleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -234,99 +234,59 @@ public final class SettingsDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        panelSearch =
-            new org.jphototagger.lib.component.TabbedPaneSearchPanel();
-        tabbedPane    = new javax.swing.JTabbedPane();
-        panelPrograms =
-            new org.jphototagger.program.view.panels.SettingsProgramsPanel();
-        panelThumbnails =
-            new org.jphototagger.program.view.panels.SettingsThumbnailsPanel();
-        panelTasks =
-            new org.jphototagger.program.view.panels.SettingsScheduledTasksPanel();
-        panelPerformance =
-            new org.jphototagger.program.view.panels.SettingsPerformancePanel();
-        panelFileExcludePatterns =
-            new org.jphototagger.program.view.panels
-                .SettingsFileExcludePatternsPanel();
-        panelMisc    = new org.jphototagger.program.view.panels.SettingsMiscPanel();
-        panelActions =
-            new org.jphototagger.program.view.panels.SettingsActionsPanel();
-        panelPlugins =
-            new org.jphototagger.program.view.panels.SettingsPluginsPanel();
+
+        panelSearch = new org.jphototagger.lib.component.TabbedPaneSearchPanel();
+        tabbedPane = new javax.swing.JTabbedPane();
+        panelPrograms = new org.jphototagger.program.view.panels.SettingsProgramsPanel();
+        panelThumbnails = new org.jphototagger.program.view.panels.SettingsThumbnailsPanel();
+        panelTasks = new org.jphototagger.program.view.panels.SettingsScheduledTasksPanel();
+        panelPerformance = new org.jphototagger.program.view.panels.SettingsPerformancePanel();
+        panelFileExcludePatterns = new org.jphototagger.program.view.panels.SettingsFileExcludePatternsPanel();
+        panelMisc = new org.jphototagger.program.view.panels.SettingsMiscPanel();
+        panelActions = new org.jphototagger.program.view.panels.SettingsActionsPanel();
+        panelPlugins = new org.jphototagger.program.view.panels.SettingsPluginsPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("SettingsDialog.title"));    // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("SettingsDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-        tabbedPane.setTabLayoutPolicy(
-            javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms);    // NOI18N
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails);    // NOI18N
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks);    // NOI18N
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance);    // NOI18N
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns);    // NOI18N
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc);    // NOI18N
-        tabbedPane.addTab(
-            JptBundle.INSTANCE.getString(
-                "SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions);    // NOI18N
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/program/resource/properties/Bundle");    // NOI18N
+        tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
 
-        tabbedPane.addTab(
-            bundle.getString(
-                "SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins);    // NOI18N
-
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addContainerGap()
-                .addComponent(panelSearch,
-                              javax.swing.GroupLayout.DEFAULT_SIZE,
-                              javax.swing.GroupLayout.DEFAULT_SIZE,
-                              Short.MAX_VALUE)
-                                  .addPreferredGap(javax.swing.LayoutStyle
-                                      .ComponentPlacement.RELATED)
-                                          .addComponent(tabbedPane,
-                                              javax.swing.GroupLayout
-                                                  .PREFERRED_SIZE, 583,
-                                                      Short.MAX_VALUE)
-                                                          .addContainerGap()));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                .createSequentialGroup().addGap(12, 12, 12)
-                .addGroup(layout
-                    .createParallelGroup(javax.swing.GroupLayout.Alignment
-                        .TRAILING)
-                            .addComponent(panelSearch, javax.swing.GroupLayout
-                                .Alignment.LEADING, javax.swing.GroupLayout
-                                .DEFAULT_SIZE, 455, Short.MAX_VALUE)
-                                    .addComponent(tabbedPane, javax.swing
-                                        .GroupLayout.Alignment.LEADING, javax
-                                        .swing.GroupLayout
-                                        .DEFAULT_SIZE, 455, Short.MAX_VALUE))
-                                            .addContainerGap()));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 583, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 455, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         writeProperties();
@@ -353,16 +313,15 @@ public final class SettingsDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.program.view.panels.SettingsActionsPanel             panelActions;
+    private org.jphototagger.program.view.panels.SettingsActionsPanel panelActions;
     private org.jphototagger.program.view.panels.SettingsFileExcludePatternsPanel panelFileExcludePatterns;
-    private org.jphototagger.program.view.panels.SettingsMiscPanel        panelMisc;
+    private org.jphototagger.program.view.panels.SettingsMiscPanel panelMisc;
     private org.jphototagger.program.view.panels.SettingsPerformancePanel panelPerformance;
-    private org.jphototagger.program.view.panels.SettingsPluginsPanel  panelPlugins;
+    private org.jphototagger.program.view.panels.SettingsPluginsPanel panelPlugins;
     private org.jphototagger.program.view.panels.SettingsProgramsPanel panelPrograms;
-    private org.jphototagger.lib.component.TabbedPaneSearchPanel         panelSearch;
+    private org.jphototagger.lib.component.TabbedPaneSearchPanel panelSearch;
     private org.jphototagger.program.view.panels.SettingsScheduledTasksPanel panelTasks;
     private org.jphototagger.program.view.panels.SettingsThumbnailsPanel panelThumbnails;
     private javax.swing.JTabbedPane tabbedPane;
-
     // End of variables declaration//GEN-END:variables
 }

@@ -792,8 +792,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         textAreaInput = new javax.swing.JTextArea();
 
         menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        menuItemRename.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
+        menuItemRename.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
@@ -802,7 +801,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         popupMenuList.add(menuItemRename);
 
         menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemove.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
+        menuItemRemove.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
         menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveActionPerformed(evt);
@@ -858,7 +857,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         buttonRemoveSelection.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
         buttonRemoveSelection.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
-        buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSelectionActionPerformed(evt);
@@ -870,7 +868,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         buttonAddInput.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
         buttonAddInput.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
-        buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddInputActionPerformed(evt);
@@ -882,7 +879,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         buttonSuggestion.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
-        buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSuggestionActionPerformed(evt);

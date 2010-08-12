@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -59,9 +59,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelPromptInfoCurrentTemplate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelTemplateName" pref="178" max="32767" attributes="0"/>
+                              <Component id="labelTemplateName" pref="187" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="labelMetadataInfoEditable" alignment="1" pref="224" max="32767" attributes="0"/>
+                          <Component id="labelMetadataInfoEditable" alignment="1" pref="238" max="32767" attributes="0"/>
                           <Component id="buttonMetadataTemplateCreate" alignment="0" min="-2" max="-2" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonMetadataTemplateCreate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="46" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -158,14 +158,14 @@
                   <Color blue="ff" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelTemplateName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelTemplateName.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelPromptInfoCurrentTemplate">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelPromptInfoCurrentTemplate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelPromptInfoCurrentTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -192,7 +192,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelPromptCurrentTemplate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboBoxMetadataTemplates" alignment="1" pref="224" max="32767" attributes="2"/>
+                          <Component id="comboBoxMetadataTemplates" alignment="1" pref="238" max="32767" attributes="2"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="buttonMetadataTemplateRename" linkSize="1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -240,7 +240,7 @@
                   <ComponentRef name="comboBoxMetadataTemplates"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelPromptCurrentTemplate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelPromptCurrentTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -315,10 +315,10 @@
             <Component class="javax.swing.JButton" name="buttonMetadataTemplateEdit">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateEdit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateEdit.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateEdit.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>

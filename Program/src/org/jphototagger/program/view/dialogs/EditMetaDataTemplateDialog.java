@@ -181,118 +181,101 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelName     = new javax.swing.JLabel();
+
+        labelName = new javax.swing.JLabel();
         textFieldName = new javax.swing.JTextField();
-        scrollPane    = new javax.swing.JScrollPane();
-        panelPadding  = new javax.swing.JPanel();
-        panelXmpEdit  = new org.jphototagger.program.view.panels.EditXmpPanel();
-        buttonCancel  = new javax.swing.JButton();
-        buttonSave    = new javax.swing.JButton();
-        setDefaultCloseOperation(
-            javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        scrollPane = new javax.swing.JScrollPane();
+        panelPadding = new javax.swing.JPanel();
+        panelXmpEdit = new org.jphototagger.program.view.panels.EditXmpPanel();
+        buttonCancel = new javax.swing.JButton();
+        buttonSave = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/program/resource/properties/Bundle");    // NOI18N
-
-        setTitle(bundle.getString("EditMetaDataTemplateDialog.title"));    // NOI18N
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+
         labelName.setLabelFor(textFieldName);
-        labelName.setText(
-            bundle.getString("EditMetaDataTemplateDialog.labelName.text"));    // NOI18N
+        labelName.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.labelName.text")); // NOI18N
+
         textFieldName.setEnabled(false);
 
-        javax.swing.GroupLayout panelPaddingLayout =
-            new javax.swing.GroupLayout(panelPadding);
-
+        javax.swing.GroupLayout panelPaddingLayout = new javax.swing.GroupLayout(panelPadding);
         panelPadding.setLayout(panelPaddingLayout);
         panelPaddingLayout.setHorizontalGroup(
-            panelPaddingLayout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGap(
-                0, 374, Short.MAX_VALUE).addGroup(
-                panelPaddingLayout.createParallelGroup(
-                    javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                    panelPaddingLayout.createSequentialGroup().addGap(
-                        8, 8, 8).addComponent(
-                        panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        354, Short.MAX_VALUE).addContainerGap())));
-        panelPaddingLayout
-            .setVerticalGroup(panelPaddingLayout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 754, Short.MAX_VALUE)
-                .addGroup(panelPaddingLayout
-                    .createParallelGroup(javax.swing.GroupLayout.Alignment
-                        .LEADING)
-                            .addGroup(panelPaddingLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelXmpEdit,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    Short.MAX_VALUE).addContainerGap())));
+            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 374, Short.MAX_VALUE)
+            .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPaddingLayout.createSequentialGroup()
+                    .addGap(8, 8, 8)
+                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        panelPaddingLayout.setVerticalGroup(
+            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 985, Short.MAX_VALUE)
+            .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPaddingLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
         scrollPane.setViewportView(panelPadding);
-        buttonCancel.setText(
-            bundle.getString("EditMetaDataTemplateDialog.buttonCancel.text"));    // NOI18N
+
+        buttonCancel.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
-        buttonSave.setText(
-            bundle.getString("EditMetaDataTemplateDialog.buttonSave.text"));    // NOI18N
+
+        buttonSave.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 392,
-                        Short.MAX_VALUE).addGroup(
-                            javax.swing.GroupLayout.Alignment.TRAILING,
-                            layout.createSequentialGroup().addComponent(
-                                buttonCancel).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                buttonSave)).addGroup(
-                                    layout.createSequentialGroup().addComponent(
-                                        labelName).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                        textFieldName,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        333,
-                                        Short.MAX_VALUE))).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSave))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                        labelName).addComponent(
-                        textFieldName, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(
-                            scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            260, Short.MAX_VALUE).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                    buttonSave).addComponent(
-                                    buttonCancel)).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelName)
+                    .addComponent(textFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonSave)
+                    .addComponent(buttonCancel))
+                .addContainerGap())
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
         save();
@@ -329,13 +312,12 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton                           buttonCancel;
-    private javax.swing.JButton                           buttonSave;
-    private javax.swing.JLabel                            labelName;
-    private javax.swing.JPanel                            panelPadding;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonSave;
+    private javax.swing.JLabel labelName;
+    private javax.swing.JPanel panelPadding;
     private org.jphototagger.program.view.panels.EditXmpPanel panelXmpEdit;
-    private javax.swing.JScrollPane                       scrollPane;
-    private javax.swing.JTextField                        textFieldName;
-
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTextField textFieldName;
     // End of variables declaration//GEN-END:variables
 }

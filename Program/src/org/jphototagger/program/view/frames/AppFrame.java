@@ -485,8 +485,7 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuItemExportJptMisc.setAction(org.jphototagger.program.exporter.JptExportAction.INSTANCE);
         menuItemExportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        menuItemExportJptMisc.setText(bundle.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
+        menuItemExportJptMisc.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
         menuExport.add(menuItemExportJptMisc);
 
         menuItemExportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
@@ -500,7 +499,7 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuItemImportJptMisc.setAction(org.jphototagger.program.importer.JptImportAction.INSTANCE);
         menuItemImportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
-        menuItemImportJptMisc.setText(bundle.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
+        menuItemImportJptMisc.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
         menuImport.add(menuItemImportJptMisc);
 
         menuItemImportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
@@ -551,11 +550,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuSort.add(sep5);
 
         buttonGroupSort.add(radioButtonMenuItemSortFilenameAscending);
-        radioButtonMenuItemSortFilenameAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
+        radioButtonMenuItemSortFilenameAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortFilenameDescending);
-        radioButtonMenuItemSortFilenameDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
+        radioButtonMenuItemSortFilenameDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameDescending);
         menuSort.add(sep6);
 
@@ -640,8 +639,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuView.add(sep15);
 
         checkBoxMenuItemKeywordOverlay.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_O));
-        checkBoxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
-        checkBoxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText")); // NOI18N
+        checkBoxMenuItemKeywordOverlay.setText(JptBundle.INSTANCE.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
+        checkBoxMenuItemKeywordOverlay.setToolTipText(JptBundle.INSTANCE.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText")); // NOI18N
         menuView.add(checkBoxMenuItemKeywordOverlay);
 
         menuBar.add(menuView);
@@ -755,26 +754,26 @@ public final class AppFrame extends javax.swing.JFrame {
         menuWindow.add(menuItemActions);
 
         menuItemSynonyms.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        menuItemSynonyms.setText(bundle.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
+        menuItemSynonyms.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
         menuWindow.add(menuItemSynonyms);
 
         menuItemUserDefinedFileFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_filter.png"))); // NOI18N
-        menuItemUserDefinedFileFilter.setText(bundle.getString("AppFrame.menuItemUserDefinedFileFilter.text")); // NOI18N
+        menuItemUserDefinedFileFilter.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemUserDefinedFileFilter.text")); // NOI18N
         menuWindow.add(menuItemUserDefinedFileFilter);
         menuWindow.add(sep19);
 
         menuItemOutputWindow.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_T));
         menuItemOutputWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_view_logfile.png"))); // NOI18N
-        menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
+        menuItemOutputWindow.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
         menuWindow.add(menuItemOutputWindow);
         menuWindow.add(sep20);
 
         menuItemDisplayLogfile.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L));
-        menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
+        menuItemDisplayLogfile.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
         menuItemDisplayLogfile.setEnabled(false);
         menuWindow.add(menuItemDisplayLogfile);
 
-        menuItemDisplayAllLogfile.setText(bundle.getString("AppFrame.menuItemDisplayAllLogfile.text")); // NOI18N
+        menuItemDisplayAllLogfile.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemDisplayAllLogfile.text")); // NOI18N
         menuWindow.add(menuItemDisplayAllLogfile);
 
         menuBar.add(menuWindow);
@@ -792,7 +791,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuHelp.add(menuItemOpenPdfUserManual);
 
         menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyboard.png"))); // NOI18N
-        menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
+        menuItemAcceleratorKeys.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
         menuHelp.add(menuItemAcceleratorKeys);
         menuHelp.add(sep21);
 

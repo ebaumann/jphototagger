@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
@@ -64,9 +64,9 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="564" max="32767" attributes="0"/>
+                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="574" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="labelMaxThumbnailWidth" pref="320" max="32767" attributes="0"/>
+                          <Component id="labelMaxThumbnailWidth" pref="345" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="spinnerMaxThumbnailWidth" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
@@ -145,7 +145,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Wie sollen die Vorschaubilder erzeugt werden?">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.panelThumbnailCreator.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.panelThumbnailCreator.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -197,7 +197,7 @@
               <ComponentRef name="buttonGroupThumbnailCreator"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithJavaImageIo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithJavaImageIo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -210,7 +210,7 @@
               <ComponentRef name="buttonGroupThumbnailCreator"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithImagero.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithImagero.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -223,7 +223,7 @@
               <ComponentRef name="buttonGroupThumbnailCreator"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonUseEmbeddedThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonUseEmbeddedThumbnails.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -236,7 +236,7 @@
               <ComponentRef name="buttonGroupThumbnailCreator"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithExternalApp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithExternalApp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -264,11 +264,11 @@
                       <Component id="panelPadding2" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="labelIsCreateThumbnailsWithExternalApp" pref="564" max="32767" attributes="0"/>
+                          <Component id="labelIsCreateThumbnailsWithExternalApp" pref="574" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldExternalThumbnailCreationCommand" pref="564" max="32767" attributes="0"/>
+                          <Component id="textFieldExternalThumbnailCreationCommand" pref="574" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>

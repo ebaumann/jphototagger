@@ -31,6 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 import javax.swing.JList;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -147,8 +148,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        buttonAddToSelImages.setText(bundle.getString("MetaDataTemplatesPanel.buttonAddToSelImages.text")); // NOI18N
+        buttonAddToSelImages.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonAddToSelImages.text")); // NOI18N
         buttonAddToSelImages.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -157,18 +157,18 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
         panelModifyButtons.setLayout(new java.awt.GridLayout(2, 0));
 
-        buttonRename.setText(bundle.getString("MetaDataTemplatesPanel.buttonRename.text")); // NOI18N
+        buttonRename.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
         panelModifyButtons.add(buttonRename);
 
-        buttonAdd.setText(bundle.getString("MetaDataTemplatesPanel.buttonAdd.text")); // NOI18N
+        buttonAdd.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonAdd.text")); // NOI18N
         panelModifyButtons.add(buttonAdd);
 
-        buttonEdit.setText(bundle.getString("MetaDataTemplatesPanel.buttonEdit.text")); // NOI18N
+        buttonEdit.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setEnabled(false);
         panelModifyButtons.add(buttonEdit);
 
-        buttonDelete.setText(bundle.getString("MetaDataTemplatesPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         panelModifyButtons.add(buttonDelete);
 

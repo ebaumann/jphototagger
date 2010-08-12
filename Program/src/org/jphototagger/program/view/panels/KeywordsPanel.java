@@ -185,7 +185,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new org.jphototagger.program.view.renderer.TreeCellRendererKeywords());
         tree.setDragEnabled(true);
-        tree.setShowsRootHandles(true);
         scrollPaneTree.setViewportView(tree);
         tree.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree());
 
@@ -199,8 +198,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        buttonAsList.setText(bundle.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
+        buttonAsList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
         buttonAsList.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonAsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +212,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         panelButtons.add(buttonAsList, gridBagConstraints);
 
-        buttonToggleExpandAllNodes.setText(bundle.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
+        buttonToggleExpandAllNodes.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
         buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +248,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelList.add(scrollPaneList, gridBagConstraints);
 
-        buttonAsTree.setText(bundle.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
+        buttonAsTree.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
         buttonAsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
