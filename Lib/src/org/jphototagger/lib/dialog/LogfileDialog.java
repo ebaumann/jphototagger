@@ -493,15 +493,14 @@ public final class LogfileDialog extends Dialog
         buttonReload = new javax.swing.JButton();
         buttonExit = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/resource/properties/Bundle"); // NOI18N
-        setTitle(bundle.getString("LogfileDialog.title")); // NOI18N
+        setTitle(JslBundle.INSTANCE.getString("LogfileDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
+        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(JslBundle.INSTANCE.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
 
         labelIconSevere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"))); // NOI18N
 
@@ -600,7 +599,7 @@ public final class LogfileDialog extends Dialog
 
         panelFilterCheckBoxesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelIconConfig, labelIconFine, labelIconFiner, labelIconFinest, labelIconInfo, labelIconSevere, labelIconWarning});
 
-        labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); // NOI18N
+        labelSearch.setText(JslBundle.INSTANCE.getString("LogfileDialog.labelSearch.text")); // NOI18N
 
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -615,7 +614,7 @@ public final class LogfileDialog extends Dialog
             .addGroup(panelSearchXmlLayout.createSequentialGroup()
                 .addComponent(labelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
+                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
         );
         panelSearchXmlLayout.setVerticalGroup(
             panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,7 +631,7 @@ public final class LogfileDialog extends Dialog
                 .addContainerGap()
                 .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelSearchXml, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
+                    .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFilterLayout.setVerticalGroup(
@@ -660,9 +659,9 @@ public final class LogfileDialog extends Dialog
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                     .addComponent(panelFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
+                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelXmlLayout.setVerticalGroup(
@@ -670,13 +669,13 @@ public final class LogfileDialog extends Dialog
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addComponent(panelFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); // NOI18N
+        tabbedPane.addTab(JslBundle.INSTANCE.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); // NOI18N
 
         textAreaSimple.setColumns(20);
         textAreaSimple.setRows(5);
@@ -688,23 +687,22 @@ public final class LogfileDialog extends Dialog
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSimpleLayout.setVerticalGroup(
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
+        tabbedPane.addTab(JslBundle.INSTANCE.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
 
         buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_refresh24.png"))); // NOI18N
-        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
+        buttonReload.setToolTipText(JslBundle.INSTANCE.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
         buttonReload.setBorder(null);
-        buttonReload.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonReload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonReloadActionPerformed(evt);
@@ -712,9 +710,8 @@ public final class LogfileDialog extends Dialog
         });
 
         buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_exit24.png"))); // NOI18N
-        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
+        buttonExit.setToolTipText(JslBundle.INSTANCE.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
         buttonExit.setBorder(null);
-        buttonExit.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExitActionPerformed(evt);

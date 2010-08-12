@@ -28,7 +28,6 @@ import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
 
 import java.awt.Container;
-import java.awt.Cursor;
 
 import java.io.File;
 
@@ -336,192 +335,163 @@ public final class DirectoryChooser extends Dialog
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        popupMenu      = new javax.swing.JPopupMenu();
-        menuItemAdd    = new javax.swing.JMenuItem();
+
+        popupMenu = new javax.swing.JPopupMenu();
+        menuItemAdd = new javax.swing.JMenuItem();
         menuItemRename = new javax.swing.JMenuItem();
         menuItemDelete = new javax.swing.JMenuItem();
-        scrollPane     = new javax.swing.JScrollPane();
-        tree           = new javax.swing.JTree();
-        labelUsage     = new javax.swing.JLabel();
-        buttonRefresh  = new javax.swing.JButton();
-        buttonAdd      = new javax.swing.JButton();
-        buttonDelete   = new javax.swing.JButton();
-        buttonRename   = new javax.swing.JButton();
-        buttonCancel   = new javax.swing.JButton();
-        buttonChoose   = new javax.swing.JButton();
-        menuItemAdd.setText(
-            JslBundle.INSTANCE.getString("DirectoryChooser.menuItemAdd.text"));    // NOI18N
+        scrollPane = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
+        labelUsage = new javax.swing.JLabel();
+        buttonRefresh = new javax.swing.JButton();
+        buttonAdd = new javax.swing.JButton();
+        buttonDelete = new javax.swing.JButton();
+        buttonRename = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
+        buttonChoose = new javax.swing.JButton();
+
+        menuItemAdd.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemAdd);
-        menuItemRename.setText(
-            JslBundle.INSTANCE.getString(
-                "DirectoryChooser.menuItemRename.text"));    // NOI18N
+
+        menuItemRename.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemRename.text")); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemRename);
-        menuItemDelete.setText(
-            JslBundle.INSTANCE.getString(
-                "DirectoryChooser.menuItemDelete.text"));    // NOI18N
+
+        menuItemDelete.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemDelete.text")); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemDelete);
-        setDefaultCloseOperation(
-            javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/lib/resource/properties/Bundle");    // NOI18N
-
-        setTitle(bundle.getString("DirectoryChooser.title"));    // NOI18N
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle(JslBundle.INSTANCE.getString("DirectoryChooser.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 =
-            new javax.swing.tree.DefaultMutableTreeNode("root");
-
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setCellRenderer(new org.jphototagger.lib.renderer
-            .TreeCellRendererAllSystemDirectories());
+        tree.setCellRenderer(new org.jphototagger.lib.renderer.TreeCellRendererAllSystemDirectories());
         tree.setComponentPopupMenu(popupMenu);
-        tree.setName("Tree directory chooser");                       // NOI18N
+        tree.setName("Tree directory chooser"); // NOI18N
         scrollPane.setViewportView(tree);
-        labelUsage.setText(
-            bundle.getString("DirectoryChooser.labelUsage.text"));    // NOI18N
-        buttonRefresh.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/lib/resource/icons/icon_refresh.png")));    // NOI18N
-        buttonRefresh.setToolTipText(
-            JslBundle.INSTANCE.getString(
-                "DirectoryChooser.buttonRefresh.toolTipText"));    // NOI18N
+
+        labelUsage.setText(JslBundle.INSTANCE.getString("DirectoryChooser.labelUsage.text")); // NOI18N
+
+        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_refresh.png"))); // NOI18N
+        buttonRefresh.setToolTipText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
         buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
         buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRefreshActionPerformed(evt);
             }
         });
-        buttonAdd.setText(bundle.getString("DirectoryChooser.buttonAdd.text"));    // NOI18N
+
+        buttonAdd.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonAdd.text")); // NOI18N
         buttonAdd.setEnabled(false);
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionPerformed(evt);
             }
         });
-        buttonDelete.setText(
-            bundle.getString("DirectoryChooser.buttonDelete.text"));    // NOI18N
+
+        buttonDelete.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }
         });
-        buttonRename.setText(
-            bundle.getString("DirectoryChooser.buttonRename.text"));    // NOI18N
+
+        buttonRename.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameActionPerformed(evt);
             }
         });
+
         buttonCancel.setMnemonic('b');
-        buttonCancel.setText(
-            bundle.getString("DirectoryChooser.buttonCancel.text"));    // NOI18N
+        buttonCancel.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
+
         buttonChoose.setMnemonic('a');
-        buttonChoose.setText(
-            bundle.getString("DirectoryChooser.buttonChoose.text"));    // NOI18N
+        buttonChoose.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonChoose.text")); // NOI18N
         buttonChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 358,
-                        Short.MAX_VALUE).addComponent(
-                            labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            358, Short.MAX_VALUE).addGroup(
-                                javax.swing.GroupLayout.Alignment.TRAILING,
-                                layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                                    layout.createSequentialGroup().addComponent(
-                                        buttonRefresh,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                buttonAdd).addPreferredGap(
-                                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                        buttonDelete).addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                buttonRename)).addGroup(
-                                                                    javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                        layout.createSequentialGroup().addComponent(
-                                                                            buttonCancel).addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                                    buttonChoose)))).addContainerGap()));
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
-                        new java.awt.Component[] { buttonAdd,
-                buttonCancel, buttonChoose, buttonDelete, buttonRename });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonAdd)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonDelete)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonRename))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(buttonCancel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonChoose))))
+                .addContainerGap())
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAdd, buttonCancel, buttonChoose, buttonDelete, buttonRename});
+
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 238,
-                    Short.MAX_VALUE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                        labelUsage).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                        layout.createParallelGroup(
-                            javax.swing.GroupLayout.Alignment.TRAILING).addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                buttonAdd).addComponent(
-                                buttonDelete).addComponent(
-                                buttonRename)).addComponent(
-                                    buttonRefresh,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                        layout.createParallelGroup(
-                                            javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                                buttonChoose).addComponent(
-                                                    buttonCancel)).addContainerGap()));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] {
-            buttonAdd, buttonCancel, buttonChoose, buttonDelete, buttonRefresh,
-            buttonRename
-        });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelUsage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonAdd)
+                        .addComponent(buttonDelete)
+                        .addComponent(buttonRename))
+                    .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonChoose)
+                    .addComponent(buttonCancel))
+                .addContainerGap())
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonAdd, buttonCancel, buttonChoose, buttonDelete, buttonRefresh, buttonRename});
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseActionPerformed
         ok();
@@ -586,19 +556,18 @@ public final class DirectoryChooser extends Dialog
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonAdd;
-    private javax.swing.JButton     buttonCancel;
-    private javax.swing.JButton     buttonChoose;
-    private javax.swing.JButton     buttonDelete;
-    private javax.swing.JButton     buttonRefresh;
-    private javax.swing.JButton     buttonRename;
-    private javax.swing.JLabel      labelUsage;
-    private javax.swing.JMenuItem   menuItemAdd;
-    private javax.swing.JMenuItem   menuItemDelete;
-    private javax.swing.JMenuItem   menuItemRename;
-    private javax.swing.JPopupMenu  popupMenu;
+    private javax.swing.JButton buttonAdd;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonChoose;
+    private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonRefresh;
+    private javax.swing.JButton buttonRename;
+    private javax.swing.JLabel labelUsage;
+    private javax.swing.JMenuItem menuItemAdd;
+    private javax.swing.JMenuItem menuItemDelete;
+    private javax.swing.JMenuItem menuItemRename;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JTree       tree;
-
+    private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
 }
