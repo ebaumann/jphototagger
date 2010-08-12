@@ -29,7 +29,6 @@ import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.resource.GUI;
 
 import java.awt.datatransfer.Transferable;
 
@@ -54,8 +53,6 @@ import javax.swing.tree.TreePath;
 public final class TransferHandlerMiscMetadataTree extends TransferHandler {
     private static final long         serialVersionUID = -260820309332646425L;
     private static final List<Column> XMP_COLS         = XmpColumns.get();
-    private final JTree               tree =
-        GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
 
     @Override
     public boolean canImport(TransferSupport support) {
