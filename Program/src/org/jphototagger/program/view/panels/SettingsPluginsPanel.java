@@ -44,6 +44,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Dynamically adds panels of plugins ({@link Plugin#getSettingsPanel()}).
@@ -199,61 +200,49 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        buttonGroupActionsAfterDatabaseInsertion =
-            new javax.swing.ButtonGroup();
-        tabbedPane             = new javax.swing.JTabbedPane();
-        panelExclude           = new javax.swing.JPanel();
-        labelInfoExclude       = new javax.swing.JLabel();
-        scrollPaneExclude      = new javax.swing.JScrollPane();
+
+        buttonGroupActionsAfterDatabaseInsertion = new javax.swing.ButtonGroup();
+        tabbedPane = new javax.swing.JTabbedPane();
+        panelExclude = new javax.swing.JPanel();
+        labelInfoExclude = new javax.swing.JLabel();
+        scrollPaneExclude = new javax.swing.JScrollPane();
         panelExcludeCheckboxes = new javax.swing.JPanel();
-        buttonHelpPlugin       = new javax.swing.JButton();
-        tabbedPane.setTabLayoutPolicy(
-            javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        buttonHelpPlugin = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/program/resource/properties/Bundle");    // NOI18N
+        tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
 
-        labelInfoExclude.setText(
-            bundle.getString("SettingsPluginsPanel.labelInfoExclude.text"));    // NOI18N
+        labelInfoExclude.setText(JptBundle.INSTANCE.getString("SettingsPluginsPanel.labelInfoExclude.text")); // NOI18N
+
         scrollPaneExclude.setAlignmentX(0.0F);
         scrollPaneExclude.setAlignmentY(0.0F);
+
         panelExcludeCheckboxes.setLayout(new java.awt.GridBagLayout());
         scrollPaneExclude.setViewportView(panelExcludeCheckboxes);
 
-        javax.swing.GroupLayout panelExcludeLayout =
-            new javax.swing.GroupLayout(panelExclude);
-
+        javax.swing.GroupLayout panelExcludeLayout = new javax.swing.GroupLayout(panelExclude);
         panelExclude.setLayout(panelExcludeLayout);
-        panelExcludeLayout
-            .setHorizontalGroup(panelExcludeLayout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelExcludeLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(panelExcludeLayout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment
-                            .LEADING)
-                                .addComponent(scrollPaneExclude,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, 504,
-                                    Short.MAX_VALUE)
-                                        .addComponent(labelInfoExclude))
-                                            .addContainerGap()));
-        panelExcludeLayout
-            .setVerticalGroup(panelExcludeLayout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelExcludeLayout.createSequentialGroup()
-                    .addContainerGap().addComponent(labelInfoExclude)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement
-                        .RELATED)
-                            .addComponent(scrollPaneExclude,
-                                          javax.swing.GroupLayout.DEFAULT_SIZE,
-                                          152, Short.MAX_VALUE)
-                                              .addContainerGap()));
-        tabbedPane.addTab(
-            bundle.getString(
-                "SettingsPluginsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude);    // NOI18N
-        buttonHelpPlugin.setText(
-            bundle.getString("SettingsPluginsPanel.buttonHelpPlugin.text"));    // NOI18N
+        panelExcludeLayout.setHorizontalGroup(
+            panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelExcludeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                    .addComponent(labelInfoExclude))
+                .addContainerGap())
+        );
+        panelExcludeLayout.setVerticalGroup(
+            panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelExcludeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelInfoExclude)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsPluginsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
+
+        buttonHelpPlugin.setText(JptBundle.INSTANCE.getString("SettingsPluginsPanel.buttonHelpPlugin.text")); // NOI18N
         buttonHelpPlugin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHelpPluginActionPerformed(evt);
@@ -261,28 +250,24 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 533,
-                Short.MAX_VALUE).addGroup(
-                    javax.swing.GroupLayout.Alignment.TRAILING,
-                    layout.createSequentialGroup().addContainerGap(
-                        449, Short.MAX_VALUE).addComponent(
-                        buttonHelpPlugin).addContainerGap()));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                .createSequentialGroup()
-                .addComponent(tabbedPane, javax.swing.GroupLayout
-                    .DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle
-                            .ComponentPlacement.RELATED)
-                                .addComponent(buttonHelpPlugin)
-                                .addContainerGap()));
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(466, Short.MAX_VALUE)
+                .addComponent(buttonHelpPlugin)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonHelpPlugin)
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonHelpPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
         showHelp();
@@ -290,12 +275,11 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupActionsAfterDatabaseInsertion;
-    private javax.swing.JButton     buttonHelpPlugin;
-    private javax.swing.JLabel      labelInfoExclude;
-    private javax.swing.JPanel      panelExclude;
-    private javax.swing.JPanel      panelExcludeCheckboxes;
+    private javax.swing.JButton buttonHelpPlugin;
+    private javax.swing.JLabel labelInfoExclude;
+    private javax.swing.JPanel panelExclude;
+    private javax.swing.JPanel panelExcludeCheckboxes;
     private javax.swing.JScrollPane scrollPaneExclude;
     private javax.swing.JTabbedPane tabbedPane;
-
     // End of variables declaration//GEN-END:variables
 }

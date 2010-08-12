@@ -42,6 +42,7 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
@@ -97,7 +98,11 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void setEnabledAddAction() {
-        boolean hasActions = DatabasePrograms.INSTANCE.getCount(true) > 0;
+        boolean hasActions = false;
+
+        if (ConnectionPool.INSTANCE.isInit()) {
+            hasActions = DatabasePrograms.INSTANCE.getCount(true) > 0;
+        }
         
         buttonAddAction.setEnabled(hasActions);
         menuItemAddAction.setEnabled(hasActions);
@@ -408,8 +413,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         });
 
         buttonGroupExecute.add(radioButtonExecuteAlways);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        radioButtonExecuteAlways.setText(bundle.getString("SettingsActionsPanel.radioButtonExecuteAlways.text")); // NOI18N
+        radioButtonExecuteAlways.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.radioButtonExecuteAlways.text")); // NOI18N
         radioButtonExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonExecuteAlwaysActionPerformed(evt);
@@ -417,7 +421,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         });
 
         buttonGroupExecute.add(radioButtonExecuteIfImageHasXmp);
-        radioButtonExecuteIfImageHasXmp.setText(bundle.getString("SettingsActionsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
+        radioButtonExecuteIfImageHasXmp.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
         radioButtonExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonExecuteIfImageHasXmpActionPerformed(evt);
@@ -469,7 +473,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
                         .addComponent(buttonShowActions)
                         .addGap(8, 8, 8))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                        .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(radioButtonExecuteAlways)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

@@ -360,79 +360,65 @@ public class ImportImageFilesDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelPromptSourceDir    = new javax.swing.JLabel();
-        labelSourceDir          = new javax.swing.JLabel();
-        buttonChooseSourceDir   = new javax.swing.JButton();
-        labelPromptChooseFiles  = new javax.swing.JLabel();
-        labelChoosedFiles       = new javax.swing.JLabel();
-        buttonChooseFiles       = new javax.swing.JButton();
-        labelPromptTargetDir    = new javax.swing.JLabel();
-        labelTargetDir          = new javax.swing.JLabel();
+
+        labelPromptSourceDir = new javax.swing.JLabel();
+        labelSourceDir = new javax.swing.JLabel();
+        buttonChooseSourceDir = new javax.swing.JButton();
+        labelPromptChooseFiles = new javax.swing.JLabel();
+        labelChoosedFiles = new javax.swing.JLabel();
+        buttonChooseFiles = new javax.swing.JButton();
+        labelPromptTargetDir = new javax.swing.JLabel();
+        labelTargetDir = new javax.swing.JLabel();
         checkBoxDeleteAfterCopy = new javax.swing.JCheckBox();
-        buttonChooseTargetDir   = new javax.swing.JButton();
-        buttonCancel            = new javax.swing.JButton();
-        buttonOk                = new javax.swing.JButton();
+        buttonChooseTargetDir = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
+        buttonOk = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(JptBundle.INSTANCE.getString("ImportImageFilesDialog.title")); // NOI18N
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/program/resource/properties/Bundle");    // NOI18N
+        labelPromptSourceDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptSourceDir.text")); // NOI18N
 
-        setTitle(bundle.getString("ImportImageFilesDialog.title"));    // NOI18N
-        labelPromptSourceDir.setText(
-            bundle.getString(
-                "ImportImageFilesDialog.labelPromptSourceDir.text"));    // NOI18N
-        buttonChooseSourceDir.setText(
-            bundle.getString(
-                "ImportImageFilesDialog.buttonChooseSourceDir.text"));    // NOI18N
-        buttonChooseSourceDir.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonChooseSourceDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
+        buttonChooseSourceDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseSourceDirActionPerformed(evt);
             }
         });
-        labelPromptChooseFiles.setText(
-            JptBundle.INSTANCE.getString(
-                "ImportImageFilesDialog.labelPromptChooseFiles.text"));    // NOI18N
-        buttonChooseFiles.setText(
-            JptBundle.INSTANCE.getString(
-                "ImportImageFilesDialog.buttonChooseFiles.text"));    // NOI18N
-        buttonChooseFiles.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        labelPromptChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptChooseFiles.text")); // NOI18N
+
+        buttonChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
+        buttonChooseFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFilesActionPerformed(evt);
             }
         });
-        labelPromptTargetDir.setText(
-            bundle.getString(
-                "ImportImageFilesDialog.labelPromptTargetDir.text"));    // NOI18N
-        checkBoxDeleteAfterCopy.setText(
-            JptBundle.INSTANCE.getString(
-                "ImportImageFilesDialog.checkBoxDeleteAfterCopy.text"));    // NOI18N
-        checkBoxDeleteAfterCopy.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        labelPromptTargetDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptTargetDir.text")); // NOI18N
+
+        checkBoxDeleteAfterCopy.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
+        checkBoxDeleteAfterCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteAfterCopyActionPerformed(evt);
             }
         });
-        buttonChooseTargetDir.setText(
-            bundle.getString(
-                "ImportImageFilesDialog.buttonChooseTargetDir.text"));    // NOI18N
-        buttonChooseTargetDir.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonChooseTargetDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
+        buttonChooseTargetDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseTargetDirActionPerformed(evt);
             }
         });
-        buttonCancel.setText(
-            bundle.getString("ImportImageFilesDialog.buttonCancel.text"));    // NOI18N
+
+        buttonCancel.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
-        buttonOk.setText(
-            bundle.getString("ImportImageFilesDialog.buttonOk.text"));    // NOI18N
+
+        buttonOk.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -440,106 +426,82 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGap(97, 97, 97).addComponent(
-                    labelSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, 234,
-                    Short.MAX_VALUE).addContainerGap(
-                        211, Short.MAX_VALUE)).addGroup(
-                            layout.createSequentialGroup().addGroup(
-                                layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                                    layout.createSequentialGroup().addContainerGap().addGroup(
-                                        layout.createParallelGroup(
-                                            javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                                labelPromptTargetDir).addGroup(
-                                                    layout.createSequentialGroup().addComponent(
-                                                        labelPromptChooseFiles).addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                labelChoosedFiles,
-                                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        161,
-                                                                        Short.MAX_VALUE)).addComponent(
-                                                                            labelPromptSourceDir).addComponent(
-                                                                                checkBoxDeleteAfterCopy))).addGroup(
-                                                                                    layout.createSequentialGroup().addGap(
-                                                                                        97,
-                                                                                        97,
-                                                                                        97).addComponent(
-                                                                                            labelTargetDir,
-                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                    300,
-                                                                                                    Short.MAX_VALUE))).addPreferredGap(
-                                                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                                                                            layout.createParallelGroup(
-                                                                                                                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                                                                                                    buttonChooseFiles,
-                                                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                Short.MAX_VALUE).addComponent(
-                                                                                                                                    buttonChooseSourceDir,
-                                                                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                Short.MAX_VALUE).addComponent(
-                                                                                                                                                    buttonChooseTargetDir)).addContainerGap()).addGroup(
-                                                                                                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                                                                            layout.createSequentialGroup().addContainerGap(
-                                                                                                                                                                306,
-                                                                                                                                                                Short.MAX_VALUE).addComponent(
-                                                                                                                                                                    buttonCancel).addPreferredGap(
-                                                                                                                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(buttonOk).addContainerGap()));
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
-                        new java.awt.Component[] { buttonChooseFiles,
-                buttonChooseSourceDir, buttonChooseTargetDir });
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
-                        new java.awt.Component[] { buttonCancel,
-                buttonOk });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(labelSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addContainerGap(221, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPromptTargetDir)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelPromptChooseFiles)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelChoosedFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
+                            .addComponent(labelPromptSourceDir)
+                            .addComponent(checkBoxDeleteAfterCopy)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonChooseFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonChooseSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonChooseTargetDir))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(359, Short.MAX_VALUE)
+                .addComponent(buttonCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonOk)
+                .addContainerGap())
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonChooseFiles, buttonChooseSourceDir, buttonChooseTargetDir});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonOk});
+
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.CENTER).addComponent(
-                        buttonChooseSourceDir).addComponent(
-                        labelSourceDir).addComponent(
-                        labelPromptSourceDir)).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.CENTER).addComponent(
-                                buttonChooseFiles).addComponent(
-                                labelChoosedFiles).addComponent(
-                                labelPromptChooseFiles)).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                    layout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.CENTER).addComponent(
-                                        buttonChooseTargetDir).addComponent(
-                                        labelTargetDir).addComponent(
-                                        labelPromptTargetDir)).addGap(
-                                            8, 8, 8).addComponent(
-                                                checkBoxDeleteAfterCopy).addPreferredGap(
-                                                    javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(
-                                                        layout.createParallelGroup(
-                                                            javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                                                buttonOk).addComponent(
-                                                                    buttonCancel)).addContainerGap(
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                            Short.MAX_VALUE)));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { labelPromptSourceDir,
-                labelPromptTargetDir, labelSourceDir, labelTargetDir });
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { buttonChooseFiles,
-                buttonChooseSourceDir, buttonChooseTargetDir });
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { labelChoosedFiles,
-                labelPromptChooseFiles });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(buttonChooseSourceDir)
+                    .addComponent(labelSourceDir)
+                    .addComponent(labelPromptSourceDir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(buttonChooseFiles)
+                    .addComponent(labelChoosedFiles)
+                    .addComponent(labelPromptChooseFiles))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(buttonChooseTargetDir)
+                    .addComponent(labelTargetDir)
+                    .addComponent(labelPromptTargetDir))
+                .addGap(8, 8, 8)
+                .addComponent(checkBoxDeleteAfterCopy)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonOk)
+                    .addComponent(buttonCancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelPromptSourceDir, labelPromptTargetDir, labelSourceDir, labelTargetDir});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonChooseFiles, buttonChooseSourceDir, buttonChooseTargetDir});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelChoosedFiles, labelPromptChooseFiles});
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         setAccepted(false);
@@ -586,18 +548,17 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton   buttonCancel;
-    private javax.swing.JButton   buttonChooseFiles;
-    private javax.swing.JButton   buttonChooseSourceDir;
-    private javax.swing.JButton   buttonChooseTargetDir;
-    private javax.swing.JButton   buttonOk;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonChooseFiles;
+    private javax.swing.JButton buttonChooseSourceDir;
+    private javax.swing.JButton buttonChooseTargetDir;
+    private javax.swing.JButton buttonOk;
     private javax.swing.JCheckBox checkBoxDeleteAfterCopy;
-    private javax.swing.JLabel    labelChoosedFiles;
-    private javax.swing.JLabel    labelPromptChooseFiles;
-    private javax.swing.JLabel    labelPromptSourceDir;
-    private javax.swing.JLabel    labelPromptTargetDir;
-    private javax.swing.JLabel    labelSourceDir;
-    private javax.swing.JLabel    labelTargetDir;
-
+    private javax.swing.JLabel labelChoosedFiles;
+    private javax.swing.JLabel labelPromptChooseFiles;
+    private javax.swing.JLabel labelPromptSourceDir;
+    private javax.swing.JLabel labelPromptTargetDir;
+    private javax.swing.JLabel labelSourceDir;
+    private javax.swing.JLabel labelTargetDir;
     // End of variables declaration//GEN-END:variables
 }

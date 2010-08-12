@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
@@ -27,11 +27,11 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="checkBoxAutoDownloadCheck" pref="501" max="32767" attributes="0"/>
+                              <Component id="checkBoxAutoDownloadCheck" pref="530" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonCheckDownload" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="checkBoxDisplaySearchButton" alignment="0" pref="620" max="32767" attributes="0"/>
+                          <Component id="checkBoxDisplaySearchButton" alignment="0" pref="634" max="32767" attributes="0"/>
                           <Component id="panelCopyMoveFiles" alignment="0" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -41,10 +41,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelIptcCharset" pref="214" max="32767" attributes="2"/>
+                                      <Component id="labelIptcCharset" pref="234" max="32767" attributes="2"/>
                                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="labelLogLevel" max="32767" attributes="2"/>
+                                  <Component id="labelLogLevel" pref="283" max="32767" attributes="2"/>
                               </Group>
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -112,7 +112,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxAutoDownloadCheck">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxAutoDownloadCheck.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxAutoDownloadCheck.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
@@ -132,7 +132,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxDisplaySearchButton">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxDisplaySearchButton.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxDisplaySearchButton.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Events>
@@ -144,7 +144,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Kopieren/Verschieben von Dateien: Quelldatei">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelCopyMoveFiles.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelCopyMoveFiles.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -181,7 +181,7 @@
               <ComponentRef name="buttonGroupCopyMoveFiles"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -194,7 +194,7 @@
               <ComponentRef name="buttonGroupCopyMoveFiles"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -248,7 +248,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Datenbankordner">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelDatabaseDirectory.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelDatabaseDirectory.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -260,7 +260,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelDatabaseDirectory" alignment="0" pref="584" max="32767" attributes="2"/>
+                      <Component id="labelDatabaseDirectory" alignment="0" pref="586" max="32767" attributes="2"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelInfoDatabaseDirectory" min="-2" pref="399" max="-2" attributes="2"/>
                           <EmptySpace min="96" pref="96" max="96" attributes="0"/>
@@ -271,7 +271,7 @@
                           <Component id="buttonChooseDatabaseDirectory" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="labelPromptDatabaseBackupDirectory" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelDatabaseBackupDirectory" alignment="1" pref="584" max="32767" attributes="2"/>
+                      <Component id="labelDatabaseBackupDirectory" alignment="1" pref="586" max="32767" attributes="2"/>
                       <Component id="buttonChooseDatabaseBackupDirectory" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>

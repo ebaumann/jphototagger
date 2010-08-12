@@ -396,8 +396,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        labelDescription.setText(bundle.getString("FileEditorPanel.labelDescription.text")); // NOI18N
+        labelDescription.setText(JptBundle.INSTANCE.getString("FileEditorPanel.labelDescription.text")); // NOI18N
 
         panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
 
@@ -413,7 +412,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxReplaceExistingFiles)
                     .addComponent(checkBoxIncludeSubdirectories))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         panelOptionsLayout.setVerticalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,10 +463,10 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
                     .addComponent(panelOptions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
-                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
                     .addComponent(labelInfoFiles)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelPromptCurrentFile)
@@ -479,7 +478,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                                 .addComponent(buttonCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonStart))
-                            .addComponent(labelCurrentFile, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE))))
+                            .addComponent(labelCurrentFile, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
