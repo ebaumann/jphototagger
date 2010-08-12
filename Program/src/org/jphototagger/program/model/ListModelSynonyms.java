@@ -26,6 +26,7 @@ import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.event.listener.DatabaseSynonymsListener;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.program.database.ConnectionPool;
 
 /**
  *
@@ -284,6 +285,10 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         removeAllElements();
         listen = false;
 

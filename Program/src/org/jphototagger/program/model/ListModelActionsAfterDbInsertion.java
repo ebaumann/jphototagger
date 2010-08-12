@@ -21,12 +21,13 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-import org.jphototagger.lib.componentutil.ListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,10 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         List<Program> actions =
             DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
 

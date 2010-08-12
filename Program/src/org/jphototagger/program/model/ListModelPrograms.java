@@ -22,6 +22,7 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.data.Program;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
@@ -56,6 +57,10 @@ public final class ListModelPrograms extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         List<Program> programs = DatabasePrograms.INSTANCE.getAll(type);
 
         for (Program program : programs) {

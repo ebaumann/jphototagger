@@ -31,6 +31,7 @@ import org.jphototagger.program.helper.SavedSearchesHelper;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.program.database.ConnectionPool;
 
 /**
  * Elements are {@link SavedSearch}es.
@@ -47,6 +48,10 @@ public final class ListModelSavedSearches extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         List<SavedSearch> savedSearches =
             DatabaseSavedSearches.INSTANCE.getAll();
 

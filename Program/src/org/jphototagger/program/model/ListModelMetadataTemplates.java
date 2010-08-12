@@ -22,8 +22,10 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
+import org.jphototagger.program.event.listener
+    .DatabaseMetadataTemplatesListener;
 
 import javax.swing.DefaultListModel;
 
@@ -43,6 +45,10 @@ public final class ListModelMetadataTemplates extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         for (MetadataTemplate t : DatabaseMetadataTemplates.INSTANCE.getAll()) {
             addElement(t);
         }
@@ -63,7 +69,6 @@ public final class ListModelMetadataTemplates extends DefaultListModel
 
         return -1;
     }
-
 
     @Override
     public void templateDeleted(MetadataTemplate template) {

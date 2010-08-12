@@ -24,6 +24,7 @@ package org.jphototagger.program.model;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener
     .DatabaseUserDefinedFileFiltersListener;
@@ -48,6 +49,10 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
     }
 
     private void insertElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         addElement(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
         addElement(AppFileFilters.JPEG_FILENAMES);
         addElement(AppFileFilters.TIFF_FILENAMES);
@@ -105,6 +110,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
         }
 
         int index = getIndexOf(filter);
+
         if (index >= 0) {
             ((UserDefinedFileFilter) getElementAt(index)).set(filter);
             fireContentsChanged(this, index, index);

@@ -23,9 +23,11 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseStatistics;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 
 import java.io.File;
@@ -48,8 +50,7 @@ public final class ListModelKeywords extends DefaultListModel
         implements DatabaseImageFilesListener {
     private static final long                  serialVersionUID =
         -9181622876402951455L;
-    private final transient DatabaseImageFiles db               =
-        DatabaseImageFiles.INSTANCE;
+    private final transient DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     public ListModelKeywords() {
         addElements();
@@ -57,6 +58,10 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         Set<String> keywords = db.getAllDcSubjects();
 
         for (String keyword : keywords) {
