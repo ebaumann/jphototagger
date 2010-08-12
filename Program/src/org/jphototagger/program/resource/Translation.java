@@ -35,15 +35,17 @@ public final class Translation {
     private static final String PATH_PREFIX =
         "org/jphototagger/program/resource/properties/";
     private ResourceBundle bundle;
+    private final String   propertiesFilePath;
 
     public Translation(String propertiesFileBasename) {
         if (propertiesFileBasename == null) {
             throw new NullPointerException("propertiesFileBasename == null");
         }
 
+        propertiesFilePath = PATH_PREFIX + propertiesFileBasename;
+
         try {
-            bundle = ResourceBundle.getBundle(PATH_PREFIX
-                                              + propertiesFileBasename);
+            bundle = ResourceBundle.getBundle(propertiesFilePath);
         } catch (Exception ex) {
             AppLogger.logSevere(Translation.class, ex);
         }
@@ -65,7 +67,9 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (Exception ex) {
-            AppLogger.logSevere(Translation.class, ex);
+            AppLogger.logInfo(Translation.class,
+                              "Translation.Error.NoWordbookEntry", string,
+                              propertiesFilePath, ex.getLocalizedMessage());
         }
 
         return string;
@@ -93,7 +97,9 @@ public final class Translation {
         try {
             return bundle.getString(string);
         } catch (Exception ex) {
-            AppLogger.logSevere(Translation.class, ex);
+            AppLogger.logInfo(Translation.class,
+                              "Translation.Error.NoWordbookEntry", string,
+                              propertiesFilePath, ex.getLocalizedMessage());
         }
 
         return alternate;
