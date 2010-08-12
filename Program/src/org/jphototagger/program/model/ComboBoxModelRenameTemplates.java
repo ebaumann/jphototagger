@@ -22,6 +22,7 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.data.RenameTemplate;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
 
@@ -42,6 +43,10 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         for (RenameTemplate template :
                 DatabaseRenameTemplates.INSTANCE.getAll()) {
             addElement(template);

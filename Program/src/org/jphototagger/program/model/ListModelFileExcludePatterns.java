@@ -22,8 +22,10 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
-import org.jphototagger.program.event.listener.DatabaseFileExcludePatternsListener;
+import org.jphototagger.program.event.listener
+    .DatabaseFileExcludePatternsListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         implements DatabaseFileExcludePatternsListener {
     private static final long                           serialVersionUID =
         -8337739189362442866L;
-    private final transient DatabaseFileExcludePatterns db               =
+    private final transient DatabaseFileExcludePatterns db =
         DatabaseFileExcludePatterns.INSTANCE;
     private transient boolean listenToDb = true;
     private List<String>      patterns;
@@ -68,6 +70,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
         if (db.exists(trimmedPattern)) {
             errorMessageExists(trimmedPattern);
+
             return;
         }
 
@@ -101,6 +104,10 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         patterns = db.getAll();
 
         for (String pattern : patterns) {

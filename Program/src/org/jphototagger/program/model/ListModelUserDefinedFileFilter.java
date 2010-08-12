@@ -27,6 +27,7 @@ import org.jphototagger.program.event.listener
     .DatabaseUserDefinedFileFiltersListener;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.program.database.ConnectionPool;
 
 /**
  *
@@ -43,6 +44,10 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         for (UserDefinedFileFilter filter :
                 DatabaseUserDefinedFileFilters.INSTANCE.getAll()) {
             addElement(filter);

@@ -21,8 +21,10 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
-import org.jphototagger.program.event.listener.DatabaseAutoscanDirectoriesListener;
+import org.jphototagger.program.event.listener
+    .DatabaseAutoscanDirectoriesListener;
 
 import java.io.File;
 
@@ -48,6 +50,10 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         List<File> directories = DatabaseAutoscanDirectories.INSTANCE.getAll();
 
         for (File directory : directories) {

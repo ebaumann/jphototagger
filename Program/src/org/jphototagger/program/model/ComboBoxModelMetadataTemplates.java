@@ -23,8 +23,10 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
+import org.jphototagger.program.event.listener
+    .DatabaseMetadataTemplatesListener;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.util.List;
@@ -41,7 +43,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
         implements DatabaseMetadataTemplatesListener {
     private static final long               serialVersionUID =
         7895253533969078904L;
-    private final DatabaseMetadataTemplates db               =
+    private final DatabaseMetadataTemplates db =
         DatabaseMetadataTemplates.INSTANCE;
 
     public ComboBoxModelMetadataTemplates() {
@@ -149,6 +151,10 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         List<MetadataTemplate> templates = db.getAll();
 
         for (MetadataTemplate template : templates) {

@@ -21,11 +21,12 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.componentutil.ListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +110,10 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     private void addElements() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         DatabaseImageCollections db          =
             DatabaseImageCollections.INSTANCE;
         List<String>             collections = db.getAll();
