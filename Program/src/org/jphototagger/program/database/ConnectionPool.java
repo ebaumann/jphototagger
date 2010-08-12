@@ -105,6 +105,10 @@ public final class ConnectionPool implements Runnable {
 
     private ConnectionPool() {}
 
+    public synchronized boolean isInit() {
+        return init;
+    }
+
     public synchronized void init() throws SQLException {
         if (init) {
             assert false;
