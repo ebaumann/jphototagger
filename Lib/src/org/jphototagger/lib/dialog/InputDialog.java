@@ -29,6 +29,7 @@ import java.awt.event.KeyEvent;
 import java.util.Properties;
 
 import javax.swing.JDialog;
+import org.jphototagger.lib.resource.JslBundle;
 
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
@@ -195,78 +196,70 @@ public class InputDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelPrompt    = new javax.swing.JLabel();
+
+        labelPrompt = new javax.swing.JLabel();
         textFieldInput = new javax.swing.JTextField();
-        buttonCancel   = new javax.swing.JButton();
-        buttonOk       = new javax.swing.JButton();
-        setDefaultCloseOperation(
-            javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        buttonCancel = new javax.swing.JButton();
+        buttonOk = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle =
-            java.util.ResourceBundle.getBundle(
-                "org/jphototagger/lib/resource/properties/Bundle");    // NOI18N
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle(JslBundle.INSTANCE.getString("InputDialog.title")); // NOI18N
 
-        setTitle(bundle.getString("InputDialog.title"));    // NOI18N
-        labelPrompt.setText(bundle.getString("InputDialog.labelPrompt.text"));    // NOI18N
+        labelPrompt.setText(JslBundle.INSTANCE.getString("InputDialog.labelPrompt.text")); // NOI18N
+
         textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldInputKeyPressed(evt);
             }
         });
+
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(bundle.getString("InputDialog.buttonCancel.text"));    // NOI18N
+        buttonCancel.setText(JslBundle.INSTANCE.getString("InputDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
+
         buttonOk.setMnemonic('o');
-        buttonOk.setText(bundle.getString("InputDialog.buttonOk.text"));    // NOI18N
+        buttonOk.setText(JslBundle.INSTANCE.getString("InputDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addContainerGap()
-                .addGroup(layout
-                    .createParallelGroup(javax.swing.GroupLayout.Alignment
-                        .LEADING)
-                            .addComponent(textFieldInput, javax.swing
-                                .GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                                    .addComponent(labelPrompt)
-                                    .addGroup(javax.swing.GroupLayout.Alignment
-                                        .TRAILING, layout
-                                        .createSequentialGroup()
-                                        .addComponent(buttonCancel)
-                                        .addPreferredGap(javax.swing.LayoutStyle
-                                            .ComponentPlacement.RELATED)
-                                                .addComponent(buttonOk)))
-                                                    .addContainerGap()));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textFieldInput, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(labelPrompt)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonOk)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    labelPrompt).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    textFieldInput, javax.swing.GroupLayout.PREFERRED_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                        layout.createParallelGroup(
-                            javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                            buttonOk).addComponent(
-                            buttonCancel)).addContainerGap(
-                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelPrompt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonOk)
+                    .addComponent(buttonCancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         accepted = true;
@@ -306,10 +299,9 @@ public class InputDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton    buttonCancel;
-    private javax.swing.JButton    buttonOk;
-    private javax.swing.JLabel     labelPrompt;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonOk;
+    private javax.swing.JLabel labelPrompt;
     private javax.swing.JTextField textFieldInput;
-
     // End of variables declaration//GEN-END:variables
 }

@@ -32,6 +32,7 @@ import java.io.PrintStream;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.resource.JslBundle;
 
 //Most parts of code from http://unserializableone.blogspot.com/2009/01/redirecting-systemout-and-systemerr-to.html
 
@@ -140,17 +141,16 @@ public class SystemOutputPanel extends JPanel {
         textArea.setWrapStyleWord(true);
         scrollPane.setViewportView(textArea);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/resource/properties/Bundle"); // NOI18N
-        buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
-        buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
+        buttonDelete.setText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }
         });
 
-        buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
-        buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
+        buttonCopyToClipboard.setText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
+        buttonCopyToClipboard.setToolTipText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
         buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyToClipboardActionPerformed(evt);
@@ -163,7 +163,7 @@ public class SystemOutputPanel extends JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(buttonDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCopyToClipboard))
