@@ -3,6 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.35 2010-08-04
+-----------------
+
+* Favoriten, Zeitleiste: An den Ordnern der Wurzelebene ist (wieder) ein
+  Symbol (i.d.R. ein Plus-Zeichen) zum Öffnen von Elementen mit untergeordneten
+  Elementen (Zeitleiste: Monate, Favoriten: Untergeordnete Ordner). In der
+  Vorversion waren diese mit einem Doppelklick zu öffnen.
+* Info- statt Fehlermeldungen, falls "umgangssprachliche" Übersetzungen für
+  bestimmte XMP-Eigenschaften nicht im Wörterbuch existieren
+
 0.8.34 2010-06-06
 -----------------
 
