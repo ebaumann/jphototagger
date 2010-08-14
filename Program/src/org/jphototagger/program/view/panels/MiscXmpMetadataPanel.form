@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.7" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -42,6 +42,8 @@
               <Connection code="new TreeCellRendererMiscMetadata()" type="code"/>
             </Property>
             <Property name="dragEnabled" type="boolean" value="true"/>
+            <Property name="rootVisible" type="boolean" value="false"/>
+            <Property name="showsRootHandles" type="boolean" value="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="tree.setTransferHandler(new TransferHandlerMiscMetadataTree());"/>
