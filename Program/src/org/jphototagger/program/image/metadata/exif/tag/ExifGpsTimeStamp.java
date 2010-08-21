@@ -23,6 +23,8 @@ package org.jphototagger.program.image.metadata.exif.tag;
 
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
 
+import java.text.MessageFormat;
+
 /**
  * The time as UTC (Coordinated Universal Time).
  *
@@ -62,5 +64,10 @@ public final class ExifGpsTimeStamp {
 
     public ExifRational seconds() {
         return seconds;
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("{0}:{1}:{2}", hours, minutes, seconds);
     }
 }
