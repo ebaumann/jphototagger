@@ -48,6 +48,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
+import org.jphototagger.program.controller.metadata.ControllerExportGPSToKML;
 
 /**
  * Popup menu of the thumbnails panel.
@@ -329,6 +330,8 @@ public final class PopupMenuThumbnails extends JPopupMenu
         menuMetadata.add(new Separator());
         menuMetadata.add(itemIptcToXmp);
         menuMetadata.add(itemExifToXmp);
+        menuMetadata.add(new Separator());
+        menuMetadata.add(new JMenuItem(new ControllerExportGPSToKML()));
         add(menuMetadata);
         itemPasteMetadata.setEnabled(false);
         menuFsOps.add(itemCopyToClipboard);

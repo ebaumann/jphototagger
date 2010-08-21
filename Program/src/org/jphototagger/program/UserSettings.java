@@ -58,8 +58,7 @@ public final class UserSettings {
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
 
     // When changing see comment for AppInfo.PROJECT_NAME
-    private static final String DOMAIN_NAME                   =
-        "de.elmar_baumann";
+    private static final String DOMAIN_NAME = "de.elmar_baumann";
     private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES =
         "UserSettings.IsAcceptHiddenDirectories";
     private static final String KEY_AUTO_DOWNLOAD_NEWER_VERSIONS =
@@ -74,8 +73,7 @@ public final class UserSettings {
         "UserSettings.DatabaseDirectoryName";
     private static final String KEY_DATABASE_SCHEDULED_BACKUP =
         "UserSettings.DbScheduledBackup";
-    private static final String KEY_DISPLAY_IPTC          =
-        "UserSettings.DisplayIptc";
+    private static final String KEY_DISPLAY_IPTC = "UserSettings.DisplayIptc";
     private static final String KEY_DISPLAY_SEARCH_BUTTON =
         "UserSettings.DisplaySearchButton";
     private static final String KEY_ENABLE_AUTOCOMPLETE =
@@ -86,10 +84,8 @@ public final class UserSettings {
         "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
     private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND =
         "UserSettings.ExternalThumbnailCreationCommand";
-    private static final String KEY_IPTC_CHARSET                               =
-        "UserSettings.IptcCharset";
-    private static final String KEY_LOG_LEVEL                                  =
-        "UserSettings.LogLevel";
+    private static final String KEY_IPTC_CHARSET = "UserSettings.IptcCharset";
+    private static final String KEY_LOG_LEVEL = "UserSettings.LogLevel";
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
         "UserSettings.MaximumSecondsToTerminateExternalPrograms";
     private static final String KEY_MAX_THUMBNAIL_WIDTH =
@@ -106,6 +102,8 @@ public final class UserSettings {
         "UserSettings.ThumbnailCreator";
     private static final String KEY_UPDATE_AUTOCOMPLETE =
         "UserSettings.UpdateAutocomplete";
+    private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT =
+        "UserSettings.AddFilenameToGpsLocationExport";
 
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
@@ -115,12 +113,12 @@ public final class UserSettings {
         new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
 
     /** Field description */
-    public static final UserSettings INSTANCE       = new UserSettings();
-    private final Properties         properties     = new Properties();
+    public static final UserSettings INSTANCE   = new UserSettings();
+    private final Properties         properties = new Properties();
     private final PropertiesFile     propertiesFile =
         new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME,
                            PROPERTIES_FILENAME, properties);
-    private final Settings                    settings        =
+    private final Settings                    settings =
         new Settings(properties);
     private final UserSettingsListenerSupport listenerSupport =
         new UserSettingsListenerSupport();
@@ -825,6 +823,17 @@ public final class UserSettings {
     public boolean isScheduledBackupDb() {
         return properties.containsKey(KEY_DATABASE_SCHEDULED_BACKUP)
                ? settings.getBoolean(KEY_DATABASE_SCHEDULED_BACKUP)
+               : false;
+    }
+
+    public void setAddFilenameToGpsLocationExport(boolean add) {
+        settings.set(add, KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT);
+        writeToFile();
+    }
+
+    public boolean isAddFilenameToGpsLocationExport() {
+        return properties.containsKey(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+               ? settings.getBoolean(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                : false;
     }
 

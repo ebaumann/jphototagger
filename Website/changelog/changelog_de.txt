@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.36 2010-08-21
+-----------------
+
+* Neu im Kontextmenü der Vorschaubilder: Metadaten > GPS-Standorte exportieren.
+  Näheres siehe in der Hilfe unter "Weitere Funktionen > GPS-Standorte
+  exportieren".
+
 0.8.35 2010-08-04
 -----------------
 
