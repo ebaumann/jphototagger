@@ -91,7 +91,7 @@ public final class ExifGpsMetadata {
     private ExifRational       gpsDistanceToDestination;
     private String             gpsProcessingMethod;
     private String             gpsAreaInformation;
-    private String             gpsDateStamp;
+    private ExifGpsDateStamp   gpsDateStamp;
     private int                gpsDifferential;
 
     /**
@@ -171,16 +171,16 @@ public final class ExifGpsMetadata {
      *
      * @return date
      */
-    public String gpsDateStamp() {
+    public ExifGpsDateStamp dateStamp() {
         return gpsDateStamp;
     }
 
     /**
      * Sets the GPS date.
      *
-     * @param gpsDateStamp date
+     * @param dateStamp date
      */
-    public void setGpsDateStamp(String gpsDateStamp) {
+    public void setDateStamp(ExifGpsDateStamp gpsDateStamp) {
         this.gpsDateStamp = gpsDateStamp;
     }
 
