@@ -287,6 +287,13 @@
         </page>
     </node>
     <node>
+        <title>Weitere Funktionen</title>
+        <page>
+            <url>export_gps_locations.html</url>
+            <title>GPS-Standorte exportieren</title>
+        </page>
+    </node>
+    <node>
         <title>Tipps</title>
         <page>
             <url>tip_use_help.html</url>

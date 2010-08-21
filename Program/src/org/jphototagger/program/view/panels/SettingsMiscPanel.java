@@ -145,6 +145,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             comboBoxIptcCharset.getSelectedItem().toString());
     }
 
+    private void handleActionPerformedCheckBoxAddFilenameToGpsLocationExport() {
+        UserSettings.INSTANCE.setAddFilenameToGpsLocationExport(
+                checkBoxAddFilenameToGpsLocationExport.isSelected());
+    }
+
     private void checkLogLevel() {
         if (comboBoxLogLevel.getSelectedIndex() < 0) {
             comboBoxLogLevel.setSelectedIndex(0);
@@ -163,6 +168,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             UserSettings.INSTANCE.isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(
             settings.isAcceptHiddenDirectories());
+        checkBoxAddFilenameToGpsLocationExport.setSelected(
+                settings.isAddFilenameToGpsLocationExport());
         comboBoxIptcCharset.getModel().setSelectedItem(
             UserSettings.INSTANCE.getIptcCharset());
         comboBoxLogLevel.setSelectedItem(
@@ -206,6 +213,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         checkBoxAutoDownloadCheck = new javax.swing.JCheckBox();
         buttonCheckDownload = new javax.swing.JButton();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
+        checkBoxAddFilenameToGpsLocationExport = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
@@ -247,6 +255,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplaySearchButtonActionPerformed(evt);
+            }
+        });
+
+        checkBoxAddFilenameToGpsLocationExport.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
+        checkBoxAddFilenameToGpsLocationExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAddFilenameToGpsLocationExportActionPerformed(evt);
             }
         });
 
@@ -413,6 +428,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                         .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkBoxIsAcceptHiddenDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(checkBoxAddFilenameToGpsLocationExport, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -427,7 +445,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                         .addComponent(checkBoxAutoDownloadCheck)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxAddFilenameToGpsLocationExport)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -487,12 +507,17 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         checkDownload();
     }//GEN-LAST:event_buttonCheckDownloadActionPerformed
 
+    private void checkBoxAddFilenameToGpsLocationExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
+        handleActionPerformedCheckBoxAddFilenameToGpsLocationExport();
+    }//GEN-LAST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCheckDownload;
     private javax.swing.JButton buttonChooseDatabaseBackupDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
+    private javax.swing.JCheckBox checkBoxAddFilenameToGpsLocationExport;
     private javax.swing.JCheckBox checkBoxAutoDownloadCheck;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
