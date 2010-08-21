@@ -1123,4 +1123,32 @@ public final class FileUtil {
 
         return new File(filepath).delete();
     }
+
+    /**
+     * Ensures that a file has a specific suffix. Ignores the case
+     *
+     * @param file   file
+     * @param suffix suffix - a dot will <em>not</em> be prepended - e.g.
+     *               <code>".xml"</code>
+     * @return       file or a new file with the old file path but the suffix.
+     *               E.g. if the suffix is <code>".xml"</code> and the file name
+     *               is <code>"file.xml"</code> or the file name is
+     *               <code>"file"</code> in both cases a file named
+     *               <code>"file.xml"</code> will be returned.
+     */
+    public static File ensureSuffix(File file, String suffix) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (suffix == null) {
+            throw new NullPointerException("suffix == null");
+        }
+
+        if (file.getName().toLowerCase().endsWith(suffix.toLowerCase())) {
+            return file;
+        }
+
+        return new File(file.getAbsolutePath() + suffix);
+    }
 }
