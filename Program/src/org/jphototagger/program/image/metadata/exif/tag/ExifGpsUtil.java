@@ -100,14 +100,24 @@ public final class ExifGpsUtil {
 
         MessageFormat msg =
             new MessageFormat(
-                "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=de");
+                "http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl="
+                + Locale.getDefault().getLanguage());
         DecimalFormat df =
             (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
 
         df.applyPattern("#.########");
 
-        double   latititudeValue = degrees(latitude.degrees());
-        double   longitudeValue  = degrees(longitude.degrees());
+        double latititudeValue = degrees(latitude.degrees());
+        double longitudeValue  = degrees(longitude.degrees());
+
+        if (latitude.ref().equals(ExifGpsLatitude.Ref.SOUTH)) {
+            latititudeValue *= -1;
+        }
+
+        if (longitude.ref().equals(ExifGpsLongitude.Ref.WEST)) {
+            longitudeValue *= -1;
+        }
+
         Object[] params = { df.format(latititudeValue),
                             df.format(longitudeValue) };
 

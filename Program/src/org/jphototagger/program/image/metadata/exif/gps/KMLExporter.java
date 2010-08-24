@@ -95,12 +95,20 @@ public final class KMLExporter implements GPSLocationExporter {
         ExifGpsAltitude  altitude  = gpsMd.altitude();
 
         if ((latitude != null) && (longitude != null)) {
-            double       longDeg   = ExifGpsUtil.degrees(longitude.degrees());
-            double       latDeg    = ExifGpsUtil.degrees(latitude.degrees());
-            double       alt       = (altitude == null)
-                                     ? Double.MIN_VALUE
-                                     : ExifDatatypeUtil.toDouble(
-                                         altitude.value());
+            double longDeg = ExifGpsUtil.degrees(longitude.degrees());
+            double latDeg  = ExifGpsUtil.degrees(latitude.degrees());
+            double alt     = (altitude == null)
+                             ? Double.MIN_VALUE
+                             : ExifDatatypeUtil.toDouble(altitude.value());
+
+            if (latitude.ref().equals(ExifGpsLatitude.Ref.SOUTH)) {
+                latDeg *= -1;
+            }
+
+            if (longitude.ref().equals(ExifGpsLongitude.Ref.WEST)) {
+                longDeg *= -1;
+            }
+
             KMLPoint     point     = (alt >= 0)
                                      ? new KMLPoint(longDeg, latDeg, alt)
                                      : new KMLPoint(longDeg, latDeg);
