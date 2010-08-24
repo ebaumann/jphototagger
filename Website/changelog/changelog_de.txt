@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.37 2010-08-24
+-----------------
+
+* Bugfix: GPS-Koordinaten-Umrechnung für Google Maps für West und Süd korrekt
+  umgerechnet (negative Werte)
+* Bugfix: Metadaten > GPS-Standorte exportieren: GPS-Koordinaten-Umrechnung
+  für West und Süd korrekt umgerechnet (negative Werte)
+
+
 0.8.36 2010-08-21
 -----------------
 
