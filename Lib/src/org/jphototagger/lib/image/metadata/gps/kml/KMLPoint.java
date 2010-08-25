@@ -37,10 +37,10 @@ public final class KMLPoint implements KMLElement {
     /**
      * Creates a point.
      *
-     * @param longitude longitude from -180 to +180 degrees from west (negative)
-     *                  to east (positive)
-     * @param latitude  latitude from -90 to +90 degrees from north (negative)
-     *                  to south (positive)
+     * @param longitude longitude from -180 to +180 degrees, positive values are
+     *                  East and negative values are West
+     * @param latitude  latitude from -90 to +90 degrees, positive values are
+     *                  North and negative values are South
      * @throws          IllegalArgumentException on unexpected values
      */
     public KMLPoint(double longitude, double latitude) {
@@ -61,10 +61,10 @@ public final class KMLPoint implements KMLElement {
     /**
      * Creates a point with an altitude.
      *
-     * @param longitude longitude from -180 to +180 degrees from west (negative)
-     *                  to east (positive)
-     * @param latitude  latitude from -90 to +90 degrees from north (negative)
-     *                  to south (positive)
+     * @param longitude longitude from -180 to +180 degrees, positive values are
+     *                  East and negative values are West
+     * @param latitude  latitude from -90 to +90 degrees, positive values are
+     *                  North and negative values are South
      * @param altitude  meters obove sea level greater or equals zero
      * @throws          IllegalArgumentException on unexpected values
      */
