@@ -32,6 +32,8 @@ import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 import java.io.File;
 
@@ -224,5 +226,16 @@ public class ViewUtil {
         }
 
         return true;
+    }
+
+    /**
+     * Unselects all images from the thumbanils panel, scrolls to top and
+     * refreshes the view.
+     */
+    public static void resetThumbnailsPanel() {
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().clearSelection();
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().scrollRectToVisible(
+            new Rectangle(new Point(0, 0)));
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
     }
 }
