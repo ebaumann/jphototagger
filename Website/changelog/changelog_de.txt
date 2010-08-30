@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.38 2010-08-30
+-----------------
+
+* Bugfix: Kontextmenü Vorschaubildfenster: "Dateioperationen > Verschieben"
+  ist weniger anfällig für "Hänger" (Deadlocks)
+
 0.8.37 2010-08-24
 -----------------
 
