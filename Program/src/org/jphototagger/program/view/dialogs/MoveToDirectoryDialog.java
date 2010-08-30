@@ -48,6 +48,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -328,7 +329,9 @@ public final class MoveToDirectoryDialog extends Dialog
             buttonStart.setEnabled(true);
             runs     = false;
             moveTask = null;
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
+            // Caused deadlock unter some circumstances:
+            // GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
+            ViewUtil.resetThumbnailsPanel();
             removeMovedFiles();
             pListenerSupport.notifyEnded(evt);
             checkErrors();
