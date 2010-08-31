@@ -234,8 +234,7 @@ public class ViewUtil {
      */
     public static void resetThumbnailsPanel() {
         GUI.INSTANCE.getAppPanel().getPanelThumbnails().clearSelection();
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().scrollRectToVisible(
-            new Rectangle(new Point(0, 0)));
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().scrollToTop();
         GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
     }
 }
