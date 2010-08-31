@@ -3,6 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.39 2010-08-31
+-----------------
+
+* Wird ein neuer Ordner angelegt (Ordner- oder Favoriten-Kartenreiter) und
+  sind Bilder ausgewählt, wird gefragt, ob diese in den neuen Ordner verschoben
+  werden sollen
+* Export von GPS-Standorten: Einsammeln aller EXIF-Informationen im Hintergrund,
+  es kann so lange weiter gearbeitet werden
+* Beim Verschieben von Dateien sollte die Oberfläche jetzt nicht mehr
+  "einfrieren"
+
 0.8.38 2010-08-30
 -----------------
 
