@@ -21,13 +21,18 @@
 
 package org.jphototagger.program.controller.directories;
 
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.program.controller.favorites
+    .ControllerFavoritesAddFilesystemFolder;
+import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
+import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -72,7 +77,18 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
             throw new NullPointerException("node == null");
         }
 
-        ModelFactory.INSTANCE.getModel(
-            TreeModelAllSystemDirectories.class).createDirectoryIn(node);
+        File dir = ModelFactory.INSTANCE.getModel(
+                       TreeModelAllSystemDirectories.class).createDirectoryIn(
+                       node);
+
+        if (dir != null) {
+            ControllerFavoritesAddFilesystemFolder ctrl =
+                ControllerFactory.INSTANCE.getController(
+                    ControllerFavoritesAddFilesystemFolder.class);
+
+            if (ctrl != null) {
+                ctrl.confirmMoveSelFilesInto(dir);
+    }
+}
     }
 }

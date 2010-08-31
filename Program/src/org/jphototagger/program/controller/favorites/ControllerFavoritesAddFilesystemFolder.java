@@ -21,17 +21,24 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
+import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import java.io.File;
+
+import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -50,7 +57,7 @@ import javax.swing.tree.TreePath;
 public final class ControllerFavoritesAddFilesystemFolder
         implements ActionListener, KeyListener {
     private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
-    private final JTree              tree  =
+    private final JTree              tree =
         GUI.INSTANCE.getAppPanel().getTreeFavorites();
 
     public ControllerFavoritesAddFilesystemFolder() {
@@ -84,9 +91,45 @@ public final class ControllerFavoritesAddFilesystemFolder
     private void createDirectory(TreePath path) {
         TreeModelFavorites model =
             ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
+        File dir = model.createNewDirectory(
+                       TreeFileSystemDirectories.getNodeOfLastPathComponent(
+                           path));
 
-        model.createNewDirectory(
-            TreeFileSystemDirectories.getNodeOfLastPathComponent(path));
+        if (dir != null) {
+            confirmMoveSelFilesInto(dir);
+    }
+    }
+
+    /**
+     * Moves all selected files into a directory after confirmation.
+     *
+     * @param dir directory
+     */
+    public void confirmMoveSelFilesInto(File dir) {
+        if (dir == null) {
+            throw new NullPointerException("dir == null");
+        }
+
+        if (dir.isDirectory()) {
+            List<File> selFiles =
+                GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+                    .getSelectedFiles();
+
+            if (!selFiles.isEmpty() && isMoveSelFiles()) {
+                ControllerMoveFiles ctrl =
+                    ControllerFactory.INSTANCE.getController(
+                        ControllerMoveFiles.class);
+
+                if (ctrl != null) {
+                    ctrl.moveFiles(selFiles, dir);
+                }
+            }
+        }
+    }
+
+    private boolean isMoveSelFiles() {
+        return MessageDisplayer.confirmYesNo(null,
+                "ControllerFavoritesAddFilesystemFolder.Confirm.MoveSelFiles");
     }
 
     @Override
