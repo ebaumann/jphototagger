@@ -24,6 +24,10 @@ package org.jphototagger.program.event.listener.impl;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 
+import java.awt.Component;
+
+import javax.swing.SwingUtilities;
+
 /**
  * Adds, removes and notifies {@link ProgressListener} instances.
  *
@@ -38,13 +42,22 @@ public final class ProgressListenerSupport
      *
      * @param event progress event
      */
-    public void notifyStarted(ProgressEvent event) {
+    public void notifyStarted(final ProgressEvent event) {
         if (event == null) {
             throw new NullPointerException("event == null");
         }
 
-        for (ProgressListener listener : listeners) {
-            listener.progressStarted(event);
+        for (final ProgressListener listener : listeners) {
+            if (listener instanceof Component) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.progressStarted(event);
+                    }
+                });
+            } else {
+                listener.progressStarted(event);
+            }
         }
     }
 
@@ -56,15 +69,24 @@ public final class ProgressListenerSupport
      * @return       true if one of the of the events returns
      *               {@link ProgressEvent#isCancel()}
      */
-    public boolean notifyPerformed(ProgressEvent event) {
+    public boolean notifyPerformed(final ProgressEvent event) {
         if (event == null) {
             throw new NullPointerException("event == null");
         }
 
         boolean cancel = false;
 
-        for (ProgressListener listener : listeners) {
-            listener.progressPerformed(event);
+        for (final ProgressListener listener : listeners) {
+            if (listener instanceof Component) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.progressPerformed(event);
+                    }
+                });
+            } else {
+                listener.progressPerformed(event);
+            }
         }
 
         return cancel;
@@ -76,13 +98,22 @@ public final class ProgressListenerSupport
      *
      * @param event progress event
      */
-    public void notifyEnded(ProgressEvent event) {
+    public void notifyEnded(final ProgressEvent event) {
         if (event == null) {
             throw new NullPointerException("event == null");
         }
 
-        for (ProgressListener listener : listeners) {
-            listener.progressEnded(event);
+        for (final ProgressListener listener : listeners) {
+            if (listener instanceof Component) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.progressEnded(event);
+                    }
+                });
+            } else {
+                listener.progressEnded(event);
+            }
         }
     }
 }
