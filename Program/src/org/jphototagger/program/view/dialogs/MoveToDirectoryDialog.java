@@ -48,7 +48,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -89,7 +88,7 @@ public final class MoveToDirectoryDialog extends Dialog
             JptBundle.INSTANCE.getString("Help.Url.MoveToDirectoryDialog"));
     }
 
-    public synchronized void addProgressListener(ProgressListener listener) {
+    public void addProgressListener(ProgressListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
@@ -97,7 +96,7 @@ public final class MoveToDirectoryDialog extends Dialog
         pListenerSupport.add(listener);
     }
 
-    private synchronized void checkClosing() {
+    private void checkClosing() {
         if (runs) {
             MessageDisplayer.error(
                 this, "MoveToDirectoryDialog.Error.CancelBeforeClose");
@@ -127,14 +126,14 @@ public final class MoveToDirectoryDialog extends Dialog
         sourceFiles.addAll(xmpFiles);
     }
 
-    private synchronized void reset() {
+    private void reset() {
         runs   = false;
         cancel = false;
         errors = false;
         movedFiles.clear();
     }
 
-    private synchronized void start() {
+    private void start() {
         reset();
         moveTask = new FileSystemMove(
             sourceFiles, targetDirectory,
@@ -159,7 +158,7 @@ public final class MoveToDirectoryDialog extends Dialog
         ls.add(listener);
     }
 
-    private synchronized void addListenerToMoveTask() {
+    private void addListenerToMoveTask() {
         moveTask.addFileSystemListener(this);
         moveTask.addProgressListener(this);
 
@@ -220,9 +219,9 @@ public final class MoveToDirectoryDialog extends Dialog
             throw new NullPointerException("sourceFiles == null");
         }
 
-        this.sourceFiles = sourceFiles;
+        this.sourceFiles = new ArrayList<File>(sourceFiles);
         addXmpFiles();
-        Collections.sort(sourceFiles);
+        Collections.sort(this.sourceFiles);
     }
 
     /**
@@ -323,20 +322,16 @@ public final class MoveToDirectoryDialog extends Dialog
             throw new NullPointerException("evt == null");
         }
 
-        synchronized (this) {
-            progressBar.setValue(evt.getValue());
-            buttonCancel.setEnabled(true);
-            buttonStart.setEnabled(true);
-            runs     = false;
-            moveTask = null;
-            // Caused deadlock unter some circumstances:
-            // GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
-            ViewUtil.resetThumbnailsPanel();
-            removeMovedFiles();
-            pListenerSupport.notifyEnded(evt);
-            checkErrors();
-            setVisible(false);
-        }
+        progressBar.setValue(evt.getValue());
+        buttonCancel.setEnabled(true);
+        buttonStart.setEnabled(true);
+        runs     = false;
+        moveTask = null;
+        GUI.INSTANCE.getAppPanel().getPanelThumbnails().remove(movedFiles);
+        removeMovedFiles();
+        pListenerSupport.notifyEnded(evt);
+        checkErrors();
+        setVisible(false);
     }
 
     private void removeMovedFiles() {
