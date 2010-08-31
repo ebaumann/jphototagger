@@ -26,11 +26,14 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.PropertiesUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.GPSImageInfo;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.UserSettings;
 
 import java.io.File;
@@ -72,6 +75,57 @@ public final class GPSLocationExportUtil {
         return "";
     }
 
+    private static class Exporter extends HelperThread {
+        private volatile boolean           cancel;
+        private final GPSLocationExporter  exporter;
+        private final List<? extends File> imageFiles;
+
+        Exporter(GPSLocationExporter exporter,
+                 Collection<? extends File> imageFiles) {
+            this.exporter   = exporter;
+            this.imageFiles = new ArrayList<File>(imageFiles);
+            setName("Exporting GPS locations @ " + getClass().getSimpleName());
+            setInfo(
+                JptBundle.INSTANCE.getString(
+                    "GPSLocationExportUtil.Exporter.Info"));
+        }
+
+        @Override
+        public void cancel() {
+            cancel = true;
+        }
+
+        @Override
+        public void run() {
+            int fileCount = imageFiles.size();
+
+            progressStarted(0, 0, fileCount, (fileCount > 0)
+                                             ? imageFiles.get(0)
+                                             : null);
+
+            List<GPSImageInfo> imageInfos =
+                new ArrayList<GPSImageInfo>(fileCount);
+
+            for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount);
+                    i++) {
+                File     imageFile = imageFiles.get(i);
+                ExifTags et        = ExifMetadata.getExifTags(imageFile);
+
+                if (et != null) {
+                    ExifGpsMetadata gpsMetadata = ExifGpsUtil.gpsMetadata(et);
+
+                    imageInfos.add(new GPSImageInfo(imageFile, gpsMetadata));
+                }
+
+                progressPerformed(i + 1, imageFile);
+            }
+
+            export(exporter, imageInfos);
+            progressEnded(null);
+        }
+    }
+
+
     /**
      * Exports GPS metadata in image files into a file.
      *
@@ -89,21 +143,8 @@ public final class GPSLocationExportUtil {
             throw new NullPointerException("imageFiles == null");
         }
 
-        List<GPSImageInfo> imageInfos =
-            new ArrayList<GPSImageInfo>(imageFiles.size());
-
-        for (File imageFile : imageFiles) {
-            ExifTags et = ExifMetadata.getExifTags(imageFile);
-
-            if (et != null) {
-                ExifGpsMetadata gpsMetadata = ExifGpsUtil.gpsMetadata(et);
-
-                imageInfos.add(new GPSImageInfo(imageFile, gpsMetadata));
+        UserTasks.INSTANCE.add(new Exporter(exporter, imageFiles));
             }
-        }
-
-        export(exporter, imageInfos);
-    }
 
     private static void export(GPSLocationExporter exporter,
                                List<GPSImageInfo> gpsImageInfos) {
