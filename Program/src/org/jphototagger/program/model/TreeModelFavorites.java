@@ -21,6 +21,11 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -30,11 +35,6 @@ import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.DatabaseFavoritesListener;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
 
 import java.awt.Cursor;
 
@@ -72,14 +72,13 @@ import javax.swing.tree.TreePath;
 public final class TreeModelFavorites extends DefaultTreeModel
         implements TreeWillExpandListener, DatabaseFavoritesListener,
                    AppExitListener {
-    private static final String KEY_SELECTED_DIR      =
-        "TreeModelFavorites.SelDir";
+    private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir";
     private static final String KEY_SELECTED_FAV_NAME =
         "TreeModelFavorites.SelFavDir";
     private static final long                 serialVersionUID =
         -2453748094818942669L;
-    private final Object                      monitor          = new Object();
-    private transient boolean                 listenToDb       = true;
+    private final Object                      monitor    = new Object();
+    private transient boolean                 listenToDb = true;
     private final transient DatabaseFavorites db;
     private final DefaultMutableTreeNode      rootNode;
     private final JTree                       tree;
@@ -88,6 +87,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         super(new DefaultMutableTreeNode(
             JptBundle.INSTANCE.getString(
                 "TreeModelFavorites.Root.DisplayName")));
+
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
@@ -221,7 +221,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
             if (nodeToMoveDown != null) {
                 int     indexNodeToMoveDown = rootNode.getIndex(nodeToMoveDown);
-                boolean isLastNode          = indexNodeToMoveDown
+                boolean isLastNode = indexNodeToMoveDown
                                               == rootNode.getChildCount() - 1;
 
                 if (!isLastNode) {
@@ -345,7 +345,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
      */
     private int removeChildrenWithNotExistingFiles(
             DefaultMutableTreeNode parentNode) {
-        int                          childCount    = parentNode.getChildCount();
+        int                          childCount = parentNode.getChildCount();
         List<DefaultMutableTreeNode> nodesToRemove =
             new ArrayList<DefaultMutableTreeNode>();
 
@@ -420,9 +420,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
      * Creates a new directory as child of a node. Let's the user input the
      * new name and inserts the new created directory.
      *
-     * @param parentNode parent node. If null, nothing will be done.
+     * @param  parentNode parent node. If null, nothing will be done.
+     * @return            new created directory or null if not created
      */
-    public void createNewDirectory(DefaultMutableTreeNode parentNode) {
+    public File createNewDirectory(DefaultMutableTreeNode parentNode) {
         File dirOfParentNode = (parentNode == null)
                                ? null
                                : getDirectory(parentNode);
@@ -442,8 +443,12 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 fireTreeNodesInserted(this, parentNode.getPath(),
                                       new int[] { childIndex },
                                       new Object[] { newDirNode });
+
+                return newDir;
             }
         }
+
+        return null;
     }
 
     private File getDirectory(DefaultMutableTreeNode node) {
@@ -491,7 +496,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
      * @param select       if true the file node will be selected
      */
     private void expandToFile(String favoriteName, File file, boolean select) {
-        DefaultMutableTreeNode node               = getFavorite(favoriteName);
+        DefaultMutableTreeNode node = getFavorite(favoriteName);
         Stack<File>            filePathToFavorite = getFilePathToNode(node,
                                                         file);
 
@@ -693,7 +698,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
-        int                          rows  = tree.getRowCount();
+        int                          rows = tree.getRowCount();
         List<DefaultMutableTreeNode> nodes =
             new ArrayList<DefaultMutableTreeNode>(rows);
 
@@ -737,6 +742,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void treeWillCollapse(TreeExpansionEvent event)
             throws ExpandVetoException {
+
             // ignore
     }
 
