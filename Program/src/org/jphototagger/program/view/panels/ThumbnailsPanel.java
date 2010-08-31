@@ -81,6 +81,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -156,8 +157,8 @@ public class ThumbnailsPanel extends JPanel
         new ThumbnailPanelRenderer(this);
     private final transient RenderedThumbnailCache renderedThumbnailCache =
         RenderedThumbnailCache.INSTANCE;
-    private final Map<Content, List<RefreshListener>> refreshListenersOf =
-        new HashMap<Content, List<RefreshListener>>();
+    private final EnumMap<Content, List<RefreshListener>> refreshListenersOf =
+        new EnumMap<Content, List<RefreshListener>>(Content.class);
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
     private Comparator<File>          fileSortComparator =
         FileSort.NAMES_ASCENDING.getComparator();
@@ -296,13 +297,13 @@ public class ThumbnailsPanel extends JPanel
      *  Also clears the selection, but takes the new indices of the selection
      * as arguments, if files have been reordered etc.
      */
-    private synchronized void clearSelection(List<Integer> indices) {
-        if (indices.size() > 0) {
+    private void clearSelection(List<Integer> indices) {
+        if (!indices.isEmpty()) {
             synchronized (this) {
                 selectedThumbnailIndices.clear();
+                rerender(indices);
             }
 
-            rerender(indices);
             notifySelectionChanged();
         }
     }
@@ -669,8 +670,9 @@ public class ThumbnailsPanel extends JPanel
         showToolTip(evt);
     }
 
-    private synchronized void setSelectedAll(boolean select) {
-        Set<Integer> rerenderTargets =
+    private void setSelectedAll(boolean select) {
+        synchronized (this) {
+            Set<Integer> currentSelection =
             new HashSet<Integer>(selectedThumbnailIndices);
 
         selectedThumbnailIndices.clear();
@@ -681,16 +683,24 @@ public class ThumbnailsPanel extends JPanel
             }
 
             renderedThumbnailCache.clear();
-            notifySelectionChanged();
             repaint();
         } else {
-            rerender(rerenderTargets);
-            notifySelectionChanged();
+
+                // Clear the selection highlighting
+                rerender(currentSelection);
         }
     }
 
-    private synchronized void enhanceSelectionTo(int index) {
-        if (isFileSelected()) {
+        notifySelectionChanged();
+    }
+
+    private void enhanceSelectionTo(int index) {
+        boolean isEnhance = false;
+
+        synchronized (this) {
+            isEnhance = isFileSelected();
+
+            if (isEnhance) {
             Set<Integer> rerenderTargets =
                 new HashSet<Integer>(selectedThumbnailIndices);
             int firstSelected = getFirstSelectedIndex();
@@ -710,30 +720,35 @@ public class ThumbnailsPanel extends JPanel
 
             rerenderTargets.addAll(selectedThumbnailIndices);
             rerender(rerenderTargets);
-            notifySelectionChanged();
             repaint();
         } else {
             setSelected(index);
         }
     }
 
-    public synchronized void setSelected(List<Integer> indices) {
+        if (isEnhance) {
+            notifySelectionChanged();
+        }
+    }
+
+    public void setSelected(List<Integer> indices) {
         if (indices == null) {
             throw new NullPointerException("indices == null");
         }
 
+        synchronized (this) {
         Set<Integer> rerenderTargets = getValidIndicesOf(indices);
 
-        synchronized (this) {
             selectedThumbnailIndices.clear();
             selectedThumbnailIndices.addAll(indices);
 
             if (selectedThumbnailIndices.size() > 0) {
                 Collections.sort(selectedThumbnailIndices);
             }
-        }
 
         rerender(rerenderTargets);
+        }
+
         notifySelectionChanged();
         repaint();
     }
@@ -757,11 +772,11 @@ public class ThumbnailsPanel extends JPanel
         return validIndices;
     }
 
-    private synchronized void setSelected(int index) {
-        assert isIndex(index) :
-               "Invalid index: " + index + ". File count: " + files.size();
-
+    private void setSelected(int index) {
+        synchronized (this) {
         if (!isIndex(index)) {
+                assert false : "Invalid index: " + index;
+
             return;
         }
 
@@ -772,25 +787,45 @@ public class ThumbnailsPanel extends JPanel
         selectedThumbnailIndices.add(index);
         rerenderTargets.add(index);
         rerender(rerenderTargets);
+        }
+
         notifySelectionChanged();
         repaint();
     }
 
-    private synchronized void addToSelection(int index) {
-        if (!isSelected(index)) {
-            selectedThumbnailIndices.add(index);
-            Collections.sort(selectedThumbnailIndices);
-            rerender(index);
+    private void addToSelection(int index) {
+        boolean isSelect = false;
+
+        synchronized (this) {
+            isSelect = !isSelected(index);
+
+            if (isSelect) {
+                selectedThumbnailIndices.add(index);
+                Collections.sort(selectedThumbnailIndices);
+                rerender(index);
+            }
+        }
+
+        if (isSelect) {
             notifySelectionChanged();
         }
     }
 
-    private synchronized void removeSelection(int index) {
-        if (isSelected(index)) {
+    private void removeSelection(int index) {
+        boolean isRemove = false;
+
+        synchronized (this) {
+            isRemove = isSelected(index);
+
+            if (isRemove) {
 
             // Do NOT call remove(int)!
             selectedThumbnailIndices.remove(Integer.valueOf(index));
             rerender(index);
+            }
+        }
+
+        if (isRemove) {
             notifySelectionChanged();
         }
     }
@@ -1105,8 +1140,8 @@ public class ThumbnailsPanel extends JPanel
                 notifyRefresh = true;
                 AppLogger.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
 
-                for (RefreshListener listener : refreshListenersOf.get(
-                        content)) {
+                for (RefreshListener listener :
+                        refreshListenersOf.get(content)) {
                     listener.refresh(evt);
                 }
 
@@ -1128,7 +1163,7 @@ public class ThumbnailsPanel extends JPanel
      * Calls <code>refresh()</code> by all added
      * {@link org.jphototagger.program.event.listener.RefreshListener} objects.
      */
-    public synchronized void refresh() {
+    public void refresh() {
         JViewport vp               = getViewport();
         Point     viewportPosition = new Point(0, 0);
 
@@ -1323,10 +1358,11 @@ public class ThumbnailsPanel extends JPanel
             this.content = content;
             scrollToTop();
             setMissingFilesFlags();
+        }
+
             notifyThumbnailsChanged();
             forceRepaint();
         }
-    }
 
     private synchronized void setMissingFilesFlags() {
         int count = files.size();
@@ -1396,7 +1432,7 @@ public class ThumbnailsPanel extends JPanel
                ? (int) (MathUtil.isInteger(count)
                         ? count
                         : count + 1)
-               : (files.size() == 0)
+               : (files.isEmpty())
                  ? 0
                  : 1;
     }
@@ -1556,7 +1592,7 @@ public class ThumbnailsPanel extends JPanel
         return viewport;
     }
 
-    private void scrollToTop() {
+    public void scrollToTop() {
         setViewPosition(new Point(0, 0));
     }
 
@@ -1904,7 +1940,7 @@ public class ThumbnailsPanel extends JPanel
         }
 
         public List<Integer> getSelThumbnails() {
-            return selThumbnails;
+            return Collections.unmodifiableList(selThumbnails);
         }
 
         public Point getViewPosition() {
