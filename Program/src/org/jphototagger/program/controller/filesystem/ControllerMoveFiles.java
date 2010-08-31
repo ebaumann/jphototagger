@@ -77,6 +77,31 @@ public final class ControllerMoveFiles
         }
     }
 
+    /**
+     * Moves files into a target directory without asking for confirmation.
+     *
+     * @param srcFiles  source files to move
+     * @param targetDir target directory
+     */
+    public void moveFiles(List<File> srcFiles, File targetDir) {
+        if (srcFiles == null) {
+            throw new NullPointerException("srcFiles == null");
+        }
+
+        if (targetDir == null) {
+            throw new NullPointerException("targetDir == null");
+        }
+
+        if (!srcFiles.isEmpty() && targetDir.isDirectory()) {
+            MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
+
+            dlg.setSourceFiles(srcFiles);
+            dlg.setTargetDirectory(targetDir);
+            dlg.addFileSystemListener(this);
+            dlg.setVisible(true);
+        }
+    }
+
     private boolean isXmpFile(File file) {
         return file.getName().toLowerCase().endsWith("xmp");
     }
