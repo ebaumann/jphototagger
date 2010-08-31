@@ -173,9 +173,10 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
      * Creates a new directory as child of a node. Let's the user input the
      * new name and inserts the new created directory.
      *
-     * @param parentNode parent node. If null, nothing will be done.
+     * @param  parentNode parent node. If null, nothing will be done.
+     * @return            created directory or null if not created
      */
-    public void createDirectoryIn(DefaultMutableTreeNode parentNode) {
+    public File createDirectoryIn(DefaultMutableTreeNode parentNode) {
         File parentDir = (parentNode == null)
                          ? null
                          : TreeFileSystemDirectories.getFile(parentNode);
@@ -195,8 +196,11 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
                 fireTreeNodesInserted(this, parentNode.getPath(),
                                       new int[] { childIndex },
                                       new Object[] { createdDirNode });
+                return createdDir;
             }
         }
+
+        return null;
     }
 
     /**
