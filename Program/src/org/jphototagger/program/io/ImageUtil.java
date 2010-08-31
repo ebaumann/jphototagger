@@ -23,8 +23,10 @@ package org.jphototagger.program.io;
 
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
@@ -37,6 +39,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 /**
  * Utilities for images.
@@ -153,12 +157,18 @@ public final class ImageUtil {
             return;
         }
 
-        MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
+        ControllerMoveFiles ctrl =
+            ControllerFactory.INSTANCE.getController(ControllerMoveFiles.class);
 
-        dlg.setTargetDirectory(targetDirectory);
-        dlg.setSourceFiles(sourceFiles);
-        addProgressListener(dlg);
-        dlg.setVisible(true);
+        if (ctrl != null) {
+            ctrl.moveFiles(sourceFiles, targetDirectory);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
+                }
+            });
+        }
     }
 
     private static boolean confirmFileAction(String bundleKey, int size,
