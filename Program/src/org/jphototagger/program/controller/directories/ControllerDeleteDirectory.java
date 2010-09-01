@@ -21,11 +21,11 @@
 
 package org.jphototagger.program.controller.directories;
 
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -33,6 +33,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -70,7 +71,7 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
     }
 
     @Override
-    protected void action(DefaultMutableTreeNode node) {
+    protected void action(final DefaultMutableTreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
@@ -79,9 +80,14 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
 
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
-                TreeFileSystemDirectories.removeFromTreeModel(
-                    ModelFactory.INSTANCE.getModel(
-                        TreeModelAllSystemDirectories.class), node);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        TreeFileSystemDirectories.removeFromTreeModel(
+                            ModelFactory.INSTANCE.getModel(
+                                TreeModelAllSystemDirectories.class), node);
+                    }
+                });
             }
         }
     }

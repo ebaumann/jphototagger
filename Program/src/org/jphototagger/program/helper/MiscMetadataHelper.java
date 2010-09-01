@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -98,58 +99,73 @@ public final class MiscMetadataHelper {
     }
 
     public static void addMetadataToSelectedImages(
-            Collection<? extends DefaultMutableTreeNode> nodes) {
+            final Collection<? extends DefaultMutableTreeNode> nodes) {
         if (nodes == null) {
             throw new NullPointerException("nodes == null");
         }
 
-        List<Column>       xmpColumns = XmpColumns.get();
-        EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        final List<Column> xmpColumns = XmpColumns.get();
 
-        if (!editPanels.isEditable()) {
-            return;
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                EditMetadataPanels editPanels =
+                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
 
-        for (DefaultMutableTreeNode node : nodes) {
-            if (isParentUserObjectAColumnOf(node, xmpColumns)) {
-                String                 text = (String) node.getUserObject();
-                DefaultMutableTreeNode parent =
-                    (DefaultMutableTreeNode) node.getParent();
-                Column column = (Column) parent.getUserObject();
+                if (!editPanels.isEditable()) {
+                    return;
+                }
 
-                editPanels.addText(column, text);
+                for (DefaultMutableTreeNode node : nodes) {
+                    if (isParentUserObjectAColumnOf(node, xmpColumns)) {
+                        String                 text =
+                            (String) node.getUserObject();
+                        DefaultMutableTreeNode parent =
+                            (DefaultMutableTreeNode) node.getParent();
+                        Column column = (Column) parent.getUserObject();
+
+                        editPanels.addText(column, text);
+                    }
+                }
             }
-        }
+        });
     }
 
     public static void removeMetadataFromSelectedImages(
-            Collection<? extends DefaultMutableTreeNode> nodes) {
+            final Collection<? extends DefaultMutableTreeNode> nodes) {
         if (nodes == null) {
             throw new NullPointerException("nodes == null");
         }
 
-        List<Column>       xmpColumns = XmpColumns.get();
-        EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        final List<Column> xmpColumns = XmpColumns.get();
 
-        if (!editPanels.isEditable()) {
-            return;
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                EditMetadataPanels editPanels =
+                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
 
-        for (DefaultMutableTreeNode node : nodes) {
-            if (isParentUserObjectAColumnOf(node, xmpColumns)) {
-                String                 text = (String) node.getUserObject();
-                DefaultMutableTreeNode parent =
-                    (DefaultMutableTreeNode) node.getParent();
-                Column column = (Column) parent.getUserObject();
+                if (!editPanels.isEditable()) {
+                    return;
+                }
 
-                editPanels.removeText(column, text);
+                for (DefaultMutableTreeNode node : nodes) {
+                    if (isParentUserObjectAColumnOf(node, xmpColumns)) {
+                        String                 text =
+                            (String) node.getUserObject();
+                        DefaultMutableTreeNode parent =
+                            (DefaultMutableTreeNode) node.getParent();
+                        Column column = (Column) parent.getUserObject();
+
+                        editPanels.removeText(column, text);
+                    }
+                }
             }
-        }
+        });
     }
 
-    public static void addMetadataToSelectedImages(Column column, String text) {
+    public static void addMetadataToSelectedImages(final Column column,
+            final String text) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -158,16 +174,21 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                EditMetadataPanels editPanels =
+                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
 
-        if (editPanels.isEditable()) {
-            editPanels.addText(column, text);
-        }
+                if (editPanels.isEditable()) {
+                    editPanels.addText(column, text);
+                }
+            }
+        });
     }
 
-    public static void removeMetadataFromSelectedImages(Column column,
-            String text) {
+    public static void removeMetadataFromSelectedImages(final Column column,
+            final String text) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -176,12 +197,17 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                EditMetadataPanels editPanels =
+                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
 
-        if (editPanels.isEditable()) {
-            editPanels.removeText(column, text);
-        }
+                if (editPanels.isEditable()) {
+                    editPanels.removeText(column, text);
+                }
+            }
+        });
     }
 
     /**
@@ -255,7 +281,8 @@ public final class MiscMetadataHelper {
      * @param column column of parent
      * @param value  value of child
      */
-    public static void removeChildValueFrom(Column column, String value) {
+    public static void removeChildValueFrom(final Column column,
+            final String value) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -264,23 +291,29 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("value == null");
         }
 
-        DefaultMutableTreeNode node = findNodeContains(column);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                DefaultMutableTreeNode node = findNodeContains(column);
 
-        if (node != null) {
-            int count = node.getChildCount();
+                if (node != null) {
+                    int count = node.getChildCount();
 
-            for (int i = 0; i < count; i++) {
-                DefaultMutableTreeNode childNode =
-                    (DefaultMutableTreeNode) node.getChildAt(i);
-                Object uo = (childNode).getUserObject();
+                    for (int i = 0; i < count; i++) {
+                        DefaultMutableTreeNode childNode =
+                            (DefaultMutableTreeNode) node.getChildAt(i);
+                        Object uo = (childNode).getUserObject();
 
-                if ((uo instanceof String) && ((String) uo).equals(value)) {
-                    getModel().removeNodeFromParent(childNode);
+                        if ((uo instanceof String)
+                                && ((String) uo).equals(value)) {
+                            getModel().removeNodeFromParent(childNode);
 
-                    return;
+                            return;
+                        }
+                    }
                 }
             }
-        }
+        });
     }
 
     /**
