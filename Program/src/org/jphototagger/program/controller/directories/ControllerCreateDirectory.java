@@ -35,6 +35,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -72,23 +73,29 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
     }
 
     @Override
-    protected void action(DefaultMutableTreeNode node) {
+    protected void action(final DefaultMutableTreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
 
-        File dir = ModelFactory.INSTANCE.getModel(
-                       TreeModelAllSystemDirectories.class).createDirectoryIn(
-                       node);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                File dir =
+                    ModelFactory.INSTANCE.getModel(
+                        TreeModelAllSystemDirectories.class).createDirectoryIn(
+                        node);
 
-        if (dir != null) {
-            ControllerFavoritesAddFilesystemFolder ctrl =
-                ControllerFactory.INSTANCE.getController(
-                    ControllerFavoritesAddFilesystemFolder.class);
+                if (dir != null) {
+                    ControllerFavoritesAddFilesystemFolder ctrl =
+                        ControllerFactory.INSTANCE.getController(
+                            ControllerFavoritesAddFilesystemFolder.class);
 
-            if (ctrl != null) {
-                ctrl.confirmMoveSelFilesInto(dir);
-    }
-}
+                    if (ctrl != null) {
+                        ctrl.confirmMoveSelFilesInto(dir);
+                    }
+                }
+            }
+        });
     }
 }

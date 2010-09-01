@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +37,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -52,7 +53,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public final class ControllerFavoritesRenameFilesystemFolder
         implements ActionListener, KeyListener {
     private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
-    private final JTree              tree  =
+    private final JTree              tree =
         GUI.INSTANCE.getAppPanel().getTreeFavorites();
 
     public ControllerFavoritesRenameFilesystemFolder() {
@@ -77,9 +78,14 @@ public final class ControllerFavoritesRenameFilesystemFolder
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        renameDirectory(
-            TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                popup.getTreePath()));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                renameDirectory(
+                    TreeFileSystemDirectories.getNodeOfLastPathComponent(
+                        popup.getTreePath()));
+            }
+        });
     }
 
     private boolean isRename(KeyEvent evt) {

@@ -41,6 +41,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -73,13 +74,20 @@ public final class ControllerFavoritesAddFilesystemFolder
     public void keyPressed(KeyEvent evt) {
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)
                 &&!tree.isSelectionEmpty()) {
-            Object node = tree.getSelectionPath().getLastPathComponent();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Object node =
+                        tree.getSelectionPath().getLastPathComponent();
 
-            if (node instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode pathNode = (DefaultMutableTreeNode) node;
+                    if (node instanceof DefaultMutableTreeNode) {
+                        DefaultMutableTreeNode pathNode =
+                            (DefaultMutableTreeNode) node;
 
-                createDirectory(new TreePath(pathNode.getPath()));
-            }
+                        createDirectory(new TreePath(pathNode.getPath()));
+                    }
+                }
+            });
         }
     }
 
@@ -97,7 +105,7 @@ public final class ControllerFavoritesAddFilesystemFolder
 
         if (dir != null) {
             confirmMoveSelFilesInto(dir);
-    }
+        }
     }
 
     /**

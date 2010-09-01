@@ -21,11 +21,11 @@
 
 package org.jphototagger.program.controller.directories;
 
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -33,6 +33,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -70,7 +71,7 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
     }
 
     @Override
-    protected void action(DefaultMutableTreeNode node) {
+    protected void action(final DefaultMutableTreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
@@ -78,13 +79,18 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
         File dir = getDirOfNode(node);
 
         if (dir != null) {
-            File newDir = FileSystemDirectories.rename(dir);
+            final File newDir = FileSystemDirectories.rename(dir);
 
             if (newDir != null) {
-                node.setUserObject(newDir);
-                TreeFileSystemDirectories.updateInTreeModel(
-                    ModelFactory.INSTANCE.getModel(
-                        TreeModelAllSystemDirectories.class), node);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        node.setUserObject(newDir);
+                        TreeFileSystemDirectories.updateInTreeModel(
+                            ModelFactory.INSTANCE.getModel(
+                                TreeModelAllSystemDirectories.class), node);
+                    }
+                });
             }
         }
     }
