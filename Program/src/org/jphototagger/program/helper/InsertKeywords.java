@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -57,13 +58,18 @@ public final class InsertKeywords extends Thread {
     }
 
     private void copy() {
-        TreeModelKeywords model =
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        Object root = model.getRoot();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                TreeModelKeywords model =
+                    ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                Object root = model.getRoot();
 
-        if (root instanceof DefaultMutableTreeNode) {
-            insertKeywords((DefaultMutableTreeNode) root, model);
-        }
+                if (root instanceof DefaultMutableTreeNode) {
+                    insertKeywords((DefaultMutableTreeNode) root, model);
+                }
+            }
+        });
     }
 
     private void insertKeywords(DefaultMutableTreeNode rootHk,

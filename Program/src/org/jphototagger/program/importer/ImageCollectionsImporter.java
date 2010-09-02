@@ -43,6 +43,7 @@ import java.util.List;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -95,7 +96,7 @@ public final class ImageCollectionsImporter implements Importer {
     private static class ImportThread extends Thread {
         private final List<ImageCollection> imageCollections;
 
-        public ImportThread(List<ImageCollection> imageCollections) {
+        ImportThread(List<ImageCollection> imageCollections) {
             if (imageCollections == null) {
                 throw new NullPointerException("imageCollections == null");
             }
@@ -114,19 +115,28 @@ public final class ImageCollectionsImporter implements Importer {
 
                     if (DatabaseImageCollections.INSTANCE.insert(
                             imageCollection)) {
-                        ListModelImageCollections model =
-                            ModelFactory.INSTANCE.getModel(
-                                ListModelImageCollections.class);
-
-                        ListUtil
-                            .insertSorted(model, imageCollection
-                                .getName(), ComparatorStringAscending
-                                .INSTANCE, ListModelImageCollections
-                                .getSpecialCollectionCount(), model.getSize()
-                                    - 1);
+                        updateImageCollectionList(imageCollection);
                     }
                 }
             }
+        }
+
+        private void updateImageCollectionList(
+                final ImageCollection imageCollection) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ListModelImageCollections model =
+                        ModelFactory.INSTANCE.getModel(
+                            ListModelImageCollections.class);
+
+                    ListUtil.insertSorted(
+                        model, imageCollection.getName(),
+                        ComparatorStringAscending.INSTANCE,
+                        ListModelImageCollections.getSpecialCollectionCount(),
+                        model.getSize() - 1);
+                }
+            });
         }
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {

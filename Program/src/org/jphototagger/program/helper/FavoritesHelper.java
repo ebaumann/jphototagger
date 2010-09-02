@@ -208,7 +208,7 @@ public final class FavoritesHelper {
         private final List<File>               files;
         private final ThumbnailsPanel.Settings tnPanelSettings;
 
-        public SetFiles(List<File> files, Settings settings) {
+        SetFiles(List<File> files, Settings settings) {
             if (files == null) {
                 throw new NullPointerException("files == null");
             }

@@ -52,11 +52,11 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerDirectorySelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
-    private final JTree              tree       = appPanel.getTreeDirectories();
+    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
+    private final JTree              tree     = appPanel.getTreeDirectories();
     private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
-    private final ThumbnailsPanel        tnPanel                =
+    private final ThumbnailsPanel        tnPanel =
         appPanel.getPanelThumbnails();
     private final ImageFilteredDirectory imageFilteredDirectory =
         new ImageFilteredDirectory();
@@ -94,12 +94,21 @@ public final class ControllerDirectorySelected
     private class ShowThumbnails implements Runnable {
         private final ThumbnailsPanel.Settings panelSettings;
 
-        public ShowThumbnails(ThumbnailsPanel.Settings settings) {
+        ShowThumbnails(ThumbnailsPanel.Settings settings) {
             panelSettings = settings;
         }
 
         @Override
         public void run() {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    showThumbnails();
+                }
+            });
+        }
+
+        private void showThumbnails() {
             if (tree.getSelectionCount() > 0) {
                 File selectedDirectory = new File(getDirectorynameFromTree());
 

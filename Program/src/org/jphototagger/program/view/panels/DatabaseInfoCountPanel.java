@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.view.panels;
 
+import javax.swing.SwingUtilities;
 import org.jphototagger.program.model.TableModelDatabaseInfo;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Filename;
@@ -66,18 +67,25 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     private void setModelDatabaseInfo() {
         if (modelDatabaseInfo == null) {
             Thread thread = new Thread(new Runnable() {
+
                 @Override
                 public void run() {
-                    modelDatabaseInfo = new TableModelDatabaseInfo();
-                    modelDatabaseInfo.setListenToDatabase(listenToDbChanges);
-                    table.setModel(modelDatabaseInfo);
-                    modelDatabaseInfo.update();
+                    SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            modelDatabaseInfo = new TableModelDatabaseInfo();
+                            modelDatabaseInfo.setListenToDatabase(listenToDbChanges);
+                            table.setModel(modelDatabaseInfo);
+                            modelDatabaseInfo.update();
+                        }
+                    });
                 }
             });
 
             thread.setName(
-                "Database info creating table model database info @ "
-                + getClass().getSimpleName());
+                    "Database info creating table model database info @ "
+                    + getClass().getSimpleName());
             thread.start();
         } else {
             modelDatabaseInfo.setListenToDatabase(true);

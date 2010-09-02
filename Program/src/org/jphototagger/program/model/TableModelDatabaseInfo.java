@@ -37,6 +37,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -53,9 +54,9 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         implements DatabaseImageFilesListener {
     private static final long                         serialVersionUID =
         1974343527501774916L;
-    private final transient DatabaseStatistics        db               =
+    private final transient DatabaseStatistics        db =
         DatabaseStatistics.INSTANCE;
-    private final LinkedHashMap<Column, StringBuffer> bufferOfColumn   =
+    private final LinkedHashMap<Column, StringBuffer> bufferOfColumn =
         new LinkedHashMap<Column, StringBuffer>();
     private boolean listenToDatabase;
 
@@ -181,7 +182,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
     }
 
     private class SetCountThread extends Thread {
-        public SetCountThread() {
+        SetCountThread() {
             super();
             setName("Setting count in database info @ "
                     + getClass().getSimpleName());
@@ -195,7 +196,12 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
                                  db.getTotalRecordCountOf(column));
             }
 
-            fireTableDataChanged();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    fireTableDataChanged();
+                }
+            });
         }
     }
 }

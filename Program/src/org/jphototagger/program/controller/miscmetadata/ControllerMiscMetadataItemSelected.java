@@ -86,7 +86,7 @@ public final class ControllerMiscMetadataItemSelected
         private final ThumbnailsPanel.Settings tnPanelSettings;
         private final TreePath                 treePath;
 
-        public ShowThumbnails(TreePath treePath,
+        ShowThumbnails(TreePath treePath,
                               ThumbnailsPanel.Settings settings) {
             if (treePath == null) {
                 throw new NullPointerException("treePath == null");

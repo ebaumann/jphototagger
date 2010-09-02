@@ -54,6 +54,7 @@ import java.util.List;
 
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
@@ -77,24 +78,31 @@ public final class KeywordsHelper {
      * @param node node with keyword. <em>All parents of that node have to be an
      *             instance of {@link DefaultMutableTreeNode}!</em>
      */
-    public static void addKeywordsToEditPanel(DefaultMutableTreeNode node) {
+    public static void addKeywordsToEditPanel(
+            final DefaultMutableTreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
 
-        EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-        List<String> keywordStrings = getKeywordStrings(node, true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                EditMetadataPanels editPanels =
+                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                List<String> keywordStrings = getKeywordStrings(node, true);
 
-        for (String keyword : keywordStrings) {
-            editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
-        }
+                for (String keyword : keywordStrings) {
+                    editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE,
+                                       keyword);
+                }
 
-        if (keywordStrings.size() > 1) {
+                if (keywordStrings.size() > 1) {
 
-            // else leaf is first element
-            Collections.reverse(keywordStrings);
-        }
+                    // else leaf is first element
+                    Collections.reverse(keywordStrings);
+                }
+            }
+        });
     }
 
     /**
@@ -191,10 +199,11 @@ public final class KeywordsHelper {
      */
     public static List<Keyword> getKeywords(DefaultMutableTreeNode node,
             boolean real) {
-        List<Keyword> list = new ArrayList<Keyword>();
+        List<Keyword>          list = new ArrayList<Keyword>();
+        DefaultMutableTreeNode n    = node;
 
-        while (node != null) {
-            Object userObject = node.getUserObject();
+        while (n != null) {
+            Object userObject = n.getUserObject();
 
             if (userObject instanceof Keyword) {
                 Keyword keyword = (Keyword) userObject;
@@ -204,11 +213,11 @@ public final class KeywordsHelper {
                 }
             }
 
-            TreeNode parent = node.getParent();
+            TreeNode parent = n.getParent();
 
-            node = (parent instanceof DefaultMutableTreeNode)
-                   ? (DefaultMutableTreeNode) parent
-                   : null;
+            n = (parent instanceof DefaultMutableTreeNode)
+                ? (DefaultMutableTreeNode) parent
+                : null;
         }
 
         return list;
@@ -243,7 +252,7 @@ public final class KeywordsHelper {
      * @param keyword keyword to select
      */
     @SuppressWarnings("unchecked")
-    public static void selectNode(JTree tree, Keyword keyword) {
+    public static void selectNode(final JTree tree, final Keyword keyword) {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
@@ -252,29 +261,35 @@ public final class KeywordsHelper {
             throw new NullPointerException("keyword == null");
         }
 
-        TreeModelKeywords model =
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        DefaultMutableTreeNode selNode = null;
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                TreeModelKeywords model =
+                    ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                DefaultMutableTreeNode root =
+                    (DefaultMutableTreeNode) model.getRoot();
+                DefaultMutableTreeNode selNode = null;
 
-        for (Enumeration<DefaultMutableTreeNode> e =
-                root.breadthFirstEnumeration();
-                (selNode == null) && e.hasMoreElements(); ) {
-            DefaultMutableTreeNode node       = e.nextElement();
-            Object                 userObject = node.getUserObject();
+                for (Enumeration<DefaultMutableTreeNode> e =
+                        root.breadthFirstEnumeration();
+                        (selNode == null) && e.hasMoreElements(); ) {
+                    DefaultMutableTreeNode node       = e.nextElement();
+                    Object                 userObject = node.getUserObject();
 
-            if (userObject instanceof Keyword) {
-                Keyword hkw = (Keyword) userObject;
+                    if (userObject instanceof Keyword) {
+                        Keyword hkw = (Keyword) userObject;
 
-                if (hkw.equals(keyword)) {
-                    selNode = node;
+                        if (hkw.equals(keyword)) {
+                            selNode = node;
+                        }
+                    }
+                }
+
+                if (selNode != null) {
+                    tree.setSelectionPath(new TreePath(selNode.getPath()));
                 }
             }
-        }
-
-        if (selNode != null) {
-            tree.setSelectionPath(new TreePath(selNode.getPath()));
-        }
+        });
     }
 
     /**
@@ -300,20 +315,30 @@ public final class KeywordsHelper {
         return names;
     }
 
-    public static void addHighlightKeywords(Collection<String> keywords) {
+    public static void addHighlightKeywords(final Collection<String> keywords) {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
 
-        for (TreeCellRendererKeywords r : getCellRenderer()) {
-            r.addSelImgKeywords(keywords);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                for (TreeCellRendererKeywords r : getCellRenderer()) {
+                    r.addSelImgKeywords(keywords);
+                }
+            }
+        });
     }
 
-    public static void removeHighlightKeyword(String keyword) {
-        for (TreeCellRendererKeywords r : getCellRenderer()) {
-            r.removeSelImgKeyword(keyword);
-        }
+    public static void removeHighlightKeyword(final String keyword) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                for (TreeCellRendererKeywords r : getCellRenderer()) {
+                    r.removeSelImgKeyword(keyword);
+                }
+            }
+        });
     }
 
     private static List<TreeCellRendererKeywords> getCellRenderer() {
@@ -341,21 +366,28 @@ public final class KeywordsHelper {
         return trees;
     }
 
-    public static void selectInSelKeywordsList(List<Integer> indices) {
+    public static void selectInSelKeywordsList(final List<Integer> indices) {
         if (indices == null) {
             throw new NullPointerException("indices == null");
         }
 
-        JList selKeywordsList = GUI.INSTANCE.getAppPanel().getListSelKeywords();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JList selKeywordsList =
+                    GUI.INSTANCE.getAppPanel().getListSelKeywords();
 
-        selKeywordsList.clearSelection();
-        GUI.INSTANCE.getAppPanel().displaySelKeywordsList(
-            AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+                selKeywordsList.clearSelection();
+                GUI.INSTANCE.getAppPanel().displaySelKeywordsList(
+                    AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
 
-        if (!indices.isEmpty()) {
-            selKeywordsList.setSelectedIndices(ArrayUtil.toIntArray(indices));
-            selKeywordsList.ensureIndexIsVisible(indices.get(0));
-        }
+                if (!indices.isEmpty()) {
+                    selKeywordsList.setSelectedIndices(
+                        ArrayUtil.toIntArray(indices));
+                    selKeywordsList.ensureIndexIsVisible(indices.get(0));
+                }
+            }
+        });
     }
 
     /**
@@ -411,7 +443,7 @@ public final class KeywordsHelper {
         private final String     dcSubject;
         private volatile boolean cancel;
 
-        public DeleteDcSubject(String keyword) {
+        DeleteDcSubject(String keyword) {
             this.dcSubject = keyword;
             setName("Deleting keyword @ " + getClass().getSimpleName());
             setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Delete"));
@@ -472,7 +504,7 @@ public final class KeywordsHelper {
         private final String     fromName;
         private volatile boolean cancel;
 
-        public RenameDcSubject(String fromName, String toName) {
+        RenameDcSubject(String fromName, String toName) {
             this.fromName = fromName;
             this.toName   = toName;
             setName("Renaming DC subject @ " + getClass().getSimpleName());
