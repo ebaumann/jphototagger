@@ -23,6 +23,7 @@ package org.jphototagger.program.controller.favorites;
 
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.data.Favorite;
+import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.model.TreeModelFavorites;
@@ -99,10 +100,13 @@ public final class ControllerFavoritesRenameFilesystemFolder
             File newDir = FileSystemDirectories.rename(dir);
 
             if (newDir != null) {
+                TreeModelFavorites model =
+                    ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
+
                 node.setUserObject(newDir);
-                TreeFileSystemDirectories.updateInTreeModel(
-                    ModelFactory.INSTANCE.getModel(TreeModelFavorites.class),
-                    node);
+                TreeFileSystemDirectories.updateInTreeModel(model, node);
+                ControllerFactory.INSTANCE.getController(
+                    ControllerRefreshFavorites.class).refresh();
             }
         }
     }

@@ -69,7 +69,7 @@ public final class ControllerRefreshFavorites
         }
     }
 
-    private void refresh() {
+    public void refresh() {
         ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).update();
     }
 
