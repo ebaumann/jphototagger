@@ -105,7 +105,7 @@ public abstract class KeywordsImporter implements Importer {
         private volatile boolean cancel;
         private final Object     pBarOwner = this;
 
-        public ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
+        ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             if (paths == null) {
                 throw new NullPointerException("paths == null");
             }
@@ -129,8 +129,15 @@ public abstract class KeywordsImporter implements Importer {
 
         @Override
         public void run() {
-            assert treeModel instanceof TreeModelKeywords : treeModel;
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    importKeywords();
+                }
+            });
+        }
 
+        private void importKeywords() {
             if (treeModel instanceof TreeModelKeywords) {
                 TreeModelKeywords model = (TreeModelKeywords) treeModel;
 

@@ -50,10 +50,9 @@ import javax.swing.SwingUtilities;
  */
 public final class ControllerSavedSearchSelected
         implements ListSelectionListener, RefreshListener {
-    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
-    private final JList              list       =
-        appPanel.getListSavedSearches();
-    private final ThumbnailsPanel    tnPanel    = appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
+    private final JList              list = appPanel.getListSavedSearches();
+    private final ThumbnailsPanel    tnPanel  = appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
 
@@ -127,9 +126,14 @@ public final class ControllerSavedSearchSelected
         }
 
         private void setMetadataEditable() {
-            if (!tnPanel.isFileSelected()) {
-                editPanels.setEditable(false);
-            }
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    if (!tnPanel.isFileSelected()) {
+                        editPanels.setEditable(false);
+                    }
+                }
+            });
         }
     }
 }

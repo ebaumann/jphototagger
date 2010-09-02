@@ -91,11 +91,11 @@ public final class StartPrograms {
     }
 
     private class Execute extends Thread {
-        ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
+        private ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
         private List<File>           imageFiles;
         private Program              program;
 
-        public Execute(Program program, List<File> imageFiles) {
+        Execute(Program program, List<File> imageFiles) {
             if (program == null) {
                 throw new NullPointerException("program == null");
             }

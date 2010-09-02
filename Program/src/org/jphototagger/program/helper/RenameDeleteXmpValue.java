@@ -136,16 +136,17 @@ public final class RenameDeleteXmpValue {
     }
 
     private static class Rename extends Thread implements Cancelable {
-        ProgressBarUpdater pb = new ProgressBarUpdater(
-                                    this,
-                                    JptBundle.INSTANCE.getString(
-                                        "RenameXmpValue.ProgressBar.String"));
+        private ProgressBarUpdater pb =
+            new ProgressBarUpdater(
+                this,
+                JptBundle.INSTANCE.getString(
+                    "RenameXmpValue.ProgressBar.String"));
         private final Column     column;
         private final String     newValue;
         private final String     oldValue;
         private volatile boolean cancel;
 
-        public Rename(Column column, String oldValue, String newValue) {
+        Rename(Column column, String oldValue, String newValue) {
             this.column   = column;
             this.oldValue = oldValue.trim();
             this.newValue = newValue.trim();

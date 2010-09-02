@@ -34,6 +34,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
  * specific keywords.
@@ -41,7 +43,7 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
-    private final DatabaseImageFiles db      = DatabaseImageFiles.INSTANCE;
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final ThumbnailsPanel    tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
     private final EditMetadataPanels editPanels =
@@ -64,8 +66,13 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     @Override
     public void run() {
-        setFilesToThumbnailsPanel();
-        setMetadataEditable();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setFilesToThumbnailsPanel();
+                setMetadataEditable();
+            }
+        });
     }
 
     private void setFilesToThumbnailsPanel() {

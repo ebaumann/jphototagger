@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLifeCycle;
@@ -42,7 +43,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
-import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
  *
@@ -52,10 +52,10 @@ import org.jphototagger.lib.concurrent.Cancelable;
 public final class BackupDatabase extends AppLifeCycle.FinalTask
         implements Runnable, Cancelable {
     public static final BackupDatabase INSTANCE         = new BackupDatabase();
-    volatile int                       currentFileIndex = 0;
-    volatile int                       filecount        = 0;
-    volatile boolean                   cancel;
-    ProgressBarUpdater                 progressBarUpdater;
+    private volatile int               currentFileIndex = 0;
+    private volatile int               filecount        = 0;
+    private volatile boolean           cancel;
+    private ProgressBarUpdater         progressBarUpdater;
 
     private BackupDatabase() {}
 

@@ -46,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 /**
  * Imports image files from a source directory to a target directory.
  *
@@ -234,12 +236,18 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void selectPrevImportCollection() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        appPanel.getTabbedPaneSelection().setSelectedComponent(
-            appPanel.getTabSelectionImageCollections());
-        GUI.INSTANCE.getAppPanel().getListImageCollections().setSelectedValue(
-            ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
+                appPanel.getTabbedPaneSelection().setSelectedComponent(
+                    appPanel.getTabSelectionImageCollections());
+                GUI.INSTANCE.getAppPanel().getListImageCollections()
+                    .setSelectedValue(ListModelImageCollections
+                        .NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
+            }
+        });
     }
 
     private void deleteCopiedSourceFiles() {
