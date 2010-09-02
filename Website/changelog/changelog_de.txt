@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.41 2010-09-02
+-----------------
+
+* Bugfix: SQL-Abfrage für Bilder ohne Datum (Kartenreiter "Zeitleiste")
+
 0.8.40 2010-09-01
 -----------------
 
