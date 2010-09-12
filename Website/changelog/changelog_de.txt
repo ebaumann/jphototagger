@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.42 2010-09-12
+-----------------
+
+* Neu: Datei > Datenbank > Wartung: Nicht benutzte Stichwörter löschen
+
 0.8.41 2010-09-02
 -----------------
 
