@@ -27,6 +27,11 @@ import org.jphototagger.program.app.MessageDisplayer;
 import java.sql.Connection;
 import java.sql.Statement;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.text.MessageFormat.format;
+
 /**
  *
  *
@@ -84,5 +89,92 @@ public final class DatabaseMaintainance extends Database {
         }
 
         return success;
+    }
+
+    private static class Ref1nInfo {
+        private final String table;
+        private final String refTable;
+        private final String refColumn;
+
+        Ref1nInfo(String table, String refTable, String refColumn) {
+            this.table     = table;
+            this.refColumn = refColumn;
+            this.refTable  = refTable;
+        }
+
+        public String getRefColumn() {
+            return refColumn;
+        }
+
+        public String getRefTable() {
+            return refTable;
+        }
+
+        public String getTable() {
+            return table;
+        }
+    }
+
+
+    private static final List<Ref1nInfo> REF_1_N_INFOS =
+        new ArrayList<Ref1nInfo>();
+
+    static {
+        REF_1_N_INFOS.add(new Ref1nInfo("dc_creators", "xmp", "id_dc_creator"));
+        REF_1_N_INFOS.add(new Ref1nInfo("dc_rights", "xmp", "id_dc_rights"));
+        REF_1_N_INFOS.add(new Ref1nInfo("iptc4xmpcore_locations", "xmp",
+                                        "id_iptc4xmpcore_location"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_authorspositions", "xmp",
+                                        "id_photoshop_authorsposition"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_captionwriters", "xmp",
+                                        "id_photoshop_captionwriter"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_cities", "xmp",
+                                        "id_photoshop_city"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_countries", "xmp",
+                                        "id_photoshop_country"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_credits", "xmp",
+                                        "id_photoshop_credit"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_sources", "xmp",
+                                        "id_photoshop_source"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_states", "xmp",
+                                        "id_photoshop_state"));
+        REF_1_N_INFOS.add(new Ref1nInfo("exif_recording_equipment", "exif",
+                                        "id_exif_recording_equipment"));
+        REF_1_N_INFOS.add(new Ref1nInfo("exif_lenses", "exif", "id_exif_lens"));
+    }
+
+    /**
+     * Deletes from tables referenced 1:n all records that are not referenced
+     * by another table.
+     *
+     * @return count of deleted records
+     */
+    public int deleteNotReferenced1n() {
+        String sqlTemplate = "DELETE FROM {0} WHERE ID NOT in"
+                             + " (SELECT DISTINCT {1} from {2})";
+        Connection con     = null;
+        Statement  stmt    = null;
+        int        deleted = 0;
+
+        try {
+            con = getConnection();
+            con.setAutoCommit(true);
+            stmt = con.createStatement();
+
+            for (Ref1nInfo info : REF_1_N_INFOS) {
+                String sql = format(sqlTemplate, info.getTable(),
+                                    info.getRefColumn(), info.getRefTable());
+
+                logFiner(sql);
+                deleted += stmt.executeUpdate(sql);
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseMaintainance.class, ex);
+        } finally {
+            close(stmt);
+            free(con);
+        }
+
+        return deleted;
     }
 }

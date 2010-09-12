@@ -60,11 +60,6 @@
                   <EmptySpace pref="305" max="32767" attributes="0"/>
                   <Component id="labelFinishedDeleteUnusedKeywords" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="labelMessages" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Component id="scrollPaneMessages" alignment="0" pref="545" max="32767" attributes="2"/>
               <Component id="progressBar" alignment="0" pref="545" max="32767" attributes="3"/>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="buttonDeleteMessages" min="-2" max="-2" attributes="0"/>
@@ -73,6 +68,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonStartMaintain" min="-2" max="-2" attributes="0"/>
               </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="checkBoxDeleteNotReferenced1n" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="245" max="32767" attributes="0"/>
+                  <Component id="labelFinishedDeleteNotReferenced1n" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="labelMessages" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Component id="scrollPaneMessages" alignment="0" pref="545" max="32767" attributes="2"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -97,10 +102,15 @@
                       <Component id="checkBoxDeleteUnusedKeywords" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="labelFinishedDeleteUnusedKeywords" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="checkBoxDeleteNotReferenced1n" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelFinishedDeleteNotReferenced1n" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelMessages" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneMessages" pref="93" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="scrollPaneMessages" pref="122" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="progressBar" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -195,6 +205,29 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelFinishedDeleteUnusedKeywords">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
+            <Property name="iconTextGap" type="int" value="0"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[22, 22]"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkBoxDeleteNotReferenced1n">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteNotReferenced1n.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDeleteNotReferenced1nActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelFinishedDeleteNotReferenced1n">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
