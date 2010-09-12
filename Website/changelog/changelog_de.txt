@@ -7,6 +7,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Neu: Datei > Datenbank > Wartung: Nicht benutzte Stichwörter löschen
+* Neu: Datei > Datenbank > Aktualisieren: Alle Stichwörter des Stichwortbaums
+  löschen
 
 0.8.41 2010-09-02
 -----------------
