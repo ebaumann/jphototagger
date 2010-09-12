@@ -1626,6 +1626,42 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
+     * Returns keywords not referenced by any file.
+     *
+     * @return keywords or empty set
+     */
+    public Set<String> getNotReferencedDcSubjects() {
+        Set<String> dcSubjects = new LinkedHashSet<String>();
+        Connection  con        = null;
+        Statement   stmt       = null;
+        ResultSet   rs         = null;
+
+        try {
+            con = getConnection();
+
+            String sql =
+                "SELECT subject FROM dc_subjects WHERE ID NOT in"
+                + " (SELECT DISTINCT id_dc_subject from xmp_dc_subject)"
+                + "ORDER BY 1";
+
+            stmt = con.createStatement();
+            logFinest(sql);
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                dcSubjects.add(rs.getString(1));
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return dcSubjects;
+    }
+
+    /**
      * Returns the dublin core subjects (keywords).
      *
      * @return dc subjects distinct ordererd ascending
