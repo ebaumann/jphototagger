@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Elements are keyword {@link String}s retrieved through
@@ -62,11 +63,16 @@ public final class ListModelKeywords extends DefaultListModel
             return;
         }
 
-        Set<String> keywords = db.getAllDcSubjects();
+        final Set<String> keywords = db.getAllDcSubjects();
 
-        for (String keyword : keywords) {
-            addElement(keyword);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                for (String keyword : keywords) {
+                    addElement(keyword);
+                }
+            }
+        });
     }
 
     /**
@@ -92,7 +98,7 @@ public final class ListModelKeywords extends DefaultListModel
      * @param  toName new keyword name
      * @return         true if renamed
      */
-    public synchronized boolean rename(String fromName, String toName) {
+    public synchronized boolean rename(String fromName, final String toName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
@@ -103,14 +109,19 @@ public final class ListModelKeywords extends DefaultListModel
 
         assert !fromName.equals(toName);
 
-        int index = indexOf(fromName);
+        final int index = indexOf(fromName);
 
         if (index < 0) {
             return false;
         }
 
-        remove(index);
-        add(index, toName);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                remove(index);
+                add(index, toName);
+            }
+        });
 
         return true;
     }
@@ -127,29 +138,44 @@ public final class ListModelKeywords extends DefaultListModel
             throw new NullPointerException("keyword == null");
         }
 
-        int index = indexOf(keyword);
+        final int index = indexOf(keyword);
 
         if (index < 0) {
             return false;
         }
 
-        remove(index);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                remove(index);
+            }
+        });
 
         return true;
     }
 
     private void addNewKeywords(Collection<? extends String> keywords) {
-        for (String keyword : keywords) {
+        for (final String keyword : keywords) {
             if (!contains(keyword)) {
-                addElement(keyword);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        addElement(keyword);
+                    }
+                });
             }
         }
     }
 
     private void removeKeywordsNotInDb(Collection<? extends String> keywords) {
-        for (String keyword : keywords) {
+        for (final String keyword : keywords) {
             if (contains(keyword) &&!databaseHasKeyword(keyword)) {
-                removeElement(keyword);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        removeElement(keyword);
+                    }
+                });
             }
         }
     }
