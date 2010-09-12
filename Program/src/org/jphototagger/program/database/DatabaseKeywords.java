@@ -231,6 +231,34 @@ public final class DatabaseKeywords extends Database {
     }
 
     /**
+     * Deletes all keywords.
+     *
+     * @return count of deleted keywords
+     */
+    public int deleteAllKeywords() {
+        Connection        con           = null;
+        PreparedStatement stmt          = null;
+        int               countAffected = 0;
+
+        try {
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement("DELETE FROM hierarchical_subjects");
+            logFiner(stmt);
+            countAffected = stmt.executeUpdate();
+            con.commit();
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            rollback(con);
+        } finally {
+            close(stmt);
+            free(con);
+        }
+
+        return countAffected;
+    }
+
+    /**
      * Deletes keywords from the database. Deletes <em>no</em> children of that
      * keyword, all childrens should be in the collection of keywords. Does only
      * commit when all childrens were deleted.
