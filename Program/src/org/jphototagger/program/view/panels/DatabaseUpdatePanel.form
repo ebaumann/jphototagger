@@ -20,7 +20,6 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="progressBar" alignment="1" pref="521" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelRefreshExif" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="143" max="32767" attributes="0"/>
@@ -46,11 +45,17 @@
                       <EmptySpace pref="170" max="32767" attributes="0"/>
                       <Component id="buttonCopyKeywordsToKeywordsTree" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="labelDeleteKeywordsTree" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="157" max="32767" attributes="0"/>
+                      <Component id="buttonDeleteKeywordsTree" linkSize="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="labelExifDateToXmpDateCreated" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="242" max="32767" attributes="0"/>
                       <Component id="toggleButtonExifDateToXmpDateCreated" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="progressBar" alignment="0" pref="521" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -83,6 +88,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelCopyKeywordsToKeywordsTree" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCopyKeywordsToKeywordsTree" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelDeleteKeywordsTree" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonDeleteKeywordsTree" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -217,6 +227,27 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleButtonExifDateToXmpDateCreatedActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelDeleteKeywordsTree">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_tree.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelDeleteKeywordsTree.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonDeleteKeywordsTree">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.buttonDeleteKeywordsTree.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteKeywordsTreeActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
