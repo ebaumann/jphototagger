@@ -33,7 +33,9 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -656,5 +658,42 @@ public final class TreeUtil {
         }
 
         return tree.getRowForLocation(evt.getX(), evt.getY()) > 0;
+    }
+
+    /**
+     * Removes in the AWT Event Queue from a tree model node all it's children
+     * and notifies model listeners.
+     *
+     * @param model model
+     * @param node  a node of that model
+     */
+    public static void removeAllChildren(final DefaultTreeModel model,
+            final DefaultMutableTreeNode node) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (model) {
+                    int            count    = node.getChildCount();
+                    List<TreeNode> children = new ArrayList<TreeNode>(count);
+                    int[]          indices  = new int[count];
+
+                    for (int i = 0; i < count; i++) {
+                        children.add(node.getChildAt(i));
+                        indices[i] = i;
+                    }
+
+                    node.removeAllChildren();
+                    model.nodesWereRemoved(node, indices, children.toArray());
+                }
+            }
+        });
     }
 }
