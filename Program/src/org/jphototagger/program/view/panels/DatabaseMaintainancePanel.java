@@ -48,6 +48,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.program.helper.DeleteNotReferenced1n;
 import org.jphototagger.program.helper.DeleteUnusedKeywords;
 
 /**
@@ -67,6 +68,8 @@ public final class DatabaseMaintainancePanel extends JPanel
         "DatabaseMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
     private String KEY_DEL_UNUSED_KEYWORDS =
         "DatabaseMaintainancePanel.CheckBox.DeleteUnusedKeywords";
+    private static final String KEY_DEL_NOT_REF_1_N =
+        "DatabaseMaintainancePanel.CheckBox.DeleteNotRef1n";
     private static final long           serialVersionUID        =
         -4557401822534070313L;
     private final Stack<Runnable>       runnables               =
@@ -98,6 +101,8 @@ public final class DatabaseMaintainancePanel extends JPanel
                                     labelFinishedDeleteOrphanedThumbnails);
         finishedLabelOfRunnable.put(DeleteUnusedKeywords.class,
                                     labelFinishedDeleteUnusedKeywords);
+        finishedLabelOfRunnable.put(DeleteNotReferenced1n.class,
+                                    labelFinishedDeleteNotReferenced1n);
         initCheckBoxes();
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -107,6 +112,7 @@ public final class DatabaseMaintainancePanel extends JPanel
         checkBoxes.add(checkBoxDeleteOrphanedThumbnails);
         checkBoxes.add(checkBoxDeleteRecordsOfNotExistingFilesInDatabase);
         checkBoxes.add(checkBoxDeleteUnusedKeywords);
+        checkBoxes.add(checkBoxDeleteNotReferenced1n);
         labelOfCheckBox.put(checkBoxCompressDatabase,
                             labelFinishedCompressDatabase);
         labelOfCheckBox.put(checkBoxDeleteOrphanedThumbnails,
@@ -116,6 +122,8 @@ public final class DatabaseMaintainancePanel extends JPanel
             labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
         labelOfCheckBox.put(checkBoxDeleteUnusedKeywords,
                             labelFinishedDeleteUnusedKeywords);
+        labelOfCheckBox.put(checkBoxDeleteNotReferenced1n,
+                            labelFinishedDeleteNotReferenced1n);
 
         Settings settings = UserSettings.INSTANCE.getSettings();
 
@@ -127,6 +135,8 @@ public final class DatabaseMaintainancePanel extends JPanel
             settings.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
         checkBoxDeleteUnusedKeywords.setSelected(
             settings.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
+        checkBoxDeleteNotReferenced1n.setSelected(
+            settings.getBoolean(KEY_DEL_NOT_REF_1_N));
     }
 
     private void setProgressbarStart(ProgressEvent evt) {
@@ -266,6 +276,13 @@ public final class DatabaseMaintainancePanel extends JPanel
             runnable.addProgressListener(this);
             runnables.push(runnable);
         }
+
+        if (checkBoxDeleteNotReferenced1n.isSelected()) {
+            DeleteNotReferenced1n runnable = new DeleteNotReferenced1n();
+
+            runnable.addProgressListener(this);
+            runnables.push(runnable);
+        }
     }
 
     private void checkCancel(ProgressEvent evt) {
@@ -373,6 +390,8 @@ public final class DatabaseMaintainancePanel extends JPanel
         labelFinishedDeleteOrphanedThumbnails = new javax.swing.JLabel();
         checkBoxDeleteUnusedKeywords = new javax.swing.JCheckBox();
         labelFinishedDeleteUnusedKeywords = new javax.swing.JLabel();
+        checkBoxDeleteNotReferenced1n = new javax.swing.JCheckBox();
+        labelFinishedDeleteNotReferenced1n = new javax.swing.JLabel();
         labelMessages = new javax.swing.JLabel();
         scrollPaneMessages = new javax.swing.JScrollPane();
         textAreaMessages = new javax.swing.JTextArea();
@@ -424,6 +443,17 @@ public final class DatabaseMaintainancePanel extends JPanel
         labelFinishedDeleteUnusedKeywords.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteUnusedKeywords.setIconTextGap(0);
         labelFinishedDeleteUnusedKeywords.setPreferredSize(new java.awt.Dimension(22, 22));
+
+        checkBoxDeleteNotReferenced1n.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
+        checkBoxDeleteNotReferenced1n.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDeleteNotReferenced1nActionPerformed(evt);
+            }
+        });
+
+        labelFinishedDeleteNotReferenced1n.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFinishedDeleteNotReferenced1n.setIconTextGap(0);
+        labelFinishedDeleteNotReferenced1n.setPreferredSize(new java.awt.Dimension(22, 22));
 
         labelMessages.setForeground(new java.awt.Color(0, 0, 255));
         labelMessages.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.labelMessages.text")); // NOI18N
@@ -480,10 +510,6 @@ public final class DatabaseMaintainancePanel extends JPanel
                 .addComponent(checkBoxDeleteUnusedKeywords)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 305, Short.MAX_VALUE)
                 .addComponent(labelFinishedDeleteUnusedKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(panelContentLayout.createSequentialGroup()
-                .addComponent(labelMessages)
-                .addContainerGap())
-            .addComponent(scrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
             .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
             .addGroup(panelContentLayout.createSequentialGroup()
                 .addComponent(buttonDeleteMessages)
@@ -491,6 +517,14 @@ public final class DatabaseMaintainancePanel extends JPanel
                 .addComponent(buttonCancelAction)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonStartMaintain))
+            .addGroup(panelContentLayout.createSequentialGroup()
+                .addComponent(checkBoxDeleteNotReferenced1n)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addComponent(labelFinishedDeleteNotReferenced1n, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelContentLayout.createSequentialGroup()
+                .addComponent(labelMessages)
+                .addContainerGap())
+            .addComponent(scrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
         );
 
         panelContentLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelFinishedCompressDatabase, labelFinishedDeleteOrphanedThumbnails, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase});
@@ -514,9 +548,13 @@ public final class DatabaseMaintainancePanel extends JPanel
                     .addComponent(checkBoxDeleteUnusedKeywords)
                     .addComponent(labelFinishedDeleteUnusedKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(checkBoxDeleteNotReferenced1n)
+                    .addComponent(labelFinishedDeleteNotReferenced1n, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelMessages)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addComponent(scrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -589,15 +627,24 @@ public final class DatabaseMaintainancePanel extends JPanel
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteUnusedKeywordsActionPerformed
 
+    private void checkBoxDeleteNotReferenced1nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteNotReferenced1nActionPerformed
+        UserSettings.INSTANCE.getSettings().set(
+            checkBoxDeleteNotReferenced1n.isSelected(), KEY_DEL_NOT_REF_1_N);
+        UserSettings.INSTANCE.writeToFile();
+        checkCheckboxes();
+    }//GEN-LAST:event_checkBoxDeleteNotReferenced1nActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelAction;
     private javax.swing.JButton buttonDeleteMessages;
     private javax.swing.JButton buttonStartMaintain;
     private javax.swing.JCheckBox checkBoxCompressDatabase;
+    private javax.swing.JCheckBox checkBoxDeleteNotReferenced1n;
     private javax.swing.JCheckBox checkBoxDeleteOrphanedThumbnails;
     private javax.swing.JCheckBox checkBoxDeleteRecordsOfNotExistingFilesInDatabase;
     private javax.swing.JCheckBox checkBoxDeleteUnusedKeywords;
     private javax.swing.JLabel labelFinishedCompressDatabase;
+    private javax.swing.JLabel labelFinishedDeleteNotReferenced1n;
     private javax.swing.JLabel labelFinishedDeleteOrphanedThumbnails;
     private javax.swing.JLabel labelFinishedDeleteRecordsOfNotExistingFilesInDatabase;
     private javax.swing.JLabel labelFinishedDeleteUnusedKeywords;

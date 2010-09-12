@@ -7,6 +7,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Neu: Datei > Datenbank > Wartung: Nicht benutzte Stichwörter löschen
+* Neu: Datei > Datenbank > Wartung: Nicht referenzierte Daten löschen (EXIF,
+  XMP)
 * Neu: Datei > Datenbank > Aktualisieren: Alle Stichwörter des Stichwortbaums
   löschen
 
