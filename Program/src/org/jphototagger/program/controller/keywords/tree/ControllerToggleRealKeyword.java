@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -35,6 +35,7 @@ import java.awt.event.KeyListener;
 
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -69,16 +70,21 @@ public class ControllerToggleRealKeyword extends ControllerKeywords
             throw new NullPointerException("nodes == null");
         }
 
-        DefaultMutableTreeNode node       = nodes.get(0);
-        Object                 userObject = node.getUserObject();
+        final DefaultMutableTreeNode node       = nodes.get(0);
+        Object                       userObject = node.getUserObject();
 
         if (userObject instanceof Keyword) {
-            Keyword           keyword = (Keyword) userObject;
-            TreeModelKeywords model   =
+            final Keyword           keyword = (Keyword) userObject;
+            final TreeModelKeywords model =
                 ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
             keyword.setReal(!keyword.isReal());
-            model.changed(node, keyword);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    model.changed(node, keyword);
+                }
+            });
         } else {
             MessageDisplayer.error(null,
                                    "ControllerToggleRealKeyword.Error.Node",

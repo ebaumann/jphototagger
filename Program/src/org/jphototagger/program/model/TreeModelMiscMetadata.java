@@ -50,6 +50,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -75,13 +76,11 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         JptBundle.INSTANCE.getString(
             "TreeModelMiscMetadata.ExifNode.DisplayName");
     private static final long   serialVersionUID = 2498087635943355657L;
-    private static final Object XMP_USER_OBJECT  =
+    private static final Object XMP_USER_OBJECT =
         JptBundle.INSTANCE.getString(
             "TreeModelMiscMetadata.XmpNode.DisplayName");
-    private static final Set<Column> XMP_COLUMNS         =
-        new LinkedHashSet<Column>();
-    private static final Set<Column> EXIF_COLUMNS        =
-        new LinkedHashSet<Column>();
+    private static final Set<Column> XMP_COLUMNS = new LinkedHashSet<Column>();
+    private static final Set<Column> EXIF_COLUMNS = new LinkedHashSet<Column>();
     private static final Set<Object> COLUMN_USER_OBJECTS =
         new LinkedHashSet<Object>();
 
@@ -290,7 +289,8 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     }
 
     @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+    public void xmpUpdated(File imageFile, final Xmp oldXmp,
+                           final Xmp updatedXmp) {
         if (oldXmp == null) {
             throw new NullPointerException("oldXmp == null");
         }
@@ -299,57 +299,88 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             throw new NullPointerException("updatedXmp == null");
         }
 
-        checkDeleted(oldXmp);
-        checkInserted(updatedXmp);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkDeleted(oldXmp);
+                checkInserted(updatedXmp);
+            }
+        });
     }
 
     @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
+    public void xmpInserted(File imageFile, final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
 
-        checkInserted(xmp);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkInserted(xmp);
+            }
+        });
     }
 
     @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
+    public void xmpDeleted(File imageFile, final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
 
-        checkDeleted(xmp);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkDeleted(xmp);
+            }
+        });
     }
 
     @Override
-    public void dcSubjectDeleted(String dcSubject) {
+    public void dcSubjectDeleted(final String dcSubject) {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
 
-        checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+            }
+        });
     }
 
     @Override
-    public void dcSubjectInserted(String dcSubject) {
+    public void dcSubjectInserted(final String dcSubject) {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
 
-        checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+            }
+        });
     }
 
     @Override
-    public void exifInserted(File imageFile, Exif exif) {
+    public void exifInserted(File imageFile, final Exif exif) {
         if (exif == null) {
             throw new NullPointerException("exif == null");
         }
 
-        checkInserted(exif);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkInserted(exif);
+            }
+        });
     }
 
     @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+    public void exifUpdated(File imageFile, final Exif oldExif,
+                            final Exif updatedExif) {
         if (oldExif == null) {
             throw new NullPointerException("oldExif == null");
         }
@@ -358,17 +389,27 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             throw new NullPointerException("updatedExif == null");
         }
 
-        checkDeleted(oldExif);
-        checkInserted(updatedExif);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkDeleted(oldExif);
+                checkInserted(updatedExif);
+            }
+        });
     }
 
     @Override
-    public void exifDeleted(File imageFile, Exif exif) {
+    public void exifDeleted(File imageFile, final Exif exif) {
         if (exif == null) {
             throw new NullPointerException("exif == null");
         }
 
-        checkDeleted(exif);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                checkDeleted(exif);
+            }
+        });
     }
 
     @Override

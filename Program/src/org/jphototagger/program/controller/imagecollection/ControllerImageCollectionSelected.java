@@ -97,10 +97,8 @@ public final class ControllerImageCollectionSelected
 
                 setMetadataEditable();
             }
-        });
+        }, "JPhotoTagger: Displaying selected image collection");
 
-        thread.setName("Image collection selected @ "
-                       + getClass().getSimpleName());
         thread.start();
     }
 

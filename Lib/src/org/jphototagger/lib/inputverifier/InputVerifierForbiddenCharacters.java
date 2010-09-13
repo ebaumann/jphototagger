@@ -24,6 +24,7 @@ package org.jphototagger.lib.inputverifier;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.InputVerifier;
@@ -41,9 +42,7 @@ public final class InputVerifierForbiddenCharacters extends InputVerifier
         new ArrayList<Character>();
 
     public InputVerifierForbiddenCharacters(Character... forbidden) {
-        for (Character c : forbidden) {
-            forbiddenCharacters.add(c);
-        }
+        forbiddenCharacters.addAll(Arrays.asList(forbidden));
     }
 
     /**

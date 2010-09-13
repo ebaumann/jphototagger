@@ -55,9 +55,9 @@ public final class SaveXmp extends Thread implements Cancelable {
     private final Object                      pBarOwner = this;
 
     private SaveXmp(Collection<Pair<File, Xmp>> imageFilesXmp) {
+        super("JPhotoTagger: Saving XMP");
         AppLifeCycle.INSTANCE.addSaveObject(this);
         this.imageFilesXmp = new ArrayList<Pair<File, Xmp>>(imageFilesXmp);
-        setName("Saving XMP @ " + getClass().getSimpleName());
     }
 
     public synchronized static void save(Collection<Pair<File,

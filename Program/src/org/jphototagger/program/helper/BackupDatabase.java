@@ -72,10 +72,9 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
 
     @Override
     public void execute() {
-        Thread thread = new Thread(INSTANCE);
+        Thread thread = new Thread(INSTANCE,
+                "JPhotoTagger: Backing up database");
 
-        thread.setName("Backup database @ "
-                       + BackupDatabase.class.getSimpleName());
         thread.start();
     }
 

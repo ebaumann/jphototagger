@@ -48,6 +48,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -146,7 +147,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
         }
 
         for (Object keyword : keywords) {
-            treeModel.insert(node, keyword.toString(), true);
+            treeModel.insert(node, keyword.toString(), true, true);
         }
     }
 
@@ -189,8 +190,8 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
     @SuppressWarnings("unchecked")
     public static void moveKeywords(TransferSupport support,
-                                    TreeModelKeywords treeModel,
-                                    DefaultMutableTreeNode dropNode) {
+                                    final TreeModelKeywords treeModel,
+                                    final DefaultMutableTreeNode dropNode) {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
@@ -212,14 +213,20 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                 return;
             }
 
-            for (DefaultMutableTreeNode sourceNode : sourceNodes) {
+            for (final DefaultMutableTreeNode sourceNode : sourceNodes) {
                 Object userObject = sourceNode.getUserObject();
 
                 if (userObject instanceof Keyword) {
                     if (sourceNode != dropNode) {
-                        Keyword sourceKeyword = (Keyword) userObject;
+                        final Keyword sourceKeyword = (Keyword) userObject;
 
-                        treeModel.move(sourceNode, dropNode, sourceKeyword);
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                treeModel.move(sourceNode, dropNode,
+                                               sourceKeyword);
+                            }
+                        });
                     }
                 }
             }

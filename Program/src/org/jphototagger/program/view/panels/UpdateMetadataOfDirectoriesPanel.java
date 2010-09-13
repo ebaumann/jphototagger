@@ -40,7 +40,6 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
-import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -51,6 +50,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import org.jphototagger.lib.componentutil.ListUtil;
 
 /**
@@ -286,9 +286,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),
                            "UpdateMetadataOfDirectoriesPanel.DirChooser");
 
-        Cursor cursor = getCursor();
-
-        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         buttonChooseDirectories.setEnabled(false);
         dlg.setVisible(true);
 
@@ -296,19 +293,46 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             List<File> selDirs = dlg.getSelectedDirectories();
 
             lastDirectory = selDirs.get(0);
-            addNotContainedDirectories(selDirs);
+            progressBar.setIndeterminate(true);
+            progressBar.setString(JptBundle.INSTANCE.getString(
+                    "UpdateMetadataOfDirectoriesPanel.Info.ScanningDirs"));
+            new AddNotContainedDirectories(selDirs).start();
+        } else {
+            buttonChooseDirectories.setEnabled(true);
         }
-        setCursor(cursor);
-        buttonChooseDirectories.setEnabled(true);
     }
 
-    private void addNotContainedDirectories(List<File> directories) {
-        List<File> newDirectories = getNotDirectoriesNotInListFrom(directories);
+    private class AddNotContainedDirectories extends Thread {
+        private final List<File> directories;
 
-        CollectionUtil.addNotContainedElements(directories, newDirectories);
-        addDirectories(newDirectories);
-        labelFilecount.setText(Integer.toString(getFileCount()));
-        buttonStart.setEnabled(listModelDirectories.getSize() > 0);
+        AddNotContainedDirectories(List<File> directories) {
+            super("JPhotoTagger: Adding directories for updating metadata");
+            this.directories = new ArrayList<File>(directories);
+        }
+
+        @Override
+        public void run() {
+            final List<File> newDirectories = getNotDirectoriesNotInListFrom(
+                                                                   directories);
+
+            CollectionUtil.addNotContainedElements(directories, newDirectories);
+
+            if (checkBoxIncludeSubdirectories.isSelected()) {
+                addSubdirectories(newDirectories);
+            }
+
+            SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        addDirectories(newDirectories);
+                        labelFilecount.setText(Integer.toString(getFileCount()));
+                        buttonStart.setEnabled(!listModelDirectories.isEmpty());
+                        buttonChooseDirectories.setEnabled(true);
+                        progressBar.setIndeterminate(false);
+                        progressBar.setString(null);
+                    }
+                });
+            }
     }
 
     private List<File> getNotDirectoriesNotInListFrom(List<File> directories) {
@@ -324,11 +348,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void addDirectories(List<File> directories) {
-        if (checkBoxIncludeSubdirectories.isSelected()) {
-            addSubdirectories(directories);
-        }
-
-        Collections.sort(directories, FileSort.NAMES_ASCENDING.getComparator());
+        Collections.sort(directories, FileSort.PATHS_ASCENDING.getComparator());
 
         for (File directory : directories) {
             DirectoryInfo directoryInfo = new DirectoryInfo(directory);
@@ -460,14 +480,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                     .addComponent(checkBoxIncludeSubdirectories)
                     .addComponent(checkBoxForce)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoFilecount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonChooseDirectories)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -478,7 +498,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
-                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
+                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
                 .addContainerGap())
         );
 

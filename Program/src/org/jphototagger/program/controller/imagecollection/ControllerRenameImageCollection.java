@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ModifyImageCollections;
@@ -28,7 +29,6 @@ import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
-import org.jphototagger.lib.componentutil.ListUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,26 +88,26 @@ public final class ControllerRenameImageCollection
 
     private void renameImageCollection(final String fromName) {
         if (fromName != null) {
-            if (!ListModelImageCollections.checkIsNotSpecialCollection(fromName,
-                    "ListModelImageCollections.Error.RenameSpecialCollection")) {
-                return;
-            }
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    if (!ListModelImageCollections.checkIsNotSpecialCollection(fromName,
+                            "ListModelImageCollections.Error.RenameSpecialCollection")) {
+                        return;
+                    }
 
-            final String toName =
-                ModifyImageCollections.renameImageCollection(fromName);
+                    final String toName =
+                        ModifyImageCollections.renameImageCollection(fromName);
 
-            if (toName != null) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
+                    if (toName != null) {
                         ListModelImageCollections model =
                             ModelFactory.INSTANCE.getModel(
                                 ListModelImageCollections.class);
 
                         model.rename(fromName, toName);
                     }
-                });
-            }
+                }
+            });
         } else {
             AppLogger.logWarning(
                 ControllerRenameImageCollection.class,

@@ -30,7 +30,7 @@ import java.io.File;
  * @author Martin Pohlack
  */
 public class ThumbnailCacheIndirection extends CacheIndirection {
-    public Image thumbnail;
+    Image thumbnail;
 
     public ThumbnailCacheIndirection(File _file) {
         super(_file);

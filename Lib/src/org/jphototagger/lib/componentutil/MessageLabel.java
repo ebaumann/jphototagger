@@ -78,9 +78,9 @@ public final class MessageLabel {
                             : Color.BLACK);
         label.setText(message);
 
-        Thread thread = new Thread(new HideInfoMessage(milliseconds));
+        Thread thread = new Thread(new HideInfoMessage(milliseconds),
+                "JPhotoTagger: Hiding message popup");
 
-        thread.setName("Hiding message popup @ " + getClass().getSimpleName());
         thread.setPriority(Thread.MIN_PRIORITY);
         thread.start();
     }
@@ -88,7 +88,7 @@ public final class MessageLabel {
     private class HideInfoMessage implements Runnable {
         private final long milliseconds;
 
-        public HideInfoMessage(long milliseconds) {
+        HideInfoMessage(long milliseconds) {
             this.milliseconds = milliseconds;
         }
 

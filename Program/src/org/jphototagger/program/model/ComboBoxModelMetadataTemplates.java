@@ -32,6 +32,7 @@ import org.jphototagger.program.resource.JptBundle;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Elements are instances of {@link MetadataTemplate}s retrieved through
@@ -56,7 +57,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      *
      * @param template  Template
      */
-    public void delete(MetadataTemplate template) {
+    public void delete(final MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -76,7 +77,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      *
      * @param template  Template
      */
-    public void insert(MetadataTemplate template) {
+    public void insert(final MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -101,7 +102,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      *
      * @param template  Template
      */
-    public void update(MetadataTemplate template) {
+    public void update(final MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -126,7 +127,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
      * @param template  Template
      * @param newName   Neuer Name
      */
-    public void rename(MetadataTemplate template, String newName) {
+    public void rename(final MetadataTemplate template, final String newName) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -185,25 +186,35 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
     }
 
     @Override
-    public void templateDeleted(MetadataTemplate template) {
+    public void templateDeleted(final MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
 
-        removeElement(template);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                removeElement(template);
+            }
+        });
     }
 
     @Override
-    public void templateInserted(MetadataTemplate template) {
+    public void templateInserted(final MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
 
-        addElement(template);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addElement(template);
+            }
+        });
     }
 
     @Override
-    public void templateUpdated(MetadataTemplate oldTemplate,
+    public void templateUpdated(final MetadataTemplate oldTemplate,
                                 MetadataTemplate updatedTemplate) {
         if (oldTemplate == null) {
             throw new NullPointerException("oldTemplate == null");
@@ -213,15 +224,22 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             throw new NullPointerException("updatedTemplate == null");
         }
 
-        int index = indexOfTemplate(oldTemplate.getName());
+        final Object src = this;
 
-        if (index >= 0) {
-            fireContentsChanged(this, index, index);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = indexOfTemplate(oldTemplate.getName());
+
+                if (index >= 0) {
+                    fireContentsChanged(src, index, index);
+                }
+            }
+        });
     }
 
     @Override
-    public void templateRenamed(String fromName, String toName) {
+    public void templateRenamed(final String fromName, final String toName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
@@ -230,13 +248,21 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             throw new NullPointerException("toName == null");
         }
 
-        int index = indexOfTemplate(fromName);
+        final Object src = this;
 
-        if (index >= 0) {
-            MetadataTemplate template = (MetadataTemplate) getElementAt(index);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = indexOfTemplate(fromName);
 
-            template.setName(toName);
-            fireContentsChanged(this, index, index);
-        }
+                if (index >= 0) {
+                    MetadataTemplate template =
+                        (MetadataTemplate) getElementAt(index);
+
+                    template.setName(toName);
+                    fireContentsChanged(src, index, index);
+                }
+            }
+        });
     }
 }

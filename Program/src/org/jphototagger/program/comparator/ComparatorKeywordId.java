@@ -31,7 +31,7 @@ import java.util.Comparator;
  * @author  Elmar Baumann
  */
 public final class ComparatorKeywordId implements Comparator<Keyword> {
-    public static ComparatorKeywordId INSTANCE = new ComparatorKeywordId();
+    public static final ComparatorKeywordId INSTANCE = new ComparatorKeywordId();
 
     @Override
     public int compare(Keyword o1, Keyword o2) {

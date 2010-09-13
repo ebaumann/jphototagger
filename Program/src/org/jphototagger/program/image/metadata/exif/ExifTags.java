@@ -23,6 +23,7 @@ package org.jphototagger.program.image.metadata.exif;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -56,19 +57,19 @@ public final class ExifTags {
     private Set<ExifTag> makerNoteTags = new HashSet<ExifTag>();
 
     public Set<ExifTag> getExifTags() {
-        return exifTags;
+        return Collections.unmodifiableSet(exifTags);
     }
 
     public Set<ExifTag> getGpsTags() {
-        return gpsTags;
+        return Collections.unmodifiableSet(gpsTags);
     }
 
     public Set<ExifTag> getInteroperabilityTags() {
-        return interoperabilityTags;
+        return Collections.unmodifiableSet(interoperabilityTags);
     }
 
     public Set<ExifTag> getMakerNoteTags() {
-        return makerNoteTags;
+        return Collections.unmodifiableSet(makerNoteTags);
     }
 
     public int tagCount() {

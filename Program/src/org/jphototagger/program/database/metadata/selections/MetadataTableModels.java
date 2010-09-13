@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.database.metadata.selections;
 
+import java.util.Collections;
+import java.util.HashSet;
 import org.jphototagger.program.model.TableModelExif;
 import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.model.TableModelXmp;
@@ -233,7 +235,7 @@ public final class MetadataTableModels {
      * @return the xmpTableModels
      */
     public Set<TableModelXmp> getXmpTableModels() {
-        return xmpTableModels;
+        return Collections.unmodifiableSet(xmpTableModels);
     }
 
     /**
@@ -244,6 +246,6 @@ public final class MetadataTableModels {
             throw new NullPointerException("xmpTableModels == null");
         }
 
-        this.xmpTableModels = xmpTableModels;
+        this.xmpTableModels = new HashSet<TableModelXmp>(xmpTableModels);
     }
 }

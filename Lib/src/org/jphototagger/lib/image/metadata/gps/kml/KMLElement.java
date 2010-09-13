@@ -33,12 +33,12 @@ public interface KMLElement {
      *
      * @return XML
      */
-    public String toXML();
+    String toXML();
 
     /**
      * Returns whether this element is a top level element.
      *
      * @return true, if this element is a top level element
      */
-    public boolean isTopLevelElement();
+    boolean isTopLevelElement();
 }

@@ -166,20 +166,20 @@ public final class SavedSearchPanel {
             Operator     operator   = getOperator();
             Column       column     = getColumn();
             Comparator   comparator = getComparator();
-            StringBuffer sb         = new StringBuffer();
+            StringBuilder sb        = new StringBuilder();
 
             if (!isFirst) {
                 sb.append(bracketLeft1Selected
                           ? " ("
                           : "");
-                sb.append(" " + operator.toSqlString());
+                sb.append(" ").append(operator.toSqlString());
             }
 
             sb.append(bracketLeft2Selected
                       ? " ("
                       : "");
-            sb.append(" " + column.getTablename() + "." + column.getName());
-            sb.append(" " + comparator.toSqlString());
+            sb.append(" ").append(column.getTablename()).append(".").append(column.getName());
+            sb.append(" ").append(comparator.toSqlString());
             sb.append(" ?");
             sb.append(bracketRightSelected
                       ? ")"

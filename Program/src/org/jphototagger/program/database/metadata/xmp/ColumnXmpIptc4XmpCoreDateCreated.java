@@ -66,7 +66,7 @@ public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {
         private final InputVerifiersOr inputVerifiersOr =
             new InputVerifiersOr();
 
-        public InputVerifierDateCreated() {
+        InputVerifierDateCreated() {
             InputVerifierEmpty inputVerifierEmpty =
                 new InputVerifierEmpty(true);
             InputVerifierStringPattern inputVerifierY =

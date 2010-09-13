@@ -82,9 +82,9 @@ public final class GPSLocationExportUtil {
 
         Exporter(GPSLocationExporter exporter,
                  Collection<? extends File> imageFiles) {
+            super("JPhotoTagger: Exporting GPS locations");
             this.exporter   = exporter;
             this.imageFiles = new ArrayList<File>(imageFiles);
-            setName("Exporting GPS locations @ " + getClass().getSimpleName());
             setInfo(
                 JptBundle.INSTANCE.getString(
                     "GPSLocationExportUtil.Exporter.Info"));
@@ -144,7 +144,7 @@ public final class GPSLocationExportUtil {
         }
 
         UserTasks.INSTANCE.add(new Exporter(exporter, imageFiles));
-            }
+    }
 
     private static void export(GPSLocationExporter exporter,
                                List<GPSImageInfo> gpsImageInfos) {

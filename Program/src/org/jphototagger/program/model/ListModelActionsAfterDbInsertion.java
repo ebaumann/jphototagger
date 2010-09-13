@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Elements are {@link Program}s retrieved through
@@ -53,7 +54,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         DatabasePrograms.INSTANCE.addListener(this);
     }
 
-    public void insert(Program action) {
+    public void insert(final Program action) {
         if (action == null) {
             throw new NullPointerException("action == null");
         }
@@ -69,13 +70,13 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         }
     }
 
-    public void moveUp(int index) {
+    public void moveUp(final int index) {
         if (canMoveUp(index)) {
             swapElements(index, index - 1);
         }
     }
 
-    public void moveDown(int index) {
+    public void moveDown(final int index) {
         if (canMoveDown(index)) {
             swapElements(index, index + 1);
         }
@@ -113,7 +114,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         }
     }
 
-    public void delete(Program action) {
+    public void delete(final Program action) {
         if (action == null) {
             throw new NullPointerException("action == null");
         }
@@ -158,13 +159,20 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     @Override
-    public void programDeleted(Program program) {
-        int index = indexOf(program);
+    public void programDeleted(final Program program) {
+        final Object src = this;
 
-        if (index >= 0) {
-            removeElementAt(index);
-            fireIntervalRemoved(this, index, index);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = indexOf(program);
+
+                if (index >= 0) {
+                    removeElementAt(index);
+                    fireIntervalRemoved(src, index, index);
+                }
+            }
+        });
     }
 
     @Override
@@ -174,16 +182,23 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     @Override
-    public void programUpdated(Program program) {
+    public void programUpdated(final Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
 
-        int index = indexOf(program);
+        final Object src = this;
 
-        if (index >= 0) {
-            set(index, program);
-            fireContentsChanged(this, index, index);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = indexOf(program);
+
+                if (index >= 0) {
+                    set(index, program);
+                    fireContentsChanged(src, index, index);
+                }
+            }
+        });
     }
 }

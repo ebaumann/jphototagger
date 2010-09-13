@@ -85,11 +85,11 @@ public final class ExifGpsVersion {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer(6);
+        StringBuilder sb = new StringBuilder(6);
 
-        sb.append(Integer.toString(first) + ".");
-        sb.append(Integer.toString(second) + ".");
-        sb.append(Integer.toString(third) + ".");
+        sb.append(Integer.toString(first)).append(".");
+        sb.append(Integer.toString(second)).append(".");
+        sb.append(Integer.toString(third)).append(".");
         sb.append(Integer.toString(fourth));
 
         return sb.toString();

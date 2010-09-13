@@ -35,7 +35,7 @@ public interface DatabaseFileExcludePatternsListener {
      *
      * @param pattern inserted pattern
      */
-    public void patternInserted(String pattern);
+    void patternInserted(String pattern);
 
     /**
      * Called if a pattern was deleted from
@@ -43,5 +43,5 @@ public interface DatabaseFileExcludePatternsListener {
      *
      * @param pattern deleted pattern
      */
-    public void patternDeleted(String pattern);
+    void patternDeleted(String pattern);
 }

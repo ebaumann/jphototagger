@@ -158,7 +158,7 @@ public final class ControllerFastSearch
                                       : AutoCompleteDataOfColumn.INSTANCE.get(
                                           getSearchColumn()).get(), true);
             }
-        }).start();
+        }, "JPhotoTagger: Updating autocomplete for search text field").start();
     }
 
     private void clearSelection() {

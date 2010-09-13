@@ -152,7 +152,9 @@ public final class External {
 
             ProcessDestroyer processDestroyer = new ProcessDestroyer(process,
                                                     maxMilliseconds, command);
-            Thread threadProcessDestroyer = new Thread(processDestroyer);
+            Thread threadProcessDestroyer =
+                new Thread(processDestroyer,
+                           "JPhotoTagger: Destroying process");
 
             threadProcessDestroyer.start();
 
@@ -233,8 +235,8 @@ public final class External {
         private volatile boolean processFinished;
         private boolean          destroyed = false;
 
-        public ProcessDestroyer(Process process, long millisecondsWait,
-                                String command) {
+        ProcessDestroyer(Process process, long millisecondsWait,
+                         String command) {
             this.process          = process;
             this.millisecondsWait = millisecondsWait;
             this.command          = command;
@@ -286,11 +288,10 @@ public final class External {
         // an invalid path. Let's escaping all backslashes, because it's not
         // plausible, that a command string has an octal escape, that shall be
         // replaced by one unicode character.
-        command = command.replace("\\", "\\\\");
-
+        String          cmd       = command.replace("\\", "\\\\");
         String[]        cmd_array = new String[0];
         String[]        new_cmd_array;
-        StreamTokenizer st = new StreamTokenizer(new StringReader(command));
+        StreamTokenizer st = new StreamTokenizer(new StringReader(cmd));
 
         st.resetSyntax();
         st.wordChars('\u0000', '\uFFFF');

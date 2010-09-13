@@ -30,7 +30,7 @@ import java.io.File;
  * @author Martin Pohlack
  */
 public class XmpCacheIndirection extends CacheIndirection {
-    public Xmp xmp;
+    Xmp xmp;
 
     public XmpCacheIndirection(File _file) {
         super(_file);

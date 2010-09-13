@@ -29,9 +29,9 @@ import org.jphototagger.program.data.UserDefinedFileFilter;
  * @author Elmar Baumann
  */
 public interface DatabaseUserDefinedFileFiltersListener {
-    public void filterInserted(UserDefinedFileFilter filter);
+    void filterInserted(UserDefinedFileFilter filter);
 
-    public void filterDeleted(UserDefinedFileFilter filter);
+    void filterDeleted(UserDefinedFileFilter filter);
 
-    public void filterUpdated(UserDefinedFileFilter filter);
+    void filterUpdated(UserDefinedFileFilter filter);
 }

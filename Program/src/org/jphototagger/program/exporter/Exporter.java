@@ -32,13 +32,13 @@ import javax.swing.Icon;
  * @author  Elmar Baumann
  */
 public interface Exporter {
-    public void exportFile(File file);
+    void exportFile(File file);
 
-    public FileFilter getFileFilter();
+    FileFilter getFileFilter();
 
-    public String getDisplayName();
+    String getDisplayName();
 
-    public Icon getIcon();
+    Icon getIcon();
 
-    public String getDefaultFilename();
+    String getDefaultFilename();
 }

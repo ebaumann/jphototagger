@@ -32,6 +32,7 @@ import org.jphototagger.lib.util.StringUtil;
 import java.awt.Component;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +49,8 @@ public final class SettingsDialog extends Dialog {
         "UserSettingsDialog.TabbedPaneIndex";
     private static final long            serialVersionUID   =
         -7576495084117427485L;
-    private final Map<Tab, Integer>      indexOfTab         = new HashMap<Tab,
-                                                                  Integer>();
+    private final Map<Tab, Integer>      indexOfTab         = new EnumMap<Tab,
+                                                                  Integer>(Tab.class);
     private final Map<Integer, Tab>      tabOfIndex         =
         new HashMap<Integer, Tab>();
     private final Map<Component, String> helpUrlOfComponent =

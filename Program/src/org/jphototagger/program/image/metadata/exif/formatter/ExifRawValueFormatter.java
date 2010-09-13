@@ -36,5 +36,5 @@ public interface ExifRawValueFormatter {
      * @param exifTag tag to format
      * @return        formatted string
      */
-    public String format(ExifTag exifTag);
+    String format(ExifTag exifTag);
 }

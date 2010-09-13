@@ -29,7 +29,7 @@ package org.jphototagger.program.event.listener;
  */
 public interface EditMetadataPanelsListener {
 
-    public void editEnabled();
+    void editEnabled();
 
-    public void editDisabled();
+    void editDisabled();
 }

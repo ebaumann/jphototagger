@@ -33,8 +33,9 @@ import java.io.Serializable;
  * @author  Elmar Baumann
  */
 public final class AcceptAllFilesFilter implements FileFilter, Serializable {
-    public static AcceptAllFilesFilter INSTANCE = new AcceptAllFilesFilter();
-    private static final long          serialVersionUID = 6297923800725402735L;
+    public static final AcceptAllFilesFilter INSTANCE =
+        new AcceptAllFilesFilter();
+    private static final long serialVersionUID = 6297923800725402735L;
 
     private AcceptAllFilesFilter() {}
 

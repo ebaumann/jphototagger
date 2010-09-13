@@ -82,9 +82,8 @@ public final class AutomaticTask {
             public void run() {
                 runnable.run();
             }
-        });
+        }, getName(runnable));
 
-        t.setName(getName(runnable));
         t.start();
     }
 
@@ -93,7 +92,8 @@ public final class AutomaticTask {
             return ((Thread) runnable).getName();
         }
 
-        return "Automatic task @ " + getClass().getName();
+        return "JPhotoTagger: Automatic task @ " 
+                + runnable.getClass().getSimpleName();
     }
 
     private AutomaticTask() {}

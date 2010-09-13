@@ -26,9 +26,9 @@ import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.helper.Cleanup;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 
 import java.awt.event.WindowAdapter;
@@ -38,15 +38,17 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.swing.SwingUtilities;
+
 /**
  * Life cycle of the application.
  *
  * @author  Elmar Baumann
  */
 public final class AppLifeCycle {
-    public static final AppLifeCycle               INSTANCE        =
+    public static final AppLifeCycle               INSTANCE =
         new AppLifeCycle();
-    private final Set<Object>                      saveObjects     =
+    private final Set<Object>                      saveObjects =
         new HashSet<Object>();
     private final ListenerSupport<AppExitListener> ls =
         new ListenerSupport<AppExitListener>();
@@ -57,7 +59,8 @@ public final class AppLifeCycle {
     private AppLifeCycle() {}
 
     /**
-     * Has be to call <em>once</em> after the {@link AppFrame} has been created.
+     * Has be to called <em>once</em> after the {@link AppFrame} has been
+     * created.
      *
      * @param appFrame the application's frame
      */
@@ -78,11 +81,10 @@ public final class AppLifeCycle {
 
         this.appFrame = appFrame;
 
-        Thread thread = new Thread(MetaFactory.INSTANCE);
+        Thread thread = new Thread(MetaFactory.INSTANCE,
+                                   "JPhotoTagger: Initializing meta factory");
 
-        thread.setName("Initializing meta factory @ "
-                       + getClass().getSimpleName());
-        thread.start();
+        SwingUtilities.invokeLater(thread);
         listenForQuit();
     }
 
@@ -165,7 +167,7 @@ public final class AppLifeCycle {
 
     /**
      * Removes a listener added by
-     * {@link #addAppExitListener(org.jphototagger.program.event.listener.AppExitListener)}.
+     * {@link #addAppExitListener(AppExitListener)}.
      *
      * @param listener listener
      */
@@ -250,6 +252,7 @@ public final class AppLifeCycle {
 
         synchronized (finalTasks) {
             Set<FinalTask> tasks = new HashSet<FinalTask>(finalTasks);
+
             GUI.INSTANCE.getAppFrame().setEnabled(false);
 
             for (FinalTask task : tasks) {

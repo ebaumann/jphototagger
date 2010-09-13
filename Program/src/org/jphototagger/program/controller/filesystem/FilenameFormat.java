@@ -98,7 +98,9 @@ public abstract class FilenameFormat {
      * Tells that the next file will be renamed. This implementation does
      * nothing.
      */
-    public void next() {}
+    public void next() {
+        // Do nothing
+    }
 
     /**
      * Returns wheter the format will change.

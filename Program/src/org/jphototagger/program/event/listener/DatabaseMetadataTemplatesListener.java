@@ -37,7 +37,7 @@ public interface DatabaseMetadataTemplatesListener {
      *
      * @param template  template
      */
-    public void templateDeleted(MetadataTemplate template);
+    void templateDeleted(MetadataTemplate template);
 
     /**
      * Called if a template was inserted into
@@ -45,7 +45,7 @@ public interface DatabaseMetadataTemplatesListener {
      *
      * @param template inserted template
      */
-    public void templateInserted(MetadataTemplate template);
+    void templateInserted(MetadataTemplate template);
 
     /**
      * Called if a template was updated in
@@ -54,7 +54,7 @@ public interface DatabaseMetadataTemplatesListener {
      * @param oldTemplate     old template before update
      * @param updatedTemplate updated template
      */
-    public void templateUpdated(MetadataTemplate oldTemplate,
+    void templateUpdated(MetadataTemplate oldTemplate,
                                 MetadataTemplate updatedTemplate);
 
     /**
@@ -64,5 +64,5 @@ public interface DatabaseMetadataTemplatesListener {
      * @param fromName old template name
      * @param toName   new template name
      */
-    public void templateRenamed(String fromName, String toName);
+    void templateRenamed(String fromName, String toName);
 }

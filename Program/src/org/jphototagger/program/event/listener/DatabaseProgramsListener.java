@@ -37,7 +37,7 @@ public interface DatabaseProgramsListener {
      *
      * @param program deleted program
      */
-    public void programDeleted(Program program);
+    void programDeleted(Program program);
 
     /**
      * Called if a programs was inserted into
@@ -45,7 +45,7 @@ public interface DatabaseProgramsListener {
      *
      * @param program inserted program
      */
-    public void programInserted(Program program);
+    void programInserted(Program program);
 
     /**
      * Called if a programs was updated in
@@ -53,5 +53,5 @@ public interface DatabaseProgramsListener {
      *
      * @param program updated program
      */
-    public void programUpdated(Program program);
+    void programUpdated(Program program);
 }

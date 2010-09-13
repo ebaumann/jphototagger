@@ -37,7 +37,7 @@ public interface DatabaseFavoritesListener {
      *
      * @param favorite inserted favorite
      */
-    public void favoriteInserted(Favorite favorite);
+    void favoriteInserted(Favorite favorite);
 
     /**
      * Will be called if a favorite was deleted from
@@ -45,7 +45,7 @@ public interface DatabaseFavoritesListener {
      *
      * @param favorite deleted favorite
      */
-    public void favoriteDeleted(Favorite favorite);
+    void favoriteDeleted(Favorite favorite);
 
     /**
      * Will be called if a favorite was update in
@@ -54,5 +54,5 @@ public interface DatabaseFavoritesListener {
      * @param oldFavorite old favorite before update
      * @param updatedFavorite new favorite after update
      */
-    public void favoriteUpdated(Favorite oldFavorite, Favorite updatedFavorite);
+    void favoriteUpdated(Favorite oldFavorite, Favorite updatedFavorite);
 }

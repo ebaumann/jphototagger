@@ -160,7 +160,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             throw new NullPointerException("imageFiles == null");
         }
 
-        this.imageFiles = imageFiles;
+        this.imageFiles = new ArrayList<File>(imageFiles);
     }
 
     public synchronized void notifyFileSystemListeners(File fromImageFile,

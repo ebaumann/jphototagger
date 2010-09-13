@@ -53,7 +53,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
     private ThumbnailCache() {
         db.addListener(this);
         new Thread(new ThumbnailFetcher(workQueue, this),
-                   "ThumbnailFetcher").start();
+                   "JPhotoTagger: ThumbnailFetcher").start();
     }
 
     @Override

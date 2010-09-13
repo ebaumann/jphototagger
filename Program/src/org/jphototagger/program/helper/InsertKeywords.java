@@ -43,13 +43,13 @@ public final class InsertKeywords extends Thread {
     private final List<String> keywords;
 
     public InsertKeywords(List<String> keywords) {
+        super("JPhotoTagger: Inserting string list into keywords");
+
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
 
         this.keywords = new ArrayList<String>(keywords);
-        setName("Inserting string list into keywords @ "
-                + getClass().getSimpleName());
     }
 
     @Override
@@ -79,7 +79,7 @@ public final class InsertKeywords extends Thread {
 
         for (String keyword : keywords) {
             if (!db.existsRootKeyword(keyword)) {
-                modelHk.insert(rootHk, keyword, true);
+                modelHk.insert(rootHk, keyword, true, true);
                 inserted = true;
             }
         }

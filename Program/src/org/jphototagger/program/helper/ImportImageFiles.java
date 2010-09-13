@@ -69,11 +69,10 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private ImportImageFiles(List<Pair<File, File>> sourceTargetFiles,
                              boolean deleteScrFilesAfterCopying) {
+        super("JPhotoTagger: Importing image files");
         this.sourceTargetFiles = new ArrayList<Pair<File,
                 File>>(sourceTargetFiles);
         this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
-        setName("Importing image files @ "
-                + ControllerImportImageFiles.class.getSimpleName());
     }
 
     public static void importFrom(File sourceDirectory) {

@@ -110,7 +110,7 @@ public final class ControllerPlugins implements ActionListener {
         private final Plugin plugin;
         private final Object pBarOwner;
 
-        public Listener(Plugin plugin, Object progressBarOwner) {
+        Listener(Plugin plugin, Object progressBarOwner) {
             if (plugin == null) {
                 throw new NullPointerException("plugin == null");
             }

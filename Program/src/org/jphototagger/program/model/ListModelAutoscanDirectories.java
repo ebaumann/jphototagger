@@ -31,6 +31,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Elements are directory {@link File}s retrieved through
@@ -64,24 +65,34 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
     }
 
     @Override
-    public void directoryInserted(File directory) {
+    public void directoryInserted(final File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
 
-        if (!contains(directory)) {
-            addElement(directory);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (!contains(directory)) {
+                    addElement(directory);
+                }
+            }
+        });
     }
 
     @Override
-    public void directoryDeleted(File directory) {
+    public void directoryDeleted(final File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
 
-        if (contains(directory)) {
-            removeElement(directory);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (contains(directory)) {
+                    removeElement(directory);
+                }
+            }
+        });
     }
 }

@@ -233,7 +233,7 @@ public final class XmpMetadata {
         }
 
         String absolutePath   = imageFile.getAbsolutePath();
-        int    indexExtension = absolutePath.lastIndexOf(".");
+        int    indexExtension = absolutePath.lastIndexOf('.');
 
         if (indexExtension > 0) {
             return new File(absolutePath.substring(0, indexExtension + 1)
@@ -256,7 +256,7 @@ public final class XmpMetadata {
         }
 
         String absolutePath   = imageFile.getAbsolutePath();
-        int    indexExtension = absolutePath.lastIndexOf(".");
+        int    indexExtension = absolutePath.lastIndexOf('.');
 
         // > 0: ".suffix" is not a file of type "suffix"
         if (indexExtension > 0) {
@@ -490,13 +490,13 @@ public final class XmpMetadata {
                 Collections.sort(values);
 
                 for (String value : values) {
-                    value = value.trim();
+                    String trimmedValue = value.trim();
 
                     if (!doesArrayItemExist(toXmpMeta, namespaceUri, arrayName,
-                                            value)) {
+                                            trimmedValue)) {
                         toXmpMeta.appendArrayItem(
                             namespaceUri, arrayName,
-                            getArrayPropertyOptionsOf(column), value, null);
+                            getArrayPropertyOptionsOf(column), trimmedValue, null);
                     }
                 }
             } else if (xmpValue instanceof Long) {

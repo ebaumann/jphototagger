@@ -80,6 +80,8 @@ public final class SetExifToXmp extends HelperThread {
      */
     public SetExifToXmp(Collection<? extends File> imageFiles,
                         boolean replaceExistingXmpData) {
+        super("JPhotoTagger: Setting EXIF metadata to XMP metadata");
+
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
@@ -90,8 +92,6 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     private void setInfo() {
-        setName("Setting EXIF metadata to XMP metadata @ "
-                + getClass().getSimpleName());
         setInfo(JptBundle.INSTANCE.getString("SetExifToXmp.Info"));
     }
 
@@ -106,7 +106,7 @@ public final class SetExifToXmp extends HelperThread {
                                          ? imgFiles.get(0)
                                          : null);
 
-        for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
+        for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
             File imgFile = imgFiles.get(i);
 
             set(imgFile, replaceExistingXmpData);

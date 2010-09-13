@@ -48,8 +48,8 @@ public interface GPSLocationExporter {
      * @throws             UnsupportedCharsetException if the system does not
      *                     support UTF-8 strings
      */
-    public void export(Collection<? extends GPSImageInfo> gpsImageInfo,
-                       OutputStream os)
+    void export(Collection<? extends GPSImageInfo> gpsImageInfo,
+                OutputStream os)
             throws IOException, UnsupportedCharsetException;
 
     /**
@@ -57,19 +57,19 @@ public interface GPSLocationExporter {
      *
      * @return filter
      */
-    public FileFilter getFileFilter();
+    FileFilter getFileFilter();
 
     /**
      * Returns the file name suffix.
      *
      * @return suffix, e.g. <code>".kml"</code>
      */
-    public String getFilenameExtension();
+    String getFilenameExtension();
 
     /**
      * Returns the display name of the exporter.
      *
      * @return display name
      */
-    public String getDisplayName();
+    String getDisplayName();
 }

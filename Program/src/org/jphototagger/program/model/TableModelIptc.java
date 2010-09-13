@@ -65,17 +65,10 @@ public final class TableModelIptc extends DefaultTableModel {
             return;
         }
 
-        this.file = file;
-        removeAllElements();
+        this.file   = file;
         iptcEntries = IptcMetadata.getIptcEntries(file);
-        addRows();
-    }
-
-    /**
-     * Entfernt alle IPTC-Einträge.
-     */
-    public void removeAllElements() {
         getDataVector().removeAllElements();
+        addRows();
     }
 
     /**

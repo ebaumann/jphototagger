@@ -48,6 +48,13 @@ public abstract class HelperThread extends Thread implements Cancelable {
     private volatile int                maximum;
     private final Object                pBarOwner = this;
 
+    public HelperThread() {
+    }
+
+    public HelperThread(String name) {
+        super(name);
+    }
+
     /**
      * Adds a progress listener.
      * <p>

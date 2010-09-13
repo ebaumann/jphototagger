@@ -206,10 +206,10 @@ public final class DatabaseMaintainancePanel extends JPanel
         if (runnables.size() > 0) {
             currentRunnable = runnables.pop();
 
-            Thread thread = new Thread(currentRunnable);
+            Thread thread = new Thread(currentRunnable,
+                    "JPhotoTagger: Database maintainance next task @ "
+                    + currentRunnable.getClass().getSimpleName());
 
-            thread.setName("Database maintainance next task @ "
-                           + getClass().getSimpleName());
             thread.start();
         }
     }

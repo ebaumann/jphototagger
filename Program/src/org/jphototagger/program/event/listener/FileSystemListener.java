@@ -30,8 +30,8 @@ import java.io.File;
  */
 public interface FileSystemListener {
 
-    public void fileCopied(File source, File target);
-    public void fileDeleted(File file);
-    public void fileMoved(File source, File target);
-    public void fileRenamed(File oldFile, File newFile);
+    void fileCopied(File source, File target);
+    void fileDeleted(File file);
+    void fileMoved(File source, File target);
+    void fileRenamed(File oldFile, File newFile);
 }

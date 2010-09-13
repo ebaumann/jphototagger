@@ -21,17 +21,14 @@
 
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.controller.actions.ControllerActionExecutor;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-import org.jphototagger.program.event.listener.ProgramActionListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.Dialog;
 
-import javax.swing.JProgressBar;
 import org.jphototagger.program.view.panels.ActionsPanel;
 
 /**

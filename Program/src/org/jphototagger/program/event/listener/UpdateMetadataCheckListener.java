@@ -29,5 +29,5 @@ import org.jphototagger.program.event.UpdateMetadataCheckEvent;
  * @author  Elmar Baumann
  */
 public interface UpdateMetadataCheckListener {
-    public void actionPerformed(UpdateMetadataCheckEvent evt);
+    void actionPerformed(UpdateMetadataCheckEvent evt);
 }

@@ -61,13 +61,13 @@ public final class ImageCollectionsExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
 
         try {
             List<ImageCollection> templates =
                 DatabaseImageCollections.INSTANCE.getAll2();
 
-            XmlObjectExporter.export(new CollectionWrapper(templates), file);
+            XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(ImageCollectionsExporter.class, ex);
         }

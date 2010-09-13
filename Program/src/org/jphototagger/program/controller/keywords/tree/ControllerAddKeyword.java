@@ -21,6 +21,8 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.dialog.InputDialog;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.database.DatabaseKeywords;
@@ -31,8 +33,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -41,6 +41,7 @@ import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -73,11 +74,14 @@ public class ControllerAddKeyword extends ControllerKeywords
     }
 
     @Override
-    protected void localAction(List<DefaultMutableTreeNode> nodes) {
+    protected void localAction(final List<DefaultMutableTreeNode> nodes) {
         if (nodes == null) {
             throw new NullPointerException("nodes == null");
         }
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         DefaultMutableTreeNode node       = nodes.get(0);
         Object                 userObject = node.getUserObject();
 
@@ -86,6 +90,8 @@ public class ControllerAddKeyword extends ControllerKeywords
         } else if (isRootNode(node)) {
             add(node, null);
         }
+    }
+        });
     }
 
     private boolean isRootNode(Object node) {
@@ -102,7 +108,7 @@ public class ControllerAddKeyword extends ControllerKeywords
 
         if ((name != null) &&!name.trim().isEmpty()) {
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(
-                parentNode, name, true);
+                parentNode, name, true, true);
             KeywordsTreePathExpander.expand(getHKPanel().getTree(), parentNode);
         }
     }
@@ -111,7 +117,7 @@ public class ControllerAddKeyword extends ControllerKeywords
         String           newName = null;
         boolean          input   = true;
         DatabaseKeywords db      = DatabaseKeywords.INSTANCE;
-        InputDialog      dlg     =
+        InputDialog      dlg =
             new InputDialog(
                 InputHelperDialog.INSTANCE,
                 JptBundle.INSTANCE.getString(
@@ -131,7 +137,7 @@ public class ControllerAddKeyword extends ControllerKeywords
 
                 if (db.hasParentChildWithEqualName(s)) {
                     newName = null;
-                    input   = MessageDisplayer.confirmYesNo(null,
+                    input = MessageDisplayer.confirmYesNo(null,
                             "ControllerAddKeyword.Confirm.Exists", s);
                 }
             }

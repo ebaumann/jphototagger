@@ -48,7 +48,7 @@ import java.util.Arrays;
  * @author  Elmar Baumann
  */
 public final class FilesystemDatabaseUpdater implements FileSystemListener {
-    volatile boolean wait;
+    private volatile boolean wait;
 
     /**
      * Creates a new instance.

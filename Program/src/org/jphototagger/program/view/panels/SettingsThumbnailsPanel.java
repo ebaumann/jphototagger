@@ -36,6 +36,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EnumMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +55,8 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     private transient UpdateAllThumbnails             thumbnailsUpdater;
     private final Map<JRadioButton, ThumbnailCreator> thumbnailCreatorOfRadioButton =
         new HashMap<JRadioButton, ThumbnailCreator>();
-    private final Map<ThumbnailCreator, JRadioButton> radioButtonOfThumbnailCreator =
-        new HashMap<ThumbnailCreator, JRadioButton>();
+    private final EnumMap<ThumbnailCreator, JRadioButton> radioButtonOfThumbnailCreator =
+        new EnumMap<ThumbnailCreator, JRadioButton>(ThumbnailCreator.class);
 
     public SettingsThumbnailsPanel() {
         initComponents();
@@ -93,10 +94,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             thumbnailsUpdater = new UpdateAllThumbnails();
             thumbnailsUpdater.addActionListener(this);
 
-            Thread thread = new Thread(thumbnailsUpdater);
+            Thread thread = new Thread(thumbnailsUpdater,
+                    "JPhotoTagger: Updating all thumbnails");
 
-            thread.setName("Updating thumbnails @ "
-                           + getClass().getSimpleName());
             thread.start();
         }
     }

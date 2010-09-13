@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.model.TreeModelUpdateInfo;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Timeline;
 import org.jphototagger.program.data.Timeline.Date;
@@ -29,10 +30,10 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.lib.model.TreeModelUpdateInfo;
 
 import java.io.File;
 
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -92,7 +93,7 @@ public final class TreeModelTimeline extends DefaultTreeModel
     }
 
     private void checkDeleted(Exif exif) {
-        java.sql.Date exifDate       = exif.getDateTimeOriginal();
+        java.sql.Date exifDate = exif.getDateTimeOriginal();
         boolean       exifDateExists = (exifDate != null)
                                        && db.existsExifDate(exifDate);
 
@@ -140,24 +141,30 @@ public final class TreeModelTimeline extends DefaultTreeModel
         if (!timeline.existsDate(date)) {
             TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);
 
-            for (TreeModelUpdateInfo
-                    .NodeAndChildIndices node : info.getInfo()) {
+            for (TreeModelUpdateInfo.NodeAndChildIndices node :
+                    info.getInfo()) {
                 nodesWereInserted(node.getNode(), node.getChildIndices());
             }
         }
     }
 
     @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
+    public void xmpInserted(File imageFile, final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         checkInserted(xmp);
+    }
+        });
     }
 
     @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+    public void xmpUpdated(File imageFile, final Xmp oldXmp,
+                           final Xmp updatedXmp) {
         if (oldXmp == null) {
             throw new NullPointerException("oldXmp == null");
         }
@@ -166,30 +173,46 @@ public final class TreeModelTimeline extends DefaultTreeModel
             throw new NullPointerException("updatedXmp == null");
         }
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         checkDeleted(oldXmp);
         checkInserted(updatedXmp);
     }
+        });
+    }
 
     @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
+    public void xmpDeleted(File imageFile, final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         checkDeleted(xmp);
+    }
+        });
     }
 
     @Override
-    public void exifInserted(File imageFile, Exif exif) {
+    public void exifInserted(File imageFile, final Exif exif) {
         if (exif == null) {
             throw new NullPointerException("exif == null");
         }
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         checkInserted(exif);
+    }
+        });
     }
 
     @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+    public void exifUpdated(File imageFile, final Exif oldExif,
+                            final Exif updatedExif) {
         if (oldExif == null) {
             throw new NullPointerException("oldExif == null");
         }
@@ -198,26 +221,38 @@ public final class TreeModelTimeline extends DefaultTreeModel
             throw new NullPointerException("updatedExif == null");
         }
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         checkDeleted(oldExif);
         checkInserted(updatedExif);
     }
+        });
+    }
 
     @Override
-    public void exifDeleted(File imageFile, Exif exif) {
+    public void exifDeleted(File imageFile, final Exif exif) {
         if (exif == null) {
             throw new NullPointerException("exif == null");
         }
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         checkDeleted(exif);
+    }
+        });
     }
 
     @Override
     public void imageFileDeleted(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void imageFileInserted(File imageFile) {
+
         // ignore
     }
 

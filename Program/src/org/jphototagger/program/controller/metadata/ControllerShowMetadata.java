@@ -46,9 +46,9 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.io.File;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -83,13 +83,7 @@ public final class ControllerShowMetadata
         listen();
     }
 
-    private enum Metadata {
-        EXIF, IPTC, XMP;
-
-        public static Set<Metadata> getAll() {
-            return new HashSet<Metadata>(Arrays.asList(values()));
-        }
-    }
+    private enum Metadata { EXIF, IPTC, XMP; }
 
     private void listen() {
         appPanel.getPanelThumbnails().addThumbnailsPanelListener(this);
@@ -165,7 +159,7 @@ public final class ControllerShowMetadata
 
         if (selFiles.size() == 1) {
             SwingUtilities.invokeLater(new ShowMetadata(selFiles.get(0),
-                    Metadata.getAll()));
+                    EnumSet.allOf(Metadata.class)));
         } else {
             appPanel.getButtonIptcToXmp().setEnabled(false);
             appPanel.getButtonExifToXmp().setEnabled(false);
@@ -297,8 +291,8 @@ public final class ControllerShowMetadata
 
     private void removeMetadataFromTables(Set<Metadata> metadata) {
         if (metadata.contains(Metadata.XMP)) {
-            for (TableModelXmp model : metadataTableModels
-                    .getXmpTableModels()) {
+            for (TableModelXmp model :
+                    metadataTableModels.getXmpTableModels()) {
                 model.removeAllRows();
             }
         }
@@ -311,7 +305,7 @@ public final class ControllerShowMetadata
     private class RemoveAllMetadata implements Runnable {
         @Override
         public void run() {
-            Set<Metadata> allMetadata = Metadata.getAll();
+            Set<Metadata> allMetadata = EnumSet.allOf(Metadata.class);
 
             removeMetadataFromTables(allMetadata);
             repaintMetadataTables(allMetadata);
@@ -326,7 +320,7 @@ public final class ControllerShowMetadata
         private final File          file;
         private final Set<Metadata> metadata;
 
-        public ShowMetadata(File file, Set<Metadata> metadata) {
+        ShowMetadata(File file, Set<Metadata> metadata) {
             this.file     = file;
             this.metadata = metadata;
         }
@@ -388,7 +382,7 @@ public final class ControllerShowMetadata
         }
 
         private void setXmpModels(File imageFile) {
-            List<XMPPropertyInfo> allInfos    = null;
+            List<XMPPropertyInfo> allInfos = null;
             File                  sidecarFile =
                 XmpMetadata.getSidecarFile(imageFile);
 

@@ -75,13 +75,14 @@ public final class KeywordsExporterLightroom implements Exporter {
             String suffix = "." + FilenameSuffixes.LIGHTROOM_KEYWORDS;
 
             try {
-                if (!file.getName().endsWith(suffix)) {
-                    file = new File(file.getAbsolutePath() + suffix);
+                File outFile = file;
+                if (!outFile.getName().endsWith(suffix)) {
+                    outFile = new File(file.getAbsolutePath() + suffix);
                 }
 
                 writer = new BufferedWriter(
                     new OutputStreamWriter(
-                        new FileOutputStream(file.getAbsolutePath()),
+                        new FileOutputStream(outFile.getAbsolutePath()),
                         CharEncoding.LIGHTROOM_KEYWORDS));
                 addChildrenToRoot((DefaultMutableTreeNode) tm.getRoot(),
                                   writer);

@@ -22,6 +22,7 @@
 package org.jphototagger.lib.util.logging;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -279,7 +280,7 @@ public final class LogfileRecord {
      * @see    #hasParams()
      */
     public List<String> getParams() {
-        return params;
+        return Collections.unmodifiableList(params);
     }
 
     /**
@@ -291,7 +292,7 @@ public final class LogfileRecord {
      * @see          #setMessage(java.lang.String)
      */
     public void setParams(List<String> params) {
-        this.params = params;
+        this.params = new ArrayList<String>(params);
     }
 
     /**

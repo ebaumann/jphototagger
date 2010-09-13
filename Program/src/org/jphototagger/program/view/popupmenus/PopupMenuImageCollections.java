@@ -59,7 +59,7 @@ public final class PopupMenuImageCollections extends JPopupMenu {
                 .getString(
                     "PopupMenuImageCollections.DisplayName.Action.Create"), AppLookAndFeel
                         .getIcon("icon_imagecollection.png"));
-    public int itemIndex;
+    private int itemIndex;
 
     private PopupMenuImageCollections() {
         init();

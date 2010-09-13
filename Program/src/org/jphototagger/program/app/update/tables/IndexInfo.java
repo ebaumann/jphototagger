@@ -57,9 +57,9 @@ public class IndexInfo {
         int           i  = 0;
 
         for (String columnName : columnNames) {
-            sb.append(((i++ == 0)
-                       ? ""
-                       : ", ") + columnName);
+            sb.append((i++ == 0)
+                      ? ""
+                      : ", ").append(columnName);
         }
 
         sb.append(")");

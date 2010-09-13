@@ -27,6 +27,7 @@ import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -54,35 +55,52 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
     }
 
     @Override
-    public void templateDeleted(RenameTemplate template) {
+    public void templateDeleted(final RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
 
-        removeElement(template);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                removeElement(template);
+            }
+        });
     }
 
     @Override
-    public void templateInserted(RenameTemplate template) {
+    public void templateInserted(final RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
 
-        addElement(template);
-        setSelectedItem(template);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addElement(template);
+                setSelectedItem(template);
+            }
+        });
     }
 
     @Override
-    public void templateUpdated(RenameTemplate template) {
+    public void templateUpdated(final RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
 
-        int index = getIndexOf(template);
+        final Object src = this;
 
-        if (index >= 0) {
-            ((RenameTemplate) getElementAt(index)).set(template);
-            fireContentsChanged(this, index, index);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = getIndexOf(template);
+
+                if (index >= 0) {
+                    ((RenameTemplate) getElementAt(index)).set(template);
+                    fireContentsChanged(src, index, index);
+                }
+            }
+        });
     }
 }

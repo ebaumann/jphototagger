@@ -195,20 +195,32 @@ public final class Flavor {
         return support.isDataFlavorSupported(KEYWORDS_TREE);
     }
 
-    private final class COLUMN_DATA {}
+    private final class COLUMN_DATA {
+        // Empty
+    }
 
 
-    private final class IMAGE_COLLECTION {}
+    private final class IMAGE_COLLECTION {
+        // Empty
+    }
 
 
-    private final class KEYWORDS_LIST {}
+    private final class KEYWORDS_LIST {
+        // Empty
+    }
 
 
-    private final class KEYWORDS_TREE {}
+    private final class KEYWORDS_TREE {
+        // Empty
+    }
 
 
-    private final class METADATA_TEMPLATES {}
+    private final class METADATA_TEMPLATES {
+        // Empty
+    }
 
 
-    private final class THUMBNAILS_PANEL {}
+    private final class THUMBNAILS_PANEL {
+        // Empty
+    }
 }

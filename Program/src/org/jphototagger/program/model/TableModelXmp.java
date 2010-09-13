@@ -67,7 +67,7 @@ public final class TableModelXmp extends DefaultTableModel {
 
         this.file          = file;
         this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
-        removeAllRows();
+        getDataVector().clear();
         addRows();
     }
 

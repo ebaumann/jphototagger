@@ -25,7 +25,8 @@ import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
@@ -36,6 +37,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -70,11 +72,17 @@ public final class ControllerKeywordsDbUpdates
         }
     }
 
-    private void addKeyword(String keyword) {
+    private void addKeyword(final String keyword) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         TreeModelKeywords model =
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
-        model.insert((DefaultMutableTreeNode) model.getRoot(), keyword, true);
+                model.insert((DefaultMutableTreeNode) model.getRoot(), keyword,
+                             true, false);
+    }
+        });
     }
 
     @Override

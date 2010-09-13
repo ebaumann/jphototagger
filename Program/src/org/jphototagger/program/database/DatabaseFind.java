@@ -182,16 +182,16 @@ public final class DatabaseFind extends Database {
         StringBuilder sql =
             new StringBuilder("SELECT DISTINCT files.filename FROM ");
 
-        sql.append("files" + Join.getJoinToFiles(tablename, Type.INNER)
-                   + " WHERE ");
+        sql.append("files").append(Join.getJoinToFiles(tablename,
+                Type.INNER)).append(" WHERE ");
 
         boolean isFirstColumn = true;
 
         for (Column column : searchColumns) {
-            sql.append((!isFirstColumn
-                        ? " OR "
-                        : "") + column.getTablename() + "." + column.getName()
-                              + " LIKE ?");
+            sql.append(!isFirstColumn
+                       ? " OR "
+                       : "").append(column.getTablename()).append(".").append(
+                           column.getName()).append(" LIKE ?");
             isFirstColumn = false;
         }
 

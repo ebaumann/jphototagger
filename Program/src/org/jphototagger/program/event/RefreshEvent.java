@@ -25,6 +25,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public final class RefreshEvent {
     }
 
     public List<Integer> getSelThumbnails() {
-        return selThumbnails;
+        return Collections.unmodifiableList(selThumbnails);
     }
 
     public void setSelThumbnails(List<Integer> selThumbnails) {

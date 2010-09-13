@@ -119,7 +119,7 @@ public class ExportImportPanel extends javax.swing.JPanel
         addObjects();
     }
 
-    public void addObjects() {
+    private void addObjects() {
         if (isExport()) {
             setExportCheckBoxes();
         } else {

@@ -81,11 +81,8 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                         }
                     });
                 }
-            });
+            }, "JPhotoTagger: Updating database info");
 
-            thread.setName(
-                    "Database info creating table model database info @ "
-                    + getClass().getSimpleName());
             thread.start();
         } else {
             modelDatabaseInfo.setListenToDatabase(true);

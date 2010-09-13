@@ -64,8 +64,8 @@ public final class MetadataTemplatesImporter
         implements Importer, EntityResolver {
     public static final MetadataTemplatesImporter INSTANCE =
         new MetadataTemplatesImporter();
-    private static final long          serialVersionUID    = 1L;
-    private static Map<String, Column> COLUMN_OF_CLASSNAME =
+    private static final long                serialVersionUID = 1L;
+    private static final Map<String, Column> COLUMN_OF_CLASSNAME =
         new HashMap<String, Column>();
 
     static {
@@ -119,7 +119,7 @@ public final class MetadataTemplatesImporter
 
                     if (entryNode.getNodeName().equals(
                             MetadataTemplatesExporter.TAGNAME_ENTRY)) {
-                        NamedNodeMap attrMap  = entryNode.getAttributes();
+                        NamedNodeMap attrMap = entryNode.getAttributes();
                         String       valueStr =
                             attrMap.getNamedItem(MetadataTemplatesExporter
                                 .ATTR_NAME_VALUE).getNodeValue().trim();
@@ -184,7 +184,6 @@ public final class MetadataTemplatesImporter
     @Override
     public InputSource resolveEntity(String publicId, String systemId)
             throws SAXException, IOException {
-
         if (systemId == null) {
             throw new NullPointerException("systemId == null");
         }

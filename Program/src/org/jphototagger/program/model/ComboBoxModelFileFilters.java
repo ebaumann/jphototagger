@@ -31,6 +31,7 @@ import org.jphototagger.program.event.listener
 import org.jphototagger.program.UserSettings;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -86,34 +87,51 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
     }
 
     @Override
-    public void filterInserted(UserDefinedFileFilter filter) {
+    public void filterInserted(final UserDefinedFileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
 
-        addElement(filter);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addElement(filter);
+            }
+        });
     }
 
     @Override
-    public void filterDeleted(UserDefinedFileFilter filter) {
+    public void filterDeleted(final UserDefinedFileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
 
-        removeElement(filter);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                removeElement(filter);
+            }
+        });
     }
 
     @Override
-    public void filterUpdated(UserDefinedFileFilter filter) {
+    public void filterUpdated(final UserDefinedFileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
 
-        int index = getIndexOf(filter);
+        final Object src = this;
 
-        if (index >= 0) {
-            ((UserDefinedFileFilter) getElementAt(index)).set(filter);
-            fireContentsChanged(this, index, index);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = getIndexOf(filter);
+
+                if (index >= 0) {
+                    ((UserDefinedFileFilter) getElementAt(index)).set(filter);
+                    fireContentsChanged(src, index, index);
+                }
+            }
+        });
     }
 }

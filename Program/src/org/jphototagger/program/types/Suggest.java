@@ -36,12 +36,12 @@ public interface Suggest {
      * @param  text text for searching suggestions
      * @return      text suggestions for that text
      */
-    public Collection<String> suggest(String text);
+    Collection<String> suggest(String text);
 
     /**
      * Returns a description what this class does.
      *
      * @return description
      */
-    public String getDescription();
+    String getDescription();
 }

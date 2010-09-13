@@ -35,17 +35,17 @@ public interface DatabaseActionsAfterDbInsertionListener {
      *
      * @param program inserted program
      */
-    public void programInserted(Program program);
+    void programInserted(Program program);
 
     /**
      * A program was delete from the database.
      *
      * @param program deleted program
      */
-    public void programDeleted(Program program);
+    void programDeleted(Program program);
 
     /**
      * All programs were reordered.
      */
-    public void programsReordered();
+    void programsReordered();
 }

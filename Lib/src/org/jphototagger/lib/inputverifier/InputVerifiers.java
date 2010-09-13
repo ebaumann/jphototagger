@@ -24,6 +24,7 @@ package org.jphototagger.lib.inputverifier;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.InputVerifier;
@@ -52,7 +53,7 @@ public class InputVerifiers extends InputVerifier implements Serializable {
     }
 
     protected List<InputVerifier> getVerifiers() {
-        return verifiers;
+        return Collections.unmodifiableList(verifiers);
     }
 
     /**

@@ -35,6 +35,7 @@ import java.awt.event.KeyListener;
 
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -67,7 +68,7 @@ public class ControllerDeleteKeywords extends ControllerKeywords
     }
 
     @Override
-    protected void localAction(List<DefaultMutableTreeNode> nodes) {
+    protected void localAction(final List<DefaultMutableTreeNode> nodes) {
         if (nodes == null) {
             throw new NullPointerException("nodes == null");
         }
@@ -76,16 +77,22 @@ public class ControllerDeleteKeywords extends ControllerKeywords
             return;
         }
 
-        for (DefaultMutableTreeNode node : nodes) {
-            Object userObject = node.getUserObject();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                for (DefaultMutableTreeNode node : nodes) {
+                    Object userObject = node.getUserObject();
 
-            if (userObject instanceof Keyword) {
-                delete(node, (Keyword) userObject, nodes.size() == 1);
-            } else {
-                MessageDisplayer.error(
-                    null, "ControllerDeleteKeywords.Tree.Error.Node", node);
+                    if (userObject instanceof Keyword) {
+                        delete(node, (Keyword) userObject, nodes.size() == 1);
+                    } else {
+                        MessageDisplayer.error(
+                            null, "ControllerDeleteKeywords.Tree.Error.Node",
+                            node);
+                    }
+                }
             }
-        }
+        });
     }
 
     private void delete(DefaultMutableTreeNode node, Keyword keyword,

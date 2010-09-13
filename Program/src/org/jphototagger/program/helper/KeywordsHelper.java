@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.program.app.AppLogger;
@@ -47,6 +48,7 @@ import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -357,13 +359,10 @@ public final class KeywordsHelper {
     }
 
     private static List<JTree> getKeywordTrees() {
-        List<JTree> trees = new ArrayList<JTree>();
-
-        trees.add(GUI.INSTANCE.getAppPanel().getTreeEditKeywords());
-        trees.add(GUI.INSTANCE.getAppPanel().getTreeSelKeywords());
-        trees.add(InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
-
-        return trees;
+        return Arrays.<JTree>asList(
+            GUI.INSTANCE.getAppPanel().getTreeEditKeywords(),
+            GUI.INSTANCE.getAppPanel().getTreeSelKeywords(),
+            InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
     public static void selectInSelKeywordsList(final List<Integer> indices) {
@@ -385,6 +384,21 @@ public final class KeywordsHelper {
                     selKeywordsList.setSelectedIndices(
                         ArrayUtil.toIntArray(indices));
                     selKeywordsList.ensureIndexIsVisible(indices.get(0));
+                }
+            }
+        });
+    }
+
+    public static void expandAllTreesTo(final DefaultMutableTreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                for (JTree tree : getKeywordTrees()) {
+                    TreeUtil.expandPath(tree, new TreePath(node.getPath()));
                 }
             }
         });
@@ -444,8 +458,8 @@ public final class KeywordsHelper {
         private volatile boolean cancel;
 
         DeleteDcSubject(String keyword) {
+            super("JPhotoTagger: Deleting keyword");
             this.dcSubject = keyword;
-            setName("Deleting keyword @ " + getClass().getSimpleName());
             setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Delete"));
         }
 
@@ -505,9 +519,9 @@ public final class KeywordsHelper {
         private volatile boolean cancel;
 
         RenameDcSubject(String fromName, String toName) {
+            super("JPhotoTagger: Renaming DC subject");
             this.fromName = fromName;
             this.toName   = toName;
-            setName("Renaming DC subject @ " + getClass().getSimpleName());
             setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Rename"));
         }
 
@@ -540,7 +554,16 @@ public final class KeywordsHelper {
                 progressPerformed(index + 1, xmp);
             }
 
+            deleteKeyword();
             progressEnded(index);
+        }
+
+        private void deleteKeyword() {
+            DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+
+            if (!db.isDcSubjectReferenced(fromName)) {
+                db.deleteDcSubject(fromName);
+            }
         }
 
         private static void logStartRename(String fromName, String toName) {

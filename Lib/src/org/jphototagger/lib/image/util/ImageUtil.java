@@ -212,18 +212,19 @@ public final class ImageUtil {
             int    scaledHeight = (int) (origHeight / factor);
             int    pass         = 1;
 
+            BufferedImage img = image;
             while (((origWidth * qfactor) > scaledWidth)
                     || ((origHeight * qfactor) > scaledHeight)) {
                 int width  = (int) (origWidth * qfactor);
                 int height = (int) (origHeight * qfactor);
 
-                image      = scaleImage(width, height, image);
-                origWidth  = image.getWidth();
-                origHeight = image.getHeight();
+                img      = scaleImage(width, height, img);
+                origWidth  = img.getWidth();
+                origHeight = img.getHeight();
                 pass++;
             }
 
-            scaledImage = scaleImage(scaledWidth, scaledHeight, image);
+            scaledImage = scaleImage(scaledWidth, scaledHeight, img);
         } catch (Exception ex) {
             Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null,
                              ex);

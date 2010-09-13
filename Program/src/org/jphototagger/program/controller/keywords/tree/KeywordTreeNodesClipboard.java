@@ -22,6 +22,7 @@
 package org.jphototagger.program.controller.keywords.tree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -45,7 +46,7 @@ public final class KeywordTreeNodesClipboard {
     }
 
     public List<DefaultMutableTreeNode> getContent() {
-        return nodes;
+        return Collections.unmodifiableList(nodes);
     }
 
     public void setContent(DefaultMutableTreeNode node, Action action) {

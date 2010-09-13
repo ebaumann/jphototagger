@@ -24,6 +24,7 @@ package org.jphototagger.program.model;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.comparator.ComparatorSavedSearch;
 import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;
 import org.jphototagger.program.helper.SavedSearchesHelper;
@@ -31,7 +32,7 @@ import org.jphototagger.program.helper.SavedSearchesHelper;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import org.jphototagger.program.database.ConnectionPool;
+import javax.swing.SwingUtilities;
 
 /**
  * Elements are {@link SavedSearch}es.
@@ -66,44 +67,62 @@ public final class ListModelSavedSearches extends DefaultListModel
     }
 
     @Override
-    public void searchInserted(SavedSearch savedSearch) {
+    public void searchInserted(final SavedSearch savedSearch) {
         if (savedSearch == null) {
             throw new NullPointerException("savedSearch == null");
         }
 
-        insertSorted(savedSearch);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                insertSorted(savedSearch);
+            }
+        });
     }
 
     @Override
-    public void searchUpdated(SavedSearch savedSearch) {
+    public void searchUpdated(final SavedSearch savedSearch) {
         if (savedSearch == null) {
             throw new NullPointerException("savedSearch == null");
         }
 
-        int index = indexOf(savedSearch);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = indexOf(savedSearch);
 
-        if (index >= 0) {
-            set(index, savedSearch);
-        } else {
-            insertSorted(savedSearch);
-        }
+                if (index >= 0) {
+                    set(index, savedSearch);
+                } else {
+                    insertSorted(savedSearch);
+                }
+            }
+        });
     }
 
     @Override
-    public void searchDeleted(String name) {
+    public void searchDeleted(final String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
 
-        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, name);
+        final DefaultListModel model = this;
 
-        if (index >= 0) {
-            remove(index);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = SavedSearchesHelper.getIndexOfSavedSearch(model,
+                                name);
+
+                if (index >= 0) {
+                    remove(index);
+                }
+            }
+        });
     }
 
     @Override
-    public void searchRenamed(String fromName, String toName) {
+    public void searchRenamed(final String fromName, final String toName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
@@ -112,13 +131,22 @@ public final class ListModelSavedSearches extends DefaultListModel
             throw new NullPointerException("toName == null");
         }
 
-        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, fromName);
+        final Object           src   = this;
+        final DefaultListModel model = this;
 
-        if (index >= 0) {
-            SavedSearch savedSearch = (SavedSearch) get(index);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = SavedSearchesHelper.getIndexOfSavedSearch(model,
+                                fromName);
 
-            savedSearch.setName(toName);
-            fireContentsChanged(this, index, index);
-        }
+                if (index >= 0) {
+                    SavedSearch savedSearch = (SavedSearch) get(index);
+
+                    savedSearch.setName(toName);
+                    fireContentsChanged(src, index, index);
+                }
+            }
+        });
     }
 }

@@ -147,10 +147,10 @@ public final class RenameDeleteXmpValue {
         private volatile boolean cancel;
 
         Rename(Column column, String oldValue, String newValue) {
+            super("JPhotoTagger: Renaming XMP value");
             this.column   = column;
             this.oldValue = oldValue.trim();
             this.newValue = newValue.trim();
-            setName("Renaming XMP value @ " + getClass().getSimpleName());
         }
 
         @Override

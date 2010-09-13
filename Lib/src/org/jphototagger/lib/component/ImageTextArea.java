@@ -48,7 +48,7 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
     private static final long serialVersionUID = -3386009175292905714L;
     private boolean           consumeEnter;
     private Image             image;
-    protected String          imagePath;
+    private String            imagePath;
     private boolean           paintImage;
 
     public ImageTextArea() {
@@ -129,7 +129,8 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent evt) {
-        paintImage = (getDocument().getLength() <= 0) && (evt.getKeyChar() < 20);
+        paintImage = (getDocument().getLength() <= 0)
+                     && (evt.getKeyChar() < 20);
         setOpaque(!paintImage);
     }
 

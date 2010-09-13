@@ -70,7 +70,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         private final Map<String, String> descriptionOfDelimiter =
             new LinkedHashMap<String, String>();
 
-        public DelimiterModel() {
+        DelimiterModel() {
             addElements();
         }
 

@@ -22,6 +22,7 @@
 package org.jphototagger.lib.util.logging;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public final class ExceptionLogfileRecord {
      * @return Stack-Frames
      */
     public List<FrameLogfileRecord> getFrames() {
-        return logfileRecordFrames;
+        return Collections.unmodifiableList(logfileRecordFrames);
     }
 
     /**

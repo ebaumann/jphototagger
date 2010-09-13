@@ -21,9 +21,9 @@
 
 package org.jphototagger.plugin.cftc;
 
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.plugin.PluginEvent;
-import org.jphototagger.lib.resource.Bundle;
 
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
@@ -47,15 +47,14 @@ import javax.swing.JPanel;
  */
 public final class CopyFilenamesToClipboard extends Plugin
         implements Serializable {
-    private static final long  serialVersionUID       = 526527636923496736L;
+    private static final long  serialVersionUID = 526527636923496736L;
     public static final String KEY_FILENAME_DELIMITER =
         CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
     public static final String            DEFAULT_FILENAME_DELIMITER = "\n";
-    private final CopyAction              copyAction                 =
-        new CopyAction();
-    private String                        fileNameDelimiter          =
+    private final CopyAction              copyAction = new CopyAction();
+    private String                        fileNameDelimiter =
         DEFAULT_FILENAME_DELIMITER;
-    private static final transient Bundle BUNDLE                     =
+    private static final transient Bundle BUNDLE =
         new Bundle("org/jphototagger/plugin/cftc/Bundle");
 
     public CopyFilenamesToClipboard() {}
@@ -88,7 +87,7 @@ public final class CopyFilenamesToClipboard extends Plugin
     private class CopyAction extends AbstractAction {
         private static final long serialVersionUID = 932072385600278529L;
 
-        public CopyAction() {
+        CopyAction() {
             putValue(Action.NAME, getName());
         }
 
@@ -101,9 +100,9 @@ public final class CopyFilenamesToClipboard extends Plugin
             int           index = 0;
 
             for (File file : getFiles()) {
-                sb.append(((index++ == 0)
-                           ? ""
-                           : fileNameDelimiter) + file.getAbsolutePath());
+                sb.append((index++ == 0)
+                          ? ""
+                          : fileNameDelimiter).append(file.getAbsolutePath());
             }
 
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(

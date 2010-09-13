@@ -30,6 +30,7 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Contains {@link Program}s retrieved through
@@ -74,54 +75,70 @@ public final class ListModelPrograms extends DefaultListModel
     }
 
     @Override
-    public void programDeleted(Program program) {
+    public void programDeleted(final Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
 
         if (isAppropriateProgramType(program)) {
-            removeElement(program);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    removeElement(program);
+                }
+            });
         }
     }
 
     @Override
-    public void programInserted(Program program) {
+    public void programInserted(final Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
 
         if (isAppropriateProgramType(program)) {
-            addElement(program);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    addElement(program);
+                }
+            });
         }
     }
 
     @Override
-    public void programUpdated(Program program) {
+    public void programUpdated(final Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
 
         if (isAppropriateProgramType(program)) {
-            int index = indexOf(program);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    int index = indexOf(program);
 
-            if (index >= 0) {
-                int     sequenceNumber = program.getSequenceNumber();
-                boolean validSeqNumber = (sequenceNumber >= 0)
-                                         && (sequenceNumber <= getSize());
+                    if (index >= 0) {
+                        int     sequenceNumber = program.getSequenceNumber();
+                        boolean validSeqNumber = (sequenceNumber >= 0)
+                                                 && (sequenceNumber
+                                                     <= getSize());
 
-                if (!validSeqNumber) {
-                    throw new IllegalArgumentException(
-                        "Invalid sequence number. Size: " + getSize()
-                        + ". Sequence number: " + sequenceNumber);
+                        if (!validSeqNumber) {
+                            throw new IllegalArgumentException(
+                                "Invalid sequence number. Size: " + getSize()
+                                + ". Sequence number: " + sequenceNumber);
+                        }
+
+                        if (index == sequenceNumber) {
+                            set(index, program);
+                        } else if (validSeqNumber) {
+                            remove(index);
+                            insertElementAt(program, sequenceNumber);
+                        }
+                    }
                 }
-
-                if (index == sequenceNumber) {
-                    set(index, program);
-                } else if (validSeqNumber) {
-                    remove(index);
-                    insertElementAt(program, sequenceNumber);
-                }
-            }
+            });
         }
     }
 }

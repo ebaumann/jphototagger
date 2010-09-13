@@ -62,13 +62,13 @@ public final class UserDefinedFileFilterExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmpFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
 
         try {
             Set<UserDefinedFileFilter> filter =
                 DatabaseUserDefinedFileFilters.INSTANCE.getAll();
 
-            XmlObjectExporter.export(new CollectionWrapper(filter), file);
+            XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
         } catch (Exception ex) {
             AppLogger.logSevere(UserDefinedFileFilterExporter.class, ex);
         }

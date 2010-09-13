@@ -143,10 +143,9 @@ public final class CopyToDirectoryDialog extends Dialog
         copyTask = new CopyFiles(getFiles(addXmp), options);
         copyTask.addProgressListener(this);
 
-        Thread thread = new Thread(copyTask);
+        Thread thread = new Thread(copyTask,
+                "JPhotoTagger: Copying files to directories");
 
-        thread.setName("Copying files to directories @ "
-                       + getClass().getSimpleName());
         thread.start();
     }
 
@@ -248,7 +247,7 @@ public final class CopyToDirectoryDialog extends Dialog
             throw new NullPointerException("sourceFiles == null");
         }
 
-        this.sourceFiles = sourceFiles;
+        this.sourceFiles = new ArrayList<File>(sourceFiles);
     }
 
     /**

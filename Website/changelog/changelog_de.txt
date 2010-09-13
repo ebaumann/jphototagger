@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.43 2010-09-13
+-----------------
+
+* Umbenennen eines Stichworts: Existiert der Name bereits, wird das umbenannte
+  Stichwort gelöscht
+* GUI wird beim Start später angezeigt, dabei sollten einige Probleme nicht
+  vorkommen (Multithreading)
+* Interna modifiziert
+
 0.8.42 2010-09-12
 -----------------
 

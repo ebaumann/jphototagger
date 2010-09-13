@@ -49,6 +49,7 @@ import java.util.Stack;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
@@ -222,7 +223,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             if (nodeToMoveDown != null) {
                 int     indexNodeToMoveDown = rootNode.getIndex(nodeToMoveDown);
                 boolean isLastNode = indexNodeToMoveDown
-                                              == rootNode.getChildCount() - 1;
+                                     == rootNode.getChildCount() - 1;
 
                 if (!isLastNode) {
                     DefaultMutableTreeNode nextNode =
@@ -655,45 +656,62 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     @Override
-    public void favoriteInserted(Favorite favorite) {
+    public void favoriteInserted(final Favorite favorite) {
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
 
         if (listenToDb) {
-            addFavorite(favorite);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    addFavorite(favorite);
+                }
+            });
         }
     }
 
     @Override
-    public void favoriteDeleted(Favorite favorite) {
+    public void favoriteDeleted(final Favorite favorite) {
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
 
         if (listenToDb) {
-            DefaultMutableTreeNode favNode = getNode(favorite);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    DefaultMutableTreeNode favNode = getNode(favorite);
 
-            if (favNode != null) {
-                removeNodeFromParent(favNode);
-                resetFavoriteIndices();
-            }
+                    if (favNode != null) {
+                        removeNodeFromParent(favNode);
+                        resetFavoriteIndices();
+                    }
+                }
+            });
         }
     }
 
     @Override
-    public void favoriteUpdated(Favorite oldFavorite,
-                                Favorite updatedFavorite) {
+    public void favoriteUpdated(final Favorite oldFavorite,
+                                final Favorite updatedFavorite) {
         if (updatedFavorite == null) {
             throw new NullPointerException("updatedFavorite == null");
         }
 
         if (listenToDb) {
-            DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    DefaultMutableTreeNode nodeOfFavorite =
+                        getNode(oldFavorite);
 
-            if (nodeOfFavorite != null) {
-                updateNodes(oldFavorite, updatedFavorite, nodeOfFavorite);
-            }
+                    if (nodeOfFavorite != null) {
+                        updateNodes(oldFavorite, updatedFavorite,
+                                    nodeOfFavorite);
+                    }
+                }
+            });
         }
     }
 
@@ -743,7 +761,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     public void treeWillCollapse(TreeExpansionEvent event)
             throws ExpandVetoException {
 
-            // ignore
+        // ignore
     }
 
     @Override

@@ -22,11 +22,12 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.event.listener.DatabaseSynonymsListener;
 
 import javax.swing.DefaultListModel;
-import org.jphototagger.program.database.ConnectionPool;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -61,7 +62,7 @@ public final class ListModelSynonyms extends DefaultListModel
                && this.word.equals(word);
     }
 
-    public void addWord(String word) {
+    public void addWord(final String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -73,7 +74,7 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    public void removeWord(String word) {
+    public void removeWord(final String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -88,7 +89,7 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    public void changeWord(String oldWord, String newWord) {
+    public void changeWord(final String oldWord, final String newWord) {
         if (oldWord == null) {
             throw new NullPointerException("oldWord == null");
         }
@@ -107,7 +108,7 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    public void addSynonym(String synonym) {
+    public void addSynonym(final String synonym) {
         if (synonym == null) {
             throw new NullPointerException("synonym == null");
         }
@@ -129,7 +130,7 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    public void removeSynonym(String synonym) {
+    public void removeSynonym(final String synonym) {
         if (synonym == null) {
             throw new NullPointerException("synonym == null");
         }
@@ -147,7 +148,8 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    public void changeSynonym(String oldSynonym, String newSynonym) {
+    public void changeSynonym(final String oldSynonym,
+                              final String newSynonym) {
         if (newSynonym == null) {
             throw new NullPointerException("newSynonym == null");
         }
@@ -172,22 +174,24 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    public void setWord(String word) {
+    public void setWord(final String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
 
+        final ListModelSynonyms model = this;
+
         assert role.equals(Role.SYNONYMS);
 
         if (role.equals(Role.SYNONYMS)
-                && ((this.word == null) ||!this.word.equals(word))) {
-            this.word = word;
+                && ((model.word == null) ||!model.word.equals(word))) {
+            model.word = word;
             addElements();
         }
     }
 
     @Override
-    public void synonymOfWordDeleted(String word, String synonym) {
+    public void synonymOfWordDeleted(final String word, final String synonym) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -196,16 +200,21 @@ public final class ListModelSynonyms extends DefaultListModel
             throw new NullPointerException("synonym == null");
         }
 
-        if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
-            removeElement(synonym);
-        } else if (listen && role.equals(Role.WORDS) && contains(word)
-                   &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
-            removeElement(word);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
+                    removeElement(synonym);
+                } else if (listen && role.equals(Role.WORDS) && contains(word)
+                           &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
+                    removeElement(word);
+                }
+            }
+        });
     }
 
     @Override
-    public void synonymInserted(String word, String synonym) {
+    public void synonymInserted(final String word, final String synonym) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -214,16 +223,23 @@ public final class ListModelSynonyms extends DefaultListModel
             throw new NullPointerException("synonym == null");
         }
 
-        if (listen && role.equals(Role.WORDS) &&!contains(word)) {
-            addElement(word);
-        } else if (listen && isRoleSynonymForWord(word) &&!contains(synonym)) {
-            addElement(synonym);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listen && role.equals(Role.WORDS) &&!contains(word)) {
+                    addElement(word);
+                } else if (listen && isRoleSynonymForWord(word)
+                           &&!contains(synonym)) {
+                    addElement(synonym);
+                }
+            }
+        });
     }
 
     @Override
-    public void synonymOfWordRenamed(String word, String oldSynonymName,
-                                     String newSynonymName) {
+    public void synonymOfWordRenamed(final String word,
+                                     final String oldSynonymName,
+                                     final String newSynonymName) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -236,13 +252,20 @@ public final class ListModelSynonyms extends DefaultListModel
             throw new NullPointerException("newSynonymName == null");
         }
 
-        if (listen && isRoleSynonymForWord(word) && contains(oldSynonymName)) {
-            setElementAt(newSynonymName, indexOf(oldSynonymName));
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listen && isRoleSynonymForWord(word)
+                        && contains(oldSynonymName)) {
+                    setElementAt(newSynonymName, indexOf(oldSynonymName));
+                }
+            }
+        });
     }
 
     @Override
-    public void synonymRenamed(String oldSynonymName, String newSynonymName) {
+    public void synonymRenamed(final String oldSynonymName,
+                               final String newSynonymName) {
         if (oldSynonymName == null) {
             throw new NullPointerException("oldSynonymName == null");
         }
@@ -251,26 +274,37 @@ public final class ListModelSynonyms extends DefaultListModel
             throw new NullPointerException("newSynonymName == null");
         }
 
-        if (listen && role.equals(Role.SYNONYMS) && contains(oldSynonymName)) {
-            setElementAt(newSynonymName, indexOf(oldSynonymName));
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listen && role.equals(Role.SYNONYMS)
+                        && contains(oldSynonymName)) {
+                    setElementAt(newSynonymName, indexOf(oldSynonymName));
+                }
+            }
+        });
     }
 
     @Override
-    public void wordDeleted(String word) {
+    public void wordDeleted(final String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
 
-        if (listen && role.equals(Role.WORDS) && contains(word)) {
-            removeElement(word);
-        } else if (listen && isRoleSynonymForWord(word)) {
-            removeAllElements();
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listen && role.equals(Role.WORDS) && contains(word)) {
+                    removeElement(word);
+                } else if (listen && isRoleSynonymForWord(word)) {
+                    removeAllElements();
+                }
+            }
+        });
     }
 
     @Override
-    public void wordRenamed(String fromName, String toName) {
+    public void wordRenamed(final String fromName, final String toName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
@@ -279,9 +313,14 @@ public final class ListModelSynonyms extends DefaultListModel
             throw new NullPointerException("toName == null");
         }
 
-        if (listen && role.equals(Role.WORDS) && contains(fromName)) {
-            setElementAt(toName, indexOf(fromName));
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listen && role.equals(Role.WORDS) && contains(fromName)) {
+                    setElementAt(toName, indexOf(fromName));
+                }
+            }
+        });
     }
 
     private void addElements() {
@@ -296,7 +335,7 @@ public final class ListModelSynonyms extends DefaultListModel
             for (String w : DatabaseSynonyms.INSTANCE.getAllWords()) {
                 addElement(w);
             }
-        } else if (role.equals(Role.SYNONYMS) && word != null) {
+        } else if (role.equals(Role.SYNONYMS) && (word != null)) {
             for (String s : DatabaseSynonyms.INSTANCE.getSynonymsOf(word)) {
                 addElement(s);
             }

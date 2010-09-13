@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  * Element are {@link String}s retrieved through
@@ -47,8 +48,8 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         -8337739189362442866L;
     private final transient DatabaseFileExcludePatterns db =
         DatabaseFileExcludePatterns.INSTANCE;
-    private transient boolean listenToDb = true;
-    private List<String>      patterns;
+    private volatile transient boolean listenToDb = true;
+    private List<String>               patterns;
 
     public ListModelFileExcludePatterns() {
         addElements();
@@ -59,7 +60,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         return new ArrayList<String>(patterns);
     }
 
-    public void insert(String pattern) {
+    public void insert(final String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
@@ -84,7 +85,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         listenToDb = true;
     }
 
-    public void delete(String pattern) {
+    public void delete(final String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
@@ -134,26 +135,36 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
     }
 
     @Override
-    public void patternInserted(String pattern) {
+    public void patternInserted(final String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
 
-        if (listenToDb) {
-            addElement(pattern);
-            patterns.add(pattern);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listenToDb) {
+                    addElement(pattern);
+                    patterns.add(pattern);
+                }
+            }
+        });
     }
 
     @Override
-    public void patternDeleted(String pattern) {
+    public void patternDeleted(final String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
 
-        if (listenToDb) {
-            removeElement(pattern);
-            patterns.remove(pattern);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (listenToDb) {
+                    removeElement(pattern);
+                    patterns.remove(pattern);
+                }
+            }
+        });
     }
 }

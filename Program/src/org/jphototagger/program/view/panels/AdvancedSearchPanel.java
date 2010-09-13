@@ -83,7 +83,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private final JPanel                          panelPadding    = new JPanel();
 
     public interface NameListener {
-        public void nameChanged(String newName);
+        void nameChanged(String newName);
     }
 
     public AdvancedSearchPanel() {
