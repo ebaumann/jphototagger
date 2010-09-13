@@ -44,6 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
 /**
@@ -60,7 +61,7 @@ public final class AppWindowPersistence
         "AppPanel.DividerLocationMain";
     private static final String KEY_DIVIDER_LOCATION_THUMBNAILS =
         "AppPanel.DividerLocationThumbnails";
-    private static final String KEY_KEYWORDS_VIEW   = "AppPanel.KeywordsView";
+    private static final String KEY_KEYWORDS_VIEW = "AppPanel.KeywordsView";
     private final Component     cardSelKeywordsList =
         GUI.INSTANCE.getAppPanel().getCardSelKeywordsList();
     private final Component cardSelKeywordsTree =
@@ -204,15 +205,20 @@ public final class AppWindowPersistence
         ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
 
         if (tnPanel.getSelectionCount() == 1) {
-            TableModel model = appPanel.getTableIptc().getModel();
+            final TableModel model = appPanel.getTableIptc().getModel();
 
             if (model instanceof TableModelIptc) {
                 final List<File> selFiles = tnPanel.getSelectedFiles();
 
                 if (selFiles.size() == 1) {
-                    File file = selFiles.get(0);
+                    final File file = selFiles.get(0);
 
-                    ((TableModelIptc) model).setFile(file);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((TableModelIptc) model).setFile(file);
+                        }
+                    });
                 }
             }
         }

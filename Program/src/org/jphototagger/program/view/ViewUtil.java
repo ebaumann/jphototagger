@@ -32,8 +32,6 @@ import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Point;
-import java.awt.Rectangle;
 
 import java.io.File;
 
@@ -168,11 +166,13 @@ public class ViewUtil {
             fc.setFileFilter(filter);
         }
 
-        if (parent == null) {
-            parent = GUI.INSTANCE.getAppFrame();
+        Component parentComp = parent;
+
+        if (parentComp == null) {
+            parentComp = GUI.INSTANCE.getAppFrame();
         }
 
-        if (fc.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
+        if (fc.showOpenDialog(parentComp) == JFileChooser.APPROVE_OPTION) {
             File selFile = fc.getSelectedFile();
 
             UserSettings.INSTANCE.getSettings().set(selFile.getAbsolutePath(),

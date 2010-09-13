@@ -183,9 +183,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
 
     private class SetCountThread extends Thread {
         SetCountThread() {
-            super();
-            setName("Setting count in database info @ "
-                    + getClass().getSimpleName());
+            super("JPhotoTagger: Setting count in database info");
             setPriority(MIN_PRIORITY);
         }
 

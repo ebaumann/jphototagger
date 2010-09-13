@@ -124,7 +124,7 @@ public final class UserDefinedFileFilter implements Serializable {
                     char lc = Character.toLowerCase(c);
                     char uc = Character.toUpperCase(c);
 
-                    sb.append("[" + uc + lc + "]");
+                    sb.append("[").append(uc).append(lc).append("]");
                 } else {
                     sb.append(c);
                 }

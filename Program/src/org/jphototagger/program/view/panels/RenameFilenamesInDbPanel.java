@@ -84,10 +84,8 @@ public class RenameFilenamesInDbPanel extends JPanel
                         null, "RenameFilenamesInDbPanel.Info.Count", count);
                     runs = false;
                 }
-            });
+            }, "JPhotoTagger: Renaming files in database");
 
-            thread.setName("Replacing filename substrings in the database @ "
-                           + getClass().getSimpleName());
             thread.start();
         }
     }

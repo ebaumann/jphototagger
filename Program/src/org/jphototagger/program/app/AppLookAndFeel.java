@@ -32,6 +32,7 @@ import java.awt.Font;
 import java.awt.Image;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -110,11 +111,11 @@ public final class AppLookAndFeel {
     private AppLookAndFeel() {}
 
     public static List<Image> getAppIcons() {
-        return APP_ICONS;
+        return Collections.unmodifiableList(APP_ICONS);
     }
 
     public static List<String> getAppIconPaths() {
-        return APP_ICON_PATHS;
+        return Collections.unmodifiableList(APP_ICON_PATHS);
     }
 
     /**
@@ -142,7 +143,7 @@ public final class AppLookAndFeel {
         }
 
         String lang          = Locale.getDefault().getLanguage();
-        int    lastPathDelim = path.lastIndexOf("/");
+        int    lastPathDelim = path.lastIndexOf('/');
 
         return (lastPathDelim >= 0)
                ? path.substring(0, lastPathDelim + 1) + lang + "/"

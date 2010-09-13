@@ -107,7 +107,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
     private class UploadAction extends AbstractAction {
         private static final long serialVersionUID = -5807124252712511456L;
 
-        public UploadAction() {
+        UploadAction() {
             putValue(Action.NAME, getName());
             putValue(Action.SMALL_ICON, icon);
         }

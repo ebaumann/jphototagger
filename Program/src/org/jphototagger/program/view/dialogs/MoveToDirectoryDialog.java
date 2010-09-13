@@ -141,13 +141,15 @@ public final class MoveToDirectoryDialog extends Dialog
                 CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         addListenerToMoveTask();
 
-        Thread thread = new Thread(moveTask);
+        Thread thread = new Thread(moveTask, getMoveThreadName());
 
-        thread.setName("Moving files to directory "
-                       + targetDirectory.getAbsolutePath() + " @ "
-                       + getClass().getSimpleName());
         thread.start();
         runs = true;
+    }
+
+    private String getMoveThreadName() {
+        return "JPhotoTagger: Moving files to directory "
+                + targetDirectory.getAbsolutePath();
     }
 
     public void addFileSystemListener(FileSystemListener listener) {

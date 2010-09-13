@@ -60,7 +60,7 @@ public final class ProgramsExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
 
         try {
             List<Program> programs =
@@ -69,7 +69,7 @@ public final class ProgramsExporter implements Exporter {
             programs.addAll(
                 DatabasePrograms.INSTANCE.getAll(
                     DatabasePrograms.Type.PROGRAM));
-            XmlObjectExporter.export(new CollectionWrapper(programs), file);
+            XmlObjectExporter.export(new CollectionWrapper(programs), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(ProgramsExporter.class, ex);
         }

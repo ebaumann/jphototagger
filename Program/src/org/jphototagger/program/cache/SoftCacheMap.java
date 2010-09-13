@@ -40,7 +40,7 @@ import java.util.TreeSet;
  * @author Martin Pohlack
  */
 public class SoftCacheMap<C extends CacheIndirection> {
-    HashMap<File, SoftReference<C>> _map = new HashMap<File,
+    private HashMap<File, SoftReference<C>> _map = new HashMap<File,
                                                SoftReference<C>>();
     private final int  MAX_ENTRIES;
     final WorkQueue<C> w;

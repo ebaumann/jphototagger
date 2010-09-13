@@ -31,10 +31,10 @@ public interface ThumbnailsPanelListener {
     /**
      * Thumbnails were selected or deselected.
      */
-    public void thumbnailsSelectionChanged();
+    void thumbnailsSelectionChanged();
 
     /**
      * Count and/or order of the thumbnails changed.
      */
-    public void thumbnailsChanged();
+    void thumbnailsChanged();
 }

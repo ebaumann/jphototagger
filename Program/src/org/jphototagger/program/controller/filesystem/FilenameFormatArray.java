@@ -85,15 +85,15 @@ public final class FilenameFormatArray implements FilenameFormatListener {
      * @return filename
      */
     public String format() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         synchronized (formats) {
             for (FilenameFormat format : formats) {
-                buffer.append(format.format());
+                sb.append(format.format());
             }
         }
 
-        return buffer.toString();
+        return sb.toString();
     }
 
     /**

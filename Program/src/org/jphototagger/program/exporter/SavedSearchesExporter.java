@@ -61,14 +61,14 @@ public final class SavedSearchesExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
 
         try {
             List<SavedSearch> savedSearches =
                 DatabaseSavedSearches.INSTANCE.getAll();
 
             XmlObjectExporter.export(new CollectionWrapper(savedSearches),
-                                     file);
+                                     xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(SavedSearchesExporter.class, ex);
         }

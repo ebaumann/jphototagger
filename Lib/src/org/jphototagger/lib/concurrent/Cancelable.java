@@ -30,5 +30,5 @@ public interface Cancelable {
     /**
      * Does cancel the operation.
      */
-    public void cancel();
+    void cancel();
 }

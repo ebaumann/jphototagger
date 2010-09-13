@@ -92,7 +92,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         return true;
     }
 
-    protected void handleDroppedThumbnails(int itemIndex,
+    private void handleDroppedThumbnails(int itemIndex,
             List<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");

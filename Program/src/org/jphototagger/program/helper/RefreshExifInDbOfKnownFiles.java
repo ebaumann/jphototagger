@@ -40,8 +40,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
     private volatile boolean cancel;
 
     public RefreshExifInDbOfKnownFiles() {
-        setName("Refreshing EXIF in the database of known files @ "
-                + getClass().getSimpleName());
+        super("JPhotoTagger: Refreshing EXIF in the database of known files");
         setInfo(
             JptBundle.INSTANCE.getString("RefreshExifInDbOfKnownFiles.Info"));
     }

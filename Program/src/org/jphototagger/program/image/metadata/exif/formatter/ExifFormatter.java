@@ -21,11 +21,11 @@
 
 package org.jphototagger.program.image.metadata.exif.formatter;
 
+import java.util.EnumMap;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.resource.Translation;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public abstract class ExifFormatter {
     private static final Map<IfdType, Translation> TRANSLATION_OF_IFD =
-        new HashMap<IfdType, Translation>();
+        new EnumMap<IfdType, Translation>(IfdType.class);
 
     static {
         TRANSLATION_OF_IFD.put(

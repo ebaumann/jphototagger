@@ -232,7 +232,7 @@ public final class Xmp {
         }
 
         String imgFilename    = imageFile.getAbsolutePath();
-        int    indexExtension = imgFilename.lastIndexOf(".");
+        int    indexExtension = imgFilename.lastIndexOf('.');
 
         if (indexExtension > 0) {
             File sidecarFile = new File(imgFilename.substring(0,

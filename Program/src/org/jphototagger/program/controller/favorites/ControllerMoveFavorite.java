@@ -73,11 +73,16 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         @Override
         public void run() {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
             if (up) {
                 moveUp(getFavoriteDirectory());
             } else {
                 moveDown(getFavoriteDirectory());
             }
+        }
+            });
         }
 
         private Favorite getFavoriteDirectory() {

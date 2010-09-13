@@ -21,17 +21,17 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard
-    .Action;
+import org.jphototagger.program.controller.keywords.tree
+    .KeywordTreeNodesClipboard.Action;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
@@ -43,6 +43,7 @@ import java.util.ArrayList;
 
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -64,8 +65,7 @@ import javax.swing.tree.TreePath;
 public class ControllerCopyCutPasteKeyword
         implements ActionListener, KeyListener {
     private final KeywordsPanel         panel;
-    private final PopupMenuKeywordsTree popup     =
-        PopupMenuKeywordsTree.INSTANCE;
+    private final PopupMenuKeywordsTree popup = PopupMenuKeywordsTree.INSTANCE;
     private final JMenuItem             itemCopy  = popup.getItemCopy();
     private final JMenuItem             itemCut   = popup.getItemCut();
     private final JMenuItem             itemPaste = popup.getItemPaste();
@@ -88,10 +88,10 @@ public class ControllerCopyCutPasteKeyword
     // to implement a separate class
     @Override
     public void actionPerformed(ActionEvent evt) {
-        Object                 source            = evt.getSource();
+        Object                 source = evt.getSource();
         Object                 lastPathComponent =
             popup.getTreePath().getLastPathComponent();
-        DefaultMutableTreeNode node              =
+        DefaultMutableTreeNode node =
             (DefaultMutableTreeNode) lastPathComponent;
 
         if (source == itemCut) {
@@ -152,28 +152,33 @@ public class ControllerCopyCutPasteKeyword
         KeywordTreeNodesClipboard.INSTANCE.empty();
     }
 
-    private void pasteCopy(JTree tree) {
-        TreePath[] selPaths = tree.getSelectionPaths();
+    private void pasteCopy(final JTree tree) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                TreePath[] selPaths = tree.getSelectionPaths();
 
-        assert selPaths != null;
+                assert selPaths != null;
 
-        if (!ensureCopyToAll(selPaths.length)) {
-            return;
-        }
+                if (!ensureCopyToAll(selPaths.length)) {
+                    return;
+                }
 
-        TreeModelKeywords model =
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                TreeModelKeywords model =
+                    ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
-        for (DefaultMutableTreeNode node :
-                KeywordTreeNodesClipboard.INSTANCE.getContent()) {
-            for (TreePath selPath : selPaths) {
-                model.copySubtree(
-                    node,
-                    (DefaultMutableTreeNode) selPath.getLastPathComponent());
+                for (DefaultMutableTreeNode node :
+                        KeywordTreeNodesClipboard.INSTANCE.getContent()) {
+                    for (TreePath selPath : selPaths) {
+                        model.copySubtree(node,
+                                          (DefaultMutableTreeNode) selPath
+                                              .getLastPathComponent());
+                    }
+                }
+
+                KeywordTreeNodesClipboard.INSTANCE.empty();
             }
-        }
-
-        KeywordTreeNodesClipboard.INSTANCE.empty();
+        });
     }
 
     private boolean ensureCopyToAll(int count) {

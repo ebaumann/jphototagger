@@ -22,6 +22,7 @@
 package org.jphototagger.program.event.listener;
 
 import java.io.File;
+
 import java.util.List;
 
 /**
@@ -39,8 +40,8 @@ public interface DatabaseImageCollectionsListener {
      * @param collectionName     name of the inserted collection
      * @param insertedImageFiles inserted image files
      */
-    public void collectionInserted(String collectionName,
-                                   List<File> insertedImageFiles);
+    void collectionInserted(String collectionName,
+                            List<File> insertedImageFiles);
 
     /**
      * Will be called if an image collection was deleted from
@@ -49,8 +50,7 @@ public interface DatabaseImageCollectionsListener {
      * @param collectionName    name of the deleted collection
      * @param deletedImageFiles deleted image files
      */
-    public void collectionDeleted(String collectionName,
-                                  List<File> deletedImageFiles);
+    void collectionDeleted(String collectionName, List<File> deletedImageFiles);
 
     /**
      * Will be called if an image collection was renamed from
@@ -59,7 +59,7 @@ public interface DatabaseImageCollectionsListener {
      * @param fromName old name of the image collection
      * @param toName   new name of the image collection
      */
-    public void collectionRenamed(String fromName, String toName);
+    void collectionRenamed(String fromName, String toName);
 
     /**
      * Will be called if images were inserted into
@@ -68,8 +68,7 @@ public interface DatabaseImageCollectionsListener {
      * @param collectionName     name of the image collection
      * @param insertedImageFiles inserted image files
      */
-    public void imagesInserted(String collectionName,
-                               List<File> insertedImageFiles);
+    void imagesInserted(String collectionName, List<File> insertedImageFiles);
 
     /**
      * Will be called if images were deleted from
@@ -78,6 +77,5 @@ public interface DatabaseImageCollectionsListener {
      * @param collectionName    name of the image collection
      * @param deletedImageFiles deleted image files
      */
-    public void imagesDeleted(String collectionName,
-                              List<File> deletedImageFiles);
+    void imagesDeleted(String collectionName, List<File> deletedImageFiles);
 }

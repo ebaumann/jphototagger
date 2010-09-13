@@ -48,7 +48,6 @@
                 </Property>
                 <Property name="dragEnabled" type="boolean" value="true"/>
                 <Property name="rootVisible" type="boolean" value="false"/>
-                <Property name="showsRootHandles" type="boolean" value="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree());"/>

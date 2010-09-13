@@ -140,7 +140,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
         private static final long      serialVersionUID = -7156530079287891717L;
         private transient final Plugin plugin;
 
-        public ActionExcludePlugin(Plugin plugin) {
+        ActionExcludePlugin(Plugin plugin) {
             if (plugin == null) {
                 throw new NullPointerException("plugin == null");
             }

@@ -23,6 +23,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.ImageFile;
@@ -51,11 +52,11 @@ import java.awt.Image;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the
@@ -124,6 +125,8 @@ public final class InsertImageFilesIntoDatabase extends Thread
      * @param what       metadata to insert
      */
     public InsertImageFilesIntoDatabase(List<File> imageFiles, Insert... what) {
+        super("JPhotoTagger: Inserting image files into database");
+
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
@@ -133,13 +136,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
         }
 
         this.imageFiles = new ArrayList<File>(imageFiles);
-
-        for (Insert ins : what) {
-            this.what.add(ins);
-        }
-
-        setName("Inserting image files into database @ "
-                + getClass().getSimpleName());
+        this.what.addAll(Arrays.asList(what));
     }
 
     @Override
@@ -413,8 +410,8 @@ public final class InsertImageFilesIntoDatabase extends Thread
     }
 
     private void notifyUpdateMetadataCheckListener(Type type, File file) {
-        UpdateMetadataCheckEvent         evt =
-            new UpdateMetadataCheckEvent(type, file);
+        UpdateMetadataCheckEvent evt = new UpdateMetadataCheckEvent(type, file);
+
         for (UpdateMetadataCheckListener listener : ls.get()) {
             listener.actionPerformed(evt);
         }

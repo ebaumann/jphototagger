@@ -103,10 +103,8 @@ public final class ControllerTimelineItemSelected
                         }
                     });
                 }
-            });
+            }, "JPhotoTagger: Setting files of sel. timeline item to TN panel");
 
-            thread.setName("Timeline item selected @ "
-                           + getClass().getSimpleName());
             thread.start();
         }
     }

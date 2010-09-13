@@ -83,7 +83,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         XmpCache.INSTANCE.addThumbnailUpdateListener(this);
 
         Thread t = new Thread(new ThumbnailRenderer(workQueue, this),
-                              "ThumbnailRenderer");
+                              "JPhotoTagger: ThumbnailRenderer");
 
         // t.setPriority(Thread.MAX_PRIORITY);
         t.start();

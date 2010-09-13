@@ -47,13 +47,13 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
     }
 
     private void createDecimalFormat() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < countDigits; i++) {
-            buffer.append("0");
+            sb.append("0");
         }
 
-        decimalFormat = new DecimalFormat(buffer.toString());
+        decimalFormat = new DecimalFormat(sb.toString());
     }
 
     public int getCountDigits() {

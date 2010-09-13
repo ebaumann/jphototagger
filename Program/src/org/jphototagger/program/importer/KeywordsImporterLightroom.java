@@ -233,7 +233,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         private final List<Node> children = new ArrayList<Node>();
         private final String     string;
 
-        public Node(Node parent, int level, String string) {
+        Node(Node parent, int level, String string) {
             if (string == null) {
                 throw new NullPointerException("string == null");
             }
@@ -244,7 +244,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
 
         public List<Node> getChildren() {
-            return children;
+            return Collections.unmodifiableList(children);
         }
 
         public int getChildCount() {

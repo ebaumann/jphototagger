@@ -696,7 +696,7 @@ public final class FileUtil {
 
         while (newFile.exists()) {
             String path      = file.getAbsolutePath();
-            int    suffixPos = path.lastIndexOf(".");
+            int    suffixPos = path.lastIndexOf('.');
 
             if (suffixPos > 0) {
                 String suffix = path.substring(suffixPos + 1);
@@ -848,7 +848,7 @@ public final class FileUtil {
         }
 
         if (hasSuffix(filename)) {
-            return filename.substring(filename.lastIndexOf(".") + 1);
+            return filename.substring(filename.lastIndexOf('.') + 1);
         }
 
         return "";
@@ -870,7 +870,7 @@ public final class FileUtil {
     }
 
     private static boolean hasSuffix(String filename) {
-        int index = filename.lastIndexOf(".");
+        int index = filename.lastIndexOf('.');
         int len   = filename.length();
 
         return (index > 0) && (index < len - 1);
@@ -891,14 +891,14 @@ public final class FileUtil {
             throw new NullPointerException("filename == null");
         }
 
-        int index = filename.lastIndexOf(".");
+        int index = filename.lastIndexOf('.');
         int len   = filename.length();
 
         if ((index == 0) || (index == len - 1)) {
             return filename;
         }
 
-        return filename.substring(0, filename.lastIndexOf("."));
+        return filename.substring(0, filename.lastIndexOf('.'));
     }
 
     /**
@@ -964,7 +964,7 @@ public final class FileUtil {
         }
 
         String packagePath = classInPackgage.getName();
-        int    index       = packagePath.lastIndexOf(".");
+        int    index       = packagePath.lastIndexOf('.');
 
         if (index > 0) {
             packagePath = packagePath.substring(0, index);

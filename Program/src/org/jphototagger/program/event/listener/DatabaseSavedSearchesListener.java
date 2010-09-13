@@ -29,8 +29,8 @@ import org.jphototagger.program.data.SavedSearch;
  */
 public interface DatabaseSavedSearchesListener {
 
-    public void searchInserted(SavedSearch savedSearch);
-    public void searchUpdated(SavedSearch savedSearch);
-    public void searchDeleted(String name);
-    public void searchRenamed(String fromName, String toName);
+    void searchInserted(SavedSearch savedSearch);
+    void searchUpdated(SavedSearch savedSearch);
+    void searchDeleted(String name);
+    void searchRenamed(String fromName, String toName);
 }

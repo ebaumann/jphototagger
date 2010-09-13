@@ -25,6 +25,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.util.ByteUtil;
 
 import java.nio.ByteOrder;
+import java.util.EnumMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +45,7 @@ public final class ExifGpsLatitude {
     private static final Map<String, Ref> REF_OF_STRING = new HashMap<String,
                                                               Ref>();
     private static final Map<Ref, String> LOCALIZED_STRING_OF_REF =
-        new HashMap<Ref, String>();
+        new EnumMap<Ref, String>(Ref.class);
 
     static {
         REF_OF_STRING.put("N", Ref.NORTH);

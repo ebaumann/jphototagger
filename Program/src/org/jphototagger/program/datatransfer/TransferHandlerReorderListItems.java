@@ -51,13 +51,15 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
     /**
      * Usage in DataFlavor in order that importData() will be called
      */
-    private final class LIST {}
+    private final class LIST {
+        // Empty
+    }
 
     private final class IndexInfo {
         private final JList source;
         private final int[] selIndices;
 
-        public IndexInfo(JList source, int[] selIndices) {
+        IndexInfo(JList source, int[] selIndices) {
             this.source     = source;
             this.selIndices = selIndices;
         }

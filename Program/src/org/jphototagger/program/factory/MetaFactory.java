@@ -81,7 +81,7 @@ public final class MetaFactory implements Runnable {
                         AppLogger.logSevere(getClass(), ex);
                     }
                 }
-            }).start();
+            }, "JPhotoTagger: Checking for a newer version").start();
         }
     }
 }

@@ -27,7 +27,6 @@ import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

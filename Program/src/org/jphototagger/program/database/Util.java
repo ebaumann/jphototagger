@@ -50,9 +50,9 @@ public final class Util {
         sb.append("(");
 
         for (int i = 0; i < count; i++) {
-            sb.append(((i == 0)
-                       ? ""
-                       : ",") + "?");
+            sb.append((i == 0)
+                      ? ""
+                      : ",").append("?");
         }
 
         sb.append(")");

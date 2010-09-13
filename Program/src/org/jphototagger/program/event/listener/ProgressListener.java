@@ -35,19 +35,19 @@ public interface ProgressListener {
      *
      * @param evt Ereignis
      */
-    public void progressStarted(ProgressEvent evt);
+    void progressStarted(ProgressEvent evt);
 
     /**
      * Ein Ereignis wurde abgearbeitet.
      *
      * @param evt Ereignis
      */
-    public void progressPerformed(ProgressEvent evt);
+    void progressPerformed(ProgressEvent evt);
 
     /**
      * Alle Ereignisse sind abgearbeitet.
      *
      * @param evt Ereignis
      */
-    public void progressEnded(ProgressEvent evt);
+    void progressEnded(ProgressEvent evt);
 }

@@ -169,7 +169,7 @@ public final class ActionsHelper {
         private final transient Program action;
         private final Object            pBarOwner;
 
-        public ActionStarter(Program action, Object progressBarOwner) {
+        ActionStarter(Program action, Object progressBarOwner) {
             this.action           = action;
             this.pBarOwner = progressBarOwner;
             setNameAndIcon(this, action);

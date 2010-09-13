@@ -105,7 +105,7 @@ public final class ComponentUtil {
     public static Frame getFrameWithIcon() {
         List<Frame> frames = findFramesWithIcons();
 
-        return (frames.size() == 0)
+        return (frames.isEmpty())
                ? null
                : frames.get(0);
     }

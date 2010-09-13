@@ -121,13 +121,11 @@ public final class ConnectionPool implements Runnable {
         String file = UserSettings.INSTANCE.getDatabaseFileName(
                           Filename.FULL_PATH_NO_SUFFIX);
 
-        url      = "jdbc:hsqldb:file:" + file + ";shutdown=true";
-        driver   = "org.hsqldb.jdbcDriver";
-        username = "sa";
-        password = "";
-
-        waitIfBusy = true;
-
+        url                  = "jdbc:hsqldb:file:" + file + ";shutdown=true";
+        driver               = "org.hsqldb.jdbcDriver";
+        username             = "sa";
+        password             = "";
+        waitIfBusy           = true;
         busyConnections      = new LinkedList<Connection>();
         availableConnections = new LinkedList<Connection>();
 
@@ -216,10 +214,11 @@ public final class ConnectionPool implements Runnable {
         connectionPending = true;
 
         try {
-            Thread connectThread = new Thread(this);
+            Thread connectThread =
+                new Thread(
+                    this,
+                    "JPhotoTagger: Making background JDBC connection");
 
-            connectThread.setName("Connection pool creating connection @ "
-                                  + getClass().getSimpleName());
             connectThread.start();
         } catch (OutOfMemoryError oome) {
 
@@ -343,10 +342,10 @@ public final class ConnectionPool implements Runnable {
     public synchronized String toString() {
         StringBuilder info = new StringBuilder();
 
-        info.append("ConnectionPool(" + url + "," + username + ")");
-        info.append(", available=" + availableConnections.size());
-        info.append(", busy=" + busyConnections.size());
-        info.append(", max=" + MAX_CONNECTIONS);
+        info.append("ConnectionPool(").append(url).append(",").append(
+            username).append(")").append(", available=").append(
+            availableConnections.size()).append(", busy=").append(
+            busyConnections.size()).append(", max=").append(MAX_CONNECTIONS);
 
         return info.toString();
     }

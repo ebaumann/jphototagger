@@ -46,7 +46,7 @@ abstract class ControllerDirectory extends Controller {
 
     protected abstract void action(DefaultMutableTreeNode node);
 
-    public ControllerDirectory() {
+    ControllerDirectory() {
         listenToKeyEventsOf(tree);
     }
 

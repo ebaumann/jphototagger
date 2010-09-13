@@ -33,7 +33,6 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
@@ -411,10 +410,11 @@ public final class TreeUtil {
 
         Stack<DefaultMutableTreeNode> stack =
             new Stack<DefaultMutableTreeNode>();
+        File parentFile = file;
 
-        while (file != null) {
-            stack.push(new DefaultMutableTreeNode(file));
-            file = file.getParentFile();
+        while (parentFile != null) {
+            stack.push(new DefaultMutableTreeNode(parentFile));
+            parentFile = parentFile.getParentFile();
         }
 
         List<DefaultMutableTreeNode> nodes =
@@ -661,8 +661,8 @@ public final class TreeUtil {
     }
 
     /**
-     * Removes in the AWT Event Queue from a tree model node all it's children
-     * and notifies model listeners.
+     * Removes from a tree model node all it's children and notifies model
+     * listeners.
      *
      * @param model model
      * @param node  a node of that model
@@ -677,23 +677,18 @@ public final class TreeUtil {
             throw new NullPointerException("node == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (model) {
-                    int            count    = node.getChildCount();
-                    List<TreeNode> children = new ArrayList<TreeNode>(count);
-                    int[]          indices  = new int[count];
+        synchronized (model) {
+            int            count    = node.getChildCount();
+            List<TreeNode> children = new ArrayList<TreeNode>(count);
+            int[]          indices  = new int[count];
 
-                    for (int i = 0; i < count; i++) {
-                        children.add(node.getChildAt(i));
-                        indices[i] = i;
-                    }
-
-                    node.removeAllChildren();
-                    model.nodesWereRemoved(node, indices, children.toArray());
-                }
+            for (int i = 0; i < count; i++) {
+                children.add(node.getChildAt(i));
+                indices[i] = i;
             }
-        });
+
+            node.removeAllChildren();
+            model.nodesWereRemoved(node, indices, children.toArray());
+        }
     }
 }

@@ -369,7 +369,7 @@ public class ThumbnailPanelRenderer
     private boolean paintThumbnailKeywords(Graphics g, File file) {
         List<String> keywords = getKeywords(file);
 
-        if ((keywords == null) || (keywords.size() == 0)) {
+        if ((keywords == null) || (keywords.isEmpty())) {
             return false;
         }
 

@@ -67,7 +67,8 @@ public final class TransferableFileCollection implements Transferable {
         StringBuilder sb = new StringBuilder();
 
         for (File file : files) {
-            sb.append(FILE_PROTOCOL + file.getAbsolutePath() + TOKEN_DELIMITER);
+            sb.append(FILE_PROTOCOL).append(file.getAbsolutePath()).append(
+                TOKEN_DELIMITER);
         }
 
         fileUris = sb.toString();

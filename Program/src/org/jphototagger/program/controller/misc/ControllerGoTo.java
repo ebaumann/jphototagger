@@ -31,7 +31,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
@@ -44,18 +44,18 @@ import javax.swing.JTextArea;
  * @author  Elmar Baumann
  */
 public final class ControllerGoTo implements ActionListener {
-    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel    tnPanel    = appPanel.getPanelThumbnails();
+    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
+    private final ThumbnailsPanel    tnPanel  = appPanel.getPanelThumbnails();
     private final EditMetadataPanels editPanels =
         appPanel.getEditMetadataPanels();
     private final JTextArea                     textFieldSearch =
         appPanel.getTextAreaSearch();
-    private final AppFrame                      appFrame        =
+    private final AppFrame                      appFrame =
         GUI.INSTANCE.getAppFrame();
     private final Map<AppFrame.GoTo, Component> componentOfGoTo =
-        new HashMap<AppFrame.GoTo, Component>();
+        new EnumMap<AppFrame.GoTo, Component>(AppFrame.GoTo.class);
     private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo =
-        new HashMap<AppFrame.GoTo, JTabbedPane>();
+        new EnumMap<AppFrame.GoTo, JTabbedPane>(AppFrame.GoTo.class);
 
     // Not static (timing)
     private void initMaps() {

@@ -70,8 +70,7 @@ public final class UpdateDownload extends Thread
     private final Object        pBarOwner = this;
 
     public UpdateDownload() {
-        setName("Checking for and downloading newer version @ "
-                + getClass().getSimpleName());
+        super("JPhotoTagger: Checking for and downloading newer version");
     }
 
     /**

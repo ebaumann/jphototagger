@@ -63,106 +63,17 @@ public final class ListModelKeywords extends DefaultListModel
             return;
         }
 
-        final Set<String> keywords = db.getAllDcSubjects();
+        Set<String> keywords = db.getAllDcSubjects();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                for (String keyword : keywords) {
-                    addElement(keyword);
-                }
-            }
-        });
-    }
-
-    /**
-     * Returns whether a keyword existsValueIn whithin this model, does
-     * <em>not</em> check the database.
-     *
-     * @param  keyword keyword
-     * @return         true if this model contains that keyword
-     */
-    public synchronized boolean exists(String keyword) {
-        if (keyword == null) {
-            throw new NullPointerException("keyword == null");
+        for (String keyword : keywords) {
+            addElement(keyword);
         }
-
-        return contains(keyword);
-    }
-
-    /**
-     * Renames a keyword whithin this model, does <em>not</em> update the
-     * database or sidecar files.
-     *
-     * @param  fromName old keyword name
-     * @param  toName new keyword name
-     * @return         true if renamed
-     */
-    public synchronized boolean rename(String fromName, final String toName) {
-        if (fromName == null) {
-            throw new NullPointerException("fromName == null");
-        }
-
-        if (toName == null) {
-            throw new NullPointerException("toName == null");
-        }
-
-        assert !fromName.equals(toName);
-
-        final int index = indexOf(fromName);
-
-        if (index < 0) {
-            return false;
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                remove(index);
-                add(index, toName);
-            }
-        });
-
-        return true;
-    }
-
-    /**
-     * Removes a keyword from this model, does <em>not</em> update the dataase
-     * or sidecar files.
-     *
-     * @param  keyword keyword
-     * @return         true if removed
-     */
-    public synchronized boolean delete(String keyword) {
-        if (keyword == null) {
-            throw new NullPointerException("keyword == null");
-        }
-
-        final int index = indexOf(keyword);
-
-        if (index < 0) {
-            return false;
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                remove(index);
-            }
-        });
-
-        return true;
     }
 
     private void addNewKeywords(Collection<? extends String> keywords) {
         for (final String keyword : keywords) {
             if (!contains(keyword)) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        addElement(keyword);
-                    }
-                });
+                addElement(keyword);
             }
         }
     }
@@ -170,12 +81,7 @@ public final class ListModelKeywords extends DefaultListModel
     private void removeKeywordsNotInDb(Collection<? extends String> keywords) {
         for (final String keyword : keywords) {
             if (contains(keyword) &&!databaseHasKeyword(keyword)) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeElement(keyword);
-                    }
-                });
+                removeElement(keyword);
             }
         }
     }
@@ -199,25 +105,36 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
+    public void xmpInserted(File imageFile, final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
 
-        addNewKeywords(getKeywords(xmp));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addNewKeywords(getKeywords(xmp));
+            }
+        });
     }
 
     @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
+    public void xmpDeleted(File imageFile, final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
 
-        removeKeywordsNotInDb(getKeywords(xmp));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                removeKeywordsNotInDb(getKeywords(xmp));
+            }
+        });
     }
 
     @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+    public void xmpUpdated(File imageFile, final Xmp oldXmp,
+                           final Xmp updatedXmp) {
         if (oldXmp == null) {
             throw new NullPointerException("oldXmp == null");
         }
@@ -226,26 +143,41 @@ public final class ListModelKeywords extends DefaultListModel
             throw new NullPointerException("updatedXmp == null");
         }
 
-        addNewKeywords(getKeywords(updatedXmp));
-        removeKeywordsNotInDb(getKeywords(oldXmp));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addNewKeywords(getKeywords(updatedXmp));
+                removeKeywordsNotInDb(getKeywords(oldXmp));
+            }
+        });
     }
 
     @Override
-    public void dcSubjectDeleted(String dcSubject) {
+    public void dcSubjectDeleted(final String dcSubject) {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
 
-        removeKeywordsNotInDb(Collections.singleton(dcSubject));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                removeKeywordsNotInDb(Collections.singleton(dcSubject));
+            }
+        });
     }
 
     @Override
-    public void dcSubjectInserted(String dcSubject) {
+    public void dcSubjectInserted(final String dcSubject) {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
 
-        addNewKeywords(Collections.singleton(dcSubject));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addNewKeywords(Collections.singleton(dcSubject));
+            }
+        });
     }
 
     @Override

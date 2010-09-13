@@ -188,7 +188,7 @@ public final class TreeModelUpdateInfo {
         }
 
         public List<NodeAndChildIndices> getInfo() {
-            return info;
+            return Collections.unmodifiableList(info);
         }
     }
 }

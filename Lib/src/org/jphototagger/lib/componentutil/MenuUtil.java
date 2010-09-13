@@ -124,12 +124,12 @@ public final class MenuUtil {
 
     private static void removeAmpersandSetMnemonic(JMenuItem item,
             String itemText, int ampersandIndex) {
-        char mnemonic       = itemText.charAt(ampersandIndex + 1);
-        int  itemTextLength = itemText.length();
+        char   mnemonic       = itemText.charAt(ampersandIndex + 1);
+        int    itemTextLength = itemText.length();
+        String text = itemText.substring(0, ampersandIndex)
+                      + itemText.substring(ampersandIndex + 1, itemTextLength);
 
-        itemText = itemText.substring(0, ampersandIndex)
-                   + itemText.substring(ampersandIndex + 1, itemTextLength);
-        item.setText(itemText);
+        item.setText(text);
         item.setMnemonic(mnemonic);
     }
 

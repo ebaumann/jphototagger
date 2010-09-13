@@ -32,5 +32,5 @@ public interface AppExitListener {
      * Will be called before the application exists. Listeners can release
      * resources, writing persistent content etc.
      */
-    public void appWillExit();
+    void appWillExit();
 }

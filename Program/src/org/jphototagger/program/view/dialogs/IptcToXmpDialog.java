@@ -40,6 +40,7 @@ import java.awt.Container;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
@@ -185,10 +186,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
         converter.addProgressListener(this);
 
-        Thread thread = new Thread(converter);
+        Thread thread = new Thread(converter,
+                "JPhotoTagger: Writing IPTC to XMP sidecar files");
 
-        thread.setName("Writing IPTC to XMP sidecar files @ "
-                       + getClass().getSimpleName());
         thread.start();
         buttonCancel.setEnabled(true);
     }
@@ -215,7 +215,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             return ImageFilteredDirectory.getImageFilesOfDirectories(
                 directories);
         } else {
-            return files;
+            return Collections.unmodifiableList(files);
         }
     }
 

@@ -78,13 +78,7 @@ public final class ListModelImageCollections extends DefaultListModel {
         addElements();
     }
 
-    public void fireContentsChanged(int index) {
-        if ((index >= 0) && (index < size())) {
-            fireContentsChanged(this, index, index);
-        }
-    }
-
-    public void rename(String fromName, String toName) {
+    public void rename(final String fromName, final String toName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
@@ -141,7 +135,8 @@ public final class ListModelImageCollections extends DefaultListModel {
      * Returns wheter a collection is a special image collection, e.g. for
      * picked or rejected images.
      *
-     * @param  collectionName name of the collection (the name is the identifier)
+     * @param  collectionName name of the collection (the name is the
+     *                        identifier)
      * @return                true if that name is the name of a special image
      *                        collection
      */

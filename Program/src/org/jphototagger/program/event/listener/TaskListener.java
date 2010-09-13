@@ -31,5 +31,5 @@ public interface TaskListener {
     /**
      * Wird aufgerufen beim Beobachter, wenn der Task beendet ist.
      */
-    public void taskCompleted();
+    void taskCompleted();
 }

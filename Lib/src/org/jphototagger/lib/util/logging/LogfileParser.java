@@ -78,8 +78,7 @@ public final class LogfileParser implements EntityResolver {
 
             builder.setEntityResolver(new LogfileParser());
 
-            Document document       =
-                builder.parse(getFileAsInputStream(filename));
+            Document document = builder.parse(getFileAsInputStream(filename));
             NodeList recordNodeList = document.getElementsByTagName("record");
             int      recordCount    = recordNodeList.getLength();
 
@@ -184,7 +183,7 @@ public final class LogfileParser implements EntityResolver {
      */
     private static String getElement(Node recordNode, String tagName) {
         String   elementData = null;
-        NodeList nodeList    =
+        NodeList nodeList =
             ((Element) recordNode).getElementsByTagName(tagName);
 
         if (nodeList != null) {
@@ -227,14 +226,14 @@ public final class LogfileParser implements EntityResolver {
         try {
             bufferedReader = new BufferedReader(new FileReader(filename));
 
-            StringBuffer stringBuffer = new StringBuffer(1000);
-            String       line;
+            StringBuilder sb = new StringBuilder(1000);
+            String        line;
 
             while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line);
+                sb.append(line);
             }
 
-            String content = stringBuffer.toString();
+            String content = sb.toString();
 
             if (!content.endsWith("</log>")) {    // // Sonst Parse-Exception
                 content += "</log>";

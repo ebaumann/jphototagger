@@ -105,7 +105,7 @@ public class PathSelectionDialog extends Dialog
     }
 
     public Collection<Collection<String>> getSelPaths() {
-        return selPaths;
+        return Collections.unmodifiableCollection(selPaths);
     }
 
     private void handleButtonSelectNothingActionPerformed() {
@@ -159,7 +159,7 @@ public class PathSelectionDialog extends Dialog
     private class Model extends DefaultListModel {
         private static final long serialVersionUID = 7783311389163592108L;
 
-        public Model() {
+        Model() {
             if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
                 addDistinctElements();
             } else {
@@ -215,9 +215,9 @@ public class PathSelectionDialog extends Dialog
             int           i         = 0;
 
             for (Object element : collection) {
-                sb.append(((i++ == 0)
-                           ? ""
-                           : pathDelim) + element.toString());
+                sb.append((i++ == 0)
+                        ? ""
+                        : pathDelim).append(element.toString());
             }
 
             label.setText(sb.toString());

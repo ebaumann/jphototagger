@@ -78,10 +78,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
 
 /**
  * Database containing metadata of image files.
@@ -1662,6 +1664,37 @@ public final class DatabaseImageFiles extends Database {
     }
 
     /**
+     * Returns whether at least one subject is referenced by a XMP metadata.
+     *
+     * @param  subject subject
+     * @return         true if that subject is referenced
+     */
+    public boolean isDcSubjectReferenced(String subject) {
+        if (subject == null) {
+            throw new NullPointerException("subject == null");
+        }
+
+        Connection con = null;
+        boolean    ref = false;
+
+        try {
+            con = getConnection();
+
+            Long id = getId(con, "dc_subjects", "subject", subject);
+
+            if (id != null) {
+                ref = getCount(con, "xmp_dc_subject", "id_dc_subject", id) > 0;
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseImageFiles.class, ex);
+        } finally {
+            free(con);
+        }
+
+        return ref;
+    }
+
+    /**
      * Returns the dublin core subjects (keywords).
      *
      * @return dc subjects distinct ordererd ascending
@@ -1762,7 +1795,7 @@ public final class DatabaseImageFiles extends Database {
         PreparedStatement    stmt       = null;
         ResultSet            rs         = null;
         Set<DcSubjectOption> opts =
-            new HashSet<DcSubjectOption>(Arrays.asList(options));
+            EnumSet.<DcSubjectOption>copyOf(Arrays.asList(options));
 
         try {
             con = getConnection();

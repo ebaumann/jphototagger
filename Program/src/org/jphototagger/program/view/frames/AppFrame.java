@@ -48,6 +48,7 @@ import java.io.File;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,8 +70,8 @@ public final class AppFrame extends javax.swing.JFrame {
         new HashMap<Comparator<File>, JRadioButtonMenuItem>();
     private final Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem =
         new HashMap<JRadioButtonMenuItem, Comparator<File>>();
-    private final Map<GoTo, JMenuItem> menuItemOfGoto = new HashMap<GoTo,
-                                                            JMenuItem>();
+    private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo,
+                                                            JMenuItem>(GoTo.class);
     private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem,
                                                             GoTo>();
     private AppPanel appPanel;

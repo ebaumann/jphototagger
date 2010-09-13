@@ -178,7 +178,7 @@ public final class ControllerThumbnailsPanelPersistence
                     }
                 });
             }
-        }).start();
+        }, "JPhotoTagger: Restoring viewport position").start();
     }
 
     @Override

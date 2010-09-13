@@ -40,5 +40,5 @@ public interface FilenameFormatListener {
      *
      * @param request request
      */
-    public void request(Request request);
+    void request(Request request);
 }

@@ -121,7 +121,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * A selection listener will be notified, if the user did select an object.
      */
     public interface SelectionListener {
-        public void objectSelected(SelectionEvent evt);
+        void objectSelected(SelectionEvent evt);
     }
 
 

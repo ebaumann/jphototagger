@@ -1191,16 +1191,17 @@ public final class EditMetadataPanels
         }
 
         private TextEntry getTextEntry(Object o) {
-            if (o instanceof TextEntry) {
-                return (TextEntry) o;
+            Object obj = o;
+            if (obj instanceof TextEntry) {
+                return (TextEntry) obj;
             }
 
-            while (o != null) {
-                if (o instanceof Component) {
-                    o = ((Component) o).getParent();
+            while (obj != null) {
+                if (obj instanceof Component) {
+                    obj = ((Component) obj).getParent();
 
-                    if (o instanceof TextEntry) {
-                        return (TextEntry) o;
+                    if (obj instanceof TextEntry) {
+                        return (TextEntry) obj;
                     }
                 } else {
                     return null;

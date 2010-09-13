@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.database.DatabaseKeywords;
@@ -31,7 +32,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.dialog.InputDialog;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -40,6 +40,7 @@ import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -90,15 +91,21 @@ public class ControllerRenameKeyword extends ControllerKeywords
         }
     }
 
-    private void renameKeyword(DefaultMutableTreeNode node, Keyword keyword) {
-        String newName = getName(keyword, db, getHKPanel().getTree());
+    private void renameKeyword(final DefaultMutableTreeNode node,
+                               final Keyword keyword) {
+        final String newName = getName(keyword, db, getHKPanel().getTree());
 
         if ((newName != null) &&!newName.trim().isEmpty()) {
-            TreeModelKeywords model =
-                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    TreeModelKeywords model =
+                        ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
-            keyword.setName(newName);
-            model.changed(node, keyword);
+                    keyword.setName(newName);
+                    model.changed(node, keyword);
+                }
+            });
         }
     }
 
@@ -107,18 +114,18 @@ public class ControllerRenameKeyword extends ControllerKeywords
         String      toName   = null;
         String      fromName = keyword.getName();
         boolean     input    = true;
-        InputDialog dlg      =
-            new InputDialog(
-                InputHelperDialog.INSTANCE,
-                JptBundle.INSTANCE.getString(
-                    "ControllerRenameKeyword.Input.Name", fromName), fromName,
-                        UserSettings.INSTANCE.getProperties(),
-                        ControllerRenameKeyword.class.getName());
+        InputDialog dlg = new InputDialog(
+                              InputHelperDialog.INSTANCE,
+                              JptBundle.INSTANCE.getString(
+                                  "ControllerRenameKeyword.Input.Name",
+                                  fromName), fromName,
+                                      UserSettings.INSTANCE.getProperties(),
+                                      ControllerRenameKeyword.class.getName());
 
         while (input && (toName == null)) {
             dlg.setVisible(true);
             toName = dlg.getInput();
-            input   = false;
+            input  = false;
 
             if (dlg.isAccepted() && (toName != null)
                     &&!toName.trim().isEmpty()) {
@@ -127,7 +134,7 @@ public class ControllerRenameKeyword extends ControllerKeywords
 
                 if (database.hasParentChildWithEqualName(s)) {
                     toName = null;
-                    input   = MessageDisplayer.confirmYesNo(null,
+                    input = MessageDisplayer.confirmYesNo(null,
                             "ControllerRenameKeyword.Confirm.Exists", s);
                 }
             }

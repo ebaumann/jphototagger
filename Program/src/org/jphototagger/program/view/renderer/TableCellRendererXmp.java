@@ -23,11 +23,11 @@ package org.jphototagger.program.view.renderer;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
+import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.metadata.selections.XmpInDatabase;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.Translation;
-import org.jphototagger.lib.componentutil.TableUtil;
 
 import java.awt.Component;
 
@@ -49,7 +49,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
         implements TableCellRenderer {
     private static final String      DELIMITER_PATH      = "/";
     private static final String      DELIMITER_NAMESPACE = ":";
-    private static final Translation TRANSLATION_XMP     =
+    private static final Translation TRANSLATION_XMP =
         new Translation("XmpPropertyTranslations");
     private static final Translation TRANSLATION_XMP_EXIF_TAG_ID =
         new Translation("XmpPropertyExifTagIdTranslations");
@@ -94,9 +94,9 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
     }
 
     private static String translate(String path, String alternate) {
-        StringBuffer newPath             = new StringBuffer();
-        List<String> pathComponents      = getPathComponents(path);
-        int          pathComponentsCount = pathComponents.size();
+        StringBuilder newPath             = new StringBuilder();
+        List<String>  pathComponents      = getPathComponents(path);
+        int           pathComponentsCount = pathComponents.size();
 
         for (int i = 0; i < pathComponentsCount; i++) {
             String pathComponent = pathComponents.get(i);
@@ -108,12 +108,11 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
                                     : TRANSLATION_XMP.translate(withoutIndex,
                                         alternate));
 
-            newPath.append(getWithoutNamespace(translated)
-                           + getIndexString(pathComponent)
-                           + (((pathComponentsCount > 1)
-                               && (i < pathComponentsCount - 1))
-                              ? DELIMITER_PATH
-                              : ""));
+            newPath.append(getWithoutNamespace(translated)).append(
+                getIndexString(pathComponent)).append(
+                ((pathComponentsCount > 1) && (i < pathComponentsCount - 1))
+                ? DELIMITER_PATH
+                : "");
         }
 
         return newPath.toString();
@@ -132,7 +131,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
 
     private static String getWithoutIndex(String string) {
         if (hasIndex(string)) {
-            int startIndex = string.lastIndexOf("[");
+            int startIndex = string.lastIndexOf('[');
 
             return string.substring(0, startIndex);
         }
@@ -142,7 +141,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
 
     private static String getIndexString(String string) {
         if (hasIndex(string)) {
-            int startIndex = string.lastIndexOf("[");
+            int startIndex = string.lastIndexOf('[');
 
             return string.substring(startIndex);
         }

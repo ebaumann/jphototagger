@@ -34,10 +34,10 @@ import org.jphototagger.program.view.dialogs.SettingsDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EnumMap;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.Icon;
@@ -54,9 +54,9 @@ import javax.swing.JButton;
 public final class ScheduledTasks
         implements ActionListener, UpdateMetadataCheckListener {
     private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE =
-        new HashMap<ButtonState, Icon>();
+        new EnumMap<ButtonState, Icon>(ButtonState.class);
     private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE =
-        new HashMap<ButtonState, String>();
+        new EnumMap<ButtonState, String>(ButtonState.class);
     public static final ScheduledTasks INSTANCE = new ScheduledTasks();
     private final SerialExecutor       executor =
         new SerialExecutor(Executors.newCachedThreadPool());
@@ -109,9 +109,8 @@ public final class ScheduledTasks
                     AppLogger.logSevere(getClass(), ex);
                 }
             }
-        });
+        }, "JPhotoTagger: Scheduled tasks");
 
-        thread.setName("Scheduled tasks");
         thread.start();
     }
 
@@ -154,7 +153,7 @@ public final class ScheduledTasks
                     executor.execute(inserter);
                 }
             }
-        }).start();
+        }, "JPhotoTagger: Inserting image files into database").start();
     }
 
     @Override

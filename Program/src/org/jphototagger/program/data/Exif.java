@@ -54,7 +54,7 @@ public final class Exif {
      * @param dateTimeOriginal date
      */
     public void setDateTimeOriginal(Date dateTimeOriginal) {
-        this.dateTimeOriginal = dateTimeOriginal;
+        this.dateTimeOriginal = new Date(dateTimeOriginal.getTime());
     }
 
     /**

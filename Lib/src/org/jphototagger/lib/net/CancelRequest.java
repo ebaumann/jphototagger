@@ -27,5 +27,5 @@ package org.jphototagger.lib.net;
  */
 public interface CancelRequest {
 
-    public boolean isCancel();
+    boolean isCancel();
 }

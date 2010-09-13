@@ -31,6 +31,7 @@ import java.nio.ByteOrder;
 import java.text.MessageFormat;
 
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public final class ExifGpsAltitude {
     private static final Map<Integer, Ref> REF_OF_INTEGER =
         new HashMap<Integer, Ref>();
     private static final Map<Ref, String> LOCALIZED_STRING_OF_REF =
-        new HashMap<Ref, String>();
+        new EnumMap<Ref, String>(Ref.class);
 
     static {
         REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);

@@ -22,12 +22,13 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener
     .DatabaseUserDefinedFileFiltersListener;
 
 import javax.swing.DefaultListModel;
-import org.jphototagger.program.database.ConnectionPool;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -55,34 +56,49 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel
     }
 
     @Override
-    public void filterInserted(UserDefinedFileFilter filter) {
+    public void filterInserted(final UserDefinedFileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
 
-        addElement(filter);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addElement(filter);
+            }
+        });
     }
 
     @Override
-    public void filterDeleted(UserDefinedFileFilter filter) {
+    public void filterDeleted(final UserDefinedFileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
 
-        removeElement(filter);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                removeElement(filter);
+            }
+        });
     }
 
     @Override
-    public void filterUpdated(UserDefinedFileFilter filter) {
+    public void filterUpdated(final UserDefinedFileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
 
-        int index = indexOf(filter);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int index = indexOf(filter);
 
-        if (index >= 0) {
-            ((UserDefinedFileFilter) getElementAt(index)).set(filter);
-            fireContentsChanged(this, index, index);
-        }
+                if (index >= 0) {
+                    ((UserDefinedFileFilter) getElementAt(index)).set(filter);
+                    fireContentsChanged(this, index, index);
+                }
+            }
+        });
     }
 }

@@ -45,11 +45,11 @@ public final class IoUtil {
     private static final String QUOTE                = "\"";
     private static final String SEPARATOR            = " ";
     private static final String EMPTY                = "";
-    public static final String PATTERN_FS_PATH      = "%s";
-    public static final String PATTERN_FS_ROOT      = "%d";
-    public static final String PATTERN_FS_DIR_PATH  = "%p";
-    public static final String PATTERN_FS_FILE_NAME = "%n";
-    public static final String PATTERN_FS_FILE_EXT  = "%x";
+    public static final String  PATTERN_FS_PATH      = "%s";
+    public static final String  PATTERN_FS_ROOT      = "%d";
+    public static final String  PATTERN_FS_DIR_PATH  = "%p";
+    public static final String  PATTERN_FS_FILE_NAME = "%n";
+    public static final String  PATTERN_FS_FILE_EXT  = "%x";
 
     /**
      * Executes an application and desplays a message dialog on errors.
@@ -221,11 +221,11 @@ public final class IoUtil {
         String name      = FileUtil.getPrefix(file.getName());
         String extension = FileUtil.getSuffix(file.getName());
 
-        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath)
-                      .replace(PATTERN_FS_FILE_EXT, extension)
-                      .replace(PATTERN_FS_FILE_NAME, name)
-                      .replace(PATTERN_FS_PATH, path)
-                      .replace(PATTERN_FS_ROOT, root)
+        return pattern.replace(PATTERN_FS_DIR_PATH,
+                               dirPath).replace(PATTERN_FS_FILE_EXT,
+                                   extension).replace(PATTERN_FS_FILE_NAME,
+                                       name).replace(PATTERN_FS_PATH,
+                                           path).replace(PATTERN_FS_ROOT, root)
         ;
     }
 
@@ -235,9 +235,10 @@ public final class IoUtil {
         int           index = 0;
 
         for (File file : files) {
-            sb.append(((index++ == 0)
-                       ? EMPTY
-                       : separator) + quote + file.getAbsolutePath() + quote);
+            sb.append((index++ == 0)
+                      ? EMPTY
+                      : separator).append(quote).append(
+                          file.getAbsolutePath()).append(quote);
         }
 
         return sb.toString();

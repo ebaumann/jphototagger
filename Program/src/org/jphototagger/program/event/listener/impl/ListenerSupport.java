@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.event.listener.impl;
 
+import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.Set;
 
@@ -56,6 +57,6 @@ public class ListenerSupport<T> {
      *         listeners after calling this mehtod)
      */
     public Set<T> get() {
-        return listeners;
+        return Collections.unmodifiableSet(listeners);
     }
 }

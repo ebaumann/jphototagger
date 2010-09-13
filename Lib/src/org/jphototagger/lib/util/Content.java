@@ -22,7 +22,6 @@
 package org.jphototagger.lib.util;
 
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Set;
@@ -122,11 +121,11 @@ public class Content<T> {
          *
          * @param content added content
          */
-        public void contentAdded(T content);
+        void contentAdded(T content);
 
         /**
          * Called if the content has been removed.
          */
-        public void contentRemoved();
+        void contentRemoved();
     }
 }

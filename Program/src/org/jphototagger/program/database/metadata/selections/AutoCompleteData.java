@@ -107,6 +107,7 @@ public final class AutoCompleteData {
      * @return autocomplete data
      */
     public List<String> get() {
+        // Due performance as reference
         return words;
     }
 }

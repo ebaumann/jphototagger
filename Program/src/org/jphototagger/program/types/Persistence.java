@@ -27,7 +27,7 @@ package org.jphototagger.program.types;
  * @author  Elmar Baumann
  */
 public interface Persistence {
-    public void readProperties();
+    void readProperties();
 
-    public void writeProperties();
+    void writeProperties();
 }

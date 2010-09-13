@@ -47,10 +47,10 @@ import java.util.logging.Logger;
  * @author    Elmar Baumann
  */
 public class MutualExcludedResource<T> {
-    private T       resource = null;
-    private boolean locked   = false;
-    private Object  owner    = null;
-    private Logger  logger =
+    private T                   resource = null;
+    private boolean             locked   = false;
+    private Object              owner    = null;
+    private static final Logger logger =
         Logger.getLogger(MutualExcludedResource.class.getName());
 
     /**

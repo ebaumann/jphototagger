@@ -30,7 +30,7 @@ import java.util.List;
  * @author Martin Pohlack
  */
 public class SubjectCacheIndirection extends CacheIndirection {
-    public List<String> subjects;
+    List<String> subjects;
 
     public SubjectCacheIndirection(File _file) {
         super(_file);

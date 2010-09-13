@@ -183,16 +183,17 @@ public final class SavedSearchesHelper {
         boolean wantInput = true;
         String  input     = null;
 
+        String suggest = suggestName;
         while (wantInput) {
             wantInput = false;
-            input     = getInput(suggestName);
+            input     = getInput(suggest);
 
             if ((input != null)
                     && DatabaseSavedSearches.INSTANCE.exists(input)) {
                 wantInput = confirmInputNotExistingName(input);
 
                 if (wantInput) {
-                    suggestName = input;
+                    suggest = input;
                 }
 
                 input = null;

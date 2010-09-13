@@ -295,10 +295,10 @@ public final class SavedSearch {
         this.keywords = new ArrayList<String>(keywords.size());
 
         for (String keyword : keywords) {
-            keyword = keyword.trim();
+            String trimmedKeyword = keyword.trim();
 
-            if (!keyword.isEmpty()) {
-                this.keywords.add(keyword);
+            if (!trimmedKeyword.isEmpty()) {
+                this.keywords.add(trimmedKeyword);
             }
         }
     }
@@ -385,13 +385,13 @@ public final class SavedSearch {
             org.jphototagger.program.database.Util.getParamsInParentheses(
                 count);
 
-        statement.append((and
-                          ? " AND"
-                          : "") + " dc_subjects.subject IN "
-                                + paramsInParentheses
-                                + " GROUP BY files.filename"
-                                + " HAVING COUNT(*) = "
-                                + Integer.toString(count));
+        statement.append(and
+                         ? " AND"
+                         : "").append(" dc_subjects.subject IN ").append(
+                             paramsInParentheses).append(
+                             " GROUP BY files.filename"
+                             + " HAVING COUNT(*) = ").append(
+                                 Integer.toString(count));
     }
 
     private void appendToFrom(StringBuilder statement) {

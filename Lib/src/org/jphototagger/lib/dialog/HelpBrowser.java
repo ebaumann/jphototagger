@@ -373,7 +373,7 @@ public final class HelpBrowser extends Dialog
         }
 
         String path  = url.getPath();
-        int    index = path.lastIndexOf("/");
+        int    index = path.lastIndexOf('/');
 
         if ((index > 0) && (index < path.length() - 1)) {
             return path.substring(index + 1);

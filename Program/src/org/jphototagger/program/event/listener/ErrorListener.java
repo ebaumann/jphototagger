@@ -28,5 +28,5 @@ package org.jphototagger.program.event.listener;
  */
 public interface ErrorListener {
 
-    public void error(Object source, String message);
+    void error(Object source, String message);
 }

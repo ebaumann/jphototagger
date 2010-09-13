@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ModifyImageCollections;
@@ -28,7 +29,6 @@ import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
-import org.jphototagger.lib.componentutil.ListUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -89,16 +89,17 @@ public final class ControllerDeleteImageCollection
         }
 
         if (collectionName != null) {
-            if (ModifyImageCollections.deleteImageCollection(collectionName)) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
+                    if (ModifyImageCollections.deleteImageCollection(
+                            collectionName)) {
                         ModelFactory.INSTANCE.getModel(
                             ListModelImageCollections.class).removeElement(
                             collectionName);
                     }
-                });
             }
+            });
         } else {
             AppLogger.logWarning(
                 ControllerDeleteImageCollection.class,

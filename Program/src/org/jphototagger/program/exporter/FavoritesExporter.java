@@ -60,12 +60,12 @@ public final class FavoritesExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
 
         try {
             List<Favorite> templates = DatabaseFavorites.INSTANCE.getAll();
 
-            XmlObjectExporter.export(new CollectionWrapper(templates), file);
+            XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(FavoritesExporter.class, ex);
         }

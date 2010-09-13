@@ -33,6 +33,11 @@ import org.jphototagger.program.view.frames.AppFrame;
 
 import java.awt.Toolkit;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.SwingUtilities;
+
 /**
  * Initializes the application.
  *
@@ -110,7 +115,17 @@ public final class AppInit {
 
     private void captureOutput() {
         if (commandLineOptions.isCaptureOutput()) {
-            SystemOutputDialog.INSTANCE.captureOutput();
+            try {
+                SwingUtilities.invokeAndWait(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemOutputDialog.INSTANCE.captureOutput();
+                    }
+                });
+            } catch (Exception ex) {
+                Logger.getLogger(AppInit.class.getName()).log(Level.SEVERE,
+                                 null, ex);
+            }
         }
     }
 

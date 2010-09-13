@@ -106,12 +106,13 @@ public abstract class KeywordsImporter implements Importer {
         private final Object     pBarOwner = this;
 
         ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
+            super("JPhotoTagger: Importing keywords");
+
             if (paths == null) {
                 throw new NullPointerException("paths == null");
             }
 
             this.paths = paths;
-            setName("Importing keywords @ " + getClass().getSimpleName());
         }
 
         @Override
@@ -160,7 +161,7 @@ public abstract class KeywordsImporter implements Importer {
 
                         if (existingNode == null) {
                             model.insert(node, keyword.getFirst(),
-                                         keyword.getSecond());
+                                         keyword.getSecond(), false);
                             node = model.findChildByName(node,
                                                          keyword.getFirst());
                             importCount++;

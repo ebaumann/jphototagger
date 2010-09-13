@@ -31,12 +31,13 @@ import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.resource.Translation;
-import java.awt.Desktop;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
+
 import java.net.URI;
 
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         this.file = file;
-        removeAllElements();
+                getDataVector().removeAllElements();
 
         try {
             setExifTags();
@@ -202,7 +203,7 @@ public final class TableModelExif extends DefaultTableModel {
     }
 
     private class GpsButtonListener implements ActionListener {
-        public GpsButtonListener() {}
+        GpsButtonListener() {}
 
         @Override
         public void actionPerformed(ActionEvent evt) {
@@ -214,6 +215,7 @@ public final class TableModelExif extends DefaultTableModel {
                 String url =
                     ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(),
                                               exifGpsMetadata.latitude());
+
                 try {
                     Desktop.getDesktop().browse(new URI(url));
                 } catch (Exception ex) {

@@ -37,7 +37,7 @@ public interface DatabaseAutoscanDirectoriesListener {
      *
      * @param directory inserted directory
      */
-    public void directoryInserted(File directory);
+    void directoryInserted(File directory);
 
     /**
      * Will be called if a directory was deleted from
@@ -45,5 +45,5 @@ public interface DatabaseAutoscanDirectoriesListener {
      *
      * @param directory deleted directory
      */
-    public void directoryDeleted(File directory);
+    void directoryDeleted(File directory);
 }

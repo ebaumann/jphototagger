@@ -48,6 +48,7 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.SwingUtilities;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.model.TreeModelKeywords;
 
@@ -81,7 +82,9 @@ public class DatabaseUpdatePanel extends JPanel
         synchronized (this) {
             thumbnailUpdater = new UpdateAllThumbnails();
             thumbnailUpdater.addActionListener(this);
-            new Thread(thumbnailUpdater).start();
+            Thread t = new Thread(thumbnailUpdater,
+                    "JPhotoTagger: Updating all thumbnails");
+            t.start();
         }
     }
 
@@ -196,8 +199,14 @@ public class DatabaseUpdatePanel extends JPanel
                        ModelFactory.INSTANCE.getModels(TreeModelKeywords.class);
 
                  if (models != null) {
-                     for (TreeModelKeywords model : models) {
-                        model.removeAllKeywords();
+                     for (final TreeModelKeywords model : models) {
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                model.removeAllKeywords();
+                            }
+                        });
                      }
                  }
 

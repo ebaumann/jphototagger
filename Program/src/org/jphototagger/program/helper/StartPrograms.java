@@ -91,11 +91,14 @@ public final class StartPrograms {
     }
 
     private class Execute extends Thread {
-        private ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
-        private List<File>           imageFiles;
-        private Program              program;
+        private ProgramInputParametersDialog dlg =
+            new ProgramInputParametersDialog();
+        private List<File> imageFiles;
+        private Program    program;
 
         Execute(Program program, List<File> imageFiles) {
+            super("JPhotoTagger: Executing program " + program.getAlias());
+
             if (program == null) {
                 throw new NullPointerException("program == null");
             }
@@ -106,8 +109,6 @@ public final class StartPrograms {
 
             this.imageFiles = new ArrayList<File>(imageFiles);
             this.program    = program;
-            setName("Executing program " + program.getAlias() + " @ "
-                    + getClass().getSimpleName());
         }
 
         @Override

@@ -237,10 +237,9 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void handleStartActionPerformed() {
-        Thread thread = new Thread(new EditThread());
+        Thread thread = new Thread(new EditThread(),
+                "JPhotoTagger: File editor " + title);
 
-        thread.setName("File editor " + title + " @ "
-                       + getClass().getSimpleName());
         thread.start();
     }
 

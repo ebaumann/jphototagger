@@ -28,5 +28,5 @@ import org.jphototagger.program.data.Program;
  * @author  Elmar Baumann
  */
 public interface ProgramActionListener {
-    public void programShallBeExecuted(Program program);
+    void programShallBeExecuted(Program program);
 }

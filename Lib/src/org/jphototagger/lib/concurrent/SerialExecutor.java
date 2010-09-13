@@ -93,7 +93,7 @@ public final class SerialExecutor implements Executor {
         }
     }
 
-    protected synchronized void scheduleNext() {
+    private synchronized void scheduleNext() {
         if ((active = runnables.poll()) != null) {
             executor.execute(active);
         }
@@ -102,7 +102,7 @@ public final class SerialExecutor implements Executor {
     private class Exec implements Runnable {
         final Runnable r;
 
-        public Exec(Runnable r) {
+        Exec(Runnable r) {
             this.r = r;
         }
 

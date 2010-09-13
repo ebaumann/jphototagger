@@ -97,13 +97,13 @@ public final class ImageCollectionsImporter implements Importer {
         private final List<ImageCollection> imageCollections;
 
         ImportThread(List<ImageCollection> imageCollections) {
+            super("JPhotoTagger: Importing image collections");
+
             if (imageCollections == null) {
                 throw new NullPointerException("imageCollections == null");
             }
 
             this.imageCollections = imageCollections;
-            super.setName("Importing image collections @ "
-                          + getClass().getSimpleName());
         }
 
         @Override

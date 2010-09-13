@@ -386,6 +386,7 @@ public final class ThumbnailUtil {
             // ob die Zielgröße im folgenden Schritt unterschritten werden würde.. Wenn nein, wird ein neuer Duchlauf
             // gestartet und wieder ein wenig skaliert.
             // In jedem Schleifendurchlauf werden origHeight und origWidth auf die aktuelle Größe gesetzt.
+            BufferedImage img = image;
             while (((origWidth * qfactor) > scaledWidth)
                     || ((origHeight * qfactor) > scaledHeight)) {
                 int width =
@@ -396,16 +397,16 @@ public final class ThumbnailUtil {
                            * qfactor);    // Die Höhe in diesem Skalierungsschritt
 
                 // Skalierungsschritt
-                image = scaleImage(width, height, image);
-                origWidth = image
+                img = scaleImage(width, height, img);
+                origWidth = img
                     .getWidth();    // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
-                origHeight = image
+                origHeight = img
                     .getHeight();    // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
                 pass++;
             }
 
             // Letzter Skalierungsschritt auf Zielgröße
-            scaledImage = scaleImage(scaledWidth, scaledHeight, image);
+            scaledImage = scaleImage(scaledWidth, scaledHeight, img);
         } catch (Exception ex) {
             AppLogger.logSevere(ThumbnailUtil.class, ex);
         }

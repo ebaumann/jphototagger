@@ -29,12 +29,9 @@ import com.imagero.util.R3;
  */
 public final class ImageProperties implements R3 {
     @Override
-    public final String[] get() {
+    public String[] get() {
         String[] s = new String[res.length];
-
-        for (int i = 0; i < s.length; i++) {
-            s[i] = res[i];
-        }
+        System.arraycopy(res, 0, s, 0, s.length);
 
         return s;
     }

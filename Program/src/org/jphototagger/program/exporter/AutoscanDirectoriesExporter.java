@@ -62,7 +62,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        file = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
 
         try {
             List<String> directories =
@@ -71,7 +71,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
             XmlObjectExporter.export(
                 new CollectionWrapper(
-                    StringWrapper.getWrappedStrings(directories)), file);
+                    StringWrapper.getWrappedStrings(directories)), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(AutoscanDirectoriesExporter.class, ex);
         }

@@ -34,34 +34,34 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public interface TextEntry {
-    public String getText();
+    String getText();
 
-    public void setText(String text);
+    void setText(String text);
 
     /**
      * Empties the text.
      *
      * @param dirty true if set dirty, else fals
      */
-    public void empty(boolean dirty);
+    void empty(boolean dirty);
 
-    public Column getColumn();
+    Column getColumn();
 
     /**
      * Requests the focus to the text input field.
      */
-    public void focus();
+    void focus();
 
-    public void setEditable(boolean editable);
+    void setEditable(boolean editable);
 
-    public boolean isEditable();
+    boolean isEditable();
 
-    public boolean isEmpty();
+    boolean isEmpty();
 
     /**
      * Enables autocomplete.
      */
-    public void setAutocomplete();
+    void setAutocomplete();
 
     /**
      * Returns whether the text has been changed since the last call
@@ -69,7 +69,7 @@ public interface TextEntry {
      *
      * @return true if changed
      */
-    public boolean isDirty();
+    boolean isDirty();
 
     /**
      * Sets how the entry shall behave like changes since last call to
@@ -77,7 +77,7 @@ public interface TextEntry {
      *
      * @param dirty  true if the text was changed
      */
-    public void setDirty(boolean dirty);
+    void setDirty(boolean dirty);
 
     /**
      * Returns all input components in order of their appearance, especially the
@@ -86,9 +86,9 @@ public interface TextEntry {
      * @return input components or empty list if the text entry has no input
      *         components
      */
-    public List<Component> getInputComponents();
+    List<Component> getInputComponents();
 
-    public void addMouseListenerToInputComponents(MouseListener l);
+    void addMouseListenerToInputComponents(MouseListener l);
 
-    public void removeMouseListenerFromInputComponents(MouseListener l);
+    void removeMouseListenerFromInputComponents(MouseListener l);
 }

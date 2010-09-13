@@ -41,8 +41,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
     private volatile boolean cancel;
 
     public RefreshXmpInDbOfKnownFiles() {
-        setName("Refreshing XMP in the database of known files @ "
-                + getClass().getSimpleName());
+        super("JPhotoTagger: Refreshing XMP in the database of known files");
         setInfo(
             JptBundle.INSTANCE.getString("RefreshXmpInDbOfKnownFiles.Info"));
     }

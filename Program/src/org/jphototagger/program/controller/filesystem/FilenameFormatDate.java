@@ -41,7 +41,7 @@ import java.util.Date;
 public final class FilenameFormatDate extends FilenameFormat {
     private String delimiter;
     private String name;
-    Date           prevDate;
+    private Date   prevDate;
 
     public FilenameFormatDate(String delimiter) {
         if (delimiter == null) {
@@ -90,9 +90,9 @@ public final class FilenameFormatDate extends FilenameFormat {
 
     private void formatDate(Date date) {
         checkNewDay(date);
-        prevDate = date;
-        name     = new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter
-                                        + "dd").format(date);
+        prevDate = new Date(date.getTime());
+        name = new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter
+                                    + "dd").format(date);
     }
 
     @Override
@@ -120,12 +120,12 @@ public final class FilenameFormatDate extends FilenameFormat {
         newDate.setTime(date);
         oldDate.setTime(prevDate);
 
-        int     newDay         = newDate.get(Calendar.DAY_OF_MONTH);
-        int     newMonth       = newDate.get(Calendar.MONTH);
-        int     newYear        = newDate.get(Calendar.YEAR);
-        int     oldDay         = oldDate.get(Calendar.DAY_OF_MONTH);
-        int     oldMonth       = oldDate.get(Calendar.MONTH);
-        int     oldYear        = oldDate.get(Calendar.YEAR);
+        int     newDay   = newDate.get(Calendar.DAY_OF_MONTH);
+        int     newMonth = newDate.get(Calendar.MONTH);
+        int     newYear  = newDate.get(Calendar.YEAR);
+        int     oldDay   = oldDate.get(Calendar.DAY_OF_MONTH);
+        int     oldMonth = oldDate.get(Calendar.MONTH);
+        int     oldYear  = oldDate.get(Calendar.YEAR);
         boolean datesDifferent = (newDay != oldDay) || (newMonth != oldMonth)
                                  || (newYear != oldYear);
 

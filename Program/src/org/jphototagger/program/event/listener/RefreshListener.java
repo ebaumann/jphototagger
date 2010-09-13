@@ -35,5 +35,5 @@ public interface RefreshListener {
      *
      * @param evt event
      */
-    public void refresh(RefreshEvent evt);
+    void refresh(RefreshEvent evt);
 }

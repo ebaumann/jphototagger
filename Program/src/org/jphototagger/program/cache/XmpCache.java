@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.cache;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
-import org.jphototagger.lib.generics.Pair;
 
 import java.io.File;
 
@@ -48,7 +48,8 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
     private XmpCache() {
         db.addListener(this);
-        new Thread(new XmpFetcher(workQueue, this), "XmpFetcher").start();
+        new Thread(new XmpFetcher(workQueue, this),
+                   "JPhotoTagger: XmpFetcher").start();
     }
 
     @Override
@@ -98,46 +99,55 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
 
     @Override
     public void imageFileDeleted(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void imageFileInserted(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
         // ignore
     }
 
     @Override
     public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
         // ignore
     }
 
     @Override
     public void thumbnailUpdated(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void dcSubjectDeleted(String dcSubject) {
+
         // ignore
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
+
         // ignore
     }
 
     @Override
     public void exifInserted(File imageFile, Exif exif) {
+
         // ignore
     }
 
     @Override
     public void exifDeleted(File imageFile, Exif exif) {
+
         // ignore
     }
 
@@ -194,7 +204,8 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
                         } catch (Exception ex) {}
                     }
 
-                    List<Pair<File, Xmp>> res = db.getXmpOfImageFiles(imageFiles);
+                    List<Pair<File, Xmp>> res =
+                        db.getXmpOfImageFiles(imageFiles);
 
                     // send updates to request results
                     for (Pair<File, Xmp> p : res) {

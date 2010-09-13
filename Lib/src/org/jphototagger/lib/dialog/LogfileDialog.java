@@ -304,7 +304,7 @@ public final class LogfileDialog extends Dialog
         if (rowData != null) {
             stringBuffer.append("\n\t<tr>");
             stringBuffer.append("\n\t\t<td>");
-            stringBuffer.append("<strong>" + rowHeader + "</strong>");
+            stringBuffer.append("<strong>").append(rowHeader).append("</strong>");
             stringBuffer.append("</td>");
             stringBuffer.append("<td><font color=\"#5555aa\">");
             stringBuffer.append(rowData);
@@ -322,12 +322,12 @@ public final class LogfileDialog extends Dialog
             List<FrameLogfileRecord> frames = ex.getFrames();
 
             for (FrameLogfileRecord frame : frames) {
-                stringBuffer.append("\n" + frame.getClassName() + ":");
-                stringBuffer.append(" " + frame.getMethodName());
-                stringBuffer.append(
-                    JslBundle.INSTANCE.getString(
-                        "LogfileDialog.Info.StartLineNumber") + frame.getLine()
-                            + ")");
+                stringBuffer.append("\n").append(frame.getClassName())
+                        .append(":");
+                stringBuffer.append(" ").append(frame.getMethodName());
+                stringBuffer.append(JslBundle.INSTANCE.getString(
+                        "LogfileDialog.Info.StartLineNumber"))
+                        .append(frame.getLine()).append(")");
             }
 
             stringBuffer.append("\n</pre>");
@@ -339,8 +339,8 @@ public final class LogfileDialog extends Dialog
         String message = exception.getMessage();
 
         if (message != null) {
-            stringBuffer.append("\n<br /><font color=\"ff0000\">" + message
-                                + "</font>");
+            stringBuffer.append("\n<br /><font color=\"ff0000\">")
+                    .append(message).append("</font>");
         }
     }
 

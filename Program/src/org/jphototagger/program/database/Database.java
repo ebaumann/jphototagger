@@ -373,6 +373,42 @@ public class Database {
         return count;
     }
 
+    public static long getCount(Connection con, String tablename,
+                                String columnName, long value)
+            throws SQLException {
+        if (con == null) {
+            throw new NullPointerException("con == null");
+        }
+
+        if (tablename == null) {
+            throw new NullPointerException("tablename == null");
+        }
+
+        if (columnName == null) {
+            throw new NullPointerException("columnName == null");
+        }
+
+        long              count = 0;
+        PreparedStatement stmt  = null;
+        ResultSet         rs    = null;
+
+        try {
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename
+                                        + " WHERE " + columnName + " = ?");
+            stmt.setLong(1, value);
+            AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getLong(1);
+            }
+        } finally {
+            close(rs, stmt);
+        }
+
+        return count;
+    }
+
     public static boolean exists(Connection con, String tablename,
                                  String columnName, String value)
             throws SQLException {

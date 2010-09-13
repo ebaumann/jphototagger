@@ -178,7 +178,7 @@ public final class ExifGpsMetadata {
     /**
      * Sets the GPS date.
      *
-     * @param dateStamp date
+     * @param gpsDateStamp date
      */
     public void setDateStamp(ExifGpsDateStamp gpsDateStamp) {
         this.gpsDateStamp = gpsDateStamp;

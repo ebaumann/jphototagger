@@ -37,7 +37,7 @@ public interface DatabaseRenameTemplatesListener {
      *
      * @param template  template
      */
-    public void templateDeleted(RenameTemplate template);
+    void templateDeleted(RenameTemplate template);
 
     /**
      * Will be called if a template was inserted into
@@ -45,7 +45,7 @@ public interface DatabaseRenameTemplatesListener {
      *
      * @param template inserted template
      */
-    public void templateInserted(RenameTemplate template);
+    void templateInserted(RenameTemplate template);
 
     /**
      * Will be called if a template was updated in
@@ -53,5 +53,5 @@ public interface DatabaseRenameTemplatesListener {
      *
      * @param template updated template
      */
-    public void templateUpdated(RenameTemplate template);
+    void templateUpdated(RenameTemplate template);
 }

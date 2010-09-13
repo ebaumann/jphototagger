@@ -140,13 +140,13 @@ public final class ListUtil {
             throw new NullPointerException("delim == null");
         }
 
-        StringBuffer buffer = new StringBuffer();
-        int          size   = model.getSize();
+        StringBuilder buffer = new StringBuilder();
+        int           size   = model.getSize();
 
         for (int i = 0; i < size; i++) {
-            buffer.append(model.get(i).toString() + ((i < size - 1)
+            buffer.append(model.get(i).toString()).append((i < size - 1)
                     ? delim
-                    : ""));
+                    : "");
         }
 
         return buffer.toString();
@@ -211,7 +211,7 @@ public final class ListUtil {
             throw new NullPointerException("model == null");
         }
 
-        int     size    = model.getSize();
+        int     size = model.getSize();
         boolean canSwap = (indexFirstElement >= 0)
                           && (indexFirstElement < size)
                           && (indexSecondElement >= 0)

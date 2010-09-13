@@ -40,7 +40,7 @@ public interface DatabaseImageFilesListener {
      *
      * @param imageFile inserted image file
      */
-    public void imageFileInserted(File imageFile);
+    void imageFileInserted(File imageFile);
 
     /**
      * Will be called if an image file was renamed in
@@ -49,7 +49,7 @@ public interface DatabaseImageFilesListener {
      * @param oldImageFile old image file
      * @param newImageFile new image file
      */
-    public void imageFileRenamed(File oldImageFile, File newImageFile);
+    void imageFileRenamed(File oldImageFile, File newImageFile);
 
     /**
      * Will be called if an image file was deleted from
@@ -57,7 +57,7 @@ public interface DatabaseImageFilesListener {
      *
      * @param imageFile deleted image file
      */
-    public void imageFileDeleted(File imageFile);
+    void imageFileDeleted(File imageFile);
 
     /**
      * Will be called if XMP metadata of an image files was inserted in
@@ -66,7 +66,7 @@ public interface DatabaseImageFilesListener {
      * @param imageFile image file, which XMP metadata was inserted
      * @param xmp       inserted XMP metadata
      */
-    public void xmpInserted(File imageFile, Xmp xmp);
+    void xmpInserted(File imageFile, Xmp xmp);
 
     /**
      * Will be called if XMP metadata of an image files was updated in
@@ -76,7 +76,7 @@ public interface DatabaseImageFilesListener {
      * @param oldXmp     old XMP metadata
      * @param updatedXmp updated (new) XMP metadata
      */
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp);
+    void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp);
 
     /**
      * Will be called if XMP metadata of an image files was deleted from
@@ -85,7 +85,7 @@ public interface DatabaseImageFilesListener {
      * @param imageFile image file, which XMP metadata was deleted
      * @param xmp       deleted XMP metadata
      */
-    public void xmpDeleted(File imageFile, Xmp xmp);
+    void xmpDeleted(File imageFile, Xmp xmp);
 
     /**
      * Will be called if EXIF metadata of an image files was inserted in
@@ -94,7 +94,7 @@ public interface DatabaseImageFilesListener {
      * @param imageFile image file, which EXIF metadata was inserted
      * @param exif      EXIF metadata
      */
-    public void exifInserted(File imageFile, Exif exif);
+    void exifInserted(File imageFile, Exif exif);
 
     /**
      * Will be called if EXIF metadata of an image files was updated in
@@ -104,7 +104,7 @@ public interface DatabaseImageFilesListener {
      * @param oldExif     old EXIF metadata
      * @param updatedExif updated (new) EXIF metadata
      */
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif);
+    void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif);
 
     /**
      * Will be called if EXIF metadata of an image files was deleted from
@@ -113,7 +113,7 @@ public interface DatabaseImageFilesListener {
      * @param imageFile image file, which EXIF metadata was deleted
      * @param exif      EXIF metadata
      */
-    public void exifDeleted(File imageFile, Exif exif);
+    void exifDeleted(File imageFile, Exif exif);
 
     /**
      * Will be called if a thumbnail was updated in
@@ -121,7 +121,7 @@ public interface DatabaseImageFilesListener {
      *
      * @param imageFile image file, which thumbnail was updated
      */
-    public void thumbnailUpdated(File imageFile);
+    void thumbnailUpdated(File imageFile);
 
     /**
      * Will be called if a Dublin Core subject was deleted from
@@ -130,7 +130,7 @@ public interface DatabaseImageFilesListener {
      *
      * @param dcSubject deleted Dublin Core subject
      */
-    public void dcSubjectInserted(String dcSubject);
+    void dcSubjectInserted(String dcSubject);
 
     /**
      * Will be called if a Dublin Core subject was deleted from
@@ -139,5 +139,5 @@ public interface DatabaseImageFilesListener {
      *
      * @param dcSubject deleted Dublin Core subject
      */
-    public void dcSubjectDeleted(String dcSubject);
+    void dcSubjectDeleted(String dcSubject);
 }
