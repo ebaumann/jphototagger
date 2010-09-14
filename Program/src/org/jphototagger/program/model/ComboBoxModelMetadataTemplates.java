@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.ConnectionPool;
@@ -32,7 +33,6 @@ import org.jphototagger.program.resource.JptBundle;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Elements are instances of {@link MetadataTemplate}s retrieved through
@@ -151,6 +151,25 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
         }
     }
 
+    private void updateTemplate(MetadataTemplate template) {
+        int index = indexOfTemplate(template.getName());
+
+        if (index >= 0) {
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+    private void renameTemplate(String fromName, String toName) {
+        int index = indexOfTemplate(fromName);
+
+        if (index >= 0) {
+            MetadataTemplate template = (MetadataTemplate) getElementAt(index);
+
+            template.setName(toName);
+            fireContentsChanged(this, index, index);
+        }
+    }
+
     private void addElements() {
         if (!ConnectionPool.INSTANCE.isInit()) {
             return;
@@ -187,11 +206,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateDeleted(final MetadataTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 removeElement(template);
@@ -201,11 +216,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateInserted(final MetadataTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addElement(template);
@@ -216,53 +227,21 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
     @Override
     public void templateUpdated(final MetadataTemplate oldTemplate,
                                 MetadataTemplate updatedTemplate) {
-        if (oldTemplate == null) {
-            throw new NullPointerException("oldTemplate == null");
-        }
-
-        if (updatedTemplate == null) {
-            throw new NullPointerException("updatedTemplate == null");
-        }
-
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = indexOfTemplate(oldTemplate.getName());
-
-                if (index >= 0) {
-                    fireContentsChanged(src, index, index);
+                updateTemplate(oldTemplate);
                 }
-            }
         });
     }
 
     @Override
     public void templateRenamed(final String fromName, final String toName) {
-        if (fromName == null) {
-            throw new NullPointerException("fromName == null");
-        }
-
-        if (toName == null) {
-            throw new NullPointerException("toName == null");
-        }
-
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = indexOfTemplate(fromName);
-
-                if (index >= 0) {
-                    MetadataTemplate template =
-                        (MetadataTemplate) getElementAt(index);
-
-                    template.setName(toName);
-                    fireContentsChanged(src, index, index);
+                renameTemplate(fromName, toName);
                 }
-            }
         });
     }
 }

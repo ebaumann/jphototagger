@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
@@ -50,7 +51,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -299,7 +299,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             throw new NullPointerException("updatedXmp == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldXmp);
@@ -314,7 +314,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             throw new NullPointerException("xmp == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkInserted(xmp);
@@ -328,7 +328,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             throw new NullPointerException("xmp == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(xmp);
@@ -338,11 +338,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
 
     @Override
     public void dcSubjectDeleted(final String dcSubject) {
-        if (dcSubject == null) {
-            throw new NullPointerException("dcSubject == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
@@ -352,11 +348,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
 
     @Override
     public void dcSubjectInserted(final String dcSubject) {
-        if (dcSubject == null) {
-            throw new NullPointerException("dcSubject == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
@@ -370,7 +362,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             throw new NullPointerException("exif == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkInserted(exif);
@@ -389,7 +381,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             throw new NullPointerException("updatedExif == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldExif);
@@ -400,11 +392,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
 
     @Override
     public void exifDeleted(File imageFile, final Exif exif) {
-        if (exif == null) {
-            throw new NullPointerException("exif == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(exif);

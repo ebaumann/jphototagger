@@ -42,6 +42,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -356,11 +357,11 @@ public final class CopyToDirectoryDialog extends Dialog
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         copy = true;
         buttonStart.setEnabled(false);
         buttonCancel.setEnabled(true);
@@ -369,14 +370,16 @@ public final class CopyToDirectoryDialog extends Dialog
         progressBar.setValue(evt.getValue());
         pListenerSupport.notifyStarted(evt);
     }
+        });
+    }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setValue(evt.getValue());
 
         Pair<File, File> files = (Pair<File, File>) evt.getInfo();
@@ -386,14 +389,16 @@ public final class CopyToDirectoryDialog extends Dialog
                 files.getSecond());
         pListenerSupport.notifyPerformed(evt);
     }
+        });
+    }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setValue(evt.getValue());
 
         List<String> errorFiles = (List<String>) evt.getInfo();
@@ -404,6 +409,8 @@ public final class CopyToDirectoryDialog extends Dialog
         copy = false;
         pListenerSupport.notifyEnded(evt);
         setVisible(false);
+    }
+        });
     }
 
     @Override

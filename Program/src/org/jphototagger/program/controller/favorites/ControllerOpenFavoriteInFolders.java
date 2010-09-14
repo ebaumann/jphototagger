@@ -30,6 +30,7 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 
 import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -39,7 +40,6 @@ import java.io.File;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -91,7 +91,7 @@ public final class ControllerOpenFavoriteInFolders
     }
 
     private void selectDirectory() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreePath path = popupMenu.getTreePath();

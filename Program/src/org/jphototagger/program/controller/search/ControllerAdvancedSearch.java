@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.search;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
@@ -44,7 +45,6 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
@@ -70,7 +70,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
     }
 
     private void applySavedSearch(final SavedSearch savedSearch) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 assert savedSearch.isValid() : savedSearch;

@@ -26,6 +26,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -98,9 +99,17 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
     @Override
     public void thumbnailsSelectionChanged() {
-        final ThumbnailsPanel tnPanel = GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                ThumbnailsPanel tnPanel = GUI.INSTANCE.getAppPanel()
+                        .getPanelThumbnails();
+
         buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) 
                                         && tnPanel.isFileSelected());
+    }
+        });
     }
 
     @Override

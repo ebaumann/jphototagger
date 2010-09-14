@@ -30,6 +30,7 @@ import org.jphototagger.program.types.Persistence;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 
 import java.util.List;
@@ -169,37 +170,43 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBarUpdateDatabase.setMinimum(evt.getMinimum());
         progressBarUpdateDatabase.setMaximum(evt.getMaximum());
         progressBarUpdateDatabase.setValue(evt.getValue());
         checkCancel(evt);
     }
-
-    @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
-        progressBarUpdateDatabase.setValue(evt.getValue());
-        checkCancel(evt);
+        });
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
+        progressBarUpdateDatabase.setValue(evt.getValue());
+        checkCancel(evt);
+    }
+        });
+    }
+
+    @Override
+    public void progressEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         progressBarUpdateDatabase.setValue(evt.getValue());
         isUpdateDatabase = false;
         cancel           = false;
         setEnabled();
+    }
+        });
     }
 
     @Override

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
@@ -32,7 +33,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -61,7 +61,7 @@ public final class ControllerMoveFavorite implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         boolean moveUp = popup.getItemMoveUp().equals(evt.getSource());
 
-        SwingUtilities.invokeLater(new MoveDir(moveUp));
+        EventQueue.invokeLater(new MoveDir(moveUp));
     }
 
     private class MoveDir implements Runnable {
@@ -73,7 +73,7 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         @Override
         public void run() {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
             if (up) {

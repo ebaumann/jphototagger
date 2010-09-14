@@ -21,28 +21,29 @@
 
 package org.jphototagger.program.controller.misc;
 
+import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.lib.dialog.LogfileDialog;
+import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.app.AppLoggingSystem;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.event.listener.ErrorListener;
 import org.jphototagger.program.event.listener.impl.ErrorListeners;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.frames.AppFrame;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.dialog.LogfileDialog;
-import org.jphototagger.lib.event.util.MouseEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.EventQueue;
 
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import org.jphototagger.program.UserSettings;
 
 /**
  * Kontrolliert die Aktion: Logfiledialog anzeigen.
@@ -52,13 +53,12 @@ import org.jphototagger.program.UserSettings;
 public final class ControllerLogfileDialog extends MouseAdapter
         implements ActionListener, ErrorListener {
     private static final long   MILLISECONDS_ERROR_DISPLAY = 4000;
-    private static final String LABEL_ERROR_TOOLTIP_TEXT   =
+    private static final String LABEL_ERROR_TOOLTIP_TEXT =
         JptBundle.INSTANCE.getString(
             "ControllerLogfileDialog.LabelErrorTooltipText");
     private static final String STATUSBAR_ERROR_TEXT =
         JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
-    private final AppFrame  appFrame                =
-        GUI.INSTANCE.getAppFrame();
+    private final AppFrame  appFrame = GUI.INSTANCE.getAppFrame();
     private final JMenuItem itemShowDlgErrorLogfile =
         appFrame.getMenuItemDisplayLogfile();
     private final JMenuItem itemShowDlgAllLogfile =
@@ -120,6 +120,11 @@ public final class ControllerLogfileDialog extends MouseAdapter
 
     @Override
     public void error(Object source, String message) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         error();
     }
+        });
+}
 }

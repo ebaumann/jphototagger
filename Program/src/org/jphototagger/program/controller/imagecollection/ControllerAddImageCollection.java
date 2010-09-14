@@ -37,9 +37,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Aktion: Erzeuge eine Bildsammlung, ausgelöst von
@@ -56,7 +56,7 @@ public final class ControllerAddImageCollection
         PopupMenuThumbnails.INSTANCE;
     private final PopupMenuImageCollections popupMenuImageCollections =
         PopupMenuImageCollections.INSTANCE;
-    private final AppPanel appPanel             = GUI.INSTANCE.getAppPanel();
+    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
     private final JList    listImageCollections =
         appPanel.getListImageCollections();
     private final ThumbnailsPanel tnPanel =
@@ -91,22 +91,24 @@ public final class ControllerAddImageCollection
                 tnPanel.getSelectedFiles());
 
         if (collectionName != null) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    ListModelImageCollections model =
-                        ModelFactory.INSTANCE.getModel(
-                            ListModelImageCollections.class);
-
-                    ListUtil.insertSorted(
-                        model, collectionName,
-                        ComparatorStringAscending.INSTANCE,
-                        ListModelImageCollections.getSpecialCollectionCount(),
-                        model.getSize() - 1);
+                    insertImageCollection(collectionName);
                 }
             });
         }
     }
+
+    private void insertImageCollection(String collectionName) {
+                    ListModelImageCollections model =
+            ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
+
+                    ListUtil.insertSorted(
+            model, collectionName, ComparatorStringAscending.INSTANCE,
+                        ListModelImageCollections.getSpecialCollectionCount(),
+                        model.getSize() - 1);
+                }
 
     @Override
     public void keyTyped(KeyEvent evt) {

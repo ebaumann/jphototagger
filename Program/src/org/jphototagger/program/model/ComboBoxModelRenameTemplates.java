@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.RenameTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -54,53 +54,51 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
         }
     }
 
-    @Override
-    public void templateDeleted(final RenameTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
+    private void updateTemplate(RenameTemplate template) {
+        int index = getIndexOf(template);
 
-        SwingUtilities.invokeLater(new Runnable() {
+        if (index >= 0) {
+            ((RenameTemplate) getElementAt(index)).set(template);
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+    private void insertTemplate(RenameTemplate template) {
+        addElement(template);
+        setSelectedItem(template);
+    }
+
+    private void deleteTemplate(RenameTemplate template) {
+        removeElement(template);
+    }
+
+            @Override
+    public void templateDeleted(final RenameTemplate template) {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                removeElement(template);
+                deleteTemplate(template);
             }
         });
     }
 
     @Override
     public void templateInserted(final RenameTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                addElement(template);
-                setSelectedItem(template);
+                insertTemplate(template);
             }
         });
     }
 
     @Override
     public void templateUpdated(final RenameTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
-
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = getIndexOf(template);
-
-                if (index >= 0) {
-                    ((RenameTemplate) getElementAt(index)).set(template);
-                    fireContentsChanged(src, index, index);
+                updateTemplate(template);
                 }
-            }
         });
     }
 }

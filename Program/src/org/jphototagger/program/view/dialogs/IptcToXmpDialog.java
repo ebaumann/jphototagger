@@ -36,6 +36,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -232,37 +233,43 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
         checkCancel(evt);
     }
-
-    @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
-        progressBar.setValue(evt.getValue());
-        checkCancel(evt);
+        });
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
+        progressBar.setValue(evt.getValue());
+        checkCancel(evt);
+    }
+        });
+    }
+
+    @Override
+    public void progressEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         progressBar.setValue(evt.getValue());
         cancel = true;
         setEnabledButtons();
         setVisible(false);
+    }
+        });
     }
 
     @Override

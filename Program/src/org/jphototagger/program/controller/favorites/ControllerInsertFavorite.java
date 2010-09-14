@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
@@ -39,7 +40,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 
 /**
  * Listens to the {@link PopupMenuFavorites} and inserts a
@@ -93,7 +93,7 @@ public final class ControllerInsertFavorite
     }
 
     private void insertFavorite(final File directory) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 FavoritePropertiesDialog dlg =

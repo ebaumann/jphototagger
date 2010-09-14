@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.app.update;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.net.CancelRequest;
 import org.jphototagger.lib.net.HttpUtil;
@@ -43,7 +44,6 @@ import java.io.FileOutputStream;
 import java.net.URL;
 
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
@@ -195,7 +195,7 @@ public final class UpdateDownload extends Thread
 
     private void startProgressBar() {
         progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -210,7 +210,7 @@ public final class UpdateDownload extends Thread
     }
 
     private void progressBarDownloadInfo() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -223,7 +223,7 @@ public final class UpdateDownload extends Thread
     }
 
     private void releaseProgressBar() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

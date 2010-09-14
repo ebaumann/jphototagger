@@ -34,6 +34,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import java.lang.reflect.Method;
 
@@ -301,11 +302,11 @@ public final class DatabaseMaintainancePanel extends JPanel
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         appendMessage(evt.getInfo().toString());
         buttonDeleteMessages.setEnabled(false);
         setProgressbarStart(evt);
@@ -313,23 +314,27 @@ public final class DatabaseMaintainancePanel extends JPanel
                                        instanceof CompressDatabase));
         checkCancel(evt);
     }
-
-    @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
-        progressBar.setValue(evt.getValue());
-        checkCancel(evt);
+        });
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
+        progressBar.setValue(evt.getValue());
+        checkCancel(evt);
+    }
+        });
+    }
+
+    @Override
+    public void progressEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         setProgressbarEnd(evt);
         appendMessage(evt.getInfo().toString());
 
@@ -352,6 +357,8 @@ public final class DatabaseMaintainancePanel extends JPanel
             currentRunnable = null;
             setRunnablesAreRunning(false);
         }
+    }
+        });
     }
 
     private void handleButtonCancelActionPerformed() {

@@ -37,11 +37,11 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -75,28 +75,27 @@ public class ControllerAddKeyword extends ControllerKeywords
 
     @Override
     protected void localAction(final List<DefaultMutableTreeNode> nodes) {
-        if (nodes == null) {
-            throw new NullPointerException("nodes == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        DefaultMutableTreeNode node       = nodes.get(0);
-        Object                 userObject = node.getUserObject();
-
-        if (userObject instanceof Keyword) {
-            add(node, (Keyword) userObject);
-        } else if (isRootNode(node)) {
-            add(node, null);
+                addKeyword(nodes.get(0));
         }
-    }
         });
     }
 
     private boolean isRootNode(Object node) {
         return ModelFactory.INSTANCE.getModel(
             TreeModelKeywords.class).getRoot().equals(node);
+    }
+
+    private void addKeyword(DefaultMutableTreeNode node) {
+        Object userObject = node.getUserObject();
+
+        if (userObject instanceof Keyword) {
+            add(node, (Keyword) userObject);
+        } else if (isRootNode(node)) {
+            add(node, null);
+        }
     }
 
     private void add(DefaultMutableTreeNode parentNode, Keyword parentKeyword) {

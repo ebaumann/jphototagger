@@ -28,10 +28,12 @@ import org.jphototagger.program.controller.keywords.tree
     .ControllerCopyCutPasteKeyword;
 import org.jphototagger.program.controller.keywords.tree
     .ControllerDeleteKeywordFromEditPanel;
-import org.jphototagger.program.controller.keywords.tree.ControllerDeleteKeywords;
+import org.jphototagger.program.controller.keywords.tree
+    .ControllerDeleteKeywords;
 import org.jphototagger.program.controller.keywords.tree
     .ControllerKeywordsDisplayImages;
-import org.jphototagger.program.controller.keywords.tree.ControllerRenameKeyword;
+import org.jphototagger.program.controller.keywords.tree
+    .ControllerRenameKeyword;
 import org.jphototagger.program.controller.keywords.tree
     .ControllerToggleRealKeyword;
 import org.jphototagger.program.controller.metadata
@@ -39,7 +41,8 @@ import org.jphototagger.program.controller.metadata
 import org.jphototagger.program.controller.misc.ControllerAboutApp;
 import org.jphototagger.program.controller.misc.ControllerHelp;
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
-import org.jphototagger.program.controller.misc.ControllerShowUserSettingsDialog;
+import org.jphototagger.program.controller.misc
+    .ControllerShowUserSettingsDialog;
 import org.jphototagger.program.controller.search
     .ControllerShowAdvancedSearchDialog;
 import org.jphototagger.program.resource.GUI;
@@ -50,6 +53,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
 
@@ -67,8 +71,13 @@ public final class ActionKeyListenerFactory {
 
         if (!init) {
             init = true;
-            addActionListeners();
-            addKeyListeners();
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    addActionListeners();
+                    addKeyListeners();
+                }
+            });
         }
     }
 

@@ -27,6 +27,8 @@ import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
 import org.jphototagger.program.UserSettings;
 
+import java.awt.EventQueue;
+
 /**
  * Initalizes all other factories in the right order and sets the persistent
  * settings to the application's frame and panel.
@@ -51,7 +53,7 @@ public final class MetaFactory implements Runnable {
             init = true;
         }
 
-        AppWindowPersistence appPersistence = new AppWindowPersistence();
+        final AppWindowPersistence appPersistence = new AppWindowPersistence();
 
         appPersistence.readAppFrameFromProperties();
         ModelFactory.INSTANCE.init();
@@ -61,8 +63,13 @@ public final class MetaFactory implements Runnable {
         MouseListenerFactory.INSTANCE.init();
 
         // No other factory after:
-        TerminateFactory.INSTANCE.init();
-        appPersistence.readAppPanelFromProperties();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                TerminateFactory.INSTANCE.init();
+                appPersistence.readAppPanelFromProperties();
+            }
+        });
         checkForDownload();
         ScheduledTaskBackupDatabase.INSTANCE.setBackup();
     }

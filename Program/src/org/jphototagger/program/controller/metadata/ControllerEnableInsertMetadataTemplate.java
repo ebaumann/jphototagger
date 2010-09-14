@@ -27,6 +27,7 @@ import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -65,11 +66,21 @@ public final class ControllerEnableInsertMetadataTemplate
 
     @Override
     public void editEnabled() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         setButtonEnabled();
+    }
+        });
     }
 
     @Override
     public void editDisabled() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         setButtonEnabled();
     }
+        });
+}
 }

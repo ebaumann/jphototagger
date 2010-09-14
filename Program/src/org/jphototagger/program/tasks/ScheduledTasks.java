@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.tasks;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -157,7 +158,7 @@ public final class ScheduledTasks
     }
 
     @Override
-    public void actionPerformed(UpdateMetadataCheckEvent evt) {
+    public void checkForUpdate(UpdateMetadataCheckEvent evt) {
         if (evt.getType().equals(Type.CHECK_FINISHED)) {
             setButtonState(ButtonState.START);
             isRunning = false;
@@ -184,8 +185,14 @@ public final class ScheduledTasks
         }
     }
 
-    private void setButtonState(ButtonState state) {
+    private void setButtonState(final ButtonState state) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         button.setIcon(ICON_OF_BUTTON_STATE.get(state));
         button.setToolTipText(TOOLTIP_TEXT_OF_BUTTON_STATE.get(state));
     }
+        });
+}
 }

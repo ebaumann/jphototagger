@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.event.listener.DatabaseSynonymsListener;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -190,139 +190,6 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    @Override
-    public void synonymOfWordDeleted(final String word, final String synonym) {
-        if (word == null) {
-            throw new NullPointerException("word == null");
-        }
-
-        if (synonym == null) {
-            throw new NullPointerException("synonym == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
-                    removeElement(synonym);
-                } else if (listen && role.equals(Role.WORDS) && contains(word)
-                           &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
-                    removeElement(word);
-                }
-            }
-        });
-    }
-
-    @Override
-    public void synonymInserted(final String word, final String synonym) {
-        if (word == null) {
-            throw new NullPointerException("word == null");
-        }
-
-        if (synonym == null) {
-            throw new NullPointerException("synonym == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (listen && role.equals(Role.WORDS) &&!contains(word)) {
-                    addElement(word);
-                } else if (listen && isRoleSynonymForWord(word)
-                           &&!contains(synonym)) {
-                    addElement(synonym);
-                }
-            }
-        });
-    }
-
-    @Override
-    public void synonymOfWordRenamed(final String word,
-                                     final String oldSynonymName,
-                                     final String newSynonymName) {
-        if (word == null) {
-            throw new NullPointerException("word == null");
-        }
-
-        if (oldSynonymName == null) {
-            throw new NullPointerException("oldSynonymName == null");
-        }
-
-        if (newSynonymName == null) {
-            throw new NullPointerException("newSynonymName == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (listen && isRoleSynonymForWord(word)
-                        && contains(oldSynonymName)) {
-                    setElementAt(newSynonymName, indexOf(oldSynonymName));
-                }
-            }
-        });
-    }
-
-    @Override
-    public void synonymRenamed(final String oldSynonymName,
-                               final String newSynonymName) {
-        if (oldSynonymName == null) {
-            throw new NullPointerException("oldSynonymName == null");
-        }
-
-        if (newSynonymName == null) {
-            throw new NullPointerException("newSynonymName == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (listen && role.equals(Role.SYNONYMS)
-                        && contains(oldSynonymName)) {
-                    setElementAt(newSynonymName, indexOf(oldSynonymName));
-                }
-            }
-        });
-    }
-
-    @Override
-    public void wordDeleted(final String word) {
-        if (word == null) {
-            throw new NullPointerException("word == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (listen && role.equals(Role.WORDS) && contains(word)) {
-                    removeElement(word);
-                } else if (listen && isRoleSynonymForWord(word)) {
-                    removeAllElements();
-                }
-            }
-        });
-    }
-
-    @Override
-    public void wordRenamed(final String fromName, final String toName) {
-        if (fromName == null) {
-            throw new NullPointerException("fromName == null");
-        }
-
-        if (toName == null) {
-            throw new NullPointerException("toName == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (listen && role.equals(Role.WORDS) && contains(fromName)) {
-                    setElementAt(toName, indexOf(fromName));
-                }
-            }
-        });
-    }
-
     private void addElements() {
         if (!ConnectionPool.INSTANCE.isInit()) {
             return;
@@ -334,7 +201,7 @@ public final class ListModelSynonyms extends DefaultListModel
         if (role.equals(Role.WORDS)) {
             for (String w : DatabaseSynonyms.INSTANCE.getAllWords()) {
                 addElement(w);
-            }
+        }
         } else if (role.equals(Role.SYNONYMS) && (word != null)) {
             for (String s : DatabaseSynonyms.INSTANCE.getSynonymsOf(word)) {
                 addElement(s);
@@ -343,4 +210,111 @@ public final class ListModelSynonyms extends DefaultListModel
 
         listen = true;
     }
-}
+
+    private void insertSynonym(String word, String synonym) {
+        if (listen && role.equals(Role.WORDS) &&!contains(word)) {
+            addElement(word);
+        } else if (listen && isRoleSynonymForWord(word) &&!contains(synonym)) {
+            addElement(synonym);
+        }
+    }
+
+    private void deleteSynonymOfWord(String word, String synonym) {
+                if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
+                    removeElement(synonym);
+                } else if (listen && role.equals(Role.WORDS) && contains(word)
+                           &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
+                    removeElement(word);
+                }
+            }
+
+    private void deleteWord(String word) {
+        if (listen && role.equals(Role.WORDS) && contains(word)) {
+            removeElement(word);
+        } else if (listen && isRoleSynonymForWord(word)) {
+            removeAllElements();
+    }
+    }
+
+    private void renameSynonymOfWord(String word, String oldSynonymName,
+                                     String newSynonymName) {
+        if (listen && isRoleSynonymForWord(word) && contains(oldSynonymName)) {
+            setElementAt(newSynonymName, indexOf(oldSynonymName));
+        }
+    }
+
+    private void renameSynonym(String oldSynonymName, String newSynonymName) {
+        if (listen && role.equals(Role.SYNONYMS) && contains(oldSynonymName)) {
+            setElementAt(newSynonymName, indexOf(oldSynonymName));
+        }
+    }
+
+    private void renameWord(String fromName, String toName) {
+        if (listen && role.equals(Role.WORDS) && contains(fromName)) {
+            setElementAt(toName, indexOf(fromName));
+        }
+    }
+
+            @Override
+    public void synonymOfWordDeleted(final String word, final String synonym) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                deleteSynonymOfWord(word, synonym);
+                }
+        });
+            }
+
+    @Override
+    public void synonymInserted(final String word, final String synonym) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                insertSynonym(word, synonym);
+            }
+        });
+    }
+
+    @Override
+    public void synonymOfWordRenamed(final String word,
+                                     final String oldSynonymName,
+                                     final String newSynonymName) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                renameSynonymOfWord(word, oldSynonymName, newSynonymName);
+                }
+        });
+    }
+
+    @Override
+    public void synonymRenamed(final String oldSynonymName,
+                               final String newSynonymName) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                renameSynonym(oldSynonymName, newSynonymName);
+                }
+        });
+    }
+
+    @Override
+    public void wordDeleted(final String word) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                deleteWord(word);
+                }
+        });
+    }
+
+    @Override
+    public void wordRenamed(final String fromName, final String toName) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                renameWord(fromName, toName);
+                }
+        });
+    }
+        }

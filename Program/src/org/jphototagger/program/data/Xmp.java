@@ -22,6 +22,7 @@
 package org.jphototagger.program.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import java.awt.EventQueue;
 
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
@@ -77,58 +78,49 @@ public final class Xmp implements TextEntryListener {
     }
 
     @Override
-    public void textRemoved(Column column, String removedText) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
-        }
+    public void textRemoved(final Column column, final String removedText) {
+        EventQueue.invokeLater(new Runnable() {
 
-        if (removedText == null) {
-            throw new NullPointerException("removedText == null");
-        }
-
+            @Override
+            public void run() {
         removeValue(column, removedText);
     }
-
-    @Override
-    public void textAdded(Column column, String addedText) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
-        }
-
-        if (addedText == null) {
-            throw new NullPointerException("addedText == null");
-        }
-
-        setValue(column, addedText);
+        });
     }
 
     @Override
-    public void textChanged(Column xmpColumn, String oldText, String newText) {
-        if (xmpColumn == null) {
-            throw new NullPointerException("xmpColumn == null");
+    public void textAdded(final Column column, final String addedText) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+        setValue(column, addedText);
+    }
+        });
+    }
+
+    @Override
+    public void textChanged(final Column xmpColumn, final String oldText,
+            final String newText) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                changeText(xmpColumn, newText, oldText);
+        }
+        });
         }
 
-        if (oldText == null) {
-            throw new NullPointerException("oldText == null");
-        }
-
-        if (newText == null) {
-            throw new NullPointerException("newText == null");
-        }
-
+    private void changeText(Column xmpColumn, String newText, String oldText) {
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
             Object o = valueOfColumn.get(xmpColumn);
-
             if (o == null) {
                 Collection<Object> collection = new ArrayList<Object>();
-
                 collection.add(newText);
                 valueOfColumn.put(xmpColumn, collection);
             } else if (o instanceof Collection<?>) {
-                @SuppressWarnings(
-                    "unchecked") Collection<? super Object> collection =
-                        (Collection<? super Object>) o;
-
+                @SuppressWarnings(value = "unchecked")
+                Collection<? super Object> collection = (Collection<? super Object>) o;
                 collection.remove(oldText);
                 collection.add(newText);
             }

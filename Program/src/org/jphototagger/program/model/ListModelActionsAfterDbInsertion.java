@@ -29,11 +29,12 @@ import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 
+import java.awt.EventQueue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Elements are {@link Program}s retrieved through
@@ -127,6 +128,24 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
         }
     }
 
+    private void updateProgram(Program program) {
+        int index = indexOf(program);
+
+        if (index >= 0) {
+            set(index, program);
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+    private void deleteProgram(Program program) {
+        int index = indexOf(program);
+
+        if (index >= 0) {
+            removeElementAt(index);
+            fireIntervalRemoved(this, index, index);
+        }
+    }
+
     private void addElements() {
         if (!ConnectionPool.INSTANCE.isInit()) {
             return;
@@ -160,18 +179,11 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
 
     @Override
     public void programDeleted(final Program program) {
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = indexOf(program);
-
-                if (index >= 0) {
-                    removeElementAt(index);
-                    fireIntervalRemoved(src, index, index);
+                deleteProgram(program);
                 }
-            }
         });
     }
 
@@ -183,22 +195,11 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
 
     @Override
     public void programUpdated(final Program program) {
-        if (program == null) {
-            throw new NullPointerException("program == null");
-        }
-
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = indexOf(program);
-
-                if (index >= 0) {
-                    set(index, program);
-                    fireContentsChanged(src, index, index);
+                updateProgram(program);
                 }
-            }
         });
     }
 }

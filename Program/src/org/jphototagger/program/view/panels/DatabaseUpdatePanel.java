@@ -39,6 +39,7 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -200,7 +201,7 @@ public class DatabaseUpdatePanel extends JPanel
 
                  if (models != null) {
                      for (final TreeModelKeywords model : models) {
-                        SwingUtilities.invokeLater(new Runnable() {
+                        EventQueue.invokeLater(new Runnable() {
 
                             @Override
                             public void run() {
@@ -226,32 +227,26 @@ public class DatabaseUpdatePanel extends JPanel
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         checkCancel(evt);
     }
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         checkCancel(evt);
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         checkCancel(evt);
         setEnabledAllButtons(true);
         deselectAllToggleButtons();
         setStartButtonTexts();
+    }
+        });
     }
 
     @Override

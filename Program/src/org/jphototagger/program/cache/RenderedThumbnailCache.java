@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.cache;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
@@ -39,7 +40,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.SwingUtilities;
 
 /**
  * This cache contains scaled and fully rendered thumbnails.  Images can be
@@ -103,7 +103,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         fileCache.maybeCleanupCache();
 
         if (repaint) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     notifyUpdate(file);
@@ -377,10 +377,6 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     @Override
     public void thumbnailUpdated(ThumbnailUpdateEvent event) {
-        if (event == null) {
-            throw new NullPointerException("event == null");
-        }
-
         RenderedThumbnailCacheIndirection ci;
 
         // drop event if we got an empty xmp update for an image without

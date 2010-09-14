@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.cache;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
@@ -35,7 +36,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -281,7 +281,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
         fileCache.maybeCleanupCache();
 
         if (repaint) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (xmp.isEmpty()) {

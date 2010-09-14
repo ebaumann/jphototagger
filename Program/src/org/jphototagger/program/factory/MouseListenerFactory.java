@@ -22,10 +22,8 @@
 package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.event.listener.TableButtonMouseListener;
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.impl.MouseListenerDirectories;
 import org.jphototagger.program.event.listener.impl.MouseListenerFavorites;
 import org.jphototagger.program.event.listener.impl
@@ -37,11 +35,12 @@ import org.jphototagger.program.event.listener.impl
 import org.jphototagger.program.event.listener.impl.MouseListenerSavedSearches;
 import org.jphototagger.program.event.listener.impl.MouseListenerTreeExpand;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
+
+import java.awt.EventQueue;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -50,6 +49,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
  */
 public final class MouseListenerFactory {
     static final MouseListenerFactory INSTANCE = new MouseListenerFactory();
+    private final Support             support  = new Support();
     private volatile boolean          init;
 
     void init() {
@@ -61,12 +61,18 @@ public final class MouseListenerFactory {
             init = true;
         }
 
-        AppLogger.logFine(getClass(), "MouseListenerFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(
-            JptBundle.INSTANCE.getString("MouseListenerFactory.Init.Start"),
-            MessageLabel.MessageType.INFO, -1);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo("MouseListenerFactory.Init.Start");
+                addMouseListeners();
+                Support.setStatusbarInfo("MouseListenerFactory.Init.Finished");
+            }
+        });
+    }
 
-        AppPanel                appPanel           = GUI.INSTANCE.getAppPanel();
+    private void addMouseListeners() {
+        AppPanel                appPanel = GUI.INSTANCE.getAppPanel();
         MouseListenerTreeExpand listenerTreeExpand =
             new MouseListenerTreeExpand();
         MouseListenerKeywordsTree listenerKeywordsTree =
@@ -93,23 +99,27 @@ public final class MouseListenerFactory {
             .addMouseListener(new MouseListenerKeywordsList());
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
             .addMouseListener(new MouseListenerMetadataTemplates());
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeMiscMetadata(),
-                                           listenerTreeExpand.getPopupMenu());
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeTimeline(),
-                                           listenerTreeExpand.getPopupMenu());
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeSelKeywords(),
-                                           listenerTreeExpand.getPopupMenu());
-        new ListItemTempSelectionRowSetter(appPanel.getListEditKeywords(),
-                                           PopupMenuKeywordsList.INSTANCE);
-        new ListItemTempSelectionRowSetter(
-            InputHelperDialog.INSTANCE.getPanelKeywords().getList(),
-            PopupMenuKeywordsList.INSTANCE);
-        new ListItemTempSelectionRowSetter(
-            InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList(),
-            PopupMenuMetadataTemplates.INSTANCE);
-        AppLogger.logFine(getClass(), "MouseListenerFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(
-            JptBundle.INSTANCE.getString("MouseListenerFactory.Init.Finished"),
-            MessageLabel.MessageType.INFO, 1000);
+        support.add(
+            new TreeItemTempSelectionRowSetter(
+                appPanel.getTreeMiscMetadata(),
+                listenerTreeExpand.getPopupMenu()));
+        support.add(
+            new TreeItemTempSelectionRowSetter(
+                appPanel.getTreeTimeline(), listenerTreeExpand.getPopupMenu()));
+        support.add(
+            new TreeItemTempSelectionRowSetter(
+                appPanel.getTreeSelKeywords(),
+                listenerTreeExpand.getPopupMenu()));
+        support.add(
+            new ListItemTempSelectionRowSetter(
+                appPanel.getListEditKeywords(),
+                PopupMenuKeywordsList.INSTANCE));
+        support.add(
+            new ListItemTempSelectionRowSetter(
+                InputHelperDialog.INSTANCE.getPanelKeywords().getList(),
+                PopupMenuKeywordsList.INSTANCE));
+        support.add(new ListItemTempSelectionRowSetter(InputHelperDialog
+            .INSTANCE.getPanelMetaDataTemplates()
+            .getList(), PopupMenuMetadataTemplates.INSTANCE));
     }
 }

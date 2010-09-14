@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.misc;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -31,7 +32,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
 
 /**
  * Zeigt die Anzahl der Thumbnails an.
@@ -87,7 +87,7 @@ public final class ControllerThumbnailCountDisplay
     }
 
     private void setLabel() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 String info = JptBundle.INSTANCE.getString(

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
@@ -28,7 +29,6 @@ import org.jphototagger.program.event.listener
     .DatabaseMetadataTemplatesListener;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Elements are {@link MetadataTemplate}s retrieved through
@@ -71,13 +71,28 @@ public final class ListModelMetadataTemplates extends DefaultListModel
         return -1;
     }
 
-    @Override
-    public void templateDeleted(final MetadataTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
+    private void renameTemplate(String fromName, String toName) {
+        final int index = indexOfTemplate(fromName);
 
-        SwingUtilities.invokeLater(new Runnable() {
+        if (index >= 0) {
+            MetadataTemplate template = (MetadataTemplate) getElementAt(index);
+
+            template.setName(toName);
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+    private void updateTemplate(MetadataTemplate template) {
+        int index = indexOfTemplate(template.getName());
+
+        if (index >= 0) {
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+            @Override
+    public void templateDeleted(final MetadataTemplate template) {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 removeElement(template);
@@ -87,11 +102,7 @@ public final class ListModelMetadataTemplates extends DefaultListModel
 
     @Override
     public void templateInserted(final MetadataTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addElement(template);
@@ -102,53 +113,21 @@ public final class ListModelMetadataTemplates extends DefaultListModel
     @Override
     public void templateUpdated(final MetadataTemplate oldTemplate,
                                 MetadataTemplate updatedTemplate) {
-        if (oldTemplate == null) {
-            throw new NullPointerException("oldTemplate == null");
-        }
-
-        if (updatedTemplate == null) {
-            throw new NullPointerException("updatedTemplate == null");
-        }
-
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = indexOfTemplate(oldTemplate.getName());
-
-                if (index >= 0) {
-                    fireContentsChanged(src, index, index);
+                updateTemplate(oldTemplate);
                 }
-            }
         });
     }
 
     @Override
     public void templateRenamed(final String fromName, final String toName) {
-        if (fromName == null) {
-            throw new NullPointerException("fromName == null");
-        }
-
-        if (toName == null) {
-            throw new NullPointerException("toName == null");
-        }
-
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                final int index = indexOfTemplate(fromName);
-
-                if (index >= 0) {
-                    MetadataTemplate template =
-                        (MetadataTemplate) getElementAt(index);
-
-                    template.setName(toName);
-                    fireContentsChanged(src, index, index);
+                renameTemplate(fromName, toName);
                 }
-            }
         });
     }
 }

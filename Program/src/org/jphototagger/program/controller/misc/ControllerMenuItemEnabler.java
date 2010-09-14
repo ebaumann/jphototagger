@@ -30,6 +30,8 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
+import java.awt.EventQueue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,8 +58,7 @@ public final class ControllerMenuItemEnabler
         PopupMenuThumbnails.INSTANCE;
     private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenu     menPrograms                  =
-        popupThumbnails.getMenuPrograms();
+    private final JMenu     menPrograms = popupThumbnails.getMenuPrograms();
     private final JMenuItem itemOpenFilesWithStandardApp =
         popupThumbnails.getItemOpenFilesWithStandardApp();
     private boolean hasProgram = DatabasePrograms.INSTANCE.hasProgram();
@@ -127,6 +128,9 @@ public final class ControllerMenuItemEnabler
     }
 
     private void setEnabled() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         Content content      = tnPanel.getContent();
         boolean fileSelected = tnPanel.isFileSelected();
 
@@ -134,17 +138,21 @@ public final class ControllerMenuItemEnabler
             item.setEnabled(fileSelected);
         }
 
-        for (JMenuItem item : contentsOfItemsRequiresSelImages.keySet()) {
+                for (JMenuItem item :
+                        contentsOfItemsRequiresSelImages.keySet()) {
             item.setEnabled(
                 fileSelected
                 && contentsOfItemsRequiresSelImages.get(item).contains(
                     content));
         }
 
-        itemOpenFilesWithStandardApp.setEnabled(fileSelected
+                itemOpenFilesWithStandardApp.setEnabled(
+                    fileSelected
                 && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram()
                     != null));
         menPrograms.setEnabled(fileSelected && hasProgram);
+    }
+        });
     }
 
     @Override
@@ -191,28 +199,31 @@ public final class ControllerMenuItemEnabler
 
     @Override
     public void programDeleted(Program program) {
-        if (program == null) {
-            throw new NullPointerException("program == null");
-        }
-
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         setEnabledProgramsMenu();
+    }
+        });
     }
 
     @Override
     public void programInserted(Program program) {
-        if (program == null) {
-            throw new NullPointerException("program == null");
-        }
-
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         setEnabledProgramsMenu();
+    }
+        });
     }
 
     @Override
     public void programUpdated(Program program) {
-        if (program == null) {
-            throw new NullPointerException("program == null");
-        }
-
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         setEnabledProgramsMenu();
     }
+        });
+}
 }

@@ -99,7 +99,8 @@ public abstract class FilenameFormat {
      * nothing.
      */
     public void next() {
-        // Do nothing
+
+        // ignore
     }
 
     /**

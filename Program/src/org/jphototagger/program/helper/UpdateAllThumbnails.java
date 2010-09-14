@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.dialog.ProgressDialog;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -28,10 +29,10 @@ import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.dialog.ProgressDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -85,50 +86,66 @@ public final class UpdateAllThumbnails
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         setProgressDialogStarted(evt);
         checkCancel(evt);
     }
+        });
+    }
 
     @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         setProgressDialogPerformed(evt);
         checkCancel(evt);
+    }
+        });
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         setProgressDialogEnded(evt);
         notifyActionPerformed();
     }
 
-    private void setProgressDialogEnded(ProgressEvent evt) {
+    private void setProgressDialogEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         progressDialog.setValue(evt.getValue());
         progressDialog.setVisible(false);
         progressDialog.dispose();
     }
-
-    private void setProgressDialogPerformed(ProgressEvent evt) {
-        progressDialog.setValue(evt.getValue());
-        progressDialog.setCurrentProgressInfoText(evt.getInfo().toString());
+        });
     }
 
-    private void setProgressDialogStarted(ProgressEvent evt) {
+    private void setProgressDialogPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+        progressDialog.setValue(evt.getValue());
+                progressDialog.setCurrentProgressInfoText(
+                    evt.getInfo().toString());
+    }
+        });
+    }
+
+    private void setProgressDialogStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         progressDialog.setMinimum(evt.getMinimum());
         progressDialog.setMaximum(evt.getMaximum());
         progressDialog.setValue(evt.getValue());
+    }
+        });
     }
 
     @Override

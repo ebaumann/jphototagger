@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -41,7 +42,6 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -74,7 +74,7 @@ public final class ControllerFavoritesAddFilesystemFolder
     public void keyPressed(KeyEvent evt) {
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)
                 &&!tree.isSelectionEmpty()) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Object node =

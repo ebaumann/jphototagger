@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.miscmetadata;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
@@ -39,7 +40,6 @@ import java.util.ArrayList;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -65,19 +65,15 @@ public final class ControllerMiscMetadataItemSelected
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
         if (evt.isAddedPath()) {
-            SwingUtilities.invokeLater(
+            EventQueue.invokeLater(
                 new ShowThumbnails(evt.getNewLeadSelectionPath(), null));
         }
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         if (tree.getSelectionCount() == 1) {
-            SwingUtilities.invokeLater(
+            EventQueue.invokeLater(
                 new ShowThumbnails(tree.getSelectionPath(), evt.getSettings()));
         }
     }

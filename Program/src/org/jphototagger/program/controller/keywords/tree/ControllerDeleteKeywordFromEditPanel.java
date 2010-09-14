@@ -23,7 +23,8 @@ package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -34,6 +35,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.util.List;
 
@@ -71,13 +73,17 @@ public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords
     }
 
     @Override
-    protected void localAction(List<DefaultMutableTreeNode> nodes) {
-        if (nodes == null) {
-            throw new NullPointerException("nodes == null");
+    protected void localAction(final List<DefaultMutableTreeNode> nodes) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                remove(nodes.get(0));
         }
+        });
+    }
 
-        DefaultMutableTreeNode node    = nodes.get(0);
-        String                 keyword = getKeyword(node);
+    private void remove(DefaultMutableTreeNode node) {
+        String keyword = getKeyword(node);
 
         if (keyword != null) {
             removeFromEditPanel(keyword);

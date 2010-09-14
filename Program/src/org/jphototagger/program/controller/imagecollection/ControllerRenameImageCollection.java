@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
@@ -37,7 +38,6 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JList;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 
 /**
  * Renames the selected image collection when the
@@ -88,7 +88,7 @@ public final class ControllerRenameImageCollection
 
     private void renameImageCollection(final String fromName) {
         if (fromName != null) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (!ListModelImageCollections.checkIsNotSpecialCollection(fromName,

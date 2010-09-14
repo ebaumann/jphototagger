@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
@@ -35,7 +36,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Lösche selektierte Thumbnails,
@@ -66,7 +66,7 @@ public final class ControllerDeleteThumbnailsFromDatabase
 
     private void deleteSelectedThumbnails() {
         if (confirmDelete()) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     List<File> selFiles     = tnPanel.getSelectedFiles();

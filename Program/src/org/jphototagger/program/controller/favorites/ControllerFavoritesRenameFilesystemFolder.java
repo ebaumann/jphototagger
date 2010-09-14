@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ControllerFactory;
@@ -38,7 +39,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -79,7 +79,7 @@ public final class ControllerFavoritesRenameFilesystemFolder
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameDirectory(

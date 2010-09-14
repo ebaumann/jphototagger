@@ -37,6 +37,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -44,7 +45,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
 /**
@@ -116,19 +116,31 @@ public final class AppWindowPersistence
     }
 
     public void readAppFrameFromProperties() {
-        AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+        final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(appFrame);
-        appFrame.pack();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                appFrame.pack();
+            }
+        });
     }
 
     public void readAppPanelFromProperties() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        UserSettings.INSTANCE.getSettings().applySettings(appPanel, null);
-        appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
-        setInitKeywordsView(appPanel);
-        selectFastSearch(appPanel);
+                UserSettings.INSTANCE.getSettings().applySettings(appPanel,
+                        null);
+                appPanel.setEnabledIptcTab(
+                    UserSettings.INSTANCE.isDisplayIptc());
+                setInitKeywordsView(appPanel);
+                selectFastSearch(appPanel);
+            }
+        });
     }
 
     private void selectFastSearch(AppPanel appPanel) {
@@ -192,12 +204,21 @@ public final class AppWindowPersistence
         if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
             boolean displayIptc = UserSettings.INSTANCE.isDisplayIptc();
 
-            GUI.INSTANCE.getAppPanel().setEnabledIptcTab(displayIptc);
+            setEnabledIptcTab(displayIptc);
 
             if (displayIptc) {
                 displayIptc();
             }
         }
+    }
+
+    private void setEnabledIptcTab(final boolean displayIptc) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                GUI.INSTANCE.getAppPanel().setEnabledIptcTab(displayIptc);
+            }
+        });
     }
 
     private void displayIptc() {
@@ -213,7 +234,7 @@ public final class AppWindowPersistence
                 if (selFiles.size() == 1) {
                     final File file = selFiles.get(0);
 
-                    SwingUtilities.invokeLater(new Runnable() {
+                    EventQueue.invokeLater(new Runnable() {
                         @Override
                         public void run() {
                             ((TableModelIptc) model).setFile(file);

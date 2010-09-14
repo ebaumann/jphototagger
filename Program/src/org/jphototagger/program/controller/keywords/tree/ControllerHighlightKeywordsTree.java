@@ -31,6 +31,8 @@ import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 
+import java.awt.EventQueue;
+
 import java.io.File;
 
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ public final class ControllerHighlightKeywordsTree
         InputHelperDialog.INSTANCE.getPanelKeywords();
     private final DatabaseImageFiles db           = DatabaseImageFiles.INSTANCE;
     private final AppPanel           appPanel     = GUI.INSTANCE.getAppPanel();
-    private final KeywordsPanel      appHkPanel   =
+    private final KeywordsPanel      appHkPanel =
         appPanel.getPanelEditKeywords();
     private final JTree              treeAppPanel = appHkPanel.getTree();
     private final JTree              treeDialog   = dlgHkPanel.getTree();
@@ -69,6 +71,15 @@ public final class ControllerHighlightKeywordsTree
 
     @Override
     public void thumbnailsSelectionChanged() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                applyCurrentSelection();
+            }
+        });
+    }
+
+    private void applyCurrentSelection() {
         removeKeywords();
 
         if (tnPanel.getSelectionCount() == 1) {

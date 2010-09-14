@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.data.UserDefinedFileFilter;
@@ -31,7 +32,6 @@ import org.jphototagger.program.event.listener
 import org.jphototagger.program.UserSettings;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -86,52 +86,50 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
         }
     }
 
-    @Override
-    public void filterInserted(final UserDefinedFileFilter filter) {
-        if (filter == null) {
-            throw new NullPointerException("filter == null");
-        }
+    private void updateFilter(UserDefinedFileFilter filter) {
+        int index = getIndexOf(filter);
 
-        SwingUtilities.invokeLater(new Runnable() {
+        if (index >= 0) {
+            ((UserDefinedFileFilter) getElementAt(index)).set(filter);
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+    private void deleteFilter(UserDefinedFileFilter filter) {
+        removeElement(filter);
+    }
+
+    private void insertFilter(UserDefinedFileFilter filter) {
+        addElement(filter);
+    }
+
+            @Override
+    public void filterInserted(final UserDefinedFileFilter filter) {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                addElement(filter);
+                insertFilter(filter);
             }
         });
     }
 
     @Override
     public void filterDeleted(final UserDefinedFileFilter filter) {
-        if (filter == null) {
-            throw new NullPointerException("filter == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                removeElement(filter);
+                deleteFilter(filter);
             }
         });
     }
 
     @Override
     public void filterUpdated(final UserDefinedFileFilter filter) {
-        if (filter == null) {
-            throw new NullPointerException("filter == null");
-        }
-
-        final Object src = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = getIndexOf(filter);
-
-                if (index >= 0) {
-                    ((UserDefinedFileFilter) getElementAt(index)).set(filter);
-                    fireContentsChanged(src, index, index);
+                updateFilter(filter);
                 }
-            }
         });
     }
 }

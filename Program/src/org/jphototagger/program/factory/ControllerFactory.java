@@ -21,9 +21,7 @@
 
 package org.jphototagger.program.factory;
 
-import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.actions.ControllerActionExecutor;
 import org.jphototagger.program.controller.actions.ControllerActionsMenuUpdater;
 import org.jphototagger.program.controller.actions.ControllerActionsShowDialog;
@@ -153,6 +151,7 @@ import org.jphototagger.program.controller.misc.ControllerShowSystemOutput;
 import org.jphototagger.program.controller.misc
     .ControllerShowUserSettingsDialog;
 import org.jphototagger.program.controller.misc.ControllerThumbnailCountDisplay;
+import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.controller.miscmetadata
     .ControllerAddMetadataToSelImages;
@@ -197,6 +196,8 @@ import org.jphototagger.program.controller.thumbnail
     .ControllerSliderThumbnailSize;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.controller.thumbnail
+    .ControllerThumbnailFileFilter;
+import org.jphototagger.program.controller.thumbnail
     .ControllerThumbnailsDatabaseChanges;
 import org.jphototagger.program.controller.thumbnail
     .ControllerThumbnailsPanelPersistence;
@@ -207,14 +208,13 @@ import org.jphototagger.program.controller.thumbnail
 import org.jphototagger.program.controller.timeline
     .ControllerTimelineItemSelected;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 
+import java.awt.EventQueue;
+
 import java.util.List;
-import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
-import org.jphototagger.program.controller.thumbnail.ControllerThumbnailFileFilter;
 
 /**
  * Erzeugt alle Controller.
@@ -235,24 +235,29 @@ public final class ControllerFactory {
             init = true;
         }
 
-        startLogMessage();
-        addAppWindowMenuItemControllers();
-        addAppWindowSelectionControllers();
-        addImageCollectionControllers();
-        addSavedSearchControllers();
-        addSearchControllers();
-        addThumbnailsPanelControllers();
-        addMetadataEditPanelsControllers();
-        addFavoritesControllers();
-        addMetadataTablesControllers();
-        addDirectoryTreeControllers();
-        addActionsControllers();
-        addMetadataTemplatesControllers();
-        addMiscMetadataControllers();
-        addKeywordsControllers();
-        addMiscControllers();
-        addSizeAndLocationController();
-        endLogMessage();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo("ControllerFactory.Init.Start");
+                addAppWindowMenuItemControllers();
+                addAppWindowSelectionControllers();
+                addImageCollectionControllers();
+                addSavedSearchControllers();
+                addSearchControllers();
+                addThumbnailsPanelControllers();
+                addMetadataEditPanelsControllers();
+                addFavoritesControllers();
+                addMetadataTablesControllers();
+                addDirectoryTreeControllers();
+                addActionsControllers();
+                addMetadataTemplatesControllers();
+                addMiscMetadataControllers();
+                addKeywordsControllers();
+                addMiscControllers();
+                addSizeAndLocationController();
+                Support.setStatusbarInfo("ControllerFactory.Init.Finished");
+            }
+        });
     }
 
     private void addAppWindowMenuItemControllers() {
@@ -360,7 +365,8 @@ public final class ControllerFactory {
         support.add(new ControllerDeleteMiscMetadata(popupInputHelper));
         support.add(new ControllerRenameMiscMetadata(popupInputHelper));
         support.add(new ControllerAddMetadataToSelImages(popupInputHelper));
-        support.add(new ControllerRemoveMetadataFromSelImages(popupInputHelper));
+        support.add(
+            new ControllerRemoveMetadataFromSelImages(popupInputHelper));
         support.add(new ControllerUpdateCheck());
     }
 
@@ -477,19 +483,5 @@ public final class ControllerFactory {
         }
 
         return support.getFirst(controllerClass);
-    }
-
-    private void startLogMessage() {
-        AppLogger.logFine(getClass(), "ControllerFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(
-            JptBundle.INSTANCE.getString("ControllerFactory.Init.Start"),
-            MessageLabel.MessageType.INFO, -1);
-    }
-
-    private void endLogMessage() {
-        AppLogger.logFine(getClass(), "ControllerFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(
-            JptBundle.INSTANCE.getString("ControllerFactory.Init.Finished"),
-            MessageLabel.MessageType.INFO, 1000);
     }
 }

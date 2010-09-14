@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -37,7 +38,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -73,7 +73,7 @@ public final class ControllerKeywordsDbUpdates
     }
 
     private void addKeyword(final String keyword) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
         TreeModelKeywords model =
@@ -87,28 +87,16 @@ public final class ControllerKeywordsDbUpdates
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
         addNotExistingKeywords(updatedXmp);
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
-        if (dcSubject == null) {
-            throw new NullPointerException("dcSubject == null");
-        }
-
         addNotExistingKeywords(Collections.singleton(dcSubject));
     }
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
         addNotExistingKeywords(xmp);
     }
 

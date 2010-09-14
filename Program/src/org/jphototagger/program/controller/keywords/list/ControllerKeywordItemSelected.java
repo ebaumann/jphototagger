@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.keywords.list;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.resource.GUI;
@@ -40,7 +41,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -99,7 +99,7 @@ public final class ControllerKeywordItemSelected
     private void update(RefreshEvent evt) {
         List<String> selKeywords = getSelectedKeywords();
 
-        SwingUtilities.invokeLater(isAllKeywords()
+        EventQueue.invokeLater(isAllKeywords()
                                    ? new ShowThumbnailsContainingAllKeywords(
                                        selKeywords, (evt == null)
                 ? null

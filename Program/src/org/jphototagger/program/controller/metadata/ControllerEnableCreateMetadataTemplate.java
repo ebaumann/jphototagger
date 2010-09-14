@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.metadata;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -48,7 +49,13 @@ public final class ControllerEnableCreateMetadataTemplate
 
     @Override
     public void thumbnailsSelectionChanged() {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         buttonCreate.setEnabled(tnPanel.isFileSelected());
+    }
+        });
     }
 
     @Override

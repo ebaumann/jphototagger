@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
@@ -133,7 +134,7 @@ public final class ControllerPasteFilesFromClipboard
             return;
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 List<File> files = ClipboardUtil.getFilesFromSystemClipboard(
@@ -166,7 +167,13 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void thumbnailsChanged() {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         menuItemPaste.setEnabled(canPasteFiles());
+    }
+        });
     }
 
     private boolean canPasteFiles() {

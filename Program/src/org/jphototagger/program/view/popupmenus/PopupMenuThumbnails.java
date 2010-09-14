@@ -25,6 +25,7 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.controller.metadata.ControllerExportGPSToKML;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
@@ -35,6 +36,7 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +50,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import org.jphototagger.program.controller.metadata.ControllerExportGPSToKML;
 
 /**
  * Popup menu of the thumbnails panel.
@@ -427,18 +428,33 @@ public final class PopupMenuThumbnails extends JPopupMenu
     }
 
     @Override
-    public void programDeleted(Program program) {
+    public void programDeleted(final Program program) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         updatePrograms(program);
+    }
+        });
     }
 
     @Override
-    public void programInserted(Program program) {
+    public void programInserted(final Program program) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         updatePrograms(program);
+    }
+        });
     }
 
     @Override
-    public void programUpdated(Program program) {
+    public void programUpdated(final Program program) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         updatePrograms(program);
+    }
+        });
     }
 
     private void updatePrograms(Program updatedProgram) {

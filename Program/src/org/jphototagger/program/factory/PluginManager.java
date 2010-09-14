@@ -21,9 +21,9 @@
 
 package org.jphototagger.program.factory;
 
+import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.util.ServiceLookup;
 
 import java.util.LinkedHashSet;
 import java.util.Properties;

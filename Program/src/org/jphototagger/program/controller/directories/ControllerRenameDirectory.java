@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.directories;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.program.factory.ModelFactory;
@@ -33,7 +34,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -82,7 +82,7 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
             final File newDir = FileSystemDirectories.rename(dir);
 
             if (newDir != null) {
-                SwingUtilities.invokeLater(new Runnable() {
+                EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         node.setUserObject(newDir);

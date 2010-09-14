@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.model.TreeModelUpdateInfo;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Timeline;
@@ -33,7 +34,6 @@ import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 
 import java.io.File;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -150,11 +150,7 @@ public final class TreeModelTimeline extends DefaultTreeModel
 
     @Override
     public void xmpInserted(File imageFile, final Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
         checkInserted(xmp);
@@ -165,15 +161,7 @@ public final class TreeModelTimeline extends DefaultTreeModel
     @Override
     public void xmpUpdated(File imageFile, final Xmp oldXmp,
                            final Xmp updatedXmp) {
-        if (oldXmp == null) {
-            throw new NullPointerException("oldXmp == null");
-        }
-
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
         checkDeleted(oldXmp);
@@ -184,11 +172,7 @@ public final class TreeModelTimeline extends DefaultTreeModel
 
     @Override
     public void xmpDeleted(File imageFile, final Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
         checkDeleted(xmp);
@@ -198,11 +182,7 @@ public final class TreeModelTimeline extends DefaultTreeModel
 
     @Override
     public void exifInserted(File imageFile, final Exif exif) {
-        if (exif == null) {
-            throw new NullPointerException("exif == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
         checkInserted(exif);
@@ -213,15 +193,7 @@ public final class TreeModelTimeline extends DefaultTreeModel
     @Override
     public void exifUpdated(File imageFile, final Exif oldExif,
                             final Exif updatedExif) {
-        if (oldExif == null) {
-            throw new NullPointerException("oldExif == null");
-        }
-
-        if (updatedExif == null) {
-            throw new NullPointerException("updatedExif == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
         checkDeleted(oldExif);
@@ -232,11 +204,7 @@ public final class TreeModelTimeline extends DefaultTreeModel
 
     @Override
     public void exifDeleted(File imageFile, final Exif exif) {
-        if (exif == null) {
-            throw new NullPointerException("exif == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
         checkDeleted(exif);

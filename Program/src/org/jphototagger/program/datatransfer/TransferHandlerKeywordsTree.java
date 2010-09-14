@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.datatransfer;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
@@ -48,7 +49,6 @@ import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -220,7 +220,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                     if (sourceNode != dropNode) {
                         final Keyword sourceKeyword = (Keyword) userObject;
 
-                        SwingUtilities.invokeLater(new Runnable() {
+                        EventQueue.invokeLater(new Runnable() {
                             @Override
                             public void run() {
                                 treeModel.move(sourceNode, dropNode,

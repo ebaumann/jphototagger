@@ -26,7 +26,7 @@ import org.jphototagger.program.event.ProgressEvent;
 
 import java.awt.Component;
 
-import javax.swing.SwingUtilities;
+import java.awt.EventQueue;
 
 /**
  * Adds, removes and notifies {@link ProgressListener} instances.
@@ -49,7 +49,7 @@ public final class ProgressListenerSupport
 
         for (final ProgressListener listener : listeners) {
             if (listener instanceof Component) {
-                SwingUtilities.invokeLater(new Runnable() {
+                EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         listener.progressStarted(event);
@@ -78,7 +78,7 @@ public final class ProgressListenerSupport
 
         for (final ProgressListener listener : listeners) {
             if (listener instanceof Component) {
-                SwingUtilities.invokeLater(new Runnable() {
+                EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         listener.progressPerformed(event);
@@ -105,7 +105,7 @@ public final class ProgressListenerSupport
 
         for (final ProgressListener listener : listeners) {
             if (listener instanceof Component) {
-                SwingUtilities.invokeLater(new Runnable() {
+                EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         listener.progressEnded(event);

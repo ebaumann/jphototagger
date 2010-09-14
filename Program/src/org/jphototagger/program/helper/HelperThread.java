@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
@@ -30,7 +31,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * Base class for helper threads managing progress listeners and providing a
@@ -158,7 +158,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     }
 
     private void getProgressBar() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar == null) {
@@ -174,7 +174,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
 
     private void setProgressBar(final int value) {
         getProgressBar();
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -237,7 +237,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
      */
     protected void progressEnded(Object info) {
         notifyProgressEnded(progressEvent(0, info));
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
@@ -32,7 +33,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 
 /**
  * Refreshes the favorite directories tree: Adds new folders and removes
@@ -71,7 +71,7 @@ public final class ControllerRefreshFavorites
     }
 
     public void refresh() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 ModelFactory.INSTANCE.getModel(

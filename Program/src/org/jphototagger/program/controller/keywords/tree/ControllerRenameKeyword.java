@@ -36,11 +36,11 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -76,10 +76,6 @@ public class ControllerRenameKeyword extends ControllerKeywords
 
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
-        if (nodes == null) {
-            throw new NullPointerException("nodes == null");
-        }
-
         DefaultMutableTreeNode node       = nodes.get(0);
         Object                 userObject = node.getUserObject();
 
@@ -96,18 +92,23 @@ public class ControllerRenameKeyword extends ControllerKeywords
         final String newName = getName(keyword, db, getHKPanel().getTree());
 
         if ((newName != null) &&!newName.trim().isEmpty()) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    TreeModelKeywords model =
-                        ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-
-                    keyword.setName(newName);
-                    model.changed(node, keyword);
+                    rename(node, keyword, newName);
                 }
             });
         }
     }
+
+    private void rename(DefaultMutableTreeNode node, Keyword keyword,
+                        String toName) {
+                    TreeModelKeywords model =
+                        ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+
+        keyword.setName(toName);
+                    model.changed(node, keyword);
+                }
 
     static String getName(Keyword keyword, DatabaseKeywords database,
                           JTree tree) {

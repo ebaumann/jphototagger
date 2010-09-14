@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
@@ -56,7 +57,6 @@ import java.util.List;
 
 import javax.swing.JList;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
@@ -86,7 +86,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("node == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
@@ -263,7 +263,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("keyword == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreeModelKeywords model =
@@ -322,7 +322,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("keywords == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 for (TreeCellRendererKeywords r : getCellRenderer()) {
@@ -333,7 +333,7 @@ public final class KeywordsHelper {
     }
 
     public static void removeHighlightKeyword(final String keyword) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 for (TreeCellRendererKeywords r : getCellRenderer()) {
@@ -370,7 +370,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("indices == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JList selKeywordsList =
@@ -394,7 +394,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("node == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 for (JTree tree : getKeywordTrees()) {
