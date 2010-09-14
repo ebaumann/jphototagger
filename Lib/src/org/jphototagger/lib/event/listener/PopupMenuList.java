@@ -222,7 +222,7 @@ public abstract class PopupMenuList extends JPopupMenu
      */
     protected void setMenuItemsEnabled(List<Object> selListValues) {
 
-        // do nothing
+        // ignore
     }
 
     @Override

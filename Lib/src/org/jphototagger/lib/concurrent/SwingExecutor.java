@@ -21,6 +21,7 @@
 
 package org.jphototagger.lib.concurrent;
 
+import java.awt.EventQueue;
 import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.List;
@@ -42,7 +43,7 @@ public final class SwingExecutor extends AbstractExecutorService {
         if (SwingUtilities.isEventDispatchThread()) {
             r.run();
         } else {
-            SwingUtilities.invokeLater(r);
+            EventQueue.invokeLater(r);
         }
     }
 

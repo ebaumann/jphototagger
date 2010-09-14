@@ -28,6 +28,7 @@ import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -40,7 +41,6 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -180,7 +180,7 @@ public final class DirectoryChooser extends Dialog
 
     private void selectStartDirectory() {
         if (startDirectory.isDirectory()) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {

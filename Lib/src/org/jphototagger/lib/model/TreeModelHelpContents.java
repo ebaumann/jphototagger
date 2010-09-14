@@ -70,19 +70,19 @@ public final class TreeModelHelpContents implements TreeModel {
     @Override
     public void valueForPathChanged(TreePath path, Object newValue) {
 
-        // Nothing to bei done
+        // ignore
     }
 
     @Override
     public void addTreeModelListener(TreeModelListener l) {
 
-        // Nothing to bei done
+        // ignore
     }
 
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
 
-        // Nothing to bei done
+        // ignore
     }
 
     /**
