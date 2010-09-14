@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.ConnectionPool;
@@ -39,7 +40,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Elements are keyword {@link String}s retrieved through
@@ -110,7 +110,7 @@ public final class ListModelKeywords extends DefaultListModel
             throw new NullPointerException("xmp == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addNewKeywords(getKeywords(xmp));
@@ -124,7 +124,7 @@ public final class ListModelKeywords extends DefaultListModel
             throw new NullPointerException("xmp == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 removeKeywordsNotInDb(getKeywords(xmp));
@@ -143,7 +143,7 @@ public final class ListModelKeywords extends DefaultListModel
             throw new NullPointerException("updatedXmp == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addNewKeywords(getKeywords(updatedXmp));
@@ -154,11 +154,7 @@ public final class ListModelKeywords extends DefaultListModel
 
     @Override
     public void dcSubjectDeleted(final String dcSubject) {
-        if (dcSubject == null) {
-            throw new NullPointerException("dcSubject == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 removeKeywordsNotInDb(Collections.singleton(dcSubject));
@@ -168,11 +164,7 @@ public final class ListModelKeywords extends DefaultListModel
 
     @Override
     public void dcSubjectInserted(final String dcSubject) {
-        if (dcSubject == null) {
-            throw new NullPointerException("dcSubject == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addNewKeywords(Collections.singleton(dcSubject));

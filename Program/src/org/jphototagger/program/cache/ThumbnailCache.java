@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.cache;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Exif;
@@ -35,7 +36,6 @@ import java.awt.Image;
 
 import java.io.File;
 
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -190,7 +190,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         updateUsageTime(ci);
         ci.thumbnail = image;
         fileCache.maybeCleanupCache();
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 notifyUpdate(file);

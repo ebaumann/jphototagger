@@ -27,10 +27,11 @@ import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 
+import java.awt.EventQueue;
+
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Contains {@link Program}s retrieved through
@@ -74,14 +75,34 @@ public final class ListModelPrograms extends DefaultListModel
                || (!program.isAction() && type.equals(Type.PROGRAM));
     }
 
-    @Override
-    public void programDeleted(final Program program) {
-        if (program == null) {
-            throw new NullPointerException("program == null");
+    private void updateProgram(Program program)
+            throws IllegalArgumentException {
+        int index = indexOf(program);
+
+        if (index >= 0) {
+            int     sequenceNumber = program.getSequenceNumber();
+            boolean validSeqNumber = (sequenceNumber >= 0)
+                                     && (sequenceNumber <= getSize());
+
+            if (!validSeqNumber) {
+                throw new IllegalArgumentException(
+                    "Invalid sequence number. Size: " + getSize()
+                    + ". Sequence number: " + sequenceNumber);
         }
 
+            if (index == sequenceNumber) {
+                set(index, program);
+            } else if (validSeqNumber) {
+                remove(index);
+                insertElementAt(program, sequenceNumber);
+            }
+        }
+    }
+
+    @Override
+    public void programDeleted(final Program program) {
         if (isAppropriateProgramType(program)) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     removeElement(program);
@@ -92,12 +113,8 @@ public final class ListModelPrograms extends DefaultListModel
 
     @Override
     public void programInserted(final Program program) {
-        if (program == null) {
-            throw new NullPointerException("program == null");
-        }
-
         if (isAppropriateProgramType(program)) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     addElement(program);
@@ -108,36 +125,12 @@ public final class ListModelPrograms extends DefaultListModel
 
     @Override
     public void programUpdated(final Program program) {
-        if (program == null) {
-            throw new NullPointerException("program == null");
-        }
-
         if (isAppropriateProgramType(program)) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    int index = indexOf(program);
-
-                    if (index >= 0) {
-                        int     sequenceNumber = program.getSequenceNumber();
-                        boolean validSeqNumber = (sequenceNumber >= 0)
-                                                 && (sequenceNumber
-                                                     <= getSize());
-
-                        if (!validSeqNumber) {
-                            throw new IllegalArgumentException(
-                                "Invalid sequence number. Size: " + getSize()
-                                + ". Sequence number: " + sequenceNumber);
+                    updateProgram(program);
                         }
-
-                        if (index == sequenceNumber) {
-                            set(index, program);
-                        } else if (validSeqNumber) {
-                            remove(index);
-                            insertElementAt(program, sequenceNumber);
-                        }
-                    }
-                }
             });
         }
     }

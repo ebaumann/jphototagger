@@ -21,11 +21,10 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.controller.filesystem
-    .ControllerImportImageFiles;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.ProgressListener;
@@ -46,7 +45,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 
 /**
  * Imports image files from a source directory to a target directory.
@@ -154,10 +152,6 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         Object o = evt.getInfo();
 
         if (o instanceof Pair<?, ?>) {
@@ -177,10 +171,6 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         addFilesToCollection();
 
         if (deleteScrFilesAfterCopying) {
@@ -235,7 +225,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void selectPrevImportCollection() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.INSTANCE.getAppPanel();

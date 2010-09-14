@@ -38,7 +38,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.swing.SwingUtilities;
 
 /**
  * Life cycle of the application.
@@ -84,7 +83,7 @@ public final class AppLifeCycle {
         Thread thread = new Thread(MetaFactory.INSTANCE,
                                    "JPhotoTagger: Initializing meta factory");
 
-        SwingUtilities.invokeLater(thread);
+        thread.start();
         listenForQuit();
     }
 

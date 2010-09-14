@@ -40,6 +40,7 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -221,18 +222,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
      * @param evt event containing the current filename
      */
     @Override
-    public void actionPerformed(UpdateMetadataCheckEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
+    public void checkForUpdate(UpdateMetadataCheckEvent evt) {
         if (evt.getType().equals(Type.CHECKING_FILE)) {
             File file = evt.getImageFile();
 
             assert file != null : "File is null!";
 
             if (file != null) {
-                labelCurrentFilename.setText(file.getAbsolutePath());
+                setFileLabel(file);
             }
         } else if (evt.getType().equals(Type.CHECK_FINISHED)) {
             imageFileInserter.removeUpdateMetadataCheckListener(this);
@@ -241,40 +238,62 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         }
     }
 
+    private void setFileLabel(final File file) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                labelCurrentFilename.setText(file.getAbsolutePath());
+            }
+        });
+    }
+
     private void updateFinished() {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         setEnabledButtons(false);
         setEnabledCheckboxes(false);
         labelCurrentFilename.setText("-");
         list.setEnabled(true);
     }
+        });
+    }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
     }
-
-    @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
-        progressBar.setValue(evt.getValue());
+        });
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setValue(evt.getValue());
+    }
+        });
+    }
+
+    @Override
+    public void progressEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+        progressBar.setValue(evt.getValue());
+    }
+        });
     }
 
     private void chooseDirectories() {
@@ -321,7 +340,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                 addSubdirectories(newDirectories);
             }
 
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         addDirectories(newDirectories);

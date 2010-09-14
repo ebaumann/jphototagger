@@ -21,9 +21,9 @@
 
 package org.jphototagger.program.factory;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
+import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
@@ -34,9 +34,8 @@ import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
-import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
+
+import java.awt.EventQueue;
 
 import java.util.List;
 
@@ -49,6 +48,7 @@ import javax.swing.JTable;
  */
 public final class RendererFactory {
     static final RendererFactory INSTANCE = new RendererFactory();
+    private final Support        support  = new Support();
     private volatile boolean     init;
 
     synchronized void init() {
@@ -60,16 +60,15 @@ public final class RendererFactory {
             init = true;
         }
 
-        AppLogger.logFine(getClass(), "RendererFactory.Init.Start");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(
-            JptBundle.INSTANCE.getString("RendererFactory.Init.Start"),
-            MessageLabel.MessageType.INFO, -1);
-        setMetadataTablesRenderers();
-        setPopupMenuHighlighter();
-        AppLogger.logFine(getClass(), "RendererFactory.Init.Finished");
-        GUI.INSTANCE.getAppPanel().setStatusbarText(
-            JptBundle.INSTANCE.getString("RendererFactory.Init.Finished"),
-            MessageLabel.MessageType.INFO, 1000);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo("RendererFactory.Init.Start");
+                setMetadataTablesRenderers();
+                setPopupMenuHighlighter();
+                Support.setStatusbarInfo("RendererFactory.Init.Finished");
+            }
+        });
     }
 
     private void setMetadataTablesRenderers() {
@@ -90,18 +89,27 @@ public final class RendererFactory {
     private void setPopupMenuHighlighter() {
         AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeFavorites(),
-                                           PopupMenuFavorites.INSTANCE);
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeDirectories(),
-                                           PopupMenuDirectories.INSTANCE);
-        new TreeItemTempSelectionRowSetter(appPanel.getTreeEditKeywords(),
-                                           PopupMenuKeywordsTree.INSTANCE);
-        new TreeItemTempSelectionRowSetter(
-            InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
-            PopupMenuKeywordsTree.INSTANCE);
-        new ListItemTempSelectionRowSetter(appPanel.getListImageCollections(),
-                                           PopupMenuImageCollections.INSTANCE);
-        new ListItemTempSelectionRowSetter(appPanel.getListSavedSearches(),
-                                           PopupMenuSavedSearches.INSTANCE);
+        support.add(
+            new TreeItemTempSelectionRowSetter(
+                appPanel.getTreeFavorites(), PopupMenuFavorites.INSTANCE));
+        support.add(
+            new TreeItemTempSelectionRowSetter(
+                appPanel.getTreeDirectories(), PopupMenuDirectories.INSTANCE));
+        support.add(
+            new TreeItemTempSelectionRowSetter(
+                appPanel.getTreeEditKeywords(),
+                PopupMenuKeywordsTree.INSTANCE));
+        support.add(
+            new TreeItemTempSelectionRowSetter(
+                InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
+                PopupMenuKeywordsTree.INSTANCE));
+        support.add(
+            new ListItemTempSelectionRowSetter(
+                appPanel.getListImageCollections(),
+                PopupMenuImageCollections.INSTANCE));
+        support.add(
+            new ListItemTempSelectionRowSetter(
+                appPanel.getListSavedSearches(),
+                PopupMenuSavedSearches.INSTANCE));
     }
 }

@@ -21,22 +21,21 @@
 
 package org.jphototagger.program.factory;
 
-import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.search.ControllerFastSearch;
 import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.helper.ImportImageFiles;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -58,22 +57,21 @@ public final class TerminateFactory {
             init = true;
         }
 
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        AppLogger.logFine(getClass(), "MiscFactory.Init.Start");
-        appPanel.setStatusbarText(
-            JptBundle.INSTANCE.getString("MiscFactory.Init.Start"),
-            MessageLabel.MessageType.INFO, -1);
-        appPanel.getEditMetadataPanels().setAutocomplete();
-        PopupMenuThumbnails.INSTANCE.setOtherPrograms();
-        ScheduledTasks.INSTANCE.run();
-        checkImportImageFiles();
-        setAutocomplete();
-        setTnPanelFileFilter();
-        AppLogger.logFine(getClass(), "MiscFactory.Init.Finished");
-        appPanel.setStatusbarText(
-            JptBundle.INSTANCE.getString("MiscFactory.Init.Finished"),
-            MessageLabel.MessageType.INFO, 1000);
+                Support.setStatusbarInfo("MiscFactory.Init.Start");
+                appPanel.getEditMetadataPanels().setAutocomplete();
+                PopupMenuThumbnails.INSTANCE.setOtherPrograms();
+                ScheduledTasks.INSTANCE.run();
+                checkImportImageFiles();
+                setAutocomplete();
+                setTnPanelFileFilter();
+                Support.setStatusbarInfo("MiscFactory.Init.Finished");
+            }
+        });
     }
 
     private void setAutocomplete() {

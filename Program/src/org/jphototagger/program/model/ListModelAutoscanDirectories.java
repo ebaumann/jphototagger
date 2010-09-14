@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.event.listener
@@ -31,7 +32,6 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Elements are directory {@link File}s retrieved through
@@ -64,35 +64,35 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
         }
     }
 
-    @Override
-    public void directoryInserted(final File directory) {
-        if (directory == null) {
-            throw new NullPointerException("directory == null");
+    private void removeDirectory(File directory) {
+        if (contains(directory)) {
+            removeElement(directory);
         }
+    }
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+    private void addDirectory(File directory) {
                 if (!contains(directory)) {
                     addElement(directory);
                 }
+            }
+
+    @Override
+    public void directoryInserted(final File directory) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                addDirectory(directory);
             }
         });
     }
 
     @Override
     public void directoryDeleted(final File directory) {
-        if (directory == null) {
-            throw new NullPointerException("directory == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                if (contains(directory)) {
-                    removeElement(directory);
+                removeDirectory(directory);
                 }
-            }
         });
     }
 }

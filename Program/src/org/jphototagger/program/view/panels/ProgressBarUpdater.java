@@ -24,6 +24,8 @@ package org.jphototagger.program.view.panels;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 
+import java.awt.EventQueue;
+
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
@@ -62,7 +64,7 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     private synchronized void updateProgressBar(final ProgressEvent evt) {
         getProgressBar();
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -87,29 +89,17 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         updateProgressBar(evt);
     }
 
     @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
+    public void progressPerformed(final ProgressEvent evt) {
         updateProgressBar(evt);
     }
 
     @Override
     public synchronized void progressEnded(final ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

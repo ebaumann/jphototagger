@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.timeline;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.Timeline;
@@ -46,7 +47,6 @@ import java.util.List;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -94,7 +94,7 @@ public final class ControllerTimelineItemSelected
                     final Object lastPathComponent =
                         path.getLastPathComponent();
 
-                    SwingUtilities.invokeLater(new Runnable() {
+                    EventQueue.invokeLater(new Runnable() {
                         @Override
                         public void run() {
                             setFilesOfPossibleNodeToThumbnailsPanel(

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.filesystem;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.cache.ThumbnailCache;
@@ -43,7 +44,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when
@@ -83,6 +83,22 @@ public final class ControllerRenameFiles
         }
     }
 
+    private void renameFile(final File fromFile, final File toFile) {
+        AppLogger.logInfo(ControllerRenameFiles.class,
+                          "ControllerRenameFiles.Info.Rename", fromFile,
+                          toFile);
+        db.updateRename(fromFile, toFile);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
+                XmpCache.INSTANCE.updateFiles(fromFile, toFile);
+                RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
+                tnPanel.rename(fromFile, toFile);
+            }
+        });
+    }
+
     private void renameSelectedFiles() {
         List<File> selFiles = tnPanel.getSelectedFiles();
 
@@ -112,30 +128,10 @@ public final class ControllerRenameFiles
 
     @Override
     public void fileRenamed(final File fromFile, final File toFile) {
-        if (fromFile == null) {
-            throw new NullPointerException("fromFile == null");
+        renameFile(fromFile, toFile);
         }
 
-        if (toFile == null) {
-            throw new NullPointerException("toFile == null");
-        }
-
-        AppLogger.logInfo(ControllerRenameFiles.class,
-                          "ControllerRenameFiles.Info.Rename", fromFile,
-                          toFile);
-        db.updateRename(fromFile, toFile);
-        SwingUtilities.invokeLater(new Runnable() {
             @Override
-            public void run() {
-                ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                XmpCache.INSTANCE.updateFiles(fromFile, toFile);
-                RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                tnPanel.rename(fromFile, toFile);
-            }
-        });
-    }
-
-    @Override
     public void fileCopied(File source, File target) {
 
         // ignore

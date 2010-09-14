@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.program.data.Exif;
@@ -34,7 +35,6 @@ import java.io.File;
 
 import java.util.Collections;
 
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -54,7 +54,7 @@ public final class ControllerThumbnailsDatabaseChanges
     }
 
     private void updateXmpCache(final File imageFile) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 XmpCache.INSTANCE.remove(imageFile);
@@ -98,7 +98,7 @@ public final class ControllerThumbnailsDatabaseChanges
 
         final File file = imageFile;
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 ThumbnailCache.INSTANCE.remove(file);
@@ -113,7 +113,7 @@ public final class ControllerThumbnailsDatabaseChanges
             throw new NullPointerException("imageFile == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 tnPanel.remove(Collections.singleton(imageFile));

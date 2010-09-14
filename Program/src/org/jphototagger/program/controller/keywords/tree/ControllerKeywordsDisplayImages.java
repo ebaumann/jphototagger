@@ -21,15 +21,16 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.componentutil.ListUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -84,17 +85,30 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
         return null;
     }
 
-    private void showImages(Keyword keyword) {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+    private void showImages(final Keyword keyword) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        appPanel.displaySelKeywordsTree(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
-        KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(), keyword);
+                appPanel.displaySelKeywordsTree(
+                    AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+                KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(),
+                                          keyword);
+            }
+        });
     }
 
-    private void showImages(String keyword) {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+    private void showImages(final String keyword) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
 
-        appPanel.displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
-        ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
+                appPanel.displaySelKeywordsList(
+                    AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+                ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
+            }
+        });
     }
 }

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -39,7 +40,6 @@ import java.util.List;
 import java.util.Queue;
 
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * Executes in a thread programs which processes image files.
@@ -264,7 +264,7 @@ public final class StartPrograms {
         }
 
         private void initProgressBar() {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -277,7 +277,7 @@ public final class StartPrograms {
         }
 
         private void setValueToProgressBar(final int value) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {

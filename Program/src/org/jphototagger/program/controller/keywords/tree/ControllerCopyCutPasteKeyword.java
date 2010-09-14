@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -43,7 +44,6 @@ import java.util.ArrayList;
 
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -153,7 +153,7 @@ public class ControllerCopyCutPasteKeyword
     }
 
     private void pasteCopy(final JTree tree) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreePath[] selPaths = tree.getSelectionPaths();

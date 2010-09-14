@@ -36,6 +36,7 @@ import org.jphototagger.program.view.renderer.ListCellRendererActions;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ListDataListener;
@@ -203,7 +204,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     @Override
     public void writeProperties() {
 
-        // Nothing to write
+        // ignore
     }
 
     private void showActions() {
@@ -263,19 +264,32 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     @Override
     public void programInserted(Program program) {
         if (program.isAction()) {
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
             setEnabledAddAction();
         }
+            });
+    }
     }
 
     @Override
     public void programDeleted(Program program) {
         if (program.isAction()) {
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
             setEnabledAddAction();
         }
+            });
+    }
     }
 
     @Override
     public void programUpdated(Program program) {
+
         // ignore
     }
 

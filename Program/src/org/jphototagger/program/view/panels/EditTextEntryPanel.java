@@ -166,72 +166,70 @@ public final class EditTextEntryPanel extends JPanel
 
     @Override
     public void xmpInserted(File imageFile, Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
         addToAutocomplete(xmp);
     }
 
     @Override
     public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
         addToAutocomplete(updatedXmp);
     }
 
     @Override
     public void xmpDeleted(File imageFile, Xmp xmp) {
+
         // ignore
     }
 
     @Override
     public void exifDeleted(File imageFile, Exif exif) {
+
         // ignore
     }
 
     @Override
     public void imageFileDeleted(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void imageFileInserted(File imageFile) {
+
+        // ignore
     }
 
     @Override
     public void imageFileRenamed(File oldImageFile, File newImageFile) {
+
         // ignore
     }
 
     @Override
     public void exifInserted(File imageFile, Exif exif) {
+
         // ignore
     }
 
     @Override
     public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+
         // ignore
     }
 
     @Override
     public void thumbnailUpdated(File imageFile) {
+
         // ignore
     }
 
     @Override
     public void dcSubjectDeleted(String dcSubject) {
+
         // ignore
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
-        if (dcSubject == null) {
-            throw new NullPointerException("dcSubject == null");
-        }
-
         if (isAutocomplete()) {
             AutocompleteHelper.addAutocompleteData(column, autocomplete,
                     Collections.singleton(dcSubject));

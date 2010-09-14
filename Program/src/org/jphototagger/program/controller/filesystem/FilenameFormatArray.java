@@ -115,10 +115,6 @@ public final class FilenameFormatArray implements FilenameFormatListener {
 
     @Override
     public void request(Request request) {
-        if (request == null) {
-            throw new NullPointerException("request == null");
-        }
-
         if (request.equals(FilenameFormatListener.Request.RESTART_SEQUENCE)) {
             restartSequenceFormatter();
         }

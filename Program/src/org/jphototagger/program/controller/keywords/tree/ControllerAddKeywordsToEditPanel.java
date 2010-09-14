@@ -21,20 +21,22 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,15 +77,16 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
 
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
-        if (nodes == null) {
-            throw new NullPointerException("nodes == null");
-        }
+        final DefaultMutableTreeNode node         = nodes.get(0);
+        final List<String>           keywordNames = new ArrayList<String>();
 
-        DefaultMutableTreeNode node         = nodes.get(0);
-        List<String>           keywordNames = new ArrayList<String>();
-
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
         addParentKeywords(node, keywordNames);
         addToEditPanel(keywordNames);
+    }
+        });
     }
 
     private void addToEditPanel(List<String> keywordNames) {

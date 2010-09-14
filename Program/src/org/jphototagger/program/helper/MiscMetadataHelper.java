@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.Xmp;
@@ -39,7 +40,6 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -106,7 +106,7 @@ public final class MiscMetadataHelper {
 
         final List<Column> xmpColumns = XmpColumns.get();
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
@@ -139,7 +139,7 @@ public final class MiscMetadataHelper {
 
         final List<Column> xmpColumns = XmpColumns.get();
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
@@ -174,7 +174,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
@@ -197,7 +197,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
@@ -291,7 +291,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("value == null");
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 DefaultMutableTreeNode node = findNodeContains(column);

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.keywords.list;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
@@ -35,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.SwingUtilities;
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
@@ -70,7 +70,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     @Override
     public void run() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 setFilesToThumbnailsPanel();

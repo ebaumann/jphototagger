@@ -68,6 +68,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -170,12 +171,12 @@ public class ThumbnailsPanel extends JPanel
         FileAction.UNDEFINED;
     private Content                                        content =
         Content.UNDEFINED;
-    private final transient ControllerDoubleklickThumbnail controllerDoubleklick;
-    private boolean          drag;
-    private boolean          keywordsOverlay;
-    private volatile boolean notifySelChanged;
-    private volatile boolean notifyTnsChanged;
-    private volatile boolean notifyRefresh;
+    private final transient ControllerDoubleklickThumbnail ctrlDoubleklick;
+    private boolean                                        drag;
+    private boolean                                        keywordsOverlay;
+    private volatile boolean                               notifySelChanged;
+    private volatile boolean                               notifyTnsChanged;
+    private volatile boolean                               notifyRefresh;
 
     /**
      * The viewport of this
@@ -184,7 +185,7 @@ public class ThumbnailsPanel extends JPanel
 
     public ThumbnailsPanel() {
         initRefreshListeners();
-        controllerDoubleklick = new ControllerDoubleklickThumbnail(this);
+        ctrlDoubleklick = new ControllerDoubleklickThumbnail(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerThumbnailsPanel());
         readProperties();
@@ -398,16 +399,18 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public synchronized void thumbnailUpdated(ThumbnailUpdateEvent event) {
-        if (event == null) {
-            throw new NullPointerException("event == null");
-        }
+    public synchronized void thumbnailUpdated(final ThumbnailUpdateEvent event) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         int index = getIndexOf(event.getSource());
 
         if (index >= 0) {
             repaint(index);
         }
+    }
+        });
     }
 
     private synchronized void addFlag(int index, ThumbnailFlag flag) {
@@ -1769,7 +1772,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void doubleClickAt(int index) {
-        controllerDoubleklick.doubleClickAtIndex(index);
+        ctrlDoubleklick.doubleClickAtIndex(index);
     }
 
     private void showPopupMenu(MouseEvent evt) {
@@ -1791,11 +1794,16 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public synchronized void filterUpdated(UserDefinedFileFilter filter) {
-        if (filter == null) {
-            throw new NullPointerException("filter == null");
+    public synchronized void filterUpdated(final UserDefinedFileFilter filter) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                updateFilter(filter);
         }
+        });
+    }
 
+    private void updateFilter(UserDefinedFileFilter filter) {
         if ((fileFilter instanceof UserDefinedFileFilter.RegexFileFilter)
                 && filter.filterEquals(
                     filter.getFileFilter(),

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.Favorite;
@@ -42,7 +43,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -73,7 +73,7 @@ public final class FavoritesHelper {
 
             final boolean dirChanged = !favorite.getDirectory().equals(oldDir);
 
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     DatabaseFavorites db = DatabaseFavorites.INSTANCE;
@@ -101,7 +101,7 @@ public final class FavoritesHelper {
         }
 
         if (confirmDelete(favorite.getName())) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ModelFactory.INSTANCE.getModel(
@@ -195,7 +195,7 @@ public final class FavoritesHelper {
             throw new NullPointerException("files == null");
         }
 
-        SwingUtilities.invokeLater(new SetFiles(files, settings));
+        EventQueue.invokeLater(new SetFiles(files, settings));
     }
 
     private static class SetFiles implements Runnable {

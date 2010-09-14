@@ -23,6 +23,7 @@ package org.jphototagger.program.controller.metadata;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.adobe.xmp.XMPConst;
+import java.awt.EventQueue;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
@@ -56,7 +57,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and
@@ -158,12 +158,12 @@ public final class ControllerShowMetadata
         final List<File>      selFiles = panel.getSelectedFiles();
 
         if (selFiles.size() == 1) {
-            SwingUtilities.invokeLater(new ShowMetadata(selFiles.get(0),
+            EventQueue.invokeLater(new ShowMetadata(selFiles.get(0),
                     EnumSet.allOf(Metadata.class)));
         } else {
             appPanel.getButtonIptcToXmp().setEnabled(false);
             appPanel.getButtonExifToXmp().setEnabled(false);
-            SwingUtilities.invokeLater(new RemoveAllMetadata());
+            EventQueue.invokeLater(new RemoveAllMetadata());
         }
     }
 
@@ -268,7 +268,7 @@ public final class ControllerShowMetadata
             File selectedFile = selFiles.get(0);
 
             if (file.equals(selectedFile)) {
-                SwingUtilities.invokeLater(new ShowMetadata(file, metadata));
+                EventQueue.invokeLater(new ShowMetadata(file, metadata));
             }
         }
     }

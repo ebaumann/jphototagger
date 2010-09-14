@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
@@ -116,12 +117,18 @@ public final class ControllerCopyOrCutFilesToClipboard
 
     @Override
     public void thumbnailsSelectionChanged() {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         final boolean imagesSelected = tnPanel.isFileSelected();
 
         menuItemCopy.setEnabled(imagesSelected);
 
         // ignore possibility of write protected files
         menuItemCut.setEnabled(imagesSelected);
+    }
+        });
     }
 
     @Override

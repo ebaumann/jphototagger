@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.comparator.ComparatorSavedSearch;
 import org.jphototagger.program.data.SavedSearch;
@@ -32,7 +33,6 @@ import org.jphototagger.program.helper.SavedSearchesHelper;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Elements are {@link SavedSearch}es.
@@ -66,29 +66,30 @@ public final class ListModelSavedSearches extends DefaultListModel
                               getSize() - 1);
     }
 
-    @Override
-    public void searchInserted(final SavedSearch savedSearch) {
-        if (savedSearch == null) {
-            throw new NullPointerException("savedSearch == null");
-        }
+    private void deleteSearch(String name) {
+        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, name);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                insertSorted(savedSearch);
-            }
-        });
+        if (index >= 0) {
+            remove(index);
+        }
     }
 
-    @Override
-    public void searchUpdated(final SavedSearch savedSearch) {
-        if (savedSearch == null) {
-            throw new NullPointerException("savedSearch == null");
+    private void renameSearch(String fromName, String toName) {
+        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, fromName);
+
+        if (index >= 0) {
+            SavedSearch savedSearch = (SavedSearch) get(index);
+
+            savedSearch.setName(toName);
+            fireContentsChanged(this, index, index);
+            }
+    }
+
+    private void insertSearch(SavedSearch savedSearch) {
+        insertSorted(savedSearch);
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+    private void updateSearch(SavedSearch savedSearch) {
                 int index = indexOf(savedSearch);
 
                 if (index >= 0) {
@@ -97,56 +98,44 @@ public final class ListModelSavedSearches extends DefaultListModel
                     insertSorted(savedSearch);
                 }
             }
+
+    @Override
+    public void searchInserted(final SavedSearch savedSearch) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                insertSearch(savedSearch);
+        }
+        });
+    }
+
+            @Override
+    public void searchUpdated(final SavedSearch savedSearch) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                updateSearch(savedSearch);
+                }
         });
     }
 
     @Override
     public void searchDeleted(final String name) {
-        if (name == null) {
-            throw new NullPointerException("name == null");
-        }
-
-        final DefaultListModel model = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = SavedSearchesHelper.getIndexOfSavedSearch(model,
-                                name);
-
-                if (index >= 0) {
-                    remove(index);
-                }
-            }
+                deleteSearch(name);
+        }
         });
-    }
+        }
 
-    @Override
+            @Override
     public void searchRenamed(final String fromName, final String toName) {
-        if (fromName == null) {
-            throw new NullPointerException("fromName == null");
-        }
-
-        if (toName == null) {
-            throw new NullPointerException("toName == null");
-        }
-
-        final Object           src   = this;
-        final DefaultListModel model = this;
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int index = SavedSearchesHelper.getIndexOfSavedSearch(model,
-                                fromName);
-
-                if (index >= 0) {
-                    SavedSearch savedSearch = (SavedSearch) get(index);
-
-                    savedSearch.setName(toName);
-                    fireContentsChanged(src, index, index);
+                renameSearch(fromName, toName);
                 }
-            }
         });
     }
 }

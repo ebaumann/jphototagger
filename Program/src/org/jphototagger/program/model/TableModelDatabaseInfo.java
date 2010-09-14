@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.model;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -37,7 +38,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -194,7 +194,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
                                  db.getTotalRecordCountOf(column));
             }
 
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     fireTableDataChanged();

@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
@@ -87,8 +88,14 @@ public final class ControllerThumbnailsPanelPersistence
             propertiesRead = true;
         }
 
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         readSelectedFilesFromProperties();
         readViewportViewPositionFromProperties();
+    }
+        });
     }
 
     private void writeSelectionToProperties() {
@@ -169,7 +176,7 @@ public final class ControllerThumbnailsPanelPersistence
                     AppLogger.logSevere(getClass(), ex);
                 }
 
-                SwingUtilities.invokeLater(new Runnable() {
+                EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         UserSettings.INSTANCE.getSettings().applySettings(

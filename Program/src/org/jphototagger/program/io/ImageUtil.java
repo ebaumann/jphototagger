@@ -34,6 +34,8 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 
+import java.awt.EventQueue;
+
 import java.io.File;
 
 import java.util.ArrayList;
@@ -162,7 +164,7 @@ public final class ImageUtil {
 
         if (ctrl != null) {
             ctrl.moveFiles(sourceFiles, targetDirectory);
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
@@ -175,26 +177,6 @@ public final class ImageUtil {
             String absolutePath) {
         return MessageDisplayer.confirmYesNo(null, bundleKey, size,
                 absolutePath);
-    }
-
-    private synchronized static void addProgressListener(
-            MoveToDirectoryDialog dlg) {
-        dlg.addProgressListener(new ProgressListener() {
-            @Override
-            public void progressStarted(ProgressEvent evt) {
-
-                // ignore
-            }
-            @Override
-            public void progressPerformed(ProgressEvent evt) {
-
-                // ignore
-            }
-            @Override
-            public void progressEnded(ProgressEvent evt) {
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
-            }
-        });
     }
 
     private synchronized static void addProgressListener(
@@ -212,8 +194,14 @@ public final class ImageUtil {
             }
             @Override
             public void progressEnded(ProgressEvent evt) {
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+                            .refresh();
             }
+        });
+    }
         });
     }
 

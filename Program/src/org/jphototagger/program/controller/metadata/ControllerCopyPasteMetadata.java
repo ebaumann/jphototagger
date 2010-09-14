@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.metadata;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
@@ -28,12 +29,12 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
 
@@ -50,9 +51,8 @@ public final class ControllerCopyPasteMetadata
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
     private final ThumbnailsPanel tnPanel =
         GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final PopupMenuThumbnails popup         =
-        PopupMenuThumbnails.INSTANCE;
-    private final JMenuItem           menuItemCopy  =
+    private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
+    private final JMenuItem           menuItemCopy =
         popup.getItemCopyMetadata();
     private final JMenuItem           menuItemPaste =
         popup.getItemPasteMetadata();
@@ -73,7 +73,8 @@ public final class ControllerCopyPasteMetadata
     public void keyPressed(KeyEvent evt) {
         if (KeyEventUtil.isMenuShortcutWithShiftDown(evt, KeyEvent.VK_C)) {
             copy();
-        } else if (KeyEventUtil.isMenuShortcutWithShiftDown(evt, KeyEvent.VK_V)) {
+        } else if (KeyEventUtil.isMenuShortcutWithShiftDown(evt,
+                KeyEvent.VK_V)) {
             paste();
         }
     }
@@ -136,8 +137,14 @@ public final class ControllerCopyPasteMetadata
 
     @Override
     public void thumbnailsSelectionChanged() {
-        menuItemCopy.setEnabled(
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().isFileSelected());
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                menuItemCopy
+                    .setEnabled(GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+                        .isFileSelected());
+    }
+        });
     }
 
     @Override

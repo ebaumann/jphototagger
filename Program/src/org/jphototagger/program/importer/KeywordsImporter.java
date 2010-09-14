@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.importer;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
@@ -37,7 +38,6 @@ import java.util.List;
 
 import javax.swing.JProgressBar;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -130,7 +130,7 @@ public abstract class KeywordsImporter implements Importer {
 
         @Override
         public void run() {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     importKeywords();
@@ -189,7 +189,7 @@ public abstract class KeywordsImporter implements Importer {
 
         private void updateProgressBar(final int value) {
             getProgressBar();
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -211,7 +211,7 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void releaseProgressBar() {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {

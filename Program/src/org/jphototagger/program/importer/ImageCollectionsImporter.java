@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.importer;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -43,7 +44,6 @@ import java.util.List;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -123,7 +123,7 @@ public final class ImageCollectionsImporter implements Importer {
 
         private void updateImageCollectionList(
                 final ImageCollection imageCollection) {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     ListModelImageCollections model =

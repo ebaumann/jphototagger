@@ -32,10 +32,10 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -69,17 +69,19 @@ public class ControllerDeleteKeywords extends ControllerKeywords
 
     @Override
     protected void localAction(final List<DefaultMutableTreeNode> nodes) {
-        if (nodes == null) {
-            throw new NullPointerException("nodes == null");
-        }
-
         if (!ensureNoChild(nodes) ||!confirmDeleteMultiple(nodes)) {
             return;
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                deleteKeywords(nodes);
+            }
+        });
+    }
+
+    private void deleteKeywords(List<DefaultMutableTreeNode> nodes) {
                 for (DefaultMutableTreeNode node : nodes) {
                     Object userObject = node.getUserObject();
 
@@ -87,13 +89,10 @@ public class ControllerDeleteKeywords extends ControllerKeywords
                         delete(node, (Keyword) userObject, nodes.size() == 1);
                     } else {
                         MessageDisplayer.error(
-                            null, "ControllerDeleteKeywords.Tree.Error.Node",
-                            node);
+                    null, "ControllerDeleteKeywords.Tree.Error.Node", node);
                     }
                 }
             }
-        });
-    }
 
     private void delete(DefaultMutableTreeNode node, Keyword keyword,
                         boolean confirm) {

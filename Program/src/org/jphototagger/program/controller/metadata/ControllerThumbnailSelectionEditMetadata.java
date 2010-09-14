@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.metadata;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
@@ -35,7 +36,6 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
 /**
  * Listens to the {@link ThumbnailsPanel} for thumbnail selections.
@@ -78,7 +78,7 @@ public final class ControllerThumbnailSelectionEditMetadata
     }
 
     private void handleSelectionChanged() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 boolean canEdit = false;

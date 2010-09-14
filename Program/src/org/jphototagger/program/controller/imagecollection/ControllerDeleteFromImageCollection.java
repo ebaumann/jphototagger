@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
 import org.jphototagger.program.helper.ModifyImageCollections;
@@ -40,7 +41,6 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the
@@ -88,7 +88,7 @@ public final class ControllerDeleteFromImageCollection
     }
 
     private void deleteSelectedFilesFromImageCollection() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object selectedValue = list.getSelectedValue();

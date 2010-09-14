@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.controller.keywords.list
     .ShowThumbnailsContainingAllKeywords2;
 import org.jphototagger.program.data.Keyword;
@@ -33,7 +34,6 @@ import java.util.List;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -63,7 +63,7 @@ public final class ControllerKeywordsSelection
     }
 
     private void showThumbnailsOfSelKeywords() {
-        SwingUtilities.invokeLater(
+        EventQueue.invokeLater(
             new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
     }
 

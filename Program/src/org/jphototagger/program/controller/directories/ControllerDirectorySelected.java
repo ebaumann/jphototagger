@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.directories;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
@@ -40,7 +41,6 @@ import java.util.List;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 
 /**
@@ -80,15 +80,11 @@ public final class ControllerDirectorySelected
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         setFilesToThumbnailsPanel(evt.getSettings());
     }
 
     private void setFilesToThumbnailsPanel(ThumbnailsPanel.Settings settings) {
-        SwingUtilities.invokeLater(new ShowThumbnails(settings));
+        EventQueue.invokeLater(new ShowThumbnails(settings));
     }
 
     private class ShowThumbnails implements Runnable {
@@ -100,7 +96,7 @@ public final class ControllerDirectorySelected
 
         @Override
         public void run() {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     showThumbnails();

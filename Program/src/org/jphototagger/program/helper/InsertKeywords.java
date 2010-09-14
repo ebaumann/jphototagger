@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -58,7 +58,7 @@ public final class InsertKeywords extends Thread {
     }
 
     private void copy() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreeModelKeywords model =

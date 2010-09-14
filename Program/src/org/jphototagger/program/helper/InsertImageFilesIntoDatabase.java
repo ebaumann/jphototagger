@@ -413,7 +413,7 @@ public final class InsertImageFilesIntoDatabase extends Thread
         UpdateMetadataCheckEvent evt = new UpdateMetadataCheckEvent(type, file);
 
         for (UpdateMetadataCheckListener listener : ls.get()) {
-            listener.actionPerformed(evt);
+            listener.checkForUpdate(evt);
         }
     }
 

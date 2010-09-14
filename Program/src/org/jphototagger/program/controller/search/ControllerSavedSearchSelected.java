@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.search;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
@@ -41,7 +42,6 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -79,7 +79,7 @@ public final class ControllerSavedSearchSelected
 
     private void search() {
         if (list.getSelectedIndex() >= 0) {
-            SwingUtilities.invokeLater(new ShowThumbnails());
+            EventQueue.invokeLater(new ShowThumbnails());
         }
     }
 
@@ -126,7 +126,7 @@ public final class ControllerSavedSearchSelected
         }
 
         private void setMetadataEditable() {
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (!tnPanel.isFileSelected()) {

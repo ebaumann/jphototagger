@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
@@ -35,7 +36,6 @@ import java.awt.event.KeyListener;
 
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -66,10 +66,6 @@ public class ControllerToggleRealKeyword extends ControllerKeywords
 
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
-        if (nodes == null) {
-            throw new NullPointerException("nodes == null");
-        }
-
         final DefaultMutableTreeNode node       = nodes.get(0);
         Object                       userObject = node.getUserObject();
 
@@ -79,7 +75,7 @@ public class ControllerToggleRealKeyword extends ControllerKeywords
                 ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
             keyword.setReal(!keyword.isReal());
-            SwingUtilities.invokeLater(new Runnable() {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     model.changed(node, keyword);

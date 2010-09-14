@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
@@ -36,7 +37,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Aktion: Lösche Bildsammlung, ausgelöst von
@@ -89,7 +89,7 @@ public final class ControllerDeleteImageCollection
         }
 
         if (collectionName != null) {
-                SwingUtilities.invokeLater(new Runnable() {
+                EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                     if (ModifyImageCollections.deleteImageCollection(

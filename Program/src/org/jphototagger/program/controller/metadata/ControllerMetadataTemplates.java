@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.metadata;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.MetadataTemplate;
@@ -37,7 +38,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.
@@ -114,7 +114,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void createTemplate() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 final String name = getNewName();
@@ -131,7 +131,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void deleteTemplate() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = model.getSelectedItem();
@@ -152,7 +152,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void editTemplate() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = model.getSelectedItem();
@@ -169,7 +169,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void renameTemplate() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o    = model.getSelectedItem();
@@ -183,7 +183,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void updateTemplate() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = model.getSelectedItem();
@@ -205,7 +205,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void setCurrentTemplateToPanel() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = model.getSelectedItem();

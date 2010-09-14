@@ -40,6 +40,7 @@ import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.io.FileUtil;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -288,11 +289,11 @@ public final class MoveToDirectoryDialog extends Dialog
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         buttonStart.setEnabled(false);
         buttonCancel.setEnabled(true);
         progressBar.setMinimum(evt.getMinimum());
@@ -301,13 +302,15 @@ public final class MoveToDirectoryDialog extends Dialog
         checkCancel(evt);
         pListenerSupport.notifyStarted(evt);
     }
+        });
+    }
 
     @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setValue(evt.getValue());
 
         @SuppressWarnings("unchecked") String filename =
@@ -317,13 +320,15 @@ public final class MoveToDirectoryDialog extends Dialog
         checkCancel(evt);
         pListenerSupport.notifyPerformed(evt);
     }
+        });
+    }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressEnded(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+                @Override
+                public void run() {
         progressBar.setValue(evt.getValue());
         buttonCancel.setEnabled(true);
         buttonStart.setEnabled(true);
@@ -334,6 +339,8 @@ public final class MoveToDirectoryDialog extends Dialog
         pListenerSupport.notifyEnded(evt);
         checkErrors();
         setVisible(false);
+    }
+        });
     }
 
     private void removeMovedFiles() {
@@ -352,10 +359,6 @@ public final class MoveToDirectoryDialog extends Dialog
 
     @Override
     public void fileMoved(File source, File target) {
-        if (source == null) {
-            throw new NullPointerException("source == null");
-        }
-
         movedFiles.add(source);
     }
 

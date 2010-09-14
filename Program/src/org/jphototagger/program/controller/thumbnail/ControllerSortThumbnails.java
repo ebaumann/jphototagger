@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
@@ -34,7 +35,6 @@ import java.io.File;
 import java.util.Comparator;
 
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -73,7 +73,7 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     private void sortThumbnails(final ActionEvent evt) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JRadioButtonMenuItem item =

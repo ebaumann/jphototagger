@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.view.dialogs;
 
+import java.awt.EventQueue;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
@@ -80,17 +81,30 @@ public final class ActionsDialog extends Dialog
 
     @Override
     public void programDeleted(Program program) {
+
         // ignore
     }
 
     @Override
     public void programInserted(Program program) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         toFrontIfVisible();
+    }
+        });
     }
 
     @Override
     public void programUpdated(Program program) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         toFrontIfVisible();
+    }
+        });
     }
 
     /**

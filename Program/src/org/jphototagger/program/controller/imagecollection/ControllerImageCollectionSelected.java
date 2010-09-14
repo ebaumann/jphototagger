@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
@@ -40,7 +41,6 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.
@@ -104,7 +104,7 @@ public final class ControllerImageCollectionSelected
 
     private void showImageCollection(final String collectionName,
                                      final ThumbnailsPanel.Settings settings) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 List<File> imageFiles =

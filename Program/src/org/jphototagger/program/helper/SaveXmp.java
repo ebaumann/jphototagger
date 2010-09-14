@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.helper;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLifeCycle;
@@ -38,7 +39,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
@@ -116,7 +116,7 @@ public final class SaveXmp extends Thread implements Cancelable {
 
     private void updateProgressBar(final int value) {
         getProgressBar();
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -137,7 +137,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void releaseProgressBar() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

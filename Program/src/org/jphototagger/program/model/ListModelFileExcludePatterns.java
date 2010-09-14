@@ -27,11 +27,12 @@ import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.event.listener
     .DatabaseFileExcludePatternsListener;
 
+import java.awt.EventQueue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.SwingUtilities;
 
 /**
  * Element are {@link String}s retrieved through
@@ -116,6 +117,16 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         }
     }
 
+    private void insertPattern(String pattern) {
+        addElement(pattern);
+        patterns.add(pattern);
+    }
+
+    private void deletePattern(String pattern) {
+        removeElement(pattern);
+        patterns.remove(pattern);
+    }
+
     private void errorMessageDelete(String trimmedPattern) {
         MessageDisplayer.error(null,
                                "ListModelFileExcludePatterns.Error.Delete",
@@ -136,16 +147,11 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternInserted(final String pattern) {
-        if (pattern == null) {
-            throw new NullPointerException("pattern == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (listenToDb) {
-                    addElement(pattern);
-                    patterns.add(pattern);
+                    insertPattern(pattern);
                 }
             }
         });
@@ -153,16 +159,11 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternDeleted(final String pattern) {
-        if (pattern == null) {
-            throw new NullPointerException("pattern == null");
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (listenToDb) {
-                    removeElement(pattern);
-                    patterns.remove(pattern);
+                    deletePattern(pattern);
                 }
             }
         });

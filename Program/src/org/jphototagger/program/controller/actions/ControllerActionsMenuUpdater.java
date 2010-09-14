@@ -27,6 +27,8 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
+import java.awt.EventQueue;
+
 import javax.swing.JMenu;
 
 /**
@@ -50,23 +52,38 @@ public final class ControllerActionsMenuUpdater
     }
 
     @Override
-    public void programDeleted(Program program) {
+    public void programDeleted(final Program program) {
         if (program.isAction()) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
             ActionsHelper.removeAction(actionMenu, program);
         }
+            });
+    }
     }
 
     @Override
-    public void programInserted(Program program) {
+    public void programInserted(final Program program) {
         if (program.isAction()) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
             ActionsHelper.addAction(actionMenu, program);
         }
+            });
+    }
     }
 
     @Override
-    public void programUpdated(Program program) {
+    public void programUpdated(final Program program) {
         if (program.isAction()) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
             ActionsHelper.updateAction(actionMenu, program);
         }
+            });
     }
+}
 }

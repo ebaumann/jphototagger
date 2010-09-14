@@ -73,6 +73,7 @@ public final class TextEntryContent implements TextEntry {
 
     /**
      * Does nothing.
+     *
      * @param editable true if editable
      */
     @Override

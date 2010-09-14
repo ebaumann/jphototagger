@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.search;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
@@ -64,7 +65,6 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -172,7 +172,7 @@ public final class ControllerFastSearch
     }
 
     private void search(final String searchText) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 String userInput = searchText.trim();
@@ -265,10 +265,6 @@ public final class ControllerFastSearch
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         if (textFieldSearch.isEnabled()) {
             search(textFieldSearch.getText());
         }

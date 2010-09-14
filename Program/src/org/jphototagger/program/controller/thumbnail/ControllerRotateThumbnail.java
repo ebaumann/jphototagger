@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.image.util.ImageTransform;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -39,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
@@ -93,7 +93,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     private void rotateSelectedImages(final float rotateAngle) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 List<File> selFiles = tnPanel.getSelectedFiles();

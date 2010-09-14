@@ -32,6 +32,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import javax.swing.JPanel;
 
@@ -91,33 +92,39 @@ public class RenameFilenamesInDbPanel extends JPanel
     }
 
     @Override
-    public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressStarted(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setMinimum(evt.getMinimum());
         progressBar.setMaximum(evt.getMaximum());
         progressBar.setValue(evt.getValue());
     }
+        });
+    }
 
     @Override
-    public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+    public void progressPerformed(final ProgressEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setValue(evt.getValue());
+    }
+        });
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
+        EventQueue.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
         progressBar.setValue(0);
         setInputEnabled(true);
+    }
+        });
     }
 
     private void setInputEnabled(boolean enabled) {

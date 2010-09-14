@@ -30,7 +30,6 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.text.MessageFormat;
 
-
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
@@ -81,10 +80,6 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         evt.setInfo(getStartMessage(evt));
 
         // Catching cancellation request
@@ -102,9 +97,6 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
     @Override
     public void progressPerformed(ProgressEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
 
         // Catching cancellation request
         for (ProgressListener listener : ls.get()) {
