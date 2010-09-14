@@ -43,10 +43,9 @@
             </Property>
             <Property name="dragEnabled" type="boolean" value="true"/>
             <Property name="rootVisible" type="boolean" value="false"/>
-            <Property name="showsRootHandles" type="boolean" value="true"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="tree.setTransferHandler(new TransferHandlerMiscMetadataTree());"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="tree.setTransferHandler(new TransferHandlerMiscMetadataTree());&#xa;tree.setShowsRootHandles(true);"/>
           </AuxValues>
         </Component>
       </SubComponents>

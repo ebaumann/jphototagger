@@ -52,13 +52,13 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         tree.setTransferHandler(new TransferHandlerMiscMetadataTree());
+        tree.setShowsRootHandles(true);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new TreeCellRendererMiscMetadata());
         tree.setDragEnabled(true);
         tree.setRootVisible(false);
-        tree.setShowsRootHandles(true);
         scrollPane.setViewportView(tree);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

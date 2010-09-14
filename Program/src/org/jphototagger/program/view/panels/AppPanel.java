@@ -632,6 +632,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
         treeDirectories = new javax.swing.JTree();
+        treeDirectories.setShowsRootHandles(true);
         panelSavedSearches = new javax.swing.JPanel();
         scrollPaneSavedSearches = new javax.swing.JScrollPane();
         listSavedSearches = new javax.swing.JList();
@@ -641,11 +642,14 @@ public final class AppPanel extends javax.swing.JPanel {
         panelFavorites = new javax.swing.JPanel();
         scrollPaneFavorites = new javax.swing.JScrollPane();
         treeFavorites = new javax.swing.JTree();
+        treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());
+        treeFavorites.setShowsRootHandles(true);
         panelSelKeywords = new javax.swing.JPanel();
         panelSelKeywordsTree = new javax.swing.JPanel();
         scrollPaneSelKeywordsTree = new javax.swing.JScrollPane();
         treeSelKeywords = new javax.swing.JTree();
         treeSelKeywords.setTransferHandler(new TransferHandlerKeywordsTree());
+        treeSelKeywords.setShowsRootHandles(true);
         buttonDisplaySelKeywordsList = new javax.swing.JButton();
         toggleButtonExpandAllNodesSelKeywords = new javax.swing.JToggleButton();
         panelSelKeywordsList = new javax.swing.JPanel();
@@ -663,6 +667,7 @@ public final class AppPanel extends javax.swing.JPanel {
         scrollPaneMiscMetadata = new javax.swing.JScrollPane();
         treeMiscMetadata = new javax.swing.JTree();
         treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());
+        treeMiscMetadata.setShowsRootHandles(true);
         panelNoMetadata = new javax.swing.JPanel();
         scrollPaneNoMetadata = new javax.swing.JScrollPane();
         listNoMetadata = new javax.swing.JList();
@@ -792,9 +797,10 @@ public final class AppPanel extends javax.swing.JPanel {
         treeDirectories.setCellRenderer(new org.jphototagger.lib.renderer.TreeCellRendererAllSystemDirectories());
         treeDirectories.setDragEnabled(true);
         treeDirectories.setName("treeDirectories"); // NOI18N
+        treeDirectories.setRootVisible(false);
         scrollPaneDirectories.setViewportView(treeDirectories);
         treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());
-        treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());
+        treeDirectories.setShowsRootHandles(true);
 
         javax.swing.GroupLayout panelDirectoriesLayout = new javax.swing.GroupLayout(panelDirectories);
         panelDirectories.setLayout(panelDirectoriesLayout);
@@ -1003,7 +1009,6 @@ public final class AppPanel extends javax.swing.JPanel {
         treeNode1.add(treeNode2);
         treeTimeline.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         treeTimeline.setCellRenderer(new TreeCellRendererTimeline());
-        treeTimeline.setRootVisible(false);
         scrollPaneTimeline.setViewportView(treeTimeline);
 
         javax.swing.GroupLayout panelTimelineLayout = new javax.swing.GroupLayout(panelTimeline);

@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.45 2010-09-14
+-----------------
+
+* Bugifx: Von der IDE generierter Code für Bäume setzte nicht korrekt, dass
+  "Griffel" für die 1. Ebene angezeigt werden
+
 0.8.44 2010-09-14
 -----------------
 
