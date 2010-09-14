@@ -197,9 +197,11 @@
                             </Property>
                             <Property name="dragEnabled" type="boolean" value="true"/>
                             <Property name="name" type="java.lang.String" value="treeDirectories" noResource="true"/>
+                            <Property name="rootVisible" type="boolean" value="false"/>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());&#xd;&#xa;treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeDirectories.setShowsRootHandles(true);"/>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());&#xd;&#xa;treeDirectories.setShowsRootHandles(true);"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -359,6 +361,9 @@
                             <Property name="dragEnabled" type="boolean" value="true"/>
                             <Property name="rootVisible" type="boolean" value="false"/>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());&#xd;&#xa;treeFavorites.setShowsRootHandles(true);"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -412,7 +417,7 @@
                                 <Property name="rootVisible" type="boolean" value="false"/>
                               </Properties>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeSelKeywords.setTransferHandler(new TransferHandlerKeywordsTree());"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeSelKeywords.setTransferHandler(new TransferHandlerKeywordsTree());&#xa;treeSelKeywords.setShowsRootHandles(true);"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
@@ -607,7 +612,6 @@
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new TreeCellRendererTimeline()" type="code"/>
                             </Property>
-                            <Property name="rootVisible" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -660,7 +664,7 @@
                             <Property name="rootVisible" type="boolean" value="false"/>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());&#xa;treeMiscMetadata.setShowsRootHandles(true);"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>

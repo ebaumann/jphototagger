@@ -168,6 +168,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelTree = new javax.swing.JPanel();
         scrollPaneTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
+        tree.setShowsRootHandles(true);
         panelButtons = new javax.swing.JPanel();
         buttonAsList = new javax.swing.JButton();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();

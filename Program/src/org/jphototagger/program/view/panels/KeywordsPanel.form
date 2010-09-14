@@ -50,6 +50,7 @@
                 <Property name="rootVisible" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="tree.setShowsRootHandles(true);"/>
                 <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="tree.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree());"/>
               </AuxValues>
             </Component>
