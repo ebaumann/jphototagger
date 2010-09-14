@@ -21,6 +21,7 @@
 
 package org.jphototagger.plugin;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.generics.Pair;
 
 import java.awt.Image;
@@ -39,7 +40,6 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 /**
  * Base class for Plugins.
@@ -309,7 +309,7 @@ public abstract class Plugin {
      * Paints the progress bar progress event.
      */
     public void progressEnded() {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 if (progressBar != null) {
                     if (progressBar.isStringPainted()) {
@@ -325,7 +325,7 @@ public abstract class Plugin {
 
     private void setProgressBar(final int minimum, final int maximum,
                                 final int value, final String string) {
-        SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 if (progressBar != null) {
                     progressBar.setMinimum(minimum);

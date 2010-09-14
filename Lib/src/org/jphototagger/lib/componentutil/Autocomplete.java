@@ -21,6 +21,7 @@
 
 package org.jphototagger.lib.componentutil;
 
+import java.awt.EventQueue;
 import org.jphototagger.lib.util.CollectionUtil;
 
 import java.awt.event.ActionEvent;
@@ -40,7 +41,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.InputMap;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 
 //Base code: http://java.sun.com/docs/books/tutorial/uiswing/examples/components/TextAreaDemoProject/src/components/TextAreaDemo.java
 //           http://java.sun.com/docs/books/tutorial/uiswing/components/textarea.html
@@ -212,7 +212,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
                     // We cannot modify Document from within notification,
                     // so we submit a task that does the change later
-                    SwingUtilities.invokeLater(new CompletionTask(completion,
+                    EventQueue.invokeLater(new CompletionTask(completion,
                             pos + 1));
                 }
             } else {

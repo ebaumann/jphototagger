@@ -259,7 +259,7 @@ public abstract class PopupMenuTree extends JPopupMenu
      */
     protected void setMenuItemsEnabled(List<TreePath> selTreePaths) {
 
-        // do nothing
+        // ignore
     }
 
     @Override

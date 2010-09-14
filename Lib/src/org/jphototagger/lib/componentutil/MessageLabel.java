@@ -22,6 +22,7 @@
 package org.jphototagger.lib.componentutil;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,7 +59,7 @@ public final class MessageLabel {
         }
     }
 
-    public void showMessage(String message, MessageType type,
+    public void showMessage(final String message, final MessageType type,
                             final long milliseconds) {
         if (message == null) {
             throw new NullPointerException("message == null");
@@ -73,22 +74,32 @@ public final class MessageLabel {
                                                + milliseconds);
         }
 
-        label.setForeground(type.isError()
-                            ? Color.RED
-                            : Color.BLACK);
-        label.setText(message);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                label.setForeground(type.isError()
+                                    ? Color.RED
+                                    : Color.BLACK);
+                label.setText(message);
 
-        Thread thread = new Thread(new HideInfoMessage(milliseconds),
-                "JPhotoTagger: Hiding message popup");
+                Thread thread =
+                    new Thread(new HideInfoMessage(message, milliseconds),
+                               "JPhotoTagger: Hiding message popup");
 
-        thread.setPriority(Thread.MIN_PRIORITY);
-        thread.start();
+                thread.setPriority(Thread.MIN_PRIORITY);
+                thread.start();
+            }
+        });
     }
 
     private class HideInfoMessage implements Runnable {
-        private final long milliseconds;
+        private final long   milliseconds;
+        private final String text;
 
-        HideInfoMessage(long milliseconds) {
+        HideInfoMessage(String text, long milliseconds) {
+            this.text         = (text == null)
+                                ? ""
+                                : text;
             this.milliseconds = milliseconds;
         }
 
@@ -101,7 +112,14 @@ public final class MessageLabel {
                                  ex);
             }
 
-            label.setText("");
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    if (text.equals(label.getText())) {
+                        label.setText("");
+                    }
+                }
+            });
         }
     }
 }
