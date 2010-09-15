@@ -23,11 +23,9 @@ package org.jphototagger.program.controller.filesystem;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,9 +40,6 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ControllerCopyFilesToDirectory implements ActionListener {
-    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
-
     public ControllerCopyFilesToDirectory() {
         listen();
     }
@@ -60,7 +55,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     }
 
     private void copySelectedFiles() {
-        List<File> selFiles = tnPanel.getSelectedFiles();
+        List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (!selFiles.isEmpty()) {
             CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();

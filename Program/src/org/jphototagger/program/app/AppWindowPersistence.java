@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.table.TableModel;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
@@ -229,7 +230,7 @@ public final class AppWindowPersistence
             final TableModel model = appPanel.getTableIptc().getModel();
 
             if (model instanceof TableModelIptc) {
-                final List<File> selFiles = tnPanel.getSelectedFiles();
+                final List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
                 if (selFiles.size() == 1) {
                     final File file = selFiles.get(0);

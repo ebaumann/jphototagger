@@ -55,17 +55,11 @@ import javax.swing.JPopupMenu.Separator;
  */
 public final class ControllerEditKeywordSynonyms extends ControllerKeywords
         implements PopupMenuListener {
-    private static final String DELIM            = ";";
+    private static final String DELIM = ";";
     private final JMenuItem     itemEditSynonyms =
         new JMenuItem(
             JptBundle.INSTANCE.getString(
                 "ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
-    private final EditRepeatableTextEntryPanel editPanel =
-        (EditRepeatableTextEntryPanel) GUI.INSTANCE.getAppPanel()
-            .getEditMetadataPanels()
-            .getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
-    private final JPopupMenu popupMenuEditPanel = editPanel.getPopupMenu();
-    private final JList      listEditPanel      = editPanel.getList();
 
     public ControllerEditKeywordSynonyms() {
         addMenuItem();
@@ -75,21 +69,38 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     private void listen() {
         listenToActionsOf(PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms(),
                           itemEditSynonyms);
-        listEditPanel.addKeyListener(this);
-        popupMenuEditPanel.addPopupMenuListener(this);
+        getKeywordsList().addKeyListener(this);
+        getPopupMenu().addPopupMenuListener(this);
+    }
+
+    private EditRepeatableTextEntryPanel getKeywordsPanel() {
+        return (EditRepeatableTextEntryPanel) GUI.INSTANCE.getAppPanel()
+            .getEditMetadataPanels()
+            .getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+    }
+
+    private JList getKeywordsList() {
+        return getKeywordsPanel().getList();
+    }
+
+    private JPopupMenu getPopupMenu() {
+        return getKeywordsPanel().getPopupMenu();
     }
 
     private void addMenuItem() {
         itemEditSynonyms.setAccelerator(
             KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_S));
-        popupMenuEditPanel.add(new Separator());
-        popupMenuEditPanel.add(itemEditSynonyms);
+
+        JPopupMenu popupMenu = getPopupMenu();
+
+        popupMenu.add(new Separator());
+        popupMenu.add(itemEditSynonyms);
     }
 
     private void editInEditList() {
         List<String> keywords = new ArrayList<String>();
 
-        for (Object selValue : listEditPanel.getSelectedValues()) {
+        for (Object selValue : getKeywordsList().getSelectedValues()) {
             keywords.add(selValue.toString());
         }
 
@@ -109,7 +120,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if ((evt.getSource() == listEditPanel) && myKey(evt)) {
+        if ((evt.getSource() == getKeywordsList()) && myKey(evt)) {
             editInEditList();
         } else {
             super.keyPressed(evt);
@@ -117,12 +128,13 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     private boolean itemsInEditListSelected() {
-        return listEditPanel.getSelectedValue() != null;
+        return getKeywordsList().getSelectedValue() != null;
     }
 
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
-        boolean selected = itemsInEditListSelected();
+        boolean                      selected  = itemsInEditListSelected();
+        EditRepeatableTextEntryPanel editPanel = getKeywordsPanel();
 
         editPanel.getItemRename().setEnabled(selected);
         editPanel.getItemRemove().setEnabled(selected);

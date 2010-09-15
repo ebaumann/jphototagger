@@ -21,11 +21,11 @@
 
 package org.jphototagger.program.event.listener.impl;
 
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
 
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend
@@ -61,6 +61,6 @@ public final class MouseListenerMetadataTemplates extends MouseListenerList {
         PopupMenuMetadataTemplates.INSTANCE.getItemRename().setEnabled(
             clickOnItem);
         PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages().setEnabled(
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().isFileSelected());
+            ViewUtil.getThumbnailsPanel().isFileSelected());
     }
 }

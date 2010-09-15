@@ -37,6 +37,7 @@ import java.awt.event.ItemListener;
 import java.io.FileFilter;
 
 import javax.swing.JComboBox;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -62,8 +63,7 @@ public final class ControllerThumbnailFileFilter
     @Override
     public void itemStateChanged(ItemEvent evt) {
         Object          item = evt.getItem();
-        ThumbnailsPanel tnPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
         if (item instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) item);

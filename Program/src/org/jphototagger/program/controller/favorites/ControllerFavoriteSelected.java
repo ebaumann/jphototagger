@@ -24,14 +24,11 @@ package org.jphototagger.program.controller.favorites;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.helper.FavoritesHelper;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.JTree;
 
 /**
  * Listens for selections of items in the favorite directories tree view. A tree
@@ -42,17 +39,15 @@ import javax.swing.JTree;
  */
 public final class ControllerFavoriteSelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree           tree     = appPanel.getTreeFavorites();
-    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
-
     public ControllerFavoriteSelected() {
         listen();
     }
 
     private void listen() {
-        tree.getSelectionModel().addTreeSelectionListener(this);
-        tnPanel.addRefreshListener(this, Content.FAVORITE);
+        ViewUtil.getFavoritesTree().getSelectionModel()
+            .addTreeSelectionListener(this);
+        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+                Content.FAVORITE);
     }
 
     @Override
@@ -65,7 +60,7 @@ public final class ControllerFavoriteSelected
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (tree.getSelectionCount() > 0) {
+        if (ViewUtil.getFavoritesTree().getSelectionCount() > 0) {
             FavoritesHelper.setFilesToThumbnailPanel(
                 FavoritesHelper.getFilesOfSelectedtDirectory(),
                 evt.getSettings());

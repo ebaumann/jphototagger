@@ -37,6 +37,7 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to selections within the list {@link AppPanel#getListNoMetadata()}
@@ -75,8 +76,7 @@ public final class ControllerNoMetadataItemSelected
 
             setTitle((Column) selValue);
 
-            ThumbnailsPanel tnPanel =
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+            ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
             ControllerSortThumbnails.setLastSort();
             tnPanel.setFiles(imageFiles, Content.MISSING_METADATA);

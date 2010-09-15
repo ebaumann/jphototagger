@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.favorites;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
@@ -31,6 +30,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import javax.swing.JTree;
 
@@ -45,14 +45,12 @@ import javax.swing.JTree;
  */
 public final class ControllerRefreshFavorites
         implements ActionListener, KeyListener {
-    private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
-
     public ControllerRefreshFavorites() {
         listen();
     }
 
     private void listen() {
-        popup.getItemRefresh().addActionListener(this);
+        PopupMenuFavorites.INSTANCE.getItemRefresh().addActionListener(this);
         GUI.INSTANCE.getAppPanel().getTreeFavorites().addKeyListener(this);
     }
 
@@ -65,7 +63,8 @@ public final class ControllerRefreshFavorites
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (popup.getItemRefresh().equals(evt.getSource())) {
+        if (PopupMenuFavorites.INSTANCE.getItemRefresh().equals(
+                evt.getSource())) {
             refresh();
         }
     }
@@ -76,7 +75,7 @@ public final class ControllerRefreshFavorites
             public void run() {
                 ModelFactory.INSTANCE.getModel(
                     TreeModelFavorites.class).update();
-    }
+            }
         });
     }
 

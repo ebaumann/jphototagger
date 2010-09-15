@@ -25,7 +25,6 @@ import java.awt.EventQueue;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
@@ -38,6 +37,7 @@ import java.awt.event.KeyListener;
 import java.awt.Toolkit;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to {@link PopupMenuThumbnails#getItemCopyToClipboard()},
@@ -51,7 +51,7 @@ import javax.swing.JMenuItem;
 public final class ControllerCopyOrCutFilesToClipboard
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
     private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        ViewUtil.getThumbnailsPanel();
     private final PopupMenuThumbnails popup        =
         PopupMenuThumbnails.INSTANCE;
     private final JMenuItem           menuItemCopy =

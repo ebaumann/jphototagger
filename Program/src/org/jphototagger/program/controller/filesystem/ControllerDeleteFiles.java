@@ -21,26 +21,25 @@
 
 package org.jphototagger.program.controller.filesystem;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.controller.imagecollection
     .ControllerDeleteFromImageCollection;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.helper.DeleteImageFiles;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.types.DeleteOption;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.List;
-
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the
@@ -53,24 +52,21 @@ import java.util.List;
  */
 public final class ControllerDeleteFiles
         implements ActionListener, KeyListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
-
     public ControllerDeleteFiles() {
         listen();
     }
 
     private void listen() {
-        popupMenu.getItemFileSystemDeleteFiles().addActionListener(this);
-        tnPanel.addKeyListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemDeleteFiles()
+            .addActionListener(this);
+        ViewUtil.getThumbnailsPanel().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            if (tnPanel.getContent().equals(Content.IMAGE_COLLECTION)) {
+            if (ViewUtil.getThumbnailsPanel().getContent().equals(
+                    Content.IMAGE_COLLECTION)) {
                 return;
             }
 
@@ -84,6 +80,8 @@ public final class ControllerDeleteFiles
     }
 
     private void delete() {
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+
         if ((tnPanel.isFileSelected())
                 && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
             EventQueue.invokeLater(new Runnable() {
@@ -97,13 +95,13 @@ public final class ControllerDeleteFiles
 
     private void deleteSelectedFiles() {
         List<File> deletedImageFiles =
-            DeleteImageFiles.delete(tnPanel.getSelectedFiles(),
+            DeleteImageFiles.delete(ViewUtil.getSelectedImageFiles(),
                                     DeleteOption.CONFIRM_DELETE,
                                     DeleteOption.MESSAGES_ON_FAILURES);
 
         if (!deletedImageFiles.isEmpty()) {
-            db.delete(deletedImageFiles);
-            tnPanel.remove(deletedImageFiles);
+            DatabaseImageFiles.INSTANCE.delete(deletedImageFiles);
+            ViewUtil.getThumbnailsPanel().remove(deletedImageFiles);
         }
     }
 

@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
@@ -29,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -38,7 +38,7 @@ import javax.swing.JMenuItem;
 public final class ControllerThumbnailsSelectAllOrNothing
         implements ActionListener {
     private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        ViewUtil.getThumbnailsPanel();
     private final JMenuItem itemSelectAll =
         PopupMenuThumbnails.INSTANCE.getItemSelectAll();
     private final JMenuItem itemSelectNoting =

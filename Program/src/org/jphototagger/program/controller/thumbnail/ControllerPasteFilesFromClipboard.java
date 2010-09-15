@@ -48,7 +48,6 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 /**
@@ -63,8 +62,7 @@ import javax.swing.TransferHandler;
 public final class ControllerPasteFilesFromClipboard
         implements ActionListener, KeyListener, MenuListener,
                    ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
     private final PopupMenuThumbnails popup         =
         PopupMenuThumbnails.INSTANCE;
     private final JMenuItem           menuItemPaste =

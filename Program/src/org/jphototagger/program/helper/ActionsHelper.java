@@ -24,7 +24,6 @@ package org.jphototagger.program.helper;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -37,6 +36,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -181,8 +181,7 @@ public final class ActionsHelper {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            ThumbnailsPanel tnPanel =
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+            ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
             if (!tnPanel.isFileSelected()) {
                 return;

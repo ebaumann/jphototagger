@@ -21,20 +21,20 @@
 
 package org.jphototagger.program.controller.keywords.list;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
@@ -43,11 +43,6 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel    tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanels editPanels =
-        GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
     private final List<List<String>> keywordLists;
 
     /**
@@ -79,13 +74,14 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         List<File> imageFiles = getImageFilesOfKeywords();
 
         ControllerSortThumbnails.setLastSort();
-        tnPanel.setFiles(imageFiles, Content.KEYWORD);
+        ViewUtil.getThumbnailsPanel().setFiles(imageFiles, Content.KEYWORD);
     }
 
     private List<File> getImageFilesOfKeywords() {
         List<File> imageFiles = new ArrayList<File>();
 
         for (List<String> keywords : keywordLists) {
+            DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
             // Faster when using 2 different DB queries if only 1 keyword is
             // selected
@@ -116,8 +112,8 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     }
 
     private void setMetadataEditable() {
-        if (!tnPanel.isFileSelected()) {
-            editPanels.setEditable(false);
+        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
+            ViewUtil.getEditPanel().setEditable(false);
         }
     }
 

@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.util.List;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Kontrolliert die Aktion: IPTC-Daten nach XMP schreiben.
@@ -59,8 +60,7 @@ public final class ControllerIptcToXmp implements ActionListener {
     }
 
     private void processSelectedFiles() {
-        List<File> selFiles =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
+        List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             IptcToXmpDialog dlg = new IptcToXmpDialog();

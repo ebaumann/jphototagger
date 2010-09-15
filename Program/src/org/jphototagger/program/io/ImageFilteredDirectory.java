@@ -38,40 +38,6 @@ import java.util.List;
  * @author  Elmar Baumann
  */
 public final class ImageFilteredDirectory {
-    private File       directory;
-    private List<File> imageFiles = new ArrayList<File>();
-
-    /**
-     * Liefert die gefilterten Dateien (nur Bilddateien).
-     *
-     * @return Dateien
-     */
-    public List<File> getFiles() {
-        return new ArrayList<File>(imageFiles);
-    }
-
-    /**
-     * Setzt das Verzeichnis, dessen Dateien angezeigt werden.
-     * Die Dateien des Verzeichnisses ersetzen die existierenden.
-     *
-     * @param directory Verzeichnis
-     */
-    public void setDirectory(File directory) {
-        if (directory == null) {
-            throw new NullPointerException("directory == null");
-        }
-
-        this.directory = directory;
-        refresh();
-    }
-
-    /**
-     * Liest die Dateien des aktuellen Verzeichnisses (erneut) ein.
-     */
-    public void refresh() {
-        empty();
-        addFilesOfCurrentDirectory();
-    }
 
     /**
      * Liefert alle Bilddateien eines Verzeichnisses.
@@ -145,25 +111,5 @@ public final class ImageFilteredDirectory {
         return getImageFilesOfDirectories(dirAndSubdirs);
     }
 
-    private void empty() {
-        imageFiles.clear();
-    }
-
-    private void addFilesOfCurrentDirectory() {
-        File[] filesOfDirectory =
-            directory.listFiles(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
-        List<String> excludePatterns =
-            DatabaseFileExcludePatterns.INSTANCE.getAll();
-
-        if (filesOfDirectory != null) {
-            for (int index = 0; index < filesOfDirectory.length; index++) {
-                File file = filesOfDirectory[index];
-
-                if (!RegexUtil.containsMatch(excludePatterns,
-                                             file.getAbsolutePath())) {
-                    imageFiles.add(file);
-                }
-            }
-        }
-    }
+    private ImageFilteredDirectory() {}
 }

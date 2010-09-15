@@ -26,6 +26,7 @@ import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -47,7 +48,7 @@ public final class SearchHelper {
         }
 
         if (search.isCustomSql()) {
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails()
+            ViewUtil.getThumbnailsPanel()
                 .setFileSortComparator(FileSort.NO_SORT.getComparator());
             GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
         } else {

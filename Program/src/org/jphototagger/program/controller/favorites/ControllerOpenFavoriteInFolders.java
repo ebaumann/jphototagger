@@ -21,20 +21,21 @@
 
 package org.jphototagger.program.controller.favorites;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -55,37 +56,27 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerOpenFavoriteInFolders
         implements ActionListener, KeyListener {
-    private final PopupMenuFavorites popupMenu           =
-        PopupMenuFavorites.INSTANCE;
-    private final AppPanel           appPanel            =
-        GUI.INSTANCE.getAppPanel();
-    private final JTabbedPane        tabbedPaneSelection =
-        appPanel.getTabbedPaneSelection();
-    private final Component tabTreeDirectories =
-        appPanel.getTabSelectionDirectories();
-    private final JTree treeDirectories         = appPanel.getTreeDirectories();
-    private final JTree treeFavoriteDirectories = appPanel.getTreeFavorites();
-
     public ControllerOpenFavoriteInFolders() {
         listen();
     }
 
     private void listen() {
-        popupMenu.getItemOpenInFolders().addActionListener(this);
-        treeFavoriteDirectories.addKeyListener(this);
+        PopupMenuFavorites.INSTANCE.getItemOpenInFolders().addActionListener(
+            this);
+        ViewUtil.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_O)
-                &&!treeFavoriteDirectories.isSelectionEmpty()) {
+                &&!ViewUtil.getFavoritesTree().isSelectionEmpty()) {
             selectDirectory();
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (treeFavoriteDirectories.getSelectionCount() >= 0) {
+        if (ViewUtil.getFavoritesTree().getSelectionCount() >= 0) {
             selectDirectory();
         }
     }
@@ -94,7 +85,7 @@ public final class ControllerOpenFavoriteInFolders
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                TreePath path = popupMenu.getTreePath();
+                TreePath path = PopupMenuFavorites.INSTANCE.getTreePath();
 
                 if (path != null) {
                     File dir =
@@ -120,7 +111,13 @@ public final class ControllerOpenFavoriteInFolders
                 return null;
             }
             private void expandTreeToDir(File dir) {
-                treeFavoriteDirectories.clearSelection();
+                AppPanel    appPanel = GUI.INSTANCE.getAppPanel();
+                JTabbedPane tabbedPaneSelection =
+                    appPanel.getTabbedPaneSelection();
+                Component tabTreeDirectories =
+                    appPanel.getTabSelectionDirectories();
+
+                ViewUtil.getFavoritesTree().clearSelection();
                 tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
                 ModelFactory.INSTANCE.getModel(
                     TreeModelAllSystemDirectories.class).expandToFile(

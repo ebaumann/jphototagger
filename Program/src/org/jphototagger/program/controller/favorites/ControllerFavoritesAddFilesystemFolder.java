@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.favorites;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -29,13 +28,14 @@ import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -57,21 +57,20 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerFavoritesAddFilesystemFolder
         implements ActionListener, KeyListener {
-    private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
-    private final JTree              tree =
-        GUI.INSTANCE.getAppPanel().getTreeFavorites();
-
     public ControllerFavoritesAddFilesystemFolder() {
         listen();
     }
 
     private void listen() {
-        popup.getItemAddFilesystemFolder().addActionListener(this);
-        tree.addKeyListener(this);
+        PopupMenuFavorites.INSTANCE.getItemAddFilesystemFolder()
+            .addActionListener(this);
+        ViewUtil.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
+        final JTree tree = ViewUtil.getFavoritesTree();
+
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)
                 &&!tree.isSelectionEmpty()) {
             EventQueue.invokeLater(new Runnable() {
@@ -93,7 +92,7 @@ public final class ControllerFavoritesAddFilesystemFolder
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        createDirectory(popup.getTreePath());
+        createDirectory(PopupMenuFavorites.INSTANCE.getTreePath());
     }
 
     private void createDirectory(TreePath path) {
@@ -119,9 +118,7 @@ public final class ControllerFavoritesAddFilesystemFolder
         }
 
         if (dir.isDirectory()) {
-            List<File> selFiles =
-                GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-                    .getSelectedFiles();
+            List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
             if (!selFiles.isEmpty() && isMoveSelFiles()) {
                 ControllerMoveFiles ctrl =

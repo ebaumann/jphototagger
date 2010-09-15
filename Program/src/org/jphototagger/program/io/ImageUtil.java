@@ -29,20 +29,17 @@ import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
+import org.jphototagger.program.view.ViewUtil;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.swing.SwingUtilities;
 
 /**
  * Utilities for images.
@@ -164,12 +161,7 @@ public final class ImageUtil {
 
         if (ctrl != null) {
             ctrl.moveFiles(sourceFiles, targetDirectory);
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
-                }
-            });
+            ViewUtil.refreshThumbnailsPanel();
         }
     }
 
@@ -194,14 +186,8 @@ public final class ImageUtil {
             }
             @Override
             public void progressEnded(ProgressEvent evt) {
-                EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-                            .refresh();
+                ViewUtil.refreshThumbnailsPanel();
             }
-        });
-    }
         });
     }
 

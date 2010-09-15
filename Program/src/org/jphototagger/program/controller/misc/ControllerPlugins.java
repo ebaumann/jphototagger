@@ -26,7 +26,6 @@ import org.jphototagger.plugin.Plugin;
 import org.jphototagger.plugin.PluginEvent;
 import org.jphototagger.plugin.PluginListener;
 import org.jphototagger.program.cache.ThumbnailCache;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
@@ -42,6 +41,7 @@ import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.JMenuItem;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to items of {@link PopupMenuThumbnails#getMenuPlugins()} and sets
@@ -76,8 +76,7 @@ public final class ControllerPlugins implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object     src = evt.getSource();
-        List<File> selFiles =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
+        List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             JMenuItem item = (JMenuItem) src;
@@ -131,8 +130,7 @@ public final class ControllerPlugins implements ActionListener {
 
             if (evt.filesChanged()) {
                 for (File changedFile : evt.getChangedFiles()) {
-                    GUI.INSTANCE.getAppPanel().getPanelThumbnails().repaint(
-                        changedFile);
+                    ViewUtil.getThumbnailsPanel().repaint(changedFile);
                 }
             }
 

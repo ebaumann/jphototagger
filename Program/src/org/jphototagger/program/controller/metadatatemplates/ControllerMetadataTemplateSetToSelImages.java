@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -97,6 +98,6 @@ public final class ControllerMetadataTemplateSetToSelImages
     }
 
     private boolean imagesSelected() {
-        return GUI.INSTANCE.getAppPanel().getPanelThumbnails().isFileSelected();
+        return ViewUtil.getThumbnailsPanel().isFileSelected();
     }
 }

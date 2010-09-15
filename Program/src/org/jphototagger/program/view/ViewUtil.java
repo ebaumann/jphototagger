@@ -29,9 +29,11 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -42,6 +44,7 @@ import java.util.List;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -228,13 +231,65 @@ public class ViewUtil {
         return true;
     }
 
+    public static JList getSelKeywordsList() {
+        return GUI.INSTANCE.getAppPanel().getListSelKeywords();
+    }
+
+    public static JList getImageCollectionsList() {
+        return GUI.INSTANCE.getAppPanel().getListImageCollections();
+    }
+
+    public static JTree getDirectoriesTree() {
+        return GUI.INSTANCE.getAppPanel().getTreeDirectories();
+    }
+
+    public static JTree getFavoritesTree() {
+        return GUI.INSTANCE.getAppPanel().getTreeFavorites();
+    }
+
+    public static ThumbnailsPanel getThumbnailsPanel() {
+        return GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    }
+
+    /**
+     * Returns all in the thumbnails panel selected images files.
+     *
+     * @return selected files
+     */
+    public static List<File> getSelectedImageFiles() {
+        return getThumbnailsPanel().getSelectedFiles();
+    }
+
+    public static EditMetadataPanels getEditPanel() {
+        return GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+    }
+
+    /**
+     * Calls {@link ThumbnailsPanel#refresh()}.
+     */
+    public static void refreshThumbnailsPanel() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                getThumbnailsPanel().refresh();
+            }
+        });
+    }
+
     /**
      * Unselects all images from the thumbanils panel, scrolls to top and
-     * refreshes the view.
+     * refreshes it.
      */
     public static void resetThumbnailsPanel() {
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().clearSelection();
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().scrollToTop();
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ThumbnailsPanel tnPanel = getThumbnailsPanel();
+
+                tnPanel.clearSelection();
+                tnPanel.scrollToTop();
+                tnPanel.refresh();
+            }
+        });
     }
 }

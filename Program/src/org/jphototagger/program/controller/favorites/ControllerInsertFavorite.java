@@ -21,21 +21,20 @@
 
 package org.jphototagger.program.controller.favorites;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -52,11 +51,6 @@ import javax.swing.JTree;
  */
 public final class ControllerInsertFavorite
         implements ActionListener, KeyListener {
-    private final AppPanel             appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree                tree = appPanel.getTreeFavorites();
-    private final PopupMenuDirectories popupDirectories =
-        PopupMenuDirectories.INSTANCE;
-
     public ControllerInsertFavorite() {
         listen();
     }
@@ -64,8 +58,9 @@ public final class ControllerInsertFavorite
     private void listen() {
         PopupMenuFavorites.INSTANCE.getItemInsertFavorite().addActionListener(
             this);
-        popupDirectories.getItemAddToFavorites().addActionListener(this);
-        tree.addKeyListener(this);
+        PopupMenuDirectories.INSTANCE.getItemAddToFavorites().addActionListener(
+            this);
+        ViewUtil.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
@@ -83,10 +78,10 @@ public final class ControllerInsertFavorite
     private File getDirectory(Object o) {
         File    directory = null;
         boolean isAddToFavorites =
-            popupDirectories.getItemAddToFavorites().equals(o);
+            PopupMenuDirectories.INSTANCE.getItemAddToFavorites().equals(o);
 
         if (isAddToFavorites) {
-            directory = popupDirectories.getDirectory();
+            directory = PopupMenuDirectories.INSTANCE.getDirectory();
         }
 
         return directory;
@@ -96,8 +91,7 @@ public final class ControllerInsertFavorite
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                FavoritePropertiesDialog dlg =
-                    new FavoritePropertiesDialog();
+                FavoritePropertiesDialog dlg = new FavoritePropertiesDialog();
 
                 if (directory != null) {
                     dlg.setDirectory(directory);

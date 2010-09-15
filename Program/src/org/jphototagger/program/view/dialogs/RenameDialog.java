@@ -62,6 +62,7 @@ import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Dialog for renaming filenames.
@@ -212,7 +213,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void refreshThumbnailsPanel(int countRenamed) {
         if (countRenamed > 0) {
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
+            ViewUtil.refreshThumbnailsPanel();
         }
     }
 

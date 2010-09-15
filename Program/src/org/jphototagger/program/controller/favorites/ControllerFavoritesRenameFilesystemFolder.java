@@ -21,20 +21,20 @@
 
 package org.jphototagger.program.controller.favorites;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.model.TreeModelFavorites;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -53,21 +53,20 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class ControllerFavoritesRenameFilesystemFolder
         implements ActionListener, KeyListener {
-    private final PopupMenuFavorites popup = PopupMenuFavorites.INSTANCE;
-    private final JTree              tree =
-        GUI.INSTANCE.getAppPanel().getTreeFavorites();
-
     public ControllerFavoritesRenameFilesystemFolder() {
         listen();
     }
 
     private void listen() {
-        popup.getItemRenameFilesystemFolder().addActionListener(this);
-        tree.addKeyListener(this);
+        PopupMenuFavorites.INSTANCE.getItemRenameFilesystemFolder()
+            .addActionListener(this);
+        ViewUtil.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
+        JTree tree = ViewUtil.getFavoritesTree();
+
         if (isRename(evt) &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
 
@@ -84,7 +83,7 @@ public final class ControllerFavoritesRenameFilesystemFolder
             public void run() {
                 renameDirectory(
                     TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                        popup.getTreePath()));
+                        PopupMenuFavorites.INSTANCE.getTreePath()));
             }
         });
     }

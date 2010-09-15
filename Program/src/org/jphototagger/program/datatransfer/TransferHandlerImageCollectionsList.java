@@ -27,6 +27,7 @@ import org.jphototagger.program.helper.ModifyImageCollections;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -92,8 +93,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         return true;
     }
 
-    private void handleDroppedThumbnails(int itemIndex,
-            List<File> imageFiles) {
+    private void handleDroppedThumbnails(int itemIndex, List<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
@@ -110,7 +110,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
                             getImageCollectionName(itemIndex), imageFiles);
 
         if (added) {
-            refreshThumbnailsPanel();
+            ViewUtil.refreshThumbnailsPanel();
         }
     }
 
@@ -128,10 +128,6 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         JList list = GUI.INSTANCE.getAppPanel().getListImageCollections();
 
         return list.getModel().getElementAt(itemIndex).toString();
-    }
-
-    private void refreshThumbnailsPanel() {
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().refresh();
     }
 
     @Override

@@ -24,9 +24,11 @@ package org.jphototagger.program.controller.actions;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.event.listener.ProgramActionListener;
 import org.jphototagger.program.helper.StartPrograms;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import javax.swing.JProgressBar;
 
 /**
  * Executes actions of the dialog
@@ -35,24 +37,25 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  * @author  Elmar Baumann
  */
 public final class ControllerActionExecutor implements ProgramActionListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final ActionsDialog actionsDialog = ActionsDialog.INSTANCE;
-
-    // No other executor expected, so this instance gets the progress bar
-    private final StartPrograms programStarter =
-        new StartPrograms(actionsDialog.getPanelActions().getProgressBar(this));
+    private final StartPrograms programStarter;
 
     public ControllerActionExecutor() {
+        JProgressBar progressBar =
+            ActionsDialog.INSTANCE.getPanelActions().getProgressBar(this);
+
+        // No other executor expected, so this instance gets the progress bar
+        programStarter = new StartPrograms(progressBar);
         listen();
     }
 
     private void listen() {
-        actionsDialog.getPanelActions().addListener(this);
+        ActionsDialog.INSTANCE.getPanelActions().addListener(this);
     }
 
     @Override
     public void programShallBeExecuted(Program program) {
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+
         programStarter.startProgram(program, tnPanel.getSelectedFiles());
     }
 }

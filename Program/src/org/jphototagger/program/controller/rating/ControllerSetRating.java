@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to key events in {@link ThumbnailsPanel} and if a key
@@ -66,7 +67,7 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().addKeyListener(this);
+        ViewUtil.getThumbnailsPanel().addKeyListener(this);
         popup.getItemRating0().addActionListener(this);
         popup.getItemRating1().addActionListener(this);
         popup.getItemRating2().addActionListener(this);

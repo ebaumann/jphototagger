@@ -41,6 +41,7 @@ import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
@@ -50,8 +51,7 @@ import javax.swing.tree.TreeCellRenderer;
  */
 public final class ControllerHighlightKeywordsTree
         implements ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
     private final KeywordsPanel dlgHkPanel =
         InputHelperDialog.INSTANCE.getPanelKeywords();
     private final DatabaseImageFiles db           = DatabaseImageFiles.INSTANCE;

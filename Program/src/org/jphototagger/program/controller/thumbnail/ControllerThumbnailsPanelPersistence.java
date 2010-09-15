@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -55,8 +55,7 @@ public final class ControllerThumbnailsPanelPersistence
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
         "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private volatile boolean      propertiesRead;
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
     private List<File> persistentSelectedFiles = new ArrayList<File>();
 
     public ControllerThumbnailsPanelPersistence() {

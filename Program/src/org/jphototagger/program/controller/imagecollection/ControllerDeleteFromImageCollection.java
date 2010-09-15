@@ -21,26 +21,17 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
-import java.awt.EventQueue;
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
-import org.jphototagger.program.helper.ModifyImageCollections;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import java.io.File;
-
-import java.util.List;
-
-import javax.swing.JList;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the
@@ -52,20 +43,14 @@ import javax.swing.JList;
  */
 public final class ControllerDeleteFromImageCollection
         implements ActionListener, KeyListener {
-    private final AppPanel            appPanel  = GUI.INSTANCE.getAppPanel();
-    private final JList               list      =
-        appPanel.getListImageCollections();
-    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     tnPanel   =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-
     public ControllerDeleteFromImageCollection() {
         listen();
     }
 
     private void listen() {
-        popupMenu.getItemDeleteFromImageCollection().addActionListener(this);
-        tnPanel.addKeyListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemDeleteFromImageCollection()
+            .addActionListener(this);
+        ViewUtil.getThumbnailsPanel().addKeyListener(this);
     }
 
     @Override
@@ -81,32 +66,12 @@ public final class ControllerDeleteFromImageCollection
     }
 
     private void delete() {
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+
         if (tnPanel.getContent().equals(Content.IMAGE_COLLECTION)
                 && (tnPanel.isFileSelected())) {
-            deleteSelectedFilesFromImageCollection();
+            ImageCollectionsHelper.deleteSelectedFiles();
         }
-    }
-
-    private void deleteSelectedFilesFromImageCollection() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Object selectedValue = list.getSelectedValue();
-
-                if (selectedValue != null) {
-                    List<File> selectedFiles = tnPanel.getSelectedFiles();
-
-                    if (ModifyImageCollections.deleteImagesFromCollection(
-                            selectedValue.toString(), selectedFiles)) {
-                        tnPanel.remove(selectedFiles);
-                    }
-                } else {
-                    AppLogger.logWarning(
-                        ControllerDeleteFromImageCollection.class,
-                        "ControllerDeleteFromImageCollection.Error.SelectedImageCollectionIsNull");
-                }
-            }
-        });
     }
 
     @Override

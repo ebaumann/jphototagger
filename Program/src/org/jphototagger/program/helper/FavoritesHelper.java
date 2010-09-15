@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.helper;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.Favorite;
@@ -37,6 +36,9 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel.Settings;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -80,8 +82,7 @@ public final class FavoritesHelper {
 
                     if (db.update(favorite)) {
                         if (dirChanged) {
-                            GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-                                .refresh();
+                            ViewUtil.refreshThumbnailsPanel();
                         }
                     } else {
                         MessageDisplayer.error(null,
@@ -163,7 +164,7 @@ public final class FavoritesHelper {
             GUI.INSTANCE.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
-            File                   dir  = null;
+            File                   dir = null;
             DefaultMutableTreeNode node =
                 (DefaultMutableTreeNode) path.getLastPathComponent();
             Object userObject = node.getUserObject();
@@ -199,9 +200,8 @@ public final class FavoritesHelper {
     }
 
     private static class SetFiles implements Runnable {
-        private final AppPanel           appPanel   =
-            GUI.INSTANCE.getAppPanel();
-        private final ThumbnailsPanel    tnPanel    =
+        private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
+        private final ThumbnailsPanel    tnPanel =
             appPanel.getPanelThumbnails();
         private final EditMetadataPanels editPanels =
             appPanel.getEditMetadataPanels();
