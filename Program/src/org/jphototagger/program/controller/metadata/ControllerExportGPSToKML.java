@@ -23,7 +23,6 @@ package org.jphototagger.program.controller.metadata;
 
 import org.jphototagger.program.image.metadata.exif.gps.GPSLocationExportUtil;
 import org.jphototagger.program.image.metadata.exif.gps.KMLExporter;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.event.ActionEvent;
@@ -33,6 +32,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -52,8 +52,7 @@ public final class ControllerExportGPSToKML extends AbstractAction {
     }
 
     private void processSelectedFiles() {
-        final List<File> selFiles =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
+        final List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             GPSLocationExportUtil.export(new KMLExporter(), selFiles);

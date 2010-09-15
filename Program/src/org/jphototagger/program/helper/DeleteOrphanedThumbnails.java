@@ -27,7 +27,6 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -36,6 +35,7 @@ import java.io.File;
 
 import java.util.Arrays;
 import java.util.Set;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Deletes thumbnails without an image file in the database.
@@ -77,8 +77,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
         File[] filesInDir =
             new File(
                 UserSettings.INSTANCE.getThumbnailsDirectoryName()).listFiles();
-        ThumbnailsPanel tnPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
         boolean isDelete  = false;
         File    fileInDir = null;
 

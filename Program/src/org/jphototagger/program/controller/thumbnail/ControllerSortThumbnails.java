@@ -35,6 +35,7 @@ import java.io.File;
 import java.util.Comparator;
 
 import javax.swing.JRadioButtonMenuItem;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -42,8 +43,7 @@ import javax.swing.JRadioButtonMenuItem;
  * @author  Elmar Baumann
  */
 public final class ControllerSortThumbnails implements ActionListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
     private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerSortThumbnails() {
@@ -67,8 +67,7 @@ public final class ControllerSortThumbnails implements ActionListener {
         Comparator<File> cmp =
             ControllerThumbnailsPanelPersistence.getFileSortComparator();
 
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails().setFileSortComparator(
-            cmp);
+        ViewUtil.getThumbnailsPanel().setFileSortComparator(cmp);
         GUI.INSTANCE.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
     }
 

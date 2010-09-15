@@ -21,21 +21,21 @@
 
 package org.jphototagger.program.controller.keywords.list;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
@@ -44,11 +44,6 @@ import java.util.Set;
  * @author  Elmar Baumann
  */
 public final class ShowThumbnailsContainingAllKeywords implements Runnable {
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-    private final ThumbnailsPanel    tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final EditMetadataPanels editPanels =
-        GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
     private final List<String>             keywords;
     private final ThumbnailsPanel.Settings tnPanelSettings;
 
@@ -83,6 +78,8 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
         List<File> imageFiles = new ArrayList<File>(getImageFilesOfKeywords());
 
         if (imageFiles != null) {
+            ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+
             ControllerSortThumbnails.setLastSort();
             tnPanel.setFiles(imageFiles, Content.KEYWORD);
             tnPanel.apply(tnPanelSettings);
@@ -90,6 +87,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
     }
 
     private Set<File> getImageFilesOfKeywords() {
+        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
         // Faster than using 2 different DB queries if only 1 keyword
         // is selected
@@ -121,8 +119,8 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
     }
 
     private void setMetadataEditable() {
-        if (!tnPanel.isFileSelected()) {
-            editPanels.setEditable(false);
+        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
+            ViewUtil.getEditPanel().setEditable(false);
         }
     }
 }

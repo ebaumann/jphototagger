@@ -57,6 +57,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JTable;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and
@@ -261,8 +262,7 @@ public final class ControllerShowMetadata
     }
 
     private void showUpdates(File file, Set<Metadata> metadata) {
-        final List<File> selFiles =
-            appPanel.getPanelThumbnails().getSelectedFiles();
+        final List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (selFiles.size() == 1) {
             File selectedFile = selFiles.get(0);
@@ -330,8 +330,7 @@ public final class ControllerShowMetadata
             removeMetadataFromTables(metadata);
 
             // In a multithreading environment this is possible
-            if (GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-                    .getSelectedFiles().isEmpty()) {
+            if (ViewUtil.getSelectedImageFiles().isEmpty()) {
                 return;
             }
 

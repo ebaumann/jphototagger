@@ -25,13 +25,13 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.helper.StartPrograms;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -56,8 +56,7 @@ public final class ControllerOpenFilesWithStandardApp
     }
 
     private void openFiles() {
-        ThumbnailsPanel tnPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
         if (!tnPanel.isFileSelected()) {
             return;

@@ -21,29 +21,27 @@
 
 package org.jphototagger.program.controller.filesystem;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.FileSystemListener;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.RenameDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Collections;
 import java.util.List;
-
-import javax.swing.JMenuItem;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when
@@ -54,19 +52,14 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerRenameFiles
         implements ActionListener, KeyListener, FileSystemListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenuItem menuItemRename =
-        PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-
     public ControllerRenameFiles() {
         listen();
     }
 
     private void listen() {
-        tnPanel.addKeyListener(this);
-        menuItemRename.addActionListener(this);
+        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles()
+            .addActionListener(this);
     }
 
     @Override
@@ -78,7 +71,8 @@ public final class ControllerRenameFiles
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(menuItemRename)) {
+        if (evt.getSource().equals(
+                PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles())) {
             renameSelectedFiles();
         }
     }
@@ -87,20 +81,20 @@ public final class ControllerRenameFiles
         AppLogger.logInfo(ControllerRenameFiles.class,
                           "ControllerRenameFiles.Info.Rename", fromFile,
                           toFile);
-        db.updateRename(fromFile, toFile);
+        DatabaseImageFiles.INSTANCE.updateRename(fromFile, toFile);
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
                 XmpCache.INSTANCE.updateFiles(fromFile, toFile);
                 RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                tnPanel.rename(fromFile, toFile);
+                ViewUtil.getThumbnailsPanel().rename(fromFile, toFile);
             }
         });
     }
 
     private void renameSelectedFiles() {
-        List<File> selFiles = tnPanel.getSelectedFiles();
+        List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             RenameDialog dlg = new RenameDialog();
@@ -108,8 +102,8 @@ public final class ControllerRenameFiles
             Collections.sort(selFiles);
             dlg.setImageFiles(selFiles);
             dlg.addFileSystemListener(this);
-            dlg.setEnabledTemplates(
-                tnPanel.getContent().isUniqueFileSystemDirectory());
+            dlg.setEnabledTemplates(ViewUtil.getThumbnailsPanel().getContent()
+                .isUniqueFileSystemDirectory());
             dlg.setVisible(true);
         }
     }
@@ -129,9 +123,9 @@ public final class ControllerRenameFiles
     @Override
     public void fileRenamed(final File fromFile, final File toFile) {
         renameFile(fromFile, toFile);
-        }
+    }
 
-            @Override
+    @Override
     public void fileCopied(File source, File target) {
 
         // ignore

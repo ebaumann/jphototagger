@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.util.List;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -52,8 +53,7 @@ public final class ControllerExifToXmp implements ActionListener {
     }
 
     private void processSelectedFiles() {
-        final List<File> selFiles =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().getSelectedFiles();
+        final List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             new SetExifToXmp(selFiles, true).start();

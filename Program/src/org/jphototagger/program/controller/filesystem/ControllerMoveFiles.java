@@ -24,10 +24,9 @@ package org.jphototagger.program.controller.filesystem;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.FileSystemListener;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,10 +42,6 @@ import java.util.List;
  */
 public final class ControllerMoveFiles
         implements ActionListener, FileSystemListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-
     public ControllerMoveFiles() {
         listen();
     }
@@ -62,7 +57,7 @@ public final class ControllerMoveFiles
     }
 
     private void moveSelectedFiles() {
-        List<File> selFiles = tnPanel.getSelectedFiles();
+        List<File> selFiles = ViewUtil.getSelectedImageFiles();
 
         if (!selFiles.isEmpty()) {
             MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
@@ -109,7 +104,7 @@ public final class ControllerMoveFiles
     @Override
     public void fileMoved(File source, File target) {
         if (!isXmpFile(source)) {
-            db.updateRename(source, target);
+            DatabaseImageFiles.INSTANCE.updateRename(source, target);
         }
     }
 

@@ -22,10 +22,9 @@
 package org.jphototagger.program.controller.imagecollection;
 
 import org.jphototagger.program.helper.ModifyImageCollections;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ImageCollectionsDialog;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,16 +36,13 @@ import java.awt.event.ActionListener;
  * @author  Elmar Baumann
  */
 public final class ControllerAddToImageCollection implements ActionListener {
-    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     tnPanel   =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-
     public ControllerAddToImageCollection() {
         listen();
     }
 
     private void listen() {
-        popupMenu.getItemAddToImageCollection().addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemAddToImageCollection()
+            .addActionListener(this);
     }
 
     @Override
@@ -59,7 +55,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
 
         if (collectionName != null) {
             ModifyImageCollections.addImagesToCollection(collectionName,
-                    tnPanel.getSelectedFiles());
+                    ViewUtil.getSelectedImageFiles());
         }
     }
 

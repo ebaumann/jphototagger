@@ -28,12 +28,12 @@ import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import java.io.File;
 
 import java.util.Collections;
+import org.jphototagger.program.view.ViewUtil;
 
 
 /**
@@ -42,8 +42,7 @@ import java.util.Collections;
  */
 public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseImageFilesListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
     public ControllerThumbnailsDatabaseChanges() {
         listen();

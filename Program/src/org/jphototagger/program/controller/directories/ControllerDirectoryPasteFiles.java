@@ -25,10 +25,8 @@ import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.types.FileAction;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.ViewUtil;
 
@@ -48,16 +46,13 @@ import javax.swing.JTree;
  * @author  Elmar Baumann
  */
 public final class ControllerDirectoryPasteFiles implements KeyListener {
-    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
-
     public ControllerDirectoryPasteFiles() {
         listen();
     }
 
     private void listen() {
-        appPanel.getTreeDirectories().addKeyListener(this);
-        appPanel.getTreeFavorites().addKeyListener(this);
+        ViewUtil.getDirectoriesTree().addKeyListener(this);
+        ViewUtil.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
@@ -72,6 +67,8 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void copyOrMovePastedFilesTo(JTree targetTree) {
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+
         if (isSingleDirectory(tnPanel.getContent())
                 && filesWereCopiedOrCutted(tnPanel.getFileAction())) {
             insertFilesIntoSelectedDirectoryOf(targetTree);
@@ -89,7 +86,8 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
-        FileAction action = tnPanel.getFileAction();
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        FileAction      action  = tnPanel.getFileAction();
 
         if (filesWereCopiedOrCutted(action)) {
             TransferHandlerDirectoryTree.handleDroppedFiles(

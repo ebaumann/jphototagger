@@ -39,15 +39,14 @@ import javax.swing.JMenu;
  */
 public final class ControllerActionsMenuUpdater
         implements DatabaseProgramsListener {
-    private final JMenu actionMenu =
-        PopupMenuThumbnails.INSTANCE.getMenuActions();
-
     public ControllerActionsMenuUpdater() {
-        actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
         listen();
     }
 
     private void listen() {
+        JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
+
+        actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
         DatabasePrograms.INSTANCE.addListener(this);
     }
 
@@ -57,10 +56,13 @@ public final class ControllerActionsMenuUpdater
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-            ActionsHelper.removeAction(actionMenu, program);
-        }
+                    JMenu actionMenu =
+                        PopupMenuThumbnails.INSTANCE.getMenuActions();
+
+                    ActionsHelper.removeAction(actionMenu, program);
+                }
             });
-    }
+        }
     }
 
     @Override
@@ -69,10 +71,13 @@ public final class ControllerActionsMenuUpdater
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-            ActionsHelper.addAction(actionMenu, program);
-        }
+                    JMenu actionMenu =
+                        PopupMenuThumbnails.INSTANCE.getMenuActions();
+
+                    ActionsHelper.addAction(actionMenu, program);
+                }
             });
-    }
+        }
     }
 
     @Override
@@ -81,9 +86,12 @@ public final class ControllerActionsMenuUpdater
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-            ActionsHelper.updateAction(actionMenu, program);
-        }
+                    JMenu actionMenu =
+                        PopupMenuThumbnails.INSTANCE.getMenuActions();
+
+                    ActionsHelper.updateAction(actionMenu, program);
+                }
             });
+        }
     }
-}
 }

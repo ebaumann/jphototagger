@@ -39,6 +39,7 @@ import java.awt.EventQueue;
 
 import java.io.File;
 import java.io.FileFilter;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -101,8 +102,7 @@ public final class TerminateFactory {
         ComboBoxModelFileFilters model =
             ModelFactory.INSTANCE.getModel(ComboBoxModelFileFilters.class);
         Object          selItem = model.getSelectedItem();
-        ThumbnailsPanel tnPanel =
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
         if (selItem instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) selItem);

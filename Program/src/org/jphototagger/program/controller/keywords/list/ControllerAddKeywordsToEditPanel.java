@@ -21,11 +21,12 @@
 
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.program.database.metadata.xmp
+    .ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -40,11 +41,12 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  */
 public final class ControllerAddKeywordsToEditPanel extends ControllerKeywords {
-    private final JMenuItem menuItem =
-        PopupMenuKeywordsList.INSTANCE.getItemAddToEditPanel();
-
     public ControllerAddKeywordsToEditPanel() {
-        listenToActionsOf(menuItem);
+        listenToActionsOf(getMenuItem());
+    }
+
+    private JMenuItem getMenuItem() {
+        return PopupMenuKeywordsList.INSTANCE.getItemAddToEditPanel();
     }
 
     @Override
@@ -79,6 +81,6 @@ public final class ControllerAddKeywordsToEditPanel extends ControllerKeywords {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource() == menuItem;
+        return evt.getSource() == getMenuItem();
     }
 }

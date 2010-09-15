@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.thumbnail;
 import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
@@ -35,6 +34,7 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jphototagger.program.view.ViewUtil;
 
 
 /**
@@ -48,8 +48,7 @@ public final class ControllerDeleteThumbnailsFromDatabase
         implements ActionListener {
     private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     tnPanel   =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel     tnPanel   = ViewUtil.getThumbnailsPanel();
 
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();

@@ -21,18 +21,15 @@
 
 package org.jphototagger.program.controller.favorites;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -44,22 +41,19 @@ import javax.swing.tree.TreePath;
  * @author  Elmar Baumann
  */
 public final class ControllerMoveFavorite implements ActionListener {
-    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree              tree     = appPanel.getTreeFavorites();
-    private final PopupMenuFavorites popup    = PopupMenuFavorites.INSTANCE;
-
     public ControllerMoveFavorite() {
         listen();
     }
 
     private void listen() {
-        popup.getItemMoveUp().addActionListener(this);
-        popup.getItemMoveDown().addActionListener(this);
+        PopupMenuFavorites.INSTANCE.getItemMoveUp().addActionListener(this);
+        PopupMenuFavorites.INSTANCE.getItemMoveDown().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        boolean moveUp = popup.getItemMoveUp().equals(evt.getSource());
+        boolean moveUp =
+            PopupMenuFavorites.INSTANCE.getItemMoveUp().equals(evt.getSource());
 
         EventQueue.invokeLater(new MoveDir(moveUp));
     }
@@ -76,17 +70,17 @@ public final class ControllerMoveFavorite implements ActionListener {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-            if (up) {
-                moveUp(getFavoriteDirectory());
-            } else {
-                moveDown(getFavoriteDirectory());
-            }
-        }
+                    if (up) {
+                        moveUp(getFavoriteDirectory());
+                    } else {
+                        moveDown(getFavoriteDirectory());
+                    }
+                }
             });
         }
 
         private Favorite getFavoriteDirectory() {
-            TreePath path = popup.getTreePath();
+            TreePath path = PopupMenuFavorites.INSTANCE.getTreePath();
 
             if (path != null) {
                 DefaultMutableTreeNode node =

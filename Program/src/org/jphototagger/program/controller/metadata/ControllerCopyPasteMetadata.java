@@ -37,6 +37,7 @@ import java.awt.event.KeyListener;
 import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to the menu items {@link PopupMenuThumbnails#getItemCopyMetadata()} and
@@ -49,8 +50,7 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerCopyPasteMetadata
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
     private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
     private final JMenuItem           menuItemCopy =
         popup.getItemCopyMetadata();
@@ -141,8 +141,7 @@ public final class ControllerCopyPasteMetadata
             @Override
             public void run() {
                 menuItemCopy
-                    .setEnabled(GUI.INSTANCE.getAppPanel().getPanelThumbnails()
-                        .isFileSelected());
+                    .setEnabled(ViewUtil.getThumbnailsPanel().isFileSelected());
     }
         });
     }

@@ -25,10 +25,10 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -56,10 +56,10 @@ public final class ControllerMenuItemEnabler
         new ArrayList<JMenuItem>();
     private final PopupMenuThumbnails popupThumbnails =
         PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenu     menPrograms = popupThumbnails.getMenuPrograms();
-    private final JMenuItem itemOpenFilesWithStandardApp =
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+    private final JMenu           menPrograms =
+        popupThumbnails.getMenuPrograms();
+    private final JMenuItem       itemOpenFilesWithStandardApp =
         popupThumbnails.getItemOpenFilesWithStandardApp();
     private boolean hasProgram = DatabasePrograms.INSTANCE.hasProgram();
 
@@ -131,27 +131,27 @@ public final class ControllerMenuItemEnabler
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        Content content      = tnPanel.getContent();
-        boolean fileSelected = tnPanel.isFileSelected();
+                Content content      = tnPanel.getContent();
+                boolean fileSelected = tnPanel.isFileSelected();
 
-        for (JMenuItem item : itemsRequiresSelImages) {
-            item.setEnabled(fileSelected);
-        }
+                for (JMenuItem item : itemsRequiresSelImages) {
+                    item.setEnabled(fileSelected);
+                }
 
                 for (JMenuItem item :
                         contentsOfItemsRequiresSelImages.keySet()) {
-            item.setEnabled(
-                fileSelected
-                && contentsOfItemsRequiresSelImages.get(item).contains(
-                    content));
-        }
+                    item.setEnabled(
+                        fileSelected
+                        && contentsOfItemsRequiresSelImages.get(item).contains(
+                            content));
+                }
 
                 itemOpenFilesWithStandardApp.setEnabled(
                     fileSelected
-                && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram()
-                    != null));
-        menPrograms.setEnabled(fileSelected && hasProgram);
-    }
+                    && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram()
+                        != null));
+                menPrograms.setEnabled(fileSelected && hasProgram);
+            }
         });
     }
 
@@ -167,7 +167,7 @@ public final class ControllerMenuItemEnabler
     private void popupMenuThumbnailsBecomeVisible() {
         popupThumbnails.getItemSelectAll().setEnabled(tnPanel.hasFiles());
         popupThumbnails.getItemSelectNothing().setEnabled(
-                tnPanel.isFileSelected());
+            tnPanel.isFileSelected());
     }
 
     @Override
@@ -202,8 +202,8 @@ public final class ControllerMenuItemEnabler
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        setEnabledProgramsMenu();
-    }
+                setEnabledProgramsMenu();
+            }
         });
     }
 
@@ -212,8 +212,8 @@ public final class ControllerMenuItemEnabler
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        setEnabledProgramsMenu();
-    }
+                setEnabledProgramsMenu();
+            }
         });
     }
 
@@ -222,8 +222,8 @@ public final class ControllerMenuItemEnabler
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        setEnabledProgramsMenu();
-    }
+                setEnabledProgramsMenu();
+            }
         });
-}
+    }
 }

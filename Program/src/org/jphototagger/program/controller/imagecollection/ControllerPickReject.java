@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
@@ -28,7 +29,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,21 +58,14 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  */
 public final class ControllerPickReject implements ActionListener, KeyListener {
-    private final ThumbnailsPanel panelThumbnails =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    private final JMenuItem itemReject =
-        PopupMenuThumbnails.INSTANCE.getItemReject();
-    private final JMenuItem itemPick =
-        PopupMenuThumbnails.INSTANCE.getItemPick();
-
     public ControllerPickReject() {
         listen();
     }
 
     private void listen() {
-        panelThumbnails.addKeyListener(this);
-        itemPick.addActionListener(this);
-        itemReject.addActionListener(this);
+        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        getPickItem().addActionListener(this);
+        getRejectItem().addActionListener(this);
     }
 
     @Override
@@ -85,9 +79,9 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(itemPick)) {
+        if (evt.getSource().equals(getPickItem())) {
             addOrRemove(true);
-        } else if (evt.getSource().equals(itemReject)) {
+        } else if (evt.getSource().equals(getRejectItem())) {
             addOrRemove(false);
         }
     }
@@ -96,6 +90,8 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
         if ((pick && isPickCollection()) || (!pick && isRejectCollection())) {
             return;
         }
+
+        ThumbnailsPanel panelThumbnails = ViewUtil.getThumbnailsPanel();
 
         if (panelThumbnails.isFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
@@ -138,7 +134,8 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private boolean isCollection(String collection) {
-        if (!panelThumbnails.getContent().equals(Content.IMAGE_COLLECTION)) {
+        if (!ViewUtil.getThumbnailsPanel().getContent().equals(
+                Content.IMAGE_COLLECTION)) {
             return false;
         }
 
@@ -169,5 +166,13 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent evt) {
 
         // ignore
+    }
+
+    private JMenuItem getPickItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemPick();
+    }
+
+    private JMenuItem getRejectItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemReject();
     }
 }

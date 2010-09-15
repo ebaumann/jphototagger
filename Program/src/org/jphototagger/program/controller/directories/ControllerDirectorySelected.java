@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.directories;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
@@ -29,10 +28,11 @@ import org.jphototagger.program.io.ImageFilteredDirectory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -40,7 +40,6 @@ import java.util.List;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 
 /**
@@ -52,22 +51,14 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerDirectorySelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree              tree     = appPanel.getTreeDirectories();
-    private final EditMetadataPanels editPanels =
-        appPanel.getEditMetadataPanels();
-    private final ThumbnailsPanel        tnPanel =
-        appPanel.getPanelThumbnails();
-    private final ImageFilteredDirectory imageFilteredDirectory =
-        new ImageFilteredDirectory();
-
     public ControllerDirectorySelected() {
         listen();
     }
 
     private void listen() {
-        tree.addTreeSelectionListener(this);
-        tnPanel.addRefreshListener(this, Content.DIRECTORY);
+        ViewUtil.getDirectoriesTree().addTreeSelectionListener(this);
+        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+                Content.DIRECTORY);
     }
 
     @Override
@@ -105,19 +96,17 @@ public final class ControllerDirectorySelected
         }
 
         private void showThumbnails() {
-            if (tree.getSelectionCount() > 0) {
-                File selectedDirectory = new File(getDirectorynameFromTree());
-
-                imageFilteredDirectory.setDirectory(selectedDirectory);
-
+            if (ViewUtil.getDirectoriesTree().getSelectionCount() > 0) {
+                File       selectedDirectory =
+                    new File(getDirectorynameFromTree());
                 List<File> files =
                     ImageFilteredDirectory.getImageFilesOfDirectory(
                         selectedDirectory);
 
                 setTitle(selectedDirectory);
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(files, Content.DIRECTORY);
-                tnPanel.apply(panelSettings);
+                ViewUtil.getThumbnailsPanel().setFiles(files, Content.DIRECTORY);
+                ViewUtil.getThumbnailsPanel().apply(panelSettings);
                 setMetadataEditable();
             }
         }
@@ -130,7 +119,8 @@ public final class ControllerDirectorySelected
         }
 
         private String getDirectorynameFromTree() {
-            TreePath treePath = tree.getSelectionPath();
+            TreePath treePath =
+                ViewUtil.getDirectoriesTree().getSelectionPath();
 
             if (treePath.getLastPathComponent() instanceof File) {
                 return ((File) treePath.getLastPathComponent())
@@ -141,8 +131,8 @@ public final class ControllerDirectorySelected
         }
 
         private void setMetadataEditable() {
-            if (!tnPanel.isFileSelected()) {
-                editPanels.setEditable(false);
+            if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
+                ViewUtil.getEditPanel().setEditable(false);
             }
         }
     }

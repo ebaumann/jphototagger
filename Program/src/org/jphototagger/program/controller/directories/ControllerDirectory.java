@@ -21,10 +21,10 @@
 
 package org.jphototagger.program.controller.directories;
 
-import org.jphototagger.program.controller.Controller;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.program.controller.Controller;
+import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -40,14 +40,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann
  */
 abstract class ControllerDirectory extends Controller {
-    private final PopupMenuDirectories popup = PopupMenuDirectories.INSTANCE;
-    private final JTree                tree  =
-        GUI.INSTANCE.getAppPanel().getTreeDirectories();
-
     protected abstract void action(DefaultMutableTreeNode node);
 
     ControllerDirectory() {
-        listenToKeyEventsOf(tree);
+        listenToKeyEventsOf(ViewUtil.getDirectoriesTree());
     }
 
     @Override
@@ -58,7 +54,7 @@ abstract class ControllerDirectory extends Controller {
 
         DefaultMutableTreeNode node =
             TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                popup.getTreePath());
+                PopupMenuDirectories.INSTANCE.getTreePath());
 
         if (node != null) {
             action(node);
@@ -70,6 +66,8 @@ abstract class ControllerDirectory extends Controller {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
+
+        JTree tree = ViewUtil.getDirectoriesTree();
 
         if (!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();

@@ -27,6 +27,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import javax.swing.JButton;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -34,8 +35,7 @@ import javax.swing.JButton;
  */
 public final class ControllerEnableCreateMetadataTemplate
         implements ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
     private final JButton buttonCreate =
         GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateCreate();
 

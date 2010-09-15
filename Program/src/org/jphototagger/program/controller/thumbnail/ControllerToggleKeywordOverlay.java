@@ -28,6 +28,7 @@ import org.jphototagger.program.view.panels.AppPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -71,8 +72,7 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
 
             appFrame.getCheckBoxMenuItemKeywordOverlay().setSelected(
                 wasSelected);
-            GUI.INSTANCE.getAppPanel().getPanelThumbnails().setKeywordsOverlay(
-                wasSelected);
+            ViewUtil.getThumbnailsPanel().setKeywordsOverlay(wasSelected);
         }
     }
 

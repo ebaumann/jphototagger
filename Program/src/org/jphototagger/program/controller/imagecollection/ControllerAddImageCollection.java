@@ -27,11 +27,9 @@ import org.jphototagger.program.comparator.ComparatorStringAscending;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ModifyImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,25 +50,16 @@ import javax.swing.JList;
  */
 public final class ControllerAddImageCollection
         implements ActionListener, KeyListener {
-    private final PopupMenuThumbnails popupMenuThumbnails =
-        PopupMenuThumbnails.INSTANCE;
-    private final PopupMenuImageCollections popupMenuImageCollections =
-        PopupMenuImageCollections.INSTANCE;
-    private final AppPanel appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList    listImageCollections =
-        appPanel.getListImageCollections();
-    private final ThumbnailsPanel tnPanel =
-        GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-
     public ControllerAddImageCollection() {
         listen();
     }
 
     private void listen() {
-        popupMenuThumbnails.getItemCreateImageCollection().addActionListener(
+        PopupMenuThumbnails.INSTANCE.getItemCreateImageCollection()
+            .addActionListener(this);
+        PopupMenuImageCollections.INSTANCE.getItemCreate().addActionListener(
             this);
-        popupMenuImageCollections.getItemCreate().addActionListener(this);
-        listImageCollections.addKeyListener(this);
+        ViewUtil.getImageCollectionsList().addKeyListener(this);
     }
 
     @Override
@@ -88,7 +77,7 @@ public final class ControllerAddImageCollection
     private void createImageCollectionOfSelectedFiles() {
         final String collectionName =
             ModifyImageCollections.insertImageCollection(
-                tnPanel.getSelectedFiles());
+                ViewUtil.getSelectedImageFiles());
 
         if (collectionName != null) {
             EventQueue.invokeLater(new Runnable() {
@@ -101,14 +90,14 @@ public final class ControllerAddImageCollection
     }
 
     private void insertImageCollection(String collectionName) {
-                    ListModelImageCollections model =
+        ListModelImageCollections model =
             ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
 
-                    ListUtil.insertSorted(
+        ListUtil.insertSorted(
             model, collectionName, ComparatorStringAscending.INSTANCE,
-                        ListModelImageCollections.getSpecialCollectionCount(),
-                        model.getSize() - 1);
-                }
+            ListModelImageCollections.getSpecialCollectionCount(),
+            model.getSize() - 1);
+    }
 
     @Override
     public void keyTyped(KeyEvent evt) {

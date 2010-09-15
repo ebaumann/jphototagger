@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
@@ -31,8 +30,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -40,7 +41,6 @@ import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JList;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.
@@ -51,32 +51,26 @@ import javax.swing.JList;
  */
 public final class ControllerImageCollectionSelected
         implements ListSelectionListener, RefreshListener {
-    private final AppPanel           appPanel   = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel    tnPanel    = appPanel.getPanelThumbnails();
-    private final JList              list       =
-        appPanel.getListImageCollections();
-    private final EditMetadataPanels editPanels =
-        appPanel.getEditMetadataPanels();
-
     public ControllerImageCollectionSelected() {
         listen();
     }
 
     private void listen() {
-        list.addListSelectionListener(this);
-        tnPanel.addRefreshListener(this, Content.IMAGE_COLLECTION);
+        ViewUtil.getImageCollectionsList().addListSelectionListener(this);
+        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+                Content.IMAGE_COLLECTION);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent evt) {
-        if (list.getSelectedIndex() >= 0) {
+        if (ViewUtil.getImageCollectionsList().getSelectedIndex() >= 0) {
             showImageCollection(null);
         }
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (list.getSelectedIndex() >= 0) {
+        if (ViewUtil.getImageCollectionsList().getSelectedIndex() >= 0) {
             showImageCollection(evt.getSettings());
         }
     }
@@ -85,10 +79,11 @@ public final class ControllerImageCollectionSelected
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Object selectedValue = list.getSelectedValue();
+                Object selValue =
+                    ViewUtil.getImageCollectionsList().getSelectedValue();
 
-                if (selectedValue != null) {
-                    showImageCollection(selectedValue.toString(), settings);
+                if (selValue != null) {
+                    showImageCollection(selValue.toString(), settings);
                 } else {
                     AppLogger.logWarning(
                         ControllerImageCollectionSelected.class,
@@ -110,6 +105,7 @@ public final class ControllerImageCollectionSelected
                 List<File> imageFiles =
                     DatabaseImageCollections.INSTANCE.getImageFilesOf(
                         collectionName);
+                ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
                 setTitle();
                 tnPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
@@ -126,8 +122,8 @@ public final class ControllerImageCollectionSelected
     }
 
     private void setMetadataEditable() {
-        if (!tnPanel.isFileSelected()) {
-            editPanels.setEditable(false);
+        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
+            ViewUtil.getEditPanel().setEditable(false);
         }
     }
 }

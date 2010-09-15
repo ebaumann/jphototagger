@@ -42,11 +42,12 @@ import javax.swing.JMenuItem;
  */
 public final class ControllerDeleteKeywordsFromEditPanel
         extends ControllerKeywords {
-    private final JMenuItem menuItem =
-        PopupMenuKeywordsList.INSTANCE.getItemRemoveFromEditPanel();
-
     public ControllerDeleteKeywordsFromEditPanel() {
-        listenToActionsOf(menuItem);
+        listenToActionsOf(getMenuItem());
+    }
+
+    private JMenuItem getMenuItem() {
+        return PopupMenuKeywordsList.INSTANCE.getItemRemoveFromEditPanel();
     }
 
     @Override
@@ -84,6 +85,6 @@ public final class ControllerDeleteKeywordsFromEditPanel
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource() == menuItem;
+        return evt.getSource() == getMenuItem();
     }
 }
