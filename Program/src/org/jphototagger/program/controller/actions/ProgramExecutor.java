@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerActionExecutor.java    Created on 2008-11-06
+ * @(#)ProgramExecutor.java    Created on 2008-11-06
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -22,38 +22,27 @@
 package org.jphototagger.program.controller.actions;
 
 import org.jphototagger.program.data.Program;
-import org.jphototagger.program.event.listener.ProgramActionListener;
+import org.jphototagger.program.event.listener.ProgramExecutionListener;
 import org.jphototagger.program.helper.StartPrograms;
-import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.ViewUtil;
 
 import javax.swing.JProgressBar;
 
 /**
- * Executes actions of the dialog
- * {@link org.jphototagger.program.view.dialogs.ActionsDialog}.
+ * Executes {@link Program}s.
  *
  * @author  Elmar Baumann
  */
-public final class ControllerActionExecutor implements ProgramActionListener {
+public final class ProgramExecutor implements ProgramExecutionListener {
     private final StartPrograms programStarter;
 
-    public ControllerActionExecutor() {
-        JProgressBar progressBar =
-            ActionsDialog.INSTANCE.getPanelActions().getProgressBar(this);
-
-        // No other executor expected, so this instance gets the progress bar
+    public ProgramExecutor(JProgressBar progressBar) {
         programStarter = new StartPrograms(progressBar);
-        listen();
-    }
-
-    private void listen() {
-        ActionsDialog.INSTANCE.getPanelActions().addListener(this);
     }
 
     @Override
-    public void programShallBeExecuted(Program program) {
+    public void execute(Program program) {
         ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
         programStarter.startProgram(program, tnPanel.getSelectedFiles());

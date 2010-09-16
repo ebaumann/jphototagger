@@ -22,9 +22,7 @@
 package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.dialog.SystemOutputDialog;
-import org.jphototagger.program.controller.actions.ControllerActionExecutor;
-import org.jphototagger.program.controller.actions.ControllerActionsMenuUpdater;
-import org.jphototagger.program.controller.actions.ControllerActionsShowDialog;
+import org.jphototagger.program.controller.actions.ActionsMenuUpdater;
 import org.jphototagger.program.controller.directories
     .ControllerCreateDirectory;
 import org.jphototagger.program.controller.directories
@@ -249,7 +247,6 @@ public final class ControllerFactory {
                 addFavoritesControllers();
                 addMetadataTablesControllers();
                 addDirectoryTreeControllers();
-                addActionsControllers();
                 addMetadataTemplatesControllers();
                 addMiscMetadataControllers();
                 addKeywordsControllers();
@@ -338,7 +335,7 @@ public final class ControllerFactory {
         support.add(new ControllerPickReject());
         support.add(new ControllerSetRating());
         support.add(new ControllerCopyPasteMetadata());
-        support.add(new ControllerActionsMenuUpdater());
+        support.add(new ActionsMenuUpdater());
         support.add(new ControllerThumbnailFileFilter());
     }
 
@@ -394,11 +391,6 @@ public final class ControllerFactory {
         support.add(new ControllerRenameDirectory());
         support.add(new ControllerDeleteDirectory());
         support.add(new ControllerRefreshDirectoryTree());
-    }
-
-    private void addActionsControllers() {
-        support.add(new ControllerActionsShowDialog());
-        support.add(new ControllerActionExecutor());
     }
 
     private void addKeywordsControllers() {

@@ -26,7 +26,7 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
-import org.jphototagger.program.event.listener.ProgramActionListener;
+import org.jphototagger.program.event.listener.ProgramExecutionListener;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
@@ -41,6 +41,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.program.controller.actions.ProgramExecutor;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
 import org.jphototagger.program.helper.ProgramsHelper;
@@ -55,8 +56,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
         8875330844851092391L;
     private final ListModelPrograms                      model            =
         new ListModelPrograms(Type.ACTION);
-    private final ListenerSupport<ProgramActionListener> ls               =
-        new ListenerSupport<ProgramActionListener>();
+    private final ListenerSupport<ProgramExecutionListener> ls               =
+        new ListenerSupport<ProgramExecutionListener>();
     private Object progressBarOwner;
     private final ReorderListener                        reorderListener  =
         new ProgramsHelper.ReorderListener(model);
@@ -70,6 +71,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         MnemonicUtil.setMnemonics((Container) this);
         setAccelerators();
         selectFirstItem();
+        addListener(new ProgramExecutor(progressBar));
     }
 
     private void selectFirstItem() {
@@ -236,7 +238,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 "ActionsPanel.Confirm.Delete", programName);
     }
 
-    public synchronized void addListener(ProgramActionListener l) {
+    public synchronized void addListener(ProgramExecutionListener l) {
         if (l == null) {
             throw new NullPointerException("l == null");
         }
@@ -245,8 +247,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     private synchronized void notifyProgramExecuted(Program program) {
-        for (ProgramActionListener listener : ls.get()) {
-            listener.programShallBeExecuted(program);
+        for (ProgramExecutionListener listener : ls.get()) {
+            listener.execute(program);
         }
     }
 

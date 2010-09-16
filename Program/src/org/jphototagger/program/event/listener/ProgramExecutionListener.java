@@ -1,5 +1,5 @@
 /*
- * @(#)ProgramActionListener.java    Created on 2008-11-06
+ * @(#)ProgramExecutionListener.java    Created on 2008-11-06
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -27,6 +27,6 @@ import org.jphototagger.program.data.Program;
  *
  * @author  Elmar Baumann
  */
-public interface ProgramActionListener {
-    void programShallBeExecuted(Program program);
+public interface ProgramExecutionListener {
+    void execute(Program program);
 }

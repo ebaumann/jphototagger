@@ -57,6 +57,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.program.controller.actions.ShowActionDialogAction;
 
 /**
  * The application's frame.
@@ -225,10 +226,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemAbout() {
         return menuItemAbout;
-    }
-
-    public JMenuItem getMenuItemActions() {
-        return menuItemActions;
     }
 
     public JMenuItem getMenuItemHelp() {
@@ -749,7 +746,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemInputHelper.text")); // NOI18N
         menuWindow.add(menuItemInputHelper);
 
-        menuItemActions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        menuItemActions.setAction(new ShowActionDialogAction());
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemActions.text")); // NOI18N
         menuWindow.add(menuItemActions);
