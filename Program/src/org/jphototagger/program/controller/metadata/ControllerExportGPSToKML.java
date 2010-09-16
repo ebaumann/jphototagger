@@ -40,7 +40,7 @@ import org.jphototagger.program.view.ViewUtil;
  * @author Elmar Baumann
  */
 public final class ControllerExportGPSToKML extends AbstractAction {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 6618409829007878958L;
 
     public ControllerExportGPSToKML() {
         super(JptBundle.INSTANCE.getString("ControllerExportGPS.Name"));

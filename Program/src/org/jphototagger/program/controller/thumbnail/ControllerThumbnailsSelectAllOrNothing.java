@@ -21,14 +21,13 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -37,30 +36,33 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerThumbnailsSelectAllOrNothing
         implements ActionListener {
-    private final ThumbnailsPanel tnPanel =
-        ViewUtil.getThumbnailsPanel();
-    private final JMenuItem itemSelectAll =
-        PopupMenuThumbnails.INSTANCE.getItemSelectAll();
-    private final JMenuItem itemSelectNoting =
-        PopupMenuThumbnails.INSTANCE.getItemSelectNothing();
-
     public ControllerThumbnailsSelectAllOrNothing() {
         listen();
     }
 
     private void listen() {
-        itemSelectAll.addActionListener(this);
-        itemSelectNoting.addActionListener(this);
+        getSelectAllItem().addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemSelectNothing().addActionListener(
+            this);
+    }
+
+    private JMenuItem getSelectAllItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemSelectAll();
+    }
+
+    private JMenuItem getSelectNothingItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemSelectNothing();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
 
-        if (source == itemSelectAll) {
-            tnPanel.selectAll();
-        } else if (source == itemSelectNoting) {
-            tnPanel.clearSelection();
+        if (source == getSelectAllItem()) {
+            ViewUtil.getThumbnailsPanel().selectAll();
+        } else if (source
+                   == PopupMenuThumbnails.INSTANCE.getItemSelectNothing()) {
+            ViewUtil.getThumbnailsPanel().clearSelection();
         }
     }
 }

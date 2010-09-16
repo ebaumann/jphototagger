@@ -21,23 +21,23 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.datatransfer.Clipboard;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to {@link PopupMenuThumbnails#getItemCopyToClipboard()},
@@ -50,24 +50,26 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerCopyOrCutFilesToClipboard
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel =
-        ViewUtil.getThumbnailsPanel();
-    private final PopupMenuThumbnails popup        =
-        PopupMenuThumbnails.INSTANCE;
-    private final JMenuItem           menuItemCopy =
-        popup.getItemCopyToClipboard();
-    private final JMenuItem           menuItemCut  =
-        popup.getItemCutToClipboard();
+    private final ThumbnailsPanel     tnPanel = ViewUtil.getThumbnailsPanel();
+    private final PopupMenuThumbnails popup   = PopupMenuThumbnails.INSTANCE;
 
     public ControllerCopyOrCutFilesToClipboard() {
         listen();
     }
 
     private void listen() {
-        menuItemCopy.addActionListener(this);
-        menuItemCut.addActionListener(this);
+        getCopyItem().addActionListener(this);
+        getCutItem().addActionListener(this);
         tnPanel.addThumbnailsPanelListener(this);
         tnPanel.addKeyListener(this);
+    }
+
+    private JMenuItem getCopyItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemCopyToClipboard();
+    }
+
+    private JMenuItem getCutItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemCutToClipboard();
     }
 
     @Override
@@ -99,9 +101,9 @@ public final class ControllerCopyOrCutFilesToClipboard
     }
 
     public void setFileAction(Object source) {
-        if (source == menuItemCopy) {
+        if (source == getCopyItem()) {
             tnPanel.setFileAction(FileAction.COPY);
-        } else if (source == menuItemCut) {
+        } else if (source == getCutItem()) {
             tnPanel.setFileAction(FileAction.CUT);
         } else {
             assert false : "Invalid source: " + source;
@@ -118,15 +120,14 @@ public final class ControllerCopyOrCutFilesToClipboard
     @Override
     public void thumbnailsSelectionChanged() {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
         final boolean imagesSelected = tnPanel.isFileSelected();
 
-        menuItemCopy.setEnabled(imagesSelected);
+                getCopyItem().setEnabled(imagesSelected);
 
         // ignore possibility of write protected files
-        menuItemCut.setEnabled(imagesSelected);
+                getCutItem().setEnabled(imagesSelected);
     }
         });
     }

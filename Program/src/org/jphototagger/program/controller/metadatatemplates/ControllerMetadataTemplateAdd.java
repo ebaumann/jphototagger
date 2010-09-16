@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.controller.metadatatemplates;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.EditMetaDataTemplateDialog;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -41,19 +41,23 @@ import javax.swing.JButton;
  */
 public final class ControllerMetadataTemplateAdd
         extends ControllerMetadataTemplate {
-    private JButton buttonAddEditPanel =
-        GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateAdd();
-    private JButton buttonAddInputHelper =
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonAdd();
-
     public ControllerMetadataTemplateAdd() {
         listen();
     }
 
     private void listen() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemAdd());
-        buttonAddEditPanel.addActionListener(this);
-        buttonAddInputHelper.addActionListener(this);
+        getAddButtonEditPanel().addActionListener(this);
+        getAddButtonInputHelper().addActionListener(this);
+    }
+
+    private JButton getAddButtonEditPanel() {
+        return GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateAdd();
+    }
+
+    private JButton getAddButtonInputHelper() {
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
+            .getButtonAdd();
     }
 
     @Override
@@ -69,8 +73,8 @@ public final class ControllerMetadataTemplateAdd
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
 
-        if ((source == buttonAddEditPanel)
-                || (source == buttonAddInputHelper)) {
+        if ((source == getAddButtonEditPanel())
+                || (source == getAddButtonInputHelper())) {
             action((MetadataTemplate) null);
         } else {
             super.actionPerformed(evt);

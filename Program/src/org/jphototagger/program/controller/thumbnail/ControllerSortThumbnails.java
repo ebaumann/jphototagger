@@ -21,21 +21,20 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Comparator;
 
 import javax.swing.JRadioButtonMenuItem;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -43,17 +42,16 @@ import org.jphototagger.program.view.ViewUtil;
  * @author  Elmar Baumann
  */
 public final class ControllerSortThumbnails implements ActionListener {
-    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
-    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
-
     public ControllerSortThumbnails() {
         listen();
-        appFrame.getMenuItemOfSortCmp(
-            tnPanel.getFileSortComparator()).setSelected(true);
+        GUI.INSTANCE.getAppFrame().getMenuItemOfSortCmp(
+            ViewUtil.getThumbnailsPanel().getFileSortComparator()).setSelected(
+            true);
     }
 
     private void listen() {
-        for (JRadioButtonMenuItem item : appFrame.getSortMenuItems()) {
+        for (JRadioButtonMenuItem item :
+                GUI.INSTANCE.getAppFrame().getSortMenuItems()) {
             item.addActionListener(this);
         }
     }
@@ -77,7 +75,9 @@ public final class ControllerSortThumbnails implements ActionListener {
             public void run() {
                 JRadioButtonMenuItem item =
                     (JRadioButtonMenuItem) evt.getSource();
-                Comparator<File> sortCmp = appFrame.getSortCmpOfMenuItem(item);
+                Comparator<File> sortCmp =
+                    GUI.INSTANCE.getAppFrame().getSortCmpOfMenuItem(item);
+                ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
                 ControllerFactory.INSTANCE
                     .getController(ControllerThumbnailsPanelPersistence.class)

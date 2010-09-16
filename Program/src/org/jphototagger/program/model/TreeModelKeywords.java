@@ -51,10 +51,9 @@ import javax.swing.tree.TreeNode;
  * @author  Elmar Baumann
  */
 public final class TreeModelKeywords extends DefaultTreeModel {
-    private static final long                serialVersionUID =
+    private static final long            serialVersionUID =
         -1044898256327030256L;
-    private final transient DatabaseKeywords db = DatabaseKeywords.INSTANCE;
-    private final DefaultMutableTreeNode     ROOT;
+    private final DefaultMutableTreeNode ROOT;
 
     public TreeModelKeywords() {
         super(new TreeNodeSortedChildren(
@@ -134,7 +133,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                                : ((Keyword) userObject).getId();
             Keyword child    = new Keyword(null, idParent, keyword, real);
 
-            if (db.insert(child)) {
+            if (DatabaseKeywords.INSTANCE.insert(child)) {
                 KeywordsHelper.insertDcSubject(keyword);
 
                 TreeNodeSortedChildren node = new TreeNodeSortedChildren(child);
@@ -189,7 +188,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                                       srcKeyword.getName(),
                                       srcKeyword.isReal());
 
-        if (db.insert(keyword)) {
+        if (DatabaseKeywords.INSTANCE.insert(keyword)) {
             KeywordsHelper.insertDcSubject(keyword.getName());
 
             DefaultMutableTreeNode node = new TreeNodeSortedChildren(keyword);
@@ -292,7 +291,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
             }
         }
 
-        if (db.delete(delKeywords)) {
+        if (DatabaseKeywords.INSTANCE.delete(delKeywords)) {
             removeNodeFromParent(keywordNode);
         } else {
             MessageDisplayer.error(null, "TreeModelKeywords.Error.DbRemove",
@@ -324,7 +323,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         TreeNode     parent = node.getParent();
 
         if (parent instanceof DefaultMutableTreeNode) {
-            if (db.update(keyword)) {
+            if (DatabaseKeywords.INSTANCE.update(keyword)) {
                 DefaultMutableTreeNode parentNode =
                     (DefaultMutableTreeNode) parent;
 
@@ -364,7 +363,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         if (ensureIsNotChild(target, keyword.getName(), true)
                 && ensureTargetIsNotBelowSource(source, target)
                 && setIdParent(keyword, target)) {
-            if (db.update(keyword)) {
+            if (DatabaseKeywords.INSTANCE.update(keyword)) {
                 DefaultMutableTreeNode removeNode =
                     TreeUtil.findNodeWithUserObject(ROOT,
                         source.getUserObject());
@@ -401,7 +400,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     }
 
     private void createTree() {
-        Collection<Keyword> roots = db.getRoots();
+        Collection<Keyword> roots = DatabaseKeywords.INSTANCE.getRoots();
 
         for (Keyword rootKeyword : roots) {
             DefaultMutableTreeNode rootNode =
@@ -413,8 +412,9 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     }
 
     private void insertChildren(DefaultMutableTreeNode parentNode) {
-        Keyword             parent   = (Keyword) parentNode.getUserObject();
-        Collection<Keyword> children = db.getChildren(parent.getId());
+        Keyword             parent = (Keyword) parentNode.getUserObject();
+        Collection<Keyword> children =
+            DatabaseKeywords.INSTANCE.getChildren(parent.getId());
 
         for (Keyword child : children) {
             DefaultMutableTreeNode childNode =

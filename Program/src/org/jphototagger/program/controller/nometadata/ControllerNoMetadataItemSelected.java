@@ -29,6 +29,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.io.File;
 
@@ -36,8 +37,6 @@ import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JList;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to selections within the list {@link AppPanel#getListNoMetadata()}
@@ -48,15 +47,12 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerNoMetadataItemSelected
         implements ListSelectionListener {
-    private final JList list = GUI.INSTANCE.getAppPanel().getListNoMetadata();
-
     public ControllerNoMetadataItemSelected() {
         listen();
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppPanel().getListNoMetadata().addListSelectionListener(
-            this);
+        ViewUtil.getNoMetadataList().addListSelectionListener(this);
     }
 
     @Override
@@ -67,7 +63,7 @@ public final class ControllerNoMetadataItemSelected
     }
 
     private void setFiles() {
-        Object selValue = list.getSelectedValue();
+        Object selValue = ViewUtil.getNoMetadataList().getSelectedValue();
 
         if (selValue instanceof Column) {
             List<File> imageFiles =

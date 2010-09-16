@@ -23,14 +23,14 @@ package org.jphototagger.program.controller.metadata;
 
 import org.jphototagger.program.event.listener.EditMetadataPanelsListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 
 /**
  *
@@ -38,20 +38,14 @@ import javax.swing.JComboBox;
  */
 public final class ControllerEnableInsertMetadataTemplate
         implements EditMetadataPanelsListener, ActionListener {
-    private final JButton buttonMetadataTemplateInsert =
-        GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateInsert();
-    private final JComboBox comboBoxTemplates =
-        GUI.INSTANCE.getAppPanel().getComboBoxMetadataTemplates();
-    private final EditMetadataPanels editPanels =
-        GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-
     public ControllerEnableInsertMetadataTemplate() {
         listen();
     }
 
     private void listen() {
-        editPanels.addEditMetadataPanelsListener(this);
-        comboBoxTemplates.addActionListener(this);
+        ViewUtil.getEditPanel().addEditMetadataPanelsListener(this);
+        GUI.INSTANCE.getAppPanel().getComboBoxMetadataTemplates()
+            .addActionListener(this);
     }
 
     @Override
@@ -60,8 +54,13 @@ public final class ControllerEnableInsertMetadataTemplate
     }
 
     private void setButtonEnabled() {
-        buttonMetadataTemplateInsert.setEnabled(editPanels.isEditable()
-                && (comboBoxTemplates.getSelectedIndex() >= 0));
+        boolean  editable = ViewUtil.getEditPanel().isEditable();
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        boolean  selected =
+            appPanel.getComboBoxMetadataTemplates().getSelectedIndex() >= 0;
+        JButton button = appPanel.getButtonMetadataTemplateInsert();
+
+        button.setEnabled(editable && (selected));
     }
 
     @Override

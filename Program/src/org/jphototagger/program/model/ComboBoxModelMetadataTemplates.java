@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.ConnectionPool;
@@ -29,6 +28,8 @@ import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.event.listener
     .DatabaseMetadataTemplatesListener;
 import org.jphototagger.program.resource.JptBundle;
+
+import java.awt.EventQueue;
 
 import java.util.List;
 
@@ -42,14 +43,11 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
         implements DatabaseMetadataTemplatesListener {
-    private static final long               serialVersionUID =
-        7895253533969078904L;
-    private final DatabaseMetadataTemplates db =
-        DatabaseMetadataTemplates.INSTANCE;
+    private static final long serialVersionUID = 7895253533969078904L;
 
     public ComboBoxModelMetadataTemplates() {
         addElements();
-        db.addListener(this);
+        DatabaseMetadataTemplates.INSTANCE.addListener(this);
     }
 
     /**
@@ -62,7 +60,9 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             throw new NullPointerException("template == null");
         }
 
-        if ((getIndexOf(template) >= 0) && db.delete(template.getName())) {
+        if ((getIndexOf(template) >= 0)
+                && DatabaseMetadataTemplates.INSTANCE.delete(
+                    template.getName())) {
             removeElement(template);
         } else {
             errorMessage(
@@ -86,7 +86,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             return;
         }
 
-        if (db.insertOrUpdate(template)) {
+        if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdate(template)) {
             addElement(template);
             setSelectedItem(template);
         } else {
@@ -109,7 +109,8 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
         int index = getIndexOf(template);
 
-        if ((index >= 0) && db.update(template)) {
+        if ((index >= 0)
+                && DatabaseMetadataTemplates.INSTANCE.update(template)) {
             removeElementAt(index);
             insertElementAt(template, index);
             setSelectedItem(template);
@@ -138,7 +139,9 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
         int index = getIndexOf(template);
 
-        if ((index >= 0) && db.updateRename(template.getName(), newName)) {
+        if ((index >= 0)
+                && DatabaseMetadataTemplates.INSTANCE.updateRename(
+                    template.getName(), newName)) {
             template.setName(newName);
             removeElementAt(index);
             insertElementAt(template, index);
@@ -175,7 +178,8 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             return;
         }
 
-        List<MetadataTemplate> templates = db.getAll();
+        List<MetadataTemplate> templates =
+            DatabaseMetadataTemplates.INSTANCE.getAll();
 
         for (MetadataTemplate template : templates) {
             addElement(template);

@@ -325,7 +325,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         if (treeDirectories.getSelectionCount() > 0) {
             return ViewUtil.getSelectedFile(treeDirectories);
         } else if (treeFavorites.getSelectionCount() > 0) {
-            return ViewUtil.getSelectedDirectoryFromFavoriteDirectories();
+            return ViewUtil.getSelectedFavorite();
         }
 
         return null;

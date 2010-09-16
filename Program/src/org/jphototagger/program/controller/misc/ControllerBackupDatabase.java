@@ -24,16 +24,11 @@ package org.jphototagger.program.controller.misc;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.Controller;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.helper.BackupDatabase;
+import org.jphototagger.program.resource.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
-
-
-
-import javax.swing.JMenuItem;
 
 /**
  *
@@ -41,11 +36,9 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  */
 public final class ControllerBackupDatabase extends Controller {
-    private final JMenuItem       menuItemBackupDb =
-        GUI.INSTANCE.getAppFrame().getMenuItemBackupDatabase();
-
     public ControllerBackupDatabase() {
-        listenToActionsOf(menuItemBackupDb);
+        listenToActionsOf(
+            GUI.INSTANCE.getAppFrame().getMenuItemBackupDatabase());
     }
 
     @Override
@@ -63,7 +56,8 @@ public final class ControllerBackupDatabase extends Controller {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource() == menuItemBackupDb;
+        return evt.getSource()
+               == GUI.INSTANCE.getAppFrame().getMenuItemBackupDatabase();
     }
 
     @Override

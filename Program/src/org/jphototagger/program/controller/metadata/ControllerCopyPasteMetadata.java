@@ -27,8 +27,8 @@ import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +37,6 @@ import java.awt.event.KeyListener;
 import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to the menu items {@link PopupMenuThumbnails#getItemCopyMetadata()} and
@@ -50,23 +49,25 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerCopyPasteMetadata
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
-    private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
-    private final JMenuItem           menuItemCopy =
-        popup.getItemCopyMetadata();
-    private final JMenuItem           menuItemPaste =
-        popup.getItemPasteMetadata();
-    private Xmp                       xmp;
+    private Xmp xmp;
 
     public ControllerCopyPasteMetadata() {
         listen();
     }
 
     private void listen() {
-        menuItemCopy.addActionListener(this);
-        menuItemPaste.addActionListener(this);
-        tnPanel.addThumbnailsPanelListener(this);
-        tnPanel.addKeyListener(this);
+        getCopyItem().addActionListener(this);
+        getPasteItem().addActionListener(this);
+        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+    }
+
+    private JMenuItem getCopyItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemCopyMetadata();
+    }
+
+    private JMenuItem getPasteItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemPasteMetadata();
     }
 
     @Override
@@ -81,9 +82,9 @@ public final class ControllerCopyPasteMetadata
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == menuItemCopy) {
+        if (evt.getSource() == getCopyItem()) {
             copy();
-        } else if (evt.getSource() == menuItemPaste) {
+        } else if (evt.getSource() == getPasteItem()) {
             paste();
         }
     }
@@ -91,7 +92,7 @@ public final class ControllerCopyPasteMetadata
     private void copy() {
         this.xmp = new Xmp(
             GUI.INSTANCE.getAppPanel().getEditMetadataPanels().getXmp());
-        menuItemPaste.setEnabled(true);
+        getPasteItem().setEnabled(true);
     }
 
     private void paste() {
@@ -107,12 +108,12 @@ public final class ControllerCopyPasteMetadata
         }
 
         editPanel.setXmp(xmp);
-        menuItemPaste.setEnabled(false);
+        getPasteItem().setEnabled(false);
         xmp = null;
     }
 
     private boolean checkSelected() {
-        int selCount = tnPanel.getSelectionCount();
+        int selCount = ViewUtil.getThumbnailsPanel().getSelectionCount();
 
         if (selCount <= 0) {
             MessageDisplayer.error(
@@ -140,8 +141,8 @@ public final class ControllerCopyPasteMetadata
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                menuItemCopy
-                    .setEnabled(ViewUtil.getThumbnailsPanel().isFileSelected());
+                getCopyItem().setEnabled(
+                    ViewUtil.getThumbnailsPanel().isFileSelected());
     }
         });
     }

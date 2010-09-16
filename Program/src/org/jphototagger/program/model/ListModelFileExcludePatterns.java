@@ -45,16 +45,13 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel
         implements DatabaseFileExcludePatternsListener {
-    private static final long                           serialVersionUID =
-        -8337739189362442866L;
-    private final transient DatabaseFileExcludePatterns db =
-        DatabaseFileExcludePatterns.INSTANCE;
-    private volatile transient boolean listenToDb = true;
+    private static final long          serialVersionUID = -8337739189362442866L;
+    private volatile transient boolean listenToDb       = true;
     private List<String>               patterns;
 
     public ListModelFileExcludePatterns() {
         addElements();
-        db.addListener(this);
+        DatabaseFileExcludePatterns.INSTANCE.addListener(this);
     }
 
     public List<String> getPatterns() {
@@ -70,13 +67,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
         String trimmedPattern = pattern.trim();
 
-        if (db.exists(trimmedPattern)) {
+        if (DatabaseFileExcludePatterns.INSTANCE.exists(trimmedPattern)) {
             errorMessageExists(trimmedPattern);
 
             return;
         }
 
-        if (db.insert(trimmedPattern)) {
+        if (DatabaseFileExcludePatterns.INSTANCE.insert(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
@@ -95,7 +92,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
         String trimmedPattern = pattern.trim();
 
-        if (db.delete(trimmedPattern)) {
+        if (DatabaseFileExcludePatterns.INSTANCE.delete(trimmedPattern)) {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
@@ -110,7 +107,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
             return;
         }
 
-        patterns = db.getAll();
+        patterns = DatabaseFileExcludePatterns.INSTANCE.getAll();
 
         for (String pattern : patterns) {
             addElement(pattern);

@@ -21,12 +21,12 @@
 
 package org.jphototagger.program.controller.misc;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -40,29 +40,27 @@ import javax.swing.JSlider;
  */
 public final class ControllerThumbnailCountDisplay
         implements ThumbnailsPanelListener, ChangeListener {
-    private final AppPanel appPanel            = GUI.INSTANCE.getAppPanel();
-    private final JSlider  sliderThumbnailSize =
-        appPanel.getSliderThumbnailSize();
-    private final JLabel          label           =
-        appPanel.getLabelThumbnailInfo();
-    private final ThumbnailsPanel panelThumbnails =
-        appPanel.getPanelThumbnails();
-    private int thumbnailZoom = sliderThumbnailSize.getValue();
+    private int thumbnailZoom;
     private int thumbnailCount;
     private int selectionCount;
 
     public ControllerThumbnailCountDisplay() {
+        thumbnailZoom = getSlider().getValue();
         listen();
     }
 
     private void listen() {
-        panelThumbnails.addThumbnailsPanelListener(this);
-        sliderThumbnailSize.addChangeListener(this);
+        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        getSlider().addChangeListener(this);
+    }
+
+    private JSlider getSlider() {
+        return GUI.INSTANCE.getAppPanel().getSliderThumbnailSize();
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
-        selectionCount = panelThumbnails.getSelectionCount();
+        selectionCount = ViewUtil.getThumbnailsPanel().getSelectionCount();
         setCount();
     }
 
@@ -77,12 +75,12 @@ public final class ControllerThumbnailCountDisplay
     }
 
     private void setCount() {
-        thumbnailCount = panelThumbnails.getFileCount();
+        thumbnailCount = ViewUtil.getThumbnailsPanel().getFileCount();
         setLabel();
     }
 
     private void setZoom() {
-        thumbnailZoom = sliderThumbnailSize.getValue();
+        thumbnailZoom = getSlider().getValue();
         setLabel();
     }
 
@@ -90,6 +88,8 @@ public final class ControllerThumbnailCountDisplay
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                JLabel label =
+                    GUI.INSTANCE.getAppPanel().getLabelThumbnailInfo();
                 String info = JptBundle.INSTANCE.getString(
                                   "ControllerThumbnailCountDisplay.Info",
                                   thumbnailCount, selectionCount,

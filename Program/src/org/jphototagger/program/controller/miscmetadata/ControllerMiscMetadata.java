@@ -26,7 +26,7 @@ import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -44,10 +44,8 @@ import javax.swing.tree.TreePath;
  */
 public abstract class ControllerMiscMetadata extends Controller
         implements PopupMenuTree.Listener {
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
-
     protected ControllerMiscMetadata() {
-        listenToKeyEventsOf(tree);
+        listenToKeyEventsOf(ViewUtil.getMiscMetadataTree());
     }
 
     protected abstract void action(Column column, String value);
@@ -83,7 +81,8 @@ public abstract class ControllerMiscMetadata extends Controller
             throw new NullPointerException("evt == null");
         }
 
-        TreePath[] selPaths = tree.getSelectionPaths();
+        TreePath[] selPaths =
+            ViewUtil.getMiscMetadataTree().getSelectionPaths();
 
         if (selPaths != null) {
             action(MiscMetadataHelper.getColValuesFrom(

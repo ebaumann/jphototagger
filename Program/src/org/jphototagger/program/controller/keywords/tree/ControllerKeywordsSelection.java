@@ -21,19 +21,19 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.controller.keywords.list
     .ShowThumbnailsContainingAllKeywords2;
 import org.jphototagger.program.data.Keyword;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -45,14 +45,13 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerKeywordsSelection
         implements TreeSelectionListener {
-    private final JTree tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
-
     public ControllerKeywordsSelection() {
         listen();
     }
 
     private void listen() {
-        tree.getSelectionModel().addTreeSelectionListener(this);
+        ViewUtil.getSelKeywordsTree().getSelectionModel()
+            .addTreeSelectionListener(this);
     }
 
     @Override
@@ -85,8 +84,9 @@ public final class ControllerKeywordsSelection
     }
 
     private List<List<Keyword>> getKeywordPaths() {
-        TreePath[]          selPaths = tree.getSelectionPaths();
-        List<List<Keyword>> paths    = new ArrayList<List<Keyword>>();
+        TreePath[]          selPaths =
+            ViewUtil.getSelKeywordsTree().getSelectionPaths();
+        List<List<Keyword>> paths = new ArrayList<List<Keyword>>();
 
         for (TreePath selPath : selPaths) {
             DefaultMutableTreeNode selNode =

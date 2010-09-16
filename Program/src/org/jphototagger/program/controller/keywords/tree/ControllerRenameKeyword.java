@@ -54,8 +54,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class ControllerRenameKeyword extends ControllerKeywords
         implements ActionListener, KeyListener {
-    private final DatabaseKeywords db = DatabaseKeywords.INSTANCE;
-
     public ControllerRenameKeyword(KeywordsPanel _panel) {
         super(_panel);
     }
@@ -89,7 +87,8 @@ public class ControllerRenameKeyword extends ControllerKeywords
 
     private void renameKeyword(final DefaultMutableTreeNode node,
                                final Keyword keyword) {
-        final String newName = getName(keyword, db, getHKPanel().getTree());
+        final String newName = getName(keyword, DatabaseKeywords.INSTANCE,
+                                       getHKPanel().getTree());
 
         if ((newName != null) &&!newName.trim().isEmpty()) {
             EventQueue.invokeLater(new Runnable() {

@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -31,6 +30,8 @@ import org.jphototagger.program.database.metadata.selections
     .DatabaseInfoRecordCountColumns;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.JptBundle;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -54,8 +55,6 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         implements DatabaseImageFilesListener {
     private static final long                         serialVersionUID =
         1974343527501774916L;
-    private final transient DatabaseStatistics        db =
-        DatabaseStatistics.INSTANCE;
     private final LinkedHashMap<Column, StringBuffer> bufferOfColumn =
         new LinkedHashMap<Column, StringBuffer>();
     private boolean listenToDatabase;
@@ -190,8 +189,9 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         @Override
         public void run() {
             for (Column column : bufferOfColumn.keySet()) {
-                setCountToBuffer(bufferOfColumn.get(column),
-                                 db.getTotalRecordCountOf(column));
+                setCountToBuffer(
+                    bufferOfColumn.get(column),
+                    DatabaseStatistics.INSTANCE.getTotalRecordCountOf(column));
             }
 
             EventQueue.invokeLater(new Runnable() {

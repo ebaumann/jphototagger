@@ -40,22 +40,23 @@ import javax.swing.JButton;
  */
 public final class ControllerMetadataTemplateRename
         extends ControllerMetadataTemplate {
-    private JButton buttonRenameInputHelper =
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonRename();
-
     public ControllerMetadataTemplateRename() {
         listen();
     }
 
     private void listen() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemRename());
-        buttonRenameInputHelper.addActionListener(this);
+        getRenameButton().addActionListener(this);
+    }
+
+    private JButton getRenameButton() {
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
+            .getButtonRename();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == buttonRenameInputHelper)
+        if ((evt.getSource() == getRenameButton())
                 && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {

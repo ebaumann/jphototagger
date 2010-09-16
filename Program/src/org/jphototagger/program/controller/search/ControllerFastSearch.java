@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.search;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
@@ -45,14 +44,13 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -61,10 +59,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.JTextArea;
-import javax.swing.JTree;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -74,23 +70,8 @@ import javax.swing.JTree;
 public final class ControllerFastSearch
         implements ActionListener, RefreshListener, DatabaseImageFilesListener {
     private static final String DELIMITER_SEARCH_WORDS = ";";
-    private final DatabaseFind  db                     = DatabaseFind.INSTANCE;
-    private final AppPanel      appPanel               =
-        GUI.INSTANCE.getAppPanel();
-    private final JTextArea     textFieldSearch        =
-        appPanel.getTextAreaSearch();
-    private final JComboBox     comboboxFastSearch     =
-        appPanel.getComboBoxFastSearch();
-    private final ThumbnailsPanel    tnPanel        =
-        appPanel.getPanelThumbnails();
-    private final List<JTree>        selectionTrees =
-        appPanel.getSelectionTrees();
-    private final List<JList>        selectionLists =
-        appPanel.getSelectionLists();
-    private final EditMetadataPanels editPanels     =
-        appPanel.getEditMetadataPanels();
-    private final Autocomplete autocomplete;
-    private boolean            isAutocomplete;
+    private final Autocomplete  autocomplete;
+    private boolean             isAutocomplete;
 
     public ControllerFastSearch() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
@@ -104,9 +85,17 @@ public final class ControllerFastSearch
         listen();
     }
 
+    private JButton getSearchButton() {
+        return GUI.INSTANCE.getAppPanel().getButtonSearch();
+    }
+
+    private JComboBox getSearchComboBox() {
+        return GUI.INSTANCE.getAppPanel().getComboBoxFastSearch();
+    }
+
     private void listen() {
         DatabaseImageFiles.INSTANCE.addListener(this);
-        textFieldSearch.addKeyListener(new KeyAdapter() {
+        ViewUtil.getSearchTextArea().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -114,9 +103,10 @@ public final class ControllerFastSearch
                 }
             }
         });
-        appPanel.getButtonSearch().addActionListener(this);
-        comboboxFastSearch.addActionListener(this);
-        tnPanel.addRefreshListener(this, Content.FAST_SEARCH);
+        getSearchButton().addActionListener(this);
+        getSearchComboBox().addActionListener(this);
+        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+                Content.FAST_SEARCH);
     }
 
     public void setAutocomplete(boolean ac) {
@@ -135,10 +125,12 @@ public final class ControllerFastSearch
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (isAutocomplete && (evt.getSource() == comboboxFastSearch)
-                && (comboboxFastSearch.getSelectedIndex() >= 0)) {
+        JComboBox cb = getSearchComboBox();
+
+        if (isAutocomplete && (evt.getSource() == cb)
+                && (cb.getSelectedIndex() >= 0)) {
             decorateTextFieldSearch();
-        } else if (evt.getSource() == appPanel.getButtonSearch()) {
+        } else if (evt.getSource() == getSearchButton()) {
             search();
         }
     }
@@ -151,7 +143,7 @@ public final class ControllerFastSearch
         new Thread(new Runnable() {
             @Override
             public void run() {
-                autocomplete.decorate(textFieldSearch,
+                autocomplete.decorate(ViewUtil.getSearchTextArea(),
                                       isSearchAllDefinedColumns()
                                       ? AutoCompleteDataOfColumn.INSTANCE
                                           .getFastSearchData().get()
@@ -162,12 +154,12 @@ public final class ControllerFastSearch
     }
 
     private void clearSelection() {
-        TreeUtil.clearSelection(selectionTrees);
-        ListUtil.clearSelection(selectionLists);
+        TreeUtil.clearSelection(GUI.INSTANCE.getAppPanel().getSelectionTrees());
+        ListUtil.clearSelection(GUI.INSTANCE.getAppPanel().getSelectionLists());
     }
 
     private void search() {
-        search(textFieldSearch.getText());
+        search(ViewUtil.getSearchTextArea().getText());
         setMetadataEditable();
     }
 
@@ -186,7 +178,8 @@ public final class ControllerFastSearch
                         setTitle(userInput);
                         GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
                         ControllerSortThumbnails.setLastSort();
-                        tnPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
+                        ViewUtil.getThumbnailsPanel().setFiles(imageFiles,
+                                Content.SAVED_SEARCH);
                     }
                 }
             }
@@ -198,8 +191,8 @@ public final class ControllerFastSearch
             }
             private List<File> searchFiles(String userInput) {
                 if (isSearchAllDefinedColumns()) {
-                    return db.findImageFilesLikeOr(FastSearchColumns.get(),
-                                                   userInput);
+                    return DatabaseFind.INSTANCE.findImageFilesLikeOr(
+                        FastSearchColumns.get(), userInput);
                 } else {
                     List<String> searchWords  = getSearchWords(userInput);
                     Column       searchColumn = getSearchColumn();
@@ -220,7 +213,7 @@ public final class ControllerFastSearch
                                     .get(0), DatabaseImageFiles.DcSubjectOption
                                     .INCLUDE_SYNONYMS));
                         } else {
-                            return db.findImageFilesLikeOr(
+                            return DatabaseFind.INSTANCE.findImageFilesLikeOr(
                                 Arrays.asList(searchColumn), userInput);
                         }
                     } else if (searchWords.size() > 1) {
@@ -243,7 +236,7 @@ public final class ControllerFastSearch
 
     private List<String> getSearchWords(String userInput) {
         List<String>    words = new ArrayList<String>();
-        StringTokenizer st    = new StringTokenizer(userInput,
+        StringTokenizer st = new StringTokenizer(userInput,
                                     DELIMITER_SEARCH_WORDS);
 
         while (st.hasMoreTokens()) {
@@ -260,24 +253,24 @@ public final class ControllerFastSearch
             return null;
         }
 
-        return (Column) comboboxFastSearch.getSelectedItem();
+        return (Column) getSearchComboBox().getSelectedItem();
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (textFieldSearch.isEnabled()) {
-            search(textFieldSearch.getText());
+        if (ViewUtil.getSearchTextArea().isEnabled()) {
+            search(ViewUtil.getSearchTextArea().getText());
         }
     }
 
     private void setMetadataEditable() {
-        if (!tnPanel.isFileSelected()) {
-            editPanels.setEditable(false);
+        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
+            ViewUtil.getEditPanel().setEditable(false);
         }
     }
 
     private boolean isSearchAllDefinedColumns() {
-        Object selItem = comboboxFastSearch.getSelectedItem();
+        Object selItem = getSearchComboBox().getSelectedItem();
 
         return (selItem != null)
                && selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);

@@ -39,22 +39,23 @@ import javax.swing.JButton;
  */
 public final class ControllerMetadataTemplateDelete
         extends ControllerMetadataTemplate {
-    private JButton buttonDeleteInputHelper =
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonDelete();
-
     public ControllerMetadataTemplateDelete() {
         listen();
     }
 
     private void listen() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemDelete());
-        buttonDeleteInputHelper.addActionListener(this);
+        getDeleteButton().addActionListener(this);
+    }
+
+    private JButton getDeleteButton() {
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
+            .getButtonDelete();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == buttonDeleteInputHelper)
+        if ((evt.getSource() == getDeleteButton())
                 && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {

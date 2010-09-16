@@ -21,11 +21,12 @@
 
 package org.jphototagger.program.controller.search;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +34,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 
 /**
  * Edits a selected saved search when the
@@ -47,22 +47,19 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
  */
 public final class ControllerEditSavedSearch
         implements ActionListener, KeyListener {
-    private final PopupMenuSavedSearches actionPopup =
-        PopupMenuSavedSearches.INSTANCE;
-    private final JList list =
-        GUI.INSTANCE.getAppPanel().getListSavedSearches();
-
     public ControllerEditSavedSearch() {
         listen();
     }
 
     private void listen() {
-        actionPopup.getItemEdit().addActionListener(this);
-        list.addKeyListener(this);
+        PopupMenuSavedSearches.INSTANCE.getItemEdit().addActionListener(this);
+        ViewUtil.getSavedSearchesList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
+        JList list = ViewUtil.getSavedSearchesList();
+
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E)
                 &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
@@ -75,7 +72,8 @@ public final class ControllerEditSavedSearch
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        showAdvancedSearchDialog(actionPopup.getSavedSearch());
+        showAdvancedSearchDialog(
+            PopupMenuSavedSearches.INSTANCE.getSavedSearch());
     }
 
     private void showAdvancedSearchDialog(SavedSearch savedSearch) {

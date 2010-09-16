@@ -21,20 +21,19 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Collections;
-import org.jphototagger.program.view.ViewUtil;
-
 
 /**
  *
@@ -42,8 +41,6 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseImageFilesListener {
-    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
-
     public ControllerThumbnailsDatabaseChanges() {
         listen();
     }
@@ -115,7 +112,8 @@ public final class ControllerThumbnailsDatabaseChanges
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                tnPanel.remove(Collections.singleton(imageFile));
+                ViewUtil.getThumbnailsPanel().remove(
+                    Collections.singleton(imageFile));
             }
         });
     }

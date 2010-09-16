@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.miscmetadata;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
@@ -30,8 +29,10 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -39,7 +40,6 @@ import java.util.ArrayList;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -49,17 +49,14 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerMiscMetadataItemSelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
-    private final JTree           tree     = appPanel.getTreeMiscMetadata();
-    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
-
     public ControllerMiscMetadataItemSelected() {
         listen();
     }
 
     private void listen() {
-        tree.addTreeSelectionListener(this);
-        tnPanel.addRefreshListener(this, Content.MISC_METADATA);
+        ViewUtil.getMiscMetadataTree().addTreeSelectionListener(this);
+        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+                Content.MISC_METADATA);
     }
 
     @Override
@@ -72,9 +69,11 @@ public final class ControllerMiscMetadataItemSelected
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (tree.getSelectionCount() == 1) {
+        if (ViewUtil.getMiscMetadataTree().getSelectionCount() == 1) {
             EventQueue.invokeLater(
-                new ShowThumbnails(tree.getSelectionPath(), evt.getSettings()));
+                new ShowThumbnails(
+                    ViewUtil.getMiscMetadataTree().getSelectionPath(),
+                    evt.getSettings()));
         }
     }
 
@@ -82,8 +81,7 @@ public final class ControllerMiscMetadataItemSelected
         private final ThumbnailsPanel.Settings tnPanelSettings;
         private final TreePath                 treePath;
 
-        ShowThumbnails(TreePath treePath,
-                              ThumbnailsPanel.Settings settings) {
+        ShowThumbnails(TreePath treePath, ThumbnailsPanel.Settings settings) {
             if (treePath == null) {
                 throw new NullPointerException("treePath == null");
             }
@@ -109,7 +107,8 @@ public final class ControllerMiscMetadataItemSelected
 
         private void setFilesOfNodeToThumbnailsPanel(
                 DefaultMutableTreeNode node) {
-            Object userObject = node.getUserObject();
+            Object          userObject = node.getUserObject();
+            ThumbnailsPanel tnPanel    = ViewUtil.getThumbnailsPanel();
 
             if (node.isLeaf()) {
                 Object parentUserObject =

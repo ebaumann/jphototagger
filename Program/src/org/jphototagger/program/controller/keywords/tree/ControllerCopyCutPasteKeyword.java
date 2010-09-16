@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.keywords.tree;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -39,6 +38,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.util.ArrayList;
 
@@ -64,11 +64,7 @@ import javax.swing.tree.TreePath;
  */
 public class ControllerCopyCutPasteKeyword
         implements ActionListener, KeyListener {
-    private final KeywordsPanel         panel;
-    private final PopupMenuKeywordsTree popup = PopupMenuKeywordsTree.INSTANCE;
-    private final JMenuItem             itemCopy  = popup.getItemCopy();
-    private final JMenuItem             itemCut   = popup.getItemCut();
-    private final JMenuItem             itemPaste = popup.getItemPaste();
+    private final KeywordsPanel panel;
 
     public ControllerCopyCutPasteKeyword(KeywordsPanel panel) {
         if (panel == null) {
@@ -83,22 +79,34 @@ public class ControllerCopyCutPasteKeyword
         panel.addKeyListener(this);
     }
 
+    private JMenuItem getCopyItem() {
+        return PopupMenuKeywordsTree.INSTANCE.getItemCopy();
+    }
+
+    private JMenuItem getCutItem() {
+        return PopupMenuKeywordsTree.INSTANCE.getItemCut();
+    }
+
+    private JMenuItem getPasteItem() {
+        return PopupMenuKeywordsTree.INSTANCE.getItemPaste();
+    }
+
     // Does not extend ControllerKeywords and using localAction
     // because listening to 2 actions: cut is only 1 line of code - too less
     // to implement a separate class
     @Override
     public void actionPerformed(ActionEvent evt) {
-        Object                 source = evt.getSource();
-        Object                 lastPathComponent =
-            popup.getTreePath().getLastPathComponent();
+        Object source = evt.getSource();
+        Object lastPathComponent =
+            PopupMenuKeywordsTree.INSTANCE.getTreePath().getLastPathComponent();
         DefaultMutableTreeNode node =
             (DefaultMutableTreeNode) lastPathComponent;
 
-        if (source == itemCut) {
+        if (source == getCutItem()) {
             KeywordTreeNodesClipboard.INSTANCE.setContent(node, Action.MOVE);
-        } else if (source == itemCopy) {
+        } else if (source == getCopyItem()) {
             KeywordTreeNodesClipboard.INSTANCE.setContent(node, Action.COPY);
-        } else if (source == itemPaste) {
+        } else if (source == getPasteItem()) {
             pasteMenuAction(node);
         }
     }
@@ -135,7 +143,7 @@ public class ControllerCopyCutPasteKeyword
         if (isMoveFromClipBoard()) {
             move(node);
         } else if (isCopyFromClipBoard()) {
-            pasteCopy(popup.getTree());
+            pasteCopy(PopupMenuKeywordsTree.INSTANCE.getTree());
         }
     }
 

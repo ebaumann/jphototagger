@@ -25,12 +25,11 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.AutomaticTask;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to the {@link ThumbnailsPanel} and when the displayed
@@ -47,15 +46,12 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  */
 public final class ControllerCreateMetadataOfDisplayedThumbnails
         implements ThumbnailsPanelListener {
-    private final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
-
     public ControllerCreateMetadataOfDisplayedThumbnails() {
         listen();
     }
 
     private void listen() {
-        tnPanel.addThumbnailsPanelListener(this);
+        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
     }
 
     @Override
@@ -69,8 +65,8 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
             "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
 
         InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(tnPanel.getFiles(),
-                Insert.OUT_OF_DATE);
+            new InsertImageFilesIntoDatabase(
+                ViewUtil.getThumbnailsPanel().getFiles(), Insert.OUT_OF_DATE);
         String pBarString =
             JptBundle.INSTANCE.getString(
                 "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");

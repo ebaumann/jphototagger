@@ -24,12 +24,10 @@ package org.jphototagger.program.controller.keywords.tree;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -41,7 +39,6 @@ import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
@@ -51,22 +48,12 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerHighlightKeywordsTree
         implements ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
-    private final KeywordsPanel dlgHkPanel =
-        InputHelperDialog.INSTANCE.getPanelKeywords();
-    private final DatabaseImageFiles db           = DatabaseImageFiles.INSTANCE;
-    private final AppPanel           appPanel     = GUI.INSTANCE.getAppPanel();
-    private final KeywordsPanel      appHkPanel =
-        appPanel.getPanelEditKeywords();
-    private final JTree              treeAppPanel = appHkPanel.getTree();
-    private final JTree              treeDialog   = dlgHkPanel.getTree();
-
     public ControllerHighlightKeywordsTree() {
         listen();
     }
 
     private void listen() {
-        tnPanel.addThumbnailsPanelListener(this);
+        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
     }
 
     @Override
@@ -82,15 +69,18 @@ public final class ControllerHighlightKeywordsTree
     private void applyCurrentSelection() {
         removeKeywords();
 
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+
         if (tnPanel.getSelectionCount() == 1) {
             List<File> selFiles = tnPanel.getSelectedFiles();
 
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
                 Collection<String> keywords =
-                    db.getDcSubjectsOf(selFiles.get(0));
+                    DatabaseImageFiles.INSTANCE.getDcSubjectsOf(
+                        selFiles.get(0));
 
-                setKeywords(treeAppPanel, keywords);
-                setKeywords(treeDialog, keywords);
+                setKeywords(ViewUtil.getEditKeywordsTree(), keywords);
+                setKeywords(ViewUtil.getInputHelperKeywordsTree(), keywords);
             }
         }
     }
@@ -105,8 +95,9 @@ public final class ControllerHighlightKeywordsTree
     }
 
     private void removeKeywords() {
-        setKeywords(treeAppPanel, new ArrayList<String>());
-        setKeywords(treeDialog, new ArrayList<String>());
+        setKeywords(ViewUtil.getEditKeywordsTree(), new ArrayList<String>());
+        setKeywords(ViewUtil.getInputHelperKeywordsTree(),
+                    new ArrayList<String>());
     }
 
     private boolean hasSidecarFile(List<File> selFile) {

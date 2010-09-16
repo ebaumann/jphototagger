@@ -28,6 +28,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.UserDefinedFileFilterDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +38,6 @@ import java.awt.event.ItemListener;
 import java.io.FileFilter;
 
 import javax.swing.JComboBox;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -46,13 +46,14 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerThumbnailFileFilter
         implements ActionListener, ItemListener {
-    private final JComboBox combobox =
-        GUI.INSTANCE.getAppPanel().getComboBoxFileFilters();
-
     public ControllerThumbnailFileFilter() {
-        combobox.addItemListener(this);
+        getFileFilterComboBox().addItemListener(this);
         GUI.INSTANCE.getAppFrame().getMenuItemUserDefinedFileFilter()
             .addActionListener(this);
+    }
+
+    private JComboBox getFileFilterComboBox() {
+        return GUI.INSTANCE.getAppPanel().getComboBoxFileFilters();
     }
 
     @Override
@@ -62,7 +63,7 @@ public final class ControllerThumbnailFileFilter
 
     @Override
     public void itemStateChanged(ItemEvent evt) {
-        Object          item = evt.getItem();
+        Object          item    = evt.getItem();
         ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
 
         if (item instanceof FileFilter) {
@@ -78,7 +79,7 @@ public final class ControllerThumbnailFileFilter
     private void writeSettings() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(combobox.getSelectedIndex(),
+        settings.set(getFileFilterComboBox().getSelectedIndex(),
                      ComboBoxModelFileFilters.SETTINGS_KEY_SEL_INDEX);
         UserSettings.INSTANCE.writeToFile();
     }

@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
@@ -43,6 +42,8 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.JptBundle;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -98,9 +99,8 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         COLUMN_USER_OBJECTS.add(XMP_USER_OBJECT);
     }
 
-    private final transient DatabaseImageFiles db;
-    private final boolean                      onlyXmp;
-    private final DefaultMutableTreeNode       ROOT;
+    private final boolean                onlyXmp;
+    private final DefaultMutableTreeNode ROOT;
 
     public TreeModelMiscMetadata(boolean onlyXmp) {
         super(new DefaultMutableTreeNode(
@@ -108,7 +108,6 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
                 "TreeModelMiscMetadata.Root.DisplayName")));
         this.onlyXmp = onlyXmp;
         this.ROOT    = (DefaultMutableTreeNode) getRoot();
-        db           = DatabaseImageFiles.INSTANCE;
 
         if (!onlyXmp) {
             addColumnNodes(EXIF_USER_OBJECT, EXIF_COLUMNS);
@@ -119,7 +118,11 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     }
 
     private void listen() {
-        db.addListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
+    }
+
+    public boolean isOnlyXmp() {
+        return onlyXmp;
     }
 
     public static Set<Column> getExifColumns() {
@@ -137,7 +140,9 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
             DefaultMutableTreeNode columnNode =
                 new DefaultMutableTreeNode(column);
 
-            addChildren(columnNode, db.getAllDistinctValuesOf(column),
+            addChildren(
+                columnNode,
+                DatabaseImageFiles.INSTANCE.getAllDistinctValuesOf(column),
                         column.getDataType());
             node.add(columnNode);
         }
@@ -207,7 +212,8 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     private void checkDeleted(Column column, Object userObject) {
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
 
-        if ((node != null) &&!db.exists(column, userObject)) {
+        if ((node != null)
+                &&!DatabaseImageFiles.INSTANCE.exists(column, userObject)) {
             DefaultMutableTreeNode child = findNodeWithUserObject(node,
                                                userObject);
 

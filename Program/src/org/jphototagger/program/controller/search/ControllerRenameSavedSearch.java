@@ -23,8 +23,8 @@ package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.helper.SavedSearchesHelper;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,24 +45,20 @@ import javax.swing.JList;
  */
 public final class ControllerRenameSavedSearch
         implements ActionListener, KeyListener {
-    private final PopupMenuSavedSearches actionPopup =
-        PopupMenuSavedSearches.INSTANCE;
-    private final JList list =
-        GUI.INSTANCE.getAppPanel().getListSavedSearches();
-
     public ControllerRenameSavedSearch() {
         listen();
     }
 
     private void listen() {
-        actionPopup.getItemRename().addActionListener(this);
-        list.addKeyListener(this);
+        PopupMenuSavedSearches.INSTANCE.getItemRename().addActionListener(this);
+        ViewUtil.getSavedSearchesList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if (isRename(evt) &&!list.isSelectionEmpty()) {
-            Object value = list.getSelectedValue();
+        if (isRename(evt)
+                &&!ViewUtil.getSavedSearchesList().isSelectionEmpty()) {
+            Object value = ViewUtil.getSavedSearchesList().getSelectedValue();
 
             if (value instanceof SavedSearch) {
                 rename((SavedSearch) value);
@@ -80,7 +76,7 @@ public final class ControllerRenameSavedSearch
     }
 
     private void rename() {
-        rename(actionPopup.getSavedSearch());
+        rename(PopupMenuSavedSearches.INSTANCE.getSavedSearch());
     }
 
     private void rename(SavedSearch savedSearch) {

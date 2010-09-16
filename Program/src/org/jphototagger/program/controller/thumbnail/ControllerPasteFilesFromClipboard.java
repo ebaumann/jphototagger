@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
@@ -38,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -62,26 +62,26 @@ import javax.swing.TransferHandler;
 public final class ControllerPasteFilesFromClipboard
         implements ActionListener, KeyListener, MenuListener,
                    ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
-    private final PopupMenuThumbnails popup         =
-        PopupMenuThumbnails.INSTANCE;
-    private final JMenuItem           menuItemPaste =
-        popup.getItemPasteFromClipboard();
-
     public ControllerPasteFilesFromClipboard() {
         listen();
     }
 
     private void listen() {
-        menuItemPaste.addActionListener(this);
+        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+
+        getPasteItem().addActionListener(this);
         tnPanel.addThumbnailsPanelListener(this);
         GUI.INSTANCE.getAppFrame().getMenuEdit().addMenuListener(this);
         tnPanel.addKeyListener(this);
     }
 
+    private JMenuItem getPasteItem() {
+        return PopupMenuThumbnails.INSTANCE.getItemPasteFromClipboard();
+    }
+
     @Override
     public void keyPressed(KeyEvent evt) {
-        if (!menuItemPaste.isEnabled()) {
+        if (!getPasteItem().isEnabled()) {
             return;
         }
 
@@ -89,7 +89,7 @@ public final class ControllerPasteFilesFromClipboard
                 && canPasteFiles()) {
             Object source = evt.getSource();
 
-            if (source == tnPanel) {
+            if (source == ViewUtil.getThumbnailsPanel()) {
                 insertFiles(getDirectory());
             } else if (isTreeSelection(source)) {
                 insertFiles(ViewUtil.getSelectedFile((JTree) source));
@@ -107,21 +107,20 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (tnPanel.getContent().canInsertImagesFromFileSystem()) {
+        if (ViewUtil.getThumbnailsPanel().getContent()
+                .canInsertImagesFromFileSystem()) {
             insertFiles(getDirectory());
-            menuItemPaste.setEnabled(false);
+            getPasteItem().setEnabled(false);
         }
     }
 
     private File getDirectory() {
-        Content content = tnPanel.getContent();
+        Content content = ViewUtil.getThumbnailsPanel().getContent();
 
         if (content.equals(Content.DIRECTORY)) {
-            return ViewUtil.getSelectedFile(
-                GUI.INSTANCE.getAppPanel().getTreeDirectories());
+            return ViewUtil.getSelectedFile(ViewUtil.getDirectoriesTree());
         } else if (content.equals(Content.FAVORITE)) {
-            return ViewUtil.getSelectedFile(
-                GUI.INSTANCE.getAppPanel().getTreeFavorites());
+            return ViewUtil.getSelectedFile(ViewUtil.getFavoritesTree());
         }
 
         return null;
@@ -144,7 +143,8 @@ public final class ControllerPasteFilesFromClipboard
             }
             public int getEstimatedTransferHandlerAction() {
                 Integer action =
-                    tnPanel.getFileAction().getTransferHandlerAction();
+                    ViewUtil.getThumbnailsPanel().getFileAction()
+                        .getTransferHandlerAction();
 
                 return (action == null)
                        ? TransferHandler.COPY
@@ -166,22 +166,22 @@ public final class ControllerPasteFilesFromClipboard
     @Override
     public void thumbnailsChanged() {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-        menuItemPaste.setEnabled(canPasteFiles());
+                getPasteItem().setEnabled(canPasteFiles());
     }
         });
     }
 
     private boolean canPasteFiles() {
-        return tnPanel.getContent().canInsertImagesFromFileSystem()
-               && TransferUtil.systemClipboardMaybeContainFiles();
+        return ViewUtil.getThumbnailsPanel().getContent()
+            .canInsertImagesFromFileSystem() && TransferUtil
+            .systemClipboardMaybeContainFiles();
     }
 
     @Override
     public void menuSelected(MenuEvent evt) {
-        menuItemPaste.setEnabled(canPasteFiles());
+        getPasteItem().setEnabled(canPasteFiles());
     }
 
     @Override

@@ -25,6 +25,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +36,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to key events in {@link ThumbnailsPanel} and if a key
@@ -48,8 +48,6 @@ import org.jphototagger.program.view.ViewUtil;
  * @author  Elmar Baumann
  */
 public final class ControllerSetRating implements ActionListener, KeyListener {
-    private final PopupMenuThumbnails       popup              =
-        PopupMenuThumbnails.INSTANCE;
     private static final Map<Integer, Long> RATING_OF_KEY_CODE =
         new HashMap<Integer, Long>();
 
@@ -67,6 +65,8 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
     }
 
     private void listen() {
+        PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
+
         ViewUtil.getThumbnailsPanel().addKeyListener(this);
         popup.getItemRating0().addActionListener(this);
         popup.getItemRating1().addActionListener(this);
@@ -78,7 +78,9 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        setRating(popup.getRatingOfItem((JMenuItem) evt.getSource()));
+        setRating(
+            PopupMenuThumbnails.INSTANCE.getRatingOfItem(
+                (JMenuItem) evt.getSource()));
     }
 
     @Override
@@ -89,8 +91,7 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
     }
 
     public void setRating(Long rating) {
-        EditMetadataPanels editPanel =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+        EditMetadataPanels editPanel = ViewUtil.getEditPanel();
 
         if (editPanel.isEditable()) {
             editPanel.setRating(rating);

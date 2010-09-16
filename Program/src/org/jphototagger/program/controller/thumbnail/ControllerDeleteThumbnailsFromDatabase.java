@@ -21,21 +21,19 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.jphototagger.program.view.ViewUtil;
-
 
 /**
  * Kontrolliert die Aktion: Lösche selektierte Thumbnails,
@@ -46,16 +44,13 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerDeleteThumbnailsFromDatabase
         implements ActionListener {
-    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     tnPanel   = ViewUtil.getThumbnailsPanel();
-
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();
     }
 
     private void listen() {
-        popupMenu.getItemDeleteImageFromDatabase().addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemDeleteImageFromDatabase()
+            .addActionListener(this);
     }
 
     @Override
@@ -68,23 +63,25 @@ public final class ControllerDeleteThumbnailsFromDatabase
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    List<File> selFiles     = tnPanel.getSelectedFiles();
-                    int        countFiles   = selFiles.size();
-                    int        countDeleted = db.delete(selFiles);
+                    List<File> selFiles   = ViewUtil.getSelectedImageFiles();
+                    int        countFiles = selFiles.size();
+                    int        countDeleted =
+                        DatabaseImageFiles.INSTANCE.delete(selFiles);
 
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
                     }
 
                     repaint(selFiles);
-                    tnPanel.repaint();
+                    ViewUtil.getThumbnailsPanel().repaint();
                 }
             });
         }
     }
 
     private void repaint(final List<File> files) {
-        List<File> deleted = new ArrayList<File>(files.size());
+        List<File>         deleted = new ArrayList<File>(files.size());
+        DatabaseImageFiles db      = DatabaseImageFiles.INSTANCE;
 
         for (File file : files) {
             if (!db.exists(file)) {
@@ -92,14 +89,14 @@ public final class ControllerDeleteThumbnailsFromDatabase
             }
         }
 
-        tnPanel.remove(deleted);
+        ViewUtil.getThumbnailsPanel().remove(deleted);
     }
 
     private boolean confirmDelete() {
         return MessageDisplayer.confirmYesNo(
             null,
             "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
-            tnPanel.getSelectionCount());
+            ViewUtil.getThumbnailsPanel().getSelectionCount());
     }
 
     private void errorMessageDeleteImageFiles(int countFiles,

@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.model.TreeModelUpdateInfo;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Timeline;
@@ -31,6 +30,8 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -54,21 +55,18 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public final class TreeModelTimeline extends DefaultTreeModel
         implements DatabaseImageFilesListener {
-    private static final long                  serialVersionUID =
-        3932797263824188655L;
-    private final transient DatabaseImageFiles db;
-    private final transient Timeline           timeline;
+    private static final long        serialVersionUID = 3932797263824188655L;
+    private final transient Timeline timeline;
 
     public TreeModelTimeline() {
         super(new DefaultMutableTreeNode());
-        db       = DatabaseImageFiles.INSTANCE;
-        timeline = db.getTimeline();
+        timeline = DatabaseImageFiles.INSTANCE.getTimeline();
         setRoot(timeline.getRoot());
         listen();
     }
 
     private void listen() {
-        db.addListener(this);
+        DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     private void checkDeleted(Xmp xmp) {
@@ -78,15 +76,18 @@ public final class TreeModelTimeline extends DefaultTreeModel
                          ? null
                          : (String) xmp.getValue(
                              ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-        boolean xmpDateExists = (xmpDate != null)
-                                && db.existsXMPDateCreated(xmpDate);
+        boolean xmpDateExists =
+            (xmpDate != null)
+            && DatabaseImageFiles.INSTANCE.existsXMPDateCreated(xmpDate);
 
         if (!xmpDateExists && (xmpDate != null)) {
             Timeline.Date date = new Timeline.Date(-1, -1, -1);
 
             date.setXmpDateCreated(xmpDate);
 
-            if (date.isValid() &&!db.existsXMPDateCreated(xmpDate)) {
+            if (date.isValid()
+                    &&!DatabaseImageFiles.INSTANCE.existsXMPDateCreated(
+                        xmpDate)) {
                 delete(date);
             }
         }
@@ -94,13 +95,14 @@ public final class TreeModelTimeline extends DefaultTreeModel
 
     private void checkDeleted(Exif exif) {
         java.sql.Date exifDate = exif.getDateTimeOriginal();
-        boolean       exifDateExists = (exifDate != null)
-                                       && db.existsExifDate(exifDate);
+        boolean       exifDateExists =
+            (exifDate != null)
+            && DatabaseImageFiles.INSTANCE.existsExifDate(exifDate);
 
         if (!exifDateExists && (exifDate != null)) {
             Timeline.Date date = new Timeline.Date(exifDate);
 
-            if (!db.existsExifDate(exifDate)) {
+            if (!DatabaseImageFiles.INSTANCE.existsExifDate(exifDate)) {
                 delete(date);
             }
         }
