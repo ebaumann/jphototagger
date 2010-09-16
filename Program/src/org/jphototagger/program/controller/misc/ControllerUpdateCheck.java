@@ -28,19 +28,15 @@ import org.jphototagger.program.resource.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JMenuItem;
-
 /**
  *
  *
  * @author Elmar Baumann
  */
 public final class ControllerUpdateCheck implements ActionListener {
-    private final JMenuItem item =
-        GUI.INSTANCE.getAppFrame().getMenuItemCheckForUpdates();
-
     public ControllerUpdateCheck() {
-        item.addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getMenuItemCheckForUpdates()
+            .addActionListener(this);
     }
 
     /**

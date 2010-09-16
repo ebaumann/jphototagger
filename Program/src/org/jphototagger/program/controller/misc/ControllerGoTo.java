@@ -24,8 +24,7 @@ package org.jphototagger.program.controller.misc;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -36,7 +35,6 @@ import java.util.Map;
 
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 
 /**
  * Controls the action: Go to ...
@@ -44,14 +42,6 @@ import javax.swing.JTextArea;
  * @author  Elmar Baumann
  */
 public final class ControllerGoTo implements ActionListener {
-    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
-    private final ThumbnailsPanel    tnPanel  = appPanel.getPanelThumbnails();
-    private final EditMetadataPanels editPanels =
-        appPanel.getEditMetadataPanels();
-    private final JTextArea                     textFieldSearch =
-        appPanel.getTextAreaSearch();
-    private final AppFrame                      appFrame =
-        GUI.INSTANCE.getAppFrame();
     private final Map<AppFrame.GoTo, Component> componentOfGoTo =
         new EnumMap<AppFrame.GoTo, Component>(AppFrame.GoTo.class);
     private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo =
@@ -59,6 +49,8 @@ public final class ControllerGoTo implements ActionListener {
 
     // Not static (timing)
     private void initMaps() {
+        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+
         componentOfGoTo.put(AppFrame.GoTo.IMAGE_COLLECTIONS,
                             appPanel.getTabSelectionImageCollections());
         componentOfGoTo.put(AppFrame.GoTo.DIRECTORIES,
@@ -119,6 +111,8 @@ public final class ControllerGoTo implements ActionListener {
     }
 
     private void listen() {
+        AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+
         for (AppFrame.GoTo gt : AppFrame.GoTo.values()) {
             appFrame.getMenuItemOfGoto(gt).addActionListener(this);
         }
@@ -130,20 +124,20 @@ public final class ControllerGoTo implements ActionListener {
     }
 
     private void selectComponent(JMenuItem item) {
-        AppFrame.GoTo goTo = appFrame.getGotoOfMenuItem(item);
+        AppFrame.GoTo goTo = GUI.INSTANCE.getAppFrame().getGotoOfMenuItem(item);
 
         if (tabbedPaneOfGoTo.containsKey(goTo)) {
             tabbedPaneOfGoTo.get(goTo).setSelectedComponent(
                 componentOfGoTo.get(goTo));
             componentOfGoTo.get(goTo).requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.FAST_SEARCH)) {
-            textFieldSearch.requestFocusInWindow();
+            ViewUtil.getSearchTextArea().requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.THUMBNAILS_PANEL)) {
-            tnPanel.requestFocusInWindow();
+            ViewUtil.getThumbnailsPanel().requestFocusInWindow();
         }
 
         if (goTo.equals(AppFrame.GoTo.EDIT_PANELS)) {
-            editPanels.setFocusToFirstEditField();
+            ViewUtil.getEditPanel().setFocusToFirstEditField();
         }
     }
 }

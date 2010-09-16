@@ -23,15 +23,14 @@ package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JList;
-import javax.swing.JMenuItem;
 
 /**
  * Creates a saved search when the
@@ -44,12 +43,9 @@ import javax.swing.JMenuItem;
  * @author  Elmar Baumann
  */
 public final class ControllerCreateSavedSearch extends Controller {
-    private final JMenuItem menuItem =
-        PopupMenuSavedSearches.INSTANCE.getItemCreate();
-
     public ControllerCreateSavedSearch() {
-        listenToActionsOf(menuItem);
-        listenToKeyEventsOf(GUI.INSTANCE.getAppPanel().getListSavedSearches());
+        listenToActionsOf(PopupMenuSavedSearches.INSTANCE.getItemCreate());
+        listenToKeyEventsOf(ViewUtil.getSavedSearchesList());
     }
 
     public void displayEmptySearchDialog() {
@@ -73,7 +69,8 @@ public final class ControllerCreateSavedSearch extends Controller {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource() == menuItem;
+        return evt.getSource()
+               == PopupMenuSavedSearches.INSTANCE.getItemCreate();
     }
 
     @Override

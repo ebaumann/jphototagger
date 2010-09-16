@@ -22,9 +22,6 @@
 package org.jphototagger.program.controller.misc;
 
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.AppPanel;
-
-import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -42,21 +39,18 @@ import javax.swing.JTree;
  */
 public final class ControllerItemsMutualExcludeSelection
         implements TreeSelectionListener, ListSelectionListener {
-    private final AppPanel    appPanel = GUI.INSTANCE.getAppPanel();
-    private final List<JTree> trees    = appPanel.getSelectionTrees();
-    private final List<JList> lists    = appPanel.getSelectionLists();
-    private boolean           listen   = true;
+    private boolean listen = true;
 
     public ControllerItemsMutualExcludeSelection() {
         listen();
     }
 
     private void listen() {
-        for (JTree tree : trees) {
+        for (JTree tree : GUI.INSTANCE.getAppPanel().getSelectionTrees()) {
             tree.addTreeSelectionListener(this);
         }
 
-        for (JList list : lists) {
+        for (JList list : GUI.INSTANCE.getAppPanel().getSelectionLists()) {
             list.addListSelectionListener(this);
         }
     }
@@ -96,7 +90,7 @@ public final class ControllerItemsMutualExcludeSelection
     private void clearSelectionOtherLists(JList list) {
         listen = false;
 
-        for (JList aList : lists) {
+        for (JList aList : GUI.INSTANCE.getAppPanel().getSelectionLists()) {
             if ((aList != list) &&!aList.isSelectionEmpty()) {
                 aList.clearSelection();
             }
@@ -108,7 +102,7 @@ public final class ControllerItemsMutualExcludeSelection
     private void clearSelectionOtherTrees(JTree tree) {
         listen = false;
 
-        for (JTree aTree : trees) {
+        for (JTree aTree : GUI.INSTANCE.getAppPanel().getSelectionTrees()) {
             if ((aTree != tree) && (aTree.getSelectionCount() > 0)) {
                 aTree.clearSelection();
             }
@@ -118,13 +112,13 @@ public final class ControllerItemsMutualExcludeSelection
     }
 
     private void clearSelectionAllTrees() {
-        for (JTree tree : trees) {
+        for (JTree tree : GUI.INSTANCE.getAppPanel().getSelectionTrees()) {
             tree.clearSelection();
         }
     }
 
     private void clearSelectionAllLists() {
-        for (JList list : lists) {
+        for (JList list : GUI.INSTANCE.getAppPanel().getSelectionLists()) {
             list.clearSelection();
         }
     }

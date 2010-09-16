@@ -33,7 +33,6 @@ import org.jphototagger.program.Main;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.frames.AppFrame;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -62,39 +61,54 @@ public final class ControllerHelp
         JptBundle.INSTANCE.getString("Help.Url.Contents");
     private static final String KEY_CURRENT_URL =
         ControllerHelp.class.getName() + ".CurrentURL";
-    private final AppFrame    appFrame = GUI.INSTANCE.getAppFrame();
-    private final HelpBrowser help     = HelpBrowser.INSTANCE;
-    private String            currentUrl =
+    private String currentUrl =
         UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
-    private final JMenuItem menuItemAcceleratorKeys =
-        appFrame.getMenuItemAcceleratorKeys();
-    private final JMenuItem menuItemHelp = appFrame.getMenuItemHelp();
-    private final JMenuItem menuItemOpenPdfUserManual =
-        appFrame.getMenuItemOpenPdfUserManual();
-    private final JMenuItem menuItemBrowseWebsite =
-        appFrame.getMenuItemBrowseWebsite();
-    private final JMenuItem menuItemBrowseUserForum =
-        appFrame.getMenuItemBrowseUserForum();
-    private final JMenuItem menuItemBrowseChangelog =
-        appFrame.getMenuItemBrowseChangelog();
-    private final JMenuItem menuItemSendBugMail =
-        appFrame.getMenuItemSendBugMail();
-    private final JMenuItem menuItemSendFeatureMail =
-        appFrame.getMenuItemSendFeatureMail();
 
     public ControllerHelp() {
         listen();
     }
 
+    private JMenuItem getAcceleratorKeysMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
+    }
+
+    private JMenuItem getHelpMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemHelp();
+    }
+
+    private JMenuItem getOpenPdfUserManualMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
+    }
+
+    private JMenuItem getBrowseWebsiteMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemBrowseWebsite();
+    }
+
+    private JMenuItem getBrowseUserForumMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemBrowseUserForum();
+    }
+
+    private JMenuItem getBrowseChangelogMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemBrowseChangelog();
+    }
+
+    private JMenuItem getSendBugMailMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemSendBugMail();
+    }
+
+    private JMenuItem getSendFeatureMailMenuItem() {
+        return GUI.INSTANCE.getAppFrame().getMenuItemSendFeatureMail();
+    }
+
     private void listen() {
-        help.addHelpBrowserListener(this);
-        menuItemOpenPdfUserManual.addActionListener(this);
-        menuItemAcceleratorKeys.addActionListener(this);
-        menuItemBrowseUserForum.addActionListener(this);
-        menuItemBrowseWebsite.addActionListener(this);
-        menuItemBrowseChangelog.addActionListener(this);
-        menuItemSendBugMail.addActionListener(this);
-        menuItemSendFeatureMail.addActionListener(this);
+        HelpBrowser.INSTANCE.addHelpBrowserListener(this);
+        getOpenPdfUserManualMenuItem().addActionListener(this);
+        getAcceleratorKeysMenuItem().addActionListener(this);
+        getBrowseUserForumMenuItem().addActionListener(this);
+        getBrowseWebsiteMenuItem().addActionListener(this);
+        getBrowseChangelogMenuItem().addActionListener(this);
+        getSendBugMailMenuItem().addActionListener(this);
+        getSendFeatureMailMenuItem().addActionListener(this);
     }
 
     @Override
@@ -112,21 +126,21 @@ public final class ControllerHelp
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
 
-        if (source.equals(menuItemHelp)) {
+        if (source.equals(getHelpMenuItem())) {
             showHelp();
-        } else if (source == menuItemAcceleratorKeys) {
+        } else if (source == getAcceleratorKeysMenuItem()) {
             showAcceleratorKeyHelp();
-        } else if (source == menuItemOpenPdfUserManual) {
+        } else if (source == getOpenPdfUserManualMenuItem()) {
             openPdfUserManual();
-        } else if (source == menuItemBrowseUserForum) {
+        } else if (source == getBrowseUserForumMenuItem()) {
             browse(AppInfo.URI_USER_FORUM);
-        } else if (source == menuItemBrowseWebsite) {
+        } else if (source == getBrowseWebsiteMenuItem()) {
             browse(AppInfo.URI_WEBSITE);
-        } else if (source == menuItemBrowseChangelog) {
+        } else if (source == getBrowseChangelogMenuItem()) {
             browse(AppInfo.URI_CHANGELOG);
-        } else if (source == menuItemSendBugMail) {
+        } else if (source == getSendBugMailMenuItem()) {
             sendBugMail();
-        } else if (source == menuItemSendFeatureMail) {
+        } else if (source == getSendFeatureMailMenuItem()) {
             sendFeatureMail();
         }
     }
@@ -143,9 +157,10 @@ public final class ControllerHelp
     }
 
     private void initHelp() {
-        if ((help.getContentsUrl() == null)
-                ||!help.getContentsUrl().equals(HELP_CONTENTS_URL)) {
-            help.setContentsUrl(HELP_CONTENTS_URL);
+        if ((HelpBrowser.INSTANCE.getContentsUrl() == null)
+                ||!HelpBrowser.INSTANCE.getContentsUrl().equals(
+                    HELP_CONTENTS_URL)) {
+            HelpBrowser.INSTANCE.setContentsUrl(HELP_CONTENTS_URL);
         }
     }
 
@@ -153,17 +168,17 @@ public final class ControllerHelp
         initHelp();
 
         if (!currentUrl.isEmpty()) {
-            help.setDisplayUrl(currentUrl);
+            HelpBrowser.INSTANCE.setDisplayUrl(currentUrl);
         }
 
-        ComponentUtil.show(help);
+        ComponentUtil.show(HelpBrowser.INSTANCE);
     }
 
     private void showAcceleratorKeyHelp() {
         initHelp();
-        help.setDisplayUrl(
+        HelpBrowser.INSTANCE.setDisplayUrl(
             JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
-        ComponentUtil.show(help);
+        ComponentUtil.show(HelpBrowser.INSTANCE);
     }
 
     private void sendBugMail() {

@@ -21,15 +21,12 @@
 
 package org.jphototagger.program.controller.metadata;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
+import java.awt.EventQueue;
 
 /**
  *
@@ -37,18 +34,13 @@ import javax.swing.JButton;
  * @author  Elmar Baumann
  */
 public final class ControllerEmptyMetadata implements ActionListener {
-    private final AppPanel           appPanel    = GUI.INSTANCE.getAppPanel();
-    private final JButton            buttonEmpty =
-        appPanel.getButtonEmptyMetadata();
-    private final EditMetadataPanels editPanels  =
-        appPanel.getEditMetadataPanels();
-
     public ControllerEmptyMetadata() {
         listen();
     }
 
     private void listen() {
-        buttonEmpty.addActionListener(this);
+        GUI.INSTANCE.getAppPanel().getButtonEmptyMetadata().addActionListener(
+            this);
     }
 
     @Override
@@ -56,7 +48,7 @@ public final class ControllerEmptyMetadata implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                editPanels.emptyPanels(true);
+                ViewUtil.getEditPanel().emptyPanels(true);
             }
         });
     }

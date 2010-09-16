@@ -21,13 +21,13 @@
 
 package org.jphototagger.program.controller.metadatatemplates;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.view.dialogs.EditMetaDataTemplateDialog;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -43,9 +43,6 @@ import javax.swing.JButton;
  */
 public final class ControllerMetadataTemplateEdit
         extends ControllerMetadataTemplate implements MouseListener {
-    private JButton buttonEditInputHelper =
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonEdit();
-
     public ControllerMetadataTemplateEdit() {
         listen();
     }
@@ -53,7 +50,12 @@ public final class ControllerMetadataTemplateEdit
     private void listen() {
         listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemEdit());
         listenToDoubleClick();
-        buttonEditInputHelper.addActionListener(this);
+        getEditButton().addActionListener(this);
+    }
+
+    private JButton getEditButton() {
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
+            .getButtonEdit();
     }
 
     private void listenToDoubleClick() {
@@ -63,7 +65,7 @@ public final class ControllerMetadataTemplateEdit
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == buttonEditInputHelper)
+        if ((evt.getSource() == getEditButton())
                 && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {

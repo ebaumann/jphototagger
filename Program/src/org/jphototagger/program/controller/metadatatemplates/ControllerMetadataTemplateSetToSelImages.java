@@ -25,12 +25,12 @@ import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -39,10 +39,6 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerMetadataTemplateSetToSelImages
         extends ControllerMetadataTemplate {
-    private JButton buttonAddToSelImagesInputHelper =
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonAddToSelImages();
-
     public ControllerMetadataTemplateSetToSelImages() {
         listen();
     }
@@ -50,12 +46,17 @@ public final class ControllerMetadataTemplateSetToSelImages
     private void listen() {
         listenToActionsOf(
             PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages());
-        buttonAddToSelImagesInputHelper.addActionListener(this);
+        getAddButton().addActionListener(this);
+    }
+
+    private JButton getAddButton() {
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
+            .getButtonAddToSelImages();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == buttonAddToSelImagesInputHelper)
+        if ((evt.getSource() == getAddButton())
                 && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {

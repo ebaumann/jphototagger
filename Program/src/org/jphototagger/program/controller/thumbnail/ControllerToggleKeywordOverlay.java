@@ -23,12 +23,11 @@ package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
@@ -38,7 +37,6 @@ import org.jphototagger.program.view.ViewUtil;
 public final class ControllerToggleKeywordOverlay implements ActionListener {
     private static final String KEY_SHOW_METADATA_OVERLAY =
         "UserSettings.ShowMetadataOverlay";
-    private final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
 
     public ControllerToggleKeywordOverlay() {
         listen();
@@ -46,7 +44,8 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
     }
 
     private void listen() {
-        appFrame.getCheckBoxMenuItemKeywordOverlay().addActionListener(this);
+        GUI.INSTANCE.getAppFrame().getCheckBoxMenuItemKeywordOverlay()
+            .addActionListener(this);
     }
 
     @Override
@@ -60,7 +59,8 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
         boolean  active   = !appPanel.getPanelThumbnails().isKeywordsOverlay();
 
         appPanel.getPanelThumbnails().setKeywordsOverlay(active);
-        appFrame.getCheckBoxMenuItemKeywordOverlay().setSelected(active);
+        GUI.INSTANCE.getAppFrame().getCheckBoxMenuItemKeywordOverlay()
+            .setSelected(active);
     }
 
     private void readPersistent() {
@@ -70,16 +70,16 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
             boolean wasSelected =
                 settings.getSettings().getBoolean(KEY_SHOW_METADATA_OVERLAY);
 
-            appFrame.getCheckBoxMenuItemKeywordOverlay().setSelected(
-                wasSelected);
+            GUI.INSTANCE.getAppFrame().getCheckBoxMenuItemKeywordOverlay()
+                .setSelected(wasSelected);
             ViewUtil.getThumbnailsPanel().setKeywordsOverlay(wasSelected);
         }
     }
 
     private void writePersistent() {
-        UserSettings.INSTANCE.getSettings().set(
-            appFrame.getCheckBoxMenuItemKeywordOverlay().isSelected(),
-            KEY_SHOW_METADATA_OVERLAY);
+        UserSettings.INSTANCE.getSettings()
+            .set(GUI.INSTANCE.getAppFrame().getCheckBoxMenuItemKeywordOverlay()
+                .isSelected(), KEY_SHOW_METADATA_OVERLAY);
         UserSettings.INSTANCE.writeToFile();
     }
 }

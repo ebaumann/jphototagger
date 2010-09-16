@@ -23,8 +23,8 @@ package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.helper.SavedSearchesHelper;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,23 +45,21 @@ import javax.swing.JList;
  */
 public final class ControllerDeleteSavedSearch
         implements ActionListener, KeyListener {
-    private final PopupMenuSavedSearches actionPopup =
-        PopupMenuSavedSearches.INSTANCE;
-    private final JList list =
-        GUI.INSTANCE.getAppPanel().getListSavedSearches();
-
     public ControllerDeleteSavedSearch() {
         listen();
     }
 
     private void listen() {
-        actionPopup.getItemDelete().addActionListener(this);
-        list.addKeyListener(this);
+        PopupMenuSavedSearches.INSTANCE.getItemDelete().addActionListener(this);
+        ViewUtil.getSavedSearchesList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if ((evt.getKeyCode() == KeyEvent.VK_DELETE) &&!list.isSelectionEmpty()) {
+        JList list = ViewUtil.getSavedSearchesList();
+
+        if ((evt.getKeyCode() == KeyEvent.VK_DELETE)
+                &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
 
             if (value instanceof SavedSearch) {
@@ -72,7 +70,7 @@ public final class ControllerDeleteSavedSearch
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        delete(actionPopup.getSavedSearch());
+        delete(PopupMenuSavedSearches.INSTANCE.getSavedSearch());
     }
 
     private void delete(SavedSearch savedSearch) {

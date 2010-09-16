@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.search;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
@@ -32,19 +31,17 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JTree;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
@@ -53,20 +50,16 @@ import javax.swing.JTree;
  * @author  Elmar Baumann
  */
 public final class ControllerAdvancedSearch implements ActionListener {
-    private final AppPanel            appPanel    = GUI.INSTANCE.getAppPanel();
-    private final AdvancedSearchPanel searchPanel =
-        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel();
-    private final JButton            buttonSearch   =
-        searchPanel.getButtonSearch();
-    private final ThumbnailsPanel    tnPanel        =
-        appPanel.getPanelThumbnails();
-    private final List<JTree>        selectionTrees =
-        appPanel.getSelectionTrees();
-    private final EditMetadataPanels editPanels     =
-        appPanel.getEditMetadataPanels();
-
     public ControllerAdvancedSearch() {
-        buttonSearch.addActionListener(this);
+        getSearchButton().addActionListener(this);
+    }
+
+    private AdvancedSearchPanel getSearchPanel() {
+        return AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel();
+    }
+
+    private JButton getSearchButton() {
+        return getSearchPanel().getButtonSearch();
     }
 
     private void applySavedSearch(final SavedSearch savedSearch) {
@@ -77,14 +70,16 @@ public final class ControllerAdvancedSearch implements ActionListener {
 
                 ParamStatement stmt = savedSearch.createParamStatement();
 
-                TreeUtil.clearSelection(selectionTrees);
+                TreeUtil.clearSelection(
+                    GUI.INSTANCE.getAppPanel().getSelectionTrees());
 
                 List<File> imageFiles =
                     DatabaseFind.INSTANCE.findImageFiles(stmt);
 
                 setTitle(savedSearch.getName());
                 SearchHelper.setSort(savedSearch);
-                tnPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
+                ViewUtil.getThumbnailsPanel().setFiles(imageFiles,
+                        Content.SAVED_SEARCH);
             }
             private void setTitle(String name) {
                 GUI.INSTANCE.getAppFrame().setTitle((name == null)
@@ -98,8 +93,8 @@ public final class ControllerAdvancedSearch implements ActionListener {
     }
 
     private void setMetadataEditable() {
-        if (!tnPanel.isFileSelected()) {
-            editPanels.setEditable(false);
+        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
+            ViewUtil.getEditPanel().setEditable(false);
         }
     }
 
@@ -111,7 +106,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        SavedSearch savedSearch = searchPanel.createSavedSearch();
+        SavedSearch savedSearch = getSearchPanel().createSavedSearch();
 
         if (savedSearch.isValid()) {
             applySavedSearch(savedSearch);

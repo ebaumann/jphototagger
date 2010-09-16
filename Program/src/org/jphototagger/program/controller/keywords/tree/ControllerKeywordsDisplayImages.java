@@ -43,17 +43,21 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author  Elmar Baumann
  */
 public class ControllerKeywordsDisplayImages implements ActionListener {
-    private final PopupMenuKeywordsTree popup  = PopupMenuKeywordsTree.INSTANCE;
-    private final JMenuItem             itemHk = popup.getItemDisplayImages();
-    private final JMenuItem             itemKw = popup.getItemDisplayImagesKw();
-
     public ControllerKeywordsDisplayImages() {
         listen();
     }
 
     private void listen() {
-        itemHk.addActionListener(this);
-        itemKw.addActionListener(this);
+        getItemDisplayImages().addActionListener(this);
+        getItemDisplayImagesKw().addActionListener(this);
+    }
+
+    private JMenuItem getItemDisplayImages() {
+        return PopupMenuKeywordsTree.INSTANCE.getItemDisplayImages();
+    }
+
+    private JMenuItem getItemDisplayImagesKw() {
+        return PopupMenuKeywordsTree.INSTANCE.getItemDisplayImagesKw();
     }
 
     @Override
@@ -66,16 +70,17 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
 
         Object source = evt.getSource();
 
-        if (source == itemHk) {
+        if (source == getItemDisplayImages()) {
             showImages(keyword);
-        } else if (source == itemKw) {
+        } else if (source == getItemDisplayImagesKw()) {
             showImages(keyword.getName());
         }
     }
 
     private Keyword getKeyword() {
         DefaultMutableTreeNode node =
-            (DefaultMutableTreeNode) popup.getTreePath().getLastPathComponent();
+            (DefaultMutableTreeNode) PopupMenuKeywordsTree.INSTANCE
+                .getTreePath().getLastPathComponent();
         Object userObject = node.getUserObject();
 
         if (userObject instanceof Keyword) {

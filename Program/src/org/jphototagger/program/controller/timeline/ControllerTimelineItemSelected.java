@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.timeline;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.Timeline;
@@ -31,8 +30,10 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -46,7 +47,6 @@ import java.util.List;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -56,24 +56,22 @@ import javax.swing.tree.TreePath;
  */
 public final class ControllerTimelineItemSelected
         implements TreeSelectionListener, RefreshListener {
-    private final AppPanel        appPanel     = GUI.INSTANCE.getAppPanel();
-    private final JTree           treeTimeline = appPanel.getTreeTimeline();
-    private final ThumbnailsPanel tnPanel      = appPanel.getPanelThumbnails();
-
     public ControllerTimelineItemSelected() {
         listen();
     }
 
     private void listen() {
-        treeTimeline.addTreeSelectionListener(this);
-        tnPanel.addRefreshListener(this, Content.TIMELINE);
+        ViewUtil.getTimelineTree().addTreeSelectionListener(this);
+        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+                Content.TIMELINE);
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (treeTimeline.getSelectionCount() == 1) {
+        if (ViewUtil.getTimelineTree().getSelectionCount() == 1) {
             setFilesOfTreePathToThumbnailsPanel(
-                treeTimeline.getSelectionPath(), evt.getSettings());
+                ViewUtil.getTimelineTree().getSelectionPath(),
+                evt.getSettings());
         }
     }
 
@@ -99,7 +97,7 @@ public final class ControllerTimelineItemSelected
                         public void run() {
                             setFilesOfPossibleNodeToThumbnailsPanel(
                                 lastPathComponent);
-                            tnPanel.apply(settings);
+                            ViewUtil.getThumbnailsPanel().apply(settings);
                         }
                     });
                 }
@@ -123,11 +121,11 @@ public final class ControllerTimelineItemSelected
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             ControllerSortThumbnails.setLastSort();
-            tnPanel.setFiles(
+            ViewUtil.getThumbnailsPanel().setFiles(
                 DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(),
                 Content.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
-            Timeline.Date          date   = (Timeline.Date) userObject;
+            Timeline.Date          date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent =
                 (DefaultMutableTreeNode) node.getParent();
 
@@ -148,7 +146,7 @@ public final class ControllerTimelineItemSelected
                                            date.year, month, day));
 
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(files, Content.TIMELINE);
+                ViewUtil.getThumbnailsPanel().setFiles(files, Content.TIMELINE);
             }
         }
     }

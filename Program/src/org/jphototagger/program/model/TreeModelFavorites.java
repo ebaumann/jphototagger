@@ -76,13 +76,12 @@ public final class TreeModelFavorites extends DefaultTreeModel
     private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir";
     private static final String KEY_SELECTED_FAV_NAME =
         "TreeModelFavorites.SelFavDir";
-    private static final long                 serialVersionUID =
+    private static final long            serialVersionUID =
         -2453748094818942669L;
-    private final Object                      monitor    = new Object();
-    private transient boolean                 listenToDb = true;
-    private final transient DatabaseFavorites db;
-    private final DefaultMutableTreeNode      rootNode;
-    private final JTree                       tree;
+    private final Object                 monitor    = new Object();
+    private transient boolean            listenToDb = true;
+    private final DefaultMutableTreeNode rootNode;
+    private final JTree                  tree;
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(
@@ -95,10 +94,9 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
         this.tree = tree;
         rootNode  = (DefaultMutableTreeNode) getRoot();
-        db        = DatabaseFavorites.INSTANCE;
         tree.addTreeWillExpandListener(this);
         addFavorites();
-        db.addListener(this);
+        DatabaseFavorites.INSTANCE.addListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
@@ -112,7 +110,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             favorite.setIndex(getNextNewFavoriteIndex());
 
             if (!existsFavoriteDirectory(favorite)) {
-                if (db.insertOrUpdate(favorite)) {
+                if (DatabaseFavorites.INSTANCE.insertOrUpdate(favorite)) {
                     addFavorite(favorite);
                 } else {
                     errorMessage(
@@ -136,7 +134,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
             DefaultMutableTreeNode favNode = getNode(favorite);
 
-            if ((favNode != null) && db.delete(favorite.getName())) {
+            if ((favNode != null)
+                    && DatabaseFavorites.INSTANCE.delete(favorite.getName())) {
                 removeNodeFromParent(favNode);
                 resetFavoriteIndices();
             } else {
@@ -170,7 +169,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 Favorite fav = (Favorite) userObject;
 
                 fav.setIndex(newIndex++);
-                db.update(fav);
+                DatabaseFavorites.INSTANCE.update(fav);
             }
         }
     }
@@ -258,14 +257,14 @@ public final class TreeModelFavorites extends DefaultTreeModel
 
             favorite.setIndex(newIndex);
 
-            return db.update(favorite);
+            return DatabaseFavorites.INSTANCE.update(favorite);
         }
 
         return false;
     }
 
     private void addFavorites() {
-        List<Favorite> directories = db.getAll();
+        List<Favorite> directories = DatabaseFavorites.INSTANCE.getAll();
 
         for (Favorite directory : directories) {
             if (directory.getDirectory().isDirectory()) {
@@ -380,7 +379,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
             Object userObject = childNodeToRemove.getUserObject();
 
             if (userObject instanceof Favorite) {
-                db.delete(((Favorite) userObject).getName());
+                DatabaseFavorites.INSTANCE.delete(
+                    ((Favorite) userObject).getName());
             }
 
             removeNodeFromParent(childNodeToRemove);

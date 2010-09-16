@@ -28,6 +28,7 @@ import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -45,6 +46,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -95,7 +97,7 @@ public class ViewUtil {
      *
      * @return directory or null if no directory is selected
      */
-    public static File getSelectedDirectoryFromFavoriteDirectories() {
+    public static File getSelectedFavorite() {
         JTree  tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
         Object o    = tree.getLastSelectedPathComponent();
 
@@ -235,8 +237,36 @@ public class ViewUtil {
         return GUI.INSTANCE.getAppPanel().getListSelKeywords();
     }
 
+    public static JList getEditKeywordsList() {
+        return GUI.INSTANCE.getAppPanel().getPanelEditKeywords().getList();
+    }
+
+    public static JList getInputHelperKeywordsList() {
+        return InputHelperDialog.INSTANCE.getPanelKeywords().getList();
+    }
+
+    public static JList getNoMetadataList() {
+        return GUI.INSTANCE.getAppPanel().getListNoMetadata();
+    }
+
+    public static JList getSavedSearchesList() {
+        return GUI.INSTANCE.getAppPanel().getListSavedSearches();
+    }
+
     public static JList getImageCollectionsList() {
         return GUI.INSTANCE.getAppPanel().getListImageCollections();
+    }
+
+    public static JTree getSelKeywordsTree() {
+        return GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
+    }
+
+    public static JTree getEditKeywordsTree() {
+        return GUI.INSTANCE.getAppPanel().getPanelEditKeywords().getTree();
+    }
+
+    public static JTree getInputHelperKeywordsTree() {
+        return InputHelperDialog.INSTANCE.getPanelKeywords().getTree();
     }
 
     public static JTree getDirectoriesTree() {
@@ -247,8 +277,20 @@ public class ViewUtil {
         return GUI.INSTANCE.getAppPanel().getTreeFavorites();
     }
 
+    public static JTree getMiscMetadataTree() {
+        return GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
+    }
+
+    public static JTree getTimelineTree() {
+        return GUI.INSTANCE.getAppPanel().getTreeTimeline();
+    }
+
     public static ThumbnailsPanel getThumbnailsPanel() {
         return GUI.INSTANCE.getAppPanel().getPanelThumbnails();
+    }
+
+    public static JTextArea getSearchTextArea() {
+        return GUI.INSTANCE.getAppPanel().getTextAreaSearch();
     }
 
     /**

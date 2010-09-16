@@ -21,15 +21,15 @@
 
 package org.jphototagger.program.controller.thumbnail;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.image.util.ImageTransform;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 import java.awt.Image;
 
 import java.io.File;
@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
@@ -49,9 +48,6 @@ import org.jphototagger.program.view.ViewUtil;
  * @author Elmar Baumann
  */
 public final class ControllerRotateThumbnail implements ActionListener {
-    private final DatabaseImageFiles  db        = DatabaseImageFiles.INSTANCE;
-    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
-    private final ThumbnailsPanel     tnPanel = ViewUtil.getThumbnailsPanel();
     private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem,
                                                           Float>();
 
@@ -61,15 +57,19 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     private void initAngleOfItem() {
-        angleOfItem.put(popupMenu.getItemRotateThumbnail90(), new Float(90));
-        angleOfItem.put(popupMenu.getItemRotateThumbnai180(), new Float(180));
-        angleOfItem.put(popupMenu.getItemRotateThumbnail270(), new Float(270));
+        PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
+
+        angleOfItem.put(popup.getItemRotateThumbnail90(), new Float(90));
+        angleOfItem.put(popup.getItemRotateThumbnai180(), new Float(180));
+        angleOfItem.put(popup.getItemRotateThumbnail270(), new Float(270));
     }
 
     private void listen() {
-        popupMenu.getItemRotateThumbnail90().addActionListener(this);
-        popupMenu.getItemRotateThumbnai180().addActionListener(this);
-        popupMenu.getItemRotateThumbnail270().addActionListener(this);
+        PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
+
+        popup.getItemRotateThumbnail90().addActionListener(this);
+        popup.getItemRotateThumbnai180().addActionListener(this);
+        popup.getItemRotateThumbnail270().addActionListener(this);
     }
 
     private float getRotateAngle(Object obj) {
@@ -95,7 +95,8 @@ public final class ControllerRotateThumbnail implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<File> selFiles = tnPanel.getSelectedFiles();
+                List<File>         selFiles = ViewUtil.getSelectedImageFiles();
+                DatabaseImageFiles db       = DatabaseImageFiles.INSTANCE;
 
                 for (File imageFile : selFiles) {
                     final Image unrotatedTn =

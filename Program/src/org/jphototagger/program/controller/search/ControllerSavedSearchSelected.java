@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.search;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
@@ -31,9 +30,9 @@ import org.jphototagger.program.helper.SearchHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -41,7 +40,6 @@ import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JList;
 
 /**
  *
@@ -50,19 +48,14 @@ import javax.swing.JList;
  */
 public final class ControllerSavedSearchSelected
         implements ListSelectionListener, RefreshListener {
-    private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
-    private final JList              list = appPanel.getListSavedSearches();
-    private final ThumbnailsPanel    tnPanel  = appPanel.getPanelThumbnails();
-    private final EditMetadataPanels editPanels =
-        appPanel.getEditMetadataPanels();
-
     public ControllerSavedSearchSelected() {
         listen();
     }
 
     private void listen() {
-        list.addListSelectionListener(this);
-        tnPanel.addRefreshListener(this, Content.SAVED_SEARCH);
+        ViewUtil.getSavedSearchesList().addListSelectionListener(this);
+        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+                Content.SAVED_SEARCH);
     }
 
     @Override
@@ -78,7 +71,7 @@ public final class ControllerSavedSearchSelected
     }
 
     private void search() {
-        if (list.getSelectedIndex() >= 0) {
+        if (ViewUtil.getSavedSearchesList().getSelectedIndex() >= 0) {
             EventQueue.invokeLater(new ShowThumbnails());
         }
     }
@@ -86,7 +79,8 @@ public final class ControllerSavedSearchSelected
     private class ShowThumbnails implements Runnable {
         @Override
         public void run() {
-            Object selectedValue = list.getSelectedValue();
+            Object selectedValue =
+                ViewUtil.getSavedSearchesList().getSelectedValue();
 
             if (selectedValue != null) {
                 searchSelectedValue(selectedValue);
@@ -115,7 +109,8 @@ public final class ControllerSavedSearchSelected
             List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
 
             setTitle(name);
-            tnPanel.setFiles(imageFiles, Content.SAVED_SEARCH);
+            ViewUtil.getThumbnailsPanel().setFiles(imageFiles,
+                    Content.SAVED_SEARCH);
         }
 
         private void setTitle(String name) {
@@ -129,8 +124,8 @@ public final class ControllerSavedSearchSelected
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    if (!tnPanel.isFileSelected()) {
-                        editPanels.setEditable(false);
+                    if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
+                        ViewUtil.getEditPanel().setEditable(false);
                     }
                 }
             });

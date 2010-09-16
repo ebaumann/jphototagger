@@ -21,13 +21,11 @@
 
 package org.jphototagger.program.controller.metadata;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
-import javax.swing.JButton;
 import org.jphototagger.program.view.ViewUtil;
+
+import java.awt.EventQueue;
 
 /**
  *
@@ -35,25 +33,21 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ControllerEnableCreateMetadataTemplate
         implements ThumbnailsPanelListener {
-    private final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
-    private final JButton buttonCreate =
-        GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateCreate();
-
     public ControllerEnableCreateMetadataTemplate() {
         listen();
     }
 
     private void listen() {
-        tnPanel.addThumbnailsPanelListener(this);
+        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-        buttonCreate.setEnabled(tnPanel.isFileSelected());
+                GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateCreate()
+                    .setEnabled(ViewUtil.getThumbnailsPanel().isFileSelected());
     }
         });
     }
