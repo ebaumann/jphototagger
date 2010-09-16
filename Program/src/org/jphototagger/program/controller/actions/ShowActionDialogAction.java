@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerActionsShowDialog.java    Created on 2008-11-06
+ * @(#)ShowActionDialogAction.java    Created on 2008-11-06
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,13 +21,12 @@
 
 package org.jphototagger.program.controller.actions;
 
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.AbstractAction;
 
 /**
  * Displays the dialog {@link ActionsDialog} when the menu item
@@ -36,14 +35,9 @@ import java.awt.event.ActionListener;
  *
  * @author Elmar Baumann
  */
-public final class ControllerActionsShowDialog implements ActionListener {
-    public ControllerActionsShowDialog() {
-        listen();
-    }
+public final class ShowActionDialogAction extends AbstractAction {
 
-    private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemActions().addActionListener(this);
-    }
+    private static final long serialVersionUID = -1527748280703337890L;
 
     @Override
     public void actionPerformed(ActionEvent evt) {

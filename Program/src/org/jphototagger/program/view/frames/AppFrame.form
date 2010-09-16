@@ -724,8 +724,8 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemActions">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F4"/>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new ShowActionDialogAction()" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_action.png"/>

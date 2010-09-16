@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerActionsMenuUpdater.java    Created on 2010-01-24
+ * @(#)ActionsMenuUpdater.java    Created on 2010-01-24
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -37,17 +37,27 @@ import javax.swing.JMenu;
  *
  * @author  Elmar Baumann
  */
-public final class ControllerActionsMenuUpdater
+public final class ActionsMenuUpdater
         implements DatabaseProgramsListener {
-    public ControllerActionsMenuUpdater() {
+    public ActionsMenuUpdater() {
+        setMenuItemEnabled();
         listen();
     }
 
     private void listen() {
-        JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
-
-        actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
         DatabasePrograms.INSTANCE.addListener(this);
+    }
+
+    private void setMenuItemEnabled() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JMenu actionMenu =
+                    PopupMenuThumbnails.INSTANCE.getMenuActions();
+
+                actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
+            }
+        });
     }
 
     @Override
@@ -60,6 +70,7 @@ public final class ControllerActionsMenuUpdater
                         PopupMenuThumbnails.INSTANCE.getMenuActions();
 
                     ActionsHelper.removeAction(actionMenu, program);
+                    setMenuItemEnabled();
                 }
             });
         }
