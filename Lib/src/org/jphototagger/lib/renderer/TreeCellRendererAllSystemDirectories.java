@@ -44,7 +44,7 @@ import org.jphototagger.lib.componentutil.LookAndFeelUtil;
  * Renders items of {@link TreeModelAllSystemDirectories}. Ddisplays only the
  * directory names instead of their full path.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeCellRendererAllSystemDirectories
         extends DefaultTreeCellRenderer {

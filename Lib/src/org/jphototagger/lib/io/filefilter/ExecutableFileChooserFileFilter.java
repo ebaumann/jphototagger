@@ -31,7 +31,7 @@ import javax.swing.filechooser.FileFilter;
 /**
  * BUG: Does not work.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExecutableFileChooserFileFilter extends FileFilter
         implements Serializable {

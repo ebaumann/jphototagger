@@ -46,7 +46,7 @@ import javax.imageio.ImageIO;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImageUtil {
 

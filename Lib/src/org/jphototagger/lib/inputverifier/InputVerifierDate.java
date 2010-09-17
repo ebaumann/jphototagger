@@ -44,7 +44,7 @@ import javax.swing.text.JTextComponent;
  * Verifies whether the input is a date and, if not, displays an error
  * message.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifierDate extends InputVerifier
         implements Serializable {

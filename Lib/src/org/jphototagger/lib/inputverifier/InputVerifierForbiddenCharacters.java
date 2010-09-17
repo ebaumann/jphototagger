@@ -33,7 +33,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifierForbiddenCharacters extends InputVerifier
         implements Serializable {

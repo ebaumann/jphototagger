@@ -51,7 +51,7 @@ import javax.swing.tree.TreePath;
  * {@link NullPointerException} if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferUtil {
     private static final String MIME_TYPE_URI_LIST =

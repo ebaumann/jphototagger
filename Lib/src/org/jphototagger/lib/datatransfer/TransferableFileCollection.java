@@ -37,7 +37,7 @@ import java.util.List;
  * Supports {@link DataFlavor#javaFileListFlavor} and
  * {@link TransferUtil#getUriListFlavor()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferableFileCollection implements Transferable {
     private static final DataFlavor FILE_LIST_FLAVOR =

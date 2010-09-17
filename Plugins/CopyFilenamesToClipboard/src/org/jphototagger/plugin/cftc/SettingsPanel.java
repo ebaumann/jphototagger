@@ -36,7 +36,7 @@ import javax.swing.JList;
 /**
  * Settings for {@link CopyFilenamesToClipboard}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SettingsPanel extends javax.swing.JPanel {
     private static final long       serialVersionUID = -8198418342037889703L;

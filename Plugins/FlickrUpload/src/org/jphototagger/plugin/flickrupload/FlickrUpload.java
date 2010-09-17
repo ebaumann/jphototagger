@@ -59,7 +59,7 @@ import javax.swing.JPanel;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FlickrUpload extends Plugin implements Serializable {
     private static final long serialVersionUID = -2935460271965834936L;

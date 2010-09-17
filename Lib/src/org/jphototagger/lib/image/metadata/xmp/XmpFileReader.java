@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  *
  * <strong>Bug:</strong> Liest nur UTF-8-kodierte XMP-Pakete richtig.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmpFileReader {
     private static final byte[] XMP_BEGIN_MARKER  = {

@@ -31,7 +31,7 @@ import javax.swing.JTextArea;
  * This text area is thought as a replacement for a text field but with the
  * capabilities of a text area.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TabOrEnterLeavingTextArea extends JTextArea {
     private static final long serialVersionUID = -6104921627665799043L;

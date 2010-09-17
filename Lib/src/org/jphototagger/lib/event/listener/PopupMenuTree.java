@@ -60,7 +60,7 @@ import javax.swing.tree.TreePath;
  * {@link Listener}s are getting the rendered selection rather than the
  * "real" tree selection.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class PopupMenuTree extends JPopupMenu
         implements ActionListener, MouseListener {

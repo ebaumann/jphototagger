@@ -32,7 +32,7 @@ import java.util.Comparator;
 /**
  * Compares the suffixes of two files ascending case insensitive.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorFilesSuffixesAscCi extends ClassEquality
         implements Comparator<File>, Serializable {

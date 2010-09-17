@@ -31,7 +31,7 @@ import java.util.StringTokenizer;
 /**
  * (Very simple) Command line parser.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CommandLineParser {
     private final Set<Option> options = new HashSet<Option>();

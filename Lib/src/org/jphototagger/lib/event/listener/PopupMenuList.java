@@ -59,7 +59,7 @@ import javax.swing.MenuElement;
  * {@link Listener}s are getting the rendered selection rather than the
  * "real" list selection.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class PopupMenuList extends JPopupMenu
         implements ActionListener, MouseListener {

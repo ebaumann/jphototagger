@@ -41,7 +41,7 @@ import org.jphototagger.lib.util.Settings;
 /**
  * Dialog for displaying long messages.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class LongMessageDialog extends Dialog {
     private static final long serialVersionUID = 4797253320918587438L;

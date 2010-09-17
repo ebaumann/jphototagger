@@ -58,7 +58,7 @@ import org.jphototagger.lib.util.Settings;
  * Browser for HTML help files. Usually those are packaged with the application
  * in a JAR file.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class HelpBrowser extends Dialog
         implements ActionListener, HyperlinkListener, MouseListener,

@@ -33,7 +33,7 @@ import javax.swing.tree.TreeNode;
 /**
  * Update information of a tree model.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeModelUpdateInfo {
 

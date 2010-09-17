@@ -27,7 +27,7 @@ import org.jphototagger.lib.event.HelpBrowserEvent;
  * Listens to actions of
  * {@link org.jphototagger.lib.dialog.HelpBrowser}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface HelpBrowserListener {
 

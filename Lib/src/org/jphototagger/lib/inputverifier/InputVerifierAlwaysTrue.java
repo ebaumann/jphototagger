@@ -29,7 +29,7 @@ import javax.swing.JComponent;
 /**
  * Considers every input as true.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifierAlwaysTrue extends InputVerifier
         implements Serializable {

@@ -43,7 +43,7 @@ import javax.swing.text.JTextComponent;
  * Verifies whether the input is a number and, if not, displays an error
  * message.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifierNumber extends InputVerifier
         implements Serializable {

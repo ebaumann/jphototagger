@@ -28,7 +28,7 @@ package org.jphototagger.lib.generics;
  *
  * @param <A> first object
  * @param <B> second object
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class Pair<A, B> {
     private final A first;

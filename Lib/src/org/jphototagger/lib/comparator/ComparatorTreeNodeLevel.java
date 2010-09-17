@@ -30,7 +30,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Compares tree nodes by their level to the root node.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorTreeNodeLevel
         implements Comparator<DefaultMutableTreeNode>, Serializable {

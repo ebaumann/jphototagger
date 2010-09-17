@@ -24,7 +24,7 @@ package org.jphototagger.lib.util;
 /**
  * Math utils.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MathUtil {
 

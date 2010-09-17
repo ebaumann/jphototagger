@@ -26,7 +26,7 @@ import java.util.Properties;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SettingsDialog extends javax.swing.JDialog {
     private static final long serialVersionUID = -2117242402770959470L;

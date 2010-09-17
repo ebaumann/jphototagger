@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 /**
  * Utils for strings.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class StringUtil {
     private static final String WORD_DELIMITER = " \t\n\r";

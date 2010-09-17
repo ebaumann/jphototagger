@@ -52,7 +52,7 @@ import javax.swing.KeyStroke;
  * TAB or ENTER). If a completion is suggested, ENTER autocompletes (does not
  * transfer the focus).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Autocomplete implements DocumentListener, Serializable {
     private static final String      COMMIT_ACTION               = "commit";

@@ -30,7 +30,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Verifies wheter a text component's text matches a regex string pattern.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifierStringPattern extends InputVerifier
         implements Serializable {

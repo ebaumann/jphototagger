@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Utils for generics.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Util {
 

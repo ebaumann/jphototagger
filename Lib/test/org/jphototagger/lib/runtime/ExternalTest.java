@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ExternalTest {
     public ExternalTest() {}

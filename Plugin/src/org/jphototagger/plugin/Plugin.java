@@ -44,7 +44,7 @@ import javax.swing.JProgressBar;
 /**
  * Base class for Plugins.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class Plugin {
     private Properties             properties;

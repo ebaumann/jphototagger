@@ -40,7 +40,7 @@ import javax.swing.KeyStroke;
  * Dialog which can close by pressing the ESC key and showing the Help dialog
  * by pressing the F1 key.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class Dialog extends JDialog implements WindowListener {
     private static final long           serialVersionUID = 847375186274302816L;

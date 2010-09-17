@@ -27,7 +27,7 @@ import java.io.Serializable;
 /**
  * Accepts only executable files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExecutableFileFilter
         implements java.io.FileFilter, Serializable {

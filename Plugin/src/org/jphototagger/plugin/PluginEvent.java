@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class PluginEvent {
     public enum Type {

@@ -34,7 +34,7 @@ import javax.swing.JPanel;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ImagePanel extends JPanel {
     private static final long serialVersionUID = 6103175417678650145L;

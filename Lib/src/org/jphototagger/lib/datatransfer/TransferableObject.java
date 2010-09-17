@@ -33,7 +33,7 @@ import java.util.Arrays;
  *
  * <em>The objects have to implement the Interface {@link Serializable}!</em>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferableObject implements Transferable {
     private final Object       data;

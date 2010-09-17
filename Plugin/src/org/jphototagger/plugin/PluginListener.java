@@ -23,7 +23,7 @@ package org.jphototagger.plugin;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface PluginListener {
     void action(PluginEvent event);

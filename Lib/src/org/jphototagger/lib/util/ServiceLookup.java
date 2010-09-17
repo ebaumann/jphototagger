@@ -35,7 +35,7 @@ import java.util.ServiceLoader;
  *
  * Inspired by http://bits.netbeans.org/dev/javadoc/org-openide-util/org/openide/util/ServiceLookup.html.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ServiceLookup {
 

@@ -27,7 +27,7 @@ import java.nio.ByteBuffer;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ByteUtil {
     public static int toInt(byte b) {
