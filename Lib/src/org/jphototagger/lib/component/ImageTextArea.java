@@ -42,7 +42,7 @@ import javax.swing.JTextArea;
  * When the field contains text, the image will not be displayed to avoid
  * overlaying the text. If the text field is empty, the image will be displayed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImageTextArea extends JTextArea implements KeyListener {
     private static final long serialVersionUID = -3386009175292905714L;

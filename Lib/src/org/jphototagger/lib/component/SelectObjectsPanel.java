@@ -48,7 +48,7 @@ import javax.swing.JPanel;
  * <em>If a GUI builder sets a layout to this panel, ensure that it's
  * {@link GridBagLayout}!</em>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private static final long            serialVersionUID =

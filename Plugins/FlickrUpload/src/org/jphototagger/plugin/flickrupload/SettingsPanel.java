@@ -26,7 +26,7 @@ import java.util.Properties;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SettingsPanel extends javax.swing.JPanel {
     private static final long  serialVersionUID = -7766362003081534388L;

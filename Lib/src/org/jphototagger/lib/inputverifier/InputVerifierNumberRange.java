@@ -37,7 +37,7 @@ import javax.swing.text.JTextComponent;
  * Verifies Input in a <code>JTextComponent</code> against a maximum and maximum
  * number and displays an error message dialog on errors.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifierNumberRange extends InputVerifier
         implements Serializable {

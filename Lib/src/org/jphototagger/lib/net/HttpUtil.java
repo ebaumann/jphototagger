@@ -31,7 +31,7 @@ import java.net.URL;
 /**
  * Utils for the Hypertext Transfer Protocol.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class HttpUtil {
 

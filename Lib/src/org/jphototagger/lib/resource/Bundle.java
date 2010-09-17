@@ -43,7 +43,7 @@ import java.util.ResourceBundle;
  * }
  * </pre>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class Bundle {
     private final ResourceBundle bundle;

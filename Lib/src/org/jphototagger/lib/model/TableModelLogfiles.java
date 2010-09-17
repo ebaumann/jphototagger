@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TableModelLogfiles extends DefaultTableModel {
     private static final long         serialVersionUID = -7886614829435568257L;

@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Version implements Comparable<Version> {
     private final int major;

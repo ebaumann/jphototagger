@@ -36,7 +36,7 @@ import java.util.StringTokenizer;
  * <code>NullPointerException</code> if an object reference is null and it is
  * not documentet that it can be null.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class RegexFileFilter implements java.io.FileFilter, Serializable {
     private static final long serialVersionUID = 5995205186843465364L;

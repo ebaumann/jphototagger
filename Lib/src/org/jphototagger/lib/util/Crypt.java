@@ -66,7 +66,7 @@ import javax.crypto.SecretKey;
  * You can generate a temporary key:
  * {@code SecretKey secKey = KeyGenerator.getInstance("DESede").generateKey();}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see     Base64
  */
 public final class Crypt {

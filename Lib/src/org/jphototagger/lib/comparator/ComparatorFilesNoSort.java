@@ -31,7 +31,7 @@ import java.util.Comparator;
 /**
  * Does not change the sort order.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorFilesNoSort extends ClassEquality
         implements Comparator<File>, Serializable {

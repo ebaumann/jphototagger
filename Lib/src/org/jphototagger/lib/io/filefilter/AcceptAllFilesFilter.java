@@ -30,7 +30,7 @@ import java.io.Serializable;
 /**
  * Accepts all Files, rejects directories.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AcceptAllFilesFilter implements FileFilter, Serializable {
     public static final AcceptAllFilesFilter INSTANCE =

@@ -30,7 +30,7 @@ import javax.swing.text.JTextComponent;
 /**
  * A valid input of a <code>JTextComponent</code> has to be empty.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifierEmpty extends InputVerifier
         implements Serializable {

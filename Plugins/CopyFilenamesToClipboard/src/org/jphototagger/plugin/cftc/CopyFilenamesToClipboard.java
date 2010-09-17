@@ -43,7 +43,7 @@ import javax.swing.JPanel;
 /**
  * Copies into the system clipboard names of files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CopyFilenamesToClipboard extends Plugin
         implements Serializable {

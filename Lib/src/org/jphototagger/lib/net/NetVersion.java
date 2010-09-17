@@ -32,7 +32,7 @@ import java.net.URL;
 /**
  * Grabs version information from the net.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class NetVersion {
 

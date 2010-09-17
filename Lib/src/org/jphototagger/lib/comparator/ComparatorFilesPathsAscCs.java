@@ -31,7 +31,7 @@ import java.util.Comparator;
 /**
  * Compares the absolute path names of two files ascending case sensitive.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorFilesPathsAscCs extends ClassEquality
         implements Comparator<File>, Serializable {

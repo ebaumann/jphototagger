@@ -41,7 +41,7 @@ import javax.swing.JTabbedPane;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MnemonicUtil {
     private static final Map<Character, Integer> MNEMONIC_OF_CHAR =

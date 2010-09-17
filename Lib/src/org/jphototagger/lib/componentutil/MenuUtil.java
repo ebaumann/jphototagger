@@ -30,7 +30,7 @@ import javax.swing.JMenuItem;
 /**
  * Helper Methods for Menus.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MenuUtil {
     private static final String AMPERSAND = "&";

@@ -37,7 +37,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * {@link org.jphototagger.lib.util.help.HelpNode} and
  * {@link org.jphototagger.lib.util.help.HelpPage}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeCellRendererHelpContents
         extends DefaultTreeCellRenderer {

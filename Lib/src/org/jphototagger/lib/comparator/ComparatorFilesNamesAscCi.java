@@ -31,7 +31,7 @@ import java.util.Comparator;
 /**
  * Compares the file names of two files ascending case insensitive.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorFilesNamesAscCi extends ClassEquality
         implements Comparator<File>, Serializable {

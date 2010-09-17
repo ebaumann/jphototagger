@@ -43,7 +43,7 @@ import javax.swing.JOptionPane;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class Authorization {
     private static final String KEY_TOKEN =

@@ -41,7 +41,7 @@ import org.jphototagger.lib.resource.JslBundle;
  *
  * Starts after calling {@link #caputure()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SystemOutputPanel extends JPanel {
     private static volatile int MAX_CHAR_COUNT   = 100000;

@@ -33,7 +33,7 @@ import javax.swing.JComponent;
 /**
  * A collection of input verifiers.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class InputVerifiers extends InputVerifier implements Serializable {
     private static final long         serialVersionUID = 2492720541367098384L;

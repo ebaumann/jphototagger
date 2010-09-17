@@ -31,7 +31,7 @@ import javax.swing.JComponent;
 /**
  * One of the added input verifiers must return true for a valid input.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InputVerifiersOr extends InputVerifiers
         implements Serializable {

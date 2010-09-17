@@ -28,7 +28,7 @@ import java.io.Serializable;
  * Filter for {@link javax.swing.JFileChooser} created from a
  * {@link java.io.FileFilter}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FileChooserFilter extends javax.swing.filechooser.FileFilter
         implements Serializable {

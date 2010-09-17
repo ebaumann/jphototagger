@@ -28,7 +28,7 @@ import java.io.File;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class Util {
     static Pair<String, String> getCmpSuffixes(File leftFile, File rightFile,

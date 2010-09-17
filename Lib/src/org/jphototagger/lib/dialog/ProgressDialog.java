@@ -32,7 +32,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * Nichtmodaler Dialog mit Fortschrittsbalken.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgressDialog extends javax.swing.JDialog {
     private static final long         serialVersionUID = 4604786111382584915L;

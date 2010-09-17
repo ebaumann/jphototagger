@@ -31,7 +31,7 @@ import java.util.Queue;
  * Executes runnables serial: The next runnable will be executed when the
  * previous has finished.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SerialExecutor implements Executor {
     private final Queue<Exec> runnables = new ArrayDeque<Exec>();

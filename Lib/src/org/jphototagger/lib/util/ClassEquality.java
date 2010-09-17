@@ -28,7 +28,7 @@ package org.jphototagger.lib.util;
  * <code>equals()</code>.
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ClassEquality {
     @Override

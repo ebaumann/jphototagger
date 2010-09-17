@@ -25,7 +25,7 @@ package org.jphototagger.lib.util.logging;
  * (Stack-) Frame in einer Logdatei von <code>java.util.logging.Logger</code>.
  * Ein Frame beschreibt eine Zeile im Backtrace eines Throwable-Objekts.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FrameLogfileRecord {
     private String className;

@@ -33,7 +33,7 @@ import javax.swing.tree.MutableTreeNode;
  *
  * Compares the user object's strings ignoring the case.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeNodeSortedChildren extends DefaultMutableTreeNode
         implements Comparable<Object> {

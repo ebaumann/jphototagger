@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SystemUtil {
     private SystemUtil() {}

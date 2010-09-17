@@ -49,7 +49,7 @@ import javax.swing.tree.TreePath;
  * {@link DefaultMutableTreeNode} and their user object is a file with exception
  * of the root directory.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         implements TreeWillExpandListener {

@@ -28,7 +28,7 @@ import javax.swing.JTabbedPane;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TabbedPaneUtil {
 

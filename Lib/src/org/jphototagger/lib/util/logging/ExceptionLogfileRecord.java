@@ -29,7 +29,7 @@ import java.util.List;
  * Ausnahme in einer Logdatei von  <code>java.util.logging.Logger</code>,
  * benutzt für Java-Exceptions und sonstigen Throwable-Objekten.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExceptionLogfileRecord {
     private final List<FrameLogfileRecord> logfileRecordFrames =

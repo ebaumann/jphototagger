@@ -45,7 +45,7 @@ import javax.swing.table.TableCellRenderer;
  * {@link org.jphototagger.lib.dialog.LogfileDialog}. Also formats dates and
  * selected table rows.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TableCellRendererLogfileDialog implements TableCellRenderer {
     private static final Color            SEL_BACKGROUND_COLOR = new Color(251,

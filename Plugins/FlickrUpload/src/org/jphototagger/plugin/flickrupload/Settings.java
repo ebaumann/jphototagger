@@ -26,7 +26,7 @@ import java.util.Properties;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Settings {
     private static final String KEY_DC_DESCRIPTION =

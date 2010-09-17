@@ -34,7 +34,7 @@ import org.jphototagger.lib.resource.JslBundle;
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class InputDialog extends Dialog {
     private static final long  serialVersionUID = -4217215186067129031L;

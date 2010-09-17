@@ -31,7 +31,7 @@ import java.util.Comparator;
 /**
  * Compares the last modification time of two files ascending.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorFilesLastModifiedAsc extends ClassEquality
         implements Comparator<File>, Serializable {

@@ -29,7 +29,7 @@ import java.util.logging.Level;
 /**
  * Datensatz einer Logdatei, geschrieben von <code>java.util.logging.Logger</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class LogfileRecord {
     private String                 date;

@@ -33,7 +33,7 @@ import javax.swing.JLabel;
  * Displays text in a {@code JLabel} for an amount of milliseconds, then hides
  * the text.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MessageLabel {
     private final JLabel label;
