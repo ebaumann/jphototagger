@@ -34,7 +34,7 @@ import java.util.Set;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseContent extends Database {
     public static final DatabaseContent INSTANCE = new DatabaseContent();

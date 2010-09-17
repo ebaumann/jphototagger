@@ -36,7 +36,7 @@ import java.util.Calendar;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_TIME_STAMP}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterGpsTimeStamp extends ExifFormatter {
     public static final ExifFormatterGpsTimeStamp INSTANCE =

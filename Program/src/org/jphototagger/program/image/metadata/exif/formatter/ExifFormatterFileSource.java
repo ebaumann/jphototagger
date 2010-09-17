@@ -28,7 +28,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FILE_SOURCE}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterFileSource extends ExifFormatter {
     public static final ExifFormatterFileSource INSTANCE =

@@ -24,7 +24,7 @@ package org.jphototagger.program.event;
 /**
  * Fortschritts-Ereignis.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgressEvent {
     private final Object source;

@@ -24,10 +24,10 @@ package org.jphototagger.program.controller.keywords.tree;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -44,7 +44,7 @@ import javax.swing.tree.TreeCellRenderer;
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
  * of a  {@link KeywordsPanel} the keywords of the selected image.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerHighlightKeywordsTree
         implements ThumbnailsPanelListener {
@@ -53,7 +53,7 @@ public final class ControllerHighlightKeywordsTree
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
     }
 
     @Override
@@ -69,7 +69,7 @@ public final class ControllerHighlightKeywordsTree
     private void applyCurrentSelection() {
         removeKeywords();
 
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (tnPanel.getSelectionCount() == 1) {
             List<File> selFiles = tnPanel.getSelectedFiles();
@@ -79,8 +79,8 @@ public final class ControllerHighlightKeywordsTree
                     DatabaseImageFiles.INSTANCE.getDcSubjectsOf(
                         selFiles.get(0));
 
-                setKeywords(ViewUtil.getEditKeywordsTree(), keywords);
-                setKeywords(ViewUtil.getInputHelperKeywordsTree(), keywords);
+                setKeywords(GUI.getEditKeywordsTree(), keywords);
+                setKeywords(GUI.getInputHelperKeywordsTree(), keywords);
             }
         }
     }
@@ -95,9 +95,8 @@ public final class ControllerHighlightKeywordsTree
     }
 
     private void removeKeywords() {
-        setKeywords(ViewUtil.getEditKeywordsTree(), new ArrayList<String>());
-        setKeywords(ViewUtil.getInputHelperKeywordsTree(),
-                    new ArrayList<String>());
+        setKeywords(GUI.getEditKeywordsTree(), new ArrayList<String>());
+        setKeywords(GUI.getInputHelperKeywordsTree(), new ArrayList<String>());
     }
 
     private boolean hasSidecarFile(List<File> selFile) {

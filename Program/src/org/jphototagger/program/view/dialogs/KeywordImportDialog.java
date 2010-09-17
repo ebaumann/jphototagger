@@ -39,7 +39,7 @@ import javax.swing.JFileChooser;
 /**
  * Modal dialog for importing keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class KeywordImportDialog extends Dialog {
     private static final String KEY_PREV_IMPORT_FILE =
@@ -54,7 +54,7 @@ public class KeywordImportDialog extends Dialog {
         new ComboBoxModelKeywordsImporters();
 
     public KeywordImportDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();

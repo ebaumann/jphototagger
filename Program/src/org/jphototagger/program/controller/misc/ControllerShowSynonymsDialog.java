@@ -31,7 +31,7 @@ import java.awt.event.ActionListener;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerShowSynonymsDialog implements ActionListener {
     public ControllerShowSynonymsDialog() {
@@ -39,7 +39,7 @@ public final class ControllerShowSynonymsDialog implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemSynonyms().addActionListener(
+        GUI.getAppFrame().getMenuItemSynonyms().addActionListener(
             this);
     }
 

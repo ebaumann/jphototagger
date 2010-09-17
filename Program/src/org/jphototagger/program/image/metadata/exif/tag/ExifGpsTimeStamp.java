@@ -28,7 +28,7 @@ import java.text.MessageFormat;
 /**
  * The time as UTC (Coordinated Universal Time).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifGpsTimeStamp {
     private ExifRational hours;

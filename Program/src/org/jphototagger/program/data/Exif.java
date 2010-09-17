@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 /**
  * EXIF metadata or an image file.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Exif {
     private Date   dateTimeOriginal;

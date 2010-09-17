@@ -24,7 +24,7 @@ package org.jphototagger.program.types;
 /**
  * Size units as n multiplied by one byte.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum SizeUnit {
     BYTE(1, "B"), KILO_BYTE(1024, "KB"), MEGA_BYTE(1024 * 1024, "MB"),

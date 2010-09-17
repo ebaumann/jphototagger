@@ -42,7 +42,7 @@ import java.util.Set;
 /**
  * Life cycle of the application.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppLifeCycle {
     public static final AppLifeCycle               INSTANCE =
@@ -252,7 +252,7 @@ public final class AppLifeCycle {
         synchronized (finalTasks) {
             Set<FinalTask> tasks = new HashSet<FinalTask>(finalTasks);
 
-            GUI.INSTANCE.getAppFrame().setEnabled(false);
+            GUI.getAppFrame().setEnabled(false);
 
             for (FinalTask task : tasks) {
                 task.addListener(listener);

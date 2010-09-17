@@ -39,7 +39,7 @@ import javax.swing.JButton;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMetadataTemplateEdit
         extends ControllerMetadataTemplate implements MouseListener {

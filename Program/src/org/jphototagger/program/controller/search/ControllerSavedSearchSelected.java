@@ -26,11 +26,10 @@ import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.helper.SearchHelper;
+import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -44,7 +43,7 @@ import javax.swing.event.ListSelectionListener;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerSavedSearchSelected
         implements ListSelectionListener, RefreshListener {
@@ -53,9 +52,8 @@ public final class ControllerSavedSearchSelected
     }
 
     private void listen() {
-        ViewUtil.getSavedSearchesList().addListSelectionListener(this);
-        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
-                Content.SAVED_SEARCH);
+        GUI.getSavedSearchesList().addListSelectionListener(this);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.SAVED_SEARCH);
     }
 
     @Override
@@ -71,7 +69,7 @@ public final class ControllerSavedSearchSelected
     }
 
     private void search() {
-        if (ViewUtil.getSavedSearchesList().getSelectedIndex() >= 0) {
+        if (GUI.getSavedSearchesList().getSelectedIndex() >= 0) {
             EventQueue.invokeLater(new ShowThumbnails());
         }
     }
@@ -80,7 +78,7 @@ public final class ControllerSavedSearchSelected
         @Override
         public void run() {
             Object selectedValue =
-                ViewUtil.getSavedSearchesList().getSelectedValue();
+                GUI.getSavedSearchesList().getSelectedValue();
 
             if (selectedValue != null) {
                 searchSelectedValue(selectedValue);
@@ -100,7 +98,7 @@ public final class ControllerSavedSearchSelected
 
                 ParamStatement stmt = savedSearch.createParamStatement();
 
-                SearchHelper.setSort(savedSearch);
+                SavedSearchesHelper.setSort(savedSearch);
                 searchParamStatement(stmt, savedSearch.getName());
             }
         }
@@ -109,12 +107,11 @@ public final class ControllerSavedSearchSelected
             List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
 
             setTitle(name);
-            ViewUtil.getThumbnailsPanel().setFiles(imageFiles,
-                    Content.SAVED_SEARCH);
+            GUI.getThumbnailsPanel().setFiles(imageFiles, Content.SAVED_SEARCH);
         }
 
         private void setTitle(String name) {
-            GUI.INSTANCE.getAppFrame().setTitle(
+            GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
                     "ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved",
                     name));
@@ -124,8 +121,8 @@ public final class ControllerSavedSearchSelected
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
-                        ViewUtil.getEditPanel().setEditable(false);
+                    if (!GUI.getThumbnailsPanel().isFileSelected()) {
+                        GUI.getEditPanel().setEditable(false);
                     }
                 }
             });

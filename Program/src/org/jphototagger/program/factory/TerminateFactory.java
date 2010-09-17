@@ -39,11 +39,10 @@ import java.awt.EventQueue;
 
 import java.io.File;
 import java.io.FileFilter;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TerminateFactory {
     static final TerminateFactory INSTANCE = new TerminateFactory();
@@ -61,7 +60,7 @@ public final class TerminateFactory {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+                AppPanel appPanel = GUI.getAppPanel();
 
                 Support.setStatusbarInfo("MiscFactory.Init.Start");
                 appPanel.getEditMetadataPanels().setAutocomplete();
@@ -102,7 +101,7 @@ public final class TerminateFactory {
         ComboBoxModelFileFilters model =
             ModelFactory.INSTANCE.getModel(ComboBoxModelFileFilters.class);
         Object          selItem = model.getSelectedItem();
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (selItem instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) selItem);

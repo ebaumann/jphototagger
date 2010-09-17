@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * All exporters exporting JPhotoTagger data.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class JptExporters {
     public static final JptExporters    INSTANCE  = new JptExporters();

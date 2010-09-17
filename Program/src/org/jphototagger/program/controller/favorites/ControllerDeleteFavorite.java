@@ -38,7 +38,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to the {@link JTree}'s key events and deletes the selected
  * favorite if the <code>DEL</code> key was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteFavorite extends ControllerFavorite {
     public ControllerDeleteFavorite() {

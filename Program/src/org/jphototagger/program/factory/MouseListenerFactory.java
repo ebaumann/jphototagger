@@ -45,7 +45,7 @@ import java.awt.EventQueue;
 /**
  * Erzeugt und verbindet MouseListener.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MouseListenerFactory {
     static final MouseListenerFactory INSTANCE = new MouseListenerFactory();
@@ -72,7 +72,7 @@ public final class MouseListenerFactory {
     }
 
     private void addMouseListeners() {
-        AppPanel                appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel                appPanel = GUI.getAppPanel();
         MouseListenerTreeExpand listenerTreeExpand =
             new MouseListenerTreeExpand();
         MouseListenerKeywordsTree listenerKeywordsTree =

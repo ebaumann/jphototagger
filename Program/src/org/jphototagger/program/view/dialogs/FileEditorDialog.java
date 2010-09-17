@@ -32,13 +32,13 @@ import org.jphototagger.lib.dialog.Dialog;
  * Dialog with a {@link org.jphototagger.program.view.panels.FileEditorPanel}.
  * Closing is disabled as long as the file editor runs.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class FileEditorDialog extends Dialog {
     private static final long serialVersionUID = -3235645652277682178L;
 
     public FileEditorDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));

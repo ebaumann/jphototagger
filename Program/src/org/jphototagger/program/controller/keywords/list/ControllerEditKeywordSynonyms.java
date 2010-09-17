@@ -51,7 +51,7 @@ import javax.swing.JPopupMenu.Separator;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerEditKeywordSynonyms extends ControllerKeywords
         implements PopupMenuListener {
@@ -74,7 +74,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     private EditRepeatableTextEntryPanel getKeywordsPanel() {
-        return (EditRepeatableTextEntryPanel) GUI.INSTANCE.getAppPanel()
+        return (EditRepeatableTextEntryPanel) GUI.getAppPanel()
             .getEditMetadataPanels()
             .getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
     }

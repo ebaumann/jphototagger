@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * Adds new columns to the database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesInsertColumns {
     private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();

@@ -25,16 +25,12 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Favorite;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -45,8 +41,6 @@ import java.util.List;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -54,7 +48,7 @@ import javax.swing.tree.TreePath;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ViewUtil {
     private ViewUtil() {}
@@ -86,31 +80,6 @@ public class ViewUtil {
                 } else if (userObject instanceof Favorite) {
                     return ((Favorite) userObject).getDirectory();
                 }
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Returns the selected directory in the tree with favorite directories.
-     *
-     * @return directory or null if no directory is selected
-     */
-    public static File getSelectedFavorite() {
-        JTree  tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
-        Object o    = tree.getLastSelectedPathComponent();
-
-        if (o instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) o;
-            Object                 userObject = node.getUserObject();
-
-            if (userObject instanceof Favorite) {
-                Favorite favorite = (Favorite) userObject;
-
-                return favorite.getDirectory();
-            } else if (userObject instanceof File) {
-                return (File) userObject;
             }
         }
 
@@ -174,7 +143,7 @@ public class ViewUtil {
         Component parentComp = parent;
 
         if (parentComp == null) {
-            parentComp = GUI.INSTANCE.getAppFrame();
+            parentComp = GUI.getAppFrame();
         }
 
         if (fc.showOpenDialog(parentComp) == JFileChooser.APPROVE_OPTION) {
@@ -197,7 +166,7 @@ public class ViewUtil {
      */
     public static boolean checkSelImagesEditable(boolean errorMessage) {
         EditMetadataPanels ep =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            GUI.getAppPanel().getEditMetadataPanels();
 
         if (!ep.isEditable()) {
             if (errorMessage) {
@@ -208,130 +177,5 @@ public class ViewUtil {
         }
 
         return true;
-    }
-
-    /**
-     * Checks whether a sidecar file can be written for an image file, else
-     * displays an error message.
-     *
-     * @param  imageFile image file
-     * @return           true if a sidecar file can be written.
-     * @see              XmpMetadata#canWriteSidecarFileForImageFile(File)
-     */
-    public static boolean checkImageEditable(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
-            MessageDisplayer.error(null, "ViewUtil.Error.WriteSidecarFile",
-                                   imageFile.getParentFile());
-
-            return false;
-        }
-
-        return true;
-    }
-
-    public static JList getSelKeywordsList() {
-        return GUI.INSTANCE.getAppPanel().getListSelKeywords();
-    }
-
-    public static JList getEditKeywordsList() {
-        return GUI.INSTANCE.getAppPanel().getPanelEditKeywords().getList();
-    }
-
-    public static JList getInputHelperKeywordsList() {
-        return InputHelperDialog.INSTANCE.getPanelKeywords().getList();
-    }
-
-    public static JList getNoMetadataList() {
-        return GUI.INSTANCE.getAppPanel().getListNoMetadata();
-    }
-
-    public static JList getSavedSearchesList() {
-        return GUI.INSTANCE.getAppPanel().getListSavedSearches();
-    }
-
-    public static JList getImageCollectionsList() {
-        return GUI.INSTANCE.getAppPanel().getListImageCollections();
-    }
-
-    public static JTree getSelKeywordsTree() {
-        return GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
-    }
-
-    public static JTree getEditKeywordsTree() {
-        return GUI.INSTANCE.getAppPanel().getPanelEditKeywords().getTree();
-    }
-
-    public static JTree getInputHelperKeywordsTree() {
-        return InputHelperDialog.INSTANCE.getPanelKeywords().getTree();
-    }
-
-    public static JTree getDirectoriesTree() {
-        return GUI.INSTANCE.getAppPanel().getTreeDirectories();
-    }
-
-    public static JTree getFavoritesTree() {
-        return GUI.INSTANCE.getAppPanel().getTreeFavorites();
-    }
-
-    public static JTree getMiscMetadataTree() {
-        return GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
-    }
-
-    public static JTree getTimelineTree() {
-        return GUI.INSTANCE.getAppPanel().getTreeTimeline();
-    }
-
-    public static ThumbnailsPanel getThumbnailsPanel() {
-        return GUI.INSTANCE.getAppPanel().getPanelThumbnails();
-    }
-
-    public static JTextArea getSearchTextArea() {
-        return GUI.INSTANCE.getAppPanel().getTextAreaSearch();
-    }
-
-    /**
-     * Returns all in the thumbnails panel selected images files.
-     *
-     * @return selected files
-     */
-    public static List<File> getSelectedImageFiles() {
-        return getThumbnailsPanel().getSelectedFiles();
-    }
-
-    public static EditMetadataPanels getEditPanel() {
-        return GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
-    }
-
-    /**
-     * Calls {@link ThumbnailsPanel#refresh()}.
-     */
-    public static void refreshThumbnailsPanel() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                getThumbnailsPanel().refresh();
-            }
-        });
-    }
-
-    /**
-     * Unselects all images from the thumbanils panel, scrolls to top and
-     * refreshes it.
-     */
-    public static void resetThumbnailsPanel() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ThumbnailsPanel tnPanel = getThumbnailsPanel();
-
-                tnPanel.clearSelection();
-                tnPanel.scrollToTop();
-                tnPanel.refresh();
-            }
-        });
     }
 }

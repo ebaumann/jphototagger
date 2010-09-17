@@ -46,7 +46,7 @@ import javax.swing.SpinnerNumberModel;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         implements ActionListener, Persistence {

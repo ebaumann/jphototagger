@@ -38,7 +38,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     private final ExportImportPanel.Context context;
 
     public ExportImportDialog(ExportImportPanel.Context context) {
-        super(GUI.INSTANCE.getAppFrame(), UserSettings.INSTANCE.getSettings(),
+        super(GUI.getAppFrame(), UserSettings.INSTANCE.getSettings(),
               "ExportImportDialog");
 
         if (context == null) {

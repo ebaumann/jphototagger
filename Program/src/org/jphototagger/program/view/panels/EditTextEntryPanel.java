@@ -53,7 +53,7 @@ import javax.swing.JPanel;
 /**
  * Panel zum Eingeben einzeiliger Texte.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class EditTextEntryPanel extends JPanel
         implements TextEntry, DocumentListener, DatabaseImageFilesListener {

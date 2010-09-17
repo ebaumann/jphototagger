@@ -28,7 +28,7 @@ import org.jphototagger.lib.concurrent.Cancelable;
  * An automatic task is a background task running as long as the next task
  * shall start.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AutomaticTask {
     public static final AutomaticTask INSTANCE = new AutomaticTask();

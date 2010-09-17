@@ -43,7 +43,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to the directorie's {@link JTree} key events and deletes the
  * selected directory if the delete key was typed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteDirectory extends ControllerDirectory {
     public ControllerDeleteDirectory() {

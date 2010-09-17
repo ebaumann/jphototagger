@@ -39,7 +39,7 @@ import javax.swing.DefaultComboBoxModel;
  * Elements are instances of {@link MetadataTemplate}s retrieved through
  * {@link DatabaseMetadataTemplates#getAll()}.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
         implements DatabaseMetadataTemplatesListener {

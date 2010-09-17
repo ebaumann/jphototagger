@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Deletes image files from the file system.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DeleteImageFiles {
 

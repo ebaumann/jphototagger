@@ -42,7 +42,7 @@ import java.util.ResourceBundle;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class NikonMakerNotes implements ExifMakerNotes {
     private static final String PROPERTY_FILE_PREFIX =

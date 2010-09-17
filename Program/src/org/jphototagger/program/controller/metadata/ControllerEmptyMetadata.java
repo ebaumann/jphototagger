@@ -22,7 +22,6 @@
 package org.jphototagger.program.controller.metadata;
 
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +30,7 @@ import java.awt.EventQueue;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerEmptyMetadata implements ActionListener {
     public ControllerEmptyMetadata() {
@@ -39,8 +38,7 @@ public final class ControllerEmptyMetadata implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppPanel().getButtonEmptyMetadata().addActionListener(
-            this);
+        GUI.getAppPanel().getButtonEmptyMetadata().addActionListener(this);
     }
 
     @Override
@@ -48,7 +46,7 @@ public final class ControllerEmptyMetadata implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ViewUtil.getEditPanel().emptyPanels(true);
+                GUI.getEditPanel().emptyPanels(true);
             }
         });
     }

@@ -31,7 +31,7 @@ import java.util.Arrays;
  * EXIF data exifDataType RATIONAL as described in the standard: Two LONGs. The first
  * LONG is the numerator and the second LONG expresses the denominator.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see ExifLong
  */
 public final class ExifRational {

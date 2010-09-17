@@ -48,7 +48,7 @@ import javax.swing.Icon;
 /**
  * Icons of table columns.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnIcons {
     private static final Icon ICON_UNDEFINED =

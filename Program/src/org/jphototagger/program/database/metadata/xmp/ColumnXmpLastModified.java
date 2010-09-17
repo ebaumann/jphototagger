@@ -27,7 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Column <code>lastmodified</code> of table <code>xmp</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnXmpLastModified extends Column {
     public static final ColumnXmpLastModified INSTANCE =

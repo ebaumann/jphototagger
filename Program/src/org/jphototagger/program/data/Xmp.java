@@ -45,7 +45,7 @@ import java.util.Map;
  * XMP metadata of an image file. The <code>see</code> sections of the method
  * documentation links to the corresponding {@link Iptc} method.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Xmp implements TextEntryListener {
     private final Map<Column, Object> valueOfColumn = new HashMap<Column,

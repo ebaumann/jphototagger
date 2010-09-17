@@ -30,7 +30,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -45,7 +44,7 @@ import javax.swing.tree.TreePath;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMiscMetadataItemSelected
         implements TreeSelectionListener, RefreshListener {
@@ -54,8 +53,8 @@ public final class ControllerMiscMetadataItemSelected
     }
 
     private void listen() {
-        ViewUtil.getMiscMetadataTree().addTreeSelectionListener(this);
-        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
+        GUI.getMiscMetadataTree().addTreeSelectionListener(this);
+        GUI.getThumbnailsPanel().addRefreshListener(this,
                 Content.MISC_METADATA);
     }
 
@@ -69,10 +68,10 @@ public final class ControllerMiscMetadataItemSelected
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (ViewUtil.getMiscMetadataTree().getSelectionCount() == 1) {
+        if (GUI.getMiscMetadataTree().getSelectionCount() == 1) {
             EventQueue.invokeLater(
                 new ShowThumbnails(
-                    ViewUtil.getMiscMetadataTree().getSelectionPath(),
+                    GUI.getMiscMetadataTree().getSelectionPath(),
                     evt.getSettings()));
         }
     }
@@ -108,7 +107,7 @@ public final class ControllerMiscMetadataItemSelected
         private void setFilesOfNodeToThumbnailsPanel(
                 DefaultMutableTreeNode node) {
             Object          userObject = node.getUserObject();
-            ThumbnailsPanel tnPanel    = ViewUtil.getThumbnailsPanel();
+            ThumbnailsPanel tnPanel    = GUI.getThumbnailsPanel();
 
             if (node.isLeaf()) {
                 Object parentUserObject =
@@ -145,20 +144,20 @@ public final class ControllerMiscMetadataItemSelected
 
         // 1 path where tnPanel.apply(tnPanelSettings) is not to call
         private void setTitle() {
-            GUI.INSTANCE.getAppFrame().setTitle(
+            GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
                     "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
         }
 
         private void setTitle(Column column) {
-            GUI.INSTANCE.getAppFrame().setTitle(
+            GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
                     "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column",
                     column.getDescription()));
         }
 
         private void setTitle(Column column, Object userObject) {
-            GUI.INSTANCE.getAppFrame().setTitle(
+            GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
                     "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object",
                     column.getDescription() + " " + userObject.toString()));

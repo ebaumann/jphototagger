@@ -28,7 +28,7 @@ import org.jphototagger.program.image.metadata.exif.tag.ExifCopyright;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#COPYRIGHT}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterCopyright extends ExifFormatter {
     public static final ExifFormatterCopyright INSTANCE =

@@ -25,7 +25,6 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,11 +32,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.util.List;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Ausgewählte Dateien in ein Verzeichnis kopieren.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerCopyFilesToDirectory implements ActionListener {
     public ControllerCopyFilesToDirectory() {
@@ -55,7 +55,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     }
 
     private void copySelectedFiles() {
-        List<File> selFiles = ViewUtil.getSelectedImageFiles();
+        List<File> selFiles = GUI.getSelectedImageFiles();
 
         if (!selFiles.isEmpty()) {
             CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();

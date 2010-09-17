@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.thumbnail;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,19 +38,17 @@ import javax.swing.JRadioButtonMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerSortThumbnails implements ActionListener {
     public ControllerSortThumbnails() {
         listen();
-        GUI.INSTANCE.getAppFrame().getMenuItemOfSortCmp(
-            ViewUtil.getThumbnailsPanel().getFileSortComparator()).setSelected(
-            true);
+        GUI.getAppFrame().getMenuItemOfSortCmp(
+            GUI.getThumbnailsPanel().getFileSortComparator()).setSelected(true);
     }
 
     private void listen() {
-        for (JRadioButtonMenuItem item :
-                GUI.INSTANCE.getAppFrame().getSortMenuItems()) {
+        for (JRadioButtonMenuItem item : GUI.getAppFrame().getSortMenuItems()) {
             item.addActionListener(this);
         }
     }
@@ -65,8 +62,8 @@ public final class ControllerSortThumbnails implements ActionListener {
         Comparator<File> cmp =
             ControllerThumbnailsPanelPersistence.getFileSortComparator();
 
-        ViewUtil.getThumbnailsPanel().setFileSortComparator(cmp);
-        GUI.INSTANCE.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
+        GUI.getThumbnailsPanel().setFileSortComparator(cmp);
+        GUI.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
     }
 
     private void sortThumbnails(final ActionEvent evt) {
@@ -76,8 +73,8 @@ public final class ControllerSortThumbnails implements ActionListener {
                 JRadioButtonMenuItem item =
                     (JRadioButtonMenuItem) evt.getSource();
                 Comparator<File> sortCmp =
-                    GUI.INSTANCE.getAppFrame().getSortCmpOfMenuItem(item);
-                ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+                    GUI.getAppFrame().getSortCmpOfMenuItem(item);
+                ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 ControllerFactory.INSTANCE
                     .getController(ControllerThumbnailsPanelPersistence.class)

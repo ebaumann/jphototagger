@@ -26,7 +26,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Operator einer Spaltenverknüpfung.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum Operator {
 

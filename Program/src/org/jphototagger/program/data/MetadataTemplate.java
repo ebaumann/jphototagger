@@ -30,7 +30,7 @@ import java.util.Set;
 /**
  * Holds the data of a metadata edit template.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MetadataTemplate {
     private String                        name;

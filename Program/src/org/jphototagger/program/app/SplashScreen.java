@@ -31,7 +31,7 @@ import java.awt.Rectangle;
 /**
  * The application's splashscreen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SplashScreen {
     private static final int   MESSAGE_X         = 10;

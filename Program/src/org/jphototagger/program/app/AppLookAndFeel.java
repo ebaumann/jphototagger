@@ -43,7 +43,7 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppLookAndFeel {
     private static final String ICONS_PATH =

@@ -33,7 +33,7 @@ import javax.swing.JList;
  * Do not use this class! Instead extend a popup menu from
  * {@link org.jphototagger.lib.event.listener.PopupMenuList}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class MouseListenerList extends MouseAdapter {
     private int     index;

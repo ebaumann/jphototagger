@@ -35,7 +35,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerInsertKeywords extends ControllerKeywords {
     private final JMenuItem itemInsert =

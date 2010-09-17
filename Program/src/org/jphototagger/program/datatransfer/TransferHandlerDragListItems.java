@@ -33,7 +33,7 @@ import javax.swing.TransferHandler;
 /**
  * Creates a {@link TransferableObject} with selected list items as object array.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerDragListItems extends TransferHandler {
     private static final long  serialVersionUID = 2228155163708066205L;

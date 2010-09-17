@@ -26,7 +26,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 /**
  * Formats a raw value of an EXIF tag (Generic raw value formatter).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface ExifRawValueFormatter {
 

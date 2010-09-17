@@ -28,7 +28,7 @@ import java.util.Comparator;
 /**
  * Compares {@link Keyword}s by their database ID.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorKeywordId implements Comparator<Keyword> {
     public static final ComparatorKeywordId INSTANCE = new ComparatorKeywordId();

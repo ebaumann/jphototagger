@@ -41,7 +41,7 @@ import javax.swing.DefaultListModel;
  * Filenames matching these patterns (strings) shall not be handled by
  * <strong>JPhotoTagger</strong>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel
         implements DatabaseFileExcludePatternsListener {

@@ -28,7 +28,6 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -52,7 +51,7 @@ import javax.swing.tree.TreePath;
  * Also listens to the {@link JTree}'s key events and opens the selected folder
  * in the directorie's tree if the keys <code>Ctrl+O</code> were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerOpenFavoriteInFolders
         implements ActionListener, KeyListener {
@@ -63,20 +62,20 @@ public final class ControllerOpenFavoriteInFolders
     private void listen() {
         PopupMenuFavorites.INSTANCE.getItemOpenInFolders().addActionListener(
             this);
-        ViewUtil.getFavoritesTree().addKeyListener(this);
+        GUI.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_O)
-                &&!ViewUtil.getFavoritesTree().isSelectionEmpty()) {
+                &&!GUI.getFavoritesTree().isSelectionEmpty()) {
             selectDirectory();
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (ViewUtil.getFavoritesTree().getSelectionCount() >= 0) {
+        if (GUI.getFavoritesTree().getSelectionCount() >= 0) {
             selectDirectory();
         }
     }
@@ -111,13 +110,13 @@ public final class ControllerOpenFavoriteInFolders
                 return null;
             }
             private void expandTreeToDir(File dir) {
-                AppPanel    appPanel = GUI.INSTANCE.getAppPanel();
+                AppPanel    appPanel = GUI.getAppPanel();
                 JTabbedPane tabbedPaneSelection =
                     appPanel.getTabbedPaneSelection();
                 Component tabTreeDirectories =
                     appPanel.getTabSelectionDirectories();
 
-                ViewUtil.getFavoritesTree().clearSelection();
+                GUI.getFavoritesTree().clearSelection();
                 tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
                 ModelFactory.INSTANCE.getModel(
                     TreeModelAllSystemDirectories.class).expandToFile(

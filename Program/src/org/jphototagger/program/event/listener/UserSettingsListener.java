@@ -26,7 +26,7 @@ import org.jphototagger.program.event.UserSettingsEvent;
 /**
  * Beobachtet Änderungen der Benutzereinstellungen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface UserSettingsListener {
 

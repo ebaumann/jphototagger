@@ -27,7 +27,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -40,7 +39,7 @@ import java.util.List;
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
  * specific keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     private final List<List<String>> keywordLists;
@@ -74,7 +73,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         List<File> imageFiles = getImageFilesOfKeywords();
 
         ControllerSortThumbnails.setLastSort();
-        ViewUtil.getThumbnailsPanel().setFiles(imageFiles, Content.KEYWORD);
+        GUI.getThumbnailsPanel().setFiles(imageFiles, Content.KEYWORD);
     }
 
     private List<File> getImageFilesOfKeywords() {
@@ -98,22 +97,22 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     }
 
     private void setTitle(List<String> keywords) {
-        GUI.INSTANCE.getAppFrame().setTitle(
+        GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
                 "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keywords.Path",
                 Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
-        GUI.INSTANCE.getAppFrame().setTitle(
+        GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
                 "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keyword",
                 keyword));
     }
 
     private void setMetadataEditable() {
-        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
-            ViewUtil.getEditPanel().setEditable(false);
+        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+            GUI.getEditPanel().setEditable(false);
         }
     }
 

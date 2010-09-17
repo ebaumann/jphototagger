@@ -35,7 +35,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorXmpIptcLocationAsc extends ClassEquality
         implements Comparator<File>, Serializable {

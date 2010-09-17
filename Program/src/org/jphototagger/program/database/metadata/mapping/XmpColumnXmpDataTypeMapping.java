@@ -54,7 +54,7 @@ import java.util.Map;
  * {@link org.jphototagger.program.database.metadata.Column}
  * und einem XMP-Datentyp.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmpColumnXmpDataTypeMapping {
     private static final Map<Column, XmpValueType> XMP_VALUE_TYPE_OF_COLUMN =

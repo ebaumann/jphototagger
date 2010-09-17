@@ -27,7 +27,7 @@ import org.jphototagger.program.event.listener.TextEntryListener;
 /**
  * Support to add, remove and notify {@link TextEntryListener}s.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TextEntryListenerSupport
         extends ListenerSupport<TextEntryListener> {

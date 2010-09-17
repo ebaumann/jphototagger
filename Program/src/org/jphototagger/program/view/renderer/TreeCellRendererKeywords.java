@@ -40,7 +40,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * Renders items and text for nodes in the tree of the
  * {@link KeywordsPanel}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     private static final Icon ICON_REAL =

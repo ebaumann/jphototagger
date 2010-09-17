@@ -34,7 +34,7 @@ import java.util.List;
  * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp
  * check.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class RefreshExifInDbOfKnownFiles extends HelperThread {
     private volatile boolean cancel;

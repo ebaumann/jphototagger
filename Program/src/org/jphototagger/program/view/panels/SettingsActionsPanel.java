@@ -50,7 +50,7 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SettingsActionsPanel extends javax.swing.JPanel
         implements DatabaseProgramsListener, ListSelectionListener,

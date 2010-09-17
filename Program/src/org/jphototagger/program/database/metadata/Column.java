@@ -34,7 +34,7 @@ import javax.swing.InputVerifier;
 /**
  * Database column containing metadata with the user acts on.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class Column {
     private final DataType dataType;

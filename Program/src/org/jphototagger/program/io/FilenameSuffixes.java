@@ -24,7 +24,7 @@ package org.jphototagger.program.io;
 /**
  * Application wide filename suffixes.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameSuffixes {
 

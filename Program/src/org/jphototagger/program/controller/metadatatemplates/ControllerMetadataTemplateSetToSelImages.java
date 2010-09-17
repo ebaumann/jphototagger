@@ -25,7 +25,6 @@ import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -35,7 +34,7 @@ import javax.swing.JButton;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMetadataTemplateSetToSelImages
         extends ControllerMetadataTemplate {
@@ -93,12 +92,11 @@ public final class ControllerMetadataTemplateSetToSelImages
             return;
         }
 
-        GUI.INSTANCE.getAppPanel().getEditMetadataPanels().setMetadataTemplate(
-            template);
+        GUI.getAppPanel().getEditMetadataPanels().setMetadataTemplate(template);
         focusList();
     }
 
     private boolean imagesSelected() {
-        return ViewUtil.getThumbnailsPanel().isFileSelected();
+        return GUI.getThumbnailsPanel().isFileSelected();
     }
 }

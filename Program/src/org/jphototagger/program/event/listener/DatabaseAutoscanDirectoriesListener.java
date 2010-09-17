@@ -27,7 +27,7 @@ import java.io.File;
  * Listens to events in
  * {@link org.jphototagger.program.database.DatabaseAutoscanDirectories}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseAutoscanDirectoriesListener {
 

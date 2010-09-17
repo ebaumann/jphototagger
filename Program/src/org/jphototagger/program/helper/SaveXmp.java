@@ -44,7 +44,7 @@ import javax.swing.JProgressBar;
  * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
  * database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SaveXmp extends Thread implements Cancelable {
     private static final String PROGRESSBAR_STRING =

@@ -25,7 +25,7 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.io.IoUtil;
+import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.types.FileEditor;
 import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
 import org.jphototagger.lib.io.FileLock;
@@ -39,7 +39,7 @@ import java.util.Arrays;
 /**
  * Extracts in images embedded XMP metadata into sidecar files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExtractEmbeddedXmp extends FileEditor {
     @Override
@@ -48,7 +48,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
             throw new NullPointerException("file == null");
         }
 
-        if (!IoUtil.lockLogWarning(file, this)) {
+        if (!RuntimeUtil.lockLogWarning(file, this)) {
             return;
         }
 

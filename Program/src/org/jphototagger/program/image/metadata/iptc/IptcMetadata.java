@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * IPTC metadata of an image file.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class IptcMetadata {
 

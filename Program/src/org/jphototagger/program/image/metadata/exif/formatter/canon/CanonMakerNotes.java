@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CanonMakerNotes implements ExifMakerNotes {
     private static final ResourceBundle BUNDLE =

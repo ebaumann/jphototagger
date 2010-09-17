@@ -29,14 +29,14 @@ import org.jphototagger.lib.dialog.Dialog;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SynonymsDialog extends Dialog {
     private static final long          serialVersionUID = 2986454559232977345L;
     public static final SynonymsDialog INSTANCE         = new SynonymsDialog();
 
     private SynonymsDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), "SynonymsDialog");
         initComponents();
         postInitComponents();

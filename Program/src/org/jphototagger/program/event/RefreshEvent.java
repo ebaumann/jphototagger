@@ -32,7 +32,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class RefreshEvent {
     private final Object  source;

@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * Übersetzt Strings. Die Übersetzungen stehen in einer locale-spezifischen
  * Properties-Datei.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Translation {
     private static final String PATH_PREFIX =

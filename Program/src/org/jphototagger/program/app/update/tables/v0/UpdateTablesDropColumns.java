@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Drops unused columns.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesDropColumns {
     private static final List<ColumnInfo> COLUMNS = new ArrayList<ColumnInfo>();

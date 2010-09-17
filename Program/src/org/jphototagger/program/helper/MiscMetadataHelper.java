@@ -30,7 +30,6 @@ import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.io.File;
 
@@ -43,11 +42,12 @@ import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import org.jphototagger.program.io.ImageUtil;
 
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MiscMetadataHelper {
     private static final List<Column> XMP_COLUMNS = XmpColumns.get();
@@ -65,7 +65,7 @@ public final class MiscMetadataHelper {
         List<Pair<File, Xmp>> saveList = new ArrayList<Pair<File, Xmp>>();
 
         for (File imageFile : imageFiles) {
-            if (imageFile.exists() && ViewUtil.checkImageEditable(imageFile)) {
+            if (imageFile.exists() && ImageUtil.checkImageEditable(imageFile)) {
                 Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
 
                 if (xmp == null) {
@@ -110,7 +110,7 @@ public final class MiscMetadataHelper {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
-                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                    GUI.getAppPanel().getEditMetadataPanels();
 
                 if (!editPanels.isEditable()) {
                     return;
@@ -143,7 +143,7 @@ public final class MiscMetadataHelper {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
-                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                    GUI.getAppPanel().getEditMetadataPanels();
 
                 if (!editPanels.isEditable()) {
                     return;
@@ -178,7 +178,7 @@ public final class MiscMetadataHelper {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
-                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                    GUI.getAppPanel().getEditMetadataPanels();
 
                 if (editPanels.isEditable()) {
                     editPanels.addText(column, text);
@@ -201,7 +201,7 @@ public final class MiscMetadataHelper {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
-                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                    GUI.getAppPanel().getEditMetadataPanels();
 
                 if (editPanels.isEditable()) {
                     editPanels.removeText(column, text);
@@ -241,7 +241,7 @@ public final class MiscMetadataHelper {
     }
 
     private static DefaultTreeModel getModel() {
-        return (DefaultTreeModel) GUI.INSTANCE.getAppPanel()
+        return (DefaultTreeModel) GUI.getAppPanel()
             .getTreeMiscMetadata().getModel();
     }
 

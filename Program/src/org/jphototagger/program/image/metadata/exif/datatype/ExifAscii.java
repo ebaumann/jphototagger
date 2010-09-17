@@ -25,7 +25,7 @@ package org.jphototagger.program.image.metadata.exif.datatype;
  * EXIF data type ASCII as described in the standard: An 8-bit byte containing
  * one 7-bit ASCII code. The final byte is terminated with NULL.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifAscii {
     private final String value;

@@ -26,7 +26,6 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -45,7 +44,7 @@ import javax.swing.JLabel;
  * This controller also sets the metadata of a selected thumbnail to the edit
  * panel.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerThumbnailSelectionEditMetadata
         implements ThumbnailsPanelListener {
@@ -54,7 +53,7 @@ public final class ControllerThumbnailSelectionEditMetadata
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
     }
 
     @Override
@@ -73,15 +72,15 @@ public final class ControllerThumbnailSelectionEditMetadata
             @Override
             public void run() {
                 boolean         canEdit = false;
-                ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+                ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 if (tnPanel.isFileSelected()) {
                     canEdit = canEdit();
                     setEnabled(canEdit);
-                    ViewUtil.getEditPanel().setImageFiles(
+                    GUI.getEditPanel().setImageFiles(
                         tnPanel.getSelectedFiles());
                 } else {
-                    ViewUtil.getEditPanel().emptyPanels(false);
+                    GUI.getEditPanel().emptyPanels(false);
                     setEnabled(false);
                 }
 
@@ -91,13 +90,12 @@ public final class ControllerThumbnailSelectionEditMetadata
     }
 
     private void setEnabled(boolean enabled) {
-        GUI.INSTANCE.getAppPanel().getButtonEmptyMetadata().setEnabled(enabled);
-        ViewUtil.getEditPanel().setEditable(enabled);
+        GUI.getAppPanel().getButtonEmptyMetadata().setEnabled(enabled);
+        GUI.getEditPanel().setEditable(enabled);
     }
 
     private void setInfoLabel(boolean canEdit) {
-        JLabel labelEditable =
-            GUI.INSTANCE.getAppPanel().getLabelMetadataInfoEditable();
+        JLabel labelEditable = GUI.getAppPanel().getLabelMetadataInfoEditable();
 
         labelEditable.setText(canEdit
                               ? multipleThumbnailsSelected()
@@ -110,11 +108,11 @@ public final class ControllerThumbnailSelectionEditMetadata
     }
 
     private boolean multipleThumbnailsSelected() {
-        return ViewUtil.getThumbnailsPanel().getSelectionCount() > 1;
+        return GUI.getThumbnailsPanel().getSelectionCount() > 1;
     }
 
     private boolean canEdit() {
-        List<File> selFiles = ViewUtil.getSelectedImageFiles();
+        List<File> selFiles = GUI.getSelectedImageFiles();
 
         for (File selFile : selFiles) {
             if (!XmpMetadata.canWriteSidecarFileForImageFile(selFile)) {

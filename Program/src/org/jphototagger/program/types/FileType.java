@@ -24,7 +24,7 @@ package org.jphototagger.program.types;
 /**
  * Dateitypen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FileType {
 

@@ -40,7 +40,7 @@ import org.jphototagger.program.data.Favorite;
 /**
  * Changes the properties of a {@link org.jphototagger.program.data.Favorite}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FavoritePropertiesDialog extends Dialog {
     private static final String KEY_LAST_DIRECTORY =
@@ -54,7 +54,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     private boolean                           update;
 
     public FavoritePropertiesDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
@@ -70,7 +70,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void chooseDirectory() {
         DirectoryChooser dlg = new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), dir,
+                GUI.getAppFrame(), dir,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),

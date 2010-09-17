@@ -26,7 +26,7 @@ import java.util.Collection;
 /**
  * Suggests text.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface Suggest {
 

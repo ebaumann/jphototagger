@@ -30,7 +30,7 @@ import javax.swing.DefaultComboBoxModel;
  * Elements are all implemented {@link Exporter}s retrieved through
  * {@link KeywordsExporters#getAll()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComboBoxModelKeywordsExporters extends DefaultComboBoxModel {
     private static final long serialVersionUID = 9136865883087790779L;

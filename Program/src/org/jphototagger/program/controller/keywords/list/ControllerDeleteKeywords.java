@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Deletes keywords of selected items whithin the keywords list.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteKeywords extends ControllerKeywords {
     public ControllerDeleteKeywords() {

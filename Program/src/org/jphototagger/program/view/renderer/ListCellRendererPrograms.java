@@ -38,7 +38,7 @@ import javax.swing.JList;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListCellRendererPrograms extends DefaultListCellRenderer {
     private static final FileSystemView FILE_SYSTEM_VIEW =

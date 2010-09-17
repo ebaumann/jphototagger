@@ -40,7 +40,7 @@ import javax.swing.table.TableCellRenderer;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TableCellRendererExif extends FormatterLabelMetadata
         implements TableCellRenderer {

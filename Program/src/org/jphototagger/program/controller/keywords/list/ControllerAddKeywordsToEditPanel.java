@@ -38,7 +38,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerAddKeywordsToEditPanel extends ControllerKeywords {
     public ControllerAddKeywordsToEditPanel() {
@@ -56,7 +56,7 @@ public final class ControllerAddKeywordsToEditPanel extends ControllerKeywords {
         }
 
         EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            GUI.getAppPanel().getEditMetadataPanels();
 
         if (editPanels.isEditable()) {
             for (String keyword : keywords) {

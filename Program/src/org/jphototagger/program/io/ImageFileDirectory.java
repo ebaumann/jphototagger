@@ -1,5 +1,5 @@
 /*
- * @(#)DirectoryInfo.java    Created on 2008-10-05
+ * @(#)ImageFileDirectory.java    Created on 2008-10-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -23,73 +23,47 @@ package org.jphototagger.program.io;
 
 import java.io.File;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Informationen über ein Verzeichnis im Dateisystem.
+ * File system directory with image files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
-public final class DirectoryInfo {
-    private File       directory;
-    private List<File> imageFiles;
+public final class ImageFileDirectory {
+    private final File       directory;
+    private final List<File> imageFiles;
 
-    /**
-     * Konstruktor.
-     *
-     * @param directory Verzeichnis
-     */
-    public DirectoryInfo(File directory) {
+    public ImageFileDirectory(File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
 
         this.directory = directory;
-        imageFiles = ImageFilteredDirectory.getImageFilesOfDirectory(directory);
+        imageFiles = ImageFileFilterer.getImageFilesOfDirectory(directory);
     }
 
-    /**
-     * Liefert das Verzeichnis.
-     *
-     * @return Verzeichnis
-     */
     public File getDirectory() {
         return directory;
     }
 
-    /**
-     * Liefert, ob im Verzeichnis Bilddateien sind.
-     *
-     * @return true, wenn im Verzeichnis Bilder sind.
-     */
     public boolean hasImageFiles() {
         return imageFiles.size() > 0;
     }
 
-    /**
-     * Liefert die Anzahl der Bilddateien in diesem Verzeichnis.
-     *
-     * @return Anzahl der Bilddateien
-     */
     public int getImageFileCount() {
         return imageFiles.size();
     }
 
-    /**
-     * Liefert die Bilddateien des Verzeichnisses.
-     *
-     * @return Bilddateien
-     * @see    #hasImageFiles()
-     */
     public List<File> getImageFiles() {
-        return new ArrayList<File>(imageFiles);
+        return Collections.unmodifiableList(imageFiles);
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof DirectoryInfo) {
-            DirectoryInfo otherDirectoryInfo = (DirectoryInfo) object;
+        if (object instanceof ImageFileDirectory) {
+            ImageFileDirectory otherDirectoryInfo = (ImageFileDirectory) object;
 
             return directory.equals(otherDirectoryInfo.directory);
         }

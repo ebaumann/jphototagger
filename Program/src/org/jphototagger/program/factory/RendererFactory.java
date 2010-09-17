@@ -44,7 +44,7 @@ import javax.swing.JTable;
 /**
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class RendererFactory {
     static final RendererFactory INSTANCE = new RendererFactory();
@@ -72,7 +72,7 @@ public final class RendererFactory {
     }
 
     private void setMetadataTablesRenderers() {
-        AppPanel             appPanel             = GUI.INSTANCE.getAppPanel();
+        AppPanel             appPanel             = GUI.getAppPanel();
         TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
         List<JTable>         xmpTables            = appPanel.getXmpTables();
 
@@ -87,7 +87,7 @@ public final class RendererFactory {
     }
 
     private void setPopupMenuHighlighter() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel appPanel = GUI.getAppPanel();
 
         support.add(
             new TreeItemTempSelectionRowSetter(

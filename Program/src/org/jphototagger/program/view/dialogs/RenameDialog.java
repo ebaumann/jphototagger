@@ -62,12 +62,11 @@ import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Dialog for renaming filenames.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class RenameDialog extends Dialog implements ListDataListener {
     private static final long   serialVersionUID = 2975958115627670989L;
@@ -85,7 +84,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private transient boolean listen    = true;
 
     public RenameDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
@@ -213,7 +212,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void refreshThumbnailsPanel(int countRenamed) {
         if (countRenamed > 0) {
-            ViewUtil.refreshThumbnailsPanel();
+            GUI.refreshThumbnailsPanel();
         }
     }
 

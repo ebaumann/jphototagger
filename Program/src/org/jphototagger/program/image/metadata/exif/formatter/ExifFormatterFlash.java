@@ -30,7 +30,7 @@ import org.jphototagger.lib.util.ByteUtil;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FLASH}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterFlash extends ExifFormatter {
     public static final ExifFormatterFlash INSTANCE = new ExifFormatterFlash();

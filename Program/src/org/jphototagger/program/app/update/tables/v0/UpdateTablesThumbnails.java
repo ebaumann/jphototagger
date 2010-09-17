@@ -31,7 +31,7 @@ import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.io.IoUtil;
+import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 
@@ -53,7 +53,7 @@ import javax.swing.ImageIcon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesThumbnails extends Database {
     private static final int    FETCH_MAX_ROWS = 1000;
@@ -150,7 +150,7 @@ final class UpdateTablesThumbnails extends Database {
         }
 
         try {
-            if (!IoUtil.lockLogWarning(tnFile, UpdateTablesThumbnails.class)) {
+            if (!RuntimeUtil.lockLogWarning(tnFile, UpdateTablesThumbnails.class)) {
                 return;
             }
 

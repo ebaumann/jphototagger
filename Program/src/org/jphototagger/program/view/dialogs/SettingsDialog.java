@@ -42,7 +42,7 @@ import javax.swing.JButton;
 /**
  * Modaler Dialog für Anwendungseinstellungen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SettingsDialog extends Dialog {
     private static final String KEY_INDEX_TABBED_PANE =
@@ -66,7 +66,7 @@ public final class SettingsDialog extends Dialog {
 
     ;
     private SettingsDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();

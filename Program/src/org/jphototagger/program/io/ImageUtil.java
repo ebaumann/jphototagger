@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.io;
 
-import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.event.listener.ProgressListener;
@@ -32,19 +31,18 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
-import org.jphototagger.program.view.ViewUtil;
 
 
 import java.io.File;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Utilities for images.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImageUtil {
     private ImageUtil() {}
@@ -61,42 +59,6 @@ public final class ImageUtil {
                    ? YES
                    : NO;
         }
-    }
-
-    /**
-     * Returns wheter a file is an image file.
-     *
-     * @param  file file
-     * @return      true if the file is an image file
-     */
-    public static boolean isImageFile(File file) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-
-        return AppFileFilters.ACCEPTED_IMAGE_FILENAMES.accept(file);
-    }
-
-    /**
-     * Returns from a collection of files the image files.
-     *
-     * @param  files files
-     * @return       image files of that files
-     */
-    public static List<File> getImageFiles(Collection<? extends File> files) {
-        if (files == null) {
-            throw new NullPointerException("files == null");
-        }
-
-        List<File> imageFiles = new ArrayList<File>(files.size());
-
-        for (File file : files) {
-            if (isImageFile(file)) {
-                imageFiles.add(file);
-            }
-        }
-
-        return imageFiles;
     }
 
     /**
@@ -161,7 +123,7 @@ public final class ImageUtil {
 
         if (ctrl != null) {
             ctrl.moveFiles(sourceFiles, targetDirectory);
-            ViewUtil.refreshThumbnailsPanel();
+            GUI.refreshThumbnailsPanel();
         }
     }
 
@@ -186,7 +148,7 @@ public final class ImageUtil {
             }
             @Override
             public void progressEnded(ProgressEvent evt) {
-                ViewUtil.refreshThumbnailsPanel();
+                GUI.refreshThumbnailsPanel();
             }
         });
     }
@@ -208,7 +170,7 @@ public final class ImageUtil {
         List<File> files = new ArrayList<File>(imageFiles.size() * 2);
 
         for (File imageFile : imageFiles) {
-            if ((imageFile != null) && isImageFile(imageFile)) {
+            if ((imageFile != null) && ImageFileFilterer.isImageFile(imageFile)) {
                 files.add(imageFile);
 
                 File sidecarFile = XmpMetadata.getSidecarFile(imageFile);
@@ -220,5 +182,28 @@ public final class ImageUtil {
         }
 
         return files;
+    }
+
+    /**
+     * Checks whether a sidecar file can be written for an image file, else
+     * displays an error message.
+     *
+     * @param  imageFile image file
+     * @return           true if a sidecar file can be written.
+     * @see              XmpMetadata#canWriteSidecarFileForImageFile(File)
+     */
+    public static boolean checkImageEditable(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
+            MessageDisplayer.error(null, "ImageUtil.Error.WriteSidecarFile",
+                                   imageFile.getParentFile());
+
+            return false;
+        }
+
+        return true;
     }
 }

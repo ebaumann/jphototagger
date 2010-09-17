@@ -28,7 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Spalte <code>iptc4xmpcore_locations</code> der Tabelle <code>xmp</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnXmpIptc4xmpcoreLocation extends Column {
     public static final ColumnXmpIptc4xmpcoreLocation INSTANCE =

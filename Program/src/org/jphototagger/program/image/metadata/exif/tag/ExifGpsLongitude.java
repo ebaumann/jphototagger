@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * GPS longitude.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifGpsLongitude {
     public enum Ref { EAST, WEST }

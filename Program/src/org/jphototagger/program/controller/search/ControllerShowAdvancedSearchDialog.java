@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
 /**
  * Kontrolliert die Aktion: Dialog für erweiterte Suche anzeigen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerShowAdvancedSearchDialog
         implements ActionListener {

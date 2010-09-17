@@ -28,7 +28,7 @@ import java.text.DecimalFormat;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameFormatNumberSequence extends FilenameFormat {
     private int           current;

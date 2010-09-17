@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#SHARPNESS}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterSharpness extends ExifFormatter {
     public static final ExifFormatterSharpness INSTANCE =

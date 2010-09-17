@@ -35,7 +35,7 @@ import static java.text.MessageFormat.format;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseMaintainance extends Database {
     public static final DatabaseMaintainance INSTANCE =

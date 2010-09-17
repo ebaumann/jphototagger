@@ -49,7 +49,7 @@ import javax.xml.transform.TransformerFactory;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SynonymsExporter implements Exporter {
     private static final long       serialVersionUID = 1L;

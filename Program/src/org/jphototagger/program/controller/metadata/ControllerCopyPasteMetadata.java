@@ -28,7 +28,6 @@ import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +44,7 @@ import javax.swing.JMenuItem;
  * {@link EditMetadataPanels#getXmp()} or
  * {@link EditMetadataPanels#setXmp(org.jphototagger.program.data.Xmp)}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerCopyPasteMetadata
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
@@ -58,8 +57,8 @@ public final class ControllerCopyPasteMetadata
     private void listen() {
         getCopyItem().addActionListener(this);
         getPasteItem().addActionListener(this);
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
-        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addKeyListener(this);
     }
 
     private JMenuItem getCopyItem() {
@@ -90,8 +89,7 @@ public final class ControllerCopyPasteMetadata
     }
 
     private void copy() {
-        this.xmp = new Xmp(
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels().getXmp());
+        this.xmp = new Xmp(GUI.getAppPanel().getEditMetadataPanels().getXmp());
         getPasteItem().setEnabled(true);
     }
 
@@ -101,7 +99,7 @@ public final class ControllerCopyPasteMetadata
         }
 
         EditMetadataPanels editPanel =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            GUI.getAppPanel().getEditMetadataPanels();
 
         if (!checkSelected() ||!checkCanEdit(editPanel)) {
             return;
@@ -113,7 +111,7 @@ public final class ControllerCopyPasteMetadata
     }
 
     private boolean checkSelected() {
-        int selCount = ViewUtil.getThumbnailsPanel().getSelectionCount();
+        int selCount = GUI.getThumbnailsPanel().getSelectionCount();
 
         if (selCount <= 0) {
             MessageDisplayer.error(
@@ -142,8 +140,8 @@ public final class ControllerCopyPasteMetadata
             @Override
             public void run() {
                 getCopyItem().setEnabled(
-                    ViewUtil.getThumbnailsPanel().isFileSelected());
-    }
+                    GUI.getThumbnailsPanel().isFileSelected());
+            }
         });
     }
 

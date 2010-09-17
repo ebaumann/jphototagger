@@ -40,7 +40,7 @@ import javax.swing.JList;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class ControllerKeywords extends Controller {
     abstract protected void action(List<String> keywords);
@@ -51,7 +51,7 @@ public abstract class ControllerKeywords extends Controller {
 
     private void listen() {
         listenToKeyEventsOf(
-            GUI.INSTANCE.getAppPanel().getListEditKeywords(),
+            GUI.getAppPanel().getListEditKeywords(),
             InputHelperDialog.INSTANCE.getPanelKeywords().getList());
     }
 
@@ -76,7 +76,7 @@ public abstract class ControllerKeywords extends Controller {
     protected ListModelKeywords getModel() {
 
         // All lists have the same model
-        return (ListModelKeywords) ((SortedListModel) GUI.INSTANCE.getAppPanel()
+        return (ListModelKeywords) ((SortedListModel) GUI.getAppPanel()
             .getListEditKeywords().getModel()).getUnsortedModel();
     }
 

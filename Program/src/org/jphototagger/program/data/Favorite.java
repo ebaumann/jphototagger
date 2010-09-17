@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Favorite: File system directory + alias name + order (index).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -48,7 +48,7 @@ import javax.swing.tree.TreeModel;
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordsExporterLightroom implements Exporter {
     public static final KeywordsExporterLightroom INSTANCE =

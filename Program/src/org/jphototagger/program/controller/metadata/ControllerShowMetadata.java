@@ -42,7 +42,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -69,7 +68,7 @@ import javax.swing.JTable;
  * Listens also to the {@link DatabaseImageFiles} and refreshes the displayed
  * metadata of a file if that file was changed in the database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerShowMetadata
         implements DatabaseImageFilesListener, ThumbnailsPanelListener {
@@ -87,12 +86,12 @@ public final class ControllerShowMetadata
     private enum Metadata { EXIF, IPTC, XMP; }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         DatabaseImageFiles.INSTANCE.addListener(this);
     }
 
     private void initMetadatModels() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel appPanel = GUI.getAppPanel();
 
         metadataTableModels.setIptcTableModel(
             (TableModelIptc) appPanel.getTableIptc().getModel());
@@ -157,7 +156,7 @@ public final class ControllerShowMetadata
 
     @Override
     public void thumbnailsSelectionChanged() {
-        final AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+        final AppPanel        appPanel = GUI.getAppPanel();
         final ThumbnailsPanel panel    = appPanel.getPanelThumbnails();
         final List<File>      selFiles = panel.getSelectedFiles();
 
@@ -265,7 +264,7 @@ public final class ControllerShowMetadata
     }
 
     private void showUpdates(File file, Set<Metadata> metadata) {
-        final List<File> selFiles = ViewUtil.getSelectedImageFiles();
+        final List<File> selFiles = GUI.getSelectedImageFiles();
 
         if (selFiles.size() == 1) {
             File selectedFile = selFiles.get(0);
@@ -277,7 +276,7 @@ public final class ControllerShowMetadata
     }
 
     private void repaintMetadataTables(Set<Metadata> metadata) {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel appPanel = GUI.getAppPanel();
 
         if (metadata.contains(Metadata.EXIF)) {
             repaintTables(Collections.singleton(appPanel.getTableExif()));
@@ -314,7 +313,7 @@ public final class ControllerShowMetadata
 
             removeMetadataFromTables(allMetadata);
             repaintMetadataTables(allMetadata);
-            GUI.INSTANCE.getAppPanel().getLabelMetadataFilename().setText(
+            GUI.getAppPanel().getLabelMetadataFilename().setText(
                 JptBundle.INSTANCE.getString(
                     "ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
         }
@@ -335,7 +334,7 @@ public final class ControllerShowMetadata
             removeMetadataFromTables(metadata);
 
             // In a multithreading environment this is possible
-            if (ViewUtil.getSelectedImageFiles().isEmpty()) {
+            if (GUI.getSelectedImageFiles().isEmpty()) {
                 return;
             }
 
@@ -343,7 +342,7 @@ public final class ControllerShowMetadata
                 metadataTableModels.getExifTableModel().setFile(file);
             }
 
-            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+            AppPanel appPanel = GUI.getAppPanel();
 
             if (metadata.contains(Metadata.IPTC)
                     && UserSettings.INSTANCE.isDisplayIptc()) {
@@ -367,7 +366,7 @@ public final class ControllerShowMetadata
         }
 
         private void resizeMetadataTables(Set<Metadata> metadata) {
-            AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+            AppPanel appPanel = GUI.getAppPanel();
 
             if (metadata.contains(Metadata.EXIF)) {
                 resizeTables(Collections.singleton(appPanel.getTableExif()));

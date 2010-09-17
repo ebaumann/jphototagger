@@ -39,7 +39,7 @@ import java.util.List;
  * Contains (links to) external Programs to execute after inserting metadata
  * into the database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
     private final ListenerSupport<DatabaseActionsAfterDbInsertionListener> ls =

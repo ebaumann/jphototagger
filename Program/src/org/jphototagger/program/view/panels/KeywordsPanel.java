@@ -38,7 +38,7 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * A tree for keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class KeywordsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 5968799511284000903L;

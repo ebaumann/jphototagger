@@ -31,7 +31,7 @@ import org.jphototagger.program.resource.JptBundle;
  * <li>EXIF Tag-ID: 37386 (Hex: 920A)</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnExifFocalLength extends Column {
     public static final ColumnExifFocalLength INSTANCE =

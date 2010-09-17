@@ -29,7 +29,7 @@ import javax.swing.JLabel;
 /**
  * Renderd eine Tabellenspalte.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FormatterLabelTableColumn {
 

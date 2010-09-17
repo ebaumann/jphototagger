@@ -88,7 +88,7 @@ import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
 /**
  * Database containing metadata of image files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseImageFiles extends Database {
     public static final DatabaseImageFiles                    INSTANCE =

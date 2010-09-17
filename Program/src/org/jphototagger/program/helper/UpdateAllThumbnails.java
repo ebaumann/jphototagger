@@ -40,7 +40,7 @@ import java.util.Set;
 /**
  * Updates all Thumbnails in the database with the current settings.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateAllThumbnails
         implements Runnable, ProgressListener, ActionListener {
@@ -68,7 +68,7 @@ public final class UpdateAllThumbnails
     }
 
     private void initProgressDialog() {
-        progressDialog = new ProgressDialog(GUI.INSTANCE.getAppFrame());
+        progressDialog = new ProgressDialog(GUI.getAppFrame());
         progressDialog.setTitle(
             JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.Title"));
         progressDialog.setInfoText(

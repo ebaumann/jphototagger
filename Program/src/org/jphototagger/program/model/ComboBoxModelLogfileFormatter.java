@@ -33,7 +33,7 @@ import javax.swing.DefaultComboBoxModel;
  * These formatters can be used for formatting {@link java.util.logging.Logger}
  * output.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComboBoxModelLogfileFormatter extends DefaultComboBoxModel {
     private static final long serialVersionUID = -7817194934431355197L;

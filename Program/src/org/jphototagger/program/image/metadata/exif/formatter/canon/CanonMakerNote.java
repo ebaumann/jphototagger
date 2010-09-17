@@ -36,7 +36,7 @@ import java.nio.ByteOrder;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CanonMakerNote {
     private static final byte[] JPEG_MAGIC_BYTES      = { (byte) 0xFF,

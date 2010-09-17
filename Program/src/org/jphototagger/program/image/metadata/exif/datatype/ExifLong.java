@@ -32,7 +32,7 @@ import java.nio.ByteOrder;
  * BUGS: Possibly too small because the EXIF LONG is unsigned and has the
  * same byte count.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifLong {
     private final int value;

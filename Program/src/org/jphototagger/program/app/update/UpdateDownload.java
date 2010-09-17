@@ -49,7 +49,7 @@ import javax.swing.JProgressBar;
  * Checks for newer versions of JPhotoTagger and downloads them depending
  * on {@link UserSettings#isAutoDownloadNewerVersions()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateDownload extends Thread
         implements CancelRequest, Cancelable {

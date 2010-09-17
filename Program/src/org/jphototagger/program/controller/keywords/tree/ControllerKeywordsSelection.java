@@ -25,7 +25,6 @@ import org.jphototagger.program.controller.keywords.list
     .ShowThumbnailsContainingAllKeywords2;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -36,12 +35,13 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to {@link AppPanel#getTreeSelKeywords()} and on selection
  * shows thumbnails of the selected keyword and all it's
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerKeywordsSelection
         implements TreeSelectionListener {
@@ -50,7 +50,7 @@ public final class ControllerKeywordsSelection
     }
 
     private void listen() {
-        ViewUtil.getSelKeywordsTree().getSelectionModel()
+        GUI.getSelKeywordsTree().getSelectionModel()
             .addTreeSelectionListener(this);
     }
 
@@ -85,7 +85,7 @@ public final class ControllerKeywordsSelection
 
     private List<List<Keyword>> getKeywordPaths() {
         TreePath[]          selPaths =
-            ViewUtil.getSelKeywordsTree().getSelectionPaths();
+            GUI.getSelKeywordsTree().getSelectionPaths();
         List<List<Keyword>> paths = new ArrayList<List<Keyword>>();
 
         for (TreePath selPath : selPaths) {

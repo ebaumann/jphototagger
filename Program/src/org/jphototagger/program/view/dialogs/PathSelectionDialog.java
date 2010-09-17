@@ -47,7 +47,7 @@ import javax.swing.JList;
 /**
  * Modal dialog to select a path.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class PathSelectionDialog extends Dialog
         implements ListSelectionListener {
@@ -62,7 +62,7 @@ public class PathSelectionDialog extends Dialog
 
     public PathSelectionDialog(Collection<Collection<String>> paths,
                                Mode mode) {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         if (paths == null) {
             throw new NullPointerException("paths == null");

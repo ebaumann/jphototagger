@@ -55,7 +55,7 @@ import javax.swing.tree.TreeModel;
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ModelFactory {
     public static final ModelFactory INSTANCE = new ModelFactory();
@@ -74,7 +74,7 @@ public final class ModelFactory {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+                AppPanel appPanel = GUI.getAppPanel();
 
                 Support.setStatusbarInfo("ModelFactory.Init.Start");
                 setTableModels(appPanel);
@@ -95,7 +95,7 @@ public final class ModelFactory {
         ComboBoxModelFileFilters model = new ComboBoxModelFileFilters();
 
         support.add(model);
-        GUI.INSTANCE.getAppPanel().getComboBoxFileFilters().setModel(model);
+        GUI.getAppPanel().getComboBoxFileFilters().setModel(model);
     }
 
     private void setComboBoxModelMetadataTemplates(AppPanel appPanel) {

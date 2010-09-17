@@ -33,7 +33,7 @@ import java.awt.event.ActionListener;
  * Listens to the menu item {@link AppFrame#getMenuItemExportKeywords()} and
  * on action performed exports keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerExportKeywords implements ActionListener {
     public ControllerExportKeywords() {
@@ -41,7 +41,7 @@ public final class ControllerExportKeywords implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemExportKeywords()
+        GUI.getAppFrame().getMenuItemExportKeywords()
             .addActionListener(this);
     }
 

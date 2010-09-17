@@ -27,7 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
  * Comparator einer Spaltensuche (vergleicht den Spaltenwert mit einem
  * Pattern).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum Comparator {
 

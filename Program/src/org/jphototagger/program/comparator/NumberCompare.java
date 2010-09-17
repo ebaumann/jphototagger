@@ -25,7 +25,7 @@ package org.jphototagger.program.comparator;
  * Compares numbers that can be null. If a number is null, it is always lesser
  * than a number that is not null.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class NumberCompare {
 

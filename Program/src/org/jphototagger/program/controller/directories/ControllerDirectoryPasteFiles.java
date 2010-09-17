@@ -25,6 +25,7 @@ import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -43,7 +44,7 @@ import javax.swing.JTree;
  * Listens to keyboard actions whithin the directories tree and copies or
  * moves files to directories when the keys related to a copy or move action.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDirectoryPasteFiles implements KeyListener {
     public ControllerDirectoryPasteFiles() {
@@ -51,8 +52,8 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void listen() {
-        ViewUtil.getDirectoriesTree().addKeyListener(this);
-        ViewUtil.getFavoritesTree().addKeyListener(this);
+        GUI.getDirectoriesTree().addKeyListener(this);
+        GUI.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
@@ -67,7 +68,7 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void copyOrMovePastedFilesTo(JTree targetTree) {
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (isSingleDirectory(tnPanel.getContent())
                 && filesWereCopiedOrCutted(tnPanel.getFileAction())) {
@@ -86,7 +87,7 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
         FileAction      action  = tnPanel.getFileAction();
 
         if (filesWereCopiedOrCutted(action)) {

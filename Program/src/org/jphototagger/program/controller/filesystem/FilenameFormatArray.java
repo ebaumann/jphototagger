@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Array of {@link FilenameFormat} objects.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameFormatArray implements FilenameFormatListener {
     private final List<FilenameFormat> formats =

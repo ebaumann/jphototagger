@@ -35,7 +35,7 @@ import javax.swing.JButton;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMetadataTemplateDelete
         extends ControllerMetadataTemplate {

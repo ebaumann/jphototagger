@@ -21,19 +21,19 @@
 
 package org.jphototagger.program.controller.imagecollection;
 
-import org.jphototagger.program.helper.ModifyImageCollections;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.view.dialogs.ImageCollectionsDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Füge Bilder einer Bildsammlung hinzu, ausgelöst von
  * {@link org.jphototagger.program.view.popupmenus.PopupMenuThumbnails}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerAddToImageCollection implements ActionListener {
     public ControllerAddToImageCollection() {
@@ -54,8 +54,8 @@ public final class ControllerAddToImageCollection implements ActionListener {
         String collectionName = selectCollectionName();
 
         if (collectionName != null) {
-            ModifyImageCollections.addImagesToCollection(collectionName,
-                    ViewUtil.getSelectedImageFiles());
+            ImageCollectionsHelper.addImagesToCollection(collectionName,
+                    GUI.getSelectedImageFiles());
         }
     }
 

@@ -62,7 +62,7 @@ import java.util.Set;
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the
  * database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InsertImageFilesIntoDatabase extends Thread
         implements Cancelable {

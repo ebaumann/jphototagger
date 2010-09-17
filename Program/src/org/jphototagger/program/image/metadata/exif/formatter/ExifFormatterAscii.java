@@ -29,7 +29,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 /**
  * Formats EXIF metadata fields in ASCII format.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterAscii extends ExifFormatter {
     public static final ExifFormatterAscii INSTANCE = new ExifFormatterAscii();

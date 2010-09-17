@@ -41,7 +41,7 @@ import java.awt.Container;
  * {@link #setTemplate(org.jphototagger.program.data.MetadataTemplate)} before
  * calling {@link #setVisible(boolean)}!
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class EditMetaDataTemplateDialog extends Dialog {
     private static final long          serialVersionUID = -6621176928237283620L;

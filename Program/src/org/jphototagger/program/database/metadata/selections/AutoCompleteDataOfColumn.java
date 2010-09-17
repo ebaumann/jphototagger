@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Contains autocomplete data of specific columns.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AutoCompleteDataOfColumn {
     public static final AutoCompleteDataOfColumn INSTANCE =

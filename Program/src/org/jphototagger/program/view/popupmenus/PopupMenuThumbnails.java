@@ -54,7 +54,7 @@ import javax.swing.JPopupMenu.Separator;
 /**
  * Popup menu of the thumbnails panel.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class PopupMenuThumbnails extends JPopupMenu
         implements DatabaseProgramsListener {

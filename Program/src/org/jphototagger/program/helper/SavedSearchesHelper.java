@@ -21,16 +21,19 @@
 
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import javax.swing.DefaultListModel;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SavedSearchesHelper {
 
@@ -39,7 +42,7 @@ public final class SavedSearchesHelper {
      * application's panel.
      */
     public static void focusAppPanelList() {
-        GUI.INSTANCE.getAppPanel().getListSavedSearches().requestFocus();
+        GUI.getAppPanel().getListSavedSearches().requestFocus();
     }
 
     /**
@@ -97,6 +100,7 @@ public final class SavedSearchesHelper {
                                        savedSearch);
             }
         }
+
         return false;
     }
 
@@ -116,6 +120,7 @@ public final class SavedSearchesHelper {
         } else {
             MessageDisplayer.error(null, "SavedSearchesHelper.Error.Update",
                                    savedSearch);
+
             return false;
         }
     }
@@ -170,6 +175,27 @@ public final class SavedSearchesHelper {
     }
 
     /**
+     * Calls {@link ThumbnailsPanel#setFileSortComparator(java.util.Comparator)}
+     * with no sort order if the search uses custom SQL or the last used sort
+     * order.
+     *
+     * @param search saved search
+     */
+    public static void setSort(SavedSearch search) {
+        if (search == null) {
+            throw new NullPointerException("search == null");
+        }
+
+        if (search.isCustomSql()) {
+            GUI.getThumbnailsPanel().setFileSortComparator(
+                FileSort.NO_SORT.getComparator());
+            GUI.getAppFrame().selectMenuItemUnsorted();
+        } else {
+            ControllerSortThumbnails.setLastSort();
+        }
+    }
+
+    /**
      * Returns a not existing search name via user input.
      *
      * @param  suggestName name in the input text field
@@ -182,8 +208,8 @@ public final class SavedSearchesHelper {
 
         boolean wantInput = true;
         String  input     = null;
+        String  suggest   = suggestName;
 
-        String suggest = suggestName;
         while (wantInput) {
             wantInput = false;
             input     = getInput(suggest);

@@ -30,7 +30,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordTreeNodesClipboard {
     public enum Action { COPY, MOVE, UNKNOWN }

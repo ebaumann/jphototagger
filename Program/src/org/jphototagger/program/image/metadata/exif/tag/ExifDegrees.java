@@ -32,7 +32,7 @@ import java.util.Arrays;
  * A coordinate described in degrees (minutes and seconds are the 1/60 and
  * 1/3600 or a degree).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifDegrees {
     private final ExifRational degrees;

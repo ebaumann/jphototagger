@@ -27,7 +27,7 @@ import java.io.File;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FileSystemListenerSupport
         extends ListenerSupport<FileSystemListener> {

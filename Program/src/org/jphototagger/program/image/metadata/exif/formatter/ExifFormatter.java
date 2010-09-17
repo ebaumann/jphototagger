@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Formats EXIF metadata.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class ExifFormatter {
     private static final Map<IfdType, Translation> TRANSLATION_OF_IFD =

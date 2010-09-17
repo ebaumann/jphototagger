@@ -41,7 +41,7 @@ import java.io.IOException;
  * Extracts EXIF metadata from images as {@link ExifTag} and
  * {@link EXIF} objects.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class ExifMetadata {
     public enum IfdType {

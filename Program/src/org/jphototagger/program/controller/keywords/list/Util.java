@@ -26,7 +26,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class Util {
     public static String keywordPathString(List<String> keywords) {

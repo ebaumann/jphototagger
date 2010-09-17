@@ -38,7 +38,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to the {@link JTree}'s key events and refreshes the tree
  * when <code>F5</code> was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerRefreshDirectoryTree extends ControllerDirectory {
     public ControllerRefreshDirectoryTree() {

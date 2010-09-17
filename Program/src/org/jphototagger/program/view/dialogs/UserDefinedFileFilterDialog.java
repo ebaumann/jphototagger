@@ -35,7 +35,7 @@ public class UserDefinedFileFilterDialog extends Dialog {
     private static final long serialVersionUID = -1671508580095511987L;
 
     public UserDefinedFileFilterDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
                 UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();

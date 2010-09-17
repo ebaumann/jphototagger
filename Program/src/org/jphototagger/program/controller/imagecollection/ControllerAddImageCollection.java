@@ -25,11 +25,11 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.ModifyImageCollections;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.model.ListModelImageCollections;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +46,7 @@ import javax.swing.JList;
  * Also listens to the {@link JList}'s key events and creates a new image
  * collection when the keys <code>Ctrl+N</code> were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerAddImageCollection
         implements ActionListener, KeyListener {
@@ -59,7 +59,7 @@ public final class ControllerAddImageCollection
             .addActionListener(this);
         PopupMenuImageCollections.INSTANCE.getItemCreate().addActionListener(
             this);
-        ViewUtil.getImageCollectionsList().addKeyListener(this);
+        GUI.getImageCollectionsList().addKeyListener(this);
     }
 
     @Override
@@ -76,8 +76,8 @@ public final class ControllerAddImageCollection
 
     private void createImageCollectionOfSelectedFiles() {
         final String collectionName =
-            ModifyImageCollections.insertImageCollection(
-                ViewUtil.getSelectedImageFiles());
+            ImageCollectionsHelper.insertImageCollection(
+                GUI.getSelectedImageFiles());
 
         if (collectionName != null) {
             EventQueue.invokeLater(new Runnable() {

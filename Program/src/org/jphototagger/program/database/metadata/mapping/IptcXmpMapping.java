@@ -58,7 +58,7 @@ import java.util.Set;
 /**
  * Mapping between IPTC Entry Metadata and XMP columns.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class IptcXmpMapping {
     private static final Map<IPTCEntryMeta, Column> XMP_COLUMN_OF_IPTC_ENTRY_META =

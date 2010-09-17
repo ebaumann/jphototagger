@@ -35,7 +35,7 @@ import java.io.File;
 
 import java.util.Arrays;
 import java.util.Set;
-import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Deletes thumbnails without an image file in the database.
@@ -44,7 +44,7 @@ import org.jphototagger.program.view.ViewUtil;
  * thumbnail files. Then deletes all other files in the directory
  * {@link UserSettings#getThumbnailsDirectoryName()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
@@ -77,7 +77,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
         File[] filesInDir =
             new File(
                 UserSettings.INSTANCE.getThumbnailsDirectoryName()).listFiles();
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
         boolean isDelete  = false;
         File    fileInDir = null;
 

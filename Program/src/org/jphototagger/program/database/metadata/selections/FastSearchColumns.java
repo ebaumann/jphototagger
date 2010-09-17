@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * Spalten für die Schnellsuche.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FastSearchColumns {
     private static final List<Column> COLUMNS = new ArrayList<Column>();

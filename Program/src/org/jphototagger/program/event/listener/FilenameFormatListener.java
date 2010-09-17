@@ -24,7 +24,7 @@ package org.jphototagger.program.event.listener;
 /**
  * Listens while formatting files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface FilenameFormatListener {
     public enum Request {

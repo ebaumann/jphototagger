@@ -36,7 +36,7 @@ import java.sql.SQLException;
 /**
  * Initializes the application's database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppDatabase {
     private static boolean init;

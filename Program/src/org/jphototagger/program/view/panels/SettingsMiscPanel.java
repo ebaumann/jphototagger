@@ -42,7 +42,7 @@ import org.jphototagger.program.factory.ControllerFactory;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SettingsMiscPanel extends javax.swing.JPanel
         implements Persistence {
@@ -57,7 +57,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         File             dir    = null;
         DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), startDirectory,
+                GUI.getAppFrame(), startDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),

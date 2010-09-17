@@ -28,7 +28,7 @@ import javax.swing.DefaultComboBoxModel;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComboBoxModelScheduledTaskBackupDatabase
         extends DefaultComboBoxModel {

@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
 /**
  * Kontrolliert die Aktion: Benutzereinstellungen-Dialog anzeigen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerShowUserSettingsDialog implements ActionListener {
     @Override

@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ConvertIptcToXmp implements Runnable, Cancelable {
     private final List<ProgressListener> prLs =

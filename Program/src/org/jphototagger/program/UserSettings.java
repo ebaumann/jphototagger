@@ -51,7 +51,7 @@ import java.util.Properties;
  * Getters and setters in this class are used by multiple classes, else a
  * class should use {@link #getSettings()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UserSettings {
     private static final int DEFAULT_MAX_THUMBNAIL_WIDTH              = 150;

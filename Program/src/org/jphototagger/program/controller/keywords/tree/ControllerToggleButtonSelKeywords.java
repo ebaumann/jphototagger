@@ -35,11 +35,11 @@ import javax.swing.JToggleButton;
  * Listens to {@link AppPanel#getToggleButtonSelKeywords()} and expands or
  * collapses all keyword nodes on action.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerToggleButtonSelKeywords implements ActionListener {
     private final JToggleButton toggleButtonExpandAllNodesSelKeywords =
-        GUI.INSTANCE.getAppPanel().getToggleButtonSelKeywords();
+        GUI.getAppPanel().getToggleButtonSelKeywords();
 
     public ControllerToggleButtonSelKeywords() {
         listen();
@@ -53,7 +53,7 @@ public final class ControllerToggleButtonSelKeywords implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         boolean selected = toggleButtonExpandAllNodesSelKeywords.isSelected();
 
-        TreeUtil.expandAll(GUI.INSTANCE.getAppPanel().getTreeSelKeywords(),
+        TreeUtil.expandAll(GUI.getAppPanel().getTreeSelKeywords(),
                            selected);
         toggleButtonExpandAllNodesSelKeywords.setText(selected
                 ? JptBundle.INSTANCE.getString(

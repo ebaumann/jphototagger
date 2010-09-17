@@ -40,7 +40,7 @@ import java.util.Date;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
     public static final String                       CHARSET_INFO_FILE    =

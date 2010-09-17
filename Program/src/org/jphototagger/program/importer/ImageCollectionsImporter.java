@@ -48,7 +48,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImageCollectionsImporter implements Importer {
     public static final ImageCollectionsImporter INSTANCE =

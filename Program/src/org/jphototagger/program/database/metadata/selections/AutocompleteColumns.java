@@ -43,7 +43,7 @@ import java.util.List;
  * All columns with autocomplete enabled, for other columns autocomplete should
  * be disabled.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AutocompleteColumns {
     private static final List<Column> COLUMNS = new ArrayList<Column>();

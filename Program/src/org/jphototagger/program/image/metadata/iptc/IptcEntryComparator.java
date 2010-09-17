@@ -33,7 +33,7 @@ import java.util.Comparator;
  * Der Name wird nicht verglichen, denn Recordnummer und Datensatznummer
  * identifizieren diesen eindeutig; er ist redundand.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see     IptcEntry
  */
 public final class IptcEntryComparator implements Comparator<IptcEntry> {

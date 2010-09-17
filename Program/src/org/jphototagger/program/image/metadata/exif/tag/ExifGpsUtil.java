@@ -41,7 +41,7 @@ import java.util.TimeZone;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifGpsUtil {
     public static double degrees(ExifDegrees degrees) {

@@ -26,7 +26,7 @@ import org.jphototagger.program.image.metadata.exif.formatter.ExifFormatterFacto
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifTagValueFormatter {
 

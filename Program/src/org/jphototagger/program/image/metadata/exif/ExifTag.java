@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifTag {
 

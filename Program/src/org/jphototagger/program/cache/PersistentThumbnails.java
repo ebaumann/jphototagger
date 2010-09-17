@@ -22,7 +22,7 @@
 package org.jphototagger.program.cache;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.io.IoUtil;
+import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
@@ -71,7 +71,7 @@ public final class PersistentThumbnails {
         }
 
         try {
-            if (!IoUtil.lockLogWarning(tnFile, PersistentThumbnails.class)) {
+            if (!RuntimeUtil.lockLogWarning(tnFile, PersistentThumbnails.class)) {
                 return;
             }
 

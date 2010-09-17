@@ -24,7 +24,7 @@ package org.jphototagger.program.database.metadata.selections;
 /**
  * Hinweise für Spalten, die bearbeitet werden können.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class EditHints {
     private final boolean       repeatable;

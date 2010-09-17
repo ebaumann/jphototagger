@@ -27,7 +27,7 @@ import java.nio.ByteOrder;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifDatatypeUtil {
     public static double toDouble(ExifRational rational) {

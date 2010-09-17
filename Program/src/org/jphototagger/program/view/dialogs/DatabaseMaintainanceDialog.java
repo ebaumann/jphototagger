@@ -39,7 +39,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private static final long serialVersionUID = -6775385212305459197L;
 
     private DatabaseMaintainanceDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();

@@ -50,7 +50,7 @@ import javax.swing.JButton;
  *
  * To work initially, {@link #run()} has to be called.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ScheduledTasks
         implements ActionListener, UpdateMetadataCheckListener {

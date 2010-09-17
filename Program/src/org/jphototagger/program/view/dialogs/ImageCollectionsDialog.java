@@ -38,14 +38,14 @@ import javax.swing.ListModel;
 /**
  * Dialog zum Anzeigen und Auswählen der Namen von Bildsammlungen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImageCollectionsDialog extends Dialog {
     private static final long serialVersionUID = 1314098937293915298L;
     private boolean           ok               = false;
 
     public ImageCollectionsDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();

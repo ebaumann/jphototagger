@@ -34,7 +34,7 @@ import javax.swing.text.NumberFormatter;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FormatterFactory {
     private static DefaultFormatterFactory integerFormatterFactory;

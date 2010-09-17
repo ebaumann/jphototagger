@@ -28,7 +28,6 @@ import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -40,11 +39,12 @@ import java.util.Map;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.JMenuItem;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMenuItemEnabler
         implements DatabaseProgramsListener, ThumbnailsPanelListener,
@@ -60,7 +60,7 @@ public final class ControllerMenuItemEnabler
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         DatabasePrograms.INSTANCE.addListener(this);
         PopupMenuThumbnails.INSTANCE.addPopupMenuListener(this);
     }
@@ -124,7 +124,7 @@ public final class ControllerMenuItemEnabler
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ThumbnailsPanel tnPanel      = ViewUtil.getThumbnailsPanel();
+                ThumbnailsPanel tnPanel      = GUI.getThumbnailsPanel();
                 Content         content      = tnPanel.getContent();
                 boolean         fileSelected = tnPanel.isFileSelected();
 
@@ -163,7 +163,7 @@ public final class ControllerMenuItemEnabler
     }
 
     private void popupMenuThumbnailsBecomeVisible() {
-        ThumbnailsPanel     tnPanel         = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel     tnPanel         = GUI.getThumbnailsPanel();
         PopupMenuThumbnails popupThumbnails = PopupMenuThumbnails.INSTANCE;
 
         popupThumbnails.getItemSelectAll().setEnabled(tnPanel.hasFiles());

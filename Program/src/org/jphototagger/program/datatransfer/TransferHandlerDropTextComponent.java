@@ -49,7 +49,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * Does <em>not</em> support moving data.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerDropTextComponent extends TransferHandler {
     private static final long serialVersionUID = 4543789065456550151L;

@@ -57,7 +57,7 @@ import javax.swing.TransferHandler;
  *
  * Enables the menu items based on the content (when it's a single directory).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerPasteFilesFromClipboard
         implements ActionListener, KeyListener, MenuListener,
@@ -67,11 +67,11 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     private void listen() {
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         getPasteItem().addActionListener(this);
         tnPanel.addThumbnailsPanelListener(this);
-        GUI.INSTANCE.getAppFrame().getMenuEdit().addMenuListener(this);
+        GUI.getAppFrame().getMenuEdit().addMenuListener(this);
         tnPanel.addKeyListener(this);
     }
 
@@ -89,7 +89,7 @@ public final class ControllerPasteFilesFromClipboard
                 && canPasteFiles()) {
             Object source = evt.getSource();
 
-            if (source == ViewUtil.getThumbnailsPanel()) {
+            if (source == GUI.getThumbnailsPanel()) {
                 insertFiles(getDirectory());
             } else if (isTreeSelection(source)) {
                 insertFiles(ViewUtil.getSelectedFile((JTree) source));
@@ -107,7 +107,7 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (ViewUtil.getThumbnailsPanel().getContent()
+        if (GUI.getThumbnailsPanel().getContent()
                 .canInsertImagesFromFileSystem()) {
             insertFiles(getDirectory());
             getPasteItem().setEnabled(false);
@@ -115,12 +115,12 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     private File getDirectory() {
-        Content content = ViewUtil.getThumbnailsPanel().getContent();
+        Content content = GUI.getThumbnailsPanel().getContent();
 
         if (content.equals(Content.DIRECTORY)) {
-            return ViewUtil.getSelectedFile(ViewUtil.getDirectoriesTree());
+            return ViewUtil.getSelectedFile(GUI.getDirectoriesTree());
         } else if (content.equals(Content.FAVORITE)) {
-            return ViewUtil.getSelectedFile(ViewUtil.getFavoritesTree());
+            return ViewUtil.getSelectedFile(GUI.getFavoritesTree());
         }
 
         return null;
@@ -143,7 +143,7 @@ public final class ControllerPasteFilesFromClipboard
             }
             public int getEstimatedTransferHandlerAction() {
                 Integer action =
-                    ViewUtil.getThumbnailsPanel().getFileAction()
+                    GUI.getThumbnailsPanel().getFileAction()
                         .getTransferHandlerAction();
 
                 return (action == null)
@@ -169,12 +169,12 @@ public final class ControllerPasteFilesFromClipboard
             @Override
             public void run() {
                 getPasteItem().setEnabled(canPasteFiles());
-    }
+            }
         });
     }
 
     private boolean canPasteFiles() {
-        return ViewUtil.getThumbnailsPanel().getContent()
+        return GUI.getThumbnailsPanel().getContent()
             .canInsertImagesFromFileSystem() && TransferUtil
             .systemClipboardMaybeContainFiles();
     }

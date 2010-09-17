@@ -28,7 +28,7 @@ import java.util.List;
  * Contains instances of all {@link Exporter}s exporting keywords for external
  * applications (<em>not</em> for JPhotoTagger).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordsExporters {
     private static final List<Exporter> exporters = new ArrayList<Exporter>();

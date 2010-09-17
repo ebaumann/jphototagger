@@ -77,7 +77,7 @@ import javax.swing.JTextArea;
  * Text in the input field will be added to the list on hitting the ENTER key
  * or pushing the ADD button.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class EditRepeatableTextEntryPanel extends JPanel
         implements TextEntry, ActionListener, DocumentListener,

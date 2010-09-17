@@ -68,7 +68,7 @@ import javax.swing.tree.TreePath;
  * <strong>Keyword</strong> means a hierarchical keyword, <strong>DC (Dublin
  * Core) subject</strong> a "flat" keyword.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordsHelper {
     private KeywordsHelper() {}
@@ -90,7 +90,7 @@ public final class KeywordsHelper {
             @Override
             public void run() {
                 EditMetadataPanels editPanels =
-                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                    GUI.getAppPanel().getEditMetadataPanels();
                 List<String> keywordStrings = getKeywordStrings(node, true);
 
                 for (String keyword : keywordStrings) {
@@ -360,8 +360,8 @@ public final class KeywordsHelper {
 
     private static List<JTree> getKeywordTrees() {
         return Arrays.<JTree>asList(
-            GUI.INSTANCE.getAppPanel().getTreeEditKeywords(),
-            GUI.INSTANCE.getAppPanel().getTreeSelKeywords(),
+            GUI.getAppPanel().getTreeEditKeywords(),
+            GUI.getAppPanel().getTreeSelKeywords(),
             InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
@@ -374,10 +374,10 @@ public final class KeywordsHelper {
             @Override
             public void run() {
                 JList selKeywordsList =
-                    GUI.INSTANCE.getAppPanel().getListSelKeywords();
+                    GUI.getAppPanel().getListSelKeywords();
 
                 selKeywordsList.clearSelection();
-                GUI.INSTANCE.getAppPanel().displaySelKeywordsList(
+                GUI.getAppPanel().displaySelKeywordsList(
                     AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
 
                 if (!indices.isEmpty()) {

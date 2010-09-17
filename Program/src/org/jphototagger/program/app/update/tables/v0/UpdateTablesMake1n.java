@@ -45,7 +45,7 @@ import java.util.Map;
  * <p>
  * Works only, if the column data type is a string.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateTablesMake1n {
     private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF =

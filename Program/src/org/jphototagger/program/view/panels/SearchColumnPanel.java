@@ -50,7 +50,7 @@ import org.jphototagger.program.resource.JptBundle;
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
  * und Suchtext.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class SearchColumnPanel extends javax.swing.JPanel {
     private static final long   serialVersionUID = -2063583386957538525L;
@@ -359,7 +359,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private void showInputHelpers() {
         if (listenToActions
                 && getColumn().equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-            GUI.INSTANCE.getAppFrame().getMenuItemInputHelper().doClick();
+            GUI.getAppFrame().getMenuItemInputHelper().doClick();
         }
     }
 

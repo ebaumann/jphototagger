@@ -30,7 +30,7 @@ import java.util.Arrays;
 /**
  * Copyright as specified in the EXIF standard, tag 33432 (8298.H).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifCopyright {
     private final String photographerCopyright;

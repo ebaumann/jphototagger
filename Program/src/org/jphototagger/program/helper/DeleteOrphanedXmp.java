@@ -33,7 +33,7 @@ import java.text.MessageFormat;
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see     DatabaseImageFiles#deleteOrphanedXmp(ProgressListener)
  */
 public final class DeleteOrphanedXmp implements Runnable, ProgressListener {

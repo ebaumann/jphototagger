@@ -36,7 +36,7 @@ import javax.swing.JPopupMenu.Separator;
 /**
  * Popup menu for {@link MetadataTemplate}s.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class PopupMenuMetadataTemplates extends JPopupMenu {
     private static final long                      serialVersionUID =

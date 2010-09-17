@@ -35,7 +35,7 @@ import javax.swing.JMenu;
  * Listens to {@link DatabasePrograms} events and inserts or removes actions
  * from the {@link PopupMenuThumbnails#getMenuActions()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ActionsMenuUpdater
         implements DatabaseProgramsListener {

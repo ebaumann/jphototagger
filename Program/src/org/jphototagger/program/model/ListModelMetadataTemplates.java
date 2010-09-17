@@ -34,7 +34,7 @@ import javax.swing.DefaultListModel;
  * Elements are {@link MetadataTemplate}s retrieved through
  * {@link DatabaseMetadataTemplates#getAll()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListModelMetadataTemplates extends DefaultListModel
         implements DatabaseMetadataTemplatesListener {

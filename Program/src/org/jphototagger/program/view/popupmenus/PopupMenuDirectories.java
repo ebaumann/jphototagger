@@ -39,7 +39,7 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
  * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
  * {@link org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata} does.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class PopupMenuDirectories extends JPopupMenu {
     private static final long                serialVersionUID =

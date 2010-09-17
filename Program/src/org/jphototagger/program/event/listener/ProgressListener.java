@@ -26,7 +26,7 @@ import org.jphototagger.program.event.ProgressEvent;
 /**
  * Wird über einen Fortschritt benachrichtigt.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface ProgressListener {
 

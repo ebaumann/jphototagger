@@ -53,7 +53,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerHelp
         implements ActionListener, HelpBrowserListener {
@@ -69,35 +69,35 @@ public final class ControllerHelp
     }
 
     private JMenuItem getAcceleratorKeysMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemAcceleratorKeys();
+        return GUI.getAppFrame().getMenuItemAcceleratorKeys();
     }
 
     private JMenuItem getHelpMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemHelp();
+        return GUI.getAppFrame().getMenuItemHelp();
     }
 
     private JMenuItem getOpenPdfUserManualMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemOpenPdfUserManual();
+        return GUI.getAppFrame().getMenuItemOpenPdfUserManual();
     }
 
     private JMenuItem getBrowseWebsiteMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemBrowseWebsite();
+        return GUI.getAppFrame().getMenuItemBrowseWebsite();
     }
 
     private JMenuItem getBrowseUserForumMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemBrowseUserForum();
+        return GUI.getAppFrame().getMenuItemBrowseUserForum();
     }
 
     private JMenuItem getBrowseChangelogMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemBrowseChangelog();
+        return GUI.getAppFrame().getMenuItemBrowseChangelog();
     }
 
     private JMenuItem getSendBugMailMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemSendBugMail();
+        return GUI.getAppFrame().getMenuItemSendBugMail();
     }
 
     private JMenuItem getSendFeatureMailMenuItem() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemSendFeatureMail();
+        return GUI.getAppFrame().getMenuItemSendFeatureMail();
     }
 
     private void listen() {

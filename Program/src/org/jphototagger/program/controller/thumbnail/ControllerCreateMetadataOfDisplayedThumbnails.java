@@ -25,11 +25,11 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Listens to the {@link ThumbnailsPanel} and when the displayed
@@ -42,7 +42,7 @@ import org.jphototagger.program.view.ViewUtil;
  * Runs as a {@link AutomaticTask}, that means if an other automatic task is
  * started, the update will be cancelled.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerCreateMetadataOfDisplayedThumbnails
         implements ThumbnailsPanelListener {
@@ -51,7 +51,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
 
         InsertImageFilesIntoDatabase inserter =
             new InsertImageFilesIntoDatabase(
-                ViewUtil.getThumbnailsPanel().getFiles(), Insert.OUT_OF_DATE);
+                GUI.getThumbnailsPanel().getFiles(), Insert.OUT_OF_DATE);
         String pBarString =
             JptBundle.INSTANCE.getString(
                 "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");

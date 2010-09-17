@@ -27,7 +27,6 @@ import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.AWTEvent;
 import java.awt.event.AWTEventListener;
@@ -42,7 +41,7 @@ import javax.swing.JSlider;
 /**
  * Controls the slider which changes the size of the thumbnails
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerSliderThumbnailSize
         implements AWTEventListener, ChangeListener, ThumbnailsPanelListener,
@@ -62,7 +61,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         getSlider().addChangeListener(this);
         UserSettings.INSTANCE.addUserSettingsListener(this);
         Toolkit.getDefaultToolkit().addAWTEventListener(this,
@@ -70,7 +69,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private JSlider getSlider() {
-        return GUI.INSTANCE.getAppPanel().getSliderThumbnailSize();
+        return GUI.getAppPanel().getSliderThumbnailSize();
     }
 
     private int getMaxTnWidth() {
@@ -175,7 +174,7 @@ public final class ControllerSliderThumbnailSize
                 int width = (int) ((double) getMaxTnWidth()
                                    * ((double) currentValue / 100.0));
 
-                ViewUtil.getThumbnailsPanel().setThumbnailWidth(width);
+                GUI.getThumbnailsPanel().setThumbnailWidth(width);
             }
         });
     }

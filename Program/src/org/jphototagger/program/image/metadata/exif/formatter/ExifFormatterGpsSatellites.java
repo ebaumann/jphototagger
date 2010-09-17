@@ -28,7 +28,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_SATELLITES}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterGpsSatellites extends ExifFormatter {
     public static final ExifFormatterGpsSatellites INSTANCE =

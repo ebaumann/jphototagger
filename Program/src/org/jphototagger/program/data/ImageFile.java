@@ -33,7 +33,7 @@ import java.util.Set;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImageFile {
     private long                                     lastmodified = -1;

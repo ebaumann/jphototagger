@@ -46,7 +46,7 @@ import javax.swing.DefaultListModel;
  * Elements are keyword {@link String}s retrieved through
  * {@link DatabaseImageFiles#getAllDcSubjects()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListModelKeywords extends DefaultListModel
         implements DatabaseImageFilesListener {

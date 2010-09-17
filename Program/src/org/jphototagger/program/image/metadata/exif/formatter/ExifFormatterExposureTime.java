@@ -29,7 +29,7 @@ import org.jphototagger.lib.generics.Pair;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#EXPOSURE_TIME}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterExposureTime extends ExifFormatter {
     public static final ExifFormatterExposureTime INSTANCE =

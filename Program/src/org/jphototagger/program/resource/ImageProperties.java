@@ -25,7 +25,7 @@ import com.imagero.util.R3;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImageProperties implements R3 {
     @Override

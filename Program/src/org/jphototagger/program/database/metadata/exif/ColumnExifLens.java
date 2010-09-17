@@ -30,7 +30,7 @@ import org.jphototagger.program.resource.JptBundle;
  * <li>EXIF: Maker Note Tag</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnExifLens extends Column {
     public static final ColumnExifLens INSTANCE = new ColumnExifLens();

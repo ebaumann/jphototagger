@@ -35,7 +35,7 @@ import javax.swing.JList;
 /**
  * Renders elements of a {@link ComboBoxModelFastSearch}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListCellRendererFastSearchColumns
         extends DefaultListCellRenderer {

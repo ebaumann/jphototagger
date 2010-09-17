@@ -26,7 +26,7 @@ import java.io.File;
 /**
  * Files will be checked whether their metadata shall be updated.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateMetadataCheckEvent {
     private final File imageFile;

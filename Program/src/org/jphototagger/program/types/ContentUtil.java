@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Utils for {@link Content}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ContentUtil {
     private static final List<Content> CONTENT_IS_A_FILESYSTEM_DIRECTORY =

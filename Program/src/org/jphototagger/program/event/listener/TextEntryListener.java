@@ -26,7 +26,7 @@ import org.jphototagger.program.database.metadata.Column;
 /**
  * Listens to an {@link org.jphototagger.program.data.TextEntry}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface TextEntryListener {
 

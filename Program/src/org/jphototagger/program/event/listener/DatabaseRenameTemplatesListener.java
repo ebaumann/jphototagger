@@ -27,7 +27,7 @@ import org.jphototagger.program.data.RenameTemplate;
  * Listens to events in
  * {@link org.jphototagger.program.database.DatabaseRenameTemplates}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseRenameTemplatesListener {
 

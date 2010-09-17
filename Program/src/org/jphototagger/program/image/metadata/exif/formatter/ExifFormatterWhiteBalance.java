@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#WHITE_BALANCE}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterWhiteBalance extends ExifFormatter {
     public static final ExifFormatterWhiteBalance INSTANCE =

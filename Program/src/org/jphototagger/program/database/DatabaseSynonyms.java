@@ -36,7 +36,7 @@ import java.util.Set;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseSynonyms extends Database {
     public static final DatabaseSynonyms                    INSTANCE =

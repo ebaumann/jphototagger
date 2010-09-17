@@ -25,7 +25,7 @@ package org.jphototagger.program.event.listener;
  * Listens to events in
  * {@link org.jphototagger.program.database.DatabaseFileExcludePatterns}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseFileExcludePatternsListener {
 

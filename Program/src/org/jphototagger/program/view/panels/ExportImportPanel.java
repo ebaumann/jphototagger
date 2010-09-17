@@ -167,7 +167,7 @@ public class ExportImportPanel extends javax.swing.JPanel
     private void selectDirectory() {
         DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), new File(""),
+                GUI.getAppFrame(), new File(""),
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),

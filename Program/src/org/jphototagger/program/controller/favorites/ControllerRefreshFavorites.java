@@ -41,7 +41,7 @@ import javax.swing.JTree;
  * Also listens to the {@link JTree}'s key events and refreshes the view if
  * the key <code>F5</code> was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerRefreshFavorites
         implements ActionListener, KeyListener {
@@ -51,7 +51,7 @@ public final class ControllerRefreshFavorites
 
     private void listen() {
         PopupMenuFavorites.INSTANCE.getItemRefresh().addActionListener(this);
-        GUI.INSTANCE.getAppPanel().getTreeFavorites().addKeyListener(this);
+        GUI.getAppPanel().getTreeFavorites().addKeyListener(this);
     }
 
     @Override

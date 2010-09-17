@@ -30,7 +30,7 @@ import java.util.Arrays;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_VERSION_ID}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterGpsVersionId extends ExifFormatter {
     public static final ExifFormatterGpsVersionId INSTANCE =

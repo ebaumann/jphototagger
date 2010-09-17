@@ -37,7 +37,7 @@ import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
 /**
  * Dialog for input assistance.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class InputHelperDialog extends Dialog {
     public static final InputHelperDialog INSTANCE                  =
@@ -48,7 +48,7 @@ public class InputHelperDialog extends Dialog {
     private static final long serialVersionUID = 38960516048549937L;
 
     public InputHelperDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();

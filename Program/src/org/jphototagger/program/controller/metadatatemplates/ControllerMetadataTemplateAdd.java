@@ -37,7 +37,7 @@ import javax.swing.JButton;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMetadataTemplateAdd
         extends ControllerMetadataTemplate {
@@ -52,7 +52,7 @@ public final class ControllerMetadataTemplateAdd
     }
 
     private JButton getAddButtonEditPanel() {
-        return GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateAdd();
+        return GUI.getAppPanel().getButtonMetadataTemplateAdd();
     }
 
     private JButton getAddButtonInputHelper() {

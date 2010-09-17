@@ -69,7 +69,7 @@ import javax.swing.tree.DefaultTreeModel;
  *    ({@link Column#getDataType()}</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeModelMiscMetadata extends DefaultTreeModel
         implements DatabaseImageFilesListener {

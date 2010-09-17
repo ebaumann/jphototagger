@@ -34,7 +34,7 @@ import javax.swing.tree.TreeNode;
 /**
  * Renders items and text for {@link org.jphototagger.program.data.Timeline} nodes.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeCellRendererTimeline extends TreeCellRendererExt {
     private static final ImageIcon ICON_YEAR =

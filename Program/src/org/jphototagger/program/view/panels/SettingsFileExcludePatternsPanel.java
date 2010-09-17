@@ -40,7 +40,7 @@ import javax.swing.event.ListSelectionListener;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         implements ProgressListener, Persistence, ListSelectionListener {

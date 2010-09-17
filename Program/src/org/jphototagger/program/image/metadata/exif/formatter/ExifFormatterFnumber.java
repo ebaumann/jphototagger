@@ -32,7 +32,7 @@ import java.text.NumberFormat;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#F_NUMBER}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterFnumber extends ExifFormatter {
     public static final ExifFormatterFnumber INSTANCE =

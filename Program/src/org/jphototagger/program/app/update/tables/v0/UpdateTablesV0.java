@@ -30,7 +30,7 @@ import java.sql.SQLException;
 /**
  * Updates tables from previous application versions
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateTablesV0 implements Updater {
 

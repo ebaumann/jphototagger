@@ -34,7 +34,7 @@ import javax.swing.JList;
 /**
  * Renders list items of {@link ListModelNoMetadata}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListCellRendererNoMetadata extends DefaultListCellRenderer {
     private static final long serialVersionUID = -5033440934166574955L;

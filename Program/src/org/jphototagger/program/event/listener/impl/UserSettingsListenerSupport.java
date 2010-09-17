@@ -26,7 +26,7 @@ import org.jphototagger.program.event.UserSettingsEvent;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UserSettingsListenerSupport
         extends ListenerSupport<UserSettingsListener> {

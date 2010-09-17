@@ -37,7 +37,7 @@ import java.util.Set;
 /**
  * Contains autocomplete data (words, terms).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AutoCompleteData {
     private final DatabaseContent    db    = DatabaseContent.INSTANCE;

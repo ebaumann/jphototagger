@@ -46,7 +46,7 @@ import javax.swing.tree.TreeNode;
  * Renders items and text for
  * {@link org.jphototagger.program.model.TreeModelMiscMetadata} nodes.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     private static final ImageIcon ICON_MISC_METADATA =

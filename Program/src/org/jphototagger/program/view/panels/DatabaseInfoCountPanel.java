@@ -31,7 +31,7 @@ import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColum
 /**
  * Dislplays the database record count total and of specific columns.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     private static final long      serialVersionUID = -8537559082830438692L;

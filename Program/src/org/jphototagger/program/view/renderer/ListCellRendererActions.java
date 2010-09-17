@@ -37,7 +37,7 @@ import javax.swing.JList;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListCellRendererActions extends DefaultListCellRenderer {
     private static final Icon ICON_ACTION =

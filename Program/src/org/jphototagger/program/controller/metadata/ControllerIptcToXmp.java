@@ -31,12 +31,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.util.List;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Kontrolliert die Aktion: IPTC-Daten nach XMP schreiben.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerIptcToXmp implements ActionListener {
     public ControllerIptcToXmp() {
@@ -44,10 +43,9 @@ public final class ControllerIptcToXmp implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemToolIptcToXmp().addActionListener(
-            this);
+        GUI.getAppFrame().getMenuItemToolIptcToXmp().addActionListener(this);
         PopupMenuThumbnails.INSTANCE.getItemIptcToXmp().addActionListener(this);
-        GUI.INSTANCE.getAppPanel().getButtonIptcToXmp().addActionListener(this);
+        GUI.getAppPanel().getButtonIptcToXmp().addActionListener(this);
     }
 
     @Override
@@ -60,7 +58,7 @@ public final class ControllerIptcToXmp implements ActionListener {
     }
 
     private void processSelectedFiles() {
-        List<File> selFiles = ViewUtil.getSelectedImageFiles();
+        List<File> selFiles = GUI.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             IptcToXmpDialog dlg = new IptcToXmpDialog();
@@ -74,8 +72,7 @@ public final class ControllerIptcToXmp implements ActionListener {
         Object source = evt.getSource();
 
         return source.equals(PopupMenuThumbnails.INSTANCE.getItemIptcToXmp())
-               || source.equals(
-                   GUI.INSTANCE.getAppPanel().getButtonIptcToXmp());
+               || source.equals(GUI.getAppPanel().getButtonIptcToXmp());
     }
 
     private void showIptcToXmpDialog() {

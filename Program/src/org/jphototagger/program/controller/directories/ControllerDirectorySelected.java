@@ -24,13 +24,12 @@ package org.jphototagger.program.controller.directories;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.io.ImageFilteredDirectory;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -47,7 +46,7 @@ import javax.swing.tree.TreePath;
  * represents a directory. If a new item is selected, this controller sets the
  * files of the selected directory to the image file thumbnails panel.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDirectorySelected
         implements TreeSelectionListener, RefreshListener {
@@ -56,9 +55,8 @@ public final class ControllerDirectorySelected
     }
 
     private void listen() {
-        ViewUtil.getDirectoriesTree().addTreeSelectionListener(this);
-        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
-                Content.DIRECTORY);
+        GUI.getDirectoriesTree().addTreeSelectionListener(this);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.DIRECTORY);
     }
 
     @Override
@@ -96,31 +94,29 @@ public final class ControllerDirectorySelected
         }
 
         private void showThumbnails() {
-            if (ViewUtil.getDirectoriesTree().getSelectionCount() > 0) {
+            if (GUI.getDirectoriesTree().getSelectionCount() > 0) {
                 File       selectedDirectory =
                     new File(getDirectorynameFromTree());
-                List<File> files =
-                    ImageFilteredDirectory.getImageFilesOfDirectory(
-                        selectedDirectory);
+                List<File> files = ImageFileFilterer.getImageFilesOfDirectory(
+                                       selectedDirectory);
 
                 setTitle(selectedDirectory);
                 ControllerSortThumbnails.setLastSort();
-                ViewUtil.getThumbnailsPanel().setFiles(files, Content.DIRECTORY);
-                ViewUtil.getThumbnailsPanel().apply(panelSettings);
+                GUI.getThumbnailsPanel().setFiles(files, Content.DIRECTORY);
+                GUI.getThumbnailsPanel().apply(panelSettings);
                 setMetadataEditable();
             }
         }
 
         private void setTitle(File selectedDirectory) {
-            GUI.INSTANCE.getAppFrame().setTitle(
+            GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
                     "ControllerDirectorySelected.AppFrame.Title.Directory",
                     selectedDirectory));
         }
 
         private String getDirectorynameFromTree() {
-            TreePath treePath =
-                ViewUtil.getDirectoriesTree().getSelectionPath();
+            TreePath treePath = GUI.getDirectoriesTree().getSelectionPath();
 
             if (treePath.getLastPathComponent() instanceof File) {
                 return ((File) treePath.getLastPathComponent())
@@ -131,8 +127,8 @@ public final class ControllerDirectorySelected
         }
 
         private void setMetadataEditable() {
-            if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
-                ViewUtil.getEditPanel().setEditable(false);
+            if (!GUI.getThumbnailsPanel().isFileSelected()) {
+                GUI.getEditPanel().setEditable(false);
             }
         }
     }

@@ -32,7 +32,7 @@ import java.io.IOException;
  * {@link org.jphototagger.program.UserSettings#getSettingsDirectoryName()}
  * to get the setting's directory where the lock file will be created.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppLock {
     private static final String LOCKFILE_NAME =

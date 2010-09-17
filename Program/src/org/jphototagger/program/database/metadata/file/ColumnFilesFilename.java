@@ -28,7 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Tabellenspalte <code>filename</code> der Tabelle <code>files</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnFilesFilename extends Column {
     public static final ColumnFilesFilename INSTANCE =

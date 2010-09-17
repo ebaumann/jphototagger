@@ -109,7 +109,7 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
 
     private boolean isEditable() {
         EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            GUI.getAppPanel().getEditMetadataPanels();
 
         return editPanels.isEditable();
     }
@@ -164,7 +164,7 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
 
     private void addActionsToTree() {
         JTree     tree            =
-            GUI.INSTANCE.getAppPanel().getTreeMiscMetadata();
+            GUI.getAppPanel().getTreeMiscMetadata();
         InputMap  inputMap        = tree.getInputMap();
         ActionMap actionMap       = tree.getActionMap();
         Action    actionRename    = itemRename.getAction();

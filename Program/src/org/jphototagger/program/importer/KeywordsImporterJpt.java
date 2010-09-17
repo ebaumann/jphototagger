@@ -53,7 +53,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  * Imports Keywords exported by {@link KeywordsExporterJpt}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordsImporterJpt extends KeywordsImporter
         implements EntityResolver {

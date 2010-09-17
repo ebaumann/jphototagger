@@ -36,7 +36,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FavoritesImporter implements Importer {
     public static final FavoritesImporter INSTANCE = new FavoritesImporter();

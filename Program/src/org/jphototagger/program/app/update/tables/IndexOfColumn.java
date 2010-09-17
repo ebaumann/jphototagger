@@ -24,7 +24,7 @@ package org.jphototagger.program.app.update.tables;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class IndexOfColumn {
     private final String  tableName;

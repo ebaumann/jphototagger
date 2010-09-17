@@ -33,12 +33,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 import javax.swing.JList;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class MetaDataTemplatesPanel extends javax.swing.JPanel
         implements ListSelectionListener, ThumbnailsPanelListener {
@@ -52,8 +51,8 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
     private void postInitComponents() {
         list.addListSelectionListener(this);
         // Can be null if created via GUI editor (Matisse)
-        if (GUI.INSTANCE.getAppPanel() != null) {
-            ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        if (GUI.getAppPanel() != null) {
+            GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         }
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -90,7 +89,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
             buttonDelete.setEnabled(selected);
             buttonEdit.setEnabled(selected);
             buttonRename.setEnabled(selected);
-            final ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+            final ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
             buttonAddToSelImages.setEnabled(selected 
                                             && (tnPanel.isFileSelected()));
         }
@@ -102,7 +101,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
             @Override
             public void run() {
-                ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+                ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) 
                                         && tnPanel.isFileSelected());

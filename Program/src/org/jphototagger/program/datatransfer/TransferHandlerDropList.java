@@ -46,7 +46,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * Does <em>not</em> support moving data.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerDropList extends TransferHandler {
     private static final long serialVersionUID = -3654778661471221382L;

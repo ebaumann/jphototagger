@@ -42,7 +42,7 @@ import java.util.List;
  * Sets EXIF metadata to XMP whithout time stamp check, currently only the date
  * created.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SetExifToXmp extends HelperThread {
     private List<File>       files;

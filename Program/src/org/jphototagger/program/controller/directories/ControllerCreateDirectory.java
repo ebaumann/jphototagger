@@ -45,7 +45,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to the {@link JTree}'s key events and creates a new directory
  * into the selected directory when the keys <code>Ctrl+N</code> was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerCreateDirectory extends ControllerDirectory {
     public ControllerCreateDirectory() {

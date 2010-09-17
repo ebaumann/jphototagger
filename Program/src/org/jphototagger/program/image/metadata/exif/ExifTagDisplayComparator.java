@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Defines the display order of EXIF data.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
     private static final Map<Integer, Integer> ORDER_OF_TAG_ID_VALUE =

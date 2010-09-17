@@ -39,7 +39,7 @@ import javax.swing.JPopupMenu.Separator;
  * Popup menu for a keywords list, such as
  * {@link org.jphototagger.program.view.panels.KeywordsPanel#getList()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class PopupMenuKeywordsList extends JPopupMenu {
     private static final long                 serialVersionUID =

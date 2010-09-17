@@ -35,7 +35,7 @@ import java.util.StringTokenizer;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class ExifFactory {
 

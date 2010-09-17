@@ -26,7 +26,6 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +37,7 @@ import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to {@link PopupMenuFavorites#getItemDeleteFilesystemFolder()} and
@@ -46,7 +46,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to the {@link JTree}'s key events and deletes the selected
  * file system directory if the <code>DEL</code> key was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerFavoritesDeleteFilesystemFolder
         implements ActionListener, KeyListener {
@@ -57,12 +57,12 @@ public final class ControllerFavoritesDeleteFilesystemFolder
     private void listen() {
         PopupMenuFavorites.INSTANCE.getItemDeleteFilesystemFolder()
             .addActionListener(this);
-        ViewUtil.getFavoritesTree().addKeyListener(this);
+        GUI.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JTree tree = ViewUtil.getFavoritesTree();
+        JTree tree = GUI.getFavoritesTree();
 
         if ((evt.getKeyCode() == KeyEvent.VK_DELETE)
                 &&!tree.isSelectionEmpty()) {

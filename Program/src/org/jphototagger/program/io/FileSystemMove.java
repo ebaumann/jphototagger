@@ -38,7 +38,7 @@ import java.util.List;
  * {@link org.jphototagger.lib.generics.Pair#getFirst()} is the source file and
  * {@link org.jphototagger.lib.generics.Pair#getSecond()} is the target file.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FileSystemMove extends FileSystem implements Runnable {
     private final List<File> sourceFiles = new ArrayList<File>();

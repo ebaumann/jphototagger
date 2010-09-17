@@ -32,7 +32,7 @@ import javax.swing.SwingUtilities;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgressBarUpdater implements ProgressListener {
     private final String progressBarString;

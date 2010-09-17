@@ -38,7 +38,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteKeywordsFromEditPanel
         extends ControllerKeywords {
@@ -57,7 +57,7 @@ public final class ControllerDeleteKeywordsFromEditPanel
         }
 
         EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            GUI.getAppPanel().getEditMetadataPanels();
 
         if (editPanels.isEditable()) {
             ControllerDeleteKeywordFromEditPanel ctrl =

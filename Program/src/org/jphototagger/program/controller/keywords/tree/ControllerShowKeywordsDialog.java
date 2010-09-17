@@ -33,7 +33,7 @@ import java.awt.event.ActionListener;
  * Listens to the menu item {@link AppFrame#getMenuItemInputHelper()}
  * and shows the {@link InputHelperDialog} on action performed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerShowKeywordsDialog implements ActionListener {
     public ControllerShowKeywordsDialog() {
@@ -41,7 +41,7 @@ public final class ControllerShowKeywordsDialog implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemInputHelper().addActionListener(
+        GUI.getAppFrame().getMenuItemInputHelper().addActionListener(
             this);
     }
 

@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
  * Queues user tasks and starts them as thread after the previous user task has
  * finished.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UserTasks {
     public static final UserTasks INSTANCE = new UserTasks();

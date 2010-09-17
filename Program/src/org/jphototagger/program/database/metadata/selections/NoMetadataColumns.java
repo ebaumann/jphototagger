@@ -58,7 +58,7 @@ import java.util.List;
 /**
  * Columns to display in {@link AppPanel#getListNoMetadata()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class NoMetadataColumns {
     private static final List<Column> COLUMNS = new ArrayList<Column>();

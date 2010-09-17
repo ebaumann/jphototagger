@@ -40,7 +40,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * {@link PopupMenuKeywordsTree#getItemDisplayImages()} and on
  * action displays images with the selected keyword.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ControllerKeywordsDisplayImages implements ActionListener {
     public ControllerKeywordsDisplayImages() {
@@ -94,7 +94,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+                AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsTree(
                     AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
@@ -108,7 +108,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+                AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsList(
                     AppPanel.SelectAlso.SEL_KEYWORDS_TAB);

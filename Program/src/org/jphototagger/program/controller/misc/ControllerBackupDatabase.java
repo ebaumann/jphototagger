@@ -33,12 +33,12 @@ import java.awt.event.KeyEvent;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerBackupDatabase extends Controller {
     public ControllerBackupDatabase() {
         listenToActionsOf(
-            GUI.INSTANCE.getAppFrame().getMenuItemBackupDatabase());
+            GUI.getAppFrame().getMenuItemBackupDatabase());
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class ControllerBackupDatabase extends Controller {
         }
 
         return evt.getSource()
-               == GUI.INSTANCE.getAppFrame().getMenuItemBackupDatabase();
+               == GUI.getAppFrame().getMenuItemBackupDatabase();
     }
 
     @Override

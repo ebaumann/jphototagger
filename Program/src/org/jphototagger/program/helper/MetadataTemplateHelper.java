@@ -31,7 +31,7 @@ import org.jphototagger.lib.dialog.InputDialog;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MetadataTemplateHelper {
 

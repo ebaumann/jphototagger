@@ -32,7 +32,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Special file filters used in the application.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class AppFileFilters {
 

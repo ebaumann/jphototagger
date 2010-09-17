@@ -27,7 +27,7 @@ import org.jphototagger.program.data.Favorite;
  * Listens to events in
  * {@link org.jphototagger.program.database.DatabaseFavorites}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseFavoritesListener {
 

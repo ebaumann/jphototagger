@@ -40,7 +40,7 @@ import javax.swing.JFileChooser;
 /**
  * Modal dialog for exporting keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class KeywordExportDialog extends Dialog {
     private static final String KEY_PREV_EXPORT_FILE =
@@ -55,7 +55,7 @@ public class KeywordExportDialog extends Dialog {
         "KeywordExportDialog.SelectedExporterIndex";
 
     public KeywordExportDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();

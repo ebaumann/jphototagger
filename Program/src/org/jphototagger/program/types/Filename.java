@@ -24,7 +24,7 @@ package org.jphototagger.program.types;
 /**
  * Token of a filename.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum Filename {
 

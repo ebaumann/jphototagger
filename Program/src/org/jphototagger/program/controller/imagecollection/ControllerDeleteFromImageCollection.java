@@ -26,19 +26,19 @@ import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the
  * <code>DEL</code> key was pressed deletes the selected files from the
  * image collection.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see     ControllerDeleteFiles
  */
 public final class ControllerDeleteFromImageCollection
@@ -50,7 +50,7 @@ public final class ControllerDeleteFromImageCollection
     private void listen() {
         PopupMenuThumbnails.INSTANCE.getItemDeleteFromImageCollection()
             .addActionListener(this);
-        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        GUI.getThumbnailsPanel().addKeyListener(this);
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class ControllerDeleteFromImageCollection
     }
 
     private void delete() {
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (tnPanel.getContent().equals(Content.IMAGE_COLLECTION)
                 && (tnPanel.isFileSelected())) {

@@ -25,11 +25,11 @@ import org.jphototagger.program.controller.imagecollection
     .ControllerDeleteFromImageCollection;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.helper.DeleteImageFiles;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.types.DeleteOption;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +47,7 @@ import java.util.List;
  * file system if the panel's content is <em>not</em>
  * {@link Content#IMAGE_COLLECTION}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see     ControllerDeleteFromImageCollection
  */
 public final class ControllerDeleteFiles
@@ -59,13 +59,13 @@ public final class ControllerDeleteFiles
     private void listen() {
         PopupMenuThumbnails.INSTANCE.getItemFileSystemDeleteFiles()
             .addActionListener(this);
-        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        GUI.getThumbnailsPanel().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            if (ViewUtil.getThumbnailsPanel().getContent().equals(
+            if (GUI.getThumbnailsPanel().getContent().equals(
                     Content.IMAGE_COLLECTION)) {
                 return;
             }
@@ -80,7 +80,7 @@ public final class ControllerDeleteFiles
     }
 
     private void delete() {
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if ((tnPanel.isFileSelected())
                 && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
@@ -95,13 +95,13 @@ public final class ControllerDeleteFiles
 
     private void deleteSelectedFiles() {
         List<File> deletedImageFiles =
-            DeleteImageFiles.delete(ViewUtil.getSelectedImageFiles(),
+            DeleteImageFiles.delete(GUI.getSelectedImageFiles(),
                                     DeleteOption.CONFIRM_DELETE,
                                     DeleteOption.MESSAGES_ON_FAILURES);
 
         if (!deletedImageFiles.isEmpty()) {
             DatabaseImageFiles.INSTANCE.delete(deletedImageFiles);
-            ViewUtil.getThumbnailsPanel().remove(deletedImageFiles);
+            GUI.getThumbnailsPanel().remove(deletedImageFiles);
         }
     }
 

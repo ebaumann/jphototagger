@@ -47,7 +47,7 @@ import org.jphototagger.program.helper.ProgramsHelper;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SettingsProgramsPanel extends javax.swing.JPanel
         implements Persistence {

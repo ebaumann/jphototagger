@@ -38,7 +38,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 /**
  * Renders items and text for {@link org.jphototagger.program.data.Timeline} nodes.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
     private static final long    serialVersionUID = 4280765256503091379L;

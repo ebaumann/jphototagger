@@ -38,7 +38,7 @@ import java.util.Set;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseRenameTemplates extends Database {
     public static final DatabaseRenameTemplates INSTANCE =

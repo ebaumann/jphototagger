@@ -29,7 +29,7 @@ import javax.swing.JLabel;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ListCellRendererExt extends DefaultListCellRenderer {
     private static final long serialVersionUID = 7531004273695822498L;

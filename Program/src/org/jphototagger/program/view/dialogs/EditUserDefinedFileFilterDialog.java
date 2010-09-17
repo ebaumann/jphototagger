@@ -45,14 +45,14 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     private final UserDefinedFileFilter udf = new UserDefinedFileFilter();
 
     public EditUserDefinedFileFilterDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
                 UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
 
     public EditUserDefinedFileFilterDialog(UserDefinedFileFilter filter) {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
                 UserSettings.INSTANCE.getSettings(), null);
         if (filter == null) {
             throw new NullPointerException("filter == null");

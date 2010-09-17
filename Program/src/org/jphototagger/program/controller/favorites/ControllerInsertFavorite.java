@@ -28,7 +28,6 @@ import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +38,7 @@ import java.awt.EventQueue;
 import java.io.File;
 
 import javax.swing.JTree;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to the {@link PopupMenuFavorites} and inserts a
@@ -47,7 +47,7 @@ import javax.swing.JTree;
  * Also listens to the {@link JTree}'s key events and inserts a new favorite if
  * the keys <code>Ctrl+I</code> were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerInsertFavorite
         implements ActionListener, KeyListener {
@@ -60,7 +60,7 @@ public final class ControllerInsertFavorite
             this);
         PopupMenuDirectories.INSTANCE.getItemAddToFavorites().addActionListener(
             this);
-        ViewUtil.getFavoritesTree().addKeyListener(this);
+        GUI.getFavoritesTree().addKeyListener(this);
     }
 
     @Override

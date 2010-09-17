@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Utils for databases.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Util {
 

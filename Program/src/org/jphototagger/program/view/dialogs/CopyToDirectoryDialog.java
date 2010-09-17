@@ -54,7 +54,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CopyToDirectoryDialog extends Dialog
         implements ProgressListener {
@@ -75,7 +75,7 @@ public final class CopyToDirectoryDialog extends Dialog
     private File                targetDirectory = new File("");
 
     public CopyToDirectoryDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
@@ -198,7 +198,7 @@ public final class CopyToDirectoryDialog extends Dialog
     private void chooseTargetDirectory() {
         DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), targetDirectory,
+                GUI.getAppFrame(), targetDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),

@@ -31,11 +31,11 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerOpenFilesWithStandardApp
         implements ActionListener {
@@ -56,7 +56,7 @@ public final class ControllerOpenFilesWithStandardApp
     }
 
     private void openFiles() {
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (!tnPanel.isFileSelected()) {
             return;

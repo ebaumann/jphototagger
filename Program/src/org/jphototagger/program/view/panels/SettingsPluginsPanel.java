@@ -49,7 +49,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Dynamically adds panels of plugins ({@link Plugin#getSettingsPanel()}).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SettingsPluginsPanel extends javax.swing.JPanel
         implements ChangeListener, Persistence {

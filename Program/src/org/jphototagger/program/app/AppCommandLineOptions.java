@@ -26,7 +26,7 @@ import org.jphototagger.lib.util.CommandLineParser;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppCommandLineOptions {
     private static final String     OPTION_NO_SPLASH_SCREEN   = "nosplash";

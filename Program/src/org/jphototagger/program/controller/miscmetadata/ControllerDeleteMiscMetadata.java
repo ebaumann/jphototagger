@@ -32,7 +32,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteMiscMetadata extends ControllerMiscMetadata {
     private final JMenuItem itemDelete;

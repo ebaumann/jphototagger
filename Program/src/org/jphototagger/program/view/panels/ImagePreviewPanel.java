@@ -23,7 +23,6 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
-import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
@@ -41,13 +40,14 @@ import java.io.FileFilter;
 
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import org.jphototagger.program.io.ImageFileFilterer;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ImagePreviewPanel extends JPanel
         implements PropertyChangeListener {
@@ -73,7 +73,7 @@ public class ImagePreviewPanel extends JPanel
 
         File selFile = (File) evt.getNewValue();
 
-        if ((selFile == null) ||!ImageUtil.isImageFile(selFile)) {
+        if ((selFile == null) ||!ImageFileFilterer.isImageFile(selFile)) {
             image = null;
             repaint();
 

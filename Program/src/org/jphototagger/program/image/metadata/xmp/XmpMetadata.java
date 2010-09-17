@@ -52,7 +52,7 @@ import org.jphototagger.program.database.metadata.mapping
 import org.jphototagger.program.database.metadata.selections.EditColumns;
 import org.jphototagger.program.database.metadata.selections.XmpInDatabase;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
-import org.jphototagger.program.io.IoUtil;
+import org.jphototagger.program.io.RuntimeUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -68,7 +68,7 @@ import java.util.Set;
  * Gets and sets XMP metadata from image files and XMP sidecar files and to
  * XMP sidecar files.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class XmpMetadata {
     private static final List<String> KNOWN_NAMESPACES =
@@ -559,7 +559,7 @@ public final class XmpMetadata {
             File toSidecarFile) {
         FileOutputStream out = null;
 
-        if (!IoUtil.lockLogWarning(toSidecarFile, XmpMetadata.class)) {
+        if (!RuntimeUtil.lockLogWarning(toSidecarFile, XmpMetadata.class)) {
             return false;
         }
 

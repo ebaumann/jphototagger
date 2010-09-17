@@ -29,7 +29,7 @@ import org.jphototagger.program.database.metadata.mapping
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum ArrayName {
     LR_HIERARCHICAL_SUBJECTS("lr:hierarchicalSubject", Namespace.LIGHTROOM,

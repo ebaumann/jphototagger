@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.metadata;
 import org.jphototagger.program.event.listener.EditMetadataPanelsListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +33,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerEnableInsertMetadataTemplate
         implements EditMetadataPanelsListener, ActionListener {
@@ -43,9 +42,9 @@ public final class ControllerEnableInsertMetadataTemplate
     }
 
     private void listen() {
-        ViewUtil.getEditPanel().addEditMetadataPanelsListener(this);
-        GUI.INSTANCE.getAppPanel().getComboBoxMetadataTemplates()
-            .addActionListener(this);
+        GUI.getEditPanel().addEditMetadataPanelsListener(this);
+        GUI.getAppPanel().getComboBoxMetadataTemplates().addActionListener(
+            this);
     }
 
     @Override
@@ -54,8 +53,8 @@ public final class ControllerEnableInsertMetadataTemplate
     }
 
     private void setButtonEnabled() {
-        boolean  editable = ViewUtil.getEditPanel().isEditable();
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        boolean  editable = GUI.getEditPanel().isEditable();
+        AppPanel appPanel = GUI.getAppPanel();
         boolean  selected =
             appPanel.getComboBoxMetadataTemplates().getSelectedIndex() >= 0;
         JButton button = appPanel.getButtonMetadataTemplateInsert();
@@ -68,8 +67,8 @@ public final class ControllerEnableInsertMetadataTemplate
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        setButtonEnabled();
-    }
+                setButtonEnabled();
+            }
         });
     }
 
@@ -78,8 +77,8 @@ public final class ControllerEnableInsertMetadataTemplate
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        setButtonEnabled();
-    }
+                setButtonEnabled();
+            }
         });
-}
+    }
 }
