@@ -51,7 +51,6 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import org.jphototagger.lib.componentutil.ListUtil;
 
 /**
