@@ -252,11 +252,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
             @Override
             public void run() {
-        setEnabledButtons(false);
-        setEnabledCheckboxes(false);
-        labelCurrentFilename.setText("-");
-        list.setEnabled(true);
-    }
+                setEnabledButtons(false);
+                setEnabledCheckboxes(false);
+                labelCurrentFilename.setText("-");
+                list.setEnabled(true);
+            }
         });
     }
 
@@ -266,10 +266,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
             @Override
             public void run() {
-        progressBar.setMinimum(evt.getMinimum());
-        progressBar.setMaximum(evt.getMaximum());
-        progressBar.setValue(evt.getValue());
-    }
+                progressBar.setMinimum(evt.getMinimum());
+                progressBar.setMaximum(evt.getMaximum());
+                progressBar.setValue(evt.getValue());
+            }
         });
     }
 
@@ -279,8 +279,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
             @Override
             public void run() {
-        progressBar.setValue(evt.getValue());
-    }
+                progressBar.setValue(evt.getValue());
+            }
         });
     }
 
@@ -290,8 +290,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
             @Override
             public void run() {
-        progressBar.setValue(evt.getValue());
-    }
+                progressBar.setValue(evt.getValue());
+            }
         });
     }
 
