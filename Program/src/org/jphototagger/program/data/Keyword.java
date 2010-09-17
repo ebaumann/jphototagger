@@ -31,7 +31,7 @@ import java.io.Serializable;
  *
  * Persistent instances resists in the {@link DatabaseKeywords}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {
     private static final long serialVersionUID = -8175948472921889128L;

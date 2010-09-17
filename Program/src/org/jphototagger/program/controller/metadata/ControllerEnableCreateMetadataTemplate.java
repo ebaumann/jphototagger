@@ -23,13 +23,12 @@ package org.jphototagger.program.controller.metadata;
 
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerEnableCreateMetadataTemplate
         implements ThumbnailsPanelListener {
@@ -38,7 +37,7 @@ public final class ControllerEnableCreateMetadataTemplate
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
     }
 
     @Override
@@ -46,9 +45,9 @@ public final class ControllerEnableCreateMetadataTemplate
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GUI.INSTANCE.getAppPanel().getButtonMetadataTemplateCreate()
-                    .setEnabled(ViewUtil.getThumbnailsPanel().isFileSelected());
-    }
+                GUI.getAppPanel().getButtonMetadataTemplateCreate().setEnabled(
+                    GUI.getThumbnailsPanel().isFileSelected());
+            }
         });
     }
 

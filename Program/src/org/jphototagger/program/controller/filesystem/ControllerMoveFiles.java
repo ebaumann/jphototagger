@@ -26,7 +26,6 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.FileSystemListener;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,11 +33,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.util.List;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Renames files in the file system.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMoveFiles
         implements ActionListener, FileSystemListener {
@@ -57,7 +57,7 @@ public final class ControllerMoveFiles
     }
 
     private void moveSelectedFiles() {
-        List<File> selFiles = ViewUtil.getSelectedImageFiles();
+        List<File> selFiles = GUI.getSelectedImageFiles();
 
         if (!selFiles.isEmpty()) {
             MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();

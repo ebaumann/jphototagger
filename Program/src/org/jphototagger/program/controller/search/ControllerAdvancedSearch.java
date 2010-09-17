@@ -25,13 +25,12 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.data.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.helper.SearchHelper;
+import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +46,7 @@ import javax.swing.JButton;
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
  * eine Suche soll durchgeführt werden, ausgelöst vom Suchdialog.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerAdvancedSearch implements ActionListener {
     public ControllerAdvancedSearch() {
@@ -70,31 +69,30 @@ public final class ControllerAdvancedSearch implements ActionListener {
 
                 ParamStatement stmt = savedSearch.createParamStatement();
 
-                TreeUtil.clearSelection(
-                    GUI.INSTANCE.getAppPanel().getSelectionTrees());
+                TreeUtil.clearSelection(GUI.getAppPanel().getSelectionTrees());
 
                 List<File> imageFiles =
                     DatabaseFind.INSTANCE.findImageFiles(stmt);
 
                 setTitle(savedSearch.getName());
-                SearchHelper.setSort(savedSearch);
-                ViewUtil.getThumbnailsPanel().setFiles(imageFiles,
-                        Content.SAVED_SEARCH);
+                SavedSearchesHelper.setSort(savedSearch);
+                GUI.getThumbnailsPanel().setFiles(imageFiles,
+                                                  Content.SAVED_SEARCH);
             }
             private void setTitle(String name) {
-                GUI.INSTANCE.getAppFrame().setTitle((name == null)
-                        ? JptBundle.INSTANCE.getString(
-                        "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch")
-                        : JptBundle.INSTANCE.getString(
-                        "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved",
-                        name));
+                GUI.getAppFrame().setTitle((name == null)
+                                           ? JptBundle.INSTANCE.getString(
+                                           "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch")
+                                           : JptBundle.INSTANCE.getString(
+                                           "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved",
+                                               name));
             }
         });
     }
 
     private void setMetadataEditable() {
-        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
-            ViewUtil.getEditPanel().setEditable(false);
+        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+            GUI.getEditPanel().setEditable(false);
         }
     }
 

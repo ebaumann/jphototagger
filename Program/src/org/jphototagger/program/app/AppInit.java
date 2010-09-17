@@ -48,7 +48,7 @@ import javax.swing.SwingUtilities;
  * <li>2: The Java version is too low</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppInit {
     public static final AppInit   INSTANCE = new AppInit();

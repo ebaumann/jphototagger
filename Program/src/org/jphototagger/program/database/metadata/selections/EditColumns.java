@@ -56,7 +56,7 @@ import java.util.Map;
 /**
  * Supported XMP columns for editing and updating XMP sidecar files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class EditColumns {
     private static final Map<Column, EditHints> EDIT_HINT_OF_COLUMN =

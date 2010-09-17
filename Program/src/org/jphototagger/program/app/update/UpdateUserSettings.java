@@ -32,7 +32,7 @@ import java.util.Properties;
 /**
  * Updates the user properties.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateUserSettings {
     private static final Map<String, String> NEW_PATHNAME_START =

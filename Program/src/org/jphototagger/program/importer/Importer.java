@@ -29,7 +29,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface Importer {
     void importFile(File file);

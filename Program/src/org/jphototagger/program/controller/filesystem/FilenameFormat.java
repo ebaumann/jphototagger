@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Format of a filename.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class FilenameFormat {
     private File                              file;

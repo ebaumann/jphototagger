@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

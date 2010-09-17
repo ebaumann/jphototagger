@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
  * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved
  * through {@link IptcMetadata#getIptcEntries(java.io.File)}.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class TableModelIptc extends DefaultTableModel {
     private static final long serialVersionUID = -3988241922301609843L;

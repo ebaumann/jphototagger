@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.misc;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -39,7 +38,7 @@ import javax.swing.JTabbedPane;
 /**
  * Controls the action: Go to ...
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerGoTo implements ActionListener {
     private final Map<AppFrame.GoTo, Component> componentOfGoTo =
@@ -49,7 +48,7 @@ public final class ControllerGoTo implements ActionListener {
 
     // Not static (timing)
     private void initMaps() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel appPanel = GUI.getAppPanel();
 
         componentOfGoTo.put(AppFrame.GoTo.IMAGE_COLLECTIONS,
                             appPanel.getTabSelectionImageCollections());
@@ -111,7 +110,7 @@ public final class ControllerGoTo implements ActionListener {
     }
 
     private void listen() {
-        AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+        AppFrame appFrame = GUI.getAppFrame();
 
         for (AppFrame.GoTo gt : AppFrame.GoTo.values()) {
             appFrame.getMenuItemOfGoto(gt).addActionListener(this);
@@ -124,20 +123,20 @@ public final class ControllerGoTo implements ActionListener {
     }
 
     private void selectComponent(JMenuItem item) {
-        AppFrame.GoTo goTo = GUI.INSTANCE.getAppFrame().getGotoOfMenuItem(item);
+        AppFrame.GoTo goTo = GUI.getAppFrame().getGotoOfMenuItem(item);
 
         if (tabbedPaneOfGoTo.containsKey(goTo)) {
             tabbedPaneOfGoTo.get(goTo).setSelectedComponent(
                 componentOfGoTo.get(goTo));
             componentOfGoTo.get(goTo).requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.FAST_SEARCH)) {
-            ViewUtil.getSearchTextArea().requestFocusInWindow();
+            GUI.getSearchTextArea().requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.THUMBNAILS_PANEL)) {
-            ViewUtil.getThumbnailsPanel().requestFocusInWindow();
+            GUI.getThumbnailsPanel().requestFocusInWindow();
         }
 
         if (goTo.equals(AppFrame.GoTo.EDIT_PANELS)) {
-            ViewUtil.getEditPanel().setFocusToFirstEditField();
+            GUI.getEditPanel().setFocusToFirstEditField();
         }
     }
 }

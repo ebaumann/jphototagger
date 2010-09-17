@@ -24,7 +24,7 @@ package org.jphototagger.program.controller.filesystem;
 /**
  * Returns the postfix of a file.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameFormatFilenamePostfix extends FilenameFormat {
 

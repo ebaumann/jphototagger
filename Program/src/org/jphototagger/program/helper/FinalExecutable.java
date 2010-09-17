@@ -31,7 +31,7 @@ import org.jphototagger.lib.runtime.External;
  * Usage: Create an instance and add it to
  * {@link AppLifeCycle#addFinalTask(org.jphototagger.program.app.AppLifeCycle.FinalTask)}
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FinalExecutable extends FinalTask {
     private String executable;

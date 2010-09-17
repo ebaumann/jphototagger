@@ -31,7 +31,6 @@ import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -44,7 +43,7 @@ import java.util.List;
 /**
  * Applies persistent settings to the thumbnails panel.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerThumbnailsPanelPersistence
         implements ThumbnailsPanelListener, AppExitListener {
@@ -63,7 +62,7 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
@@ -89,21 +88,21 @@ public final class ControllerThumbnailsPanelPersistence
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        readSelectedFilesFromProperties();
-        readViewportViewPositionFromProperties();
-    }
+                readSelectedFilesFromProperties();
+                readViewportViewPositionFromProperties();
+            }
         });
     }
 
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringCollection(
-            FileUtil.getAsFilenames(ViewUtil.getSelectedImageFiles()),
+            FileUtil.getAsFilenames(GUI.getSelectedImageFiles()),
             KEY_SELECTED_FILES);
         UserSettings.INSTANCE.writeToFile();
     }
 
     private void readSelectedFilesFromProperties() {
-        ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
         List<Integer>   indices = new ArrayList<Integer>();
 
         for (File file : persistentSelectedFiles) {
@@ -126,8 +125,7 @@ public final class ControllerThumbnailsPanelPersistence
 
     @SuppressWarnings("unchecked")
     private void readSortFromProperties() {
-        ViewUtil.getThumbnailsPanel().setFileSortComparator(
-            getFileSortComparator());
+        GUI.getThumbnailsPanel().setFileSortComparator(getFileSortComparator());
     }
 
     public void setFileSortComparator(Comparator<File> cmp) {
@@ -179,7 +177,7 @@ public final class ControllerThumbnailsPanelPersistence
                     @Override
                     public void run() {
                         UserSettings.INSTANCE.getSettings().applySettings(
-                            GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
+                            GUI.getAppPanel().getScrollPaneThumbnailsPanel(),
                             KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
                     }
                 });
@@ -194,7 +192,7 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void writeViewportViewPositionToProperties() {
         UserSettings.INSTANCE.getSettings().set(
-            GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel(),
+            GUI.getAppPanel().getScrollPaneThumbnailsPanel(),
             KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
         UserSettings.INSTANCE.writeToFile();
     }

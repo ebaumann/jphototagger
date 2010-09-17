@@ -44,7 +44,7 @@ import javax.swing.Icon;
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordsImporterLightroom extends KeywordsImporter {
     public static final KeywordsImporterLightroom INSTANCE =

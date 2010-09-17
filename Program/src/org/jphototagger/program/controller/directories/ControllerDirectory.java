@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.directories;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -33,17 +32,18 @@ import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Base class for directory controllers.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 abstract class ControllerDirectory extends Controller {
     protected abstract void action(DefaultMutableTreeNode node);
 
     ControllerDirectory() {
-        listenToKeyEventsOf(ViewUtil.getDirectoriesTree());
+        listenToKeyEventsOf(GUI.getDirectoriesTree());
     }
 
     @Override
@@ -67,7 +67,7 @@ abstract class ControllerDirectory extends Controller {
             throw new NullPointerException("evt == null");
         }
 
-        JTree tree = ViewUtil.getDirectoriesTree();
+        JTree tree = GUI.getDirectoriesTree();
 
         if (!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();

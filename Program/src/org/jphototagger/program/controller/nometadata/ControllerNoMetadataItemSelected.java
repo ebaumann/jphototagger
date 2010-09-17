@@ -29,7 +29,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.io.File;
 
@@ -43,7 +42,7 @@ import javax.swing.event.ListSelectionListener;
  * and when an item was selected, sets files without metadata related to the
  * selected item to the thumbnails panel.
  *
- * @author  Elmar Baumann Elmar Baumann
+ * @author Elmar Baumann Elmar Baumann
  */
 public final class ControllerNoMetadataItemSelected
         implements ListSelectionListener {
@@ -52,7 +51,7 @@ public final class ControllerNoMetadataItemSelected
     }
 
     private void listen() {
-        ViewUtil.getNoMetadataList().addListSelectionListener(this);
+        GUI.getNoMetadataList().addListSelectionListener(this);
     }
 
     @Override
@@ -63,7 +62,7 @@ public final class ControllerNoMetadataItemSelected
     }
 
     private void setFiles() {
-        Object selValue = ViewUtil.getNoMetadataList().getSelectedValue();
+        Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
         if (selValue instanceof Column) {
             List<File> imageFiles =
@@ -72,7 +71,7 @@ public final class ControllerNoMetadataItemSelected
 
             setTitle((Column) selValue);
 
-            ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+            ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             ControllerSortThumbnails.setLastSort();
             tnPanel.setFiles(imageFiles, Content.MISSING_METADATA);
@@ -80,7 +79,7 @@ public final class ControllerNoMetadataItemSelected
     }
 
     private void setTitle(Column column) {
-        GUI.INSTANCE.getAppFrame().setTitle(
+        GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
                 "ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata",
                 column.getDescription()));

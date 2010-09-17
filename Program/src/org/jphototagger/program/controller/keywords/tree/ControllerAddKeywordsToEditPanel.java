@@ -53,7 +53,7 @@ import javax.swing.tree.TreeNode;
  *
  * Also listens to key events and does the same if Ctrl+B were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
         implements ActionListener, KeyListener {
@@ -91,7 +91,7 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
 
     private void addToEditPanel(List<String> keywordNames) {
         EditMetadataPanels editPanels =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+            GUI.getAppPanel().getEditMetadataPanels();
         JPanel panel =
             editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
 

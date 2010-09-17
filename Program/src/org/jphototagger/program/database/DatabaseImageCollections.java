@@ -40,7 +40,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseImageCollections extends Database {
     public static final DatabaseImageCollections INSTANCE =

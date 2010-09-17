@@ -26,7 +26,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * A format which is always an empty string.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameFormatEmptyString extends FilenameFormat {
     @Override

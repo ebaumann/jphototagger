@@ -27,10 +27,10 @@ import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.FileSystemListener;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.RenameDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,7 +48,7 @@ import java.util.List;
  * <code>F2</code> was pressed shows the {@link RenameDialog} to rename the
  * selected files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerRenameFiles
         implements ActionListener, KeyListener, FileSystemListener {
@@ -57,7 +57,7 @@ public final class ControllerRenameFiles
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        GUI.getThumbnailsPanel().addKeyListener(this);
         PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles()
             .addActionListener(this);
     }
@@ -88,13 +88,13 @@ public final class ControllerRenameFiles
                 ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
                 XmpCache.INSTANCE.updateFiles(fromFile, toFile);
                 RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                ViewUtil.getThumbnailsPanel().rename(fromFile, toFile);
+                GUI.getThumbnailsPanel().rename(fromFile, toFile);
             }
         });
     }
 
     private void renameSelectedFiles() {
-        List<File> selFiles = ViewUtil.getSelectedImageFiles();
+        List<File> selFiles = GUI.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             RenameDialog dlg = new RenameDialog();
@@ -102,7 +102,7 @@ public final class ControllerRenameFiles
             Collections.sort(selFiles);
             dlg.setImageFiles(selFiles);
             dlg.addFileSystemListener(this);
-            dlg.setEnabledTemplates(ViewUtil.getThumbnailsPanel().getContent()
+            dlg.setEnabledTemplates(GUI.getThumbnailsPanel().getContent()
                 .isUniqueFileSystemDirectory());
             dlg.setVisible(true);
         }

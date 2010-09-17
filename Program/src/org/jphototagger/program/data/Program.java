@@ -22,7 +22,7 @@
 package org.jphototagger.program.data;
 
 import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.io.IoUtil;
+import org.jphototagger.program.io.RuntimeUtil;
 
 import java.io.File;
 
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * External program to start within the application. It is written persistent
  * into the database {@link DatabasePrograms}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -211,7 +211,7 @@ public final class Program {
             throw new NullPointerException("additionalParameters == null");
         }
 
-        String sep              = IoUtil.getDefaultCommandLineSeparator();
+        String sep              = RuntimeUtil.getDefaultCommandLineSeparator();
         String parametersBefore = ((parametersBeforeFilename == null)
                                    ? EMPTY
                                    : parametersBeforeFilename) + (additionalParametersBeforeFilenames
@@ -223,7 +223,7 @@ public final class Program {
                 ? EMPTY
                 : sep + additionalParameters);
 
-        return parametersBefore + sep + IoUtil.quoteForCommandLine(files) + sep
+        return parametersBefore + sep + RuntimeUtil.quoteForCommandLine(files) + sep
                + parametersAfter;
     }
 

@@ -30,7 +30,7 @@ import java.awt.Container;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SettingsPerformancePanel extends javax.swing.JPanel
         implements Persistence {

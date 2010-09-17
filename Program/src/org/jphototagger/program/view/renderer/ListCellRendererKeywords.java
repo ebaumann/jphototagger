@@ -32,7 +32,7 @@ import javax.swing.JList;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListCellRendererKeywords extends ListCellRendererExt {
     private static final Icon ICON             =

@@ -32,7 +32,7 @@ import javax.swing.DefaultComboBoxModel;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
         implements DatabaseRenameTemplatesListener {

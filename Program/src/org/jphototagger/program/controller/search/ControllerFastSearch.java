@@ -44,7 +44,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,7 +64,7 @@ import javax.swing.JComboBox;
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerFastSearch
         implements ActionListener, RefreshListener, DatabaseImageFilesListener {
@@ -86,16 +85,16 @@ public final class ControllerFastSearch
     }
 
     private JButton getSearchButton() {
-        return GUI.INSTANCE.getAppPanel().getButtonSearch();
+        return GUI.getAppPanel().getButtonSearch();
     }
 
     private JComboBox getSearchComboBox() {
-        return GUI.INSTANCE.getAppPanel().getComboBoxFastSearch();
+        return GUI.getAppPanel().getComboBoxFastSearch();
     }
 
     private void listen() {
         DatabaseImageFiles.INSTANCE.addListener(this);
-        ViewUtil.getSearchTextArea().addKeyListener(new KeyAdapter() {
+        GUI.getSearchTextArea().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -105,8 +104,7 @@ public final class ControllerFastSearch
         });
         getSearchButton().addActionListener(this);
         getSearchComboBox().addActionListener(this);
-        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
-                Content.FAST_SEARCH);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.FAST_SEARCH);
     }
 
     public void setAutocomplete(boolean ac) {
@@ -143,7 +141,7 @@ public final class ControllerFastSearch
         new Thread(new Runnable() {
             @Override
             public void run() {
-                autocomplete.decorate(ViewUtil.getSearchTextArea(),
+                autocomplete.decorate(GUI.getSearchTextArea(),
                                       isSearchAllDefinedColumns()
                                       ? AutoCompleteDataOfColumn.INSTANCE
                                           .getFastSearchData().get()
@@ -154,12 +152,12 @@ public final class ControllerFastSearch
     }
 
     private void clearSelection() {
-        TreeUtil.clearSelection(GUI.INSTANCE.getAppPanel().getSelectionTrees());
-        ListUtil.clearSelection(GUI.INSTANCE.getAppPanel().getSelectionLists());
+        TreeUtil.clearSelection(GUI.getAppPanel().getSelectionTrees());
+        ListUtil.clearSelection(GUI.getAppPanel().getSelectionLists());
     }
 
     private void search() {
-        search(ViewUtil.getSearchTextArea().getText());
+        search(GUI.getSearchTextArea().getText());
         setMetadataEditable();
     }
 
@@ -176,15 +174,15 @@ public final class ControllerFastSearch
 
                     if (imageFiles != null) {
                         setTitle(userInput);
-                        GUI.INSTANCE.getAppFrame().selectMenuItemUnsorted();
+                        GUI.getAppFrame().selectMenuItemUnsorted();
                         ControllerSortThumbnails.setLastSort();
-                        ViewUtil.getThumbnailsPanel().setFiles(imageFiles,
-                                Content.SAVED_SEARCH);
+                        GUI.getThumbnailsPanel().setFiles(imageFiles,
+                                                          Content.SAVED_SEARCH);
                     }
                 }
             }
             private void setTitle(String userInput) {
-                GUI.INSTANCE.getAppFrame().setTitle(
+                GUI.getAppFrame().setTitle(
                     JptBundle.INSTANCE.getString(
                         "ControllerFastSearch.AppFrame.Title.FastSearch",
                         userInput));
@@ -237,7 +235,7 @@ public final class ControllerFastSearch
     private List<String> getSearchWords(String userInput) {
         List<String>    words = new ArrayList<String>();
         StringTokenizer st = new StringTokenizer(userInput,
-                                    DELIMITER_SEARCH_WORDS);
+                                 DELIMITER_SEARCH_WORDS);
 
         while (st.hasMoreTokens()) {
             words.add(st.nextToken().trim());
@@ -258,14 +256,14 @@ public final class ControllerFastSearch
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (ViewUtil.getSearchTextArea().isEnabled()) {
-            search(ViewUtil.getSearchTextArea().getText());
+        if (GUI.getSearchTextArea().isEnabled()) {
+            search(GUI.getSearchTextArea().getText());
         }
     }
 
     private void setMetadataEditable() {
-        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
-            ViewUtil.getEditPanel().setEditable(false);
+        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+            GUI.getEditPanel().setEditable(false);
         }
     }
 

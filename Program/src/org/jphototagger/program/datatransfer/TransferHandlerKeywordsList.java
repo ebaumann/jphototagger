@@ -49,7 +49,7 @@ import javax.swing.TransferHandler;
  * transferable is a {@link TransferableObject} instance which supports the data
  * flavor {@link Flavor#KEYWORDS_LIST}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerKeywordsList extends TransferHandler {
     private static final long serialVersionUID = -4156977618928448144L;

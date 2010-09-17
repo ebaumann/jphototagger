@@ -44,7 +44,7 @@ import java.util.Map;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseFind extends Database {
     public static final DatabaseFind INSTANCE = new DatabaseFind();

@@ -35,7 +35,7 @@ import javax.xml.bind.Unmarshaller;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmlObjectImporter {
     public static Object importObject(File file, Class<?> clazz)

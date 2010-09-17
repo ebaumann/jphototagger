@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Liefert, welche Exif-Metadaten in die Datenbank gespeichert werden.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifInDatabase {
     private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD =

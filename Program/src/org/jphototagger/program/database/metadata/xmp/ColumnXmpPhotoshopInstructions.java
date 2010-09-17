@@ -28,7 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Spalte <code>photoshop_instructions</code> der Tabelle <code>xmp</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnXmpPhotoshopInstructions extends Column {
     public static final ColumnXmpPhotoshopInstructions INSTANCE =

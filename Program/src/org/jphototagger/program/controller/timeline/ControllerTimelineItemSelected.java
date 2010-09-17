@@ -31,7 +31,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -52,7 +51,7 @@ import javax.swing.tree.TreePath;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerTimelineItemSelected
         implements TreeSelectionListener, RefreshListener {
@@ -61,17 +60,15 @@ public final class ControllerTimelineItemSelected
     }
 
     private void listen() {
-        ViewUtil.getTimelineTree().addTreeSelectionListener(this);
-        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
-                Content.TIMELINE);
+        GUI.getTimelineTree().addTreeSelectionListener(this);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.TIMELINE);
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (ViewUtil.getTimelineTree().getSelectionCount() == 1) {
+        if (GUI.getTimelineTree().getSelectionCount() == 1) {
             setFilesOfTreePathToThumbnailsPanel(
-                ViewUtil.getTimelineTree().getSelectionPath(),
-                evt.getSettings());
+                GUI.getTimelineTree().getSelectionPath(), evt.getSettings());
         }
     }
 
@@ -97,7 +94,7 @@ public final class ControllerTimelineItemSelected
                         public void run() {
                             setFilesOfPossibleNodeToThumbnailsPanel(
                                 lastPathComponent);
-                            ViewUtil.getThumbnailsPanel().apply(settings);
+                            GUI.getThumbnailsPanel().apply(settings);
                         }
                     });
                 }
@@ -121,7 +118,7 @@ public final class ControllerTimelineItemSelected
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             ControllerSortThumbnails.setLastSort();
-            ViewUtil.getThumbnailsPanel().setFiles(
+            GUI.getThumbnailsPanel().setFiles(
                 DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(),
                 Content.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
@@ -146,13 +143,13 @@ public final class ControllerTimelineItemSelected
                                            date.year, month, day));
 
                 ControllerSortThumbnails.setLastSort();
-                ViewUtil.getThumbnailsPanel().setFiles(files, Content.TIMELINE);
+                GUI.getThumbnailsPanel().setFiles(files, Content.TIMELINE);
             }
         }
     }
 
     private void setTitle() {
-        GUI.INSTANCE.getAppFrame().setTitle(
+        GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
                 "ControllerTimelineItemSelected.AppFrame.Title.Timline.Unknown"));
     }
@@ -184,7 +181,7 @@ public final class ControllerTimelineItemSelected
                                  ? ""
                                  : df.format(d);
 
-        GUI.INSTANCE.getAppFrame().setTitle(
+        GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
                 "ControllerTimelineItemSelected.AppFrame.Title.Timeline.Date",
                 fDate));

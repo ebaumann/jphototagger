@@ -25,7 +25,7 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
-import org.jphototagger.program.io.ImageFilteredDirectory;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
@@ -48,7 +48,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private static final String KEY_DIRECTORY_NAME =
@@ -61,7 +61,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private List<File>        files;
 
     public IptcToXmpDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
@@ -100,7 +100,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private void chooseDirectory() {
         DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), directory,
+                GUI.getAppFrame(), directory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),
@@ -213,7 +213,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                                 .getDirFilterOptionShowHiddenFiles()));
             }
 
-            return ImageFilteredDirectory.getImageFilesOfDirectories(
+            return ImageFileFilterer.getImageFilesOfDirectories(
                 directories);
         } else {
             return Collections.unmodifiableList(files);

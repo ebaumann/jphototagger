@@ -65,7 +65,7 @@ import java.sql.Statement;
  * </li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseTables extends Database {
     public static final DatabaseTables INSTANCE = new DatabaseTables();

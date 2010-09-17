@@ -31,7 +31,7 @@ import javax.swing.AbstractAction;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class JptImportAction extends AbstractAction {
     private static final long           serialVersionUID = 7147327788643508948L;

@@ -28,7 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Spalte <code>subject</code> der Tabelle <code>xmp_dc_subject</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnXmpDcSubjectsSubject extends Column {
     public static final ColumnXmpDcSubjectsSubject INSTANCE =

@@ -27,7 +27,7 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
-import org.jphototagger.program.io.IoUtil;
+import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 
@@ -44,7 +44,7 @@ import javax.swing.JProgressBar;
 /**
  * Executes in a thread programs which processes image files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class StartPrograms {
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
@@ -156,9 +156,9 @@ public final class StartPrograms {
         }
 
         private String getProcessPatternCommand(File file) {
-            return IoUtil.quoteForCommandLine(program.getFile())
-                   + IoUtil.getDefaultCommandLineSeparator()
-                   + IoUtil.substitudePattern(file, getPattern());
+            return RuntimeUtil.quoteForCommandLine(program.getFile())
+                   + RuntimeUtil.getDefaultCommandLineSeparator()
+                   + RuntimeUtil.substitudePattern(file, getPattern());
         }
 
         private String getPattern() {
@@ -167,7 +167,7 @@ public final class StartPrograms {
             return (program.isUsePattern() && (pattern != null)
                     &&!pattern.isEmpty())
                    ? program.getPattern()
-                   : IoUtil.PATTERN_FS_PATH;
+                   : RuntimeUtil.PATTERN_FS_PATH;
         }
 
         private void processAll() {
@@ -189,8 +189,8 @@ public final class StartPrograms {
         }
 
         private String getProcessAllCommand() {
-            return IoUtil.quoteForCommandLine(program.getFile())
-                   + IoUtil.getDefaultCommandLineSeparator()
+            return RuntimeUtil.quoteForCommandLine(program.getFile())
+                   + RuntimeUtil.getDefaultCommandLineSeparator()
                    + program
                        .getCommandlineParameters(
                            imageFiles,
@@ -224,8 +224,8 @@ public final class StartPrograms {
         }
 
         private String getProcessSingleCommand(File file, int count) {
-            return IoUtil.quoteForCommandLine(program.getFile())
-                   + IoUtil.getDefaultCommandLineSeparator()
+            return RuntimeUtil.quoteForCommandLine(program.getFile())
+                   + RuntimeUtil.getDefaultCommandLineSeparator()
                    + program.getCommandlineParameters(
                        Arrays.asList(file),
                        getAdditionalParameters(

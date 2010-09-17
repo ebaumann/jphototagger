@@ -38,7 +38,7 @@ import javax.swing.tree.TreePath;
  * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
  * {@link org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata} does.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MouseListenerDirectories extends MouseListenerTree {
     private final PopupMenuDirectories popupMenu =

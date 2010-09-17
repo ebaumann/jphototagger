@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * GPS latitude.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifGpsLatitude {
 

@@ -23,8 +23,8 @@ package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +40,7 @@ import java.util.List;
  * ausgelöst von
  * {@link org.jphototagger.program.view.popupmenus.PopupMenuThumbnails}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteThumbnailsFromDatabase
         implements ActionListener {
@@ -63,7 +63,7 @@ public final class ControllerDeleteThumbnailsFromDatabase
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    List<File> selFiles   = ViewUtil.getSelectedImageFiles();
+                    List<File> selFiles   = GUI.getSelectedImageFiles();
                     int        countFiles = selFiles.size();
                     int        countDeleted =
                         DatabaseImageFiles.INSTANCE.delete(selFiles);
@@ -73,7 +73,7 @@ public final class ControllerDeleteThumbnailsFromDatabase
                     }
 
                     repaint(selFiles);
-                    ViewUtil.getThumbnailsPanel().repaint();
+                    GUI.getThumbnailsPanel().repaint();
                 }
             });
         }
@@ -89,14 +89,14 @@ public final class ControllerDeleteThumbnailsFromDatabase
             }
         }
 
-        ViewUtil.getThumbnailsPanel().remove(deleted);
+        GUI.getThumbnailsPanel().remove(deleted);
     }
 
     private boolean confirmDelete() {
         return MessageDisplayer.confirmYesNo(
             null,
             "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
-            ViewUtil.getThumbnailsPanel().getSelectionCount());
+            GUI.getThumbnailsPanel().getSelectionCount());
     }
 
     private void errorMessageDeleteImageFiles(int countFiles,

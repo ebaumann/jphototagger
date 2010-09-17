@@ -26,7 +26,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Filename format that returns exactly a set string (formats nothing).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameFormatConstantString extends FilenameFormat {
     public FilenameFormatConstantString(String string) {

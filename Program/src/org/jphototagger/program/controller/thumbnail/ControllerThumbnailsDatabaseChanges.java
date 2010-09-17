@@ -27,17 +27,17 @@ import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Collections;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerThumbnailsDatabaseChanges
         implements DatabaseImageFilesListener {
@@ -112,7 +112,7 @@ public final class ControllerThumbnailsDatabaseChanges
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ViewUtil.getThumbnailsPanel().remove(
+                GUI.getThumbnailsPanel().remove(
                     Collections.singleton(imageFile));
             }
         });

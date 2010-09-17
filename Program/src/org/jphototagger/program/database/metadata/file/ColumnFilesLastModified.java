@@ -28,7 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Tabellenspalte <code>lastmodified</code> der Tabelle <code>files</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnFilesLastModified extends Column {
     public static final ColumnFilesLastModified INSTANCE =

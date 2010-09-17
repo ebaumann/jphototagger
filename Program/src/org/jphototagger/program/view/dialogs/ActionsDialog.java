@@ -36,7 +36,7 @@ import org.jphototagger.program.view.panels.ActionsPanel;
  * Non modal dialog for actions: {@link org.jphototagger.program.data.Program}
  * where {@link org.jphototagger.program.data.Program#isAction()} is true.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ActionsDialog extends Dialog
         implements DatabaseProgramsListener {
@@ -44,7 +44,7 @@ public final class ActionsDialog extends Dialog
     private static final long         serialVersionUID = -2671488119703014515L;
 
     private ActionsDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();

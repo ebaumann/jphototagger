@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  * Alle elements are {@code XMPPropertyInfo} instances retrieved through
  * {@link #setPropertyInfosOfFile(File, List)}.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class TableModelXmp extends DefaultTableModel {
     private static final long     serialVersionUID = -647814140321831383L;

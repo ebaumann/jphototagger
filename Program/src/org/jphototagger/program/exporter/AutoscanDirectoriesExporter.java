@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AutoscanDirectoriesExporter implements Exporter {
     public static final FileFilter FILE_FILTER =

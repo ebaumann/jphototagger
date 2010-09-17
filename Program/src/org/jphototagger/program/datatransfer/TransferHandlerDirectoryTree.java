@@ -24,9 +24,9 @@ package org.jphototagger.program.datatransfer;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.program.data.Favorite;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
-import org.jphototagger.program.io.IoUtil;
 
 import java.awt.datatransfer.Transferable;
 
@@ -43,7 +43,7 @@ import javax.swing.tree.TreePath;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerDirectoryTree extends TransferHandler {
     private static final long serialVersionUID = 667981391265349868L;
@@ -113,7 +113,7 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
             throw new NullPointerException("targetDirectory == null");
         }
 
-        List<File> imageFiles = IoUtil.filterImageFiles(sourceFiles);
+        List<File> imageFiles = ImageFileFilterer.filterImageFiles(sourceFiles);
 
         if (imageFiles.isEmpty()) {
             return;

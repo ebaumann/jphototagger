@@ -47,7 +47,7 @@ import java.util.regex.Pattern;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class BackupDatabase extends AppLifeCycle.FinalTask
         implements Runnable, Cancelable {

@@ -28,7 +28,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#ISO_SPEED_RATINGS}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
     public static final ExifFormatterIsoSpeedRatings INSTANCE =

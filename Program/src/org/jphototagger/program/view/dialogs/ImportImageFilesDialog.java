@@ -46,7 +46,7 @@ import javax.swing.JLabel;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ImportImageFilesDialog extends Dialog {
     private static final long   serialVersionUID = -8291157139781240235L;
@@ -71,7 +71,7 @@ public class ImportImageFilesDialog extends Dialog {
     private boolean          listenToCheckBox = true;
 
     public ImportImageFilesDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
@@ -259,7 +259,7 @@ public class ImportImageFilesDialog extends Dialog {
     private File chooseDir(File startDir) {
         DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), startDir,
+                GUI.getAppFrame(), startDir,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);

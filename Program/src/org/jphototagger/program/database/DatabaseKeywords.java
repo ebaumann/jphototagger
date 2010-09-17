@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Contains keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseKeywords extends Database {
     public static final DatabaseKeywords INSTANCE = new DatabaseKeywords();

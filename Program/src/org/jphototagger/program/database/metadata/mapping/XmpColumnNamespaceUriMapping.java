@@ -56,7 +56,7 @@ import java.util.Map;
  * {@link org.jphototagger.program.database.metadata.Column} und
  * einem Namespace-URI
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmpColumnNamespaceUriMapping {
     private static final Map<Column, String> NAMESPACE_URI_OF_COLUMN =

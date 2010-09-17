@@ -39,7 +39,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesPrograms extends Database {
     private static final String KEY_OTHER_IMAGE_OPEN_APPS =

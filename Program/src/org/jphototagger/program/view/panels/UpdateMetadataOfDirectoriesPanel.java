@@ -28,7 +28,7 @@ import org.jphototagger.program.event.UpdateMetadataCheckEvent;
 import org.jphototagger.program.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
-import org.jphototagger.program.io.DirectoryInfo;
+import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
@@ -55,7 +55,7 @@ import org.jphototagger.lib.componentutil.ListUtil;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         implements UpdateMetadataCheckListener, ProgressListener {
@@ -106,7 +106,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         int count = 0;
 
         for (Object element : listModelDirectories.toArray()) {
-            count += ((DirectoryInfo) element).getImageFileCount();
+            count += ((ImageFileDirectory) element).getImageFileCount();
         }
 
         return count;
@@ -137,7 +137,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         List<File> imageFiles = new ArrayList<File>();
 
         for (Object element : listModelDirectories.toArray()) {
-            imageFiles.addAll(((DirectoryInfo) element).getImageFiles());
+            imageFiles.addAll(((ImageFileDirectory) element).getImageFiles());
         }
 
         return imageFiles;
@@ -298,7 +298,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     private void chooseDirectories() {
         final DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), lastDirectory,
+                GUI.getAppFrame(), lastDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),
@@ -330,7 +330,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
         @Override
         public void run() {
-            final List<File> newDirectories = getNotDirectoriesNotInListFrom(
+            final List<File> newDirectories = getNewDirectoriesIn(
                                                                    directories);
 
             CollectionUtil.addNotContainedElements(directories, newDirectories);
@@ -353,7 +353,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             }
     }
 
-    private List<File> getNotDirectoriesNotInListFrom(List<File> directories) {
+    private List<File> getNewDirectoriesIn(List<File> directories) {
         List<File> newDirectories = new ArrayList<File>();
 
         for (File directory : directories) {
@@ -369,11 +369,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         Collections.sort(directories, FileSort.PATHS_ASCENDING.getComparator());
 
         for (File directory : directories) {
-            DirectoryInfo directoryInfo = new DirectoryInfo(directory);
+            ImageFileDirectory imageFileDir = new ImageFileDirectory(directory);
 
-            if (directoryInfo.hasImageFiles()
-                    &&!listModelDirectories.contains(directoryInfo)) {
-                listModelDirectories.addElement(directoryInfo);
+            if (imageFileDir.hasImageFiles()
+                    &&!listModelDirectories.contains(imageFileDir)) {
+                listModelDirectories.addElement(imageFileDir);
             }
         }
     }

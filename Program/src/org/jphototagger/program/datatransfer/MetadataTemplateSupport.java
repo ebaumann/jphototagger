@@ -36,7 +36,7 @@ import javax.swing.TransferHandler.TransferSupport;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class MetadataTemplateSupport {
     @SuppressWarnings({ "unchecked", "unchecked" })

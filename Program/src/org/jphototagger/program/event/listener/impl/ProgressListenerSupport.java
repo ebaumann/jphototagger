@@ -31,7 +31,7 @@ import java.awt.EventQueue;
 /**
  * Adds, removes and notifies {@link ProgressListener} instances.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgressListenerSupport
         extends ListenerSupport<ProgressListener> {

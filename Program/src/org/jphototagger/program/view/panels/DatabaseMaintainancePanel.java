@@ -55,7 +55,7 @@ import org.jphototagger.program.helper.DeleteUnusedKeywords;
 /**
  * Database maintainance tasks.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseMaintainancePanel extends JPanel
         implements ProgressListener {

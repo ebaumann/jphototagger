@@ -37,7 +37,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesRenameColumns {
     private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS =

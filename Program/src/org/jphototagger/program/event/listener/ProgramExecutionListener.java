@@ -25,7 +25,7 @@ import org.jphototagger.program.data.Program;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface ProgramExecutionListener {
     void execute(Program program);

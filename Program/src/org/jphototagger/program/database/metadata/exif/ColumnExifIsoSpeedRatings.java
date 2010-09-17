@@ -31,7 +31,7 @@ import org.jphototagger.program.resource.JptBundle;
  * <li>EXIF Tag-ID: 34855 (Hex: 8827); EXIF-IFD: .</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnExifIsoSpeedRatings extends Column {
     public static final ColumnExifIsoSpeedRatings INSTANCE =

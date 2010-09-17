@@ -29,7 +29,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,7 +54,7 @@ import javax.swing.JMenuItem;
  * {@link PopupMenuThumbnails#getItemReject()} and does the same as by the
  * key events <strong>P</strong> or <strong>R</strong>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerPickReject implements ActionListener, KeyListener {
     public ControllerPickReject() {
@@ -63,7 +62,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        GUI.getThumbnailsPanel().addKeyListener(this);
         getPickItem().addActionListener(this);
         getRejectItem().addActionListener(this);
     }
@@ -91,13 +90,14 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
             return;
         }
 
-        ThumbnailsPanel panelThumbnails = ViewUtil.getThumbnailsPanel();
+        ThumbnailsPanel panelThumbnails = GUI.getThumbnailsPanel();
 
         if (panelThumbnails.isFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
 
-            GUI.INSTANCE.getAppPanel().setStatusbarText(getPopupMessage(pick),
-                    MessageLabel.MessageType.INFO, 1000);
+            GUI.getAppPanel().setStatusbarText(getPopupMessage(pick),
+                                               MessageLabel.MessageType.INFO,
+                                               1000);
             addToCollection(pick
                             ? ListModelImageCollections
                                 .NAME_IMAGE_COLLECTION_PICKED
@@ -134,12 +134,12 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private boolean isCollection(String collection) {
-        if (!ViewUtil.getThumbnailsPanel().getContent().equals(
+        if (!GUI.getThumbnailsPanel().getContent().equals(
                 Content.IMAGE_COLLECTION)) {
             return false;
         }
 
-        JList list = GUI.INSTANCE.getAppPanel().getListImageCollections();
+        JList list = GUI.getAppPanel().getListImageCollections();
 
         if (list.getSelectedIndex() < 0) {
             return false;

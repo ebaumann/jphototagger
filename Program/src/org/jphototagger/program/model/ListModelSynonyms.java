@@ -32,7 +32,7 @@ import javax.swing.DefaultListModel;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListModelSynonyms extends DefaultListModel
         implements DatabaseSynonymsListener {

@@ -30,7 +30,7 @@ import java.util.Map;
  * Returns whether an {@link com.imagero.reader.iptc.IPTCEntryMeta} contains
  * repeatable values.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class IptcRepeatableValues {
     private static final Map<IPTCEntryMeta, Boolean> IS_REPEATABLE =

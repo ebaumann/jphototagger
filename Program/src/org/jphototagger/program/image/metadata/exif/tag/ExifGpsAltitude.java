@@ -38,7 +38,7 @@ import java.util.Map;
 /**
  * GPS altitude.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifGpsAltitude {
     public enum Ref { OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL }

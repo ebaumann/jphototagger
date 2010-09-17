@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

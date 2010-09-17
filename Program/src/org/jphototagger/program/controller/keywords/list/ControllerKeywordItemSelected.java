@@ -26,7 +26,6 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +42,7 @@ import javax.swing.JRadioButton;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerKeywordItemSelected
         implements ActionListener, ListSelectionListener, RefreshListener {
@@ -56,25 +55,23 @@ public final class ControllerKeywordItemSelected
     }
 
     private void listen() {
-        ViewUtil.getSelKeywordsList().addListSelectionListener(this);
+        GUI.getSelKeywordsList().addListSelectionListener(this);
         getRadioButtonAllKeywords().addActionListener(this);
         getRadioButtonOneKeyword().addActionListener(this);
-        ViewUtil.getThumbnailsPanel().addRefreshListener(this, Content.KEYWORD);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.KEYWORD);
     }
 
     private JRadioButton getRadioButtonAllKeywords() {
-        return GUI.INSTANCE.getAppPanel()
-            .getRadioButtonSelKeywordsMultipleSelAll();
+        return GUI.getAppPanel().getRadioButtonSelKeywordsMultipleSelAll();
     }
 
     private JRadioButton getRadioButtonOneKeyword() {
-        return GUI.INSTANCE.getAppPanel()
-            .getRadioButtonSelKeywordsMultipleSelOne();
+        return GUI.getAppPanel().getRadioButtonSelKeywordsMultipleSelOne();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (ViewUtil.getSelKeywordsList().getSelectedIndex() >= 0) {
+        if (GUI.getSelKeywordsList().getSelectedIndex() >= 0) {
             writePersistent();
             update(null);
         }
@@ -82,7 +79,7 @@ public final class ControllerKeywordItemSelected
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (ViewUtil.getSelKeywordsList().getSelectedIndex() >= 0) {
+        if (GUI.getSelKeywordsList().getSelectedIndex() >= 0) {
             update(evt);
         }
     }
@@ -90,7 +87,7 @@ public final class ControllerKeywordItemSelected
     @Override
     public void valueChanged(ListSelectionEvent evt) {
         if (!evt.getValueIsAdjusting()
-                && (ViewUtil.getSelKeywordsList().getSelectedIndex() >= 0)) {
+                && (GUI.getSelKeywordsList().getSelectedIndex() >= 0)) {
             update(null);
         }
     }
@@ -110,9 +107,8 @@ public final class ControllerKeywordItemSelected
     }
 
     private List<String> getSelectedKeywords() {
-        Object[]     selValues =
-            ViewUtil.getSelKeywordsList().getSelectedValues();
-        List<String> keywords = new ArrayList<String>();
+        Object[]     selValues = GUI.getSelKeywordsList().getSelectedValues();
+        List<String> keywords  = new ArrayList<String>();
 
         for (Object selValue : selValues) {
             if (selValue instanceof String) {

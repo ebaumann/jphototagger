@@ -25,7 +25,7 @@ import org.jphototagger.program.event.listener.EditMetadataPanelsListener;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class EditMetadataPanelsListenerSupport
         extends ListenerSupport<EditMetadataPanelsListener> {

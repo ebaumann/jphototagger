@@ -49,7 +49,7 @@ import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ActionsPanel extends javax.swing.JPanel {
     private static final long                            serialVersionUID =

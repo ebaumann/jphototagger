@@ -34,7 +34,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseStatistics extends Database {
     public static final DatabaseStatistics INSTANCE = new DatabaseStatistics();

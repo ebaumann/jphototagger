@@ -28,7 +28,6 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +39,7 @@ import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to {@link PopupMenuFavorites#getItemRenameFilesystemFolder()} and
@@ -49,7 +49,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * file system directory if the keys <code>Strg+R</code> or <code>F2</code> were
  * pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerFavoritesRenameFilesystemFolder
         implements ActionListener, KeyListener {
@@ -60,12 +60,12 @@ public final class ControllerFavoritesRenameFilesystemFolder
     private void listen() {
         PopupMenuFavorites.INSTANCE.getItemRenameFilesystemFolder()
             .addActionListener(this);
-        ViewUtil.getFavoritesTree().addKeyListener(this);
+        GUI.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JTree tree = ViewUtil.getFavoritesTree();
+        JTree tree = GUI.getFavoritesTree();
 
         if (isRename(evt) &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();

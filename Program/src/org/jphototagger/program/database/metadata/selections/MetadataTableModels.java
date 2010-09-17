@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * Contains all metadata table models.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MetadataTableModels {
     private TableModelIptc     iptcTableModel;

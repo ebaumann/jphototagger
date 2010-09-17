@@ -37,7 +37,7 @@ import javax.swing.tree.TreePath;
 /**
  * Inserts a list of Strings into the keywords root.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class InsertKeywords extends Thread {
     private final List<String> keywords;
@@ -90,7 +90,7 @@ public final class InsertKeywords extends Thread {
     }
 
     private void expandRoot() {
-        JTree  tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
+        JTree  tree = GUI.getAppPanel().getTreeSelKeywords();
         Object root = tree.getModel().getRoot();
 
         tree.expandPath(

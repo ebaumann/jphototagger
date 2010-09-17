@@ -24,6 +24,6 @@ package org.jphototagger.program.types;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum DeleteOption { CONFIRM_DELETE, MESSAGES_ON_FAILURES }

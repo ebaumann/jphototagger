@@ -58,7 +58,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MetadataTemplatesImporter
         implements Importer, EntityResolver {

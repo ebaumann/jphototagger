@@ -35,7 +35,7 @@ import java.awt.event.ActionListener;
  * Starts a {@link org.jphototagger.program.view.dialogs.FileEditorDialog} with
  * an {@link org.jphototagger.program.helper.ExtractEmbeddedXmp} editor.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerExtractEmbeddedXmp implements ActionListener {
     public ControllerExtractEmbeddedXmp() {
@@ -43,7 +43,7 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemExtractEmbeddedXmp()
+        GUI.getAppFrame().getMenuItemExtractEmbeddedXmp()
             .addActionListener(this);
     }
 

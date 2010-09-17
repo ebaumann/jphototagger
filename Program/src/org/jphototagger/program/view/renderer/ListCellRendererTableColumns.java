@@ -32,7 +32,7 @@ import javax.swing.JList;
 /**
  * Renderer für Tabellenspaltenbeschreibungen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see     org.jphototagger.program.database.metadata.Column#getDescription()
  */
 public final class ListCellRendererTableColumns

@@ -26,7 +26,6 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +33,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Edits a selected saved search when the
@@ -43,7 +43,7 @@ import javax.swing.JList;
  * Also listens to the {@link JList}'s key events and edits a selected saved
  * search when the keys <code>Ctrl+E</code> were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerEditSavedSearch
         implements ActionListener, KeyListener {
@@ -53,12 +53,12 @@ public final class ControllerEditSavedSearch
 
     private void listen() {
         PopupMenuSavedSearches.INSTANCE.getItemEdit().addActionListener(this);
-        ViewUtil.getSavedSearchesList().addKeyListener(this);
+        GUI.getSavedSearchesList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = ViewUtil.getSavedSearchesList();
+        JList list = GUI.getSavedSearchesList();
 
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E)
                 &&!list.isSelectionEmpty()) {

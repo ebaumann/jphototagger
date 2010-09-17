@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#SATURATION}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterSaturation extends ExifFormatter {
     public static final ExifFormatterSaturation INSTANCE =

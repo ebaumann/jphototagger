@@ -37,7 +37,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AutoscanDirectoriesImporter implements Importer {
     public static final AutoscanDirectoriesImporter INSTANCE =

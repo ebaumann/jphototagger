@@ -45,7 +45,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SynonymsPanel extends javax.swing.JPanel
         implements ListSelectionListener, DocumentListener {

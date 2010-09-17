@@ -47,7 +47,7 @@ import javax.swing.JMenuItem;
 /**
  * Kontrolliert die Aktion: Logfiledialog anzeigen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerLogfileDialog extends MouseAdapter
         implements ActionListener, ErrorListener {
@@ -65,16 +65,16 @@ public final class ControllerLogfileDialog extends MouseAdapter
     private void listen() {
         getItemErrorLogfile().addActionListener(this);
         getItemAllLogfile().addActionListener(this);
-        GUI.INSTANCE.getAppPanel().getLabelError().addMouseListener(this);
+        GUI.getAppPanel().getLabelError().addMouseListener(this);
         ErrorListeners.INSTANCE.add(this);
     }
 
     private JMenuItem getItemAllLogfile() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemDisplayAllLogfile();
+        return GUI.getAppFrame().getMenuItemDisplayAllLogfile();
     }
 
     private JMenuItem getItemErrorLogfile() {
-        return GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
+        return GUI.getAppFrame().getMenuItemDisplayLogfile();
     }
 
     @Override
@@ -84,7 +84,7 @@ public final class ControllerLogfileDialog extends MouseAdapter
             showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(),
                               XMLFormatter.class);
 
-            JLabel labelError = GUI.INSTANCE.getAppPanel().getLabelError();
+            JLabel labelError = GUI.getAppPanel().getLabelError();
 
             labelError.setIcon(null);
             labelError.setToolTipText("");
@@ -92,11 +92,11 @@ public final class ControllerLogfileDialog extends MouseAdapter
     }
 
     private void error() {
-        GUI.INSTANCE.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT,
+        GUI.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT,
                 MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         getItemErrorLogfile().setEnabled(true);
 
-        JLabel labelError = GUI.INSTANCE.getAppPanel().getLabelError();
+        JLabel labelError = GUI.getAppPanel().getLabelError();
 
         labelError.setIcon(AppLookAndFeel.getIcon("icon_error.png"));
         labelError.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);
@@ -117,7 +117,7 @@ public final class ControllerLogfileDialog extends MouseAdapter
 
     private void showLogfileDialog(String logfilename,
                                    Class<?> formatterClass) {
-        LogfileDialog dlg = new LogfileDialog(GUI.INSTANCE.getAppFrame(),
+        LogfileDialog dlg = new LogfileDialog(GUI.getAppFrame(),
                                               logfilename, formatterClass);
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);

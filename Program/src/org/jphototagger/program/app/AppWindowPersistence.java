@@ -46,13 +46,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.table.TableModel;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
  * {@link AppFrame}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppWindowPersistence
         implements ComponentListener, AppExitListener, UserSettingsListener {
@@ -64,9 +63,9 @@ public final class AppWindowPersistence
         "AppPanel.DividerLocationThumbnails";
     private static final String KEY_KEYWORDS_VIEW = "AppPanel.KeywordsView";
     private final Component     cardSelKeywordsList =
-        GUI.INSTANCE.getAppPanel().getCardSelKeywordsList();
+        GUI.getAppPanel().getCardSelKeywordsList();
     private final Component cardSelKeywordsTree =
-        GUI.INSTANCE.getAppPanel().getCardSelKeywordsTree();
+        GUI.getAppPanel().getCardSelKeywordsTree();
     private final Map<Component, String> NAME_OF_CARD = new HashMap<Component,
                                                             String>(2);
     private final Map<String, Component> CARD_OF_NAME = new HashMap<String,
@@ -117,7 +116,7 @@ public final class AppWindowPersistence
     }
 
     public void readAppFrameFromProperties() {
-        final AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+        final AppFrame appFrame = GUI.getAppFrame();
 
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(appFrame);
         EventQueue.invokeLater(new Runnable() {
@@ -132,7 +131,7 @@ public final class AppWindowPersistence
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+                AppPanel appPanel = GUI.getAppPanel();
 
                 UserSettings.INSTANCE.getSettings().applySettings(appPanel,
                         null);
@@ -187,7 +186,7 @@ public final class AppWindowPersistence
     }
 
     private void writeAppProperties() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel appPanel = GUI.getAppPanel();
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.set(appPanel, null);
@@ -217,20 +216,20 @@ public final class AppWindowPersistence
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GUI.INSTANCE.getAppPanel().setEnabledIptcTab(displayIptc);
+                GUI.getAppPanel().setEnabledIptcTab(displayIptc);
             }
         });
     }
 
     private void displayIptc() {
-        AppPanel        appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel        appPanel = GUI.getAppPanel();
         ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
 
         if (tnPanel.getSelectionCount() == 1) {
             final TableModel model = appPanel.getTableIptc().getModel();
 
             if (model instanceof TableModelIptc) {
-                final List<File> selFiles = ViewUtil.getSelectedImageFiles();
+                final List<File> selFiles = GUI.getSelectedImageFiles();
 
                 if (selFiles.size() == 1) {
                     final File file = selFiles.get(0);

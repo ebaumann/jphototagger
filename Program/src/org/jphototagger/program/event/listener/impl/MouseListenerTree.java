@@ -37,7 +37,7 @@ import javax.swing.tree.TreePath;
  * Do not use this class as template for implemention! Instead extend
  * {@link org.jphototagger.lib.event.listener.PopupMenuTree}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class MouseListenerTree extends MouseAdapter implements ActionListener {
     private JTree     tree;

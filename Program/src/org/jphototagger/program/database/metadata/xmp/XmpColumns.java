@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Collection of all XMP columns.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmpColumns {
     private static final List<Column> XMP_COLUMNS = new ArrayList<Column>();

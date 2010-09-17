@@ -31,7 +31,7 @@ import javax.swing.JComboBox;
 /**
  * Panel for action sources (buttons) related to edit metadata.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class EditMetadataActionsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = -8123589850440517504L;

@@ -29,7 +29,7 @@ import javax.swing.DefaultListModel;
 /**
  * Elements are {@link Column}s retrieved through {@link NoMetadataColumns#get()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListModelNoMetadata extends DefaultListModel {
     private static final long serialVersionUID = -1610826692746882410L;

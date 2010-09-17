@@ -51,7 +51,7 @@ import java.util.Map;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmpColumnXmpArrayNameMapping {
     private static final Map<Column, String> XMP_ARRAY_NAME_OF_COLUMN =

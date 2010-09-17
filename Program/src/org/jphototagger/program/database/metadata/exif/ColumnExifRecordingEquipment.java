@@ -32,7 +32,7 @@ import org.jphototagger.program.resource.JptBundle;
  * <li>EXIF Tag-ID: 272 (Hex: 110).</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnExifRecordingEquipment extends Column {
     public static final ColumnExifRecordingEquipment INSTANCE =

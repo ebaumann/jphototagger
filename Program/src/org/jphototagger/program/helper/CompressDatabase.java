@@ -35,7 +35,7 @@ import java.io.File;
 /**
  * Compresses the database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CompressDatabase implements Runnable {
     private final ProgressListenerSupport listenerSupport =

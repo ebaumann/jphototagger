@@ -27,7 +27,7 @@ import org.jphototagger.lib.util.ByteUtil;
  * The version of GPSInfoIFD. The version is given as 2.2.0.0. This tag is
  * mandatory when GPSInfo tag is present.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifGpsVersion {
     private int first  = Integer.MIN_VALUE;

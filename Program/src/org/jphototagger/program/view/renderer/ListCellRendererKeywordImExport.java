@@ -33,7 +33,7 @@ import javax.swing.JList;
 /**
  * Renders lists with {@link Importer}s and {@link Exporter}s for keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ListCellRendererKeywordImExport
         extends DefaultListCellRenderer {

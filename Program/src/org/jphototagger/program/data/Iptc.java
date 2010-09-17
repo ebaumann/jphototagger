@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * IPTC metadata of an image file.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class Iptc {
     private final Map<IPTCEntryMeta, Object> valueOfEntryMeta =

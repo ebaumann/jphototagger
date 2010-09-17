@@ -27,7 +27,6 @@ import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.datatransfer.Clipboard;
 import java.awt.event.ActionEvent;
@@ -38,6 +37,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to {@link PopupMenuThumbnails#getItemCopyToClipboard()},
@@ -46,11 +46,11 @@ import javax.swing.JMenuItem;
  *
  * Enables or disables that menu items based on selection.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerCopyOrCutFilesToClipboard
         implements ActionListener, KeyListener, ThumbnailsPanelListener {
-    private final ThumbnailsPanel     tnPanel = ViewUtil.getThumbnailsPanel();
+    private final ThumbnailsPanel     tnPanel = GUI.getThumbnailsPanel();
     private final PopupMenuThumbnails popup   = PopupMenuThumbnails.INSTANCE;
 
     public ControllerCopyOrCutFilesToClipboard() {

@@ -57,7 +57,7 @@ import javax.xml.transform.TransformerFactory;
 /**
  * JPhotoTagger's own exportFile format.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordsExporterJpt implements Exporter {
     public static final KeywordsExporterJpt INSTANCE =

@@ -32,7 +32,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -52,7 +52,7 @@ public final class ControllerExportGPSToKML extends AbstractAction {
     }
 
     private void processSelectedFiles() {
-        final List<File> selFiles = ViewUtil.getSelectedImageFiles();
+        final List<File> selFiles = GUI.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             GPSLocationExportUtil.export(new KMLExporter(), selFiles);

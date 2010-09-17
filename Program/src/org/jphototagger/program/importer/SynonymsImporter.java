@@ -51,7 +51,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SynonymsImporter implements Importer, EntityResolver {
     public static final SynonymsImporter INSTANCE         =

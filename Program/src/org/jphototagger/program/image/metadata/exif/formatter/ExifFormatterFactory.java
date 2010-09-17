@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Creates instances of {@link ExifFormatter}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterFactory {
     private static final Map<Integer, ExifFormatter> FORMATTER_OF_EXIF_IFD_TAG_ID =

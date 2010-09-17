@@ -31,7 +31,7 @@ import java.util.Arrays;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#USER_COMMENT}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterUserComment extends ExifFormatter {
     public static final ExifFormatterUserComment INSTANCE =

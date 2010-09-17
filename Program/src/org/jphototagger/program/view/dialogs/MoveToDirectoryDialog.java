@@ -49,11 +49,10 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
-import org.jphototagger.program.view.ViewUtil;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MoveToDirectoryDialog extends Dialog
         implements ProgressListener, FileSystemListener {
@@ -77,7 +76,7 @@ public final class MoveToDirectoryDialog extends Dialog
         new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
@@ -178,7 +177,7 @@ public final class MoveToDirectoryDialog extends Dialog
     private void chooseTargetDirectory() {
         DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(), targetDirectory,
+                GUI.getAppFrame(), targetDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),
@@ -335,7 +334,7 @@ public final class MoveToDirectoryDialog extends Dialog
         buttonStart.setEnabled(true);
         runs     = false;
         moveTask = null;
-        ViewUtil.getThumbnailsPanel().remove(movedFiles);
+        GUI.getThumbnailsPanel().remove(movedFiles);
         removeMovedFiles();
         pListenerSupport.notifyEnded(evt);
         checkErrors();

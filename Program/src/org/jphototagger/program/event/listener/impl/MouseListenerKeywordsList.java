@@ -30,7 +30,7 @@ import javax.swing.JList;
  * Do not use this class as a template for other implementations! Instead extend
  * a popup menu from {@link org.jphototagger.lib.event.listener.PopupMenuList}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MouseListenerKeywordsList extends MouseListenerList {
     private final PopupMenuKeywordsList popup = PopupMenuKeywordsList.INSTANCE;
@@ -49,7 +49,7 @@ public final class MouseListenerKeywordsList extends MouseListenerList {
 
     private void setEnabled() {
         boolean editable =
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels().isEditable();
+            GUI.getAppPanel().getEditMetadataPanels().isEditable();
 
         popup.getItemAddToEditPanel().setEnabled(editable);
         popup.getItemRemoveFromEditPanel().setEnabled(editable);

@@ -37,7 +37,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UserDefinedFileFilterImporter implements Importer {
     public static final UserDefinedFileFilterImporter INSTANCE =

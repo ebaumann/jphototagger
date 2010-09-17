@@ -28,7 +28,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class TreeCellRendererExt extends DefaultTreeCellRenderer {
     private static final long serialVersionUID = 7468243064122106211L;

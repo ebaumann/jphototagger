@@ -22,7 +22,7 @@
 package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.io.DirectoryInfo;
+import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.Component;
@@ -38,7 +38,7 @@ import javax.swing.JList;
  * Benutzt vom ScanDirectoriesDialog, zeigt Systemordnericons vor
  * den Verzeichnisnamen an.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  * @see     org.jphototagger.program.view.dialogs.UpdateMetadataOfDirectoriesDialog
  */
 public final class ListCellRendererDirectories extends DefaultListCellRenderer {
@@ -51,7 +51,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
             int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
                            index, isSelected, cellHasFocus);
-        DirectoryInfo directoryInfo = (DirectoryInfo) value;
+        ImageFileDirectory directoryInfo = (ImageFileDirectory) value;
         File          dir           = directoryInfo.getDirectory();
 
         if (dir.exists()) {
@@ -69,7 +69,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
         return label;
     }
 
-    private static String getLabelText(DirectoryInfo directoryInfo) {
+    private static String getLabelText(ImageFileDirectory directoryInfo) {
         return JptBundle.INSTANCE.getString(
             "ListCellRendererDirectories.LabelText",
             directoryInfo.getDirectory().getAbsolutePath(),

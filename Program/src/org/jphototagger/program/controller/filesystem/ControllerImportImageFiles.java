@@ -29,7 +29,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerImportImageFiles implements ActionListener {
     public ControllerImportImageFiles() {
@@ -37,7 +37,7 @@ public final class ControllerImportImageFiles implements ActionListener {
     }
 
     private void listen() {
-        GUI.INSTANCE.getAppFrame().getMenuItemImportImageFiles()
+        GUI.getAppFrame().getMenuItemImportImageFiles()
             .addActionListener(this);
     }
 

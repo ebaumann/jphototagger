@@ -31,7 +31,7 @@ import javax.swing.Icon;
 /**
  * Liefert Icons für Tabellen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TableIcons {
     private static final Icon ICON_UNDEFINED =

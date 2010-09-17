@@ -52,7 +52,7 @@ import java.util.logging.XMLFormatter;
  * <li>File handler for warning messages, level {@link Level#WARNING}</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppLoggingSystem implements UserSettingsListener {
     private static final int LOGFILE_ROTATE_COUNT      = 5;

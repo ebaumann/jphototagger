@@ -24,7 +24,7 @@ package org.jphototagger.program.event.listener;
 /**
  * Listen for exits of the VM.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface AppExitListener {
 

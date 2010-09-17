@@ -52,7 +52,7 @@ public class ProgramSelectDialog extends Dialog {
      * @param type type
      */
     public ProgramSelectDialog(Type type) {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
 
         if (type == null) {

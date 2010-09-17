@@ -58,7 +58,7 @@ import java.util.List;
 /**
  * Spalten für die erweiterte Suche.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AdvancedSearchColumns {
     private static final List<Column> COLUMNS = new ArrayList<Column>();

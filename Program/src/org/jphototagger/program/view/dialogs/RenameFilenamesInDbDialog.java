@@ -29,13 +29,13 @@ import org.jphototagger.lib.dialog.Dialog;
 /**
  * Holds a {@link org.jphototagger.program.view.panels.RenameFilenamesInDbPanel}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class RenameFilenamesInDbDialog extends Dialog {
     private static final long serialVersionUID = 4052809300034354623L;
 
     public RenameFilenamesInDbDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();

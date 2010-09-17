@@ -33,7 +33,7 @@ import javax.swing.table.TableCellRenderer;
  * Rendert die Tabellenzellen der Datenbankinformation über die Anzahl der
  * Datensätze bezogen auf eine bestimmte Tabellenspalte.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TableCellRendererDatabaseInfoColumns
         implements TableCellRenderer {

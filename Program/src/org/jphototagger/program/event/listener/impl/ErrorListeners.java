@@ -32,7 +32,7 @@ import org.jphototagger.program.event.listener.ErrorListener;
  * Klassen, die sich für Fehler interessieren, melden sich bei der Instanz
  * dieser Klasse an.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ErrorListeners extends ListenerSupport<ErrorListener> {
     public static final ErrorListeners INSTANCE = new ErrorListeners();

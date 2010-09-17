@@ -35,7 +35,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerUpdateCheck implements ActionListener {
     public ControllerUpdateCheck() {
-        GUI.INSTANCE.getAppFrame().getMenuItemCheckForUpdates()
+        GUI.getAppFrame().getMenuItemCheckForUpdates()
             .addActionListener(this);
     }
 

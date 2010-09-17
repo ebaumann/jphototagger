@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Text entry with text and column.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TextEntryContent implements TextEntry {
     private String text;

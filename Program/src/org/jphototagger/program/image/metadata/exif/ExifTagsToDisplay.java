@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Contains the EXIF metadata to display (show) to the user.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifTagsToDisplay {
     private static final List<Integer> ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY =

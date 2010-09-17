@@ -27,7 +27,7 @@ import java.util.Set;
 /**
  * Liefert, welche XMP-Metadaten in die Datenbank gespeichert werden.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmpInDatabase {
     private static final Set<String> STORED_PATHS_PREFIXES =

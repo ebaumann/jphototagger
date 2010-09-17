@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.search;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +31,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Deletes a saved search when the
@@ -41,7 +41,7 @@ import javax.swing.JList;
  * Also listens to the {@link JList}'s key events and deletes a selected saved
  * search when the <code>Del</code> key was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteSavedSearch
         implements ActionListener, KeyListener {
@@ -51,12 +51,12 @@ public final class ControllerDeleteSavedSearch
 
     private void listen() {
         PopupMenuSavedSearches.INSTANCE.getItemDelete().addActionListener(this);
-        ViewUtil.getSavedSearchesList().addKeyListener(this);
+        GUI.getSavedSearchesList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = ViewUtil.getSavedSearchesList();
+        JList list = GUI.getSavedSearchesList();
 
         if ((evt.getKeyCode() == KeyEvent.VK_DELETE)
                 &&!list.isSelectionEmpty()) {

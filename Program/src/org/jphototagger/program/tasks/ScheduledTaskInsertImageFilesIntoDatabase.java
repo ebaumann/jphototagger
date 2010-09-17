@@ -25,7 +25,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
-import org.jphototagger.program.io.ImageFilteredDirectory;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
@@ -42,7 +42,7 @@ import java.util.List;
  * and their subdirectories if
  * {@link UserSettings#isAutoscanIncludeSubdirectories()} is true.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ScheduledTaskInsertImageFilesIntoDatabase {
     private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS =
@@ -86,7 +86,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     }
 
     private static List<File> getImageFilesOfDirectory(File directory) {
-        return ImageFilteredDirectory.getImageFilesOfDirectory(directory);
+        return ImageFileFilterer.getImageFilesOfDirectory(directory);
     }
 
     private static List<File> getDirectories() {

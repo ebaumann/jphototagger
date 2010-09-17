@@ -39,7 +39,7 @@ import org.jphototagger.program.database.DatabaseMetadata;
 /**
  * Updates the tables indexes.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesIndexes {
     private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE =

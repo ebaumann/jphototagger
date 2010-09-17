@@ -27,7 +27,7 @@ import org.jphototagger.program.data.MetadataTemplate;
  * Listens to events in
  * {@link org.jphototagger.program.database.DatabaseMetadataTemplates}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface DatabaseMetadataTemplatesListener {
 

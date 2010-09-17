@@ -29,7 +29,7 @@ import org.jphototagger.program.tasks.UserTasks;
 /**
  * Shuts down all Tasks. Should be called when the application exits.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Cleanup {
 

@@ -46,7 +46,7 @@ import org.jphototagger.lib.componentutil.LookAndFeelUtil;
  * Modal Dialog to change or define the properties of a program which can
  * be started within the application.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgramPropertiesDialog extends Dialog {
     private static final long   serialVersionUID = 5953007101307866505L;
@@ -65,7 +65,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final Color BG_COLOR_LABEL_FILE_NOT_EXISTS = Color.RED;
 
     public ProgramPropertiesDialog(boolean action) {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         this.action = action;
         program.setAction(action);

@@ -59,7 +59,7 @@ import org.jphototagger.program.helper.SavedSearchesHelper;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AdvancedSearchPanel extends javax.swing.JPanel
         implements Persistence {

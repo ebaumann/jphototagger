@@ -67,7 +67,7 @@ import java.util.StringTokenizer;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class DatabaseMetadataTemplates extends Database {
     private static final String                   DELIM_REPEATABLE_STRINGS =

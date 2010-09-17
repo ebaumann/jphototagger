@@ -56,7 +56,7 @@ import javax.swing.tree.TreePath;
 /**
  * Handles drags and drops for a {@link KeywordsPanel}'s tree.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerKeywordsTree extends TransferHandler {
     private static final long serialVersionUID = 1714818504305178611L;

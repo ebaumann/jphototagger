@@ -30,7 +30,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
-import org.jphototagger.program.io.ImageFilteredDirectory;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -53,7 +53,7 @@ import java.util.List;
  * into the {@link DatabaseImageFiles} and set as image collection
  * {@link ListModelImageCollections#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
     private static final String progressBarString =
@@ -95,7 +95,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
                     FileUtil.getSubdirectoriesRecursive(srcDir));
 
                 List<File> sourceImageFiles =
-                    ImageFilteredDirectory.getImageFilesOfDirectories(
+                    ImageFileFilterer.getImageFilesOfDirectories(
                         sourceDirectories);
 
                 copy(sourceImageFiles, dlg.getTargetDir(),
@@ -228,11 +228,11 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+                AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.getTabbedPaneSelection().setSelectedComponent(
                     appPanel.getTabSelectionImageCollections());
-                GUI.INSTANCE.getAppPanel().getListImageCollections()
+                GUI.getAppPanel().getListImageCollections()
                     .setSelectedValue(ListModelImageCollections
                         .NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
             }

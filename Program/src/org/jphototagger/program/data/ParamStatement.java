@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class ParamStatement {
     private String       sql;

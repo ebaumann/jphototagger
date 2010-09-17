@@ -30,7 +30,7 @@ import org.jphototagger.lib.dialog.Dialog;
 /**
  * Nicht modaler Dialog für eine erweiterte Suche.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AdvancedSearchDialog extends Dialog
         implements AdvancedSearchPanel.NameListener {
@@ -39,7 +39,7 @@ public final class AdvancedSearchDialog extends Dialog
     private static final long serialVersionUID = -7381253840654600441L;
 
     private AdvancedSearchDialog(boolean modal) {
-        super(GUI.INSTANCE.getAppFrame(), modal,
+        super(GUI.getAppFrame(), modal,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         panel.addNameListener(this);

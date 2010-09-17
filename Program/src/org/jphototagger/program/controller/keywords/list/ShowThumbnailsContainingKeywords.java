@@ -27,7 +27,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -40,7 +39,7 @@ import java.util.Set;
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails with specific keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ShowThumbnailsContainingKeywords implements Runnable {
     private final List<String>             keywords;
@@ -78,7 +77,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
             new ArrayList<File>(getImageFilesOfSelectedKeywords());
 
         if (imageFiles != null) {
-            ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+            ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             ControllerSortThumbnails.setLastSort();
             tnPanel.setFiles(imageFiles, Content.KEYWORD);
@@ -105,22 +104,22 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     }
 
     private void setTitle(List<String> keywords) {
-        GUI.INSTANCE.getAppFrame().setTitle(
+        GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
                 "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path",
                 Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
-        GUI.INSTANCE.getAppFrame().setTitle(
+        GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
                 "ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword",
                 keyword));
     }
 
     private void setMetadataEditable() {
-        if (!ViewUtil.getThumbnailsPanel().isFileSelected()) {
-            ViewUtil.getEditPanel().setEditable(false);
+        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+            GUI.getEditPanel().setEditable(false);
         }
     }
 }

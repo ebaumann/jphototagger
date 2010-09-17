@@ -35,7 +35,7 @@ import javax.swing.JTree;
  * oder einer List Items selektiert sein dürfen. Die Items der anderen werden
  * deselektiert, sobald bei einem ein Item in der Gruppe selektiert wird.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerItemsMutualExcludeSelection
         implements TreeSelectionListener, ListSelectionListener {
@@ -46,11 +46,11 @@ public final class ControllerItemsMutualExcludeSelection
     }
 
     private void listen() {
-        for (JTree tree : GUI.INSTANCE.getAppPanel().getSelectionTrees()) {
+        for (JTree tree : GUI.getAppPanel().getSelectionTrees()) {
             tree.addTreeSelectionListener(this);
         }
 
-        for (JList list : GUI.INSTANCE.getAppPanel().getSelectionLists()) {
+        for (JList list : GUI.getAppPanel().getSelectionLists()) {
             list.addListSelectionListener(this);
         }
     }
@@ -90,7 +90,7 @@ public final class ControllerItemsMutualExcludeSelection
     private void clearSelectionOtherLists(JList list) {
         listen = false;
 
-        for (JList aList : GUI.INSTANCE.getAppPanel().getSelectionLists()) {
+        for (JList aList : GUI.getAppPanel().getSelectionLists()) {
             if ((aList != list) &&!aList.isSelectionEmpty()) {
                 aList.clearSelection();
             }
@@ -102,7 +102,7 @@ public final class ControllerItemsMutualExcludeSelection
     private void clearSelectionOtherTrees(JTree tree) {
         listen = false;
 
-        for (JTree aTree : GUI.INSTANCE.getAppPanel().getSelectionTrees()) {
+        for (JTree aTree : GUI.getAppPanel().getSelectionTrees()) {
             if ((aTree != tree) && (aTree.getSelectionCount() > 0)) {
                 aTree.clearSelection();
             }
@@ -112,13 +112,13 @@ public final class ControllerItemsMutualExcludeSelection
     }
 
     private void clearSelectionAllTrees() {
-        for (JTree tree : GUI.INSTANCE.getAppPanel().getSelectionTrees()) {
+        for (JTree tree : GUI.getAppPanel().getSelectionTrees()) {
             tree.clearSelection();
         }
     }
 
     private void clearSelectionAllLists() {
-        for (JList list : GUI.INSTANCE.getAppPanel().getSelectionLists()) {
+        for (JList list : GUI.getAppPanel().getSelectionLists()) {
             list.clearSelection();
         }
     }

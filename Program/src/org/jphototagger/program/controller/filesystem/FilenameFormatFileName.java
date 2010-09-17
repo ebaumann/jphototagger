@@ -26,7 +26,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Format with the name of a filname excluded the postfix and the parents.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameFormatFileName extends FilenameFormat {
     @Override

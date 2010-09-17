@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Renames keywords of selected items whithin the keywords list.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerRenameKeywords extends ControllerKeywords {
     public ControllerRenameKeywords() {

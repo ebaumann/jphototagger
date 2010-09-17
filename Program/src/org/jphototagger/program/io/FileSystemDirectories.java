@@ -34,7 +34,7 @@ import java.util.List;
  * Renames or deletes a directory from the file system and updates the database
  * when image files are affected. Let's confirm the user before acting.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FileSystemDirectories {
     private FileSystemDirectories() {}
@@ -58,7 +58,7 @@ public final class FileSystemDirectories {
             if (TreeFileSystemDirectories.confirmDelete(directory.getName())) {
                 try {
                     List<File> imageFiles =
-                        ImageFilteredDirectory.getImageFilesOfDirAndSubDirs(
+                        ImageFileFilterer.getImageFilesOfDirAndSubDirs(
                             directory);
 
                     FileUtil.deleteDirectoryRecursive(directory);

@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UserDefinedFileFilterExporter implements Exporter {
     public static final FileFilter FILE_FILTER =

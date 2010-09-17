@@ -54,7 +54,7 @@ import javax.xml.transform.TransformerFactory;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MetadataTemplatesExporter implements Exporter {
     private static final long       serialVersionUID = 1L;

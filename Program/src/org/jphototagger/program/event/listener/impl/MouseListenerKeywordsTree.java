@@ -44,7 +44,7 @@ import javax.swing.tree.TreePath;
  *
  * Also sets the selected tree path.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MouseListenerKeywordsTree extends MouseListenerTree {
     private final PopupMenuKeywordsTree popupMenu =

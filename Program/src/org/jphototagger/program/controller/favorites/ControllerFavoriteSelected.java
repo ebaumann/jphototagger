@@ -24,8 +24,8 @@ package org.jphototagger.program.controller.favorites;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.helper.FavoritesHelper;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.ViewUtil;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -35,7 +35,7 @@ import javax.swing.event.TreeSelectionListener;
  * item represents a directory. If a new item is selected, this controller sets
  * the files of the selected directory to the image file thumbnails panel.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerFavoriteSelected
         implements TreeSelectionListener, RefreshListener {
@@ -44,10 +44,9 @@ public final class ControllerFavoriteSelected
     }
 
     private void listen() {
-        ViewUtil.getFavoritesTree().getSelectionModel()
-            .addTreeSelectionListener(this);
-        ViewUtil.getThumbnailsPanel().addRefreshListener(this,
-                Content.FAVORITE);
+        GUI.getFavoritesTree().getSelectionModel().addTreeSelectionListener(
+            this);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.FAVORITE);
     }
 
     @Override
@@ -60,7 +59,7 @@ public final class ControllerFavoriteSelected
 
     @Override
     public void refresh(RefreshEvent evt) {
-        if (ViewUtil.getFavoritesTree().getSelectionCount() > 0) {
+        if (GUI.getFavoritesTree().getSelectionCount() > 0) {
             FavoritesHelper.setFilesToThumbnailPanel(
                 FavoritesHelper.getFilesOfSelectedtDirectory(),
                 evt.getSettings());

@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.search;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +31,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Renames a selected saved search when the
@@ -41,7 +41,7 @@ import javax.swing.JList;
  * Also listens to the {@link JList}'s key events and renames a selected saved
  * search when the keys <code>Ctrl+R</code> or <code>F2</code> were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerRenameSavedSearch
         implements ActionListener, KeyListener {
@@ -51,14 +51,14 @@ public final class ControllerRenameSavedSearch
 
     private void listen() {
         PopupMenuSavedSearches.INSTANCE.getItemRename().addActionListener(this);
-        ViewUtil.getSavedSearchesList().addKeyListener(this);
+        GUI.getSavedSearchesList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (isRename(evt)
-                &&!ViewUtil.getSavedSearchesList().isSelectionEmpty()) {
-            Object value = ViewUtil.getSavedSearchesList().getSelectedValue();
+                &&!GUI.getSavedSearchesList().isSelectionEmpty()) {
+            Object value = GUI.getSavedSearchesList().getSelectedValue();
 
             if (value instanceof SavedSearch) {
                 rename((SavedSearch) value);

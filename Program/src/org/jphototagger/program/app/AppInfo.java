@@ -27,7 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Informations about this application.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppInfo {
 

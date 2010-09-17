@@ -31,7 +31,7 @@ import java.util.Properties;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class PluginManager {
     private static final LinkedHashSet<Plugin> ALL_PLUGINS =

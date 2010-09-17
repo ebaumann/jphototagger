@@ -25,12 +25,12 @@ import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JList;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Creates a saved search when the
@@ -40,12 +40,12 @@ import javax.swing.JList;
  * Also listens to the {@link JList}'s key events and creates a new saved
  * search when the keys <code>Ctrl+N</code> were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerCreateSavedSearch extends Controller {
     public ControllerCreateSavedSearch() {
         listenToActionsOf(PopupMenuSavedSearches.INSTANCE.getItemCreate());
-        listenToKeyEventsOf(ViewUtil.getSavedSearchesList());
+        listenToKeyEventsOf(GUI.getSavedSearchesList());
     }
 
     public void displayEmptySearchDialog() {

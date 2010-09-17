@@ -28,7 +28,7 @@ import org.jphototagger.program.image.metadata.exif.Ensure;
  * An 8-bit unsigned integer.
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifByte {
     private final int value;

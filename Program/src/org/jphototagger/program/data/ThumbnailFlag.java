@@ -28,7 +28,7 @@ import java.awt.Color;
 /**
  * Flag of a Thumbnail.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ThumbnailFlag {
     private final Color               color;

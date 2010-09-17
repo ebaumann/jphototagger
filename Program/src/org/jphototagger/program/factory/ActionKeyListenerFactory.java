@@ -59,7 +59,7 @@ import javax.swing.JMenuItem;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ActionKeyListenerFactory {
     static final ActionKeyListenerFactory INSTANCE =
@@ -88,13 +88,13 @@ public final class ActionKeyListenerFactory {
 
     private void addKeyListeners() {
         addKeyListener(ControllerCopyCutPasteKeyword.class,
-                       GUI.INSTANCE.getAppPanel().getTreeEditKeywords());
+                       GUI.getAppPanel().getTreeEditKeywords());
         addKeyListener(ControllerCopyCutPasteKeyword.class,
                        InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
     private void listenToAppFrameMenuItems() {
-        AppFrame appFrame = GUI.INSTANCE.getAppFrame();
+        AppFrame appFrame = GUI.getAppFrame();
 
         addActionListeners(ControllerAboutApp.class,
                            appFrame.getMenuItemAbout());

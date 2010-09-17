@@ -23,11 +23,10 @@ package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.ModifyImageCollections;
-import org.jphototagger.program.io.ImageUtil;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -46,7 +45,7 @@ import javax.swing.TransferHandler;
  * list area hitted) if thumbnails are dropped on the list with image
  * collections.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerImageCollectionsList extends TransferHandler {
     private static final long serialVersionUID = 1375965940535469098L;
@@ -106,17 +105,17 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     }
 
     private void addToImageCollection(int itemIndex, List<File> imageFiles) {
-        boolean added = ModifyImageCollections.addImagesToCollection(
+        boolean added = ImageCollectionsHelper.addImagesToCollection(
                             getImageCollectionName(itemIndex), imageFiles);
 
         if (added) {
-            ViewUtil.refreshThumbnailsPanel();
+            GUI.refreshThumbnailsPanel();
         }
     }
 
     private void createImageCollection(final List<File> imageFiles) {
         String newCollectionName =
-            ModifyImageCollections.insertImageCollection(imageFiles);
+            ImageCollectionsHelper.insertImageCollection(imageFiles);
 
         if (newCollectionName != null) {
             ModelFactory.INSTANCE.getModel(
@@ -125,7 +124,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     }
 
     private String getImageCollectionName(int itemIndex) {
-        JList list = GUI.INSTANCE.getAppPanel().getListImageCollections();
+        JList list = GUI.getAppPanel().getListImageCollections();
 
         return list.getModel().getElementAt(itemIndex).toString();
     }
@@ -137,7 +136,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         List<File> imageFiles = new ArrayList<File>(list.size() / 2);
 
         for (File file : list) {
-            if (ImageUtil.isImageFile(file)) {
+            if (ImageFileFilterer.isImageFile(file)) {
                 imageFiles.add(file);
             }
         }

@@ -53,7 +53,7 @@ import java.util.Map;
 /**
  * Returns, whether a XMP column has repeatable values.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmpRepeatableValues {
     private static final Map<Column, Boolean> IS_REPEATABLE =

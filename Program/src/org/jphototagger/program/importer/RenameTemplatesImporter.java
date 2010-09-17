@@ -36,7 +36,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class RenameTemplatesImporter implements Importer {
     public static final RenameTemplatesImporter INSTANCE =

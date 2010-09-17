@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * EXIF tags separated by their TIFF IFD (image file directory).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifTags {
     private String makerNoteDescription;

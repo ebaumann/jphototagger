@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Updates the table's primary keys.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesPrimaryKeys {
     private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP =

@@ -26,7 +26,7 @@ import javax.swing.TransferHandler;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum FileAction {
     COPY(TransferHandler.COPY), CUT(TransferHandler.MOVE),

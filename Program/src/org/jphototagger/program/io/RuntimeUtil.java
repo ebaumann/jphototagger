@@ -1,5 +1,5 @@
 /*
- * @(#)IoUtil.java    Created on 2008-10-05
+ * @(#)RuntimeUtil.java    Created on 2008-10-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,27 +21,23 @@
 
 package org.jphototagger.program.io;
 
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 
 import java.io.File;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * I/O utils.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
-public final class IoUtil {
+public final class RuntimeUtil {
     private static final String QUOTE                = "\"";
     private static final String SEPARATOR            = " ";
     private static final String EMPTY                = "";
@@ -73,38 +69,15 @@ public final class IoUtil {
                                  + arguments;
 
             try {
-                AppLogger.logInfo(IoUtil.class, "IoUtil.Info.Execute",
+                AppLogger.logInfo(RuntimeUtil.class, "IoUtil.Info.Execute",
                                   openCommand);
                 Runtime.getRuntime().exec(
                     External.parseQuotedCommandLine(openCommand));
             } catch (Exception ex) {
-                AppLogger.logSevere(IoUtil.class, ex);
+                AppLogger.logSevere(RuntimeUtil.class, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
             }
         }
-    }
-
-    /**
-     * Filters from a collection of arbitrary file image files.
-     *
-     * @param  arbitraryFiles arbitrary files
-     * @return                image files of <code>files</code>
-     */
-    public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
-        if (arbitraryFiles == null) {
-            throw new NullPointerException("arbitraryFiles == null");
-        }
-
-        List<File>      imageFiles = new ArrayList<File>();
-        RegexFileFilter filter     = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
-
-        for (File file : arbitraryFiles) {
-            if (filter.accept(file)) {
-                imageFiles.add(file);
-            }
-        }
-
-        return imageFiles;
     }
 
     /**
@@ -279,5 +252,5 @@ public final class IoUtil {
         return true;
     }
 
-    private IoUtil() {}
+    private RuntimeUtil() {}
 }

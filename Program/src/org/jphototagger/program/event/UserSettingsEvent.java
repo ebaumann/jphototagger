@@ -24,7 +24,7 @@ package org.jphototagger.program.event;
 /**
  * Action: The user has changed the settings.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UserSettingsEvent {
     private Object source;

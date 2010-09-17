@@ -32,7 +32,7 @@ import java.text.NumberFormat;
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FOCAL_LENGTH}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifFormatterFocalLength extends ExifFormatter {
     public static final ExifFormatterFocalLength INSTANCE =

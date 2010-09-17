@@ -35,7 +35,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class ControllerFavorite extends Controller {
     protected abstract void action(Favorite favorite);
@@ -43,7 +43,7 @@ public abstract class ControllerFavorite extends Controller {
     protected abstract void action(DefaultMutableTreeNode node);
 
     ControllerFavorite() {
-        listenToKeyEventsOf(GUI.INSTANCE.getAppPanel().getTreeFavorites());
+        listenToKeyEventsOf(GUI.getAppPanel().getTreeFavorites());
     }
 
     @Override
@@ -52,7 +52,7 @@ public abstract class ControllerFavorite extends Controller {
             throw new NullPointerException("evt == null");
         }
 
-        if (GUI.INSTANCE.getAppPanel().getTreeFavorites().isSelectionEmpty()) {
+        if (GUI.getAppPanel().getTreeFavorites().isSelectionEmpty()) {
             return;
         }
 
@@ -80,7 +80,7 @@ public abstract class ControllerFavorite extends Controller {
     }
 
     protected DefaultMutableTreeNode getSelectedNodeFromTree() {
-        JTree  tree = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+        JTree  tree = GUI.getAppPanel().getTreeFavorites();
         Object node = tree.getSelectionPath().getLastPathComponent();
 
         if (node instanceof DefaultMutableTreeNode) {

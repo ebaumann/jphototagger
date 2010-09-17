@@ -29,7 +29,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface Exporter {
     void exportFile(File file);

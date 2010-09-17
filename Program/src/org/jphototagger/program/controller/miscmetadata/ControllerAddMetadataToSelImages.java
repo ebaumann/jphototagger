@@ -33,7 +33,7 @@ import javax.swing.JMenuItem;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerAddMetadataToSelImages
         extends ControllerMiscMetadata {

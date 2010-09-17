@@ -39,7 +39,7 @@ import java.sql.Statement;
 /**
  * Base class of specialized database classes.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class Database {
     protected Database() {}

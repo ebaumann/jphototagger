@@ -36,12 +36,12 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ActionsHelper {
     public static JMenu actionsAsMenu() {
@@ -181,7 +181,7 @@ public final class ActionsHelper {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            ThumbnailsPanel tnPanel = ViewUtil.getThumbnailsPanel();
+            ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             if (!tnPanel.isFileSelected()) {
                 return;

@@ -34,7 +34,7 @@ import java.text.DecimalFormat;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class CanonMakerNoteTag1Formatter {
     private static final int CANON_TAG = 1;

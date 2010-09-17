@@ -24,7 +24,7 @@ package org.jphototagger.program.io;
 /**
  * Application wide character encodings.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CharEncoding {
 

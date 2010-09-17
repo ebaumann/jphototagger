@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Renames or deletes values in XMP sidecar files.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class RenameDeleteXmpValue {
     private RenameDeleteXmpValue() {}

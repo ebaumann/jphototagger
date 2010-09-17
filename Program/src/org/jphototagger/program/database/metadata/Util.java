@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * Utils für Datenbankmetadaten.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Util {
     private Util() {}

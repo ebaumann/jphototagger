@@ -48,7 +48,7 @@ import javax.swing.tree.TreeNode;
  * <li>All other user objects are {@link Keyword}s</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TreeModelKeywords extends DefaultTreeModel {
     private static final long            serialVersionUID =

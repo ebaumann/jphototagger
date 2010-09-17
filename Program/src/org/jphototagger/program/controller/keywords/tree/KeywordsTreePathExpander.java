@@ -30,7 +30,7 @@ import javax.swing.tree.TreePath;
 /**
  * Expands the path of all {@link KeywordsPanel}s trees.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordsTreePathExpander {
     public static void expand(JTree tree, DefaultMutableTreeNode node) {

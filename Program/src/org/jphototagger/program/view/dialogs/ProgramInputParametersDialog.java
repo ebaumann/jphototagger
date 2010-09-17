@@ -31,14 +31,14 @@ import java.awt.Container;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgramInputParametersDialog extends Dialog {
     private static final long serialVersionUID = 7211489360676712179L;
     private boolean           accepted         = false;
 
     public ProgramInputParametersDialog() {
-        super(GUI.INSTANCE.getAppFrame(), true,
+        super(GUI.getAppFrame(), true,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);

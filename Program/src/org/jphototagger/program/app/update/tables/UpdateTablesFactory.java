@@ -39,7 +39,7 @@ import java.util.logging.Level;
  * Creates updaters for updating an older database version and let them updatePostCreation
  * the database.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateTablesFactory {
     public static final UpdateTablesFactory INSTANCE =

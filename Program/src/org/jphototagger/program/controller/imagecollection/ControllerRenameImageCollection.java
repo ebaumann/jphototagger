@@ -24,10 +24,8 @@ package org.jphototagger.program.controller.imagecollection;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.ModifyImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +35,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JList;
 import javax.swing.JTree;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Renames the selected image collection when the
@@ -46,7 +46,7 @@ import javax.swing.JTree;
  * image collection when the keys <code>Ctrl+R</code> or <code>F2</code> were
  * pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerRenameImageCollection
         implements ActionListener, KeyListener {
@@ -57,12 +57,12 @@ public final class ControllerRenameImageCollection
     private void listen() {
         PopupMenuImageCollections.INSTANCE.getItemRename().addActionListener(
             this);
-        ViewUtil.getImageCollectionsList().addKeyListener(this);
+        GUI.getImageCollectionsList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = ViewUtil.getImageCollectionsList();
+        JList list = GUI.getImageCollectionsList();
 
         if (isRename(evt) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
@@ -77,7 +77,7 @@ public final class ControllerRenameImageCollection
     public void actionPerformed(ActionEvent evt) {
         renameImageCollection(
             ListUtil.getItemString(
-                ViewUtil.getImageCollectionsList(),
+                GUI.getImageCollectionsList(),
                 PopupMenuImageCollections.INSTANCE.getItemIndex()));
     }
 
@@ -96,7 +96,7 @@ public final class ControllerRenameImageCollection
                     }
 
                     final String toName =
-                        ModifyImageCollections.renameImageCollection(fromName);
+                        ImageCollectionsHelper.renameImageCollection(fromName);
 
                     if (toName != null) {
                         ListModelImageCollections model =

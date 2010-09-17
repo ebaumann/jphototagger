@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Kopieren von Dateien.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class CopyFiles implements Runnable, Cancelable {
     private final ProgressListenerSupport ls = new ProgressListenerSupport();

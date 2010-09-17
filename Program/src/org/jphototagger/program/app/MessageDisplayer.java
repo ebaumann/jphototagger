@@ -40,7 +40,7 @@ import javax.swing.JOptionPane;
 /**
  * Displays messages.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MessageDisplayer {
     private static final Map<Integer, String> defaultTitleOfMessageType =
@@ -205,11 +205,11 @@ public final class MessageDisplayer {
     private static void enableMenuItemErrorLogfile() {
 
         // The message displayer could be used before the GUI is created
-        if (GUI.INSTANCE.getAppFrame() == null) {
+        if (GUI.getAppFrame() == null) {
             return;
         }
 
-        JMenuItem item = GUI.INSTANCE.getAppFrame().getMenuItemDisplayLogfile();
+        JMenuItem item = GUI.getAppFrame().getMenuItemDisplayLogfile();
 
         if (item.isEnabled()) {
             return;
@@ -236,7 +236,7 @@ public final class MessageDisplayer {
     public static ConfirmAction confirmYesNoCancel(Component component,
             String propertyKey, Object... params) {
         int exit = JOptionPane.showConfirmDialog((component == null)
-                ? GUI.INSTANCE.getAppFrame()
+                ? GUI.getAppFrame()
                 : component, JptBundle.INSTANCE.getString(propertyKey, params),
                              getTitle(propertyKey,
                                       JOptionPane.QUESTION_MESSAGE), JOptionPane
@@ -263,7 +263,7 @@ public final class MessageDisplayer {
     public static boolean confirmYesNo(Component component, String propertyKey,
                                        Object... params) {
         return JOptionPane.showConfirmDialog((component == null)
-                ? GUI.INSTANCE.getAppFrame()
+                ? GUI.getAppFrame()
                 : component, JptBundle.INSTANCE.getString(propertyKey, params),
                              getTitle(propertyKey,
                                       JOptionPane.QUESTION_MESSAGE), JOptionPane
@@ -274,7 +274,7 @@ public final class MessageDisplayer {
     private static void message(Component component, String propertyKey,
                                 int type, Object... params) {
         JOptionPane.showMessageDialog((component == null)
-                                      ? GUI.INSTANCE.getAppFrame()
+                                      ? GUI.getAppFrame()
                                       : component, JptBundle.INSTANCE.getString(
                                           propertyKey, params), getTitle(
                                           propertyKey, type), type);

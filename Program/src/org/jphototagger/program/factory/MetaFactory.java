@@ -33,7 +33,7 @@ import java.awt.EventQueue;
  * Initalizes all other factories in the right order and sets the persistent
  * settings to the application's frame and panel.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class MetaFactory implements Runnable {
     public static final MetaFactory INSTANCE = new MetaFactory();

@@ -26,7 +26,7 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifDataType;
 /**
  * Checks conditions and throws Exceptions if not fullified.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Ensure {
 

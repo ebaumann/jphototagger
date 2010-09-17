@@ -28,8 +28,8 @@ import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,7 +53,7 @@ import javax.swing.tree.TreePath;
  * into the selected file system directory if the keys <code>Ctrl+N</code> were
  * pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerFavoritesAddFilesystemFolder
         implements ActionListener, KeyListener {
@@ -64,12 +64,12 @@ public final class ControllerFavoritesAddFilesystemFolder
     private void listen() {
         PopupMenuFavorites.INSTANCE.getItemAddFilesystemFolder()
             .addActionListener(this);
-        ViewUtil.getFavoritesTree().addKeyListener(this);
+        GUI.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        final JTree tree = ViewUtil.getFavoritesTree();
+        final JTree tree = GUI.getFavoritesTree();
 
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)
                 &&!tree.isSelectionEmpty()) {
@@ -118,7 +118,7 @@ public final class ControllerFavoritesAddFilesystemFolder
         }
 
         if (dir.isDirectory()) {
-            List<File> selFiles = ViewUtil.getSelectedImageFiles();
+            List<File> selFiles = GUI.getSelectedImageFiles();
 
             if (!selFiles.isEmpty() && isMoveSelFiles()) {
                 ControllerMoveFiles ctrl =

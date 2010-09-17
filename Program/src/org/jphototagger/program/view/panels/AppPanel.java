@@ -70,7 +70,7 @@ import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
 /**
  * Panel der Anwendung.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class AppPanel extends javax.swing.JPanel {
     private static final String KEY_DIVIDER_LOCATION_MAIN =
@@ -96,7 +96,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private transient EditMetadataActionsPanel panelEditActions;
 
     public AppPanel() {
-        GUI.INSTANCE.setAppPanel(this);
+        GUI.setAppPanel(this);
         initComponents();
         messageLabel = new MessageLabel(labelStatusbarText);
         postInitComponents();

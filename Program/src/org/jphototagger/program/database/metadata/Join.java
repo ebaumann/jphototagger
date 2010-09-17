@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * SQL-Joins.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Join {
     private static final Map<String, String> JOIN_FROM_FILES =

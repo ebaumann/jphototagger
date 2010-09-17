@@ -26,7 +26,7 @@ import org.jphototagger.program.app.AppInit;
 /**
  * Calls {@link AppInit#init(java.lang.String[])}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Main {
     public static void main(String[] args) {

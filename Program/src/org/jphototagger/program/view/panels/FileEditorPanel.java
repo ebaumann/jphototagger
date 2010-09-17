@@ -51,7 +51,7 @@ import javax.swing.JFileChooser;
  * Starts a thread, let the editor edit all selected files and displays the
  * progress.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FileEditorPanel extends javax.swing.JPanel {
     private static final String KEY_DIRECTORY_NAME =
@@ -245,7 +245,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void selectDirectories() {
         DirectoryChooser dlg =
-            new DirectoryChooser(GUI.INSTANCE.getAppFrame(),
+            new DirectoryChooser(GUI.getAppFrame(),
                                  prevSelectedDirectory, getDirChooserOptions());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(),

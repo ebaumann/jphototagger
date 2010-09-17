@@ -42,7 +42,7 @@ import java.util.List;
  * key of a program is it's <strong>ID</strong>
  * ({@link org.jphototagger.program.data.Program#getId()}).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabasePrograms extends Database {
     public static final DatabasePrograms                    INSTANCE =

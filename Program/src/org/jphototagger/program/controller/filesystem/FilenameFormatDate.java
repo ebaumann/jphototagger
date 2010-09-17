@@ -36,7 +36,7 @@ import java.util.Date;
 /**
  * Formatted date in the order YYYY-MM-dd.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FilenameFormatDate extends FilenameFormat {
     private String delimiter;

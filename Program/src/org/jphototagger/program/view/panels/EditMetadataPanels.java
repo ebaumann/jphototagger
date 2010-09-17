@@ -79,7 +79,7 @@ import javax.swing.JTextField;
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class EditMetadataPanels
         implements FocusListener, DatabaseImageFilesListener, AppExitListener {
@@ -758,7 +758,7 @@ public final class EditMetadataPanels
 
     private void setMnemonics() {
         EditMetadataActionsPanel actionsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelEditMetadataActions();
+            GUI.getAppPanel().getPanelEditMetadataActions();
         List<Character> mnemonics = new ArrayList<Character>(10);
 
         /*
@@ -787,8 +787,7 @@ public final class EditMetadataPanels
                 .getDisplayedMnemonic());
         mnemonics.addAll(
             MnemonicUtil.getMnemonicCharsOf(
-                Arrays.asList(
-                    GUI.INSTANCE.getAppPanel().getMnemonizedComponents())));
+                Arrays.asList(GUI.getAppPanel().getMnemonizedComponents())));
         ViewUtil.setDisplayedMnemonicsToLabels(container,
                 mnemonics.toArray(new Character[] {}));
     }
@@ -811,8 +810,7 @@ public final class EditMetadataPanels
     }
 
     private void addActionPanel() {
-        editActionsPanel =
-            GUI.INSTANCE.getAppPanel().getPanelEditMetadataActions();
+        editActionsPanel = GUI.getAppPanel().getPanelEditMetadataActions();
 
         GridBagConstraints gbc = newConstraints();
 
@@ -1192,6 +1190,7 @@ public final class EditMetadataPanels
 
         private TextEntry getTextEntry(Object o) {
             Object obj = o;
+
             if (obj instanceof TextEntry) {
                 return (TextEntry) obj;
             }

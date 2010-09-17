@@ -36,7 +36,7 @@ import javax.swing.Icon;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgramsImporter implements Importer {
     public static final ProgramsImporter INSTANCE = new ProgramsImporter();

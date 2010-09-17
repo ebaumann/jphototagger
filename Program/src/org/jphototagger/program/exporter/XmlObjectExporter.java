@@ -36,7 +36,7 @@ import javax.xml.bind.Marshaller;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class XmlObjectExporter {
     public static void export(Object object, File file)

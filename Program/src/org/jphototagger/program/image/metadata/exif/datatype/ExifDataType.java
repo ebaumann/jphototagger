@@ -24,7 +24,7 @@ package org.jphototagger.program.image.metadata.exif.datatype;
 /**
  * Data type of an EXIF tag.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum ExifDataType {
 

@@ -24,7 +24,6 @@ package org.jphototagger.program.datatransfer;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.ColumnData;
-import org.jphototagger.program.io.ImageUtil;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -36,11 +35,12 @@ import java.util.List;
 
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.program.io.ImageFileFilterer;
 
 /**
  * Support for data transfer.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Support {
     private Support() {}
@@ -167,6 +167,6 @@ public final class Support {
         List<File> files = TransferUtil.getFiles(support.getTransferable(),
                                TransferUtil.FilenameDelimiter.NEWLINE);
 
-        return ImageUtil.getImageFiles(files);
+        return ImageFileFilterer.getImageFiles(files);
     }
 }

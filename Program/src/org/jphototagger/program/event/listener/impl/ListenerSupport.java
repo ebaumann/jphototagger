@@ -29,7 +29,7 @@ import java.util.Set;
  *
  *
  * @param <T> listener type
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ListenerSupport<T> {
     protected final Set<T> listeners = new CopyOnWriteArraySet<T>();

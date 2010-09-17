@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
 /**
  * Kontrolliert die Aktion: Datenbank warten.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerMaintainDatabase implements ActionListener {
     @Override

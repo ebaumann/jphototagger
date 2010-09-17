@@ -32,7 +32,7 @@ import java.awt.event.ActionListener;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerShowSystemOutput implements ActionListener {
     public ControllerShowSystemOutput() {
@@ -41,10 +41,10 @@ public final class ControllerShowSystemOutput implements ActionListener {
 
     private void listen() {
         if (AppInit.INSTANCE.getCommandLineOptions().isCaptureOutput()) {
-            GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow()
+            GUI.getAppFrame().getMenuItemOutputWindow()
                 .addActionListener(this);
         } else {
-            GUI.INSTANCE.getAppFrame().getMenuItemOutputWindow().setEnabled(
+            GUI.getAppFrame().getMenuItemOutputWindow().setEnabled(
                 false);
         }
     }

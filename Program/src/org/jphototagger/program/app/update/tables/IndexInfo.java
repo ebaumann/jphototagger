@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Information about an table index.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class IndexInfo {
     private final String       tableName;

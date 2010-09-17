@@ -25,7 +25,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +44,7 @@ import javax.swing.JMenuItem;
  * Also listens to the rating items in the {@link PopupMenuThumbnails} and
  * rates an action performed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerSetRating implements ActionListener, KeyListener {
     private static final Map<Integer, Long> RATING_OF_KEY_CODE =
@@ -67,7 +66,7 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
     private void listen() {
         PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
 
-        ViewUtil.getThumbnailsPanel().addKeyListener(this);
+        GUI.getThumbnailsPanel().addKeyListener(this);
         popup.getItemRating0().addActionListener(this);
         popup.getItemRating1().addActionListener(this);
         popup.getItemRating2().addActionListener(this);
@@ -91,7 +90,7 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
     }
 
     public void setRating(Long rating) {
-        EditMetadataPanels editPanel = ViewUtil.getEditPanel();
+        EditMetadataPanels editPanel = GUI.getEditPanel();
 
         if (editPanel.isEditable()) {
             editPanel.setRating(rating);

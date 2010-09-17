@@ -45,7 +45,7 @@ import javax.swing.tree.TreePath;
 /**
  * Imports keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class KeywordsImporter implements Importer {
     private static final String PROGRESSBAR_STRING =
@@ -180,7 +180,7 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void expandRootSelHk() {
-            JTree  tree = GUI.INSTANCE.getAppPanel().getTreeSelKeywords();
+            JTree  tree = GUI.getAppPanel().getTreeSelKeywords();
             Object root = tree.getModel().getRoot();
 
             tree.expandPath(
@@ -233,7 +233,7 @@ public abstract class KeywordsImporter implements Importer {
                 JptBundle.INSTANCE.getString("ImportTask.Info.Imported",
                                              importCount);
 
-            GUI.INSTANCE.getAppPanel().setStatusbarText(message,
+            GUI.getAppPanel().setStatusbarText(message,
                     MessageType.INFO, 2000);
         }
     }

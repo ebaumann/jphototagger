@@ -26,7 +26,7 @@ import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.io.ImageFilteredDirectory;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -36,7 +36,6 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel.Settings;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -44,6 +43,7 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -51,7 +51,7 @@ import javax.swing.tree.TreePath;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class FavoritesHelper {
     private FavoritesHelper() {}
@@ -82,7 +82,7 @@ public final class FavoritesHelper {
 
                     if (db.update(favorite)) {
                         if (dirChanged) {
-                            ViewUtil.refreshThumbnailsPanel();
+                            GUI.refreshThumbnailsPanel();
                         }
                     } else {
                         MessageDisplayer.error(null,
@@ -124,7 +124,7 @@ public final class FavoritesHelper {
      */
     public static DefaultMutableTreeNode getSelectedNode() {
         TreePath path =
-            GUI.INSTANCE.getAppPanel().getTreeFavorites().getSelectionPath();
+            GUI.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
             return (DefaultMutableTreeNode) path.getLastPathComponent();
@@ -161,7 +161,7 @@ public final class FavoritesHelper {
      */
     public static List<File> getFilesOfSelectedtDirectory() {
         TreePath path =
-            GUI.INSTANCE.getAppPanel().getTreeFavorites().getSelectionPath();
+            GUI.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
             File                   dir = null;
@@ -178,11 +178,36 @@ public final class FavoritesHelper {
             }
 
             if (dir != null) {
-                return ImageFilteredDirectory.getImageFilesOfDirectory(dir);
+                return ImageFileFilterer.getImageFilesOfDirectory(dir);
             }
         }
 
         return new ArrayList<File>();
+    }
+
+    /**
+     * Returns the selected directory in the tree with favorite directories.
+     *
+     * @return directory or null if no directory is selected
+     */
+    public static File getSelectedFavorite() {
+        JTree  tree = GUI.getAppPanel().getTreeFavorites();
+        Object o    = tree.getLastSelectedPathComponent();
+
+        if (o instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) o;
+            Object                 userObject = node.getUserObject();
+
+            if (userObject instanceof Favorite) {
+                Favorite favorite = (Favorite) userObject;
+
+                return favorite.getDirectory();
+            } else if (userObject instanceof File) {
+                return (File) userObject;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -200,7 +225,7 @@ public final class FavoritesHelper {
     }
 
     private static class SetFiles implements Runnable {
-        private final AppPanel           appPanel = GUI.INSTANCE.getAppPanel();
+        private final AppPanel           appPanel = GUI.getAppPanel();
         private final ThumbnailsPanel    tnPanel =
             appPanel.getPanelThumbnails();
         private final EditMetadataPanels editPanels =
@@ -229,7 +254,7 @@ public final class FavoritesHelper {
         private void setTitle() {
             File dir = FavoritesHelper.getSelectedDir();
 
-            GUI.INSTANCE.getAppFrame().setTitle(
+            GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
                     "FavoritesHelper.AppFrame.Title.FavoriteDirectory",
                     (dir == null)

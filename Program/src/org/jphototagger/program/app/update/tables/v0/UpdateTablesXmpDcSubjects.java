@@ -38,7 +38,7 @@ import java.sql.Statement;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesXmpDcSubjects {
     void update(Connection con) throws SQLException {

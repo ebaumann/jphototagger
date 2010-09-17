@@ -44,7 +44,7 @@ import javax.swing.tree.TreeModel;
  * {@link DefaultMutableTreeNode}. The nodes has user objects of the type
  * {@link java.util.Calendar}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class Timeline {
     private final DefaultMutableTreeNode ROOT_NODE =

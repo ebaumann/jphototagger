@@ -1,5 +1,5 @@
 /*
- * @(#)ControllerDoubleklickThumbnail.java    Created on 2008-09-10
+ * @(#)ControllerThumbnailDoubleklick.java    Created on 2008-09-10
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -32,12 +32,12 @@ import java.util.Arrays;
  * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von
  * {@link org.jphototagger.program.view.panels.ThumbnailsPanel}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
-public final class ControllerDoubleklickThumbnail {
+public final class ControllerThumbnailDoubleklick {
     private final ThumbnailsPanel panel;
 
-    public ControllerDoubleklickThumbnail(ThumbnailsPanel panel) {
+    public ControllerThumbnailDoubleklick(ThumbnailsPanel panel) {
         if (panel == null) {
             throw new NullPointerException("panel == null");
         }

@@ -24,10 +24,8 @@ package org.jphototagger.program.controller.imagecollection;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.ModifyImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +34,8 @@ import java.awt.event.KeyListener;
 import java.awt.EventQueue;
 
 import javax.swing.JList;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert Aktion: Lösche Bildsammlung, ausgelöst von
@@ -44,7 +44,7 @@ import javax.swing.JList;
  * Also listens to the {@link JList}'s key events and deletes the selected image
  * collection when the keys <code>Ctrl+N</code> were pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDeleteImageCollection
         implements ActionListener, KeyListener {
@@ -55,12 +55,12 @@ public final class ControllerDeleteImageCollection
     private void listen() {
         PopupMenuImageCollections.INSTANCE.getItemDelete().addActionListener(
             this);
-        ViewUtil.getImageCollectionsList().addKeyListener(this);
+        GUI.getImageCollectionsList().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = ViewUtil.getImageCollectionsList();
+        JList list = GUI.getImageCollectionsList();
 
         if ((evt.getKeyCode() == KeyEvent.VK_DELETE)
                 &&!list.isSelectionEmpty()) {
@@ -76,7 +76,7 @@ public final class ControllerDeleteImageCollection
     public void actionPerformed(ActionEvent evt) {
         deleteCollection(
             ListUtil.getItemString(
-                ViewUtil.getImageCollectionsList(),
+                GUI.getImageCollectionsList(),
                 PopupMenuImageCollections.INSTANCE.getItemIndex()));
     }
 
@@ -91,7 +91,7 @@ public final class ControllerDeleteImageCollection
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    if (ModifyImageCollections.deleteImageCollection(
+                    if (ImageCollectionsHelper.deleteImageCollection(
                             collectionName)) {
                         ModelFactory.INSTANCE.getModel(
                             ListModelImageCollections.class).removeElement(

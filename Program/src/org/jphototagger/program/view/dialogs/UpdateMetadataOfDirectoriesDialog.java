@@ -30,7 +30,7 @@ import org.jphototagger.lib.dialog.Dialog;
  * Dialog zum Scannen eines Verzeichnisses nach Bildern und Einfügen
  * von Thumbnails in die Datenbank.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     public static final UpdateMetadataOfDirectoriesDialog INSTANCE =
@@ -38,7 +38,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private static final long serialVersionUID = -3660709942403455416L;
 
     private UpdateMetadataOfDirectoriesDialog() {
-        super(GUI.INSTANCE.getAppFrame(), false,
+        super(GUI.getAppFrame(), false,
               UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();

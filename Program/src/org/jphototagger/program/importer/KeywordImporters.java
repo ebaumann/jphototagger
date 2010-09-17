@@ -28,7 +28,7 @@ import java.util.List;
  * Contains instances of all {@link Importer}s importing keywords for external
  * applications (<em>not</em> for JPhotoTagger).
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class KeywordImporters {
     private static final List<KeywordsImporter> importers =

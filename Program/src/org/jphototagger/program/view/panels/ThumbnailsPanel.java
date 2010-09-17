@@ -30,7 +30,7 @@ import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail
-    .ControllerDoubleklickThumbnail;
+    .ControllerThumbnailDoubleklick;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.ThumbnailFlag;
 import org.jphototagger.program.data.UserDefinedFileFilter;
@@ -96,7 +96,7 @@ import javax.swing.TransferHandler;
 
 /**
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener,
@@ -171,7 +171,7 @@ public class ThumbnailsPanel extends JPanel
         FileAction.UNDEFINED;
     private Content                                        content =
         Content.UNDEFINED;
-    private final transient ControllerDoubleklickThumbnail ctrlDoubleklick;
+    private final transient ControllerThumbnailDoubleklick ctrlDoubleklick;
     private boolean                                        drag;
     private boolean                                        keywordsOverlay;
     private volatile boolean                               notifySelChanged;
@@ -185,7 +185,7 @@ public class ThumbnailsPanel extends JPanel
 
     public ThumbnailsPanel() {
         initRefreshListeners();
-        ctrlDoubleklick = new ControllerDoubleklickThumbnail(this);
+        ctrlDoubleklick = new ControllerThumbnailDoubleklick(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerThumbnailsPanel());
         readProperties();
@@ -1213,7 +1213,7 @@ public class ThumbnailsPanel extends JPanel
     private void validateScrollPane() {
 
         // See: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5066771
-        GUI.INSTANCE.getAppPanel().getScrollPaneThumbnailsPanel().validate();
+        GUI.getAppPanel().getScrollPaneThumbnailsPanel().validate();
     }
 
     private Point getViewPosition() {

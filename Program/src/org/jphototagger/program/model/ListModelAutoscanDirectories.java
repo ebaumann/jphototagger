@@ -39,7 +39,7 @@ import javax.swing.DefaultListModel;
  *
  * These directorys shall be scanned automatically for updates.
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class ListModelAutoscanDirectories extends DefaultListModel
         implements DatabaseAutoscanDirectoriesListener {

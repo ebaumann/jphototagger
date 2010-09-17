@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Text as value of a {@link Column}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public interface TextEntry {
     String getText();

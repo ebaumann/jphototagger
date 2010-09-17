@@ -30,7 +30,7 @@ import java.util.Comparator;
  * names ({@link org.jphototagger.program.data.SavedSearch#getName()})
  * will be compared.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorSavedSearch implements Comparator<SavedSearch> {
     public static final ComparatorSavedSearch INSTANCE =

@@ -51,7 +51,7 @@ public final class AppEventQueue extends java.awt.EventQueue {
 
     private LongMessageDialog getDialog(Throwable t) {
         LongMessageDialog dlg =
-            new LongMessageDialog(GUI.INSTANCE.getAppFrame(), true,
+            new LongMessageDialog(GUI.getAppFrame(), true,
                                   UserSettings.INSTANCE.getSettings(), null);
 
         dlg.setTitle(JptBundle.INSTANCE.getString("AppEventQueue.Error.Title"));

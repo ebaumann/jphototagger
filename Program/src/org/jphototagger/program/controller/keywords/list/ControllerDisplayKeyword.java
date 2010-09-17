@@ -37,7 +37,7 @@ import javax.swing.ListModel;
 /**
  * Displays a selected keyword through selecting it in the selection list.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerDisplayKeyword extends ControllerKeywords {
     public ControllerDisplayKeyword() {

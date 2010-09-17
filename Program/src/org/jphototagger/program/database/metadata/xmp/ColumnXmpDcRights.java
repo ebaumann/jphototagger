@@ -28,7 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
 /**
  * Spalte <code>dc_rights</code> der Tabelle <code>xmp</code>.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnXmpDcRights extends Column {
     public static final ColumnXmpDcRights INSTANCE = new ColumnXmpDcRights();

@@ -36,7 +36,7 @@ import javax.swing.JList;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public abstract class ControllerMetadataTemplate extends Controller {
     protected abstract void action(MetadataTemplate template);

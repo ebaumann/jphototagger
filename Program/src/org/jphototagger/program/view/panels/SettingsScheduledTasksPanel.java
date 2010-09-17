@@ -47,7 +47,7 @@ import javax.swing.SpinnerNumberModel;
 
 /**
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
         implements Persistence {
@@ -115,7 +115,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     private void addAutoscanDirectories() {
         DirectoryChooser dlg =
             new DirectoryChooser(
-                GUI.INSTANCE.getAppFrame(),
+                GUI.getAppFrame(),
                 new File(lastSelectedAutoscanDirectory),
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 

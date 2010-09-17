@@ -58,7 +58,7 @@ import javax.swing.table.DefaultTableModel;
  * containing the same objects (both either <code>ExifTag</code> instances or
  * <code>String</code> instances).
  *
- * @author  Elmar Baumann, Tobias Stening
+ * @author Elmar Baumann, Tobias Stening
  */
 public final class TableModelExif extends DefaultTableModel {
     private static final long         serialVersionUID = -5656774233855745962L;

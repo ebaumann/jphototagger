@@ -1,5 +1,5 @@
 /*
- * @(#)ImageFilteredDirectory.java    Created on 2008-10-05
+ * @(#)ImageFileFilterer.java    Created on 2008-10-05
  *
  * Copyright (C) 2009-2010 by the JPhotoTagger developer team.
  *
@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.io;
 
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.RegexUtil;
 import org.jphototagger.program.app.AppFileFilters;
@@ -30,14 +31,14 @@ import org.jphototagger.program.UserSettings;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * Verzeichnis im Dateisystem gefiltert nach Bilddateien.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
-public final class ImageFilteredDirectory {
+public final class ImageFileFilterer {
 
     /**
      * Liefert alle Bilddateien eines Verzeichnisses.
@@ -111,5 +112,64 @@ public final class ImageFilteredDirectory {
         return getImageFilesOfDirectories(dirAndSubdirs);
     }
 
-    private ImageFilteredDirectory() {}
+    /**
+     * Filters from a collection of arbitrary file image files.
+     *
+     * @param  arbitraryFiles arbitrary files
+     * @return                image files of <code>files</code>
+     */
+    public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
+        if (arbitraryFiles == null) {
+            throw new NullPointerException("arbitraryFiles == null");
+        }
+
+        List<File>      imageFiles = new ArrayList<File>();
+        RegexFileFilter filter     = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
+
+        for (File file : arbitraryFiles) {
+            if (filter.accept(file)) {
+                imageFiles.add(file);
+            }
+        }
+
+        return imageFiles;
+    }
+
+    /**
+     * Returns wheter a file is an image file.
+     *
+     * @param  file file
+     * @return      true if the file is an image file
+     */
+    public static boolean isImageFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        return AppFileFilters.ACCEPTED_IMAGE_FILENAMES.accept(file);
+    }
+
+    /**
+     * Returns from a collection of files the image files.
+     *
+     * @param  files files
+     * @return       image files of that files
+     */
+    public static List<File> getImageFiles(Collection<? extends File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
+        List<File> imageFiles = new ArrayList<File>(files.size());
+
+        for (File file : files) {
+            if (isImageFile(file)) {
+                imageFiles.add(file);
+            }
+        }
+
+        return imageFiles;
+    }
+
+    private ImageFileFilterer() {}
 }

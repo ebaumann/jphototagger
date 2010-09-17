@@ -35,7 +35,7 @@ import javax.swing.JPopupMenu;
  * Do not use this class as template for implemention! Instead extend
  * {@link org.jphototagger.lib.event.listener.PopupMenuList}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
     private static final long                  serialVersionUID =

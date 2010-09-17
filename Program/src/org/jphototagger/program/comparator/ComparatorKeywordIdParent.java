@@ -28,7 +28,7 @@ import java.util.Comparator;
 /**
  * Compares {@link Keyword}s by the database ID of their parents.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ComparatorKeywordIdParent implements Comparator<Keyword> {
     public static final ComparatorKeywordIdParent INSTANCE =

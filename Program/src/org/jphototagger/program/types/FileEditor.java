@@ -26,7 +26,7 @@ import java.io.File;
 /**
  * Edits a file.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class FileEditor {
     private volatile boolean confirmOverwrite;

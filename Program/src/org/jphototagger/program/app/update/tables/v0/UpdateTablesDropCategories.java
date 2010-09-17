@@ -53,7 +53,7 @@ import java.sql.Statement;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class UpdateTablesDropCategories {
     void update(Connection con) throws SQLException {

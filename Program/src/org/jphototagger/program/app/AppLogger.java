@@ -44,7 +44,7 @@ import java.util.logging.LogRecord;
  * This key contains only one parameter which will be substitued through the
  * following string.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class AppLogger {
     public static final String  USE_STRING = "AppLog.UseString";

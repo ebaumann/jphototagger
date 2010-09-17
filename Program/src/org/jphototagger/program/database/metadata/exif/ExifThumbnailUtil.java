@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Utils for thumbnails embedded in EXIF metadata.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ExifThumbnailUtil {
     private static final Map<String, Double> ROTATION_ANGLE_OF_STRING =

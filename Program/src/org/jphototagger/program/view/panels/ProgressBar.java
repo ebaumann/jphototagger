@@ -37,7 +37,7 @@ import javax.swing.JProgressBar;
 /**
  * Synchronized access to {@link AppPanel#getProgressBar()}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ProgressBar extends MutualExcludedResource<JProgressBar>
         implements ActionListener {
@@ -46,7 +46,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
     private volatile boolean        cancelEnabled = true;
 
     private ProgressBar() {
-        AppPanel appPanel = GUI.INSTANCE.getAppPanel();
+        AppPanel appPanel = GUI.getAppPanel();
 
         setResource(appPanel.getProgressBar());
         buttonCancel = appPanel.getButtonCancelProgress();

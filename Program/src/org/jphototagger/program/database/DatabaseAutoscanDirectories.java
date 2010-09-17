@@ -38,7 +38,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class DatabaseAutoscanDirectories extends Database {
     public static final DatabaseAutoscanDirectories INSTANCE =

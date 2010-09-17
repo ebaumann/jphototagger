@@ -24,7 +24,7 @@ package org.jphototagger.program.image.thumbnail;
 /**
  * How to create humbnails.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public enum ThumbnailCreator {
 

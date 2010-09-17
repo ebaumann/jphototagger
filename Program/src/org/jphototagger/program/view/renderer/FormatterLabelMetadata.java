@@ -30,7 +30,7 @@ import javax.swing.JLabel;
 /**
  * Basisklasse für Renderer, die Metadaten darstellen.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class FormatterLabelMetadata {
     private Font headerFont  = null;

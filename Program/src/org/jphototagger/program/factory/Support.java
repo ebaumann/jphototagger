@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 final class Support {
     private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS =
@@ -74,7 +74,7 @@ final class Support {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GUI.INSTANCE.getAppPanel().setStatusbarText(
+                GUI.getAppPanel().setStatusbarText(
                     JptBundle.INSTANCE.getString(propertyKey),
                     MessageLabel.MessageType.INFO, 2000);
             }

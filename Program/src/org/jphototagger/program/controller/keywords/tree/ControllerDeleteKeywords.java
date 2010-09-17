@@ -45,7 +45,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Also listens to key events into the tree and removes the selected keyword if
  * the delete key was pressed.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class ControllerDeleteKeywords extends ControllerKeywords
         implements ActionListener, KeyListener {

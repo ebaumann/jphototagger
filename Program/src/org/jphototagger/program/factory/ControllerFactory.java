@@ -217,7 +217,7 @@ import java.util.List;
 /**
  * Erzeugt alle Controller.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerFactory {
     public static final ControllerFactory INSTANCE = new ControllerFactory();
@@ -348,7 +348,7 @@ public final class ControllerFactory {
     private void addMiscMetadataControllers() {
         PopupMenuMiscMetadata popupAppWindow =
             new PopupMenuMiscMetadata(
-                GUI.INSTANCE.getAppPanel().getTreeMiscMetadata());
+                GUI.getAppPanel().getTreeMiscMetadata());
 
         support.add(new ControllerDeleteMiscMetadata(popupAppWindow));
         support.add(new ControllerRenameMiscMetadata(popupAppWindow));
@@ -394,7 +394,7 @@ public final class ControllerFactory {
     }
 
     private void addKeywordsControllers() {
-        KeywordsPanel[] keywordPanels = { GUI.INSTANCE.getAppPanel()
+        KeywordsPanel[] keywordPanels = { GUI.getAppPanel()
                                             .getPanelEditKeywords(),
                                           InputHelperDialog.INSTANCE
                                               .getPanelKeywords() };

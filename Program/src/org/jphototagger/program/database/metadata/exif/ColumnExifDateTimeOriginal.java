@@ -31,7 +31,7 @@ import org.jphototagger.program.resource.JptBundle;
  * <li>EXIF-Tag ID: 36867 (Hex: 9003); EXIF-IFD: 046C</li>
  * </ul>
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ColumnExifDateTimeOriginal extends Column {
     public static final ColumnExifDateTimeOriginal INSTANCE =

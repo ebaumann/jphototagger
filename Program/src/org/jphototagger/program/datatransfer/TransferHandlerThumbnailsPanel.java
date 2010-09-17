@@ -31,8 +31,10 @@ import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp
     .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
 import org.jphototagger.program.resource.GUI;
@@ -64,7 +66,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * The selected files will be transferred as
  * {@link DataFlavor#javaFileListFlavor}.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     private static final long serialVersionUID = 1831860682951562565L;
@@ -172,7 +174,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     private String getImageCollectionName() {
         JList listImageCollections =
-            GUI.INSTANCE.getAppPanel().getListImageCollections();
+            GUI.getAppPanel().getListImageCollections();
         Object selElement = null;
         int    selIndex   = listImageCollections.getSelectedIndex();
 
@@ -250,7 +252,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
         if (dropOverSelectedThumbnail) {
             EditMetadataPanels editPanels =
-                GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                GUI.getAppPanel().getEditMetadataPanels();
             Column column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
                             ? ColumnXmpDcSubjectsSubject.INSTANCE
                             : null;
@@ -304,12 +306,12 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         int dropAction = support.getDropAction();
 
         if (dropAction == TransferHandler.COPY) {
-            ImageUtil.copyImageFiles(ImageUtil.getImageFiles(srcFiles),
+            ImageUtil.copyImageFiles(ImageFileFilterer.getImageFiles(srcFiles),
                                      targetDir, ConfirmOverwrite.YES);
 
             return true;
         } else if (dropAction == TransferHandler.MOVE) {
-            ImageUtil.moveImageFiles(ImageUtil.getImageFiles(srcFiles),
+            ImageUtil.moveImageFiles(ImageFileFilterer.getImageFiles(srcFiles),
                                      targetDir, ConfirmOverwrite.YES);
 
             return true;
@@ -319,13 +321,13 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private File getCurrentDirectory() {
-        JTree treeDirectories = GUI.INSTANCE.getAppPanel().getTreeDirectories();
-        JTree treeFavorites   = GUI.INSTANCE.getAppPanel().getTreeFavorites();
+        JTree treeDirectories = GUI.getAppPanel().getTreeDirectories();
+        JTree treeFavorites   = GUI.getAppPanel().getTreeFavorites();
 
         if (treeDirectories.getSelectionCount() > 0) {
             return ViewUtil.getSelectedFile(treeDirectories);
         } else if (treeFavorites.getSelectionCount() > 0) {
-            return ViewUtil.getSelectedFavorite();
+            return FavoritesHelper.getSelectedFavorite();
         }
 
         return null;
@@ -342,8 +344,8 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             }
 
             assert selTemplates.length == 1;
-            GUI.INSTANCE.getAppPanel().getEditMetadataPanels()
-                .setMetadataTemplate((MetadataTemplate) selTemplates[0]);
+            GUI.getAppPanel().getEditMetadataPanels().setMetadataTemplate(
+                (MetadataTemplate) selTemplates[0]);
         } catch (Exception ex) {
             AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
         }
@@ -364,7 +366,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
                 }
 
                 EditMetadataPanels ep =
-                    GUI.INSTANCE.getAppPanel().getEditMetadataPanels();
+                    GUI.getAppPanel().getEditMetadataPanels();
 
                 for (ColumnData data : colData) {
                     ep.addText(data.getColumn(), (String) data.getData());

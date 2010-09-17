@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Suggest keywords.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public class SuggestionKeywords implements Suggest {
     @Override

@@ -24,7 +24,6 @@ package org.jphototagger.program.controller.misc;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.EventQueue;
 
@@ -36,7 +35,7 @@ import javax.swing.JSlider;
 /**
  * Zeigt die Anzahl der Thumbnails an.
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class ControllerThumbnailCountDisplay
         implements ThumbnailsPanelListener, ChangeListener {
@@ -50,17 +49,17 @@ public final class ControllerThumbnailCountDisplay
     }
 
     private void listen() {
-        ViewUtil.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         getSlider().addChangeListener(this);
     }
 
     private JSlider getSlider() {
-        return GUI.INSTANCE.getAppPanel().getSliderThumbnailSize();
+        return GUI.getAppPanel().getSliderThumbnailSize();
     }
 
     @Override
     public void thumbnailsSelectionChanged() {
-        selectionCount = ViewUtil.getThumbnailsPanel().getSelectionCount();
+        selectionCount = GUI.getThumbnailsPanel().getSelectionCount();
         setCount();
     }
 
@@ -75,7 +74,7 @@ public final class ControllerThumbnailCountDisplay
     }
 
     private void setCount() {
-        thumbnailCount = ViewUtil.getThumbnailsPanel().getFileCount();
+        thumbnailCount = GUI.getThumbnailsPanel().getFileCount();
         setLabel();
     }
 
@@ -88,8 +87,7 @@ public final class ControllerThumbnailCountDisplay
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JLabel label =
-                    GUI.INSTANCE.getAppPanel().getLabelThumbnailInfo();
+                JLabel label = GUI.getAppPanel().getLabelThumbnailInfo();
                 String info = JptBundle.INSTANCE.getString(
                                   "ControllerThumbnailCountDisplay.Info",
                                   thumbnailCount, selectionCount,
