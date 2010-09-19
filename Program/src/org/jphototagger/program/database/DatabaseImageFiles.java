@@ -28,6 +28,7 @@ import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.ImageFile;
 import org.jphototagger.program.data.Timeline;
 import org.jphototagger.program.data.Xmp;
+import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
@@ -83,7 +84,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
 
 /**
  * Database containing metadata of image files.
@@ -1794,8 +1794,10 @@ public final class DatabaseImageFiles extends Database {
         Connection           con        = null;
         PreparedStatement    stmt       = null;
         ResultSet            rs         = null;
-        Set<DcSubjectOption> opts =
-            EnumSet.<DcSubjectOption>copyOf(Arrays.asList(options));
+        Set<DcSubjectOption> opts = ((options == null) || (options.length == 0))
+                                    ? EnumSet.noneOf(DcSubjectOption.class)
+                                    : EnumSet.<DcSubjectOption>copyOf(
+                                        Arrays.asList(options));
 
         try {
             con = getConnection();

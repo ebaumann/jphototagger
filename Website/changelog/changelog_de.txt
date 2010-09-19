@@ -7,6 +7,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.46 2010-09-19
 -----------------
 
+* Bugfix: Auswahl eines Stichworts in der Listenansicht geht wieder
 * Interna modifiziert
 
 0.8.45 2010-09-14
