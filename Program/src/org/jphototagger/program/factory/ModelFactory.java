@@ -220,81 +220,167 @@ public final class ModelFactory {
         setTreeModelDirectories(appPanel);
     }
 
-    private void setTreeModelKeywords(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.TreeModelKeywords");
+    private void setTreeModelKeywords(final AppPanel appPanel) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo(
+                    "ModelFactory.Starting.TreeModelKeywords");
 
-        TreeModel                  treeModelKeywords = new TreeModelKeywords();
-        ListModelMetadataTemplates listModelTemplates =
-            new ListModelMetadataTemplates();
+                final TreeModel                  treeModelKeywords =
+                    new TreeModelKeywords();
+                final ListModelMetadataTemplates listModelTemplates =
+                    new ListModelMetadataTemplates();
 
-        support.add(treeModelKeywords);
-        support.add(listModelTemplates);
-        appPanel.getTreeSelKeywords().setModel(treeModelKeywords);
-        appPanel.getTreeEditKeywords().setModel(treeModelKeywords);
-        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(
-            treeModelKeywords);
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
-            .setModel(listModelTemplates);
-        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelKeywords");
+                support.add(treeModelKeywords);
+                support.add(listModelTemplates);
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        JTree treeSelKeywords = appPanel.getTreeSelKeywords();
+
+                        treeSelKeywords.setModel(treeModelKeywords);
+                        applySettings(
+                            treeSelKeywords,
+                            "org.jphototagger.program.view.panels.AppPanel.treeSelKeywords");
+
+                        JTree treeEditKeywords = appPanel.getTreeEditKeywords();
+
+                        treeEditKeywords.setModel(treeModelKeywords);
+                        applySettings(treeEditKeywords,
+                                      "AppPanel.Keywords.Tree");
+                        InputHelperDialog.INSTANCE.getPanelKeywords().getTree()
+                            .setModel(treeModelKeywords);
+                        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
+                            .getList().setModel(listModelTemplates);
+                        Support.setStatusbarInfo(
+                            "ModelFactory.Finished.TreeModelKeywords");
+                    }
+                });
+            }
+        }, "JPhotoTagger: Creating Favorites Tree").start();
     }
 
-    private void setTreeModelMiscMetadata(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.TreeModelMiscMetadata");
+    private void setTreeModelMiscMetadata(final AppPanel appPanel) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo(
+                    "ModelFactory.Starting.TreeModelMiscMetadata");
 
-        JTree     tree             = appPanel.getTreeMiscMetadata();
-        Cursor    treeCursor       = setWaitCursor(tree);
-        TreeModel modelApp         = new TreeModelMiscMetadata(false);
-        TreeModel modelInputHelper = new TreeModelMiscMetadata(true);
+                final JTree     tree = appPanel.getTreeMiscMetadata();
+                final Cursor    treeCursor = setWaitCursor(tree);
+                final TreeModel modelApp = new TreeModelMiscMetadata(false);
+                final TreeModel modelInputHelper =
+                    new TreeModelMiscMetadata(true);
 
-        support.add(modelApp);
-        support.add(modelInputHelper);
-        InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree().setModel(
-            modelInputHelper);
-        tree.setModel(modelApp);
-        tree.setCursor(treeCursor);
-        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelMiscMetadata");
+                support.add(modelApp);
+                support.add(modelInputHelper);
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata()
+                            .getTree().setModel(modelInputHelper);
+                        tree.setModel(modelApp);
+                        applySettings(
+                            tree,
+                            "org.jphototagger.program.view.panels.AppPanel.treeMiscMetadata");
+                        tree.setCursor(treeCursor);
+                        Support.setStatusbarInfo(
+                            "ModelFactory.Finished.TreeModelMiscMetadata");
+                    }
+                });
+            }
+        }, "JPhotoTagger: Creating Misc Metadata Tree").start();
     }
 
-    private void setTreeModelTimeline(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.TreeModelTimeline");
+    private void setTreeModelTimeline(final AppPanel appPanel) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo(
+                    "ModelFactory.Starting.TreeModelTimeline");
 
-        JTree     tree       = appPanel.getTreeTimeline();
-        Cursor    treeCursor = setWaitCursor(tree);
-        TreeModel model      = new TreeModelTimeline();
+                final JTree     tree       = appPanel.getTreeTimeline();
+                final Cursor    treeCursor = setWaitCursor(tree);
+                final TreeModel model      = new TreeModelTimeline();
 
-        support.add(model);
-        tree.setModel(model);
-        tree.setCursor(treeCursor);
-        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelTimeline");
+                support.add(model);
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        tree.setModel(model);
+                        applySettings(
+                            tree,
+                            "org.jphototagger.program.view.panels.AppPanel.treeTimeline");
+                        tree.setCursor(treeCursor);
+                        Support.setStatusbarInfo(
+                            "ModelFactory.Finished.TreeModelTimeline");
+                    }
+                });
+            }
+        }, "JPhotoTagger: Creating Timeline Tree").start();
     }
 
-    private void setTreeModelFavorites(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.TreeModelFavorites");
+    private void setTreeModelFavorites(final AppPanel appPanel) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo(
+                    "ModelFactory.Starting.TreeModelFavorites");
 
-        JTree              tree       = appPanel.getTreeFavorites();
-        Cursor             treeCursor = setWaitCursor(tree);
-        TreeModelFavorites model      = new TreeModelFavorites(tree);
+                final JTree              tree = appPanel.getTreeFavorites();
+                final Cursor             treeCursor = setWaitCursor(tree);
+                final TreeModelFavorites model = new TreeModelFavorites(tree);
 
-        support.add(model);
-        tree.setModel(model);
-        model.readFromProperties();
-        tree.setCursor(treeCursor);
-        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelFavorites");
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        support.add(model);
+                        tree.setModel(model);
+                        model.readFromProperties();
+                        tree.setCursor(treeCursor);
+                        Support.setStatusbarInfo(
+                            "ModelFactory.Finished.TreeModelFavorites");
+                    }
+                });
+            }
+        }, "JPhotoTagger: Creating Favorites Tree").start();
     }
 
-    private void setTreeModelDirectories(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.TreeModelDirectories");
+    private void setTreeModelDirectories(final AppPanel appPanel) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Support.setStatusbarInfo(
+                    "ModelFactory.Starting.TreeModelDirectories");
 
-        JTree     tree       = appPanel.getTreeDirectories();
-        Cursor    treeCursor = setWaitCursor(tree);
-        TreeModel model =
-            new TreeModelAllSystemDirectories(tree,
-                UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
+                final JTree     tree       = appPanel.getTreeDirectories();
+                final Cursor    treeCursor = setWaitCursor(tree);
+                final TreeModel model =
+                    new TreeModelAllSystemDirectories(tree,
+                        UserSettings.INSTANCE
+                            .getDirFilterOptionShowHiddenFiles());
 
-        support.add(model);
-        tree.setModel(model);
-        tree.setCursor(treeCursor);
-        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelDirectories");
+                support.add(model);
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        tree.setModel(model);
+                        applySettings(
+                            tree,
+                            "org.jphototagger.program.view.panels.AppPanel.treeDirectories");
+                        tree.setCursor(treeCursor);
+                        Support.setStatusbarInfo(
+                            "ModelFactory.Finished.TreeModelDirectories");
+                    }
+                });
+            }
+        }, "JPhotoTagger: Creating Directories Tree").start();
+    }
+
+    private void applySettings(JTree tree, String key) {
+        UserSettings.INSTANCE.getSettings().applySettings(tree, key);
     }
 
     /**
