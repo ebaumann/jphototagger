@@ -165,8 +165,8 @@ public final class AppFrame extends javax.swing.JFrame {
 
     ;
     public AppFrame() {
-        GUI.setAppFrame(this);
         initComponents();
+        GUI.setAppFrame(this);
         postInitComponents();
     }
 

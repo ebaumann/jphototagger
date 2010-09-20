@@ -96,9 +96,9 @@ public final class AppPanel extends javax.swing.JPanel {
     private transient EditMetadataActionsPanel panelEditActions;
 
     public AppPanel() {
-        GUI.setAppPanel(this);
         initComponents();
         messageLabel = new MessageLabel(labelStatusbarText);
+        GUI.setAppPanel(this);
         postInitComponents();
     }
 
