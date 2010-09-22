@@ -23,7 +23,7 @@ package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.thirdparty.SortedListModel;
-import org.jphototagger.program.app.AppPersistenceKeys;
+import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
 import org.jphototagger.program.model.ListModelImageCollections;
@@ -124,8 +124,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-        Support.setStatusbarInfo(
-            "ModelFactory.Starting.ListModelSavedSearches");
+                Support.setStatusbarInfo(
+                    "ModelFactory.Starting.ListModelSavedSearches");
 
                 final JList                  list =
                     appPanel.getListSavedSearches();
@@ -133,18 +133,16 @@ public final class ModelFactory {
                 final ListModelSavedSearches model =
                     new ListModelSavedSearches();
 
-        support.add(model);
+                support.add(model);
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-        list.setModel(model);
-                        applySettings(
-                            list,
-                            AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
-        list.setCursor(listCursor);
-        Support.setStatusbarInfo(
-            "ModelFactory.Finished.ListModelSavedSearches");
-    }
+                        list.setModel(model);
+                        AppWindowPersistence.readListSavedSearches();
+                        list.setCursor(listCursor);
+                        Support.setStatusbarInfo(
+                            "ModelFactory.Finished.ListModelSavedSearches");
+                    }
                 });
             }
         }, "JPhotoTagger: Creating Saved Searches List").start();
@@ -154,8 +152,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-        Support.setStatusbarInfo(
-            "ModelFactory.Starting.ListModelImageCollections");
+                Support.setStatusbarInfo(
+                    "ModelFactory.Starting.ListModelImageCollections");
 
                 final JList                     list =
                     appPanel.getListImageCollections();
@@ -164,18 +162,16 @@ public final class ModelFactory {
                 final ListModelImageCollections model =
                     new ListModelImageCollections();
 
-        support.add(model);
+                support.add(model);
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-        list.setModel(model);
-                        applySettings(list,
-                                      AppPersistenceKeys
-                                          .APP_PANEL_LIST_IMAGE_COLLECTIONS);
-        list.setCursor(listCursor);
-        Support.setStatusbarInfo(
-            "ModelFactory.Finished.ListModelImageCollections");
-    }
+                        list.setModel(model);
+                        AppWindowPersistence.readListImageCollections();
+                        list.setCursor(listCursor);
+                        Support.setStatusbarInfo(
+                            "ModelFactory.Finished.ListModelImageCollections");
+                    }
                 });
             }
         }, "JPhotoTagger: Creating Image Collections List").start();
@@ -192,25 +188,23 @@ public final class ModelFactory {
                     appPanel.getListSelKeywords();
                 final Cursor      listCursor    =
                     setWaitCursor(listSelKeywords);
-        ListModelKeywords modelKeywords = new ListModelKeywords();
+                ListModelKeywords modelKeywords = new ListModelKeywords();
                 final ListModel   sortedModel =
                     new SortedListModel(modelKeywords);
 
-        support.add(modelKeywords);
+                support.add(modelKeywords);
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         listSelKeywords.setModel(sortedModel);
-        appPanel.getListEditKeywords().setModel(sortedModel);
+                        appPanel.getListEditKeywords().setModel(sortedModel);
                         InputHelperDialog.INSTANCE.setModelKeywords(
                             sortedModel);
-                        applySettings(
-                            listSelKeywords,
-                            AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
+                        AppWindowPersistence.readListSelKeywords();
                         listSelKeywords.setCursor(listCursor);
                         Support.setStatusbarInfo(
                             "ModelFactory.Finished.ListModelKeywords");
-    }
+                    }
                 });
             }
         }, "JPhotoTagger: Creating Keywords list").start();
@@ -291,16 +285,12 @@ public final class ModelFactory {
                         JTree treeSelKeywords = appPanel.getTreeSelKeywords();
 
                         treeSelKeywords.setModel(treeModelKeywords);
-                        applySettings(
-                            treeSelKeywords,
-                            AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
+                        AppWindowPersistence.readTreeSelKeywords();
 
                         JTree treeEditKeywords = appPanel.getTreeEditKeywords();
 
                         treeEditKeywords.setModel(treeModelKeywords);
-                        applySettings(
-                            treeEditKeywords,
-                            AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
+                        AppWindowPersistence.readTreeEditKeywords();
                         InputHelperDialog.INSTANCE.getPanelKeywords().getTree()
                             .setModel(treeModelKeywords);
                         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
@@ -310,7 +300,7 @@ public final class ModelFactory {
                     }
                 });
             }
-        }, "JPhotoTagger: Creating Favorites Tree").start();
+        }, "JPhotoTagger: Creating Keywords Trees").start();
     }
 
     private void setTreeModelMiscMetadata(final AppPanel appPanel) {
@@ -334,9 +324,7 @@ public final class ModelFactory {
                         InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata()
                             .getTree().setModel(modelInputHelper);
                         tree.setModel(modelApp);
-                        applySettings(
-                            tree,
-                            AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
+                        AppWindowPersistence.readTreeMiscMetadata();
                         tree.setCursor(treeCursor);
                         Support.setStatusbarInfo(
                             "ModelFactory.Finished.TreeModelMiscMetadata");
@@ -362,8 +350,7 @@ public final class ModelFactory {
                     @Override
                     public void run() {
                         tree.setModel(model);
-                        applySettings(
-                            tree, AppPersistenceKeys.APP_PANEL_TREE_TIMELINE);
+                        AppWindowPersistence.readTreeTimeline();
                         tree.setCursor(treeCursor);
                         Support.setStatusbarInfo(
                             "ModelFactory.Finished.TreeModelTimeline");
@@ -418,9 +405,7 @@ public final class ModelFactory {
                     @Override
                     public void run() {
                         tree.setModel(model);
-                        applySettings(
-                            tree,
-                            AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
+                        AppWindowPersistence.readTreeDirectories();
                         tree.setCursor(treeCursor);
                         Support.setStatusbarInfo(
                             "ModelFactory.Finished.TreeModelDirectories");
@@ -428,14 +413,6 @@ public final class ModelFactory {
                 });
             }
         }, "JPhotoTagger: Creating Directories Tree").start();
-    }
-
-    private void applySettings(JTree tree, String key) {
-        UserSettings.INSTANCE.getSettings().applySettings(tree, key);
-    }
-
-    private void applySettings(JList list, String key) {
-        UserSettings.INSTANCE.getSettings().applySelectedIndices(list, key);
     }
 
     /**
