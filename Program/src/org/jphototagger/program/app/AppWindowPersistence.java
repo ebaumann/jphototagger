@@ -23,6 +23,7 @@ package org.jphototagger.program.app;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Settings;
+import org.jphototagger.lib.util.SettingsHints;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
@@ -45,6 +46,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JList;
+import javax.swing.JTree;
 import javax.swing.table.TableModel;
 
 /**
@@ -134,13 +137,34 @@ public final class AppWindowPersistence
                 AppPanel appPanel = GUI.getAppPanel();
 
                 UserSettings.INSTANCE.getSettings().applySettings(appPanel,
-                        null);
+                        getAppPanelSettingsHints());
                 appPanel.setEnabledIptcTab(
                     UserSettings.INSTANCE.isDisplayIptc());
                 setInitKeywordsView(appPanel);
                 selectFastSearch(appPanel);
             }
         });
+    }
+
+    private static SettingsHints getAppPanelSettingsHints() {
+        SettingsHints hints = new SettingsHints();
+
+        // Lists set by readList...() / writeListProperties() or other classes
+        hints.addKeyToExclude(
+            AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
+
+        // Trees set by readTree...() / writeTreeProperties() or other classes
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_FAVORITES);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_TIMELINE);
+
+        return hints;
     }
 
     private void selectFastSearch(AppPanel appPanel) {
@@ -189,14 +213,133 @@ public final class AppWindowPersistence
         AppPanel appPanel = GUI.getAppPanel();
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(appPanel, null);
+        settings.set(appPanel, getAppPanelSettingsHints());
         settings.set(appPanel.getSplitPaneMain().getDividerLocation(),
                      KEY_DIVIDER_LOCATION_MAIN);
         settings.set(
             appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(),
             KEY_DIVIDER_LOCATION_THUMBNAILS);
         appPanel.getPanelEditKeywords().writeProperties();
+
+        // Later than settings.set(appPanel, null)!
+        writeTreeProperties(appPanel);
+        writeListProperties(appPanel);
         UserSettings.INSTANCE.writeToFile();
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readTreeSelKeywords() {
+        read(GUI.getSelKeywordsTree(),
+             AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readTreeEditKeywords() {
+        read(GUI.getEditKeywordsTree(),
+             AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readTreeMiscMetadata() {
+        read(GUI.getMiscMetadataTree(),
+             AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readTreeTimeline() {
+        read(GUI.getTimelineTree(), AppPersistenceKeys.APP_PANEL_TREE_TIMELINE);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readTreeDirectories() {
+        read(GUI.getDirectoriesTree(),
+             AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readListSavedSearches() {
+        read(GUI.getSavedSearchesList(),
+             AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readListImageCollections() {
+        read(GUI.getImageCollectionsList(),
+             AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readListSelKeywords() {
+        read(GUI.getSelKeywordsList(),
+             AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
+    }
+
+    /**
+     * To after the model has been created.
+     */
+    public static void readListNoMetadata() {
+        read(GUI.getNoMetadataList(),
+             AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
+    }
+
+    private static void read(JTree tree, String key) {
+        UserSettings.INSTANCE.getSettings().applySettings(tree, key);
+    }
+
+    private static void read(JList list, String key) {
+        UserSettings.INSTANCE.getSettings().applySelectedIndices(list, key);
+    }
+
+    // Independent from renamings
+    private void writeTreeProperties(AppPanel appPanel) {
+        write(appPanel.getTreeSelKeywords(),
+              AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
+        write(appPanel.getTreeEditKeywords(),
+              AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
+        write(appPanel.getTreeMiscMetadata(),
+              AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
+        write(appPanel.getTreeTimeline(),
+              AppPersistenceKeys.APP_PANEL_TREE_TIMELINE);
+        write(appPanel.getTreeDirectories(),
+              AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
+        write(appPanel.getTreeFavorites(),
+              AppPersistenceKeys.APP_PANEL_TREE_FAVORITES);
+    }
+
+    // Independent from renamings
+    private void writeListProperties(AppPanel appPanel) {
+        write(appPanel.getListSavedSearches(),
+              AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
+        write(appPanel.getListImageCollections(),
+              AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
+        write(appPanel.getListSelKeywords(),
+              AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
+        write(appPanel.getListNoMetadata(),
+              AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
+    }
+
+    private void write(JTree tree, String key) {
+        UserSettings.INSTANCE.getSettings().set(tree, key);
+    }
+
+    private void write(JList list, String key) {
+        UserSettings.INSTANCE.getSettings().setSelectedIndices(list, key);
     }
 
     @Override
