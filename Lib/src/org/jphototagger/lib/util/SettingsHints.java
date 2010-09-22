@@ -22,7 +22,8 @@
 package org.jphototagger.lib.util;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ import java.util.Set;
  */
 public final class SettingsHints {
     private final List<String> excludedKeys = new ArrayList<String>();
-    private final Set<Option>  options      = new HashSet<Option>();
+    private final Set<Option>  options;
 
     public enum Option {
 
@@ -48,16 +49,18 @@ public final class SettingsHints {
         SET_TABBED_PANE_CONTENT,
     }
 
-    public SettingsHints() {}
+    public SettingsHints() {
+        options = EnumSet.noneOf(Option.class);
+    }
 
     public SettingsHints(Option... options) {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
 
-        for (Option option : options) {
-            this.options.add(option);
-        }
+        this.options = (options.length == 0)
+                       ? EnumSet.noneOf(Option.class)
+                       : EnumSet.copyOf(Arrays.asList(options));
     }
 
     public void addKeyToExclude(String key) {
@@ -66,6 +69,14 @@ public final class SettingsHints {
         }
 
         excludedKeys.add(key);
+    }
+
+    public void removeKeyFromExclude(String key) {
+        if (key == null) {
+            throw new NullPointerException("key == null");
+        }
+
+        excludedKeys.remove(key);
     }
 
     boolean isSet(String key) {
