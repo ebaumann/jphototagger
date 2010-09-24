@@ -64,7 +64,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="574" max="32767" attributes="0"/>
+                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="589" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="labelMaxThumbnailWidth" pref="345" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -162,12 +162,12 @@
                           <EmptySpace min="146" pref="146" max="146" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="radioButtonCreateThumbnailsWithImagero" pref="421" max="32767" attributes="0"/>
+                          <Component id="radioButtonCreateThumbnailsWithImagero" pref="446" max="32767" attributes="0"/>
                           <EmptySpace min="159" pref="159" max="159" attributes="0"/>
                       </Group>
                       <Component id="radioButtonUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="2"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="radioButtonCreateThumbnailsWithExternalApp" pref="469" max="32767" attributes="0"/>
+                          <Component id="radioButtonCreateThumbnailsWithExternalApp" pref="494" max="32767" attributes="0"/>
                           <EmptySpace min="111" pref="111" max="111" attributes="0"/>
                       </Group>
                   </Group>
@@ -264,11 +264,11 @@
                       <Component id="panelPadding2" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="labelIsCreateThumbnailsWithExternalApp" pref="574" max="32767" attributes="0"/>
+                          <Component id="labelIsCreateThumbnailsWithExternalApp" pref="589" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldExternalThumbnailCreationCommand" pref="574" max="32767" attributes="0"/>
+                          <Component id="textFieldExternalThumbnailCreationCommand" pref="589" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>

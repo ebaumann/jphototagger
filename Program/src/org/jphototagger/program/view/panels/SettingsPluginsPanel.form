@@ -21,9 +21,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabbedPane" alignment="0" pref="533" max="32767" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" pref="491" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="466" max="32767" attributes="0"/>
+              <EmptySpace pref="407" max="32767" attributes="0"/>
               <Component id="buttonHelpPlugin" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -65,7 +65,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneExclude" alignment="0" pref="521" max="32767" attributes="0"/>
+                          <Component id="scrollPaneExclude" alignment="0" pref="462" max="32767" attributes="0"/>
                           <Component id="labelInfoExclude" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -78,7 +78,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoExclude" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneExclude" pref="162" max="32767" attributes="0"/>
+                      <Component id="scrollPaneExclude" pref="152" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
