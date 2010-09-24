@@ -66,11 +66,7 @@ public final class DatabaseInfoRecordCountColumns {
     static {
         COLUMNS.add(ColumnFilesFilename.INSTANCE);
         COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
-        COLUMNS.add(ColumnXmpDcTitle.INSTANCE);
-        COLUMNS.add(ColumnXmpDcDescription.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopHeadline.INSTANCE);
         COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        COLUMNS.add(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
         COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopCity.INSTANCE);
@@ -79,13 +75,7 @@ public final class DatabaseInfoRecordCountColumns {
         COLUMNS.add(ColumnXmpDcRights.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopCredit.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopSource.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopInstructions.INSTANCE);
         COLUMNS.add(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
-        COLUMNS.add(ColumnXmpRating.INSTANCE);
-        COLUMNS.add(ColumnExifDateTimeOriginal.INSTANCE);
-        COLUMNS.add(ColumnExifFocalLength.INSTANCE);
-        COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
         COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
         COLUMNS.add(ColumnExifLens.INSTANCE);
     }
