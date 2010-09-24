@@ -20,10 +20,10 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneListFiles" alignment="0" pref="547" max="32767" attributes="0"/>
+                  <Component id="scrollPaneListFiles" alignment="0" pref="381" max="32767" attributes="0"/>
                   <Component id="panelOptions" alignment="1" max="32767" attributes="0"/>
-                  <Component id="progressBar" alignment="1" pref="547" max="32767" attributes="0"/>
-                  <Component id="labelDescription" alignment="1" pref="547" max="32767" attributes="0"/>
+                  <Component id="progressBar" alignment="1" pref="381" max="32767" attributes="0"/>
+                  <Component id="labelDescription" alignment="1" pref="381" max="32767" attributes="0"/>
                   <Component id="labelInfoFiles" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelPromptCurrentFile" min="-2" max="-2" attributes="0"/>
@@ -36,7 +36,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="labelCurrentFile" pref="463" max="32767" attributes="1"/>
+                          <Component id="labelCurrentFile" pref="283" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
@@ -100,7 +100,7 @@
                       <Component id="checkBoxReplaceExistingFiles" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="194" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

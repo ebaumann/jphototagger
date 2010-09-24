@@ -49,7 +49,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPane" alignment="1" pref="530" max="32767" attributes="2"/>
+                  <Component id="scrollPane" alignment="1" pref="510" max="32767" attributes="2"/>
                   <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxForce" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -57,7 +57,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelFilecount" min="-2" pref="143" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="progressBar" alignment="0" pref="530" max="32767" attributes="2"/>
+                  <Component id="progressBar" alignment="0" pref="510" max="32767" attributes="2"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonChooseDirectories" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -68,9 +68,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoCurrentFilename" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCurrentFilename" pref="446" max="32767" attributes="0"/>
+                      <Component id="labelCurrentFilename" pref="412" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="labelHeadingListDirectories" alignment="0" pref="530" max="32767" attributes="1"/>
+                  <Component id="labelHeadingListDirectories" alignment="0" pref="510" max="32767" attributes="1"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
