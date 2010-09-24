@@ -141,7 +141,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
         copyFiles.addProgressListener(this);
         copyFiles.addProgressListener(pBarUpdater);
-        copyFiles.run();    // No separate thread!
+        copyFiles.run();    // run in this thread!
     }
 
     @Override
@@ -197,7 +197,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
                                              progressBarString);
 
         inserter.addProgressListener(pBarUpdater);
-        inserter.run();    // No separate thread!
+        inserter.run();    // run in this thread!
     }
 
     private void insertCopiedFilesAsCollectionIntoDb() {

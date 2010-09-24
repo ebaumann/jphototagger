@@ -70,7 +70,6 @@ public final class ActionsMenuUpdater
                         PopupMenuThumbnails.INSTANCE.getMenuActions();
 
                     ActionsHelper.removeAction(actionMenu, program);
-                    setMenuItemEnabled();
                 }
             });
         }
