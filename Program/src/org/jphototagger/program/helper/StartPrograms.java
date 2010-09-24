@@ -293,7 +293,7 @@ public final class StartPrograms {
                     new InsertImageFilesIntoDatabase(imageFiles,
                         Insert.OUT_OF_DATE);
 
-                updater.run();    // no subsequent thread
+                updater.run();    // run in this thread!
             }
         }
     }

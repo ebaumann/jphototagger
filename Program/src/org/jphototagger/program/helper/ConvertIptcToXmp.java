@@ -107,7 +107,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
             new InsertImageFilesIntoDatabase(Arrays.asList(imageFile),
                 Insert.XMP);
 
-        insert.run();    // Shall run in this thread!
+        insert.run();    // run in this thread!
     }
 
     private void checkCancel(ProgressEvent event) {

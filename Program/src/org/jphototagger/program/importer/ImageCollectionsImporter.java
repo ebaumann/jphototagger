@@ -149,7 +149,7 @@ public final class ImageCollectionsImporter implements Importer {
                     inserter,
                     JptBundle.INSTANCE.getString(
                         "ImageCollectionsImporter.ProgressBar.String")));
-            inserter.run();    // Not as thread!
+            inserter.run();    // run in this thread!
         }
     }
 }

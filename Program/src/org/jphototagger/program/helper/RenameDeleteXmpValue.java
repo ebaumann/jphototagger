@@ -182,7 +182,7 @@ public final class RenameDeleteXmpValue {
                             XmpMetadata.suggestSidecarFile(imageFile))) {
                         new InsertImageFilesIntoDatabase(
                             Collections.singletonList(imageFile),
-                            Insert.XMP).run();    // No separate thread!
+                            Insert.XMP).run();    // run in this thread!
                     }
                 }
 

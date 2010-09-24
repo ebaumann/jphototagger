@@ -67,7 +67,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
                     Insert.OUT_OF_DATE);
 
             if (wait) {
-                inserter.run();    // Do not start a thread!
+                inserter.run();    // run in this thread!
             } else {
                 UserTasks.INSTANCE.add(inserter);
             }

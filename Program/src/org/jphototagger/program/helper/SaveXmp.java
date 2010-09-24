@@ -103,7 +103,7 @@ public final class SaveXmp extends Thread implements Cancelable {
             new InsertImageFilesIntoDatabase(Arrays.asList(imageFile),
                 Insert.XMP);
 
-        updater.run();    // Starting not a separate thread
+        updater.run();    // run in this thread!
     }
 
     private void getProgressBar() {

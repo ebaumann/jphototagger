@@ -181,7 +181,7 @@ public class DatabaseUpdatePanel extends JPanel
 
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
-            new InsertKeywords(keywords).run();    // Run not as thread
+            new InsertKeywords(keywords).run();    // run in this thread!
             MessageDisplayer.information(
                 this, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
             setEnabledAllButtons(true);
