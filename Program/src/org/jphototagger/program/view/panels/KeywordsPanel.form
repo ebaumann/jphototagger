@@ -47,7 +47,6 @@
                   <Connection code="new org.jphototagger.program.view.renderer.TreeCellRendererKeywords()" type="code"/>
                 </Property>
                 <Property name="dragEnabled" type="boolean" value="true"/>
-                <Property name="rootVisible" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="tree.setShowsRootHandles(true);"/>

@@ -70,7 +70,7 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
             popupMenu.setTree(tree);
             setTreePathsToPopupMenu(tree, mouseCursorPath);
             setMenuItemsEnabled(isHkNode);
-            popupMenu.getItemAdd().setEnabled(mouseCursorPath != null);
+            //popupMenu.getItemAdd().setEnabled(mouseCursorPath != null);
             popupMenu.show(tree, evt.getX(), evt.getY());
         }
     }
