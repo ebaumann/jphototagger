@@ -186,7 +186,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new org.jphototagger.program.view.renderer.TreeCellRendererKeywords());
         tree.setDragEnabled(true);
-        tree.setRootVisible(false);
         scrollPaneTree.setViewportView(tree);
         tree.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree());
 

@@ -4,6 +4,12 @@ Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
 
+0.8.47 2010-09-24
+-----------------
+
+* Stichwortbaum rechts: Wurzel wird angezeigt, damit wieder neue Stichwörter
+  direkt unterhalb der Wurzel angelegt werden können
+
 0.8.46 2010-09-19
 -----------------
 
