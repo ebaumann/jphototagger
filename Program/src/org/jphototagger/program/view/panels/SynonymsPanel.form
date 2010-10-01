@@ -100,54 +100,53 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneListWords" pref="208" max="32767" attributes="2"/>
-                          <Component id="scrollPaneTextAreaWords" alignment="1" pref="208" max="32767" attributes="0"/>
-                          <Component id="labelListWords" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonAddAllKeywords" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="buttonAddWord" linkSize="5" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonRemoveWord" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonChangeWord" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelListWords" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="scrollPaneListWords" alignment="0" pref="207" max="32767" attributes="2"/>
+                              <Component id="scrollPaneTextAreaWords" alignment="0" min="0" pref="207" max="32767" attributes="2"/>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="buttonAddWord" linkSize="5" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="buttonRemoveWord" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonChangeWord" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="labelTextAreaWord" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelTextAreaWord" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="buttonAddAllKeywords" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneListSynonyms" pref="214" max="32767" attributes="2"/>
-                          <Component id="textFieldSynonyms" alignment="1" pref="214" max="32767" attributes="2"/>
                           <Component id="labelListSynonyms" min="-2" max="-2" attributes="0"/>
+                          <Component id="scrollPaneListSynonyms" alignment="0" pref="207" max="32767" attributes="2"/>
+                          <Component id="textFieldSynonyms" alignment="0" pref="207" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="buttonAddSynonym" linkSize="5" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonChangeSynonym" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonRemoveSynonym" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonAddSynonym" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelTextFieldSynonym" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="labelInfoAddSynonym" min="-2" pref="236" max="-2" attributes="0"/>
-                      <EmptySpace pref="43" max="32767" attributes="1"/>
-                  </Group>
+                  <Component id="labelTextFieldSynonym" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelInfoAddSynonym" pref="233" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -167,34 +166,40 @@
                       <Component id="labelListWords" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonAddWord" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldSynonyms" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="textFieldSynonyms" linkSize="10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelListSynonyms" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="buttonAddSynonym" linkSize="6" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonAddWord" linkSize="6" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="buttonRemoveSynonym" linkSize="6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonChangeSynonym" linkSize="6" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <Component id="buttonRemoveWord" linkSize="6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonChangeWord" linkSize="6" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="scrollPaneListWords" alignment="0" pref="186" max="32767" attributes="2"/>
-                  <Component id="scrollPaneListSynonyms" alignment="0" pref="186" max="32767" attributes="2"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="labelInfoAddSynonym" pref="25" max="32767" attributes="1"/>
-                  <Component id="buttonAddAllKeywords" alignment="0" max="32767" attributes="1"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="scrollPaneListWords" pref="194" max="32767" attributes="2"/>
+                          <Component id="scrollPaneListSynonyms" alignment="1" pref="194" max="32767" attributes="2"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="buttonRemoveSynonym" linkSize="6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonChangeSynonym" linkSize="6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelInfoAddSynonym" min="-2" pref="24" max="-2" attributes="2"/>
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="buttonAddAllKeywords" alignment="0" min="-2" max="-2" attributes="1"/>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
