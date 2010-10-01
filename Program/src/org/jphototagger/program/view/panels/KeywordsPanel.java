@@ -34,6 +34,8 @@ import java.awt.Container;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
+import org.jphototagger.program.model.ListModelWait;
+import org.jphototagger.program.model.TreeModelWait;
 
 /**
  * A tree for keywords.
@@ -182,8 +184,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         panelTree.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree.setModel(TreeModelWait.INSTANCE);
         tree.setCellRenderer(new org.jphototagger.program.view.renderer.TreeCellRendererKeywords());
         tree.setDragEnabled(true);
         scrollPaneTree.setViewportView(tree);
@@ -237,6 +238,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         panelList.setLayout(new java.awt.GridBagLayout());
 
+        list.setModel(ListModelWait.INSTANCE);
         list.setCellRenderer(new ListCellRendererKeywords());
         list.setDragEnabled(true);
         scrollPaneList.setViewportView(list);
