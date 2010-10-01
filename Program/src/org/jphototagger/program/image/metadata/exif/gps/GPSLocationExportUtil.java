@@ -174,14 +174,14 @@ public final class GPSLocationExportUtil {
         fileChooser.setFileFilter(exporter.getFileFilter());
         fileChooser.setConfirmOverwrite(true);
         fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.setAddedFilenameExtension(exporter.getFilenameExtension());
+        fileChooser.setSaveFilenameExtension(exporter.getFilenameExtension());
 
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
 
             setCurrentDir(file);
 
-            return FileUtil.ensureSuffix(file, exporter.getFilenameExtension());
+            return file;
         }
 
         return null;
