@@ -21,7 +21,6 @@
 
 package org.jphototagger.lib.io;
 
-import org.jphototagger.lib.io.FileUtil;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,8 +51,6 @@ public class FileUtilTest {
      */
     @Test
     public void testGetIndexOf() {
-        System.out.println("getIndexOf");
-
         byte[] search = {
             0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62,
             0x65, 0x67, 0x69, 0x6E, 0x3D

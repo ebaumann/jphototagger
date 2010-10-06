@@ -21,21 +21,24 @@
 
 package org.jphototagger.program.tasks;
 
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLifeCycle.FinalTaskListener;
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.helper.BackupDatabase;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.helper.BackupDatabase;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -43,19 +46,16 @@ import java.util.Date;
  * @author Elmar Baumann
  */
 public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
-    public static final String                       CHARSET_INFO_FILE    =
-        "ASCII";
-    private static final String                      DATE_FORMAT          =
-        "yyyy-MM-dd";
-    private static final String                      FILENAME_LAST_BACKUP =
+    public static final String                      CHARSET_INFO_FILE = "ASCII";
+    private static final String                     DATE_FORMAT = "yyyy-MM-dd";
+    private static final String                     FILENAME_LAST_BACKUP =
         "LastBackup";
-    private static final long                        MILLISECONDS_PER_DAY =
+    private static final long                       MILLISECONDS_PER_DAY =
         86400000;
-    public static final ScheduledTaskBackupDatabase INSTANCE             =
+    public static final ScheduledTaskBackupDatabase INSTANCE =
         new ScheduledTaskBackupDatabase();
 
-    private ScheduledTaskBackupDatabase() {
-    }
+    private ScheduledTaskBackupDatabase() {}
 
     public enum Interval {
         PER_SESSION(
@@ -90,6 +90,7 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
                     return interval;
                 }
             }
+
             return null;
         }
 
@@ -163,8 +164,17 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
 
     // Whole days ellapsed
     private static long getDaysEllapsed(File infoFile) {
-        String dateString = FileUtil.getFileContentAsString(infoFile,
-                                CHARSET_INFO_FILE);
+        String dateString = null;
+
+        try {
+            dateString = FileUtil.getContentAsString(infoFile,
+                    CHARSET_INFO_FILE);
+        } catch (IOException ex) {
+            Logger.getLogger(ScheduledTaskBackupDatabase.class.getName()).log(
+                Level.SEVERE, null, ex);
+
+            return -1;
+        }
 
         if (dateString == null) {
             return -1;

@@ -62,7 +62,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        File xmpFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmpFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
             Set<UserDefinedFileFilter> filter =

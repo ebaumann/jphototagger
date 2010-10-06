@@ -22,6 +22,7 @@
 package org.jphototagger.lib.dialog;
 
 import java.awt.HeadlessException;
+import java.io.IOException;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.model.TableModelLogfiles;
 import org.jphototagger.lib.renderer.TableCellRendererLogfileDialog;
@@ -157,9 +158,13 @@ public final class LogfileDialog extends Dialog
             == paneIndexOfFormatterClass.get(SimpleFormatter.class);
 
         if (simple) {
-            textAreaSimple.setText(
-                FileUtil.getFileContentAsString(
-                    new File(logfilename), "UTF-8"));
+            try {
+                textAreaSimple.setText(FileUtil.getContentAsString(
+                        new File(logfilename), "UTF-8"));
+            } catch (IOException ex) {
+                Logger.getLogger(LogfileDialog.class.getName())
+                        .log(Level.SEVERE, null, ex);
+            }
         } else {
             readLogfileRecords();
             setTable();
@@ -422,8 +427,13 @@ public final class LogfileDialog extends Dialog
 
     private void readSimple() {
         selectPane();
-        textAreaSimple.setText(
-            FileUtil.getFileContentAsString(new File(logfilename), "UTF-8"));
+        try {
+            textAreaSimple.setText(FileUtil.getContentAsString(
+                    new File(logfilename), "UTF-8"));
+        } catch (IOException ex) {
+            Logger.getLogger(LogfileDialog.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
     }
 
     private void readXml() {

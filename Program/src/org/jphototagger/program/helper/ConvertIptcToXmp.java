@@ -21,6 +21,9 @@
 
 package org.jphototagger.program.helper;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Iptc;
@@ -82,7 +85,13 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
             Iptc iptc      = IptcMetadata.getIptc(imageFile);
 
             if (iptc != null) {
-                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                Xmp xmp = null;
+                try {
+                    xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                } catch (IOException ex) {
+                    Logger.getLogger(ConvertIptcToXmp.class.getName())
+                            .log(Level.SEVERE, null, ex);
+                }
 
                 if (xmp == null) {
                     xmp = new Xmp();

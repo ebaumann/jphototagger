@@ -62,11 +62,11 @@ public final class AutoscanDirectoriesExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
             List<String> directories =
-                FileUtil.getAsFilenames(
+                FileUtil.getAbsolutePathnames(
                     DatabaseAutoscanDirectories.INSTANCE.getAll());
 
             XmlObjectExporter.export(

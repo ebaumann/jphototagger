@@ -56,6 +56,7 @@ import org.jphototagger.program.io.RuntimeUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -153,9 +154,11 @@ public final class XmpMetadata {
      * @param sidecarFile sidecar file. Can be null.
      * @return            Metadata or null if the sidecar file is null or on
      *                    errors while reading
+     * @throws IOException
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfSidecarFile(
-            File sidecarFile) {
+            File sidecarFile)
+            throws IOException {
         if ((sidecarFile == null) ||!sidecarFile.exists()) {
             return null;
         }
@@ -282,7 +285,8 @@ public final class XmpMetadata {
         return XmpFileReader.readFile(imageFile);
     }
 
-    private static String getXmpAsStringOfSidecarFile(File sidecarFile) {
+    private static String getXmpAsStringOfSidecarFile(File sidecarFile)
+            throws IOException {
         if ((sidecarFile == null) ||!sidecarFile.exists()) {
             return null;
         }
@@ -290,7 +294,7 @@ public final class XmpMetadata {
         AppLogger.logInfo(XmpMetadata.class,
                           "XmpMetadata.Info.ReadSidecarFile", sidecarFile);
 
-        return FileUtil.getFileContentAsString(sidecarFile, "UTF-8");
+        return FileUtil.getContentAsString(sidecarFile, "UTF-8");
     }
 
     /**
@@ -421,9 +425,9 @@ public final class XmpMetadata {
     }
 
     private static XMPMeta getXmpMetaOfSidecarFile(File sidecarFile)
-            throws XMPException {
+            throws XMPException, IOException {
         if (sidecarFile.exists()) {
-            String xmp = FileUtil.getFileContentAsString(sidecarFile, "UTF-8");
+            String xmp = FileUtil.getContentAsString(sidecarFile, "UTF-8");
 
             if ((xmp != null) &&!xmp.trim().isEmpty()) {
                 return XMPMetaFactory.parseFromString(xmp);
@@ -496,7 +500,8 @@ public final class XmpMetadata {
                                             trimmedValue)) {
                         toXmpMeta.appendArrayItem(
                             namespaceUri, arrayName,
-                            getArrayPropertyOptionsOf(column), trimmedValue, null);
+                            getArrayPropertyOptionsOf(column), trimmedValue,
+                            null);
                     }
                 }
             } else if (xmpValue instanceof Long) {
@@ -598,8 +603,10 @@ public final class XmpMetadata {
      *
      * @param  imageFile image file or null
      * @return           XMP metadata of the image file or null
+     * @throws           IOException
      */
-    public static Xmp getXmpFromSidecarFileOf(File imageFile) {
+    public static Xmp getXmpFromSidecarFileOf(File imageFile)
+            throws IOException {
         if ((imageFile == null) ||!hasImageASidecarFile(imageFile)) {
             return null;
         }

@@ -21,28 +21,32 @@
 
 package org.jphototagger.program.helper;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 
+import java.awt.EventQueue;
+
 import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import org.jphototagger.program.io.ImageUtil;
 
 /**
  *
@@ -66,7 +70,14 @@ public final class MiscMetadataHelper {
 
         for (File imageFile : imageFiles) {
             if (imageFile.exists() && ImageUtil.checkImageEditable(imageFile)) {
-                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                Xmp xmp = null;
+
+                try {
+                    xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                } catch (IOException ex) {
+                    Logger.getLogger(MiscMetadataHelper.class.getName()).log(
+                        Level.SEVERE, null, ex);
+                }
 
                 if (xmp == null) {
                     xmp = new Xmp();
@@ -241,8 +252,8 @@ public final class MiscMetadataHelper {
     }
 
     private static DefaultTreeModel getModel() {
-        return (DefaultTreeModel) GUI.getAppPanel()
-            .getTreeMiscMetadata().getModel();
+        return (DefaultTreeModel) GUI.getAppPanel().getTreeMiscMetadata()
+            .getModel();
     }
 
     /**

@@ -112,7 +112,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     }
 
     private static List<File> getAllSubdirectories(File directory) {
-        return FileUtil.getSubdirectoriesRecursive(directory,
+        return FileUtil.getSubDirsRecursive(directory,
                 UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
     }
 

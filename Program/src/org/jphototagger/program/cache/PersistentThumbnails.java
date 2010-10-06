@@ -93,7 +93,7 @@ public final class PersistentThumbnails {
             AppLogger.logSevere(PersistentThumbnails.class, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, PersistentThumbnails.class);
-            FileUtil.closeStream(fos);
+            FileUtil.close(fos);
         }
     }
 
@@ -152,7 +152,7 @@ public final class PersistentThumbnails {
         } catch (Exception ex) {
             AppLogger.logSevere(PersistentThumbnails.class, ex);
         } finally {
-            FileUtil.closeStream(fis);
+            FileUtil.close(fis);
         }
 
         return thumbnail;

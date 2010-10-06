@@ -208,9 +208,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             allDirs.add(dir);
 
             if (includeSubDirs) {
-                allDirs.addAll(FileUtil
-                    .getSubdirectoriesRecursive(dir, UserSettings.INSTANCE
-                        .getDirFilterOptionShowHiddenFiles()));
+                allDirs.addAll(FileUtil.getSubDirsRecursive(dir,
+                    UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
             }
         }
 

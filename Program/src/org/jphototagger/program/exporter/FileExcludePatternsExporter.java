@@ -60,7 +60,7 @@ public final class FileExcludePatternsExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
             List<String> patterns =

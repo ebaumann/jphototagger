@@ -37,9 +37,12 @@ import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Renames or deletes values in XMP sidecar files.
@@ -173,7 +176,14 @@ public final class RenameDeleteXmpValue {
                     break;
                 }
 
-                Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                Xmp xmp = null;
+
+                try {
+                    xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                } catch (IOException ex) {
+                    Logger.getLogger(RenameDeleteXmpValue.class.getName()).log(
+                        Level.SEVERE, null, ex);
+                }
 
                 if (xmp != null) {
                     rename(xmp);

@@ -104,7 +104,7 @@ public final class ImageFileFilterer {
         }
 
         List<File> dirAndSubdirs =
-            FileUtil.getSubdirectoriesRecursive(dir,
+            FileUtil.getSubDirsRecursive(dir,
                 UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
         dirAndSubdirs.add(dir);
