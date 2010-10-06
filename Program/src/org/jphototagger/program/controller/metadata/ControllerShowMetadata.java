@@ -46,6 +46,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.EventQueue;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,6 +55,8 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Map;
 import java.util.Set;
 
@@ -393,11 +396,17 @@ public final class ControllerShowMetadata
             File                  sidecarFile =
                 XmpMetadata.getSidecarFile(imageFile);
 
-            allInfos = (sidecarFile != null)
-                       ? XmpMetadata.getPropertyInfosOfSidecarFile(sidecarFile)
-                       : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                         ? XmpMetadata.getEmbeddedPropertyInfos(imageFile)
-                         : null;
+            try {
+                allInfos = (sidecarFile != null)
+                           ? XmpMetadata.getPropertyInfosOfSidecarFile(
+                               sidecarFile)
+                           : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                             ? XmpMetadata.getEmbeddedPropertyInfos(imageFile)
+                             : null;
+            } catch (IOException ex) {
+                Logger.getLogger(ControllerShowMetadata.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            }
 
             if (allInfos != null) {
                 for (TableModelXmp model :

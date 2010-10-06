@@ -176,7 +176,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
 
                     break;
                 } finally {
-                    FileUtil.closeStream(is);
+                    FileUtil.close(is);
                 }
             }
 

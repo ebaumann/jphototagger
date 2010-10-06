@@ -206,11 +206,8 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             directories.add(directory);
 
             if (checkBoxIncludeSubdirectories.isSelected()) {
-                directories
-                    .addAll(FileUtil
-                        .getSubdirectoriesRecursive(directory,
-                            UserSettings.INSTANCE
-                                .getDirFilterOptionShowHiddenFiles()));
+                directories.addAll(FileUtil.getSubDirsRecursive(directory,
+                    UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
             }
 
             return ImageFileFilterer.getImageFilesOfDirectories(

@@ -163,7 +163,7 @@ public final class GPSLocationExportUtil {
                                        "GPSLocationExportUtil.Error.Export",
                                        exportFile);
             } finally {
-                FileUtil.closeStream(fos);
+                FileUtil.close(fos);
             }
         }
     }

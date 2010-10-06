@@ -62,12 +62,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Set;
 import java.util.Stack;
 
@@ -194,7 +197,12 @@ public final class EditMetadataPanels
             Xmp xmp = null;
 
             if (XmpMetadata.hasImageASidecarFile(imageFile)) {
-                xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                try {
+                    xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                } catch (IOException ex) {
+                    Logger.getLogger(EditMetadataPanels.class.getName()).log(
+                        Level.SEVERE, null, ex);
+                }
             }
 
             if (xmp == null) {

@@ -92,7 +92,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
                 sourceDirectories.add(srcDir);
                 sourceDirectories.addAll(
-                    FileUtil.getSubdirectoriesRecursive(srcDir));
+                    FileUtil.getSubDirsRecursive(srcDir));
 
                 List<File> sourceImageFiles =
                     ImageFileFilterer.getImageFilesOfDirectories(

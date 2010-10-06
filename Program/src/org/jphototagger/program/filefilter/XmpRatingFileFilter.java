@@ -21,6 +21,9 @@
 
 package org.jphototagger.program.filefilter;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
@@ -60,7 +63,13 @@ public final class XmpRatingFileFilter implements FileFilter {
             throw new NullPointerException("imageFile == null");
         }
 
-        Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+        Xmp xmp = null;
+        try {
+            xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+        } catch (IOException ex) {
+            Logger.getLogger(XmpRatingFileFilter.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
 
         if (xmp == null) {
             return false;

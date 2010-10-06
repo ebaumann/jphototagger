@@ -62,7 +62,7 @@ public final class RenameTemplatesExporter implements Exporter {
             throw new NullPointerException("file == null");
         }
 
-        File xmlFile = FileUtil.getWithSuffixIgnoreCase(file, ".xml");
+        File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
             Set<RenameTemplate> templates =

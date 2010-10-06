@@ -96,7 +96,7 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringCollection(
-            FileUtil.getAsFilenames(GUI.getSelectedImageFiles()),
+            FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()),
             KEY_SELECTED_FILES);
         UserSettings.INSTANCE.writeToFile();
     }

@@ -33,10 +33,13 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Sets EXIF metadata to XMP whithout time stamp check, currently only the date
@@ -135,7 +138,14 @@ public final class SetExifToXmp extends HelperThread {
         }
 
         Exif exif = ExifMetadata.getExif(imgFile);
-        Xmp  xmp  = XmpMetadata.getXmpFromSidecarFileOf(imgFile);
+        Xmp  xmp  = null;
+
+        try {
+            xmp = XmpMetadata.getXmpFromSidecarFileOf(imgFile);
+        } catch (IOException ex) {
+            Logger.getLogger(SetExifToXmp.class.getName()).log(Level.SEVERE,
+                             null, ex);
+        }
 
         if (xmp == null) {
             xmp = new Xmp();

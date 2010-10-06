@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.helper;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
@@ -46,7 +45,10 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 
+import java.awt.EventQueue;
+
 import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +56,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JList;
 import javax.swing.JTree;
@@ -171,7 +175,14 @@ public final class KeywordsHelper {
             return;
         }
 
-        Xmp xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+        Xmp xmp = null;
+
+        try {
+            xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+        } catch (IOException ex) {
+            Logger.getLogger(KeywordsHelper.class.getName()).log(Level.SEVERE,
+                             null, ex);
+        }
 
         if (xmp == null) {
             xmp = new Xmp();
@@ -359,10 +370,9 @@ public final class KeywordsHelper {
     }
 
     private static List<JTree> getKeywordTrees() {
-        return Arrays.<JTree>asList(
-            GUI.getAppPanel().getTreeEditKeywords(),
-            GUI.getAppPanel().getTreeSelKeywords(),
-            InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
+        return Arrays.<JTree>asList(GUI.getAppPanel().getTreeEditKeywords(),
+                       GUI.getAppPanel().getTreeSelKeywords(),
+                       InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
     public static void selectInSelKeywordsList(final List<Integer> indices) {
@@ -373,8 +383,7 @@ public final class KeywordsHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JList selKeywordsList =
-                    GUI.getAppPanel().getListSelKeywords();
+                JList selKeywordsList = GUI.getAppPanel().getListSelKeywords();
 
                 selKeywordsList.clearSelection();
                 GUI.getAppPanel().displaySelKeywordsList(
@@ -480,7 +489,14 @@ public final class KeywordsHelper {
                     index++) {
                 File imageFile   = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
-                Xmp  xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                Xmp  xmp         = null;
+
+                try {
+                    xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                } catch (IOException ex) {
+                    Logger.getLogger(KeywordsHelper.class.getName()).log(
+                        Level.SEVERE, null, ex);
+                }
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
@@ -542,7 +558,14 @@ public final class KeywordsHelper {
                     index++) {
                 File imageFile   = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
-                Xmp  xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                Xmp  xmp         = null;
+
+                try {
+                    xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                } catch (IOException ex) {
+                    Logger.getLogger(KeywordsHelper.class.getName()).log(
+                        Level.SEVERE, null, ex);
+                }
 
                 if (xmp != null) {
                     xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,

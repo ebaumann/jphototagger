@@ -382,7 +382,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         List<File> subdirectories = new ArrayList<File>();
 
         for (File dir : directories) {
-            subdirectories.addAll(FileUtil.getSubdirectoriesRecursive(dir,
+            subdirectories.addAll(FileUtil.getSubDirsRecursive(dir,
                     UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
         }
 

@@ -28,8 +28,11 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Refreshes the XMP metadata of all known imagesfiles whithout time stamp
@@ -58,11 +61,19 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
         for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
-            Xmp  xmp       = XmpMetadata.hasImageASidecarFile(imageFile)
-                             ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
-                             : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                               ? XmpMetadata.getEmbeddedXmp(imageFile)
-                               : null;
+            Xmp  xmp       = null;
+
+            try {
+                xmp = XmpMetadata.hasImageASidecarFile(imageFile)
+                      ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
+                      : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                        ? XmpMetadata.getEmbeddedXmp(imageFile)
+                        : null;
+            } catch (IOException ex) {
+                Logger.getLogger(
+                    RefreshXmpInDbOfKnownFiles.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            }
 
             if (xmp != null) {
                 db.insertOrUpdateXmp(imageFile, xmp);
