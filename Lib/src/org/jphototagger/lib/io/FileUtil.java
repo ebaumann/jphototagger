@@ -21,7 +21,12 @@
 
 package org.jphototagger.lib.io;
 
+import org.jphototagger.lib.dialog.FileChooserExt;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.util.Settings;
+
+import java.awt.Component;
+import java.awt.Dimension;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -38,11 +43,15 @@ import java.net.URL;
 import java.nio.channels.FileChannel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Properties;
 import java.util.Stack;
+
+import javax.swing.JFileChooser;
 
 /**
  * Utilities for Files.
@@ -1053,5 +1062,331 @@ public final class FileUtil {
         }
 
         return new File(file.getPath() + suffix);
+    }
+
+    /**
+     * Properties for using a {@link FileChooserExt}.
+     *
+     * @author Elmar Baumann
+     */
+    public static final class FileChooserProperties {
+        private String                             propertyKeyPrefix;
+        private Properties                         properties;
+        private Component                          parent;
+        private String                             currentDirectoryPath;
+        private String                             dialogTitle;
+        private javax.swing.filechooser.FileFilter fileFilter;
+        private boolean                            multiSelectionEnabled;
+        private boolean                            open;
+        private boolean                            confirmOverwrite;
+        private String                             saveFilenameExtension;
+
+        /**
+         * Sets the prefix of the key for storing size and current directory
+         * path in {@link #getProperties()}.
+         *
+         * @param  propertyKeyPrefix prefix or null
+         * @return                   this instance (for cascade settings)
+         */
+        public FileChooserProperties propertyKeyPrefix(
+                String propertyKeyPrefix) {
+            this.propertyKeyPrefix = propertyKeyPrefix;
+
+            return this;
+        }
+
+        /**
+         * Sets the properties for applying and storing size and current
+         * directory path.
+         *
+         * @param  properties properties or null
+         * @return            this instance (for cascade settings)
+         */
+        public FileChooserProperties properties(Properties properties) {
+            this.properties = properties;
+
+            return this;
+        }
+
+        /**
+         * Sets the parent component of the file chooser dialog.
+         *
+         * @param  parent parent component or null
+         * @return        this instance (for cascade settings)
+         */
+        public FileChooserProperties parent(Component parent) {
+            this.parent = parent;
+
+            return this;
+        }
+
+        /**
+         * Sets the path of the directory to display in the file chooser.
+         *
+         * @param  currentDirectoryPath directory path or null
+         * @return                      this instance (for cascade settings)
+         */
+        public FileChooserProperties currentDirectoryPath(
+                String currentDirectoryPath) {
+            this.currentDirectoryPath = currentDirectoryPath;
+
+            return this;
+        }
+
+        /**
+         * Sets the dialog title of the file chooser.
+         *
+         * @param  dialogTitle dialog title or null
+         * @return             this instance (for cascade settings)
+         */
+        public FileChooserProperties dialogTitle(String dialogTitle) {
+            this.dialogTitle = dialogTitle;
+
+            return this;
+        }
+
+        /**
+         * Sets the file filter for the file chooser.
+         *
+         * @param  fileFilter file filter or null
+         * @return            this instance (for cascade settings)
+         */
+        public FileChooserProperties fileFilter(
+                javax.swing.filechooser.FileFilter fileFilter) {
+            this.fileFilter = fileFilter;
+
+            return this;
+        }
+
+        /**
+         * Sets whether the user can select multiple files.
+         *
+         * @param  multiSelectionEnabled true if the user can select multiple
+         *                               files.
+         *                               Default: false.
+         * @return                       this instance (for cascade settings)
+         */
+        public FileChooserProperties multiSelectionEnabled(
+                boolean multiSelectionEnabled) {
+            this.multiSelectionEnabled = multiSelectionEnabled;
+
+            return this;
+        }
+
+        /**
+         * Sets whether an open or save dialog shall be displayed.
+         *
+         * @param  open true if an open dialog shall be displayed and false, if
+         *              a save dialog shall be displayed.
+         *              Default: false (save mode).
+         * @return      this instance (for cascade settings)
+         */
+        public FileChooserProperties open(boolean open) {
+            this.open = open;
+
+            return this;
+        }
+
+        /**
+         * Sets whether a user has to confirm overwriting existing files in save
+         * mode.
+         *
+         * @param  confirmOverwrite true if the user has to confirm overwriting
+         *                          existing files in save mode
+         * @return                  this instance (for cascade settings)
+         * @see    FileChooserExt#saveFilenameExtension(java.lang.String)
+         */
+        public FileChooserProperties confirmOverwrite(
+                boolean confirmOverwrite) {
+            this.confirmOverwrite = confirmOverwrite;
+
+            return this;
+        }
+
+        /**
+         * Sets in save mode a file extension which sall be added to files if
+         * the user didn't input that extension.
+         *
+         * @param   saveFilenameExtension extension, e.g. <code>".txt"</code>
+         * @return                        this instance (for cascade settings)
+         * @see     FileChooserExt#saveFilenameExtension(java.lang.String)
+         */
+        public FileChooserProperties saveFilenameExtension(
+                String saveFilenameExtension) {
+            this.saveFilenameExtension = saveFilenameExtension;
+
+            return this;
+        }
+    }
+
+    /**
+     * Displays a {@link FileChooserExt} for choosing files to open or save.
+     * <p>
+     * If <code>fcProperties</code> containing a {@link Properties} object and
+     * a key prefix, the size and current directory of the file chooser will be
+     * applied before displaying the file chooser and written into the
+     * properties object after displaying the file chooser.
+     * <p>
+     * <strong>Example:</strong>
+     * <pre>
+     * Properties            props = new Properties();
+     * FileChooserProperties p     =
+     *          new FileChooserProperties()
+     *              .properties(props)
+     *              .propertyKeyPrefix("SaveMyDoc")
+     *              .dialogTitle("Saving my document")
+     *              .confirmOverwrite(true)
+     *              ;
+     *  System.out.println("Files: " + chooseFiles(p));
+     * </pre>
+     *
+     * @param  fcProperties properties or null. If null, an open dialog will be
+     *                      displayed.
+     * @return              selected files or empty list
+     */
+    public static List<File> chooseFiles(FileChooserProperties fcProperties) {
+        List<File>     files = new ArrayList<File>();
+        FileChooserExt fc    = getFileChooser(fcProperties);
+
+        applySize(fc, fcProperties);
+
+        boolean open = isOpen(fcProperties);
+
+        if (open && open(fc, fcProperties)) {
+            files.addAll(Arrays.asList(fc.getSelectedFiles()));
+        } else if (!open && save(fc, fcProperties)) {
+            files.addAll(Arrays.asList(fc.getSelectedFiles()));
+        }
+
+        writeSize(fc, fcProperties);
+        writeCurrentDirectoryPath(files, fcProperties);
+
+        return files;
+    }
+
+    private static boolean open(JFileChooser fc, FileChooserProperties p) {
+        return fc.showOpenDialog(getParent(p)) == JFileChooser.APPROVE_OPTION;
+    }
+
+    private static boolean save(JFileChooser fc, FileChooserProperties p) {
+        return fc.showSaveDialog(getParent(p)) == JFileChooser.APPROVE_OPTION;
+    }
+
+    private static FileChooserExt getFileChooser(FileChooserProperties p) {
+        FileChooserExt fc = new FileChooserExt(getCurrentDirectoryPath(p));
+
+        if (p != null) {
+            if (p.dialogTitle != null) {
+                fc.setDialogTitle(p.dialogTitle);
+            }
+
+            if (p.fileFilter != null) {
+                fc.setFileFilter(p.fileFilter);
+            }
+
+            if (p.saveFilenameExtension != null) {
+                fc.setSaveFilenameExtension(p.saveFilenameExtension);
+            }
+
+            fc.setMultiSelectionEnabled(p.multiSelectionEnabled);
+            fc.setConfirmOverwrite(p.confirmOverwrite);
+        }
+
+        return fc;
+    }
+
+    private static Component getParent(FileChooserProperties p) {
+        return (p == null)
+               ? null
+               : p.parent;
+    }
+
+    private static boolean isOpen(FileChooserProperties p) {
+        return (p == null)
+               ? true
+               : p.open;
+    }
+
+    private static void writeCurrentDirectoryPath(List<File> files,
+            FileChooserProperties p) {
+        if (canWriteProperties(p) &&!files.isEmpty()) {
+            p.properties.setProperty(getKeyCurrentDirectoryPath(p),
+                                     files.get(0).getAbsolutePath());
+        }
+    }
+
+    private static String getCurrentDirectoryPath(FileChooserProperties p) {
+        if (p == null) {
+            return "";
+        }
+
+        if (p.currentDirectoryPath != null) {
+            return p.currentDirectoryPath;
+        }
+
+        if (canWriteProperties(p)) {
+            String dp = p.properties.getProperty(getKeyCurrentDirectoryPath(p));
+
+            if (dp != null) {
+                return dp;
+            }
+        }
+
+        return "";
+    }
+
+    private static String getKeyCurrentDirectoryPath(FileChooserProperties p) {
+        assert canWriteProperties(p);
+
+        return p.propertyKeyPrefix + ".CurrentDirectoryPath";
+    }
+
+    private static void applySize(JFileChooser fc, FileChooserProperties p) {
+        if (canWriteProperties(p)) {
+            Settings settings = new Settings(p.properties);
+            int      width = settings.getInt(p.propertyKeyPrefix
+                                             + Settings.KEY_POSTFIX_WIDTH);
+            int height = settings.getInt(p.propertyKeyPrefix
+                                         + Settings.KEY_POSTFIX_HEIGHT);
+
+            if ((width > 0) && (height > 0)) {
+                fc.setPreferredSize(new Dimension(width, height));
+            }
+        }
+    }
+
+    private static void writeSize(JFileChooser fc, FileChooserProperties p) {
+        if (canWriteProperties(p)) {
+            Settings settings = new Settings(p.properties);
+
+            settings.set(fc.getWidth(),
+                         p.propertyKeyPrefix + Settings.KEY_POSTFIX_WIDTH);
+            settings.set(fc.getHeight(),
+                         p.propertyKeyPrefix + Settings.KEY_POSTFIX_HEIGHT);
+        }
+    }
+
+    private static boolean canWriteProperties(FileChooserProperties p) {
+        return (p != null) && (p.propertyKeyPrefix != null)
+               && (p.properties != null);
+    }
+
+    /**
+     * Calls {@link #chooseFiles(FileChooserProperties)}, where the user can
+     * select only one file.
+     *
+     * @param  fcProperties properties or null
+     * @return              selected file or null if no file has been selected
+     */
+    public static File chooseFile(FileChooserProperties fcProperties) {
+        if (fcProperties != null) {
+            fcProperties.multiSelectionEnabled = false;
+        }
+
+        List<File> files = chooseFiles(fcProperties);
+
+        return files.isEmpty()
+               ? null
+               : files.get(0);
     }
 }
