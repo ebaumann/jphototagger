@@ -198,12 +198,15 @@ public final class FileChooserExt extends JFileChooser {
      * Ensures in Save Mode - if set through
      * {@link #setSaveFilenameExtension(String)} - that all selected files are
      * having the set extension.
+     * <p>
+     * If not {@link #isMultiSelectionEnabled()} and a file was selected that is
+     * in the returned file array.
      *
      * @return selected files
      */
     @Override
     public File[] getSelectedFiles() {
-        File[] selFiles = super.getSelectedFiles();
+        File[] selFiles = getSelFiles();
         int    length   = selFiles.length;
 
         for (int i = 0; i < length; i++) {
@@ -211,6 +214,20 @@ public final class FileChooserExt extends JFileChooser {
         }
 
         return selFiles;
+    }
+
+    private File[] getSelFiles() {
+        if (isMultiSelectionEnabled()) {
+            return super.getSelectedFiles();
+        } else {
+            File selFile = getSelectedFile();
+
+            if (selFile == null) {
+                return new File[0];
+            } else {
+                return new File[] { selFile };
+            }
+        }
     }
 
     /**
