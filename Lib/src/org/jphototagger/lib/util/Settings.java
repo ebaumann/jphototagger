@@ -70,21 +70,21 @@ import javax.swing.tree.TreePath;
  */
 public final class Settings {
     private final Properties    properties;
-    private static final String DOT                                  = ".";
-    private static final String BOOLEAN_FALSE_STRING                 = "0";
-    private static final String BOOLEAN_TRUE_STRING                  = "1";
-    private static final String DELIMITER_NUMBER_ARRAY               = ";";
-    private static final String DELIMITER_ARRAY_KEYS                 = DOT;
-    private static final String TREE_PATH_SEPARATOR                  = "|";
+    public static final String  BOOLEAN_FALSE_STRING   = "0";
+    public static final String  BOOLEAN_TRUE_STRING    = "1";
+    private static final String DOT                    = ".";
+    private static final String DELIMITER_NUMBER_ARRAY = ";";
+    private static final String DELIMITER_ARRAY_KEYS   = DOT;
+    public static final String  TREE_PATH_SEPARATOR    = "|";
     private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X =
         ".ViewportViewPositionX";
     private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y =
         ".ViewportViewPositionY";
     private static final String KEY_APPENDIX_SELECTED  = "-selected";
-    private static final String POSTFIX_KEY_WIDTH      = ".Width";
-    private static final String POSTFIX_KEY_HEIGHT     = ".Height";
-    private static final String POSTFIX_KEY_LOCATION_X = ".LocationX";
-    private static final String POSTFIX_KEY_LOCATION_Y = ".LocationY";
+    public static final String  KEY_POSTFIX_WIDTH      = ".Width";
+    public static final String  KEY_POSTFIX_HEIGHT     = ".Height";
+    public static final String  KEY_POSTFIX_LOCATION_X = ".LocationX";
+    public static final String  KEY_POSTFIX_LOCATION_Y = ".LocationY";
 
     public Settings(Properties properties) {
         if (properties == null) {
@@ -126,8 +126,7 @@ public final class Settings {
 
         final Class<? extends Component> clazz         = component.getClass();
         final String                     componentName = clazz.getName();
-        final Field[]                    fields        =
-            clazz.getDeclaredFields();
+        final Field[]                    fields = clazz.getDeclaredFields();
 
         for (int index = 0; index < fields.length; index++) {
             final Field field = fields[index];
@@ -218,8 +217,8 @@ public final class Settings {
 
         while (properties.containsKey(indexedKey)) {
             String   value = properties.getProperty(indexedKey);
-            TreePath path  = TreeUtil.getTreePath(tree.getModel(),
-                                 removeSelToken(value), TREE_PATH_SEPARATOR);
+            TreePath path = TreeUtil.getTreePath(tree.getModel(),
+                                removeSelToken(value), TREE_PATH_SEPARATOR);
 
             if (path != null) {
                 TreeUtil.expandPath(tree, path);
@@ -1007,7 +1006,7 @@ public final class Settings {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-        
+
         return properties.containsKey(key);
     }
 
@@ -1184,19 +1183,19 @@ public final class Settings {
     }
 
     private static String getKeyHeight(String key) {
-        return key + POSTFIX_KEY_HEIGHT;
+        return key + KEY_POSTFIX_HEIGHT;
     }
 
     private static String getKeyWidth(String key) {
-        return key + POSTFIX_KEY_WIDTH;
+        return key + KEY_POSTFIX_WIDTH;
     }
 
     private static String getKeyLocationX(String key) {
-        return key + POSTFIX_KEY_LOCATION_X;
+        return key + KEY_POSTFIX_LOCATION_X;
     }
 
     private static String getKeyLocationY(String key) {
-        return key + POSTFIX_KEY_LOCATION_Y;
+        return key + KEY_POSTFIX_LOCATION_Y;
     }
 
     private String getArrayKeyMatchPattern(String key) {
