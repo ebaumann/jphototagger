@@ -164,6 +164,7 @@ public final class External {
                                  getStream(process, Stream.STANDARD_ERROR));
 
             processDestroyer.processFinished();
+            threadProcessDestroyer.interrupt();
 
             if (processDestroyer.destroyed()) {
                 return null;
@@ -254,9 +255,9 @@ public final class External {
         public void run() {
             try {
                 Thread.sleep(millisecondsWait);
-            } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null,
-                                 ex);
+            } catch (InterruptedException ex) {
+
+                // ignore
             }
 
             if (!processFinished) {
