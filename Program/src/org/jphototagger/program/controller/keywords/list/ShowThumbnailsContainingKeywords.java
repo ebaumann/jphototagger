@@ -35,6 +35,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails with specific keywords.
@@ -66,8 +67,10 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                WaitDisplay.show();
                 setFilesToThumbnailsPanel();
                 setMetadataEditable();
+                WaitDisplay.hide();
             }
         });
     }

@@ -30,6 +30,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -91,9 +92,12 @@ public final class ControllerMiscMetadataItemSelected
 
         @Override
         public void run() {
+            WaitDisplay.show();
+
             Object lastPathComponent = treePath.getLastPathComponent();
 
             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+            WaitDisplay.hide();
         }
 
         private void setFilesOfPossibleNodeToThumbnailsPanel(

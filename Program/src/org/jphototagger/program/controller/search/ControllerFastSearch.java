@@ -44,6 +44,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -168,6 +169,7 @@ public final class ControllerFastSearch
                 String userInput = searchText.trim();
 
                 if (!userInput.isEmpty()) {
+                    WaitDisplay.show();
                     clearSelection();
 
                     List<File> imageFiles = searchFiles(userInput);
@@ -179,6 +181,8 @@ public final class ControllerFastSearch
                         GUI.getThumbnailsPanel().setFiles(imageFiles,
                                                           Content.SAVED_SEARCH);
                     }
+
+                    WaitDisplay.hide();
                 }
             }
             private void setTitle(String userInput) {

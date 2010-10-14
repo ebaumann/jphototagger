@@ -50,10 +50,6 @@ public final class ControllerThumbnailsSelectAllOrNothing
         return PopupMenuThumbnails.INSTANCE.getItemSelectAll();
     }
 
-    private JMenuItem getSelectNothingItem() {
-        return PopupMenuThumbnails.INSTANCE.getItemSelectNothing();
-    }
-
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();

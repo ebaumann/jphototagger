@@ -21,11 +21,12 @@
 
 package org.jphototagger.program.controller.keywords.list;
 
+import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.model.ListModelKeywords;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -70,6 +71,8 @@ public final class ControllerDisplayKeyword extends ControllerKeywords {
             throw new NullPointerException("keywords == null");
         }
 
+        WaitDisplay.show();
+
         ListModel model =
             ModelFactory.INSTANCE.getModel(ListModelKeywords.class);
         List<Integer> indices = ListUtil.getIndicesOfItems(model, keywords);
@@ -77,5 +80,7 @@ public final class ControllerDisplayKeyword extends ControllerKeywords {
         if (!indices.isEmpty()) {
             KeywordsHelper.selectInSelKeywordsList(indices);
         }
+
+        WaitDisplay.hide();
     }
 }

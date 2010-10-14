@@ -39,6 +39,7 @@ import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  *
@@ -81,8 +82,10 @@ public final class ControllerSavedSearchSelected
                 GUI.getSavedSearchesList().getSelectedValue();
 
             if (selectedValue != null) {
+                WaitDisplay.show();
                 searchSelectedValue(selectedValue);
                 setMetadataEditable();
+                WaitDisplay.hide();
             }
         }
 

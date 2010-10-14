@@ -30,6 +30,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -100,6 +101,8 @@ public final class ControllerImageCollectionSelected
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                WaitDisplay.show();
+
                 List<File> imageFiles =
                     DatabaseImageCollections.INSTANCE.getImageFilesOf(
                         collectionName);
@@ -109,6 +112,7 @@ public final class ControllerImageCollectionSelected
                 tnPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
                 tnPanel.setFiles(imageFiles, Content.IMAGE_COLLECTION);
                 tnPanel.apply(settings);
+                WaitDisplay.hide();
             }
             private void setTitle() {
                 GUI.getAppFrame().setTitle(

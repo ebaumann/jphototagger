@@ -27,7 +27,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="checkBoxAutoDownloadCheck" pref="501" max="32767" attributes="0"/>
+                              <Component id="checkBoxAutoDownloadCheck" pref="519" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonCheckDownload" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -41,10 +41,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelIptcCharset" pref="214" max="32767" attributes="2"/>
+                                      <Component id="labelIptcCharset" pref="236" max="32767" attributes="2"/>
                                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="labelLogLevel" max="32767" attributes="2"/>
+                                  <Component id="labelLogLevel" pref="285" max="32767" attributes="2"/>
                               </Group>
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -172,8 +172,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="radioButtonCopyMoveFileRenameIfExists" alignment="0" pref="594" max="32767" attributes="0"/>
-                      <Component id="radioButtonCopyMoveFileConfirmOverwrite" alignment="0" pref="594" max="32767" attributes="0"/>
+                      <Component id="radioButtonCopyMoveFileRenameIfExists" alignment="0" pref="596" max="32767" attributes="0"/>
+                      <Component id="radioButtonCopyMoveFileConfirmOverwrite" alignment="0" pref="596" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

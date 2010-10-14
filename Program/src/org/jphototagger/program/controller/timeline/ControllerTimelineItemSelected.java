@@ -48,6 +48,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  *
@@ -92,9 +93,11 @@ public final class ControllerTimelineItemSelected
                     EventQueue.invokeLater(new Runnable() {
                         @Override
                         public void run() {
+                            WaitDisplay.show();
                             setFilesOfPossibleNodeToThumbnailsPanel(
                                 lastPathComponent);
                             GUI.getThumbnailsPanel().apply(settings);
+                            WaitDisplay.hide();
                         }
                     });
                 }

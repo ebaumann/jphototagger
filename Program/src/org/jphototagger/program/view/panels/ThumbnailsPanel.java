@@ -106,11 +106,17 @@ public class ThumbnailsPanel extends JPanel
     private static final String KEY_THUMBNAIL_WIDTH =
         "ThumbnailsPanel.ThumbnailWidth";
 
+    private static final long serialVersionUID = 1034671645083632578L;
+
     /**
      * Empty space surrounding a thumbnail outside it's border in pixel
      */
     private static final int  MARGIN_THUMBNAIL = 3;
-    private static final long serialVersionUID = 1034671645083632578L;
+
+    /**
+     * Foreground color of this panel
+     */
+    public static final Color COLOR_FOREGROUND_PANEL = Color.WHITE;
 
     /**
      * Background color of this panel
@@ -399,9 +405,9 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public synchronized void thumbnailUpdated(final ThumbnailUpdateEvent event) {
+    public synchronized void thumbnailUpdated(
+            final ThumbnailUpdateEvent event) {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
         int index = getIndexOf(event.getSource());

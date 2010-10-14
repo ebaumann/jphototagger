@@ -21,6 +21,7 @@
 
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -38,6 +39,7 @@ import javax.swing.Icon;
 
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
+import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.factory.ControllerFactory;
 
 /**
@@ -45,12 +47,13 @@ import org.jphototagger.program.factory.ControllerFactory;
  * @author Elmar Baumann
  */
 public final class SettingsMiscPanel extends javax.swing.JPanel
-        implements Persistence {
+        implements Persistence, UserSettingsListener {
     private static final long   serialVersionUID = 479354601163285718L;
 
     public SettingsMiscPanel() {
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
+        UserSettings.INSTANCE.addUserSettingsListener(this);
     }
 
     private File chooseDirectory(File startDirectory) {
@@ -153,6 +156,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     private void checkLogLevel() {
         if (comboBoxLogLevel.getSelectedIndex() < 0) {
             comboBoxLogLevel.setSelectedIndex(0);
+        }
+    }
+
+    @Override
+    public void applySettings(UserSettingsEvent evt) {
+        if (evt.getType().equals(UserSettingsEvent.Type.CHECK_FOR_UPDATES)) {
+            checkBoxAutoDownloadCheck.setSelected(
+                UserSettings.INSTANCE.isAutoDownloadNewerVersions());
         }
     }
 
