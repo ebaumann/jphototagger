@@ -106,7 +106,16 @@ public final class CanonIfd {
         this.entries    = (entryCount > 0)
                           ? new Entry[entryCount]
                           : null;
-        setEntries();
+
+        if (canSetEntries()) {
+            setEntries();
+        }
+    }
+
+    private boolean canSetEntries() {
+        int requiredByteCount = 2 + entryCount * 12;
+
+        return (entryCount > 0) && (rawValue.length >= requiredByteCount);
     }
 
     private static byte[] copy(byte[] bytes) {
@@ -134,11 +143,9 @@ public final class CanonIfd {
             return;
         }
 
-        int requiredByteCount = 2 + entryCount * 12;
+        if (!canSetEntries()) {
+            assert false;
 
-        assert rawValue.length >= requiredByteCount;
-
-        if (rawValue.length < requiredByteCount) {
             return;
         }
 
@@ -156,10 +163,14 @@ public final class CanonIfd {
         }
     }
 
-    private Entry createEntry(byte[] raw) {
-        assert raw.length == 12;
+    private boolean canCreateEntry(byte[] raw) {
+        return raw.length == 12;
+    }
 
-        if (raw.length < 12) {
+    private Entry createEntry(byte[] raw) {
+        if (!canCreateEntry(raw)) {
+            assert false;
+
             return null;
         }
 
@@ -173,10 +184,10 @@ public final class CanonIfd {
         System.arraycopy(raw, 4, valueNumberBytes, 0, 4);
         System.arraycopy(raw, 8, valueOffsetBytes, 0, 4);
 
-        int tag       = ExifDatatypeUtil.shortFromRawValue(tagBytes, byteOrder);
+        int tag = ExifDatatypeUtil.shortFromRawValue(tagBytes, byteOrder);
         int fieldType = ExifDatatypeUtil.shortFromRawValue(fieldTypeBytes,
                             byteOrder);
-        ExifDataType dataType    = ExifDataType.fromType(fieldType);
+        ExifDataType dataType = ExifDataType.fromType(fieldType);
         int          valueNumber =
             ExifDatatypeUtil.intFromRawValue(valueNumberBytes, byteOrder);
         int offsetBytes = (dataType.bitCount() * valueNumber > 32)
@@ -207,8 +218,8 @@ public final class CanonIfd {
         }
 
         int byteOffset = entry.getValueOffset();
-        int byteCount  = entry.getValueNumber() * entry.dataType().bitCount()
-                         / 8;
+        int byteCount = entry.getValueNumber() * entry.dataType().bitCount()
+                        / 8;
 
         if (rawValue.length < byteOffset + byteCount) {
             return null;
