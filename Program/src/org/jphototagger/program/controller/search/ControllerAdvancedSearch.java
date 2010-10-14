@@ -41,6 +41,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.JButton;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
@@ -67,6 +68,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
             public void run() {
                 assert savedSearch.isValid() : savedSearch;
 
+                WaitDisplay.show();
                 ParamStatement stmt = savedSearch.createParamStatement();
 
                 TreeUtil.clearSelection(GUI.getAppPanel().getSelectionTrees());
@@ -78,6 +80,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
                 SavedSearchesHelper.setSort(savedSearch);
                 GUI.getThumbnailsPanel().setFiles(imageFiles,
                                                   Content.SAVED_SEARCH);
+                WaitDisplay.hide();
             }
             private void setTitle(String name) {
                 GUI.getAppFrame().setTitle((name == null)

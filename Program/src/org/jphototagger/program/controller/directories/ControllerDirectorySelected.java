@@ -30,6 +30,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -95,6 +96,8 @@ public final class ControllerDirectorySelected
 
         private void showThumbnails() {
             if (GUI.getDirectoriesTree().getSelectionCount() > 0) {
+                WaitDisplay.show();
+
                 File       selectedDirectory =
                     new File(getDirectorynameFromTree());
                 List<File> files = ImageFileFilterer.getImageFilesOfDirectory(
@@ -105,6 +108,7 @@ public final class ControllerDirectorySelected
                 GUI.getThumbnailsPanel().setFiles(files, Content.DIRECTORY);
                 GUI.getThumbnailsPanel().apply(panelSettings);
                 setMetadataEditable();
+                WaitDisplay.hide();
             }
         }
 

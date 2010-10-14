@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.app.update;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.net.CancelRequest;
 import org.jphototagger.lib.net.HttpUtil;
@@ -32,10 +31,13 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBar;
+
+import java.awt.EventQueue;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -97,6 +99,40 @@ public final class UpdateDownload extends Thread
         }
 
         new UpdateDownload().start();
+    }
+
+    private static final String KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION =
+        "UpdateDownload.CheckForNewerVersion";
+
+    /**
+     * Asks via a confirmation dialog exactly once whether to check
+     * automatically for updates.
+     * <p>
+     * Once asked, the ask property in {@link DatabaseApplicationProperties} is
+     * set to true and calling this method again does nothing.
+     * <p>
+     * The answer will be stored in
+     * {@link UserSettings#setAutoDownloadNewerVersions(boolean)}-
+     */
+    public static void askOnceCheckForNewerVersion() {
+        if (!DatabaseApplicationProperties.INSTANCE.getBoolean(
+                KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION)) {
+            try {
+                EventQueue.invokeAndWait(new Runnable() {
+    @Override
+    public void run() {
+                        UserSettings.INSTANCE.setAutoDownloadNewerVersions(
+                            MessageDisplayer.confirmYesNo(
+                                null,
+                                "UpdateDownload.Confirm.CheckForNewerVersion"));
+                        DatabaseApplicationProperties.INSTANCE.setBoolean(
+                            KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
+                    }
+                });
+            } catch (Exception ex) {
+                AppLogger.logSevere(UpdateDownload.class, ex);
+            }
+        }
     }
 
     @Override

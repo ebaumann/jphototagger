@@ -50,6 +50,7 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.ViewUtil;
 
 import java.awt.Component;
@@ -179,15 +180,29 @@ public final class EditMetadataPanels
         return editable;
     }
 
+    private void showWaitSetImageFiles(int imgCount) {
+        if (imgCount > 1) {
+            WaitDisplay.show();
+        }
+    }
+
+    private void hideWaitSetImageFiles(int imgCount) {
+        if (imgCount > 1) {
+            WaitDisplay.hide();
+        }
+    }
+
     public synchronized void setImageFiles(Collection<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
 
+        showWaitSetImageFiles(imageFiles.size());
         emptyPanels(false);
         setXmpOfImageFiles(imageFiles);
         setXmpToEditPanels();
         setXmpOfFilesAsTextEntryListener(true);
+        hideWaitSetImageFiles(imageFiles.size());
     }
 
     private void setXmpOfImageFiles(Collection<File> imageFiles) {

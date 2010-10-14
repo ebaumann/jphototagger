@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.directories;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.program.factory.ModelFactory;
@@ -30,6 +29,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.EventQueue;
 
 import java.io.File;
 

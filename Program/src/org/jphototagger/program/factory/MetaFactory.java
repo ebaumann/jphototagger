@@ -75,6 +75,7 @@ public final class MetaFactory implements Runnable {
     }
 
     private void checkForDownload() {
+        UpdateDownload.askOnceCheckForNewerVersion();
         if (UserSettings.INSTANCE.isAutoDownloadNewerVersions()) {
 
             // Returning immediately

@@ -4,6 +4,17 @@ Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
 
+0.8.49 2010-10-14
+-----------------
+
+* Bugfix: Zeitleiste: Wurde ein Monat ausgewählt und es war nur das XMP-Datum
+  gesetzt (kein EXIF-Datum), wurden keine Bilder angezeigt
+* Es wird (einmalig) gefragt, ob JPhotoTagger im Internet automatisch aktuelle
+  Programmversionen herunterladen soll
+* Etliche Aufgaben, die länger dauern können, werden symbolisiert durch ein
+  Wartesymbol (Warten-Cursor), z.B. eine Suche oder Auswahl eines Verzeichnisses
+  mit Bildern
+
 0.8.48 2010-10-01
 -----------------
 

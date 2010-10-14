@@ -24,6 +24,7 @@ package org.jphototagger.program.controller.thumbnail;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,6 +71,8 @@ public final class ControllerSortThumbnails implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                WaitDisplay.show();
+
                 JRadioButtonMenuItem item =
                     (JRadioButtonMenuItem) evt.getSource();
                 Comparator<File> sortCmp =
@@ -82,6 +85,7 @@ public final class ControllerSortThumbnails implements ActionListener {
                 item.setSelected(true);
                 tnPanel.setFileSortComparator(sortCmp);
                 tnPanel.sort();
+                WaitDisplay.hide();
             }
         });
     }

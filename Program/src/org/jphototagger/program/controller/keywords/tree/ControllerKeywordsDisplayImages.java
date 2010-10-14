@@ -27,6 +27,7 @@ import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -94,12 +95,15 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                WaitDisplay.show();
+
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsTree(
                     AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
                 KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(),
                                           keyword);
+                WaitDisplay.hide();
             }
         });
     }
@@ -108,11 +112,14 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                WaitDisplay.show();
+
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsList(
                     AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
                 ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
+                WaitDisplay.hide();
             }
         });
     }

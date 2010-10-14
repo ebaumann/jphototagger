@@ -36,6 +36,7 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel.Settings;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -43,8 +44,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTree;
 
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -123,8 +124,7 @@ public final class FavoritesHelper {
      * @return node or null if no node is selected
      */
     public static DefaultMutableTreeNode getSelectedNode() {
-        TreePath path =
-            GUI.getAppPanel().getTreeFavorites().getSelectionPath();
+        TreePath path = GUI.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
             return (DefaultMutableTreeNode) path.getLastPathComponent();
@@ -160,8 +160,7 @@ public final class FavoritesHelper {
      * @return files or empty list
      */
     public static List<File> getFilesOfSelectedtDirectory() {
-        TreePath path =
-            GUI.getAppPanel().getTreeFavorites().getSelectionPath();
+        TreePath path = GUI.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
             File                   dir = null;
@@ -244,11 +243,13 @@ public final class FavoritesHelper {
 
         @Override
         public void run() {
+            WaitDisplay.show();
             ControllerSortThumbnails.setLastSort();
             setTitle();
             tnPanel.setFiles(files, Content.FAVORITE);
             tnPanel.apply(tnPanelSettings);
             setMetadataEditable();
+            WaitDisplay.hide();
         }
 
         private void setTitle() {

@@ -748,6 +748,7 @@ public final class UserSettings {
     public void setAutoDownloadNewerVersions(boolean auto) {
         settings.set(auto, KEY_AUTO_DOWNLOAD_NEWER_VERSIONS);
         writeToFile();
+        notifyListeners(Type.CHECK_FOR_UPDATES);
     }
 
     /**

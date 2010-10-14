@@ -165,8 +165,7 @@ public class ViewUtil {
      * @return              true if the selected images are editable
      */
     public static boolean checkSelImagesEditable(boolean errorMessage) {
-        EditMetadataPanels ep =
-            GUI.getAppPanel().getEditMetadataPanels();
+        EditMetadataPanels ep = GUI.getAppPanel().getEditMetadataPanels();
 
         if (!ep.isEditable()) {
             if (errorMessage) {

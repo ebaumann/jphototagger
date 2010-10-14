@@ -27,6 +27,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -63,8 +64,10 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                WaitDisplay.show();
                 setFilesToThumbnailsPanel();
                 setMetadataEditable();
+                WaitDisplay.hide();
             }
         });
     }

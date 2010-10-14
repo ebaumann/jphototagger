@@ -2225,8 +2225,11 @@ public final class DatabaseImageFiles extends Database {
                          + " ORDER BY files.filename ASC";
 
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, getSqlDateString(year, month, day));
-            stmt.setString(2, getXmpDateString(year, month, day));
+
+            String dateString = getSqlDateString(year, month, day);
+
+            stmt.setString(1, dateString);
+            stmt.setString(2, dateString);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -2244,20 +2247,25 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public String getSqlDateString(int year, int month, int day) {
-        return String.valueOf(year) + "-" + ((month > 0)
-                ? getMonthDayPrefix(month) + String.valueOf(month)
-                : "%") + "-" + (((month > 0) && (day > 0))
-                                ? getMonthDayPrefix(day) + String.valueOf(day)
-                                : "%");
-    }
+        StringBuilder sb = new StringBuilder(String.valueOf(year));
 
-    public String getXmpDateString(int year, int month, int day) {
-        return String.valueOf(year) + ((month > 0)
-                                       ? "-" + getMonthDayPrefix(month)
-                                         + String.valueOf(month)
-                                       : "%") + (((month > 0) && (day > 0))
-                ? "-" + getMonthDayPrefix(day) + String.valueOf(day)
-                : "");
+        if (month > 0) {
+            sb.append("-");
+            sb.append(getMonthDayPrefix(month));
+            sb.append(String.valueOf(month));
+        } else {
+            sb.append("-%");
+        }
+
+        if (day > 0) {
+            sb.append("-");
+            sb.append(getMonthDayPrefix(day));
+            sb.append(String.valueOf(day));
+        } else {
+            sb.append("-%");
+        }
+
+        return sb.toString();
     }
 
     private static String getMonthDayPrefix(int i) {

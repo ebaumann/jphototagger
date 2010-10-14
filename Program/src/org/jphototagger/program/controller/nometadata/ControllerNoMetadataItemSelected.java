@@ -29,6 +29,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.io.File;
 
@@ -62,6 +63,8 @@ public final class ControllerNoMetadataItemSelected
     }
 
     private void setFiles() {
+        WaitDisplay.show();
+
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
         if (selValue instanceof Column) {
@@ -75,6 +78,7 @@ public final class ControllerNoMetadataItemSelected
 
             ControllerSortThumbnails.setLastSort();
             tnPanel.setFiles(imageFiles, Content.MISSING_METADATA);
+            WaitDisplay.hide();
         }
     }
 
