@@ -28,6 +28,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.UserDefinedFileFilterDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,6 +66,8 @@ public final class ControllerThumbnailFileFilter
         Object          item    = evt.getItem();
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
+        WaitDisplay.show();
+
         if (item instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) item);
         } else if (item instanceof UserDefinedFileFilter) {
@@ -73,6 +76,7 @@ public final class ControllerThumbnailFileFilter
         }
 
         writeSettings();
+        WaitDisplay.hide();
     }
 
     private void writeSettings() {
