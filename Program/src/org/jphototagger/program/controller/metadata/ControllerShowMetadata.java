@@ -42,6 +42,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -341,6 +342,8 @@ public final class ControllerShowMetadata
                 return;
             }
 
+            WaitDisplay.show();
+
             if (metadata.contains(Metadata.EXIF)) {
                 metadataTableModels.getExifTableModel().setFile(file);
             }
@@ -366,6 +369,7 @@ public final class ControllerShowMetadata
                            "ControllerShowMetadata.Embedded")));
             resizeMetadataTables(metadata);
             repaintMetadataTables(metadata);
+            WaitDisplay.hide();
         }
 
         private void resizeMetadataTables(Set<Metadata> metadata) {
