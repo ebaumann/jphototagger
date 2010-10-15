@@ -250,7 +250,9 @@ public class ThumbnailsPanel extends JPanel
             repaint();
         } else {
             for (Integer i : rerenderTargets) {
-                rerender(i.intValue());
+                if (isIndex(i)) {
+                    rerender(i.intValue());
+                }
             }
         }
     }
