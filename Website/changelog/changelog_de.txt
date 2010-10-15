@@ -4,6 +4,13 @@ Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
 
+0.8.50 2010-10-14
+-----------------
+
+* Bugfix: Waren Bilder ausgewählt, der Dateifilter wurde umgestellt, sodass
+  anschließend keine Bilder angezeigt wurden und wieder zurückgestellt, gab
+  es einen Fehler (ungültiger Index)
+
 0.8.49 2010-10-14
 -----------------
 
