@@ -153,6 +153,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 checkBoxAddFilenameToGpsLocationExport.isSelected());
     }
 
+    private void setExperimentalFileFormats() {
+        UserSettings.INSTANCE.setUseExperimentalFileFormats(
+                checkBoxExperimentalFileFormats.isSelected());
+    }
+
     private void checkLogLevel() {
         if (comboBoxLogLevel.getSelectedIndex() < 0) {
             comboBoxLogLevel.setSelectedIndex(0);
@@ -181,6 +186,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             settings.isAcceptHiddenDirectories());
         checkBoxAddFilenameToGpsLocationExport.setSelected(
                 settings.isAddFilenameToGpsLocationExport());
+        checkBoxExperimentalFileFormats.setSelected(
+                settings.isUseExperimentalFileFormats());
         comboBoxIptcCharset.getModel().setSelectedItem(
             UserSettings.INSTANCE.getIptcCharset());
         comboBoxLogLevel.setSelectedItem(
@@ -225,6 +232,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         buttonCheckDownload = new javax.swing.JButton();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
         checkBoxAddFilenameToGpsLocationExport = new javax.swing.JCheckBox();
+        checkBoxExperimentalFileFormats = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
@@ -276,6 +284,13 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             }
         });
 
+        checkBoxExperimentalFileFormats.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxExperimentalFileFormats.text")); // NOI18N
+        checkBoxExperimentalFileFormats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxExperimentalFileFormatsActionPerformed(evt);
+            }
+        });
+
         panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsMiscPanel.panelCopyMoveFiles.border.title"))); // NOI18N
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
@@ -301,8 +316,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCopyMoveFilesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE))
+                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelCopyMoveFilesLayout.setVerticalGroup(
@@ -374,7 +389,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                    .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                     .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
                         .addComponent(labelInfoDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(96, 96, 96))
@@ -383,7 +398,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonChooseDatabaseDirectory))
                     .addComponent(labelPromptDatabaseBackupDirectory)
-                    .addComponent(labelDatabaseBackupDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                    .addComponent(labelDatabaseBackupDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                     .addComponent(buttonChooseDatabaseBackupDirectory, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -414,35 +429,39 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(checkBoxAutoDownloadCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonCheckDownload))
-                            .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
-                            .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(checkBoxExperimentalFileFormats)
                         .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(labelIptcCharset, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                                        .addGap(49, 49, 49))
-                                    .addComponent(labelLogLevel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(14, 14, 14)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(236, 236, 236))
-                            .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(14, 14, 14))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkBoxIsAcceptHiddenDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(checkBoxAddFilenameToGpsLocationExport, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(checkBoxAutoDownloadCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(buttonCheckDownload))
+                                .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+                                .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addContainerGap())
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(labelIptcCharset, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                            .addGap(49, 49, 49))
+                                        .addComponent(labelLogLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                                    .addGap(14, 14, 14)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(236, 236, 236))
+                                .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(14, 14, 14))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(checkBoxIsAcceptHiddenDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(checkBoxAddFilenameToGpsLocationExport, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                            .addContainerGap()))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,6 +477,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAddFilenameToGpsLocationExport)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxExperimentalFileFormats)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -522,6 +543,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         handleActionPerformedCheckBoxAddFilenameToGpsLocationExport();
     }//GEN-LAST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
 
+    private void checkBoxExperimentalFileFormatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxExperimentalFileFormatsActionPerformed
+        setExperimentalFileFormats();
+    }//GEN-LAST:event_checkBoxExperimentalFileFormatsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCheckDownload;
     private javax.swing.JButton buttonChooseDatabaseBackupDirectory;
@@ -531,6 +556,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     private javax.swing.JCheckBox checkBoxAddFilenameToGpsLocationExport;
     private javax.swing.JCheckBox checkBoxAutoDownloadCheck;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
+    private javax.swing.JCheckBox checkBoxExperimentalFileFormats;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JComboBox comboBoxIptcCharset;
     private javax.swing.JComboBox comboBoxLogLevel;

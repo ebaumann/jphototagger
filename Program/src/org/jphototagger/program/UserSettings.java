@@ -104,6 +104,8 @@ public final class UserSettings {
         "UserSettings.UpdateAutocomplete";
     private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT =
         "UserSettings.AddFilenameToGpsLocationExport";
+    private static final String KEY_EXPERIMENTAL_FILE_FORMATS =
+            "UserSettings.ExperimentalFileFormats";
 
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
@@ -878,6 +880,27 @@ public final class UserSettings {
         return settings.containsKey(KEY_UPDATE_AUTOCOMPLETE)
                ? settings.getBoolean(KEY_UPDATE_AUTOCOMPLETE)
                : true;
+    }
+
+    /**
+     * Sets whether to use experimental image file formats.
+     *
+     * @param b true, if to use experimental image file formats
+     */
+    public void setUseExperimentalFileFormats(boolean b) {
+        settings.set(b, KEY_EXPERIMENTAL_FILE_FORMATS);
+        writeToFile();
+    }
+
+    /**
+     * Returns whether to use experimental image file formats.
+     *
+     * @return true if to use experimental image file formats. Default: false.
+     */
+    public boolean isUseExperimentalFileFormats() {
+        return settings.containsKey(KEY_EXPERIMENTAL_FILE_FORMATS)
+                ? settings.getBoolean(KEY_EXPERIMENTAL_FILE_FORMATS)
+                : false;
     }
 
     /**

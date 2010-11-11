@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.51 2010-11-11
+-----------------
+
+* Neu: Einstellungen > Sonstiges: Experimentelle Dateiformate erlauben
+  (Unterstützung für Samsung *.SRW-Format). Näheres siehe in der Hilfe.
 
 0.8.50 2010-10-14
 -----------------

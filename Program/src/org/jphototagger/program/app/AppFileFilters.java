@@ -25,6 +25,7 @@ import java.io.FileFilter;
 import java.util.HashMap;
 import java.util.Map;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.filefilter.NoXmpFileFilter;
 import org.jphototagger.program.filefilter.XmpRatingFileFilter;
 import org.jphototagger.program.resource.JptBundle;
@@ -35,6 +36,8 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class AppFileFilters {
+
+    private static final boolean experimental = UserSettings.INSTANCE.isUseExperimentalFileFormats();
 
     /**
      * Filter of all computable image file formats
@@ -49,6 +52,7 @@ public final class AppFileFilters {
         + ".*\\.[jJ][pP][eE][gG];"           // Joint Photographic Experts Group
         + ".*\\.[mM][rR][wW];"               // Minolta RAW
         + ".*\\.[nN][eE][fF];"               // Nikon RAW
+        + (experimental ? ".*\\.[sS][rR][wW];" : "") // Samsung RAW
         + ".*\\.[tT][hH][mM];"               // EXIF Info
         + ".*\\.[tT][iI][fF];"               // Tagged Image File Format
         + ".*\\.[tT][iI][fF][fF];"           // Tagged Image File Format
@@ -61,6 +65,7 @@ public final class AppFileFilters {
         + ".*\\.[dD][cC][rR];"               // Kodak RAW
         + ".*\\.[mM][rR][wW];"               // Minolta RAW
         + ".*\\.[nN][eE][fF];"               // Nikon RAW
+        + (experimental ? ".*\\.[sS][rR][wW];" : "") // Samsung RAW
         , ";");
 
     public static final RegexFileFilter DNG_FILENAMES =
