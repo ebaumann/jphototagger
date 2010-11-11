@@ -28,8 +28,9 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
- * EXIF data exifDataType RATIONAL as described in the standard: Two LONGs. The first
- * LONG is the numerator and the second LONG expresses the denominator.
+ * EXIF data exifDataType RATIONAL as described in the standard: Two LONGs.
+ * The first LONG is the numerator and the second LONG expresses the
+ * denominator.
  *
  * @author Elmar Baumann
  * @see ExifLong
@@ -57,6 +58,40 @@ public final class ExifRational {
                 8), byteOrder);
         Ensure.positive(numerator, denominator);
         Ensure.noDivisionByZero(denominator);
+    }
+
+    /**
+     * Returns whether an byte array can be used to construct a valid
+     * ExifRational object.
+     *
+     * @param rawValue  raw value
+     * @param byteOrder byte order
+     * @return          true if the bytes can be used to construct an
+     *                  ExifRational object
+     */
+    public static boolean isValid(byte[] rawValue, ByteOrder byteOrder) {
+        if (rawValue == null) {
+            throw new NullPointerException("rawValue == null");
+        }
+
+        if (byteOrder == null) {
+            throw new NullPointerException("byteOrder == null");
+        }
+
+        if (rawValue.length == byteCount()) {
+            int numerator =
+                ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue,
+                    0, 4), byteOrder);
+            int denominator =
+                ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue,
+                    4, 8), byteOrder);
+            boolean negative = ((numerator < 0) && (denominator > 0))
+                               || ((numerator > 0) && (denominator < 0));
+
+            return !negative && (denominator != 0);
+        }
+
+        return false;
     }
 
     /**

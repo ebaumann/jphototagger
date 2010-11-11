@@ -26,6 +26,7 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
 import org.jphototagger.program.image.metadata.exif.Ensure;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -48,9 +49,10 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.FOCAL_LENGTH);
 
-        if (ExifRational.byteCountOk(exifTag.rawValue())) {
-            ExifRational er = new ExifRational(exifTag.rawValue(),
-                                               exifTag.byteOrder());
+        byte[] rawValue = exifTag.rawValue();
+
+        if (ExifRational.isValid(rawValue, exifTag.byteOrder())) {
+            ExifRational  er = new ExifRational(rawValue, exifTag.byteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.# mm");
