@@ -93,10 +93,6 @@ public final class ControllerMetadataTemplateAdd
 
     @Override
     protected void action(MetadataTemplate template) {
-        if (template == null) {
-            throw new NullPointerException("template == null");
-        }
-
         EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
         MetadataTemplate           t   = new MetadataTemplate();
 
