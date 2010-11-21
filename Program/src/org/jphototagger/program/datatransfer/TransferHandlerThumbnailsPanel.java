@@ -25,6 +25,7 @@ import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseImageCollections;
@@ -191,28 +192,16 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         Transferable t = support.getTransferable();
         boolean      dropOverSelectedThumbnail =
             isDropOverSelectedThumbnail(support);
-        File imageFile = getImageFile(support);
+        ThumbnailsPanel panel     = (ThumbnailsPanel) support.getComponent();
+        File            imageFile = getImageFile(support);
+        boolean         selected  = panel.getSelectionCount() > 0;
 
         if (Flavor.hasKeywordsFromList(support)) {
-            importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t),
-                          dropOverSelectedThumbnail, imageFile);
+            insertKeywords(t, dropOverSelectedThumbnail, imageFile);
         } else if (Flavor.hasKeywordsFromTree(support)) {
-            List<String> keywords = new ArrayList<String>();
-
-            for (DefaultMutableTreeNode node : Support.getKeywordNodes(t)) {
-                if (dropOverSelectedThumbnail) {
-                    KeywordsHelper.addKeywordsToEditPanel(node);
-                } else {
-                    keywords.addAll(KeywordsHelper.getKeywordStrings(node,
-                            true));
-                }
-            }
-
-            if (!keywords.isEmpty()) {
-                KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
-            }
+            insertHierarchicalKeywords(t, dropOverSelectedThumbnail, imageFile);
         } else if (Flavor.hasMetadataTemplate(support)) {
-            importMetadataTemplate(support);
+            insertTemplates(selected, support);
         } else if (Flavor.hasColumnData(support)) {
             importColumnData(support, dropOverSelectedThumbnail, imageFile);
         } else {
@@ -220,6 +209,38 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         }
 
         return true;
+    }
+
+    private void insertKeywords(Transferable t,
+                                boolean dropOverSelectedThumbnail,
+                                File imageFile) {
+        importStrings(Flavor.KEYWORDS_LIST, Support.getKeywords(t),
+                      dropOverSelectedThumbnail, imageFile);
+    }
+
+    private void insertHierarchicalKeywords(Transferable t,
+            boolean dropOverSelectedThumbnail, File imageFile) {
+        List<String> keywords = new ArrayList<String>();
+
+        for (DefaultMutableTreeNode node : Support.getKeywordNodes(t)) {
+            if (dropOverSelectedThumbnail) {
+                KeywordsHelper.addKeywordsToEditPanel(node);
+            } else {
+                keywords.addAll(KeywordsHelper.getKeywordStrings(node, true));
+            }
+        }
+
+        if (!keywords.isEmpty()) {
+            KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
+        }
+    }
+
+    private void insertTemplates(boolean selected, TransferSupport support) {
+        if (selected) {
+            importMetadataTemplate(support);
+        } else {
+            errorMessageSelCount();
+        }
     }
 
     /**
@@ -377,5 +398,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         } catch (Exception ex) {
             AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
         }
+    }
+
+    private void errorMessageSelCount() {
+        MessageDisplayer.error(
+            null, "TransferHandlerThumbnailsPanel.Error.NoSelection");
     }
 }
