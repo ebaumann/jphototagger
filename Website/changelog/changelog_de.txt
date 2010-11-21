@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.52 2010-11-21
+-----------------
+
+* Bugifx: Neuanlegen einer Vorlage funktioniert wieder
+* Bugifx: Nun Fehlermeldung beim Ziehen und Ablegen einer Vorlage, falls kein
+  Bild ausgewählt ist
+
 0.8.51 2010-11-11
 -----------------
 
