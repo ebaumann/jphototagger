@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.53 2010-11-28
+-----------------
+
+* Bugifx: Fehler nach Bearbeiten eines Favoriten
+
 0.8.52 2010-11-21
 -----------------
 

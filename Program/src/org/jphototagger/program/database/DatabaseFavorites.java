@@ -194,7 +194,7 @@ public final class DatabaseFavorites extends Database {
             con = getConnection();
             con.setAutoCommit(false);
 
-            Favorite oldFavorite = find(favorite.getName());
+            Favorite oldFavorite = find(favorite.getId());
 
             stmt = con.prepareStatement(
                 "UPDATE favorite_directories SET"
@@ -260,6 +260,38 @@ public final class DatabaseFavorites extends Database {
         }
 
         return favorites;
+    }
+
+    private Favorite find(Long id) {
+        Favorite          favorite = null;
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        ResultSet         rs       = null;
+
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(
+                "SELECT id, favorite_name, directory_name, favorite_index"
+                + " FROM favorite_directories WHERE id = ?");
+            stmt.setLong(1, id);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                favorite = new Favorite();
+                favorite.setId(rs.getLong(1));
+                favorite.setName(rs.getString(2));
+                favorite.setDirectory(getFile(rs.getString(3)));
+                favorite.setIndex(rs.getInt(4));
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return favorite;
     }
 
     private Favorite find(String favoriteName) {
