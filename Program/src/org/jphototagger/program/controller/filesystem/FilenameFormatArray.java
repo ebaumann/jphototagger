@@ -21,7 +21,6 @@
 
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.event.listener.FilenameFormatListener;
 
 import java.io.File;
 
@@ -33,7 +32,7 @@ import java.util.List;
  *
  * @author Elmar Baumann
  */
-public final class FilenameFormatArray implements FilenameFormatListener {
+public final class FilenameFormatArray {
     private final List<FilenameFormat> formats =
         new ArrayList<FilenameFormat>();
 
@@ -49,7 +48,6 @@ public final class FilenameFormatArray implements FilenameFormatListener {
         }
 
         synchronized (formats) {
-            format.addFilenameFormatListener(this);
             formats.add(format);
         }
     }
@@ -70,10 +68,6 @@ public final class FilenameFormatArray implements FilenameFormatListener {
      */
     public void clear() {
         synchronized (formats) {
-            for (FilenameFormat format : formats) {
-                format.removeFilenameFormatListener(this);
-            }
-
             formats.clear();
         }
     }
@@ -109,23 +103,6 @@ public final class FilenameFormatArray implements FilenameFormatListener {
         synchronized (formats) {
             for (FilenameFormat format : formats) {
                 format.setFile(file);
-            }
-        }
-    }
-
-    @Override
-    public void request(Request request) {
-        if (request.equals(FilenameFormatListener.Request.RESTART_SEQUENCE)) {
-            restartSequenceFormatter();
-        }
-    }
-
-    private void restartSequenceFormatter() {
-        synchronized (formats) {
-            for (FilenameFormat format : formats) {
-                if (format instanceof FilenameFormatNumberSequence) {
-                    ((FilenameFormatNumberSequence) format).restart();
-                }
             }
         }
     }

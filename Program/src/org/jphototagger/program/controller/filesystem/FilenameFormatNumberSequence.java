@@ -82,13 +82,6 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
         current    = start;
     }
 
-    /**
-     * Sets the start value as the current value.
-     */
-    public void restart() {
-        current = start;
-    }
-
     @Override
     public void next() {
         current += increment;

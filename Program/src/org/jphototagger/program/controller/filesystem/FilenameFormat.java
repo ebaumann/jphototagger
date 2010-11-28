@@ -21,12 +21,7 @@
 
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.event.listener.FilenameFormatListener;
-
 import java.io.File;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Format of a filename.
@@ -34,11 +29,9 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public abstract class FilenameFormat {
-    private File                              file;
-    private File                              prevFile;
-    private String                            format;
-    private final Set<FilenameFormatListener> listeners =
-        new HashSet<FilenameFormatListener>();
+    private File   file;
+    private File   prevFile;
+    private String format;
 
     /**
      * Returns a format string.
@@ -104,65 +97,9 @@ public abstract class FilenameFormat {
     }
 
     /**
-     * Returns wheter the format will change.
-     *
-     * @return true if changes are possible. This implementation returns true
-     */
-    public boolean isDynamic() {
-        return true;
-    }
-
-    /**
      * Returns the formatted filename or part of a filename.
      *
      * @return filename (-part)
      */
     abstract public String format();
-
-    /**
-     * Adds a filename format listener.
-     *
-     * @param listener listener
-     */
-    public void addFilenameFormatListener(FilenameFormatListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
-    }
-
-    /**
-     * Removes a filename format listener.
-     *
-     * @param listener listener
-     */
-    public void removeFilenameFormatListener(FilenameFormatListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
-    }
-
-    /**
-     * Sends a request to all {@link FilenameFormatListener}s.
-     *
-     * @param request request
-     */
-    protected void requestListeners(FilenameFormatListener.Request request) {
-        if (request == null) {
-            throw new NullPointerException("request == null");
-        }
-
-        synchronized (listeners) {
-            for (FilenameFormatListener listener : listeners) {
-                listener.request(request);
-            }
-        }
-    }
 }
