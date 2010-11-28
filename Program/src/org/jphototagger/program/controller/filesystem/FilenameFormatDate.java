@@ -22,7 +22,6 @@
 package org.jphototagger.program.controller.filesystem;
 
 import org.jphototagger.program.data.Exif;
-import org.jphototagger.program.event.listener.FilenameFormatListener.Request;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.resource.JptBundle;
 
@@ -30,7 +29,6 @@ import java.io.File;
 
 import java.text.SimpleDateFormat;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -41,8 +39,12 @@ import java.util.Date;
 public final class FilenameFormatDate extends FilenameFormat {
     private String delimiter;
     private String name;
-    private Date   prevDate;
 
+    /**
+     * Creates an instance with a delimiter between year, month and day.
+     *
+     * @param delimiter delimiter
+     */
     public FilenameFormatDate(String delimiter) {
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
@@ -52,15 +54,37 @@ public final class FilenameFormatDate extends FilenameFormat {
     }
 
     /**
+     * Sets the delimiter between year, month and day.
+     *
+     * @param delimiter delimiter
+     */
+    public void setDelimiter(String delimiter) {
+        if (delimiter == null) {
+            throw new NullPointerException("delimiter == null");
+        }
+
+        this.delimiter = delimiter;
+    }
+
+    @Override
+    public String format() {
+        formatDate(getFile());
+
+        return name;
+    }
+
+    /**
      * Sets the date from the EXIF date of a file, If this is not possible
      * the last modification time of the file system will be used.
      *
      * @param file file
      */
-    private void setFromExif(File file) {
+    private void formatDate(File file) {
         Exif exif = ExifMetadata.getExif(file);
 
-        if (exif != null) {
+        if (exif == null) {
+            setFromFilesystem(file);
+        } else {
             java.sql.Date date = exif.getDateTimeOriginal();
 
             if (date == null) {
@@ -69,14 +93,6 @@ public final class FilenameFormatDate extends FilenameFormat {
                 formatDate(new Date(date.getTime()));
             }
         }
-    }
-
-    public void setDelimiter(String delimiter) {
-        if (delimiter == null) {
-            throw new NullPointerException("delimiter == null");
-        }
-
-        this.delimiter = delimiter;
     }
 
     /**
@@ -89,17 +105,8 @@ public final class FilenameFormatDate extends FilenameFormat {
     }
 
     private void formatDate(Date date) {
-        checkNewDay(date);
-        prevDate = new Date(date.getTime());
         name = new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter
                                     + "dd").format(date);
-    }
-
-    @Override
-    public String format() {
-        setFromExif(getFile());
-
-        return name;
     }
 
     @Override
@@ -108,29 +115,4 @@ public final class FilenameFormatDate extends FilenameFormat {
     }
 
     private FilenameFormatDate() {}
-
-    private void checkNewDay(Date date) {
-        if (prevDate == null) {
-            return;
-        }
-
-        Calendar newDate = Calendar.getInstance();
-        Calendar oldDate = Calendar.getInstance();
-
-        newDate.setTime(date);
-        oldDate.setTime(prevDate);
-
-        int     newDay   = newDate.get(Calendar.DAY_OF_MONTH);
-        int     newMonth = newDate.get(Calendar.MONTH);
-        int     newYear  = newDate.get(Calendar.YEAR);
-        int     oldDay   = oldDate.get(Calendar.DAY_OF_MONTH);
-        int     oldMonth = oldDate.get(Calendar.MONTH);
-        int     oldYear  = oldDate.get(Calendar.YEAR);
-        boolean datesDifferent = (newDay != oldDay) || (newMonth != oldMonth)
-                                 || (newYear != oldYear);
-
-        if (datesDifferent) {
-            requestListeners(Request.RESTART_SEQUENCE);
-        }
-    }
 }

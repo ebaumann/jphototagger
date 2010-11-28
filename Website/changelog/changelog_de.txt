@@ -6,6 +6,12 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.53 2010-11-28
 -----------------
 
+* Umbenennen von Dateien anhand einer Schablone: Wird in der Schablone das
+  Aufnahmedatum benutzt sowie eine fortlaufende Nummer, startet die fortlaufende
+  Nummer nicht mehr bei 1, falls das Aufnahmedatum wechselt (diverse Probleme
+  sind möglich; aufgrund Zeitmangels wird JPhotoTagger nicht so programmiert,
+  dass diese automatisch behoben werden)
+
 * Bugifx: Fehler nach Bearbeiten eines Favoriten
 
 0.8.52 2010-11-21

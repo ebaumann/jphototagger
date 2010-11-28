@@ -29,6 +29,12 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class FilenameFormatConstantString extends FilenameFormat {
+
+    /**
+     * Creates an instance with the string.
+     *
+     * @param string string
+     */
     public FilenameFormatConstantString(String string) {
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -38,17 +44,8 @@ public final class FilenameFormatConstantString extends FilenameFormat {
     }
 
     /**
-     * Returns false.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isDynamic() {
-        return false;
-    }
-
-    /**
-     * Returns {@link FilenameFormat#getFormat()}.
+     * Returns {@link FilenameFormat#getFormat()} (the string set in the
+     * constructor).
      *
      * @return format
      */

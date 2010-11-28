@@ -29,20 +29,6 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class FilenameFormatEmptyString extends FilenameFormat {
-    @Override
-    public String toString() {
-        return JptBundle.INSTANCE.getString("FilenameFormatEmptyString.String");
-    }
-
-    /**
-     * Returns false.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isDynamic() {
-        return false;
-    }
 
     /**
      * Returns an empty String.
@@ -52,5 +38,10 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
     @Override
     public String format() {
         return "";
+    }
+
+    @Override
+    public String toString() {
+        return JptBundle.INSTANCE.getString("FilenameFormatEmptyString.String");
     }
 }
