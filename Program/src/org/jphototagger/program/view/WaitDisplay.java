@@ -41,12 +41,17 @@ public final class WaitDisplay {
         Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
     private static final Cursor     DEFAULT_CURSOR = Cursor.getDefaultCursor();
     private static volatile boolean mlAdded;
+    private static volatile boolean isShow;
+    private static final Object     LOCK = new Object();
 
     /**
      * Shows the wait symbol (sets the wait cursor).
      */
     public static void show() {
-        addMouseListener();
+        synchronized (LOCK) {
+            addMouseListener();
+        }
+
         show(true, WAIT_CURSOR);
     }
 
@@ -57,18 +62,30 @@ public final class WaitDisplay {
         show(false, DEFAULT_CURSOR);
     }
 
+    public static boolean isShow() {
+        synchronized (LOCK) {
+            return isShow;
+        }
+    }
+
     private static void show(final boolean show, final Cursor cursor) {
         final Component glassPane = GUI.getAppFrame().getGlassPane();
 
         if (EventQueue.isDispatchThread()) {
-            glassPane.setCursor(cursor);
-            glassPane.setVisible(show);
+            synchronized (LOCK) {
+                glassPane.setCursor(cursor);
+                glassPane.setVisible(show);
+                isShow = show;
+            }
         } else {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    glassPane.setCursor(cursor);
-                    glassPane.setVisible(show);
+                    synchronized (LOCK) {
+                        glassPane.setCursor(cursor);
+                        glassPane.setVisible(show);
+                        isShow = show;
+                    }
                 }
             });
         }

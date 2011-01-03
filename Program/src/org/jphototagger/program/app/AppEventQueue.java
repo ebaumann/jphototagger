@@ -25,6 +25,7 @@ import org.jphototagger.lib.dialog.LongMessageDialog;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.AWTEvent;
 
@@ -46,13 +47,13 @@ public final class AppEventQueue extends java.awt.EventQueue {
         } catch (Throwable t) {
             AppLogger.logSevere(AppEventQueue.class, t);
             getDialog(t).setVisible(true);
+            hideWaitDisplay();
         }
     }
 
     private LongMessageDialog getDialog(Throwable t) {
-        LongMessageDialog dlg =
-            new LongMessageDialog(GUI.getAppFrame(), true,
-                                  UserSettings.INSTANCE.getSettings(), null);
+        LongMessageDialog dlg = new LongMessageDialog(GUI.getAppFrame(), true,
+                                    UserSettings.INSTANCE.getSettings(), null);
 
         dlg.setTitle(JptBundle.INSTANCE.getString("AppEventQueue.Error.Title"));
         dlg.setErrorIcon();
@@ -72,5 +73,11 @@ public final class AppEventQueue extends java.awt.EventQueue {
         t.printStackTrace(ps);
 
         return message + "\n" + baos.toString();
+    }
+
+    private void hideWaitDisplay() {
+        if (WaitDisplay.isShow()) {
+            WaitDisplay.hide();
+        }
     }
 }
