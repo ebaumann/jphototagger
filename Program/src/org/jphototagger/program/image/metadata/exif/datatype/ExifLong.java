@@ -57,7 +57,7 @@ public final class ExifLong {
 
         Ensure.length(rawValue, byteCount());
         value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
-        Ensure.positive(value);
+        Ensure.zeroOrPositive(value);
     }
 
     /**

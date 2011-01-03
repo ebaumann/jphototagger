@@ -79,25 +79,25 @@ public final class Ensure {
     }
 
     /**
-     * Ensures that a value is positive (greater or equals to zero).
+     * Ensures that a value is zero or zeroOrPositive.
      *
      * @param  value value
      * @throws       IllegalArgumentException if the value is negative
      */
-    public static void positive(long value) throws IllegalArgumentException {
+    public static void zeroOrPositive(long value) throws IllegalArgumentException {
         if (value < 0) {
             throw new IllegalArgumentException("Negativ value: " + value);
         }
     }
 
     /**
-     * Ensures that a fraction is positive (greater or equals to zero).
+     * Ensures that a fraction is zero or positive.
      *
      * @param  numerator   numerator
      * @param  denominator denominator
      * @throws             IllegalArgumentException if the fraction is negative
      */
-    public static void positive(long numerator, long denominator)
+    public static void zeroOrPositive(long numerator, long denominator)
             throws IllegalArgumentException {
         boolean negative = ((numerator < 0) && (denominator > 0))
                            || ((numerator > 0) && (denominator < 0));

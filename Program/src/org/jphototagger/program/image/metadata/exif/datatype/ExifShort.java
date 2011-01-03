@@ -56,7 +56,7 @@ public final class ExifShort {
 
         Ensure.length(rawValue, byteCount());
         value = ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder);
-        Ensure.positive(value);
+        Ensure.zeroOrPositive(value);
     }
 
     /**
@@ -66,6 +66,11 @@ public final class ExifShort {
      */
     public short value() {
         return value;
+    }
+
+    public static boolean isZeroOrPositive(byte[] rawValue, ByteOrder byteOrder) {
+        return rawValue.length == byteCount()
+                && ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder) >= 0;
     }
 
     /**

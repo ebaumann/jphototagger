@@ -25,6 +25,8 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifShort;
 import org.jphototagger.program.image.metadata.exif.Ensure;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 
+import java.nio.ByteOrder;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -47,9 +49,11 @@ public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM);
 
-        if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+        byte[]    rawValue  = exifTag.rawValue();
+        ByteOrder byteOrder = exifTag.byteOrder();
+
+        if (ExifShort.isZeroOrPositive(rawValue, byteOrder)) {
+            ExifShort     es = new ExifShort(rawValue, byteOrder);
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.# mm");
