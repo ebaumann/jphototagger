@@ -48,7 +48,7 @@ public final class ExifByte {
 
         Ensure.length(rawValue, byteCount());
         value = (int) rawValue[0];
-        Ensure.positive(value);
+        Ensure.zeroOrPositive(value);
     }
 
     /**

@@ -56,7 +56,7 @@ public final class ExifRational {
         denominator =
             ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4,
                 8), byteOrder);
-        Ensure.positive(numerator, denominator);
+        Ensure.zeroOrPositive(numerator, denominator);
         Ensure.noDivisionByZero(denominator);
     }
 
