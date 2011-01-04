@@ -107,7 +107,7 @@
 &lt;#assign licensePrefix = " * "&gt;
 &lt;#assign licenseLast = " */"&gt;
 &lt;#include "../Licenses/license-${project.license}.txt"&gt;
-&lt;#if package?? && package != ""&gt;
+&lt;#if package?? &amp;&amp; package != ""&gt;
 package ${package};
 
 &lt;/#if&gt;
@@ -119,6 +119,7 @@ package ${package};
 </pre>
 
         <p><strong>Author:</strong> Elmar Baumann
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20How%20NetBeans%20automatically%20inserts%20the%20JPhotoTagger%20license">Write e-Mail</a>
             <br /><strong>Status of this document:</strong> 2010-02-26
         </p>
 
