@@ -67,9 +67,12 @@ public final class AutoCompleteData {
         assert UserSettings.INSTANCE.isAutocomplete();
 
         if (UserSettings.INSTANCE.isUpdateAutocomplete()) {
+            String lcWord = UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase()
+                    ? word.toLowerCase()
+                    : word;
             synchronized (words) {
-                if (Collections.binarySearch(words, word) < 0) {
-                    CollectionUtil.binaryInsert(words, word);
+                if (Collections.binarySearch(words, lcWord) < 0) {
+                    CollectionUtil.binaryInsert(words, lcWord);
 
                     return true;
                 }

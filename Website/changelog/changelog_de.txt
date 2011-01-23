@@ -6,6 +6,12 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.54 2011-01-03
 -----------------
 
+* Neue Option: Bearbeiten > Einstellungen > Leistung:
+  Beim Vervollständigen der Schnellsuche Groß-/Kleinschreibung ignorieren
+
+0.8.54 2011-01-03
+-----------------
+
 * Bugfix: Formatierung der EXIF-Brennweite bezüglich 35 mm wird vorher auf
   Gültigkeit geprüft (java.lang.IllegalArgumentException: Negativ value at
   org.jphototagger.program.image.metadata.exif.Ensure.positive(Ensure.java:89))

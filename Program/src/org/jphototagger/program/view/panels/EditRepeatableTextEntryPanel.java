@@ -99,6 +99,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         model.addListDataListener(this);
         DatabaseImageFiles.INSTANCE.addListener(this);
         setPropmt();
+        textAreaInput.setName("JPhotoTagger Text Area for " + column.getDescription());
     }
 
     private void setPropmt() {
@@ -123,7 +124,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
                     return;
                 }
             }
-            autocomplete = new Autocomplete();
+            autocomplete = new Autocomplete(false);
             autocomplete.setTransferFocusForward(false);
             autocomplete.decorate(
                 textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get(),

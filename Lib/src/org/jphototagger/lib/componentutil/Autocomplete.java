@@ -43,10 +43,14 @@ public final class Autocomplete implements DocumentListener, Serializable {
     private volatile boolean         transferFocusForwardOnEnter = true;
     private Mode                     mode                        = Mode.INSERT;
     private JTextArea                textArea;
+    private final boolean ignoreCase;
 
-    private static enum Mode { INSERT, COMPLETION }
+    private static enum Mode { INSERT, COMPLETION };
 
-    ;
+    public Autocomplete(boolean ignoreCase) {
+        this.ignoreCase = ignoreCase;
+    }
+
     public void decorate(JTextArea textArea, List<String> words,
                          boolean sorted) {
         if (textArea == null) {
@@ -63,12 +67,28 @@ public final class Autocomplete implements DocumentListener, Serializable {
             registerKeyStrokes();
         }
 
+        Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST, 
+                "Autocomplete: Will decorating text area named ''{0}'' with {1} new words...",
+                new Object[]{textArea.getName(), words.size()});
         synchronized (this.words) {
             this.words.clear();
-            this.words.addAll(words);
+            if (ignoreCase) {
+                for (String word : words) {
+                    this.words.add(word.toLowerCase());
+                }
+            } else {
+                this.words.addAll(words);
+            }
         }
+        Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST,
+                "Autocomplete: Decorated text area named ''{0}'' with {1} new words...",
+                new Object[]{textArea.getName(), words.size()});
 
         init(sorted);
+    }
+
+    public boolean isIgnoreCase() {
+        return ignoreCase;
     }
 
     /**
@@ -103,14 +123,6 @@ public final class Autocomplete implements DocumentListener, Serializable {
         im.put(KeyStroke.getKeyStroke("shift TAB"), FOCUS_BACKWARD_ACTION);
     }
 
-    /**
-     * Adds a new word for auto completion.
-     *
-     * Checks whether this word is already contained and adds it only if
-     * unknown.
-     *
-     * @param word word
-     */
     public void add(String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
@@ -123,12 +135,6 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
     }
 
-    /**
-     * Returns wether autocomplete contains a specific word.
-     *
-     * @param  word word
-     * @return      true if the word is known
-     */
     public boolean contains(String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
@@ -177,6 +183,10 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
 
         String prefix = content.substring(w + 1);
+
+        if (ignoreCase) {
+            prefix = prefix.toLowerCase();
+        }
 
         synchronized (words) {
             int n = Collections.binarySearch(words, prefix);

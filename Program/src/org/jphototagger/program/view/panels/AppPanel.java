@@ -735,6 +735,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         textAreaSearch.setRows(1);
         textAreaSearch.setMinimumSize(new java.awt.Dimension(0, 18));
+        textAreaSearch.setName("JPhotoTagger Fast Search Text Area"); // NOI18N
         scrollPaneTextAreaSearch.setViewportView(textAreaSearch);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

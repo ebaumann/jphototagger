@@ -125,8 +125,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="checkBoxEnableAutocomplete" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxUpdateAutocomplete" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxAutocompleteIgnoreCase" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="126" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -136,6 +137,8 @@
                   <Component id="checkBoxEnableAutocomplete" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="checkBoxUpdateAutocomplete" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="checkBoxAutocompleteIgnoreCase" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -160,6 +163,16 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxUpdateAutocompleteActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkBoxAutocompleteIgnoreCase">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsPerformancePanel.checkBoxAutocompleteIgnoreCase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAutocompleteIgnoreCaseActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

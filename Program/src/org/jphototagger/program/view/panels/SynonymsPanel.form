@@ -123,10 +123,7 @@
                           <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="buttonAddAllKeywords" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="buttonAddAllKeywords" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -182,8 +179,8 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneListWords" pref="194" max="32767" attributes="2"/>
-                          <Component id="scrollPaneListSynonyms" alignment="1" pref="194" max="32767" attributes="2"/>
+                          <Component id="scrollPaneListWords" pref="200" max="32767" attributes="2"/>
+                          <Component id="scrollPaneListSynonyms" alignment="1" pref="200" max="32767" attributes="2"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="buttonRemoveSynonym" linkSize="6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -193,12 +190,10 @@
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelInfoAddSynonym" min="-2" pref="24" max="-2" attributes="2"/>
-                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="labelInfoAddSynonym" alignment="0" min="-2" pref="24" max="-2" attributes="2"/>
                           <Component id="buttonAddAllKeywords" alignment="0" min="-2" max="-2" attributes="1"/>
                       </Group>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -232,6 +227,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="1"/>
+            <Property name="name" type="java.lang.String" value="JPhotoTagger text area for a word with a synonym" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textAreaWordsKeyPressed"/>
@@ -338,6 +334,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldSynonyms">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="JPhotoTagger text area for a synonym of a word" noResource="true"/>
+      </Properties>
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldSynonymsKeyPressed"/>
       </Events>

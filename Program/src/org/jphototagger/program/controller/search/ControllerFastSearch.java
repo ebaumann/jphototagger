@@ -54,7 +54,7 @@ public final class ControllerFastSearch
 
     public ControllerFastSearch() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
-            autocomplete = new Autocomplete();
+            autocomplete = new Autocomplete(UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase());
             autocomplete.setTransferFocusForward(false);
         } else {
             autocomplete   = null;

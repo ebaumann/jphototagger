@@ -53,7 +53,7 @@ public class SynonymsPanel extends javax.swing.JPanel
 
     private void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
-            autocomplete = new Autocomplete();
+            autocomplete = new Autocomplete(UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase());
             autocomplete.decorate(textAreaWords,
                     AutoCompleteDataOfColumn.INSTANCE.get(
                         ColumnXmpDcSubjectsSubject.INSTANCE).get(), true);
@@ -370,6 +370,7 @@ public class SynonymsPanel extends javax.swing.JPanel
 
         textAreaWords.setColumns(20);
         textAreaWords.setRows(1);
+        textAreaWords.setName("JPhotoTagger text area for a word with a synonym"); // NOI18N
         textAreaWords.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textAreaWordsKeyPressed(evt);
@@ -428,6 +429,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         labelTextFieldSynonym.setLabelFor(textFieldSynonyms);
         labelTextFieldSynonym.setText(JptBundle.INSTANCE.getString("SynonymsPanel.labelTextFieldSynonym.text")); // NOI18N
 
+        textFieldSynonyms.setName("JPhotoTagger text area for a synonym of a word"); // NOI18N
         textFieldSynonyms.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldSynonymsKeyPressed(evt);
@@ -514,9 +516,7 @@ public class SynonymsPanel extends javax.swing.JPanel
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(labelTextAreaWord)
                             .addGap(124, 124, 124)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonAddAllKeywords)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(buttonAddAllKeywords))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -563,8 +563,8 @@ public class SynonymsPanel extends javax.swing.JPanel
                         .addComponent(buttonChangeWord))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollPaneListWords, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                            .addComponent(scrollPaneListSynonyms, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                            .addComponent(scrollPaneListWords, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(scrollPaneListSynonyms, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(buttonRemoveSynonym)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -572,10 +572,9 @@ public class SynonymsPanel extends javax.swing.JPanel
                                 .addGap(141, 141, 141)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelInfoAddSynonym, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7))
-                            .addComponent(buttonAddAllKeywords))))
+                            .addComponent(labelInfoAddSynonym, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonAddAllKeywords))
+                        .addGap(6, 6, 6)))
                 .addContainerGap())
         );
 

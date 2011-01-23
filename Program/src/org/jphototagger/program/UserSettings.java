@@ -85,6 +85,8 @@ public final class UserSettings {
         "UserSettings.AddFilenameToGpsLocationExport";
     private static final String KEY_EXPERIMENTAL_FILE_FORMATS =
             "UserSettings.ExperimentalFileFormats";
+    private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE =
+            "UserSettings.Autocomplete.IgnoreCase";
 
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
@@ -879,6 +881,17 @@ public final class UserSettings {
     public boolean isUseExperimentalFileFormats() {
         return settings.containsKey(KEY_EXPERIMENTAL_FILE_FORMATS)
                 ? settings.getBoolean(KEY_EXPERIMENTAL_FILE_FORMATS)
+                : false;
+    }
+
+    public void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
+        settings.set(ignore, KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE);
+        writeToFile();
+    }
+
+    public boolean isAutocompleteFastSearchIgnoreCase() {
+        return settings.containsKey(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? settings.getBoolean(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 : false;
     }
 
