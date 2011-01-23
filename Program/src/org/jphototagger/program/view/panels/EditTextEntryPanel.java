@@ -66,6 +66,7 @@ public final class EditTextEntryPanel extends JPanel
         textAreaEdit.setInputVerifier(column.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
         DatabaseImageFiles.INSTANCE.addListener(this);
+        textAreaEdit.setName("JPhotoTagger text area for " + column.getDescription());
     }
 
     public void setColumn(Column column) {
@@ -126,7 +127,7 @@ public final class EditTextEntryPanel extends JPanel
                     return;
                 }
             }
-            autocomplete = new Autocomplete();
+            autocomplete = new Autocomplete(false);
             autocomplete.decorate(
                 textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get(),
                     true);

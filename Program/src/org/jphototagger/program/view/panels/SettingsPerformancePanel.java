@@ -52,6 +52,11 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 checkBoxUpdateAutocomplete.isSelected());
     }
 
+    private void setAutocompleteIgnoreCase() {
+        UserSettings.INSTANCE.setAutocompleteFastSearchIgnoreCase(
+                checkBoxAutocompleteIgnoreCase.isSelected());
+    }
+
     @Override
     public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
@@ -63,6 +68,8 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 settings.getMaxSecondsToTerminateExternalPrograms());
         checkBoxEnableAutocomplete.setSelected(settings.isAutocomplete());
         checkBoxUpdateAutocomplete.setSelected(settings.isUpdateAutocomplete());
+        checkBoxAutocompleteIgnoreCase.setSelected(
+                settings.isAutocompleteFastSearchIgnoreCase());
         setEnabledCheckBoxUpdateAutocomplete();
     }
 
@@ -93,6 +100,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         panelAutocomplete = new javax.swing.JPanel();
         checkBoxEnableAutocomplete = new javax.swing.JCheckBox();
         checkBoxUpdateAutocomplete = new javax.swing.JCheckBox();
+        checkBoxAutocompleteIgnoreCase = new javax.swing.JCheckBox();
 
         labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
         labelMaximumSecondsToTerminateExternalPrograms.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
@@ -141,6 +149,13 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
+        checkBoxAutocompleteIgnoreCase.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxAutocompleteIgnoreCase.text")); // NOI18N
+        checkBoxAutocompleteIgnoreCase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAutocompleteIgnoreCaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelAutocompleteLayout = new javax.swing.GroupLayout(panelAutocomplete);
         panelAutocomplete.setLayout(panelAutocompleteLayout);
         panelAutocompleteLayout.setHorizontalGroup(
@@ -149,8 +164,9 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(panelAutocompleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxEnableAutocomplete)
-                    .addComponent(checkBoxUpdateAutocomplete))
-                .addContainerGap(126, Short.MAX_VALUE))
+                    .addComponent(checkBoxUpdateAutocomplete)
+                    .addComponent(checkBoxAutocompleteIgnoreCase))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAutocompleteLayout.setVerticalGroup(
             panelAutocompleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,6 +174,8 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 .addComponent(checkBoxEnableAutocomplete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxUpdateAutocomplete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxAutocompleteIgnoreCase)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -221,7 +239,12 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         setUpdateAutocomplete();
     }//GEN-LAST:event_checkBoxUpdateAutocompleteActionPerformed
 
+    private void checkBoxAutocompleteIgnoreCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutocompleteIgnoreCaseActionPerformed
+        setAutocompleteIgnoreCase();
+    }//GEN-LAST:event_checkBoxAutocompleteIgnoreCaseActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxAutocompleteIgnoreCase;
     private javax.swing.JCheckBox checkBoxDisplayIptc;
     private javax.swing.JCheckBox checkBoxEnableAutocomplete;
     private javax.swing.JCheckBox checkBoxSaveInputEarly;
