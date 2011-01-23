@@ -70,6 +70,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
         Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST, 
                 "Autocomplete: Will decorating text area named ''{0}'' with {1} new words...",
                 new Object[]{textArea.getName(), words.size()});
+
         synchronized (this.words) {
             this.words.clear();
             if (ignoreCase) {
@@ -80,6 +81,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
                 this.words.addAll(words);
             }
         }
+
         Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST,
                 "Autocomplete: Decorated text area named ''{0}'' with {1} new words...",
                 new Object[]{textArea.getName(), words.size()});
@@ -130,7 +132,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
         synchronized (words) {
             if (!contains(word)) {
-                CollectionUtil.binaryInsert(words, word);
+                String lcWord = ignoreCase ? word.toLowerCase() : word;
+
+                CollectionUtil.binaryInsert(words, lcWord);
             }
         }
     }
@@ -141,7 +145,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
 
         synchronized (words) {
-            return Collections.binarySearch(words, word) >= 0;
+            String lcWord = ignoreCase ? word.toLowerCase() : word;
+
+            return Collections.binarySearch(words, lcWord) >= 0;
         }
     }
 
@@ -163,8 +169,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
         try {
             content = textArea.getText(0, pos + 1);
         } catch (Exception ex) {
-            Logger.getLogger(Autocomplete.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(Autocomplete.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Find where the word starts
