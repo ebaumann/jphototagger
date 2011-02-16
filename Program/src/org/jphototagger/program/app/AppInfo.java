@@ -20,7 +20,7 @@ public final class AppInfo {
      */
 
     // Never change that scheme: "[0-9]+\.[0-9]+\.[0-9]+"!
-    public static final String APP_VERSION = "0.8.55";
+    public static final String APP_VERSION = "0.8.56";
 
     /**
      * ("Historical") Name of this project.

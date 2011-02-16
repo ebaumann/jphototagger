@@ -61,15 +61,15 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="labelUpdateAllThumbnails" alignment="0" pref="589" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="labelMaxThumbnailWidth" pref="345" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="spinnerMaxThumbnailWidth" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelUpdateAllThumbnails" alignment="1" pref="589" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="labelMaxThumbnailWidth" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="spinnerMaxThumbnailWidth" min="-2" pref="64" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonUpdateAllThumbnails" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -82,8 +82,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="labelMaxThumbnailWidth" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonUpdateAllThumbnails" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="spinnerMaxThumbnailWidth" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonUpdateAllThumbnails" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelUpdateAllThumbnails" min="-2" max="-2" attributes="2"/>
@@ -107,7 +107,7 @@
         <Component class="javax.swing.JSpinner" name="spinnerMaxThumbnailWidth">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new SpinnerNumberModel(150, 50, 256, 1)" type="code"/>
+              <Connection code="new SpinnerNumberModel(UserSettings.DEFAULT_THUMBNAIL_LENGTH, UserSettings.MIN_THUMBNAIL_LENGTH, UserSettings.MAX_THUMBNAIL_LENGTH, 50)" type="code"/>
             </Property>
           </Properties>
           <Events>
