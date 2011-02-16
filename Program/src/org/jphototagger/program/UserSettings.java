@@ -87,6 +87,9 @@ public final class UserSettings {
             "UserSettings.ExperimentalFileFormats";
     private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE =
             "UserSettings.Autocomplete.IgnoreCase";
+    public static final int MIN_THUMBNAIL_LENGTH = 50;
+    public static final int MAX_THUMBNAIL_LENGTH = 600;
+    public static final int DEFAULT_THUMBNAIL_LENGTH = 150;
 
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";

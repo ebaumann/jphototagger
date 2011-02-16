@@ -3,7 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.8.54 2011-01-03
+0.8.56 2011-02-16
+-----------------
+
+* Größe der Vorschaubilder kann nun maximal 600 Pixel je Seite sein
+  (Bearbeiten > Einstellungen > Vorschaubilder)
+
+0.8.55 2011-01-03
 -----------------
 
 * Neue Option: Bearbeiten > Einstellungen > Leistung:
