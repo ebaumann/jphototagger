@@ -1,6 +1,10 @@
 package org.jphototagger.program.app;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jphototagger.lib.dialog.LongMessageDialog;
+import org.jphototagger.lib.util.SystemProperties;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
@@ -9,7 +13,9 @@ import org.jphototagger.program.view.WaitDisplay;
 import java.awt.AWTEvent;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintStream;
+import org.jphototagger.lib.io.FileUtil;
 
 /**
  * JPhotoTagger's event queue.
@@ -19,6 +25,9 @@ import java.io.PrintStream;
  * @author Elmar Baumann
  */
 public final class AppEventQueue extends java.awt.EventQueue {
+    private static final String NEWLINE = SystemProperties.getLineSeparator();
+    private static final String FILE_ENCODING = SystemProperties.getFileEncoding();
+
     @Override
     protected void dispatchEvent(AWTEvent event) {
         try {
@@ -51,7 +60,18 @@ public final class AppEventQueue extends java.awt.EventQueue {
 
         t.printStackTrace(ps);
 
-        return message + "\n" + baos.toString();
+        return message + NEWLINE + baos.toString() + NEWLINE + getAllMessages();
+    }
+
+    private String getAllMessages() {
+        File logfileAllMessages = new File(AppLoggingSystem.geLogfilePathAllMessages());
+        try {
+            return FileUtil.getContentAsString(logfileAllMessages, FILE_ENCODING);
+        } catch (IOException ex) {
+            Logger.getLogger(
+                    AppEventQueue.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
     }
 
     private void hideWaitDisplay() {
