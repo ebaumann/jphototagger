@@ -75,6 +75,10 @@ public class SystemOutputPanel extends JPanel {
         });
     }
 
+    public String getOutput() {
+        return textArea.getText();
+    }
+
     private void redirectSystemStreams() {
         OutputStream out = new OutputStream() {
             @Override
