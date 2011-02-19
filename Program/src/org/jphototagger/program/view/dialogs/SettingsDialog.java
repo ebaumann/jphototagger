@@ -228,20 +228,40 @@ public final class SettingsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("SettingsDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
+        panelSearch.setName("panelSearch"); // NOI18N
+
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tabbedPane.setName("tabbedPane"); // NOI18N
+
+        panelPrograms.setName("panelPrograms"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
+
+        panelThumbnails.setName("panelThumbnails"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
+
+        panelTasks.setName("panelTasks"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
+
+        panelPerformance.setName("panelPerformance"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
+
+        panelFileExcludePatterns.setName("panelFileExcludePatterns"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
+
+        panelMisc.setName("panelMisc"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+
+        panelActions.setName("panelActions"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
+
+        panelPlugins.setName("panelPlugins"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

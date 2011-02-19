@@ -85,11 +85,18 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         table = new javax.swing.JTable();
         labelFilename = new javax.swing.JLabel();
 
-        labelTable.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
+        setName("Form"); // NOI18N
 
+        labelTable.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
+        labelTable.setName("labelTable"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
+        table.setName("table"); // NOI18N
         scrollPane.setViewportView(table);
 
         labelFilename.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelFilename.text")); // NOI18N
+        labelFilename.setName("labelFilename"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

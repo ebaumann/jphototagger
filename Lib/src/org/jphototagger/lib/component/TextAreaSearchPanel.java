@@ -187,14 +187,19 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
         buttonDown = new javax.swing.JButton();
         buttonUp = new javax.swing.JButton();
 
+        setName("Form"); // NOI18N
+
         label.setLabelFor(textField);
         label.setText(JslBundle.INSTANCE.getString("TextAreaSearchPanel.label.text")); // NOI18N
+        label.setName("label"); // NOI18N
 
         textField.setColumns(10);
+        textField.setName("textField"); // NOI18N
 
         buttonDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_down.png"))); // NOI18N
         buttonDown.setText(JslBundle.INSTANCE.getString("TextAreaSearchPanel.buttonDown.text")); // NOI18N
         buttonDown.setEnabled(false);
+        buttonDown.setName("buttonDown"); // NOI18N
         buttonDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDownActionPerformed(evt);
@@ -204,6 +209,7 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
         buttonUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_up.png"))); // NOI18N
         buttonUp.setText(JslBundle.INSTANCE.getString("TextAreaSearchPanel.buttonUp.text")); // NOI18N
         buttonUp.setEnabled(false);
+        buttonUp.setName("buttonUp"); // NOI18N
         buttonUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpActionPerformed(evt);

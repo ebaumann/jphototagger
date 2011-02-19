@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/lib/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -48,11 +51,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="TextAreaSearchPanel.label.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="label" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textField">
       <Properties>
         <Property name="columns" type="int" value="10"/>
+        <Property name="name" type="java.lang.String" value="textField" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonDown">
@@ -64,6 +69,7 @@
           <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="TextAreaSearchPanel.buttonDown.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonDown" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDownActionPerformed"/>
@@ -78,6 +84,7 @@
           <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="TextAreaSearchPanel.buttonUp.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonUp" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpActionPerformed"/>

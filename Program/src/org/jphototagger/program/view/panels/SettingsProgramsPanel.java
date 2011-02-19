@@ -186,20 +186,26 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         buttonAddProgram = new javax.swing.JButton();
         buttonEditProgram = new javax.swing.JButton();
 
+        popupMenu.setName("popupMenu"); // NOI18N
+
         menuItemAddProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
         menuItemAddProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemAddProgram.text")); // NOI18N
+        menuItemAddProgram.setName("menuItemAddProgram"); // NOI18N
         menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddProgramActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemAddProgram);
+
+        jSeparator1.setName("jSeparator1"); // NOI18N
         popupMenu.add(jSeparator1);
 
         menuItemEditProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         menuItemEditProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemEditProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemEditProgram.text")); // NOI18N
         menuItemEditProgram.setEnabled(false);
+        menuItemEditProgram.setName("menuItemEditProgram"); // NOI18N
         menuItemEditProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemEditProgramActionPerformed(evt);
@@ -211,17 +217,21 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         menuItemRemoveProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemRemoveProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemRemoveProgram.text")); // NOI18N
         menuItemRemoveProgram.setEnabled(false);
+        menuItemRemoveProgram.setName("menuItemRemoveProgram"); // NOI18N
         menuItemRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveProgramActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemRemoveProgram);
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
         popupMenu.add(jSeparator2);
 
         menuItemMoveProgramUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
         menuItemMoveProgramUp.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemMoveProgramUp.text")); // NOI18N
         menuItemMoveProgramUp.setEnabled(false);
+        menuItemMoveProgramUp.setName("menuItemMoveProgramUp"); // NOI18N
         menuItemMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveProgramUpActionPerformed(evt);
@@ -232,6 +242,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         menuItemMoveProgramDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
         menuItemMoveProgramDown.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.menuItemMoveProgramDown.text")); // NOI18N
         menuItemMoveProgramDown.setEnabled(false);
+        menuItemMoveProgramDown.setName("menuItemMoveProgramDown"); // NOI18N
         menuItemMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveProgramDownActionPerformed(evt);
@@ -239,10 +250,16 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         });
         popupMenu.add(menuItemMoveProgramDown);
 
+        setName("Form"); // NOI18N
+
         labelChooseDefaultProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.labelChooseDefaultProgram.text")); // NOI18N
+        labelChooseDefaultProgram.setName("labelChooseDefaultProgram"); // NOI18N
 
         labelPrograms.setLabelFor(listPrograms);
         labelPrograms.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.labelPrograms.text")); // NOI18N
+        labelPrograms.setName("labelPrograms"); // NOI18N
+
+        scrollPanePrograms.setName("scrollPanePrograms"); // NOI18N
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -250,6 +267,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         listPrograms.setComponentPopupMenu(popupMenu);
         listPrograms.setDragEnabled(true);
         listPrograms.setDropMode(javax.swing.DropMode.INSERT);
+        listPrograms.setName("listPrograms"); // NOI18N
         listPrograms.setTransferHandler(new TransferHandlerReorderListItems(listPrograms));
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -271,6 +289,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         buttonRemoveProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonRemoveProgram.text")); // NOI18N
         buttonRemoveProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
         buttonRemoveProgram.setEnabled(false);
+        buttonRemoveProgram.setName("buttonRemoveProgram"); // NOI18N
         buttonRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveProgramActionPerformed(evt);
@@ -279,6 +298,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
         buttonMoveProgramUp.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonMoveProgramUp.text")); // NOI18N
         buttonMoveProgramUp.setEnabled(false);
+        buttonMoveProgramUp.setName("buttonMoveProgramUp"); // NOI18N
         buttonMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveProgramUpActionPerformed(evt);
@@ -287,6 +307,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
         buttonMoveProgramDown.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonMoveProgramDown.text")); // NOI18N
         buttonMoveProgramDown.setEnabled(false);
+        buttonMoveProgramDown.setName("buttonMoveProgramDown"); // NOI18N
         buttonMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveProgramDownActionPerformed(evt);
@@ -295,6 +316,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
 
         buttonAddProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonAddProgram.text")); // NOI18N
         buttonAddProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonAddProgram.toolTipText")); // NOI18N
+        buttonAddProgram.setName("buttonAddProgram"); // NOI18N
         buttonAddProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddProgramActionPerformed(evt);
@@ -304,6 +326,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
         buttonEditProgram.setText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonEditProgram.text")); // NOI18N
         buttonEditProgram.setToolTipText(JptBundle.INSTANCE.getString("SettingsProgramsPanel.buttonEditProgram.toolTipText")); // NOI18N
         buttonEditProgram.setEnabled(false);
+        buttonEditProgram.setName("buttonEditProgram"); // NOI18N
         buttonEditProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditProgramActionPerformed(evt);

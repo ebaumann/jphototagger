@@ -196,123 +196,109 @@ public class KeywordExportDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelFormat       = new javax.swing.JLabel();
-        comboBoxExporter  = new javax.swing.JComboBox();
+
+        labelFormat = new javax.swing.JLabel();
+        comboBoxExporter = new javax.swing.JComboBox();
         labelInfoFilename = new javax.swing.JLabel();
-        labelFilename     = new javax.swing.JLabel();
-        buttonChooseFile  = new javax.swing.JButton();
-        buttonCancel      = new javax.swing.JButton();
-        buttonExport      = new javax.swing.JButton();
-        setTitle(JptBundle.INSTANCE.getString("KeywordExportDialog.title"));    // NOI18N
+        labelFilename = new javax.swing.JLabel();
+        buttonChooseFile = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
+        buttonExport = new javax.swing.JButton();
+
+        setTitle(JptBundle.INSTANCE.getString("KeywordExportDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+
         labelFormat.setLabelFor(comboBoxExporter);
-        labelFormat.setText(
-            JptBundle.INSTANCE.getString(
-                "KeywordExportDialog.labelFormat.text"));    // NOI18N
+        labelFormat.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelFormat.text")); // NOI18N
+        labelFormat.setName("labelFormat"); // NOI18N
+
         comboBoxExporter.setModel(comboBoxModelExporter);
-        comboBoxExporter
-            .setRenderer(new org.jphototagger.program.view.renderer
-                .ListCellRendererKeywordImExport());
-        labelInfoFilename.setText(
-            JptBundle.INSTANCE.getString(
-                "KeywordExportDialog.labelInfoFilename.text"));    // NOI18N
+        comboBoxExporter.setName("comboBoxExporter"); // NOI18N
+        comboBoxExporter.setRenderer(new org.jphototagger.program.view.renderer.ListCellRendererKeywordImExport());
+
+        labelInfoFilename.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelInfoFilename.text")); // NOI18N
+        labelInfoFilename.setName("labelInfoFilename"); // NOI18N
+
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
-        buttonChooseFile.setText(
-            JptBundle.INSTANCE.getString(
-                "KeywordExportDialog.buttonChooseFile.text"));    // NOI18N
+        labelFilename.setName("labelFilename"); // NOI18N
+
+        buttonChooseFile.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setName("buttonChooseFile"); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
         });
-        buttonCancel.setText(
-            JptBundle.INSTANCE.getString(
-                "KeywordExportDialog.buttonCancel.text"));    // NOI18N
+
+        buttonCancel.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
-        buttonExport.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_export.png")));    // NOI18N
-        buttonExport.setText(
-            JptBundle.INSTANCE.getString(
-                "KeywordExportDialog.buttonExport.text"));    // NOI18N
+
+        buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_export.png"))); // NOI18N
+        buttonExport.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonExport.text")); // NOI18N
         buttonExport.setEnabled(false);
+        buttonExport.setName("buttonExport"); // NOI18N
         buttonExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExportActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                        layout.createSequentialGroup().addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                labelFormat).addComponent(
-                                labelInfoFilename)).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                    layout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                        comboBoxExporter,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(
-                                            labelFilename,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                    343,
-                                                    Short.MAX_VALUE))).addGroup(
-                                                        javax.swing.GroupLayout.Alignment.TRAILING,
-                                                            layout.createSequentialGroup().addComponent(
-                                                                buttonChooseFile).addPreferredGap(
-                                                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                        buttonCancel).addPreferredGap(
-                                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                                buttonExport))).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelFormat)
+                            .addComponent(labelInfoFilename))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonChooseFile)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonExport)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                        labelFormat).addComponent(
-                        comboBoxExporter,
-                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                labelInfoFilename).addComponent(
-                                labelFilename)).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(
-                                    layout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                        buttonExport).addComponent(
-                                        buttonCancel).addComponent(
-                                        buttonChooseFile)).addContainerGap(
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                Short.MAX_VALUE)));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { labelFilename,
-                labelInfoFilename });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelFormat)
+                    .addComponent(comboBoxExporter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelInfoFilename)
+                    .addComponent(labelFilename))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonExport)
+                    .addComponent(buttonCancel)
+                    .addComponent(buttonChooseFile))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelFilename, labelInfoFilename});
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         writeProperties();
@@ -351,13 +337,12 @@ public class KeywordExportDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton   buttonCancel;
-    private javax.swing.JButton   buttonChooseFile;
-    private javax.swing.JButton   buttonExport;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonChooseFile;
+    private javax.swing.JButton buttonExport;
     private javax.swing.JComboBox comboBoxExporter;
-    private javax.swing.JLabel    labelFilename;
-    private javax.swing.JLabel    labelFormat;
-    private javax.swing.JLabel    labelInfoFilename;
-
+    private javax.swing.JLabel labelFilename;
+    private javax.swing.JLabel labelFormat;
+    private javax.swing.JLabel labelInfoFilename;
     // End of variables declaration//GEN-END:variables
 }

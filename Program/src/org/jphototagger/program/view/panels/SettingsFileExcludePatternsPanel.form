@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JPopupMenu" name="popupMenu">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="popupMenu" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
@@ -19,6 +22,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.menuItemDeletePattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="menuItemDeletePattern" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDeletePatternActionPerformed"/>
@@ -27,9 +31,12 @@
       </SubComponents>
     </Container>
   </NonVisualComponents>
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -63,7 +70,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelTextFieldInputPattern" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="textFieldInputPattern" pref="356" max="32767" attributes="0"/>
+                      <Component id="textFieldInputPattern" pref="384" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -76,7 +83,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelInfoList" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="scrollPane" pref="65" max="32767" attributes="0"/>
+              <Component id="scrollPane" pref="51" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="textFieldInputPattern" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -110,9 +117,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoList.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfoList" noResource="true"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="scrollPane" noResource="true"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -128,6 +139,7 @@
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenu"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="list" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listValueChanged"/>
@@ -144,9 +156,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelTextFieldInputPattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelTextFieldInputPattern" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldInputPattern">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="textFieldInputPattern" noResource="true"/>
+      </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textFieldInputPatternFocusGained"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldInputPatternKeyReleased"/>
@@ -161,6 +177,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonDeletePattern" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeletePatternActionPerformed"/>
@@ -175,6 +192,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonInsertPattern" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonInsertPatternActionPerformed"/>
@@ -188,9 +206,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfoDatabase" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="progressBarUpdateDatabase">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="progressBarUpdateDatabase" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancelUpdateDatabase">
       <Properties>
@@ -198,6 +220,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonCancelUpdateDatabase" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelUpdateDatabaseActionPerformed"/>
@@ -208,6 +231,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonUpdateDatabase" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateDatabaseActionPerformed"/>

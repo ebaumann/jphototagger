@@ -102,10 +102,14 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         checkBoxUpdateAutocomplete = new javax.swing.JCheckBox();
         checkBoxAutocompleteIgnoreCase = new javax.swing.JCheckBox();
 
+        setName("Form"); // NOI18N
+
         labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
         labelMaximumSecondsToTerminateExternalPrograms.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
+        labelMaximumSecondsToTerminateExternalPrograms.setName("labelMaximumSecondsToTerminateExternalPrograms"); // NOI18N
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
+        spinnerMaximumSecondsToTerminateExternalPrograms.setName("spinnerMaximumSecondsToTerminateExternalPrograms"); // NOI18N
         spinnerMaximumSecondsToTerminateExternalPrograms.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(evt);
@@ -113,6 +117,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         });
 
         checkBoxScanForEmbeddedXmp.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+        checkBoxScanForEmbeddedXmp.setName("checkBoxScanForEmbeddedXmp"); // NOI18N
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxScanForEmbeddedXmpActionPerformed(evt);
@@ -120,6 +125,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         });
 
         checkBoxDisplayIptc.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxDisplayIptc.text")); // NOI18N
+        checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
         checkBoxDisplayIptc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplayIptcActionPerformed(evt);
@@ -127,6 +133,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         });
 
         checkBoxSaveInputEarly.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxSaveInputEarly.text")); // NOI18N
+        checkBoxSaveInputEarly.setName("checkBoxSaveInputEarly"); // NOI18N
         checkBoxSaveInputEarly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSaveInputEarlyActionPerformed(evt);
@@ -134,8 +141,10 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         });
 
         panelAutocomplete.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsPerformancePanel.panelAutocomplete.border.title"))); // NOI18N
+        panelAutocomplete.setName("panelAutocomplete"); // NOI18N
 
         checkBoxEnableAutocomplete.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxEnableAutocomplete.text")); // NOI18N
+        checkBoxEnableAutocomplete.setName("checkBoxEnableAutocomplete"); // NOI18N
         checkBoxEnableAutocomplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxEnableAutocompleteActionPerformed(evt);
@@ -143,6 +152,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         });
 
         checkBoxUpdateAutocomplete.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxUpdateAutocomplete.text")); // NOI18N
+        checkBoxUpdateAutocomplete.setName("checkBoxUpdateAutocomplete"); // NOI18N
         checkBoxUpdateAutocomplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUpdateAutocompleteActionPerformed(evt);
@@ -150,6 +160,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         });
 
         checkBoxAutocompleteIgnoreCase.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxAutocompleteIgnoreCase.text")); // NOI18N
+        checkBoxAutocompleteIgnoreCase.setName("checkBoxAutocompleteIgnoreCase"); // NOI18N
         checkBoxAutocompleteIgnoreCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAutocompleteIgnoreCaseActionPerformed(evt);

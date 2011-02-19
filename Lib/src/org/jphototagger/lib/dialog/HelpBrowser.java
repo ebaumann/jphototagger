@@ -422,12 +422,19 @@ public final class HelpBrowser extends Dialog
         buttonNext = new javax.swing.JButton();
 
         setTitle(JslBundle.INSTANCE.getString("HelpBrowser.title")); // NOI18N
+        setName("Form"); // NOI18N
 
         splitPane.setDividerLocation(250);
         splitPane.setDividerSize(2);
+        splitPane.setName("splitPane"); // NOI18N
+
+        panelTree.setName("panelTree"); // NOI18N
+
+        scrollPaneTree.setName("scrollPaneTree"); // NOI18N
 
         tree.setModel(null);
         tree.setCellRenderer(new TreeCellRendererHelpContents());
+        tree.setName("tree"); // NOI18N
         scrollPaneTree.setViewportView(tree);
 
         javax.swing.GroupLayout panelTreeLayout = new javax.swing.GroupLayout(panelTree);
@@ -443,7 +450,12 @@ public final class HelpBrowser extends Dialog
 
         splitPane.setLeftComponent(panelTree);
 
+        panelPage.setName("panelPage"); // NOI18N
+
+        scrollPanePage.setName("scrollPanePage"); // NOI18N
+
         editorPanePage.setEditable(false);
+        editorPanePage.setName("editorPanePage"); // NOI18N
         scrollPanePage.setViewportView(editorPanePage);
 
         javax.swing.GroupLayout panelPageLayout = new javax.swing.GroupLayout(panelPage);
@@ -463,6 +475,7 @@ public final class HelpBrowser extends Dialog
         buttonPrevious.setText(JslBundle.INSTANCE.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
         buttonPrevious.setToolTipText(JslBundle.INSTANCE.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
         buttonPrevious.setEnabled(false);
+        buttonPrevious.setName("buttonPrevious"); // NOI18N
         buttonPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPreviousActionPerformed(evt);
@@ -473,6 +486,7 @@ public final class HelpBrowser extends Dialog
         buttonNext.setText(JslBundle.INSTANCE.getString("HelpBrowser.buttonNext.text")); // NOI18N
         buttonNext.setToolTipText(JslBundle.INSTANCE.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
         buttonNext.setEnabled(false);
+        buttonNext.setName("buttonNext"); // NOI18N
         buttonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNextActionPerformed(evt);

@@ -65,35 +65,33 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        panelDbFilenameReplace =
-            new org.jphototagger.program.view.panels.RenameFilenamesInDbPanel();
-        setDefaultCloseOperation(
-            javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(
-            JptBundle.INSTANCE.getString("RenameFilenamesInDbDialog.title"));    // NOI18N
+
+        panelDbFilenameReplace = new org.jphototagger.program.view.panels.RenameFilenamesInDbPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle(JptBundle.INSTANCE.getString("RenameFilenamesInDbDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
+        panelDbFilenameReplace.setName("panelDbFilenameReplace"); // NOI18N
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panelDbFilenameReplace, javax.swing.GroupLayout.DEFAULT_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelDbFilenameReplace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panelDbFilenameReplace, javax.swing.GroupLayout.PREFERRED_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE,
-                javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelDbFilenameReplace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         checkClosing();
@@ -122,6 +120,5 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.RenameFilenamesInDbPanel panelDbFilenameReplace;
-
     // End of variables declaration//GEN-END:variables
 }

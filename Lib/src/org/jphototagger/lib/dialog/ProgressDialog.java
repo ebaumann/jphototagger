@@ -181,6 +181,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         labelProgressInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -188,8 +189,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
         });
 
         labelInfo.setText(JslBundle.INSTANCE.getString("ProgressDialogLabelMessageText")); // NOI18N
+        labelInfo.setName("labelInfo"); // NOI18N
+
+        progressBar.setName("progressBar"); // NOI18N
 
         buttonStop.setText(JslBundle.INSTANCE.getString("ProgressDialog.buttonStop.text")); // NOI18N
+        buttonStop.setName("buttonStop"); // NOI18N
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStopActionPerformed(evt);
@@ -197,6 +202,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         });
 
         labelProgressInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelProgressInfo.setName("labelProgressInfo"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,12 +211,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStop))
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

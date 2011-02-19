@@ -113,15 +113,23 @@ public class SystemOutputPanel extends JPanel {
         buttonDelete = new javax.swing.JButton();
         buttonCopyToClipboard = new javax.swing.JButton();
 
+        setName("Form"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
         textArea.setColumns(1);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setTabSize(4);
         textArea.setWrapStyleWord(true);
+        textArea.setName("textArea"); // NOI18N
         scrollPane.setViewportView(textArea);
+
+        searchPanel.setName("searchPanel"); // NOI18N
 
         buttonDelete.setText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setToolTipText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
+        buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
@@ -130,6 +138,7 @@ public class SystemOutputPanel extends JPanel {
 
         buttonCopyToClipboard.setText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
         buttonCopyToClipboard.setToolTipText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
+        buttonCopyToClipboard.setName("buttonCopyToClipboard"); // NOI18N
         buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyToClipboardActionPerformed(evt);
@@ -142,7 +151,7 @@ public class SystemOutputPanel extends JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(buttonDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCopyToClipboard))

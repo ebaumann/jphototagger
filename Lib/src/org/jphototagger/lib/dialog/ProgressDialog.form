@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -12,7 +13,7 @@
   </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/lib/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -29,13 +30,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="labelProgressInfo" alignment="0" pref="550" max="32767" attributes="0"/>
+                  <Component id="labelProgressInfo" alignment="0" pref="551" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="progressBar" pref="484" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStop" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelInfo" alignment="0" pref="550" max="32767" attributes="0"/>
+                  <Component id="labelInfo" alignment="0" pref="551" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -64,15 +65,20 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="ProgressDialogLabelMessageText" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfo" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="progressBar">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="progressBar" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonStop">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="ProgressDialog.buttonStop.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonStop" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStopActionPerformed"/>
@@ -85,6 +91,7 @@
             <EtchetBorder/>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelProgressInfo" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

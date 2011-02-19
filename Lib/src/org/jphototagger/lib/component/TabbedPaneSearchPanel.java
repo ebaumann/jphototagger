@@ -595,20 +595,28 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelSearch     = new javax.swing.JLabel();
+
+        labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
-        scrollPane      = new javax.swing.JScrollPane();
-        list            = new javax.swing.JList();
+        scrollPane = new javax.swing.JScrollPane();
+        list = new javax.swing.JList();
+
+        setName("Form"); // NOI18N
+
         labelSearch.setDisplayedMnemonic('s');
         labelSearch.setLabelFor(textFieldSearch);
-        labelSearch.setText(
-            JslBundle.INSTANCE.getString(
-                "TabbedPaneSearchPanel.labelSearch.text"));    // NOI18N
+        labelSearch.setText(JslBundle.INSTANCE.getString("TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
+        labelSearch.setName("labelSearch"); // NOI18N
+
+        textFieldSearch.setName("textFieldSearch"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
         list.setModel(listModel);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new TabTitleRenderer());
-        list.addListSelectionListener(
-            new javax.swing.event.ListSelectionListener() {
+        list.setName("list"); // NOI18N
+        list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listValueChanged(evt);
             }
@@ -616,37 +624,25 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         scrollPane.setViewportView(list);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addComponent(labelSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement
-                    .RELATED)
-                        .addComponent(textFieldSearch,
-                                      javax.swing.GroupLayout.DEFAULT_SIZE, 77,
-                                      Short.MAX_VALUE))
-                                          .addComponent(scrollPane,
-                                              javax.swing.GroupLayout
-                                                  .DEFAULT_SIZE, 136,
-                                                      Short.MAX_VALUE));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout
-                    .createParallelGroup(javax.swing.GroupLayout.Alignment
-                        .BASELINE).addComponent(labelSearch)
-                            .addComponent(textFieldSearch, javax.swing
-                                .GroupLayout.PREFERRED_SIZE, javax.swing
-                                .GroupLayout.DEFAULT_SIZE, javax.swing
-                                .GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle
-                                        .ComponentPlacement.RELATED)
-                                            .addComponent(scrollPane, javax
-                                                .swing.GroupLayout
-                                                    .DEFAULT_SIZE, 180, Short
-                                                        .MAX_VALUE)));
-    }    // </editor-fold>//GEN-END:initComponents
+                .addComponent(labelSearch)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelSearch)
+                    .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         if (!evt.getValueIsAdjusting()) {
@@ -655,10 +651,9 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }//GEN-LAST:event_listValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel      labelSearch;
-    private javax.swing.JList       list;
+    private javax.swing.JLabel labelSearch;
+    private javax.swing.JList list;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JTextField  textFieldSearch;
-
+    private javax.swing.JTextField textFieldSearch;
     // End of variables declaration//GEN-END:variables
 }

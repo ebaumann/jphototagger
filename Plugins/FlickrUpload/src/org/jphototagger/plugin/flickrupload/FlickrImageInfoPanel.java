@@ -219,10 +219,12 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         scrollPaneTags = new javax.swing.JScrollPane();
         textAreaTags = new TabOrEnterLeavingTextArea();
 
+        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         checkBoxUpload.setSelected(true);
         checkBoxUpload.setText(bundle.getString("FlickrImageInfoPanel.checkBoxUpload.text")); // NOI18N
+        checkBoxUpload.setName("checkBoxUpload"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -231,6 +233,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
 
         panelImage.setMaximumSize(new java.awt.Dimension(IMAGE_WIDTH, IMAGE_WIDTH));
         panelImage.setMinimumSize(new java.awt.Dimension(IMAGE_WIDTH, IMAGE_WIDTH));
+        panelImage.setName("panelImage"); // NOI18N
         panelImage.setPreferredSize(new java.awt.Dimension(IMAGE_WIDTH, IMAGE_WIDTH));
 
         javax.swing.GroupLayout panelImageLayout = new javax.swing.GroupLayout(panelImage);
@@ -253,6 +256,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         add(panelImage, gridBagConstraints);
 
         labelFilename.setText(bundle.getString("FlickrImageInfoPanel.labelFilename.text")); // NOI18N
+        labelFilename.setName("labelFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -265,6 +269,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
 
         labelTitle.setLabelFor(textFieldTitle);
         labelTitle.setText(bundle.getString("FlickrImageInfoPanel.labelTitle.text")); // NOI18N
+        labelTitle.setName("labelTitle"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -273,6 +278,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         add(labelTitle, gridBagConstraints);
 
         textFieldTitle.setColumns(25);
+        textFieldTitle.setName("textFieldTitle"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -284,6 +290,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
 
         labelDescription.setLabelFor(textAreaDescription);
         labelDescription.setText(bundle.getString("FlickrImageInfoPanel.labelDescription.text")); // NOI18N
+        labelDescription.setName("labelDescription"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -293,8 +300,11 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(3, 7, 0, 0);
         add(labelDescription, gridBagConstraints);
 
+        scrollPaneDescription.setName("scrollPaneDescription"); // NOI18N
+
         textAreaDescription.setColumns(20);
         textAreaDescription.setRows(2);
+        textAreaDescription.setName("textAreaDescription"); // NOI18N
         scrollPaneDescription.setViewportView(textAreaDescription);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -310,6 +320,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
 
         labelTags.setLabelFor(textAreaTags);
         labelTags.setText(bundle.getString("FlickrImageInfoPanel.labelTags.text")); // NOI18N
+        labelTags.setName("labelTags"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -319,8 +330,11 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(3, 7, 0, 0);
         add(labelTags, gridBagConstraints);
 
+        scrollPaneTags.setName("scrollPaneTags"); // NOI18N
+
         textAreaTags.setColumns(20);
         textAreaTags.setRows(2);
+        textAreaTags.setName("textAreaTags"); // NOI18N
         scrollPaneTags.setViewportView(textAreaTags);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

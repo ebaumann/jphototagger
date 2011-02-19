@@ -395,6 +395,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
+        popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -408,6 +409,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemDelete.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
@@ -415,12 +417,18 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         });
         popupMenu.add(menuItemDelete);
 
+        setName("Form"); // NOI18N
+
         labelHeadingListDirectories.setLabelFor(list);
         labelHeadingListDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
+        labelHeadingListDirectories.setName("labelHeadingListDirectories"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
 
         list.setModel(listModelDirectories);
         list.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererDirectories());
         list.setComponentPopupMenu(popupMenu);
+        list.setName("list"); // NOI18N
         list.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 listKeyReleased(evt);
@@ -429,25 +437,33 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         scrollPane.setViewportView(list);
 
         labelInfoFilecount.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
+        labelInfoFilecount.setName("labelInfoFilecount"); // NOI18N
 
         labelFilecount.setForeground(new java.awt.Color(0, 153, 0));
         labelFilecount.setText("0");
+        labelFilecount.setName("labelFilecount"); // NOI18N
         labelFilecount.setPreferredSize(new java.awt.Dimension(4, 20));
 
         checkBoxForce.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
+        checkBoxForce.setName("checkBoxForce"); // NOI18N
 
         checkBoxIncludeSubdirectories.setSelected(true);
         checkBoxIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
 
         labelInfoCurrentFilename.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
 
         labelCurrentFilename.setForeground(new java.awt.Color(51, 51, 255));
+        labelCurrentFilename.setName("labelCurrentFilename"); // NOI18N
         labelCurrentFilename.setPreferredSize(new java.awt.Dimension(4, 20));
 
         progressBar.setFocusable(false);
+        progressBar.setName("progressBar"); // NOI18N
         progressBar.setStringPainted(true);
 
         buttonChooseDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
+        buttonChooseDirectories.setName("buttonChooseDirectories"); // NOI18N
         buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoriesActionPerformed(evt);
@@ -456,6 +472,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
         buttonCancel.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -464,6 +481,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
         buttonStart.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
+        buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStartActionPerformed(evt);
@@ -494,7 +512,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
                     .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
                 .addContainerGap())
         );

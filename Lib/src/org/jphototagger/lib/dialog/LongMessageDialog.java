@@ -159,7 +159,10 @@ public class LongMessageDialog extends Dialog {
         buttonClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        labelIcon.setName("labelIcon"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -168,6 +171,7 @@ public class LongMessageDialog extends Dialog {
         getContentPane().add(labelIcon, gridBagConstraints);
 
         labelShortMessage.setText(JslBundle.INSTANCE.getString("LongMessageDialog.labelShortMessage.text")); // NOI18N
+        labelShortMessage.setName("labelShortMessage"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -176,11 +180,14 @@ public class LongMessageDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
         getContentPane().add(labelShortMessage, gridBagConstraints);
 
+        scrollPane.setName("scrollPane"); // NOI18N
+
         textArea.setColumns(20);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setRows(5);
         textArea.setWrapStyleWord(true);
+        textArea.setName("textArea"); // NOI18N
         scrollPane.setViewportView(textArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -194,9 +201,14 @@ public class LongMessageDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         getContentPane().add(scrollPane, gridBagConstraints);
 
+        panelControls.setName("panelControls"); // NOI18N
+
+        panelSearch.setName("panelSearch"); // NOI18N
+
         buttonMail.setText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonMail.text")); // NOI18N
         buttonMail.setToolTipText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonMail.toolTipText")); // NOI18N
         buttonMail.setEnabled(false);
+        buttonMail.setName("buttonMail"); // NOI18N
         buttonMail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMailActionPerformed(evt);
@@ -205,6 +217,7 @@ public class LongMessageDialog extends Dialog {
 
         buttonCopy.setText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonCopy.text")); // NOI18N
         buttonCopy.setToolTipText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonCopy.toolTipText")); // NOI18N
+        buttonCopy.setName("buttonCopy"); // NOI18N
         buttonCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyActionPerformed(evt);
@@ -213,6 +226,7 @@ public class LongMessageDialog extends Dialog {
 
         buttonClose.setText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonClose.text")); // NOI18N
         buttonClose.setToolTipText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonClose.toolTipText")); // NOI18N
+        buttonClose.setName("buttonClose"); // NOI18N
         buttonClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCloseActionPerformed(evt);

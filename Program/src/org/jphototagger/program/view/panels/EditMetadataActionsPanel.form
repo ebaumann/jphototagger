@@ -1,9 +1,12 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -28,6 +31,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
@@ -35,6 +41,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelGroupMetadataEdit">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelGroupMetadataEdit" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Bearbeiten">
@@ -59,7 +68,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelPromptInfoCurrentTemplate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelTemplateName" pref="187" max="32767" attributes="0"/>
+                              <Component id="labelTemplateName" pref="192" max="32767" attributes="0"/>
                           </Group>
                           <Component id="labelMetadataInfoEditable" alignment="1" pref="238" max="32767" attributes="0"/>
                           <Component id="buttonMetadataTemplateCreate" alignment="0" min="-2" max="-2" attributes="1"/>
@@ -96,6 +105,7 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelMetadataInfoEditable.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelMetadataInfoEditable" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -113,6 +123,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonEmptyMetadata" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -130,6 +141,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonMetadataTemplateCreate" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -147,6 +159,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonMetadataTemplateInsert" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -160,6 +173,7 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelTemplateName.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelTemplateName" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelPromptInfoCurrentTemplate">
@@ -167,11 +181,15 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelPromptInfoCurrentTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelPromptInfoCurrentTemplate" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelGroupMetadataTemplates">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelGroupMetadataTemplates" noResource="true"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
@@ -228,7 +246,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonMetadataTemplateAdd" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -242,6 +260,7 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.labelPromptCurrentTemplate.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelPromptCurrentTemplate" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -252,6 +271,7 @@
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.comboBoxMetadataTemplates.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="comboBoxMetadataTemplates" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxMetadataTemplatesActionPerformed"/>
@@ -273,6 +293,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonMetadataTemplateRename" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -290,6 +311,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonMetadataTemplateUpdate" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -307,6 +329,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonMetadataTemplateDelete" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -321,6 +344,7 @@
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditMetadataActionsPanel.buttonMetadataTemplateEdit.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
+                <Property name="name" type="java.lang.String" value="buttonMetadataTemplateEdit" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -337,6 +361,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 2, 2, 2]"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonMetadataTemplateAdd" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

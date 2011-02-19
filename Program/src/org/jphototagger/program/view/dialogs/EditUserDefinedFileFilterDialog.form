@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
@@ -13,13 +13,14 @@
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
       <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditUserDefinedFileFilterDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -39,11 +40,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="comboBoxType" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textFieldExpression" pref="373" max="32767" attributes="0"/>
+                      <Component id="textFieldExpression" pref="374" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="checkBoxNot" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="179" max="32767" attributes="0"/>
+                      <EmptySpace pref="183" max="32767" attributes="0"/>
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonOk" min="-2" max="-2" attributes="0"/>
@@ -98,11 +99,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditUserDefinedFileFilterDialog.labelName.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelName" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldName">
       <Properties>
         <Property name="columns" type="int" value="45"/>
+        <Property name="name" type="java.lang.String" value="textFieldName" noResource="true"/>
       </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="filter" sourcePath="${name}" target="textFieldName" targetPath="text" updateStrategy="0" immediately="false">
@@ -118,6 +121,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new ComboBoxModelUserDefinedFileFilterType()" type="code"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="comboBoxType" noResource="true"/>
         <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new ListCellRendererUserDefinedFileFilterType()" type="code"/>
         </Property>
@@ -127,6 +131,9 @@
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldExpression">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="textFieldExpression" noResource="true"/>
+      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="filter" sourcePath="${expression}" target="textFieldExpression" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
@@ -141,6 +148,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditUserDefinedFileFilterDialog.checkBoxNot.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="checkBoxNot" noResource="true"/>
       </Properties>
       <BindingProperties>
         <BindingProperty name="selected" source="filter" sourcePath="${isNot}" target="checkBoxNot" targetPath="selected" updateStrategy="0" immediately="false">
@@ -154,6 +162,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditUserDefinedFileFilterDialog.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonCancel" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
@@ -164,6 +173,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditUserDefinedFileFilterDialog.buttonOk.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonOk" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOkActionPerformed"/>

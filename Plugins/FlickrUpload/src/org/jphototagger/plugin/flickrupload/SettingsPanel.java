@@ -57,10 +57,14 @@ public class SettingsPanel extends javax.swing.JPanel {
         checkBoxDcDescription = new javax.swing.JCheckBox();
         labelVersionInfo = new javax.swing.JLabel();
 
+        setName("Form"); // NOI18N
+
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle"); // NOI18N
         label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
+        label.setName("label"); // NOI18N
 
         buttonDeleteToken.setText(bundle.getString("SettingsPanel.buttonDeleteToken.text")); // NOI18N
+        buttonDeleteToken.setName("buttonDeleteToken"); // NOI18N
         buttonDeleteToken.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteTokenActionPerformed(evt);
@@ -68,8 +72,10 @@ public class SettingsPanel extends javax.swing.JPanel {
         });
 
         panelXmp.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsPanel.panelXmp.border.title"))); // NOI18N
+        panelXmp.setName("panelXmp"); // NOI18N
 
         checkBoxDcSubjects.setText(bundle.getString("SettingsPanel.checkBoxDcSubjects.text")); // NOI18N
+        checkBoxDcSubjects.setName("checkBoxDcSubjects"); // NOI18N
         checkBoxDcSubjects.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDcSubjectsActionPerformed(evt);
@@ -77,6 +83,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         });
 
         checkBoxPhotoshopHeadline.setText(bundle.getString("SettingsPanel.checkBoxPhotoshopHeadline.text")); // NOI18N
+        checkBoxPhotoshopHeadline.setName("checkBoxPhotoshopHeadline"); // NOI18N
         checkBoxPhotoshopHeadline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxPhotoshopHeadlineActionPerformed(evt);
@@ -84,6 +91,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         });
 
         checkBoxDcDescription.setText(bundle.getString("SettingsPanel.checkBoxDcDescription.text")); // NOI18N
+        checkBoxDcDescription.setName("checkBoxDcDescription"); // NOI18N
         checkBoxDcDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDcDescriptionActionPerformed(evt);
@@ -114,6 +122,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         );
 
         labelVersionInfo.setText(bundle.getString("SettingsPanel.labelVersionInfo.text")); // NOI18N
+        labelVersionInfo.setName("labelVersionInfo"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

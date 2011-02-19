@@ -34,10 +34,15 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
         tree.setTransferHandler(new TransferHandlerMiscMetadataTree());
         tree.setShowsRootHandles(true);
 
+        setName("Form"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new TreeCellRendererMiscMetadata());
         tree.setDragEnabled(true);
+        tree.setName("tree"); // NOI18N
         tree.setRootVisible(false);
         scrollPane.setViewportView(tree);
 

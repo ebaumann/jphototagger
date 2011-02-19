@@ -355,10 +355,15 @@ public class ImportImageFilesDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("ImportImageFilesDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
 
         labelPromptSourceDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptSourceDir.text")); // NOI18N
+        labelPromptSourceDir.setName("labelPromptSourceDir"); // NOI18N
+
+        labelSourceDir.setName("labelSourceDir"); // NOI18N
 
         buttonChooseSourceDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
+        buttonChooseSourceDir.setName("buttonChooseSourceDir"); // NOI18N
         buttonChooseSourceDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseSourceDirActionPerformed(evt);
@@ -366,8 +371,12 @@ public class ImportImageFilesDialog extends Dialog {
         });
 
         labelPromptChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptChooseFiles.text")); // NOI18N
+        labelPromptChooseFiles.setName("labelPromptChooseFiles"); // NOI18N
+
+        labelChoosedFiles.setName("labelChoosedFiles"); // NOI18N
 
         buttonChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
+        buttonChooseFiles.setName("buttonChooseFiles"); // NOI18N
         buttonChooseFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFilesActionPerformed(evt);
@@ -375,8 +384,12 @@ public class ImportImageFilesDialog extends Dialog {
         });
 
         labelPromptTargetDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptTargetDir.text")); // NOI18N
+        labelPromptTargetDir.setName("labelPromptTargetDir"); // NOI18N
+
+        labelTargetDir.setName("labelTargetDir"); // NOI18N
 
         checkBoxDeleteAfterCopy.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
+        checkBoxDeleteAfterCopy.setName("checkBoxDeleteAfterCopy"); // NOI18N
         checkBoxDeleteAfterCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteAfterCopyActionPerformed(evt);
@@ -384,6 +397,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
 
         buttonChooseTargetDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
+        buttonChooseTargetDir.setName("buttonChooseTargetDir"); // NOI18N
         buttonChooseTargetDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseTargetDirActionPerformed(evt);
@@ -391,6 +405,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
 
         buttonCancel.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -399,6 +414,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         buttonOk.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
+        buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
@@ -422,12 +438,12 @@ public class ImportImageFilesDialog extends Dialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelPromptChooseFiles)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelChoosedFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
+                                .addComponent(labelChoosedFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                             .addComponent(labelPromptSourceDir)
                             .addComponent(checkBoxDeleteAfterCopy)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
-                        .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
+                        .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonChooseFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -435,7 +451,7 @@ public class ImportImageFilesDialog extends Dialog {
                     .addComponent(buttonChooseTargetDir))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(359, Short.MAX_VALUE)
+                .addContainerGap(363, Short.MAX_VALUE)
                 .addComponent(buttonCancel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonOk)

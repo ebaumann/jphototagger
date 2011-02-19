@@ -164,6 +164,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         buttonUpdate = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
 
+        popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -176,6 +177,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_INSERT, 0));
         menuItemInsert.setText(JptBundle.INSTANCE.getString("UserDefinedFileFilterPanel.menuItemInsert.text")); // NOI18N
+        menuItemInsert.setName("menuItemInsert"); // NOI18N
         menuItemInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemInsertActionPerformed(evt);
@@ -185,6 +187,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         menuItemUpdate.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         menuItemUpdate.setText(JptBundle.INSTANCE.getString("UserDefinedFileFilterPanel.menuItemUpdate.text")); // NOI18N
+        menuItemUpdate.setName("menuItemUpdate"); // NOI18N
         menuItemUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemUpdateActionPerformed(evt);
@@ -194,6 +197,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setText(JptBundle.INSTANCE.getString("UserDefinedFileFilterPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
@@ -201,8 +205,13 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         });
         popupMenu.add(menuItemDelete);
 
+        setName("Form"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
         list.setModel(new ListModelUserDefinedFileFilter());
         list.setComponentPopupMenu(popupMenu);
+        list.setName("list"); // NOI18N
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
@@ -216,6 +225,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         scrollPane.setViewportView(list);
 
         buttonInsert.setText(JptBundle.INSTANCE.getString("UserDefinedFileFilterPanel.buttonInsert.text")); // NOI18N
+        buttonInsert.setName("buttonInsert"); // NOI18N
         buttonInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInsertActionPerformed(evt);
@@ -224,6 +234,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         buttonUpdate.setText(JptBundle.INSTANCE.getString("UserDefinedFileFilterPanel.buttonUpdate.text")); // NOI18N
         buttonUpdate.setEnabled(false);
+        buttonUpdate.setName("buttonUpdate"); // NOI18N
         buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateActionPerformed(evt);
@@ -232,6 +243,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         buttonDelete.setText(JptBundle.INSTANCE.getString("UserDefinedFileFilterPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
+        buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);

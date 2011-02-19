@@ -36,11 +36,13 @@ public class PopupPanel extends javax.swing.JPanel {
 
         setBackground(ThumbnailsPanel.COLOR_BACKGROUND_PANEL);
         setForeground(ThumbnailsPanel.COLOR_FOREGROUND_PANEL);
+        setName("Form"); // NOI18N
         setOpaque(false);
 
         labelMessage.setBackground(ThumbnailsPanel.COLOR_BACKGROUND_PANEL);
         labelMessage.setForeground(ThumbnailsPanel.COLOR_FOREGROUND_PANEL);
         labelMessage.setText("Info"); // NOI18N
+        labelMessage.setName("labelMessage"); // NOI18N
         labelMessage.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

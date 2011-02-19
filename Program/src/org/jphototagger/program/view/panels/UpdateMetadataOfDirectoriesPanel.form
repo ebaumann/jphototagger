@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JPopupMenu" name="popupMenu">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="popupMenu" noResource="true"/>
+      </Properties>
       <Events>
         <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="popupMenuPopupMenuWillBecomeVisible"/>
       </Events>
@@ -22,6 +25,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.menuItemDelete.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="menuItemDelete" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDeleteActionPerformed"/>
@@ -30,9 +34,12 @@
       </SubComponents>
     </Container>
   </NonVisualComponents>
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -68,7 +75,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoCurrentFilename" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCurrentFilename" pref="412" max="32767" attributes="0"/>
+                      <Component id="labelCurrentFilename" pref="434" max="32767" attributes="0"/>
                   </Group>
                   <Component id="labelHeadingListDirectories" alignment="0" pref="510" max="32767" attributes="1"/>
               </Group>
@@ -119,9 +126,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelHeadingListDirectories" noResource="true"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="scrollPane" noResource="true"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -139,6 +150,7 @@
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenu"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="list" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listKeyReleased"/>
@@ -151,6 +163,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfoFilecount" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelFilecount">
@@ -159,6 +172,7 @@
           <Color blue="0" green="99" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="0"/>
+        <Property name="name" type="java.lang.String" value="labelFilecount" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[4, 20]"/>
         </Property>
@@ -169,6 +183,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.checkBoxForce.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="checkBoxForce" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIncludeSubdirectories">
@@ -177,6 +192,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="checkBoxIncludeSubdirectories" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelInfoCurrentFilename">
@@ -184,6 +200,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfoCurrentFilename" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelCurrentFilename">
@@ -191,6 +208,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="33" red="33" type="rgb"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelCurrentFilename" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[4, 20]"/>
         </Property>
@@ -199,6 +217,7 @@
     <Component class="javax.swing.JProgressBar" name="progressBar">
       <Properties>
         <Property name="focusable" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="progressBar" noResource="true"/>
         <Property name="stringPainted" type="boolean" value="true"/>
       </Properties>
     </Component>
@@ -207,6 +226,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonChooseDirectories" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDirectoriesActionPerformed"/>
@@ -218,6 +238,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonCancel" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
@@ -229,6 +250,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonStart.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonStart" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStartActionPerformed"/>

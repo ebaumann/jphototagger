@@ -183,9 +183,12 @@ public class InputDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(JslBundle.INSTANCE.getString("InputDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
 
         labelPrompt.setText(JslBundle.INSTANCE.getString("InputDialog.labelPrompt.text")); // NOI18N
+        labelPrompt.setName("labelPrompt"); // NOI18N
 
+        textFieldInput.setName("textFieldInput"); // NOI18N
         textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldInputKeyPressed(evt);
@@ -194,6 +197,7 @@ public class InputDialog extends Dialog {
 
         buttonCancel.setMnemonic('a');
         buttonCancel.setText(JslBundle.INSTANCE.getString("InputDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -202,6 +206,7 @@ public class InputDialog extends Dialog {
 
         buttonOk.setMnemonic('o');
         buttonOk.setText(JslBundle.INSTANCE.getString("InputDialog.buttonOk.text")); // NOI18N
+        buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

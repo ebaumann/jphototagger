@@ -228,7 +228,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         labelDatabaseBackupDirectory = new javax.swing.JLabel();
         buttonChooseDatabaseBackupDirectory = new javax.swing.JButton();
 
+        setName("Form"); // NOI18N
+
         checkBoxIsAcceptHiddenDirectories.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.setName("checkBoxIsAcceptHiddenDirectories"); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
@@ -236,6 +239,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         checkBoxAutoDownloadCheck.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxAutoDownloadCheck.text")); // NOI18N
+        checkBoxAutoDownloadCheck.setName("checkBoxAutoDownloadCheck"); // NOI18N
         checkBoxAutoDownloadCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAutoDownloadCheckActionPerformed(evt);
@@ -243,6 +247,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         buttonCheckDownload.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonCheckDownload.text")); // NOI18N
+        buttonCheckDownload.setName("buttonCheckDownload"); // NOI18N
         buttonCheckDownload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCheckDownloadActionPerformed(evt);
@@ -250,6 +255,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         checkBoxDisplaySearchButton.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxDisplaySearchButton.text")); // NOI18N
+        checkBoxDisplaySearchButton.setName("checkBoxDisplaySearchButton"); // NOI18N
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplaySearchButtonActionPerformed(evt);
@@ -257,6 +263,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         checkBoxAddFilenameToGpsLocationExport.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
+        checkBoxAddFilenameToGpsLocationExport.setName("checkBoxAddFilenameToGpsLocationExport"); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAddFilenameToGpsLocationExportActionPerformed(evt);
@@ -264,6 +271,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         checkBoxExperimentalFileFormats.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxExperimentalFileFormats.text")); // NOI18N
+        checkBoxExperimentalFileFormats.setName("checkBoxExperimentalFileFormats"); // NOI18N
         checkBoxExperimentalFileFormats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxExperimentalFileFormatsActionPerformed(evt);
@@ -271,9 +279,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsMiscPanel.panelCopyMoveFiles.border.title"))); // NOI18N
+        panelCopyMoveFiles.setName("panelCopyMoveFiles"); // NOI18N
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
         radioButtonCopyMoveFileConfirmOverwrite.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
+        radioButtonCopyMoveFileConfirmOverwrite.setName("radioButtonCopyMoveFileConfirmOverwrite"); // NOI18N
         radioButtonCopyMoveFileConfirmOverwrite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileConfirmOverwriteActionPerformed(evt);
@@ -282,6 +292,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
         radioButtonCopyMoveFileRenameIfExists.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
+        radioButtonCopyMoveFileRenameIfExists.setName("radioButtonCopyMoveFileRenameIfExists"); // NOI18N
         radioButtonCopyMoveFileRenameIfExists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileRenameIfExistsActionPerformed(evt);
@@ -295,8 +306,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCopyMoveFilesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
-                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
+                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelCopyMoveFilesLayout.setVerticalGroup(
@@ -309,8 +320,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         );
 
         labelIptcCharset.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
+        labelIptcCharset.setName("labelIptcCharset"); // NOI18N
 
         comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
+        comboBoxIptcCharset.setName("comboBoxIptcCharset"); // NOI18N
         comboBoxIptcCharset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIptcCharsetActionPerformed(evt);
@@ -318,6 +331,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
+        comboBoxLogLevel.setName("comboBoxLogLevel"); // NOI18N
         comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxLogLevelActionPerformed(evt);
@@ -326,13 +340,17 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         labelLogLevel.setLabelFor(comboBoxLogLevel);
         labelLogLevel.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
+        labelLogLevel.setName("labelLogLevel"); // NOI18N
 
         panelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsMiscPanel.panelDatabaseDirectory.border.title"))); // NOI18N
+        panelDatabaseDirectory.setName("panelDatabaseDirectory"); // NOI18N
 
         labelDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
         labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelDatabaseDirectory.setName("labelDatabaseDirectory"); // NOI18N
 
         buttonSetStandardDatabaseDirectoryName.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
+        buttonSetStandardDatabaseDirectoryName.setName("buttonSetStandardDatabaseDirectoryName"); // NOI18N
         buttonSetStandardDatabaseDirectoryName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetStandardDatabaseDirectoryNameActionPerformed(evt);
@@ -340,6 +358,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         });
 
         buttonChooseDatabaseDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
+        buttonChooseDatabaseDirectory.setName("buttonChooseDatabaseDirectory"); // NOI18N
         buttonChooseDatabaseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDatabaseDirectoryActionPerformed(evt);
@@ -348,13 +367,17 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         labelInfoDatabaseDirectory.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoDatabaseDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text")); // NOI18N
+        labelInfoDatabaseDirectory.setName("labelInfoDatabaseDirectory"); // NOI18N
 
         labelPromptDatabaseBackupDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelPromptDatabaseBackupDirectory.text")); // NOI18N
+        labelPromptDatabaseBackupDirectory.setName("labelPromptDatabaseBackupDirectory"); // NOI18N
 
         labelDatabaseBackupDirectory.setForeground(new java.awt.Color(0, 0, 255));
         labelDatabaseBackupDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelDatabaseBackupDirectory.setName("labelDatabaseBackupDirectory"); // NOI18N
 
         buttonChooseDatabaseBackupDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonChooseDatabaseBackupDirectory.text")); // NOI18N
+        buttonChooseDatabaseBackupDirectory.setName("buttonChooseDatabaseBackupDirectory"); // NOI18N
         buttonChooseDatabaseBackupDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDatabaseBackupDirectoryActionPerformed(evt);
@@ -414,7 +437,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(checkBoxAutoDownloadCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                                    .addComponent(checkBoxAutoDownloadCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(buttonCheckDownload))
                                 .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
@@ -425,9 +448,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(labelIptcCharset, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                            .addComponent(labelIptcCharset, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                                             .addGap(49, 49, 49))
-                                        .addComponent(labelLogLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                                        .addComponent(labelLogLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
                                     .addGap(14, 14, 14)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

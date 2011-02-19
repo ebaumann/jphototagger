@@ -39,6 +39,9 @@ public class UserDefinedFileFilterDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("UserDefinedFileFilterDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
+
+        panel.setName("panel"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

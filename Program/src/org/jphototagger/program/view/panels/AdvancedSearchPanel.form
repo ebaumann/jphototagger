@@ -1,9 +1,12 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -18,6 +21,9 @@
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
+      </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="tabbedPaneStateChanged"/>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tabbedPaneFocusGained"/>
@@ -31,6 +37,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelKeywords">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelKeywords" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="S&amp;tichwortkombinationen">
@@ -47,7 +56,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelKeywordsInput" alignment="0" pref="649" max="32767" attributes="0"/>
+                          <Component id="panelKeywordsInput" alignment="0" pref="636" max="32767" attributes="0"/>
                           <Component id="labelInfoKeywords" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -60,7 +69,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoKeywords" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelKeywordsInput" pref="162" max="32767" attributes="0"/>
+                      <Component id="panelKeywordsInput" pref="158" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -72,9 +81,13 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelInfoKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelInfoKeywords" noResource="true"/>
               </Properties>
             </Component>
             <Component class="org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel" name="panelKeywordsInput">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="panelKeywordsInput" noResource="true"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelKeywordsInput.setPrompt(&quot;&quot;);&#xa;panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());&#xa;panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropList());"/>
               </AuxValues>
@@ -82,6 +95,9 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelSimpleSql">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelSimpleSql" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Einfaches SQ&amp;L">
@@ -98,10 +114,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneColumns" alignment="1" pref="649" max="32767" attributes="0"/>
+                          <Component id="scrollPaneColumns" alignment="1" pref="636" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelInfoDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="312" max="32767" attributes="0"/>
+                              <EmptySpace pref="341" max="32767" attributes="0"/>
                               <Component id="buttonAddColumn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -113,7 +129,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneColumns" pref="150" max="32767" attributes="0"/>
+                      <Component id="scrollPaneColumns" pref="149" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonAddColumn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -130,11 +146,15 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="scrollPaneColumns" noResource="true"/>
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="panelColumns">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="panelColumns" noResource="true"/>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                 </Container>
@@ -148,6 +168,7 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelInfoDelete.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelInfoDelete" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="buttonAddColumn">
@@ -155,6 +176,7 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonAddColumn.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="buttonAddColumn" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddColumnActionPerformed"/>
@@ -163,6 +185,9 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelCustomSql">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelCustomSql" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Eigenes S&amp;QL">
@@ -181,6 +206,7 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelCustomSqlInfo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelCustomSqlInfo" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -189,6 +215,9 @@
               </Constraints>
             </Component>
             <Container class="javax.swing.JScrollPane" name="scrollPaneCustomSqlQuery">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="scrollPaneCustomSqlQuery" noResource="true"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -205,6 +234,7 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="2"/>
+                    <Property name="name" type="java.lang.String" value="textAreaCustomSqlQuery" noResource="true"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea()"/>
@@ -218,6 +248,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelButtons">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="panelButtons" noResource="true"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
           <GridBagConstraints gridX="1" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="5" insetsBottom="10" insetsRight="5" anchor="12" weightX="0.0" weightY="0.0"/>
@@ -255,6 +288,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="buttonSaveSearch" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSaveSearchActionPerformed"/>
@@ -265,6 +299,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveAs.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="buttonSaveAs" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSaveAsActionPerformed"/>
@@ -275,6 +310,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonResetColumns.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="buttonResetColumns" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonResetColumnsActionPerformed"/>
@@ -285,6 +321,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="buttonSearch" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -1,9 +1,12 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -21,13 +24,13 @@
               <Component id="buttonSelectAll" linkSize="4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonSelectNone" linkSize="4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Component id="buttonExportImport" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <Component id="labelPromptDir" min="-2" max="-2" attributes="1"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="labelDir" pref="172" max="32767" attributes="0"/>
+              <Component id="labelDir" pref="185" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="buttonSelDir" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -63,15 +66,20 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ExportImportPanel.labelPromptDir.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelPromptDir" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelDir">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="labelDir" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonSelDir">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ExportImportPanel.buttonSelDir.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonSelDir" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelDirActionPerformed"/>
@@ -80,6 +88,7 @@
     <Component class="javax.swing.JLabel" name="labelSelectInfo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Auswahl:" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="labelSelectInfo" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonSelectAll">
@@ -88,6 +97,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ExportImportPanel.buttonSelectAll.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonSelectAll" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectAllActionPerformed"/>
@@ -99,16 +109,23 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ExportImportPanel.buttonSelectNone.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonSelectNone" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectNoneActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="scrollPane" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Container class="org.jphototagger.lib.component.SelectObjectsPanel" name="panelSelectObjects">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelSelectObjects" noResource="true"/>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
         </Container>
@@ -120,6 +137,7 @@
           <Connection code="TEXT_EXPORT" type="code"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonExportImport" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExportImportActionPerformed"/>

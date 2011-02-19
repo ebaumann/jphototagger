@@ -373,13 +373,19 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
+        setName("Form"); // NOI18N
+
         labelDescription.setText(JptBundle.INSTANCE.getString("FileEditorPanel.labelDescription.text")); // NOI18N
+        labelDescription.setName("labelDescription"); // NOI18N
 
         panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
+        panelOptions.setName("panelOptions"); // NOI18N
 
         checkBoxIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
 
         checkBoxReplaceExistingFiles.setText(JptBundle.INSTANCE.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
+        checkBoxReplaceExistingFiles.setName("checkBoxReplaceExistingFiles"); // NOI18N
 
         javax.swing.GroupLayout panelOptionsLayout = new javax.swing.GroupLayout(panelOptions);
         panelOptions.setLayout(panelOptionsLayout);
@@ -389,7 +395,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxReplaceExistingFiles)
                     .addComponent(checkBoxIncludeSubdirectories))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         panelOptionsLayout.setVerticalGroup(
             panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -401,16 +407,25 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         );
 
         labelInfoFiles.setText(JptBundle.INSTANCE.getString("FileEditorPanel.labelInfoFiles.text")); // NOI18N
+        labelInfoFiles.setName("labelInfoFiles"); // NOI18N
+
+        scrollPaneListFiles.setName("scrollPaneListFiles"); // NOI18N
 
         listFiles.setCellRenderer(new ListCellRendererFileSystem(true));
         listFiles.setEnabled(false);
+        listFiles.setName("listFiles"); // NOI18N
         scrollPaneListFiles.setViewportView(listFiles);
 
+        progressBar.setName("progressBar"); // NOI18N
+
         labelPromptCurrentFile.setText(JptBundle.INSTANCE.getString("FileEditorPanel.labelPromptCurrentFile.text")); // NOI18N
+        labelPromptCurrentFile.setName("labelPromptCurrentFile"); // NOI18N
 
         labelCurrentFile.setForeground(new java.awt.Color(0, 0, 255));
+        labelCurrentFile.setName("labelCurrentFile"); // NOI18N
 
         buttonSelectFiles.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
+        buttonSelectFiles.setName("buttonSelectFiles"); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectFilesActionPerformed(evt);
@@ -419,6 +434,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         buttonCancel.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -427,6 +443,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         buttonStart.setText(JptBundle.INSTANCE.getString("FileEditorPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
+        buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStartActionPerformed(evt);
@@ -455,7 +472,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                                 .addComponent(buttonCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonStart))
-                            .addComponent(labelCurrentFile, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))))
+                            .addComponent(labelCurrentFile, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

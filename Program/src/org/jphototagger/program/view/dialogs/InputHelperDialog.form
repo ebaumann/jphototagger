@@ -7,6 +7,7 @@
       <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="InputHelperDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -16,7 +17,7 @@
   </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -44,7 +45,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="372" max="32767" attributes="0"/>
+              <Component id="tabbedPane" pref="344" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelInfo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -56,11 +57,15 @@
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
       <Properties>
         <Property name="tabLayoutPolicy" type="int" value="1"/>
+        <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Component class="org.jphototagger.program.view.panels.KeywordsPanel" name="panelKeywords">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelKeywords" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;Stichw&#xf6;rter">
@@ -72,6 +77,9 @@
           </Constraints>
         </Component>
         <Component class="org.jphototagger.program.view.panels.MiscXmpMetadataPanel" name="panelMiscXmpMetadata">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelMiscXmpMetadata" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Verschiedenes">
@@ -83,6 +91,9 @@
           </Constraints>
         </Component>
         <Component class="org.jphototagger.program.view.panels.MetaDataTemplatesPanel" name="panelMetaDataTemplates">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelMetaDataTemplates" noResource="true"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelMetaDataTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.METADATA_TEMPLATES));"/>
           </AuxValues>
@@ -103,6 +114,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="InputHelperDialog.labelInfo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfo" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

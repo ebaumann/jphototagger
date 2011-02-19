@@ -45,6 +45,9 @@ public class SynonymsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("SynonymsDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
+
+        synonymsPanel1.setName("synonymsPanel1"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

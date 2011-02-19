@@ -222,24 +222,27 @@ public class ExpandCollapseComponentPanel extends JPanel
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonExpandCollapse = new javax.swing.JButton();
+
+        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
+
         buttonExpandCollapse.setContentAreaFilled(false);
         buttonExpandCollapse.setFocusable(false);
         buttonExpandCollapse.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonExpandCollapse.setName("buttonExpandCollapse"); // NOI18N
         buttonExpandCollapse.setPreferredSize(new java.awt.Dimension(16, 16));
-        buttonExpandCollapse.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonExpandCollapse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExpandCollapseActionPerformed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 0;
-        gridBagConstraints.gridy  = 0;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(buttonExpandCollapse, gridBagConstraints);
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonExpandCollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExpandCollapseActionPerformed
         toggleExpandCollapse();
@@ -247,6 +250,5 @@ public class ExpandCollapseComponentPanel extends JPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExpandCollapse;
-
     // End of variables declaration//GEN-END:variables
 }

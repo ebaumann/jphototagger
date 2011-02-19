@@ -212,25 +212,28 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         labelPromptFavoriteName = new javax.swing.JLabel();
-        textFieldFavoriteName   = new javax.swing.JTextField();
-        buttonChooseDirectory   = new javax.swing.JButton();
-        labelDirectoryname      = new javax.swing.JLabel();
-        buttonCancel            = new javax.swing.JButton();
-        buttonOk                = new javax.swing.JButton();
-        setDefaultCloseOperation(
-            javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(
-            JptBundle.INSTANCE.getString("FavoritePropertiesDialog.title"));    // NOI18N
+        textFieldFavoriteName = new javax.swing.JTextField();
+        buttonChooseDirectory = new javax.swing.JButton();
+        labelDirectoryname = new javax.swing.JLabel();
+        buttonCancel = new javax.swing.JButton();
+        buttonOk = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+
         labelPromptFavoriteName.setLabelFor(textFieldFavoriteName);
-        labelPromptFavoriteName.setText(
-            JptBundle.INSTANCE.getString(
-                "FavoritePropertiesDialog.labelPromptFavoriteName.text"));    // NOI18N
+        labelPromptFavoriteName.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
+        labelPromptFavoriteName.setName("labelPromptFavoriteName"); // NOI18N
+
+        textFieldFavoriteName.setName("textFieldFavoriteName"); // NOI18N
         textFieldFavoriteName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldFavoriteNameKeyPressed(evt);
@@ -242,87 +245,74 @@ public final class FavoritePropertiesDialog extends Dialog {
                 textFieldFavoriteNameKeyTyped(evt);
             }
         });
-        buttonChooseDirectory.setText(
-            JptBundle.INSTANCE.getString(
-                "FavoritePropertiesDialog.buttonChooseDirectory.text_1"));    // NOI18N
-        buttonChooseDirectory.addActionListener(
-            new java.awt.event.ActionListener() {
+
+        buttonChooseDirectory.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
+        buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
+        buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
             }
         });
-        labelDirectoryname.setBorder(
-            javax.swing.BorderFactory.createEtchedBorder());
-        buttonCancel.setText(
-            JptBundle.INSTANCE.getString(
-                "FavoritePropertiesDialog.buttonCancel.text"));    // NOI18N
+
+        labelDirectoryname.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelDirectoryname.setName("labelDirectoryname"); // NOI18N
+
+        buttonCancel.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
         });
-        buttonOk.setText(
-            JptBundle.INSTANCE.getString(
-                "FavoritePropertiesDialog.buttonOk.text"));    // NOI18N
+
+        buttonOk.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
+        buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        labelDirectoryname,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, 281,
-                        Short.MAX_VALUE).addComponent(
-                            textFieldFavoriteName,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, 281,
-                            Short.MAX_VALUE).addComponent(
-                                labelPromptFavoriteName).addGroup(
-                                javax.swing.GroupLayout.Alignment.TRAILING,
-                                layout.createSequentialGroup().addComponent(
-                                    buttonCancel).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                    buttonOk)).addComponent(
-                                        buttonChooseDirectory,
-                                        javax.swing.GroupLayout.Alignment.TRAILING)).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelDirectoryname, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                    .addComponent(textFieldFavoriteName, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                    .addComponent(labelPromptFavoriteName)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonOk))
+                    .addComponent(buttonChooseDirectory, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGap(7, 7, 7).addComponent(
-                    labelPromptFavoriteName).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    textFieldFavoriteName,
-                    javax.swing.GroupLayout.PREFERRED_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                        buttonChooseDirectory).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                        labelDirectoryname,
-                        javax.swing.GroupLayout.PREFERRED_SIZE, 12,
-                        javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                            layout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                buttonOk).addComponent(
-                                buttonCancel)).addContainerGap(
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    Short.MAX_VALUE)));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { labelDirectoryname,
-                textFieldFavoriteName });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(labelPromptFavoriteName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldFavoriteName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonChooseDirectory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelDirectoryname, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonOk)
+                    .addComponent(buttonCancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDirectoryname, textFieldFavoriteName});
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseDirectory();
@@ -374,12 +364,11 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton    buttonCancel;
-    private javax.swing.JButton    buttonChooseDirectory;
-    private javax.swing.JButton    buttonOk;
-    private javax.swing.JLabel     labelDirectoryname;
-    private javax.swing.JLabel     labelPromptFavoriteName;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonChooseDirectory;
+    private javax.swing.JButton buttonOk;
+    private javax.swing.JLabel labelDirectoryname;
+    private javax.swing.JLabel labelPromptFavoriteName;
     private javax.swing.JTextField textFieldFavoriteName;
-
     // End of variables declaration//GEN-END:variables
 }

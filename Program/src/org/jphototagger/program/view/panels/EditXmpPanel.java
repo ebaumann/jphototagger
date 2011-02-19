@@ -252,107 +252,126 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        panelDcSubjects =
-            new org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel();
-        panelDcTitle =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelDcDescription =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopHeadline =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelIptc4xmpcoreLocation =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelIptc4XmpCoreDateCreated =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopAuthorsposition =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelDcCreator =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCity =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopState =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCountry =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelDcRights =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCredit =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopSource =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopTransmissionReference =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopInstructions =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCaptionwriter =
-            new org.jphototagger.program.view.panels.EditTextEntryPanel();
+
+        panelDcSubjects = new org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel();
+        panelDcTitle = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelDcDescription = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopHeadline = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelIptc4xmpcoreLocation = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelIptc4XmpCoreDateCreated = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopAuthorsposition = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelDcCreator = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopCity = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopState = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopCountry = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelDcRights = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopCredit = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopSource = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopTransmissionReference = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopInstructions = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelPhotoshopCaptionwriter = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+
+        setName("Form"); // NOI18N
+
+        panelDcSubjects.setName("panelDcSubjects"); // NOI18N
+
+        panelDcTitle.setName("panelDcTitle"); // NOI18N
+
+        panelDcDescription.setName("panelDcDescription"); // NOI18N
+
+        panelPhotoshopHeadline.setName("panelPhotoshopHeadline"); // NOI18N
+
+        panelIptc4xmpcoreLocation.setName("panelIptc4xmpcoreLocation"); // NOI18N
+
+        panelIptc4XmpCoreDateCreated.setName("panelIptc4XmpCoreDateCreated"); // NOI18N
+
+        panelPhotoshopAuthorsposition.setName("panelPhotoshopAuthorsposition"); // NOI18N
+
+        panelDcCreator.setName("panelDcCreator"); // NOI18N
+
+        panelPhotoshopCity.setName("panelPhotoshopCity"); // NOI18N
+
+        panelPhotoshopState.setName("panelPhotoshopState"); // NOI18N
+
+        panelPhotoshopCountry.setName("panelPhotoshopCountry"); // NOI18N
+
+        panelDcRights.setName("panelDcRights"); // NOI18N
+
+        panelPhotoshopCredit.setName("panelPhotoshopCredit"); // NOI18N
+
+        panelPhotoshopSource.setName("panelPhotoshopSource"); // NOI18N
+
+        panelPhotoshopTransmissionReference.setName("panelPhotoshopTransmissionReference"); // NOI18N
+
+        panelPhotoshopInstructions.setName("panelPhotoshopInstructions"); // NOI18N
+
+        panelPhotoshopCaptionwriter.setName("panelPhotoshopCaptionwriter"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panelDcSubjects, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelDcTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelDcDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopHeadline, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelIptc4xmpcoreLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelIptc4XmpCoreDateCreated, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopAuthorsposition, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelDcCreator, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopCity, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopState, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopCountry, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelDcRights, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopCredit, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopSource, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopTransmissionReference, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopInstructions, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE).addComponent(
-                panelPhotoshopCaptionwriter, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelDcSubjects, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelDcTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelDcDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopHeadline, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelIptc4xmpcoreLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelIptc4XmpCoreDateCreated, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopAuthorsposition, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelDcCreator, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopCity, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopState, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopCountry, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelDcRights, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopCredit, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopSource, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopTransmissionReference, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopInstructions, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addComponent(
-                    panelDcSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelDcTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelDcDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopHeadline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelIptc4xmpcoreLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelIptc4XmpCoreDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopAuthorsposition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelDcCreator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelDcRights, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopCredit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopTransmissionReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    panelPhotoshopCaptionwriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelDcSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelDcTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelDcDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopHeadline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelIptc4xmpcoreLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelIptc4XmpCoreDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopAuthorsposition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelDcCreator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelDcRights, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopCredit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopTransmissionReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcCreator;
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcDescription;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel           panelDcRights;
+    private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcRights;
     private org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel panelDcSubjects;
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcTitle;
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelIptc4XmpCoreDateCreated;
@@ -367,6 +386,5 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopSource;
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopState;
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopTransmissionReference;
-
     // End of variables declaration//GEN-END:variables
 }
