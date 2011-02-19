@@ -29,6 +29,10 @@ public class SystemOutputDialog extends Dialog {
         panelSystemOutput.caputure();
     }
 
+    public String getOutput() {
+        return panelSystemOutput.getOutput();
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
