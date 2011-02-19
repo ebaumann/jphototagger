@@ -5,9 +5,12 @@
     <Component class="javax.swing.ButtonGroup" name="buttonGroupActionsAfterDatabaseInsertion">
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -23,7 +26,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="tabbedPane" alignment="0" pref="491" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="407" max="32767" attributes="0"/>
+              <EmptySpace pref="420" max="32767" attributes="0"/>
               <Component id="buttonHelpPlugin" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -44,11 +47,15 @@
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
       <Properties>
         <Property name="tabLayoutPolicy" type="int" value="1"/>
+        <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelExclude">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelExclude" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Ein/Ausschlie&#xdf;en">
@@ -65,7 +72,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneExclude" alignment="0" pref="462" max="32767" attributes="0"/>
+                          <Component id="scrollPaneExclude" alignment="0" pref="466" max="32767" attributes="0"/>
                           <Component id="labelInfoExclude" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -78,7 +85,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoExclude" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneExclude" pref="152" max="32767" attributes="0"/>
+                      <Component id="scrollPaneExclude" pref="154" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -90,17 +97,22 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsPluginsPanel.labelInfoExclude.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="labelInfoExclude" noResource="true"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="scrollPaneExclude">
               <Properties>
                 <Property name="alignmentX" type="float" value="0.0"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
+                <Property name="name" type="java.lang.String" value="scrollPaneExclude" noResource="true"/>
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="panelExcludeCheckboxes">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="panelExcludeCheckboxes" noResource="true"/>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                 </Container>
@@ -115,6 +127,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsPluginsPanel.buttonHelpPlugin.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonHelpPlugin" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHelpPluginActionPerformed"/>

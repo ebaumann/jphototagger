@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JPopupMenu" name="popupMenuWords">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="popupMenuWords" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
@@ -19,6 +22,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.menuItemChangeWord.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="menuItemChangeWord" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemChangeWordActionPerformed"/>
@@ -35,6 +39,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.menuItemRemoveWord.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="menuItemRemoveWord" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRemoveWordActionPerformed"/>
@@ -43,6 +48,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPopupMenu" name="popupMenuSynonyms">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="popupMenuSynonyms" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
@@ -59,6 +67,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.menuItemChangeSynonym.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="menuItemChangeSynonym" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemChangeSynonymActionPerformed"/>
@@ -75,6 +84,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.menuItemRemoveSynonym.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="menuItemRemoveSynonym" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRemoveSynonymActionPerformed"/>
@@ -83,9 +93,12 @@
       </SubComponents>
     </Container>
   </NonVisualComponents>
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -130,8 +143,8 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelListSynonyms" min="-2" max="-2" attributes="0"/>
-                          <Component id="scrollPaneListSynonyms" alignment="0" pref="207" max="32767" attributes="2"/>
-                          <Component id="textFieldSynonyms" alignment="0" pref="207" max="32767" attributes="2"/>
+                          <Component id="scrollPaneListSynonyms" alignment="0" pref="210" max="32767" attributes="2"/>
+                          <Component id="textFieldSynonyms" alignment="0" pref="210" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -210,12 +223,14 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.labelTextAreaWord.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelTextAreaWord" noResource="true"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPaneTextAreaWords">
       <Properties>
         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
         <Property name="verticalScrollBarPolicy" type="int" value="21"/>
+        <Property name="name" type="java.lang.String" value="scrollPaneTextAreaWords" noResource="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -246,9 +261,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.labelListWords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelListWords" noResource="true"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPaneListWords">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="scrollPaneListWords" noResource="true"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -264,6 +283,7 @@
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenuWords"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="listWords" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listWordsMouseClicked"/>
@@ -284,6 +304,7 @@
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 2, 0, 2]"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonAddWord" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddWordActionPerformed"/>
@@ -301,6 +322,7 @@
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 2, 0, 2]"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonRemoveWord" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveWordActionPerformed"/>
@@ -318,6 +340,7 @@
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 2, 0, 2]"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonChangeWord" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChangeWordActionPerformed"/>
@@ -331,6 +354,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.labelTextFieldSynonym.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelTextFieldSynonym" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldSynonyms">
@@ -352,9 +376,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.labelListSynonyms.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelListSynonyms" noResource="true"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPaneListSynonyms">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="scrollPaneListSynonyms" noResource="true"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -370,6 +398,7 @@
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenuSynonyms"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="listSynonyms" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listSynonymsMouseClicked"/>
@@ -390,6 +419,7 @@
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 2, 0, 2]"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonAddSynonym" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddSynonymActionPerformed"/>
@@ -407,6 +437,7 @@
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 2, 0, 2]"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonRemoveSynonym" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveSynonymActionPerformed"/>
@@ -424,6 +455,7 @@
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 2, 0, 2]"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonChangeSynonym" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChangeSynonymActionPerformed"/>
@@ -437,6 +469,7 @@
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.buttonAddAllKeywords.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonAddAllKeywords" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddAllKeywordsActionPerformed"/>
@@ -447,6 +480,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SynonymsPanel.labelInfoAddSynonym.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfoAddSynonym" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

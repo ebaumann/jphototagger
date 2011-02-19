@@ -159,13 +159,18 @@ public class KeywordsPanel extends javax.swing.JPanel {
         list.setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
         buttonAsTree = new javax.swing.JButton();
 
+        setName("Form"); // NOI18N
         setLayout(new java.awt.CardLayout());
 
+        panelTree.setName("panelTree"); // NOI18N
         panelTree.setLayout(new java.awt.GridBagLayout());
+
+        scrollPaneTree.setName("scrollPaneTree"); // NOI18N
 
         tree.setModel(TreeModelWait.INSTANCE);
         tree.setCellRenderer(new org.jphototagger.program.view.renderer.TreeCellRendererKeywords());
         tree.setDragEnabled(true);
+        tree.setName("tree"); // NOI18N
         scrollPaneTree.setViewportView(tree);
         tree.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree());
 
@@ -177,10 +182,12 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTree.add(scrollPaneTree, gridBagConstraints);
 
+        panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonAsList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
         buttonAsList.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonAsList.setName("buttonAsList"); // NOI18N
         buttonAsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAsListActionPerformed(evt);
@@ -195,6 +202,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         buttonToggleExpandAllNodes.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
         buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonToggleExpandAllNodes.setName("buttonToggleExpandAllNodes"); // NOI18N
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonToggleExpandAllNodesActionPerformed(evt);
@@ -215,11 +223,15 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         add(panelTree, "Tree");
 
+        panelList.setName("panelList"); // NOI18N
         panelList.setLayout(new java.awt.GridBagLayout());
+
+        scrollPaneList.setName("scrollPaneList"); // NOI18N
 
         list.setModel(ListModelWait.INSTANCE);
         list.setCellRenderer(new ListCellRendererKeywords());
         list.setDragEnabled(true);
+        list.setName("list"); // NOI18N
         scrollPaneList.setViewportView(list);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -232,6 +244,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         buttonAsTree.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
         buttonAsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonAsTree.setName("buttonAsTree"); // NOI18N
         buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAsTreeActionPerformed(evt);

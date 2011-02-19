@@ -1,9 +1,12 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.4" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -22,37 +25,37 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelRefreshExif" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="95" max="32767" attributes="0"/>
                       <Component id="toggleButtonRefreshExif" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelRefreshXmp" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="97" max="32767" attributes="0"/>
                       <Component id="toggleButtonRefreshXmp" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelUpdateThumbnails" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="87" max="32767" attributes="0"/>
+                      <EmptySpace pref="154" max="32767" attributes="0"/>
                       <Component id="buttonUpdateThumbnails" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelRenameFiles" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="78" max="32767" attributes="0"/>
+                      <EmptySpace pref="152" max="32767" attributes="0"/>
                       <Component id="buttonRenameFiles" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelCopyKeywordsToKeywordsTree" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="32" max="32767" attributes="0"/>
+                      <EmptySpace pref="114" max="32767" attributes="0"/>
                       <Component id="buttonCopyKeywordsToKeywordsTree" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelDeleteKeywordsTree" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <EmptySpace pref="106" max="32767" attributes="0"/>
                       <Component id="buttonDeleteKeywordsTree" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelExifDateToXmpDateCreated" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="117" max="32767" attributes="0"/>
+                      <EmptySpace pref="178" max="32767" attributes="0"/>
                       <Component id="toggleButtonExifDateToXmpDateCreated" linkSize="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="progressBar" alignment="0" pref="436" max="32767" attributes="0"/>
@@ -115,6 +118,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelRefreshExif.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelRefreshExif" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleButtonRefreshExif">
@@ -123,6 +127,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.toggleButtonRefreshExif.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="name" type="java.lang.String" value="toggleButtonRefreshExif" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleButtonRefreshExifActionPerformed"/>
@@ -136,6 +141,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelRefreshXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelRefreshXmp" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleButtonRefreshXmp">
@@ -144,6 +150,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.toggleButtonRefreshXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="name" type="java.lang.String" value="toggleButtonRefreshXmp" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleButtonRefreshXmpActionPerformed"/>
@@ -157,6 +164,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelUpdateThumbnails.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelUpdateThumbnails" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonUpdateThumbnails">
@@ -165,6 +173,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.buttonUpdateThumbnails.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="name" type="java.lang.String" value="buttonUpdateThumbnails" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateThumbnailsActionPerformed"/>
@@ -175,6 +184,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelRenameFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelRenameFiles" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonRenameFiles">
@@ -183,6 +193,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.buttonRenameFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="name" type="java.lang.String" value="buttonRenameFiles" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRenameFilesActionPerformed"/>
@@ -196,6 +207,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelCopyKeywordsToKeywordsTree.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelCopyKeywordsToKeywordsTree" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCopyKeywordsToKeywordsTree">
@@ -204,6 +216,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="name" type="java.lang.String" value="buttonCopyKeywordsToKeywordsTree" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCopyKeywordsToKeywordsTreeActionPerformed"/>
@@ -214,9 +227,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelExifDateToXmpDateCreated" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="progressBar">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="progressBar" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="toggleButtonExifDateToXmpDateCreated">
       <Properties>
@@ -224,6 +241,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="name" type="java.lang.String" value="toggleButtonExifDateToXmpDateCreated" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleButtonExifDateToXmpDateCreatedActionPerformed"/>
@@ -237,6 +255,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.labelDeleteKeywordsTree.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelDeleteKeywordsTree" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonDeleteKeywordsTree">
@@ -245,6 +264,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="DatabaseUpdatePanel.buttonDeleteKeywordsTree.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="name" type="java.lang.String" value="buttonDeleteKeywordsTree" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteKeywordsTreeActionPerformed"/>

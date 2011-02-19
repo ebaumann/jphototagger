@@ -274,19 +274,25 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonCreate = new javax.swing.JButton();
         buttonExecute = new javax.swing.JButton();
 
+        popupMenu.setName("popupMenu"); // NOI18N
+
         menuItemExecute.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         menuItemExecute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
         menuItemExecute.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemExecute.text")); // NOI18N
+        menuItemExecute.setName("menuItemExecute"); // NOI18N
         menuItemExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemExecuteActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemExecute);
+
+        jSeparator1.setName("jSeparator1"); // NOI18N
         popupMenu.add(jSeparator1);
 
         menuItemCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
         menuItemCreate.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemCreate.text")); // NOI18N
+        menuItemCreate.setName("menuItemCreate"); // NOI18N
         menuItemCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCreateActionPerformed(evt);
@@ -296,6 +302,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         menuItemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemEdit.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemEdit.text")); // NOI18N
+        menuItemEdit.setName("menuItemEdit"); // NOI18N
         menuItemEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemEditActionPerformed(evt);
@@ -306,16 +313,20 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemDelete.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemDelete);
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
         popupMenu.add(jSeparator2);
 
         menuItemMoveActionUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
         menuItemMoveActionUp.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemMoveActionUp.text")); // NOI18N
+        menuItemMoveActionUp.setName("menuItemMoveActionUp"); // NOI18N
         menuItemMoveActionUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveActionUpActionPerformed(evt);
@@ -325,6 +336,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         menuItemMoveActionDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
         menuItemMoveActionDown.setText(JptBundle.INSTANCE.getString("ActionsPanel.menuItemMoveActionDown.text")); // NOI18N
+        menuItemMoveActionDown.setName("menuItemMoveActionDown"); // NOI18N
         menuItemMoveActionDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveActionDownActionPerformed(evt);
@@ -333,10 +345,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
         popupMenu.add(menuItemMoveActionDown);
 
         setFocusable(false);
+        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         labelActionList.setLabelFor(list);
         labelActionList.setText(JptBundle.INSTANCE.getString("ActionsPanel.labelActionList.text")); // NOI18N
+        labelActionList.setName("labelActionList"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -345,6 +359,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         add(labelActionList, gridBagConstraints);
 
         scrollPane.setFocusable(false);
+        scrollPane.setName("scrollPane"); // NOI18N
 
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -352,6 +367,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         list.setComponentPopupMenu(popupMenu);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
+        list.setName("list"); // NOI18N
         list.setTransferHandler(new TransferHandlerReorderListItems(list));
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -381,6 +397,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         add(scrollPane, gridBagConstraints);
 
         progressBar.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
+        progressBar.setName("progressBar"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -389,9 +406,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         add(progressBar, gridBagConstraints);
 
+        panelButtons.setName("panelButtons"); // NOI18N
+
         buttonDelete.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setEnabled(false);
+        buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
@@ -401,6 +421,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonEdit.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
         buttonEdit.setEnabled(false);
+        buttonEdit.setName("buttonEdit"); // NOI18N
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditActionPerformed(evt);
@@ -409,6 +430,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         buttonCreate.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonCreate.text")); // NOI18N
         buttonCreate.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonCreate.toolTipText")); // NOI18N
+        buttonCreate.setName("buttonCreate"); // NOI18N
         buttonCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCreateActionPerformed(evt);
@@ -418,6 +440,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonExecute.setText(JptBundle.INSTANCE.getString("ActionsPanel.buttonExecute.text")); // NOI18N
         buttonExecute.setToolTipText(JptBundle.INSTANCE.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
         buttonExecute.setEnabled(false);
+        buttonExecute.setName("buttonExecute"); // NOI18N
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExecuteActionPerformed(evt);

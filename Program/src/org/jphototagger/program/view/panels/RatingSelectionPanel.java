@@ -345,153 +345,138 @@ public class RatingSelectionPanel extends JPanel
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPrompt    = new javax.swing.JLabel();
+        labelPrompt = new javax.swing.JLabel();
         buttonNoRating = new javax.swing.JButton();
-        buttonStar1    = new javax.swing.JButton();
-        buttonStar2    = new javax.swing.JButton();
-        buttonStar3    = new javax.swing.JButton();
-        buttonStar4    = new javax.swing.JButton();
-        buttonStar5    = new javax.swing.JButton();
+        buttonStar1 = new javax.swing.JButton();
+        buttonStar2 = new javax.swing.JButton();
+        buttonStar3 = new javax.swing.JButton();
+        buttonStar4 = new javax.swing.JButton();
+        buttonStar5 = new javax.swing.JButton();
+
         setMinimumSize(new java.awt.Dimension(102, 32));
-        setName("Rating Selection Panel");    // NOI18N
+        setName("Rating Selection Panel"); // NOI18N
         setPreferredSize(new java.awt.Dimension(102, 32));
         setLayout(new java.awt.GridBagLayout());
+
         labelPrompt.setText("Prompt:");
         labelPrompt.setToolTipText(column.getLongerDescription());
-        gridBagConstraints           = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx     = 0;
-        gridBagConstraints.gridy     = 0;
+        labelPrompt.setName("labelPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.anchor    = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx   = 1.0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
-        buttonNoRating.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_xmp_rating_remove_not_set.png")));    // NOI18N
+
+        buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_remove_not_set.png"))); // NOI18N
         buttonNoRating.setMnemonic('0');
-        buttonNoRating.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "RatingSelectionPanel.buttonNoRating.toolTipText"));    // NOI18N
+        buttonNoRating.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);
+        buttonNoRating.setName("buttonNoRating"); // NOI18N
         buttonNoRating.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonNoRatingMousePressed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 0;
-        gridBagConstraints.gridy  = 1;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 6);
         add(buttonNoRating, gridBagConstraints);
-        buttonStar1.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png")));    // NOI18N
+
+        buttonStar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar1.setMnemonic('1');
-        buttonStar1.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "RatingSelectionPanel.buttonStar1.toolTipText"));    // NOI18N
+        buttonStar1.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
         buttonStar1.setBorder(null);
         buttonStar1.setContentAreaFilled(false);
+        buttonStar1.setName("buttonStar1"); // NOI18N
         buttonStar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar1MousePressed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 1;
-        gridBagConstraints.gridy  = 1;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar1, gridBagConstraints);
-        buttonStar2.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png")));    // NOI18N
+
+        buttonStar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar2.setMnemonic('2');
-        buttonStar2.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "RatingSelectionPanel.buttonStar2.toolTipText"));    // NOI18N
+        buttonStar2.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
         buttonStar2.setBorder(null);
         buttonStar2.setContentAreaFilled(false);
+        buttonStar2.setName("buttonStar2"); // NOI18N
         buttonStar2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar2MousePressed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 2;
-        gridBagConstraints.gridy  = 1;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar2, gridBagConstraints);
-        buttonStar3.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png")));    // NOI18N
+
+        buttonStar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar3.setMnemonic('3');
-        buttonStar3.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "RatingSelectionPanel.buttonStar3.toolTipText"));    // NOI18N
+        buttonStar3.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
         buttonStar3.setBorder(null);
         buttonStar3.setContentAreaFilled(false);
+        buttonStar3.setName("buttonStar3"); // NOI18N
         buttonStar3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar3MousePressed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 3;
-        gridBagConstraints.gridy  = 1;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar3, gridBagConstraints);
-        buttonStar4.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png")));    // NOI18N
+
+        buttonStar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar4.setMnemonic('4');
-        buttonStar4.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "RatingSelectionPanel.buttonStar4.toolTipText"));    // NOI18N
+        buttonStar4.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
         buttonStar4.setBorder(null);
         buttonStar4.setContentAreaFilled(false);
+        buttonStar4.setName("buttonStar4"); // NOI18N
         buttonStar4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar4MousePressed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 4;
-        gridBagConstraints.gridy  = 1;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar4, gridBagConstraints);
-        buttonStar5.setIcon(
-            new javax.swing.ImageIcon(
-                getClass().getResource(
-                    "/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png")));    // NOI18N
+
+        buttonStar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar5.setMnemonic('5');
-        buttonStar5.setToolTipText(
-            JptBundle.INSTANCE.getString(
-                "RatingSelectionPanel.buttonStar5.toolTipText"));    // NOI18N
+        buttonStar5.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
         buttonStar5.setBorder(null);
         buttonStar5.setContentAreaFilled(false);
+        buttonStar5.setName("buttonStar5"); // NOI18N
         buttonStar5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar5MousePressed(evt);
             }
         });
-        gridBagConstraints        = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx  = 5;
-        gridBagConstraints.gridy  = 1;
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar5, gridBagConstraints);
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonNoRatingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonNoRatingMousePressed
         handleButtonPressed((JButton) evt.getSource());
@@ -524,7 +509,6 @@ public class RatingSelectionPanel extends JPanel
     private javax.swing.JButton buttonStar3;
     private javax.swing.JButton buttonStar4;
     private javax.swing.JButton buttonStar5;
-    private javax.swing.JLabel  labelPrompt;
-
+    private javax.swing.JLabel labelPrompt;
     // End of variables declaration//GEN-END:variables
 }

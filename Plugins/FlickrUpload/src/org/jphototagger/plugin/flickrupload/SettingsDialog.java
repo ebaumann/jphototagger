@@ -33,28 +33,27 @@ public class SettingsDialog extends javax.swing.JDialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        panelSettings =
-            new org.jphototagger.plugin.flickrupload.SettingsPanel();
+
+        panelSettings = new org.jphototagger.plugin.flickrupload.SettingsPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setName("Form"); // NOI18N
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
+        panelSettings.setName("panelSettings"); // NOI18N
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panelSettings, javax.swing.GroupLayout.PREFERRED_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE,
-                javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panelSettings, javax.swing.GroupLayout.PREFERRED_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE,
-                javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * @param args the command line arguments
@@ -77,6 +76,5 @@ public class SettingsDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.plugin.flickrupload.SettingsPanel panelSettings;
-
     // End of variables declaration//GEN-END:variables
 }

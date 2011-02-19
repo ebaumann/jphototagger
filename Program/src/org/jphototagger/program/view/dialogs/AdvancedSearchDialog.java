@@ -83,32 +83,36 @@ public final class AdvancedSearchDialog extends Dialog
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         panel = new org.jphototagger.program.view.panels.AdvancedSearchPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("AdvancedSearchDialog.title"));    // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("AdvancedSearchDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
+        panel.setName("panel"); // NOI18N
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    panel, javax.swing.GroupLayout.DEFAULT_SIZE, 595,
-                    Short.MAX_VALUE).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         beforeWindowClosing();
@@ -136,6 +140,5 @@ public final class AdvancedSearchDialog extends Dialog
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.AdvancedSearchPanel panel;
-
     // End of variables declaration//GEN-END:variables
 }

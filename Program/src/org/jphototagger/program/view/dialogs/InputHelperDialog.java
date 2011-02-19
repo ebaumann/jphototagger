@@ -130,6 +130,7 @@ public class InputHelperDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("InputHelperDialog.title")); // NOI18N
         setAlwaysOnTop(true);
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -137,11 +138,19 @@ public class InputHelperDialog extends Dialog {
         });
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tabbedPane.setName("tabbedPane"); // NOI18N
+
+        panelKeywords.setName("panelKeywords"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+
+        panelMiscXmpMetadata.setName("panelMiscXmpMetadata"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelMiscXmpMetadata.TabConstraints.tabTitle"), panelMiscXmpMetadata); // NOI18N
+
+        panelMetaDataTemplates.setName("panelMetaDataTemplates"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
 
         labelInfo.setText(JptBundle.INSTANCE.getString("InputHelperDialog.labelInfo.text")); // NOI18N
+        labelInfo.setName("labelInfo"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,7 +167,7 @@ public class InputHelperDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

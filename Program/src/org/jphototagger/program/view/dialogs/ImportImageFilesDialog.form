@@ -6,13 +6,14 @@
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
       <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -40,7 +41,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelPromptChooseFiles" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelChoosedFiles" pref="241" max="32767" attributes="0"/>
+                              <Component id="labelChoosedFiles" pref="260" max="32767" attributes="0"/>
                           </Group>
                           <Component id="labelPromptSourceDir" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxDeleteAfterCopy" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -48,7 +49,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="97" pref="97" max="97" attributes="0"/>
-                      <Component id="labelTargetDir" pref="346" max="32767" attributes="0"/>
+                      <Component id="labelTargetDir" pref="347" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -60,7 +61,7 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="359" max="32767" attributes="0"/>
+              <EmptySpace pref="363" max="32767" attributes="0"/>
               <Component id="buttonCancel" linkSize="3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonOk" linkSize="3" min="-2" max="-2" attributes="0"/>
@@ -107,15 +108,20 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.labelPromptSourceDir.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelPromptSourceDir" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelSourceDir">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="labelSourceDir" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseSourceDir">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonChooseSourceDir.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonChooseSourceDir" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseSourceDirActionPerformed"/>
@@ -126,15 +132,20 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.labelPromptChooseFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelPromptChooseFiles" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelChoosedFiles">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="labelChoosedFiles" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonChooseFiles">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonChooseFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonChooseFiles" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseFilesActionPerformed"/>
@@ -145,15 +156,20 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.labelPromptTargetDir.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelPromptTargetDir" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelTargetDir">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="labelTargetDir" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxDeleteAfterCopy">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.checkBoxDeleteAfterCopy.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="checkBoxDeleteAfterCopy" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDeleteAfterCopyActionPerformed"/>
@@ -164,6 +180,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonChooseTargetDir.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonChooseTargetDir" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseTargetDirActionPerformed"/>
@@ -174,6 +191,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonCancel" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
@@ -185,6 +203,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ImportImageFilesDialog.buttonOk.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonOk" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOkActionPerformed"/>

@@ -39,35 +39,39 @@ public class SystemOutputDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        panelSystemOutput =
-            new org.jphototagger.lib.component.SystemOutputPanel();
+
+        panelSystemOutput = new org.jphototagger.lib.component.SystemOutputPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JslBundle.INSTANCE.getString("SystemOutputDialog.title"));
+        setTitle(JslBundle.INSTANCE.getString("SystemOutputDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
+        panelSystemOutput.setName("panelSystemOutput"); // NOI18N
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    panelSystemOutput, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    339, Short.MAX_VALUE).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 339, Short.MAX_VALUE)
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    panelSystemOutput, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    89, Short.MAX_VALUE).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelSystemOutput, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);
@@ -95,6 +99,5 @@ public class SystemOutputDialog extends Dialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.lib.component.SystemOutputPanel panelSystemOutput;
-
     // End of variables declaration//GEN-END:variables
 }

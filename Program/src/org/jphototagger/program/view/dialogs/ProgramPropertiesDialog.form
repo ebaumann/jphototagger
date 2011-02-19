@@ -10,6 +10,7 @@
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
       <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -19,7 +20,7 @@
   </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -42,7 +43,7 @@
                   <Component id="panelMultipleSelection" alignment="0" max="32767" attributes="2"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelInfoRequiredInputs" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="269" max="32767" attributes="0"/>
+                      <EmptySpace pref="281" max="32767" attributes="0"/>
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonOk" min="-2" max="-2" attributes="0"/>
@@ -84,6 +85,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="panelProgram" noResource="true"/>
       </Properties>
 
       <Layout>
@@ -95,7 +97,7 @@
                       <Group type="102" alignment="0" attributes="1">
                           <Component id="labelFilePrompt" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelErrorFileDoesNotExist" pref="326" max="32767" attributes="0"/>
+                          <Component id="labelErrorFileDoesNotExist" pref="344" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -103,7 +105,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelAlias" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldAlias" pref="432" max="32767" attributes="0"/>
+                          <Component id="textFieldAlias" pref="449" max="32767" attributes="0"/>
                       </Group>
                       <Component id="checkBoxChangeFile" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -142,6 +144,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelFilePrompt.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="labelFilePrompt" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelErrorFileDoesNotExist">
@@ -152,6 +155,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelErrorFileDoesNotExist.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="labelErrorFileDoesNotExist" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="buttonChooseFile">
@@ -159,6 +163,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonChooseFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="buttonChooseFile" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseFileActionPerformed"/>
@@ -174,6 +179,7 @@
                 <EtchetBorder/>
               </Border>
             </Property>
+            <Property name="name" type="java.lang.String" value="labelFile" noResource="true"/>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
@@ -188,9 +194,13 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelAlias.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="labelAlias" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldAlias">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="textFieldAlias" noResource="true"/>
+          </Properties>
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldAliasKeyPressed"/>
           </Events>
@@ -203,6 +213,7 @@
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxChangeFile.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="checkBoxChangeFile" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -216,6 +227,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="panelParameter" noResource="true"/>
       </Properties>
 
       <Layout>
@@ -270,9 +282,13 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelParametersBeforeFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="labelParametersBeforeFilename" noResource="true"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrollPaneParametersBeforeFilename">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="scrollPaneParametersBeforeFilename" noResource="true"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -284,6 +300,7 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="1"/>
+                <Property name="name" type="java.lang.String" value="textAreaParametersBeforeFilename" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea();"/>
@@ -299,9 +316,13 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelParametersAfterFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="labelParametersAfterFilename" noResource="true"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrollPaneParametersAfterFilename">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="scrollPaneParametersAfterFilename" noResource="true"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -313,6 +334,7 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="1"/>
+                <Property name="name" type="java.lang.String" value="textAreaParametersAfterFilename" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea();"/>
@@ -325,6 +347,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxUsePattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="checkBoxUsePattern" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxUsePatternActionPerformed"/>
@@ -335,12 +358,16 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonInfoUsePattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="buttonInfoUsePattern" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonInfoUsePatternActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrollPaneUsePattern">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="scrollPaneUsePattern" noResource="true"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -352,6 +379,7 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="1"/>
+                <Property name="name" type="java.lang.String" value="textAreaUsePattern" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea();"/>
@@ -370,6 +398,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="panelInputBeforeExecute" noResource="true"/>
       </Properties>
 
       <Layout>
@@ -381,7 +410,7 @@
                       <Component id="checkBoxInputBeforeExecute" linkSize="3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxInputBeforeExecutePerFile" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="134" max="32767" attributes="0"/>
+                  <EmptySpace pref="190" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -402,6 +431,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecute.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="checkBoxInputBeforeExecute" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxInputBeforeExecuteActionPerformed"/>
@@ -413,6 +443,7 @@
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="checkBoxInputBeforeExecutePerFile" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -426,6 +457,7 @@
             </TitledBorder>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="panelMultipleSelection" noResource="true"/>
       </Properties>
 
       <Layout>
@@ -437,7 +469,7 @@
                       <Component id="radioButtonSingleFileProcessingYes" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="radioButtonSingleFileProcessingNo" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <EmptySpace pref="194" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -462,6 +494,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="radioButtonSingleFileProcessingYes" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioButtonSingleFileProcessingNo">
@@ -472,6 +505,7 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="radioButtonSingleFileProcessingNo" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -484,6 +518,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelInfoRequiredInputs.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelInfoRequiredInputs" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
@@ -491,6 +526,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonCancel" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
@@ -502,6 +538,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonOk.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonOk" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOkActionPerformed"/>

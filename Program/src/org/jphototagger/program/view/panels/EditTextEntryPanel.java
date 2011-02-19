@@ -329,10 +329,12 @@ public final class EditTextEntryPanel extends JPanel
         scrollPane = new javax.swing.JScrollPane();
         textAreaEdit = new javax.swing.JTextArea();
 
+        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText(JptBundle.INSTANCE.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
+        labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -340,10 +342,13 @@ public final class EditTextEntryPanel extends JPanel
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
 
+        scrollPane.setName("scrollPane"); // NOI18N
+
         textAreaEdit.setColumns(1);
         textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
         textAreaEdit.setWrapStyleWord(true);
+        textAreaEdit.setName("textAreaEdit"); // NOI18N
         scrollPane.setViewportView(textAreaEdit);
         textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
 

@@ -81,14 +81,22 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
+        tabbedPane.setName("tabbedPane"); // NOI18N
+
+        panelCount.setName("panelCount"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
+
+        panelMaintainance.setName("panelMaintainance"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
+
+        panelDatabaseUpdate.setName("panelDatabaseUpdate"); // NOI18N
         tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle"), panelDatabaseUpdate); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -162,42 +162,51 @@ public class RenameFilenamesInDbPanel extends JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        buttonGroupPosition  = new javax.swing.ButtonGroup();
-        labelTitle           = new javax.swing.JLabel();
-        labelSearch          = new javax.swing.JLabel();
-        textFieldSearch      = new javax.swing.JTextField();
-        labelReplacement     = new javax.swing.JLabel();
+
+        buttonGroupPosition = new javax.swing.ButtonGroup();
+        labelTitle = new javax.swing.JLabel();
+        labelSearch = new javax.swing.JLabel();
+        textFieldSearch = new javax.swing.JTextField();
+        labelReplacement = new javax.swing.JLabel();
         textFieldReplacement = new javax.swing.JTextField();
-        progressBar          = new javax.swing.JProgressBar();
-        buttonReplace        = new javax.swing.JButton();
+        progressBar = new javax.swing.JProgressBar();
+        buttonReplace = new javax.swing.JButton();
+
+        setName("Form"); // NOI18N
+
         labelTitle.setForeground(new java.awt.Color(0, 0, 255));
-        labelTitle.setText(
-            JptBundle.INSTANCE.getString(
-                "RenameFilenamesInDbPanel.labelTitle.text"));    // NOI18N
+        labelTitle.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
+        labelTitle.setName("labelTitle"); // NOI18N
+
         labelSearch.setForeground(new java.awt.Color(0, 196, 0));
         labelSearch.setLabelFor(textFieldSearch);
-        labelSearch.setText(
-            JptBundle.INSTANCE.getString(
-                "RenameFilenamesInDbPanel.labelSearch.text"));    // NOI18N
+        labelSearch.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
+        labelSearch.setName("labelSearch"); // NOI18N
+
+        textFieldSearch.setName("textFieldSearch"); // NOI18N
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldSearchKeyReleased(evt);
             }
         });
+
         labelReplacement.setForeground(new java.awt.Color(0, 196, 0));
         labelReplacement.setLabelFor(textFieldReplacement);
-        labelReplacement.setText(
-            JptBundle.INSTANCE.getString(
-                "RenameFilenamesInDbPanel.labelReplacement.text"));    // NOI18N
+        labelReplacement.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
+        labelReplacement.setName("labelReplacement"); // NOI18N
+
+        textFieldReplacement.setName("textFieldReplacement"); // NOI18N
         textFieldReplacement.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldReplacementKeyReleased(evt);
             }
         });
-        buttonReplace.setText(
-            JptBundle.INSTANCE.getString(
-                "RenameFilenamesInDbPanel.buttonReplace.text"));    // NOI18N
+
+        progressBar.setName("progressBar"); // NOI18N
+
+        buttonReplace.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
         buttonReplace.setEnabled(false);
+        buttonReplace.setName("buttonReplace"); // NOI18N
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonReplaceActionPerformed(evt);
@@ -205,76 +214,48 @@ public class RenameFilenamesInDbPanel extends JPanel
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 324,
-                        Short.MAX_VALUE).addGroup(
-                            javax.swing.GroupLayout.Alignment.TRAILING,
-                            layout.createSequentialGroup().addGroup(
-                                layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                    labelSearch,
-                                    javax.swing.GroupLayout.Alignment.TRAILING).addComponent(
-                                        labelReplacement,
-                                        javax.swing.GroupLayout.Alignment.TRAILING)).addPreferredGap(
-                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                layout.createParallelGroup(
-                                                    javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                                                        textFieldSearch,
-                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                211,
-                                                                Short.MAX_VALUE).addComponent(
-                                                                    textFieldReplacement,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                            211,
-                                                                            Short.MAX_VALUE))).addComponent(
-                                                                                buttonReplace,
-                                                                                    javax.swing.GroupLayout.Alignment.TRAILING).addComponent(
-                                                                                        progressBar,
-                                                                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                324,
-                                                                                                Short.MAX_VALUE)).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelSearch, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelReplacement, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                            .addComponent(textFieldReplacement, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
+                    .addComponent(buttonReplace, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 17,
-                    javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                        javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                        layout.createParallelGroup(
-                            javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                            textFieldSearch,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(
-                                labelSearch)).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                    layout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                        labelReplacement).addComponent(
-                                        textFieldReplacement,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(
-                                            javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(
-                                                progressBar,
-                                                    javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        24,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                                buttonReplace).addContainerGap(
-                                                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE)));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { textFieldReplacement,
-                textFieldSearch });
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSearch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelReplacement)
+                    .addComponent(textFieldReplacement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonReplace)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textFieldReplacement, textFieldSearch});
+
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReplaceActionPerformed
         replace(this);
@@ -289,14 +270,13 @@ public class RenameFilenamesInDbPanel extends JPanel
     }//GEN-LAST:event_textFieldReplacementKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup  buttonGroupPosition;
-    private javax.swing.JButton      buttonReplace;
-    private javax.swing.JLabel       labelReplacement;
-    private javax.swing.JLabel       labelSearch;
-    private javax.swing.JLabel       labelTitle;
+    private javax.swing.ButtonGroup buttonGroupPosition;
+    private javax.swing.JButton buttonReplace;
+    private javax.swing.JLabel labelReplacement;
+    private javax.swing.JLabel labelSearch;
+    private javax.swing.JLabel labelTitle;
     private javax.swing.JProgressBar progressBar;
-    private javax.swing.JTextField   textFieldReplacement;
-    private javax.swing.JTextField   textFieldSearch;
-
+    private javax.swing.JTextField textFieldReplacement;
+    private javax.swing.JTextField textFieldSearch;
     // End of variables declaration//GEN-END:variables
 }

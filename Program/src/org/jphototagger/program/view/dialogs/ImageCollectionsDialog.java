@@ -83,75 +83,67 @@ public final class ImageCollectionsDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelSelectImageCollection     = new javax.swing.JLabel();
+
+        labelSelectImageCollection = new javax.swing.JLabel();
         scrollPaneImageCollectionNames = new javax.swing.JScrollPane();
-        listImageCollectionNames       = new javax.swing.JList();
-        buttonOk                       = new javax.swing.JButton();
+        listImageCollectionNames = new javax.swing.JList();
+        buttonOk = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("ImageCollectionsDialog.title"));    // NOI18N
+        setTitle(JptBundle.INSTANCE.getString("ImageCollectionsDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
+
         labelSelectImageCollection.setLabelFor(listImageCollectionNames);
-        labelSelectImageCollection.setText(
-            JptBundle.INSTANCE.getString(
-                "ImageCollectionsDialog.labelSelectImageCollection.text"));    // NOI18N
-        listImageCollectionNames.setModel(
-            ModelFactory.INSTANCE.getModel(ListModelImageCollections.class));
-        listImageCollectionNames.setSelectionMode(
-            javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listImageCollectionNames.setCellRenderer(
-            new ListCellRendererImageCollections());
-        listImageCollectionNames.addMouseListener(
-            new java.awt.event.MouseAdapter() {
+        labelSelectImageCollection.setText(JptBundle.INSTANCE.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
+        labelSelectImageCollection.setName("labelSelectImageCollection"); // NOI18N
+
+        scrollPaneImageCollectionNames.setName("scrollPaneImageCollectionNames"); // NOI18N
+
+        listImageCollectionNames.setModel(ModelFactory.INSTANCE.getModel(ListModelImageCollections.class));
+        listImageCollectionNames.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listImageCollectionNames.setCellRenderer(new ListCellRendererImageCollections());
+        listImageCollectionNames.setName("listImageCollectionNames"); // NOI18N
+        listImageCollectionNames.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listImageCollectionNamesMouseClicked(evt);
             }
         });
-        scrollPaneImageCollectionNames.setViewportView(
-            listImageCollectionNames);
-        buttonOk.setText(
-            JptBundle.INSTANCE.getString(
-                "ImageCollectionsDialog.buttonOk.text"));    // NOI18N
+        scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
+
+        buttonOk.setText(JptBundle.INSTANCE.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
+        buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addContainerGap()
-                .addGroup(layout
-                    .createParallelGroup(javax.swing.GroupLayout.Alignment
-                        .LEADING)
-                            .addComponent(scrollPaneImageCollectionNames, javax
-                                .swing.GroupLayout.DEFAULT_SIZE, 240, Short
-                                .MAX_VALUE)
-                                    .addComponent(labelSelectImageCollection, javax
-                                        .swing.GroupLayout
-                                        .DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                                            .addComponent(buttonOk, javax.swing
-                                                .GroupLayout.Alignment
-                                                    .TRAILING))
-                                                        .addContainerGap()));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addContainerGap()
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(labelSelectImageCollection, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(buttonOk, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(labelSelectImageCollection)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement
-                    .RELATED)
-                        .addComponent(scrollPaneImageCollectionNames,
-                                      javax.swing.GroupLayout.DEFAULT_SIZE,
-                                      160, Short.MAX_VALUE)
-                                          .addPreferredGap(javax.swing
-                                              .LayoutStyle.ComponentPlacement
-                                                  .RELATED)
-                                                      .addComponent(buttonOk)
-                                                          .addContainerGap()));
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonOk)
+                .addContainerGap())
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         handleButtonOkClicked();
@@ -182,10 +174,9 @@ public final class ImageCollectionsDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonOk;
-    private javax.swing.JLabel      labelSelectImageCollection;
-    private javax.swing.JList       listImageCollectionNames;
+    private javax.swing.JButton buttonOk;
+    private javax.swing.JLabel labelSelectImageCollection;
+    private javax.swing.JList listImageCollectionNames;
     private javax.swing.JScrollPane scrollPaneImageCollectionNames;
-
     // End of variables declaration//GEN-END:variables
 }

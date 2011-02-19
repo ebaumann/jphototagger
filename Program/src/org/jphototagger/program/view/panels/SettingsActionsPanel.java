@@ -302,9 +302,12 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         radioButtonExecuteAlways = new javax.swing.JRadioButton();
         radioButtonExecuteIfImageHasXmp = new javax.swing.JRadioButton();
 
+        popupMenu.setName("popupMenu"); // NOI18N
+
         menuItemAddAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
         menuItemAddAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemAddAction.text")); // NOI18N
         menuItemAddAction.setEnabled(false);
+        menuItemAddAction.setName("menuItemAddAction"); // NOI18N
         menuItemAddAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddActionActionPerformed(evt);
@@ -316,17 +319,21 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         menuItemDeleteAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemDeleteAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemDeleteAction.text")); // NOI18N
         menuItemDeleteAction.setEnabled(false);
+        menuItemDeleteAction.setName("menuItemDeleteAction"); // NOI18N
         menuItemDeleteAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemDeleteAction);
+
+        jSeparator1.setName("jSeparator1"); // NOI18N
         popupMenu.add(jSeparator1);
 
         menuItemMoveUpAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
         menuItemMoveUpAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemMoveUpAction.text")); // NOI18N
         menuItemMoveUpAction.setEnabled(false);
+        menuItemMoveUpAction.setName("menuItemMoveUpAction"); // NOI18N
         menuItemMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveUpActionActionPerformed(evt);
@@ -337,15 +344,19 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         menuItemMoveDownAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
         menuItemMoveDownAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemMoveDownAction.text")); // NOI18N
         menuItemMoveDownAction.setEnabled(false);
+        menuItemMoveDownAction.setName("menuItemMoveDownAction"); // NOI18N
         menuItemMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveDownActionActionPerformed(evt);
             }
         });
         popupMenu.add(menuItemMoveDownAction);
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
         popupMenu.add(jSeparator2);
 
         menuItemShowActions.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemShowActions.text")); // NOI18N
+        menuItemShowActions.setName("menuItemShowActions"); // NOI18N
         menuItemShowActions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemShowActionsActionPerformed(evt);
@@ -354,11 +365,15 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         popupMenu.add(menuItemShowActions);
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsActionsPanel.border.title"))); // NOI18N
+        setName("Form"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
 
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new ListCellRendererActions());
         list.setComponentPopupMenu(popupMenu);
+        list.setName("list"); // NOI18N
         list.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listKeyPressed(evt);
@@ -368,6 +383,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         buttonMoveUpAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonMoveUpAction.text")); // NOI18N
         buttonMoveUpAction.setEnabled(false);
+        buttonMoveUpAction.setName("buttonMoveUpAction"); // NOI18N
         buttonMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveUpActionActionPerformed(evt);
@@ -376,6 +392,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         buttonMoveDownAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonMoveDownAction.text")); // NOI18N
         buttonMoveDownAction.setEnabled(false);
+        buttonMoveDownAction.setName("buttonMoveDownAction"); // NOI18N
         buttonMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveDownActionActionPerformed(evt);
@@ -384,6 +401,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         buttonAddAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonAddAction.text")); // NOI18N
         buttonAddAction.setEnabled(false);
+        buttonAddAction.setName("buttonAddAction"); // NOI18N
         buttonAddAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionActionPerformed(evt);
@@ -392,6 +410,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         buttonDeleteAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonDeleteAction.text")); // NOI18N
         buttonDeleteAction.setEnabled(false);
+        buttonDeleteAction.setName("buttonDeleteAction"); // NOI18N
         buttonDeleteAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionActionPerformed(evt);
@@ -399,6 +418,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         });
 
         buttonShowActions.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonShowActions.text")); // NOI18N
+        buttonShowActions.setName("buttonShowActions"); // NOI18N
         buttonShowActions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonShowActionsActionPerformed(evt);
@@ -407,6 +427,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         buttonGroupExecute.add(radioButtonExecuteAlways);
         radioButtonExecuteAlways.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.radioButtonExecuteAlways.text")); // NOI18N
+        radioButtonExecuteAlways.setName("radioButtonExecuteAlways"); // NOI18N
         radioButtonExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonExecuteAlwaysActionPerformed(evt);
@@ -415,6 +436,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         buttonGroupExecute.add(radioButtonExecuteIfImageHasXmp);
         radioButtonExecuteIfImageHasXmp.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
+        radioButtonExecuteIfImageHasXmp.setName("radioButtonExecuteIfImageHasXmp"); // NOI18N
         radioButtonExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonExecuteIfImageHasXmpActionPerformed(evt);

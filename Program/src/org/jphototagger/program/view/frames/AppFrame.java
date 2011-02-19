@@ -437,375 +437,503 @@ public final class AppFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);
+        setName("Form"); // NOI18N
+
+        menuBar.setName("menuBar"); // NOI18N
 
         menuFile.setText(JptBundle.INSTANCE.getString("AppFrame.menuFile.text")); // NOI18N
+        menuFile.setName("menuFile"); // NOI18N
 
         menuItemScanDirectory.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_R));
         menuItemScanDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png"))); // NOI18N
         menuItemScanDirectory.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemScanDirectory.text")); // NOI18N
+        menuItemScanDirectory.setName("menuItemScanDirectory"); // NOI18N
         menuFile.add(menuItemScanDirectory);
 
         menuItemMaintainDatabase.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_D));
         menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_database.png"))); // NOI18N
         menuItemMaintainDatabase.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
+        menuItemMaintainDatabase.setName("menuItemMaintainDatabase"); // NOI18N
         menuFile.add(menuItemMaintainDatabase);
+
+        sep1.setName("sep1"); // NOI18N
         menuFile.add(sep1);
 
         menuImportImageFiles.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_P));
         menuImportImageFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_card.png"))); // NOI18N
         menuImportImageFiles.setText(JptBundle.INSTANCE.getString("AppFrame.menuImportImageFiles.text")); // NOI18N
+        menuImportImageFiles.setName("menuImportImageFiles"); // NOI18N
         menuFile.add(menuImportImageFiles);
+
+        sep2.setName("sep2"); // NOI18N
         menuFile.add(sep2);
 
         menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_export.png"))); // NOI18N
         menuExport.setText(JptBundle.INSTANCE.getString("AppFrame.menuExport.text")); // NOI18N
+        menuExport.setName("menuExport"); // NOI18N
 
         menuItemExportJptMisc.setAction(org.jphototagger.program.exporter.JptExportAction.INSTANCE);
         menuItemExportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
         menuItemExportJptMisc.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
+        menuItemExportJptMisc.setName("menuItemExportJptMisc"); // NOI18N
         menuExport.add(menuItemExportJptMisc);
 
         menuItemExportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemExportKeywords.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExportKeywords.text")); // NOI18N
+        menuItemExportKeywords.setName("menuItemExportKeywords"); // NOI18N
         menuExport.add(menuItemExportKeywords);
 
         menuFile.add(menuExport);
 
         menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_import.png"))); // NOI18N
         menuImport.setText(JptBundle.INSTANCE.getString("AppFrame.menuImport.text")); // NOI18N
+        menuImport.setName("menuImport"); // NOI18N
 
         menuItemImportJptMisc.setAction(org.jphototagger.program.importer.JptImportAction.INSTANCE);
         menuItemImportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
         menuItemImportJptMisc.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
+        menuItemImportJptMisc.setName("menuItemImportJptMisc"); // NOI18N
         menuImport.add(menuItemImportJptMisc);
 
         menuItemImportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemImportKeywords.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemImportKeywords.text")); // NOI18N
+        menuItemImportKeywords.setName("menuItemImportKeywords"); // NOI18N
         menuImport.add(menuItemImportKeywords);
 
         menuFile.add(menuImport);
 
         menuItemBackupDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_save.png"))); // NOI18N
         menuItemBackupDatabase.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBackupDatabase.text")); // NOI18N
+        menuItemBackupDatabase.setName("menuItemBackupDatabase"); // NOI18N
         menuFile.add(menuItemBackupDatabase);
+
+        sep3.setName("sep3"); // NOI18N
         menuFile.add(sep3);
 
         menuItemExit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_Q));
         menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exit.png"))); // NOI18N
         menuItemExit.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExit.text")); // NOI18N
+        menuItemExit.setName("menuItemExit"); // NOI18N
         menuFile.add(menuItemExit);
 
         menuBar.add(menuFile);
 
         menuEdit.setText(JptBundle.INSTANCE.getString("AppFrame.menuEdit.text")); // NOI18N
+        menuEdit.setName("menuEdit"); // NOI18N
 
         menuItemSettings.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_S));
         menuItemSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_settings.png"))); // NOI18N
         menuItemSettings.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSettings.text")); // NOI18N
+        menuItemSettings.setName("menuItemSettings"); // NOI18N
         menuEdit.add(menuItemSettings);
+
+        sep4.setName("sep4"); // NOI18N
         menuEdit.add(sep4);
 
         menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png"))); // NOI18N
         menuItemSearch.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSearch.text")); // NOI18N
+        menuItemSearch.setName("menuItemSearch"); // NOI18N
         menuEdit.add(menuItemSearch);
 
         menuBar.add(menuEdit);
 
         menuView.setText(JptBundle.INSTANCE.getString("AppFrame.menuView.text")); // NOI18N
+        menuView.setName("menuView"); // NOI18N
 
         menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_sort.png"))); // NOI18N
         menuSort.setText(JptBundle.INSTANCE.getString("AppFrame.menuSort.text")); // NOI18N
+        menuSort.setName("menuSort"); // NOI18N
 
         buttonGroupSort.add(radioButtonMenuItemSortFilepathAscending);
         radioButtonMenuItemSortFilepathAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFilepathAscending.text")); // NOI18N
+        radioButtonMenuItemSortFilepathAscending.setName("radioButtonMenuItemSortFilepathAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilepathAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortFilepathDescending);
         radioButtonMenuItemSortFilepathDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFilepathDescending.text")); // NOI18N
+        radioButtonMenuItemSortFilepathDescending.setName("radioButtonMenuItemSortFilepathDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilepathDescending);
+
+        sep5.setName("sep5"); // NOI18N
         menuSort.add(sep5);
 
         buttonGroupSort.add(radioButtonMenuItemSortFilenameAscending);
         radioButtonMenuItemSortFilenameAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
+        radioButtonMenuItemSortFilenameAscending.setName("radioButtonMenuItemSortFilenameAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortFilenameDescending);
         radioButtonMenuItemSortFilenameDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
+        radioButtonMenuItemSortFilenameDescending.setName("radioButtonMenuItemSortFilenameDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortFilenameDescending);
+
+        sep6.setName("sep6"); // NOI18N
         menuSort.add(sep6);
 
         buttonGroupSort.add(radioButtonMenuItemSortFileTypeAscending);
         radioButtonMenuItemSortFileTypeAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
+        radioButtonMenuItemSortFileTypeAscending.setName("radioButtonMenuItemSortFileTypeAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortFileTypeAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortFileTypeDescending);
         radioButtonMenuItemSortFileTypeDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
+        radioButtonMenuItemSortFileTypeDescending.setName("radioButtonMenuItemSortFileTypeDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortFileTypeDescending);
+
+        sep7.setName("sep7"); // NOI18N
         menuSort.add(sep7);
 
         buttonGroupSort.add(radioButtonMenuItemSortLastModifiedAscending);
         radioButtonMenuItemSortLastModifiedAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
+        radioButtonMenuItemSortLastModifiedAscending.setName("radioButtonMenuItemSortLastModifiedAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortLastModifiedDescending);
         radioButtonMenuItemSortLastModifiedDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
+        radioButtonMenuItemSortLastModifiedDescending.setName("radioButtonMenuItemSortLastModifiedDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
+
+        sep8.setName("sep8"); // NOI18N
         menuSort.add(sep8);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifDateTimeOriginalAscending);
         radioButtonMenuItemSortExifDateTimeOriginalAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text")); // NOI18N
+        radioButtonMenuItemSortExifDateTimeOriginalAscending.setName("radioButtonMenuItemSortExifDateTimeOriginalAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
         radioButtonMenuItemSortExifDateTimeOriginalDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text")); // NOI18N
+        radioButtonMenuItemSortExifDateTimeOriginalDescending.setName("radioButtonMenuItemSortExifDateTimeOriginalDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
+
+        sep9.setName("sep9"); // NOI18N
         menuSort.add(sep9);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifIsoSpeedRatingAscending);
         radioButtonMenuItemSortExifIsoSpeedRatingAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text")); // NOI18N
+        radioButtonMenuItemSortExifIsoSpeedRatingAscending.setName("radioButtonMenuItemSortExifIsoSpeedRatingAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifIsoSpeedRatingAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifIsoSpeedRatingDescending);
         radioButtonMenuItemSortExifIsoSpeedRatingDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text")); // NOI18N
+        radioButtonMenuItemSortExifIsoSpeedRatingDescending.setName("radioButtonMenuItemSortExifIsoSpeedRatingDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifIsoSpeedRatingDescending);
+
+        sep10.setName("sep10"); // NOI18N
         menuSort.add(sep10);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifFocalLengthAscending);
         radioButtonMenuItemSortExifFocalLengthAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text")); // NOI18N
+        radioButtonMenuItemSortExifFocalLengthAscending.setName("radioButtonMenuItemSortExifFocalLengthAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifFocalLengthAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifFocalLengthDescending);
         radioButtonMenuItemSortExifFocalLengthDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text")); // NOI18N
+        radioButtonMenuItemSortExifFocalLengthDescending.setName("radioButtonMenuItemSortExifFocalLengthDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifFocalLengthDescending);
+
+        sep11.setName("sep11"); // NOI18N
         menuSort.add(sep11);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifRecordingEquipmentAscending);
         radioButtonMenuItemSortExifRecordingEquipmentAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text")); // NOI18N
+        radioButtonMenuItemSortExifRecordingEquipmentAscending.setName("radioButtonMenuItemSortExifRecordingEquipmentAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifRecordingEquipmentAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortExifRecordingEquipmentDescending);
         radioButtonMenuItemSortExifRecordingEquipmentDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text")); // NOI18N
+        radioButtonMenuItemSortExifRecordingEquipmentDescending.setName("radioButtonMenuItemSortExifRecordingEquipmentDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortExifRecordingEquipmentDescending);
+
+        sep12.setName("sep12"); // NOI18N
         menuSort.add(sep12);
 
         buttonGroupSort.add(radioButtonMenuItemSortXmpIptcLocationAscending);
         radioButtonMenuItemSortXmpIptcLocationAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text")); // NOI18N
+        radioButtonMenuItemSortXmpIptcLocationAscending.setName("radioButtonMenuItemSortXmpIptcLocationAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpIptcLocationAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortXmpIptcLocationDescending);
         radioButtonMenuItemSortXmpIptcLocationDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text")); // NOI18N
+        radioButtonMenuItemSortXmpIptcLocationDescending.setName("radioButtonMenuItemSortXmpIptcLocationDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpIptcLocationDescending);
+
+        sep13.setName("sep13"); // NOI18N
         menuSort.add(sep13);
 
         buttonGroupSort.add(radioButtonMenuItemSortXmpRatingAscending);
         radioButtonMenuItemSortXmpRatingAscending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpRatingAscending.text")); // NOI18N
+        radioButtonMenuItemSortXmpRatingAscending.setName("radioButtonMenuItemSortXmpRatingAscending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpRatingAscending);
 
         buttonGroupSort.add(radioButtonMenuItemSortXmpRatingDescending);
         radioButtonMenuItemSortXmpRatingDescending.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortXmpRatingDescending.text")); // NOI18N
+        radioButtonMenuItemSortXmpRatingDescending.setName("radioButtonMenuItemSortXmpRatingDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortXmpRatingDescending);
+
+        sep14.setName("sep14"); // NOI18N
         menuSort.add(sep14);
 
         buttonGroupSort.add(radioButtonMenuItemSortNone);
         radioButtonMenuItemSortNone.setText(JptBundle.INSTANCE.getString("AppFrame.radioButtonMenuItemSortNone.text")); // NOI18N
         radioButtonMenuItemSortNone.setEnabled(false);
+        radioButtonMenuItemSortNone.setName("radioButtonMenuItemSortNone"); // NOI18N
         menuSort.add(radioButtonMenuItemSortNone);
 
         menuView.add(menuSort);
+
+        sep15.setName("sep15"); // NOI18N
         menuView.add(sep15);
 
         checkBoxMenuItemKeywordOverlay.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_O));
         checkBoxMenuItemKeywordOverlay.setText(JptBundle.INSTANCE.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
         checkBoxMenuItemKeywordOverlay.setToolTipText(JptBundle.INSTANCE.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText")); // NOI18N
+        checkBoxMenuItemKeywordOverlay.setName("checkBoxMenuItemKeywordOverlay"); // NOI18N
         menuView.add(checkBoxMenuItemKeywordOverlay);
 
         menuBar.add(menuView);
 
         menuGoto.setText(JptBundle.INSTANCE.getString("AppFrame.menuGoto.text")); // NOI18N
+        menuGoto.setName("menuGoto"); // NOI18N
 
         menuItemGotoFastSearch.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_F));
         menuItemGotoFastSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png"))); // NOI18N
         menuItemGotoFastSearch.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
+        menuItemGotoFastSearch.setName("menuItemGotoFastSearch"); // NOI18N
         menuGoto.add(menuItemGotoFastSearch);
 
         menuItemGotoEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_E));
         menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemGotoEdit.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
+        menuItemGotoEdit.setName("menuItemGotoEdit"); // NOI18N
         menuGoto.add(menuItemGotoEdit);
+
+        sep16.setName("sep16"); // NOI18N
         menuGoto.add(sep16);
 
         menuItemGotoDirectories.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_1));
         menuItemGotoDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png"))); // NOI18N
         menuItemGotoDirectories.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoDirectories.text")); // NOI18N
+        menuItemGotoDirectories.setName("menuItemGotoDirectories"); // NOI18N
         menuGoto.add(menuItemGotoDirectories);
 
         menuItemGotoSavedSearches.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_2));
         menuItemGotoSavedSearches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png"))); // NOI18N
         menuItemGotoSavedSearches.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
+        menuItemGotoSavedSearches.setName("menuItemGotoSavedSearches"); // NOI18N
         menuGoto.add(menuItemGotoSavedSearches);
 
         menuItemGotoCollections.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_3));
         menuItemGotoCollections.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_imagecollection.png"))); // NOI18N
         menuItemGotoCollections.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
+        menuItemGotoCollections.setName("menuItemGotoCollections"); // NOI18N
         menuGoto.add(menuItemGotoCollections);
 
         menuItemGotoFavorites.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_4));
         menuItemGotoFavorites.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_favorite.png"))); // NOI18N
         menuItemGotoFavorites.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoFavorites.text")); // NOI18N
+        menuItemGotoFavorites.setName("menuItemGotoFavorites"); // NOI18N
         menuGoto.add(menuItemGotoFavorites);
 
         menuItemGotoKeywordsSel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_5));
         menuItemGotoKeywordsSel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemGotoKeywordsSel.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoKeywordsSel.text")); // NOI18N
+        menuItemGotoKeywordsSel.setName("menuItemGotoKeywordsSel"); // NOI18N
         menuGoto.add(menuItemGotoKeywordsSel);
 
         menuItemGotoTimeline.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_6));
         menuItemGotoTimeline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_timeline.png"))); // NOI18N
         menuItemGotoTimeline.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoTimeline.text")); // NOI18N
+        menuItemGotoTimeline.setName("menuItemGotoTimeline"); // NOI18N
         menuGoto.add(menuItemGotoTimeline);
 
         menuItemGotoMiscMetadata.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_7));
         menuItemGotoMiscMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_misc_metadata.png"))); // NOI18N
         menuItemGotoMiscMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
+        menuItemGotoMiscMetadata.setName("menuItemGotoMiscMetadata"); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
 
         menuItemGotoNoMetadata.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_8));
         menuItemGotoNoMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_no_metadata.png"))); // NOI18N
         menuItemGotoNoMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoNoMetadata.text")); // NOI18N
+        menuItemGotoNoMetadata.setName("menuItemGotoNoMetadata"); // NOI18N
         menuGoto.add(menuItemGotoNoMetadata);
+
+        sep17.setName("sep17"); // NOI18N
         menuGoto.add(sep17);
 
         menuItemGotoThumbnailsPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_0));
         menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnails.png"))); // NOI18N
         menuItemGotoThumbnailsPanel.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
+        menuItemGotoThumbnailsPanel.setName("menuItemGotoThumbnailsPanel"); // NOI18N
         menuGoto.add(menuItemGotoThumbnailsPanel);
+
+        sep18.setName("sep18"); // NOI18N
         menuGoto.add(sep18);
 
         menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoIptcMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_iptc.png"))); // NOI18N
         menuItemGotoIptcMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoIptcMetadata.text")); // NOI18N
+        menuItemGotoIptcMetadata.setName("menuItemGotoIptcMetadata"); // NOI18N
         menuGoto.add(menuItemGotoIptcMetadata);
 
         menuItemGotoExifMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoExifMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
         menuItemGotoExifMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoExifMetadata.text")); // NOI18N
+        menuItemGotoExifMetadata.setName("menuItemGotoExifMetadata"); // NOI18N
         menuGoto.add(menuItemGotoExifMetadata);
 
         menuItemGotoXmpMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoXmpMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
         menuItemGotoXmpMetadata.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoXmpMetadata.text")); // NOI18N
+        menuItemGotoXmpMetadata.setName("menuItemGotoXmpMetadata"); // NOI18N
         menuGoto.add(menuItemGotoXmpMetadata);
 
         menuItemGotoKeywordsEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoKeywordsEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemGotoKeywordsEdit.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemGotoKeywordsEdit.text")); // NOI18N
+        menuItemGotoKeywordsEdit.setName("menuItemGotoKeywordsEdit"); // NOI18N
         menuGoto.add(menuItemGotoKeywordsEdit);
 
         menuBar.add(menuGoto);
 
         menuTools.setText(JptBundle.INSTANCE.getString("AppFrame.menuTools.text")); // NOI18N
+        menuTools.setName("menuTools"); // NOI18N
 
         menuItemToolIptcToXmp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_I));
         menuItemToolIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_iptc.png"))); // NOI18N
         menuItemToolIptcToXmp.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
+        menuItemToolIptcToXmp.setName("menuItemToolIptcToXmp"); // NOI18N
         menuTools.add(menuItemToolIptcToXmp);
 
         menuItemExtractEmbeddedXmp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_X));
         menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
         menuItemExtractEmbeddedXmp.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemExtractEmbeddedXmp.text")); // NOI18N
+        menuItemExtractEmbeddedXmp.setName("menuItemExtractEmbeddedXmp"); // NOI18N
         menuTools.add(menuItemExtractEmbeddedXmp);
 
         menuBar.add(menuTools);
 
         menuWindow.setText(JptBundle.INSTANCE.getString("AppFrame.menuWindow.text")); // NOI18N
+        menuWindow.setName("menuWindow"); // NOI18N
 
         menuItemInputHelper.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
         menuItemInputHelper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemInputHelper.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemInputHelper.text")); // NOI18N
+        menuItemInputHelper.setName("menuItemInputHelper"); // NOI18N
         menuWindow.add(menuItemInputHelper);
 
         menuItemActions.setAction(new ShowActionDialogAction());
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemActions.text")); // NOI18N
+        menuItemActions.setName("menuItemActions"); // NOI18N
         menuWindow.add(menuItemActions);
 
         menuItemSynonyms.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
         menuItemSynonyms.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
+        menuItemSynonyms.setName("menuItemSynonyms"); // NOI18N
         menuWindow.add(menuItemSynonyms);
 
         menuItemUserDefinedFileFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_filter.png"))); // NOI18N
         menuItemUserDefinedFileFilter.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemUserDefinedFileFilter.text")); // NOI18N
+        menuItemUserDefinedFileFilter.setName("menuItemUserDefinedFileFilter"); // NOI18N
         menuWindow.add(menuItemUserDefinedFileFilter);
+
+        sep19.setName("sep19"); // NOI18N
         menuWindow.add(sep19);
 
         menuItemOutputWindow.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_T));
         menuItemOutputWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_view_logfile.png"))); // NOI18N
         menuItemOutputWindow.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
+        menuItemOutputWindow.setName("menuItemOutputWindow"); // NOI18N
         menuWindow.add(menuItemOutputWindow);
+
+        sep20.setName("sep20"); // NOI18N
         menuWindow.add(sep20);
 
         menuItemDisplayLogfile.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L));
         menuItemDisplayLogfile.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
         menuItemDisplayLogfile.setEnabled(false);
+        menuItemDisplayLogfile.setName("menuItemDisplayLogfile"); // NOI18N
         menuWindow.add(menuItemDisplayLogfile);
 
         menuItemDisplayAllLogfile.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemDisplayAllLogfile.text")); // NOI18N
+        menuItemDisplayAllLogfile.setName("menuItemDisplayAllLogfile"); // NOI18N
         menuWindow.add(menuItemDisplayAllLogfile);
 
         menuBar.add(menuWindow);
 
         menuHelp.setText(JptBundle.INSTANCE.getString("AppFrame.menuHelp.text")); // NOI18N
+        menuHelp.setName("menuHelp"); // NOI18N
 
         menuItemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         menuItemHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_help.png"))); // NOI18N
         menuItemHelp.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemHelp.text")); // NOI18N
+        menuItemHelp.setName("menuItemHelp"); // NOI18N
         menuHelp.add(menuItemHelp);
 
         menuItemOpenPdfUserManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_pdf_manual.png"))); // NOI18N
         menuItemOpenPdfUserManual.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemOpenPdfUserManual.text")); // NOI18N
         menuItemOpenPdfUserManual.setEnabled(SystemUtil.canOpen());
+        menuItemOpenPdfUserManual.setName("menuItemOpenPdfUserManual"); // NOI18N
         menuHelp.add(menuItemOpenPdfUserManual);
 
         menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyboard.png"))); // NOI18N
         menuItemAcceleratorKeys.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
+        menuItemAcceleratorKeys.setName("menuItemAcceleratorKeys"); // NOI18N
         menuHelp.add(menuItemAcceleratorKeys);
+
+        sep21.setName("sep21"); // NOI18N
         menuHelp.add(sep21);
 
         menuItemBrowseUserForum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_web.png"))); // NOI18N
         menuItemBrowseUserForum.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseUserForum.text")); // NOI18N
         menuItemBrowseUserForum.setEnabled(SystemUtil.canBrowse());
+        menuItemBrowseUserForum.setName("menuItemBrowseUserForum"); // NOI18N
         menuHelp.add(menuItemBrowseUserForum);
 
         menuItemBrowseWebsite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_web.png"))); // NOI18N
         menuItemBrowseWebsite.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseWebsite.text")); // NOI18N
         menuItemBrowseWebsite.setEnabled(SystemUtil.canBrowse());
+        menuItemBrowseWebsite.setName("menuItemBrowseWebsite"); // NOI18N
         menuHelp.add(menuItemBrowseWebsite);
 
         menuItemBrowseChangelog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_web.png"))); // NOI18N
         menuItemBrowseChangelog.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemBrowseChangelog.text")); // NOI18N
         menuItemBrowseChangelog.setEnabled(SystemUtil.canBrowse());
+        menuItemBrowseChangelog.setName("menuItemBrowseChangelog"); // NOI18N
         menuHelp.add(menuItemBrowseChangelog);
+
+        sep22.setName("sep22"); // NOI18N
         menuHelp.add(sep22);
 
         menuItemSendBugMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendBugMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendBugMail.text")); // NOI18N
         menuItemSendBugMail.setEnabled(SystemUtil.canMail());
+        menuItemSendBugMail.setName("menuItemSendBugMail"); // NOI18N
         menuHelp.add(menuItemSendBugMail);
 
         menuItemSendFeatureMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_mail.png"))); // NOI18N
         menuItemSendFeatureMail.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemSendFeatureMail.text")); // NOI18N
         menuItemSendFeatureMail.setEnabled(SystemUtil.canMail());
+        menuItemSendFeatureMail.setName("menuItemSendFeatureMail"); // NOI18N
         menuHelp.add(menuItemSendFeatureMail);
+
+        sep23.setName("sep23"); // NOI18N
         menuHelp.add(sep23);
 
         menuItemCheckForUpdates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_refresh.png"))); // NOI18N
         menuItemCheckForUpdates.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemCheckForUpdates.text")); // NOI18N
+        menuItemCheckForUpdates.setName("menuItemCheckForUpdates"); // NOI18N
         menuHelp.add(menuItemCheckForUpdates);
+
+        jSeparator1.setName("jSeparator1"); // NOI18N
         menuHelp.add(jSeparator1);
 
         menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_about.png"))); // NOI18N
         menuItemAbout.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemAbout.text")); // NOI18N
+        menuItemAbout.setName("menuItemAbout"); // NOI18N
         menuHelp.add(menuItemAbout);
 
         menuBar.add(menuHelp);

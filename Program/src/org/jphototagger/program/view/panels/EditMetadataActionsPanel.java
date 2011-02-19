@@ -62,27 +62,39 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateEdit = new javax.swing.JButton();
         buttonMetadataTemplateAdd = new javax.swing.JButton();
 
+        setName("Form"); // NOI18N
+
+        tabbedPane.setName("tabbedPane"); // NOI18N
+
+        panelGroupMetadataEdit.setName("panelGroupMetadataEdit"); // NOI18N
+
         labelMetadataInfoEditable.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.labelMetadataInfoEditable.text")); // NOI18N
+        labelMetadataInfoEditable.setName("labelMetadataInfoEditable"); // NOI18N
 
         buttonEmptyMetadata.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonEmptyMetadata.text")); // NOI18N
         buttonEmptyMetadata.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonEmptyMetadata.toolTipText")); // NOI18N
         buttonEmptyMetadata.setEnabled(false);
         buttonEmptyMetadata.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonEmptyMetadata.setName("buttonEmptyMetadata"); // NOI18N
 
         buttonMetadataTemplateCreate.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateCreate.text")); // NOI18N
         buttonMetadataTemplateCreate.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateCreate.toolTipText")); // NOI18N
         buttonMetadataTemplateCreate.setEnabled(false);
         buttonMetadataTemplateCreate.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonMetadataTemplateCreate.setName("buttonMetadataTemplateCreate"); // NOI18N
 
         buttonMetadataTemplateInsert.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateInsert.text")); // NOI18N
         buttonMetadataTemplateInsert.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateInsert.toolTipText")); // NOI18N
         buttonMetadataTemplateInsert.setEnabled(false);
         buttonMetadataTemplateInsert.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonMetadataTemplateInsert.setName("buttonMetadataTemplateInsert"); // NOI18N
 
         labelTemplateName.setForeground(new java.awt.Color(0, 0, 255));
         labelTemplateName.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.labelTemplateName.text")); // NOI18N
+        labelTemplateName.setName("labelTemplateName"); // NOI18N
 
         labelPromptInfoCurrentTemplate.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.labelPromptInfoCurrentTemplate.text")); // NOI18N
+        labelPromptInfoCurrentTemplate.setName("labelPromptInfoCurrentTemplate"); // NOI18N
 
         javax.swing.GroupLayout panelGroupMetadataEditLayout = new javax.swing.GroupLayout(panelGroupMetadataEdit);
         panelGroupMetadataEdit.setLayout(panelGroupMetadataEditLayout);
@@ -98,7 +110,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
                     .addGroup(panelGroupMetadataEditLayout.createSequentialGroup()
                         .addComponent(labelPromptInfoCurrentTemplate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTemplateName, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                        .addComponent(labelTemplateName, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
                     .addComponent(labelMetadataInfoEditable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                     .addComponent(buttonMetadataTemplateCreate))
                 .addContainerGap())
@@ -123,10 +135,14 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
 
         tabbedPane.addTab(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle"), panelGroupMetadataEdit); // NOI18N
 
+        panelGroupMetadataTemplates.setName("panelGroupMetadataTemplates"); // NOI18N
+
         labelPromptCurrentTemplate.setLabelFor(comboBoxMetadataTemplates);
         labelPromptCurrentTemplate.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.labelPromptCurrentTemplate.text")); // NOI18N
+        labelPromptCurrentTemplate.setName("labelPromptCurrentTemplate"); // NOI18N
 
         comboBoxMetadataTemplates.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.comboBoxMetadataTemplates.toolTipText")); // NOI18N
+        comboBoxMetadataTemplates.setName("comboBoxMetadataTemplates"); // NOI18N
         comboBoxMetadataTemplates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxMetadataTemplatesActionPerformed(evt);
@@ -142,24 +158,29 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateRename.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateRename.toolTipText")); // NOI18N
         buttonMetadataTemplateRename.setEnabled(false);
         buttonMetadataTemplateRename.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonMetadataTemplateRename.setName("buttonMetadataTemplateRename"); // NOI18N
 
         buttonMetadataTemplateUpdate.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.text")); // NOI18N
         buttonMetadataTemplateUpdate.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateUpdate.toolTipText")); // NOI18N
         buttonMetadataTemplateUpdate.setEnabled(false);
         buttonMetadataTemplateUpdate.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonMetadataTemplateUpdate.setName("buttonMetadataTemplateUpdate"); // NOI18N
 
         buttonMetadataTemplateDelete.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.text")); // NOI18N
         buttonMetadataTemplateDelete.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateDelete.toolTipText")); // NOI18N
         buttonMetadataTemplateDelete.setEnabled(false);
         buttonMetadataTemplateDelete.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonMetadataTemplateDelete.setName("buttonMetadataTemplateDelete"); // NOI18N
 
         buttonMetadataTemplateEdit.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateEdit.text")); // NOI18N
         buttonMetadataTemplateEdit.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateEdit.toolTipText")); // NOI18N
         buttonMetadataTemplateEdit.setEnabled(false);
+        buttonMetadataTemplateEdit.setName("buttonMetadataTemplateEdit"); // NOI18N
 
         buttonMetadataTemplateAdd.setText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateAdd.text")); // NOI18N
         buttonMetadataTemplateAdd.setToolTipText(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.buttonMetadataTemplateAdd.toolTipText")); // NOI18N
         buttonMetadataTemplateAdd.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonMetadataTemplateAdd.setName("buttonMetadataTemplateAdd"); // NOI18N
 
         javax.swing.GroupLayout panelGroupMetadataTemplatesLayout = new javax.swing.GroupLayout(panelGroupMetadataTemplates);
         panelGroupMetadataTemplates.setLayout(panelGroupMetadataTemplatesLayout);
@@ -201,7 +222,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
                     .addComponent(buttonMetadataTemplateEdit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonMetadataTemplateAdd)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab(JptBundle.INSTANCE.getString("EditMetadataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle"), panelGroupMetadataTemplates); // NOI18N

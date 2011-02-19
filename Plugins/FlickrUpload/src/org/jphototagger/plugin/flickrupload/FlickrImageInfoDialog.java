@@ -168,16 +168,21 @@ public class FlickrImageInfoDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle"); // NOI18N
         setTitle(bundle.getString("FlickrImageInfoDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
+        scrollPane.setName("scrollPane"); // NOI18N
+
+        panelImageInfos.setName("panelImageInfos"); // NOI18N
         panelImageInfos.setLayout(new java.awt.GridBagLayout());
         scrollPane.setViewportView(panelImageInfos);
 
         buttonCancel.setText(bundle.getString("FlickrImageInfoDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -185,6 +190,7 @@ public class FlickrImageInfoDialog extends Dialog {
         });
 
         buttonUpload.setText(bundle.getString("FlickrImageInfoDialog.buttonUpload.text")); // NOI18N
+        buttonUpload.setName("buttonUpload"); // NOI18N
         buttonUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUploadActionPerformed(evt);
@@ -192,6 +198,7 @@ public class FlickrImageInfoDialog extends Dialog {
         });
 
         buttonSelectAll.setText(bundle.getString("FlickrImageInfoDialog.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setName("buttonSelectAll"); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectAllActionPerformed(evt);
@@ -199,6 +206,7 @@ public class FlickrImageInfoDialog extends Dialog {
         });
 
         buttonSelectNone.setText(bundle.getString("FlickrImageInfoDialog.buttonSelectNone.text")); // NOI18N
+        buttonSelectNone.setName("buttonSelectNone"); // NOI18N
         buttonSelectNone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectNoneActionPerformed(evt);

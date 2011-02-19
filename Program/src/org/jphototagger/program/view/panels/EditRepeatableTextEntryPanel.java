@@ -776,8 +776,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         scrollPaneTextArea = new javax.swing.JScrollPane();
         textAreaInput = new javax.swing.JTextArea();
 
+        popupMenuList.setName("popupMenuList"); // NOI18N
+
         menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         menuItemRename.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
+        menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
@@ -787,6 +790,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
         menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemRemove.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
+        menuItemRemove.setName("menuItemRemove"); // NOI18N
         menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveActionPerformed(evt);
@@ -794,10 +798,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         });
         popupMenuList.add(menuItemRemove);
 
+        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.labelPrompt.text")); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
+        labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -805,6 +811,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         add(labelPrompt, gridBagConstraints);
 
         scrollPaneList.setMinimumSize(new java.awt.Dimension(22, 44));
+        scrollPaneList.setName("scrollPaneList"); // NOI18N
 
         list.setModel(model);
         list.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
@@ -813,6 +820,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
         list.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        list.setName("list"); // NOI18N
         list.setVisibleRowCount(-1);
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -836,12 +844,14 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         gridBagConstraints.weighty = 1.0;
         add(scrollPaneList, gridBagConstraints);
 
+        panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
         buttonRemoveSelection.setMnemonic('-');
         buttonRemoveSelection.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
         buttonRemoveSelection.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
+        buttonRemoveSelection.setName("buttonRemoveSelection"); // NOI18N
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSelectionActionPerformed(evt);
@@ -853,6 +863,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         buttonAddInput.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
         buttonAddInput.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
+        buttonAddInput.setName("buttonAddInput"); // NOI18N
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddInputActionPerformed(evt);
@@ -864,6 +875,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         buttonSuggestion.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
+        buttonSuggestion.setName("buttonSuggestion"); // NOI18N
         buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSuggestionActionPerformed(evt);
@@ -882,9 +894,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         scrollPaneTextArea.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneTextArea.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         scrollPaneTextArea.setMinimumSize(new java.awt.Dimension(7, 18));
+        scrollPaneTextArea.setName("scrollPaneTextArea"); // NOI18N
 
         textAreaInput.setColumns(20);
         textAreaInput.setRows(1);
+        textAreaInput.setName("textAreaInput"); // NOI18N
         textAreaInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textAreaInputKeyPressed(evt);

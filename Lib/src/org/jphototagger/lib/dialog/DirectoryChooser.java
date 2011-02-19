@@ -329,7 +329,10 @@ public final class DirectoryChooser extends Dialog
         buttonCancel = new javax.swing.JButton();
         buttonChoose = new javax.swing.JButton();
 
+        popupMenu.setName("popupMenu"); // NOI18N
+
         menuItemAdd.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
+        menuItemAdd.setName("menuItemAdd"); // NOI18N
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddActionPerformed(evt);
@@ -338,6 +341,7 @@ public final class DirectoryChooser extends Dialog
         popupMenu.add(menuItemAdd);
 
         menuItemRename.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemRename.text")); // NOI18N
+        menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
@@ -346,6 +350,7 @@ public final class DirectoryChooser extends Dialog
         popupMenu.add(menuItemRename);
 
         menuItemDelete.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
@@ -355,11 +360,14 @@ public final class DirectoryChooser extends Dialog
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(JslBundle.INSTANCE.getString("DirectoryChooser.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+
+        scrollPane.setName("scrollPane"); // NOI18N
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -369,9 +377,11 @@ public final class DirectoryChooser extends Dialog
         scrollPane.setViewportView(tree);
 
         labelUsage.setText(JslBundle.INSTANCE.getString("DirectoryChooser.labelUsage.text")); // NOI18N
+        labelUsage.setName("labelUsage"); // NOI18N
 
         buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_refresh.png"))); // NOI18N
         buttonRefresh.setToolTipText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
+        buttonRefresh.setName("buttonRefresh"); // NOI18N
         buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
         buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -381,6 +391,7 @@ public final class DirectoryChooser extends Dialog
 
         buttonAdd.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonAdd.text")); // NOI18N
         buttonAdd.setEnabled(false);
+        buttonAdd.setName("buttonAdd"); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionPerformed(evt);
@@ -389,6 +400,7 @@ public final class DirectoryChooser extends Dialog
 
         buttonDelete.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
+        buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
@@ -397,6 +409,7 @@ public final class DirectoryChooser extends Dialog
 
         buttonRename.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
+        buttonRename.setName("buttonRename"); // NOI18N
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameActionPerformed(evt);
@@ -405,6 +418,7 @@ public final class DirectoryChooser extends Dialog
 
         buttonCancel.setMnemonic('b');
         buttonCancel.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -413,6 +427,7 @@ public final class DirectoryChooser extends Dialog
 
         buttonChoose.setMnemonic('a');
         buttonChoose.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonChoose.text")); // NOI18N
+        buttonChoose.setName("buttonChoose"); // NOI18N
         buttonChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseActionPerformed(evt);

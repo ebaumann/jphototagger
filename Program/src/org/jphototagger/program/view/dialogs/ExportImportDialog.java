@@ -64,6 +64,9 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
         panelExportImport = new org.jphototagger.program.view.panels.ExportImportPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setName("Form"); // NOI18N
+
+        panelExportImport.setName("panelExportImport"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,7 +74,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelExportImport, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(panelExportImport, javax.swing.GroupLayout.PREFERRED_SIZE, 402, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

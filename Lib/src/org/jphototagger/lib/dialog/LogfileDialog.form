@@ -5,6 +5,7 @@
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
       <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LogfileDialog.title" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
     </Property>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -14,7 +15,7 @@
   </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/lib/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -33,7 +34,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="tabbedPane" alignment="0" pref="509" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="panelSearchSimple" pref="437" max="32767" attributes="0"/>
+                      <Component id="panelSearchSimple" pref="439" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="buttonReload" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -62,10 +63,16 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelXml">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelXml" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Formatiert">
@@ -82,9 +89,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="497" max="32767" attributes="2"/>
+                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="484" max="32767" attributes="2"/>
                           <Component id="panelFilter" alignment="1" max="32767" attributes="1"/>
-                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="497" max="32767" attributes="2"/>
+                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="484" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -95,9 +102,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelFilter" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableLogfileRecords" pref="70" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableLogfileRecords" pref="76" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTextPaneDetails" pref="61" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTextPaneDetails" pref="67" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -113,6 +120,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="name" type="java.lang.String" value="panelFilter" noResource="true"/>
               </Properties>
 
               <Layout>
@@ -122,7 +130,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="panelSearchXml" alignment="0" max="32767" attributes="2"/>
-                              <Component id="panelFilterCheckBoxes" alignment="0" pref="457" max="32767" attributes="1"/>
+                              <Component id="panelFilterCheckBoxes" alignment="0" pref="452" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -141,6 +149,9 @@
               </Layout>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="panelFilterCheckBoxes">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="panelFilterCheckBoxes" noResource="true"/>
+                  </Properties>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -217,6 +228,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelIconSevere" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="checkBoxSevere">
@@ -225,6 +237,7 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Level.SEVERE.getLocalizedName()" type="code"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="checkBoxSevere" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelIconWarning">
@@ -232,6 +245,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_logfiledialog_warning.png"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelIconWarning" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="checkBoxWarning">
@@ -240,6 +254,7 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Level.WARNING.getLocalizedName()" type="code"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="checkBoxWarning" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelIconInfo">
@@ -247,6 +262,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_logfiledialog_info.png"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelIconInfo" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="checkBoxInfo">
@@ -255,6 +271,7 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Level.INFO.getLocalizedName()" type="code"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="checkBoxInfo" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelIconConfig">
@@ -262,6 +279,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelIconConfig" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="checkBoxConfig">
@@ -270,6 +288,7 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Level.CONFIG.getLocalizedName()" type="code"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="checkBoxConfig" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelIconFine">
@@ -277,6 +296,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_logfiledialog_fine.png"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelIconFine" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="checkBoxFine">
@@ -285,6 +305,7 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Level.FINE.getLocalizedName()" type="code"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="checkBoxFine" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelIconFiner">
@@ -292,6 +313,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_logfiledialog_finer.png"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelIconFiner" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="checkBoxFiner">
@@ -300,6 +322,7 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Level.FINER.getLocalizedName()" type="code"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="checkBoxFiner" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="labelIconFinest">
@@ -307,6 +330,7 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_logfiledialog_finest.png"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelIconFinest" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="checkBoxFinest">
@@ -315,11 +339,15 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="Level.FINEST.getLocalizedName()" type="code"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="checkBoxFinest" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="panelSearchXml">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="panelSearchXml" noResource="true"/>
+                  </Properties>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -327,7 +355,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldSearch" pref="406" max="32767" attributes="0"/>
+                              <Component id="textFieldSearch" pref="409" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -346,9 +374,13 @@
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LogfileDialog.labelSearch.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                         </Property>
+                        <Property name="name" type="java.lang.String" value="labelSearch" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="textFieldSearch">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="textFieldSearch" noResource="true"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldSearchKeyReleased"/>
                       </Events>
@@ -358,6 +390,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JScrollPane" name="scrollPaneTableLogfileRecords">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="scrollPaneTableLogfileRecords" noResource="true"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -371,6 +406,7 @@
                       <Connection code="new TableModelLogfiles(&quot;&quot;, Arrays.asList(Level.ALL))" type="code"/>
                     </Property>
                     <Property name="autoResizeMode" type="int" value="0"/>
+                    <Property name="name" type="java.lang.String" value="tableLogfileRecords" noResource="true"/>
                     <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                       <JTableSelectionModel selectionMode="0"/>
                     </Property>
@@ -379,6 +415,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JScrollPane" name="scrollPaneTextPaneDetails">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="scrollPaneTextPaneDetails" noResource="true"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -388,6 +427,7 @@
                 <Component class="javax.swing.JTextPane" name="textPaneDetails">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
+                    <Property name="name" type="java.lang.String" value="textPaneDetails" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -395,6 +435,9 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelSimple">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelSimple" noResource="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Einfach">
@@ -410,7 +453,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPanePanelSimple" pref="497" max="32767" attributes="0"/>
+                      <Component id="scrollPanePanelSimple" pref="484" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -419,7 +462,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPanePanelSimple" pref="263" max="32767" attributes="0"/>
+                      <Component id="scrollPanePanelSimple" pref="254" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -427,6 +470,9 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="scrollPanePanelSimple">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="scrollPanePanelSimple" noResource="true"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -437,6 +483,7 @@
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
+                    <Property name="name" type="java.lang.String" value="textAreaSimple" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -446,6 +493,9 @@
       </SubComponents>
     </Container>
     <Component class="org.jphototagger.lib.component.TextAreaSearchPanel" name="panelSearchSimple">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="panelSearchSimple" noResource="true"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new org.jphototagger.lib.component.TextAreaSearchPanel()"/>
         <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelSearchSimple.setTextArea(textAreaSimple);"/>
@@ -462,6 +512,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonReload" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonReloadActionPerformed"/>
@@ -478,6 +529,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonExit" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExitActionPerformed"/>

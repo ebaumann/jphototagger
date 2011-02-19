@@ -289,112 +289,110 @@ public class ExportImportPanel extends javax.swing.JPanel
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        labelPromptDir     = new javax.swing.JLabel();
-        labelDir           = new javax.swing.JLabel();
-        buttonSelDir       = new javax.swing.JButton();
-        labelSelectInfo    = new javax.swing.JLabel();
-        buttonSelectAll    = new javax.swing.JButton();
-        buttonSelectNone   = new javax.swing.JButton();
-        scrollPane         = new javax.swing.JScrollPane();
-        panelSelectObjects =
-            new org.jphototagger.lib.component.SelectObjectsPanel();
+
+        labelPromptDir = new javax.swing.JLabel();
+        labelDir = new javax.swing.JLabel();
+        buttonSelDir = new javax.swing.JButton();
+        labelSelectInfo = new javax.swing.JLabel();
+        buttonSelectAll = new javax.swing.JButton();
+        buttonSelectNone = new javax.swing.JButton();
+        scrollPane = new javax.swing.JScrollPane();
+        panelSelectObjects = new org.jphototagger.lib.component.SelectObjectsPanel();
         buttonExportImport = new javax.swing.JButton();
-        labelPromptDir.setText(
-            JptBundle.INSTANCE.getString(
-                "ExportImportPanel.labelPromptDir.text"));    // NOI18N
-        buttonSelDir.setText(
-            JptBundle.INSTANCE.getString(
-                "ExportImportPanel.buttonSelDir.text"));    // NOI18N
+
+        setName("Form"); // NOI18N
+
+        labelPromptDir.setText(JptBundle.INSTANCE.getString("ExportImportPanel.labelPromptDir.text")); // NOI18N
+        labelPromptDir.setName("labelPromptDir"); // NOI18N
+
+        labelDir.setName("labelDir"); // NOI18N
+
+        buttonSelDir.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelDir.text")); // NOI18N
+        buttonSelDir.setName("buttonSelDir"); // NOI18N
         buttonSelDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelDirActionPerformed(evt);
             }
         });
-        labelSelectInfo.setText("Auswahl:");                   // NOI18N
-        buttonSelectAll.setText(
-            JptBundle.INSTANCE.getString(
-                "ExportImportPanel.buttonSelectAll.text"));    // NOI18N
+
+        labelSelectInfo.setText("Auswahl:"); // NOI18N
+        labelSelectInfo.setName("labelSelectInfo"); // NOI18N
+
+        buttonSelectAll.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.setEnabled(false);
+        buttonSelectAll.setName("buttonSelectAll"); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectAllActionPerformed(evt);
             }
         });
-        buttonSelectNone.setText(
-            JptBundle.INSTANCE.getString(
-                "ExportImportPanel.buttonSelectNone.text"));    // NOI18N
+
+        buttonSelectNone.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelectNone.text")); // NOI18N
         buttonSelectNone.setEnabled(false);
+        buttonSelectNone.setName("buttonSelectNone"); // NOI18N
         buttonSelectNone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectNoneActionPerformed(evt);
             }
         });
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
+        panelSelectObjects.setName("panelSelectObjects"); // NOI18N
         scrollPane.setViewportView(panelSelectObjects);
+
         buttonExportImport.setText(TEXT_EXPORT);
         buttonExportImport.setEnabled(false);
-        buttonExportImport.addActionListener(
-            new java.awt.event.ActionListener() {
+        buttonExportImport.setName("buttonExportImport"); // NOI18N
+        buttonExportImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExportImportActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addComponent(
-                    buttonSelectAll).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                    buttonSelectNone).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    Short.MAX_VALUE).addComponent(buttonExportImport)).addGroup(
-                        layout.createSequentialGroup().addComponent(
-                            labelPromptDir).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                            labelDir, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            160, Short.MAX_VALUE).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(
-                                buttonSelDir)).addComponent(
-                                    scrollPane,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, 355,
-                                    Short.MAX_VALUE).addComponent(
-                                        labelSelectInfo,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        355, Short.MAX_VALUE));
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
-                        new java.awt.Component[] { buttonSelectAll,
-                buttonSelectNone });
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(buttonSelectAll)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSelectNone)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(buttonExportImport))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(labelPromptDir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelDir, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonSelDir))
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+            .addComponent(labelSelectInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonSelectAll, buttonSelectNone});
+
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.CENTER).addComponent(
-                        labelDir, javax.swing.GroupLayout.PREFERRED_SIZE, 12,
-                        javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(
-                            labelPromptDir).addComponent(
-                            buttonSelDir)).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                labelSelectInfo).addPreferredGap(
-                                javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                scrollPane,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 235,
-                                Short.MAX_VALUE).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                    layout.createParallelGroup(
-                                        javax.swing.GroupLayout.Alignment.BASELINE).addComponent(
-                                        buttonExportImport).addComponent(
-                                        buttonSelectNone).addComponent(
-                                        buttonSelectAll))));
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL,
-                        new java.awt.Component[] { labelDir,
-                labelPromptDir });
-    }    // </editor-fold>//GEN-END:initComponents
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(labelDir, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPromptDir)
+                    .addComponent(buttonSelDir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelSelectInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonExportImport)
+                    .addComponent(buttonSelectNone)
+                    .addComponent(buttonSelectAll)))
+        );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDir, labelPromptDir});
+
+    }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSelDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelDirActionPerformed
         selectDirectory();
@@ -413,15 +411,14 @@ public class ExportImportPanel extends javax.swing.JPanel
     }//GEN-LAST:event_buttonSelectNoneActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton                               buttonExportImport;
-    private javax.swing.JButton                               buttonSelDir;
-    private javax.swing.JButton                               buttonSelectAll;
-    private javax.swing.JButton                               buttonSelectNone;
-    private javax.swing.JLabel                                labelDir;
-    private javax.swing.JLabel                                labelPromptDir;
-    private javax.swing.JLabel                                labelSelectInfo;
+    private javax.swing.JButton buttonExportImport;
+    private javax.swing.JButton buttonSelDir;
+    private javax.swing.JButton buttonSelectAll;
+    private javax.swing.JButton buttonSelectNone;
+    private javax.swing.JLabel labelDir;
+    private javax.swing.JLabel labelPromptDir;
+    private javax.swing.JLabel labelSelectInfo;
     private org.jphototagger.lib.component.SelectObjectsPanel panelSelectObjects;
     private javax.swing.JScrollPane scrollPane;
-
     // End of variables declaration//GEN-END:variables
 }

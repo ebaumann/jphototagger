@@ -106,72 +106,69 @@ public class ProgramSelectDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         scrollPanePrograms = new javax.swing.JScrollPane();
-        listPrograms       = new javax.swing.JList();
-        buttonSelect       = new javax.swing.JButton();
+        listPrograms = new javax.swing.JList();
+        buttonSelect = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(type.equals(Type.ACTION)
-                 ? JptBundle.INSTANCE.getString(
-                     "ProgramSelectDialog.Title.Actions")
-                 : JptBundle.INSTANCE.getString(
-                     "ProgramSelectDialog.Title.Programs"));
+        setTitle(type.equals(Type.ACTION) ? org.jphototagger.program.resource.JptBundle.INSTANCE.getString("ProgramSelectDialog.Title.Actions") : org.jphototagger.program.resource.JptBundle.INSTANCE.getString("ProgramSelectDialog.Title.Programs"));
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+
         scrollPanePrograms.setFocusable(false);
+        scrollPanePrograms.setName("scrollPanePrograms"); // NOI18N
+
         listPrograms.setModel(model);
-        listPrograms.setSelectionMode(
-            javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPrograms.setCellRenderer(type.equals(Type.ACTION)
-                                     ? new ListCellRendererActions()
-                                     : new ListCellRendererPrograms());
+        listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listPrograms.setCellRenderer(type.equals(Type.ACTION) ? new ListCellRendererActions() : new ListCellRendererPrograms());
+        listPrograms.setName("listPrograms"); // NOI18N
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);
             }
         });
         scrollPanePrograms.setViewportView(listPrograms);
-        buttonSelect.setText(
-            JptBundle.INSTANCE.getString(
-                "ProgramSelectDialog.buttonSelect.text"));    // NOI18N
+
+        buttonSelect.setText(JptBundle.INSTANCE.getString("ProgramSelectDialog.buttonSelect.text")); // NOI18N
         buttonSelect.setEnabled(false);
+        buttonSelect.setName("buttonSelect"); // NOI18N
         buttonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                        layout.createSequentialGroup().addComponent(
-                            scrollPanePrograms,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, 313,
-                            Short.MAX_VALUE).addGap(12, 12, 12)).addGroup(
-                                javax.swing.GroupLayout.Alignment.TRAILING,
-                                layout.createSequentialGroup().addComponent(
-                                    buttonSelect).addContainerGap()))));
-        layout.setVerticalGroup(layout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addContainerGap()
-                .addComponent(scrollPanePrograms,
-                              javax.swing.GroupLayout.DEFAULT_SIZE, 141,
-                              Short.MAX_VALUE)
-                                  .addPreferredGap(javax.swing.LayoutStyle
-                                      .ComponentPlacement.RELATED)
-                                          .addComponent(buttonSelect)
-                                          .addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonSelect)
+                        .addContainerGap())))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSelect)
+                .addContainerGap())
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void listProgramsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProgramsMouseClicked
         handleMousClicked(evt);
@@ -207,9 +204,8 @@ public class ProgramSelectDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     buttonSelect;
-    private javax.swing.JList       listPrograms;
+    private javax.swing.JButton buttonSelect;
+    private javax.swing.JList listPrograms;
     private javax.swing.JScrollPane scrollPanePrograms;
-
     // End of variables declaration//GEN-END:variables
 }

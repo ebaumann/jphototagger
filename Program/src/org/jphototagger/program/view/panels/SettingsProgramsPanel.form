@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JPopupMenu" name="popupMenu">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="popupMenu" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
@@ -16,12 +19,16 @@
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.menuItemAddProgram.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="menuItemAddProgram" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAddProgramActionPerformed"/>
           </Events>
         </MenuItem>
         <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="jSeparator1" noResource="true"/>
+          </Properties>
         </Component>
         <MenuItem class="javax.swing.JMenuItem" name="menuItemEditProgram">
           <Properties>
@@ -35,6 +42,7 @@
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.menuItemEditProgram.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="menuItemEditProgram" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemEditProgramActionPerformed"/>
@@ -52,12 +60,16 @@
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.menuItemRemoveProgram.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="menuItemRemoveProgram" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRemoveProgramActionPerformed"/>
           </Events>
         </MenuItem>
         <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="jSeparator2" noResource="true"/>
+          </Properties>
         </Component>
         <MenuItem class="javax.swing.JMenuItem" name="menuItemMoveProgramUp">
           <Properties>
@@ -68,6 +80,7 @@
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.menuItemMoveProgramUp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="menuItemMoveProgramUp" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemMoveProgramUpActionPerformed"/>
@@ -82,6 +95,7 @@
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.menuItemMoveProgramDown.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="menuItemMoveProgramDown" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemMoveProgramDownActionPerformed"/>
@@ -90,9 +104,12 @@
       </SubComponents>
     </Container>
   </NonVisualComponents>
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -156,6 +173,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.labelChooseDefaultProgram.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelChooseDefaultProgram" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelPrograms">
@@ -166,9 +184,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.labelPrograms.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelPrograms" noResource="true"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPanePrograms">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="scrollPanePrograms" noResource="true"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -191,6 +213,7 @@
             <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.editors.EnumEditor">
               <Value id="INSERT"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="listPrograms" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listProgramsMouseClicked"/>
@@ -212,6 +235,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonRemoveProgram.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonRemoveProgram" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveProgramActionPerformed"/>
@@ -223,6 +247,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonMoveProgramUp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonMoveProgramUp" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMoveProgramUpActionPerformed"/>
@@ -234,6 +259,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonMoveProgramDown.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonMoveProgramDown" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMoveProgramDownActionPerformed"/>
@@ -247,6 +273,7 @@
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonAddProgram.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="buttonAddProgram" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAddProgramActionPerformed"/>
@@ -261,6 +288,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsProgramsPanel.buttonEditProgram.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonEditProgram" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditProgramActionPerformed"/>

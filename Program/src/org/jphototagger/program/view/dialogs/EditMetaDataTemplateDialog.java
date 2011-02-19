@@ -171,6 +171,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -179,8 +180,16 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
         labelName.setLabelFor(textFieldName);
         labelName.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.labelName.text")); // NOI18N
+        labelName.setName("labelName"); // NOI18N
 
         textFieldName.setEnabled(false);
+        textFieldName.setName("textFieldName"); // NOI18N
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
+        panelPadding.setName("panelPadding"); // NOI18N
+
+        panelXmpEdit.setName("panelXmpEdit"); // NOI18N
 
         javax.swing.GroupLayout panelPaddingLayout = new javax.swing.GroupLayout(panelPadding);
         panelPadding.setLayout(panelPaddingLayout);
@@ -190,12 +199,12 @@ public class EditMetaDataTemplateDialog extends Dialog {
             .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addGap(8, 8, 8)
-                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         panelPaddingLayout.setVerticalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addGap(0, 834, Short.MAX_VALUE)
             .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addContainerGap()
@@ -206,6 +215,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         scrollPane.setViewportView(panelPadding);
 
         buttonCancel.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -213,6 +223,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         });
 
         buttonSave.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
+        buttonSave.setName("buttonSave"); // NOI18N
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveActionPerformed(evt);
@@ -234,7 +245,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(labelName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)))
+                        .addComponent(textFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

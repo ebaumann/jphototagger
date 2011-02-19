@@ -96,27 +96,28 @@ public final class ActionsDialog extends Dialog
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         panelActions = new org.jphototagger.program.view.panels.ActionsPanel();
-        setTitle(JptBundle.INSTANCE.getString("ActionsDialog.title"));
+
+        setTitle(JptBundle.INSTANCE.getString("ActionsDialog.title")); // NOI18N
         setAlwaysOnTop(true);
+        setName("Form"); // NOI18N
 
-        javax.swing.GroupLayout layout =
-            new javax.swing.GroupLayout(getContentPane());
+        panelActions.setName("panelActions"); // NOI18N
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panelActions, javax.swing.GroupLayout.Alignment.TRAILING,
-                javax.swing.GroupLayout.DEFAULT_SIZE,
-                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelActions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                panelActions, javax.swing.GroupLayout.Alignment.TRAILING,
-                javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelActions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+        );
+
         pack();
-    }    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * @param args the command line arguments
@@ -140,6 +141,5 @@ public final class ActionsDialog extends Dialog
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.ActionsPanel panelActions;
-
     // End of variables declaration//GEN-END:variables
 }

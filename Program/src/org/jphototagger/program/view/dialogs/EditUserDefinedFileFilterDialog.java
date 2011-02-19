@@ -99,27 +99,34 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("EditUserDefinedFileFilterDialog.title")); // NOI18N
+        setName("Form"); // NOI18N
 
         labelName.setLabelFor(textFieldName);
         labelName.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileFilterDialog.labelName.text")); // NOI18N
+        labelName.setName("labelName"); // NOI18N
 
         textFieldName.setColumns(45);
+        textFieldName.setName("textFieldName"); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${name}"), textFieldName, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setValidator(new MaxLengthValidator(45));
         bindingGroup.addBinding(binding);
 
         comboBoxType.setModel(new ComboBoxModelUserDefinedFileFilterType());
+        comboBoxType.setName("comboBoxType"); // NOI18N
         comboBoxType.setRenderer(new ListCellRendererUserDefinedFileFilterType());
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${type}"), comboBoxType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
+
+        textFieldExpression.setName("textFieldExpression"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${expression}"), textFieldExpression, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setValidator(new MaxLengthValidator(128));
         bindingGroup.addBinding(binding);
 
         checkBoxNot.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileFilterDialog.checkBoxNot.text")); // NOI18N
+        checkBoxNot.setName("checkBoxNot"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${isNot}"), checkBoxNot, org.jdesktop.beansbinding.BeanProperty.create("selected"));
         binding.setSourceNullValue(false);
@@ -127,6 +134,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         bindingGroup.addBinding(binding);
 
         buttonCancel.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileFilterDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -134,6 +142,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         });
 
         buttonOk.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileFilterDialog.buttonOk.text")); // NOI18N
+        buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
@@ -150,10 +159,10 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(comboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldExpression, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE))
+                        .addComponent(textFieldExpression, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkBoxNot)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOk))

@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroupPosition">
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
@@ -32,8 +35,8 @@
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textFieldSearch" pref="211" max="32767" attributes="2"/>
-                          <Component id="textFieldReplacement" alignment="0" pref="211" max="32767" attributes="2"/>
+                          <Component id="textFieldSearch" pref="241" max="32767" attributes="2"/>
+                          <Component id="textFieldReplacement" alignment="0" pref="241" max="32767" attributes="2"/>
                       </Group>
                   </Group>
                   <Component id="buttonReplace" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -76,6 +79,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.labelTitle.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelTitle" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelSearch">
@@ -89,9 +93,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.labelSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelSearch" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldSearch">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="textFieldSearch" noResource="true"/>
+      </Properties>
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldSearchKeyReleased"/>
       </Events>
@@ -107,14 +115,21 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.labelReplacement.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="name" type="java.lang.String" value="labelReplacement" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldReplacement">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="textFieldReplacement" noResource="true"/>
+      </Properties>
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldReplacementKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JProgressBar" name="progressBar">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="progressBar" noResource="true"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonReplace">
       <Properties>
@@ -122,6 +137,7 @@
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="RenameFilenamesInDbPanel.buttonReplace.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="buttonReplace" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonReplaceActionPerformed"/>

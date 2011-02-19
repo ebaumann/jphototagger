@@ -125,12 +125,16 @@ public class SettingsPanel extends javax.swing.JPanel {
         comboBoxDelimiter = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
 
+        setName("Form"); // NOI18N
+
         label.setDisplayedMnemonic('t');
         label.setLabelFor(comboBoxDelimiter);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/cftc/Bundle"); // NOI18N
         label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
+        label.setName("label"); // NOI18N
 
         comboBoxDelimiter.setModel(model);
+        comboBoxDelimiter.setName("comboBoxDelimiter"); // NOI18N
         comboBoxDelimiter.setRenderer(renderer);
         comboBoxDelimiter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +143,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         });
 
         jLabel1.setText(bundle.getString("SettingsPanel.jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
