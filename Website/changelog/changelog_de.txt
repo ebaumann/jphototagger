@@ -3,6 +3,20 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.57 2011-02-20
+-----------------
+* Folgende Listen können durchsucht werden (Schaltfläche ist unter der Liste):
+  * Programmfenster links: Gespeicherte Suchen
+  * Programmfenster links: Stichwörter, Listenansicht
+  * Programmfenster links: Fotoalben
+  * Programmfenster rechts: Stichwörter, Listenansicht
+  * Eingabehilfen: Stichwörter, Listenansicht
+* Tritt ein "unerwarteter Fehler" auf, wird zusätzlich die Protokolldatei in die
+  Zwischenablage kopiert über die Schaltfläche "Kopieren"
+* Das Windows-Installationsprogramm ermöglicht die Einstellung der
+  Sprache der Benutzeroberfläche sowie den maximalen Arbeitsspeicher, den
+  JPhotoTagger benutzen darf
+
 0.8.56 2011-02-16
 -----------------
 

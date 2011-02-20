@@ -13,6 +13,8 @@ import java.awt.Container;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 
@@ -155,9 +157,10 @@ public class KeywordsPanel extends javax.swing.JPanel {
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
         panelList = new javax.swing.JPanel();
         scrollPaneList = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new JXList();
         list.setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
         buttonAsTree = new javax.swing.JButton();
+        buttonFindInList = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.CardLayout());
@@ -237,6 +240,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -251,11 +255,22 @@ public class KeywordsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         panelList.add(buttonAsTree, gridBagConstraints);
+
+        buttonFindInList.setAction(new SearchInJxListAction((JXList)list));
+        buttonFindInList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonFindInList.text")); // NOI18N
+        buttonFindInList.setName("buttonFindInList"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        panelList.add(buttonFindInList, gridBagConstraints);
 
         add(panelList, "List");
     }// </editor-fold>//GEN-END:initComponents
@@ -275,6 +290,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAsList;
     private javax.swing.JButton buttonAsTree;
+    private javax.swing.JButton buttonFindInList;
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
     private javax.swing.JList list;
     private javax.swing.JPanel panelButtons;
