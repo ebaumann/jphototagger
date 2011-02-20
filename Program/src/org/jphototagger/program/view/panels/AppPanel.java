@@ -41,8 +41,11 @@ import javax.swing.JTree;
 import javax.swing.JViewport;
 import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTree;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
+import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
+import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
@@ -614,8 +617,9 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
-        treeDirectories = new javax.swing.JTree();
+        treeDirectories = new JXTree();
         treeDirectories.setShowsRootHandles(true);
+        buttonSearchInDirectories = new javax.swing.JButton();
         panelSavedSearches = new javax.swing.JPanel();
         scrollPaneSavedSearches = new javax.swing.JScrollPane();
         listSavedSearches = new JXList();
@@ -626,17 +630,19 @@ public final class AppPanel extends javax.swing.JPanel {
         buttonSearchInImageCollections = new javax.swing.JButton();
         panelFavorites = new javax.swing.JPanel();
         scrollPaneFavorites = new javax.swing.JScrollPane();
-        treeFavorites = new javax.swing.JTree();
+        treeFavorites = new JXTree();
         treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());
         treeFavorites.setShowsRootHandles(true);
+        buttonSearchInTreeFavorites = new javax.swing.JButton();
         panelSelKeywords = new javax.swing.JPanel();
         panelSelKeywordsTree = new javax.swing.JPanel();
         scrollPaneSelKeywordsTree = new javax.swing.JScrollPane();
-        treeSelKeywords = new javax.swing.JTree();
+        treeSelKeywords = new JXTree();
         treeSelKeywords.setTransferHandler(new TransferHandlerKeywordsTree());
         treeSelKeywords.setShowsRootHandles(true);
         buttonDisplaySelKeywordsList = new javax.swing.JButton();
         toggleButtonExpandAllNodesSelKeywords = new javax.swing.JToggleButton();
+        buttonSearchInTreeSelKeywords = new javax.swing.JButton();
         panelSelKeywordsList = new javax.swing.JPanel();
         scrollPaneSelKeywordsList = new javax.swing.JScrollPane();
         listSelKeywords = new JXList();
@@ -645,16 +651,20 @@ public final class AppPanel extends javax.swing.JPanel {
         radioButtonSelKeywordsMultipleSelAll = new javax.swing.JRadioButton();
         radioButtonSelKeywordsMultipleSelOne = new javax.swing.JRadioButton();
         buttonDisplaySelKeywordsTree = new javax.swing.JButton();
-        buttonSearchInSelKeywords = new javax.swing.JButton();
+        buttonSearchInListSelKeywords = new javax.swing.JButton();
         panelTimeline = new javax.swing.JPanel();
         scrollPaneTimeline = new javax.swing.JScrollPane();
-        treeTimeline = new javax.swing.JTree();
+        treeTimeline = new JXTree();
         treeTimeline.setShowsRootHandles(true);
+        toggleButtonExpandCollapseTreeTimeline = new javax.swing.JToggleButton();
+        buttonSearchInTreeTimeline = new javax.swing.JButton();
         panelMiscMetadata = new javax.swing.JPanel();
         scrollPaneMiscMetadata = new javax.swing.JScrollPane();
-        treeMiscMetadata = new javax.swing.JTree();
+        treeMiscMetadata = new JXTree();
         treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());
         treeMiscMetadata.setShowsRootHandles(true);
+        toggleButtonExpandCollapseTreeMiscMetadata = new javax.swing.JToggleButton();
+        buttonSearchInTreeMiscMetadata = new javax.swing.JButton();
         panelNoMetadata = new javax.swing.JPanel();
         scrollPaneNoMetadata = new javax.swing.JScrollPane();
         listNoMetadata = new javax.swing.JList();
@@ -730,7 +740,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSearch.add(comboBoxFastSearch, gridBagConstraints);
 
         buttonSearch.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearch.text")); // NOI18N
-        buttonSearch.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        buttonSearch.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonSearch.setName("buttonSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -792,6 +802,7 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneSelection.setName("tabbedPaneSelection"); // NOI18N
 
         panelDirectories.setName("panelDirectories"); // NOI18N
+        panelDirectories.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneDirectories.setName("scrollPaneDirectories"); // NOI18N
 
@@ -804,16 +815,25 @@ public final class AppPanel extends javax.swing.JPanel {
         treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());
         treeDirectories.setShowsRootHandles(true);
 
-        javax.swing.GroupLayout panelDirectoriesLayout = new javax.swing.GroupLayout(panelDirectories);
-        panelDirectories.setLayout(panelDirectoriesLayout);
-        panelDirectoriesLayout.setHorizontalGroup(
-            panelDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-        );
-        panelDirectoriesLayout.setVerticalGroup(
-            panelDirectoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelDirectories.add(scrollPaneDirectories, gridBagConstraints);
+
+        buttonSearchInDirectories.setAction(new SearchInJxTreeAction((JXTree)treeDirectories));
+        buttonSearchInDirectories.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInDirectories.text")); // NOI18N
+        buttonSearchInDirectories.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInDirectories.setName("buttonSearchInDirectories"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 0);
+        panelDirectories.add(buttonSearchInDirectories, gridBagConstraints);
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png")), panelDirectories); // NOI18N
 
@@ -839,6 +859,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         buttonSearchInSavedSearches.setAction(new SearchInJxListAction((JXList)listSavedSearches));
         buttonSearchInSavedSearches.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInSavedSearches.text")); // NOI18N
+        buttonSearchInSavedSearches.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonSearchInSavedSearches.setName("buttonSearchInSavedSearches"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -873,6 +894,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         buttonSearchInImageCollections.setAction(new SearchInJxListAction((JXList)listImageCollections));
         buttonSearchInImageCollections.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInImageCollections.text")); // NOI18N
+        buttonSearchInImageCollections.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonSearchInImageCollections.setName("buttonSearchInImageCollections"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -884,6 +906,7 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelImageCollections.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_imagecollection.png")), panelImageCollections); // NOI18N
 
         panelFavorites.setName("panelFavorites"); // NOI18N
+        panelFavorites.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneFavorites.setName("scrollPaneFavorites"); // NOI18N
 
@@ -894,16 +917,25 @@ public final class AppPanel extends javax.swing.JPanel {
         treeFavorites.setRootVisible(false);
         scrollPaneFavorites.setViewportView(treeFavorites);
 
-        javax.swing.GroupLayout panelFavoritesLayout = new javax.swing.GroupLayout(panelFavorites);
-        panelFavorites.setLayout(panelFavoritesLayout);
-        panelFavoritesLayout.setHorizontalGroup(
-            panelFavoritesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-        );
-        panelFavoritesLayout.setVerticalGroup(
-            panelFavoritesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneFavorites, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelFavorites.add(scrollPaneFavorites, gridBagConstraints);
+
+        buttonSearchInTreeFavorites.setAction(new SearchInJxTreeAction((JXTree)treeFavorites));
+        buttonSearchInTreeFavorites.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInTreeFavorites.text")); // NOI18N
+        buttonSearchInTreeFavorites.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInTreeFavorites.setName("buttonSearchInTreeFavorites"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 0);
+        panelFavorites.add(buttonSearchInTreeFavorites, gridBagConstraints);
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_favorite.png")), panelFavorites); // NOI18N
 
@@ -924,7 +956,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -954,6 +986,17 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 1, 0);
         panelSelKeywordsTree.add(toggleButtonExpandAllNodesSelKeywords, gridBagConstraints);
+
+        buttonSearchInTreeSelKeywords.setAction(new SearchInJxTreeAction((JXTree)treeSelKeywords));
+        buttonSearchInTreeSelKeywords.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInTreeSelKeywords.text")); // NOI18N
+        buttonSearchInTreeSelKeywords.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInTreeSelKeywords.setName("buttonSearchInTreeSelKeywords"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 1, 0);
+        panelSelKeywordsTree.add(buttonSearchInTreeSelKeywords, gridBagConstraints);
 
         panelSelKeywords.add(panelSelKeywordsTree, "keywordsTree");
 
@@ -1016,7 +1059,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSelKeywordsList.add(panelSelKeywordsListMultipleSelection, gridBagConstraints);
 
         buttonDisplaySelKeywordsTree.setText(JptBundle.INSTANCE.getString("AppPanel.buttonDisplaySelKeywordsTree.text")); // NOI18N
-        buttonDisplaySelKeywordsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonDisplaySelKeywordsTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonDisplaySelKeywordsTree.setName("buttonDisplaySelKeywordsTree"); // NOI18N
         buttonDisplaySelKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1030,21 +1073,23 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 2);
         panelSelKeywordsList.add(buttonDisplaySelKeywordsTree, gridBagConstraints);
 
-        buttonSearchInSelKeywords.setAction(new SearchInJxListAction((JXList)listSelKeywords));
-        buttonSearchInSelKeywords.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInSelKeywords.text")); // NOI18N
-        buttonSearchInSelKeywords.setName("buttonSearchInSelKeywords"); // NOI18N
+        buttonSearchInListSelKeywords.setAction(new SearchInJxListAction((JXList)listSelKeywords));
+        buttonSearchInListSelKeywords.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInListSelKeywords.text")); // NOI18N
+        buttonSearchInListSelKeywords.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInListSelKeywords.setName("buttonSearchInListSelKeywords"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
-        panelSelKeywordsList.add(buttonSearchInSelKeywords, gridBagConstraints);
+        panelSelKeywordsList.add(buttonSearchInListSelKeywords, gridBagConstraints);
 
         panelSelKeywords.add(panelSelKeywordsList, "flatKeywords");
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelSelKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png")), panelSelKeywords); // NOI18N
 
         panelTimeline.setName("panelTimeline"); // NOI18N
+        panelTimeline.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneTimeline.setName("scrollPaneTimeline"); // NOI18N
 
@@ -1054,20 +1099,42 @@ public final class AppPanel extends javax.swing.JPanel {
         treeTimeline.setRootVisible(false);
         scrollPaneTimeline.setViewportView(treeTimeline);
 
-        javax.swing.GroupLayout panelTimelineLayout = new javax.swing.GroupLayout(panelTimeline);
-        panelTimeline.setLayout(panelTimelineLayout);
-        panelTimelineLayout.setHorizontalGroup(
-            panelTimelineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-        );
-        panelTimelineLayout.setVerticalGroup(
-            panelTimelineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelTimeline.add(scrollPaneTimeline, gridBagConstraints);
+
+        toggleButtonExpandCollapseTreeTimeline.setAction(new TreeExpandCollapseAllAction(toggleButtonExpandCollapseTreeTimeline, treeTimeline));
+        toggleButtonExpandCollapseTreeTimeline.setText(TreeExpandCollapseAllAction.NOT_SELECTED_TEXT);
+        toggleButtonExpandCollapseTreeTimeline.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        toggleButtonExpandCollapseTreeTimeline.setName("toggleButtonExpandCollapseTreeTimeline"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 0);
+        panelTimeline.add(toggleButtonExpandCollapseTreeTimeline, gridBagConstraints);
+
+        buttonSearchInTreeTimeline.setAction(new SearchInJxTreeAction((JXTree)treeTimeline));
+        buttonSearchInTreeTimeline.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInTreeTimeline.text")); // NOI18N
+        buttonSearchInTreeTimeline.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInTreeTimeline.setName("buttonSearchInTreeTimeline"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(1, 2, 1, 0);
+        panelTimeline.add(buttonSearchInTreeTimeline, gridBagConstraints);
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelTimeline.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_timeline.png")), panelTimeline); // NOI18N
 
         panelMiscMetadata.setName("panelMiscMetadata"); // NOI18N
+        panelMiscMetadata.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneMiscMetadata.setName("scrollPaneMiscMetadata"); // NOI18N
 
@@ -1078,16 +1145,37 @@ public final class AppPanel extends javax.swing.JPanel {
         treeMiscMetadata.setRootVisible(false);
         scrollPaneMiscMetadata.setViewportView(treeMiscMetadata);
 
-        javax.swing.GroupLayout panelMiscMetadataLayout = new javax.swing.GroupLayout(panelMiscMetadata);
-        panelMiscMetadata.setLayout(panelMiscMetadataLayout);
-        panelMiscMetadataLayout.setHorizontalGroup(
-            panelMiscMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-        );
-        panelMiscMetadataLayout.setVerticalGroup(
-            panelMiscMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneMiscMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelMiscMetadata.add(scrollPaneMiscMetadata, gridBagConstraints);
+
+        toggleButtonExpandCollapseTreeMiscMetadata.setAction(new TreeExpandCollapseAllAction(toggleButtonExpandCollapseTreeMiscMetadata, treeMiscMetadata));
+        toggleButtonExpandCollapseTreeMiscMetadata.setText(TreeExpandCollapseAllAction.NOT_SELECTED_TEXT);
+        toggleButtonExpandCollapseTreeMiscMetadata.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        toggleButtonExpandCollapseTreeMiscMetadata.setName("toggleButtonExpandCollapseTreeMiscMetadata"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 0);
+        panelMiscMetadata.add(toggleButtonExpandCollapseTreeMiscMetadata, gridBagConstraints);
+
+        buttonSearchInTreeMiscMetadata.setAction(new SearchInJxTreeAction((JXTree)treeMiscMetadata));
+        buttonSearchInTreeMiscMetadata.setText(JptBundle.INSTANCE.getString("AppPanel.buttonSearchInTreeMiscMetadata.text")); // NOI18N
+        buttonSearchInTreeMiscMetadata.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInTreeMiscMetadata.setName("buttonSearchInTreeMiscMetadata"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(1, 2, 1, 0);
+        panelMiscMetadata.add(buttonSearchInTreeMiscMetadata, gridBagConstraints);
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_misc_metadata.png")), panelMiscMetadata); // NOI18N
 
@@ -1497,9 +1585,14 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
     private javax.swing.JButton buttonIptcToXmp;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JButton buttonSearchInDirectories;
     private javax.swing.JButton buttonSearchInImageCollections;
+    private javax.swing.JButton buttonSearchInListSelKeywords;
     private javax.swing.JButton buttonSearchInSavedSearches;
-    private javax.swing.JButton buttonSearchInSelKeywords;
+    private javax.swing.JButton buttonSearchInTreeFavorites;
+    private javax.swing.JButton buttonSearchInTreeMiscMetadata;
+    private javax.swing.JButton buttonSearchInTreeSelKeywords;
+    private javax.swing.JButton buttonSearchInTreeTimeline;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JLabel labelError;
@@ -1578,6 +1671,8 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JTable tableXmpXap;
     private javax.swing.JTextArea textAreaSearch;
     private javax.swing.JToggleButton toggleButtonExpandAllNodesSelKeywords;
+    private javax.swing.JToggleButton toggleButtonExpandCollapseTreeMiscMetadata;
+    private javax.swing.JToggleButton toggleButtonExpandCollapseTreeTimeline;
     private javax.swing.JTree treeDirectories;
     private javax.swing.JTree treeFavorites;
     private javax.swing.JTree treeMiscMetadata;
