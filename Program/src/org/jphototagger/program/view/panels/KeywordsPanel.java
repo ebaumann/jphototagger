@@ -14,7 +14,9 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTree;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
+import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 
@@ -150,17 +152,18 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         panelTree = new javax.swing.JPanel();
         scrollPaneTree = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
+        tree = new JXTree();
         tree.setShowsRootHandles(true);
         panelButtons = new javax.swing.JPanel();
         buttonAsList = new javax.swing.JButton();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
+        buttonSearchInTree = new javax.swing.JButton();
         panelList = new javax.swing.JPanel();
         scrollPaneList = new javax.swing.JScrollPane();
         list = new JXList();
         list.setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
         buttonAsTree = new javax.swing.JButton();
-        buttonFindInList = new javax.swing.JButton();
+        buttonSearchInList = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.CardLayout());
@@ -189,7 +192,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonAsList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
-        buttonAsList.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonAsList.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonAsList.setName("buttonAsList"); // NOI18N
         buttonAsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +207,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelButtons.add(buttonAsList, gridBagConstraints);
 
         buttonToggleExpandAllNodes.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
-        buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonToggleExpandAllNodes.setName("buttonToggleExpandAllNodes"); // NOI18N
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,6 +220,15 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         panelButtons.add(buttonToggleExpandAllNodes, gridBagConstraints);
+
+        buttonSearchInTree.setAction(new SearchInJxTreeAction((JXTree)tree));
+        buttonSearchInTree.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonSearchInTree.text")); // NOI18N
+        buttonSearchInTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInTree.setName("buttonSearchInTree"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        panelButtons.add(buttonSearchInTree, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -247,7 +259,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelList.add(scrollPaneList, gridBagConstraints);
 
         buttonAsTree.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
-        buttonAsTree.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonAsTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonAsTree.setName("buttonAsTree"); // NOI18N
         buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,16 +273,17 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         panelList.add(buttonAsTree, gridBagConstraints);
 
-        buttonFindInList.setAction(new SearchInJxListAction((JXList)list));
-        buttonFindInList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonFindInList.text")); // NOI18N
-        buttonFindInList.setName("buttonFindInList"); // NOI18N
+        buttonSearchInList.setAction(new SearchInJxListAction((JXList)list));
+        buttonSearchInList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonSearchInList.text")); // NOI18N
+        buttonSearchInList.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInList.setName("buttonSearchInList"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        panelList.add(buttonFindInList, gridBagConstraints);
+        panelList.add(buttonSearchInList, gridBagConstraints);
 
         add(panelList, "List");
     }// </editor-fold>//GEN-END:initComponents
@@ -290,7 +303,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAsList;
     private javax.swing.JButton buttonAsTree;
-    private javax.swing.JButton buttonFindInList;
+    private javax.swing.JButton buttonSearchInList;
+    private javax.swing.JButton buttonSearchInTree;
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
     private javax.swing.JList list;
     private javax.swing.JPanel panelButtons;

@@ -5,6 +5,14 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.57 2011-02-20
 -----------------
+* Folgende Bäume können durchsucht werden (Schaltfläche ist unter dem Baum):
+  * Programmfenster links: Ordner
+  * Programmfenster links: Favoriten
+  * Programmfenster links: Stichwörter, Baumansicht
+  * Programmfenster links: Zeitleiste
+  * Programmfenster links: Verschiedenes
+  * Programmfenster rechts: Stichwörter, Baumansicht
+  * Eingabehilfen: Stichwörter, Baumansicht
 * Folgende Listen können durchsucht werden (Schaltfläche ist unter der Liste):
   * Programmfenster links: Gespeicherte Suchen
   * Programmfenster links: Stichwörter, Listenansicht
