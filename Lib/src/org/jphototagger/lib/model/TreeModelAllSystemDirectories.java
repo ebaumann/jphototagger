@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
@@ -37,6 +39,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
     private final transient DirectoryFilter directoryFilter;
     private final DefaultMutableTreeNode    rootNode;
     private final JTree                     tree;
+    private static final Logger LOGGER = Logger.getLogger(TreeModelAllSystemDirectories.class.getName());
 
     /**
      * Constructor.
@@ -58,7 +61,9 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
     }
 
     private void addRootDirectories() {
+        LOGGER.log(Level.FINEST, "Lese Wurzelverzeichnisse ein...");
         File[] roots = File.listRoots();
+        LOGGER.log(Level.FINEST, "Wurzelverzeichnisse wurden eingelesen");
 
         if (roots == null) {
             return;
@@ -67,8 +72,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         List<File> rootDirs = Arrays.asList(roots);
 
         for (File dir : rootDirs) {
-            DefaultMutableTreeNode rootDirNode =
-                new TreeNodeSortedChildren(dir);
+            DefaultMutableTreeNode rootDirNode = new TreeNodeSortedChildren(dir);
 
             insertNodeInto(rootDirNode, rootNode, rootNode.getChildCount());
             addChildren(rootDirNode);
@@ -85,7 +89,9 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
             return;
         }
 
+        LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}''...", dir);
         File[] subdirs = dir.listFiles(directoryFilter);
+        LOGGER.log(Level.FINEST, "Unterverzeichnisse von ''{0}'' wurden eingelesen", dir);
 
         if (subdirs == null) {
             return;
@@ -137,6 +143,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
             }
 
             if ((file != null) &&!file.exists()) {
+                LOGGER.log(Level.FINEST, "Entferne Verzeichnis ''{0}'' von Tree...", file);
                 nodesToRemove.add(child);
             }
         }
