@@ -25,6 +25,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
@@ -61,6 +63,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     private transient boolean            listenToDb = true;
     private final DefaultMutableTreeNode rootNode;
     private final JTree                  tree;
+    private static final Logger LOGGER = Logger.getLogger(TreeModelFavorites.class.getName());
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(
@@ -286,10 +289,10 @@ public final class TreeModelFavorites extends DefaultTreeModel
             return;
         }
 
-        File[] subdirs =
-            dir.listFiles(
-                new DirectoryFilter(
+        LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}' ein'...", dir);
+        File[] subdirs = dir.listFiles(new DirectoryFilter(
                     UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
+        LOGGER.log(Level.FINEST, "Unterverzeichnisse von ''{0}'' wurden eingelesen", dir);
 
         if (subdirs == null) {
             return;
@@ -309,9 +312,9 @@ public final class TreeModelFavorites extends DefaultTreeModel
         }
 
         for (int i = 0; i < subdirs.length; i++) {
-            if (!nodeChildrenDirs.contains(subdirs[i])) {
-                DefaultMutableTreeNode newChild =
-                    new TreeNodeSortedChildren(subdirs[i]);
+            File subdir = subdirs[i];
+            if (!nodeChildrenDirs.contains(subdir)) {
+                DefaultMutableTreeNode newChild = new TreeNodeSortedChildren(subdirs[i]);
 
                 parentNode.insert(newChild, childCount++);
 
