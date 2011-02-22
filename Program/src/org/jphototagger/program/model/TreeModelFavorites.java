@@ -289,7 +289,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
             return;
         }
 
-        LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}' ein'...", dir);
+        LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}'' ein'...", dir);
         File[] subdirs = dir.listFiles(new DirectoryFilter(
                     UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
         LOGGER.log(Level.FINEST, "Unterverzeichnisse von ''{0}'' wurden eingelesen", dir);
