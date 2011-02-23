@@ -24,6 +24,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Tree model for all directories of a file system. All nodes have the type
@@ -34,11 +35,10 @@ import javax.swing.tree.TreePath;
  */
 public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         implements TreeWillExpandListener {
-    private static final long               serialVersionUID =
-        8297582930734874242L;
+    private static final long serialVersionUID = 8297582930734874242L;
     private final transient DirectoryFilter directoryFilter;
-    private final DefaultMutableTreeNode    rootNode;
-    private final JTree                     tree;
+    private final DefaultMutableTreeNode rootNode;
+    private final JTree tree;
     private static final Logger LOGGER = Logger.getLogger(TreeModelAllSystemDirectories.class.getName());
 
     /**
@@ -49,21 +49,19 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
      *                        added
      * @param directoryFilter filter, determines which directories are displayed
      */
-    public TreeModelAllSystemDirectories(JTree tree,
-            DirectoryFilter.Option... directoryFilter) {
-        super(new TreeNodeSortedChildren(
-            "Root of TreeModelAllSystemDirectories"));
-        rootNode             = (DefaultMutableTreeNode) getRoot();
-        this.tree            = tree;
+    public TreeModelAllSystemDirectories(JTree tree, DirectoryFilter.Option... directoryFilter) {
+        super(new TreeNodeSortedChildren("Root of TreeModelAllSystemDirectories"));
+        rootNode = (DefaultMutableTreeNode) getRoot();
+        this.tree = tree;
         this.directoryFilter = new DirectoryFilter(directoryFilter);
         addRootDirectories();
         tree.addTreeWillExpandListener(this);
     }
 
     private void addRootDirectories() {
-        LOGGER.log(Level.FINEST, "Lese Wurzelverzeichnisse ein...");
+        LOGGER.log(Level.FINEST, "Reading root directories...");
         File[] roots = File.listRoots();
-        LOGGER.log(Level.FINEST, "Wurzelverzeichnisse wurden eingelesen");
+        LOGGER.log(Level.FINEST, "Root directories have been read: {0}", StringUtil.toString(roots));
 
         if (roots == null) {
             return;
@@ -81,17 +79,15 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
 
     private void addChildren(DefaultMutableTreeNode parentNode) {
         Object parentUserObject = parentNode.getUserObject();
-        File   dir              = (parentUserObject instanceof File)
-                                  ? (File) parentUserObject
-                                  : null;
+        File dir = (parentUserObject instanceof File) ? (File) parentUserObject : null;
 
         if ((dir == null) ||!dir.isDirectory()) {
             return;
         }
 
-        LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}''...", dir);
+        LOGGER.log(Level.FINEST, "Reading subdirectories of ''{0}''...", dir);
         File[] subdirs = dir.listFiles(directoryFilter);
-        LOGGER.log(Level.FINEST, "Unterverzeichnisse von ''{0}'' wurden eingelesen", dir);
+        LOGGER.log(Level.FINEST, "Subdirectories of ''{0}'' have been read: {1}", new Object[] {dir, StringUtil.toString(subdirs)});
 
         if (subdirs == null) {
             return;
@@ -101,55 +97,52 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         List<File> nodeChildDirs = new ArrayList<File>(childCount);
 
         for (int i = 0; i < childCount; i++) {
-            DefaultMutableTreeNode child =
-                (DefaultMutableTreeNode) parentNode.getChildAt(i);
-            Object usrerObjectChild = child.getUserObject();
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) parentNode.getChildAt(i);
+            Object userObjectChild = childNode.getUserObject();
 
-            if (usrerObjectChild instanceof File) {
-                nodeChildDirs.add((File) usrerObjectChild);
+            if (userObjectChild instanceof File) {
+                nodeChildDirs.add((File) userObjectChild);
             }
         }
 
         for (int i = 0; i < subdirs.length; i++) {
-            if (!nodeChildDirs.contains(subdirs[i])) {
-                DefaultMutableTreeNode newChild =
-                    new TreeNodeSortedChildren(subdirs[i]);
+            final File subdir = subdirs[i];
+            if (!nodeChildDirs.contains(subdir)) {
+                LOGGER.log(Level.FINEST, "Adding subdirectory ''{0}'' to node ''{1}''", new Object[]{subdir, parentNode});
+                DefaultMutableTreeNode newChild = new TreeNodeSortedChildren(subdirs[i]);
 
                 parentNode.add(newChild);
 
                 int childIndex = parentNode.getIndex(newChild);
 
-                fireTreeNodesInserted(this, parentNode.getPath(),
-                                      new int[] { childIndex },
-                                      new Object[] { newChild });
+                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { childIndex }, new Object[] { newChild });
+                LOGGER.log(Level.FINEST, "Subdirectory ''{0}'' has been added to node ''{1}''", new Object[]{subdir, parentNode});
             }
         }
     }
 
-    private int removeChildrenWithNotExistingFiles(
-            DefaultMutableTreeNode parentNode) {
-        int                          childCount    = parentNode.getChildCount();
-        List<DefaultMutableTreeNode> nodesToRemove =
-            new ArrayList<DefaultMutableTreeNode>();
+    private int removeChildrenWithNotExistingFiles(DefaultMutableTreeNode parentNode) {
+        int childCount = parentNode.getChildCount();
+        List<DefaultMutableTreeNode> nodesToRemove = new ArrayList<DefaultMutableTreeNode>();
 
         for (int i = 0; i < childCount; i++) {
-            DefaultMutableTreeNode child =
-                (DefaultMutableTreeNode) parentNode.getChildAt(i);
+            DefaultMutableTreeNode child = (DefaultMutableTreeNode) parentNode.getChildAt(i);
             Object userObject = child.getUserObject();
-            File   file       = null;
+            File file = null;
 
             if (userObject instanceof File) {
                 file = (File) userObject;
             }
 
             if ((file != null) &&!file.exists()) {
-                LOGGER.log(Level.FINEST, "Entferne Verzeichnis ''{0}'' von Tree...", file);
                 nodesToRemove.add(child);
             }
         }
 
         for (DefaultMutableTreeNode childNodeToRemove : nodesToRemove) {
+            LOGGER.log(Level.FINEST, "Removing child node ''{0}'' from parent node ''{1}''...", new Object[]{childNodeToRemove, parentNode});
             removeNodeFromParent(childNodeToRemove);
+            LOGGER.log(Level.FINEST, "Child node ''{0}'' has been removed from parent node ''{1}''", new Object[]{childNodeToRemove, parentNode});
         }
 
         return nodesToRemove.size();
@@ -163,25 +156,19 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
      * @return            created directory or null if not created
      */
     public File createDirectoryIn(DefaultMutableTreeNode parentNode) {
-        File parentDir = (parentNode == null)
-                         ? null
-                         : TreeFileSystemDirectories.getFile(parentNode);
+        File parentDir = (parentNode == null) ? null : TreeFileSystemDirectories.getFile(parentNode);
 
         if (parentDir != null) {
-            File createdDir =
-                TreeFileSystemDirectories.createDirectoryIn(parentDir);
+            File createdDir = TreeFileSystemDirectories.createDirectoryIn(parentDir);
 
             if (createdDir != null) {
-                TreeNodeSortedChildren createdDirNode =
-                    new TreeNodeSortedChildren(createdDir);
+                TreeNodeSortedChildren createdDirNode = new TreeNodeSortedChildren(createdDir);
 
                 parentNode.add(createdDirNode);
 
                 int childIndex = parentNode.getIndex(createdDirNode);
 
-                fireTreeNodesInserted(this, parentNode.getPath(),
-                                      new int[] { childIndex },
-                                      new Object[] { createdDirNode });
+                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { childIndex }, new Object[] { createdDirNode });
                 return createdDir;
             }
         }
@@ -196,8 +183,8 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
      * @param select if true the file node will be selected
      */
     public void expandToFile(File file, boolean select) {
-        Stack<File>            filePath = FileUtil.getPathFromRoot(file);
-        DefaultMutableTreeNode node     = rootNode;
+        Stack<File> filePath = FileUtil.getPathFromRoot(file);
+        DefaultMutableTreeNode node = rootNode;
 
         while ((node != null) &&!filePath.isEmpty()) {
             node = TreeUtil.findChildNodeWithFile(node, filePath.pop());
@@ -208,8 +195,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
         }
 
         if ((node != null) && (node.getParent() != null)) {
-            DefaultMutableTreeNode parent =
-                (DefaultMutableTreeNode) node.getParent();
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
 
             if (parent.getPath() != null) {
                 tree.expandPath(new TreePath(parent.getPath()));
@@ -243,14 +229,11 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
     }
 
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
-        int                          rows  = tree.getRowCount();
-        List<DefaultMutableTreeNode> nodes =
-            new ArrayList<DefaultMutableTreeNode>(rows);
+        int rows  = tree.getRowCount();
+        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(rows);
 
         for (int i = 0; i < rows; i++) {
-            nodes.add(
-                (DefaultMutableTreeNode) tree.getPathForRow(
-                    i).getLastPathComponent());
+            nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).getLastPathComponent());
         }
 
         return nodes;
@@ -258,24 +241,23 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel
 
     @SuppressWarnings("unchecked")
     @Override
-    public void treeWillExpand(TreeExpansionEvent event)
-            throws ExpandVetoException {
+    public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
 
         tree.setCursor(waitCursor);
 
-        DefaultMutableTreeNode node =
-            (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
 
+        LOGGER.log(Level.FINEST, "Node ''{0}'' has been expanded, adding children...", node);
         if (node.getChildCount() == 0) {
             addChildren(node);
         }
 
-        for (Enumeration<DefaultMutableTreeNode> children = node.children();
-                children.hasMoreElements(); ) {
+        for (Enumeration<DefaultMutableTreeNode> children = node.children(); children.hasMoreElements(); ) {
             addChildren(children.nextElement());
         }
+        LOGGER.log(Level.FINEST, "Children were added to node ''{0}'' after expanding", node);
 
         tree.setCursor(treeCursor);
     }
