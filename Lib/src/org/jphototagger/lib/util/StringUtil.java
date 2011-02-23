@@ -207,5 +207,23 @@ public final class StringUtil {
         return prefix + s.substring(stringLength - substringLength);
     }
 
+    public static String toString(Object[] objects) {
+        if (objects == null) {
+            throw new NullPointerException("objects == null");
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("[");
+        for (int index = 0; index < objects.length; index++) {
+            Object object = objects[index];
+            sb.append(index == 0 ? "'" : "', '");
+            sb.append(object == null ? "null" : object.toString());
+        }
+        sb.append("]");
+
+        return sb.toString();
+    }
+
     private StringUtil() {}
 }
