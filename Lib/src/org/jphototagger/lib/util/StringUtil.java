@@ -209,7 +209,7 @@ public final class StringUtil {
 
     public static String toString(Object[] objects) {
         if (objects == null) {
-            throw new NullPointerException("objects == null");
+            return "null";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -219,6 +219,9 @@ public final class StringUtil {
             Object object = objects[index];
             sb.append(index == 0 ? "'" : "', '");
             sb.append(object == null ? "null" : object.toString());
+            if (index == objects.length - 1) {
+                sb.append("'");
+            }
         }
         sb.append("]");
 
