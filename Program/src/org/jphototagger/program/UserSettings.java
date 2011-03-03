@@ -33,7 +33,6 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class UserSettings {
-    private static final int DEFAULT_MAX_THUMBNAIL_WIDTH              = 150;
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
 
     // When changing see comment for AppInfo.PROJECT_NAME
@@ -87,9 +86,9 @@ public final class UserSettings {
             "UserSettings.ExperimentalFileFormats";
     private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE =
             "UserSettings.Autocomplete.IgnoreCase";
-    public static final int MIN_THUMBNAIL_LENGTH = 50;
-    public static final int MAX_THUMBNAIL_LENGTH = 600;
-    public static final int DEFAULT_THUMBNAIL_LENGTH = 150;
+    public static final int MIN_THUMBNAIL_WIDTH = 50;
+    public static final int MAX_THUMBNAIL_WIDTH = 400;
+    public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
 
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
@@ -668,7 +667,7 @@ public final class UserSettings {
 
         return (width != Integer.MIN_VALUE)
                ? width
-               : DEFAULT_MAX_THUMBNAIL_WIDTH;
+               : DEFAULT_THUMBNAIL_WIDTH;
     }
 
     /**
