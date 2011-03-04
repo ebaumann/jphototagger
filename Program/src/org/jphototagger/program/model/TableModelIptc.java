@@ -1,5 +1,6 @@
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.image.metadata.iptc.IptcEntry;
 import org.jphototagger.program.image.metadata.iptc.IptcEntryComparator;
 import org.jphototagger.program.image.metadata.iptc.IptcMetadata;
@@ -12,18 +13,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved
  * through {@link IptcMetadata#getIptcEntries(java.io.File)}.
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class TableModelIptc extends DefaultTableModel {
+public final class TableModelIptc extends TableModelExt {
     private static final long serialVersionUID = -3988241922301609843L;
-    private File              file;
-    private List<IptcEntry>   iptcEntries = new ArrayList<IptcEntry>();
+    private File file;
+    private List<IptcEntry> iptcEntries = new ArrayList<IptcEntry>();
 
     public TableModelIptc() {
         addColumnHeaders();
@@ -44,9 +43,9 @@ public final class TableModelIptc extends DefaultTableModel {
             return;
         }
 
-        this.file   = file;
+        this.file = file;
         iptcEntries = IptcMetadata.getIptcEntries(file);
-        getDataVector().removeAllElements();
+        removeAllRows();
         addRows();
     }
 
@@ -77,11 +76,8 @@ public final class TableModelIptc extends DefaultTableModel {
     }
 
     private void addColumnHeaders() {
-        addColumn(
-            JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.1"));
-        addColumn(
-            JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.2"));
-        addColumn(
-            JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.3"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.1"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.2"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.3"));
     }
 }

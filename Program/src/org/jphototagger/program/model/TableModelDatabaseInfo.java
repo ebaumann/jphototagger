@@ -1,12 +1,12 @@
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseStatistics;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.selections
-    .DatabaseInfoRecordCountColumns;
+import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.JptBundle;
 
@@ -18,8 +18,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  * Elements are {@link Column}s retrieved through
  * {@link DatabaseInfoRecordCountColumns#get()}.
@@ -30,12 +28,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class TableModelDatabaseInfo extends DefaultTableModel
-        implements DatabaseImageFilesListener {
-    private static final long                         serialVersionUID =
-        1974343527501774916L;
-    private final LinkedHashMap<Column, StringBuffer> bufferOfColumn =
-        new LinkedHashMap<Column, StringBuffer>();
+public final class TableModelDatabaseInfo extends TableModelExt implements DatabaseImageFilesListener {
+    private static final long serialVersionUID = 1974343527501774916L;
+    private final LinkedHashMap<Column, StringBuffer> bufferOfColumn = new LinkedHashMap<Column, StringBuffer>();
     private boolean listenToDatabase;
 
     public TableModelDatabaseInfo() {
@@ -69,12 +64,8 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
     }
 
     private void addColumnHeaders() {
-        addColumn(
-            JptBundle.INSTANCE.getString(
-                "TableModelDatabaseInfo.HeaderColumn.1"));
-        addColumn(
-            JptBundle.INSTANCE.getString(
-                "TableModelDatabaseInfo.HeaderColumn.2"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.1"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.2"));
     }
 
     private void addRows() {
@@ -168,9 +159,7 @@ public final class TableModelDatabaseInfo extends DefaultTableModel
         @Override
         public void run() {
             for (Column column : bufferOfColumn.keySet()) {
-                setCountToBuffer(
-                    bufferOfColumn.get(column),
-                    DatabaseStatistics.INSTANCE.getTotalRecordCountOf(column));
+                setCountToBuffer(bufferOfColumn.get(column), DatabaseStatistics.INSTANCE.getTotalRecordCountOf(column));
             }
 
             EventQueue.invokeLater(new Runnable() {

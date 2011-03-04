@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  * Datensätze mit ausgewählten Spalten einer Logdatei.
  *
@@ -20,12 +18,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Elmar Baumann
  */
-public final class TableModelLogfiles extends DefaultTableModel {
-    private static final long         serialVersionUID = -7886614829435568257L;
-    private final List<LogfileRecord> records          =
-        new ArrayList<LogfileRecord>();
-    private final List<Level>         visibleLevels;
-    private final String              filter;
+public final class TableModelLogfiles extends TableModelExt {
+    private static final long serialVersionUID = -7886614829435568257L;
+    private final List<LogfileRecord> records = new ArrayList<LogfileRecord>();
+    private final List<Level> visibleLevels;
+    private final String filter;
 
     public TableModelLogfiles(String filter, List<Level> visibleLevels) {
         if (filter == null) {
@@ -36,7 +33,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
             throw new NullPointerException("visibleLevels == null");
         }
 
-        this.filter        = filter;
+        this.filter = filter;
         this.visibleLevels = visibleLevels;
         addColumns();
     }
@@ -51,9 +48,8 @@ public final class TableModelLogfiles extends DefaultTableModel {
             throw new NullPointerException("record == null");
         }
 
-        if ((visibleLevels.contains(Level.ALL) || visibleLevels.contains(
-                record.getLevel())) && (filter.isEmpty() || record.contains(
-                filter))) {
+        if ((visibleLevels.contains(Level.ALL) || visibleLevels.contains(record.getLevel()))
+                && (filter.isEmpty() || record.contains(filter))) {
             List<Object> row = new ArrayList<Object>();
 
             row.add(record.getLevel());
@@ -62,8 +58,7 @@ public final class TableModelLogfiles extends DefaultTableModel {
             String message = record.getMessage();
 
             row.add((message == null)
-                    ? JslBundle.INSTANCE.getString(
-                        "TableModelLogfiles.Error.MessageIsNull")
+                    ? JslBundle.INSTANCE.getString("TableModelLogfiles.Error.MessageIsNull")
                     : message);
             records.add(record);
             addRow(row.toArray(new Object[row.size()]));
@@ -79,21 +74,16 @@ public final class TableModelLogfiles extends DefaultTableModel {
      */
     public LogfileRecord getLogfileRecord(int index) {
         if (!CollectionUtil.isValidIndex(records, index)) {
-            throw new IllegalArgumentException("Invalid index: " + index
-                                               + " element count: "
-                                               + records.size());
+            throw new IllegalArgumentException("Invalid index: " + index + " element count: " + records.size());
         }
 
         return records.get(index);
     }
 
     private void addColumns() {
-        addColumn(
-            JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.1"));
-        addColumn(
-            JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.2"));
-        addColumn(
-            JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.3"));
+        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.1"));
+        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.2"));
+        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.3"));
     }
 
     /**
