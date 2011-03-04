@@ -24,29 +24,28 @@ import javax.swing.JButton;
  * @author Elmar Baumann
  */
 public final class SettingsDialog extends Dialog {
-    private static final String KEY_INDEX_TABBED_PANE =
-        "UserSettingsDialog.TabbedPaneIndex";
-    private static final long            serialVersionUID   =
-        -7576495084117427485L;
-    private final Map<Tab, Integer>      indexOfTab         = new EnumMap<Tab,
-                                                                  Integer>(Tab.class);
-    private final Map<Integer, Tab>      tabOfIndex         =
-        new HashMap<Integer, Tab>();
-    private final Map<Component, String> helpUrlOfComponent =
-        new HashMap<Component, String>();
-    private final List<Persistence> persistentPanels =
-        new ArrayList<Persistence>();
+    private static final String KEY_INDEX_TABBED_PANE = "UserSettingsDialog.TabbedPaneIndex";
+    private static final long serialVersionUID = -7576495084117427485L;
+    private final Map<Tab, Integer> indexOfTab = new EnumMap<Tab, Integer>(Tab.class);
+    private final Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
+    private final Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
+    private final List<Persistence> persistentPanels = new ArrayList<Persistence>();
     public static final SettingsDialog INSTANCE = new SettingsDialog();
 
     public enum Tab {
-        ACTIONS, FILE_EXCLUDE_PATTERNS, MISC, PERFORMANCE, PLUGINS, PROGRAMS,
-        TASKS, THUMBNAILS,
+        ACTIONS,
+        FILE_EXCLUDE_PATTERNS,
+        MISC,
+        PERFORMANCE,
+        PLUGINS,
+        PROGRAMS,
+        TASKS,
+        THUMBNAILS,
     }
 
     ;
     private SettingsDialog() {
-        super(GUI.getAppFrame(), false,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -74,36 +73,14 @@ public final class SettingsDialog extends Dialog {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(0),
-            JptBundle.INSTANCE.getString(
-                "Help.Url.UserSettingsDialog.Programs"));
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(1),
-            JptBundle.INSTANCE.getString(
-                "Help.Url.UserSettingsDialog.Thumbnails"));
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(2),
-            JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Tasks"));
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(3),
-            JptBundle.INSTANCE.getString(
-                "Help.Url.UserSettingsDialog.Performance"));
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(4),
-            JptBundle.INSTANCE.getString(
-                "Help.Url.UserSettingsDialog.FileExcludePattern"));
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(5),
-            JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Misc"));
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(6),
-            JptBundle.INSTANCE.getString(
-                "Help.Url.UserSettingsDialog.Actions"));
-        helpUrlOfComponent.put(
-            tabbedPane.getComponentAt(7),
-            JptBundle.INSTANCE.getString(
-                "Help.Url.UserSettingsDialog.Plugins"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Programs"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Thumbnails"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Tasks"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Performance"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Misc"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Actions"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Plugins"));
     }
 
     private void initPersistentPanels() {
@@ -120,30 +97,12 @@ public final class SettingsDialog extends Dialog {
 
     private void initSearchPanel() {
         panelSearch.setParentPane(tabbedPane);
-        panelSearch.addSearchWordsTo(
-            StringUtil.getWordsOf(
-                JptBundle.INSTANCE.getString(
-                    "SettingsDialog.AdditionalSearchWords.PanelThumbnails")), panelThumbnails);
-        panelSearch.addSearchWordsTo(
-            StringUtil.getWordsOf(
-                JptBundle.INSTANCE.getString(
-                    "SettingsDialog.AdditionalSearchWords.PanelTasks")), panelTasks);
-        panelSearch.addSearchWordsTo(
-            StringUtil.getWordsOf(
-                JptBundle.INSTANCE.getString(
-                    "SettingsDialog.AdditionalSearchWords.PanelPerformance")), panelPerformance);
-        panelSearch.addSearchWordsTo(
-            StringUtil.getWordsOf(
-                JptBundle.INSTANCE.getString(
-                    "SettingsDialog.AdditionalSearchWords.PanelExclude")), panelFileExcludePatterns);
-        panelSearch.addSearchWordsTo(
-            StringUtil.getWordsOf(
-                JptBundle.INSTANCE.getString(
-                    "SettingsDialog.AdditionalSearchWords.PanelPlugins")), panelPlugins);
-        panelSearch.addSearchWordsTo(
-            StringUtil.getWordsOf(
-                JptBundle.INSTANCE.getString(
-                    "SettingsDialog.AdditionalSearchWords.PanelMiscMisc")), panelMisc);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelThumbnails")), panelThumbnails);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelTasks")), panelTasks);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPerformance")), panelPerformance);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelExclude")), panelFileExcludePatterns);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPlugins")), panelPlugins);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelMiscMisc")), panelMisc);
     }
 
     public void selectTab(Tab tab) {
@@ -160,8 +119,7 @@ public final class SettingsDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane,
-                KEY_INDEX_TABBED_PANE, null);
+        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_INDEX_TABBED_PANE, null);
 
         for (Persistence panel : persistentPanels) {
             panel.readProperties();
@@ -169,8 +127,7 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(tabbedPane,
-                KEY_INDEX_TABBED_PANE, null);
+        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_INDEX_TABBED_PANE, null);
 
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();

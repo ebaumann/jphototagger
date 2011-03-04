@@ -48,23 +48,18 @@ import javax.swing.SpinnerNumberModel;
  * @author Elmar Baumann
  */
 public final class RenameDialog extends Dialog implements ListDataListener {
-    private static final long   serialVersionUID = 2975958115627670989L;
-    private static final String KEY_SEL_TEMPLATE =
-        "RenameDialog.SelectedTemplate";
-    private final transient FilenameFormatArray filenameFormatArray =
-        new FilenameFormatArray();
-    private List<File>                                imageFiles           =
-        new ArrayList<File>();
-    private final transient FileSystemListenerSupport ls =
-        new FileSystemListenerSupport();
-    private int               fileIndex = 0;
-    private boolean           lockClose = false;
-    private boolean           cancel    = false;
-    private transient boolean listen    = true;
+    private static final long serialVersionUID = 2975958115627670989L;
+    private static final String KEY_SEL_TEMPLATE = "RenameDialog.SelectedTemplate";
+    private final transient FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
+    private List<File> imageFiles = new ArrayList<File>();
+    private final transient FileSystemListenerSupport ls = new FileSystemListenerSupport();
+    private int fileIndex = 0;
+    private boolean lockClose = false;
+    private boolean cancel = false;
+    private transient boolean listen = true;
 
     public RenameDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -142,8 +137,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         this.imageFiles = new ArrayList<File>(imageFiles);
     }
 
-    public synchronized void notifyFileSystemListeners(File fromImageFile,
-            File toImageFile) {
+    public synchronized void notifyFileSystemListeners(File fromImageFile, File toImageFile) {
         if (fromImageFile == null) {
             throw new NullPointerException("fromImageFile == null");
         }
@@ -173,18 +167,12 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
             if (fromXmpFile.exists()) {
                 if (!toXmpFile.delete()) {
-                    AppLogger.logWarning(
-                        RenameDialog.class,
-                        "RenameDialog.Error.XmpFileCouldNotBeDeleted",
-                        toXmpFile);
+                    AppLogger.logWarning(RenameDialog.class, "RenameDialog.Error.XmpFileCouldNotBeDeleted", toXmpFile);
                 }
             }
 
             if (!fromXmpFile.renameTo(toXmpFile)) {
-                AppLogger.logWarning(
-                    RenameDialog.class,
-                    "RenameDialog.Error.XmpFileCouldNotBeRenamed",
-                    fromXmpFile, toXmpFile);
+                AppLogger.logWarning(RenameDialog.class, "RenameDialog.Error.XmpFileCouldNotBeRenamed", fromXmpFile, toXmpFile);
             }
         }
     }
@@ -200,24 +188,21 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         tabbedPane.setEnabledAt(1, false);
 
         int countRenamed = 0;
-        int size         = imageFiles.size();
+        int size = imageFiles.size();
 
         for (int i = 0; !cancel && (i < size); i++) {
             fileIndex = i;
 
-            File   oldFile = imageFiles.get(i);
-            String parent  = oldFile.getParent();
+            File oldFile = imageFiles.get(i);
+            String parent = oldFile.getParent();
 
             filenameFormatArray.setFile(oldFile);
 
             File newFile = new File(((parent == null)
                                      ? ""
-                                     : parent
-                                       + File.separator) + filenameFormatArray
-                                           .format());
+                                     : parent + File.separator) + filenameFormatArray.format());
 
-            if (checkNewFileDoesNotExist(newFile)
-                    && renameImageFile(oldFile, newFile)) {
+            if (checkNewFileDoesNotExist(newFile) && renameImageFile(oldFile, newFile)) {
                 imageFiles.set(i, newFile);
                 notifyFileSystemListeners(oldFile, newFile);
                 countRenamed++;
@@ -278,8 +263,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
         return new File(directory + (directory.isEmpty()
                                      ? ""
-                                     : File.separator) + textFieldToName
-                                         .getText().trim());
+                                     : File.separator) + textFieldToName.getText().trim());
     }
 
     private boolean canRenameViaInput() {
@@ -292,7 +276,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private boolean checkNewFilenameIsDefined() {
-        String  input   = textFieldToName.getText().trim();
+        String input = textFieldToName.getText().trim();
         boolean defined = !input.isEmpty();
 
         if (!defined) {
@@ -303,8 +287,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private boolean checkNamesNotEquals(File oldFile, File newFile) {
-        boolean equals =
-            newFile.getAbsolutePath().equals(oldFile.getAbsolutePath());
+        boolean equals = newFile.getAbsolutePath().equals(oldFile.getAbsolutePath());
 
         if (equals) {
             MessageDisplayer.error(this, "RenameDialog.Error.FilenamesEquals");
@@ -317,8 +300,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         boolean exists = file.exists();
 
         if (exists) {
-            MessageDisplayer.error(this, "RenameDialog.Error.NewFileExists",
-                                   file.getName());
+            MessageDisplayer.error(this, "RenameDialog.Error.NewFileExists", file.getName());
         }
 
         return !exists;
@@ -337,25 +319,20 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void setFileToFilenameFormats(File file) {
-        setFilenameFormatToSelectedItem(comboBoxAtBegin, file,
-                                        textFieldAtBegin.getText().trim());
-        setFilenameFormatToSelectedItem(comboBoxInTheMiddle, file,
-                                        textFieldInTheMiddle.getText().trim());
-        setFilenameFormatToSelectedItem(comboBoxAtEnd, file,
-                                        textFieldAtEnd.getText().trim());
+        setFilenameFormatToSelectedItem(comboBoxAtBegin, file, textFieldAtBegin.getText().trim());
+        setFilenameFormatToSelectedItem(comboBoxInTheMiddle, file, textFieldInTheMiddle.getText().trim());
+        setFilenameFormatToSelectedItem(comboBoxAtEnd, file, textFieldAtEnd.getText().trim());
     }
 
-    private void setFilenameFormatToSelectedItem(JComboBox comboBox, File file,
-            String fmt) {
-        ComboBoxModel  model  = comboBox.getModel();
+    private void setFilenameFormatToSelectedItem(JComboBox comboBox, File file, String fmt) {
+        ComboBoxModel model = comboBox.getModel();
         FilenameFormat format = (FilenameFormat) model.getSelectedItem();
 
         format.setFile(file);
         format.setFormat(fmt);
 
         if (format instanceof FilenameFormatNumberSequence) {
-            FilenameFormatNumberSequence f =
-                (FilenameFormatNumberSequence) format;
+            FilenameFormatNumberSequence f = (FilenameFormatNumberSequence) format;
 
             f.setStart((Integer) spinnerStartNumber.getValue());
             f.setIncrement((Integer) spinnerNumberStepWidth.getValue());
@@ -373,19 +350,13 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void setFilenameFormatArray(File file) {
         filenameFormatArray.clear();
-        filenameFormatArray.addFormat(
-            (FilenameFormat) comboBoxAtBegin.getSelectedItem());
-        filenameFormatArray.addFormat(
-            new FilenameFormatConstantString(textFieldDelim1.getText().trim()));
-        filenameFormatArray.addFormat(
-            (FilenameFormat) comboBoxInTheMiddle.getSelectedItem());
-        filenameFormatArray.addFormat(
-            new FilenameFormatConstantString(textFieldDelim2.getText().trim()));
-        filenameFormatArray.addFormat(
-            (FilenameFormat) comboBoxAtEnd.getSelectedItem());
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtBegin.getSelectedItem());
+        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim1.getText().trim()));
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxInTheMiddle.getSelectedItem());
+        filenameFormatArray.addFormat(new FilenameFormatConstantString(textFieldDelim2.getText().trim()));
+        filenameFormatArray.addFormat((FilenameFormat) comboBoxAtEnd.getSelectedItem());
 
-        FilenameFormatFilenamePostfix postfix =
-            new FilenameFormatFilenamePostfix();
+        FilenameFormatFilenamePostfix postfix = new FilenameFormatFilenamePostfix();
 
         postfix.setFile(file);
         filenameFormatArray.addFormat(postfix);
@@ -406,16 +377,14 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         File dir = file.getParentFile();
 
         labelDirectory.setText(dir.getAbsolutePath());
-        labelDirectory.setIcon(
-            FileSystemView.getFileSystemView().getSystemIcon(dir));
+        labelDirectory.setIcon(FileSystemView.getFileSystemView().getSystemIcon(dir));
     }
 
     private synchronized void setThumbnail(File file) {
         Image thumbnail = null;
 
         if (FileType.isJpegFile(file.getName())) {
-            thumbnail = ThumbnailUtil.getThumbnailFromJavaImageIo(file,
-                    panelThumbnail.getWidth());
+            thumbnail = ThumbnailUtil.getThumbnailFromJavaImageIo(file, panelThumbnail.getWidth());
         }
 
         if (thumbnail != null) {
@@ -425,8 +394,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void errorMessageNotRenamed(String filename) {
-        if (!MessageDisplayer.confirmYesNo(
-                this, "RenameDialog.Confirm.RenameNextFile", filename)) {
+        if (!MessageDisplayer.confirmYesNo(this, "RenameDialog.Confirm.RenameNextFile", filename)) {
             cancel = true;
             setVisible(false);
             dispose();
@@ -439,8 +407,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             readProperties();
             setExampleFilename();
         } else {
-            UserSettings.INSTANCE.getSettings().set(this,
-                    UserSettings.SET_TABBED_PANE_SETTINGS);
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
 
         super.setVisible(visible);
@@ -459,13 +426,9 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void setEnabledConstantTextFields() {
-        textFieldAtBegin.setEditable(comboBoxAtBegin.getSelectedItem()
-                                     instanceof FilenameFormatConstantString);
-        textFieldInTheMiddle.setEditable(
-            comboBoxInTheMiddle.getSelectedItem()
-            instanceof FilenameFormatConstantString);
-        textFieldAtEnd.setEditable(comboBoxAtEnd.getSelectedItem()
-                                   instanceof FilenameFormatConstantString);
+        textFieldAtBegin.setEditable(comboBoxAtBegin.getSelectedItem() instanceof FilenameFormatConstantString);
+        textFieldInTheMiddle.setEditable(comboBoxInTheMiddle.getSelectedItem() instanceof FilenameFormatConstantString);
+        textFieldAtEnd.setEditable(comboBoxAtEnd.getSelectedItem() instanceof FilenameFormatConstantString);
     }
 
     @Override
@@ -481,8 +444,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         spinnerStartNumber.getModel().setValue(template.getStartNumber());
         spinnerNumberStepWidth.getModel().setValue(template.getStepWidth());
         spinnerNumberCount.getModel().setValue(template.getNumberCount());
-        ComboBoxUtil.selectString(comboBoxDateDelimiter.getModel(),
-                                  template.getDateDelimiter());
+        ComboBoxUtil.selectString(comboBoxDateDelimiter.getModel(), template.getDateDelimiter());
         select(template.getFormatClassAtBegin(), comboBoxAtBegin);
         textFieldDelim1.setText(template.getDelimiter1());
         select(template.getFormatClassInTheMiddle(), comboBoxInTheMiddle);
@@ -503,31 +465,25 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void setValuesToTemplate(RenameTemplate template) {
-        template.setStartNumber(
-            (Integer) spinnerStartNumber.getModel().getValue());
-        template.setStepWidth(
-            (Integer) spinnerNumberStepWidth.getModel().getValue());
-        template.setNumberCount(
-            (Integer) spinnerNumberCount.getModel().getValue());
+        template.setStartNumber((Integer) spinnerStartNumber.getModel().getValue());
+        template.setStepWidth((Integer) spinnerNumberStepWidth.getModel().getValue());
+        template.setNumberCount((Integer) spinnerNumberCount.getModel().getValue());
         template.setDateDelimiter(getDateDelimiter());
-        template.setFormatClassAtBegin(
-            comboBoxAtBegin.getSelectedItem().getClass());
+        template.setFormatClassAtBegin(comboBoxAtBegin.getSelectedItem().getClass());
         template.setDelimiter1(textFieldDelim1.getText());
-        template.setFormatClassInTheMiddle(
-            comboBoxInTheMiddle.getSelectedItem().getClass());
+        template.setFormatClassInTheMiddle(comboBoxInTheMiddle.getSelectedItem().getClass());
         template.setDelimiter2(textFieldDelim2.getText());
-        template.setFormatClassAtEnd(
-            comboBoxAtEnd.getSelectedItem().getClass());
+        template.setFormatClassAtEnd(comboBoxAtEnd.getSelectedItem().getClass());
         template.setTextAtBegin(textFieldAtBegin.getText());
         template.setTextInTheMiddle(textFieldInTheMiddle.getText());
         template.setTextAtEnd(textFieldAtEnd.getText());
     }
 
     private void select(Class<?> formatClass, JComboBox comboBox) {
-        ComboBoxModel model    = comboBox.getModel();
-        int           size     = model.getSize();
-        boolean       selected = false;
-        int           index    = 0;
+        ComboBoxModel model = comboBox.getModel();
+        int size = model.getSize();
+        boolean selected = false;
+        int index = 0;
 
         while (!selected && (index < size)) {
             Object element = model.getElementAt(index++);
@@ -583,7 +539,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void setEnabledRenameTemplateButtons() {
-        Object  selValue         = comboBoxRenameTemplates.getSelectedItem();
+        Object selValue = comboBoxRenameTemplates.getSelectedItem();
         boolean templateSelected = selValue instanceof RenameTemplate;
 
         buttonRenameRenameTemplate.setEnabled(templateSelected);
@@ -636,8 +592,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void handleComboBoxRenameTemplatesActionPerformed() {
         if (listen) {
-            UserSettings.INSTANCE.getSettings().setSelectedIndex(
-                comboBoxRenameTemplates, KEY_SEL_TEMPLATE);
+            UserSettings.INSTANCE.getSettings().setSelectedIndex(comboBoxRenameTemplates, KEY_SEL_TEMPLATE);
             UserSettings.INSTANCE.writeToFile();
             setRenameTemplate();
             setEnabledRenameTemplateButtons();

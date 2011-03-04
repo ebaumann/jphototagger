@@ -31,15 +31,11 @@ import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
  * @author Elmar Baumann
  */
 public final class ActionsPanel extends javax.swing.JPanel {
-    private static final long                            serialVersionUID =
-        8875330844851092391L;
-    private final ListModelPrograms                      model            =
-        new ListModelPrograms(Type.ACTION);
-    private final ListenerSupport<ProgramExecutionListener> ls               =
-        new ListenerSupport<ProgramExecutionListener>();
+    private static final long serialVersionUID = 8875330844851092391L;
+    private final ListModelPrograms model = new ListModelPrograms(Type.ACTION);
+    private final ListenerSupport<ProgramExecutionListener> ls = new ListenerSupport<ProgramExecutionListener>();
     private Object progressBarOwner;
-    private final ReorderListener                        reorderListener  =
-        new ProgramsHelper.ReorderListener(model);
+    private final ReorderListener reorderListener = new ProgramsHelper.ReorderListener(model);
 
     public ActionsPanel() {
         initComponents();
@@ -60,14 +56,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     private void setAccelerators() {
-        menuItemCreate.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
-        menuItemEdit.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
-        menuItemMoveActionDown.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
-        menuItemMoveActionUp.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
+        menuItemCreate.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        menuItemEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
+        menuItemMoveActionDown.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
+        menuItemMoveActionUp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
     }
 
     public synchronized JProgressBar getProgressBar(Object owner) {
@@ -100,10 +92,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     public void setEnabled() {
         boolean isActionSelected = list.getSelectedIndex() >= 0;
-        int     selIndex         = list.getSelectedIndex();
-        int     size             = list.getModel().getSize();
-        boolean canMoveDown      = isActionSelected && selIndex < size - 1;
-        boolean canMoveUp        = isActionSelected && selIndex > 0;
+        int selIndex = list.getSelectedIndex();
+        int size = list.getModel().getSize();
+        boolean canMoveDown = isActionSelected && selIndex < size - 1;
+        boolean canMoveUp = isActionSelected && selIndex > 0;
 
         buttonDelete.setEnabled(isActionSelected);
         menuItemDelete.setEnabled(isActionSelected);
@@ -151,8 +143,8 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private void editAction() {
         if (list.getSelectedIndex() >= 0) {
-            Program                 program = getSelectedAction();
-            ProgramPropertiesDialog dlg     = new ProgramPropertiesDialog(true);
+            Program program = getSelectedAction();
+            ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(true);
 
             dlg.setProgram(program);
             dlg.setVisible(true);
@@ -206,15 +198,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     private boolean confirmDelete(Program program) {
-        String  programName                     = program.getAlias();
-        boolean existsInActionsAfterDbInsertion =
-            DatabaseActionsAfterDbInsertion.INSTANCE.exists(program);
+        String  programName = program.getAlias();
+        boolean existsInActionsAfterDbInsertion = DatabaseActionsAfterDbInsertion.INSTANCE.exists(program);
 
         return existsInActionsAfterDbInsertion
-               ? MessageDisplayer.confirmYesNo(this,
-                "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName)
-               : MessageDisplayer.confirmYesNo(this,
-                "ActionsPanel.Confirm.Delete", programName);
+               ? MessageDisplayer.confirmYesNo(this, "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName)
+               : MessageDisplayer.confirmYesNo(this, "ActionsPanel.Confirm.Delete", programName);
     }
 
     public synchronized void addListener(ProgramExecutionListener l) {

@@ -42,8 +42,8 @@ public final class DatabaseStatistics extends Database {
             con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getTablename() + " WHERE " + column.getName()
-                         + " IS NOT NULL";
+            String sql = "SELECT COUNT(*) FROM " + column.getTablename() 
+                         + " WHERE " + column.getName() + " IS NOT NULL";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -109,7 +109,7 @@ public final class DatabaseStatistics extends Database {
             con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT COUNT(*)" + " FROM xmp LEFT JOIN files ON xmp.id_file = files.id";
+            String sql = "SELECT COUNT(*) FROM xmp LEFT JOIN files ON xmp.id_file = files.id";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -152,8 +152,8 @@ public final class DatabaseStatistics extends Database {
             for (int i = 0; !exists && (i < size); i++) {
                 Column column = columns.get(i);
 
-                stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() + " WHERE "
-                                            + column.getName() + " = ?");
+                stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() 
+                                            + " WHERE " + column.getName() + " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
                 rs = stmt.executeQuery();
@@ -194,8 +194,8 @@ public final class DatabaseStatistics extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() + " WHERE " + column.getName()
-                                        + " = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() 
+                                        + " WHERE " + column.getName() + " = ?");
             stmt.setString(1, value);
             logFinest(stmt);
             rs = stmt.executeQuery();

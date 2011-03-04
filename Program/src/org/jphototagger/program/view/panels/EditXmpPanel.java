@@ -8,23 +8,18 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopCaptionwriter;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopInstructions;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopTransmissionReference;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -49,13 +44,12 @@ import javax.swing.text.JTextComponent;
  * @author Elmar Baumann
  */
 public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
-    private static final long     serialVersionUID = 7898855480121337499L;
-    private final List<TextEntry> textEntries      =
-        new ArrayList<TextEntry>(18);
-    private Component             firstInputComponent;
-    private Component             lastInputComponent;
-    private Component             lastFocussedComponent;
-    private transient Xmp         xmp = new Xmp();
+    private static final long serialVersionUID = 7898855480121337499L;
+    private final List<TextEntry> textEntries = new ArrayList<TextEntry>(18);
+    private Component firstInputComponent;
+    private Component lastInputComponent;
+    private Component lastFocussedComponent;
+    private transient Xmp xmp = new Xmp();
 
     public EditXmpPanel() {
         init();
@@ -68,23 +62,18 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         setAutocomplete();
         addAsFocusListener();
         firstInputComponent = panelDcSubjects.textAreaInput;
-        lastInputComponent  =
-            panelPhotoshopCaptionwriter.getInputComponents().get(0);
+        lastInputComponent = panelPhotoshopCaptionwriter.getInputComponents().get(0);
         firstInputComponent.requestFocusInWindow();
-        panelDcSubjects.setBundleKeyPosRenameDialog(
-            "EditXmpPanel.Keywords.RenameDialog.Pos");
+        panelDcSubjects.setBundleKeyPosRenameDialog("EditXmpPanel.Keywords.RenameDialog.Pos");
     }
 
     private void setColumns() {
         panelDcTitle.setColumn(ColumnXmpDcTitle.INSTANCE);
         panelDcDescription.setColumn(ColumnXmpDcDescription.INSTANCE);
         panelPhotoshopHeadline.setColumn(ColumnXmpPhotoshopHeadline.INSTANCE);
-        panelIptc4xmpcoreLocation.setColumn(
-            ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        panelIptc4XmpCoreDateCreated.setColumn(
-            ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-        panelPhotoshopAuthorsposition.setColumn(
-            ColumnXmpPhotoshopAuthorsposition.INSTANCE);
+        panelIptc4xmpcoreLocation.setColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+        panelIptc4XmpCoreDateCreated.setColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        panelPhotoshopAuthorsposition.setColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
         panelDcCreator.setColumn(ColumnXmpDcCreator.INSTANCE);
         panelPhotoshopCity.setColumn(ColumnXmpPhotoshopCity.INSTANCE);
         panelPhotoshopState.setColumn(ColumnXmpPhotoshopState.INSTANCE);
@@ -92,12 +81,9 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         panelDcRights.setColumn(ColumnXmpDcRights.INSTANCE);
         panelPhotoshopCredit.setColumn(ColumnXmpPhotoshopCredit.INSTANCE);
         panelPhotoshopSource.setColumn(ColumnXmpPhotoshopSource.INSTANCE);
-        panelPhotoshopTransmissionReference.setColumn(
-            ColumnXmpPhotoshopTransmissionReference.INSTANCE);
-        panelPhotoshopInstructions.setColumn(
-            ColumnXmpPhotoshopInstructions.INSTANCE);
-        panelPhotoshopCaptionwriter.setColumn(
-            ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+        panelPhotoshopTransmissionReference.setColumn(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
+        panelPhotoshopInstructions.setColumn(ColumnXmpPhotoshopInstructions.INSTANCE);
+        panelPhotoshopCaptionwriter.setColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
     }
 
     private void addTextEntries() {
@@ -138,9 +124,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
             Column column = textEntry.getColumn();
 
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
-                for (String text :
-                        ((EditRepeatableTextEntryPanel) textEntry)
-                            .getRepeatableText()) {
+                for (String text : ((EditRepeatableTextEntryPanel) textEntry).getRepeatableText()) {
                     xmp.setValue(column, text);
                 }
 
@@ -158,8 +142,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
             if (value != null) {
                 if (textEntry instanceof EditRepeatableTextEntryPanel) {
-                    ((EditRepeatableTextEntryPanel) textEntry).setText(
-                        (Collection<String>) value);
+                    ((EditRepeatableTextEntryPanel) textEntry).setText((Collection<String>) value);
                 } else {
                     textEntry.setText(value.toString());
                 }
@@ -227,7 +210,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         TextEntry textEntry = (c instanceof TextEntry)
                               ? (TextEntry) c
                               : null;
-        Component parent    = c.getParent();
+        Component parent = c.getParent();
 
         while ((textEntry == null) && (parent != null)) {
             if (parent instanceof TextEntry) {

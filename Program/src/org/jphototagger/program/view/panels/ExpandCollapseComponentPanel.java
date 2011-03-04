@@ -22,29 +22,20 @@ import javax.swing.text.JTextComponent;
  *
  * @author Elmar Baumann
  */
-public class ExpandCollapseComponentPanel extends JPanel
-        implements FocusListener {
-    private static final String ICON_PATH_EXPAND =
-        "/org/jphototagger/program/resource/icons/icon_edit_metadata_expand.png";
-    private static final String ICON_PATH_COLLAPSE =
-        "/org/jphototagger/program/resource/icons/icon_edit_metadata_collapse.png";
-    private static final ImageIcon ICON_EXPAND =
-        IconUtil.getImageIcon(ICON_PATH_EXPAND);
-    private static final ImageIcon ICON_COLLAPSE =
-        IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
-    private static final String TOOLTIP_TEXT_EXPAND =
-        JptBundle.INSTANCE.getString(
-            "ExpandCollapseComponentPanel.TooltipTextExpand");
-    private static final String TOOLTIP_TEXT_COLLAPSE =
-        JptBundle.INSTANCE.getString(
-            "ExpandCollapseComponentPanel.TooltipTextCollapse");
+public class ExpandCollapseComponentPanel extends JPanel implements FocusListener {
     private static final long serialVersionUID = 7853123397325146125L;
-    private String            keyPersistence   = "";
-    private final Component   component;
-    private JLabel            labelFill;
-    private String            fillText;
-    private Font              fillFont;
-    private boolean           expanded = true;
+    private static final String ICON_PATH_EXPAND = "/org/jphototagger/program/resource/icons/icon_edit_metadata_expand.png";
+    private static final String ICON_PATH_COLLAPSE = "/org/jphototagger/program/resource/icons/icon_edit_metadata_collapse.png";
+    private static final ImageIcon ICON_EXPAND = IconUtil.getImageIcon(ICON_PATH_EXPAND);
+    private static final ImageIcon ICON_COLLAPSE = IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
+    private static final String TOOLTIP_TEXT_EXPAND = JptBundle.INSTANCE.getString("ExpandCollapseComponentPanel.TooltipTextExpand");
+    private static final String TOOLTIP_TEXT_COLLAPSE = JptBundle.INSTANCE.getString("ExpandCollapseComponentPanel.TooltipTextCollapse");
+    private String keyPersistence  = "";
+    private final Component component;
+    private JLabel labelFill;
+    private String fillText;
+    private Font fillFont;
+    private boolean expanded = true;
 
     public ExpandCollapseComponentPanel(Component component) {
         if (component == null) {
@@ -67,10 +58,10 @@ public class ExpandCollapseComponentPanel extends JPanel
     private GridBagConstraints getComponentConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridx   = 1;
-        gbc.gridy   = 0;
-        gbc.anchor  = java.awt.GridBagConstraints.WEST;
-        gbc.fill    = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
 
         return gbc;
@@ -108,9 +99,7 @@ public class ExpandCollapseComponentPanel extends JPanel
         assert !labelFillText.isEmpty();
 
         if (!labelFillText.isEmpty()) {
-            keyPersistence =
-                ExpandCollapseComponentPanel.class.getCanonicalName()
-                + labelFillText;
+            keyPersistence = ExpandCollapseComponentPanel.class.getCanonicalName() + labelFillText;
         }
     }
 
@@ -126,10 +115,8 @@ public class ExpandCollapseComponentPanel extends JPanel
      */
     public void readExpandedState() {
         if (!keyPersistence.isEmpty()) {
-            if (UserSettings.INSTANCE.getProperties().containsKey(
-                    keyPersistence)) {
-                expanded = UserSettings.INSTANCE.getSettings().getBoolean(
-                    keyPersistence);
+            if (UserSettings.INSTANCE.getProperties().containsKey(keyPersistence)) {
+                expanded = UserSettings.INSTANCE.getSettings().getBoolean(keyPersistence);
                 setExpanded();
             }
         }
@@ -160,8 +147,8 @@ public class ExpandCollapseComponentPanel extends JPanel
 
     private void createFillLabel() {
         if (component instanceof Container) {
-            Container container      = (Container) component;
-            int       componentCount = container.getComponentCount();
+            Container container = (Container) component;
+            int componentCount = container.getComponentCount();
 
             for (int i = 0; i < componentCount; i++) {
                 Component containerComponent = container.getComponent(i);
@@ -169,8 +156,8 @@ public class ExpandCollapseComponentPanel extends JPanel
                 if (containerComponent instanceof JLabel) {
                     JLabel label = (JLabel) containerComponent;
 
-                    fillText  = label.getText();
-                    fillFont  = label.getFont();
+                    fillText = label.getText();
+                    fillFont = label.getFont();
                     labelFill = new JLabel(fillText);
                     labelFill.setFont(fillFont);
 
@@ -184,8 +171,8 @@ public class ExpandCollapseComponentPanel extends JPanel
 
     private void addAsFocusListener() {
         if (component instanceof Container) {
-            Container container      = (Container) component;
-            int       componentCount = container.getComponentCount();
+            Container container = (Container) component;
+            int componentCount = container.getComponentCount();
 
             for (int i = 0; i < componentCount; i++) {
                 Component containerComponent = container.getComponent(i);

@@ -26,15 +26,12 @@ import org.jphototagger.program.resource.JptBundle;
  *
  * @author Elmar Baumann
  */
-public class SynonymsPanel extends javax.swing.JPanel
-        implements ListSelectionListener, DocumentListener {
+public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionListener, DocumentListener {
     private static final long serialVersionUID = 8012368048974373352L;
-    private ListModelSynonyms modelWords       =
-        new ListModelSynonyms(ListModelSynonyms.Role.WORDS);
-    private ListModelSynonyms modelSynonyms =
-        new ListModelSynonyms(ListModelSynonyms.Role.SYNONYMS);
+    private ListModelSynonyms modelWords = new ListModelSynonyms(ListModelSynonyms.Role.WORDS);
+    private ListModelSynonyms modelSynonyms = new ListModelSynonyms(ListModelSynonyms.Role.SYNONYMS);
     private Autocomplete autocomplete;
-    private boolean      listenToDocuments = true;
+    private boolean listenToDocuments = true;
 
     public SynonymsPanel() {
         initComponents();
@@ -54,9 +51,7 @@ public class SynonymsPanel extends javax.swing.JPanel
     private void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
             autocomplete = new Autocomplete(UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase());
-            autocomplete.decorate(textAreaWords,
-                    AutoCompleteDataOfColumn.INSTANCE.get(
-                        ColumnXmpDcSubjectsSubject.INSTANCE).get(), true);
+            autocomplete.decorate(textAreaWords, AutoCompleteDataOfColumn.INSTANCE.get(ColumnXmpDcSubjectsSubject.INSTANCE).get(), true);
         }
     }
 
@@ -92,16 +87,16 @@ public class SynonymsPanel extends javax.swing.JPanel
     }
 
     private void setEnabledAdd() {
-        boolean wordExists    = !textAreaWords.getText().trim().isEmpty();
+        boolean wordExists = !textAreaWords.getText().trim().isEmpty();
         boolean synonymExists = !textFieldSynonyms.getText().trim().isEmpty();
-        boolean wordSelected  = listWords.getSelectedValue() != null;
+        boolean wordSelected = listWords.getSelectedValue() != null;
 
         buttonAddWord.setEnabled(wordExists);
         buttonAddSynonym.setEnabled(synonymExists && wordSelected);
     }
 
     private void setEnabledRemove() {
-        boolean wordSel    = listWords.getSelectedValue() != null;
+        boolean wordSel = listWords.getSelectedValue() != null;
         boolean synonymSel = listSynonyms.getSelectedValue() != null;
 
         buttonRemoveWord.setEnabled(wordSel);
@@ -111,7 +106,7 @@ public class SynonymsPanel extends javax.swing.JPanel
     }
 
     private void setEnabledChange() {
-        boolean wordSel    = listWords.getSelectedValue() != null;
+        boolean wordSel = listWords.getSelectedValue() != null;
         boolean synonymSel = listSynonyms.getSelectedValue() != null;
 
         buttonChangeWord.setEnabled(wordSel);
@@ -166,8 +161,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         if (o instanceof String) {
             String word = (String) o;
 
-            if (MessageDisplayer.confirmYesNo(
-                    this, "SynonymsPanel.Confirm.RemoveWord", word)) {
+            if (MessageDisplayer.confirmYesNo(this, "SynonymsPanel.Confirm.RemoveWord", word)) {
                 modelWords.removeWord(word);
                 modelSynonyms.removeAllElements();
             }
@@ -179,10 +173,7 @@ public class SynonymsPanel extends javax.swing.JPanel
 
         if (o instanceof String) {
             String oldWord = (String) o;
-            String newWord =
-                MessageDisplayer.input("SynonymsPanel.Info.ChangeWord",
-                                       oldWord, "SynonymsPanel.Pos.ChangeWord",
-                                       oldWord);
+            String newWord = MessageDisplayer.input("SynonymsPanel.Info.ChangeWord", oldWord, "SynonymsPanel.Pos.ChangeWord", oldWord);
 
             if ((newWord != null) &&!newWord.equals(oldWord)) {
                 modelWords.changeWord(oldWord, newWord);
@@ -210,8 +201,7 @@ public class SynonymsPanel extends javax.swing.JPanel
         if (o instanceof String) {
             String synonym = (String) o;
 
-            if (MessageDisplayer.confirmYesNo(
-                    this, "SynonymsPanel.Confirm.RemoveSynonym", synonym)) {
+            if (MessageDisplayer.confirmYesNo(this, "SynonymsPanel.Confirm.RemoveSynonym", synonym)) {
                 modelSynonyms.removeSynonym(synonym);
             }
         }
@@ -222,11 +212,7 @@ public class SynonymsPanel extends javax.swing.JPanel
 
         if (o instanceof String) {
             String oldSynonym = (String) o;
-            String newSynonym =
-                MessageDisplayer.input("SynonymsPanel.Info.ChangeSynonym",
-                                       oldSynonym,
-                                       "SynonymsPanel.Pos.ChangeSynonym",
-                                       oldSynonym);
+            String newSynonym = MessageDisplayer.input("SynonymsPanel.Info.ChangeSynonym", oldSynonym, "SynonymsPanel.Pos.ChangeSynonym", oldSynonym);
 
             if ((newSynonym != null) &&!newSynonym.equals(oldSynonym)) {
                 modelSynonyms.changeSynonym(oldSynonym, newSynonym);
@@ -277,8 +263,7 @@ public class SynonymsPanel extends javax.swing.JPanel
     }
 
     private void handleTextFieldSynonymsKeyPressed(KeyEvent evt) {
-        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)
-                && (listWords.getSelectedValue() != null)) {
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER) && (listWords.getSelectedValue() != null)) {
             addSynonym();
         }
     }

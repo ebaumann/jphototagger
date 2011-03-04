@@ -31,8 +31,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void insertFilter() {
-        EditUserDefinedFileFilterDialog dlg =
-                new EditUserDefinedFileFilterDialog();
+        EditUserDefinedFileFilterDialog dlg = new EditUserDefinedFileFilterDialog();
 
         dlg.setVisible(true);
 
@@ -45,21 +44,18 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageInsert(UserDefinedFileFilter filter) {
-        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Insert",
-                filter);
+        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Insert", filter);
     }
 
     private void updateFilter() {
         for (UserDefinedFileFilter filter : getSelectedFilters()) {
-            EditUserDefinedFileFilterDialog dlg =
-                    new EditUserDefinedFileFilterDialog(filter);
+            EditUserDefinedFileFilterDialog dlg = new EditUserDefinedFileFilterDialog(filter);
 
             dlg.setVisible(true);
 
             if (dlg.isAccepted()) {
                 UserDefinedFileFilter updatedFilter = dlg.getFilter();
-                if (!DatabaseUserDefinedFileFilters.INSTANCE.update(
-                        updatedFilter)) {
+                if (!DatabaseUserDefinedFileFilters.INSTANCE.update(updatedFilter)) {
                     errorMessageUpdate(updatedFilter);
                 }
             }
@@ -67,8 +63,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageUpdate(UserDefinedFileFilter filter) {
-        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Update",
-                filter);
+        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Update", filter);
     }
 
     private void deleteFilter() {
@@ -82,25 +77,23 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageDelete(UserDefinedFileFilter filter) {
-        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Delete",
-                filter);
+        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Delete", filter);
     }
 
     private boolean confirmDelete() {
-        return MessageDisplayer.confirmYesNo(this,
-                "UserDefinedFileFilterPanel.Confirm.Delete");
+        return MessageDisplayer.confirmYesNo(this, "UserDefinedFileFilterPanel.Confirm.Delete");
     }
 
     private List<UserDefinedFileFilter> getSelectedFilters() {
-        Object[]                    selValues = list.getSelectedValues();
-        List<UserDefinedFileFilter> filter    =
-                new ArrayList<UserDefinedFileFilter>(selValues.length);
+        Object[] selValues = list.getSelectedValues();
+        List<UserDefinedFileFilter> filter = new ArrayList<UserDefinedFileFilter>(selValues.length);
 
         for (Object selValue : selValues) {
             if (selValue instanceof UserDefinedFileFilter) {
                 filter.add((UserDefinedFileFilter) selValue);
             }
         }
+
         return filter;
     }
 

@@ -29,8 +29,7 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
         Object selItem = comboBoxMetadataTemplates.getSelectedItem();
 
         labelTemplateName.setText((selItem == null)
-                                  ? JptBundle.INSTANCE.getString(
-                                  "EditMetadataActionsPanel.labelTemplateName.text")
+                                  ? JptBundle.INSTANCE.getString("EditMetadataActionsPanel.labelTemplateName.text")
                                   : selItem.toString());
     }
 

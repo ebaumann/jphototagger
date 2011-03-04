@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.GUI;
@@ -22,19 +23,15 @@ import org.jphototagger.program.data.Favorite;
  * @author Elmar Baumann
  */
 public final class FavoritePropertiesDialog extends Dialog {
-    private static final String KEY_LAST_DIRECTORY =
-        "org.jphototagger.program.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
-    private static final long                 serialVersionUID =
-        750583413264344283L;
-    private final transient DatabaseFavorites db               =
-        DatabaseFavorites.INSTANCE;
-    private File                              dir              = new File("");
-    private boolean                           accepted;
-    private boolean                           update;
+    private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
+    private static final long serialVersionUID = 750583413264344283L;
+    private final transient DatabaseFavorites db = DatabaseFavorites.INSTANCE;
+    private File dir = new File("");
+    private boolean accepted;
+    private boolean update;
 
     public FavoritePropertiesDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         MnemonicUtil.setMnemonics((Container) this);
@@ -42,18 +39,14 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString(
-                "Help.Url.FavoriteDirectoryPropertiesDialog"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dlg = new DirectoryChooser(
-                GUI.getAppFrame(), dir,
-                UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, showHiddenDirs);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
-                           "FavoritePropertiesDialog.DirChooser");
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "FavoritePropertiesDialog.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
@@ -72,8 +65,12 @@ public final class FavoritePropertiesDialog extends Dialog {
             return false;
         }
 
-        return dir.equals(favorite.getDirectory())
-                          && getName().equalsIgnoreCase(favorite.getName());
+        String favoriteName = favorite.getName();
+        String componentName = getName();
+        boolean componentNameIsFavoriteName = componentName.equalsIgnoreCase(favoriteName);
+        File favoriteDirectory = favorite.getDirectory();
+
+        return dir.equals(favoriteDirectory) && componentNameIsFavoriteName;
     }
 
     /**
@@ -131,13 +128,11 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void exitIfOk() {
         if (checkValuesOk()) {
-            String  favoriteName = textFieldFavoriteName.getText().trim();
-            boolean exists       = db.exists(favoriteName);
+            String favoriteName = textFieldFavoriteName.getText().trim();
+            boolean exists = db.exists(favoriteName);
 
             if (!update && exists) {
-                MessageDisplayer.error(
-                    this, "FavoritePropertiesDialog.Error.FavoriteExists",
-                    favoriteName);
+                MessageDisplayer.error(this, "FavoritePropertiesDialog.Error.FavoriteExists", favoriteName);
             } else {
                 accepted = true;
                 setVisible(false);
@@ -147,8 +142,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private boolean checkValuesOk() {
         if (!valuesOk()) {
-            MessageDisplayer.error(
-                this, "FavoritePropertiesDialog.Error.InvalidInput");
+            MessageDisplayer.error(this, "FavoritePropertiesDialog.Error.InvalidInput");
 
             return false;
         }
@@ -172,8 +166,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryFromSettings() {
-        dir = new File(UserSettings.INSTANCE.getSettings().getString(
-                       KEY_LAST_DIRECTORY));
+        dir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY));
     }
 
     private void setOkEnabled() {
@@ -181,8 +174,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryToSettings() {
-        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(),
-                                                KEY_LAST_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(), KEY_LAST_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 

@@ -12,22 +12,18 @@ import org.jphototagger.lib.dialog.Dialog;
  * @author Elmar Baumann
  */
 public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
-    public static final UpdateMetadataOfDirectoriesDialog INSTANCE =
-        new UpdateMetadataOfDirectoriesDialog();
+    public static final UpdateMetadataOfDirectoriesDialog INSTANCE = new UpdateMetadataOfDirectoriesDialog();
     private static final long serialVersionUID = -3660709942403455416L;
 
     private UpdateMetadataOfDirectoriesDialog() {
-        super(GUI.getAppFrame(), false,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
     }
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString(
-                "Help.Url.UpdateMetadataOfDirectories"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UpdateMetadataOfDirectories"));
     }
 
     private void endDialog() {

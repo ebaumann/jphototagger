@@ -23,13 +23,12 @@ import java.awt.Container;
  * @author Elmar Baumann
  */
 public class EditMetaDataTemplateDialog extends Dialog {
-    private static final long          serialVersionUID = -6621176928237283620L;
+    private static final long serialVersionUID = -6621176928237283620L;
     private transient MetadataTemplate template;
-    private transient Xmp              xmp = new Xmp();
+    private transient Xmp xmp = new Xmp();
 
     public EditMetaDataTemplateDialog() {
-        super(InputHelperDialog.INSTANCE, true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(InputHelperDialog.INSTANCE, true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setMnemonics();
     }
@@ -98,9 +97,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void checkSave() {
-        if (panelXmpEdit.isDirty()
-                && MessageDisplayer.confirmYesNo(this,
-                    "EditMetaDataTemplateDialog.Confirm.CheckSave")) {
+        if (panelXmpEdit.isDirty() 
+            && MessageDisplayer.confirmYesNo(this, "EditMetaDataTemplateDialog.Confirm.CheckSave")) {
             save();
         }
     }
@@ -113,8 +111,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdate(template)) {
                 panelXmpEdit.setDirty(false);
             } else {
-                MessageDisplayer.error(this,
-                                       "EditMetaDataTemplateDialog.Error.Save");
+                MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.Save");
             }
 
             setVisible(false);
@@ -128,9 +125,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
             if (textfieldHasName) {
                 if (DatabaseMetadataTemplates.INSTANCE.exists(name)) {
-                    MessageDisplayer.error(
-                        this, "EditMetaDataTemplateDialog.Error.NameExists",
-                        name);
+                    MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.NameExists", name);
                     textFieldName.requestFocusInWindow();
                     textFieldName.selectAll();
 
@@ -139,8 +134,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
                     template.setName(name);
                 }
             } else {
-                MessageDisplayer.error(
-                    this, "EditMetaDataTemplateDialog.Error.SaveNoName");
+                MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.SaveNoName");
                 textFieldName.requestFocusInWindow();
 
                 return false;

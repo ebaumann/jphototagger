@@ -18,15 +18,9 @@ import javax.swing.JPopupMenu;
 public final class PopupMenuImageCollections extends JPopupMenu {
     private static final long serialVersionUID = -3446852358941591602L;
     public static final PopupMenuImageCollections INSTANCE = new PopupMenuImageCollections();
-    private final JMenuItem itemDelete =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Delete"),
-                      AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemRename =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Rename"),
-                      AppLookAndFeel.ICON_RENAME);
-    private final JMenuItem itemCreate =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Create"),
-                      AppLookAndFeel.getIcon("icon_imagecollection.png"));
+    private final JMenuItem itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemCreate = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Create"), AppLookAndFeel.getIcon("icon_imagecollection.png"));
     private int itemIndex;
 
     private PopupMenuImageCollections() {

@@ -17,8 +17,7 @@ public class FileEditorDialog extends Dialog {
     private static final long serialVersionUID = -3235645652277682178L;
 
     public FileEditorDialog() {
-        super(GUI.getAppFrame(), false,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
     }

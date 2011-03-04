@@ -14,11 +14,10 @@ import java.awt.Container;
  */
 public final class ProgramInputParametersDialog extends Dialog {
     private static final long serialVersionUID = 7211489360676712179L;
-    private boolean           accepted         = false;
+    private boolean accepted = false;
 
     public ProgramInputParametersDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -54,11 +53,9 @@ public final class ProgramInputParametersDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getSettings().applySettings(this,
-                    UserSettings.SET_TABBED_PANE_SETTINGS);
+            UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         } else {
-            UserSettings.INSTANCE.getSettings().set(this,
-                    UserSettings.SET_TABBED_PANE_SETTINGS);
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
 
         super.setVisible(visible);

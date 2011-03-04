@@ -44,72 +44,38 @@ import org.jphototagger.program.controller.actions.ShowActionDialogAction;
  * @author Elmar Baumann
  */
 public final class AppFrame extends javax.swing.JFrame {
-    private static final long                                 serialVersionUID  =
-        -7374684230320795331L;
-    private final Map<Comparator<File>, JRadioButtonMenuItem> menuItemOfSortCmp =
-        new HashMap<Comparator<File>, JRadioButtonMenuItem>();
-    private final Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem =
-        new HashMap<JRadioButtonMenuItem, Comparator<File>>();
-    private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo,
-                                                            JMenuItem>(GoTo.class);
-    private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem,
-                                                            GoTo>();
+    private static final long serialVersionUID  = -7374684230320795331L;
+    private final Map<Comparator<File>, JRadioButtonMenuItem> menuItemOfSortCmp = new HashMap<Comparator<File>, JRadioButtonMenuItem>();
+    private final Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem = new HashMap<JRadioButtonMenuItem, Comparator<File>>();
+    private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo, JMenuItem>(GoTo.class);
+    private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
     private AppPanel appPanel;
 
     private void initSortMenuItemsMap() {
-        menuItemOfSortCmp.put(FileSort.PATHS_ASCENDING.getComparator(),
-                              radioButtonMenuItemSortFilepathAscending);
-        menuItemOfSortCmp.put(FileSort.PATHS_DESCENDING.getComparator(),
-                              radioButtonMenuItemSortFilepathDescending);
-        menuItemOfSortCmp.put(FileSort.NAMES_ASCENDING.getComparator(),
-                              radioButtonMenuItemSortFilenameAscending);
-        menuItemOfSortCmp.put(FileSort.NAMES_DESCENDING.getComparator(),
-                              radioButtonMenuItemSortFilenameDescending);
-        menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_ASCENDING.getComparator(),
-                              radioButtonMenuItemSortLastModifiedAscending);
-        menuItemOfSortCmp.put(
-            FileSort.LAST_MODIFIED_DESCENDING.getComparator(),
-            radioButtonMenuItemSortLastModifiedDescending);
-        menuItemOfSortCmp.put(FileSort.TYPES_ASCENDING.getComparator(),
-                              radioButtonMenuItemSortFileTypeAscending);
-        menuItemOfSortCmp.put(FileSort.TYPES_DESCENDING.getComparator(),
-                              radioButtonMenuItemSortFileTypeDescending);
-        menuItemOfSortCmp.put(FileSort.NO_SORT.getComparator(),
-                              radioButtonMenuItemSortNone);
-        menuItemOfSortCmp.put(
-            new ComparatorExifDateTimeOriginalAsc(),
-            radioButtonMenuItemSortExifDateTimeOriginalAscending);
-        menuItemOfSortCmp.put(
-            new ComparatorExifDateTimeOriginalDesc(),
-            radioButtonMenuItemSortExifDateTimeOriginalDescending);
-        menuItemOfSortCmp.put(new ComparatorExifFocalLengthAsc(),
-                              radioButtonMenuItemSortExifFocalLengthAscending);
-        menuItemOfSortCmp.put(new ComparatorExifFocalLengthDesc(),
-                              radioButtonMenuItemSortExifFocalLengthDescending);
-        menuItemOfSortCmp.put(
-            new ComparatorExifIsoSpeedRatingAsc(),
-            radioButtonMenuItemSortExifIsoSpeedRatingAscending);
-        menuItemOfSortCmp.put(
-            new ComparatorExifIsoSpeedRatingDesc(),
-            radioButtonMenuItemSortExifIsoSpeedRatingDescending);
-        menuItemOfSortCmp.put(
-            new ComparatorExifRecordingEquipmentAsc(),
-            radioButtonMenuItemSortExifRecordingEquipmentAscending);
-        menuItemOfSortCmp.put(
-            new ComparatorExifRecordingEquipmentDesc(),
-            radioButtonMenuItemSortExifRecordingEquipmentDescending);
-        menuItemOfSortCmp.put(new ComparatorXmpRatingAsc(),
-                              radioButtonMenuItemSortXmpRatingAscending);
-        menuItemOfSortCmp.put(new ComparatorXmpRatingDesc(),
-                              radioButtonMenuItemSortXmpRatingDescending);
-        menuItemOfSortCmp.put(new ComparatorXmpIptcLocationAsc(),
-                              radioButtonMenuItemSortXmpIptcLocationAscending);
-        menuItemOfSortCmp.put(new ComparatorXmpIptcLocationDesc(),
-                              radioButtonMenuItemSortXmpIptcLocationDescending);
+        menuItemOfSortCmp.put(FileSort.PATHS_ASCENDING.getComparator(), radioButtonMenuItemSortFilepathAscending);
+        menuItemOfSortCmp.put(FileSort.PATHS_DESCENDING.getComparator(), radioButtonMenuItemSortFilepathDescending);
+        menuItemOfSortCmp.put(FileSort.NAMES_ASCENDING.getComparator(), radioButtonMenuItemSortFilenameAscending);
+        menuItemOfSortCmp.put(FileSort.NAMES_DESCENDING.getComparator(), radioButtonMenuItemSortFilenameDescending);
+        menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_ASCENDING.getComparator(), radioButtonMenuItemSortLastModifiedAscending);
+        menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_DESCENDING.getComparator(), radioButtonMenuItemSortLastModifiedDescending);
+        menuItemOfSortCmp.put(FileSort.TYPES_ASCENDING.getComparator(), radioButtonMenuItemSortFileTypeAscending);
+        menuItemOfSortCmp.put(FileSort.TYPES_DESCENDING.getComparator(), radioButtonMenuItemSortFileTypeDescending);
+        menuItemOfSortCmp.put(FileSort.NO_SORT.getComparator(), radioButtonMenuItemSortNone);
+        menuItemOfSortCmp.put(new ComparatorExifDateTimeOriginalAsc(), radioButtonMenuItemSortExifDateTimeOriginalAscending);
+        menuItemOfSortCmp.put(new ComparatorExifDateTimeOriginalDesc(), radioButtonMenuItemSortExifDateTimeOriginalDescending);
+        menuItemOfSortCmp.put(new ComparatorExifFocalLengthAsc(), radioButtonMenuItemSortExifFocalLengthAscending);
+        menuItemOfSortCmp.put(new ComparatorExifFocalLengthDesc(), radioButtonMenuItemSortExifFocalLengthDescending);
+        menuItemOfSortCmp.put(new ComparatorExifIsoSpeedRatingAsc(), radioButtonMenuItemSortExifIsoSpeedRatingAscending);
+        menuItemOfSortCmp.put(new ComparatorExifIsoSpeedRatingDesc(), radioButtonMenuItemSortExifIsoSpeedRatingDescending);
+        menuItemOfSortCmp.put(new ComparatorExifRecordingEquipmentAsc(), radioButtonMenuItemSortExifRecordingEquipmentAscending);
+        menuItemOfSortCmp.put(new ComparatorExifRecordingEquipmentDesc(), radioButtonMenuItemSortExifRecordingEquipmentDescending);
+        menuItemOfSortCmp.put(new ComparatorXmpRatingAsc(), radioButtonMenuItemSortXmpRatingAscending);
+        menuItemOfSortCmp.put(new ComparatorXmpRatingDesc(), radioButtonMenuItemSortXmpRatingDescending);
+        menuItemOfSortCmp.put(new ComparatorXmpIptcLocationAsc(), radioButtonMenuItemSortXmpIptcLocationAscending);
+        menuItemOfSortCmp.put(new ComparatorXmpIptcLocationDesc(), radioButtonMenuItemSortXmpIptcLocationDescending);
 
         for (Comparator<File> comparator : menuItemOfSortCmp.keySet()) {
-            sortCmpOfMenuItem.put(menuItemOfSortCmp.get(comparator),
-                                  comparator);
+            sortCmpOfMenuItem.put(menuItemOfSortCmp.get(comparator), comparator);
         }
     }
 
@@ -136,9 +102,20 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     public enum GoTo {
-        DIRECTORIES, EDIT_PANELS, EXIF_METADATA, FAST_SEARCH, FAVORITES,
-        KEYWORDS_EDIT, IMAGE_COLLECTIONS, IPTC_METADATA, KEYWORDS_SEL,
-        MISC_METADATA, SAVED_SEARCHES, THUMBNAILS_PANEL, TIMELINE, XMP_METADATA,
+        DIRECTORIES,
+        EDIT_PANELS,
+        EXIF_METADATA,
+        FAST_SEARCH,
+        FAVORITES,
+        KEYWORDS_EDIT,
+        IMAGE_COLLECTIONS,
+        IPTC_METADATA,
+        KEYWORDS_SEL,
+        MISC_METADATA, 
+        SAVED_SEARCHES,
+        THUMBNAILS_PANEL,
+        TIMELINE,
+        XMP_METADATA,
         NO_METADATA,
     }
 

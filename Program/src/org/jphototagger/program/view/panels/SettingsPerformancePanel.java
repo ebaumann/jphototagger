@@ -21,20 +21,15 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     }
 
     private void setMaximumSecondsToTerminateExternalPrograms() {
-        UserSettings.INSTANCE
-            .setMaxSecondsToTerminateExternalPrograms(
-                (Integer) spinnerMaximumSecondsToTerminateExternalPrograms
-                    .getModel().getValue());
+        UserSettings.INSTANCE.setMaxSecondsToTerminateExternalPrograms((Integer) spinnerMaximumSecondsToTerminateExternalPrograms.getModel().getValue());
     }
 
     private void setScanForEmbeddedXmp() {
-        UserSettings.INSTANCE.setScanForEmbeddedXmp(
-            checkBoxScanForEmbeddedXmp.isSelected());
+        UserSettings.INSTANCE.setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
     }
 
     private void setSaveEarly() {
-        UserSettings.INSTANCE.setSaveInputEarly(
-            checkBoxSaveInputEarly.isSelected());
+        UserSettings.INSTANCE.setSaveInputEarly(checkBoxSaveInputEarly.isSelected());
     }
 
     private void setDisplayIptc() {
@@ -42,19 +37,16 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     }
 
     private void setEnableAutocomplete() {
-        UserSettings.INSTANCE.setEnableAutocomplete(
-                checkBoxEnableAutocomplete.isSelected());
+        UserSettings.INSTANCE.setEnableAutocomplete(checkBoxEnableAutocomplete.isSelected());
         setEnabledCheckBoxUpdateAutocomplete();
     }
 
     private void setUpdateAutocomplete() {
-        UserSettings.INSTANCE.setUpdateAutocomplete(
-                checkBoxUpdateAutocomplete.isSelected());
+        UserSettings.INSTANCE.setUpdateAutocomplete(checkBoxUpdateAutocomplete.isSelected());
     }
 
     private void setAutocompleteIgnoreCase() {
-        UserSettings.INSTANCE.setAutocompleteFastSearchIgnoreCase(
-                checkBoxAutocompleteIgnoreCase.isSelected());
+        UserSettings.INSTANCE.setAutocompleteFastSearchIgnoreCase(checkBoxAutocompleteIgnoreCase.isSelected());
     }
 
     @Override
@@ -64,18 +56,15 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         checkBoxDisplayIptc.setSelected(settings.isDisplayIptc());
         checkBoxScanForEmbeddedXmp.setSelected(settings.isScanForEmbeddedXmp());
         checkBoxSaveInputEarly.setSelected(settings.isSaveInputEarly());
-        spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(
-                settings.getMaxSecondsToTerminateExternalPrograms());
+        spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(settings.getMaxSecondsToTerminateExternalPrograms());
         checkBoxEnableAutocomplete.setSelected(settings.isAutocomplete());
         checkBoxUpdateAutocomplete.setSelected(settings.isUpdateAutocomplete());
-        checkBoxAutocompleteIgnoreCase.setSelected(
-                settings.isAutocompleteFastSearchIgnoreCase());
+        checkBoxAutocompleteIgnoreCase.setSelected(settings.isAutocompleteFastSearchIgnoreCase());
         setEnabledCheckBoxUpdateAutocomplete();
     }
 
     private void setEnabledCheckBoxUpdateAutocomplete() {
-        checkBoxUpdateAutocomplete.setEnabled(
-                checkBoxEnableAutocomplete.isSelected());
+        checkBoxUpdateAutocomplete.setEnabled(checkBoxEnableAutocomplete.isSelected());
     }
 
     @Override

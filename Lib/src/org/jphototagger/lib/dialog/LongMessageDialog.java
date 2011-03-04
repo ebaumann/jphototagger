@@ -31,8 +31,7 @@ public class LongMessageDialog extends Dialog {
     static {
         ICON_KEY.put(JOptionPane.ERROR_MESSAGE, "OptionPane.errorIcon");
         ICON_KEY.put(JOptionPane.QUESTION_MESSAGE, "OptionPane.questionIcon");
-        ICON_KEY.put(JOptionPane.INFORMATION_MESSAGE,
-                "OptionPane.informationIcon");
+        ICON_KEY.put(JOptionPane.INFORMATION_MESSAGE, "OptionPane.informationIcon");
         ICON_KEY.put(JOptionPane.WARNING_MESSAGE, "OptionPane.warningIcon");
     }
 
@@ -41,26 +40,22 @@ public class LongMessageDialog extends Dialog {
         init();
     }
 
-    public LongMessageDialog(JDialog owner, Settings settings,
-                             String settingsKey) {
+    public LongMessageDialog(JDialog owner, Settings settings, String settingsKey) {
         super(owner, settings, settingsKey);
         init();
     }
 
-    public LongMessageDialog(Frame owner, Settings settings,
-                             String settingsKey) {
+    public LongMessageDialog(Frame owner, Settings settings, String settingsKey) {
         super(owner, settings, settingsKey);
         init();
     }
 
-    public LongMessageDialog(JDialog owner, boolean modal, Settings settings,
-                             String settingsKey) {
+    public LongMessageDialog(JDialog owner, boolean modal, Settings settings, String settingsKey) {
         super(owner, modal, settings, settingsKey);
         init();
     }
 
-    public LongMessageDialog(Frame owner, boolean modal, Settings settings,
-                             String settingsKey) {
+    public LongMessageDialog(Frame owner, boolean modal, Settings settings, String settingsKey) {
         super(owner, modal, settings, settingsKey);
         init();
     }
@@ -101,23 +96,19 @@ public class LongMessageDialog extends Dialog {
     }
 
     public void setErrorIcon() {
-        labelIcon.setIcon(
-                UIManager.getIcon(ICON_KEY.get(JOptionPane.ERROR_MESSAGE)));
+        labelIcon.setIcon(UIManager.getIcon(ICON_KEY.get(JOptionPane.ERROR_MESSAGE)));
     }
 
     public void setWarningIcon() {
-        labelIcon.setIcon(
-                UIManager.getIcon(ICON_KEY.get(JOptionPane.WARNING_MESSAGE)));
+        labelIcon.setIcon(UIManager.getIcon(ICON_KEY.get(JOptionPane.WARNING_MESSAGE)));
     }
 
     public void setInformationIcon() {
-        labelIcon.setIcon(
-                UIManager.getIcon(ICON_KEY.get(JOptionPane.INFORMATION_MESSAGE)));
+        labelIcon.setIcon(UIManager.getIcon(ICON_KEY.get(JOptionPane.INFORMATION_MESSAGE)));
     }
 
     public void setQuestionIcon() {
-        labelIcon.setIcon(
-                UIManager.getIcon(ICON_KEY.get(JOptionPane.QUESTION_MESSAGE)));
+        labelIcon.setIcon(UIManager.getIcon(ICON_KEY.get(JOptionPane.QUESTION_MESSAGE)));
     }
 
     private void copyToClipboard() {
@@ -126,8 +117,7 @@ public class LongMessageDialog extends Dialog {
 
     private void sendMail() {
         try {
-            URI uri = new URI("mailto", mailTo + "?subject=" + mailSubject,
-                              null);
+            URI uri = new URI("mailto", mailTo + "?subject=" + mailSubject, null);
 
             Desktop.getDesktop().mail(uri);
         } catch (Exception ex) {

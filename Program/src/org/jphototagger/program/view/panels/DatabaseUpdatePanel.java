@@ -28,7 +28,6 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.SwingUtilities;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.model.TreeModelKeywords;
 
@@ -38,13 +37,11 @@ import org.jphototagger.program.model.TreeModelKeywords;
  */
 public class DatabaseUpdatePanel extends JPanel
         implements ActionListener, ProgressListener {
-    private static final String BUTTON_TEXT_CANCEL =
-        JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Cancel");
-    private static final long             serialVersionUID =
-        3148751698141558616L;
+    private static final long serialVersionUID = 3148751698141558616L;
+    private static final String BUTTON_TEXT_CANCEL = JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Cancel");
     private transient UpdateAllThumbnails thumbnailUpdater;
-    private final AbstractButton[]        buttons;
-    private volatile boolean              cancel;
+    private final AbstractButton[] buttons;
+    private volatile boolean cancel;
 
     public DatabaseUpdatePanel() {
         initComponents();
@@ -62,33 +59,27 @@ public class DatabaseUpdatePanel extends JPanel
         synchronized (this) {
             thumbnailUpdater = new UpdateAllThumbnails();
             thumbnailUpdater.addActionListener(this);
-            Thread t = new Thread(thumbnailUpdater,
-                    "JPhotoTagger: Updating all thumbnails");
+            Thread t = new Thread(thumbnailUpdater, "JPhotoTagger: Updating all thumbnails");
             t.start();
         }
     }
 
     private synchronized void updateExif() {
-        startOrCancelHelperThread(toggleButtonRefreshExif,
-                                RefreshExifInDbOfKnownFiles.class);
+        startOrCancelHelperThread(toggleButtonRefreshExif, RefreshExifInDbOfKnownFiles.class);
     }
 
     private void updateXmp() {
-        startOrCancelHelperThread(toggleButtonRefreshXmp,
-                                RefreshXmpInDbOfKnownFiles.class);
+        startOrCancelHelperThread(toggleButtonRefreshXmp, RefreshXmpInDbOfKnownFiles.class);
     }
 
     private void exifDateToXmpDateCreated() {
-        startOrCancelHelperThread(toggleButtonExifDateToXmpDateCreated,
-                                SetExifToXmp.class);
+        startOrCancelHelperThread(toggleButtonExifDateToXmpDateCreated, SetExifToXmp.class);
     }
 
-    private synchronized void startOrCancelHelperThread(JToggleButton button,
-            Class<?> helperThreadClass) {
+    private synchronized void startOrCancelHelperThread(JToggleButton button, Class<?> helperThreadClass) {
         if (button.isSelected()) {
             try {
-                HelperThread helperThread =
-                    (HelperThread) helperThreadClass.newInstance();
+                HelperThread helperThread = (HelperThread) helperThreadClass.newInstance();
 
                 disableOtherButtons(button);
                 helperThread.setProgressBar(progressBar);
@@ -107,19 +98,12 @@ public class DatabaseUpdatePanel extends JPanel
     }
 
     private void setStartButtonTexts() {
-        toggleButtonRefreshExif.setText(JptBundle.INSTANCE.getString(
-                "DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
-        toggleButtonRefreshXmp.setText(JptBundle.INSTANCE.getString(
-                "DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
-        buttonUpdateThumbnails.setText(JptBundle.INSTANCE.getString(
-                "DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
-        buttonRenameFiles.setText(JptBundle.INSTANCE.getString(
-                "DatabaseUpdatePanel.buttonRenameFiles.text"));
-        buttonCopyKeywordsToKeywordsTree.setText(JptBundle.INSTANCE.getString(
-                "DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
-        toggleButtonExifDateToXmpDateCreated.setText(
-                JptBundle.INSTANCE.getString(
-                    "DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
+        toggleButtonRefreshExif.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
+        toggleButtonRefreshXmp.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
+        buttonUpdateThumbnails.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
+        buttonRenameFiles.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonRenameFiles.text"));
+        buttonCopyKeywordsToKeywordsTree.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
+        toggleButtonExifDateToXmpDateCreated.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -154,15 +138,12 @@ public class DatabaseUpdatePanel extends JPanel
     }
 
     private void copyKeywordsToKeywordsTree() {
-        List<String> keywords = ListUtil.toStringList(
-                                    ModelFactory.INSTANCE.getModel(
-                                        ListModelKeywords.class));
+        List<String> keywords = ListUtil.toStringList(ModelFactory.INSTANCE.getModel(ListModelKeywords.class));
 
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
             new InsertKeywords(keywords).run();    // run in this thread!
-            MessageDisplayer.information(
-                this, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
+            MessageDisplayer.information(this, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
             setEnabledAllButtons(true);
         }
     }
@@ -190,8 +171,7 @@ public class DatabaseUpdatePanel extends JPanel
                      }
                  }
 
-                 MessageDisplayer.information(this,
-                         "DatabaseUpdatePanel.Info.DeletedKeywords", count);
+                 MessageDisplayer.information(this, "DatabaseUpdatePanel.Info.DeletedKeywords", count);
              }
 
             setEnabledAllButtons(true);
@@ -220,11 +200,11 @@ public class DatabaseUpdatePanel extends JPanel
 
             @Override
             public void run() {
-        checkCancel(evt);
-        setEnabledAllButtons(true);
-        deselectAllToggleButtons();
-        setStartButtonTexts();
-    }
+                checkCancel(evt);
+                setEnabledAllButtons(true);
+                deselectAllToggleButtons();
+                setStartButtonTexts();
+            }
         });
     }
 

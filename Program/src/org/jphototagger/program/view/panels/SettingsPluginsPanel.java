@@ -30,13 +30,10 @@ import org.jphototagger.program.resource.JptBundle;
  *
  * @author Elmar Baumann
  */
-public class SettingsPluginsPanel extends javax.swing.JPanel
-        implements ChangeListener, Persistence {
-    private static final long   serialVersionUID = 6790634142245254676L;
-    private static final String KEY_TABBED_PANE  =
-        "SettingsPluginsPanel.TabbedPane";
-    private final Map<Component, Pair<String, String>> helpContentsPathOfTab =
-        new HashMap<Component, Pair<String, String>>();
+public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener, Persistence {
+    private static final long serialVersionUID = 6790634142245254676L;
+    private static final String KEY_TABBED_PANE = "SettingsPluginsPanel.TabbedPane";
+    private final Map<Component, Pair<String, String>> helpContentsPathOfTab = new HashMap<Component, Pair<String, String>>();
 
     public SettingsPluginsPanel() {
         initComponents();
@@ -62,11 +59,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
         JPanel panel = plugin.getSettingsPanel();
 
         if (panel != null) {
-            helpContentsPathOfTab.put(
-                panel,
-                new Pair<String, String>(
-                    plugin.getHelpContentsPath(),
-                    plugin.getFirstHelpPageName()));
+            helpContentsPathOfTab.put(panel, new Pair<String, String>(plugin.getHelpContentsPath(), plugin.getFirstHelpPageName()));
             tabbedPane.add(plugin.getName(), panel);
         }
     }
@@ -81,10 +74,10 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
     private GridBagConstraints getGbcCheckBox() {
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridx  = GridBagConstraints.REMAINDER;
-        gbc.gridy  = GridBagConstraints.RELATIVE;
+        gbc.gridx = GridBagConstraints.REMAINDER;
+        gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.anchor = GridBagConstraints.NORTHWEST;
-        gbc.fill   = GridBagConstraints.NONE;
+        gbc.fill = GridBagConstraints.NONE;
 
         return gbc;
     }
@@ -92,10 +85,10 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
     private GridBagConstraints getGbcAfterLastCheckBox() {
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridx   = GridBagConstraints.REMAINDER;
-        gbc.gridy   = GridBagConstraints.RELATIVE;
-        gbc.anchor  = GridBagConstraints.SOUTH;
-        gbc.fill    = GridBagConstraints.BOTH;
+        gbc.gridx = GridBagConstraints.REMAINDER;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.anchor = GridBagConstraints.SOUTH;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
         gbc.weighty = 1;
 
@@ -104,19 +97,17 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
 
     @Override
     public void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane,
-                KEY_TABBED_PANE, null);
+        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_TABBED_PANE, null);
     }
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_TABBED_PANE,
-                null);
+        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_TABBED_PANE, null);
         UserSettings.INSTANCE.writeToFile();
     }
 
     private static class ActionExcludePlugin extends AbstractAction {
-        private static final long      serialVersionUID = -7156530079287891717L;
+        private static final long serialVersionUID = -7156530079287891717L;
         private transient final Plugin plugin;
 
         ActionExcludePlugin(Plugin plugin) {
@@ -138,12 +129,8 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
 
 
     private void showHelp() {
-        String helpContentsPath =
-            helpContentsPathOfTab.get(
-                tabbedPane.getSelectedComponent()).getFirst();
-        String firstPageUrl =
-            helpContentsPathOfTab.get(
-                tabbedPane.getSelectedComponent()).getSecond();
+        String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).getFirst();
+        String firstPageUrl = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).getSecond();
 
         if (helpContentsPath != null) {
             HelpBrowser help = HelpBrowser.INSTANCE;
@@ -159,9 +146,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel
     }
 
     private void setEnabledHelpButton() {
-        buttonHelpPlugin.setEnabled(
-            helpContentsPathOfTab.get(tabbedPane.getSelectedComponent())
-            != null);
+        buttonHelpPlugin.setEnabled(helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()) != null);
     }
 
     @Override

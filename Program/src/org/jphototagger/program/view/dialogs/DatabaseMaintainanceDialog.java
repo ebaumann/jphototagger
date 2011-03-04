@@ -13,13 +13,11 @@ import org.jphototagger.lib.dialog.Dialog;
  * @author Elmar Baumann
  */
 public final class DatabaseMaintainanceDialog extends Dialog {
-    public static final DatabaseMaintainanceDialog INSTANCE =
-        new DatabaseMaintainanceDialog();
     private static final long serialVersionUID = -6775385212305459197L;
+    public static final DatabaseMaintainanceDialog INSTANCE = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
-        super(GUI.getAppFrame(), false,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         TabbedPaneUtil.setMnemonics(tabbedPane);
@@ -27,19 +25,15 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString(
-                "Help.Url.DatabaseMaintainanceDialog"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.DatabaseMaintainanceDialog"));
     }
 
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            UserSettings.INSTANCE.getSettings().applySettings(this,
-                    UserSettings.SET_TABBED_PANE_SETTINGS);
+            UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         } else {
-            UserSettings.INSTANCE.getSettings().set(this,
-                    UserSettings.SET_TABBED_PANE_SETTINGS);
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
 
         panelMaintainance.getsVisible(visible);
@@ -49,12 +43,10 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void close() {
         if (panelMaintainance.canClose()) {
-            UserSettings.INSTANCE.getSettings().set(this,
-                    UserSettings.SET_TABBED_PANE_SETTINGS);
+            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
             setVisible(false);
         } else {
-            MessageDisplayer.error(
-                this, "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
+            MessageDisplayer.error(this, "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
         }
     }
 

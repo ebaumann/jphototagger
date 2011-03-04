@@ -22,20 +22,15 @@ import javax.swing.JFileChooser;
  * @author Elmar Baumann
  */
 public class KeywordExportDialog extends Dialog {
-    private static final String KEY_PREV_EXPORT_FILE =
-        "KeywordExportDialog.PrevExportFile";
-    private static final long              serialVersionUID =
-        5431485480637999486L;
-    private boolean                        accepted;
-    private File                           file;
-    private ComboBoxModelKeywordsExporters comboBoxModelExporter =
-        new ComboBoxModelKeywordsExporters();
-    private static final String KEY_SEL_EXPORTER_INDEX =
-        "KeywordExportDialog.SelectedExporterIndex";
+    private static final long serialVersionUID = 5431485480637999486L;
+    private static final String KEY_PREV_EXPORT_FILE = "KeywordExportDialog.PrevExportFile";
+    private boolean accepted;
+    private File file;
+    private ComboBoxModelKeywordsExporters comboBoxModelExporter = new ComboBoxModelKeywordsExporters();
+    private static final String KEY_SEL_EXPORTER_INDEX = "KeywordExportDialog.SelectedExporterIndex";
 
     public KeywordExportDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         MnemonicUtil.setMnemonics((Container) this);
@@ -43,8 +38,7 @@ public class KeywordExportDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString("Help.Url.KeywordExportDialog"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.KeywordExportDialog"));
     }
 
     /**
@@ -96,8 +90,6 @@ public class KeywordExportDialog extends Dialog {
      * @return file or null if no file is to exportFile
      */
     public File getFile() {
-        assert accepted : "Export was not accepted!";
-
         if (!accepted) {
             return null;
         }
@@ -119,8 +111,7 @@ public class KeywordExportDialog extends Dialog {
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setDialogTitle(getTitle());
 
-            if (fileChooser.showSaveDialog(this)
-                    == JFileChooser.APPROVE_OPTION) {
+            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selFile = fileChooser.getSelectedFile();
 
                 file = selFile;
@@ -138,8 +129,7 @@ public class KeywordExportDialog extends Dialog {
 
         File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
 
-        if ((prevExpFile.getParentFile() != null)
-                && prevExpFile.getParentFile().isDirectory()) {
+        if ((prevExpFile.getParentFile() != null) && prevExpFile.getParentFile().isDirectory()) {
             file = prevExpFile;
             labelFilename.setText(prevExpFile.getAbsolutePath());
             buttonExport.setEnabled(true);
@@ -172,8 +162,7 @@ public class KeywordExportDialog extends Dialog {
             return true;
         }
 
-        return MessageDisplayer.confirmYesNo(this,
-                "KeywordExportDialog.Confirm.OverwriteFile", file);
+        return MessageDisplayer.confirmYesNo(this, "KeywordExportDialog.Confirm.OverwriteFile", file);
     }
 
     @Override

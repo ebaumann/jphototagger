@@ -20,26 +20,20 @@ import java.awt.event.MouseEvent;
  * @author Elmar Baumann
  */
 public class ProgramSelectDialog extends Dialog {
-    private static final long       serialVersionUID = -8970433115513988650L;
+    private static final long serialVersionUID = -8970433115513988650L;
     private final ListModelPrograms model;
-    private final Type              type;
-    private boolean                 accepted;
+    private final Type type;
+    private boolean accepted;
 
-    /**
-     * Contructor.
-     *
-     * @param type type
-     */
     public ProgramSelectDialog(Type type) {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
 
         if (type == null) {
             throw new NullPointerException("type == null");
         }
 
         this.type = type;
-        model     = new ListModelPrograms(type);
+        model = new ListModelPrograms(type);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -81,7 +75,7 @@ public class ProgramSelectDialog extends Dialog {
     }
 
     private void handleMousClicked(MouseEvent evt) {
-        int     selIndex   = listPrograms.getSelectedIndex();
+        int selIndex = listPrograms.getSelectedIndex();
         boolean isSelected = selIndex >= 0;
 
         if ((evt.getClickCount() >= 2) && isSelected) {

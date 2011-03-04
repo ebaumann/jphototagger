@@ -35,24 +35,18 @@ import javax.swing.JPanel;
 public class RatingSelectionPanel extends JPanel
         implements TextEntry, FocusListener, KeyListener {
     private static final long serialVersionUID = -7955649305451645120L;
-    private final Icon        star             =
-        AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
-    private final Icon        dark_star        =
-        AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");;
-    private final Icon icon_rating_remove =
-        AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
-    private final Icon icon_rating_remove_not_set =
-        AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png");
-    private final transient Column             column;
-    private boolean                            editable;
-    private boolean                            dirty     = false;
-    private int                                value     = 0;
-    private JButton                            buttons[] = new JButton[5];
-    private JButton                            lastClickedButton;
-    private transient TextEntryListenerSupport textEntryListenerSupport =
-        new TextEntryListenerSupport();
-    private final Map<JButton, String> textOfButton = new HashMap<JButton,
-                                                          String>();
+    private final Icon star = AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
+    private final Icon dark_star = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");;
+    private final Icon icon_rating_remove = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
+    private final Icon icon_rating_remove_not_set = AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png");
+    private final transient Column column;
+    private boolean editable;
+    private boolean dirty = false;
+    private int value = 0;
+    private JButton buttons[] = new JButton[5];
+    private JButton lastClickedButton;
+    private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private final Map<JButton, String> textOfButton = new HashMap<JButton, String>();
 
     public RatingSelectionPanel(Column column) {
         if (column == null) {
@@ -288,8 +282,7 @@ public class RatingSelectionPanel extends JPanel
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if ((evt.getKeyCode() != KeyEvent.VK_ENTER)
-                && (evt.getKeyCode() != KeyEvent.VK_SPACE)) {
+        if ((evt.getKeyCode() != KeyEvent.VK_ENTER) && (evt.getKeyCode() != KeyEvent.VK_SPACE)) {
             return;
         }
 
@@ -318,12 +311,10 @@ public class RatingSelectionPanel extends JPanel
         boolean isButton = evt.getSource() instanceof JButton;
 
         if (!isButton) {
-            throw new IllegalArgumentException("Not ab button: "
-                                               + evt.getSource());
+            throw new IllegalArgumentException("Not ab button: " + evt.getSource());
         }
 
-        ((JButton) evt.getSource()).setBorder(
-            BorderFactory.createLineBorder(Color.GRAY));
+        ((JButton) evt.getSource()).setBorder(BorderFactory.createLineBorder(Color.GRAY));
     }
 
     // Visualize Focus

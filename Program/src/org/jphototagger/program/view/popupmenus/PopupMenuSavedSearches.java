@@ -19,18 +19,10 @@ import javax.swing.JPopupMenu;
 public final class PopupMenuSavedSearches extends JPopupMenu {
     private static final long serialVersionUID = 3540766100829834971L;
     public static final PopupMenuSavedSearches INSTANCE = new PopupMenuSavedSearches();
-    private final JMenuItem itemDelete =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"),
-                      AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemEdit =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Edit"),
-                      AppLookAndFeel.ICON_EDIT);
-    private final JMenuItem itemCreate =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.New"),
-                      AppLookAndFeel.ICON_NEW);
-    private final JMenuItem itemRename =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"),
-                      AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemEdit = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Edit"), AppLookAndFeel.ICON_EDIT);
+    private final JMenuItem itemCreate = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.New"), AppLookAndFeel.ICON_NEW);
+    private final JMenuItem itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
     private transient SavedSearch savedSearch;
 
     private PopupMenuSavedSearches() {

@@ -33,20 +33,15 @@ import org.jphototagger.program.resource.JptBundle;
  */
 public final class SearchColumnPanel extends javax.swing.JPanel {
     private static final long   serialVersionUID = -2063583386957538525L;
-    private static final String SEL_LEFT_BRACKET =
-        "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
-    private static final String NOT_SEL_LEFT_BRACKET =
-        "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
-    private static final String SEL_RIGHT_BRACKET =
-        "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
-    private static final String NOT_SEL_RIGHT_BRACKET =
-        "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
-    private final ListCellRendererTableColumns columnRenderer =
-        new ListCellRendererTableColumns();
+    private static final String SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
+    private static final String NOT_SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
+    private static final String SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
+    private static final String NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
+    private final ListCellRendererTableColumns columnRenderer = new ListCellRendererTableColumns();
     private Column.DataType  prevColumnDataType;
-    private boolean          isOperatorsEnabled = true;
-    private boolean          listenToActions    = true;
-    private boolean          changed;
+    private boolean isOperatorsEnabled = true;
+    private boolean listenToActions = true;
+    private boolean changed;
 
     public SearchColumnPanel() {
         initComponents();
@@ -79,16 +74,16 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     // TextFiel#setFormatterFactory() removes text; reset text if the column
     // data type is equal to the previous column data type
     private void setFormatter() {
-        String          value          = textFieldValue.getText();
-        Column          column         = getColumn();
+        String value = textFieldValue.getText();
+        Column column = getColumn();
         Column.DataType columnDataType = column.getDataType();
 
-        textFieldValue.setFormatterFactory(
-                FormatterFactory.getFormatterFactory(column));
+        textFieldValue.setFormatterFactory(FormatterFactory.getFormatterFactory(column));
 
         if (columnDataType.equals(prevColumnDataType) && !value.isEmpty()) {
             textFieldValue.setText(value);
         }
+
         prevColumnDataType = column.getDataType();
     }
 
@@ -109,10 +104,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             toggleButtonBracketLeft2.setSelected(false);
         }
 
-        toggleButtonBracketLeft1.setEnabled(isOperatorsEnabled
-                &&!toggleButtonBracketLeft2.isSelected());
-        toggleButtonBracketLeft2.setEnabled(
-            !toggleButtonBracketLeft1.isSelected());
+        toggleButtonBracketLeft1.setEnabled(isOperatorsEnabled &&!toggleButtonBracketLeft2.isSelected());
+        toggleButtonBracketLeft2.setEnabled(!toggleButtonBracketLeft1.isSelected());
         setToggleButtonsText();
     }
 
@@ -187,21 +180,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
         SavedSearchPanel savedSearchPanel = new SavedSearchPanel();
 
-        savedSearchPanel.setBracketRightSelected(
-            toggleButtonBracketRight.isSelected());
-        savedSearchPanel.setColumnId(
-            ColumnIds.getId(
-                (Column) comboBoxColumns.getModel().getSelectedItem()));
-        savedSearchPanel
-            .setComparatorId(((Comparator) comboBoxComparators.getModel()
-                .getSelectedItem()).getId());
-        savedSearchPanel.setBracketLeft1Selected(
-            toggleButtonBracketLeft1.isSelected());
-        savedSearchPanel.setBracketLeft2Selected(
-            toggleButtonBracketLeft2.isSelected());
-        savedSearchPanel
-            .setOperatorId(((Operator) comboBoxOperators.getModel()
-                .getSelectedItem()).getId());
+        savedSearchPanel.setBracketRightSelected(toggleButtonBracketRight.isSelected());
+        savedSearchPanel.setColumnId(ColumnIds.getId((Column) comboBoxColumns.getModel().getSelectedItem()));
+        savedSearchPanel.setComparatorId(((Comparator) comboBoxComparators.getModel().getSelectedItem()).getId());
+        savedSearchPanel.setBracketLeft1Selected(toggleButtonBracketLeft1.isSelected());
+        savedSearchPanel.setBracketLeft2Selected(toggleButtonBracketLeft2.isSelected());
+        savedSearchPanel.setOperatorId(((Operator) comboBoxOperators.getModel().getSelectedItem()).getId());
 
         String value = textFieldValue.getText();
 
@@ -219,18 +203,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         }
 
         listenToActions = false;
-        toggleButtonBracketRight.setSelected(
-            savedSearchPanel.isBracketRightSelected());
-        comboBoxColumns.getModel().setSelectedItem(
-            ColumnIds.getColumn(savedSearchPanel.getColumnId()));
-        comboBoxComparators.getModel().setSelectedItem(
-            Comparator.get(savedSearchPanel.getComparatorId()));
-        toggleButtonBracketLeft1.setSelected(
-            savedSearchPanel.isBracketLeft1Selected());
-        toggleButtonBracketLeft2.setSelected(
-            savedSearchPanel.isBracketLeft2Selected());
-        comboBoxOperators.getModel().setSelectedItem(
-            Operator.get(savedSearchPanel.getOperatorId()));
+        toggleButtonBracketRight.setSelected(savedSearchPanel.isBracketRightSelected());
+        comboBoxColumns.getModel().setSelectedItem(ColumnIds.getColumn(savedSearchPanel.getColumnId()));
+        comboBoxComparators.getModel().setSelectedItem(Comparator.get(savedSearchPanel.getComparatorId()));
+        toggleButtonBracketLeft1.setSelected(savedSearchPanel.isBracketLeft1Selected());
+        toggleButtonBracketLeft2.setSelected(savedSearchPanel.isBracketLeft2Selected());
+        comboBoxOperators.getModel().setSelectedItem(Operator.get(savedSearchPanel.getOperatorId()));
 
         if (savedSearchPanel.hasValue()) {
             textFieldValue.setText(savedSearchPanel.getValue());
@@ -261,15 +239,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void setDate() {
-        GregorianCalendar cal = DateChooserDialog.showDialog(this,
-                                    AppLookAndFeel.getAppIcons());
+        GregorianCalendar cal = DateChooserDialog.showDialog(this, AppLookAndFeel.getAppIcons());
 
         if (cal != null) {
             String year  = Integer.toString(cal.get(Calendar.YEAR));
-            String month =
-                getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
-            String day = getDateFormatted(
-                             Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+            String month = getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
+            String day = getDateFormatted(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
 
             textFieldValue.setText(year + "-" + month + "-" + day);
             setChanged(true);
@@ -336,8 +311,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     }
 
     private void showInputHelpers() {
-        if (listenToActions
-                && getColumn().equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (listenToActions && getColumn().equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
             GUI.getAppFrame().getMenuItemInputHelper().doClick();
         }
     }

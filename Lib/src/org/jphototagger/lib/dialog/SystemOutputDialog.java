@@ -13,8 +13,7 @@ import org.jphototagger.lib.resource.JslBundle;
  * @author Elmar Baumann
  */
 public class SystemOutputDialog extends Dialog {
-    public static final SystemOutputDialog INSTANCE =
-        new SystemOutputDialog(ComponentUtil.getFrameWithIcon());
+    public static final SystemOutputDialog INSTANCE = new SystemOutputDialog(ComponentUtil.getFrameWithIcon());
     private static final long serialVersionUID = 8736291024565598572L;
 
     public SystemOutputDialog(java.awt.Frame parent) {

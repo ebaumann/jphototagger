@@ -43,7 +43,9 @@ public final class DatabaseContent extends Database {
 
             stmt = con.createStatement();
 
-            String sql = "SELECT DISTINCT " + columnName + " FROM " + column.getTablename() + " WHERE " + columnName
+            String sql = "SELECT DISTINCT " + columnName 
+                         + " FROM " + column.getTablename()
+                         + " WHERE " + columnName
                          + " IS NOT NULL ORDER BY 1 ASC";
 
             logFinest(sql);

@@ -109,7 +109,8 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     }
 
     private String getUpdateSql() {
-        return "UPDATE user_defined_file_filters SET is_not = ?, type = ?," + " name = ?, expression = ? WHERE id = ?";
+        return "UPDATE user_defined_file_filters SET is_not = ?, type = ?,"
+                + " name = ?, expression = ? WHERE id = ?";
     }
 
     public boolean update(UserDefinedFileFilter filter) {
@@ -193,7 +194,8 @@ public final class DatabaseUserDefinedFileFilters extends Database {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT COUNT (*) FROM user_defined_file_filters" + " WHERE name = ?";
+            String sql = "SELECT COUNT (*) FROM user_defined_file_filters"
+                    + " WHERE name = ?";
 
             con = getConnection();
             stmt = con.prepareStatement(sql);

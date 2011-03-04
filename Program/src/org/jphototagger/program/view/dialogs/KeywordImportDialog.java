@@ -21,20 +21,15 @@ import javax.swing.JFileChooser;
  * @author Elmar Baumann
  */
 public class KeywordImportDialog extends Dialog {
-    private static final String KEY_PREV_IMPORT_FILE =
-        "KeywordImportDialog.PrevImportFile";
-    private static final String KEY_SEL_IMPORTER_INDEX =
-        "KeywordImportDialog.SelectedImporterIndex";
-    private static final long              serialVersionUID =
-        7441650879878050560L;
-    private boolean                        accepted;
-    private File                           file;
-    private ComboBoxModelKeywordsImporters comboBoxModelImporter =
-        new ComboBoxModelKeywordsImporters();
+    private static final long serialVersionUID = 7441650879878050560L;
+    private static final String KEY_PREV_IMPORT_FILE = "KeywordImportDialog.PrevImportFile";
+    private static final String KEY_SEL_IMPORTER_INDEX = "KeywordImportDialog.SelectedImporterIndex";
+    private boolean accepted;
+    private File file;
+    private ComboBoxModelKeywordsImporters comboBoxModelImporter = new ComboBoxModelKeywordsImporters();
 
     public KeywordImportDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         MnemonicUtil.setMnemonics((Container) this);
@@ -42,8 +37,7 @@ public class KeywordImportDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString("Help.Url.KeywordImportDialog"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.KeywordImportDialog"));
     }
 
     /**
@@ -95,8 +89,6 @@ public class KeywordImportDialog extends Dialog {
      * @return file or null if no file is to import
      */
     public File getFile() {
-        assert accepted : "Import was not accepted!";
-
         if (!accepted) {
             return null;
         }
@@ -114,13 +106,11 @@ public class KeywordImportDialog extends Dialog {
                 fileChooser.setCurrentDirectory(file.getParentFile());
             }
 
-            fileChooser.setFileFilter(
-                ((KeywordsImporter) selItem).getFileFilter());
+            fileChooser.setFileFilter(((KeywordsImporter) selItem).getFileFilter());
             fileChooser.setMultiSelectionEnabled(false);
             fileChooser.setDialogTitle(getTitle());
 
-            if (fileChooser.showOpenDialog(this)
-                    == JFileChooser.APPROVE_OPTION) {
+            if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selFile = fileChooser.getSelectedFile();
 
                 if (selFile.isFile()) {

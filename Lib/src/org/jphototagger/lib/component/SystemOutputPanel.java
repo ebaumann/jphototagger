@@ -23,10 +23,10 @@ import org.jphototagger.lib.resource.JslBundle;
  * @author Elmar Baumann
  */
 public class SystemOutputPanel extends JPanel {
-    private static volatile int MAX_CHAR_COUNT   = 100000;
+    private static final long  serialVersionUID = -6566007491609362675L;
+    private static volatile int MAX_CHAR_COUNT = 100000;
     private static volatile int MAX_CHARS_EXESS  = 1000;
-    private static final long   serialVersionUID = -6566007491609362675L;
-    private boolean             capture;
+    private boolean  capture;
 
     /**
      * Default constructor.
@@ -50,8 +50,7 @@ public class SystemOutputPanel extends JPanel {
     }
 
     private void copyToClipboard() {
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
-            new StringSelection(textArea.getText()), null);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(textArea.getText()), null);
     }
 
     private void deleteText() {
@@ -65,8 +64,7 @@ public class SystemOutputPanel extends JPanel {
                 textArea.append(text);
                 textArea.setCaretPosition(textArea.getDocument().getLength());
 
-                int excess = textArea.getDocument().getLength()
-                             - MAX_CHAR_COUNT;
+                int excess = textArea.getDocument().getLength() - MAX_CHAR_COUNT;
 
                 if (excess >= MAX_CHARS_EXESS) {
                     textArea.replaceRange("", 0, excess);
@@ -81,14 +79,17 @@ public class SystemOutputPanel extends JPanel {
 
     private void redirectSystemStreams() {
         OutputStream out = new OutputStream() {
+
             @Override
             public void write(int b) throws IOException {
                 updateTextArea(String.valueOf((char) b));
             }
+
             @Override
             public void write(byte[] b, int off, int len) throws IOException {
                 updateTextArea(new String(b, off, len));
             }
+
             @Override
             public void write(byte[] b) throws IOException {
                 write(b, 0, b.length);

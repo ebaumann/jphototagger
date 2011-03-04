@@ -24,13 +24,10 @@ import javax.swing.SpinnerNumberModel;
  */
 public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         implements ActionListener, Persistence {
-    private static final long                         serialVersionUID =
-        -5283587664627790755L;
-    private transient UpdateAllThumbnails             thumbnailsUpdater;
-    private final Map<JRadioButton, ThumbnailCreator> thumbnailCreatorOfRadioButton =
-        new HashMap<JRadioButton, ThumbnailCreator>();
-    private final EnumMap<ThumbnailCreator, JRadioButton> radioButtonOfThumbnailCreator =
-        new EnumMap<ThumbnailCreator, JRadioButton>(ThumbnailCreator.class);
+    private static final long serialVersionUID = -5283587664627790755L;
+    private transient UpdateAllThumbnails thumbnailsUpdater;
+    private final Map<JRadioButton, ThumbnailCreator> thumbnailCreatorOfRadioButton = new HashMap<JRadioButton, ThumbnailCreator>();
+    private final EnumMap<ThumbnailCreator, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<ThumbnailCreator, JRadioButton>(ThumbnailCreator.class);
 
     public SettingsThumbnailsPanel() {
         initComponents();
@@ -39,27 +36,18 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     }
 
     private void initMaps() {
-        thumbnailCreatorOfRadioButton.put(
-            radioButtonCreateThumbnailsWithExternalApp,
-            ThumbnailCreator.EXTERNAL_APP);
-        thumbnailCreatorOfRadioButton.put(
-            radioButtonCreateThumbnailsWithImagero, ThumbnailCreator.IMAGERO);
-        thumbnailCreatorOfRadioButton.put(
-            radioButtonCreateThumbnailsWithJavaImageIo,
-            ThumbnailCreator.JAVA_IMAGE_IO);
-        thumbnailCreatorOfRadioButton.put(radioButtonUseEmbeddedThumbnails,
-                                          ThumbnailCreator.EMBEDDED);
+        thumbnailCreatorOfRadioButton.put(radioButtonCreateThumbnailsWithExternalApp, ThumbnailCreator.EXTERNAL_APP);
+        thumbnailCreatorOfRadioButton.put(radioButtonCreateThumbnailsWithImagero, ThumbnailCreator.IMAGERO);
+        thumbnailCreatorOfRadioButton.put(radioButtonCreateThumbnailsWithJavaImageIo, ThumbnailCreator.JAVA_IMAGE_IO);
+        thumbnailCreatorOfRadioButton.put(radioButtonUseEmbeddedThumbnails, ThumbnailCreator.EMBEDDED);
 
-        for (JRadioButton radioButton : thumbnailCreatorOfRadioButton
-                .keySet()) {
-            radioButtonOfThumbnailCreator.put(
-                thumbnailCreatorOfRadioButton.get(radioButton), radioButton);
+        for (JRadioButton radioButton : thumbnailCreatorOfRadioButton.keySet()) {
+            radioButtonOfThumbnailCreator.put(thumbnailCreatorOfRadioButton.get(radioButton), radioButton);
         }
     }
 
     private void handleStateChangedSpinnerMaxThumbnailWidth() {
-        UserSettings.INSTANCE.setMaxThumbnailWidth(
-            (Integer) spinnerMaxThumbnailWidth.getValue());
+        UserSettings.INSTANCE.setMaxThumbnailWidth((Integer) spinnerMaxThumbnailWidth.getValue());
     }
 
     private void updateAllThumbnails() {
@@ -68,8 +56,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             thumbnailsUpdater = new UpdateAllThumbnails();
             thumbnailsUpdater.addActionListener(this);
 
-            Thread thread = new Thread(thumbnailsUpdater,
-                    "JPhotoTagger: Updating all thumbnails");
+            Thread thread = new Thread(thumbnailsUpdater, "JPhotoTagger: Updating all thumbnails");
 
             thread.start();
         }
@@ -83,24 +70,23 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         UserSettings settings = UserSettings.INSTANCE;
 
         spinnerMaxThumbnailWidth.setValue(settings.getMaxThumbnailWidth());
-        textFieldExternalThumbnailCreationCommand.setText(
-            settings.getExternalThumbnailCreationCommand());
+        textFieldExternalThumbnailCreationCommand.setText(settings.getExternalThumbnailCreationCommand());
     }
 
     private void setSelectedRadioButtons() {
         ThumbnailCreator creator = UserSettings.INSTANCE.getThumbnailCreator();
 
-        for (JRadioButton radioButton : radioButtonOfThumbnailCreator
-                .values()) {
-            radioButton.setSelected(radioButtonOfThumbnailCreator.get(creator)
-                                    == radioButton);
+        for (JRadioButton radioButton : radioButtonOfThumbnailCreator.values()) {
+            JRadioButton radioButtonOfCreator = radioButtonOfThumbnailCreator.get(creator);
+
+            radioButton.setSelected(radioButtonOfCreator == radioButton);
         }
     }
 
     private void setExternalThumbnailAppEnabled() {
-        textFieldExternalThumbnailCreationCommand.setEnabled(
-            UserSettings.INSTANCE.getThumbnailCreator().equals(
-                ThumbnailCreator.EXTERNAL_APP));
+        boolean isCreatorExternalApp = UserSettings.INSTANCE.getThumbnailCreator().equals(ThumbnailCreator.EXTERNAL_APP);
+
+        textFieldExternalThumbnailCreationCommand.setEnabled(isCreatorExternalApp);
     }
 
     @Override
@@ -116,15 +102,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
     }
 
     private void handleTextFieldExternalThumbnailCreationCommandKeyReleased() {
-        UserSettings.INSTANCE.setExternalThumbnailCreationCommand(
-            textFieldExternalThumbnailCreationCommand.getText());
+        UserSettings.INSTANCE.setExternalThumbnailCreationCommand(textFieldExternalThumbnailCreationCommand.getText());
     }
 
     private void setThumbnailCreator(JRadioButton radioButton) {
-        UserSettings.INSTANCE.setThumbnailCreator(
-            thumbnailCreatorOfRadioButton.get(radioButton));
-        textFieldExternalThumbnailCreationCommand.setEnabled(
-            radioButtonCreateThumbnailsWithExternalApp.isSelected());
+        UserSettings.INSTANCE.setThumbnailCreator(thumbnailCreatorOfRadioButton.get(radioButton));
+        textFieldExternalThumbnailCreationCommand.setEnabled(radioButtonCreateThumbnailsWithExternalApp.isSelected());
     }
 
     /**

@@ -14,8 +14,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
     private static final long serialVersionUID = 4052809300034354623L;
 
     public RenameFilenamesInDbDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -27,8 +26,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString("Help.Url.RenameFilenamesInDbDialog"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.RenameFilenamesInDbDialog"));
     }
 
     private void checkClosing() {

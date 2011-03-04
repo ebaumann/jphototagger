@@ -59,26 +59,17 @@ import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class AppPanel extends javax.swing.JPanel {
-    private static final String KEY_DIVIDER_LOCATION_MAIN =
-        "AppPanel.DividerLocationMain";
-    private static final String KEY_DIVIDER_LOCATION_THUMBNAILS =
-        "AppPanel.DividerLocationThumbnails";
-    private static final int                   DEFAULT_DIVIDER_LOCATION_MAIN       =
-        100;
-    private static final int                   DEFAULT_DIVIDER_LOCATION_THUMBNAILS =
-        200;
-    private static final long                  serialVersionUID                    =
-        -7555272441595172631L;
-    private final transient MessageLabel       messageLabel;
-    private final List<JTable>                 xmpTables      =
-        new ArrayList<JTable>();
-    private final List<JTable>                 metadataTables =
-        new ArrayList<JTable>();
-    private final List<JTree>                  selectionTrees =
-        new ArrayList<JTree>();
-    private final List<JList>                  selectionLists =
-        new ArrayList<JList>();
-    private transient EditMetadataPanels       editMetadtaPanels;
+    private static final long serialVersionUID = -7555272441595172631L;
+    private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
+    private static final String KEY_DIVIDER_LOCATION_THUMBNAILS = "AppPanel.DividerLocationThumbnails";
+    private static final int DEFAULT_DIVIDER_LOCATION_MAIN = 100;
+    private static final int DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
+    private final transient MessageLabel messageLabel;
+    private final List<JTable> xmpTables = new ArrayList<JTable>();
+    private final List<JTable> metadataTables = new ArrayList<JTable>();
+    private final List<JTree> selectionTrees = new ArrayList<JTree>();
+    private final List<JList> selectionLists = new ArrayList<JList>();
+    private transient EditMetadataPanels editMetadtaPanels;
     private transient EditMetadataActionsPanel panelEditActions;
 
     public AppPanel() {
@@ -186,8 +177,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void setSingleSelection(JTree tree) {
-        tree.getSelectionModel().setSelectionMode(
-            TreeSelectionModel.SINGLE_TREE_SELECTION);
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
     public enum SelectAlso { NOTHING_ELSE, SEL_KEYWORDS_TAB }
@@ -237,8 +227,7 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneMetadata.setEnabledAt(index, enabled);
         tabbedPaneMetadata.setToolTipTextAt(index, enabled
                 ? ""
-                : JptBundle.INSTANCE.getString(
-                    "AppPanel.TabMetadataIptc.TooltipText.Disabled"));
+                : JptBundle.INSTANCE.getString("AppPanel.TabMetadataIptc.TooltipText.Disabled"));
         if (!enabled && index == tabbedPaneMetadata.getSelectedIndex()) {
             tabbedPaneMetadata.setSelectedIndex(0);
         }

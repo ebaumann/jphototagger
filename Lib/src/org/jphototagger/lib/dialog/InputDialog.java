@@ -15,11 +15,11 @@ import org.jphototagger.lib.resource.JslBundle;
  *
  * @author Elmar Baumann
  */
-public class InputDialog extends Dialog {
+public final class InputDialog extends Dialog {
     private static final long  serialVersionUID = -4217215186067129031L;
     private transient Settings settings;
-    private String             propertyKey;
-    private boolean            accepted;
+    private String propertyKey;
+    private boolean accepted;
 
     public InputDialog() {
         super(ComponentUtil.getFrameWithIcon(), true);
@@ -45,8 +45,7 @@ public class InputDialog extends Dialog {
         textFieldInput.setText(input);
     }
 
-    public InputDialog(String info, String input, Properties properties,
-                       String propertyKey) {
+    public InputDialog(String info, String input, Properties properties, String propertyKey) {
         super(ComponentUtil.getFrameWithIcon(), true);
         initComponents();
         labelPrompt.setText(info);
@@ -54,8 +53,7 @@ public class InputDialog extends Dialog {
         setProperties(properties, propertyKey);
     }
 
-    public InputDialog(JDialog owner, String info, String input,
-                       Properties properties, String propertyKey) {
+    public InputDialog(JDialog owner, String info, String input, Properties properties, String propertyKey) {
         super(owner, true);
         initComponents();
         labelPrompt.setText(info);

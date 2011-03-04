@@ -13,14 +13,13 @@ import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColum
  * @author Elmar Baumann
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
-    private static final long      serialVersionUID = -8537559082830438692L;
+    private static final long  serialVersionUID = -8537559082830438692L;
     private TableModelDatabaseInfo modelDatabaseInfo;
-    private volatile boolean       listenToDbChanges;
+    private volatile boolean listenToDbChanges;
 
     public DatabaseInfoCountPanel() {
         initComponents();
-        table.setDefaultRenderer(Object.class,
-                                 new TableCellRendererDatabaseInfoColumns());
+        table.setDefaultRenderer(Object.class, new TableCellRendererDatabaseInfoColumns());
         setLabelFilename();
     }
 
@@ -38,9 +37,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
     private void setLabelFilename() {
         labelFilename.setText(
-            JptBundle.INSTANCE.getString(
-                "DatabaseInfoCountPanel.labelFilename.Filename",
-                UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
+            JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelFilename.Filename", UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
     }
 
     private void setModelDatabaseInfo() {

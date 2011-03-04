@@ -56,22 +56,15 @@ import javax.swing.JTabbedPane;
  */
 public class TabbedPaneSearchPanel extends javax.swing.JPanel
         implements ComponentListener, DocumentListener {
-    private static final long                        serialVersionUID =
-        1668377464478972172L;
-    private final Map<String, Collection<Component>> tabsOfWord       =
-        new HashMap<String, Collection<Component>>();
-    private final Collection<Component> tabsCache      =
-        new ArrayList<Component>();
-    private final Map<Object, String>   originalTextOf = new HashMap<Object,
-                                                             String>();
-    private final Map<Component, JTabbedPane> paneOfTab =
-        new HashMap<Component, JTabbedPane>();
-    private final Map<Component, String> titleOfTab =
-        new LinkedHashMap<Component, String>();
+    private static final long serialVersionUID = 1668377464478972172L;
+    private final Map<String, Collection<Component>> tabsOfWord = new HashMap<String, Collection<Component>>();
+    private final Collection<Component> tabsCache = new ArrayList<Component>();
+    private final Map<Object, String> originalTextOf = new HashMap<Object, String>();
+    private final Map<Component, JTabbedPane> paneOfTab = new HashMap<Component, JTabbedPane>();
+    private final Map<Component, String> titleOfTab = new LinkedHashMap<Component, String>();
     private final DefaultListModel listModel = new DefaultListModel();
-    private Component              visibleComponent;
-    private static final String    HL_SPAN_START =
-        "<span style=\"color:#000000; background:#ffff000;\">";
+    private Component visibleComponent;
+    private static final String HL_SPAN_START = "<span style=\"color:#000000; background:#ffff000;\">";
     private static final String HL_SPAN_END = "</span>";
 
     public TabbedPaneSearchPanel() {
@@ -121,7 +114,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     private Component getTabOfPane(JTabbedPane pane) {
-        Component parent     = pane.getParent();
+        Component parent = pane.getParent();
         Component prevParent = pane;
 
         while (parent != null) {
@@ -140,8 +133,8 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         int tabCount = pane.getTabCount();
 
         for (int i = 0; i < tabCount; i++) {
-            Component tab      = pane.getComponentAt(i);
-            String    tabTitle = pane.getTitleAt(i);
+            Component tab = pane.getComponentAt(i);
+            String tabTitle = pane.getTitleAt(i);
 
             titleOfTab.put(tab, tabTitle);
             paneOfTab.put(tab, pane);
@@ -194,8 +187,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         setWordsOf(tBorder.getTitle(), tabOfBorder);
     }
 
-    private void setWordsOf(JRadioButton radioButton,
-                            Component tabOfRadioButton) {
+    private void setWordsOf(JRadioButton radioButton, Component tabOfRadioButton) {
         setWordsOf(radioButton.getText(), tabOfRadioButton);
     }
 
@@ -234,8 +226,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
      * @param words additional words <em>in lowercase</em>
      * @param tab   tab
      */
-    public void addSearchWordsTo(Collection<? extends String> words,
-                                 Component tab) {
+    public void addSearchWordsTo(Collection<? extends String> words, Component tab) {
         if (words == null) {
             throw new NullPointerException("words == null");
         }
@@ -465,10 +456,10 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
             return s;
         }
 
-        StringBuilder sb           = new StringBuilder();
-        int           wLen         = word.length();
-        int           iSize        = indices.size();
-        int           beforeWIndex = 0;
+        StringBuilder sb = new StringBuilder();
+        int wLen = word.length();
+        int iSize = indices.size();
+        int beforeWIndex = 0;
 
         for (int i = 0; i < iSize; i++) {
             int wIndex = indices.get(i);
@@ -491,12 +482,12 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     private List<Integer> getHighlightStartIndices(String s, String word) {
-        String        sLower  = s.toLowerCase();
-        String        wLower  = word.toLowerCase();
-        int           sLen    = sLower.length();
-        int           wLen    = word.length();
+        String sLower = s.toLowerCase();
+        String wLower = word.toLowerCase();
+        int sLen = sLower.length();
+        int wLen = word.length();
         List<Integer> indices = new ArrayList<Integer>();
-        int           index   = sLower.indexOf(wLower, 0);
+        int index = sLower.indexOf(wLower, 0);
 
         while (index >= 0) {
             indices.add(index);
@@ -509,12 +500,12 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     private String getHighlightedHtml(String s, String word) {
-        StringBuilder                sb          = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         List<Pair<Integer, Integer>> validRanges = getValidRangesInHtml(s);
-        int                          bIndexText  = 0;
-        int                          eIndexText  = 0;
-        int                          bIndexHtml  = 0;
-        int                          eIndexHtml  = 0;
+        int bIndexText = 0;
+        int eIndexText = 0;
+        int bIndexHtml = 0;
+        int eIndexHtml = 0;
 
         if (validRanges.isEmpty()) {
             return s;
@@ -532,8 +523,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
             bIndexHtml = eIndexText;
 
             if (StringUtil.isSubstring(s, bIndexText, eIndexText)) {
-                sb.append(getHighlightedIn(s.substring(bIndexText, eIndexText),
-                                           word));
+                sb.append(getHighlightedIn(s.substring(bIndexText, eIndexText), word));
             }
         }
 
@@ -547,7 +537,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     private List<Pair<Integer, Integer>> getValidRangesInHtml(String s) {
         List<Pair<Integer, Integer>> ranges = new ArrayList<Pair<Integer,
                                                   Integer>>();
-        int len   = s.length();
+        int len  = s.length();
         int start = 0;
 
         for (int i = 0; i < len; i++) {
@@ -567,10 +557,8 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         private static final long serialVersionUID = -7474877709980199802L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value,
-                int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list,
-                               value, index, isSelected, cellHasFocus);
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof Component) {
                 String tabTitle = titleOfTab.get((Component) value);

@@ -30,13 +30,11 @@ import javax.swing.tree.TreeSelectionModel;
  *
  * @author Elmar Baumann
  */
-public final class DirectoryChooser extends Dialog
-        implements TreeSelectionListener, PopupMenuListener {
-    private static final long                   serialVersionUID =
-        -4494883459031977084L;
-    private final File                          startDirectory;
-    private final List<Option>                  directoryFilter;
-    private boolean                             accepted;
+public final class DirectoryChooser extends Dialog implements TreeSelectionListener, PopupMenuListener {
+    private static final long serialVersionUID = -4494883459031977084L;
+    private final File startDirectory;
+    private final List<Option> directoryFilter;
+    private boolean accepted;
     private final TreeModelAllSystemDirectories model;
 
     public enum Option {
@@ -55,8 +53,7 @@ public final class DirectoryChooser extends Dialog
      * @param startDirectory  start directory, will be selected or {@code new File("")}
      * @param options         options
      */
-    public DirectoryChooser(java.awt.Frame parent, File startDirectory,
-                            Option... options) {
+    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Option... options) {
         super(parent, true);
 
         if (startDirectory == null) {
@@ -70,8 +67,7 @@ public final class DirectoryChooser extends Dialog
         this.startDirectory  = startDirectory;
         this.directoryFilter = Arrays.asList(options);
         initComponents();
-        this.model = new TreeModelAllSystemDirectories(tree,
-                getIsShowHiddenDirsFilter());
+        this.model = new TreeModelAllSystemDirectories(tree, getIsShowHiddenDirsFilter());
         postInitComponents();
     }
 
@@ -93,18 +89,14 @@ public final class DirectoryChooser extends Dialog
 
     private void setUsageText() {
         labelUsage.setText(directoryFilter.contains(Option.MULTI_SELECTION)
-                           ? JslBundle.INSTANCE.getString(
-                               "DirectoryChooser.LabelUsage.MultipleSelection")
-                           : JslBundle.INSTANCE.getString(
-                               "DirectoryChooser.LabelUsage.SingleSelection"));
+                           ? JslBundle.INSTANCE.getString("DirectoryChooser.LabelUsage.MultipleSelection")
+                           : JslBundle.INSTANCE.getString("DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
         setTitle(directoryFilter.contains(Option.MULTI_SELECTION)
-                 ? JslBundle.INSTANCE.getString(
-                     "DirectoryChooser.Title.MultipleSelection")
-                 : JslBundle.INSTANCE.getString(
-                     "DirectoryChooser.Title.SingleSelection"));
+                 ? JslBundle.INSTANCE.getString("DirectoryChooser.Title.MultipleSelection")
+                 : JslBundle.INSTANCE.getString("DirectoryChooser.Title.SingleSelection"));
     }
 
     @Override
@@ -139,13 +131,11 @@ public final class DirectoryChooser extends Dialog
 
         if (paths != null) {
             for (int index = 0; index < paths.length; index++) {
-                Object[] path      = paths[index].getPath();
-                int      filecount = path.length;
+                Object[] path = paths[index].getPath();
+                int filecount = path.length;
 
                 if ((path != null) && (filecount >= 1)) {
-                    Object userObject =
-                        ((DefaultMutableTreeNode) path[filecount - 1])
-                            .getUserObject();
+                    Object userObject = ((DefaultMutableTreeNode) path[filecount - 1]).getUserObject();
 
                     if (userObject instanceof File) {
                         files.add((File) userObject);
@@ -182,9 +172,7 @@ public final class DirectoryChooser extends Dialog
 
     private void ok() {
         if (tree.getSelectionCount() > 0) {
-            DefaultMutableTreeNode selNode =
-                (DefaultMutableTreeNode) tree.getSelectionPath()
-                    .getLastPathComponent();
+            DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
             Object userObject = selNode.getUserObject();
 
             if (userObject instanceof File) {
@@ -192,11 +180,11 @@ public final class DirectoryChooser extends Dialog
                 super.setVisible(false);
             } else {
                 JOptionPane
-                    .showMessageDialog(this, JslBundle.INSTANCE
-                        .getString("DirectoryChooser.Error.NoDirectoryChosen"), JslBundle
-                        .INSTANCE
-                        .getString("DirectoryChooser.Error.NoDirectoryChosen.Title"), JOptionPane
-                        .ERROR_MESSAGE);
+                    .showMessageDialog(
+                    this,
+                    JslBundle.INSTANCE.getString("DirectoryChooser.Error.NoDirectoryChosen"),
+                    JslBundle.INSTANCE.getString("DirectoryChooser.Error.NoDirectoryChosen.Title"),
+                    JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -216,8 +204,7 @@ public final class DirectoryChooser extends Dialog
         TreePath[] selPaths = tree.getSelectionPaths();
 
         for (TreePath treePath : selPaths) {
-            DefaultMutableTreeNode node =
-                TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
+            DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
             File dir = (node == null)
                        ? null
                        : TreeFileSystemDirectories.getFile(node);
@@ -237,8 +224,7 @@ public final class DirectoryChooser extends Dialog
         TreePath[] selPaths = tree.getSelectionPaths();
 
         for (TreePath treePath : selPaths) {
-            DefaultMutableTreeNode node =
-                TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
+            DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
             File dir = (node == null)
                        ? null
                        : TreeFileSystemDirectories.getFile(node);
@@ -253,7 +239,7 @@ public final class DirectoryChooser extends Dialog
 
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
-        Object  node          = tree.getLastSelectedPathComponent();
+        Object node = tree.getLastSelectedPathComponent();
         boolean allDirOptions = allDirActionsPossible();
 
         menuItemAdd.setEnabled(!isWorkspace(node));
@@ -275,9 +261,9 @@ public final class DirectoryChooser extends Dialog
 
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
-        Object  node          = tree.getLastSelectedPathComponent();
+        Object node = tree.getLastSelectedPathComponent();
         boolean allDirActions = allDirActionsPossible();
-        boolean isWorkspace   = isWorkspace(node);
+        boolean isWorkspace = isWorkspace(node);
 
         buttonAdd.setEnabled(!isWorkspace);
         buttonChoose.setEnabled(!isWorkspace);

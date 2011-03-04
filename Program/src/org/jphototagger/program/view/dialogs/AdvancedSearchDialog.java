@@ -13,13 +13,11 @@ import org.jphototagger.lib.dialog.Dialog;
  */
 public final class AdvancedSearchDialog extends Dialog
         implements AdvancedSearchPanel.NameListener {
-    public static final AdvancedSearchDialog INSTANCE =
-        new AdvancedSearchDialog(false);
+    public static final AdvancedSearchDialog INSTANCE = new AdvancedSearchDialog(false);
     private static final long serialVersionUID = -7381253840654600441L;
 
     private AdvancedSearchDialog(boolean modal) {
-        super(GUI.getAppFrame(), modal,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), modal, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         panel.addNameListener(this);
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
@@ -69,8 +67,7 @@ public final class AdvancedSearchDialog extends Dialog
     }
 
     private void setSearchName(String name) {
-        setTitle(JptBundle.INSTANCE.getString(
-                "AdvancedSearchDialog.TitlePrefix") + ": " + name);
+        setTitle(JptBundle.INSTANCE.getString("AdvancedSearchDialog.TitlePrefix") + ": " + name);
     }
 
     /**

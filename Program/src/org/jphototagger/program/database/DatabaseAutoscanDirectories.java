@@ -107,7 +107,7 @@ public final class DatabaseAutoscanDirectories extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM autoscan_directories" + " WHERE directory = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?");
             stmt.setString(1, getFilePath(directory));
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -135,7 +135,7 @@ public final class DatabaseAutoscanDirectories extends Database {
             con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT directory FROM autoscan_directories" + " ORDER BY directory ASC";
+            String sql = "SELECT directory FROM autoscan_directories ORDER BY directory ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
