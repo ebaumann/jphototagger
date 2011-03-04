@@ -1,5 +1,6 @@
 package org.jphototagger.program.model;
 
+import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
@@ -25,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.table.DefaultTableModel;
 
 /**
  * Elements are {@link ExifTag}s ore {@link String}s in case of GPS information
@@ -39,23 +39,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class TableModelExif extends DefaultTableModel {
-    private static final long         serialVersionUID = -5656774233855745962L;
-    private File                      file;
+public final class TableModelExif extends TableModelExt {
+    private static final long serialVersionUID = -5656774233855745962L;
+    private File file;
     private transient ExifGpsMetadata exifGpsMetadata;
-    private transient ExifTags        exifTags;
-    private static final Translation  TRANSLATION =
-        new Translation("ExifTagIdTagNameTranslations");
+    private transient ExifTags exifTags;
+    private static final Translation TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
 
     public TableModelExif() {
         setRowHeaders();
     }
 
     private void setRowHeaders() {
-        addColumn(
-            JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.1"));
-        addColumn(
-            JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.2"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.1"));
+        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.2"));
     }
 
     /**
@@ -78,20 +75,13 @@ public final class TableModelExif extends DefaultTableModel {
         }
 
         this.file = file;
-                getDataVector().removeAllElements();
+        removeAllRows();
 
         try {
             setExifTags();
         } catch (Exception ex) {
             AppLogger.logSevere(TableModelExif.class, ex);
         }
-    }
-
-    /**
-     * Entfernt alle EXIF-Daten.
-     */
-    public void removeAllElements() {
-        getDataVector().removeAllElements();
     }
 
     private void setExifTags() {
@@ -111,8 +101,7 @@ public final class TableModelExif extends DefaultTableModel {
         List<ExifTag> exifTagsToDisplay = ExifTagsToDisplay.get(tags);
 
         if (exifTagsToDisplay != null) {
-            Collections.sort(exifTagsToDisplay,
-                             ExifTagDisplayComparator.INSTANCE);
+            Collections.sort(exifTagsToDisplay, ExifTagDisplayComparator.INSTANCE);
 
             for (ExifTag exifTagToDisplay : exifTagsToDisplay) {
                 String value = exifTagToDisplay.stringValue();
@@ -128,40 +117,28 @@ public final class TableModelExif extends DefaultTableModel {
         exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags);
 
         if (exifGpsMetadata.latitude() != null) {
-            final String tagId =
-                Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
+            final String tagId = Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
             final String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[] { tagName,
-                                        exifGpsMetadata.latitude()
-                                            .localizedString() });
+            super.addRow(new Object[] { tagName, exifGpsMetadata.latitude().localizedString() });
         }
 
         if (exifGpsMetadata.longitude() != null) {
-            final String tagId =
-                Integer.toString(ExifTag.Id.GPS_LONGITUDE.value());
+            final String tagId = Integer.toString(ExifTag.Id.GPS_LONGITUDE.value());
             final String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[] { tagName,
-                                        exifGpsMetadata.longitude()
-                                            .localizedString() });
+            super.addRow(new Object[] { tagName, exifGpsMetadata.longitude().localizedString() });
         }
 
         if (exifGpsMetadata.altitude() != null) {
-            final String tagId =
-                Integer.toString(ExifTag.Id.GPS_ALTITUDE.value());
+            final String tagId = Integer.toString(ExifTag.Id.GPS_ALTITUDE.value());
             final String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[] { tagName,
-                                        exifGpsMetadata.altitude()
-                                            .localizedString() });
+            super.addRow(new Object[] { tagName, exifGpsMetadata.altitude().localizedString() });
         }
 
-        if ((exifGpsMetadata.longitude() != null)
-                && (exifGpsMetadata.latitude() != null)) {
-            final JButton button = new JButton(
-                                       JptBundle.INSTANCE.getString(
-                                           "TableModelExif.Button.GoogleMaps"));
+        if ((exifGpsMetadata.longitude() != null) && (exifGpsMetadata.latitude() != null)) {
+            final JButton button = new JButton(JptBundle.INSTANCE.getString("TableModelExif.Button.GoogleMaps"));
 
             button.addActionListener(new GpsButtonListener());
             super.addRow(new Object[] { exifGpsMetadata, button });
@@ -191,9 +168,7 @@ public final class TableModelExif extends DefaultTableModel {
 
         private void browse() {
             if (exifGpsMetadata != null) {
-                String url =
-                    ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(),
-                                              exifGpsMetadata.latitude());
+                String url = ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(), exifGpsMetadata.latitude());
 
                 try {
                     Desktop.getDesktop().browse(new URI(url));

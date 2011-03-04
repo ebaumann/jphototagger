@@ -2,6 +2,7 @@ package org.jphototagger.program.model;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
+import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.io.File;
@@ -9,17 +10,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  * Alle elements are {@code XMPPropertyInfo} instances retrieved through
  * {@link #setPropertyInfosOfFile(File, List)}.
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class TableModelXmp extends DefaultTableModel {
-    private static final long     serialVersionUID = -647814140321831383L;
-    private File                  file;
+public final class TableModelXmp extends TableModelExt {
+    private static final long serialVersionUID = -647814140321831383L;
+    private File file;
     private List<XMPPropertyInfo> propertyInfos;
 
     public TableModelXmp() {
@@ -34,8 +33,7 @@ public final class TableModelXmp extends DefaultTableModel {
      *                       Information unwichtig ist
      * @param propertyInfos  Property-Infos
      */
-    public void setPropertyInfosOfFile(File file,
-                                       List<XMPPropertyInfo> propertyInfos) {
+    public void setPropertyInfosOfFile(File file, List<XMPPropertyInfo> propertyInfos) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -44,9 +42,9 @@ public final class TableModelXmp extends DefaultTableModel {
             throw new NullPointerException("propertyInfos == null");
         }
 
-        this.file          = file;
+        this.file = file;
         this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
-        getDataVector().clear();
+        removeAllRows();
         addRows();
     }
 
@@ -59,14 +57,6 @@ public final class TableModelXmp extends DefaultTableModel {
      */
     public File getFile() {
         return file;
-    }
-
-    /**
-     * Entfernt alle XMP-Daten.
-     */
-    public void removeAllRows() {
-        getDataVector().clear();
-        file = null;
     }
 
     @Override
@@ -83,7 +73,7 @@ public final class TableModelXmp extends DefaultTableModel {
     }
 
     private void addRow(XMPPropertyInfo xmpPropertyInfo) {
-        String path  = xmpPropertyInfo.getPath();
+        String path = xmpPropertyInfo.getPath();
         Object value = xmpPropertyInfo.getValue();
 
         if ((path != null) && (value != null) &&!path.contains("Digest")) {
