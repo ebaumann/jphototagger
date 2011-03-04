@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.program.event.ProgressEvent;
@@ -27,6 +28,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
@@ -38,16 +41,13 @@ import org.jphototagger.lib.componentutil.ListUtil;
  */
 public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         implements UpdateMetadataCheckListener, ProgressListener {
-    private static final String KEY_LAST_DIRECTORY =
-        "org.jphototagger.program.view.ScanDirectoriesDialog.lastSelectedDirectory";
-    private static final String KEY_FORCE =
-        "org.jphototagger.program.view.ScanDirectoriesDialog.force";
-    private static final String KEY_SUBDIRECTORIES =
-        "org.jphototagger.program.view.ScanDirectoriesDialog.subdirectories";
-    private static final long      serialVersionUID     = -8953645248403117494L;
-    private final DefaultListModel listModelDirectories =
-        new DefaultListModel();
-    private File                                   lastDirectory = new File("");
+    private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.ScanDirectoriesDialog.lastSelectedDirectory";
+    private static final String KEY_FORCE = "org.jphototagger.program.view.ScanDirectoriesDialog.force";
+    private static final String KEY_SUBDIRECTORIES = "org.jphototagger.program.view.ScanDirectoriesDialog.subdirectories";
+    private static final long serialVersionUID = -8953645248403117494L;
+    private final DefaultListModel listModelDirectories = new DefaultListModel();
+    private File lastDirectory = new File("");
+    private static final transient Logger LOGGER = Logger.getLogger(UpdateMetadataOfDirectoriesPanel.class.getName());
     private transient InsertImageFilesIntoDatabase imageFileInserter;
 
     public UpdateMetadataOfDirectoriesPanel() {
@@ -123,9 +123,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void createImageFileInserter(List<File> selectedImageFiles) {
-        imageFileInserter = new InsertImageFilesIntoDatabase(
-            selectedImageFiles,
-            getWhatToInsertIntoDatabase());
+        Insert[] insertIntoDatabase = getWhatToInsertIntoDatabase();
+
+        imageFileInserter = new InsertImageFilesIntoDatabase(selectedImageFiles, insertIntoDatabase);
         imageFileInserter.addProgressListener(this);
         imageFileInserter.addUpdateMetadataCheckListener(this);
     }
@@ -173,8 +173,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void readLastDirectoryFromProperties() {
-        String lastDirectoryName =
-            UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
+        String lastDirectoryName = UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
 
         if (!lastDirectoryName.isEmpty()) {
             File directory = new File(lastDirectoryName);
@@ -203,8 +202,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     public void checkForUpdate(UpdateMetadataCheckEvent evt) {
         if (evt.getType().equals(Type.CHECKING_FILE)) {
             File file = evt.getImageFile();
-
-            assert file != null : "File is null!";
 
             if (file != null) {
                 setFileLabel(file);
@@ -275,25 +272,20 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void chooseDirectories() {
-        final DirectoryChooser dlg =
-            new DirectoryChooser(
-                GUI.getAppFrame(), lastDirectory,
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory,
                 UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
-                           "UpdateMetadataOfDirectoriesPanel.DirChooser");
-
         buttonChooseDirectories.setEnabled(false);
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "UpdateMetadataOfDirectoriesPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
-            List<File> selDirs = dlg.getSelectedDirectories();
+            List<File> selectedDirs = dlg.getSelectedDirectories();
 
-            lastDirectory = selDirs.get(0);
+            lastDirectory = selectedDirs.get(0);
             progressBar.setIndeterminate(true);
-            progressBar.setString(JptBundle.INSTANCE.getString(
-                    "UpdateMetadataOfDirectoriesPanel.Info.ScanningDirs"));
-            new AddNotContainedDirectories(selDirs).start();
+            progressBar.setString(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.Info.ScanningDirs"));
+            new AddNotContainedDirectories(selectedDirs).start();
         } else {
             buttonChooseDirectories.setEnabled(true);
         }
@@ -309,12 +301,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
         @Override
         public void run() {
-            final List<File> newDirectories = getNewDirectoriesIn(
-                                                                   directories);
+            final List<File> newDirectories = getDirectoriesNotInListModelFrom(directories);
 
+            LOGGER.log(Level.INFO, "Adding previously added directories {0} to {1}", new Object[]{newDirectories, directories});
             CollectionUtil.addNotContainedElements(directories, newDirectories);
 
             if (checkBoxIncludeSubdirectories.isSelected()) {
+                LOGGER.log(Level.INFO, "Adding recursively all not previously added subdirectories of {0}", newDirectories);
                 addSubdirectories(newDirectories);
             }
 
@@ -332,11 +325,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             }
     }
 
-    private List<File> getNewDirectoriesIn(List<File> directories) {
+    private List<File> getDirectoriesNotInListModelFrom(List<File> directories) {
         List<File> newDirectories = new ArrayList<File>();
 
+        LOGGER.log(Level.INFO, "Searching directories not previously added from {0}", directories);
         for (File directory : directories) {
             if (!listModelDirectories.contains(directory)) {
+                LOGGER.log(Level.INFO, "Found not previously added directory {0}", directory);
                 newDirectories.add(directory);
             }
         }
@@ -345,13 +340,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void addDirectories(List<File> directories) {
+        LOGGER.log(Level.INFO, "Adding directories {0}", directories);
         Collections.sort(directories, FileSort.PATHS_ASCENDING.getComparator());
 
         for (File directory : directories) {
+            LOGGER.log(Level.INFO, "Searching image files in directory {0}", directory);
             ImageFileDirectory imageFileDir = new ImageFileDirectory(directory);
 
-            if (imageFileDir.hasImageFiles()
-                    &&!listModelDirectories.contains(imageFileDir)) {
+            if (imageFileDir.hasImageFiles() &&!listModelDirectories.contains(imageFileDir)) {
                 listModelDirectories.addElement(imageFileDir);
             }
         }
@@ -359,12 +355,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     private void addSubdirectories(List<File> directories) {
         List<File> subdirectories = new ArrayList<File>();
+        Option showHiddenFiles = UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles();
 
         for (File dir : directories) {
-            subdirectories.addAll(FileUtil.getSubDirsRecursive(dir,
-                    UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
+            LOGGER.log(Level.INFO, "Searching recursively subdirectories of {0}", dir);
+            subdirectories.addAll(FileUtil.getSubDirsRecursive(dir, showHiddenFiles));
         }
 
+        LOGGER.log(Level.INFO, "Adding from {0} not previously added directories to {1}", new Object[]{subdirectories, directories});
         CollectionUtil.addNotContainedElements(subdirectories, directories);
     }
 
