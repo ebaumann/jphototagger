@@ -112,7 +112,7 @@
         <Component class="javax.swing.JSpinner" name="spinnerMaxThumbnailWidth">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new SpinnerNumberModel(UserSettings.DEFAULT_THUMBNAIL_LENGTH, UserSettings.MIN_THUMBNAIL_LENGTH, UserSettings.MAX_THUMBNAIL_LENGTH, 50)" type="code"/>
+              <Connection code="new SpinnerNumberModel(UserSettings.DEFAULT_THUMBNAIL_WIDTH, UserSettings.MIN_THUMBNAIL_WIDTH, UserSettings.MAX_THUMBNAIL_WIDTH, 50)" type="code"/>
             </Property>
             <Property name="name" type="java.lang.String" value="spinnerMaxThumbnailWidth" noResource="true"/>
           </Properties>
@@ -171,12 +171,12 @@
                           <EmptySpace min="146" pref="146" max="146" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="radioButtonCreateThumbnailsWithImagero" pref="446" max="32767" attributes="0"/>
+                          <Component id="radioButtonCreateThumbnailsWithImagero" pref="448" max="32767" attributes="0"/>
                           <EmptySpace min="159" pref="159" max="159" attributes="0"/>
                       </Group>
                       <Component id="radioButtonUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="2"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="radioButtonCreateThumbnailsWithExternalApp" pref="494" max="32767" attributes="0"/>
+                          <Component id="radioButtonCreateThumbnailsWithExternalApp" pref="496" max="32767" attributes="0"/>
                           <EmptySpace min="111" pref="111" max="111" attributes="0"/>
                       </Group>
                   </Group>

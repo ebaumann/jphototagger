@@ -164,7 +164,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         labelMaxThumbnailWidth.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
         labelMaxThumbnailWidth.setName("labelMaxThumbnailWidth"); // NOI18N
 
-        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(UserSettings.DEFAULT_THUMBNAIL_LENGTH, UserSettings.MIN_THUMBNAIL_LENGTH, UserSettings.MAX_THUMBNAIL_LENGTH, 50));
+        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(UserSettings.DEFAULT_THUMBNAIL_WIDTH, UserSettings.MIN_THUMBNAIL_WIDTH, UserSettings.MAX_THUMBNAIL_WIDTH, 50));
         spinnerMaxThumbnailWidth.setName("spinnerMaxThumbnailWidth"); // NOI18N
         spinnerMaxThumbnailWidth.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -264,11 +264,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
                         .addComponent(radioButtonCreateThumbnailsWithJavaImageIo)
                         .addGap(146, 146, 146))
                     .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                        .addComponent(radioButtonCreateThumbnailsWithImagero, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                        .addComponent(radioButtonCreateThumbnailsWithImagero, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
                         .addGap(159, 159, 159))
                     .addComponent(radioButtonUseEmbeddedThumbnails)
                     .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                        .addComponent(radioButtonCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                        .addComponent(radioButtonCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
                         .addGap(111, 111, 111)))
                 .addContainerGap())
         );
