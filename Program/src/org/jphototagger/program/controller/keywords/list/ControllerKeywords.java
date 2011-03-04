@@ -1,11 +1,11 @@
 package org.jphototagger.program.controller.keywords.list;
 
+import org.jphototagger.lib.thirdparty.SortedListModel;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.model.ListModelKeywords;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-import org.jphototagger.lib.thirdparty.SortedListModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -29,9 +29,8 @@ public abstract class ControllerKeywords extends Controller {
     }
 
     private void listen() {
-        listenToKeyEventsOf(
-            GUI.getAppPanel().getListEditKeywords(),
-            InputHelperDialog.INSTANCE.getPanelKeywords().getList());
+        listenToKeyEventsOf(GUI.getAppPanel().getListEditKeywords(),
+                            InputHelperDialog.INSTANCE.getPanelKeywords().getList());
     }
 
     @Override
@@ -55,13 +54,13 @@ public abstract class ControllerKeywords extends Controller {
     protected ListModelKeywords getModel() {
 
         // All lists have the same model
-        return (ListModelKeywords) ((SortedListModel) GUI.getAppPanel()
-            .getListEditKeywords().getModel()).getUnsortedModel();
+        return (ListModelKeywords) ((SortedListModel) GUI.getAppPanel().getListEditKeywords().getModel())
+            .getUnsortedModel();
     }
 
     private String getStringOfPopupMenu() {
-        JList list  = PopupMenuKeywordsList.INSTANCE.getList();
-        int   index = PopupMenuKeywordsList.INSTANCE.getSelIndex();
+        JList list = PopupMenuKeywordsList.INSTANCE.getList();
+        int index = PopupMenuKeywordsList.INSTANCE.getSelIndex();
 
         if (index < 0) {
             return "";
@@ -71,7 +70,7 @@ public abstract class ControllerKeywords extends Controller {
     }
 
     private List<String> getSelStrings(JList list) {
-        Object[]     selValues  = list.getSelectedValues();
+        Object[] selValues = list.getSelectedValues();
         List<String> selStrings = new ArrayList<String>(selValues.length);
 
         for (Object selValue : selValues) {

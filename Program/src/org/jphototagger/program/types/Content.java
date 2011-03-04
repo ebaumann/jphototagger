@@ -73,15 +73,13 @@ public enum Content {
      * Contents where images of displayed thumbnails can be deleted from the
      * file system
      */
-    private static final Set<Content> CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED =
-        new HashSet<Content>();
+    private static final Set<Content> CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED = new HashSet<Content>();
 
     /**
      * Contents where images located elsewhere in the file system can be
      * inserted
      */
-    private static final Set<Content> CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED =
-        new HashSet<Content>();
+    private static final Set<Content> CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED = new HashSet<Content>();
 
     static {
 

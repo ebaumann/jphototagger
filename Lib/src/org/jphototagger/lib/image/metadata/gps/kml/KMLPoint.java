@@ -9,9 +9,9 @@ package org.jphototagger.lib.image.metadata.gps.kml;
  */
 public final class KMLPoint implements KMLElement {
     private static final double VALUE_NO_ALTITUDE = Double.MIN_VALUE;
-    private final double        longitude;
-    private final double        latitude;
-    private final double        altitude;
+    private final double longitude;
+    private final double latitude;
+    private final double altitude;
 
     /**
      * Creates a point.
@@ -24,8 +24,7 @@ public final class KMLPoint implements KMLElement {
      */
     public KMLPoint(double longitude, double latitude) {
         if ((longitude < -180) || (longitude > 180)) {
-            throw new IllegalArgumentException("Illegal longitude: "
-                                               + longitude);
+            throw new IllegalArgumentException("Illegal longitude: " + longitude);
         }
 
         if ((latitude < -90) || (latitude > 90)) {
@@ -33,8 +32,8 @@ public final class KMLPoint implements KMLElement {
         }
 
         this.longitude = longitude;
-        this.latitude  = latitude;
-        this.altitude  = VALUE_NO_ALTITUDE;
+        this.latitude = latitude;
+        this.altitude = VALUE_NO_ALTITUDE;
     }
 
     /**
@@ -49,8 +48,7 @@ public final class KMLPoint implements KMLElement {
      */
     public KMLPoint(double longitude, double latitude, double altitude) {
         if ((longitude < -180) || (longitude > 180)) {
-            throw new IllegalArgumentException("Illegal longitude: "
-                                               + longitude);
+            throw new IllegalArgumentException("Illegal longitude: " + longitude);
         }
 
         if ((latitude < -90) || (latitude > 90)) {
@@ -62,8 +60,8 @@ public final class KMLPoint implements KMLElement {
         }
 
         this.longitude = longitude;
-        this.latitude  = latitude;
-        this.altitude  = altitude;
+        this.latitude = latitude;
+        this.altitude = altitude;
     }
 
     /**

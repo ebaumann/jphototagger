@@ -18,8 +18,7 @@ import javax.xml.bind.Marshaller;
  * @author Elmar Baumann
  */
 public final class XmlObjectExporter {
-    public static void export(Object object, File file)
-            throws JAXBException, IOException {
+    public static void export(Object object, File file) throws JAXBException, IOException {
         if (object == null) {
             throw new NullPointerException("object == null");
         }
@@ -34,8 +33,8 @@ public final class XmlObjectExporter {
             return;
         }
 
-        JAXBContext context    = JAXBContext.newInstance(object.getClass());
-        Marshaller  marshaller = context.createMarshaller();
+        JAXBContext context = JAXBContext.newInstance(object.getClass());
+        Marshaller marshaller = context.createMarshaller();
 
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
@@ -47,8 +46,7 @@ public final class XmlObjectExporter {
         Writer writer = null;
 
         try {
-            writer = new OutputStreamWriter(new FileOutputStream(file),
-                                            "UTF-8");
+            writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
         } catch (IOException ex) {
             close(writer);
 

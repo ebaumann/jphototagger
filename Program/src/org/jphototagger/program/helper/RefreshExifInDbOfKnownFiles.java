@@ -20,15 +20,14 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
 
     public RefreshExifInDbOfKnownFiles() {
         super("JPhotoTagger: Refreshing EXIF in the database of known files");
-        setInfo(
-            JptBundle.INSTANCE.getString("RefreshExifInDbOfKnownFiles.Info"));
+        setInfo(JptBundle.INSTANCE.getString("RefreshExifInDbOfKnownFiles.Info"));
     }
 
     @Override
     public void run() {
-        DatabaseImageFiles db         = DatabaseImageFiles.INSTANCE;
-        List<File>         imageFiles = db.getAllImageFiles();
-        int                fileCount  = imageFiles.size();
+        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+        List<File> imageFiles = db.getAllImageFiles();
+        int fileCount = imageFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
                                          ? imageFiles.get(0)
@@ -36,7 +35,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
 
         for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
-            Exif exif      = ExifMetadata.getExif(imageFile);
+            Exif exif = ExifMetadata.getExif(imageFile);
 
             if (exif != null) {
                 db.insertOrUpdateExif(imageFile, exif);

@@ -12,8 +12,7 @@ public final class ExifGpsMetadata {
     /**
      * Status of the GPS receiver when the image is recorded
      */
-    public enum GpsStatus { MEASUREMENT_IS_IN_PROGRESS,
-                            MEASUREMENT_IS_INTEROPERABILITY }
+    public enum GpsStatus { MEASUREMENT_IS_IN_PROGRESS, MEASUREMENT_IS_INTEROPERABILITY }
 
     /**
      * GPS measurement mode
@@ -46,32 +45,32 @@ public final class ExifGpsMetadata {
      */
     public enum GpsDestDistanceRef { KILOMETERS, MILES, KNOTS }
 
-    private ExifGpsVersion     version;
-    private ExifGpsLatitude    latitude;
-    private ExifGpsLongitude   longitude;
-    private ExifGpsAltitude    altitude;
-    private ExifGpsTimeStamp   timeStamp;
-    private String             gpsSatellites;
-    private GpsStatus          gpsReceiverStatus;
-    private GpsMeasureMode     gpsMeasurementMode;
-    private ExifRational       gpsDop;
-    private GpsSpeedRef        gpsSpeedRef;
-    private ExifRational       gpsSpeed;
-    private GpsTrackRef        gpsTrackRef;
-    private ExifRational       gpsTrack;
+    private ExifGpsVersion version;
+    private ExifGpsLatitude latitude;
+    private ExifGpsLongitude longitude;
+    private ExifGpsAltitude altitude;
+    private ExifGpsTimeStamp timeStamp;
+    private String gpsSatellites;
+    private GpsStatus gpsReceiverStatus;
+    private GpsMeasureMode gpsMeasurementMode;
+    private ExifRational gpsDop;
+    private GpsSpeedRef gpsSpeedRef;
+    private ExifRational gpsSpeed;
+    private GpsTrackRef gpsTrackRef;
+    private ExifRational gpsTrack;
     private GpsImgDirectionRef gpsImgDirectionRef;
-    private ExifRational       gpsImgDirection;
-    private String             gpsMapDatum;
-    private ExifGpsLatitude    destLatitude;
-    private ExifGpsLongitude   destLongitude;
-    private GpsDestBearingRef  gpsDestBearingRef;
-    private ExifRational       gpsDestBearing;
+    private ExifRational gpsImgDirection;
+    private String gpsMapDatum;
+    private ExifGpsLatitude destLatitude;
+    private ExifGpsLongitude destLongitude;
+    private GpsDestBearingRef gpsDestBearingRef;
+    private ExifRational gpsDestBearing;
     private GpsDestDistanceRef gpsDestDistanceRef;
-    private ExifRational       gpsDistanceToDestination;
-    private String             gpsProcessingMethod;
-    private String             gpsAreaInformation;
-    private ExifGpsDateStamp   gpsDateStamp;
-    private int                gpsDifferential;
+    private ExifRational gpsDistanceToDestination;
+    private String gpsProcessingMethod;
+    private String gpsAreaInformation;
+    private ExifGpsDateStamp gpsDateStamp;
+    private int gpsDifferential;
 
     /**
      * Returns the altitude.
@@ -253,8 +252,7 @@ public final class ExifGpsMetadata {
      *
      * @param gpsDistanceToDestination distance to destination
      */
-    public void setGpsDistanceToDestination(
-            ExifRational gpsDistanceToDestination) {
+    public void setGpsDistanceToDestination(ExifRational gpsDistanceToDestination) {
         this.gpsDistanceToDestination = gpsDistanceToDestination;
     }
 

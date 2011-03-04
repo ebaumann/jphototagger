@@ -1,11 +1,11 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.dialog.InputDialog;
 
 /**
  *
@@ -24,9 +24,7 @@ public final class MetadataTemplateHelper {
     public static String getNewTemplateName(String fromName) {
         InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE);
 
-        dlg.setInfo(
-            JptBundle.INSTANCE.getString(
-                "MetadataTemplateHelper.Info.InputName"));
+        dlg.setInfo(JptBundle.INSTANCE.getString("MetadataTemplateHelper.Info.InputName"));
 
         if (fromName != null) {
             dlg.setInput(fromName);
@@ -45,21 +43,16 @@ public final class MetadataTemplateHelper {
                 return null;
             }
 
-            boolean namesEqual = (fromName != null)
-                                 && name.equalsIgnoreCase(fromName);
+            boolean namesEqual = (fromName != null) && name.equalsIgnoreCase(fromName);
 
             if (namesEqual) {
-                if (!MessageDisplayer.confirmYesNo(
-                        null, "MetadataTemplateHelper.Error.NamEquals")) {
+                if (!MessageDisplayer.confirmYesNo(null, "MetadataTemplateHelper.Error.NamEquals")) {
                     return null;
                 }
             }
 
-            if (!namesEqual
-                    && DatabaseMetadataTemplates.INSTANCE.exists(name)) {
-                if (!MessageDisplayer.confirmYesNo(
-                        null, "MetadataTemplateHelper.Error.NameExists",
-                        name)) {
+            if (!namesEqual && DatabaseMetadataTemplates.INSTANCE.exists(name)) {
+                if (!MessageDisplayer.confirmYesNo(null, "MetadataTemplateHelper.Error.NameExists", name)) {
                     return null;
                 }
             } else {

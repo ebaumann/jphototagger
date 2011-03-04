@@ -1,13 +1,13 @@
 package org.jphototagger.program.cache;
 
-import java.awt.EventQueue;
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
-import org.jphototagger.lib.image.util.IconUtil;
 
+import java.awt.EventQueue;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * This cache contains scaled and fully rendered thumbnails.  Images can be
  * directly draw by the ThumbnailsPanel, they contain all kinds of markup and
@@ -30,28 +29,23 @@ import java.util.Set;
  * @author Martin Pohlack
  */
 public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
-    public static final RenderedThumbnailCache INSTANCE =
-        new RenderedThumbnailCache();
-    protected final int                        MAX_ENTRIES     = 1500;
-    static int                                 currentAge      = 0;
-    private final Set<ThumbnailUpdateListener> updateListeners =
-        new HashSet<ThumbnailUpdateListener>();
+    public static final RenderedThumbnailCache INSTANCE = new RenderedThumbnailCache();
+    protected final int MAX_ENTRIES = 1500;
+    static int currentAge = 0;
+    private final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
     protected WorkQueue<RenderedThumbnailCacheIndirection> workQueue =
         new WorkQueue<RenderedThumbnailCacheIndirection>();
-    private ThumbnailCache thumbCache           = ThumbnailCache.INSTANCE;
-    private XmpCache       xmpCache             = XmpCache.INSTANCE;
-    private Image          scaledDummyThumbnail = null;
-    private Image          dummyThumbnail       =
-        IconUtil.getIconImage(
-            JptBundle.INSTANCE.getString(
-                "RenderedThumbnailCache.Path.DummyThumbnail"));
+    private ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
+    private XmpCache xmpCache = XmpCache.INSTANCE;
+    private Image scaledDummyThumbnail = null;
+    private Image dummyThumbnail =
+        IconUtil.getIconImage(JptBundle.INSTANCE.getString("RenderedThumbnailCache.Path.DummyThumbnail"));
 
     /**
      * Mapping from file to all kinds of cached data
      */
     protected final SoftCacheMap<RenderedThumbnailCacheIndirection> fileCache =
-        new SoftCacheMap<RenderedThumbnailCacheIndirection>(MAX_ENTRIES,
-                         workQueue);
+        new SoftCacheMap<RenderedThumbnailCacheIndirection>(MAX_ENTRIES, workQueue);
     private ThumbnailPanelRenderer renderer = null;
 
     private RenderedThumbnailCache() {
@@ -61,15 +55,13 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         thumbCache.addThumbnailUpdateListener(this);
         XmpCache.INSTANCE.addThumbnailUpdateListener(this);
 
-        Thread t = new Thread(new ThumbnailRenderer(workQueue, this),
-                              "JPhotoTagger: ThumbnailRenderer");
+        Thread t = new Thread(new ThumbnailRenderer(workQueue, this), "JPhotoTagger: ThumbnailRenderer");
 
         // t.setPriority(Thread.MAX_PRIORITY);
         t.start();
     }
 
-    private synchronized void update(Image image, final File file, int length,
-                                     boolean repaint) {
+    private synchronized void update(Image image, final File file, int length, boolean repaint) {
         RenderedThumbnailCacheIndirection ci = fileCache.get(file);
 
         if (ci == null) {
@@ -78,7 +70,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
         updateUsageTime(ci);
         ci.thumbnail = image;
-        ci.length    = length;
+        ci.length = length;
         fileCache.maybeCleanupCache();
 
         if (repaint) {
@@ -100,8 +92,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     public synchronized void rerenderAll(boolean overlay) {
-        int count   = 0,
-            skipped = 0;
+        int count = 0, skipped = 0;
 
         for (File file : fileCache.keySet()) {
             count++;
@@ -126,11 +117,10 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     private static class ThumbnailRenderer implements Runnable {
         private WorkQueue<RenderedThumbnailCacheIndirection> wq;
-        private final RenderedThumbnailCache                 cache;
+        private final RenderedThumbnailCache cache;
 
-        ThumbnailRenderer(WorkQueue<RenderedThumbnailCacheIndirection> imageWQ,
-                          RenderedThumbnailCache _cache) {
-            wq    = imageWQ;
+        ThumbnailRenderer(WorkQueue<RenderedThumbnailCacheIndirection> imageWQ, RenderedThumbnailCache _cache) {
+            wq = imageWQ;
             cache = _cache;
         }
 
@@ -147,20 +137,15 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
                     if (im == null) {    // no data available yet
                         if ((cache.scaledDummyThumbnail == null)
-                                ||!cache.correctlyScaled(
-                                    cache.scaledDummyThumbnail, rtci.length)) {
-                            cache.scaledDummyThumbnail =
-                                cache.computeScaled(cache.dummyThumbnail,
-                                                    rtci.length);
+                                ||!cache.correctlyScaled(cache.scaledDummyThumbnail, rtci.length)) {
+                            cache.scaledDummyThumbnail = cache.computeScaled(cache.dummyThumbnail, rtci.length);
                         }
 
                         im = cache.scaledDummyThumbnail;
-                        im = cache.renderer.getRenderedThumbnail(im, rtci,
-                                true);
+                        im = cache.renderer.getRenderedThumbnail(im, rtci, true);
                     } else {
                         im = cache.computeScaled(im, rtci.length);
-                        im = cache.renderer.getRenderedThumbnail(im, rtci,
-                                false);
+                        im = cache.renderer.getRenderedThumbnail(im, rtci, false);
                     }
 
                     cache.update(im, rtci.file, rtci.length, true);
@@ -193,8 +178,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         updateListeners.add(_listener);
     }
 
-    public void removeThumbnailUpdateListener(
-            ThumbnailUpdateListener _listener) {
+    public void removeThumbnailUpdateListener(ThumbnailUpdateListener _listener) {
         if (_listener == null) {
             throw new NullPointerException("_listener == null");
         }
@@ -207,8 +191,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
             throw new NullPointerException("file == null");
         }
 
-        notifyUpdate(new ThumbnailUpdateEvent(file,
-                ThumbnailUpdateEvent.Type.RENDERED_THUMBNAIL_UPDATE));
+        notifyUpdate(new ThumbnailUpdateEvent(file, ThumbnailUpdateEvent.Type.RENDERED_THUMBNAIL_UPDATE));
     }
 
     public void notifyUpdate(ThumbnailUpdateEvent evt) {
@@ -243,8 +226,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
      * If null is return now, every observer will get an update once the
      * newly computed thumbnail is ready.
      */
-    public synchronized Image getThumbnail(File file, int length,
-            boolean overlay) {
+    public synchronized Image getThumbnail(File file, int length, boolean overlay) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -263,8 +245,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         if ((ci.thumbnail == null)
                 || ((ci.length == length)
                     && (((overlay == false) && (ci.hasKeywords == false))
-                        || ((overlay == true)
-                            && (ci.renderedForKeywords == true))))) {
+                        || ((overlay == true) && (ci.renderedForKeywords == true))))) {
             return ci.thumbnail;    // we may return null, or the correct image
         }
 
@@ -281,14 +262,12 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         return null;
     }
 
-    protected synchronized void generateEntry(File file, int length,
-            boolean prefetch) {
+    protected synchronized void generateEntry(File file, int length, boolean prefetch) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
 
-        RenderedThumbnailCacheIndirection ci =
-            new RenderedThumbnailCacheIndirection(file, length);
+        RenderedThumbnailCacheIndirection ci = new RenderedThumbnailCacheIndirection(file, length);
 
         fileCache.put(file, ci);
         updateUsageTime(ci);
@@ -323,8 +302,8 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     private Image computeScaled(Image image, int length) {
-        int    width  = image.getWidth(null);
-        int    height = image.getHeight(null);
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
         double longer = (width > height)
                         ? width
                         : height;
@@ -333,21 +312,17 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
             return image;
         }
 
-        double        scaleFactor = (double) length / longer;
-        int           tw          = (width > height)
-                                    ? length
-                                    : (int) ((double) width * scaleFactor
-                                        + 0.5);
-        int           th          = (height > width)
-                                    ? length
-                                    : (int) ((double) height * scaleFactor
-                                        + 0.5);
-        BufferedImage scaled      = new BufferedImage(tw, th,
-                                        BufferedImage.TYPE_INT_RGB);
+        double scaleFactor = (double) length / longer;
+        int tw = (width > height)
+                 ? length
+                 : (int) ((double) width * scaleFactor + 0.5);
+        int th = (height > width)
+                 ? length
+                 : (int) ((double) height * scaleFactor + 0.5);
+        BufferedImage scaled = new BufferedImage(tw, th, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = scaled.createGraphics();
 
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g2.drawImage(image, 0, 0, tw, th, null);
         g2.dispose();
 
@@ -361,8 +336,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         // drop event if we got an empty xmp update for an image without
         // keywords, because it would not change
         if ((event.getType() == ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE)
-                && (ci = fileCache.get(event.getSource())) != null
-                && (ci.hasKeywords == false)) {
+                && (ci = fileCache.get(event.getSource())) != null && (ci.hasKeywords == false)) {
             return;
         }
 
@@ -401,7 +375,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     private boolean correctlyScaled(Image image, int length) {
-        int width  = image.getWidth(null);
+        int width = image.getWidth(null);
         int height = image.getHeight(null);
         int longer = (width > height)
                      ? width

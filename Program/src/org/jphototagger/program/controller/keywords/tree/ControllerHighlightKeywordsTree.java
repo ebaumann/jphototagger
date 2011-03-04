@@ -25,8 +25,7 @@ import javax.swing.tree.TreeCellRenderer;
  *
  * @author Elmar Baumann
  */
-public final class ControllerHighlightKeywordsTree
-        implements ThumbnailsPanelListener {
+public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelListener {
     public ControllerHighlightKeywordsTree() {
         listen();
     }
@@ -54,9 +53,7 @@ public final class ControllerHighlightKeywordsTree
             List<File> selFiles = tnPanel.getSelectedFiles();
 
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
-                Collection<String> keywords =
-                    DatabaseImageFiles.INSTANCE.getDcSubjectsOf(
-                        selFiles.get(0));
+                Collection<String> keywords = DatabaseImageFiles.INSTANCE.getDcSubjectsOf(selFiles.get(0));
 
                 setKeywords(GUI.getEditKeywordsTree(), keywords);
                 setKeywords(GUI.getInputHelperKeywordsTree(), keywords);
@@ -79,8 +76,7 @@ public final class ControllerHighlightKeywordsTree
     }
 
     private boolean hasSidecarFile(List<File> selFile) {
-        assert selFile.size() == 1 :
-               "Size < 1: " + selFile.size() + " - " + selFile;
+        assert selFile.size() == 1 : "Size < 1: " + selFile.size() + " - " + selFile;
 
         return XmpMetadata.hasImageASidecarFile(selFile.get(0));
     }

@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
  */
 public final class RegexFileFilter implements java.io.FileFilter, Serializable {
     private static final long serialVersionUID = 5995205186843465364L;
-
     private List<String> acceptedPatterns = new ArrayList<String>();
 
     /**
@@ -68,8 +67,7 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
      * @param  description  description
      * @return file filter
      */
-    public javax.swing.filechooser.FileFilter forFileChooser(
-            String description) {
+    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
         return new FileChooserFilter(this, description);
     }
 
@@ -86,8 +84,7 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
         final RegexFileFilter other = (RegexFileFilter) obj;
 
         if ((this.acceptedPatterns != other.acceptedPatterns)
-                && ((this.acceptedPatterns == null)
-                    ||!this.acceptedPatterns.equals(other.acceptedPatterns))) {
+                && ((this.acceptedPatterns == null) ||!this.acceptedPatterns.equals(other.acceptedPatterns))) {
             return false;
         }
 

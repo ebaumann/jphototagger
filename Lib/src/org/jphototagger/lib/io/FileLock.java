@@ -17,9 +17,8 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class FileLock {
-    public static final FileLock    INSTANCE = new FileLock();
-    private final Map<File, Object> ownerOfLockedFile =
-        Collections.synchronizedMap(new HashMap<File, Object>());
+    public static final FileLock INSTANCE = new FileLock();
+    private final Map<File, Object> ownerOfLockedFile = Collections.synchronizedMap(new HashMap<File, Object>());
 
     /**
      * Locks a file.
@@ -79,8 +78,7 @@ public final class FileLock {
         }
 
         synchronized (ownerOfLockedFile) {
-            if (ownerOfLockedFile.containsKey(file)
-                    && ownerOfLockedFile.get(file).equals(owner)) {
+            if (ownerOfLockedFile.containsKey(file) && ownerOfLockedFile.get(file).equals(owner)) {
                 ownerOfLockedFile.remove(file);
 
                 return true;

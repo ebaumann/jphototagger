@@ -2,150 +2,93 @@ package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.program.controller.actions.ActionsMenuUpdater;
-import org.jphototagger.program.controller.directories
-    .ControllerCreateDirectory;
-import org.jphototagger.program.controller.directories
-    .ControllerDeleteDirectory;
-import org.jphototagger.program.controller.directories
-    .ControllerDirectoryPasteFiles;
-import org.jphototagger.program.controller.directories
-    .ControllerDirectorySelected;
-import org.jphototagger.program.controller.directories
-    .ControllerRefreshDirectoryTree;
-import org.jphototagger.program.controller.directories
-    .ControllerRenameDirectory;
+import org.jphototagger.program.controller.directories.ControllerCreateDirectory;
+import org.jphototagger.program.controller.directories.ControllerDeleteDirectory;
+import org.jphototagger.program.controller.directories.ControllerDirectoryPasteFiles;
+import org.jphototagger.program.controller.directories.ControllerDirectorySelected;
+import org.jphototagger.program.controller.directories.ControllerRefreshDirectoryTree;
+import org.jphototagger.program.controller.directories.ControllerRenameDirectory;
 import org.jphototagger.program.controller.favorites.ControllerDeleteFavorite;
-import org.jphototagger.program.controller.favorites
-    .ControllerFavoritesAddFilesystemFolder;
-import org.jphototagger.program.controller.favorites
-    .ControllerFavoritesDeleteFilesystemFolder;
+import org.jphototagger.program.controller.favorites.ControllerFavoritesAddFilesystemFolder;
+import org.jphototagger.program.controller.favorites.ControllerFavoritesDeleteFilesystemFolder;
 import org.jphototagger.program.controller.favorites.ControllerFavoriteSelected;
-import org.jphototagger.program.controller.favorites
-    .ControllerFavoritesRenameFilesystemFolder;
+import org.jphototagger.program.controller.favorites.ControllerFavoritesRenameFilesystemFolder;
 import org.jphototagger.program.controller.favorites.ControllerInsertFavorite;
 import org.jphototagger.program.controller.favorites.ControllerMoveFavorite;
-import org.jphototagger.program.controller.favorites
-    .ControllerOpenFavoriteInFolders;
+import org.jphototagger.program.controller.favorites.ControllerOpenFavoriteInFolders;
 import org.jphototagger.program.controller.favorites.ControllerRefreshFavorites;
 import org.jphototagger.program.controller.favorites.ControllerUpdateFavorite;
-import org.jphototagger.program.controller.filesystem
-    .ControllerCopyFilesToDirectory;
+import org.jphototagger.program.controller.filesystem.ControllerCopyFilesToDirectory;
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
-import org.jphototagger.program.controller.filesystem
-    .ControllerImportImageFiles;
+import org.jphototagger.program.controller.filesystem.ControllerImportImageFiles;
 import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.controller.filesystem.ControllerRenameFiles;
-import org.jphototagger.program.controller.imagecollection
-    .ControllerAddImageCollection;
-import org.jphototagger.program.controller.imagecollection
-    .ControllerAddToImageCollection;
-import org.jphototagger.program.controller.imagecollection
-    .ControllerDeleteFromImageCollection;
-import org.jphototagger.program.controller.imagecollection
-    .ControllerDeleteImageCollection;
-import org.jphototagger.program.controller.imagecollection
-    .ControllerImageCollectionSelected;
+import org.jphototagger.program.controller.imagecollection.ControllerAddImageCollection;
+import org.jphototagger.program.controller.imagecollection.ControllerAddToImageCollection;
+import org.jphototagger.program.controller.imagecollection.ControllerDeleteFromImageCollection;
+import org.jphototagger.program.controller.imagecollection.ControllerDeleteImageCollection;
+import org.jphototagger.program.controller.imagecollection.ControllerImageCollectionSelected;
 import org.jphototagger.program.controller.imagecollection.ControllerPickReject;
-import org.jphototagger.program.controller.imagecollection
-    .ControllerRenameImageCollection;
-import org.jphototagger.program.controller.keywords.list
-    .ControllerDeleteKeywords;
-import org.jphototagger.program.controller.keywords.list
-    .ControllerDeleteKeywordsFromEditPanel;
-import org.jphototagger.program.controller.keywords.list
-    .ControllerDisplayKeyword;
-import org.jphototagger.program.controller.keywords.list
-    .ControllerEditKeywordSynonyms;
-import org.jphototagger.program.controller.keywords.list
-    .ControllerInsertKeywords;
-import org.jphototagger.program.controller.keywords.list
-    .ControllerKeywordItemSelected;
-import org.jphototagger.program.controller.keywords.list
-    .ControllerRenameKeywords;
+import org.jphototagger.program.controller.imagecollection.ControllerRenameImageCollection;
+import org.jphototagger.program.controller.keywords.list.ControllerDeleteKeywords;
+import org.jphototagger.program.controller.keywords.list.ControllerDeleteKeywordsFromEditPanel;
+import org.jphototagger.program.controller.keywords.list.ControllerDisplayKeyword;
+import org.jphototagger.program.controller.keywords.list.ControllerEditKeywordSynonyms;
+import org.jphototagger.program.controller.keywords.list.ControllerInsertKeywords;
+import org.jphototagger.program.controller.keywords.list.ControllerKeywordItemSelected;
+import org.jphototagger.program.controller.keywords.list.ControllerRenameKeywords;
 import org.jphototagger.program.controller.keywords.tree.ControllerAddKeyword;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerCopyCutPasteKeyword;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerDeleteKeywordFromEditPanel;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerExportKeywords;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerHighlightKeywordsTree;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerImportKeywords;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerKeywordsDbUpdates;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerKeywordsDisplayImages;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerKeywordsSelection;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerRenameKeyword;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerShowKeywordsDialog;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerToggleButtonSelKeywords;
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerToggleRealKeyword;
+import org.jphototagger.program.controller.keywords.tree.ControllerCopyCutPasteKeyword;
+import org.jphototagger.program.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel;
+import org.jphototagger.program.controller.keywords.tree.ControllerExportKeywords;
+import org.jphototagger.program.controller.keywords.tree.ControllerHighlightKeywordsTree;
+import org.jphototagger.program.controller.keywords.tree.ControllerImportKeywords;
+import org.jphototagger.program.controller.keywords.tree.ControllerKeywordsDbUpdates;
+import org.jphototagger.program.controller.keywords.tree.ControllerKeywordsDisplayImages;
+import org.jphototagger.program.controller.keywords.tree.ControllerKeywordsSelection;
+import org.jphototagger.program.controller.keywords.tree.ControllerRenameKeyword;
+import org.jphototagger.program.controller.keywords.tree.ControllerShowKeywordsDialog;
+import org.jphototagger.program.controller.keywords.tree.ControllerToggleButtonSelKeywords;
+import org.jphototagger.program.controller.keywords.tree.ControllerToggleRealKeyword;
 import org.jphototagger.program.controller.metadata.ControllerCopyPasteMetadata;
 import org.jphototagger.program.controller.metadata.ControllerEmptyMetadata;
-import org.jphototagger.program.controller.metadata
-    .ControllerEnableCreateMetadataTemplate;
-import org.jphototagger.program.controller.metadata
-    .ControllerEnableInsertMetadataTemplate;
+import org.jphototagger.program.controller.metadata.ControllerEnableCreateMetadataTemplate;
+import org.jphototagger.program.controller.metadata.ControllerEnableInsertMetadataTemplate;
 import org.jphototagger.program.controller.metadata.ControllerExifToXmp;
-import org.jphototagger.program.controller.metadata
-    .ControllerExtractEmbeddedXmp;
+import org.jphototagger.program.controller.metadata.ControllerExtractEmbeddedXmp;
 import org.jphototagger.program.controller.metadata.ControllerIptcToXmp;
 import org.jphototagger.program.controller.metadata.ControllerMetadataTemplates;
 import org.jphototagger.program.controller.metadata.ControllerShowMetadata;
-import org.jphototagger.program.controller.metadata
-    .ControllerShowUpdateMetadataDialog;
-import org.jphototagger.program.controller.metadata
-    .ControllerThumbnailSelectionEditMetadata;
-import org.jphototagger.program.controller.metadatatemplates
-    .ControllerMetadataTemplateAdd;
-import org.jphototagger.program.controller.metadatatemplates
-    .ControllerMetadataTemplateDelete;
-import org.jphototagger.program.controller.metadatatemplates
-    .ControllerMetadataTemplateEdit;
-import org.jphototagger.program.controller.metadatatemplates
-    .ControllerMetadataTemplateRename;
-import org.jphototagger.program.controller.metadatatemplates
-    .ControllerMetadataTemplateSetToSelImages;
+import org.jphototagger.program.controller.metadata.ControllerShowUpdateMetadataDialog;
+import org.jphototagger.program.controller.metadata.ControllerThumbnailSelectionEditMetadata;
+import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataTemplateAdd;
+import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataTemplateDelete;
+import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataTemplateEdit;
+import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataTemplateRename;
+import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataTemplateSetToSelImages;
 import org.jphototagger.program.controller.misc.ControllerAboutApp;
 import org.jphototagger.program.controller.misc.ControllerBackupDatabase;
 import org.jphototagger.program.controller.misc.ControllerGoTo;
 import org.jphototagger.program.controller.misc.ControllerHelp;
-import org.jphototagger.program.controller.misc
-    .ControllerItemsMutualExcludeSelection;
+import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSelection;
 import org.jphototagger.program.controller.misc.ControllerLogfileDialog;
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
 import org.jphototagger.program.controller.misc.ControllerMenuItemEnabler;
 import org.jphototagger.program.controller.misc.ControllerPlugins;
 import org.jphototagger.program.controller.misc.ControllerShowSynonymsDialog;
 import org.jphototagger.program.controller.misc.ControllerShowSystemOutput;
-import org.jphototagger.program.controller.misc
-    .ControllerShowUserSettingsDialog;
+import org.jphototagger.program.controller.misc.ControllerShowUserSettingsDialog;
 import org.jphototagger.program.controller.misc.ControllerThumbnailCountDisplay;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
-import org.jphototagger.program.controller.miscmetadata
-    .ControllerAddMetadataToSelImages;
-import org.jphototagger.program.controller.miscmetadata
-    .ControllerDeleteMiscMetadata;
-import org.jphototagger.program.controller.miscmetadata
-    .ControllerMiscMetadataItemSelected;
-import org.jphototagger.program.controller.miscmetadata
-    .ControllerRemoveMetadataFromSelImages;
-import org.jphototagger.program.controller.miscmetadata
-    .ControllerRenameMiscMetadata;
-import org.jphototagger.program.controller.nometadata
-    .ControllerNoMetadataItemSelected;
-import org.jphototagger.program.controller.programs
-    .ControllerOpenFilesWithOtherApp;
-import org.jphototagger.program.controller.programs
-    .ControllerOpenFilesWithStandardApp;
+import org.jphototagger.program.controller.miscmetadata.ControllerAddMetadataToSelImages;
+import org.jphototagger.program.controller.miscmetadata.ControllerDeleteMiscMetadata;
+import org.jphototagger.program.controller.miscmetadata.ControllerMiscMetadataItemSelected;
+import org.jphototagger.program.controller.miscmetadata.ControllerRemoveMetadataFromSelImages;
+import org.jphototagger.program.controller.miscmetadata.ControllerRenameMiscMetadata;
+import org.jphototagger.program.controller.nometadata.ControllerNoMetadataItemSelected;
+import org.jphototagger.program.controller.programs.ControllerOpenFilesWithOtherApp;
+import org.jphototagger.program.controller.programs.ControllerOpenFilesWithStandardApp;
 import org.jphototagger.program.controller.rating.ControllerSetRating;
 import org.jphototagger.program.controller.search.ControllerAdvancedSearch;
 import org.jphototagger.program.controller.search.ControllerCreateSavedSearch;
@@ -154,36 +97,22 @@ import org.jphototagger.program.controller.search.ControllerEditSavedSearch;
 import org.jphototagger.program.controller.search.ControllerFastSearch;
 import org.jphototagger.program.controller.search.ControllerRenameSavedSearch;
 import org.jphototagger.program.controller.search.ControllerSavedSearchSelected;
-import org.jphototagger.program.controller.search
-    .ControllerShowAdvancedSearchDialog;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerCopyOrCutFilesToClipboard;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerCreateMetadataOfDisplayedThumbnails;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerCreateMetadataOfSelectedThumbnails;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerDeleteThumbnailsFromDatabase;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerPasteFilesFromClipboard;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerRefreshThumbnailsPanel;
+import org.jphototagger.program.controller.search.ControllerShowAdvancedSearchDialog;
+import org.jphototagger.program.controller.thumbnail.ControllerCopyOrCutFilesToClipboard;
+import org.jphototagger.program.controller.thumbnail.ControllerCreateMetadataOfDisplayedThumbnails;
+import org.jphototagger.program.controller.thumbnail.ControllerCreateMetadataOfSelectedThumbnails;
+import org.jphototagger.program.controller.thumbnail.ControllerDeleteThumbnailsFromDatabase;
+import org.jphototagger.program.controller.thumbnail.ControllerPasteFilesFromClipboard;
+import org.jphototagger.program.controller.thumbnail.ControllerRefreshThumbnailsPanel;
 import org.jphototagger.program.controller.thumbnail.ControllerRotateThumbnail;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerSliderThumbnailSize;
+import org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerThumbnailFileFilter;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerThumbnailsDatabaseChanges;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerThumbnailsPanelPersistence;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerThumbnailsSelectAllOrNothing;
-import org.jphototagger.program.controller.thumbnail
-    .ControllerToggleKeywordOverlay;
-import org.jphototagger.program.controller.timeline
-    .ControllerTimelineItemSelected;
+import org.jphototagger.program.controller.thumbnail.ControllerThumbnailFileFilter;
+import org.jphototagger.program.controller.thumbnail.ControllerThumbnailsDatabaseChanges;
+import org.jphototagger.program.controller.thumbnail.ControllerThumbnailsPanelPersistence;
+import org.jphototagger.program.controller.thumbnail.ControllerThumbnailsSelectAllOrNothing;
+import org.jphototagger.program.controller.thumbnail.ControllerToggleKeywordOverlay;
+import org.jphototagger.program.controller.timeline.ControllerTimelineItemSelected;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
@@ -200,8 +129,8 @@ import java.util.List;
  */
 public final class ControllerFactory {
     public static final ControllerFactory INSTANCE = new ControllerFactory();
-    private final Support                 support  = new Support();
-    private volatile boolean              init;
+    private final Support support = new Support();
+    private volatile boolean init;
 
     void init() {
         synchronized (this) {
@@ -325,9 +254,7 @@ public final class ControllerFactory {
     }
 
     private void addMiscMetadataControllers() {
-        PopupMenuMiscMetadata popupAppWindow =
-            new PopupMenuMiscMetadata(
-                GUI.getAppPanel().getTreeMiscMetadata());
+        PopupMenuMiscMetadata popupAppWindow = new PopupMenuMiscMetadata(GUI.getAppPanel().getTreeMiscMetadata());
 
         support.add(new ControllerDeleteMiscMetadata(popupAppWindow));
         support.add(new ControllerRenameMiscMetadata(popupAppWindow));
@@ -335,14 +262,12 @@ public final class ControllerFactory {
         support.add(new ControllerRemoveMetadataFromSelImages(popupAppWindow));
 
         PopupMenuMiscMetadata popupInputHelper =
-            new PopupMenuMiscMetadata(
-                InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree());
+            new PopupMenuMiscMetadata(InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree());
 
         support.add(new ControllerDeleteMiscMetadata(popupInputHelper));
         support.add(new ControllerRenameMiscMetadata(popupInputHelper));
         support.add(new ControllerAddMetadataToSelImages(popupInputHelper));
-        support.add(
-            new ControllerRemoveMetadataFromSelImages(popupInputHelper));
+        support.add(new ControllerRemoveMetadataFromSelImages(popupInputHelper));
         support.add(new ControllerUpdateCheck());
     }
 
@@ -373,21 +298,17 @@ public final class ControllerFactory {
     }
 
     private void addKeywordsControllers() {
-        KeywordsPanel[] keywordPanels = { GUI.getAppPanel()
-                                            .getPanelEditKeywords(),
-                                          InputHelperDialog.INSTANCE
-                                              .getPanelKeywords() };
+        KeywordsPanel[] keywordPanels = { GUI.getAppPanel().getPanelEditKeywords(),
+                                          InputHelperDialog.INSTANCE.getPanelKeywords() };
 
         for (KeywordsPanel keywordsPanel : keywordPanels) {
             support.add(new ControllerToggleRealKeyword(keywordsPanel));
             support.add(new ControllerRenameKeyword(keywordsPanel));
             support.add(new ControllerAddKeyword(keywordsPanel));
-            support.add(new org.jphototagger.program.controller.keywords.tree
-                .ControllerDeleteKeywords(keywordsPanel));
-            support.add(new org.jphototagger.program.controller.keywords.tree
-                .ControllerAddKeywordsToEditPanel(keywordsPanel));
+            support.add(new org.jphototagger.program.controller.keywords.tree.ControllerDeleteKeywords(keywordsPanel));
             support.add(
-                new ControllerDeleteKeywordFromEditPanel(keywordsPanel));
+                new org.jphototagger.program.controller.keywords.tree.ControllerAddKeywordsToEditPanel(keywordsPanel));
+            support.add(new ControllerDeleteKeywordFromEditPanel(keywordsPanel));
             support.add(new ControllerCopyCutPasteKeyword(keywordsPanel));
             support.add(new ControllerKeywordsDisplayImages());
         }
@@ -399,8 +320,7 @@ public final class ControllerFactory {
         support.add(new ControllerToggleButtonSelKeywords());
         support.add(new ControllerDisplayKeyword());
         support.add(new ControllerInsertKeywords());
-        support.add(new org.jphototagger.program.controller.keywords.list
-            .ControllerAddKeywordsToEditPanel());
+        support.add(new org.jphototagger.program.controller.keywords.list.ControllerAddKeywordsToEditPanel());
         support.add(new ControllerDeleteKeywordsFromEditPanel());
     }
 

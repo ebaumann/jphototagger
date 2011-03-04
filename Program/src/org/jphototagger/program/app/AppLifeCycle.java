@@ -17,22 +17,18 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-
 /**
  * Life cycle of the application.
  *
  * @author Elmar Baumann
  */
 public final class AppLifeCycle {
-    public static final AppLifeCycle               INSTANCE =
-        new AppLifeCycle();
-    private final Set<Object>                      saveObjects =
-        new HashSet<Object>();
-    private final ListenerSupport<AppExitListener> ls =
-        new ListenerSupport<AppExitListener>();
+    public static final AppLifeCycle INSTANCE = new AppLifeCycle();
+    private final Set<Object> saveObjects = new HashSet<Object>();
+    private final ListenerSupport<AppExitListener> ls = new ListenerSupport<AppExitListener>();
     private final Set<FinalTask> finalTasks = new LinkedHashSet<FinalTask>();
-    private AppFrame             appFrame;
-    private boolean              started;
+    private AppFrame appFrame;
+    private boolean started;
 
     private AppLifeCycle() {}
 
@@ -59,8 +55,7 @@ public final class AppLifeCycle {
 
         this.appFrame = appFrame;
 
-        Thread thread = new Thread(MetaFactory.INSTANCE,
-                                   "JPhotoTagger: Initializing meta factory");
+        Thread thread = new Thread(MetaFactory.INSTANCE, "JPhotoTagger: Initializing meta factory");
 
         thread.start();
         listenForQuit();
@@ -174,8 +169,7 @@ public final class AppLifeCycle {
                 quit();
             }
         });
-        appFrame.getMenuItemExit().addActionListener(
-            new java.awt.event.ActionListener() {
+        appFrame.getMenuItemExit().addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quit();
@@ -248,22 +242,18 @@ public final class AppLifeCycle {
             return true;
         }
 
-        return MessageDisplayer.confirmYesNo(appFrame,
-                "AppLifeCycle.Confirm.QuitOnUserTasks");
+        return MessageDisplayer.confirmYesNo(appFrame, "AppLifeCycle.Confirm.QuitOnUserTasks");
     }
 
     private void checkDataToSave() {
-        long elapsedMilliseconds       = 0;
-        long timeoutMilliSeconds       = 120 * 1000;
+        long elapsedMilliseconds = 0;
+        long timeoutMilliSeconds = 120 * 1000;
         long checkIntervalMilliSeconds = 2 * 1000;
 
         if (hasSaveObjects()) {
-            AppLogger.logInfo(getClass(),
-                              "AppLifeCycle.Info.SaveObjectsExisting",
-                              saveObjects);
+            AppLogger.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
 
-            while (hasSaveObjects()
-                    && (elapsedMilliseconds < timeoutMilliSeconds)) {
+            while (hasSaveObjects() && (elapsedMilliseconds < timeoutMilliSeconds)) {
                 try {
                     elapsedMilliseconds += checkIntervalMilliSeconds;
                     Thread.sleep(checkIntervalMilliSeconds);
@@ -272,10 +262,8 @@ public final class AppLifeCycle {
                 }
 
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    MessageDisplayer.error(
-                        null,
-                        "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
-                        timeoutMilliSeconds / 1000);
+                    MessageDisplayer.error(null, "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
+                                           timeoutMilliSeconds / 1000);
                 }
             }
         }
@@ -302,8 +290,7 @@ public final class AppLifeCycle {
 
 
     public static abstract class FinalTask {
-        private final ListenerSupport<FinalTaskListener> ls =
-            new ListenerSupport<FinalTaskListener>();
+        private final ListenerSupport<FinalTaskListener> ls = new ListenerSupport<FinalTaskListener>();
 
         public void addListener(FinalTaskListener listener) {
             if (listener == null) {

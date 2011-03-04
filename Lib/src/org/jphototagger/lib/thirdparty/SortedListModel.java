@@ -68,8 +68,7 @@ public class SortedListModel extends AbstractListModel {
      * @param comp     comparator or null
      *
      */
-    public SortedListModel(ListModel model, SortOrder sortOrder,
-                           Comparator<Object> comp) {
+    public SortedListModel(ListModel model, SortOrder sortOrder, Comparator<Object> comp) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
@@ -103,8 +102,8 @@ public class SortedListModel extends AbstractListModel {
         sortedModel = new ArrayList<SortedListEntry>(size);
 
         for (int x = 0; x < size; ++x) {
-            SortedListEntry entry          = new SortedListEntry(x);
-            int             insertionPoint = findInsertionPoint(entry);
+            SortedListEntry entry = new SortedListEntry(x);
+            int insertionPoint = findInsertionPoint(entry);
 
             sortedModel.add(insertionPoint, entry);
         }
@@ -118,8 +117,8 @@ public class SortedListModel extends AbstractListModel {
      */
     @Override
     public Object getElementAt(int index) throws IndexOutOfBoundsException {
-        int    modelIndex = toUnsortedModelIndex(index);
-        Object element    = unsortedModel.getElementAt(modelIndex);
+        int modelIndex = toUnsortedModelIndex(index);
+        Object element = unsortedModel.getElementAt(modelIndex);
 
         return element;
     }
@@ -147,10 +146,9 @@ public class SortedListModel extends AbstractListModel {
      * @throws IndexOutOfBoundsException
      *
      */
-    public int toUnsortedModelIndex(int index)
-            throws IndexOutOfBoundsException {
-        int             modelIndex = -1;
-        SortedListEntry entry      = sortedModel.get(index);
+    public int toUnsortedModelIndex(int index) throws IndexOutOfBoundsException {
+        int modelIndex = -1;
+        SortedListEntry entry = sortedModel.get(index);
 
         modelIndex = entry.getIndex();
 
@@ -171,7 +169,7 @@ public class SortedListModel extends AbstractListModel {
         }
 
         int[] unsortedSelectedIndices = new int[sortedSelectedIndices.length];
-        int   x                       = 0;
+        int x = 0;
 
         for (int sortedIndex : sortedSelectedIndices) {
             unsortedSelectedIndices[x++] = toUnsortedModelIndex(sortedIndex);
@@ -191,7 +189,7 @@ public class SortedListModel extends AbstractListModel {
      */
     public int toSortedModelIndex(int unsortedIndex) {
         int sortedIndex = -1;
-        int x           = -1;
+        int x = -1;
 
         for (SortedListEntry entry : sortedModel) {
             ++x;
@@ -220,7 +218,7 @@ public class SortedListModel extends AbstractListModel {
         }
 
         int[] sortedModelIndices = new int[unsortedModelIndices.length];
-        int   x                  = 0;
+        int x = 0;
 
         for (int unsortedIndex : unsortedModelIndices) {
             sortedModelIndices[x++] = toSortedModelIndex(unsortedIndex);
@@ -242,7 +240,7 @@ public class SortedListModel extends AbstractListModel {
     @SuppressWarnings("unchecked")
     public void setComparator(Comparator<Object> comp) {
         if (comp == null) {
-            sortOrder  = SortOrder.UNORDERED;
+            sortOrder = SortOrder.UNORDERED;
             comparator = Collator.getInstance();
             resetModelData();
         } else {
@@ -250,8 +248,7 @@ public class SortedListModel extends AbstractListModel {
             Collections.sort(sortedModel);
         }
 
-        fireContentsChanged(ListDataEvent.CONTENTS_CHANGED, 0,
-                            sortedModel.size() - 1);
+        fireContentsChanged(ListDataEvent.CONTENTS_CHANGED, 0, sortedModel.size() - 1);
     }
 
     /**
@@ -273,8 +270,7 @@ public class SortedListModel extends AbstractListModel {
                 Collections.sort(sortedModel);
             }
 
-            fireContentsChanged(ListDataEvent.CONTENTS_CHANGED, 0,
-                                sortedModel.size() - 1);
+            fireContentsChanged(ListDataEvent.CONTENTS_CHANGED, 0, sortedModel.size() - 1);
         }
     }
 
@@ -284,8 +280,8 @@ public class SortedListModel extends AbstractListModel {
      *
      */
     private void unsortedIntervalAdded(ListDataEvent evt) {
-        int begin          = evt.getIndex0();
-        int end            = evt.getIndex1();
+        int begin = evt.getIndex0();
+        int end = evt.getIndex1();
         int nElementsAdded = end - begin + 1;
 
         /*
@@ -306,12 +302,11 @@ public class SortedListModel extends AbstractListModel {
 
         // now add the new items from the decorated model
         for (int x = begin; x <= end; ++x) {
-            SortedListEntry newEntry       = new SortedListEntry(x);
-            int             insertionPoint = findInsertionPoint(newEntry);
+            SortedListEntry newEntry = new SortedListEntry(x);
+            int insertionPoint = findInsertionPoint(newEntry);
 
             sortedModel.add(insertionPoint, newEntry);
-            fireIntervalAdded(ListDataEvent.INTERVAL_ADDED, insertionPoint,
-                              insertionPoint);
+            fireIntervalAdded(ListDataEvent.INTERVAL_ADDED, insertionPoint, insertionPoint);
         }
     }
 
@@ -320,8 +315,8 @@ public class SortedListModel extends AbstractListModel {
      * model. Also, let our listeners know that we've removed items.
      */
     private void unsortedIntervalRemoved(ListDataEvent evt) {
-        int begin            = evt.getIndex0();
-        int end              = evt.getIndex1();
+        int begin = evt.getIndex0();
+        int end = evt.getIndex1();
         int nElementsRemoved = end - begin + 1;
 
         /*
@@ -329,12 +324,12 @@ public class SortedListModel extends AbstractListModel {
          * element indices into the decorated model or removing
          * elements as necessary
          */
-        int       sortedSize      = sortedModel.size();
+        int sortedSize = sortedModel.size();
         boolean[] bElementRemoved = new boolean[sortedSize];
 
         for (int x = sortedSize - 1; x >= 0; --x) {
             SortedListEntry entry = sortedModel.get(x);
-            int             index = entry.getIndex();
+            int index = entry.getIndex();
 
             if (index > end) {
                 entry.setIndex(index - nElementsRemoved);
@@ -362,8 +357,7 @@ public class SortedListModel extends AbstractListModel {
     @SuppressWarnings("unchecked")
     private void unsortedContentsChanged(ListDataEvent evt) {
         Collections.sort(sortedModel);
-        fireContentsChanged(ListDataEvent.CONTENTS_CHANGED, 0,
-                            sortedModel.size() - 1);
+        fireContentsChanged(ListDataEvent.CONTENTS_CHANGED, 0, sortedModel.size() - 1);
     }
 
     /**
@@ -386,9 +380,9 @@ public class SortedListModel extends AbstractListModel {
     }
 
     private List<SortedListEntry> sortedModel;
-    private ListModel             unsortedModel;
-    private Comparator<Object>    comparator;
-    private SortOrder             sortOrder;
+    private ListModel unsortedModel;
+    private Comparator<Object> comparator;
+    private SortOrder sortOrder;
 
     public enum SortOrder { UNORDERED, ASCENDING, DESCENDING; }
 
@@ -412,13 +406,12 @@ public class SortedListModel extends AbstractListModel {
 
             // retrieve the element that this entry points to
             // in the original model
-            Object          thisElement = unsortedModel.getElementAt(index);
-            SortedListEntry thatEntry   = (SortedListEntry) o;
+            Object thisElement = unsortedModel.getElementAt(index);
+            SortedListEntry thatEntry = (SortedListEntry) o;
 
             // retrieve the element that thatEntry points to in the original
             // model
-            Object thatElement =
-                unsortedModel.getElementAt(thatEntry.getIndex());
+            Object thatElement = unsortedModel.getElementAt(thatEntry.getIndex());
 
             if (comparator instanceof Collator) {
                 thisElement = thisElement.toString();
@@ -426,8 +419,7 @@ public class SortedListModel extends AbstractListModel {
             }
 
             // compare the base model's elements using the provided comparator
-            @SuppressWarnings("unchecked") int comparison =
-                comparator.compare(thisElement, thatElement);
+            @SuppressWarnings("unchecked") int comparison = comparator.compare(thisElement, thatElement);
 
             // convert to descending order as necessary
             if (sortOrder == SortOrder.DESCENDING) {

@@ -43,16 +43,15 @@ public final class CollectionUtil {
             throw new IllegalArgumentException("Not a comparable: " + element);
         }
 
-        int size  = list.size();
-        int low   = 0;
-        int high  = size - 1;
+        int size = list.size();
+        int low = 0;
+        int high = size - 1;
         int index = size;
-        int cmp   = 1;
+        int cmp = 1;
 
         while ((low <= high) && (cmp > 0)) {
-            int                   mid    = (low + high) >>> 1;
-            Comparable<? super T> midVal =
-                (Comparable<? super T>) list.get(mid);
+            int mid = (low + high) >>> 1;
+            Comparable<? super T> midVal = (Comparable<? super T>) list.get(mid);
 
             cmp = midVal.compareTo(element);
 
@@ -116,8 +115,7 @@ public final class CollectionUtil {
      *                  <code>"I", "like", "ice"</code>.
      * @return          List of strings
      */
-    public static List<String> stringTokenToList(String string,
-            String delimiter) {
+    public static List<String> stringTokenToList(String string, String delimiter) {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
@@ -127,7 +125,7 @@ public final class CollectionUtil {
         }
 
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
-        List<String>    list = new ArrayList<String>(tokenizer.countTokens());
+        List<String> list = new ArrayList<String>(tokenizer.countTokens());
 
         while (tokenizer.hasMoreTokens()) {
             list.add(tokenizer.nextToken());
@@ -156,8 +154,7 @@ public final class CollectionUtil {
      * @throws          NumberFormatException if the string contains a not empty
      *                  token that can't parsed as an integer
      */
-    public static List<Integer> integerTokenToList(String string,
-            String delimiter) {
+    public static List<Integer> integerTokenToList(String string, String delimiter) {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
@@ -166,8 +163,8 @@ public final class CollectionUtil {
             throw new NullPointerException("delimiter == null");
         }
 
-        List<Integer>   integerList = new ArrayList<Integer>();
-        StringTokenizer tokenizer   = new StringTokenizer(string, delimiter);
+        List<Integer> integerList = new ArrayList<Integer>();
+        StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
 
         while (tokenizer.hasMoreTokens()) {
             integerList.add(Integer.parseInt(tokenizer.nextToken()));
@@ -201,8 +198,7 @@ public final class CollectionUtil {
      * @param src    source collection to get elements from
      * @param target target collection to put elements into
      */
-    public static <T> void addNotContainedElements(Collection<? extends T> src,
-            Collection<? super T> target) {
+    public static <T> void addNotContainedElements(Collection<? extends T> src, Collection<? super T> target) {
         if (src == target) {
             return;
         }
@@ -224,8 +220,7 @@ public final class CollectionUtil {
      *                             a collection's element
      * @return                     token string
      */
-    public static String toTokenString(Collection<? extends Object> collection,
-                                       String delimiter,
+    public static String toTokenString(Collection<? extends Object> collection, String delimiter,
                                        String delimiterReplacement) {
         if (collection == null) {
             throw new NullPointerException("collection == null");
@@ -240,14 +235,13 @@ public final class CollectionUtil {
         }
 
         StringBuilder tokenString = new StringBuilder();
-        int           index       = 0;
+        int index = 0;
 
         for (Object o : collection) {
             tokenString.append(((index++ == 0)
                                 ? EMPTY_STRING
                                 : delimiter));
-            tokenString.append(o.toString().replace(delimiter,
-                    delimiterReplacement));
+            tokenString.append(o.toString().replace(delimiter, delimiterReplacement));
         }
 
         return tokenString.toString();

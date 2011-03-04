@@ -13,12 +13,9 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class AutoCompleteDataOfColumn {
-    public static final AutoCompleteDataOfColumn INSTANCE =
-        new AutoCompleteDataOfColumn();
-    private static final AutoCompleteData FAST_SEARCH_DATA =
-        new AutoCompleteData(FastSearchColumns.get());
-    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN =
-        new HashMap<Column, AutoCompleteData>();
+    public static final AutoCompleteDataOfColumn INSTANCE = new AutoCompleteDataOfColumn();
+    private static final AutoCompleteData FAST_SEARCH_DATA = new AutoCompleteData(FastSearchColumns.get());
+    private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN = new HashMap<Column, AutoCompleteData>();
 
     private AutoCompleteDataOfColumn() {}
 

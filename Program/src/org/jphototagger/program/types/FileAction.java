@@ -8,8 +8,7 @@ import javax.swing.TransferHandler;
  * @author Elmar Baumann
  */
 public enum FileAction {
-    COPY(TransferHandler.COPY), CUT(TransferHandler.MOVE),
-    MOVE(TransferHandler.MOVE), UNDEFINED(null),;
+    COPY(TransferHandler.COPY), CUT(TransferHandler.MOVE), MOVE(TransferHandler.MOVE), UNDEFINED(null),;
 
     /**
      * Action equivalent for a {@link TransferHandler}

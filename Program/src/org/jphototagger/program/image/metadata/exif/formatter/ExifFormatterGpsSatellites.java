@@ -10,8 +10,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
  * @author Elmar Baumann
  */
 public final class ExifFormatterGpsSatellites extends ExifFormatter {
-    public static final ExifFormatterGpsSatellites INSTANCE =
-        new ExifFormatterGpsSatellites();
+    public static final ExifFormatterGpsSatellites INSTANCE = new ExifFormatterGpsSatellites();
 
     private ExifFormatterGpsSatellites() {}
 

@@ -7,7 +7,6 @@ package org.jphototagger.program.event.listener;
  * @author Elmar Baumann
  */
 public interface EditMetadataPanelsListener {
-
     void editEnabled();
 
     void editDisabled();

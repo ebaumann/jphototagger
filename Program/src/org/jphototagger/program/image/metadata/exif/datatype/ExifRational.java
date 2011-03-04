@@ -29,12 +29,8 @@ public final class ExifRational {
      */
     public ExifRational(byte[] rawValue, ByteOrder byteOrder) {
         Ensure.length(rawValue, byteCount());
-        numerator =
-            ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0,
-                4), byteOrder);
-        denominator =
-            ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4,
-                8), byteOrder);
+        numerator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+        denominator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
         Ensure.zeroOrPositive(numerator, denominator);
         Ensure.noDivisionByZero(denominator);
     }
@@ -58,14 +54,9 @@ public final class ExifRational {
         }
 
         if (rawValue.length == byteCount()) {
-            int numerator =
-                ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue,
-                    0, 4), byteOrder);
-            int denominator =
-                ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue,
-                    4, 8), byteOrder);
-            boolean negative = ((numerator < 0) && (denominator > 0))
-                               || ((numerator > 0) && (denominator < 0));
+            int numerator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+            int denominator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
+            boolean negative = ((numerator < 0) && (denominator > 0)) || ((numerator > 0) && (denominator < 0));
 
             return !negative && (denominator != 0);
         }
@@ -124,8 +115,7 @@ public final class ExifRational {
 
         final ExifRational other = (ExifRational) obj;
 
-        return (this.numerator == other.numerator)
-               && (this.denominator == other.denominator);
+        return (this.numerator == other.numerator) && (this.denominator == other.denominator);
     }
 
     @Override
@@ -140,7 +130,6 @@ public final class ExifRational {
 
     @Override
     public String toString() {
-        return Integer.toString(denominator) + "/"
-               + Integer.toString(numerator);
+        return Integer.toString(denominator) + "/" + Integer.toString(numerator);
     }
 }

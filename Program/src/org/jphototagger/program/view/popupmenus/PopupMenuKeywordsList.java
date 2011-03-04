@@ -21,48 +21,28 @@ import javax.swing.JPopupMenu.Separator;
  * @author Elmar Baumann
  */
 public final class PopupMenuKeywordsList extends JPopupMenu {
-    private static final long                 serialVersionUID =
-        -552638878495121120L;
-    public static final PopupMenuKeywordsList INSTANCE         =
-        new PopupMenuKeywordsList();
+    private static final long serialVersionUID = -552638878495121120L;
+    public static final PopupMenuKeywordsList INSTANCE = new PopupMenuKeywordsList();
     private final JMenuItem itemInsert =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsList.DisplayName.Action.Insert"), AppLookAndFeel
-                        .ICON_NEW);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Insert"),
+                      AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemRename =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsList.DisplayName.Action.Rename"), AppLookAndFeel
-                        .ICON_RENAME);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"),
+                      AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemRemoveFromEditPanel =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.ActionRemoveFromEditPanel"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.ActionRemoveFromEditPanel"));
     private final JMenuItem itemEditSynonyms =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"), AppLookAndFeel
-                        .ICON_EDIT);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"),
+                      AppLookAndFeel.ICON_EDIT);
     private final JMenuItem itemDisplayImages =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
     private final JMenuItem itemDelete =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsList.DisplayName.Action.Delete"), AppLookAndFeel
-                        .ICON_DELETE);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"),
+                      AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemAddToEditPanel =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsList.DisplayName.ActionAddToEditPanel"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.ActionAddToEditPanel"));
     private JList list;
-    private int   selIndex;
+    private int selIndex;
 
     private PopupMenuKeywordsList() {
         addItems();
@@ -127,16 +107,11 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemInsert.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemInsert.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
         itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
-        itemDelete.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
-        itemEditSynonyms.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcutWithAltDown(KeyEvent.VK_S));
-        itemAddToEditPanel.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
-        itemRemoveFromEditPanel.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
+        itemDelete.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemEditSynonyms.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithAltDown(KeyEvent.VK_S));
+        itemAddToEditPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
+        itemRemoveFromEditPanel.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
     }
 }

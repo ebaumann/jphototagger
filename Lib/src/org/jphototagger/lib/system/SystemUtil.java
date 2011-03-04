@@ -22,10 +22,9 @@ public final class SystemUtil {
      * @return Version or null if not found
      */
     public static Version getJavaVersion() {
-        Version         version         = null;
-        String          versionProperty = System.getProperty("java.version");
-        StringTokenizer tok             = new StringTokenizer(versionProperty,
-                                              ".");
+        Version version = null;
+        String versionProperty = System.getProperty("java.version");
+        StringTokenizer tok = new StringTokenizer(versionProperty, ".");
 
         if (tok.countTokens() >= 2) {
             try {
@@ -34,8 +33,7 @@ public final class SystemUtil {
 
                 return new Version(major, minor);
             } catch (Exception ex) {
-                Logger.getLogger(SystemUtil.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(SystemUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -103,8 +101,7 @@ public final class SystemUtil {
     }
 
     private static boolean isSupported(Desktop.Action action) {
-        return Desktop.isDesktopSupported()
-               && Desktop.getDesktop().isSupported(action);
+        return Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(action);
     }
 
     /**

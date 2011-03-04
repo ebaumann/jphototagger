@@ -22,8 +22,8 @@ import java.util.List;
 public final class FileSystemMove extends FileSystem implements Runnable {
     private final List<File> sourceFiles = new ArrayList<File>();
     private final List<File> targetFiles = new ArrayList<File>();
-    private final boolean    renameIfTargetFileExists;
-    private final File       targetDirectory;
+    private final boolean renameIfTargetFileExists;
+    private final File targetDirectory;
 
     /**
      * Moves sources files to a target directory.
@@ -33,8 +33,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      * @param renameIfTargetFileExists renaming automatically the file if the
      *                                 target file exists
      */
-    public FileSystemMove(List<File> sourceFiles, File targetDirectory,
-                          boolean renameIfTargetFileExists) {
+    public FileSystemMove(List<File> sourceFiles, File targetDirectory, boolean renameIfTargetFileExists) {
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
@@ -45,7 +44,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
         this.sourceFiles.clear();
         this.sourceFiles.addAll(sourceFiles);
-        this.targetDirectory          = targetDirectory;
+        this.targetDirectory = targetDirectory;
         this.renameIfTargetFileExists = renameIfTargetFileExists;
         setTargetFiles();
     }
@@ -59,8 +58,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
      * @param renameIfTargetFileExists renaming automatically the file if the
      *                                 target file exists
      */
-    public FileSystemMove(List<File> sourceFiles, List<File> targetFiles,
-                          boolean renameIfTargetFileExists) {
+    public FileSystemMove(List<File> sourceFiles, List<File> targetFiles, boolean renameIfTargetFileExists) {
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
@@ -81,14 +79,13 @@ public final class FileSystemMove extends FileSystem implements Runnable {
         targetFiles.clear();
 
         for (File sourceFile : sourceFiles) {
-            targetFiles.add(new File(targetDirectory.getAbsolutePath()
-                                     + File.separator + sourceFile.getName()));
+            targetFiles.add(new File(targetDirectory.getAbsolutePath() + File.separator + sourceFile.getName()));
         }
     }
 
     @Override
     public void run() {
-        int           size          = sourceFiles.size();
+        int size = sourceFiles.size();
         ProgressEvent progressEvent = new ProgressEvent(this, 0, size, 0, "");
 
         notifyProgressListenerStarted(progressEvent);
@@ -128,8 +125,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
         boolean exists = targetFile.exists();
 
         if (exists) {
-            MessageDisplayer.error(null, "FileSystemMove.Error.TargetExists",
-                                   sourceFile, targetFile);
+            MessageDisplayer.error(null, "FileSystemMove.Error.TargetExists", sourceFile, targetFile);
         }
 
         return !exists;
@@ -139,8 +135,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
         if (moved) {
             notifyFileSystemListenersMoved(sourceFile, targetFile);
         } else {
-            MessageDisplayer.error(null, "FileSystemMove.Error", sourceFile,
-                                   targetFile);
+            MessageDisplayer.error(null, "FileSystemMove.Error", sourceFile, targetFile);
         }
     }
 }

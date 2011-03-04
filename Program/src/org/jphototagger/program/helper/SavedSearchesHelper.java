@@ -32,8 +32,7 @@ public final class SavedSearchesHelper {
      * @return       index or -1 if that model has no saved search with that
      *               name
      */
-    public static int getIndexOfSavedSearch(DefaultListModel model,
-            String name) {
+    public static int getIndexOfSavedSearch(DefaultListModel model, String name) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
@@ -74,9 +73,7 @@ public final class SavedSearchesHelper {
             if (DatabaseSavedSearches.INSTANCE.insert(savedSearch)) {
                 return true;
             } else {
-                MessageDisplayer.error(null,
-                                       "SavedSearchesHelper.Error.Insert",
-                                       savedSearch);
+                MessageDisplayer.error(null, "SavedSearchesHelper.Error.Insert", savedSearch);
             }
         }
 
@@ -97,8 +94,7 @@ public final class SavedSearchesHelper {
         if (DatabaseSavedSearches.INSTANCE.update(savedSearch)) {
             return true;
         } else {
-            MessageDisplayer.error(null, "SavedSearchesHelper.Error.Update",
-                                   savedSearch);
+            MessageDisplayer.error(null, "SavedSearchesHelper.Error.Update", savedSearch);
 
             return false;
         }
@@ -118,8 +114,7 @@ public final class SavedSearchesHelper {
 
         if (confirmDelete(searchName)) {
             if (!DatabaseSavedSearches.INSTANCE.delete(searchName)) {
-                MessageDisplayer.error(null,
-                                       "SavedSearchesHelper.Error.Delete");
+                MessageDisplayer.error(null, "SavedSearchesHelper.Error.Delete");
             }
         }
     }
@@ -141,14 +136,11 @@ public final class SavedSearchesHelper {
         }
 
         String fromName = savedSearch.getName();
-        String toName   = getNotExistingName(fromName);
+        String toName = getNotExistingName(fromName);
 
         if (toName != null) {
-            if (!DatabaseSavedSearches.INSTANCE.updateRename(fromName,
-                    toName)) {
-                MessageDisplayer.error(null,
-                                       "SavedSearchesHelper.Error.Rename",
-                                       fromName);
+            if (!DatabaseSavedSearches.INSTANCE.updateRename(fromName, toName)) {
+                MessageDisplayer.error(null, "SavedSearchesHelper.Error.Rename", fromName);
             }
         }
     }
@@ -166,8 +158,7 @@ public final class SavedSearchesHelper {
         }
 
         if (search.isCustomSql()) {
-            GUI.getThumbnailsPanel().setFileSortComparator(
-                FileSort.NO_SORT.getComparator());
+            GUI.getThumbnailsPanel().setFileSortComparator(FileSort.NO_SORT.getComparator());
             GUI.getAppFrame().selectMenuItemUnsorted();
         } else {
             ControllerSortThumbnails.setLastSort();
@@ -186,15 +177,14 @@ public final class SavedSearchesHelper {
         }
 
         boolean wantInput = true;
-        String  input     = null;
-        String  suggest   = suggestName;
+        String input = null;
+        String suggest = suggestName;
 
         while (wantInput) {
             wantInput = false;
-            input     = getInput(suggest);
+            input = getInput(suggest);
 
-            if ((input != null)
-                    && DatabaseSavedSearches.INSTANCE.exists(input)) {
+            if ((input != null) && DatabaseSavedSearches.INSTANCE.exists(input)) {
                 wantInput = confirmInputNotExistingName(input);
 
                 if (wantInput) {
@@ -209,25 +199,21 @@ public final class SavedSearchesHelper {
     }
 
     private static String getInput(String fromName) {
-        return MessageDisplayer.input("SavedSearchesHelper.Input.NewName",
-                                      fromName,
+        return MessageDisplayer.input("SavedSearchesHelper.Input.NewName", fromName,
                                       SavedSearchesHelper.class.getName());
     }
 
     private static boolean confirmInputNotExistingName(String input) {
-        return MessageDisplayer.confirmYesNo(null,
-                "SavedSearchesHelper.Confirm.InputDifferentName", input);
+        return MessageDisplayer.confirmYesNo(null, "SavedSearchesHelper.Confirm.InputDifferentName", input);
     }
 
     private static boolean confirmDelete(String name) {
-        return MessageDisplayer.confirmYesNo(null,
-                "SavedSearchesHelper.Confirm.Delete", name);
+        return MessageDisplayer.confirmYesNo(null, "SavedSearchesHelper.Confirm.Delete", name);
     }
 
     private static boolean ensureNotOverwrite(String name) {
         if (DatabaseSavedSearches.INSTANCE.exists(name)) {
-            MessageDisplayer.error(null, "SavedSearchesHelper.Error.Exists",
-                                   name);
+            MessageDisplayer.error(null, "SavedSearchesHelper.Error.Exists", name);
 
             return false;
         }

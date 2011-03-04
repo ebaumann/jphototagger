@@ -20,10 +20,9 @@ import javax.swing.JList;
  * @author Elmar Baumann
  */
 public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
-    private static final FileSystemView FILE_SYSTEM_VIEW =
-        FileSystemView.getFileSystemView();
+    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
     private static final long serialVersionUID = 7162791469100194476L;
-    private final boolean     absolutePathName;
+    private final boolean absolutePathName;
 
     /**
      * Constructor.
@@ -37,10 +36,9 @@ public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-                           index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         if (value instanceof File) {
             File file = (File) value;
@@ -50,9 +48,7 @@ public final class ListCellRendererFileSystem extends DefaultListCellRenderer {
                     try {
                         label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Exception ex) {
-                        Logger.getLogger(
-                            ListCellRendererFileSystem.class.getName()).log(
-                            Level.WARNING, null, ex);
+                        Logger.getLogger(ListCellRendererFileSystem.class.getName()).log(Level.WARNING, null, ex);
                     }
                 }
             }

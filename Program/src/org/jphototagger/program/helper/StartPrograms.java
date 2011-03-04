@@ -1,6 +1,5 @@
 package org.jphototagger.program.helper;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -9,6 +8,8 @@ import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -27,7 +28,7 @@ import javax.swing.JProgressBar;
  */
 public final class StartPrograms {
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
-    private final JProgressBar   progressBar;
+    private final JProgressBar progressBar;
 
     /**
      * Constructor.
@@ -70,10 +71,9 @@ public final class StartPrograms {
     }
 
     private class Execute extends Thread {
-        private ProgramInputParametersDialog dlg =
-            new ProgramInputParametersDialog();
+        private ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
         private List<File> imageFiles;
-        private Program    program;
+        private Program program;
 
         Execute(Program program, List<File> imageFiles) {
             super("JPhotoTagger: Executing program " + program.getAlias());
@@ -87,7 +87,7 @@ public final class StartPrograms {
             }
 
             this.imageFiles = new ArrayList<File>(imageFiles);
-            this.program    = program;
+            this.program = program;
         }
 
         @Override
@@ -108,8 +108,7 @@ public final class StartPrograms {
         }
 
         private void logCommand(String command) {
-            AppLogger.logInfo(StartPrograms.class,
-                              "StartPrograms.Info.ExecuteCommand", command);
+            AppLogger.logInfo(StartPrograms.class, "StartPrograms.Info.ExecuteCommand", command);
         }
 
         private void processPattern() {
@@ -123,11 +122,9 @@ public final class StartPrograms {
                 External.ProcessResult result = External.execute(command, true);
 
                 if ((result == null) || (result.getExitValue() != 0)) {
-                    AppLogger.logWarning(Execute.class,
-                                         "Execute.ExternalExcecute.Error",
-                                         command, (result == null)
-                                                  ? "?"
-                                                  : result.getErrorStream());
+                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
+                            ? "?"
+                            : result.getErrorStream());
                 }
 
                 setValueToProgressBar(++count);
@@ -135,16 +132,14 @@ public final class StartPrograms {
         }
 
         private String getProcessPatternCommand(File file) {
-            return RuntimeUtil.quoteForCommandLine(program.getFile())
-                   + RuntimeUtil.getDefaultCommandLineSeparator()
+            return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
                    + RuntimeUtil.substitudePattern(file, getPattern());
         }
 
         private String getPattern() {
             String pattern = program.getPattern();
 
-            return (program.isUsePattern() && (pattern != null)
-                    &&!pattern.isEmpty())
+            return (program.isUsePattern() && (pattern != null) &&!pattern.isEmpty())
                    ? program.getPattern()
                    : RuntimeUtil.PATTERN_FS_PATH;
         }
@@ -157,27 +152,19 @@ public final class StartPrograms {
             External.ProcessResult result = External.execute(command, true);
 
             if ((result == null) || (result.getExitValue() != 0)) {
-                AppLogger.logWarning(Execute.class,
-                                     "Execute.ExternalExcecute.Error", command,
-                                     (result == null)
-                                     ? "?"
-                                     : result.getErrorStream());
+                AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
+                        ? "?"
+                        : result.getErrorStream());
             }
 
             setValueToProgressBar(imageFiles.size());
         }
 
         private String getProcessAllCommand() {
-            return RuntimeUtil.quoteForCommandLine(program.getFile())
-                   + RuntimeUtil.getDefaultCommandLineSeparator()
-                   + program
-                       .getCommandlineParameters(
-                           imageFiles,
-                           getAdditionalParameters(
-                               JptBundle.INSTANCE
-                                   .getString(
-                                       "StartPrograms.GetInput.Title"), 2), dlg
-                                           .isParametersBeforeFilename());
+            return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
+                   + program.getCommandlineParameters(imageFiles,
+                       getAdditionalParameters(JptBundle.INSTANCE.getString("StartPrograms.GetInput.Title"), 2),
+                       dlg.isParametersBeforeFilename());
         }
 
         private void processSingle() {
@@ -191,11 +178,9 @@ public final class StartPrograms {
                 External.ProcessResult result = External.execute(command, true);
 
                 if ((result == null) || (result.getExitValue() != 0)) {
-                    AppLogger.logWarning(Execute.class,
-                                         "Execute.ExternalExcecute.Error",
-                                         command, (result == null)
-                                                  ? "?"
-                                                  : result.getErrorStream());
+                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
+                            ? "?"
+                            : result.getErrorStream());
                 }
 
                 setValueToProgressBar(++count);
@@ -203,13 +188,9 @@ public final class StartPrograms {
         }
 
         private String getProcessSingleCommand(File file, int count) {
-            return RuntimeUtil.quoteForCommandLine(program.getFile())
-                   + RuntimeUtil.getDefaultCommandLineSeparator()
-                   + program.getCommandlineParameters(
-                       Arrays.asList(file),
-                       getAdditionalParameters(
-                           file.getAbsolutePath(),
-                           count + 1), dlg.isParametersBeforeFilename());
+            return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
+                   + program.getCommandlineParameters(Arrays.asList(file),
+                       getAdditionalParameters(file.getAbsolutePath(), count + 1), dlg.isParametersBeforeFilename());
         }
 
         private String getAdditionalParameters(String filename, int count) {
@@ -268,9 +249,7 @@ public final class StartPrograms {
 
         private void updateDatabase() {
             if (program.isChangeFile()) {
-                InsertImageFilesIntoDatabase updater =
-                    new InsertImageFilesIntoDatabase(imageFiles,
-                        Insert.OUT_OF_DATE);
+                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(imageFiles, Insert.OUT_OF_DATE);
 
                 updater.run();    // run in this thread!
             }

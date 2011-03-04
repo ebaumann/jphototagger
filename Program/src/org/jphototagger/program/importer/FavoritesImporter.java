@@ -27,9 +27,8 @@ public final class FavoritesImporter implements Importer {
         }
 
         try {
-            FavoritesExporter.CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
-                    FavoritesExporter.CollectionWrapper.class);
+            FavoritesExporter.CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
+                                                              FavoritesExporter.CollectionWrapper.class);
 
             for (Favorite favorite : wrapper.getCollection()) {
                 if (!DatabaseFavorites.INSTANCE.exists(favorite.getName())) {

@@ -6,17 +6,16 @@ package org.jphototagger.program.app.update.tables;
  * @author Elmar Baumann
  */
 public final class ColumnInfo {
-    private final String        tableName;
-    private final String        columnName;
-    private final String        dataType;
+    private final String tableName;
+    private final String columnName;
+    private final String dataType;
     private final IndexOfColumn index;
 
-    public ColumnInfo(String tableName, String columnName, String dataType,
-                      IndexOfColumn index) {
-        this.tableName  = tableName;
+    public ColumnInfo(String tableName, String columnName, String dataType, IndexOfColumn index) {
+        this.tableName = tableName;
         this.columnName = columnName;
-        this.dataType   = dataType;
-        this.index      = index;
+        this.dataType = dataType;
+        this.index = index;
     }
 
     /**

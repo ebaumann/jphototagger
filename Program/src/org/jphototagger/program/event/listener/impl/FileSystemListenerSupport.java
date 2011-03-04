@@ -8,8 +8,7 @@ import java.io.File;
  *
  * @author Elmar Baumann
  */
-public final class FileSystemListenerSupport
-        extends ListenerSupport<FileSystemListener> {
+public final class FileSystemListenerSupport extends ListenerSupport<FileSystemListener> {
     public void notifyCopied(File fromFile, File toFile) {
         if (fromFile == null) {
             throw new NullPointerException("source == null");

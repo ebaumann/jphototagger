@@ -11,22 +11,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author Elmar Baumann
  */
-public final class ComparatorTreeNodeLevel
-        implements Comparator<DefaultMutableTreeNode>, Serializable {
+public final class ComparatorTreeNodeLevel implements Comparator<DefaultMutableTreeNode>, Serializable {
 
     /**
      * Sorts tree nodes in ascending order: A node with a lower level is before
      * a node with a higher level.
      */
-    public static final ComparatorTreeNodeLevel ASCENDING =
-        new ComparatorTreeNodeLevel(CompareOrder.ASCENDING);
+    public static final ComparatorTreeNodeLevel ASCENDING = new ComparatorTreeNodeLevel(CompareOrder.ASCENDING);
 
     /**
      * Sorts tree nodes in descending order: A node with a higher level is
      * before a node with a lower level.
      */
-    public static final ComparatorTreeNodeLevel DESCENDING =
-        new ComparatorTreeNodeLevel(CompareOrder.DESCENDING);
+    public static final ComparatorTreeNodeLevel DESCENDING = new ComparatorTreeNodeLevel(CompareOrder.DESCENDING);
     private static final long serialVersionUID = 1955019986650441963L;
 
     /**
@@ -40,9 +37,9 @@ public final class ComparatorTreeNodeLevel
 
     @Override
     public int compare(DefaultMutableTreeNode o1, DefaultMutableTreeNode o2) {
-        int     o1Level = o1.getLevel();
-        int     o2Level = o2.getLevel();
-        boolean equals  = o1Level == o2Level;
+        int o1Level = o1.getLevel();
+        int o2Level = o2.getLevel();
+        boolean equals = o1Level == o2Level;
         boolean greater = o1Level > o2Level;
 
         return equals

@@ -14,10 +14,8 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifFormatterSharpness extends ExifFormatter {
-    public static final ExifFormatterSharpness INSTANCE =
-        new ExifFormatterSharpness();
-    private static final Map<Integer, String> EXIF_KEY_OF_SHARPNESS =
-        new HashMap<Integer, String>();
+    public static final ExifFormatterSharpness INSTANCE = new ExifFormatterSharpness();
+    private static final Map<Integer, String> EXIF_KEY_OF_SHARPNESS = new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_SHARPNESS.put(0, "SharpnessNormal");
@@ -36,13 +34,11 @@ public final class ExifFormatterSharpness extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.SHARPNESS);
 
         if (ExifShort.byteCount() == exifTag.rawValue().length) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
             int value = es.value();
 
             if (EXIF_KEY_OF_SHARPNESS.containsKey(value)) {
-                return translate(IfdType.EXIF,
-                                 EXIF_KEY_OF_SHARPNESS.get(value));
+                return translate(IfdType.EXIF, EXIF_KEY_OF_SHARPNESS.get(value));
             }
         }
 

@@ -15,10 +15,10 @@ import java.util.Arrays;
  * @author Elmar Baumann
  */
 public final class IptcEntry {
-    private final String        name;
-    private final byte[]        data;
-    private final int           recordNumber;
-    private final int           datasetNumber;
+    private final String name;
+    private final byte[] data;
+    private final int recordNumber;
+    private final int datasetNumber;
     private final IPTCEntryMeta entryMeta;
 
     /**
@@ -31,11 +31,11 @@ public final class IptcEntry {
             throw new NullPointerException("entry == null");
         }
 
-        name          = entry.getEntryMeta().getName();
-        data          = Arrays.copyOf(entry.getData(), entry.getData().length);
-        recordNumber  = entry.getRecordNumber();
+        name = entry.getEntryMeta().getName();
+        data = Arrays.copyOf(entry.getData(), entry.getData().length);
+        recordNumber = entry.getRecordNumber();
         datasetNumber = entry.getDataSetNumber();
-        entryMeta     = entry.getEntryMeta();
+        entryMeta = entry.getEntryMeta();
     }
 
     /**
@@ -83,8 +83,7 @@ public final class IptcEntry {
         if (o instanceof IptcEntry) {
             IptcEntry otherEntry = (IptcEntry) o;
 
-            return (recordNumber == otherEntry.recordNumber)
-                   && (datasetNumber == otherEntry.datasetNumber)
+            return (recordNumber == otherEntry.recordNumber) && (datasetNumber == otherEntry.datasetNumber)
                    && getData().equals(otherEntry.getData());
         }
 
@@ -103,8 +102,7 @@ public final class IptcEntry {
 
     private String getEncodedData() {
         try {
-            return new String(data,
-                              UserSettings.INSTANCE.getIptcCharset()).trim();
+            return new String(data, UserSettings.INSTANCE.getIptcCharset()).trim();
         } catch (Exception ex) {
             AppLogger.logSevere(IptcEntry.class, ex);
         }

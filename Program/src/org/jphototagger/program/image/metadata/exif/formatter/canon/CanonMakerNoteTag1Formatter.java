@@ -38,29 +38,27 @@ final class CanonMakerNoteTag1Formatter {
             return;
         }
 
-        double        minF           = (double) values[23] / mmFactor;
-        double        maxF           = (double) values[22] / mmFactor;
-        boolean       fixFocalLength = Math.abs(minF - maxF) < .0000001;
-        DecimalFormat df             = new DecimalFormat("#.#");
-        String        lens           = fixFocalLength
-                                       ? df.format(minF) + " mm"
-                                       : df.format(minF) + "-"
-                                         + df.format(maxF) + " mm";
+        double minF = (double) values[23] / mmFactor;
+        double maxF = (double) values[22] / mmFactor;
+        boolean fixFocalLength = Math.abs(minF - maxF) < .0000001;
+        DecimalFormat df = new DecimalFormat("#.#");
+        String lens = fixFocalLength
+                      ? df.format(minF) + " mm"
+                      : df.format(minF) + "-" + df.format(maxF) + " mm";
 
-        CanonMakerNotes.addTag(exifTags, ExifTag.Id.MAKER_NOTE_LENS.value(),
-                               "Lens", lens);
+        CanonMakerNotes.addTag(exifTags, ExifTag.Id.MAKER_NOTE_LENS.value(), "Lens", lens);
     }
 
     private static void addFocusMode(short[] values, ExifTags exifTags) {
-        final int offset     = 8;
+        final int offset = 8;
         final int valueIndex = offset - 1;
 
         if (valueIndex >= values.length) {
             return;    // No focus mode information available
         }
 
-        short  value = values[valueIndex];
-        String mode  = null;
+        short value = values[valueIndex];
+        String mode = null;
 
         switch (value) {
         case 0 :
@@ -102,9 +100,7 @@ final class CanonMakerNoteTag1Formatter {
             return;
         }
 
-        CanonMakerNotes.addTag(exifTags,
-                               CanonMakerNotes.tagId(CANON_TAG, offset),
-                               "FocusMode", mode);
+        CanonMakerNotes.addTag(exifTags, CanonMakerNotes.tagId(CANON_TAG, offset), "FocusMode", mode);
     }
 
     private CanonMakerNoteTag1Formatter() {}

@@ -14,24 +14,21 @@ import javax.swing.JList;
  *
  * @author Elmar Baumann
  */
-public final class ListCellRendererSavedSearches
-        extends DefaultListCellRenderer {
-    private static final Icon ICON             =
-        AppLookAndFeel.getIcon("icon_search.png");
+public final class ListCellRendererSavedSearches extends DefaultListCellRenderer {
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_search.png");
     private static final long serialVersionUID = 3108457488446314020L;
-    private int               tempSelRow       = -1;
+    private int tempSelRow = -1;
 
     public ListCellRendererSavedSearches() {
         setOpaque(true);
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-                           index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         boolean tempSelExists = tempSelRow >= 0;
-        boolean isTempSelRow  = index == tempSelRow;
+        boolean isTempSelRow = index == tempSelRow;
 
         label.setForeground((isTempSelRow || (isSelected &&!tempSelExists))
                             ? AppLookAndFeel.getListSelectionForeground()

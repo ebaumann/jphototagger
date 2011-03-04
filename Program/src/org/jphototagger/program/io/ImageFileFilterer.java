@@ -30,18 +30,15 @@ public final class ImageFileFilterer {
             throw new NullPointerException("directory == null");
         }
 
-        File[] filteredFiles =
-            directory.listFiles(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
-        List<String> excludePatterns =
-            DatabaseFileExcludePatterns.INSTANCE.getAll();
+        File[] filteredFiles = directory.listFiles(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
+        List<String> excludePatterns = DatabaseFileExcludePatterns.INSTANCE.getAll();
         List<File> files = new ArrayList<File>();
 
         if (filteredFiles != null) {
             for (int index = 0; index < filteredFiles.length; index++) {
                 File file = filteredFiles[index];
 
-                if (!RegexUtil.containsMatch(excludePatterns,
-                                             file.getAbsolutePath())) {
+                if (!RegexUtil.containsMatch(excludePatterns, file.getAbsolutePath())) {
                     files.add(file);
                 }
             }
@@ -56,8 +53,7 @@ public final class ImageFileFilterer {
      * @param  directories  Verzeichnisse
      * @return Bilddateien in diesen Verzeichnissen
      */
-    public static List<File> getImageFilesOfDirectories(
-            List<File> directories) {
+    public static List<File> getImageFilesOfDirectories(List<File> directories) {
         if (directories == null) {
             throw new NullPointerException("directories == null");
         }
@@ -82,9 +78,8 @@ public final class ImageFileFilterer {
             throw new NullPointerException("dir == null");
         }
 
-        List<File> dirAndSubdirs =
-            FileUtil.getSubDirsRecursive(dir,
-                UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
+        List<File> dirAndSubdirs = FileUtil.getSubDirsRecursive(dir,
+                                       UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
         dirAndSubdirs.add(dir);
 
@@ -102,8 +97,8 @@ public final class ImageFileFilterer {
             throw new NullPointerException("arbitraryFiles == null");
         }
 
-        List<File>      imageFiles = new ArrayList<File>();
-        RegexFileFilter filter     = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
+        List<File> imageFiles = new ArrayList<File>();
+        RegexFileFilter filter = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
 
         for (File file : arbitraryFiles) {
             if (filter.accept(file)) {

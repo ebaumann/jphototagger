@@ -27,8 +27,7 @@ public interface GPSLocationExporter {
      * @throws             UnsupportedCharsetException if the system does not
      *                     support UTF-8 strings
      */
-    void export(Collection<? extends GPSImageInfo> gpsImageInfo,
-                OutputStream os)
+    void export(Collection<? extends GPSImageInfo> gpsImageInfo, OutputStream os)
             throws IOException, UnsupportedCharsetException;
 
     /**

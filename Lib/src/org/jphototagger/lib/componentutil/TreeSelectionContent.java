@@ -24,9 +24,8 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public final class TreeSelectionContent extends Content<TreePath[]>
-        implements TreeSelectionListener, MouseListener {
-    private final JTree      tree;
+public final class TreeSelectionContent extends Content<TreePath[]> implements TreeSelectionListener, MouseListener {
+    private final JTree tree;
     private final JPopupMenu popup;
 
     public TreeSelectionContent(JTree tree) {
@@ -35,7 +34,7 @@ public final class TreeSelectionContent extends Content<TreePath[]>
         }
 
         this.tree = tree;
-        popup     = tree.getComponentPopupMenu();
+        popup = tree.getComponentPopupMenu();
         tree.addMouseListener(this);
     }
 
@@ -75,16 +74,14 @@ public final class TreeSelectionContent extends Content<TreePath[]>
 
     @Override
     public void mousePressed(MouseEvent evt) {
-        if ((popup != null) && SystemUtil.isWindows()
-                && MouseEventUtil.isPopupTrigger(evt)) {
+        if ((popup != null) && SystemUtil.isWindows() && MouseEventUtil.isPopupTrigger(evt)) {
             displayPopup(evt);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent evt) {
-        if ((popup != null) && SystemUtil.isMac()
-                && MouseEventUtil.isPopupTrigger(evt)) {
+        if ((popup != null) && SystemUtil.isMac() && MouseEventUtil.isPopupTrigger(evt)) {
             displayPopup(evt);
         }
     }

@@ -12,8 +12,7 @@ import java.util.Comparator;
  *
  * @author Elmar Baumann
  */
-public final class ComparatorFilesNamesAscCs extends ClassEquality
-        implements Comparator<File>, Serializable {
+public final class ComparatorFilesNamesAscCs extends ClassEquality implements Comparator<File>, Serializable {
     private static final long serialVersionUID = 7123943877686224983L;
 
     @Override

@@ -30,9 +30,9 @@ import javax.swing.SwingUtilities;
  * @author Elmar Baumann
  */
 public final class AppInit {
-    public static final AppInit   INSTANCE = new AppInit();
+    public static final AppInit INSTANCE = new AppInit();
     private AppCommandLineOptions commandLineOptions;
-    private volatile boolean      init;
+    private volatile boolean init;
 
     private AppInit() {}
 
@@ -47,8 +47,7 @@ public final class AppInit {
             init = true;
         }
 
-        this.commandLineOptions =
-            new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
+        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
         init();
     }
 
@@ -73,8 +72,7 @@ public final class AppInit {
             return;
         }
 
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("AppInit.Info.InitGui"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("AppInit.Info.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
         SplashScreen.INSTANCE.close();
     }
@@ -102,8 +100,7 @@ public final class AppInit {
                     }
                 });
             } catch (Exception ex) {
-                Logger.getLogger(AppInit.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(AppInit.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -124,22 +121,19 @@ public final class AppInit {
     }
 
     private void setJptEventQueue() {
-        Toolkit.getDefaultToolkit().getSystemEventQueue().push(
-            new AppEventQueue());
+        Toolkit.getDefaultToolkit().getSystemEventQueue().push(new AppEventQueue());
     }
 
     private static void checkJavaVersion() {
         Version javaVersion = SystemUtil.getJavaVersion();
 
-        if ((javaVersion != null)
-                && (javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0)) {
+        if ((javaVersion != null) && (javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0)) {
             errorMessageJavaVersion(javaVersion);
             System.exit(2);
         }
     }
 
     private static void errorMessageJavaVersion(Version javaVersion) {
-        MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion,
-                               AppInfo.MIN_JAVA_VERSION);
+        MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion, AppInfo.MIN_JAVA_VERSION);
     }
 }

@@ -25,57 +25,46 @@ import javax.swing.UIManager;
  * @author Elmar Baumann
  */
 public final class AppLookAndFeel {
-    private static final String ICONS_PATH =
-        "/org/jphototagger/program/resource/icons";
-    public static final String TABLE_CELL_CSS =
-        "margin-left:3px;margin-right:3px;";
-    public static final int    TABLE_MAX_CHARS_CELL       = 45;
-    public static final int    TABLE_MAX_CHARS_ROW_HEADER = 40;
-    public static final String TABLE_ROW_HEADER_CSS =
-        "margin-left:3px;margin-right:3px;";
+    private static final String ICONS_PATH = "/org/jphototagger/program/resource/icons";
+    public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
+    public static final int TABLE_MAX_CHARS_CELL = 45;
+    public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
+    public static final String TABLE_ROW_HEADER_CSS = "margin-left:3px;margin-right:3px;";
     private static Color tableStoredInDatabaseForeground = Color.BLACK;
-    private static Color tableStoredInDatabaseBackground = new Color(251, 249,
-                                                               241);
-    private static Color tableSelectionForeground     = Color.BLACK;
-    private static Color tableSelectionBackground     = new Color(226, 226,
-                                                            255);
-    private static Color tableForeground              = Color.BLACK;
+    private static Color tableStoredInDatabaseBackground = new Color(251, 249, 241);
+    private static Color tableSelectionForeground = Color.BLACK;
+    private static Color tableSelectionBackground = new Color(226, 226, 255);
+    private static Color tableForeground = Color.BLACK;
     private static Color tableExifMakerNoteForeground = Color.BLACK;
-    private static Color tableExifMakerNoteBackground = new Color(226, 226,
-                                                            255);
-    private static Color      tableBackground = Color.WHITE;
-    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND =
-        new Color(100, 100, 100);
-    public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND =
-        new Color(255, 255, 255);
-    private static final String SMALL_APP_ICON_PATH = ICONS_PATH
-                                                      + "/icon_app_small.png";
-    private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH
-                                                       + "/icon_app_medium.png";
-    public static final Icon  ICON_RENAME  = getIcon("icon_rename.png");
-    public static final Icon  ICON_REFRESH = getIcon("icon_refresh.png");
-    public static final Icon  ICON_PASTE   = getIcon("icon_paste.png");
-    public static final Icon  ICON_NEW     = getIcon("icon_new.png");
-    public static final Icon  ICON_EDIT    = getIcon("icon_edit.png");
-    public static final Icon  ICON_DELETE  = getIcon("icon_delete.png");
-    public static final Icon  ICON_CUT     = getIcon("icon_cut.png");
-    public static final Icon  ICON_COPY    = getIcon("icon_copy.png");
-    public static final Icon  ICON_FILTER  = getIcon("icon_filter.png");
-    public static final Icon  ICON_START   = getIcon("icon_start.png");
-    public static final Icon  ICON_CANCEL  = getIcon("icon_cancel.png");
+    private static Color tableExifMakerNoteBackground = new Color(226, 226, 255);
+    private static Color tableBackground = Color.WHITE;
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(100, 100, 100);
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = new Color(255, 255, 255);
+    private static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";
+    private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH + "/icon_app_medium.png";
+    public static final Icon ICON_RENAME = getIcon("icon_rename.png");
+    public static final Icon ICON_REFRESH = getIcon("icon_refresh.png");
+    public static final Icon ICON_PASTE = getIcon("icon_paste.png");
+    public static final Icon ICON_NEW = getIcon("icon_new.png");
+    public static final Icon ICON_EDIT = getIcon("icon_edit.png");
+    public static final Icon ICON_DELETE = getIcon("icon_delete.png");
+    public static final Icon ICON_CUT = getIcon("icon_cut.png");
+    public static final Icon ICON_COPY = getIcon("icon_copy.png");
+    public static final Icon ICON_FILTER = getIcon("icon_filter.png");
+    public static final Icon ICON_START = getIcon("icon_start.png");
+    public static final Icon ICON_CANCEL = getIcon("icon_cancel.png");
     public static final Image ERROR_THUMBNAIL =
-        IconUtil.getIconImage(
-            JptBundle.INSTANCE.getString("ErrorThumbnailPath"));
-    private static final List<Image>  APP_ICONS      = new ArrayList<Image>();
+        IconUtil.getIconImage(JptBundle.INSTANCE.getString("ErrorThumbnailPath"));
+    private static final List<Image> APP_ICONS = new ArrayList<Image>();
     private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
-    private static Color              listBackground;
-    private static Color              listForeground;
-    private static Color              listSelectionBackground;
-    private static Color              listSelectionForeground;
-    private static Color              treeSelectionBackground;
-    private static Color              treeSelectionForeground;
-    private static Color              treeTextBackground;
-    private static Color              treeTextForeground;
+    private static Color listBackground;
+    private static Color listForeground;
+    private static Color listSelectionBackground;
+    private static Color listSelectionForeground;
+    private static Color treeSelectionBackground;
+    private static Color treeSelectionForeground;
+    private static Color treeTextBackground;
+    private static Color treeTextForeground;
 
     static {
         APP_ICON_PATHS.add(SMALL_APP_ICON_PATH);
@@ -121,12 +110,11 @@ public final class AppLookAndFeel {
             throw new IllegalArgumentException("path is empty!");
         }
 
-        String lang          = Locale.getDefault().getLanguage();
-        int    lastPathDelim = path.lastIndexOf('/');
+        String lang = Locale.getDefault().getLanguage();
+        int lastPathDelim = path.lastIndexOf('/');
 
         return (lastPathDelim >= 0)
-               ? path.substring(0, lastPathDelim + 1) + lang + "/"
-                 + path.substring(lastPathDelim + 1)
+               ? path.substring(0, lastPathDelim + 1) + lang + "/" + path.substring(lastPathDelim + 1)
                : lang + "/" + path;
     }
 
@@ -176,33 +164,26 @@ public final class AppLookAndFeel {
 
     private static void setHelp() {
         HelpBrowser.INSTANCE.setIconImages(getAppIcons());
-        HelpBrowser.INSTANCE.setSettings(UserSettings.INSTANCE.getSettings(),
-                                         null);
+        HelpBrowser.INSTANCE.setSettings(UserSettings.INSTANCE.getSettings(), null);
     }
 
     private static void setUiColors() {
-        treeSelectionForeground =
-            LookAndFeelUtil.getUiColor("Tree.selectionForeground");
-        treeSelectionBackground =
-            LookAndFeelUtil.getUiColor("Tree.selectionBackground");
+        treeSelectionForeground = LookAndFeelUtil.getUiColor("Tree.selectionForeground");
+        treeSelectionBackground = LookAndFeelUtil.getUiColor("Tree.selectionBackground");
         treeTextBackground = LookAndFeelUtil.getUiColor("Tree.textBackground");
         treeTextForeground = LookAndFeelUtil.getUiColor("Tree.textForeground");
-        listSelectionForeground =
-            LookAndFeelUtil.getUiColor("List.selectionForeground");
-        listSelectionBackground =
-            LookAndFeelUtil.getUiColor("List.selectionBackground");
+        listSelectionForeground = LookAndFeelUtil.getUiColor("List.selectionForeground");
+        listSelectionBackground = LookAndFeelUtil.getUiColor("List.selectionBackground");
         listBackground = LookAndFeelUtil.getUiColor("List.background");
         listForeground = LookAndFeelUtil.getUiColor("List.foreground");
         tableForeground = LookAndFeelUtil.getUiColor("Table.foreground");
         tableBackground = LookAndFeelUtil.getUiColor("Table.background ");
-        tableSelectionForeground =
-            LookAndFeelUtil.getUiColor("Table.selectionForeground");
-        tableSelectionBackground =
-            LookAndFeelUtil.getUiColor("Table.selectionBackground ");
+        tableSelectionForeground = LookAndFeelUtil.getUiColor("Table.selectionForeground");
+        tableSelectionBackground = LookAndFeelUtil.getUiColor("Table.selectionBackground ");
         tableStoredInDatabaseForeground = new Color(0, 0, 200);
         tableStoredInDatabaseBackground = tableBackground;
-        tableExifMakerNoteForeground    = new Color(0, 125, 0);
-        tableExifMakerNoteBackground    = tableBackground;
+        tableExifMakerNoteForeground = new Color(0, 125, 0);
+        tableExifMakerNoteBackground = tableBackground;
     }
 
     public static Color getListBackground() {
@@ -312,15 +293,14 @@ public final class AppLookAndFeel {
 
     private static void setBoldFont(String key, boolean bold) {
         Font defaultFont = UIManager.getFont(key);
-        int  weight      = bold
-                           ? Font.BOLD
-                           : Font.PLAIN;
+        int weight = bold
+                     ? Font.BOLD
+                     : Font.PLAIN;
 
         if (defaultFont != null) {
-            Font plainFont = new Font(defaultFont.getName(),
-                                      defaultFont.isItalic()
-                                      ? weight | Font.ITALIC
-                                      : Font.PLAIN, defaultFont.getSize());
+            Font plainFont = new Font(defaultFont.getName(), defaultFont.isItalic()
+                    ? weight | Font.ITALIC
+                    : Font.PLAIN, defaultFont.getSize());
 
             UIManager.put(key, new FontUIResource(plainFont));
         }

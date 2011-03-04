@@ -3,13 +3,13 @@ package org.jphototagger.program.image.metadata.exif.formatter.nikon;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.ExifMakerNotes;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
-import org.jphototagger.lib.generics.Pair;
 
 import java.io.File;
 
@@ -26,11 +26,10 @@ import java.util.ResourceBundle;
 public final class NikonMakerNotes implements ExifMakerNotes {
     private static final String PROPERTY_FILE_PREFIX =
         "org/jphototagger/program/resource/properties/NikonExifMakerNote_";
-    private static final Collection<NikonMakerNote> MAKER_NOTES =
-        new ArrayList<NikonMakerNote>();
+    private static final Collection<NikonMakerNote> MAKER_NOTES = new ArrayList<NikonMakerNote>();
 
     static {
-        int       index    = 0;
+        int index = 0;
         final int maxIndex = 100;
 
         while (index <= maxIndex) {
@@ -43,9 +42,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
                 // java.util.zip.ZipEntry entry = (java.util.zip.ZipEntry) entries.nextElement();
                 // if (entry.getName().startsWith(PROPERTY_FILE_PREFIX) ...
                 // }
-                ResourceBundle bundle =
-                    ResourceBundle.getBundle(PROPERTY_FILE_PREFIX
-                                             + Integer.toString(index++));
+                ResourceBundle bundle = ResourceBundle.getBundle(PROPERTY_FILE_PREFIX + Integer.toString(index++));
 
                 MAKER_NOTES.add(new NikonMakerNote(bundle));
             } catch (Exception ex) {
@@ -84,43 +81,38 @@ public final class NikonMakerNotes implements ExifMakerNotes {
     private void add(ExifTag exifMakerNote, ExifTags exifTags) {
         assert exifMakerNote.id().equals(ExifTag.Id.MAKER_NOTE);
 
-        NikonMakerNote nikonMakerNote = NikonMakerNotes.get(exifTags,
-                                            exifMakerNote.rawValue());
+        NikonMakerNote nikonMakerNote = NikonMakerNotes.get(exifTags, exifMakerNote.rawValue());
 
         if (nikonMakerNote == null) {
             return;
         }
 
         List<ExifTag> allMakerNoteTags = new ArrayList<ExifTag>();
-        int           offset           = nikonMakerNote.getByteOffsetToIfd();
+        int offset = nikonMakerNote.getByteOffsetToIfd();
 
         try {
-            byte[] raw   = exifMakerNote.rawValue();
+            byte[] raw = exifMakerNote.rawValue();
             byte[] bytes = new byte[raw.length - offset];
 
             System.arraycopy(raw, offset, bytes, 0, bytes.length);
 
-            TiffReader         r     = new TiffReader(bytes);
-            ImageFileDirectory ifd   = r.getIFD(0);
-            int                count = ifd.getEntryCount();
+            TiffReader r = new TiffReader(bytes);
+            ImageFileDirectory ifd = r.getIFD(0);
+            int count = ifd.getEntryCount();
 
             for (int i = 0; i < count; i++) {
-                allMakerNoteTags.add(new ExifTag(ifd.getEntryAt(i),
-                                                 IfdType.MAKER_NOTE));
+                allMakerNoteTags.add(new ExifTag(ifd.getEntryAt(i), IfdType.MAKER_NOTE));
             }
 
-            exifTags.addMakerNoteTags(
-                nikonMakerNote.getDisplayableMakerNotesOf(allMakerNoteTags));
+            exifTags.addMakerNoteTags(nikonMakerNote.getDisplayableMakerNotesOf(allMakerNoteTags));
             exifTags.setMakerNoteDescription(nikonMakerNote.getDescription());
-            mergeMakerNoteTags(exifTags,
-                               nikonMakerNote.getTagIdsEqualInExifIfd());
+            mergeMakerNoteTags(exifTags, nikonMakerNote.getTagIdsEqualInExifIfd());
         } catch (Exception ex) {
             AppLogger.logSevere(ExifMetadata.class, ex);
         }
     }
 
-    private static void mergeMakerNoteTags(ExifTags exifTags,
-            List<Pair<Integer, Integer>> equalTagIds) {
+    private static void mergeMakerNoteTags(ExifTags exifTags, List<Pair<Integer, Integer>> equalTagIds) {
         for (Pair<Integer, Integer> pair : equalTagIds) {
             ExifTag makerNoteTag = exifTags.makerNoteTagById(pair.getFirst());
 
@@ -131,15 +123,10 @@ public final class NikonMakerNotes implements ExifMakerNotes {
 
                 // prefering existing tag
                 if (exifTag == null) {
-                    exifTags.addExifTag(new ExifTag(pair.getSecond(),
-                                                    makerNoteTag.dataTypeId(),
-                                                    makerNoteTag.valueCount(),
-                                                    makerNoteTag.valueOffset(),
-                                                    makerNoteTag.rawValue(),
-                                                    makerNoteTag.stringValue(),
-                                                    makerNoteTag.byteOrderId(),
-                                                    makerNoteTag.name(),
-                                                    IfdType.EXIF));
+                    exifTags.addExifTag(new ExifTag(pair.getSecond(), makerNoteTag.dataTypeId(),
+                                                    makerNoteTag.valueCount(), makerNoteTag.valueOffset(),
+                                                    makerNoteTag.rawValue(), makerNoteTag.stringValue(),
+                                                    makerNoteTag.byteOrderId(), makerNoteTag.name(), IfdType.EXIF));
                 }
             }
         }

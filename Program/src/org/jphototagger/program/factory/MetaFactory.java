@@ -16,7 +16,7 @@ import java.awt.EventQueue;
  */
 public final class MetaFactory implements Runnable {
     public static final MetaFactory INSTANCE = new MetaFactory();
-    private boolean                 init     = false;
+    private boolean init = false;
 
     @Override
     public void run() {
@@ -55,6 +55,7 @@ public final class MetaFactory implements Runnable {
 
     private void checkForDownload() {
         UpdateDownload.askOnceCheckForNewerVersion();
+
         if (UserSettings.INSTANCE.isAutoDownloadNewerVersions()) {
 
             // Returning immediately

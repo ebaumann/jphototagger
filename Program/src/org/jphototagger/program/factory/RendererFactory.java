@@ -27,8 +27,8 @@ import javax.swing.JTable;
  */
 public final class RendererFactory {
     static final RendererFactory INSTANCE = new RendererFactory();
-    private final Support        support  = new Support();
-    private volatile boolean     init;
+    private final Support support = new Support();
+    private volatile boolean init;
 
     synchronized void init() {
         synchronized (this) {
@@ -51,44 +51,29 @@ public final class RendererFactory {
     }
 
     private void setMetadataTablesRenderers() {
-        AppPanel             appPanel             = GUI.getAppPanel();
+        AppPanel appPanel = GUI.getAppPanel();
         TableCellRendererXmp rendererTableCellXmp = new TableCellRendererXmp();
-        List<JTable>         xmpTables            = appPanel.getXmpTables();
+        List<JTable> xmpTables = appPanel.getXmpTables();
 
         for (JTable table : xmpTables) {
             table.setDefaultRenderer(Object.class, rendererTableCellXmp);
         }
 
-        appPanel.getTableIptc().setDefaultRenderer(Object.class,
-                new TableCellRendererIptc());
-        appPanel.getTableExif().setDefaultRenderer(Object.class,
-                new TableCellRendererExif());
+        appPanel.getTableIptc().setDefaultRenderer(Object.class, new TableCellRendererIptc());
+        appPanel.getTableExif().setDefaultRenderer(Object.class, new TableCellRendererExif());
     }
 
     private void setPopupMenuHighlighter() {
         AppPanel appPanel = GUI.getAppPanel();
 
-        support.add(
-            new TreeItemTempSelectionRowSetter(
-                appPanel.getTreeFavorites(), PopupMenuFavorites.INSTANCE));
-        support.add(
-            new TreeItemTempSelectionRowSetter(
-                appPanel.getTreeDirectories(), PopupMenuDirectories.INSTANCE));
-        support.add(
-            new TreeItemTempSelectionRowSetter(
-                appPanel.getTreeEditKeywords(),
+        support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeFavorites(), PopupMenuFavorites.INSTANCE));
+        support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeDirectories(), PopupMenuDirectories.INSTANCE));
+        support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeEditKeywords(), PopupMenuKeywordsTree.INSTANCE));
+        support.add(new TreeItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
                 PopupMenuKeywordsTree.INSTANCE));
-        support.add(
-            new TreeItemTempSelectionRowSetter(
-                InputHelperDialog.INSTANCE.getPanelKeywords().getTree(),
-                PopupMenuKeywordsTree.INSTANCE));
-        support.add(
-            new ListItemTempSelectionRowSetter(
-                appPanel.getListImageCollections(),
+        support.add(new ListItemTempSelectionRowSetter(appPanel.getListImageCollections(),
                 PopupMenuImageCollections.INSTANCE));
-        support.add(
-            new ListItemTempSelectionRowSetter(
-                appPanel.getListSavedSearches(),
+        support.add(new ListItemTempSelectionRowSetter(appPanel.getListSavedSearches(),
                 PopupMenuSavedSearches.INSTANCE));
     }
 }

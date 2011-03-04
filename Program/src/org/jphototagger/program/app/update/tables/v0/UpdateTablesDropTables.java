@@ -1,5 +1,6 @@
 package org.jphototagger.program.app.update.tables.v0;
 
+import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
@@ -11,7 +12,6 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.jphototagger.program.app.AppLogger;
 
 /**
  *
@@ -51,7 +51,6 @@ public final class UpdateTablesDropTables {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesDropTables.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesDropTables.Info"));
     }
 }

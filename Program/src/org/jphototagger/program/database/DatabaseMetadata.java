@@ -20,8 +20,7 @@ import java.util.List;
  */
 public final class DatabaseMetadata extends Database {
     public static final DatabaseMetadata INSTANCE = new DatabaseMetadata();
-    private static final String          KEY_JPT_APP_DB_VERSION =
-        "VersionLastDbUpdate";
+    private static final String KEY_JPT_APP_DB_VERSION = "VersionLastDbUpdate";
 
     private DatabaseMetadata() {}
 
@@ -32,15 +31,14 @@ public final class DatabaseMetadata extends Database {
      * @return true, if the database is for a newer version
      */
     public static boolean isDatabaseOfNewerVersion() {
-        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(
-                               KEY_JPT_APP_DB_VERSION);
+        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
 
         // Only older JPhotoTagger versions did not write that key
         if (dbVersion == null) {
             return false;
         }
 
-        Version db      = Version.parseVersion(dbVersion, ".");
+        Version db = Version.parseVersion(dbVersion, ".");
         Version current = Version.parseVersion(AppInfo.APP_VERSION, ".");
 
         return current.compareTo(db) < 0;
@@ -53,8 +51,7 @@ public final class DatabaseMetadata extends Database {
      * @return true, if the database is from this version
      */
     public static boolean isDatabaseOfCurrentVersion() {
-        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(
-                               KEY_JPT_APP_DB_VERSION);
+        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
 
         return (dbVersion == null)
                ? false
@@ -68,15 +65,14 @@ public final class DatabaseMetadata extends Database {
      * @return true, if the database is from an older version
      */
     public static boolean isDatabaseOfOlderVersion() {
-        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(
-                               KEY_JPT_APP_DB_VERSION);
+        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
 
         // Only older JPhotoTagger versions did not write that key
         if (dbVersion == null) {
             return true;
         }
 
-        Version db      = Version.parseVersion(dbVersion, ".");
+        Version db = Version.parseVersion(dbVersion, ".");
         Version current = Version.parseVersion(AppInfo.APP_VERSION, ".");
 
         return current.compareTo(db) > 0;
@@ -89,8 +85,7 @@ public final class DatabaseMetadata extends Database {
      * @return version string or null if not written
      */
     public static String getDatabaseAppVersion() {
-        return DatabaseApplicationProperties.INSTANCE.getString(
-            KEY_JPT_APP_DB_VERSION);
+        return DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
     }
 
     /**
@@ -101,12 +96,10 @@ public final class DatabaseMetadata extends Database {
      * version!</em>
      */
     public static void setCurrentAppVersionToDatabase() {
-        DatabaseApplicationProperties.INSTANCE.setString(
-            KEY_JPT_APP_DB_VERSION, AppInfo.APP_VERSION);
+        DatabaseApplicationProperties.INSTANCE.setString(KEY_JPT_APP_DB_VERSION, AppInfo.APP_VERSION);
     }
 
-    public boolean existsTable(Connection con, String tablename)
-            throws SQLException {
+    public boolean existsTable(Connection con, String tablename) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -115,10 +108,10 @@ public final class DatabaseMetadata extends Database {
             throw new NullPointerException("tablename == null");
         }
 
-        boolean          exists = false;
-        DatabaseMetaData dbm    = con.getMetaData();
-        String[]         names  = { "TABLE" };
-        ResultSet        rs     = dbm.getTables(null, "%", "%", names);
+        boolean exists = false;
+        DatabaseMetaData dbm = con.getMetaData();
+        String[] names = { "TABLE" };
+        ResultSet rs = dbm.getTables(null, "%", "%", names);
 
         while (!exists && rs.next()) {
             exists = rs.getString("TABLE_NAME").equalsIgnoreCase(tablename);
@@ -129,9 +122,7 @@ public final class DatabaseMetadata extends Database {
         return exists;
     }
 
-    public boolean existsColumn(Connection con, String tableName,
-                                String columnName)
-            throws SQLException {
+    public boolean existsColumn(Connection con, String tableName, String columnName) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -148,10 +139,10 @@ public final class DatabaseMetadata extends Database {
             return false;
         }
 
-        Statement         stmt   = null;
-        ResultSet         rs     = null;
-        ResultSetMetaData rsmd   = null;
-        boolean           exists = false;
+        Statement stmt = null;
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
+        boolean exists = false;
 
         try {
             stmt = con.createStatement();
@@ -159,7 +150,7 @@ public final class DatabaseMetadata extends Database {
             // "WHERE 1 = 0": speed, memory!
             String sql = "select * from " + tableName + " WHERE 1 = 0";
 
-            rs   = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             rsmd = rs.getMetaData();
 
             int columnCount = rsmd.getColumnCount();
@@ -176,9 +167,7 @@ public final class DatabaseMetadata extends Database {
         return exists;
     }
 
-    public static boolean existsIndex(Connection con, String indexName,
-                                      String tableName)
-            throws SQLException {
+    public static boolean existsIndex(Connection con, String indexName, String tableName) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -191,14 +180,13 @@ public final class DatabaseMetadata extends Database {
             throw new NullPointerException("tableName == null");
         }
 
-        boolean   exists = false;
-        ResultSet rs     = null;
+        boolean exists = false;
+        ResultSet rs = null;
 
         try {
             DatabaseMetaData meta = con.getMetaData();
 
-            rs = meta.getIndexInfo(con.getCatalog(), null,
-                                   tableName.toUpperCase(), false, true);
+            rs = meta.getIndexInfo(con.getCatalog(), null, tableName.toUpperCase(), false, true);
 
             while (!exists && rs.next()) {
                 String name = rs.getString("INDEX_NAME");
@@ -223,9 +211,7 @@ public final class DatabaseMetadata extends Database {
      * @return            Information
      * @throws SQLException
      */
-    public List<ColumnInfo> getColumnInfo(Connection con, String tableName,
-            String columnName)
-            throws SQLException {
+    public List<ColumnInfo> getColumnInfo(Connection con, String tableName, String columnName) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -234,41 +220,40 @@ public final class DatabaseMetadata extends Database {
             throw new NullPointerException("tableName == null");
         }
 
-        ResultSet        rs    = null;
+        ResultSet rs = null;
         List<ColumnInfo> infos = new ArrayList<ColumnInfo>();
 
         try {
             DatabaseMetaData meta = con.getMetaData();
 
-            rs = meta.getColumns(null, null, tableName.toUpperCase(),
-                                 (columnName == null)
-                                 ? "%"
-                                 : columnName.toUpperCase());
+            rs = meta.getColumns(null, null, tableName.toUpperCase(), (columnName == null)
+                    ? "%"
+                    : columnName.toUpperCase());
 
             while (rs.next()) {
                 ColumnInfo colInfo = new ColumnInfo();
 
                 colInfo.CHAR_OCTET_LENGTH = rs.getInt("CHAR_OCTET_LENGTH");
-                colInfo.COLUMN_DEF        = rs.getString("COLUMN_DEF");
-                colInfo.COLUMN_NAME       = rs.getString("COLUMN_NAME");
-                colInfo.COLUMN_SIZE       = rs.getInt("COLUMN_SIZE");
-                colInfo.DATA_TYPE         = rs.getInt("DATA_TYPE");
-                colInfo.DECIMAL_DIGITS    = rs.getInt("DECIMAL_DIGITS");
-                colInfo.IS_NULLABLE       = rs.getString("IS_NULLABLE");
-                colInfo.NULLABLE          = rs.getInt("NULLABLE");
-                colInfo.NUM_PREC_RADIX    = rs.getInt("NUM_PREC_RADIX");
-                colInfo.ORDINAL_POSITION  = rs.getInt("ORDINAL_POSITION");
-                colInfo.REMARKS           = rs.getString("REMARKS");
-                colInfo.SCOPE_CATLOG      = rs.getString("SCOPE_CATLOG");
-                colInfo.SCOPE_SCHEMA      = rs.getString("SCOPE_SCHEMA");
-                colInfo.SCOPE_TABLE       = rs.getString("SCOPE_TABLE");
-                colInfo.SOURCE_DATA_TYPE  = rs.getShort("SOURCE_DATA_TYPE");
-                colInfo.SQL_DATA_TYPE     = rs.getInt("SQL_DATA_TYPE");
-                colInfo.SQL_DATETIME_SUB  = rs.getInt("SQL_DATETIME_SUB");
-                colInfo.TABLE_CAT         = rs.getString("TABLE_CAT");
-                colInfo.TABLE_NAME        = rs.getString("TABLE_NAME");
-                colInfo.TABLE_SCHEM       = rs.getString("TABLE_SCHEM");
-                colInfo.TYPE_NAME         = rs.getString("TYPE_NAME");
+                colInfo.COLUMN_DEF = rs.getString("COLUMN_DEF");
+                colInfo.COLUMN_NAME = rs.getString("COLUMN_NAME");
+                colInfo.COLUMN_SIZE = rs.getInt("COLUMN_SIZE");
+                colInfo.DATA_TYPE = rs.getInt("DATA_TYPE");
+                colInfo.DECIMAL_DIGITS = rs.getInt("DECIMAL_DIGITS");
+                colInfo.IS_NULLABLE = rs.getString("IS_NULLABLE");
+                colInfo.NULLABLE = rs.getInt("NULLABLE");
+                colInfo.NUM_PREC_RADIX = rs.getInt("NUM_PREC_RADIX");
+                colInfo.ORDINAL_POSITION = rs.getInt("ORDINAL_POSITION");
+                colInfo.REMARKS = rs.getString("REMARKS");
+                colInfo.SCOPE_CATLOG = rs.getString("SCOPE_CATLOG");
+                colInfo.SCOPE_SCHEMA = rs.getString("SCOPE_SCHEMA");
+                colInfo.SCOPE_TABLE = rs.getString("SCOPE_TABLE");
+                colInfo.SOURCE_DATA_TYPE = rs.getShort("SOURCE_DATA_TYPE");
+                colInfo.SQL_DATA_TYPE = rs.getInt("SQL_DATA_TYPE");
+                colInfo.SQL_DATETIME_SUB = rs.getInt("SQL_DATETIME_SUB");
+                colInfo.TABLE_CAT = rs.getString("TABLE_CAT");
+                colInfo.TABLE_NAME = rs.getString("TABLE_NAME");
+                colInfo.TABLE_SCHEM = rs.getString("TABLE_SCHEM");
+                colInfo.TYPE_NAME = rs.getString("TYPE_NAME");
                 infos.add(colInfo);
             }
         } finally {
@@ -283,23 +268,23 @@ public final class DatabaseMetadata extends Database {
      * {@code DatabaseMetaData#getColumns()}.
      */
     public static class ColumnInfo {
-        public int    CHAR_OCTET_LENGTH;
+        public int CHAR_OCTET_LENGTH;
         public String COLUMN_DEF;
         public String COLUMN_NAME;
-        public int    COLUMN_SIZE;
-        public int    DATA_TYPE;
-        public int    DECIMAL_DIGITS;
+        public int COLUMN_SIZE;
+        public int DATA_TYPE;
+        public int DECIMAL_DIGITS;
         public String IS_NULLABLE;
-        public int    NULLABLE;
-        public int    NUM_PREC_RADIX;
-        public int    ORDINAL_POSITION;
+        public int NULLABLE;
+        public int NUM_PREC_RADIX;
+        public int ORDINAL_POSITION;
         public String REMARKS;
         public String SCOPE_CATLOG;
         public String SCOPE_SCHEMA;
         public String SCOPE_TABLE;
-        public short  SOURCE_DATA_TYPE;
-        public int    SQL_DATA_TYPE;
-        public int    SQL_DATETIME_SUB;
+        public short SOURCE_DATA_TYPE;
+        public int SQL_DATA_TYPE;
+        public int SQL_DATETIME_SUB;
         public String TABLE_CAT;
         public String TABLE_NAME;
         public String TABLE_SCHEM;

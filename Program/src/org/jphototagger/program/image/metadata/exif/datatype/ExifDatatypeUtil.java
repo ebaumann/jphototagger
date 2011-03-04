@@ -14,7 +14,7 @@ public final class ExifDatatypeUtil {
             throw new NullPointerException("rational == null");
         }
 
-        double numerator   = rational.numerator();
+        double numerator = rational.numerator();
         double denominator = rational.denominator();
 
         assert denominator > 0 : denominator;
@@ -44,8 +44,7 @@ public final class ExifDatatypeUtil {
         return buf.getInt();
     }
 
-    public static short shortFromRawValue(byte[] rawValue,
-            ByteOrder byteOrder) {
+    public static short shortFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
@@ -59,8 +58,7 @@ public final class ExifDatatypeUtil {
         return buf.getShort();
     }
 
-    private static ByteBuffer getByeBuffer(byte[] rawValue,
-            ByteOrder byteOrder) {
+    private static ByteBuffer getByeBuffer(byte[] rawValue, ByteOrder byteOrder) {
         ByteBuffer buf = ByteBuffer.wrap(rawValue);
 
         buf.order(byteOrder);

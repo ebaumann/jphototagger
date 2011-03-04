@@ -31,7 +31,7 @@ public class ListenerSupport<T> {
 
     /**
      * Returns added listeners.
-     * 
+     *
      * @return thread save set (that does not reflect added or removed
      *         listeners after calling this mehtod)
      */

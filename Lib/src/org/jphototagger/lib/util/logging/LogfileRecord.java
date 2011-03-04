@@ -11,19 +11,19 @@ import java.util.logging.Level;
  * @author Elmar Baumann
  */
 public final class LogfileRecord {
-    private String                 date;
-    private Long                   millis;
-    private String                 sequence;
-    private String                 logger;
-    private Level                  level;
-    private String                 classname;
-    private String                 methodname;
-    private String                 thread;
-    private String                 message;
-    private String                 key;
-    private String                 catalog;
+    private String date;
+    private Long millis;
+    private String sequence;
+    private String logger;
+    private Level level;
+    private String classname;
+    private String methodname;
+    private String thread;
+    private String message;
+    private String key;
+    private String catalog;
     private ExceptionLogfileRecord exception;
-    private List<String>           params;
+    private List<String> params;
 
     /**
      * Liefert bei lokalisierten Nachrichten den Namen des Resource-Bundles
@@ -399,12 +399,9 @@ public final class LogfileRecord {
             throw new NullPointerException("substring == null");
         }
 
-        return containsSubstring(getMessage(), substring)
-               || containsSubstring(getClassname(), substring)
-               || containsSubstring(getMethodname(), substring)
-               || containsSubstring(getDate(), substring)
-               || containsSubstring(getLogger(), substring)
-               || containsSubstring(getSequence(), substring)
+        return containsSubstring(getMessage(), substring) || containsSubstring(getClassname(), substring)
+               || containsSubstring(getMethodname(), substring) || containsSubstring(getDate(), substring)
+               || containsSubstring(getLogger(), substring) || containsSubstring(getSequence(), substring)
                || containsSubstring(getThread(), substring) || (hasException()
                 ? getException().contains(substring)
                 : false);

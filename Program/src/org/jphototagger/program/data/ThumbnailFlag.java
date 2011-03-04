@@ -10,12 +10,10 @@ import java.awt.Color;
  * @author Elmar Baumann
  */
 public final class ThumbnailFlag {
-    private final Color               color;
-    private final String              string;
+    private final Color color;
+    private final String string;
     public static final ThumbnailFlag ERROR_FILE_NOT_FOUND =
-        new ThumbnailFlag(
-            Color.RED,
-            JptBundle.INSTANCE.getString("ThumbnailFlag.Error.FileNotFound"));
+        new ThumbnailFlag(Color.RED, JptBundle.INSTANCE.getString("ThumbnailFlag.Error.FileNotFound"));
 
     public ThumbnailFlag(Color color, String string) {
         if (color == null) {
@@ -26,7 +24,7 @@ public final class ThumbnailFlag {
             throw new NullPointerException("string == null");
         }
 
-        this.color  = color;
+        this.color = color;
         this.string = string;
     }
 
@@ -54,8 +52,7 @@ public final class ThumbnailFlag {
 
         final ThumbnailFlag other = (ThumbnailFlag) obj;
 
-        if ((this.color != other.color)
-                && ((this.color == null) ||!this.color.equals(other.color))) {
+        if ((this.color != other.color) && ((this.color == null) ||!this.color.equals(other.color))) {
             return false;
         }
 

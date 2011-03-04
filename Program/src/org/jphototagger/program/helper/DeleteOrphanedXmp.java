@@ -17,11 +17,11 @@ import java.text.MessageFormat;
  */
 public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
-    private volatile boolean              notifyProgressEnded;
-    private volatile boolean              cancel;
-    private volatile int                  countDeleted = 0;
-    private String                        startMessage;
-    private String                        endMessage;
+    private volatile boolean notifyProgressEnded;
+    private volatile boolean cancel;
+    private volatile int countDeleted = 0;
+    private String startMessage;
+    private String endMessage;
 
     @Override
     public void run() {
@@ -105,30 +105,24 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
             throw new NullPointerException("evt == null");
         }
 
-        return new MessageFormat(startMessage).format(new Object[] {
-            evt.getMaximum() });
+        return new MessageFormat(startMessage).format(new Object[] { evt.getMaximum() });
     }
 
     private Object getEndMessage() {
-        return new MessageFormat(endMessage).format(new Object[] {
-            countDeleted });
+        return new MessageFormat(endMessage).format(new Object[] { countDeleted });
     }
 
     private void logDeleteRecords() {
-        AppLogger.logInfo(DeleteOrphanedXmp.class,
-                          "DeleteOrphanedXmp.Info.StartRemove");
+        AppLogger.logInfo(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Info.StartRemove");
     }
 
     private void setMessagesFiles() {
-        startMessage =
-            JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.Start");
-        endMessage =
-            JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.End");
+        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.Start");
+        endMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.End");
     }
 
     private void setMessagesXmp() {
-        startMessage =
-            JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.Start");
+        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.Start");
         endMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.End");
     }
 }

@@ -22,8 +22,7 @@ import javax.swing.JTree;
  *
  * @author Elmar Baumann
  */
-public final class ControllerRefreshFavorites
-        implements ActionListener, KeyListener {
+public final class ControllerRefreshFavorites implements ActionListener, KeyListener {
     public ControllerRefreshFavorites() {
         listen();
     }
@@ -42,8 +41,7 @@ public final class ControllerRefreshFavorites
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (PopupMenuFavorites.INSTANCE.getItemRefresh().equals(
-                evt.getSource())) {
+        if (PopupMenuFavorites.INSTANCE.getItemRefresh().equals(evt.getSource())) {
             refresh();
         }
     }
@@ -52,8 +50,7 @@ public final class ControllerRefreshFavorites
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ModelFactory.INSTANCE.getModel(
-                    TreeModelFavorites.class).update();
+                ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).update();
             }
         });
     }

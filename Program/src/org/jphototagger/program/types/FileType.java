@@ -21,8 +21,7 @@ public final class FileType {
 
         String filenameLowercase = filename.toLowerCase();
 
-        return filenameLowercase.endsWith(".jpg")
-               || filenameLowercase.endsWith(".jpeg");
+        return filenameLowercase.endsWith(".jpg") || filenameLowercase.endsWith(".jpeg");
     }
 
     /**
@@ -37,13 +36,10 @@ public final class FileType {
             throw new NullPointerException("filename == null");
         }
 
-        String  filenameLowerCase = filename.toLowerCase();
-        boolean isCommonImageFile = filenameLowerCase.endsWith("tif")
-                                    || filenameLowerCase.endsWith("tiff")
-                                    || filenameLowerCase.endsWith("jpg")
-                                    || filenameLowerCase.endsWith("jpeg")
-                                    || filenameLowerCase.endsWith("gif")
-                                    || filenameLowerCase.endsWith("png");
+        String filenameLowerCase = filename.toLowerCase();
+        boolean isCommonImageFile = filenameLowerCase.endsWith("tif") || filenameLowerCase.endsWith("tiff")
+                                    || filenameLowerCase.endsWith("jpg") || filenameLowerCase.endsWith("jpeg")
+                                    || filenameLowerCase.endsWith("gif") || filenameLowerCase.endsWith("png");
 
         return !isCommonImageFile;
     }

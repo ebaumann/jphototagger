@@ -32,22 +32,19 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public final class ControllerOpenFavoriteInFolders
-        implements ActionListener, KeyListener {
+public final class ControllerOpenFavoriteInFolders implements ActionListener, KeyListener {
     public ControllerOpenFavoriteInFolders() {
         listen();
     }
 
     private void listen() {
-        PopupMenuFavorites.INSTANCE.getItemOpenInFolders().addActionListener(
-            this);
+        PopupMenuFavorites.INSTANCE.getItemOpenInFolders().addActionListener(this);
         GUI.getFavoritesTree().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_O)
-                &&!GUI.getFavoritesTree().isSelectionEmpty()) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_O) &&!GUI.getFavoritesTree().isSelectionEmpty()) {
             selectDirectory();
         }
     }
@@ -66,9 +63,7 @@ public final class ControllerOpenFavoriteInFolders
                 TreePath path = PopupMenuFavorites.INSTANCE.getTreePath();
 
                 if (path != null) {
-                    File dir =
-                        getDir((DefaultMutableTreeNode) path
-                            .getLastPathComponent());
+                    File dir = getDir((DefaultMutableTreeNode) path.getLastPathComponent());
 
                     if ((dir != null) && dir.isDirectory()) {
                         expandTreeToDir(dir);
@@ -89,17 +84,13 @@ public final class ControllerOpenFavoriteInFolders
                 return null;
             }
             private void expandTreeToDir(File dir) {
-                AppPanel    appPanel = GUI.getAppPanel();
-                JTabbedPane tabbedPaneSelection =
-                    appPanel.getTabbedPaneSelection();
-                Component tabTreeDirectories =
-                    appPanel.getTabSelectionDirectories();
+                AppPanel appPanel = GUI.getAppPanel();
+                JTabbedPane tabbedPaneSelection = appPanel.getTabbedPaneSelection();
+                Component tabTreeDirectories = appPanel.getTabSelectionDirectories();
 
                 GUI.getFavoritesTree().clearSelection();
                 tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
-                ModelFactory.INSTANCE.getModel(
-                    TreeModelAllSystemDirectories.class).expandToFile(
-                    dir, true);
+                ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).expandToFile(dir, true);
             }
         });
     }

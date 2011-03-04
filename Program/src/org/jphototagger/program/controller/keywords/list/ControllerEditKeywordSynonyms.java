@@ -3,8 +3,7 @@ package org.jphototagger.program.controller.keywords.list;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.database.DatabaseSynonyms;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
@@ -32,13 +31,10 @@ import javax.swing.JPopupMenu.Separator;
  *
  * @author Elmar Baumann
  */
-public final class ControllerEditKeywordSynonyms extends ControllerKeywords
-        implements PopupMenuListener {
+public final class ControllerEditKeywordSynonyms extends ControllerKeywords implements PopupMenuListener {
     private static final String DELIM = ";";
-    private final JMenuItem     itemEditSynonyms =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
+    private final JMenuItem itemEditSynonyms =
+        new JMenuItem(JptBundle.INSTANCE.getString("ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
 
     public ControllerEditKeywordSynonyms() {
         addMenuItem();
@@ -46,16 +42,14 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     private void listen() {
-        listenToActionsOf(PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms(),
-                          itemEditSynonyms);
+        listenToActionsOf(PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms(), itemEditSynonyms);
         getKeywordsList().addKeyListener(this);
         getPopupMenu().addPopupMenuListener(this);
     }
 
     private EditRepeatableTextEntryPanel getKeywordsPanel() {
-        return (EditRepeatableTextEntryPanel) GUI.getAppPanel()
-            .getEditMetadataPanels()
-            .getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        return (EditRepeatableTextEntryPanel) GUI.getAppPanel().getEditMetadataPanels().getEditPanel(
+            ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 
     private JList getKeywordsList() {
@@ -67,8 +61,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     private void addMenuItem() {
-        itemEditSynonyms.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_S));
+        itemEditSynonyms.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_S));
 
         JPopupMenu popupMenu = getPopupMenu();
 
@@ -112,7 +105,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
 
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
-        boolean                      selected  = itemsInEditListSelected();
+        boolean selected = itemsInEditListSelected();
         EditRepeatableTextEntryPanel editPanel = getKeywordsPanel();
 
         editPanel.getItemRename().setEnabled(selected);
@@ -135,8 +128,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms();
+        return evt.getSource() == PopupMenuKeywordsList.INSTANCE.getItemEditSynonyms();
     }
 
     @Override
@@ -151,15 +143,12 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     private void editSynonyms(String keyword) {
-        Set<String> oldSynonyms =
-            DatabaseSynonyms.INSTANCE.getSynonymsOf(keyword);
-        InputDialog dlg = new InputDialog(
-                              InputHelperDialog.INSTANCE,
-                              JptBundle.INSTANCE.getString(
-                                  "ControllerEditKeywordSynonyms.Info.Input",
-                                  keyword, DELIM), catSynonyms(oldSynonyms),
-                                      UserSettings.INSTANCE.getProperties(),
-                                      "ControllerEditKeywordSynonyms.Pos");
+        Set<String> oldSynonyms = DatabaseSynonyms.INSTANCE.getSynonymsOf(keyword);
+        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE,
+                                          JptBundle.INSTANCE.getString("ControllerEditKeywordSynonyms.Info.Input",
+                                              keyword, DELIM), catSynonyms(oldSynonyms),
+                                                  UserSettings.INSTANCE.getProperties(),
+                                                  "ControllerEditKeywordSynonyms.Pos");
 
         dlg.setVisible(true);
 
@@ -181,8 +170,8 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
     }
 
     private Set<String> splitSynonyms(String synonymString) {
-        Set<String>     synonyms = new HashSet<String>();
-        StringTokenizer st       = new StringTokenizer(synonymString, DELIM);
+        Set<String> synonyms = new HashSet<String>();
+        StringTokenizer st = new StringTokenizer(synonymString, DELIM);
 
         while (st.hasMoreTokens()) {
             String synonym = st.nextToken().trim();
@@ -197,7 +186,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords
 
     private String catSynonyms(Set<String> synonyms) {
         StringBuilder sb = new StringBuilder();
-        int           i  = 0;
+        int i = 0;
 
         for (String synonym : synonyms) {
             sb.append((i++ == 0)

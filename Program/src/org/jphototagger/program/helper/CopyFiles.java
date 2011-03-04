@@ -21,10 +21,10 @@ import java.util.List;
  */
 public final class CopyFiles implements Runnable, Cancelable {
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
-    private final List<File>              errorFiles = new ArrayList<File>();
-    private final Options                 options;
-    private final List<Pair<File, File>>  sourceTargetFiles;
-    private volatile boolean              cancel;
+    private final List<File> errorFiles = new ArrayList<File>();
+    private final Options options;
+    private final List<Pair<File, File>> sourceTargetFiles;
+    private volatile boolean cancel;
 
     /**
      * Konstruktor
@@ -33,8 +33,7 @@ public final class CopyFiles implements Runnable, Cancelable {
      *                 ist die Quelldatei, die zweite die Zieldatei.
      * @param options  Optionen
      */
-    public CopyFiles(List<Pair<File, File>> sourceTargetFiles,
-                     Options options) {
+    public CopyFiles(List<Pair<File, File>> sourceTargetFiles, Options options) {
         if (sourceTargetFiles == null) {
             throw new NullPointerException("sourceTargetFiles == null");
         }
@@ -43,8 +42,7 @@ public final class CopyFiles implements Runnable, Cancelable {
             throw new NullPointerException("options == null");
         }
 
-        this.sourceTargetFiles = new ArrayList<Pair<File,
-                File>>(sourceTargetFiles);
+        this.sourceTargetFiles = new ArrayList<Pair<File, File>>(sourceTargetFiles);
         this.options = options;
     }
 
@@ -144,8 +142,7 @@ public final class CopyFiles implements Runnable, Cancelable {
     private File getTargetFile(Pair<File, File> files) {
         File targetFile = files.getSecond();
 
-        if (options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)
-                && targetFile.exists()) {
+        if (options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS) && targetFile.exists()) {
             targetFile = FileUtil.getNotExistingFile(targetFile);
         }
 
@@ -153,47 +150,38 @@ public final class CopyFiles implements Runnable, Cancelable {
     }
 
     private void logCopyFile(File sourceFile, File targetFile) {
-        AppLogger.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy",
-                          sourceFile, targetFile);
+        AppLogger.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy", sourceFile, targetFile);
     }
 
     private synchronized void notifyStart() {
-        ProgressEvent evt = new ProgressEvent(this, 0,
-                                sourceTargetFiles.size(), 0, null);
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), 0, null);
 
         ls.notifyStarted(evt);
     }
 
-    private synchronized void notifyPerformed(int value,
-            Pair<File, File> filePair) {
-        ProgressEvent evt = new ProgressEvent(this, 0,
-                                sourceTargetFiles.size(), value, filePair);
+    private synchronized void notifyPerformed(int value, Pair<File, File> filePair) {
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), value, filePair);
 
         ls.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0,
-                                sourceTargetFiles.size(),
-                                sourceTargetFiles.size(), errorFiles);
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), sourceTargetFiles.size(), errorFiles);
 
         ls.notifyEnded(evt);
     }
 
     private boolean checkOverwrite(Pair<File, File> filePair) {
-        if (options.equals(Options.FORCE_OVERWRITE)
-                || options.equals(
-                    Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)) {
+        if (options.equals(Options.FORCE_OVERWRITE) || options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)) {
             return true;
         }
 
         File target = filePair.getSecond();
 
         if (target.exists()) {
-            MessageDisplayer.ConfirmAction action =
-                MessageDisplayer.confirmYesNoCancel(null,
-                    "CopyFiles.Confirm.OverwriteExisting",
-                    filePair.getSecond(), filePair.getFirst());
+            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(null,
+                                                        "CopyFiles.Confirm.OverwriteExisting", filePair.getSecond(),
+                                                        filePair.getFirst());
 
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
                 cancel();
@@ -207,8 +195,7 @@ public final class CopyFiles implements Runnable, Cancelable {
 
     private boolean checkDifferent(Pair<File, File> filePair) {
         if (filePair.getFirst().equals(filePair.getSecond())) {
-            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals",
-                                   filePair.getFirst());
+            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals", filePair.getFirst());
 
             return false;
         }

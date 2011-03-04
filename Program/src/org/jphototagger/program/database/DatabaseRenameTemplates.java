@@ -20,8 +20,7 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class DatabaseRenameTemplates extends Database {
-    public static final DatabaseRenameTemplates INSTANCE =
-        new DatabaseRenameTemplates();
+    public static final DatabaseRenameTemplates INSTANCE = new DatabaseRenameTemplates();
     private final ListenerSupport<DatabaseRenameTemplatesListener> ls =
         new ListenerSupport<DatabaseRenameTemplatesListener>();
 
@@ -29,23 +28,22 @@ public final class DatabaseRenameTemplates extends Database {
 
     private String getInsertSql() {    // On updates update getUpdateSql()!
         return "INSERT INTO rename_templates (name"    // 1
-               + ", start_number"                      // 2
-               + ", step_width"                        // 3
-               + ", number_count"                      // 4
-               + ", date_delimiter"                    // 5
-               + ", format_class_at_begin"             // 6
-               + ", delimiter_1"                       // 7
-               + ", format_class_in_the_middle"        // 8
-               + ", delimiter_2"                       // 9
-               + ", format_class_at_end"               // 10
-               + ", text_at_begin"                     // 11
-               + ", text_in_the_middle"                // 12
-               + ", text_at_end"                       // 13
+               + ", start_number"    // 2
+               + ", step_width"    // 3
+               + ", number_count"    // 4
+               + ", date_delimiter"    // 5
+               + ", format_class_at_begin"    // 6
+               + ", delimiter_1"    // 7
+               + ", format_class_in_the_middle"    // 8
+               + ", delimiter_2"    // 9
+               + ", format_class_at_end"    // 10
+               + ", text_at_begin"    // 11
+               + ", text_in_the_middle"    // 12
+               + ", text_at_end"    // 13
                + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    private void setValues(RenameTemplate template, PreparedStatement stmt)
-            throws SQLException {
+    private void setValues(RenameTemplate template, PreparedStatement stmt) throws SQLException {
         setString(template.getName(), stmt, 1);
         setInt(template.getStartNumber(), stmt, 2);
         setInt(template.getStepWidth(), stmt, 3);
@@ -66,9 +64,9 @@ public final class DatabaseRenameTemplates extends Database {
             throw new NullPointerException("template == null");
         }
 
-        boolean           inserted = false;
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
+        boolean inserted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
@@ -99,19 +97,19 @@ public final class DatabaseRenameTemplates extends Database {
 
     private String getUpdateSql() {
         return "UPDATE rename_templates SET name = ?"    // 1
-               + ", start_number = ?"                    // 2
-               + ", step_width = ?"                      // 3
-               + ", number_count = ?"                    // 4
-               + ", date_delimiter = ?"                  // 5
-               + ", format_class_at_begin = ?"           // 6
-               + ", delimiter_1 = ?"                     // 7
-               + ", format_class_in_the_middle = ?"      // 8
-               + ", delimiter_2 = ?"                     // 9
-               + ", format_class_at_end = ?"             // 10
-               + ", text_at_begin = ?"                   // 11
-               + ", text_in_the_middle = ?"              // 12
-               + ", text_at_end = ?"                     // 13
-               + " WHERE id = ?";                        // 14
+               + ", start_number = ?"    // 2
+               + ", step_width = ?"    // 3
+               + ", number_count = ?"    // 4
+               + ", date_delimiter = ?"    // 5
+               + ", format_class_at_begin = ?"    // 6
+               + ", delimiter_1 = ?"    // 7
+               + ", format_class_in_the_middle = ?"    // 8
+               + ", delimiter_2 = ?"    // 9
+               + ", format_class_at_end = ?"    // 10
+               + ", text_at_begin = ?"    // 11
+               + ", text_in_the_middle = ?"    // 12
+               + ", text_at_end = ?"    // 13
+               + " WHERE id = ?";    // 14
     }
 
     public boolean update(RenameTemplate template) {
@@ -119,9 +117,9 @@ public final class DatabaseRenameTemplates extends Database {
             throw new NullPointerException("template == null");
         }
 
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        int               count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int count = 0;
 
         try {
             con = getConnection();
@@ -152,17 +150,16 @@ public final class DatabaseRenameTemplates extends Database {
             throw new NullPointerException("name == null");
         }
 
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        int               count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int count = 0;
 
         try {
             RenameTemplate delTemplate = find(name);
 
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "DELETE FROM rename_templates WHERE name = ?");
+            stmt = con.prepareStatement("DELETE FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
             logFiner(stmt);
             count = stmt.executeUpdate();
@@ -183,20 +180,20 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     private String getGetAllSql() {
-        return "SELECT  id"                        // 1
-               + ", name"                          // 2
-               + ", start_number"                  // 3
-               + ", step_width"                    // 4
-               + ", number_count"                  // 5
-               + ", date_delimiter"                // 6
-               + ", format_class_at_begin"         // 7
-               + ", delimiter_1"                   // 8
+        return "SELECT  id"    // 1
+               + ", name"    // 2
+               + ", start_number"    // 3
+               + ", step_width"    // 4
+               + ", number_count"    // 5
+               + ", date_delimiter"    // 6
+               + ", format_class_at_begin"    // 7
+               + ", delimiter_1"    // 8
                + ", format_class_in_the_middle"    // 9
-               + ", delimiter_2"                   // 10
-               + ", format_class_at_end"           // 11
-               + ", text_at_begin"                 // 12
-               + ", text_in_the_middle"            // 13
-               + ", text_at_end"                   // 14
+               + ", delimiter_2"    // 10
+               + ", format_class_at_end"    // 11
+               + ", text_at_begin"    // 12
+               + ", text_in_the_middle"    // 13
+               + ", text_at_end"    // 14
                + " FROM rename_templates ORDER BY name ASC";
     }
 
@@ -223,12 +220,12 @@ public final class DatabaseRenameTemplates extends Database {
 
     public Set<RenameTemplate> getAll() {
         Set<RenameTemplate> templates = new LinkedHashSet<RenameTemplate>();
-        Connection          con       = null;
-        Statement           stmt      = null;
-        ResultSet           rs        = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
             String sql = getGetAllSql();
@@ -251,20 +248,20 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     private String getGetSql() {
-        return "SELECT id"                                  // 1
-               + ", name"                                   // 2
-               + ", start_number"                           // 3
-               + ", step_width"                             // 4
-               + ", number_count"                           // 5
-               + ", date_delimiter"                         // 6
-               + ", format_class_at_begin"                  // 7
-               + ", delimiter_1"                            // 8
-               + ", format_class_in_the_middle"             // 9
-               + ", delimiter_2"                            // 10
-               + ", format_class_at_end"                    // 11
-               + ", text_at_begin"                          // 12
-               + ", text_in_the_middle"                     // 13
-               + ", text_at_end"                            // 14
+        return "SELECT id"    // 1
+               + ", name"    // 2
+               + ", start_number"    // 3
+               + ", step_width"    // 4
+               + ", number_count"    // 5
+               + ", date_delimiter"    // 6
+               + ", format_class_at_begin"    // 7
+               + ", delimiter_1"    // 8
+               + ", format_class_in_the_middle"    // 9
+               + ", delimiter_2"    // 10
+               + ", format_class_at_end"    // 11
+               + ", text_at_begin"    // 12
+               + ", text_in_the_middle"    // 13
+               + ", text_at_end"    // 14
                + " FROM rename_templates WHERE name = ?"    // 15
                + " ORDER BY name ASC";
     }
@@ -280,13 +277,13 @@ public final class DatabaseRenameTemplates extends Database {
             throw new NullPointerException("name == null");
         }
 
-        RenameTemplate    template = null;
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
-        ResultSet         rs       = null;
+        RenameTemplate template = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(getGetSql());
             stmt.setString(1, name);
             logFinest(stmt);
@@ -310,15 +307,14 @@ public final class DatabaseRenameTemplates extends Database {
             throw new NullPointerException("name == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM rename_templates WHERE name = ?");
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -341,15 +337,14 @@ public final class DatabaseRenameTemplates extends Database {
     }
 
     private long getId(String name) throws SQLException {
-        Connection        con  = null;
+        Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
-        long              id   = -1;
+        ResultSet rs = null;
+        long id = -1;
 
         try {
-            con  = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT id FROM rename_templates WHERE name = ?");
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT id FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();

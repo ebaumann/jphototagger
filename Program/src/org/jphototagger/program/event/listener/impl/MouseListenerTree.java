@@ -19,10 +19,10 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public class MouseListenerTree extends MouseAdapter implements ActionListener {
-    private JTree     tree;
-    private TreePath  path;
-    private int       x;
-    private int       y;
+    private JTree tree;
+    private TreePath path;
+    private int x;
+    private int y;
     private JMenuItem itemExpandAllSubItems;
     private JMenuItem itemCollapseExpandAllSubItems;
 
@@ -81,8 +81,8 @@ public class MouseListenerTree extends MouseAdapter implements ActionListener {
     private void reset(TreePath p) {
         path = p;
         tree = null;
-        x    = -1;
-        y    = -1;
+        x = -1;
+        y = -1;
     }
 
     public JTree getTree() {
@@ -107,8 +107,7 @@ public class MouseListenerTree extends MouseAdapter implements ActionListener {
 
         if ((source == itemExpandAllSubItems) && (tree != null)) {
             TreeUtil.expandAll(tree, path, true);
-        } else if ((source == itemCollapseExpandAllSubItems)
-                   && (tree != null)) {
+        } else if ((source == itemCollapseExpandAllSubItems) && (tree != null)) {
             TreeUtil.expandAll(tree, path, false);
         }
     }

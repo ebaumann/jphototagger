@@ -20,8 +20,7 @@ import javax.swing.JButton;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMetadataTemplateEdit
-        extends ControllerMetadataTemplate implements MouseListener {
+public final class ControllerMetadataTemplateEdit extends ControllerMetadataTemplate implements MouseListener {
     public ControllerMetadataTemplateEdit() {
         listen();
     }
@@ -33,19 +32,16 @@ public final class ControllerMetadataTemplateEdit
     }
 
     private JButton getEditButton() {
-        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonEdit();
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonEdit();
     }
 
     private void listenToDoubleClick() {
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
-            .addMouseListener(this);
+        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == getEditButton())
-                && isInputHelperListItemSelected()) {
+        if ((evt.getSource() == getEditButton()) && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {
             super.actionPerformed(evt);
@@ -67,8 +63,7 @@ public final class ControllerMetadataTemplateEdit
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuMetadataTemplates.INSTANCE.getItemEdit();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemEdit();
     }
 
     @Override
@@ -87,9 +82,7 @@ public final class ControllerMetadataTemplateEdit
     @Override
     public void mouseClicked(MouseEvent evt) {
         if (MouseEventUtil.isDoubleClick(evt)) {
-            Object selValue =
-                InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
-                    .getSelectedValue();
+            Object selValue = InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().getSelectedValue();
 
             if (selValue != null) {
                 action((MetadataTemplate) selValue);

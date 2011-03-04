@@ -1,6 +1,5 @@
 package org.jphototagger.program.cache;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
@@ -9,26 +8,25 @@ import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 
+import java.awt.EventQueue;
+
 import java.io.File;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-
 /**
  *
  * @author Martin Pohlack
  */
-public final class XmpCache extends Cache<XmpCacheIndirection>
-        implements DatabaseImageFilesListener {
-    public static final XmpCache     INSTANCE = new XmpCache();
-    private final DatabaseImageFiles db       = DatabaseImageFiles.INSTANCE;
+public final class XmpCache extends Cache<XmpCacheIndirection> implements DatabaseImageFilesListener {
+    public static final XmpCache INSTANCE = new XmpCache();
+    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private XmpCache() {
         db.addListener(this);
-        new Thread(new XmpFetcher(workQueue, this),
-                   "JPhotoTagger: XmpFetcher").start();
+        new Thread(new XmpFetcher(workQueue, this), "JPhotoTagger: XmpFetcher").start();
     }
 
     @Override
@@ -136,19 +134,19 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
     }
 
     private static class XmpFetcher implements Runnable {
-        private final DatabaseImageFiles       db = DatabaseImageFiles.INSTANCE;
+        private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         private WorkQueue<XmpCacheIndirection> wq;
-        private XmpCache                       cache;
+        private XmpCache cache;
 
         XmpFetcher(WorkQueue<XmpCacheIndirection> _wq, XmpCache _cache) {
-            wq    = _wq;
+            wq = _wq;
             cache = _cache;
         }
 
         @Override
         public void run() {
             Collection<File> imageFiles = new HashSet<File>();
-            File             imageFile  = null;
+            File imageFile = null;
 
             while (true) {
                 if (imageFiles.size() < 1) {
@@ -171,8 +169,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
                     imageFiles.add(imageFile);
                 }
 
-                assert !((imageFile == null) && (imageFiles.size() == 0)) :
-                       "Should not happen";
+                assert !((imageFile == null) && (imageFiles.size() == 0)) : "Should not happen";
 
                 if ((imageFile == null) || (imageFiles.size() >= 64)) {
                     if (imageFiles.size() > 1) {
@@ -183,8 +180,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
                         } catch (Exception ex) {}
                     }
 
-                    List<Pair<File, Xmp>> res =
-                        db.getXmpOfImageFiles(imageFiles);
+                    List<Pair<File, Xmp>> res = db.getXmpOfImageFiles(imageFiles);
 
                     // send updates to request results
                     for (Pair<File, Xmp> p : res) {
@@ -239,8 +235,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
         }
     }
 
-    public synchronized void update(final Xmp xmp, final File file,
-                                    boolean repaint) {
+    public synchronized void update(final Xmp xmp, final File file, boolean repaint) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
@@ -264,8 +259,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
                 @Override
                 public void run() {
                     if (xmp.isEmpty()) {
-                        notifyUpdate(
-                            file, ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE);
+                        notifyUpdate(file, ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE);
                     } else {
                         notifyUpdate(file);
                     }
@@ -325,8 +319,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection>
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.thumbnailUpdated(new ThumbnailUpdateEvent(file,
-                    ThumbnailUpdateEvent.Type.XMP_UPDATE));
+            l.thumbnailUpdated(new ThumbnailUpdateEvent(file, ThumbnailUpdateEvent.Type.XMP_UPDATE));
         }
     }
 }

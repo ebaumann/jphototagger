@@ -12,7 +12,7 @@ import java.text.MessageFormat;
  * @author Elmar Baumann
  */
 public final class GPSImageInfo {
-    private final File            imageFile;
+    private final File imageFile;
     private final ExifGpsMetadata gpsMetaData;
 
     public GPSImageInfo(File imageFile, ExifGpsMetadata gpsMetaData) {
@@ -24,7 +24,7 @@ public final class GPSImageInfo {
             throw new NullPointerException("gpsMetaData == null");
         }
 
-        this.imageFile   = imageFile;
+        this.imageFile = imageFile;
         this.gpsMetaData = gpsMetaData;
     }
 

@@ -14,23 +14,20 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.selections.EditColumns;
 import org.jphototagger.program.database.metadata.selections.EditHints;
-import org.jphototagger.program.database.metadata.selections.EditHints
-    .SizeEditField;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.selections.EditHints.SizeEditField;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.EditMetadataPanelsListener;
-import org.jphototagger.program.event.listener.impl
-    .EditMetadataPanelsListenerSupport;
+import org.jphototagger.program.event.listener.impl.EditMetadataPanelsListenerSupport;
 import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -64,19 +61,15 @@ import javax.swing.JTextField;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class EditMetadataPanels
-        implements FocusListener, DatabaseImageFilesListener, AppExitListener {
-    private final List<JPanel>          panels = new ArrayList<JPanel>();
-    private final List<Pair<File, Xmp>> imageFilesXmp =
-        new ArrayList<Pair<File, Xmp>>();
-    private boolean              editable = true;
-    private WatchDifferentValues watchDifferentValues =
-        new WatchDifferentValues();
-    private final EditMetadataPanelsListenerSupport ls =
-        new EditMetadataPanelsListenerSupport();
-    private JComponent               container;
+public final class EditMetadataPanels implements FocusListener, DatabaseImageFilesListener, AppExitListener {
+    private final List<JPanel> panels = new ArrayList<JPanel>();
+    private final List<Pair<File, Xmp>> imageFilesXmp = new ArrayList<Pair<File, Xmp>>();
+    private boolean editable = true;
+    private WatchDifferentValues watchDifferentValues = new WatchDifferentValues();
+    private final EditMetadataPanelsListenerSupport ls = new EditMetadataPanelsListenerSupport();
+    private JComponent container;
     private EditMetadataActionsPanel editActionsPanel;
-    private Component                lastFocussedEditControl;
+    private Component lastFocussedEditControl;
 
     public EditMetadataPanels(JComponent container) {
         if (container == null) {
@@ -119,8 +112,7 @@ public final class EditMetadataPanels
     private void addInputToRepeatableTextEntries() {
         for (JPanel panel : panels) {
             if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel editPanel =
-                    (EditRepeatableTextEntryPanel) panel;
+                EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
                 String text = editPanel.getText();
 
                 if (!text.isEmpty()) {
@@ -194,8 +186,7 @@ public final class EditMetadataPanels
                 try {
                     xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
                 } catch (IOException ex) {
-                    Logger.getLogger(EditMetadataPanels.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(EditMetadataPanels.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -216,8 +207,7 @@ public final class EditMetadataPanels
     private void setXmpAsTextEntryListener(Xmp xmp, boolean add) {
         for (JPanel panel : panels) {
             if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel textPanel =
-                    (EditRepeatableTextEntryPanel) panel;
+                EditRepeatableTextEntryPanel textPanel = (EditRepeatableTextEntryPanel) panel;
 
                 if (add) {
                     textPanel.addTextEntryListener(xmp);
@@ -289,7 +279,7 @@ public final class EditMetadataPanels
         }
 
         JPanel panelAdd = null;
-        int    size     = panels.size();
+        int size = panels.size();
 
         for (int i = 0; (panelAdd == null) && (i < size); i++) {
             JPanel panel = panels.get(i);
@@ -329,7 +319,7 @@ public final class EditMetadataPanels
         }
 
         JPanel panelRemove = null;
-        int    size        = panels.size();
+        int size = panels.size();
 
         for (int i = 0; (panelRemove == null) && (i < size); i++) {
             JPanel panel = panels.get(i);
@@ -367,8 +357,7 @@ public final class EditMetadataPanels
 
                 xmp.setValue(p.getColumn(), p.getText());
             } else if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel p =
-                    (EditRepeatableTextEntryPanel) panel;
+                EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
                 Column column = p.getColumn();
 
                 xmp.setValue(column, p.getText());
@@ -418,18 +407,17 @@ public final class EditMetadataPanels
 
         for (JPanel panel : panels) {
             if (panel instanceof EditTextEntryPanel) {
-                EditTextEntryPanel p     = (EditTextEntryPanel) panel;
-                Object             value = xmp.getValue(p.getColumn());
+                EditTextEntryPanel p = (EditTextEntryPanel) panel;
+                Object value = xmp.getValue(p.getColumn());
 
                 if (value != null) {
                     p.setText(value.toString());
                     p.setDirty(true);
                 }
             } else if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel p =
-                    (EditRepeatableTextEntryPanel) panel;
+                EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
                 Column column = p.getColumn();
-                Object value  = xmp.getValue(column);
+                Object value = xmp.getValue(column);
 
                 if (value instanceof Collection<?>) {
                     Collection<?> collection = (Collection<?>) value;
@@ -443,10 +431,9 @@ public final class EditMetadataPanels
                 }
             } else if (panel instanceof RatingSelectionPanel) {
                 RatingSelectionPanel p = (RatingSelectionPanel) panel;
-                Long                 rating =
-                    xmp.contains(ColumnXmpRating.INSTANCE)
-                    ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
-                    : null;
+                Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
+                              ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
+                              : null;
 
                 if (rating != null) {
                     p.setText(Long.toString(rating));
@@ -477,20 +464,18 @@ public final class EditMetadataPanels
         }
 
         JPanel panelToSet = null;
-        int    size       = panels.size();
+        int size = panels.size();
 
         for (int i = 0; (panelToSet == null) && (i < size); i++) {
             JPanel panel = panels.get(i);
 
-            if (((TextEntry) panel).getColumn().equals(
-                    ColumnXmpRating.INSTANCE)) {
+            if (((TextEntry) panel).getColumn().equals(ColumnXmpRating.INSTANCE)) {
                 panelToSet = panel;
             }
         }
 
         if (panelToSet instanceof RatingSelectionPanel) {
-            RatingSelectionPanel ratingPanel =
-                (RatingSelectionPanel) panelToSet;
+            RatingSelectionPanel ratingPanel = (RatingSelectionPanel) panelToSet;
 
             ratingPanel.setTextAndNotify(Long.toString(rating));
         }
@@ -520,7 +505,7 @@ public final class EditMetadataPanels
 
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            Object    value = template.getValueOfColumn(textEntry.getColumn());
+            Object value = template.getValueOfColumn(textEntry.getColumn());
 
             if (value instanceof String) {
                 String string = (String) value;
@@ -530,8 +515,7 @@ public final class EditMetadataPanels
                     textEntry.setDirty(true);
                 }
             } else if (value instanceof Collection<?>) {
-                @SuppressWarnings("unchecked") Collection<String> strings =
-                    (Collection<String>) value;
+                @SuppressWarnings("unchecked") Collection<String> strings = (Collection<String>) value;
 
                 ((EditRepeatableTextEntryPanel) textEntry).setText(strings);
             }
@@ -553,17 +537,14 @@ public final class EditMetadataPanels
             TextEntry textEntry = (TextEntry) panel;
 
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel repeatableEntry =
-                    (EditRepeatableTextEntryPanel) textEntry;
+                EditRepeatableTextEntryPanel repeatableEntry = (EditRepeatableTextEntryPanel) textEntry;
 
-                template.setValueOfColumn(textEntry.getColumn(),
-                                          repeatableEntry.getRepeatableText());
+                template.setValueOfColumn(textEntry.getColumn(), repeatableEntry.getRepeatableText());
             } else {
                 String value = textEntry.getText();
 
                 if ((value != null) &&!value.trim().isEmpty()) {
-                    template.setValueOfColumn(textEntry.getColumn(),
-                                              value.trim());
+                    template.setValueOfColumn(textEntry.getColumn(), value.trim());
                 }
             }
         }
@@ -594,11 +575,10 @@ public final class EditMetadataPanels
 
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            Column    xmpColumn = textEntry.getColumn();
+            Column xmpColumn = textEntry.getColumn();
 
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel editPanel =
-                    (EditRepeatableTextEntryPanel) textEntry;
+                EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) textEntry;
 
                 editPanel.setText(getCommonXmpCollection(xmpColumn));
             } else {
@@ -606,8 +586,7 @@ public final class EditMetadataPanels
 
                 textEntry.setText(commonText);
 
-                if (multipleFiles() && commonText.isEmpty()
-                        && hasValue(xmpColumn)) {
+                if (multipleFiles() && commonText.isEmpty() && hasValue(xmpColumn)) {
                     watchEntries.add(textEntry);
                 }
             }
@@ -643,7 +622,7 @@ public final class EditMetadataPanels
         Stack<List<String>> lists = new Stack<List<String>>();
 
         for (Pair<File, Xmp> pair : imageFilesXmp) {
-            Xmp    xmp   = pair.getSecond();
+            Xmp xmp = pair.getSecond();
             Object value = xmp.getValue(column);
 
             if (value instanceof List<?>) {
@@ -670,8 +649,7 @@ public final class EditMetadataPanels
         assert imageFilesXmp.size() >= 1 : "No files!";
 
         if (imageFilesXmp.size() == 1) {
-            String value =
-                toString(imageFilesXmp.get(0).getSecond().getValue(column));
+            String value = toString(imageFilesXmp.get(0).getSecond().getValue(column));
 
             return (value == null)
                    ? ""
@@ -682,7 +660,7 @@ public final class EditMetadataPanels
         Stack<String> strings = new Stack<String>();
 
         for (Pair<File, Xmp> pair : imageFilesXmp) {
-            Xmp    xmp   = pair.getSecond();
+            Xmp xmp = pair.getSecond();
             String value = toString(xmp.getValue(column));
 
             if (value != null) {
@@ -707,7 +685,7 @@ public final class EditMetadataPanels
 
     private boolean hasValue(Column column) {
         for (Pair<File, Xmp> pair : imageFilesXmp) {
-            Xmp    xmp   = pair.getSecond();
+            Xmp xmp = pair.getSecond();
             String value = toString(xmp.getValue(column));
 
             if ((value != null) &&!value.trim().isEmpty()) {
@@ -747,8 +725,7 @@ public final class EditMetadataPanels
                 constraints.insets.bottom += 10;
             }
 
-            ExpandCollapseComponentPanel panel =
-                new ExpandCollapseComponentPanel(panels.get(i));
+            ExpandCollapseComponentPanel panel = new ExpandCollapseComponentPanel(panels.get(i));
 
             container.add(panel, constraints);
             panel.readExpandedState();
@@ -759,8 +736,7 @@ public final class EditMetadataPanels
     }
 
     private void setMnemonics() {
-        EditMetadataActionsPanel actionsPanel =
-            GUI.getAppPanel().getPanelEditMetadataActions();
+        EditMetadataActionsPanel actionsPanel = GUI.getAppPanel().getPanelEditMetadataActions();
         List<Character> mnemonics = new ArrayList<Character>(10);
 
         /*
@@ -770,38 +746,26 @@ public final class EditMetadataPanels
          * even if the components with the buttons are not focussed.
          */
         mnemonics.add((char) actionsPanel.buttonEmptyMetadata.getMnemonic());
-        mnemonics.add(
-            (char) actionsPanel.buttonMetadataTemplateCreate.getMnemonic());
-        mnemonics.add(
-            (char) actionsPanel.buttonMetadataTemplateDelete.getMnemonic());
-        mnemonics.add(
-            (char) actionsPanel.buttonMetadataTemplateEdit.getMnemonic());
-        mnemonics.add(
-            (char) actionsPanel.buttonMetadataTemplateInsert.getMnemonic());
-        mnemonics.add(
-            (char) actionsPanel.buttonMetadataTemplateRename.getMnemonic());
-        mnemonics.add(
-            (char) actionsPanel.buttonMetadataTemplateUpdate.getMnemonic());
-        mnemonics.add(
-            (char) actionsPanel.buttonMetadataTemplateAdd.getMnemonic());
-        mnemonics
-            .add((char) actionsPanel.labelPromptCurrentTemplate
-                .getDisplayedMnemonic());
-        mnemonics.addAll(
-            MnemonicUtil.getMnemonicCharsOf(
-                Arrays.asList(GUI.getAppPanel().getMnemonizedComponents())));
-        ViewUtil.setDisplayedMnemonicsToLabels(container,
-                mnemonics.toArray(new Character[] {}));
+        mnemonics.add((char) actionsPanel.buttonMetadataTemplateCreate.getMnemonic());
+        mnemonics.add((char) actionsPanel.buttonMetadataTemplateDelete.getMnemonic());
+        mnemonics.add((char) actionsPanel.buttonMetadataTemplateEdit.getMnemonic());
+        mnemonics.add((char) actionsPanel.buttonMetadataTemplateInsert.getMnemonic());
+        mnemonics.add((char) actionsPanel.buttonMetadataTemplateRename.getMnemonic());
+        mnemonics.add((char) actionsPanel.buttonMetadataTemplateUpdate.getMnemonic());
+        mnemonics.add((char) actionsPanel.buttonMetadataTemplateAdd.getMnemonic());
+        mnemonics.add((char) actionsPanel.labelPromptCurrentTemplate.getDisplayedMnemonic());
+        mnemonics.addAll(MnemonicUtil.getMnemonicCharsOf(Arrays.asList(GUI.getAppPanel().getMnemonizedComponents())));
+        ViewUtil.setDisplayedMnemonicsToLabels(container, mnemonics.toArray(new Character[] {}));
     }
 
     private GridBagConstraints newConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor    = GridBagConstraints.NORTHWEST;
-        gbc.fill      = GridBagConstraints.BOTH;
-        gbc.insets    = new Insets(0, 10, 0, 10);
-        gbc.weightx   = 1;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(0, 10, 0, 10);
+        gbc.weightx = 1;
 
         return gbc;
     }
@@ -843,27 +807,23 @@ public final class EditMetadataPanels
 
         for (Column column : columns) {
             EditHints editHints = EditColumns.getEditHints(column);
-            boolean   large =
-                editHints.getSizeEditField().equals(SizeEditField.LARGE);
+            boolean large = editHints.getSizeEditField().equals(SizeEditField.LARGE);
             boolean isRepeatable = editHints.isRepeatable();
 
             if (isRepeatable) {
-                EditRepeatableTextEntryPanel panel =
-                    new EditRepeatableTextEntryPanel(column);
+                EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
 
                 panel.textAreaInput.addFocusListener(this);
 
                 if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
                     panel.setSuggest(new SuggestKeywords());
-                    panel.setBundleKeyPosRenameDialog(
-                        "EditMetadataPanels.Keywords.RenameDialog.Pos");
+                    panel.setBundleKeyPosRenameDialog("EditMetadataPanels.Keywords.RenameDialog.Pos");
                 }
 
                 panels.add(panel);
             } else {
                 if (column.equals(ColumnXmpRating.INSTANCE)) {
-                    RatingSelectionPanel panel =
-                        new RatingSelectionPanel(column);
+                    RatingSelectionPanel panel = new RatingSelectionPanel(column);
 
                     for (Component c : panel.getInputComponents()) {
                         c.addFocusListener(this);
@@ -930,13 +890,11 @@ public final class EditMetadataPanels
             return false;
         }
 
-        return (c instanceof JTextArea)
-               || (c.getParent() instanceof RatingSelectionPanel);
+        return (c instanceof JTextArea) || (c.getParent() instanceof RatingSelectionPanel);
     }
 
     private boolean isEditControl(Component c) {
-        return (c instanceof JTextArea) || (c instanceof JTextField)
-               || (c instanceof RatingSelectionPanel)
+        return (c instanceof JTextArea) || (c instanceof JTextField) || (c instanceof RatingSelectionPanel)
         ;
     }
 
@@ -1005,8 +963,7 @@ public final class EditMetadataPanels
         }
     }
 
-    public void addEditMetadataPanelsListener(
-            EditMetadataPanelsListener listener) {
+    public void addEditMetadataPanelsListener(EditMetadataPanelsListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
@@ -1014,8 +971,7 @@ public final class EditMetadataPanels
         ls.add(listener);
     }
 
-    public void removeEditMetadataPanelsListener(
-            EditMetadataPanelsListener listener) {
+    public void removeEditMetadataPanelsListener(EditMetadataPanelsListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
@@ -1118,9 +1074,8 @@ public final class EditMetadataPanels
 
     private class WatchDifferentValues extends MouseAdapter {
         private final List<TextEntry> entries = new ArrayList<TextEntry>();
-        private final Set<TextEntry>  releasedEntries =
-            new HashSet<TextEntry>();
-        private volatile boolean      listen;
+        private final Set<TextEntry> releasedEntries = new HashSet<TextEntry>();
+        private volatile boolean listen;
 
         public synchronized void setListen(boolean listen) {
             if (listen) {
@@ -1137,8 +1092,7 @@ public final class EditMetadataPanels
                     // Text not parsable as number leads to an exception
                 } else {
                     entry.setText(
-                        JptBundle.INSTANCE.getString(
-                            "EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
+                        JptBundle.INSTANCE.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
 
                 entry.addMouseListenerToInputComponents(this);
@@ -1183,8 +1137,7 @@ public final class EditMetadataPanels
 
                 TextEntry entry = getTextEntry(evt.getSource());
 
-                if (enableEdit(entry)
-                        && (entry instanceof RatingSelectionPanel)) {
+                if (enableEdit(entry) && (entry instanceof RatingSelectionPanel)) {
                     ((RatingSelectionPanel) entry).repeatLastClick();
                 }
             }
@@ -1217,9 +1170,7 @@ public final class EditMetadataPanels
                 throw new NullPointerException("entry == null");
             }
 
-            if (MessageDisplayer.confirmYesNo(
-                    null,
-                    "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit")) {
+            if (MessageDisplayer.confirmYesNo(null, "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit")) {
                 releaseEntry(entry);
 
                 return true;

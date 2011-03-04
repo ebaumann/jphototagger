@@ -16,8 +16,7 @@ import javax.swing.JButton;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMetadataTemplateDelete
-        extends ControllerMetadataTemplate {
+public final class ControllerMetadataTemplateDelete extends ControllerMetadataTemplate {
     public ControllerMetadataTemplateDelete() {
         listen();
     }
@@ -28,14 +27,12 @@ public final class ControllerMetadataTemplateDelete
     }
 
     private JButton getDeleteButton() {
-        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonDelete();
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonDelete();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == getDeleteButton())
-                && isInputHelperListItemSelected()) {
+        if ((evt.getSource() == getDeleteButton()) && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {
             super.actionPerformed(evt);
@@ -57,8 +54,7 @@ public final class ControllerMetadataTemplateDelete
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuMetadataTemplates.INSTANCE.getItemDelete();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemDelete();
     }
 
     @Override
@@ -69,13 +65,10 @@ public final class ControllerMetadataTemplateDelete
 
         String name = template.getName();
 
-        if (MessageDisplayer.confirmYesNo(
-                InputHelperDialog.INSTANCE,
-                "ControllerMetadataTemplateDelete.Confirm", name)) {
+        if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, "ControllerMetadataTemplateDelete.Confirm",
+                                          name)) {
             if (!DatabaseMetadataTemplates.INSTANCE.delete(name)) {
-                MessageDisplayer.error(
-                    InputHelperDialog.INSTANCE,
-                    "ControllerMetadataTemplateDelete.Error", name);
+                MessageDisplayer.error(InputHelperDialog.INSTANCE, "ControllerMetadataTemplateDelete.Error", name);
             }
         }
 

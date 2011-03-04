@@ -20,31 +20,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class UserDefinedFileFilter implements Serializable {
     private static final long serialVersionUID = 1211554910220214424L;
-    private Long              id;
-    private Boolean           isNot = Boolean.FALSE;
-    private Type              type  = Type.CONTAINS;
-    private String            name;
-    private String            expression;
+    private Long id;
+    private Boolean isNot = Boolean.FALSE;
+    private Type type = Type.CONTAINS;
+    private String name;
+    private String expression;
 
     public enum Type {
-        STARTS_WITH(
-            0, JptBundle.INSTANCE.getString(
-                "UserDefinedFileFilter.DisplayName.StartsWith")),
-        CONTAINS(
-            1, JptBundle.INSTANCE.getString(
-                "UserDefinedFileFilter.DisplayName.Contains")),
-        ENDS_WITH(
-            2, JptBundle.INSTANCE.getString(
-                "UserDefinedFileFilter.DisplayName.EndsWith")),
-        REGEX(3, JptBundle.INSTANCE.getString(
-            "UserDefinedFileFilter.DisplayName.Regex")),
+        STARTS_WITH(0, JptBundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.StartsWith")),
+        CONTAINS(1, JptBundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.Contains")),
+        ENDS_WITH(2, JptBundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.EndsWith")),
+        REGEX(3, JptBundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.Regex")),
         ;
 
-        private final int    value;
+        private final int value;
         private final String displayName;
 
         private Type(int value, String displayName) {
-            this.value       = value;
+            this.value = value;
             this.displayName = displayName;
         }
 
@@ -88,12 +81,9 @@ public final class UserDefinedFileFilter implements Serializable {
         }
 
         private String makeIgnoreCase(String s) {
-            int           length = s.length();
+            int length = s.length();
             StringBuilder sb = new StringBuilder(length * 4);    // * 4: A -> [Aa]
-            String        escaped = s.replace("\\", "\\\\")
-                                     .replace("*", "\\*")
-                                     .replace("[", "\\[")
-                                     .replace("]", "\\]");
+            String escaped = s.replace("\\", "\\\\").replace("*", "\\*").replace("[", "\\[").replace("]", "\\]");
             int escLength = escaped.length();
 
             for (int i = 0; i < escLength; i++) {
@@ -129,10 +119,10 @@ public final class UserDefinedFileFilter implements Serializable {
         }
 
         if (other != this) {
-            id         = other.id;
-            isNot      = other.isNot;
-            type       = other.type;
-            name       = other.name;
+            id = other.id;
+            isNot = other.isNot;
+            type = other.type;
+            name = other.name;
             expression = other.expression;
         }
     }
@@ -170,8 +160,8 @@ public final class UserDefinedFileFilter implements Serializable {
     }
 
     public boolean isValid() {
-        return (type != null) && (name != null) && (expression != null)
-               &&!name.trim().isEmpty() &&!expression.trim().isEmpty();
+        return (type != null) && (name != null) && (expression != null) &&!name.trim().isEmpty()
+               &&!expression.trim().isEmpty();
     }
 
     public RegexFileFilter getFileFilter() {
@@ -209,8 +199,7 @@ public final class UserDefinedFileFilter implements Serializable {
 
         final UserDefinedFileFilter other = (UserDefinedFileFilter) obj;
 
-        if ((this.id != other.id)
-                && ((this.id == null) ||!this.id.equals(other.id))) {
+        if ((this.id != other.id) && ((this.id == null) ||!this.id.equals(other.id))) {
             return false;
         }
 
@@ -252,9 +241,9 @@ public final class UserDefinedFileFilter implements Serializable {
 
     public static class RegexFileFilter implements FileFilter, Serializable {
         private static final long serialVersionUID = -1657911795602944754L;
-        private final String      pattern;
-        private final boolean     isNot;
-        private final long        id;
+        private final String pattern;
+        private final boolean isNot;
+        private final long id;
 
         public RegexFileFilter(String pattern, boolean not, long id) {
             if (pattern == null) {
@@ -262,8 +251,8 @@ public final class UserDefinedFileFilter implements Serializable {
             }
 
             this.pattern = pattern;
-            this.isNot   = not;
-            this.id      = id;
+            this.isNot = not;
+            this.id = id;
         }
 
         @Override

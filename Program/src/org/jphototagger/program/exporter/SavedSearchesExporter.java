@@ -1,11 +1,11 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -28,11 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 public final class SavedSearchesExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "SavedSearchesExporter.DisplayName.FileFilter"), "xml");
-    public static final SavedSearchesExporter INSTANCE =
-        new SavedSearchesExporter();
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("SavedSearchesExporter.DisplayName.FileFilter"),
+                                    "xml");
+    public static final SavedSearchesExporter INSTANCE = new SavedSearchesExporter();
 
     @Override
     public void exportFile(File file) {
@@ -43,11 +41,9 @@ public final class SavedSearchesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<SavedSearch> savedSearches =
-                DatabaseSavedSearches.INSTANCE.getAll();
+            List<SavedSearch> savedSearches = DatabaseSavedSearches.INSTANCE.getAll();
 
-            XmlObjectExporter.export(new CollectionWrapper(savedSearches),
-                                     xmlFile);
+            XmlObjectExporter.export(new CollectionWrapper(savedSearches), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(SavedSearchesExporter.class, ex);
         }
@@ -60,8 +56,7 @@ public final class SavedSearchesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "SavedSearchesExporter.DisplayName");
+        return JptBundle.INSTANCE.getString("SavedSearchesExporter.DisplayName");
     }
 
     @Override
@@ -78,8 +73,7 @@ public final class SavedSearchesExporter implements Exporter {
     public static class CollectionWrapper {
         @XmlElementWrapper(name = "SavedSearches")
         @XmlElement(type = SavedSearch.class)
-        private final ArrayList<SavedSearch> collection =
-            new ArrayList<SavedSearch>();
+        private final ArrayList<SavedSearch> collection = new ArrayList<SavedSearch>();
 
         public CollectionWrapper() {}
 

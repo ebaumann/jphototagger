@@ -1,9 +1,7 @@
 package org.jphototagger.program.app;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jphototagger.lib.dialog.LongMessageDialog;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.SystemProperties;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -14,8 +12,11 @@ import java.awt.AWTEvent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
-import org.jphototagger.lib.io.FileUtil;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * JPhotoTagger's event queue.
@@ -40,23 +41,22 @@ public final class AppEventQueue extends java.awt.EventQueue {
     }
 
     private LongMessageDialog getDialog(Throwable t) {
-        LongMessageDialog dlg = new LongMessageDialog(GUI.getAppFrame(), true,
-                                    UserSettings.INSTANCE.getSettings(), null);
+        LongMessageDialog dlg = new LongMessageDialog(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(),
+                                    null);
 
         dlg.setTitle(JptBundle.INSTANCE.getString("AppEventQueue.Error.Title"));
         dlg.setErrorIcon();
         dlg.setMail(AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS);
-        dlg.setShortMessage(
-            JptBundle.INSTANCE.getString("AppEventQueue.Error.Message"));
+        dlg.setShortMessage(JptBundle.INSTANCE.getString("AppEventQueue.Error.Message"));
         dlg.setLongMessage(createMessage(t));
 
         return dlg;
     }
 
     private String createMessage(Throwable t) {
-        String                message = AppLogger.getMessage(t);
-        ByteArrayOutputStream baos    = new ByteArrayOutputStream();
-        PrintStream           ps      = new PrintStream(baos);
+        String message = AppLogger.getMessage(t);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
 
         t.printStackTrace(ps);
 
@@ -65,11 +65,12 @@ public final class AppEventQueue extends java.awt.EventQueue {
 
     private String getAllMessages() {
         File logfileAllMessages = new File(AppLoggingSystem.geLogfilePathAllMessages());
+
         try {
             return FileUtil.getContentAsString(logfileAllMessages, FILE_ENCODING);
         } catch (IOException ex) {
-            Logger.getLogger(
-                    AppEventQueue.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppEventQueue.class.getName()).log(Level.SEVERE, null, ex);
+
             return "";
         }
     }

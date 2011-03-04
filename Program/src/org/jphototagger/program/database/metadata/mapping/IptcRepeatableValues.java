@@ -12,8 +12,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class IptcRepeatableValues {
-    private static final Map<IPTCEntryMeta, Boolean> IS_REPEATABLE =
-        new HashMap<IPTCEntryMeta, Boolean>();
+    private static final Map<IPTCEntryMeta, Boolean> IS_REPEATABLE = new HashMap<IPTCEntryMeta, Boolean>();
 
     static {
         IS_REPEATABLE.put(IPTCEntryMeta.BYLINE_TITLE, true);

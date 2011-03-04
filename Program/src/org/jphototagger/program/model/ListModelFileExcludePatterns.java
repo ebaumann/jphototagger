@@ -3,8 +3,7 @@ package org.jphototagger.program.model;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
-import org.jphototagger.program.event.listener
-    .DatabaseFileExcludePatternsListener;
+import org.jphototagger.program.event.listener.DatabaseFileExcludePatternsListener;
 
 import java.awt.EventQueue;
 
@@ -24,9 +23,9 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelFileExcludePatterns extends DefaultListModel
         implements DatabaseFileExcludePatternsListener {
-    private static final long          serialVersionUID = -8337739189362442866L;
-    private volatile transient boolean listenToDb       = true;
-    private List<String>               patterns;
+    private static final long serialVersionUID = -8337739189362442866L;
+    private volatile transient boolean listenToDb = true;
+    private List<String> patterns;
 
     public ListModelFileExcludePatterns() {
         addElements();
@@ -104,21 +103,15 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
     }
 
     private void errorMessageDelete(String trimmedPattern) {
-        MessageDisplayer.error(null,
-                               "ListModelFileExcludePatterns.Error.Delete",
-                               trimmedPattern);
+        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.Delete", trimmedPattern);
     }
 
     private void errorMessageInsert(String trimmedPattern) {
-        MessageDisplayer.error(
-            null, "ListModelFileExcludePatterns.Error.InsertPattern.Add",
-            trimmedPattern);
+        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Add", trimmedPattern);
     }
 
     private void errorMessageExists(String trimmedPattern) {
-        MessageDisplayer.error(
-            null, "ListModelFileExcludePatterns.Error.InsertPattern.Exists",
-            trimmedPattern);
+        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Exists", trimmedPattern);
     }
 
     @Override

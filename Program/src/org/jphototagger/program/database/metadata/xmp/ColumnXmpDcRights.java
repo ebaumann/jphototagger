@@ -15,10 +15,7 @@ public final class ColumnXmpDcRights extends Column {
     private ColumnXmpDcRights() {
         super("rights", "dc_rights", DataType.STRING);
         setLength(128);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnXmpDcRights.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpDcRights.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpDcRights.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpDcRights.LongerDescription"));
     }
 }

@@ -26,8 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author Elmar Baumann
  */
-public class ControllerDeleteKeywords extends ControllerKeywords
-        implements ActionListener, KeyListener {
+public class ControllerDeleteKeywords extends ControllerKeywords implements ActionListener, KeyListener {
     public ControllerDeleteKeywords(KeywordsPanel panel) {
         super(panel);
     }
@@ -61,28 +60,23 @@ public class ControllerDeleteKeywords extends ControllerKeywords
     }
 
     private void deleteKeywords(List<DefaultMutableTreeNode> nodes) {
-                for (DefaultMutableTreeNode node : nodes) {
-                    Object userObject = node.getUserObject();
+        for (DefaultMutableTreeNode node : nodes) {
+            Object userObject = node.getUserObject();
 
-                    if (userObject instanceof Keyword) {
-                        delete(node, (Keyword) userObject, nodes.size() == 1);
-                    } else {
-                        MessageDisplayer.error(
-                    null, "ControllerDeleteKeywords.Tree.Error.Node", node);
-                    }
-                }
+            if (userObject instanceof Keyword) {
+                delete(node, (Keyword) userObject, nodes.size() == 1);
+            } else {
+                MessageDisplayer.error(null, "ControllerDeleteKeywords.Tree.Error.Node", node);
             }
+        }
+    }
 
-    private void delete(DefaultMutableTreeNode node, Keyword keyword,
-                        boolean confirm) {
+    private void delete(DefaultMutableTreeNode node, Keyword keyword, boolean confirm) {
         if (!confirm
                 || (confirm
-                    && MessageDisplayer.confirmYesNo(
-                        InputHelperDialog.INSTANCE,
-                        "ControllerDeleteKeywords.Tree.Confirm.Delete",
-                        keyword))) {
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(
-                node);
+                    && MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE,
+                        "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword))) {
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
         }
     }
 

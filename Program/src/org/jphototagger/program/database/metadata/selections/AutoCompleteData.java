@@ -1,9 +1,9 @@
 package org.jphototagger.program.database.metadata.selections;
 
+import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.database.DatabaseContent;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.util.CollectionUtil;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,22 +19,20 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class AutoCompleteData {
-    private final DatabaseContent    db    = DatabaseContent.INSTANCE;
+    private final DatabaseContent db = DatabaseContent.INSTANCE;
     private final LinkedList<String> words = new LinkedList<String>();
-    private final Set<Column>        columns;
+    private final Set<Column> columns;
 
     AutoCompleteData(Collection<? extends Column> columns) {
         assert UserSettings.INSTANCE.isAutocomplete();
-        this.columns =
-            new LinkedHashSet<Column>(getAutocompleteColumnsOf(columns));
+        this.columns = new LinkedHashSet<Column>(getAutocompleteColumnsOf(columns));
         words.addAll(db.getDistinctValuesOf(this.columns));
         Collections.sort(words);
     }
 
     AutoCompleteData(Column column) {
         assert UserSettings.INSTANCE.isAutocomplete();
-        this.columns = new LinkedHashSet<Column>(
-            getAutocompleteColumnsOf(Collections.singleton(column)));
+        this.columns = new LinkedHashSet<Column>(getAutocompleteColumnsOf(Collections.singleton(column)));
         words.addAll(db.getDistinctValuesOf(column));    // already sorted
     }
 
@@ -45,8 +43,7 @@ public final class AutoCompleteData {
      * @param  columns columns
      * @return         autocomplete columns or empty set
      */
-    private Set<Column> getAutocompleteColumnsOf(
-            Collection<? extends Column> columns) {
+    private Set<Column> getAutocompleteColumnsOf(Collection<? extends Column> columns) {
         Set<Column> cols = new HashSet<Column>(columns.size());
 
         for (Column column : columns) {
@@ -68,8 +65,9 @@ public final class AutoCompleteData {
 
         if (UserSettings.INSTANCE.isUpdateAutocomplete()) {
             String lcWord = UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase()
-                    ? word.toLowerCase()
-                    : word;
+                            ? word.toLowerCase()
+                            : word;
+
             synchronized (words) {
                 if (Collections.binarySearch(words, lcWord) < 0) {
                     CollectionUtil.binaryInsert(words, lcWord);
@@ -89,6 +87,7 @@ public final class AutoCompleteData {
      * @return autocomplete data
      */
     public List<String> get() {
+
         // Due performance as reference
         return words;
     }

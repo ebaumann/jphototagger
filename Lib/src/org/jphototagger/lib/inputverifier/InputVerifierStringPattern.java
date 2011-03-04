@@ -11,11 +11,10 @@ import javax.swing.text.JTextComponent;
  *
  * @author Elmar Baumann
  */
-public final class InputVerifierStringPattern extends InputVerifier
-        implements Serializable {
+public final class InputVerifierStringPattern extends InputVerifier implements Serializable {
     private static final long serialVersionUID = 3060108768868984287L;
-    private final String      pattern;
-    private final boolean     trim;
+    private final String pattern;
+    private final boolean trim;
 
     /**
      * Verifies the untrimmed input.
@@ -24,7 +23,7 @@ public final class InputVerifierStringPattern extends InputVerifier
      */
     public InputVerifierStringPattern(String pattern) {
         this.pattern = pattern;
-        trim         = false;
+        trim = false;
     }
 
     /**
@@ -35,7 +34,7 @@ public final class InputVerifierStringPattern extends InputVerifier
      */
     public InputVerifierStringPattern(String pattern, boolean trim) {
         this.pattern = pattern;
-        this.trim    = trim;
+        this.trim = trim;
     }
 
     /**

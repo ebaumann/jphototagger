@@ -49,15 +49,14 @@ public final class HelpIndexParser {
         HelpNode rootNode = null;
 
         try {
-            DocumentBuilderFactory factory    = getDocBuilderFactory();
-            DocumentBuilder        docBuilder = getDocBuilder(factory);
-            Document               document   = docBuilder.parse(is);
+            DocumentBuilderFactory factory = getDocBuilderFactory();
+            DocumentBuilder docBuilder = getDocBuilder(factory);
+            Document document = docBuilder.parse(is);
 
             document.getDocumentElement().normalize();
             rootNode = getTree(document);
         } catch (Exception ex) {
-            Logger.getLogger(HelpIndexParser.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(HelpIndexParser.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rootNode;
@@ -65,12 +64,11 @@ public final class HelpIndexParser {
 
     private static HelpNode getTree(Document document) throws DOMException {
         HelpNode rootNode = new HelpNode();
-        NodeList docNodes =
-            document.getElementsByTagName("helpindex").item(0).getChildNodes();
+        NodeList docNodes = document.getElementsByTagName("helpindex").item(0).getChildNodes();
         int length = docNodes.getLength();
 
         for (int i = 0; i < length; i++) {
-            Node   node     = docNodes.item(i);
+            Node node = docNodes.item(i);
             String nodeName = node.getNodeName();
 
             if (nodeName.equals("node")) {
@@ -85,12 +83,12 @@ public final class HelpIndexParser {
 
     private static void parseNode(Element section, HelpNode rootNode) {
         HelpNode helpNode = new HelpNode();
-        NodeList title    = section.getElementsByTagName("title");
+        NodeList title = section.getElementsByTagName("title");
 
         helpNode.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
 
-        NodeList nodes  = section.getChildNodes();
-        int      length = nodes.getLength();
+        NodeList nodes = section.getChildNodes();
+        int length = nodes.getLength();
 
         for (int i = 0; i < length; i++) {
             if (nodes.item(i).getNodeName().equals("section")) {
@@ -105,8 +103,8 @@ public final class HelpIndexParser {
 
     private static HelpPage getPage(Element page) throws DOMException {
         HelpPage helpPage = new HelpPage();
-        NodeList url      = page.getElementsByTagName("url");
-        NodeList title    = page.getElementsByTagName("title");
+        NodeList url = page.getElementsByTagName("url");
+        NodeList title = page.getElementsByTagName("title");
 
         helpPage.setUrl(url.item(0).getFirstChild().getNodeValue().trim());
         helpPage.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
@@ -114,8 +112,7 @@ public final class HelpIndexParser {
         return helpPage;
     }
 
-    private static DocumentBuilderFactory getDocBuilderFactory()
-            throws ParserConfigurationException {
+    private static DocumentBuilderFactory getDocBuilderFactory() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         factory.setFeature("http://xml.org/sax/features/validation", true);
@@ -123,8 +120,7 @@ public final class HelpIndexParser {
         return factory;
     }
 
-    private static DocumentBuilder getDocBuilder(DocumentBuilderFactory factory)
-            throws ParserConfigurationException {
+    private static DocumentBuilder getDocBuilder(DocumentBuilderFactory factory) throws ParserConfigurationException {
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
 
         setEntityResolver(documentBuilder);
@@ -136,11 +132,9 @@ public final class HelpIndexParser {
     private static void setEntityResolver(DocumentBuilder documentBuilder) {
         documentBuilder.setEntityResolver(new EntityResolver() {
             @Override
-            public InputSource resolveEntity(String publicId, String systemId)
-                    throws SAXException, IOException {
+            public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
                 InputStream is =
-                    HelpIndexParser.class.getResourceAsStream(
-                        "/org/jphototagger/lib/resource/dtd/helpindex.dtd");
+                    HelpIndexParser.class.getResourceAsStream("/org/jphototagger/lib/resource/dtd/helpindex.dtd");
                 InputSource ip = new InputSource(is);
 
                 ip.setSystemId("helpindex.dtd");
@@ -159,8 +153,7 @@ public final class HelpIndexParser {
                 throw exception;
             }
             @Override
-            public void fatalError(SAXParseException exception)
-                    throws SAXException {
+            public void fatalError(SAXParseException exception) throws SAXException {
                 throw exception;
             }
         });

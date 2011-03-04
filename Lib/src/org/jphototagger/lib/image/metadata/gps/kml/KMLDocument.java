@@ -15,10 +15,9 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class KMLDocument {
-    private static final String    CHARSET = "UTF-8";
-    private static final String    NEWLINE =
-        System.getProperty("line.separator");
-    private String                 generator;
+    private static final String CHARSET = "UTF-8";
+    private static final String NEWLINE = System.getProperty("line.separator");
+    private String generator;
     private final List<KMLElement> elements = new ArrayList<KMLElement>();
 
     /**
@@ -52,8 +51,7 @@ public final class KMLDocument {
         }
 
         if (!element.isTopLevelElement()) {
-            throw new IllegalArgumentException("Not a top level element: "
-                                               + element.getClass());
+            throw new IllegalArgumentException("Not a top level element: " + element.getClass());
         }
 
         elements.add(element);
@@ -68,8 +66,7 @@ public final class KMLDocument {
      *            UTF-8 strings
      * @throws IOException thrown through {@link OutputStream#write(byte[])}
      */
-    public void write(OutputStream os)
-            throws UnsupportedEncodingException, IOException {
+    public void write(OutputStream os) throws UnsupportedEncodingException, IOException {
         writeHeader(os);
         writeElements(os);
         writeFooter(os);
@@ -93,20 +90,17 @@ public final class KMLDocument {
         writeLine(os, "</kml>");
     }
 
-    private void writeElements(OutputStream os)
-            throws UnsupportedEncodingException, IOException {
+    private void writeElements(OutputStream os) throws UnsupportedEncodingException, IOException {
         for (KMLElement element : elements) {
             writeLine(os, element.toXML());
         }
     }
 
-    private static void write(OutputStream os, String s)
-            throws UnsupportedEncodingException, IOException {
+    private static void write(OutputStream os, String s) throws UnsupportedEncodingException, IOException {
         os.write(s.getBytes(CHARSET));
     }
 
-    private static void writeLine(OutputStream os, String s)
-            throws UnsupportedEncodingException, IOException {
+    private static void writeLine(OutputStream os, String s) throws UnsupportedEncodingException, IOException {
         os.write(NEWLINE.getBytes(CHARSET));
         write(os, s);
     }

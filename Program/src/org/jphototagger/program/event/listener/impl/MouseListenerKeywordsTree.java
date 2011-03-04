@@ -1,10 +1,10 @@
 package org.jphototagger.program.event.listener.impl;
 
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
 
 import java.awt.event.MouseEvent;
 
@@ -26,8 +26,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class MouseListenerKeywordsTree extends MouseListenerTree {
-    private final PopupMenuKeywordsTree popupMenu =
-        PopupMenuKeywordsTree.INSTANCE;
+    private final PopupMenuKeywordsTree popupMenu = PopupMenuKeywordsTree.INSTANCE;
 
     public MouseListenerKeywordsTree() {
         listenExpandAllSubItems(popupMenu.getItemExpandAllSubitems(), true);
@@ -40,10 +39,8 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
 
         if (MouseEventUtil.isPopupTrigger(evt)) {
             TreePath mouseCursorPath = TreeUtil.getTreePath(evt);
-            boolean  isHkNode        =
-                (mouseCursorPath != null) &&!TreeUtil.isRootItemPosition(evt)
-                && (mouseCursorPath.getLastPathComponent()
-                    instanceof DefaultMutableTreeNode);
+            boolean isHkNode = (mouseCursorPath != null) &&!TreeUtil.isRootItemPosition(evt)
+                               && (mouseCursorPath.getLastPathComponent() instanceof DefaultMutableTreeNode);
             JTree tree = (JTree) evt.getSource();
 
             popupMenu.setTree(tree);
@@ -77,8 +74,7 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
         popupMenu.getItemAddToEditPanel().setEnabled(hkNode);
         popupMenu.getItemRemoveFromEditPanel().setEnabled(hkNode);
         popupMenu.getItemCut().setEnabled(hkNode);
-        popupMenu.getItemPaste().setEnabled(hkNode
-                &&!KeywordTreeNodesClipboard.INSTANCE.isEmpty());
+        popupMenu.getItemPaste().setEnabled(hkNode &&!KeywordTreeNodesClipboard.INSTANCE.isEmpty());
         popupMenu.getItemExpandAllSubitems().setEnabled(hkNode);
         popupMenu.getItemCollapseAllSubitems().setEnabled(hkNode);
     }

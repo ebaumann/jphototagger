@@ -16,16 +16,12 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public final class MouseListenerTreeExpand extends MouseListenerTree
-        implements ActionListener {
-    private final JPopupMenu popupMenu  = new JPopupMenu();
-    private final JMenuItem  itemExpand =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+public final class MouseListenerTreeExpand extends MouseListenerTree implements ActionListener {
+    private final JPopupMenu popupMenu = new JPopupMenu();
+    private final JMenuItem itemExpand =
+        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
     private final JMenuItem itemCollapse =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "MouseListenerTreeExpand.ItemCollapse"));
+        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
 
     public MouseListenerTreeExpand() {
         popupMenu.add(itemExpand);

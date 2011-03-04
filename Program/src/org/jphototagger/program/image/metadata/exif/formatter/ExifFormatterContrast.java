@@ -14,10 +14,8 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifFormatterContrast extends ExifFormatter {
-    public static final ExifFormatterContrast INSTANCE =
-        new ExifFormatterContrast();
-    private static final Map<Integer, String> EXIF_KEY_OF_CONTRAST =
-        new HashMap<Integer, String>();
+    public static final ExifFormatterContrast INSTANCE = new ExifFormatterContrast();
+    private static final Map<Integer, String> EXIF_KEY_OF_CONTRAST = new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_CONTRAST.put(0, "ContrastNormal");
@@ -34,8 +32,7 @@ public final class ExifFormatterContrast extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.CONTRAST);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
             int value = es.value();
 
             if (EXIF_KEY_OF_CONTRAST.containsKey(value)) {

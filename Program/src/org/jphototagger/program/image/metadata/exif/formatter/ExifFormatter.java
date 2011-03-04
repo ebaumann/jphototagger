@@ -1,10 +1,10 @@
 package org.jphototagger.program.image.metadata.exif.formatter;
 
-import java.util.EnumMap;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.resource.Translation;
 
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -13,12 +13,11 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public abstract class ExifFormatter {
-    private static final Map<IfdType, Translation> TRANSLATION_OF_IFD =
-        new EnumMap<IfdType, Translation>(IfdType.class);
+    private static final Map<IfdType, Translation> TRANSLATION_OF_IFD = new EnumMap<IfdType,
+                                                                            Translation>(IfdType.class);
 
     static {
-        TRANSLATION_OF_IFD.put(
-            IfdType.EXIF, new Translation("ExifExifIfdFieldValueTranslations"));
+        TRANSLATION_OF_IFD.put(IfdType.EXIF, new Translation("ExifExifIfdFieldValueTranslations"));
     }
 
     /**

@@ -20,9 +20,8 @@ public class CacheIndirectionAgeComparator<C extends CacheIndirection>
     private static final long serialVersionUID = 712279209565326209L;
 
     @Override
-    public int compare(Entry<File, SoftReference<C>> o1,
-                       Entry<File, SoftReference<C>> o2) {
-        C   c;
+    public int compare(Entry<File, SoftReference<C>> o1, Entry<File, SoftReference<C>> o2) {
+        C c;
         int t1, t2;
 
         c = o1.getValue().get();

@@ -13,13 +13,10 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnExifIsoSpeedRatings extends Column {
-    public static final ColumnExifIsoSpeedRatings INSTANCE =
-        new ColumnExifIsoSpeedRatings();
+    public static final ColumnExifIsoSpeedRatings INSTANCE = new ColumnExifIsoSpeedRatings();
 
     private ColumnExifIsoSpeedRatings() {
         super("exif_iso_speed_ratings", "exif", DataType.SMALLINT);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnExifIsoSpeedRatings.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifIsoSpeedRatings.Description"));
     }
 }

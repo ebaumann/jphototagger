@@ -1,8 +1,8 @@
 package org.jphototagger.program.controller.misc;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.SynonymsDialog;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +18,7 @@ public final class ControllerShowSynonymsDialog implements ActionListener {
     }
 
     private void listen() {
-        GUI.getAppFrame().getMenuItemSynonyms().addActionListener(
-            this);
+        GUI.getAppFrame().getMenuItemSynonyms().addActionListener(this);
     }
 
     @Override

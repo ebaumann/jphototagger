@@ -54,20 +54,15 @@ public final class ExifMetadata {
         return exifTags;
     }
 
-    private static void addExifTags(File imageFile, ExifTags exifTags)
-            throws IOException {
+    private static void addExifTags(File imageFile, ExifTags exifTags) throws IOException {
         ImageReader imageReader = null;
 
         if (FileType.isJpegFile(imageFile.getName())) {
-            AppLogger.logInfo(ExifMetadata.class,
-                              "ExifMetadata.AddIFDEntries.JPEG.Info",
-                              imageFile);
+            AppLogger.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.JPEG.Info", imageFile);
             imageReader = new JpegReader(imageFile);
             addAllExifTags((JpegReader) imageReader, exifTags);
         } else {
-            AppLogger.logInfo(ExifMetadata.class,
-                              "ExifMetadata.AddIFDEntries.TIFF.Info",
-                              imageFile);
+            AppLogger.logInfo(ExifMetadata.class, "ExifMetadata.AddIFDEntries.TIFF.Info", imageFile);
             imageReader = new TiffReader(imageFile);
 
             int count = ((TiffReader) imageReader).getIFDCount();
@@ -75,16 +70,14 @@ public final class ExifMetadata {
             // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD
             // (using not IfdType.EXIF)?
             for (int i = 0; i < count; i++) {
-                addTagsOfIfd(((TiffReader) imageReader).getIFD(i),
-                             IfdType.EXIF, exifTags);
+                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), IfdType.EXIF, exifTags);
             }
         }
 
         close(imageReader);
     }
 
-    private static void addAllExifTags(JpegReader jpegReader,
-                                       ExifTags exifTags) {
+    private static void addAllExifTags(JpegReader jpegReader, ExifTags exifTags) {
         IFDEntry[][] allIfdEntries = MetadataUtils.getExif(jpegReader);
 
         if (allIfdEntries != null) {
@@ -106,8 +99,7 @@ public final class ExifMetadata {
         }
     }
 
-    private static void addTagsOfIfd(ImageFileDirectory ifd, IfdType ifdType,
-                                     ExifTags exifTags) {
+    private static void addTagsOfIfd(ImageFileDirectory ifd, IfdType ifdType, ExifTags exifTags) {
         if (!ifdType.equals(IfdType.UNDEFINED)) {
             addExifTags(ifd, ifdType, exifTags);
         }
@@ -133,13 +125,11 @@ public final class ExifMetadata {
         ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
 
         if (interoperabilityIFD != null) {
-            addTagsOfIfd(interoperabilityIFD, IfdType.INTEROPERABILITY,
-                         exifTags);    // recursive
+            addTagsOfIfd(interoperabilityIFD, IfdType.INTEROPERABILITY, exifTags);    // recursive
         }
     }
 
-    private static void addExifTags(ImageFileDirectory ifd, IfdType ifdType,
-                                    ExifTags exifTags) {
+    private static void addExifTags(ImageFileDirectory ifd, IfdType ifdType, ExifTags exifTags) {
         int entryCount = ifd.getEntryCount();
 
         for (int i = 0; i < entryCount; i++) {

@@ -12,9 +12,8 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class MetadataTemplate {
-    private String                        name;
-    private final HashMap<Column, Object> fieldOfColumn = new HashMap<Column,
-                                                              Object>();
+    private String name;
+    private final HashMap<Column, Object> fieldOfColumn = new HashMap<Column, Object>();
 
     /**
      * Returns the template's name.

@@ -3,7 +3,9 @@ package org.jphototagger.program.controller.miscmetadata;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.helper.RenameDeleteXmpValue;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
+
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 
 /**
@@ -12,7 +14,6 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class ControllerRenameMiscMetadata extends ControllerMiscMetadata {
-
     private final JMenuItem itemRename;
 
     public ControllerRenameMiscMetadata(PopupMenuMiscMetadata popup) {

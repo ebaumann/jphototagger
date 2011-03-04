@@ -9,9 +9,9 @@ import java.io.File;
  * @author Martin Pohlack
  */
 public class RenderedThumbnailCacheIndirection extends CacheIndirection {
-    public Image   thumbnail;
-    public int     length = 0;
-    public boolean hasKeywords;            // actually contains keywords
+    public Image thumbnail;
+    public int length = 0;
+    public boolean hasKeywords;    // actually contains keywords
     public boolean renderedForKeywords;    // was rendered for keywords
 
     public RenderedThumbnailCacheIndirection(File _file, int _length) {

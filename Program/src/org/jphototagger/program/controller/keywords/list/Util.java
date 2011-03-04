@@ -13,8 +13,8 @@ final class Util {
             throw new NullPointerException("keywords == null");
         }
 
-        StringBuilder sb    = new StringBuilder();
-        int           index = 0;
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
 
         for (String keyword : keywords) {
             sb.append((index++ == 0)

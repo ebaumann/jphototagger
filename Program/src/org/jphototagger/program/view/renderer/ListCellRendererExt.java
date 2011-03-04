@@ -12,7 +12,7 @@ import javax.swing.JLabel;
  */
 public class ListCellRendererExt extends DefaultListCellRenderer {
     private static final long serialVersionUID = 7531004273695822498L;
-    protected int             tempSelRow       = -1;
+    protected int tempSelRow = -1;
 
     public ListCellRendererExt() {
         setOpaque(true);
@@ -20,7 +20,7 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
 
     protected void setColors(int index, boolean selected, JLabel label) {
         boolean tempSelExists = tempSelRow >= 0;
-        boolean isTempSelRow  = index == tempSelRow;
+        boolean isTempSelRow = index == tempSelRow;
 
         label.setForeground((isTempSelRow || (selected &&!tempSelExists))
                             ? AppLookAndFeel.getListSelectionForeground()

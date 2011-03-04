@@ -3,6 +3,7 @@ package org.jphototagger.program.controller.search;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 
@@ -12,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Edits a selected saved search when the
@@ -24,8 +24,7 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerEditSavedSearch
-        implements ActionListener, KeyListener {
+public final class ControllerEditSavedSearch implements ActionListener, KeyListener {
     public ControllerEditSavedSearch() {
         listen();
     }
@@ -39,8 +38,7 @@ public final class ControllerEditSavedSearch
     public void keyPressed(KeyEvent evt) {
         JList list = GUI.getSavedSearchesList();
 
-        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E)
-                &&!list.isSelectionEmpty()) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
 
             if (value instanceof SavedSearch) {
@@ -51,13 +49,11 @@ public final class ControllerEditSavedSearch
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        showAdvancedSearchDialog(
-            PopupMenuSavedSearches.INSTANCE.getSavedSearch());
+        showAdvancedSearchDialog(PopupMenuSavedSearches.INSTANCE.getSavedSearch());
     }
 
     private void showAdvancedSearchDialog(SavedSearch savedSearch) {
-        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().setSavedSearch(
-            savedSearch);
+        AdvancedSearchDialog.INSTANCE.getAdvancedSearchPanel().setSavedSearch(savedSearch);
         ComponentUtil.show(AdvancedSearchDialog.INSTANCE);
     }
 

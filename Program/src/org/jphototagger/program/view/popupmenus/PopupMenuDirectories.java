@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.popupmenus;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.JptBundle;
 
@@ -11,7 +12,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -21,49 +21,29 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
  * @author Elmar Baumann
  */
 public final class PopupMenuDirectories extends JPopupMenu {
-    private static final long                serialVersionUID =
-        4574458335277932153L;
-    public static final PopupMenuDirectories INSTANCE         =
-        new PopupMenuDirectories();
+    private static final long serialVersionUID = 4574458335277932153L;
+    public static final PopupMenuDirectories INSTANCE = new PopupMenuDirectories();
     private final JMenuItem itemAddToFavorites =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel
-                        .getIcon("icon_favorite.png"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"),
+                      AppLookAndFeel.getIcon("icon_favorite.png"));
     private final JMenuItem itemCreateDirectory =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuDirectories.DisplayName.Action.CreateDirectory"), AppLookAndFeel
-                        .getIcon("icon_folder_new.png"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory"),
+                      AppLookAndFeel.getIcon("icon_folder_new.png"));
     private final JMenuItem itemRenameDirectory =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuDirectories.DisplayName.Action.RenameDirectory"), AppLookAndFeel
-                        .ICON_RENAME);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory"),
+                      AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemRefresh =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuDirectories.DisplayName.Action.Refresh"), AppLookAndFeel
-                        .ICON_REFRESH);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.Refresh"),
+                      AppLookAndFeel.ICON_REFRESH);
     private final JMenuItem itemDeleteDirectory =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuDirectories.DisplayName.Action.DeleteDirectory"), AppLookAndFeel
-                        .ICON_DELETE);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory"),
+                      AppLookAndFeel.ICON_DELETE);
     private final JMenuItem menuItemExpandAllSubitems =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
     private final JMenuItem menuItemCollapseAllSubitems =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "MouseListenerTreeExpand.ItemCollapse"));
-    private boolean  treeSelected = false;
-    private File     directory;
+        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private boolean treeSelected = false;
+    private File directory;
     private TreePath path;
 
     private PopupMenuDirectories() {
@@ -141,12 +121,9 @@ public final class PopupMenuDirectories extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemCreateDirectory.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
-        itemDeleteDirectory.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
-        itemRenameDirectory.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
+        itemCreateDirectory.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemDeleteDirectory.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemRenameDirectory.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
         itemRefresh.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F5));
     }
 }

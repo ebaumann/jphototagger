@@ -1,11 +1,11 @@
 package org.jphototagger.program.app.update.tables;
 
+import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.update.tables.v0.UpdateTablesV0;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.util.Version;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,8 +21,7 @@ import java.util.logging.Level;
  * @author Elmar Baumann
  */
 public final class UpdateTablesFactory {
-    public static final UpdateTablesFactory INSTANCE =
-        new UpdateTablesFactory();
+    public static final UpdateTablesFactory INSTANCE = new UpdateTablesFactory();
     private final List<Updater> allUpdaters = new ArrayList<Updater>();
     private final List<Updater> runningUpdaters = new ArrayList<Updater>();
 
@@ -34,7 +33,6 @@ public final class UpdateTablesFactory {
     private void initAllUpdaters() {
         allUpdaters.add(new UpdateTablesV0());
     }
-
 
     private void addUpdaters() {
         boolean force = isForceUpdate();
@@ -83,7 +81,8 @@ public final class UpdateTablesFactory {
     private static boolean isRunUpdaterOfMajorVersion(int version) {
         String dbVersion = DatabaseMetadata.getDatabaseAppVersion();
 
-        /* dbVersion == null: Only versions prior to 0.8.3 do not write version
+        /*
+         *  dbVersion == null: Only versions prior to 0.8.3 do not write version
          * info into the database. In that case, every upater has to be created.
          */
         return (dbVersion == null)
@@ -100,8 +99,7 @@ public final class UpdateTablesFactory {
      * @return true, if an updatePostCreation shall be forced
      */
     private static boolean isForceUpdate() {
-        return UserSettings.INSTANCE.getSettings().getBoolean(
-            "UdateTables.ForceUpdate");
+        return UserSettings.INSTANCE.getSettings().getBoolean("UdateTables.ForceUpdate");
     }
 
     /**

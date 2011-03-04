@@ -14,14 +14,11 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnExifRecordingEquipment extends Column {
-    public static final ColumnExifRecordingEquipment INSTANCE =
-        new ColumnExifRecordingEquipment();
+    public static final ColumnExifRecordingEquipment INSTANCE = new ColumnExifRecordingEquipment();
 
     private ColumnExifRecordingEquipment() {
         super("equipment", "exif_recording_equipment", DataType.STRING);
         setLength(125);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnExifRecordingEquipment.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifRecordingEquipment.Description"));
     }
 }

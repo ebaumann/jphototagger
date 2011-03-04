@@ -20,7 +20,7 @@ public class Pair<A, B> {
      * @param second  second object
      */
     public Pair(A first, B second) {
-        this.first  = first;
+        this.first = first;
         this.second = second;
     }
 
@@ -68,8 +68,7 @@ public class Pair<A, B> {
      */
     @Override
     public boolean equals(Object o) {
-        return (o instanceof Pair<?, ?>)
-               && equals(first, ((Pair<?, ?>) o).first)
+        return (o instanceof Pair<?, ?>) && equals(first, ((Pair<?, ?>) o).first)
                && equals(second, ((Pair<?, ?>) o).second);
     }
 

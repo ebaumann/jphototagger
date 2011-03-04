@@ -10,8 +10,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
  * @author Elmar Baumann
  */
 public final class ExifFormatterFileSource extends ExifFormatter {
-    public static final ExifFormatterFileSource INSTANCE =
-        new ExifFormatterFileSource();
+    public static final ExifFormatterFileSource INSTANCE = new ExifFormatterFileSource();
 
     private ExifFormatterFileSource() {}
 

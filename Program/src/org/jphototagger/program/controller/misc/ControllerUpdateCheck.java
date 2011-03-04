@@ -14,8 +14,7 @@ import java.awt.event.ActionListener;
  */
 public final class ControllerUpdateCheck implements ActionListener {
     public ControllerUpdateCheck() {
-        GUI.getAppFrame().getMenuItemCheckForUpdates()
-            .addActionListener(this);
+        GUI.getAppFrame().getMenuItemCheckForUpdates().addActionListener(this);
     }
 
     /**
@@ -25,8 +24,7 @@ public final class ControllerUpdateCheck implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (UpdateDownload.isCheckPending()) {
-            MessageDisplayer.error(null,
-                                   "ControllerUpdateCheck.Error.CheckDownload");
+            MessageDisplayer.error(null, "ControllerUpdateCheck.Error.CheckDownload");
         } else {
             MessageDisplayer.information(null, "ControllerUpdateCheck.Info");
             UpdateDownload.checkForNewerVersion();

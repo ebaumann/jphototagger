@@ -1,10 +1,10 @@
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
-import org.jphototagger.program.event.listener
-    .DatabaseAutoscanDirectoriesListener;
+import org.jphototagger.program.event.listener.DatabaseAutoscanDirectoriesListener;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -50,10 +50,10 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
     }
 
     private void addDirectory(File directory) {
-                if (!contains(directory)) {
-                    addElement(directory);
-                }
-            }
+        if (!contains(directory)) {
+            addElement(directory);
+        }
+    }
 
     @Override
     public void directoryInserted(final File directory) {
@@ -71,7 +71,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
             @Override
             public void run() {
                 removeDirectory(directory);
-                }
+            }
         });
     }
 }

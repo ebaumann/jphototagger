@@ -48,22 +48,20 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class Settings {
-    private final Properties    properties;
-    public static final String  BOOLEAN_FALSE_STRING   = "0";
-    public static final String  BOOLEAN_TRUE_STRING    = "1";
-    private static final String DOT                    = ".";
+    private final Properties properties;
+    public static final String BOOLEAN_FALSE_STRING = "0";
+    public static final String BOOLEAN_TRUE_STRING = "1";
+    private static final String DOT = ".";
     private static final String DELIMITER_NUMBER_ARRAY = ";";
-    private static final String DELIMITER_ARRAY_KEYS   = DOT;
-    public static final String  TREE_PATH_SEPARATOR    = "|";
-    private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X =
-        ".ViewportViewPositionX";
-    private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y =
-        ".ViewportViewPositionY";
-    private static final String KEY_APPENDIX_SELECTED  = "-selected";
-    public static final String  KEY_POSTFIX_WIDTH      = ".Width";
-    public static final String  KEY_POSTFIX_HEIGHT     = ".Height";
-    public static final String  KEY_POSTFIX_LOCATION_X = ".LocationX";
-    public static final String  KEY_POSTFIX_LOCATION_Y = ".LocationY";
+    private static final String DELIMITER_ARRAY_KEYS = DOT;
+    public static final String TREE_PATH_SEPARATOR = "|";
+    private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X = ".ViewportViewPositionX";
+    private static final String KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y = ".ViewportViewPositionY";
+    private static final String KEY_APPENDIX_SELECTED = "-selected";
+    public static final String KEY_POSTFIX_WIDTH = ".Width";
+    public static final String KEY_POSTFIX_HEIGHT = ".Height";
+    public static final String KEY_POSTFIX_LOCATION_X = ".LocationX";
+    public static final String KEY_POSTFIX_LOCATION_Y = ".LocationY";
 
     public Settings(Properties properties) {
         if (properties == null) {
@@ -103,9 +101,9 @@ public final class Settings {
             throw new NullPointerException("component == null");
         }
 
-        final Class<? extends Component> clazz         = component.getClass();
-        final String                     componentName = clazz.getName();
-        final Field[]                    fields = clazz.getDeclaredFields();
+        final Class<? extends Component> clazz = component.getClass();
+        final String componentName = clazz.getName();
+        final Field[] fields = clazz.getDeclaredFields();
 
         for (int index = 0; index < fields.length; index++) {
             final Field field = fields[index];
@@ -113,15 +111,14 @@ public final class Settings {
             field.setAccessible(true);
 
             final String fieldName = field.getName();
-            final String key       = componentName + DOT + fieldName;
+            final String key = componentName + DOT + fieldName;
 
             if ((hints == null) || hints.isSet(key)) {
                 try {
                     final Class<?> fieldType = field.getType();
 
                     if (fieldType.equals(JTabbedPane.class)) {
-                        applySettings((JTabbedPane) field.get(component), key,
-                                      hints);
+                        applySettings((JTabbedPane) field.get(component), key, hints);
                     } else if (fieldType.equals(JSplitPane.class)) {
                         applySettings((JSplitPane) field.get(component), key);
                     } else if (fieldType.equals(JTable.class)) {
@@ -129,14 +126,12 @@ public final class Settings {
                     } else if (fieldType.equals(JTree.class)) {
                         applySettings((JTree) field.get(component), key);
                     } else if (fieldType.equals(JComboBox.class)) {
-                        applySelectedIndex((JComboBox) field.get(component),
-                                           key);
+                        applySelectedIndex((JComboBox) field.get(component), key);
                     } else if (fieldType.equals(JList.class)) {
                         applySelectedIndices((JList) field.get(component), key);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -160,9 +155,7 @@ public final class Settings {
         if (properties.containsKey(key)) {
             String textOfSelectedButton = properties.getProperty(key);
 
-            for (Enumeration<AbstractButton> buttons =
-                    buttonGroup.getElements();
-                    buttons.hasMoreElements(); ) {
+            for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
                 AbstractButton button = buttons.nextElement();
 
                 if (button.getText().equals(textOfSelectedButton)) {
@@ -191,13 +184,12 @@ public final class Settings {
 
         tree.clearSelection();
 
-        int    pathIndex  = 0;
+        int pathIndex = 0;
         String indexedKey = toIndexedKey(key, pathIndex);
 
         while (properties.containsKey(indexedKey)) {
-            String   value = properties.getProperty(indexedKey);
-            TreePath path = TreeUtil.getTreePath(tree.getModel(),
-                                removeSelToken(value), TREE_PATH_SEPARATOR);
+            String value = properties.getProperty(indexedKey);
+            TreePath path = TreeUtil.getTreePath(tree.getModel(), removeSelToken(value), TREE_PATH_SEPARATOR);
 
             if (path != null) {
                 TreeUtil.expandPath(tree, path);
@@ -218,7 +210,7 @@ public final class Settings {
 
     private String removeSelToken(String path) {
         int sepIndex = path.lastIndexOf(TREE_PATH_SEPARATOR);
-        int length   = path.length();
+        int length = path.length();
 
         return ((sepIndex >= 0) && (sepIndex < length - 1))
                ? path.substring(0, sepIndex)
@@ -227,7 +219,7 @@ public final class Settings {
 
     private boolean isSelected(String path) {
         int sepIndex = path.lastIndexOf(TREE_PATH_SEPARATOR);
-        int length   = path.length();
+        int length = path.length();
 
         if ((sepIndex >= 0) && (sepIndex < length - 1)) {
             return path.substring(sepIndex + 1).equals(BOOLEAN_TRUE_STRING);
@@ -257,8 +249,7 @@ public final class Settings {
 
                 splitPane.setDividerLocation(location);
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -288,8 +279,7 @@ public final class Settings {
 
                 scrollPane.getViewport().setViewPosition(new Point(x, y));
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -312,16 +302,13 @@ public final class Settings {
         TableModel model = table.getModel();
 
         if (properties.containsKey(key)) {
-            TableColumnModel colModel          = table.getColumnModel();
-            List<Integer>    storedWidths      = getIntegerCollection(key);
-            int              tableColumnCount  = model.getColumnCount();
-            int              storedColumnCount = storedWidths.size();
+            TableColumnModel colModel = table.getColumnModel();
+            List<Integer> storedWidths = getIntegerCollection(key);
+            int tableColumnCount = model.getColumnCount();
+            int storedColumnCount = storedWidths.size();
 
-            for (int index = 0;
-                    (index < tableColumnCount) && (index < storedColumnCount);
-                    index++) {
-                colModel.getColumn(index).setPreferredWidth(
-                    storedWidths.get(index));
+            for (int index = 0; (index < tableColumnCount) && (index < storedColumnCount); index++) {
+                colModel.getColumn(index).setPreferredWidth(storedWidths.get(index));
             }
         }
     }
@@ -347,8 +334,7 @@ public final class Settings {
             try {
                 spinner.setValue(Integer.parseInt(value));
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -360,8 +346,7 @@ public final class Settings {
      * @param key   key
      * @param hints hints or null
      */
-    public void applySettings(JTabbedPane pane, String key,
-                              SettingsHints hints) {
+    public void applySettings(JTabbedPane pane, String key, SettingsHints hints) {
         if (pane == null) {
             throw new NullPointerException("pane == null");
         }
@@ -380,14 +365,11 @@ public final class Settings {
                     pane.setSelectedIndex(index);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        if ((hints != null)
-                && hints.isOption(
-                    SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
+        if ((hints != null) && hints.isOption(SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
             int componentCount = pane.getComponentCount();
 
             for (int index = 0; index < componentCount; index++) {
@@ -415,8 +397,7 @@ public final class Settings {
                     comboBox.setSelectedIndex(ind);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -460,21 +441,17 @@ public final class Settings {
 
         list.clearSelection();
 
-        List<Integer> selIndices = getIntegerCollection(key
-                                       + KEY_APPENDIX_SELECTED);
+        List<Integer> selIndices = getIntegerCollection(key + KEY_APPENDIX_SELECTED);
 
         if (selIndices.isEmpty()) {
             return;
         }
 
-        List<Integer> existingIndices =
-            ListUtil.getExistingIndicesOf(ArrayUtil.toIntArray(selIndices),
-                                          list);
+        List<Integer> existingIndices = ListUtil.getExistingIndicesOf(ArrayUtil.toIntArray(selIndices), list);
 
         if (!existingIndices.isEmpty()) {
             try {
-                if (list.getSelectionMode()
-                        == ListSelectionModel.SINGLE_SELECTION) {
+                if (list.getSelectionMode() == ListSelectionModel.SINGLE_SELECTION) {
                     list.setSelectedIndex(existingIndices.get(0));
                 } else {
                     Collections.sort(existingIndices);
@@ -486,8 +463,7 @@ public final class Settings {
 
                 list.ensureIndexIsVisible(existingIndices.get(0));
             } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null,
-                                 ex);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -509,8 +485,7 @@ public final class Settings {
         return "";
     }
 
-    public void setIntegerCollection(Collection<? extends Integer> integers,
-                                     String key) {
+    public void setIntegerCollection(Collection<? extends Integer> integers, String key) {
         if (integers == null) {
             throw new NullPointerException("array == null");
         }
@@ -529,8 +504,7 @@ public final class Settings {
         properties.setProperty(key, sb.toString());
     }
 
-    public void setStringCollection(Collection<? extends String> strings,
-                                    String key) {
+    public void setStringCollection(Collection<? extends String> strings, String key) {
         if (strings == null) {
             throw new NullPointerException("strings == null");
         }
@@ -544,8 +518,7 @@ public final class Settings {
         int index = 0;
 
         for (String string : strings) {
-            properties.setProperty(key + DELIMITER_ARRAY_KEYS
-                                   + Integer.toString(index++), string);
+            properties.setProperty(key + DELIMITER_ARRAY_KEYS + Integer.toString(index++), string);
         }
     }
 
@@ -567,16 +540,13 @@ public final class Settings {
         List<Integer> integers = new ArrayList<Integer>();
 
         if (properties.containsKey(key)) {
-            StringTokenizer tokenizer =
-                new StringTokenizer(properties.getProperty(key),
-                                    DELIMITER_NUMBER_ARRAY);
+            StringTokenizer tokenizer = new StringTokenizer(properties.getProperty(key), DELIMITER_NUMBER_ARRAY);
 
             while (tokenizer.hasMoreTokens()) {
                 try {
                     integers.add(new Integer(tokenizer.nextToken()));
                 } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -590,7 +560,7 @@ public final class Settings {
         }
 
         List<String> strings = new ArrayList<String>();
-        List<String> keys    = getKeysMatching(getArrayKeyMatchPattern(key));
+        List<String> keys = getKeysMatching(getArrayKeyMatchPattern(key));
 
         for (String stringKey : keys) {
             strings.add(properties.getProperty(stringKey));
@@ -619,9 +589,9 @@ public final class Settings {
             throw new NullPointerException("component == null");
         }
 
-        final Class<? extends Component> c             = component.getClass();
-        final String                     componentName = c.getName();
-        final Field[]                    fields        = c.getDeclaredFields();
+        final Class<? extends Component> c = component.getClass();
+        final String componentName = c.getName();
+        final Field[] fields = c.getDeclaredFields();
 
         for (int index = 0; index < fields.length; index++) {
             final Field field = fields[index];
@@ -629,7 +599,7 @@ public final class Settings {
             field.setAccessible(true);
 
             final String fieldName = field.getName();
-            final String key       = componentName + DOT + fieldName;
+            final String key = componentName + DOT + fieldName;
 
             if ((hints == null) || hints.isSet(key)) {
                 try {
@@ -649,8 +619,7 @@ public final class Settings {
                         set((JTree) field.get(component), key);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -675,8 +644,7 @@ public final class Settings {
 
         String textOfSelectedButton = null;
 
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-                buttons.hasMoreElements(); ) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
             AbstractButton button = buttons.nextElement();
 
             if (button.isSelected()) {
@@ -721,9 +689,7 @@ public final class Settings {
 
             properties.setProperty(key, Integer.toString(index));
 
-            if ((hints != null)
-                    && hints.isOption(
-                        SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
+            if ((hints != null) && hints.isOption(SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
                 int componentCount = pane.getComponentCount();
 
                 for (int i = 0; i < componentCount; i++) {
@@ -731,8 +697,7 @@ public final class Settings {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -745,8 +710,7 @@ public final class Settings {
             throw new NullPointerException("key == null");
         }
 
-        properties.setProperty(key + KEY_APPENDIX_SELECTED,
-                               Integer.toString(comboBox.getSelectedIndex()));
+        properties.setProperty(key + KEY_APPENDIX_SELECTED, Integer.toString(comboBox.getSelectedIndex()));
     }
 
     public void set(JToggleButton button, String key) {
@@ -774,7 +738,7 @@ public final class Settings {
             throw new NullPointerException("key == null");
         }
 
-        final int[]  selIndices    = list.getSelectedIndices();
+        final int[] selIndices = list.getSelectedIndices();
         final String keySelIndices = key + KEY_APPENDIX_SELECTED;
 
         if (selIndices.length == 0) {
@@ -813,10 +777,10 @@ public final class Settings {
             throw new NullPointerException("key == null");
         }
 
-        TableModel       model            = table.getModel();
-        List<Integer>    colWidths        = new ArrayList<Integer>();
-        TableColumnModel colModel         = table.getColumnModel();
-        int              tableColumnCount = model.getColumnCount();
+        TableModel model = table.getModel();
+        List<Integer> colWidths = new ArrayList<Integer>();
+        TableColumnModel colModel = table.getColumnModel();
+        int tableColumnCount = model.getColumnCount();
 
         for (int index = 0; index < tableColumnCount; index++) {
             colWidths.add(colModel.getColumn(index).getWidth());
@@ -851,10 +815,8 @@ public final class Settings {
         Integer x = scrollPane.getViewport().getViewPosition().x;
         Integer y = scrollPane.getViewport().getViewPosition().y;
 
-        properties.setProperty(key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X,
-                               x.toString());
-        properties.setProperty(key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y,
-                               y.toString());
+        properties.setProperty(key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_X, x.toString());
+        properties.setProperty(key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y, y.toString());
     }
 
     public void set(JTree tree, String key) {
@@ -866,19 +828,16 @@ public final class Settings {
             throw new NullPointerException("key == null");
         }
 
-        int rowCount  = tree.getRowCount();
+        int rowCount = tree.getRowCount();
         int pathIndex = 0;    // has to be increased only on written paths!
 
         deleteKeysMatching(key + "\\.[0-9]+");
 
         for (int row = 0; row < rowCount; row++) {
             if (tree.isExpanded(row)) {
-                setTreePath(tree.getPathForRow(row).getPath(),
-                            tree.isRowSelected(row),
-                            toIndexedKey(key, pathIndex++));
+                setTreePath(tree.getPathForRow(row).getPath(), tree.isRowSelected(row), toIndexedKey(key, pathIndex++));
             } else if (tree.isRowSelected(row)) {    // Selected but not expanded
-                setTreePath(tree.getPathForRow(row).getPath(), true,
-                            toIndexedKey(key, pathIndex++));
+                setTreePath(tree.getPathForRow(row).getPath(), true, toIndexedKey(key, pathIndex++));
             }
         }
     }
@@ -908,8 +867,7 @@ public final class Settings {
             try {
                 result = Integer.parseInt(properties.getProperty(key));
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -1005,21 +963,18 @@ public final class Settings {
             throw new NullPointerException("key == null");
         }
 
-        String keyWidth  = getKeyWidth(key);
+        String keyWidth = getKeyWidth(key);
         String keyHeight = getKeyHeight(key);
 
-        if (properties.containsKey(keyWidth)
-                && properties.containsKey(keyHeight)) {
+        if (properties.containsKey(keyWidth) && properties.containsKey(keyHeight)) {
             try {
-                int width  = Integer.parseInt(properties.getProperty(keyWidth));
-                int height =
-                    Integer.parseInt(properties.getProperty(keyHeight));
+                int width = Integer.parseInt(properties.getProperty(keyWidth));
+                int height = Integer.parseInt(properties.getProperty(keyHeight));
 
                 component.setPreferredSize(new Dimension(width, height));
                 component.setSize(new Dimension(width, height));
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -1057,18 +1012,14 @@ public final class Settings {
         String keyLocationX = getKeyLocationX(key);
         String keyLocationY = getKeyLocationY(key);
 
-        if (properties.containsKey(keyLocationX)
-                && properties.containsKey(keyLocationY)) {
+        if (properties.containsKey(keyLocationX) && properties.containsKey(keyLocationY)) {
             try {
-                int locationX =
-                    Integer.parseInt(properties.getProperty(keyLocationX));
-                int locationY =
-                    Integer.parseInt(properties.getProperty(keyLocationY));
+                int locationX = Integer.parseInt(properties.getProperty(keyLocationX));
+                int locationY = Integer.parseInt(properties.getProperty(keyLocationY));
 
                 component.setLocation(new Point(locationX, locationY));
             } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -1121,8 +1072,7 @@ public final class Settings {
         Dimension size = component.getSize();
 
         properties.setProperty(getKeyWidth(key), Integer.toString(size.width));
-        properties.setProperty(getKeyHeight(key),
-                               Integer.toString(size.height));
+        properties.setProperty(getKeyHeight(key), Integer.toString(size.height));
     }
 
     /**
@@ -1155,10 +1105,8 @@ public final class Settings {
 
         Point location = component.getLocation();
 
-        properties.setProperty(getKeyLocationX(key),
-                               Integer.toString(location.x));
-        properties.setProperty(getKeyLocationY(key),
-                               Integer.toString(location.y));
+        properties.setProperty(getKeyLocationX(key), Integer.toString(location.x));
+        properties.setProperty(getKeyLocationY(key), Integer.toString(location.y));
     }
 
     private static String getKeyHeight(String key) {
@@ -1178,7 +1126,6 @@ public final class Settings {
     }
 
     private String getArrayKeyMatchPattern(String key) {
-        return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS)
-               + "[0-9]+$";
+        return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS) + "[0-9]+$";
     }
 }

@@ -9,8 +9,7 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class XmpInDatabase {
-    private static final Set<String> STORED_PATHS_PREFIXES =
-        new HashSet<String>();
+    private static final Set<String> STORED_PATHS_PREFIXES = new HashSet<String>();
 
     static {
         STORED_PATHS_PREFIXES.add("dc:creator");

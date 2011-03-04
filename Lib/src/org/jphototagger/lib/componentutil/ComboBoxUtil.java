@@ -1,6 +1,7 @@
 package org.jphototagger.lib.componentutil;
 
 import java.awt.EventQueue;
+
 import javax.swing.ComboBoxModel;
 
 /**
@@ -81,8 +82,7 @@ public final class ComboBoxUtil {
      * @param model  model
      * @param string string to select
      */
-    public static void selectString(final ComboBoxModel model,
-                                    final String string) {
+    public static void selectString(final ComboBoxModel model, final String string) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
@@ -94,14 +94,13 @@ public final class ComboBoxUtil {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int    size    = model.getSize();
+                int size = model.getSize();
                 Object selItem = model.getSelectedItem();
 
                 for (int i = 0; i < size; i++) {
                     Object element = model.getElementAt(i);
 
-                    if ((element instanceof String)
-                            && ((String) element).equals(string)) {
+                    if ((element instanceof String) && ((String) element).equals(string)) {
                         if (element != selItem) {
                             model.setSelectedItem(element);
                         }

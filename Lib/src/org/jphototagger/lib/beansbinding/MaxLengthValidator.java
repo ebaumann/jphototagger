@@ -15,10 +15,9 @@ import javax.swing.JOptionPane;
  *
  * @author Elmar Baumann
  */
-public final class MaxLengthValidator extends Validator<String>
-        implements Serializable {
+public final class MaxLengthValidator extends Validator<String> implements Serializable {
     private static final long serialVersionUID = -8065376931606080830L;
-    private final int         maxLength;
+    private final int maxLength;
 
     public MaxLengthValidator(int maxLength) {
         if (maxLength < 0) {
@@ -38,12 +37,9 @@ public final class MaxLengthValidator extends Validator<String>
     }
 
     private void errorMessage() {
-        JOptionPane
-            .showMessageDialog(ComponentUtil.getFrameWithIcon(), JslBundle
-                .INSTANCE
-                .getString("MaxLengthValidator.Error", maxLength), JslBundle
-                .INSTANCE
-                .getString("MaxLengthValidator.Error.Title"), JOptionPane
-                .ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
+                                      JslBundle.INSTANCE.getString("MaxLengthValidator.Error", maxLength),
+                                      JslBundle.INSTANCE.getString("MaxLengthValidator.Error.Title"),
+                                      JOptionPane.ERROR_MESSAGE);
     }
 }

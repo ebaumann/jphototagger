@@ -15,7 +15,7 @@ import org.jphototagger.program.resource.JptBundle;
  */
 public final class DeleteNotReferenced1n implements Runnable {
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
-    private volatile int                  countDeleted = 0;
+    private volatile int countDeleted = 0;
 
     public synchronized void addProgressListener(ProgressListener listener) {
         if (listener == null) {
@@ -39,8 +39,7 @@ public final class DeleteNotReferenced1n implements Runnable {
     public void notifyProgressStarted() {
         ProgressEvent evt = new ProgressEvent(this, 0, 1, 0, getStartMessage());
 
-        AppLogger.logInfo(DeleteNotReferenced1n.class,
-                          "DeleteNotReferenced1n.Info.Start");
+        AppLogger.logInfo(DeleteNotReferenced1n.class, "DeleteNotReferenced1n.Info.Start");
         ls.notifyStarted(evt);
     }
 
@@ -55,7 +54,6 @@ public final class DeleteNotReferenced1n implements Runnable {
     }
 
     private Object getEndMessage() {
-        return JptBundle.INSTANCE.getString(
-            "DeleteNotReferenced1n.Info.Finished", countDeleted);
+        return JptBundle.INSTANCE.getString("DeleteNotReferenced1n.Info.Finished", countDeleted);
     }
 }

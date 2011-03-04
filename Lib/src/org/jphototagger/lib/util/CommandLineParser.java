@@ -14,9 +14,9 @@ import java.util.StringTokenizer;
  */
 public final class CommandLineParser {
     private final Set<Option> options = new HashSet<Option>();
-    private final String[]    args;
-    private final String      optionsDelimiter;
-    private final String      optionsValuesDelimiter;
+    private final String[] args;
+    private final String optionsDelimiter;
+    private final String optionsValuesDelimiter;
 
     /**
      * Constructor.
@@ -27,8 +27,7 @@ public final class CommandLineParser {
      * @throws NullPointerException if a parameter is null
      * @throws IllegalArgumentException on invalid arguments
      */
-    public CommandLineParser(String[] args, String optionsDelimiter,
-                             String optionsValuesDelimiter) {
+    public CommandLineParser(String[] args, String optionsDelimiter, String optionsValuesDelimiter) {
         if (args == null) {
             throw new NullPointerException("args == null");
         }
@@ -41,8 +40,8 @@ public final class CommandLineParser {
             throw new NullPointerException("optionsValuesDelimiter == null");
         }
 
-        this.args                   = Arrays.copyOf(args, args.length);
-        this.optionsDelimiter       = optionsDelimiter;
+        this.args = Arrays.copyOf(args, args.length);
+        this.optionsDelimiter = optionsDelimiter;
         this.optionsValuesDelimiter = optionsValuesDelimiter;
         parseOptions();
     }
@@ -76,11 +75,11 @@ public final class CommandLineParser {
     }
 
     private void parseOptions() {
-        int    length = args.length;
+        int length = args.length;
         Option option = null;
 
         for (int i = 0; i < length; i++) {
-            String  arg      = args[i].trim();
+            String arg = args[i].trim();
             boolean isOption = isOption(arg);
 
             if (isOption) {
@@ -89,7 +88,7 @@ public final class CommandLineParser {
                 options.add(option);
             } else {
                 for (int j = i + 1; (j < length) &&!isOption; j++) {
-                    arg      = args[j].trim();
+                    arg = args[j].trim();
                     isOption = isOption(arg);
 
                     if (!isOption) {
@@ -114,18 +113,14 @@ public final class CommandLineParser {
                             ? arg.substring(1)
                             : null;
 
-        if ((optionName == null)
-                || optionName.substring(0, 1).equals(optionsValuesDelimiter)) {
-            throw new IllegalArgumentException("Invalid option for argument "
-                                               + argIndex + ", " + arg);
+        if ((optionName == null) || optionName.substring(0, 1).equals(optionsValuesDelimiter)) {
+            throw new IllegalArgumentException("Invalid option for argument " + argIndex + ", " + arg);
         }
 
-        StringTokenizer st = new StringTokenizer(optionName,
-                                 optionsValuesDelimiter);
+        StringTokenizer st = new StringTokenizer(optionName, optionsValuesDelimiter);
 
         if (st.countTokens() < 1) {
-            throw new IllegalArgumentException("Invalid option for argument "
-                                               + argIndex + ", " + arg);
+            throw new IllegalArgumentException("Invalid option for argument " + argIndex + ", " + arg);
         }
 
         return st.nextToken().trim();
@@ -147,7 +142,7 @@ public final class CommandLineParser {
 
     public static class Option {
         private final List<String> values = new ArrayList<String>();;
-        private final String       name;
+        private final String name;
 
         public Option(String name) {
             this.name = name;
@@ -183,9 +178,7 @@ public final class CommandLineParser {
                 return false;
             }
 
-            if ((this.values != other.values)
-                    && ((this.values == null)
-                        ||!this.values.equals(other.values))) {
+            if ((this.values != other.values) && ((this.values == null) ||!this.values.equals(other.values))) {
                 return false;
             }
 

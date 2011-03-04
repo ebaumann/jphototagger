@@ -1,7 +1,7 @@
 package org.jphototagger.program.comparator;
 
-import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.lib.util.ClassEquality;
+import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 
 import java.io.File;
 import java.io.Serializable;
@@ -15,13 +15,12 @@ import java.util.Comparator;
  *
  * @author Elmar Baumann
  */
-public final class ComparatorExifDateTimeOriginalDesc extends ClassEquality
-        implements Comparator<File>, Serializable {
+public final class ComparatorExifDateTimeOriginalDesc extends ClassEquality implements Comparator<File>, Serializable {
     private static final long serialVersionUID = -288734067911706453L;
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        long timeLeft  = ExifMetadata.timestampDateTimeOriginalDb(fileLeft);
+        long timeLeft = ExifMetadata.timestampDateTimeOriginalDb(fileLeft);
         long timeRight = ExifMetadata.timestampDateTimeOriginalDb(fileRight);
 
         return (timeLeft == timeRight)

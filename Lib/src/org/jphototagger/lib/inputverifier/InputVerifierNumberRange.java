@@ -18,12 +18,11 @@ import javax.swing.text.JTextComponent;
  *
  * @author Elmar Baumann
  */
-public final class InputVerifierNumberRange extends InputVerifier
-        implements Serializable {
+public final class InputVerifierNumberRange extends InputVerifier implements Serializable {
     private static final long serialVersionUID = -8805199830659169644L;
-    private final double      min;
-    private final double      max;
-    private boolean           message = true;
+    private final double min;
+    private final double max;
+    private boolean message = true;
 
     /**
      * Constructor.
@@ -34,8 +33,7 @@ public final class InputVerifierNumberRange extends InputVerifier
      */
     public InputVerifierNumberRange(double min, double max) {
         if (max < min) {
-            throw new IllegalArgumentException("Maximum is less than minimum! "
-                                               + max + " < " + min);
+            throw new IllegalArgumentException("Maximum is less than minimum! " + max + " < " + min);
         }
 
         this.min = min;
@@ -101,15 +99,9 @@ public final class InputVerifierNumberRange extends InputVerifier
             return;
         }
 
-        JOptionPane
-            .showMessageDialog(
-                input,
-                JslBundle.INSTANCE
-                    .getString(
-                        "InputVerifierNumberRange.ErrorMessage", min,
-                        max), JslBundle.INSTANCE
-                            .getString(
-                                "InputVerifierNumberRange.Error.Title"), JOptionPane
-                                    .ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(input,
+                                      JslBundle.INSTANCE.getString("InputVerifierNumberRange.ErrorMessage", min, max),
+                                      JslBundle.INSTANCE.getString("InputVerifierNumberRange.Error.Title"),
+                                      JOptionPane.ERROR_MESSAGE);
     }
 }

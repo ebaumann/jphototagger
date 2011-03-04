@@ -13,12 +13,10 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnExifFocalLength extends Column {
-    public static final ColumnExifFocalLength INSTANCE =
-        new ColumnExifFocalLength();
+    public static final ColumnExifFocalLength INSTANCE = new ColumnExifFocalLength();
 
     private ColumnExifFocalLength() {
         super("exif_focal_length", "exif", DataType.REAL);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnExifFocalLength.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifFocalLength.Description"));
     }
 }

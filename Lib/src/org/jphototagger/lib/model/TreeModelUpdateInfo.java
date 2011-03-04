@@ -22,7 +22,7 @@ public final class TreeModelUpdateInfo {
      * @author Elmar Baumann
      */
     public static class NodeAndChildIndices {
-        private TreeNode      node;
+        private TreeNode node;
         private List<Integer> childIndices = new ArrayList<Integer>();
 
         public NodeAndChildIndices() {}
@@ -34,7 +34,7 @@ public final class TreeModelUpdateInfo {
          * @param  childIndices indices of that node's children
          */
         public NodeAndChildIndices(TreeNode node, List<Integer> childIndices) {
-            this.node         = node;
+            this.node = node;
             this.childIndices = childIndices;
         }
 
@@ -89,12 +89,11 @@ public final class TreeModelUpdateInfo {
      */
     public static class NodeAndChild {
         private TreeNode node;
-        private Object[] updatedChildren     = new Object[1];
-        private int[]    updatedChildIndices = new int[1];
+        private Object[] updatedChildren = new Object[1];
+        private int[] updatedChildIndices = new int[1];
 
         public int[] getUpdatedChildIndex() {
-            return Arrays.copyOf(updatedChildIndices,
-                                 updatedChildIndices.length);
+            return Arrays.copyOf(updatedChildIndices, updatedChildIndices.length);
         }
 
         public Object[] getUpdatedChild() {
@@ -108,7 +107,7 @@ public final class TreeModelUpdateInfo {
          * @param index index of that child
          */
         public void setUpdatedChild(Object child, int index) {
-            updatedChildren[0]     = child;
+            updatedChildren[0] = child;
             updatedChildIndices[0] = index;
         }
 
@@ -138,8 +137,7 @@ public final class TreeModelUpdateInfo {
      * @author Elmar Baumann
      */
     public static class NodesAndChildIndices {
-        private List<NodeAndChildIndices> info =
-            new ArrayList<TreeModelUpdateInfo.NodeAndChildIndices>();
+        private List<NodeAndChildIndices> info = new ArrayList<TreeModelUpdateInfo.NodeAndChildIndices>();
 
         /**
          * Adds as last element a new node when more than one children were
@@ -149,9 +147,7 @@ public final class TreeModelUpdateInfo {
          * @param childrenIndices indices of updated children
          */
         public void addNode(TreeNode node, int[] childrenIndices) {
-            info.add(
-                new NodeAndChildIndices(
-                    node, ArrayUtil.toList(childrenIndices)));
+            info.add(new NodeAndChildIndices(node, ArrayUtil.toList(childrenIndices)));
         }
 
         /**
@@ -161,9 +157,7 @@ public final class TreeModelUpdateInfo {
          * @param childIndex index of the updated child
          */
         public void addNode(TreeNode node, int childIndex) {
-            info.add(
-                new NodeAndChildIndices(
-                    node, Arrays.asList(Integer.valueOf(childIndex))));
+            info.add(new NodeAndChildIndices(node, Arrays.asList(Integer.valueOf(childIndex))));
         }
 
         public List<NodeAndChildIndices> getInfo() {

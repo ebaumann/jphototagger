@@ -30,8 +30,7 @@ public final class KeyEventUtil {
             throw new NullPointerException("evt == null");
         }
 
-        return (evt.getKeyCode() == KeyEvent.VK_C)
-               && (evt.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == KeyEvent.VK_C) && (evt.getModifiers() == getMenuShortcutMask());
     }
 
     /**
@@ -46,8 +45,7 @@ public final class KeyEventUtil {
             throw new NullPointerException("evt == null");
         }
 
-        return (evt.getKeyCode() == KeyEvent.VK_X)
-               && (evt.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == KeyEvent.VK_X) && (evt.getModifiers() == getMenuShortcutMask());
     }
 
     /**
@@ -62,19 +60,18 @@ public final class KeyEventUtil {
             throw new NullPointerException("evt == null");
         }
 
-        return (evt.getKeyCode() == KeyEvent.VK_V)
-               && (evt.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == KeyEvent.VK_V) && (evt.getModifiers() == getMenuShortcutMask());
     }
 
     private static boolean isModifier(KeyEvent evt, int modifier) {
         int modifiers = evt.getModifiers();
+
         return (modifiers & modifier) == modifier;
     }
 
     private static boolean isKeyCode(KeyEvent evt, int keyCode) {
         return evt.getKeyCode() == keyCode;
     }
-
 
     /**
      * Returns, whether the key event is a menu shortcut: A key in combination
@@ -88,11 +85,12 @@ public final class KeyEventUtil {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
+
         int menuShortcutMask = getMenuShortcutMask();
 
         return isKeyCode(evt, keyCode)
                && (isModifier(evt, menuShortcutMask | KeyEvent.ALT_DOWN_MASK)
-               || isModifier(evt, menuShortcutMask | KeyEvent.ALT_MASK));
+                   || isModifier(evt, menuShortcutMask | KeyEvent.ALT_MASK));
     }
 
     /**
@@ -109,9 +107,10 @@ public final class KeyEventUtil {
         }
 
         int menuShortcutMask = getMenuShortcutMask();
+
         return isKeyCode(evt, keyCode)
                && (isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_DOWN_MASK)
-               || isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_MASK));
+                   || isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_MASK));
     }
 
     /**
@@ -127,8 +126,7 @@ public final class KeyEventUtil {
             throw new NullPointerException("evt == null");
         }
 
-        return (evt.getKeyCode() == keyCode)
-               && (evt.getModifiers() == getMenuShortcutMask());
+        return (evt.getKeyCode() == keyCode) && (evt.getModifiers() == getMenuShortcutMask());
     }
 
     /**
@@ -168,9 +166,7 @@ public final class KeyEventUtil {
      * @return         key stroke
      */
     public static KeyStroke getKeyStrokeMenuShortcutWithAltDown(int keyCode) {
-        return KeyStroke.getKeyStroke(keyCode,
-                                      getMenuShortcutMask()
-                                      | InputEvent.ALT_DOWN_MASK);
+        return KeyStroke.getKeyStroke(keyCode, getMenuShortcutMask() | InputEvent.ALT_DOWN_MASK);
     }
 
     /**
@@ -180,11 +176,8 @@ public final class KeyEventUtil {
      * @param  keyCode key code
      * @return         key stroke
      */
-    public static KeyStroke getKeyStrokeMenuShortcutWithShiftDown(
-            int keyCode) {
-        return KeyStroke.getKeyStroke(keyCode,
-                                      getMenuShortcutMask()
-                                      | InputEvent.SHIFT_DOWN_MASK);
+    public static KeyStroke getKeyStrokeMenuShortcutWithShiftDown(int keyCode) {
+        return KeyStroke.getKeyStroke(keyCode, getMenuShortcutMask() | InputEvent.SHIFT_DOWN_MASK);
     }
 
     /**
@@ -194,11 +187,8 @@ public final class KeyEventUtil {
      * @param  keyCode key code
      * @return         key stroke
      */
-    public static KeyStroke getKeyStrokeMenuShortcutWithShiftAltDown(
-            int keyCode) {
+    public static KeyStroke getKeyStrokeMenuShortcutWithShiftAltDown(int keyCode) {
         return KeyStroke.getKeyStroke(keyCode,
-                                      getMenuShortcutMask()
-                                      | InputEvent.SHIFT_DOWN_MASK
-                                      | InputEvent.ALT_DOWN_MASK);
+                                      getMenuShortcutMask() | InputEvent.SHIFT_DOWN_MASK | InputEvent.ALT_DOWN_MASK);
     }
 }

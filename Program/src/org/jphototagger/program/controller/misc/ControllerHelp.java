@@ -34,14 +34,10 @@ import javax.swing.JMenuItem;
  *
  * @author Elmar Baumann
  */
-public final class ControllerHelp
-        implements ActionListener, HelpBrowserListener {
-    private static final String HELP_CONTENTS_URL =
-        JptBundle.INSTANCE.getString("Help.Url.Contents");
-    private static final String KEY_CURRENT_URL =
-        ControllerHelp.class.getName() + ".CurrentURL";
-    private String currentUrl =
-        UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
+public final class ControllerHelp implements ActionListener, HelpBrowserListener {
+    private static final String HELP_CONTENTS_URL = JptBundle.INSTANCE.getString("Help.Url.Contents");
+    private static final String KEY_CURRENT_URL = ControllerHelp.class.getName() + ".CurrentURL";
+    private String currentUrl = UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
 
     public ControllerHelp() {
         listen();
@@ -129,16 +125,14 @@ public final class ControllerHelp
 
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
-            UserSettings.INSTANCE.getSettings().set(currentUrl,
-                    KEY_CURRENT_URL);
+            UserSettings.INSTANCE.getSettings().set(currentUrl, KEY_CURRENT_URL);
             UserSettings.INSTANCE.writeToFile();
         }
     }
 
     private void initHelp() {
         if ((HelpBrowser.INSTANCE.getContentsUrl() == null)
-                ||!HelpBrowser.INSTANCE.getContentsUrl().equals(
-                    HELP_CONTENTS_URL)) {
+                ||!HelpBrowser.INSTANCE.getContentsUrl().equals(HELP_CONTENTS_URL)) {
             HelpBrowser.INSTANCE.setContentsUrl(HELP_CONTENTS_URL);
         }
     }
@@ -155,30 +149,25 @@ public final class ControllerHelp
 
     private void showAcceleratorKeyHelp() {
         initHelp();
-        HelpBrowser.INSTANCE.setDisplayUrl(
-            JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
+        HelpBrowser.INSTANCE.setDisplayUrl(JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
         ComponentUtil.show(HelpBrowser.INSTANCE);
     }
 
     private void sendBugMail() {
-        sendMail(
-            AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS,
-            JptBundle.INSTANCE.getString(
-                "ControllerSendMail.Info.AttachLogfile",
-                AppLoggingSystem.geLogfilePathAllMessages()));
+        sendMail(AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS,
+                 JptBundle.INSTANCE.getString("ControllerSendMail.Info.AttachLogfile",
+                     AppLoggingSystem.geLogfilePathAllMessages()));
     }
 
     private void sendFeatureMail() {
-        sendMail(AppInfo.MAIL_TO_ADDRESS_FEATURES,
-                 AppInfo.MAIL_SUBJECT_FEATURES, null);
+        sendMail(AppInfo.MAIL_TO_ADDRESS_FEATURES, AppInfo.MAIL_SUBJECT_FEATURES, null);
     }
 
     private void sendMail(String to, String subject, String body) {
         try {
             URI uri = getMailtoUri(to, subject, body);
 
-            AppLogger.logInfo(ControllerHelp.class,
-                              "ControllerSendMail.Info.SendMail.Uri", uri);
+            AppLogger.logInfo(ControllerHelp.class, "ControllerSendMail.Info.SendMail.Uri", uri);
             Desktop.getDesktop().mail(uri);
         } catch (Exception ex) {
             MessageDisplayer.error(null, "ControllerSendMail.Error.SendMail");
@@ -226,20 +215,16 @@ public final class ControllerHelp
         String manualPath = "";
 
         try {
-            File jarPath =
-                new File(Main.class.getProtectionDomain().getCodeSource()
-                    .getLocation().toURI());
+            File jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 
             logJar(jarPath);
 
             if (jarPath.exists() && (jarPath.getParentFile() != null)) {
-                File   dir = jarPath.getParentFile();
-                String pathPrefix = dir.getAbsolutePath() + File.separator
-                                    + "Manual";
+                File dir = jarPath.getParentFile();
+                String pathPrefix = dir.getAbsolutePath() + File.separator + "Manual";
 
                 // Trying to get Locale specific manual
-                manualPath = pathPrefix + "_"
-                             + Locale.getDefault().getLanguage() + ".pdf";
+                manualPath = pathPrefix + "_" + Locale.getDefault().getLanguage() + ".pdf";
 
                 File fileLocaleSensitive = new File(manualPath);
 
@@ -264,8 +249,7 @@ public final class ControllerHelp
             AppLogger.logSevere(AppInfo.class, ex);
         }
 
-        MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile",
-                               manualPath);
+        MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile", manualPath);
 
         return null;
     }
@@ -278,14 +262,11 @@ public final class ControllerHelp
     }
 
     private static void logJarDir(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class,
-                            "ControllerHelp.ManualPath.ParentDir",
-                            jarPath.getParentFile());
+        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile());
     }
 
     private static void logJarFile(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class,
-                            "ControllerHelp.ManualPath.JarPath", jarPath);
+        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.JarPath", jarPath);
     }
 
     private static void logIfNotExists(File file) {
@@ -294,8 +275,7 @@ public final class ControllerHelp
         }
 
         if (!file.exists()) {
-            AppLogger.logFinest(ControllerHelp.class,
-                                "ControllerHelp.Info.FileNotExists", file);
+            AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.Info.FileNotExists", file);
         }
     }
 }

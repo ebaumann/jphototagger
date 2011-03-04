@@ -14,8 +14,8 @@ import java.util.Queue;
  */
 public final class SerialExecutor implements Executor {
     private final Queue<Exec> runnables = new ArrayDeque<Exec>();
-    private final Executor    executor;
-    private Exec              active;
+    private final Executor executor;
+    private Exec active;
 
     public SerialExecutor(Executor executor) {
         if (executor == null) {

@@ -1,11 +1,11 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.RenameTemplate;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -29,11 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 public final class RenameTemplatesExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "RenameTemplatesExporter.DisplayName.FileFilter"), "xml");
-    public static final RenameTemplatesExporter INSTANCE =
-        new RenameTemplatesExporter();
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("RenameTemplatesExporter.DisplayName.FileFilter"),
+                                    "xml");
+    public static final RenameTemplatesExporter INSTANCE = new RenameTemplatesExporter();
 
     @Override
     public void exportFile(File file) {
@@ -44,8 +42,7 @@ public final class RenameTemplatesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            Set<RenameTemplate> templates =
-                DatabaseRenameTemplates.INSTANCE.getAll();
+            Set<RenameTemplate> templates = DatabaseRenameTemplates.INSTANCE.getAll();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
@@ -60,8 +57,7 @@ public final class RenameTemplatesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "RenameTemplatesExporter.DisplayName");
+        return JptBundle.INSTANCE.getString("RenameTemplatesExporter.DisplayName");
     }
 
     @Override
@@ -78,8 +74,7 @@ public final class RenameTemplatesExporter implements Exporter {
     public static class CollectionWrapper {
         @XmlElementWrapper(name = "RenameTemplates")
         @XmlElement(type = RenameTemplate.class)
-        private final ArrayList<RenameTemplate> collection =
-            new ArrayList<RenameTemplate>();
+        private final ArrayList<RenameTemplate> collection = new ArrayList<RenameTemplate>();
 
         public CollectionWrapper() {}
 

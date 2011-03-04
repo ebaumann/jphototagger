@@ -35,8 +35,7 @@ import javax.swing.tree.TreePath;
 public final class MiscMetadataHelper {
     private static final List<Column> XMP_COLUMNS = XmpColumns.get();
 
-    public static void saveToImageFiles(List<ColumnData> colData,
-            Collection<? extends File> imageFiles) {
+    public static void saveToImageFiles(List<ColumnData> colData, Collection<? extends File> imageFiles) {
         if (colData == null) {
             throw new NullPointerException("colData == null");
         }
@@ -54,8 +53,7 @@ public final class MiscMetadataHelper {
                 try {
                     xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
                 } catch (IOException ex) {
-                    Logger.getLogger(MiscMetadataHelper.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(MiscMetadataHelper.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 if (xmp == null) {
@@ -75,8 +73,7 @@ public final class MiscMetadataHelper {
         }
     }
 
-    public static void saveToImageFile(List<ColumnData> colData,
-                                       File imageFile) {
+    public static void saveToImageFile(List<ColumnData> colData, File imageFile) {
         if (colData == null) {
             throw new NullPointerException("colData == null");
         }
@@ -88,8 +85,7 @@ public final class MiscMetadataHelper {
         saveToImageFiles(colData, Collections.singleton(imageFile));
     }
 
-    public static void addMetadataToSelectedImages(
-            final Collection<? extends DefaultMutableTreeNode> nodes) {
+    public static void addMetadataToSelectedImages(final Collection<? extends DefaultMutableTreeNode> nodes) {
         if (nodes == null) {
             throw new NullPointerException("nodes == null");
         }
@@ -99,8 +95,7 @@ public final class MiscMetadataHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                EditMetadataPanels editPanels =
-                    GUI.getAppPanel().getEditMetadataPanels();
+                EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
 
                 if (!editPanels.isEditable()) {
                     return;
@@ -108,10 +103,8 @@ public final class MiscMetadataHelper {
 
                 for (DefaultMutableTreeNode node : nodes) {
                     if (isParentUserObjectAColumnOf(node, xmpColumns)) {
-                        String                 text =
-                            (String) node.getUserObject();
-                        DefaultMutableTreeNode parent =
-                            (DefaultMutableTreeNode) node.getParent();
+                        String text = (String) node.getUserObject();
+                        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
                         Column column = (Column) parent.getUserObject();
 
                         editPanels.addText(column, text);
@@ -121,8 +114,7 @@ public final class MiscMetadataHelper {
         });
     }
 
-    public static void removeMetadataFromSelectedImages(
-            final Collection<? extends DefaultMutableTreeNode> nodes) {
+    public static void removeMetadataFromSelectedImages(final Collection<? extends DefaultMutableTreeNode> nodes) {
         if (nodes == null) {
             throw new NullPointerException("nodes == null");
         }
@@ -132,8 +124,7 @@ public final class MiscMetadataHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                EditMetadataPanels editPanels =
-                    GUI.getAppPanel().getEditMetadataPanels();
+                EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
 
                 if (!editPanels.isEditable()) {
                     return;
@@ -141,10 +132,8 @@ public final class MiscMetadataHelper {
 
                 for (DefaultMutableTreeNode node : nodes) {
                     if (isParentUserObjectAColumnOf(node, xmpColumns)) {
-                        String                 text =
-                            (String) node.getUserObject();
-                        DefaultMutableTreeNode parent =
-                            (DefaultMutableTreeNode) node.getParent();
+                        String text = (String) node.getUserObject();
+                        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
                         Column column = (Column) parent.getUserObject();
 
                         editPanels.removeText(column, text);
@@ -154,8 +143,7 @@ public final class MiscMetadataHelper {
         });
     }
 
-    public static void addMetadataToSelectedImages(final Column column,
-            final String text) {
+    public static void addMetadataToSelectedImages(final Column column, final String text) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -167,8 +155,7 @@ public final class MiscMetadataHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                EditMetadataPanels editPanels =
-                    GUI.getAppPanel().getEditMetadataPanels();
+                EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
 
                 if (editPanels.isEditable()) {
                     editPanels.addText(column, text);
@@ -177,8 +164,7 @@ public final class MiscMetadataHelper {
         });
     }
 
-    public static void removeMetadataFromSelectedImages(final Column column,
-            final String text) {
+    public static void removeMetadataFromSelectedImages(final Column column, final String text) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -190,8 +176,7 @@ public final class MiscMetadataHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                EditMetadataPanels editPanels =
-                    GUI.getAppPanel().getEditMetadataPanels();
+                EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
 
                 if (editPanels.isEditable()) {
                     editPanels.removeText(column, text);
@@ -209,8 +194,8 @@ public final class MiscMetadataHelper {
      * @return         true if the parent's user object is a column contained in
      *                 <code>columns</code>
      */
-    public static boolean isParentUserObjectAColumnOf(
-            DefaultMutableTreeNode node, Collection<? extends Column> columns) {
+    public static boolean isParentUserObjectAColumnOf(DefaultMutableTreeNode node,
+            Collection<? extends Column> columns) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
@@ -219,8 +204,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("columns == null");
         }
 
-        DefaultMutableTreeNode parent =
-            (DefaultMutableTreeNode) node.getParent();
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
         Object userObject = parent.getUserObject();
 
         if (userObject instanceof Column) {
@@ -231,8 +215,7 @@ public final class MiscMetadataHelper {
     }
 
     private static DefaultTreeModel getModel() {
-        return (DefaultTreeModel) GUI.getAppPanel().getTreeMiscMetadata()
-            .getModel();
+        return (DefaultTreeModel) GUI.getAppPanel().getTreeMiscMetadata().getModel();
     }
 
     /**
@@ -246,17 +229,13 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("column == null");
         }
 
-        DefaultMutableTreeNode root =
-            (DefaultMutableTreeNode) getModel().getRoot();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) getModel().getRoot();
 
-        for (Enumeration<?> e = root.depthFirstEnumeration();
-                e.hasMoreElements(); ) {
-            DefaultMutableTreeNode node =
-                (DefaultMutableTreeNode) e.nextElement();
+        for (Enumeration<?> e = root.depthFirstEnumeration(); e.hasMoreElements(); ) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) e.nextElement();
             Object userObject = node.getUserObject();
 
-            if ((userObject instanceof Column)
-                    && ((Column) userObject).equals(column)) {
+            if ((userObject instanceof Column) && ((Column) userObject).equals(column)) {
                 return node;
             }
         }
@@ -271,8 +250,7 @@ public final class MiscMetadataHelper {
      * @param column column of parent
      * @param value  value of child
      */
-    public static void removeChildValueFrom(final Column column,
-            final String value) {
+    public static void removeChildValueFrom(final Column column, final String value) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -290,12 +268,10 @@ public final class MiscMetadataHelper {
                     int count = node.getChildCount();
 
                     for (int i = 0; i < count; i++) {
-                        DefaultMutableTreeNode childNode =
-                            (DefaultMutableTreeNode) node.getChildAt(i);
+                        DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
                         Object uo = (childNode).getUserObject();
 
-                        if ((uo instanceof String)
-                                && ((String) uo).equals(value)) {
+                        if ((uo instanceof String) && ((String) uo).equals(value)) {
                             getModel().removeNodeFromParent(childNode);
 
                             return;
@@ -311,14 +287,12 @@ public final class MiscMetadataHelper {
      * @param  paths
      * @return       values or empty list
      */
-    public static List<Pair<Column,
-                            String>> getColValuesFrom(List<TreePath> paths) {
+    public static List<Pair<Column, String>> getColValuesFrom(List<TreePath> paths) {
         if (paths == null) {
             throw new NullPointerException("paths == null");
         }
 
-        List<Pair<Column, String>> values = new ArrayList<Pair<Column,
-                                                String>>(paths.size());
+        List<Pair<Column, String>> values = new ArrayList<Pair<Column, String>>(paths.size());
 
         for (TreePath path : paths) {
             Pair<Column, String> value = getColValueFrom(path);
@@ -341,8 +315,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("path == null");
         }
 
-        DefaultMutableTreeNode node =
-            (DefaultMutableTreeNode) path.getLastPathComponent();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
 
         return getColValueFrom(node);
     }
@@ -352,16 +325,14 @@ public final class MiscMetadataHelper {
      * @param  node
      * @return       value or null
      */
-    public static Pair<Column,
-                       String> getColValueFrom(DefaultMutableTreeNode node) {
+    public static Pair<Column, String> getColValueFrom(DefaultMutableTreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
 
         if (isParentUserObjectAColumnOf(node, XMP_COLUMNS)) {
-            String                 value = node.getUserObject().toString();
-            DefaultMutableTreeNode parentNode =
-                (DefaultMutableTreeNode) node.getParent();
+            String value = node.getUserObject().toString();
+            DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.getParent();
             Column column = (Column) parentNode.getUserObject();
 
             return new Pair<Column, String>(column, value);

@@ -1,6 +1,5 @@
 package org.jphototagger.program.tasks;
 
-
 import org.jphototagger.lib.concurrent.Cancelable;
 
 /**
@@ -11,7 +10,7 @@ import org.jphototagger.lib.concurrent.Cancelable;
  */
 public final class AutomaticTask {
     public static final AutomaticTask INSTANCE = new AutomaticTask();
-    private Runnable                  runnable;
+    private Runnable runnable;
 
     /**
      * Sets a new automatic task and calls {@link #cancelCurrentTask()} to the
@@ -71,8 +70,7 @@ public final class AutomaticTask {
             return ((Thread) runnable).getName();
         }
 
-        return "JPhotoTagger: Automatic task @ " 
-                + runnable.getClass().getSimpleName();
+        return "JPhotoTagger: Automatic task @ " + runnable.getClass().getSimpleName();
     }
 
     private AutomaticTask() {}

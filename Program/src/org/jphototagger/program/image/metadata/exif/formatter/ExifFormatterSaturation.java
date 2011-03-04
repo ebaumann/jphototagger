@@ -14,10 +14,8 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifFormatterSaturation extends ExifFormatter {
-    public static final ExifFormatterSaturation INSTANCE =
-        new ExifFormatterSaturation();
-    private static final Map<Integer, String> exifKeyOfSaturation =
-        new HashMap<Integer, String>();
+    public static final ExifFormatterSaturation INSTANCE = new ExifFormatterSaturation();
+    private static final Map<Integer, String> exifKeyOfSaturation = new HashMap<Integer, String>();
 
     static {
         exifKeyOfSaturation.put(0, "SaturationNormal");
@@ -36,8 +34,7 @@ public final class ExifFormatterSaturation extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.SATURATION);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
             int value = es.value();
 
             if (exifKeyOfSaturation.containsKey(value)) {

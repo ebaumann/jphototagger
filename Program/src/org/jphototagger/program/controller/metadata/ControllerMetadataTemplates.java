@@ -39,8 +39,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
     private void setButtonsEnabled() {
         AppPanel appPanel = GUI.getAppPanel();
-        boolean  itemSelected =
-            appPanel.getComboBoxMetadataTemplates().getSelectedItem() != null;
+        boolean itemSelected = appPanel.getComboBoxMetadataTemplates().getSelectedItem() != null;
 
         appPanel.getButtonMetadataTemplateUpdate().setEnabled(itemSelected);
         appPanel.getButtonMetadataTemplateDelete().setEnabled(itemSelected);
@@ -49,13 +48,12 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private ComboBoxModelMetadataTemplates getModel() {
-        return ModelFactory.INSTANCE.getModel(
-            ComboBoxModelMetadataTemplates.class);
+        return ModelFactory.INSTANCE.getModel(ComboBoxModelMetadataTemplates.class);
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        Object   source   = evt.getSource();
+        Object source = evt.getSource();
         AppPanel appPanel = GUI.getAppPanel();
 
         if (source == appPanel.getButtonMetadataTemplateCreate()) {
@@ -82,8 +80,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
                 final String name = getNewName();
 
                 if (name != null) {
-                    MetadataTemplate template =
-                        GUI.getEditPanel().getMetadataTemplate();
+                    MetadataTemplate template = GUI.getEditPanel().getMetadataTemplate();
 
                     template.setName(name);
                     getModel().insert(template);
@@ -105,9 +102,8 @@ public final class ControllerMetadataTemplates implements ActionListener {
                         getModel().delete(template);
                     }
                 } else {
-                    AppLogger.logWarning(
-                        ControllerMetadataTemplates.class,
-                        "ControllerMetadataTemplates.Error.WrongObject", o);
+                    AppLogger.logWarning(ControllerMetadataTemplates.class,
+                                         "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
         });
@@ -120,8 +116,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
                 Object o = getModel().getSelectedItem();
 
                 if (o instanceof MetadataTemplate) {
-                    EditMetaDataTemplateDialog dlg =
-                        new EditMetaDataTemplateDialog();
+                    EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
 
                     dlg.setTemplate((MetadataTemplate) o);
                     dlg.setVisible(true);
@@ -134,7 +129,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Object o    = getModel().getSelectedItem();
+                Object o = getModel().getSelectedItem();
                 String name = getNewName();
 
                 if (name != null) {
@@ -152,15 +147,13 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
                 if (o instanceof MetadataTemplate) {
                     MetadataTemplate oldTemplate = (MetadataTemplate) o;
-                    MetadataTemplate newTemplate =
-                        GUI.getEditPanel().getMetadataTemplate();
+                    MetadataTemplate newTemplate = GUI.getEditPanel().getMetadataTemplate();
 
                     newTemplate.setName(oldTemplate.getName());
                     getModel().update(newTemplate);
                 } else {
-                    AppLogger.logWarning(
-                        ControllerMetadataTemplates.class,
-                        "ControllerMetadataTemplates.Error.WrongObject", o);
+                    AppLogger.logWarning(ControllerMetadataTemplates.class,
+                                         "ControllerMetadataTemplates.Error.WrongObject", o);
                 }
             }
         });
@@ -177,24 +170,21 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
                     GUI.getEditPanel().setMetadataTemplate(template);
                 } else {
-                    AppLogger.logWarning(
-                        ControllerMetadataTemplates.class,
-                        "ControllerMetadataTemplates.Error.InsertTemplateIsNull");
+                    AppLogger.logWarning(ControllerMetadataTemplates.class,
+                                         "ControllerMetadataTemplates.Error.InsertTemplateIsNull");
                 }
             }
         });
     }
 
     private String getNewName() {
-        boolean                   exists = true;
-        boolean                   cancel = false;
-        String                    name   = null;
-        DatabaseMetadataTemplates db     = DatabaseMetadataTemplates.INSTANCE;
+        boolean exists = true;
+        boolean cancel = false;
+        String name = null;
+        DatabaseMetadataTemplates db = DatabaseMetadataTemplates.INSTANCE;
 
         while (exists &&!cancel) {
-            name = MessageDisplayer.input(
-                "ControllerMetadataTemplates.Input.TemplateName", name,
-                getClass().getName());
+            name = MessageDisplayer.input("ControllerMetadataTemplates.Input.TemplateName", name, getClass().getName());
             exists = (name != null) && db.exists(name);
 
             if (exists) {
@@ -210,14 +200,11 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private boolean confirmDelete(String templateName) {
-        return MessageDisplayer.confirmYesNo(null,
-                "ControllerMetadataTemplates.Confirm.Delete", templateName);
+        return MessageDisplayer.confirmYesNo(null, "ControllerMetadataTemplates.Confirm.Delete", templateName);
     }
 
     private boolean rejectOverride(String name) {
-        return !MessageDisplayer.confirmYesNo(
-            null,
-            "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate",
-            name);
+        return !MessageDisplayer.confirmYesNo(null, "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate",
+                name);
     }
 }

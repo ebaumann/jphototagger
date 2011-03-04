@@ -23,10 +23,8 @@ import javax.swing.JRadioButton;
  *
  * @author Elmar Baumann
  */
-public final class ControllerKeywordItemSelected
-        implements ActionListener, ListSelectionListener, RefreshListener {
-    private static final String KEY_RADIO_BUTTON =
-        "ControllerKeywordItemSelected.RadioButton";
+public final class ControllerKeywordItemSelected implements ActionListener, ListSelectionListener, RefreshListener {
+    private static final String KEY_RADIO_BUTTON = "ControllerKeywordItemSelected.RadioButton";
 
     public ControllerKeywordItemSelected() {
         readPersistent();
@@ -65,8 +63,7 @@ public final class ControllerKeywordItemSelected
 
     @Override
     public void valueChanged(ListSelectionEvent evt) {
-        if (!evt.getValueIsAdjusting()
-                && (GUI.getSelKeywordsList().getSelectedIndex() >= 0)) {
+        if (!evt.getValueIsAdjusting() && (GUI.getSelKeywordsList().getSelectedIndex() >= 0)) {
             update(null);
         }
     }
@@ -75,19 +72,17 @@ public final class ControllerKeywordItemSelected
         List<String> selKeywords = getSelectedKeywords();
 
         EventQueue.invokeLater(isAllKeywords()
-                               ? new ShowThumbnailsContainingAllKeywords(
-                                   selKeywords, (evt == null)
+                               ? new ShowThumbnailsContainingAllKeywords(selKeywords, (evt == null)
                 ? null
                 : evt.getSettings())
-                               : new ShowThumbnailsContainingKeywords(
-                                   selKeywords, (evt == null)
+                               : new ShowThumbnailsContainingKeywords(selKeywords, (evt == null)
                 ? null
                 : evt.getSettings()));
     }
 
     private List<String> getSelectedKeywords() {
-        Object[]     selValues = GUI.getSelKeywordsList().getSelectedValues();
-        List<String> keywords  = new ArrayList<String>();
+        Object[] selValues = GUI.getSelKeywordsList().getSelectedValues();
+        List<String> keywords = new ArrayList<String>();
 
         for (Object selValue : selValues) {
             if (selValue instanceof String) {
@@ -95,8 +90,7 @@ public final class ControllerKeywordItemSelected
             }
         }
 
-        assert keywords.size() == selValues.length :
-               "Not all keywords are strings: " + keywords;
+        assert keywords.size() == selValues.length : "Not all keywords are strings: " + keywords;
 
         return keywords;
     }
@@ -106,13 +100,11 @@ public final class ControllerKeywordItemSelected
     }
 
     private void readPersistent() {
-        Properties properties     = UserSettings.INSTANCE.getProperties();
-        boolean    radioButtonAll = true;
+        Properties properties = UserSettings.INSTANCE.getProperties();
+        boolean radioButtonAll = true;
 
         if (properties.containsKey(KEY_RADIO_BUTTON)) {
-            radioButtonAll =
-                UserSettings.INSTANCE.getSettings().getInt(KEY_RADIO_BUTTON)
-                == 0;
+            radioButtonAll = UserSettings.INSTANCE.getSettings().getInt(KEY_RADIO_BUTTON) == 0;
         }
 
         getRadioButtonAllKeywords().setSelected(radioButtonAll);

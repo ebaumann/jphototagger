@@ -22,11 +22,11 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class PropertiesFile {
-    private final String     filename;
-    private final String     domainName;
+    private final String filename;
+    private final String domainName;
     private final Properties properties;
-    private final String     projectName;
-    private final String     directoryName;
+    private final String projectName;
+    private final String directoryName;
 
     /**
      * Constructor.
@@ -52,8 +52,7 @@ public final class PropertiesFile {
      * @param properties   properties to retrieve values from a file and store
      *                     values in a file
      */
-    public PropertiesFile(String domainName, String projectName,
-                          String filename, Properties properties) {
+    public PropertiesFile(String domainName, String projectName, String filename, Properties properties) {
         if (domainName == null) {
             throw new NullPointerException("domainName == null");
         }
@@ -70,10 +69,10 @@ public final class PropertiesFile {
             throw new NullPointerException("properties == null");
         }
 
-        this.domainName    = domainName;
-        this.projectName   = projectName;
-        this.filename      = filename;
-        this.properties    = properties;
+        this.domainName = domainName;
+        this.projectName = projectName;
+        this.filename = filename;
+        this.properties = properties;
         this.directoryName = initGetDirectoryName();
     }
 
@@ -99,18 +98,15 @@ public final class PropertiesFile {
 
         try {
             out = new FileOutputStream(getPropertyFilePathName());
-            properties.store(out,
-                             "--- " + projectName + " persistent settings ---");
+            properties.store(out, "--- " + projectName + " persistent settings ---");
         } catch (Exception ex) {
-            Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (out != null) {
                 try {
                     out.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(PropertiesFile.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -130,15 +126,13 @@ public final class PropertiesFile {
                 in = new FileInputStream(propertyFilename);
                 properties.load(in);
             } catch (Exception ex) {
-                Logger.getLogger(PropertiesFile.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 if (in != null) {
                     try {
                         in.close();
                     } catch (IOException ex) {
-                        Logger.getLogger(PropertiesFile.class.getName()).log(
-                            Level.SEVERE, null, ex);
+                        Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -152,7 +146,6 @@ public final class PropertiesFile {
     private String initGetDirectoryName() {
         String homeDir = System.getProperty("user.home");
 
-        return homeDir + File.separator + "." + domainName + File.separator
-               + projectName;
+        return homeDir + File.separator + "." + domainName + File.separator + projectName;
     }
 }

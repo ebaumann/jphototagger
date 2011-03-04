@@ -6,17 +6,13 @@ import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
-import org.jphototagger.program.database.metadata.exif
-    .ColumnExifIsoSpeedRatings;
+import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import org.jphototagger.program.database.metadata.exif.ColumnExifLens;
-import org.jphototagger.program.database.metadata.exif
-    .ColumnExifRecordingEquipment;
+import org.jphototagger.program.database.metadata.exif.ColumnExifRecordingEquipment;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
@@ -50,19 +46,15 @@ import javax.swing.tree.DefaultTreeModel;
  *
  * @author Elmar Baumann
  */
-public final class TreeModelMiscMetadata extends DefaultTreeModel
-        implements DatabaseImageFilesListener {
+public final class TreeModelMiscMetadata extends DefaultTreeModel implements DatabaseImageFilesListener {
     private static final Object EXIF_USER_OBJECT =
-        JptBundle.INSTANCE.getString(
-            "TreeModelMiscMetadata.ExifNode.DisplayName");
-    private static final long   serialVersionUID = 2498087635943355657L;
+        JptBundle.INSTANCE.getString("TreeModelMiscMetadata.ExifNode.DisplayName");
+    private static final long serialVersionUID = 2498087635943355657L;
     private static final Object XMP_USER_OBJECT =
-        JptBundle.INSTANCE.getString(
-            "TreeModelMiscMetadata.XmpNode.DisplayName");
+        JptBundle.INSTANCE.getString("TreeModelMiscMetadata.XmpNode.DisplayName");
     private static final Set<Column> XMP_COLUMNS = new LinkedHashSet<Column>();
     private static final Set<Column> EXIF_COLUMNS = new LinkedHashSet<Column>();
-    private static final Set<Object> COLUMN_USER_OBJECTS =
-        new LinkedHashSet<Object>();
+    private static final Set<Object> COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();
 
     static {
         EXIF_COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
@@ -78,15 +70,13 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         COLUMN_USER_OBJECTS.add(XMP_USER_OBJECT);
     }
 
-    private final boolean                onlyXmp;
+    private final boolean onlyXmp;
     private final DefaultMutableTreeNode ROOT;
 
     public TreeModelMiscMetadata(boolean onlyXmp) {
-        super(new DefaultMutableTreeNode(
-            JptBundle.INSTANCE.getString(
-                "TreeModelMiscMetadata.Root.DisplayName")));
+        super(new DefaultMutableTreeNode(JptBundle.INSTANCE.getString("TreeModelMiscMetadata.Root.DisplayName")));
         this.onlyXmp = onlyXmp;
-        this.ROOT    = (DefaultMutableTreeNode) getRoot();
+        this.ROOT = (DefaultMutableTreeNode) getRoot();
 
         if (!onlyXmp) {
             addColumnNodes(EXIF_USER_OBJECT, EXIF_COLUMNS);
@@ -116,21 +106,16 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(userObject);
 
         for (Column column : columns) {
-            DefaultMutableTreeNode columnNode =
-                new DefaultMutableTreeNode(column);
+            DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode(column);
 
-            addChildren(
-                columnNode,
-                DatabaseImageFiles.INSTANCE.getAllDistinctValuesOf(column),
-                        column.getDataType());
+            addChildren(columnNode, DatabaseImageFiles.INSTANCE.getAllDistinctValuesOf(column), column.getDataType());
             node.add(columnNode);
         }
 
         ROOT.add(node);
     }
 
-    private void addChildren(DefaultMutableTreeNode parentNode,
-                             Set<String> data, Column.DataType dataType) {
+    private void addChildren(DefaultMutableTreeNode parentNode, Set<String> data, Column.DataType dataType) {
         for (String string : data) {
             DefaultMutableTreeNode node = new DefaultMutableTreeNode();
 
@@ -164,15 +149,13 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         String recordingEquipment = exif.getRecordingEquipment();
 
         if (recordingEquipment != null) {
-            checkDeleted(ColumnExifRecordingEquipment.INSTANCE,
-                         recordingEquipment);
+            checkDeleted(ColumnExifRecordingEquipment.INSTANCE, recordingEquipment);
         }
 
         short iso = exif.getIsoSpeedRatings();
 
         if (iso > 0) {
-            checkDeleted(ColumnExifIsoSpeedRatings.INSTANCE,
-                         Short.valueOf(iso));
+            checkDeleted(ColumnExifIsoSpeedRatings.INSTANCE, Short.valueOf(iso));
         }
 
         double f = exif.getFocalLength();
@@ -191,17 +174,14 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     private void checkDeleted(Column column, Object userObject) {
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
 
-        if ((node != null)
-                &&!DatabaseImageFiles.INSTANCE.exists(column, userObject)) {
-            DefaultMutableTreeNode child = findNodeWithUserObject(node,
-                                               userObject);
+        if ((node != null) &&!DatabaseImageFiles.INSTANCE.exists(column, userObject)) {
+            DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
 
             if (child != null) {
                 int index = node.getIndex(child);
 
                 node.remove(index);
-                nodesWereRemoved(node, new int[] { index },
-                                 new Object[] { child });
+                nodesWereRemoved(node, new int[] { index }, new Object[] { child });
             }
         }
     }
@@ -220,15 +200,13 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         String recordingEquipment = exif.getRecordingEquipment();
 
         if (recordingEquipment != null) {
-            checkInserted(ColumnExifRecordingEquipment.INSTANCE,
-                          recordingEquipment);
+            checkInserted(ColumnExifRecordingEquipment.INSTANCE, recordingEquipment);
         }
 
         short iso = exif.getIsoSpeedRatings();
 
         if (iso > 0) {
-            checkInserted(ColumnExifIsoSpeedRatings.INSTANCE,
-                          Short.valueOf(iso));
+            checkInserted(ColumnExifIsoSpeedRatings.INSTANCE, Short.valueOf(iso));
         }
 
         double f = exif.getFocalLength();
@@ -248,12 +226,10 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
 
         if (node != null) {
-            DefaultMutableTreeNode child = findNodeWithUserObject(node,
-                                               userObject);
+            DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
 
             if (child == null) {
-                DefaultMutableTreeNode newChild =
-                    new DefaultMutableTreeNode(userObject);
+                DefaultMutableTreeNode newChild = new DefaultMutableTreeNode(userObject);
 
                 node.add(newChild);
                 nodesWereInserted(node, new int[] { node.getIndex(newChild) });
@@ -261,10 +237,8 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
         }
     }
 
-    private DefaultMutableTreeNode findNodeWithUserObject(
-            DefaultMutableTreeNode rootNode, Object userObject) {
-        List<DefaultMutableTreeNode> foundNodes =
-            new ArrayList<DefaultMutableTreeNode>(1);
+    private DefaultMutableTreeNode findNodeWithUserObject(DefaultMutableTreeNode rootNode, Object userObject) {
+        List<DefaultMutableTreeNode> foundNodes = new ArrayList<DefaultMutableTreeNode>(1);
 
         TreeUtil.addNodesUserWithObject(foundNodes, rootNode, userObject, 1);
 
@@ -274,8 +248,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     }
 
     @Override
-    public void xmpUpdated(File imageFile, final Xmp oldXmp,
-                           final Xmp updatedXmp) {
+    public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
         if (oldXmp == null) {
             throw new NullPointerException("oldXmp == null");
         }
@@ -356,8 +329,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel
     }
 
     @Override
-    public void exifUpdated(File imageFile, final Exif oldExif,
-                            final Exif updatedExif) {
+    public void exifUpdated(File imageFile, final Exif oldExif, final Exif updatedExif) {
         if (oldExif == null) {
             throw new NullPointerException("oldExif == null");
         }

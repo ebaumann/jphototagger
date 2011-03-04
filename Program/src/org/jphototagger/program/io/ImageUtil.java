@@ -7,16 +7,15 @@ import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
-
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Utilities for images.
@@ -48,9 +47,7 @@ public final class ImageUtil {
      * @param confirm         {@link ConfirmOverwrite#YES} if the user must
      *                        confirm overwrite existing files
      */
-    public static void copyImageFiles(List<File> sourceFiles,
-                                      File targetDirectory,
-                                      ConfirmOverwrite confirm) {
+    public static void copyImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
@@ -64,9 +61,7 @@ public final class ImageUtil {
         }
 
         if (confirm.yes()
-                &&!confirmFileAction("ImageUtil.Confirm.Copy",
-                                     sourceFiles.size(),
-                                     targetDirectory.getAbsolutePath())) {
+                &&!confirmFileAction("ImageUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
             return;
         }
 
@@ -87,18 +82,13 @@ public final class ImageUtil {
      * @param confirm         {@link ConfirmOverwrite#YES} if the user must
      *                        confirm overwrite existing files
      */
-    public static void moveImageFiles(List<File> sourceFiles,
-                                      File targetDirectory,
-                                      ConfirmOverwrite confirm) {
+    public static void moveImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
         if (confirm.yes()
-                &&!confirmFileAction("ImageUtil.Confirm.Move",
-                                     sourceFiles.size(),
-                                     targetDirectory.getAbsolutePath())) {
+                &&!confirmFileAction("ImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
             return;
         }
 
-        ControllerMoveFiles ctrl =
-            ControllerFactory.INSTANCE.getController(ControllerMoveFiles.class);
+        ControllerMoveFiles ctrl = ControllerFactory.INSTANCE.getController(ControllerMoveFiles.class);
 
         if (ctrl != null) {
             ctrl.moveFiles(sourceFiles, targetDirectory);
@@ -106,14 +96,11 @@ public final class ImageUtil {
         }
     }
 
-    private static boolean confirmFileAction(String bundleKey, int size,
-            String absolutePath) {
-        return MessageDisplayer.confirmYesNo(null, bundleKey, size,
-                absolutePath);
+    private static boolean confirmFileAction(String bundleKey, int size, String absolutePath) {
+        return MessageDisplayer.confirmYesNo(null, bundleKey, size, absolutePath);
     }
 
-    private synchronized static void addProgressListener(
-            CopyToDirectoryDialog dlg) {
+    private synchronized static void addProgressListener(CopyToDirectoryDialog dlg) {
         dlg.addProgressListener(new ProgressListener() {
             @Override
             public void progressStarted(ProgressEvent evt) {
@@ -177,8 +164,7 @@ public final class ImageUtil {
         }
 
         if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
-            MessageDisplayer.error(null, "ImageUtil.Error.WriteSidecarFile",
-                                   imageFile.getParentFile());
+            MessageDisplayer.error(null, "ImageUtil.Error.WriteSidecarFile", imageFile.getParentFile());
 
             return false;
         }

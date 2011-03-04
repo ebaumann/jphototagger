@@ -9,7 +9,6 @@ import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 
@@ -18,11 +17,10 @@ import javax.swing.JProgressBar;
  *
  * @author Elmar Baumann
  */
-public final class ProgressBar extends MutualExcludedResource<JProgressBar>
-        implements ActionListener {
+public final class ProgressBar extends MutualExcludedResource<JProgressBar> implements ActionListener {
     public static final ProgressBar INSTANCE = new ProgressBar();
-    private final JButton           buttonCancel;
-    private volatile boolean        cancelEnabled = true;
+    private final JButton buttonCancel;
+    private volatile boolean cancelEnabled = true;
 
     private ProgressBar() {
         AppPanel appPanel = GUI.getAppPanel();
@@ -36,7 +34,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
     /**
      * Enables or disables a cancel button if the owner implements
      * {@link Cancelable}.
-     * 
+     *
      * @param owner   owner
      * @param enabled true if enable a cancel button. Default: true.
      */
@@ -55,8 +53,8 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
      */
     @Override
     public synchronized JProgressBar getResource(Object owner) {
-        JProgressBar pb        = super.getResource(owner);
-        boolean      canCancel = (pb != null) && (owner instanceof Cancelable);
+        JProgressBar pb = super.getResource(owner);
+        boolean canCancel = (pb != null) && (owner instanceof Cancelable);
 
         if (cancelEnabled && canCancel) {
             setEnabledCancelButton(true);
@@ -83,8 +81,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar>
         buttonCancel.setEnabled(enabled);
 
         if (enabled) {
-            buttonCancel.setToolTipText(
-                JptBundle.INSTANCE.getString("ProgressBar.TooltipText.Cancel"));
+            buttonCancel.setToolTipText(JptBundle.INSTANCE.getString("ProgressBar.TooltipText.Cancel"));
             buttonCancel.setIcon(AppLookAndFeel.ICON_CANCEL);
         } else {
             buttonCancel.setToolTipText("");

@@ -9,15 +9,11 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnXmpLastModified extends Column {
-    public static final ColumnXmpLastModified INSTANCE =
-        new ColumnXmpLastModified();
+    public static final ColumnXmpLastModified INSTANCE = new ColumnXmpLastModified();
 
     private ColumnXmpLastModified() {
         super("lastmodified", "xmp", DataType.BIGINT);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnXmpLastModified.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpLastModified.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpLastModified.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpLastModified.LongerDescription"));
     }
 }

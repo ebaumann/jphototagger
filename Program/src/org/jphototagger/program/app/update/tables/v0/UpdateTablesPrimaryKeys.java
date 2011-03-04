@@ -20,8 +20,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 final class UpdateTablesPrimaryKeys {
-    private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP =
-        new ArrayList<String>();
+    private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP = new ArrayList<String>();
 
     void update(Connection con) throws SQLException {
         startMessage();
@@ -31,13 +30,12 @@ final class UpdateTablesPrimaryKeys {
 
     private void dropPrimaryKeys(Connection con) throws SQLException {
         DatabaseMetaData meta = con.getMetaData();
-        Statement        stmt = null;
-        ResultSet        rs   = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         for (String table : TABLES_PRIMARY_KEYS_TO_DROP) {
             try {
-                rs = meta.getPrimaryKeys(con.getCatalog(), null,
-                                         table.toUpperCase());
+                rs = meta.getPrimaryKeys(con.getCatalog(), null, table.toUpperCase());
                 stmt = con.createStatement();
 
                 boolean hasPk = false;
@@ -48,11 +46,9 @@ final class UpdateTablesPrimaryKeys {
                     if (pkName != null) {
                         hasPk = true;
 
-                        String sql = "alter table " + table
-                                     + " drop primary key";
+                        String sql = "alter table " + table + " drop primary key";
 
-                        AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
-                                           sql);
+                        AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
                         stmt.executeUpdate(sql);
                     }
                 }
@@ -63,7 +59,6 @@ final class UpdateTablesPrimaryKeys {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
     }
 }

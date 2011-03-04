@@ -44,15 +44,11 @@ public final class ImageTransform {
 
     // Code von http://forums.sun.com/thread.jspa?forumID=54&threadID=5286788
     private static BufferedImage tilt(BufferedImage image, double angle) {
-        double                sin    = Math.abs(Math.sin(angle)),
-                              cos    = Math.abs(Math.cos(angle));
-        int                   w      = image.getWidth(),
-                              h      = image.getHeight();
-        int                   neww   = (int) Math.floor(w * cos + h * sin),
-                              newh   = (int) Math.floor(h * cos + w * sin);
-        GraphicsConfiguration gc     = getDefaultConfiguration();
-        BufferedImage         result = gc.createCompatibleImage(neww, newh,
-                                           Transparency.OPAQUE);
+        double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
+        int w = image.getWidth(), h = image.getHeight();
+        int neww = (int) Math.floor(w * cos + h * sin), newh = (int) Math.floor(h * cos + w * sin);
+        GraphicsConfiguration gc = getDefaultConfiguration();
+        BufferedImage result = gc.createCompatibleImage(neww, newh, Transparency.OPAQUE);
         Graphics2D g = result.createGraphics();
 
         g.translate((neww - w) / 2, (newh - h) / 2);
@@ -65,8 +61,7 @@ public final class ImageTransform {
 
     // Code von http://forums.sun.com/thread.jspa?forumID=54&threadID=5286788
     private static GraphicsConfiguration getDefaultConfiguration() {
-        GraphicsEnvironment ge =
-            GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
 
         return gd.getDefaultConfiguration();
@@ -80,10 +75,9 @@ public final class ImageTransform {
 
         image = new ImageIcon(image).getImage();
 
-        boolean             hasAlpha = hasAlpha(image);
-        BufferedImage       bimage   = null;
-        GraphicsEnvironment ge       =
-            GraphicsEnvironment.getLocalGraphicsEnvironment();
+        boolean hasAlpha = hasAlpha(image);
+        BufferedImage bimage = null;
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
         try {
             int transparency = Transparency.OPAQUE;
@@ -92,15 +86,12 @@ public final class ImageTransform {
                 transparency = Transparency.BITMASK;
             }
 
-            GraphicsDevice        gs = ge.getDefaultScreenDevice();
+            GraphicsDevice gs = ge.getDefaultScreenDevice();
             GraphicsConfiguration gc = gs.getDefaultConfiguration();
 
-            bimage = gc.createCompatibleImage(image.getWidth(null),
-                                              image.getHeight(null),
-                                              transparency);
+            bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
         } catch (Exception ex) {
-            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (bimage == null) {
@@ -110,8 +101,7 @@ public final class ImageTransform {
                 type = BufferedImage.TYPE_INT_ARGB;
             }
 
-            bimage = new BufferedImage(image.getWidth(null),
-                                       image.getHeight(null), type);
+            bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
         }
 
         Graphics g = bimage.createGraphics();
@@ -137,8 +127,7 @@ public final class ImageTransform {
         try {
             pg.grabPixels();
         } catch (Exception ex) {
-            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         ColorModel cm = pg.getColorModel();

@@ -1,14 +1,14 @@
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
-import org.jphototagger.program.event.listener
-    .DatabaseUserDefinedFileFiltersListener;
+import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.program.UserSettings;
+
+import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
 
@@ -19,9 +19,8 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
         implements DatabaseUserDefinedFileFiltersListener {
-    private static final long  serialVersionUID = -7792330718447905417L;
-    public static final String SETTINGS_KEY_SEL_INDEX =
-        "ComboBoxModelFileFilters.SelIndex";
+    private static final long serialVersionUID = -7792330718447905417L;
+    public static final String SETTINGS_KEY_SEL_INDEX = "ComboBoxModelFileFilters.SelIndex";
 
     public ComboBoxModelFileFilters() {
         insertElements();
@@ -45,8 +44,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
         addElement(AppFileFilters.XMP_RATING_4_STARS);
         addElement(AppFileFilters.XMP_RATING_5_STARS);
 
-        for (UserDefinedFileFilter filter :
-                DatabaseUserDefinedFileFilters.INSTANCE.getAll()) {
+        for (UserDefinedFileFilter filter : DatabaseUserDefinedFileFilters.INSTANCE.getAll()) {
             addElement(filter);
         }
 
@@ -82,7 +80,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
         addElement(filter);
     }
 
-            @Override
+    @Override
     public void filterInserted(final UserDefinedFileFilter filter) {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -108,7 +106,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
             @Override
             public void run() {
                 updateFilter(filter);
-                }
+            }
         });
     }
 }

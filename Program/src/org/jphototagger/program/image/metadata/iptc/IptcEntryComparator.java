@@ -16,8 +16,7 @@ import java.util.Comparator;
  * @see     IptcEntry
  */
 public final class IptcEntryComparator implements Comparator<IptcEntry> {
-    public static final IptcEntryComparator INSTANCE =
-        new IptcEntryComparator();
+    public static final IptcEntryComparator INSTANCE = new IptcEntryComparator();
 
     @Override
     public int compare(IptcEntry o1, IptcEntry o2) {

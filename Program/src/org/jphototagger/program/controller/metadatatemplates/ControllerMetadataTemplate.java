@@ -25,8 +25,7 @@ public abstract class ControllerMetadataTemplate extends Controller {
     }
 
     private void listen() {
-        listenToKeyEventsOf(
-            InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList());
+        listenToKeyEventsOf(InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList());
     }
 
     @Override
@@ -49,8 +48,7 @@ public abstract class ControllerMetadataTemplate extends Controller {
 
     protected void focusList() {
         InputHelperDialog.INSTANCE.toFront();
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList()
-            .requestFocusInWindow();
+        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().requestFocusInWindow();
     }
 
     protected JList getInputHelperList() {
@@ -68,8 +66,7 @@ public abstract class ControllerMetadataTemplate extends Controller {
             return null;
         }
 
-        ListModelMetadataTemplates model =
-            ModelFactory.INSTANCE.getModel(ListModelMetadataTemplates.class);
+        ListModelMetadataTemplates model = ModelFactory.INSTANCE.getModel(ListModelMetadataTemplates.class);
 
         return (MetadataTemplate) model.get(index);
     }

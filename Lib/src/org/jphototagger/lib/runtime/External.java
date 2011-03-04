@@ -25,28 +25,27 @@ public final class External {
 
     public static class ProcessResult {
         private static final byte[] emptyStream = {};
-        private final int           exitValue;
-        private final String        outputStream;
-        private final String        errorStream;
+        private final int exitValue;
+        private final String outputStream;
+        private final String errorStream;
 
-        public ProcessResult(int exitValue, String outputStream,
-                             String errorStream) {
-            this.exitValue    = exitValue;
+        public ProcessResult(int exitValue, String outputStream, String errorStream) {
+            this.exitValue = exitValue;
             this.outputStream = outputStream;
-            this.errorStream  = errorStream;
+            this.errorStream = errorStream;
         }
 
         public ProcessResult(Process process) {
             byte[] os = getStream(process, Stream.STANDARD_OUT);
             byte[] es = getStream(process, Stream.STANDARD_ERROR);
 
-            this.exitValue    = process.exitValue();
+            this.exitValue = process.exitValue();
             this.outputStream = new String((os == null)
                                            ? emptyStream
                                            : os);
-            this.errorStream  = new String((es == null)
-                                           ? emptyStream
-                                           : es);
+            this.errorStream = new String((es == null)
+                                          ? emptyStream
+                                          : es);
         }
 
         public String getErrorStream() {
@@ -77,9 +76,9 @@ public final class External {
         }
 
         try {
-            Runtime  runtime = Runtime.getRuntime();
-            String[] cmd     = parseQuotedCommandLine(command);
-            Process  p       = runtime.exec(cmd);
+            Runtime runtime = Runtime.getRuntime();
+            String[] cmd = parseQuotedCommandLine(command);
+            Process p = runtime.exec(cmd);
 
             if (wait) {
                 p.waitFor();
@@ -87,8 +86,7 @@ public final class External {
                 return new ProcessResult(p);
             }
         } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -112,15 +110,13 @@ public final class External {
      *                 system's standard error output or the bytes the program
      *                 has written to the system's standard error output.
      */
-    public static Pair<byte[], byte[]> executeGetOutput(String command,
-            long maxMilliseconds) {
+    public static Pair<byte[], byte[]> executeGetOutput(String command, long maxMilliseconds) {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
 
         if (maxMilliseconds < 0) {
-            throw new IllegalArgumentException("Negative maxMilliseconds: "
-                                               + maxMilliseconds);
+            throw new IllegalArgumentException("Negative maxMilliseconds: " + maxMilliseconds);
         }
 
         Runtime runtime = Runtime.getRuntime();
@@ -129,18 +125,13 @@ public final class External {
         try {
             process = runtime.exec(parseQuotedCommandLine(command));
 
-            ProcessDestroyer processDestroyer = new ProcessDestroyer(process,
-                                                    maxMilliseconds, command);
-            Thread threadProcessDestroyer =
-                new Thread(processDestroyer,
-                           "JPhotoTagger: Destroying process");
+            ProcessDestroyer processDestroyer = new ProcessDestroyer(process, maxMilliseconds, command);
+            Thread threadProcessDestroyer = new Thread(processDestroyer, "JPhotoTagger: Destroying process");
 
             threadProcessDestroyer.start();
 
-            Pair<byte[], byte[]> streamContent =
-                new Pair<byte[],
-                         byte[]>(getStream(process, Stream.STANDARD_OUT),
-                                 getStream(process, Stream.STANDARD_ERROR));
+            Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(getStream(process, Stream.STANDARD_OUT),
+                                                     getStream(process, Stream.STANDARD_ERROR));
 
             processDestroyer.processFinished();
             threadProcessDestroyer.interrupt();
@@ -151,8 +142,7 @@ public final class External {
 
             return streamContent;
         } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
 
             return null;
         }
@@ -162,16 +152,16 @@ public final class External {
         assert process != null;
         assert s.equals(Stream.STANDARD_ERROR) || s.equals(Stream.STANDARD_OUT);
 
-        final int buffersize  = 100 * 1024;
-        byte[]    returnBytes = null;
+        final int buffersize = 100 * 1024;
+        byte[] returnBytes = null;
 
         try {
-            InputStream stream    = s.equals(Stream.STANDARD_OUT)
-                                    ? process.getInputStream()
-                                    : process.getErrorStream();
-            byte[]      buffer    = new byte[buffersize];
-            int         bytesRead = -1;
-            boolean     finished  = false;
+            InputStream stream = s.equals(Stream.STANDARD_OUT)
+                                 ? process.getInputStream()
+                                 : process.getErrorStream();
+            byte[] buffer = new byte[buffersize];
+            int bytesRead = -1;
+            boolean finished = false;
 
             while (!finished) {
                 bytesRead = stream.read(buffer, 0, buffersize);
@@ -181,8 +171,7 @@ public final class External {
                         returnBytes = new byte[bytesRead];
                         System.arraycopy(buffer, 0, returnBytes, 0, bytesRead);
                     } else {
-                        returnBytes = appendToByteArray(returnBytes, buffer,
-                                                        bytesRead);
+                        returnBytes = appendToByteArray(returnBytes, buffer, bytesRead);
                     }
                 }
 
@@ -191,15 +180,13 @@ public final class External {
 
             process.waitFor();
         } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return returnBytes;
     }
 
-    private static byte[] appendToByteArray(byte[] appendTo, byte[] appendThis,
-            int count) {
+    private static byte[] appendToByteArray(byte[] appendTo, byte[] appendThis, int count) {
         byte[] newArray = new byte[appendTo.length + count];
 
         System.arraycopy(appendTo, 0, newArray, 0, appendTo.length);
@@ -209,17 +196,16 @@ public final class External {
     }
 
     private static class ProcessDestroyer implements Runnable {
-        private final Process    process;
-        private final long       millisecondsWait;
-        private final String     command;
+        private final Process process;
+        private final long millisecondsWait;
+        private final String command;
         private volatile boolean processFinished;
-        private boolean          destroyed = false;
+        private boolean destroyed = false;
 
-        ProcessDestroyer(Process process, long millisecondsWait,
-                         String command) {
-            this.process          = process;
+        ProcessDestroyer(Process process, long millisecondsWait, String command) {
+            this.process = process;
             this.millisecondsWait = millisecondsWait;
-            this.command          = command;
+            this.command = command;
         }
 
         public boolean destroyed() {
@@ -243,20 +229,16 @@ public final class External {
                 process.destroy();
                 destroyed = true;
 
-                String errorMessage =
-                    JslBundle.INSTANCE.getString(
-                        "External.ExecuteGetOutput.ErrorMessage",
-                        millisecondsWait, command);
+                String errorMessage = JslBundle.INSTANCE.getString("External.ExecuteGetOutput.ErrorMessage",
+                                          millisecondsWait, command);
 
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-                                 errorMessage);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, errorMessage);
             }
         }
     }
 
 
-    public static String[] parseQuotedCommandLine(String command)
-            throws IOException {
+    public static String[] parseQuotedCommandLine(String command) throws IOException {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
@@ -268,9 +250,9 @@ public final class External {
         // an invalid path. Let's escaping all backslashes, because it's not
         // plausible, that a command string has an octal escape, that shall be
         // replaced by one unicode character.
-        String          cmd       = command.replace("\\", "\\\\");
-        String[]        cmd_array = new String[0];
-        String[]        new_cmd_array;
+        String cmd = command.replace("\\", "\\\\");
+        String[] cmd_array = new String[0];
+        String[] new_cmd_array;
         StreamTokenizer st = new StreamTokenizer(new StringReader(cmd));
 
         st.resetSyntax();
@@ -279,7 +261,7 @@ public final class External {
         st.quoteChar('"');
 
         for (int i = 0; st.nextToken() != StreamTokenizer.TT_EOF; i++) {
-            new_cmd_array    = new String[i + 1];
+            new_cmd_array = new String[i + 1];
             new_cmd_array[i] = st.sval;
             System.arraycopy(cmd_array, 0, new_cmd_array, 0, i);
             cmd_array = new_cmd_array;

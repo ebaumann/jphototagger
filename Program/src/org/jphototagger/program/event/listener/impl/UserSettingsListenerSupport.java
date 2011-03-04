@@ -7,8 +7,7 @@ import org.jphototagger.program.event.UserSettingsEvent;
  *
  * @author Elmar Baumann
  */
-public final class UserSettingsListenerSupport
-        extends ListenerSupport<UserSettingsListener> {
+public final class UserSettingsListenerSupport extends ListenerSupport<UserSettingsListener> {
     public void notifyUserListeners(UserSettingsEvent evt) {
         if (evt == null) {
             throw new NullPointerException("evt == null");

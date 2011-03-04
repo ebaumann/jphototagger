@@ -1,16 +1,15 @@
 package org.jphototagger.program.model;
 
-import javax.swing.DefaultComboBoxModel;
 import org.jphototagger.program.data.UserDefinedFileFilter;
 
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class ComboBoxModelUserDefinedFileFilterType extends DefaultComboBoxModel
-         {
+public final class ComboBoxModelUserDefinedFileFilterType extends DefaultComboBoxModel {
     private static final long serialVersionUID = 6723254193291648654L;
 
     public ComboBoxModelUserDefinedFileFilterType() {

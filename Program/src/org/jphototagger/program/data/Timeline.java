@@ -27,11 +27,9 @@ import javax.swing.tree.TreeModel;
  */
 public final class Timeline {
     private final DefaultMutableTreeNode ROOT_NODE =
-        new TreeNodeSortedChildren(
-            JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
+        new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
     private static final DefaultMutableTreeNode UNKNOWN_NODE =
-        new TreeNodeSortedChildren(
-            JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
+        new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
     private boolean unknownNode;
 
     /**
@@ -60,18 +58,15 @@ public final class Timeline {
      *            recognized
      * @return    information about the inserted children
      */
-    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
-            Calendar cal) {
+    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(Calendar cal) {
         if (cal == null) {
             throw new NullPointerException("cal == null");
         }
 
-        TreeModelUpdateInfo.NodesAndChildIndices info =
-            new TreeModelUpdateInfo.NodesAndChildIndices();
+        TreeModelUpdateInfo.NodesAndChildIndices info = new TreeModelUpdateInfo.NodesAndChildIndices();
         Date date = new Date(cal);
 
-        insertDayNode(insertMonthNode(insertYearNode(date, info), date, info),
-                      date, info);
+        insertDayNode(insertMonthNode(insertYearNode(date, info), date, info), date, info);
 
         return info;
     }
@@ -83,8 +78,7 @@ public final class Timeline {
      *             ({@link Date#isValid()}
      * @return     information about the inserted children
      */
-    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(
-            Date date) {
+    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(Date date) {
         if (date == null) {
             throw new NullPointerException("date == null");
         }
@@ -93,13 +87,11 @@ public final class Timeline {
             throw new IllegalArgumentException("Illegal date: " + date);
         }
 
-        TreeModelUpdateInfo.NodesAndChildIndices info =
-            new TreeModelUpdateInfo.NodesAndChildIndices();
+        TreeModelUpdateInfo.NodesAndChildIndices info = new TreeModelUpdateInfo.NodesAndChildIndices();
         DefaultMutableTreeNode yearNode = insertYearNode(date, info);
 
         if (date.hasMonth()) {
-            DefaultMutableTreeNode monthNode = insertMonthNode(yearNode, date,
-                                                   info);
+            DefaultMutableTreeNode monthNode = insertMonthNode(yearNode, date, info);
 
             if (date.hasDay()) {
                 insertDayNode(monthNode, date, info);
@@ -121,13 +113,11 @@ public final class Timeline {
             throw new NullPointerException("date == null");
         }
 
-        TreeModelUpdateInfo.NodeAndChild info =
-            new TreeModelUpdateInfo.NodeAndChild();
+        TreeModelUpdateInfo.NodeAndChild info = new TreeModelUpdateInfo.NodeAndChild();
         DefaultMutableTreeNode dayNode = getNodeOfDay(date);
 
         if (dayNode != null) {
-            DefaultMutableTreeNode parent =
-                (DefaultMutableTreeNode) dayNode.getParent();
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dayNode.getParent();
 
             if (parent != null) {
                 info.setNode(parent);
@@ -140,11 +130,9 @@ public final class Timeline {
         return info;
     }
 
-    private void removeIfEmpty(DefaultMutableTreeNode node,
-                               TreeModelUpdateInfo.NodeAndChild info) {
+    private void removeIfEmpty(DefaultMutableTreeNode node, TreeModelUpdateInfo.NodeAndChild info) {
         if (node.getChildCount() <= 0) {
-            DefaultMutableTreeNode parent =
-                (DefaultMutableTreeNode) node.getParent();
+            DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
 
             if (parent != null) {
                 info.setNode(parent);
@@ -192,14 +180,12 @@ public final class Timeline {
             return null;
         }
 
-        @SuppressWarnings(
-            "unchecked") Enumeration<DefaultMutableTreeNode> days =
-                monthNodeOfCal.children();
+        @SuppressWarnings("unchecked") Enumeration<DefaultMutableTreeNode> days = monthNodeOfCal.children();
         DefaultMutableTreeNode dayNodeOfCal = null;
 
         while ((dayNodeOfCal == null) && days.hasMoreElements()) {
-            DefaultMutableTreeNode childNode  = days.nextElement();
-            Object                 userObject = childNode.getUserObject();
+            DefaultMutableTreeNode childNode = days.nextElement();
+            Object userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
                 Date dateOfNode = (Date) userObject;
@@ -226,14 +212,12 @@ public final class Timeline {
             return null;
         }
 
-        @SuppressWarnings(
-            "unchecked") Enumeration<DefaultMutableTreeNode> months =
-                yearNodeOfCal.children();
+        @SuppressWarnings("unchecked") Enumeration<DefaultMutableTreeNode> months = yearNodeOfCal.children();
         DefaultMutableTreeNode monthNodeOfCal = null;
 
         while ((monthNodeOfCal == null) && months.hasMoreElements()) {
-            DefaultMutableTreeNode childNode  = months.nextElement();
-            Object                 userObject = childNode.getUserObject();
+            DefaultMutableTreeNode childNode = months.nextElement();
+            Object userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
                 Date dateOfNode = (Date) userObject;
@@ -254,14 +238,12 @@ public final class Timeline {
      * @return  node or null if no such node exists
      */
     private DefaultMutableTreeNode getNodeOfYear(Date date) {
-        @SuppressWarnings(
-            "unchecked") Enumeration<DefaultMutableTreeNode> years =
-                ROOT_NODE.children();
+        @SuppressWarnings("unchecked") Enumeration<DefaultMutableTreeNode> years = ROOT_NODE.children();
         DefaultMutableTreeNode yearNodeOfCal = null;
 
         while ((yearNodeOfCal == null) && years.hasMoreElements()) {
-            DefaultMutableTreeNode childNode  = years.nextElement();
-            Object                 userObject = childNode.getUserObject();
+            DefaultMutableTreeNode childNode = years.nextElement();
+            Object userObject = childNode.getUserObject();
 
             if (userObject instanceof Date) {
                 Date dateOfNode = (Date) userObject;
@@ -275,14 +257,12 @@ public final class Timeline {
         return yearNodeOfCal;
     }
 
-    private DefaultMutableTreeNode insertYearNode(Date date,
-            TreeModelUpdateInfo.NodesAndChildIndices info) {
-        int                    indexYearNode = indexOfYearNode(date);
+    private DefaultMutableTreeNode insertYearNode(Date date, TreeModelUpdateInfo.NodesAndChildIndices info) {
+        int indexYearNode = indexOfYearNode(date);
         DefaultMutableTreeNode yearNode;
 
         if (indexYearNode >= 0) {
-            yearNode =
-                (DefaultMutableTreeNode) ROOT_NODE.getChildAt(indexYearNode);
+            yearNode = (DefaultMutableTreeNode) ROOT_NODE.getChildAt(indexYearNode);
         } else {
             yearNode = new TreeNodeSortedChildren(new Date(date.year, 0, 0));
             insertYearNode(yearNode, info);
@@ -291,16 +271,14 @@ public final class Timeline {
         return yearNode;
     }
 
-    private void insertYearNode(DefaultMutableTreeNode yearNode,
-                                TreeModelUpdateInfo.NodesAndChildIndices info) {
-        int     childCount = ROOT_NODE.getChildCount();
-        boolean inserted   = false;
-        int     index      = 0;
-        int     year       = getYear(yearNode);
+    private void insertYearNode(DefaultMutableTreeNode yearNode, TreeModelUpdateInfo.NodesAndChildIndices info) {
+        int childCount = ROOT_NODE.getChildCount();
+        boolean inserted = false;
+        int index = 0;
+        int year = getYear(yearNode);
 
         while (!inserted && (index < childCount)) {
-            DefaultMutableTreeNode childNode =
-                (DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++);
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++);
 
             if (childNode != UNKNOWN_NODE) {
                 Object userObject = childNode.getUserObject();
@@ -316,18 +294,17 @@ public final class Timeline {
         }
     }
 
-    private DefaultMutableTreeNode insertMonthNode(
-            DefaultMutableTreeNode yearNode, Date date,
+    private DefaultMutableTreeNode insertMonthNode(DefaultMutableTreeNode yearNode, Date date,
             TreeModelUpdateInfo.NodesAndChildIndices info) {
-        DefaultMutableTreeNode monthNode  = null;
-        int                    childCount = yearNode.getChildCount();
-        boolean                inserted   = false;
-        int                    index      = 0;
+        DefaultMutableTreeNode monthNode = null;
+        int childCount = yearNode.getChildCount();
+        boolean inserted = false;
+        int index = 0;
 
         while (!inserted && (index < childCount)) {
             monthNode = (DefaultMutableTreeNode) yearNode.getChildAt(index++);
 
-            Object  userObject       = monthNode.getUserObject();
+            Object userObject = monthNode.getUserObject();
             boolean userObjectIsDate = userObject instanceof Date;
 
             if (!userObjectIsDate) {
@@ -340,8 +317,7 @@ public final class Timeline {
         }
 
         if (!inserted) {
-            monthNode = new TreeNodeSortedChildren(new Date(date.year,
-                    date.month, 0));
+            monthNode = new TreeNodeSortedChildren(new Date(date.year, date.month, 0));
             yearNode.add(monthNode);
             info.addNode(yearNode, yearNode.getIndex(monthNode));
         }
@@ -355,15 +331,15 @@ public final class Timeline {
             return;
         }
 
-        DefaultMutableTreeNode dayNode    = null;
-        int                    childCount = monthNode.getChildCount();
-        boolean                inserted   = false;
-        int                    index      = 0;
+        DefaultMutableTreeNode dayNode = null;
+        int childCount = monthNode.getChildCount();
+        boolean inserted = false;
+        int index = 0;
 
         while (!inserted && (index < childCount)) {
             dayNode = (DefaultMutableTreeNode) monthNode.getChildAt(index++);
 
-            Object  userObject       = dayNode.getUserObject();
+            Object userObject = dayNode.getUserObject();
             boolean userObjectIsDate = userObject instanceof Date;
 
             if (!userObjectIsDate) {
@@ -383,13 +359,12 @@ public final class Timeline {
     }
 
     private int indexOfYearNode(Date date) {
-        int     index      = 0;
-        int     childCount = ROOT_NODE.getChildCount();
+        int index = 0;
+        int childCount = ROOT_NODE.getChildCount();
         boolean yearExists = false;
 
         while (!yearExists && (index < childCount)) {
-            Object userObject = ((DefaultMutableTreeNode) ROOT_NODE.getChildAt(
-                                    index++)).getUserObject();
+            Object userObject = ((DefaultMutableTreeNode) ROOT_NODE.getChildAt(index++)).getUserObject();
 
             if (userObject instanceof Date) {
                 yearExists = ((Date) userObject).year == date.year;
@@ -445,9 +420,9 @@ public final class Timeline {
         public int day;
 
         public Date(int year, int month, int date) {
-            this.year  = year;
+            this.year = year;
             this.month = month;
-            this.day   = date;
+            this.day = date;
         }
 
         public Date(Calendar cal) {
@@ -462,15 +437,15 @@ public final class Timeline {
         }
 
         public void reset() {
-            year  = -1;
+            year = -1;
             month = -1;
-            day   = -1;
+            day = -1;
         }
 
         public void set(Calendar cal) {
-            year  = cal.get(Calendar.YEAR);
+            year = cal.get(Calendar.YEAR);
             month = cal.get(Calendar.MONTH) + 1;
-            day   = cal.get(Calendar.DAY_OF_MONTH);
+            day = cal.get(Calendar.DAY_OF_MONTH);
         }
 
         public boolean setXmpDateCreated(String date) {
@@ -551,13 +526,12 @@ public final class Timeline {
         public String getMonthDisplayName() {
             try {
                 if (!hasMonth()) {
-                    return JptBundle.INSTANCE.getString(
-                        "Timeline.DisplayName.NoMonth");
+                    return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");
                 }
 
-                DateFormat     df     = new SimpleDateFormat("M");
-                java.util.Date date   = df.parse(Integer.toString(month));
-                DateFormat     dfLong = new SimpleDateFormat("MMMM");
+                DateFormat df = new SimpleDateFormat("M");
+                java.util.Date date = df.parse(Integer.toString(month));
+                DateFormat dfLong = new SimpleDateFormat("MMMM");
 
                 return dfLong.format(date);
             } catch (Exception ex) {
@@ -569,11 +543,10 @@ public final class Timeline {
 
         @Override
         public String toString() {
-            DecimalFormat dfY  = new DecimalFormat("0000");
+            DecimalFormat dfY = new DecimalFormat("0000");
             DecimalFormat dfMD = new DecimalFormat("00");
 
-            return MessageFormat.format("{0}-{1}-{2}", dfY.format(year),
-                                        dfMD.format(month), dfMD.format(day));
+            return MessageFormat.format("{0}-{1}-{2}", dfY.format(year), dfMD.format(month), dfMD.format(day));
         }
 
         @Override
@@ -620,10 +593,8 @@ public final class Timeline {
                 return 0;
             }
 
-            boolean greater = (year > o.year)
-                              || ((year == o.year) && (month > o.month))
-                              || ((year == o.year) && (month == o.month)
-                                  && (day > o.day));
+            boolean greater = (year > o.year) || ((year == o.year) && (month > o.month))
+                              || ((year == o.year) && (month == o.month) && (day > o.day));
 
             return greater
                    ? 1

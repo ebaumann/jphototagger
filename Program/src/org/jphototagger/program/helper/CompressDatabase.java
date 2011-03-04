@@ -17,11 +17,10 @@ import java.io.File;
  * @author Elmar Baumann
  */
 public final class CompressDatabase implements Runnable {
-    private final ProgressListenerSupport listenerSupport =
-        new ProgressListenerSupport();
+    private final ProgressListenerSupport listenerSupport = new ProgressListenerSupport();
     private boolean success = false;
-    private long    sizeBefore;
-    private long    sizeAfter;
+    private long sizeBefore;
+    private long sizeAfter;
 
     public synchronized void addProgressListener(ProgressListener l) {
         if (l == null) {
@@ -72,28 +71,22 @@ public final class CompressDatabase implements Runnable {
         logCompressDatabase();
         notifyStarted();
 
-        File dbFile = new File(
-                          UserSettings.INSTANCE.getDatabaseFileName(
-                              Filename.FULL_PATH));
+        File dbFile = new File(UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH));
 
         sizeBefore = dbFile.length();
-        success    = DatabaseMaintainance.INSTANCE.compressDatabase();
-        sizeAfter  = dbFile.length();
+        success = DatabaseMaintainance.INSTANCE.compressDatabase();
+        sizeAfter = dbFile.length();
         notifyEnded();
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(
-                                this,
-                                JptBundle.INSTANCE.getString(
-                                    "CompressDatabase.Start"));
+        ProgressEvent evt = new ProgressEvent(this, JptBundle.INSTANCE.getString("CompressDatabase.Start"));
 
         listenerSupport.notifyStarted(evt);
     }
 
     private void logCompressDatabase() {
-        AppLogger.logInfo(CompressDatabase.class,
-                          "CompressDatabase.Info.StartCompress");
+        AppLogger.logInfo(CompressDatabase.class, "CompressDatabase.Info.StartCompress");
     }
 
     private synchronized void notifyEnded() {
@@ -103,14 +96,11 @@ public final class CompressDatabase implements Runnable {
     }
 
     private Object getEndMessage() {
-        double   mb     = 1024 * 1024;
+        double mb = 1024 * 1024;
         Object[] params = { success
-                            ? JptBundle.INSTANCE.getString(
-                                "CompressDatabase.End.Success.True")
-                            : JptBundle.INSTANCE.getString(
-                                "CompressDatabase.End.Success.False"),
-                            sizeBefore, new Double(sizeBefore / mb), sizeAfter,
-                            new Double(sizeAfter / mb) };
+                            ? JptBundle.INSTANCE.getString("CompressDatabase.End.Success.True")
+                            : JptBundle.INSTANCE.getString("CompressDatabase.End.Success.False"), sizeBefore,
+                            new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb) };
 
         return JptBundle.INSTANCE.getString("CompressDatabase.End", params);
     }

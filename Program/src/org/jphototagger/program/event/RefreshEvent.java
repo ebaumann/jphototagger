@@ -3,9 +3,9 @@ package org.jphototagger.program.event;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import java.awt.Point;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.List;
 
 /**
@@ -14,8 +14,8 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class RefreshEvent {
-    private final Object  source;
-    private final Point   currentViewPosition;
+    private final Object source;
+    private final Point currentViewPosition;
     private List<Integer> selThumbnails;
 
     public RefreshEvent(Object source, Point currentViewPosition) {
@@ -27,7 +27,7 @@ public final class RefreshEvent {
             throw new NullPointerException("currentViewPosition == null");
         }
 
-        this.source              = source;
+        this.source = source;
         this.currentViewPosition = currentViewPosition;
     }
 

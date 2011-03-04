@@ -29,7 +29,7 @@ public final class ExifAscii {
         }
 
         String nullTerminatedValue = new String(rawValue);
-        int    length              = nullTerminatedValue.length();
+        int length = nullTerminatedValue.length();
 
         return (length > 0)
                ? nullTerminatedValue.substring(0, length - 1)

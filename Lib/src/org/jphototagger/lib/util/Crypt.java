@@ -80,7 +80,7 @@ public final class Crypt {
 
         try {
             byte[] utf8 = str.getBytes("UTF8");
-            byte[] enc  = ecipher.doFinal(utf8);
+            byte[] enc = ecipher.doFinal(utf8);
 
             return Base64.encodeBytes(enc);
         } catch (Exception ex) {
@@ -102,7 +102,7 @@ public final class Crypt {
         }
 
         try {
-            byte[] dec  = Base64.decode(str);
+            byte[] dec = Base64.decode(str);
             byte[] utf8 = dcipher.doFinal(dec);
 
             return new String(utf8, "UTF8");

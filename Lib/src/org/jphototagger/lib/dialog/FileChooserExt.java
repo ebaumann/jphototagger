@@ -31,8 +31,8 @@ import javax.swing.JOptionPane;
  */
 public final class FileChooserExt extends JFileChooser {
     private static final long serialVersionUID = 2263451265476542816L;
-    private boolean           confirmOverwrite;
-    private String            saveFilenameExtension;
+    private boolean confirmOverwrite;
+    private String saveFilenameExtension;
 
     public FileChooserExt(String currentDirectoryPath, FileSystemView fsv) {
         super(currentDirectoryPath, fsv);
@@ -97,8 +97,7 @@ public final class FileChooserExt extends JFileChooser {
                                 ? null
                                 : extension;
 
-        if ((saveFilenameExtension != null)
-                && saveFilenameExtension.isEmpty()) {
+        if ((saveFilenameExtension != null) && saveFilenameExtension.isEmpty()) {
             saveFilenameExtension = null;
         }
     }
@@ -161,16 +160,13 @@ public final class FileChooserExt extends JFileChooser {
 
     private boolean confirmOverwrite() {
         boolean multiSel = isMultiSelectionEnabled();
-        String  question = multiSel
-                           ? JslBundle.INSTANCE.getString(
-                               "FileChooserExt.Confirm.OverwriteMultiSel")
-                           : JslBundle.INSTANCE.getString(
-                               "FileChooserExt.Confirm.OverwriteSingleSel");
-        String title = JslBundle.INSTANCE.getString(
-                           "FileChooserExt.Confirm.OverwriteTitle");
+        String question = multiSel
+                          ? JslBundle.INSTANCE.getString("FileChooserExt.Confirm.OverwriteMultiSel")
+                          : JslBundle.INSTANCE.getString("FileChooserExt.Confirm.OverwriteSingleSel");
+        String title = JslBundle.INSTANCE.getString("FileChooserExt.Confirm.OverwriteTitle");
 
-        return JOptionPane.showConfirmDialog(null, question, title,
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+        return JOptionPane.showConfirmDialog(null, question, title, JOptionPane.YES_NO_OPTION)
+               == JOptionPane.YES_OPTION;
     }
 
     /**
@@ -186,7 +182,7 @@ public final class FileChooserExt extends JFileChooser {
     @Override
     public File[] getSelectedFiles() {
         File[] selFiles = getSelFiles();
-        int    length   = selFiles.length;
+        int length = selFiles.length;
 
         for (int i = 0; i < length; i++) {
             selFiles[i] = ensureSaveFilenameExtension(selFiles[i]);
@@ -228,8 +224,7 @@ public final class FileChooserExt extends JFileChooser {
             // Case insensitivity because some file systems are treating the
             // same lower and upper case characters as equals (A == a, B == b,
             // ...)
-            if (!path.toLowerCase().endsWith(
-                    saveFilenameExtension.toLowerCase())) {
+            if (!path.toLowerCase().endsWith(saveFilenameExtension.toLowerCase())) {
                 return new File(path + saveFilenameExtension);
             }
         }

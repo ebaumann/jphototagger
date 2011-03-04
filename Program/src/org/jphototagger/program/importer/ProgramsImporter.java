@@ -27,9 +27,8 @@ public final class ProgramsImporter implements Importer {
         }
 
         try {
-            ProgramsExporter.CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
-                    ProgramsExporter.CollectionWrapper.class);
+            ProgramsExporter.CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
+                                                             ProgramsExporter.CollectionWrapper.class);
 
             for (Program program : wrapper.getCollection()) {
                 if (!DatabasePrograms.INSTANCE.exists(program)) {

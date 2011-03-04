@@ -1,10 +1,11 @@
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.event.listener.DatabaseSynonymsListener;
+
+import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
 
@@ -13,12 +14,11 @@ import javax.swing.DefaultListModel;
  *
  * @author Elmar Baumann
  */
-public final class ListModelSynonyms extends DefaultListModel
-        implements DatabaseSynonymsListener {
+public final class ListModelSynonyms extends DefaultListModel implements DatabaseSynonymsListener {
     private static final long serialVersionUID = -7595224452344062647L;
-    private boolean           listen           = true;
-    private final Role        role;
-    private String            word;
+    private boolean listen = true;
+    private final Role role;
+    private String word;
 
     public enum Role { WORDS, SYNONYMS }
 
@@ -37,8 +37,7 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     private boolean isRoleSynonymForWord(String word) {
-        return role.equals(Role.SYNONYMS) && (this.word != null)
-               && this.word.equals(word);
+        return role.equals(Role.SYNONYMS) && (this.word != null) && this.word.equals(word);
     }
 
     public void addWord(final String word) {
@@ -100,9 +99,7 @@ public final class ListModelSynonyms extends DefaultListModel
             if (DatabaseSynonyms.INSTANCE.insert(word, synonym) == 1) {
                 addElement(synonym);
             } else {
-                MessageDisplayer.error(null,
-                                       "ListModelSynonyms.Error.AddSynonym",
-                                       word, synonym);
+                MessageDisplayer.error(null, "ListModelSynonyms.Error.AddSynonym", word, synonym);
             }
 
             listen = true;
@@ -127,8 +124,7 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-    public void changeSynonym(final String oldSynonym,
-                              final String newSynonym) {
+    public void changeSynonym(final String oldSynonym, final String newSynonym) {
         if (newSynonym == null) {
             throw new NullPointerException("newSynonym == null");
         }
@@ -137,15 +133,12 @@ public final class ListModelSynonyms extends DefaultListModel
             throw new NullPointerException("newSynonym == null");
         }
 
-        assert role.equals(Role.SYNONYMS) && (word != null)
-               &&!oldSynonym.equals(newSynonym);
+        assert role.equals(Role.SYNONYMS) && (word != null) &&!oldSynonym.equals(newSynonym);
 
-        if (role.equals(Role.SYNONYMS) && (word != null)
-                && contains(oldSynonym)) {
+        if (role.equals(Role.SYNONYMS) && (word != null) && contains(oldSynonym)) {
             listen = false;
 
-            if (DatabaseSynonyms.INSTANCE.updateSynonymOf(word, oldSynonym,
-                    newSynonym) == 1) {
+            if (DatabaseSynonyms.INSTANCE.updateSynonymOf(word, oldSynonym, newSynonym) == 1) {
                 setElementAt(newSynonym, indexOf(oldSynonym));
             }
 
@@ -162,8 +155,7 @@ public final class ListModelSynonyms extends DefaultListModel
 
         assert role.equals(Role.SYNONYMS);
 
-        if (role.equals(Role.SYNONYMS)
-                && ((model.word == null) ||!model.word.equals(word))) {
+        if (role.equals(Role.SYNONYMS) && ((model.word == null) ||!model.word.equals(word))) {
             model.word = word;
             addElements();
         }
@@ -180,7 +172,7 @@ public final class ListModelSynonyms extends DefaultListModel
         if (role.equals(Role.WORDS)) {
             for (String w : DatabaseSynonyms.INSTANCE.getAllWords()) {
                 addElement(w);
-        }
+            }
         } else if (role.equals(Role.SYNONYMS) && (word != null)) {
             for (String s : DatabaseSynonyms.INSTANCE.getSynonymsOf(word)) {
                 addElement(s);
@@ -199,24 +191,22 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     private void deleteSynonymOfWord(String word, String synonym) {
-                if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
-                    removeElement(synonym);
-                } else if (listen && role.equals(Role.WORDS) && contains(word)
-                           &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
-                    removeElement(word);
-                }
-            }
+        if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
+            removeElement(synonym);
+        } else if (listen && role.equals(Role.WORDS) && contains(word) &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
+            removeElement(word);
+        }
+    }
 
     private void deleteWord(String word) {
         if (listen && role.equals(Role.WORDS) && contains(word)) {
             removeElement(word);
         } else if (listen && isRoleSynonymForWord(word)) {
             removeAllElements();
-    }
+        }
     }
 
-    private void renameSynonymOfWord(String word, String oldSynonymName,
-                                     String newSynonymName) {
+    private void renameSynonymOfWord(String word, String oldSynonymName, String newSynonymName) {
         if (listen && isRoleSynonymForWord(word) && contains(oldSynonymName)) {
             setElementAt(newSynonymName, indexOf(oldSynonymName));
         }
@@ -234,15 +224,15 @@ public final class ListModelSynonyms extends DefaultListModel
         }
     }
 
-            @Override
+    @Override
     public void synonymOfWordDeleted(final String word, final String synonym) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteSynonymOfWord(word, synonym);
-                }
-        });
             }
+        });
+    }
 
     @Override
     public void synonymInserted(final String word, final String synonym) {
@@ -255,25 +245,22 @@ public final class ListModelSynonyms extends DefaultListModel
     }
 
     @Override
-    public void synonymOfWordRenamed(final String word,
-                                     final String oldSynonymName,
-                                     final String newSynonymName) {
+    public void synonymOfWordRenamed(final String word, final String oldSynonymName, final String newSynonymName) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameSynonymOfWord(word, oldSynonymName, newSynonymName);
-                }
+            }
         });
     }
 
     @Override
-    public void synonymRenamed(final String oldSynonymName,
-                               final String newSynonymName) {
+    public void synonymRenamed(final String oldSynonymName, final String newSynonymName) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameSynonym(oldSynonymName, newSynonymName);
-                }
+            }
         });
     }
 
@@ -283,7 +270,7 @@ public final class ListModelSynonyms extends DefaultListModel
             @Override
             public void run() {
                 deleteWord(word);
-                }
+            }
         });
     }
 
@@ -293,7 +280,7 @@ public final class ListModelSynonyms extends DefaultListModel
             @Override
             public void run() {
                 renameWord(fromName, toName);
-                }
+            }
         });
     }
-        }
+}

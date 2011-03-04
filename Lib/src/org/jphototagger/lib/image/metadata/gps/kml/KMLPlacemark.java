@@ -9,7 +9,7 @@ package org.jphototagger.lib.image.metadata.gps.kml;
  */
 public final class KMLPlacemark implements KMLElement {
     private final KMLPoint point;
-    private String         name;
+    private String name;
 
     public KMLPlacemark(KMLPoint point) {
         if (point == null) {

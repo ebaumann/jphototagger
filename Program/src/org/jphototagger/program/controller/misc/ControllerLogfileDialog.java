@@ -28,12 +28,10 @@ import javax.swing.JMenuItem;
  *
  * @author Elmar Baumann
  */
-public final class ControllerLogfileDialog extends MouseAdapter
-        implements ActionListener, ErrorListener {
-    private static final long   MILLISECONDS_ERROR_DISPLAY = 4000;
+public final class ControllerLogfileDialog extends MouseAdapter implements ActionListener, ErrorListener {
+    private static final long MILLISECONDS_ERROR_DISPLAY = 4000;
     private static final String LABEL_ERROR_TOOLTIP_TEXT =
-        JptBundle.INSTANCE.getString(
-            "ControllerLogfileDialog.LabelErrorTooltipText");
+        JptBundle.INSTANCE.getString("ControllerLogfileDialog.LabelErrorTooltipText");
     private static final String STATUSBAR_ERROR_TEXT =
         JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
 
@@ -58,10 +56,8 @@ public final class ControllerLogfileDialog extends MouseAdapter
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-        if (MouseEventUtil.isLeftClick(evt)
-                && getItemErrorLogfile().isEnabled()) {
-            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(),
-                              XMLFormatter.class);
+        if (MouseEventUtil.isLeftClick(evt) && getItemErrorLogfile().isEnabled()) {
+            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(), XMLFormatter.class);
 
             JLabel labelError = GUI.getAppPanel().getLabelError();
 
@@ -71,8 +67,8 @@ public final class ControllerLogfileDialog extends MouseAdapter
     }
 
     private void error() {
-        GUI.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT,
-                MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
+        GUI.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR,
+                                           MILLISECONDS_ERROR_DISPLAY);
         getItemErrorLogfile().setEnabled(true);
 
         JLabel labelError = GUI.getAppPanel().getLabelError();
@@ -86,18 +82,14 @@ public final class ControllerLogfileDialog extends MouseAdapter
         Object source = evt.getSource();
 
         if (source == getItemErrorLogfile()) {
-            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(),
-                              XMLFormatter.class);
+            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(), XMLFormatter.class);
         } else if (source == getItemAllLogfile()) {
-            showLogfileDialog(AppLoggingSystem.geLogfilePathAllMessages(),
-                              SimpleFormatter.class);
+            showLogfileDialog(AppLoggingSystem.geLogfilePathAllMessages(), SimpleFormatter.class);
         }
     }
 
-    private void showLogfileDialog(String logfilename,
-                                   Class<?> formatterClass) {
-        LogfileDialog dlg = new LogfileDialog(GUI.getAppFrame(),
-                                              logfilename, formatterClass);
+    private void showLogfileDialog(String logfilename, Class<?> formatterClass) {
+        LogfileDialog dlg = new LogfileDialog(GUI.getAppFrame(), logfilename, formatterClass);
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
         dlg.setVisible(true);
@@ -108,8 +100,8 @@ public final class ControllerLogfileDialog extends MouseAdapter
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        error();
-    }
+                error();
+            }
         });
-}
+    }
 }

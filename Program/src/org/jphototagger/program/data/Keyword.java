@@ -14,10 +14,10 @@ import java.io.Serializable;
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {
     private static final long serialVersionUID = -8175948472921889128L;
-    private Long              id;
-    private Long              idParent;
-    private String            name;
-    private Boolean           real = true;
+    private Long id;
+    private Long idParent;
+    private String name;
+    private Boolean real = true;
 
     /**
      * Creates a new instance of this class.
@@ -30,17 +30,17 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
      * @param real      true if this keyword is a real keyword
      */
     public Keyword(Long id, Long idParent, String name, Boolean real) {
-        this.id       = id;
+        this.id = id;
         this.idParent = idParent;
-        this.name     = name;
-        this.real     = real;
+        this.name = name;
+        this.real = real;
     }
 
     public Keyword(Keyword keyword) {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
-        
+
         set(keyword);
     }
 
@@ -49,10 +49,10 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
             throw new NullPointerException("keyword == null");
         }
 
-        id       = keyword.id;
+        id = keyword.id;
         idParent = keyword.idParent;
-        name     = keyword.name;
-        real     = keyword.real;
+        name = keyword.name;
+        real = keyword.real;
     }
 
     /**
@@ -141,8 +141,7 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
 
         final Keyword other = (Keyword) obj;
 
-        if ((this.id != other.id)
-                && ((this.id == null) ||!this.id.equals(other.id))) {
+        if ((this.id != other.id) && ((this.id == null) ||!this.id.equals(other.id))) {
             return false;
         }
 

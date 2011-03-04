@@ -26,8 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class ControllerDeleteDirectory extends ControllerDirectory {
     public ControllerDeleteDirectory() {
-        listenToActionsOf(
-            PopupMenuDirectories.INSTANCE.getItemDeleteDirectory());
+        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemDeleteDirectory());
     }
 
     @Override
@@ -45,8 +44,7 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuDirectories.INSTANCE.getItemDeleteDirectory();
+        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemDeleteDirectory();
     }
 
     @Override
@@ -63,8 +61,7 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
                     @Override
                     public void run() {
                         TreeFileSystemDirectories.removeFromTreeModel(
-                            ModelFactory.INSTANCE.getModel(
-                                TreeModelAllSystemDirectories.class), node);
+                            ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class), node);
                     }
                 });
             }

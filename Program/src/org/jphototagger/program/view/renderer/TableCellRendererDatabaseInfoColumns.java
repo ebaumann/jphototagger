@@ -14,13 +14,12 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Elmar Baumann
  */
-public final class TableCellRendererDatabaseInfoColumns
-        implements TableCellRenderer {
+public final class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
     private static final String PADDING_LEFT = "  ";
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+            int row, int column) {
         JLabel cellLabel = new JLabel();
 
         if (column == 0) {

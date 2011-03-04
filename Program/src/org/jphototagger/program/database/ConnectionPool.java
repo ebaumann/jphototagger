@@ -32,8 +32,8 @@ import java.util.List;
  * @author Tobias Stening
  */
 public final class ConnectionPool implements Runnable {
-    public static final ConnectionPool INSTANCE          = new ConnectionPool();
-    private boolean                    connectionPending = false;
+    public static final ConnectionPool INSTANCE = new ConnectionPool();
+    private boolean connectionPending = false;
 
     /**
      * The list of available connections
@@ -48,7 +48,7 @@ public final class ConnectionPool implements Runnable {
     /**
      * The name of the JDBC-Driver.
      */
-    private String           driver;
+    private String driver;
     private volatile boolean init;
 
     /**
@@ -97,15 +97,14 @@ public final class ConnectionPool implements Runnable {
 
         init = true;
 
-        String file = UserSettings.INSTANCE.getDatabaseFileName(
-                          Filename.FULL_PATH_NO_SUFFIX);
+        String file = UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH_NO_SUFFIX);
 
-        url                  = "jdbc:hsqldb:file:" + file + ";shutdown=true";
-        driver               = "org.hsqldb.jdbcDriver";
-        username             = "sa";
-        password             = "";
-        waitIfBusy           = true;
-        busyConnections      = new LinkedList<Connection>();
+        url = "jdbc:hsqldb:file:" + file + ";shutdown=true";
+        driver = "org.hsqldb.jdbcDriver";
+        username = "sa";
+        password = "";
+        waitIfBusy = true;
+        busyConnections = new LinkedList<Connection>();
         availableConnections = new LinkedList<Connection>();
 
         for (int i = 0; i < INITIAL_CONNECTIONS; i++) {
@@ -193,10 +192,7 @@ public final class ConnectionPool implements Runnable {
         connectionPending = true;
 
         try {
-            Thread connectThread =
-                new Thread(
-                    this,
-                    "JPhotoTagger: Making background JDBC connection");
+            Thread connectThread = new Thread(this, "JPhotoTagger: Making background JDBC connection");
 
             connectThread.start();
         } catch (OutOfMemoryError oome) {
@@ -239,15 +235,13 @@ public final class ConnectionPool implements Runnable {
             Class.forName(driver);
 
             // Establish network connection to database
-            Connection con = DriverManager.getConnection(url, username,
-                                 password);
+            Connection con = DriverManager.getConnection(url, username, password);
 
             return (con);
         } catch (ClassNotFoundException cnfe) {
             throw new SQLException("Can't find class for driver: " + driver);
         } catch (Exception ce) {
-            throw new SQLException("Can't connect to server " + url + "! "
-                                   + ce);
+            throw new SQLException("Can't connect to server " + url + "! " + ce);
         }
     }
 
@@ -321,10 +315,9 @@ public final class ConnectionPool implements Runnable {
     public synchronized String toString() {
         StringBuilder info = new StringBuilder();
 
-        info.append("ConnectionPool(").append(url).append(",").append(
-            username).append(")").append(", available=").append(
-            availableConnections.size()).append(", busy=").append(
-            busyConnections.size()).append(", max=").append(MAX_CONNECTIONS);
+        info.append("ConnectionPool(").append(url).append(",").append(username).append(")").append(
+            ", available=").append(availableConnections.size()).append(", busy=").append(busyConnections.size()).append(
+            ", max=").append(MAX_CONNECTIONS);
 
         return info.toString();
     }

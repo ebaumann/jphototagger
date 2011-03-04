@@ -1,10 +1,10 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -27,11 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 public final class FileExcludePatternsExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "FileExcludePatternsExporter.DisplayName.FileFilter"), "xml");
-    public static final FileExcludePatternsExporter INSTANCE =
-        new FileExcludePatternsExporter();
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("FileExcludePatternsExporter.DisplayName.FileFilter"),
+                                    "xml");
+    public static final FileExcludePatternsExporter INSTANCE = new FileExcludePatternsExporter();
 
     @Override
     public void exportFile(File file) {
@@ -42,12 +40,9 @@ public final class FileExcludePatternsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<String> patterns =
-                DatabaseFileExcludePatterns.INSTANCE.getAll();
+            List<String> patterns = DatabaseFileExcludePatterns.INSTANCE.getAll();
 
-            XmlObjectExporter.export(
-                new CollectionWrapper(
-                    StringWrapper.getWrappedStrings(patterns)), xmlFile);
+            XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(patterns)), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(FileExcludePatternsExporter.class, ex);
         }
@@ -60,8 +55,7 @@ public final class FileExcludePatternsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "FileExcludePatternsExporter.DisplayName");
+        return JptBundle.INSTANCE.getString("FileExcludePatternsExporter.DisplayName");
     }
 
     @Override
@@ -78,8 +72,7 @@ public final class FileExcludePatternsExporter implements Exporter {
     public static class CollectionWrapper {
         @XmlElementWrapper(name = "FileExludePatterns")
         @XmlElement(type = StringWrapper.class)
-        private final ArrayList<StringWrapper> collection =
-            new ArrayList<StringWrapper>();
+        private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
 
         public CollectionWrapper() {}
 

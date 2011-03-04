@@ -14,10 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Favorite {
-    private Long   id;
-    private int    index = Integer.MIN_VALUE;
+    private Long id;
+    private int index = Integer.MIN_VALUE;
     private String name;
-    private File   directory;
+    private File directory;
 
     public Favorite() {}
 
@@ -34,9 +34,9 @@ public final class Favorite {
             throw new NullPointerException("favorite == null");
         }
 
-        this.id        = favorite.id;
-        this.index     = favorite.index;
-        this.name      = favorite.name;
+        this.id = favorite.id;
+        this.index = favorite.index;
+        this.name = favorite.name;
         this.directory = favorite.directory;
     }
 
@@ -89,8 +89,7 @@ public final class Favorite {
 
         final Favorite other = (Favorite) obj;
 
-        if ((this.id != other.id)
-                && ((this.id == null) ||!this.id.equals(other.id))) {
+        if ((this.id != other.id) && ((this.id == null) ||!this.id.equals(other.id))) {
             return false;
         }
 

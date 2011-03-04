@@ -19,8 +19,7 @@ public interface DatabaseImageCollectionsListener {
      * @param collectionName     name of the inserted collection
      * @param insertedImageFiles inserted image files
      */
-    void collectionInserted(String collectionName,
-                            List<File> insertedImageFiles);
+    void collectionInserted(String collectionName, List<File> insertedImageFiles);
 
     /**
      * Will be called if an image collection was deleted from

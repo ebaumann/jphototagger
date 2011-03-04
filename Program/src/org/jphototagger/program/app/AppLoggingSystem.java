@@ -34,23 +34,19 @@ import java.util.logging.XMLFormatter;
  * @author Elmar Baumann
  */
 public final class AppLoggingSystem implements UserSettingsListener {
-    private static final int LOGFILE_ROTATE_COUNT      = 5;
-    private static final int MAX_LOGFILE_SIZE_IN_BYTES =
-        (int) LogfileDialog.DEFAULT_MAX_BYTES;
-    private static final String LOGFILE_PATH_DIR =
-        UserSettings.INSTANCE.getSettingsDirectoryName();
+    private static final int LOGFILE_ROTATE_COUNT = 5;
+    private static final int MAX_LOGFILE_SIZE_IN_BYTES = (int) LogfileDialog.DEFAULT_MAX_BYTES;
+    private static final String LOGFILE_PATH_DIR = UserSettings.INSTANCE.getSettingsDirectoryName();
 
     // INSTANCE exists only for applying user settings!
-    private static final AppLoggingSystem INSTANCE                 =
-        new AppLoggingSystem();
-    private static final List<Handler>    HANDLERS                 =
-        new ArrayList<Handler>();
-    private static final boolean          APPEND_OUTPUT_TO_LOGFILE = false;
-    private static Logger                 appLogger;
-    private static Handler                fileHandlerAllMsgs;
-    private static Handler                fileHandlerImportant;
-    private static boolean                init;
-    private static Handler                systemOutHandler;
+    private static final AppLoggingSystem INSTANCE = new AppLoggingSystem();
+    private static final List<Handler> HANDLERS = new ArrayList<Handler>();
+    private static final boolean APPEND_OUTPUT_TO_LOGFILE = false;
+    private static Logger appLogger;
+    private static Handler fileHandlerAllMsgs;
+    private static Handler fileHandlerImportant;
+    private static boolean init;
+    private static Handler systemOutHandler;
 
     public enum HandlerType { SYSTEM_OUT, FILE, }
 
@@ -84,20 +80,17 @@ public final class AppLoggingSystem implements UserSettingsListener {
 
     private static void ensureLogDirectoryExists() {
         try {
-            FileUtil.ensureDirectoryExists(
-                UserSettings.INSTANCE.getSettingsDirectoryName());
+            FileUtil.ensureDirectoryExists(UserSettings.INSTANCE.getSettingsDirectoryName());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     private static void createHandlers() throws IOException {
-        fileHandlerImportant = new FileHandler(getLogfilePathPatternErrorMessages(),
-                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
-                APPEND_OUTPUT_TO_LOGFILE);
-        fileHandlerAllMsgs = new FileHandler(getLogfilePathPatternAllMessages(),
-                MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT,
-                APPEND_OUTPUT_TO_LOGFILE);
+        fileHandlerImportant = new FileHandler(getLogfilePathPatternErrorMessages(), MAX_LOGFILE_SIZE_IN_BYTES,
+                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
+        fileHandlerAllMsgs = new FileHandler(getLogfilePathPatternAllMessages(), MAX_LOGFILE_SIZE_IN_BYTES,
+                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
         systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
 
         synchronized (HANDLERS) {
@@ -119,8 +112,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     // Else on Windows ANSII will be used
-    private static void setEncodingToFileHandlers()
-            throws SecurityException, UnsupportedEncodingException {
+    private static void setEncodingToFileHandlers() throws SecurityException, UnsupportedEncodingException {
         fileHandlerImportant.setEncoding("UTF-8");
         fileHandlerAllMsgs.setEncoding("UTF-8");
     }
@@ -150,8 +142,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
 
     @Override
     public void applySettings(UserSettingsEvent evt) {
-        if ((appLogger != null)
-                && evt.getType().equals(UserSettingsEvent.Type.LOG_LEVEL)) {
+        if ((appLogger != null) && evt.getType().equals(UserSettingsEvent.Type.LOG_LEVEL)) {
             systemOutHandler.setLevel(UserSettings.INSTANCE.getLogLevel());
         }
     }

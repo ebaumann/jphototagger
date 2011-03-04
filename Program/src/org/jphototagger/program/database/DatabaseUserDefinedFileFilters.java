@@ -2,8 +2,7 @@ package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.UserDefinedFileFilter;
-import org.jphototagger.program.event.listener
-    .DatabaseUserDefinedFileFiltersListener;
+import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 
 import java.sql.Connection;
@@ -21,14 +20,12 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class DatabaseUserDefinedFileFilters extends Database {
-    public static final DatabaseUserDefinedFileFilters INSTANCE =
-        new DatabaseUserDefinedFileFilters();
+    public static final DatabaseUserDefinedFileFilters INSTANCE = new DatabaseUserDefinedFileFilters();
     private final ListenerSupport<DatabaseUserDefinedFileFiltersListener> ls =
         new ListenerSupport<DatabaseUserDefinedFileFiltersListener>();
 
     private String getInsertSql() {
-        return "INSERT INTO user_defined_file_filters"
-               + " (is_not, type, name, expression) VALUES (?, ?, ?, ?)";
+        return "INSERT INTO user_defined_file_filters" + " (is_not, type, name, expression) VALUES (?, ?, ?, ?)";
     }
 
     public boolean insert(UserDefinedFileFilter filter) {
@@ -42,9 +39,9 @@ public final class DatabaseUserDefinedFileFilters extends Database {
 
         checkFilter(filter, false);
 
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
@@ -90,12 +87,11 @@ public final class DatabaseUserDefinedFileFilters extends Database {
 
     private Long findId(Connection con, String name) throws SQLException {
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
-        Long              id   = null;
+        ResultSet rs = null;
+        Long id = null;
 
         try {
-            String sql =
-                "SELECT id FROM user_defined_file_filters WHERE name = ?";
+            String sql = "SELECT id FROM user_defined_file_filters WHERE name = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
@@ -113,16 +109,15 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     }
 
     private String getUpdateSql() {
-        return "UPDATE user_defined_file_filters SET is_not = ?, type = ?,"
-               + " name = ?, expression = ? WHERE id = ?";
+        return "UPDATE user_defined_file_filters SET is_not = ?, type = ?," + " name = ?, expression = ? WHERE id = ?";
     }
 
     public boolean update(UserDefinedFileFilter filter) {
         checkFilter(filter, true);
 
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
@@ -159,9 +154,9 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     public boolean delete(UserDefinedFileFilter filter) {
         checkFilter(filter, true);
 
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
@@ -192,16 +187,15 @@ public final class DatabaseUserDefinedFileFilters extends Database {
             throw new NullPointerException("name == null");
         }
 
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            String sql = "SELECT COUNT (*) FROM user_defined_file_filters"
-                         + " WHERE name = ?";
+            String sql = "SELECT COUNT (*) FROM user_defined_file_filters" + " WHERE name = ?";
 
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(sql);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -220,11 +214,10 @@ public final class DatabaseUserDefinedFileFilters extends Database {
     }
 
     public Set<UserDefinedFileFilter> getAll() {
-        Set<UserDefinedFileFilter> filter =
-            new LinkedHashSet<UserDefinedFileFilter>();
-        Connection con  = null;
-        Statement  stmt = null;
-        ResultSet  rs   = null;
+        Set<UserDefinedFileFilter> filter = new LinkedHashSet<UserDefinedFileFilter>();
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             String sql = "SELECT id, is_not, type, name, expression FROM"

@@ -17,34 +17,20 @@ import javax.swing.JPopupMenu;
  * @author Elmar Baumann
  */
 public final class PopupMenuSavedSearches extends JPopupMenu {
-    private static final long                  serialVersionUID =
-        3540766100829834971L;
-    public static final PopupMenuSavedSearches INSTANCE         =
-        new PopupMenuSavedSearches();
+    private static final long serialVersionUID = 3540766100829834971L;
+    public static final PopupMenuSavedSearches INSTANCE = new PopupMenuSavedSearches();
     private final JMenuItem itemDelete =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuSavedSearches.DisplayName.Action.Delete"), AppLookAndFeel
-                        .ICON_DELETE);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"),
+                      AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemEdit =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuSavedSearches.DisplayName.Action.Edit"), AppLookAndFeel
-                        .ICON_EDIT);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Edit"),
+                      AppLookAndFeel.ICON_EDIT);
     private final JMenuItem itemCreate =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuSavedSearches.DisplayName.Action.New"), AppLookAndFeel
-                        .ICON_NEW);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.New"),
+                      AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemRename =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel
-                        .ICON_RENAME);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"),
+                      AppLookAndFeel.ICON_RENAME);
     private transient SavedSearch savedSearch;
 
     private PopupMenuSavedSearches() {
@@ -98,12 +84,9 @@ public final class PopupMenuSavedSearches extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemCreate.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
-        itemEdit.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
-        itemDelete.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemCreate.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
+        itemDelete.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
     }
 }

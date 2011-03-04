@@ -18,8 +18,7 @@ public final class TableButtonMouseListener implements MouseListener {
         JButton button = getButton(evt);
 
         if (button != null) {
-            MouseEvent mouseEvent = SwingUtilities.convertMouseEvent(table, evt,
-                                        button);
+            MouseEvent mouseEvent = SwingUtilities.convertMouseEvent(table, evt, button);
 
             button.dispatchEvent(mouseEvent);
 
@@ -31,11 +30,10 @@ public final class TableButtonMouseListener implements MouseListener {
     }
 
     private JButton getButton(MouseEvent evt) {
-        int row    = evt.getY() / table.getRowHeight();
+        int row = evt.getY() / table.getRowHeight();
         int column = table.getColumnModel().getColumnIndexAtX(evt.getX());
 
-        if ((row >= table.getRowCount()) || (row < 0)
-                || (column >= table.getColumnCount()) || (column < 0)) {
+        if ((row >= table.getRowCount()) || (row < 0) || (column >= table.getColumnCount()) || (column < 0)) {
             return null;
         }
 

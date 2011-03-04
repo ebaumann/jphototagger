@@ -1,11 +1,11 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.types.DeleteOption;
-import org.jphototagger.lib.generics.Pair;
 
 import java.io.File;
 
@@ -28,8 +28,7 @@ public final class DeleteImageFiles {
      * @param  options     options
      * @return all deleted files
      */
-    public static List<File> delete(List<File> imageFiles,
-                                    DeleteOption... options) {
+    public static List<File> delete(List<File> imageFiles, DeleteOption... options) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
@@ -38,13 +37,11 @@ public final class DeleteImageFiles {
             throw new NullPointerException("options == null");
         }
 
-        List<File>         deletedImageFiles =
-            new ArrayList<File>(imageFiles.size());
-        List<DeleteOption> optionList        = Arrays.asList(options);
+        List<File> deletedImageFiles = new ArrayList<File>(imageFiles.size());
+        List<DeleteOption> optionList = Arrays.asList(options);
 
         if (confirmDelete(optionList)) {
-            List<Pair<File, File>> imageFilesWithSidecarFiles =
-                XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
+            List<Pair<File, File>> imageFilesWithSidecarFiles = XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
 
             for (Pair<File, File> filePair : imageFilesWithSidecarFiles) {
                 File imageFile = filePair.getFirst();
@@ -61,8 +58,7 @@ public final class DeleteImageFiles {
         return deletedImageFiles;
     }
 
-    private static void deleteSidecarFile(File sidecarFile,
-            List<DeleteOption> options) {
+    private static void deleteSidecarFile(File sidecarFile, List<DeleteOption> options) {
         if (sidecarFile != null) {
             if (!sidecarFile.delete()) {
                 errorMessageDelete(sidecarFile, options);
@@ -70,19 +66,15 @@ public final class DeleteImageFiles {
         }
     }
 
-    private static void errorMessageDelete(File file,
-            List<DeleteOption> options) {
+    private static void errorMessageDelete(File file, List<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
-            AppLogger.logWarning(ControllerDeleteFiles.class,
-                                 "DeleteImageFiles.Error.Delete",
-                                 file.getAbsolutePath());
+            AppLogger.logWarning(ControllerDeleteFiles.class, "DeleteImageFiles.Error.Delete", file.getAbsolutePath());
         }
     }
 
     private static boolean confirmDelete(List<DeleteOption> options) {
         if (options.contains(DeleteOption.CONFIRM_DELETE)) {
-            return MessageDisplayer.confirmYesNo(null,
-                    "DeleteImageFiles.Confirm.Delete");
+            return MessageDisplayer.confirmYesNo(null, "DeleteImageFiles.Confirm.Delete");
         }
 
         return true;

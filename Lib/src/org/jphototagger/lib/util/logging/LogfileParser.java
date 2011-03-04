@@ -51,15 +51,14 @@ public final class LogfileParser implements EntityResolver {
         List<LogfileRecord> records = new ArrayList<LogfileRecord>();
 
         try {
-            DocumentBuilderFactory factory =
-                DocumentBuilderFactory.newInstance();
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             builder.setEntityResolver(new LogfileParser());
 
             Document document = builder.parse(getFileAsInputStream(filename));
             NodeList recordNodeList = document.getElementsByTagName("record");
-            int      recordCount    = recordNodeList.getLength();
+            int recordCount = recordNodeList.getLength();
 
             for (int index = 0; index < recordCount; index++) {
                 Node recordNode = recordNodeList.item(index);
@@ -68,8 +67,7 @@ public final class LogfileParser implements EntityResolver {
                     LogfileRecord record = new LogfileRecord();
 
                     record.setDate(getElement(recordNode, "date"));
-                    record.setMillis(new Long(getElement(recordNode,
-                            "millis")));
+                    record.setMillis(new Long(getElement(recordNode, "millis")));
                     record.setSequence(getElement(recordNode, "sequence"));
                     record.setLogger(getElement(recordNode, "logger"));
                     record.setLevel(getElement(recordNode, "level"));
@@ -85,16 +83,14 @@ public final class LogfileParser implements EntityResolver {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return records;
     }
 
     private static void setException(LogfileRecord record, Node recordNode) {
-        NodeList nodeList =
-            ((Element) recordNode).getElementsByTagName("exception");
+        NodeList nodeList = ((Element) recordNode).getElementsByTagName("exception");
 
         if ((nodeList != null) && (nodeList.getLength() == 1)) {
             Node exceptionNode = nodeList.item(0);
@@ -109,10 +105,8 @@ public final class LogfileParser implements EntityResolver {
         }
     }
 
-    private static void setFrames(ExceptionLogfileRecord ex,
-                                  Node exceptionNode) {
-        NodeList nodeList =
-            ((Element) exceptionNode).getElementsByTagName("frame");
+    private static void setFrames(ExceptionLogfileRecord ex, Node exceptionNode) {
+        NodeList nodeList = ((Element) exceptionNode).getElementsByTagName("frame");
 
         if (nodeList != null) {
             int nodeCount = nodeList.getLength();
@@ -133,8 +127,7 @@ public final class LogfileParser implements EntityResolver {
     }
 
     private static void setParams(LogfileRecord record, Node recordNode) {
-        NodeList nodeList =
-            ((Element) recordNode).getElementsByTagName("param");
+        NodeList nodeList = ((Element) recordNode).getElementsByTagName("param");
 
         if (nodeList != null) {
             int count = nodeList.getLength();
@@ -161,9 +154,8 @@ public final class LogfileParser implements EntityResolver {
      * @return        Inhalt oder null
      */
     private static String getElement(Node recordNode, String tagName) {
-        String   elementData = null;
-        NodeList nodeList =
-            ((Element) recordNode).getElementsByTagName(tagName);
+        String elementData = null;
+        NodeList nodeList = ((Element) recordNode).getElementsByTagName(tagName);
 
         if (nodeList != null) {
             Element firstElement = (Element) nodeList.item(0);
@@ -185,13 +177,11 @@ public final class LogfileParser implements EntityResolver {
     }
 
     @Override
-    public InputSource resolveEntity(String publicId, String systemId)
-            throws SAXException, IOException {
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         InputStream stream = null;
 
         if (systemId.endsWith("logger.dtd")) {
-            stream = EntityResolver.class.getResourceAsStream(
-                "/org/jphototagger/lib/resource/dtd/logger.dtd");
+            stream = EntityResolver.class.getResourceAsStream("/org/jphototagger/lib/resource/dtd/logger.dtd");
         }
 
         return new InputSource(new InputStreamReader(stream));
@@ -206,7 +196,7 @@ public final class LogfileParser implements EntityResolver {
             bufferedReader = new BufferedReader(new FileReader(filename));
 
             StringBuilder sb = new StringBuilder(1000);
-            String        line;
+            String line;
 
             while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line);
@@ -218,19 +208,16 @@ public final class LogfileParser implements EntityResolver {
                 content += "</log>";
             }
 
-            return new ByteArrayInputStream(
-                content.getBytes(System.getProperty("file.encoding")));
+            return new ByteArrayInputStream(content.getBytes(System.getProperty("file.encoding")));
         } catch (Exception ex) {
-            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (bufferedReader != null) {
                     bufferedReader.close();
                 }
             } catch (Exception ex) {
-                Logger.getLogger(LogfileParser.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

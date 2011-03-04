@@ -13,17 +13,15 @@ import java.util.Set;
  * @author Martin Pohlack
  */
 public abstract class Cache<CI extends CacheIndirection> {
-    static int                         currentAge      = 0;
-    private static final int           MAX_ENTRIES     = 1500;
-    final Set<ThumbnailUpdateListener> updateListeners =
-        new HashSet<ThumbnailUpdateListener>();
+    static int currentAge = 0;
+    private static final int MAX_ENTRIES = 1500;
+    final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
     protected WorkQueue<CI> workQueue = new WorkQueue<CI>();
 
     /**
      * Mapping from file to all kinds of cached data
      */
-    protected final SoftCacheMap<CI> fileCache =
-        new SoftCacheMap<CI>(MAX_ENTRIES, workQueue);
+    protected final SoftCacheMap<CI> fileCache = new SoftCacheMap<CI>(MAX_ENTRIES, workQueue);
 
     Cache() {}
 
@@ -43,8 +41,7 @@ public abstract class Cache<CI extends CacheIndirection> {
         updateListeners.add(_listener);
     }
 
-    public void removeThumbnailUpdateListener(
-            ThumbnailUpdateListener _listener) {
+    public void removeThumbnailUpdateListener(ThumbnailUpdateListener _listener) {
         if (_listener == null) {
             throw new NullPointerException("_listener == null");
         }

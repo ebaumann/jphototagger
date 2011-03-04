@@ -1,9 +1,9 @@
 package org.jphototagger.program.controller.misc;
 
-import org.jphototagger.program.app.AppInit;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
+import org.jphototagger.program.app.AppInit;
+import org.jphototagger.program.resource.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,11 +20,9 @@ public final class ControllerShowSystemOutput implements ActionListener {
 
     private void listen() {
         if (AppInit.INSTANCE.getCommandLineOptions().isCaptureOutput()) {
-            GUI.getAppFrame().getMenuItemOutputWindow()
-                .addActionListener(this);
+            GUI.getAppFrame().getMenuItemOutputWindow().addActionListener(this);
         } else {
-            GUI.getAppFrame().getMenuItemOutputWindow().setEnabled(
-                false);
+            GUI.getAppFrame().getMenuItemOutputWindow().setEnabled(false);
         }
     }
 

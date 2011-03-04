@@ -10,8 +10,7 @@ import java.util.Comparator;
  * @author Elmar Baumann
  */
 public final class ComparatorStringAscending implements Comparator<String> {
-    public static final ComparatorStringAscending INSTANCE =
-        new ComparatorStringAscending();
+    public static final ComparatorStringAscending INSTANCE = new ComparatorStringAscending();
     private final Collator collator = Collator.getInstance();
 
     @Override

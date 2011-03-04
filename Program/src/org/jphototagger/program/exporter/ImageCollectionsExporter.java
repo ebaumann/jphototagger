@@ -1,11 +1,11 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.ImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -28,11 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 public final class ImageCollectionsExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "ImageCollectionsExporter.DisplayName.FileFilter"), "xml");
-    public static final ImageCollectionsExporter INSTANCE =
-        new ImageCollectionsExporter();
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("ImageCollectionsExporter.DisplayName.FileFilter"),
+                                    "xml");
+    public static final ImageCollectionsExporter INSTANCE = new ImageCollectionsExporter();
 
     @Override
     public void exportFile(File file) {
@@ -43,8 +41,7 @@ public final class ImageCollectionsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<ImageCollection> templates =
-                DatabaseImageCollections.INSTANCE.getAll2();
+            List<ImageCollection> templates = DatabaseImageCollections.INSTANCE.getAll2();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
@@ -59,8 +56,7 @@ public final class ImageCollectionsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "ExportImageCollections.DisplayName");
+        return JptBundle.INSTANCE.getString("ExportImageCollections.DisplayName");
     }
 
     @Override
@@ -77,8 +73,7 @@ public final class ImageCollectionsExporter implements Exporter {
     public static class CollectionWrapper {
         @XmlElementWrapper(name = "ImageCollections")
         @XmlElement(type = ImageCollection.class)
-        private final ArrayList<ImageCollection> collection =
-            new ArrayList<ImageCollection>();
+        private final ArrayList<ImageCollection> collection = new ArrayList<ImageCollection>();
 
         public CollectionWrapper() {}
 

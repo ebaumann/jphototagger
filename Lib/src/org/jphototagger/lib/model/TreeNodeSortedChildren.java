@@ -14,10 +14,9 @@ import javax.swing.tree.MutableTreeNode;
  *
  * @author Elmar Baumann
  */
-public final class TreeNodeSortedChildren extends DefaultMutableTreeNode
-        implements Comparable<Object> {
-    private static final long     serialVersionUID = 5429135948886700418L;
-    private static final Collator collator         = Collator.getInstance();
+public final class TreeNodeSortedChildren extends DefaultMutableTreeNode implements Comparable<Object> {
+    private static final long serialVersionUID = 5429135948886700418L;
+    private static final Collator collator = Collator.getInstance();
 
     public TreeNodeSortedChildren() {}
 

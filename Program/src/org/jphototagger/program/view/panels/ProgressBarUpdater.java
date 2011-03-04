@@ -23,13 +23,12 @@ public final class ProgressBarUpdater implements ProgressListener {
      * @param progressBarOwner  owner of the progress bar
      * @param progressBarString string to paint on the progress bar or null
      */
-    public ProgressBarUpdater(Object progressBarOwner,
-                              String progressBarString) {
+    public ProgressBarUpdater(Object progressBarOwner, String progressBarString) {
         if (progressBarOwner == null) {
             throw new NullPointerException("progressBarOwner == null");
         }
 
-        this.pBarOwner         = progressBarOwner;
+        this.pBarOwner = progressBarOwner;
         this.progressBarString = progressBarString;
     }
 
@@ -51,14 +50,11 @@ public final class ProgressBarUpdater implements ProgressListener {
                     progressBar.setMaximum(evt.getMaximum());
                     progressBar.setValue(evt.getValue());
 
-                    if ((progressBarString != null)
-                            &&!progressBar.isStringPainted()) {
+                    if ((progressBarString != null) &&!progressBar.isStringPainted()) {
                         progressBar.setStringPainted(true);
                     }
 
-                    if ((progressBarString != null)
-                            &&!progressBarString.equals(
-                                progressBar.getString())) {
+                    if ((progressBarString != null) &&!progressBarString.equals(progressBar.getString())) {
                         progressBar.setString(progressBarString);
                     }
                 }

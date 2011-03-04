@@ -1,9 +1,9 @@
 package org.jphototagger.program.event.listener.impl;
 
-import org.jphototagger.program.model.ListModelImageCollections;
-import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.program.model.ListModelImageCollections;
+import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
 
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
@@ -18,8 +18,7 @@ import javax.swing.JList;
  * @author Elmar Baumann
  */
 public final class MouseListenerImageCollections extends MouseAdapter {
-    private final PopupMenuImageCollections popupMenu =
-        PopupMenuImageCollections.INSTANCE;
+    private final PopupMenuImageCollections popupMenu = PopupMenuImageCollections.INSTANCE;
 
     @Override
     public void mousePressed(MouseEvent evt) {
@@ -28,8 +27,8 @@ public final class MouseListenerImageCollections extends MouseAdapter {
         popupMenu.setItemIndex(index);
 
         if (MouseEventUtil.isPopupTrigger(evt)) {
-            JList   list                = (JList) evt.getSource();
-            boolean isItem              = index >= 0;
+            JList list = (JList) evt.getSource();
+            boolean isItem = index >= 0;
             boolean isSpecialCollection = isSpecialCollection(list, index);
 
             popupMenu.getItemDelete().setEnabled(isItem &&!isSpecialCollection);

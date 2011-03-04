@@ -1,7 +1,7 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.UserSettings;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +14,8 @@ import java.io.IOException;
  * @author Elmar Baumann
  */
 public final class AppLock {
-    private static final String LOCKFILE_NAME =
-        UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator
-        + AppInfo.PROJECT_NAME + ".lck";
+    private static final String LOCKFILE_NAME = UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator
+                                                + AppInfo.PROJECT_NAME + ".lck";
 
     private AppLock() {}
 
@@ -90,12 +89,10 @@ public final class AppLock {
     }
 
     private static boolean confirmForceUnlock() {
-        return MessageDisplayer.confirmYesNo(null,
-                "AppLock.Error.LockFileExists", LOCKFILE_NAME);
+        return MessageDisplayer.confirmYesNo(null, "AppLock.Error.LockFileExists", LOCKFILE_NAME);
     }
 
     private static void errorMessageDelete() {
-        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile",
-                               LOCKFILE_NAME);
+        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile", LOCKFILE_NAME);
     }
 }

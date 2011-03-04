@@ -90,8 +90,7 @@ public abstract class Controller implements ActionListener, KeyListener {
 
         for (Object object : objects) {
             try {
-                Method m = object.getClass().getMethod("addActionListener",
-                               ActionListener.class);
+                Method m = object.getClass().getMethod("addActionListener", ActionListener.class);
 
                 m.invoke(object, this);
             } catch (Exception ex) {
@@ -112,8 +111,7 @@ public abstract class Controller implements ActionListener, KeyListener {
 
         for (Object object : objects) {
             try {
-                Method m = object.getClass().getMethod("addKeyListener",
-                               KeyListener.class);
+                Method m = object.getClass().getMethod("addKeyListener", KeyListener.class);
 
                 m.invoke(object, this);
             } catch (Exception ex) {

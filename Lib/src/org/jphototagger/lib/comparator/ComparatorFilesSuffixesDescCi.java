@@ -13,16 +13,13 @@ import java.util.Comparator;
  *
  * @author Elmar Baumann
  */
-public final class ComparatorFilesSuffixesDescCi extends ClassEquality
-        implements Comparator<File>, Serializable {
+public final class ComparatorFilesSuffixesDescCi extends ClassEquality implements Comparator<File>, Serializable {
     private static final long serialVersionUID = 10242248897095575L;
 
     @Override
     public int compare(File leftFile, File rightFile) {
-        Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile,
-                                            rightFile, true);
+        Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile, rightFile, true);
 
-        return suffixes.getFirst().compareToIgnoreCase(suffixes.getSecond())
-               * -1;
+        return suffixes.getFirst().compareToIgnoreCase(suffixes.getSecond()) * -1;
     }
 }

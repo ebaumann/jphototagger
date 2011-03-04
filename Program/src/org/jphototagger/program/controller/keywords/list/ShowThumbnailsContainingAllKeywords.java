@@ -23,7 +23,7 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class ShowThumbnailsContainingAllKeywords implements Runnable {
-    private final List<String>             keywords;
+    private final List<String> keywords;
     private final ThumbnailsPanel.Settings tnPanelSettings;
 
     /**
@@ -32,13 +32,12 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
      * @param keywords all keywords a image must have to be displayed
      * @param settings
      */
-    public ShowThumbnailsContainingAllKeywords(List<String> keywords,
-            ThumbnailsPanel.Settings settings) {
+    public ShowThumbnailsContainingAllKeywords(List<String> keywords, ThumbnailsPanel.Settings settings) {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
 
-        this.keywords   = new ArrayList<String>(keywords);
+        this.keywords = new ArrayList<String>(keywords);
         tnPanelSettings = settings;
     }
 
@@ -88,15 +87,12 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
     private void setTitle(List<String> keywords) {
         GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
-                "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keywords.Path",
-                Util.keywordPathString(keywords)));
+                "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
         GUI.getAppFrame().setTitle(
-            JptBundle.INSTANCE.getString(
-                "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keyword",
-                keyword));
+            JptBundle.INSTANCE.getString("ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keyword", keyword));
     }
 
     private void setMetadataEditable() {

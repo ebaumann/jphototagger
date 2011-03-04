@@ -1,8 +1,8 @@
 package org.jphototagger.program.controller.keywords.list;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -17,8 +17,7 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class ControllerInsertKeywords extends ControllerKeywords {
-    private final JMenuItem itemInsert =
-        PopupMenuKeywordsList.INSTANCE.getItemInsert();
+    private final JMenuItem itemInsert = PopupMenuKeywordsList.INSTANCE.getItemInsert();
 
     public ControllerInsertKeywords() {
         listenToActionsOf(itemInsert);

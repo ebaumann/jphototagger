@@ -16,8 +16,7 @@ import javax.swing.JTree;
  *
  * @author Elmar Baumann
  */
-public final class ControllerItemsMutualExcludeSelection
-        implements TreeSelectionListener, ListSelectionListener {
+public final class ControllerItemsMutualExcludeSelection implements TreeSelectionListener, ListSelectionListener {
     private boolean listen = true;
 
     public ControllerItemsMutualExcludeSelection() {

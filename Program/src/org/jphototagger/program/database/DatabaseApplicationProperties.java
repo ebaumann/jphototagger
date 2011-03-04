@@ -16,10 +16,9 @@ import java.sql.ResultSet;
  * @author Elmar Baumann
  */
 public final class DatabaseApplicationProperties extends Database {
-    public static final DatabaseApplicationProperties INSTANCE =
-        new DatabaseApplicationProperties();
+    public static final DatabaseApplicationProperties INSTANCE = new DatabaseApplicationProperties();
     private static final String VALUE_FALSE = "0";    // Never change that!
-    private static final String VALUE_TRUE  = "1";    // Never change that!
+    private static final String VALUE_TRUE = "1";    // Never change that!
 
     private DatabaseApplicationProperties() {}
 
@@ -34,9 +33,9 @@ public final class DatabaseApplicationProperties extends Database {
             throw new NullPointerException("key == null");
         }
 
-        Connection        con  = null;
+        Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -75,7 +74,7 @@ public final class DatabaseApplicationProperties extends Database {
             throw new NullPointerException("key == null");
         }
 
-        Connection        con  = null;
+        Connection con = null;
         PreparedStatement stmt = null;
 
         try {
@@ -155,7 +154,7 @@ public final class DatabaseApplicationProperties extends Database {
             throw new NullPointerException("string == null");
         }
 
-        Connection        con  = null;
+        Connection con = null;
         PreparedStatement stmt = null;
 
         try {
@@ -164,7 +163,6 @@ public final class DatabaseApplicationProperties extends Database {
             stmt = con.prepareStatement(getInsertOrUpdateStmt(key));
             stmt.setBytes(1, string.getBytes());
             stmt.setString(2, key);
-
             logFiner(stmt);
             stmt.executeUpdate();
         } catch (Exception ex) {
@@ -187,15 +185,15 @@ public final class DatabaseApplicationProperties extends Database {
             throw new NullPointerException("key == null");
         }
 
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
-        String            string = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String string = null;
 
         try {
             String sql = "SELECT value FROM application WHERE key = ?";
 
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, key);
             logFinest(stmt);

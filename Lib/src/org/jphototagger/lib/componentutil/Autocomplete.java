@@ -1,9 +1,9 @@
 package org.jphototagger.lib.componentutil;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.util.CollectionUtil;
 
 import java.awt.event.ActionEvent;
+import java.awt.EventQueue;
 
 import java.io.Serializable;
 
@@ -34,25 +34,25 @@ import javax.swing.KeyStroke;
  * @author Elmar Baumann
  */
 public final class Autocomplete implements DocumentListener, Serializable {
-    private static final String      COMMIT_ACTION               = "commit";
-    private static final String      FOCUS_BACKWARD_ACTION = "focus_backward";
-    private static final String      FOCUS_FORWARD_ACTION = "focus_forward";
-    private static final int         MIN_CHARS                   = 2;
-    private static final long        serialVersionUID = 7533238660594168356L;
+    private static final String COMMIT_ACTION = "commit";
+    private static final String FOCUS_BACKWARD_ACTION = "focus_backward";
+    private static final String FOCUS_FORWARD_ACTION = "focus_forward";
+    private static final int MIN_CHARS = 2;
+    private static final long serialVersionUID = 7533238660594168356L;
     private final LinkedList<String> words = new LinkedList<String>();
-    private volatile boolean         transferFocusForwardOnEnter = true;
-    private Mode                     mode                        = Mode.INSERT;
-    private JTextArea                textArea;
+    private volatile boolean transferFocusForwardOnEnter = true;
+    private Mode mode = Mode.INSERT;
+    private JTextArea textArea;
     private final boolean ignoreCase;
 
-    private static enum Mode { INSERT, COMPLETION };
+    private static enum Mode { INSERT, COMPLETION }
 
+    ;
     public Autocomplete(boolean ignoreCase) {
         this.ignoreCase = ignoreCase;
     }
 
-    public void decorate(JTextArea textArea, List<String> words,
-                         boolean sorted) {
+    public void decorate(JTextArea textArea, List<String> words, boolean sorted) {
         if (textArea == null) {
             throw new NullPointerException("textArea == null");
         }
@@ -67,12 +67,14 @@ public final class Autocomplete implements DocumentListener, Serializable {
             registerKeyStrokes();
         }
 
-        Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST, 
-                "Autocomplete: Will decorating text area named ''{0}'' with {1} new words...",
-                new Object[]{textArea.getName(), words.size()});
+        Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST,
+                         "Autocomplete: Will decorating text area named ''{0}'' with {1} new words...",
+                         new Object[] { textArea.getName(),
+                                        words.size() });
 
         synchronized (this.words) {
             this.words.clear();
+
             if (ignoreCase) {
                 for (String word : words) {
                     this.words.add(word.toLowerCase());
@@ -83,9 +85,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
 
         Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST,
-                "Autocomplete: Decorated text area named ''{0}'' with {1} new words...",
-                new Object[]{textArea.getName(), words.size()});
-
+                         "Autocomplete: Decorated text area named ''{0}'' with {1} new words...",
+                         new Object[] { textArea.getName(),
+                                        words.size() });
         init(sorted);
     }
 
@@ -113,7 +115,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
     }
 
     private void registerKeyStrokes() {
-        InputMap  im = textArea.getInputMap();
+        InputMap im = textArea.getInputMap();
         ActionMap am = textArea.getActionMap();
 
         am.put(COMMIT_ACTION, new CommitAction());
@@ -132,7 +134,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
         synchronized (words) {
             if (!contains(word)) {
-                String lcWord = ignoreCase ? word.toLowerCase() : word;
+                String lcWord = ignoreCase
+                                ? word.toLowerCase()
+                                : word;
 
                 CollectionUtil.binaryInsert(words, lcWord);
             }
@@ -145,7 +149,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
 
         synchronized (words) {
-            String lcWord = ignoreCase ? word.toLowerCase() : word;
+            String lcWord = ignoreCase
+                            ? word.toLowerCase()
+                            : word;
 
             return Collections.binarySearch(words, lcWord) >= 0;
         }
@@ -163,7 +169,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
             return;
         }
 
-        int    pos     = ev.getOffset();
+        int pos = ev.getOffset();
         String content = null;
 
         try {
@@ -206,8 +212,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
                     // We cannot modify Document from within notification,
                     // so we submit a task that does the change later
-                    EventQueue.invokeLater(new CompletionTask(completion,
-                            pos + 1));
+                    EventQueue.invokeLater(new CompletionTask(completion, pos + 1));
                 }
             } else {
 
@@ -241,11 +246,11 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
     private class CompletionTask implements Runnable {
         private String completion;
-        private int    position;
+        private int position;
 
         CompletionTask(String completion, int position) {
             this.completion = completion;
-            this.position   = position;
+            this.position = position;
         }
 
         @Override

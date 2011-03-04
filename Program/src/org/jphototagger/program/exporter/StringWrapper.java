@@ -32,14 +32,12 @@ public final class StringWrapper {
         this.string = string;
     }
 
-    public static List<StringWrapper> getWrappedStrings(
-            Collection<? extends String> strings) {
+    public static List<StringWrapper> getWrappedStrings(Collection<? extends String> strings) {
         if (strings == null) {
             throw new NullPointerException("strings == null");
         }
 
-        List<StringWrapper> wrapped =
-            new ArrayList<StringWrapper>(strings.size());
+        List<StringWrapper> wrapped = new ArrayList<StringWrapper>(strings.size());
 
         for (String string : strings) {
             wrapped.add(new StringWrapper(string));

@@ -1,13 +1,13 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
+import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.types.FileEditor;
-import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
-import org.jphototagger.lib.io.FileLock;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,8 +43,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
     private boolean confirmRemove(File file) {
         if (getConfirmOverwrite()) {
-            return MessageDisplayer.confirmYesNo(null,
-                    "ExtractEmbeddedXmp.Confirm.Overwrite", file);
+            return MessageDisplayer.confirmYesNo(null, "ExtractEmbeddedXmp.Confirm.Overwrite", file);
         }
 
         return true;
@@ -59,14 +58,13 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     }
 
     private void writeSidecarFile(File file) {
-        String           xmp = XmpFileReader.readFile(file);
+        String xmp = XmpFileReader.readFile(file);
         FileOutputStream fos = null;
 
         if (xmp != null) {
             try {
                 create(file);
-                fos = new FileOutputStream(
-                    XmpMetadata.suggestSidecarFile(file));
+                fos = new FileOutputStream(XmpMetadata.suggestSidecarFile(file));
                 fos.getChannel().lock();
                 fos.write(xmp.getBytes());
                 fos.flush();
@@ -86,9 +84,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     }
 
     private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase insert =
-            new InsertImageFilesIntoDatabase(Arrays.asList(imageFile),
-                Insert.XMP);
+        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), Insert.XMP);
 
         insert.run();    // run in this thread!
     }

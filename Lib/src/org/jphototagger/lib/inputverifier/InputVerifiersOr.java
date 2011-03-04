@@ -12,8 +12,7 @@ import javax.swing.JComponent;
  *
  * @author Elmar Baumann
  */
-public final class InputVerifiersOr extends InputVerifiers
-        implements Serializable {
+public final class InputVerifiersOr extends InputVerifiers implements Serializable {
     private static final long serialVersionUID = -9086823766117067406L;
 
     /**

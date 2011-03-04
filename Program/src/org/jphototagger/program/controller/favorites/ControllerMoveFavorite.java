@@ -31,8 +31,7 @@ public final class ControllerMoveFavorite implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        boolean moveUp =
-            PopupMenuFavorites.INSTANCE.getItemMoveUp().equals(evt.getSource());
+        boolean moveUp = PopupMenuFavorites.INSTANCE.getItemMoveUp().equals(evt.getSource());
 
         EventQueue.invokeLater(new MoveDir(moveUp));
     }
@@ -62,8 +61,7 @@ public final class ControllerMoveFavorite implements ActionListener {
             TreePath path = PopupMenuFavorites.INSTANCE.getTreePath();
 
             if (path != null) {
-                DefaultMutableTreeNode node =
-                    (DefaultMutableTreeNode) path.getLastPathComponent();
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
                 Object userObject = node.getUserObject();
 
                 if (userObject instanceof Favorite) {
@@ -76,15 +74,13 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         private void moveUp(Favorite dir) {
             if (dir != null) {
-                ModelFactory.INSTANCE.getModel(
-                    TreeModelFavorites.class).moveUpFavorite(dir);
+                ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).moveUpFavorite(dir);
             }
         }
 
         private void moveDown(Favorite dir) {
             if (dir != null) {
-                ModelFactory.INSTANCE.getModel(
-                    TreeModelFavorites.class).moveDownFavorite(dir);
+                ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).moveDownFavorite(dir);
             }
         }
     }

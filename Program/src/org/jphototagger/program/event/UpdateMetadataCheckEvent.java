@@ -42,7 +42,7 @@ public final class UpdateMetadataCheckEvent {
             throw new NullPointerException("type == null");
         }
 
-        this.type      = type;
+        this.type = type;
         this.imageFile = imageFile;
     }
 

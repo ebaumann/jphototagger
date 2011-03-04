@@ -1,11 +1,11 @@
 package org.jphototagger.program.database.metadata.selections;
 
-import java.util.Collections;
-import java.util.HashSet;
 import org.jphototagger.program.model.TableModelExif;
 import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.model.TableModelXmp;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,16 +14,16 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class MetadataTableModels {
-    private TableModelIptc     iptcTableModel;
-    private TableModelExif     exifTableModel;
-    private TableModelXmp      xmpTableModelDc;
-    private TableModelXmp      xmpTableModelExif;
-    private TableModelXmp      xmpTableModelIptc;
-    private TableModelXmp      xmpTableModelLightroom;
-    private TableModelXmp      xmpTableModelPhotoshop;
-    private TableModelXmp      xmpTableModelTiff;
-    private TableModelXmp      xmpTableModelCameraRawSettings;
-    private TableModelXmp      xmpTableModelXap;
+    private TableModelIptc iptcTableModel;
+    private TableModelExif exifTableModel;
+    private TableModelXmp xmpTableModelDc;
+    private TableModelXmp xmpTableModelExif;
+    private TableModelXmp xmpTableModelIptc;
+    private TableModelXmp xmpTableModelLightroom;
+    private TableModelXmp xmpTableModelPhotoshop;
+    private TableModelXmp xmpTableModelTiff;
+    private TableModelXmp xmpTableModelCameraRawSettings;
+    private TableModelXmp xmpTableModelXap;
     private Set<TableModelXmp> xmpTableModels;
 
     /**
@@ -126,8 +126,7 @@ public final class MetadataTableModels {
     /**
      * @param xmpTableModelLightroom the xmpTableModelLightroom to set
      */
-    public void setXmpTableModelLightroom(
-            TableModelXmp xmpTableModelLightroom) {
+    public void setXmpTableModelLightroom(TableModelXmp xmpTableModelLightroom) {
         if (xmpTableModelLightroom == null) {
             throw new NullPointerException("xmpTableModelLightroom == null");
         }
@@ -145,8 +144,7 @@ public final class MetadataTableModels {
     /**
      * @param xmpTableModelPhotoshop the xmpTableModelPhotoshop to set
      */
-    public void setXmpTableModelPhotoshop(
-            TableModelXmp xmpTableModelPhotoshop) {
+    public void setXmpTableModelPhotoshop(TableModelXmp xmpTableModelPhotoshop) {
         if (xmpTableModelPhotoshop == null) {
             throw new NullPointerException("xmpTableModelPhotoshop == null");
         }
@@ -183,8 +181,7 @@ public final class MetadataTableModels {
      * @param xmpTableModelCameraRawSettings the xmpTableModelCameraRawSettings
      *        to set
      */
-    public void setXmpTableModelCameraRawSettings(
-            TableModelXmp xmpTableModelCameraRawSettings) {
+    public void setXmpTableModelCameraRawSettings(TableModelXmp xmpTableModelCameraRawSettings) {
         if (xmpTableModelCameraRawSettings == null) {
             throw new NullPointerException("xmpTableModelCameraRawSettings == null");
         }

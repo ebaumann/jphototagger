@@ -12,8 +12,7 @@ import java.util.Arrays;
  * @author Elmar Baumann
  */
 public final class ExifFormatterGpsVersionId extends ExifFormatter {
-    public static final ExifFormatterGpsVersionId INSTANCE =
-        new ExifFormatterGpsVersionId();
+    public static final ExifFormatterGpsVersionId INSTANCE = new ExifFormatterGpsVersionId();
 
     private ExifFormatterGpsVersionId() {}
 
@@ -33,12 +32,11 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
             return new String(rawValue);
         }
 
-        ExifByte first  = new ExifByte(Arrays.copyOfRange(rawValue, 0, 1));
+        ExifByte first = new ExifByte(Arrays.copyOfRange(rawValue, 0, 1));
         ExifByte second = new ExifByte(Arrays.copyOfRange(rawValue, 1, 2));
-        ExifByte third  = new ExifByte(Arrays.copyOfRange(rawValue, 2, 3));
+        ExifByte third = new ExifByte(Arrays.copyOfRange(rawValue, 2, 3));
         ExifByte fourth = new ExifByte(Arrays.copyOfRange(rawValue, 3, 4));
 
-        return first.value() + "." + second.value() + "." + third.value() + "."
-               + fourth.value();
+        return first.value() + "." + second.value() + "." + third.value() + "." + fourth.value();
     }
 }

@@ -10,7 +10,6 @@ import java.io.OutputStreamWriter;
  * @version 2011-02-19
  */
 public final class SystemProperties {
-
     public static String getJavaVersion() {
         return System.getProperty("java.version");
     }
@@ -60,13 +59,14 @@ public final class SystemProperties {
     }
 
     public static String getFileEncoding() {
+
         // http://download.oracle.com/javase/tutorial/i18n/text/convertintro.html
         OutputStreamWriter out = new OutputStreamWriter(new ByteArrayOutputStream());
         String outEncoding = out.getEncoding();
 
         return outEncoding.isEmpty()
-                ? System.getProperty("file.encoding")
-                : outEncoding;
+               ? System.getProperty("file.encoding")
+               : outEncoding;
     }
 
     public static String getUserName() {
@@ -81,6 +81,5 @@ public final class SystemProperties {
         return System.getProperty("user.dir");
     }
 
-    private SystemProperties() {
-    }
+    private SystemProperties() {}
 }

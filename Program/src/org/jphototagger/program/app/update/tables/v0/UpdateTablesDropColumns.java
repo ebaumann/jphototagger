@@ -24,12 +24,9 @@ final class UpdateTablesDropColumns {
         COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null));
         COLUMNS.add(new ColumnInfo("favorite_directories", "id", null, null));
         COLUMNS.add(new ColumnInfo("file_exclude_pattern", "id", null, null));
-        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null,
-                                   null));
-        COLUMNS.add(new ColumnInfo("xmp", "iptc4xmpcore_countrycode", null,
-                                   null));
-        COLUMNS.add(new ColumnInfo("metadata_edit_templates",
-                                   "iptc4xmpcoreCountrycode", null, null));
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "id", null, null));
+        COLUMNS.add(new ColumnInfo("xmp", "iptc4xmpcore_countrycode", null, null));
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "iptc4xmpcoreCountrycode", null, null));
         COLUMNS.add(new ColumnInfo("saved_searches", "is_query", null, null));
     }
 
@@ -52,8 +49,7 @@ final class UpdateTablesDropColumns {
         dropColumns.clear();
 
         for (ColumnInfo info : COLUMNS) {
-            if (dbMeta.existsColumn(con, info.getTableName(),
-                                    info.getColumnName())) {
+            if (dbMeta.existsColumn(con, info.getTableName(), info.getColumnName())) {
                 dropColumns.add(info);
             }
         }
@@ -65,15 +61,11 @@ final class UpdateTablesDropColumns {
         }
     }
 
-    private void dropColumn(Connection con, String tableName, String columnName)
-            throws SQLException {
-        Database.execute(con,
-                         "ALTER TABLE " + tableName + " DROP COLUMN "
-                         + columnName);
+    private void dropColumn(Connection con, String tableName, String columnName) throws SQLException {
+        Database.execute(con, "ALTER TABLE " + tableName + " DROP COLUMN " + columnName);
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesDropColumns.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesDropColumns.Info"));
     }
 }

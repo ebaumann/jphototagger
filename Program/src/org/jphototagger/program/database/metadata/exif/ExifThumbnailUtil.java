@@ -11,8 +11,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifThumbnailUtil {
-    private static final Map<String, Double> ROTATION_ANGLE_OF_STRING =
-        new HashMap<String, Double>();
+    private static final Map<String, Double> ROTATION_ANGLE_OF_STRING = new HashMap<String, Double>();
 
     static {
         ROTATION_ANGLE_OF_STRING.put("(0, 0) is top-left", new Double(0));    // 1
@@ -32,7 +31,7 @@ public final class ExifThumbnailUtil {
      * @return         rotation angle
      */
     public static double getThumbnailRotationAngle(ExifTag exifTag) {
-        assert (exifTag == null) || (exifTag.idValue() == 274);
+        assert(exifTag == null) || (exifTag.idValue() == 274);
 
         if (exifTag != null) {
             Double angle = ROTATION_ANGLE_OF_STRING.get(exifTag.stringValue());

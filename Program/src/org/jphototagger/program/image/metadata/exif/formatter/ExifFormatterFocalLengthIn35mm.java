@@ -15,8 +15,7 @@ import java.text.NumberFormat;
  * @author Elmar Baumann
  */
 public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
-    public static final ExifFormatterFocalLengthIn35mm INSTANCE =
-        new ExifFormatterFocalLengthIn35mm();
+    public static final ExifFormatterFocalLengthIn35mm INSTANCE = new ExifFormatterFocalLengthIn35mm();
 
     private ExifFormatterFocalLengthIn35mm() {}
 
@@ -28,11 +27,11 @@ public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM);
 
-        byte[]    rawValue  = exifTag.rawValue();
+        byte[] rawValue = exifTag.rawValue();
         ByteOrder byteOrder = exifTag.byteOrder();
 
         if (ExifShort.isZeroOrPositive(rawValue, byteOrder)) {
-            ExifShort     es = new ExifShort(rawValue, byteOrder);
+            ExifShort es = new ExifShort(rawValue, byteOrder);
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.# mm");

@@ -51,8 +51,7 @@ public final class LookAndFeelUtil {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
-            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

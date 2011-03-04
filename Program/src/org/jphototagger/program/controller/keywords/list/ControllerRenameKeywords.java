@@ -1,12 +1,12 @@
 package org.jphototagger.program.controller.keywords.list;
 
+import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-import org.jphototagger.lib.dialog.InputDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -38,8 +38,7 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuKeywordsList.INSTANCE.getItemRename();
+        return evt.getSource() == PopupMenuKeywordsList.INSTANCE.getItemRename();
     }
 
     @Override
@@ -52,41 +51,35 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
 
         if (size == 1) {
             String fromName = keywords.get(0);
-            String toName   = getNewName(fromName);
+            String toName = getNewName(fromName);
 
             if ((toName != null) &&!toName.equalsIgnoreCase(fromName)) {
                 KeywordsHelper.renameDcSubject(fromName, toName);
             }
         } else if (size > 1) {
-            MessageDisplayer.information(
-                null, "ControllerRenameKeywords.Info.MultipleSelected");
+            MessageDisplayer.information(null, "ControllerRenameKeywords.Info.MultipleSelected");
         }
     }
 
     private String getNewName(String fromName) {
-        assert (fromName != null) && (fromName.trim().length() > 0) : fromName;
+        assert(fromName != null) && (fromName.trim().length() > 0) : fromName;
 
-        boolean     finished = false;
-        InputDialog dlg      =
-            new InputDialog(
-                InputHelperDialog.INSTANCE,
-                JptBundle.INSTANCE.getString(
-                    "ControllerRenameKeywords.Info.Input"), fromName,
-                        UserSettings.INSTANCE.getProperties(),
-                        "ControllerRenameKeyword.Input");
+        boolean finished = false;
+        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE,
+                                          JptBundle.INSTANCE.getString("ControllerRenameKeywords.Info.Input"),
+                                          fromName, UserSettings.INSTANCE.getProperties(),
+                                          "ControllerRenameKeyword.Input");
 
         while (!finished) {
             dlg.setVisible(true);
             finished = !dlg.isAccepted();
 
             if (dlg.isAccepted()) {
-                String  newName = dlg.getInput();
-                boolean equals  = (newName != null) &&!newName.trim().isEmpty()
-                                  && newName.equalsIgnoreCase(fromName);
+                String newName = dlg.getInput();
+                boolean equals = (newName != null) &&!newName.trim().isEmpty() && newName.equalsIgnoreCase(fromName);
 
                 if (equals) {
-                    finished = !MessageDisplayer.confirmYesNo(dlg,
-                            "ControllerRenameKeywords.Confirm.NewName");
+                    finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewName");
                 } else {
                     return newName;
                 }

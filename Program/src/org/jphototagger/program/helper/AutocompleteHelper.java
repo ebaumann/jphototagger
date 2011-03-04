@@ -1,13 +1,12 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteData;
-import org.jphototagger.program.database.metadata.selections
-    .AutoCompleteDataOfColumn;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.Autocomplete;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,8 +20,7 @@ import java.util.List;
 public final class AutocompleteHelper {
     private AutocompleteHelper() {}
 
-    public static void addAutocompleteData(Column column, Autocomplete ac,
-            Xmp xmp) {
+    public static void addAutocompleteData(Column column, Autocomplete ac, Xmp xmp) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -39,7 +37,7 @@ public final class AutocompleteHelper {
 
         AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
 
-        if (acData == null || !UserSettings.INSTANCE.isUpdateAutocomplete()) {
+        if ((acData == null) ||!UserSettings.INSTANCE.isUpdateAutocomplete()) {
             return;
         }
 
@@ -57,10 +55,9 @@ public final class AutocompleteHelper {
 
         assert UserSettings.INSTANCE.isAutocomplete();
 
-        AutoCompleteData acData =
-            AutoCompleteDataOfColumn.INSTANCE.getFastSearchData();
+        AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.getFastSearchData();
 
-        if (acData == null || !UserSettings.INSTANCE.isUpdateAutocomplete()) {
+        if ((acData == null) ||!UserSettings.INSTANCE.isUpdateAutocomplete()) {
             return;
         }
 
@@ -71,8 +68,7 @@ public final class AutocompleteHelper {
 
     // Consider to do that in a separate thread
     @SuppressWarnings("unchecked")
-    private static void add(Column column, AutoCompleteData acData,
-                            Autocomplete ac, Xmp xmp) {
+    private static void add(Column column, AutoCompleteData acData, Autocomplete ac, Xmp xmp) {
         Object xmpValue = xmp.getValue(column);
 
         if ((xmpValue == null) ||!UserSettings.INSTANCE.isUpdateAutocomplete()) {
@@ -84,7 +80,7 @@ public final class AutocompleteHelper {
         if (xmpValue instanceof String) {
             words.add((String) xmpValue);
         } else if (xmpValue instanceof List<?>) {
-            List<?> list         = (List<?>) xmpValue;
+            List<?> list = (List<?>) xmpValue;
             boolean isStringList = (list.size() > 0)
                                    ? list.get(0) instanceof String
                                    : false;
@@ -101,8 +97,7 @@ public final class AutocompleteHelper {
     }
 
     // Consider to do that in a separate thread
-    public static void addAutocompleteData(Column column, Autocomplete ac,
-            Collection<String> words) {
+    public static void addAutocompleteData(Column column, Autocomplete ac, Collection<String> words) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }

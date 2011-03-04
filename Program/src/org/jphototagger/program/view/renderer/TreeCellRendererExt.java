@@ -11,7 +11,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public class TreeCellRendererExt extends DefaultTreeCellRenderer {
     private static final long serialVersionUID = 7468243064122106211L;
-    protected int             tempSelRow       = -1;
+    protected int tempSelRow = -1;
 
     public TreeCellRendererExt() {
         setOpaque(true);
@@ -19,7 +19,7 @@ public class TreeCellRendererExt extends DefaultTreeCellRenderer {
 
     protected void setColors(int row, boolean selected) {
         boolean tempSelExists = tempSelRow >= 0;
-        boolean isTempSelRow  = row == tempSelRow;
+        boolean isTempSelRow = row == tempSelRow;
 
         setForeground((isTempSelRow || (selected &&!tempSelExists))
                       ? AppLookAndFeel.getTreeSelectionForeground()

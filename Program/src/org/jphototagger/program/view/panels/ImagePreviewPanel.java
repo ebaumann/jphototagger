@@ -1,10 +1,11 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
+import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,7 +20,6 @@ import java.io.FileFilter;
 
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import org.jphototagger.program.io.ImageFileFilterer;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 
@@ -28,15 +28,14 @@ import org.jphototagger.program.io.ImageFileFilterer;
  *
  * @author Elmar Baumann
  */
-public class ImagePreviewPanel extends JPanel
-        implements PropertyChangeListener {
+public class ImagePreviewPanel extends JPanel implements PropertyChangeListener {
     private static final long serialVersionUID = 574676806606408192L;
-    private static final int  SIZE             = 155;
-    private static final int  PADDING          = 5;
-    private int               width;
-    private int               height;
-    private Image             image;
-    private Color             bg;
+    private static final int SIZE = 155;
+    private static final int PADDING = 5;
+    private int width;
+    private int height;
+    private Image image;
+    private Color bg;
 
     public ImagePreviewPanel() {
         setPreferredSize(new Dimension(SIZE, -1));
@@ -45,8 +44,7 @@ public class ImagePreviewPanel extends JPanel
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!evt.getPropertyName().equals(
-                JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) {
+        if (!evt.getPropertyName().equals(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) {
             return;
         }
 
@@ -77,7 +75,7 @@ public class ImagePreviewPanel extends JPanel
     }
 
     private void scaleImage() {
-        width  = image.getWidth(this);
+        width = image.getWidth(this);
         height = image.getHeight(this);
 
         double ratio = 1.0;
@@ -88,18 +86,18 @@ public class ImagePreviewPanel extends JPanel
          * vertically.
          */
         if (width >= height) {
-            ratio  = (double) (SIZE - PADDING) / (double) width;
-            width  = SIZE - PADDING;
+            ratio = (double) (SIZE - PADDING) / (double) width;
+            width = SIZE - PADDING;
             height = (int) (height * ratio);
         } else {
             if (getHeight() > 150) {
-                ratio  = (double) (SIZE - PADDING) / (double) height;
+                ratio = (double) (SIZE - PADDING) / (double) height;
                 height = SIZE - PADDING;
-                width  = (int) (width * ratio);
+                width = (int) (width * ratio);
             } else {
-                ratio  = (double) getHeight() / height;
+                ratio = (double) getHeight() / height;
                 height = getHeight();
-                width  = (int) (width * ratio);
+                width = (int) (width * ratio);
             }
         }
 
@@ -112,8 +110,7 @@ public class ImagePreviewPanel extends JPanel
         g.fillRect(0, 0, SIZE, getHeight());
 
         if (image != null) {
-            g.drawImage(image, getWidth() / 2 - width / 2 + PADDING,
-                        getHeight() / 2 - height / 2, this);
+            g.drawImage(image, getWidth() / 2 - width / 2 + PADDING, getHeight() / 2 - height / 2, this);
         }
     }
 
@@ -123,10 +120,8 @@ public class ImagePreviewPanel extends JPanel
 
     private static class ImageFileFilter implements FileFilter {
         private static final String DESCRIPTION =
-            JptBundle.INSTANCE.getString(
-                "ImagePreviewPanel.ImageFileFilter.Description");
-        private static final RegexFileFilter FILE_FILTER =
-            AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
+            JptBundle.INSTANCE.getString("ImagePreviewPanel.ImageFileFilter.Description");
+        private static final RegexFileFilter FILE_FILTER = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
         private static final ImageFileFilter INSTANCE = new ImageFileFilter();
 
         @Override

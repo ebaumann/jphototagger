@@ -5,6 +5,7 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.IndexInfo;
 import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.resource.JptBundle;
 
 import java.sql.Connection;
@@ -13,7 +14,6 @@ import java.sql.Statement;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.jphototagger.program.database.DatabaseMetadata;
 
 /**
  * Updates the tables indexes.
@@ -21,18 +21,15 @@ import org.jphototagger.program.database.DatabaseMetadata;
  * @author Elmar Baumann
  */
 final class UpdateTablesIndexes {
-    private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE =
-        new HashMap<Pair<String, String>, IndexInfo[]>();
+    private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE = new HashMap<Pair<String, String>,
+                                                                                       IndexInfo[]>();
 
     static {
-        INDEX_TO_REPLACE.put(
-            new Pair<String, String>("idx_collections_id", "collections"),
-            new IndexInfo[] {
-                new IndexInfo(
-                    false, "idx_collections_id_collectionnname",
-                    "collections", "id_collectionnname"),
-                new IndexInfo(false, "idx_collections_id_file", "collections",
-                              "id_file") });
+        INDEX_TO_REPLACE.put(new Pair<String, String>("idx_collections_id", "collections"),
+                             new IndexInfo[] {
+                                 new IndexInfo(false, "idx_collections_id_collectionnname", "collections",
+                                     "id_collectionnname"),
+                                 new IndexInfo(false, "idx_collections_id_file", "collections", "id_file") });
     }
 
     void update(Connection con) throws SQLException {
@@ -52,9 +49,7 @@ final class UpdateTablesIndexes {
         }
     }
 
-    private void replaceIndex(Connection con, String indexName,
-                              IndexInfo[] indexInfos)
-            throws SQLException {
+    private void replaceIndex(Connection con, String indexName, IndexInfo[] indexInfos) throws SQLException {
         Statement stmt = null;
 
         try {
@@ -66,8 +61,7 @@ final class UpdateTablesIndexes {
             stmt.executeUpdate(sql);
 
             for (IndexInfo indexInfo : indexInfos) {
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
-                                   indexInfo.sql());
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, indexInfo.sql());
                 stmt.executeUpdate(indexInfo.sql());
             }
         } finally {
@@ -76,7 +70,6 @@ final class UpdateTablesIndexes {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
     }
 }

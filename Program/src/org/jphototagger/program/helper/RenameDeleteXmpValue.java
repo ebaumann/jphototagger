@@ -5,8 +5,7 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
@@ -56,16 +55,14 @@ public final class RenameDeleteXmpValue {
 
         checkColumn(column);
 
-        String newValue =
-            MessageDisplayer.input("RenameXmpValue.Input.NewValue", oldValue,
-                                   "RenameXmpValue.Settings", oldValue);
+        String newValue = MessageDisplayer.input("RenameXmpValue.Input.NewValue", oldValue, "RenameXmpValue.Settings",
+                              oldValue);
 
         if (newValue != null) {
             newValue = newValue.trim();
 
             if (newValue.equals(oldValue.trim())) {
-                MessageDisplayer.error(null,
-                                       "RenameXmpValue.Error.ValuesEquals");
+                MessageDisplayer.error(null, "RenameXmpValue.Error.ValuesEquals");
             } else {
                 UserTasks.INSTANCE.add(new Rename(column, oldValue, newValue));
             }
@@ -100,9 +97,7 @@ public final class RenameDeleteXmpValue {
             return;
         }
 
-        if (MessageDisplayer.confirmYesNo(null,
-                                          "RenameXmpValue.Confirm.Delete",
-                                          value)) {
+        if (MessageDisplayer.confirmYesNo(null, "RenameXmpValue.Confirm.Delete", value)) {
             UserTasks.INSTANCE.add(new Rename(column, value, ""));
         }
     }
@@ -118,19 +113,16 @@ public final class RenameDeleteXmpValue {
     }
 
     private static class Rename extends Thread implements Cancelable {
-        private ProgressBarUpdater pb =
-            new ProgressBarUpdater(
-                this,
-                JptBundle.INSTANCE.getString(
-                    "RenameXmpValue.ProgressBar.String"));
-        private final Column     column;
-        private final String     newValue;
-        private final String     oldValue;
+        private ProgressBarUpdater pb = new ProgressBarUpdater(this,
+                                            JptBundle.INSTANCE.getString("RenameXmpValue.ProgressBar.String"));
+        private final Column column;
+        private final String newValue;
+        private final String oldValue;
         private volatile boolean cancel;
 
         Rename(Column column, String oldValue, String newValue) {
             super("JPhotoTagger: Renaming XMP value");
-            this.column   = column;
+            this.column = column;
             this.oldValue = oldValue.trim();
             this.newValue = newValue.trim();
         }
@@ -142,10 +134,8 @@ public final class RenameDeleteXmpValue {
 
         @Override
         public void run() {
-            List<File> imageFiles =
-                DatabaseImageFiles.INSTANCE.getImageFilesWithColumnContent(
-                    column, oldValue);
-            int size  = imageFiles.size();
+            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWithColumnContent(column, oldValue);
+            int size = imageFiles.size();
             int value = 0;
 
             notifyStarted(size);
@@ -160,26 +150,22 @@ public final class RenameDeleteXmpValue {
                 try {
                     xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
                 } catch (IOException ex) {
-                    Logger.getLogger(RenameDeleteXmpValue.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(RenameDeleteXmpValue.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 if (xmp != null) {
                     rename(xmp);
 
-                    if (XmpMetadata.writeXmpToSidecarFile(xmp,
-                            XmpMetadata.suggestSidecarFile(imageFile))) {
-                        new InsertImageFilesIntoDatabase(
-                            Collections.singletonList(imageFile),
-                            Insert.XMP).run();    // run in this thread!
+                    if (XmpMetadata.writeXmpToSidecarFile(xmp, XmpMetadata.suggestSidecarFile(imageFile))) {
+                        new InsertImageFilesIntoDatabase(Collections.singletonList(imageFile),
+                                                         Insert.XMP).run();    // run in this thread!
                     }
                 }
 
                 notifyPerformed(++value, size);
             }
 
-            DatabaseImageFiles.INSTANCE.deleteValueOfJoinedColumn(column,
-                    oldValue);
+            DatabaseImageFiles.INSTANCE.deleteValueOfJoinedColumn(column, oldValue);
             MiscMetadataHelper.removeChildValueFrom(column, oldValue);
             notifyEnded(value, size);
         }
@@ -193,8 +179,7 @@ public final class RenameDeleteXmpValue {
         }
 
         private void notifyPerformed(int value, int count) {
-            pb.progressPerformed(new ProgressEvent(this, 0, count, value,
-                    null));
+            pb.progressPerformed(new ProgressEvent(this, 0, count, value, null));
         }
 
         private void notifyEnded(int value, int count) {

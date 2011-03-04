@@ -27,49 +27,31 @@ import javax.swing.table.TableCellRenderer;
  * @author Elmar Baumann
  */
 public final class TableCellRendererLogfileDialog implements TableCellRenderer {
-    private static final Color            SEL_BACKGROUND_COLOR = new Color(251,
-                                                                     225, 146);
-    private static final SimpleDateFormat DATE_FORMAT          =
-        new SimpleDateFormat(
-            JslBundle.INSTANCE.getString(
-                "TableCellRendererLogfileDialog.DateFormat"));
-    private static final Map<Level, ImageIcon> ICON_OF_LEVEL =
-        new HashMap<Level, ImageIcon>();
+    private static final Color SEL_BACKGROUND_COLOR = new Color(251, 225, 146);
+    private static final SimpleDateFormat DATE_FORMAT =
+        new SimpleDateFormat(JslBundle.INSTANCE.getString("TableCellRendererLogfileDialog.DateFormat"));
+    private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<Level, ImageIcon>();
 
     static {
-        ICON_OF_LEVEL.put(
-            Level.CONFIG,
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"));
-        ICON_OF_LEVEL.put(
-            Level.FINE,
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_logfiledialog_fine.png"));
-        ICON_OF_LEVEL.put(
-            Level.FINER,
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_logfiledialog_finer.png"));
-        ICON_OF_LEVEL.put(
-            Level.FINEST,
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_logfiledialog_finest.png"));
-        ICON_OF_LEVEL.put(
-            Level.INFO,
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_logfiledialog_info.png"));
-        ICON_OF_LEVEL.put(
-            Level.SEVERE,
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"));
-        ICON_OF_LEVEL.put(
-            Level.WARNING,
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_logfiledialog_warning.png"));
+        ICON_OF_LEVEL.put(Level.CONFIG,
+                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"));
+        ICON_OF_LEVEL.put(Level.FINE,
+                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_fine.png"));
+        ICON_OF_LEVEL.put(Level.FINER,
+                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finer.png"));
+        ICON_OF_LEVEL.put(Level.FINEST,
+                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finest.png"));
+        ICON_OF_LEVEL.put(Level.INFO,
+                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_info.png"));
+        ICON_OF_LEVEL.put(Level.SEVERE,
+                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"));
+        ICON_OF_LEVEL.put(Level.WARNING,
+                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_warning.png"));
     }
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+            int row, int column) {
         JLabel cellLabel = new JLabel();
 
         if (value instanceof Level) {

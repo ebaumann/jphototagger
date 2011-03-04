@@ -38,8 +38,7 @@ public final class MessageLabel {
         }
     }
 
-    public void showMessage(final String message, final MessageType type,
-                            final long milliseconds) {
+    public void showMessage(final String message, final MessageType type, final long milliseconds) {
         if (message == null) {
             throw new NullPointerException("message == null");
         }
@@ -49,8 +48,7 @@ public final class MessageLabel {
         }
 
         if (milliseconds < 0) {
-            throw new IllegalArgumentException("Negative milliseconds: "
-                                               + milliseconds);
+            throw new IllegalArgumentException("Negative milliseconds: " + milliseconds);
         }
 
         EventQueue.invokeLater(new Runnable() {
@@ -61,9 +59,8 @@ public final class MessageLabel {
                                     : Color.BLACK);
                 label.setText(message);
 
-                Thread thread =
-                    new Thread(new HideInfoMessage(message, milliseconds),
-                               "JPhotoTagger: Hiding message popup");
+                Thread thread = new Thread(new HideInfoMessage(message, milliseconds),
+                                           "JPhotoTagger: Hiding message popup");
 
                 thread.setPriority(Thread.MIN_PRIORITY);
                 thread.start();
@@ -72,13 +69,13 @@ public final class MessageLabel {
     }
 
     private class HideInfoMessage implements Runnable {
-        private final long   milliseconds;
+        private final long milliseconds;
         private final String text;
 
         HideInfoMessage(String text, long milliseconds) {
-            this.text         = (text == null)
-                                ? ""
-                                : text;
+            this.text = (text == null)
+                        ? ""
+                        : text;
             this.milliseconds = milliseconds;
         }
 
@@ -87,8 +84,7 @@ public final class MessageLabel {
             try {
                 Thread.sleep(milliseconds);
             } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null,
-                                 ex);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             }
 
             EventQueue.invokeLater(new Runnable() {

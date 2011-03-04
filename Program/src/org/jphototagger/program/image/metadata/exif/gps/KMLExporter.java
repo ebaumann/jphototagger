@@ -36,8 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public final class KMLExporter implements GPSLocationExporter {
     @Override
-    public void export(Collection<? extends GPSImageInfo> gpsImageInfos,
-                       OutputStream os)
+    public void export(Collection<? extends GPSImageInfo> gpsImageInfos, OutputStream os)
             throws IOException, UnsupportedCharsetException {
         if (gpsImageInfos == null) {
             throw new NullPointerException("gpsMetadata == null");
@@ -63,22 +62,21 @@ public final class KMLExporter implements GPSLocationExporter {
     }
 
     private static String getGenerator() {
-        return AppInfo.APP_NAME + " " + AppInfo.APP_VERSION
-               + " (http://www.jphototagger.org)";
+        return AppInfo.APP_NAME + " " + AppInfo.APP_VERSION + " (http://www.jphototagger.org)";
     }
 
     private static KMLPlacemark getPlacemark(GPSImageInfo gpsImageInfo) {
-        ExifGpsMetadata  gpsMd     = gpsImageInfo.getGPSMetaData();
+        ExifGpsMetadata gpsMd = gpsImageInfo.getGPSMetaData();
         ExifGpsLongitude longitude = gpsMd.longitude();
-        ExifGpsLatitude  latitude  = gpsMd.latitude();
-        ExifGpsAltitude  altitude  = gpsMd.altitude();
+        ExifGpsLatitude latitude = gpsMd.latitude();
+        ExifGpsAltitude altitude = gpsMd.altitude();
 
         if ((latitude != null) && (longitude != null)) {
             double longDeg = ExifGpsUtil.degrees(longitude.degrees());
-            double latDeg  = ExifGpsUtil.degrees(latitude.degrees());
-            double alt     = (altitude == null)
-                             ? Double.MIN_VALUE
-                             : ExifDatatypeUtil.toDouble(altitude.value());
+            double latDeg = ExifGpsUtil.degrees(latitude.degrees());
+            double alt = (altitude == null)
+                         ? Double.MIN_VALUE
+                         : ExifDatatypeUtil.toDouble(altitude.value());
 
             if (latitude.ref().equals(ExifGpsLatitude.Ref.SOUTH)) {
                 latDeg *= -1;
@@ -88,9 +86,9 @@ public final class KMLExporter implements GPSLocationExporter {
                 longDeg *= -1;
             }
 
-            KMLPoint     point     = (alt >= 0)
-                                     ? new KMLPoint(longDeg, latDeg, alt)
-                                     : new KMLPoint(longDeg, latDeg);
+            KMLPoint point = (alt >= 0)
+                             ? new KMLPoint(longDeg, latDeg, alt)
+                             : new KMLPoint(longDeg, latDeg);
             KMLPlacemark placemark = new KMLPlacemark(point);
 
             addName(placemark, gpsImageInfo);
@@ -102,20 +100,16 @@ public final class KMLExporter implements GPSLocationExporter {
     }
 
     // Sets the GPS date and time as name
-    private static void addName(KMLPlacemark placemark,
-                                GPSImageInfo gpsImageInfo) {
-        ExifGpsMetadata  gpsMd     = gpsImageInfo.getGPSMetaData();
+    private static void addName(KMLPlacemark placemark, GPSImageInfo gpsImageInfo) {
+        ExifGpsMetadata gpsMd = gpsImageInfo.getGPSMetaData();
         ExifGpsDateStamp dateStamp = gpsMd.dateStamp();
         ExifGpsTimeStamp timeStamp = gpsMd.timeStamp();
 
         if ((dateStamp != null) && (timeStamp != null)) {
             try {
-                Calendar   cal = ExifGpsUtil.getGpsTime(gpsMd);
-                DateFormat df =
-                    DateFormat.getDateTimeInstance(DateFormat.MEDIUM,
-                                                   DateFormat.LONG);
-                String filename = GPSLocationExportUtil.getFilename(
-                                      gpsImageInfo.getImageFile());
+                Calendar cal = ExifGpsUtil.getGpsTime(gpsMd);
+                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG);
+                String filename = GPSLocationExportUtil.getFilename(gpsImageInfo.getImageFile());
                 String name = df.format(cal.getTime()) + filename;
 
                 placemark.setName(name);

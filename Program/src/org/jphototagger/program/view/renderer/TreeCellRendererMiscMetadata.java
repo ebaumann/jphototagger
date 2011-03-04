@@ -1,12 +1,12 @@
 package org.jphototagger.program.view.renderer;
 
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
 import org.jphototagger.program.database.metadata.selections.ColumnIcons;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.model.TreeModelMiscMetadata;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.image.util.IconUtil;
 
 import java.awt.Component;
 
@@ -29,19 +29,14 @@ import javax.swing.tree.TreeNode;
  */
 public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     private static final ImageIcon ICON_MISC_METADATA =
-        IconUtil.getImageIcon(
-            "/org/jphototagger/program/resource/icons/icon_misc_metadata.png");
+        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata.png");
     private static final ImageIcon ICON_EXIF =
-        IconUtil.getImageIcon(
-            "/org/jphototagger/program/resource/icons/icon_exif.png");
+        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_exif.png");
     private static final ImageIcon ICON_XMP =
-        IconUtil.getImageIcon(
-            "/org/jphototagger/program/resource/icons/icon_xmp.png");
+        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_xmp.png");
     private static final ImageIcon ICON_DETAIL =
-        IconUtil.getImageIcon(
-            "/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
-    private static final Map<Column, ImageIcon> ICON_OF_COLUMN =
-        new HashMap<Column, ImageIcon>();
+        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
+    private static final Map<Column, ImageIcon> ICON_OF_COLUMN = new HashMap<Column, ImageIcon>();
     private static final long serialVersionUID = 4497836207990199053L;
 
     static {
@@ -55,30 +50,25 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-            boolean sel, boolean expanded, boolean leaf, int row,
-            boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                                           row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
+            boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
-        DefaultMutableTreeNode node       = (DefaultMutableTreeNode) value;
-        DefaultMutableTreeNode parentNode =
-            (DefaultMutableTreeNode) node.getParent();
-        Object userObject       = node.getUserObject();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+        DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.getParent();
+        Object userObject = node.getUserObject();
         Object parentUserObject = (parentNode == null)
                                   ? null
                                   : parentNode.getUserObject();
 
-        setIcon(userObject, parentUserObject, parentNode,
-                (TreeNode) tree.getModel().getRoot(), leaf);
+        setIcon(userObject, parentUserObject, parentNode, (TreeNode) tree.getModel().getRoot(), leaf);
         setText(userObject, parentUserObject);
         setColors(row, selected);
 
         return this;
     }
 
-    private void setIcon(Object userObject, Object parentUserObject,
-                         DefaultMutableTreeNode parentNode, TreeNode root,
+    private void setIcon(Object userObject, Object parentUserObject, DefaultMutableTreeNode parentNode, TreeNode root,
                          boolean leaf) {
         if (userObject instanceof Column) {
             setColumnIcon((Column) userObject);
@@ -118,7 +108,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
             return;
         }
 
-        DecimalFormat shortFormat  = new DecimalFormat("#");
+        DecimalFormat shortFormat = new DecimalFormat("#");
         DecimalFormat doubleFormat = new DecimalFormat("#.#");
 
         if (userObject instanceof Column) {
@@ -127,18 +117,14 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
             setText(col.getDescription());
         } else if (userObject instanceof String) {
             setText((String) userObject);
-        } else if ((userObject instanceof Short)
-                   || (userObject instanceof Long)) {
+        } else if ((userObject instanceof Short) || (userObject instanceof Long)) {
             setText(shortFormat.format(userObject));
         } else if (userObject instanceof Double) {
-            setText(doubleFormat.format(userObject)
-                    + getTextPostfix(parentUserObject));
+            setText(doubleFormat.format(userObject) + getTextPostfix(parentUserObject));
         } else if (userObject instanceof Long) {
-            setText(Long.toString((Long) userObject)
-                    + getTextPostfix(parentUserObject));
+            setText(Long.toString((Long) userObject) + getTextPostfix(parentUserObject));
         } else {
-            assert false :
-                   "Unrecognized data type: " + userObject.getClass().getName();
+            assert false : "Unrecognized data type: " + userObject.getClass().getName();
         }
     }
 
@@ -149,8 +135,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
             if (column.equals(ColumnExifFocalLength.INSTANCE)) {
                 return " mm";
             } else if (column.equals(ColumnXmpRating.INSTANCE)) {
-                return JptBundle.INSTANCE.getString(
-                    "TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
+                return JptBundle.INSTANCE.getString("TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
             }
         }
 

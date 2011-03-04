@@ -10,17 +10,12 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnXmpIptc4xmpcoreLocation extends Column {
-    public static final ColumnXmpIptc4xmpcoreLocation INSTANCE =
-        new ColumnXmpIptc4xmpcoreLocation();
+    public static final ColumnXmpIptc4xmpcoreLocation INSTANCE = new ColumnXmpIptc4xmpcoreLocation();
 
     private ColumnXmpIptc4xmpcoreLocation() {
         super("location", "iptc4xmpcore_locations", DataType.STRING);
         setLength(64);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpIptc4xmpcoreLocation.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpIptc4xmpcoreLocation.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpIptc4xmpcoreLocation.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpIptc4xmpcoreLocation.LongerDescription"));
     }
 }

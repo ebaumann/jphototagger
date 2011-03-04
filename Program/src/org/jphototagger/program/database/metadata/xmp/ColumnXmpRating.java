@@ -1,9 +1,9 @@
 package org.jphototagger.program.database.metadata.xmp;
 
+import org.jphototagger.lib.inputverifier.InputVerifierNumberRange;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.Column.DataType;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.inputverifier.InputVerifierNumberRange;
 
 import javax.swing.InputVerifier;
 
@@ -18,10 +18,8 @@ public final class ColumnXmpRating extends Column {
     private ColumnXmpRating() {
         super("rating", "xmp", DataType.BIGINT);
         setLength(1);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnXmpRating.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString("ColumnXmpRating.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpRating.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpRating.LongerDescription"));
     }
 
     /**

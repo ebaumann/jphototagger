@@ -24,8 +24,7 @@ public final class ExifCopyright {
             throw new NullPointerException("editorCopyright == null");
         }
 
-        this.photographerCopyright =
-            photographerCopyright(photographerCopyright);
+        this.photographerCopyright = photographerCopyright(photographerCopyright);
         this.editorCopyright = editorCopyright(editorCopyright);
     }
 
@@ -50,11 +49,9 @@ public final class ExifCopyright {
             throw new NullPointerException("rawValue == null");
         }
 
-        Pair<Integer, Integer> photographerOffsets =
-            photographerOffsets(rawValue);
+        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
 
-        return string(rawValue, photographerOffsets.getFirst(),
-                      photographerOffsets.getSecond());
+        return string(rawValue, photographerOffsets.getFirst(), photographerOffsets.getSecond());
     }
 
     /**
@@ -72,18 +69,15 @@ public final class ExifCopyright {
 
         Pair<Integer, Integer> editorOffsets = editorOffsets(rawValue);
 
-        return string(rawValue, editorOffsets.getFirst(),
-                      editorOffsets.getSecond());
+        return string(rawValue, editorOffsets.getFirst(), editorOffsets.getSecond());
     }
 
     private static String string(byte[] ba, int first, int last) {
-        if ((first < 0) || (first > ba.length) || (last < first)
-                || (last > ba.length)) {
+        if ((first < 0) || (first > ba.length) || (last < first) || (last > ba.length)) {
             return "";
         }
 
-        return new String(Arrays.copyOfRange(ba, first, last),
-                          Charset.forName("US-ASCII"));
+        return new String(Arrays.copyOfRange(ba, first, last), Charset.forName("US-ASCII"));
     }
 
     private static Pair<Integer, Integer> photographerOffsets(byte[] rawValue) {
@@ -92,7 +86,7 @@ public final class ExifCopyright {
         }
 
         boolean end = false;
-        int     i   = 0;
+        int i = 0;
 
         while (!end && (i < rawValue.length)) {
             end = rawValue[i++] == 0x0;
@@ -106,15 +100,12 @@ public final class ExifCopyright {
             return new Pair<Integer, Integer>(-1, -1);
         }
 
-        Pair<Integer, Integer> photographerOffsets =
-            photographerOffsets(rawValue);
+        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
 
-        if ((photographerOffsets.getFirst() == -1)
-                || (photographerOffsets.getSecond() == rawValue.length)) {
+        if ((photographerOffsets.getFirst() == -1) || (photographerOffsets.getSecond() == rawValue.length)) {
             return new Pair<Integer, Integer>(-1, -1);
         }
 
-        return new Pair<Integer, Integer>(photographerOffsets.getSecond() + 1,
-                        rawValue.length - 1);
+        return new Pair<Integer, Integer>(photographerOffsets.getSecond() + 1, rawValue.length - 1);
     }
 }

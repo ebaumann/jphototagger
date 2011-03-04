@@ -1,9 +1,9 @@
 package org.jphototagger.program.controller.favorites;
 
+import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -41,8 +41,7 @@ public final class ControllerUpdateFavorite extends ControllerFavorite {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuFavorites.INSTANCE.getItemUpdateFavorite();
+        return evt.getSource() == PopupMenuFavorites.INSTANCE.getItemUpdateFavorite();
     }
 
     @Override

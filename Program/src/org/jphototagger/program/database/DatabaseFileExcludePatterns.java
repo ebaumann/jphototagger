@@ -23,8 +23,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabaseFileExcludePatterns extends Database {
-    public static final DatabaseFileExcludePatterns INSTANCE =
-        new DatabaseFileExcludePatterns();
+    public static final DatabaseFileExcludePatterns INSTANCE = new DatabaseFileExcludePatterns();
     private final ListenerSupport<DatabaseFileExcludePatternsListener> ls =
         new ListenerSupport<DatabaseFileExcludePatternsListener>();
 
@@ -42,15 +41,14 @@ public final class DatabaseFileExcludePatterns extends Database {
             throw new NullPointerException("pattern == null");
         }
 
-        boolean           inserted = false;
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
+        boolean inserted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "INSERT INTO file_exclude_patterns (pattern) VALUES (?)");
+            stmt = con.prepareStatement("INSERT INTO file_exclude_patterns (pattern) VALUES (?)");
             stmt.setString(1, pattern);
             logFiner(stmt);
 
@@ -84,15 +82,14 @@ public final class DatabaseFileExcludePatterns extends Database {
             throw new NullPointerException("pattern == null");
         }
 
-        boolean           deleted = false;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
+        boolean deleted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "DELETE FROM file_exclude_patterns WHERE pattern = ?");
+            stmt = con.prepareStatement("DELETE FROM file_exclude_patterns WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFiner(stmt);
 
@@ -126,15 +123,14 @@ public final class DatabaseFileExcludePatterns extends Database {
             throw new NullPointerException("pattern == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM file_exclude_patterns WHERE pattern = ?");
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM file_exclude_patterns WHERE pattern = ?");
             stmt.setString(1, pattern);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -159,16 +155,15 @@ public final class DatabaseFileExcludePatterns extends Database {
      */
     public List<String> getAll() {
         List<String> patterns = new LinkedList<String>();
-        Connection   con      = null;
-        Statement    stmt     = null;
-        ResultSet    rs       = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT pattern FROM file_exclude_patterns"
-                         + " ORDER BY pattern ASC";
+            String sql = "SELECT pattern FROM file_exclude_patterns" + " ORDER BY pattern ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -193,37 +188,34 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @param   listener  progress listener or null, can cancel the action
      * @return  count of deleted files
      */
-    public int deleteMatchingFiles(List<String> patterns,
-                                   ProgressListener listener) {
+    public int deleteMatchingFiles(List<String> patterns, ProgressListener listener) {
         if (patterns == null) {
             throw new NullPointerException("patterns == null");
         }
 
-        int               count      = 0;
-        Connection        con        = null;
+        int count = 0;
+        Connection con = null;
         PreparedStatement stmtUpdate = null;
-        Statement         stmtQuery  = null;
-        ResultSet         rs         = null;
+        Statement stmtQuery = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
 
             List<String> deletedFiles = new LinkedList<String>();
-            String       sqlUpdate    = "DELETE FROM files WHERE filename = ?";
-            String       sqlQuery     = "SELECT filename FROM files";
+            String sqlUpdate = "DELETE FROM files WHERE filename = ?";
+            String sqlQuery = "SELECT filename FROM files";
 
-            stmtQuery  = con.createStatement();
+            stmtQuery = con.createStatement();
             stmtUpdate = con.prepareStatement(sqlUpdate);
             logFinest(sqlQuery);
             rs = stmtQuery.executeQuery(sqlQuery);
 
-            int           patternCount = patterns.size();
-            int           progress     = 0;
-            ProgressEvent event        =
-                new ProgressEvent(this, 0,
-                                  DatabaseStatistics.INSTANCE.getFileCount()
-                                  * patternCount, 0, null);
+            int patternCount = patterns.size();
+            int progress = 0;
+            ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount() * patternCount,
+                                      0, null);
 
             notifyProgressListenerStart(listener, event);
 
@@ -249,10 +241,8 @@ public final class DatabaseFileExcludePatterns extends Database {
                         if (affectedRows > 0) {
                             File imageFile = getFile(filepath);
 
-                            PersistentThumbnails.deleteThumbnail(
-                                imageFile);
-                            DatabaseImageFiles.INSTANCE.notifyImageFileDeleted(
-                                imageFile);
+                            PersistentThumbnails.deleteThumbnail(imageFile);
+                            DatabaseImageFiles.INSTANCE.notifyImageFileDeleted(imageFile);
                         }
 
                         cancel = event.isCancel();

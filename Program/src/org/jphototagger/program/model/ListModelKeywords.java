@@ -5,8 +5,7 @@ import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseStatistics;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 
 import java.awt.EventQueue;
@@ -27,8 +26,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Elmar Baumann
  */
-public final class ListModelKeywords extends DefaultListModel
-        implements DatabaseImageFilesListener {
+public final class ListModelKeywords extends DefaultListModel implements DatabaseImageFilesListener {
     private static final long serialVersionUID = -9181622876402951455L;
 
     public ListModelKeywords() {
@@ -65,8 +63,7 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     boolean databaseHasKeyword(String keyword) {
-        return DatabaseStatistics.INSTANCE.existsValueIn(
-            ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+        return DatabaseStatistics.INSTANCE.existsValueIn(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
     }
 
     @SuppressWarnings("unchecked")
@@ -74,9 +71,7 @@ public final class ListModelKeywords extends DefaultListModel
         List<String> keywords = new ArrayList<String>();
 
         if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-            keywords.addAll(
-                (List<String>) xmp.getValue(
-                    ColumnXmpDcSubjectsSubject.INSTANCE));
+            keywords.addAll((List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
         }
 
         return keywords;
@@ -111,8 +106,7 @@ public final class ListModelKeywords extends DefaultListModel
     }
 
     @Override
-    public void xmpUpdated(File imageFile, final Xmp oldXmp,
-                           final Xmp updatedXmp) {
+    public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
         if (oldXmp == null) {
             throw new NullPointerException("oldXmp == null");
         }

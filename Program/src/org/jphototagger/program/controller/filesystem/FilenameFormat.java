@@ -8,8 +8,8 @@ import java.io.File;
  * @author Elmar Baumann
  */
 public abstract class FilenameFormat {
-    private File   file;
-    private File   prevFile;
+    private File file;
+    private File prevFile;
     private String format;
 
     /**
@@ -45,7 +45,7 @@ public abstract class FilenameFormat {
         }
 
         this.prevFile = this.file;
-        this.file     = file;
+        this.file = file;
     }
 
     /**

@@ -10,14 +10,13 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public class IndexInfo {
-    private final String       tableName;
-    private final String       indexName;
-    private final boolean      unique;
+    private final String tableName;
+    private final String indexName;
+    private final boolean unique;
     private final List<String> columnNames = new ArrayList<String>();
 
-    public IndexInfo(boolean unique, String indexName, String tableName,
-                     String columnName, String... columnNames) {
-        this.unique    = unique;
+    public IndexInfo(boolean unique, String indexName, String tableName, String columnName, String... columnNames) {
+        this.unique = unique;
         this.indexName = indexName;
         this.tableName = tableName;
         this.columnNames.add(columnName);
@@ -27,13 +26,12 @@ public class IndexInfo {
     public String sql() {
         return "CREATE" + (unique
                            ? " UNIQUE"
-                           : "") + " INDEX " + indexName + " ON " + tableName
-                                 + getColumnsClause();
+                           : "") + " INDEX " + indexName + " ON " + tableName + getColumnsClause();
     }
 
     private String getColumnsClause() {
         StringBuilder sb = new StringBuilder(" (");
-        int           i  = 0;
+        int i = 0;
 
         for (String columnName : columnNames) {
             sb.append((i++ == 0)

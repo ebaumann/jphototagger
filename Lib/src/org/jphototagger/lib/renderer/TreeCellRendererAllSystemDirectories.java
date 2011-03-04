@@ -1,5 +1,6 @@
 package org.jphototagger.lib.renderer;
 
+import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
@@ -17,7 +18,6 @@ import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 
 /**
  * Renders items of {@link TreeModelAllSystemDirectories}. Ddisplays only the
@@ -25,45 +25,33 @@ import org.jphototagger.lib.componentutil.LookAndFeelUtil;
  *
  * @author Elmar Baumann
  */
-public final class TreeCellRendererAllSystemDirectories
-        extends DefaultTreeCellRenderer {
-    private static final long    serialVersionUID = -1995225344254643215L;
-    private final FileSystemView fileSystemView   =
-        FileSystemView.getFileSystemView();
-    private Icon rootIcon =
-        IconUtil.getImageIcon(
-            "/org/jphototagger/lib/resource/icons/icon_workspace.png");
+public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellRenderer {
+    private static final long serialVersionUID = -1995225344254643215L;
+    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private Icon rootIcon = IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_workspace.png");
     private static final String DISPLAY_NAME_ROOT =
-        JslBundle.INSTANCE.getString(
-            "TreeCellRendererAllSystemDirectories.DisplayName.Root");
-    private int                tempSelRow                = -1;
-    private static final Color TREE_SELECTION_FOREGROUND =
-        LookAndFeelUtil.getUiColor("Tree.selectionForeground");
-    private static final Color TREE_SELECTION_BACKGROUND =
-        LookAndFeelUtil.getUiColor("Tree.selectionBackground");
-    private static final Color TREE_TEXT_BACKGROUND =
-        LookAndFeelUtil.getUiColor("Tree.textBackground");
-    private static final Color TREE_TEXT_FOREGROUND =
-        LookAndFeelUtil.getUiColor("Tree.textForeground");
+        JslBundle.INSTANCE.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
+    private int tempSelRow = -1;
+    private static final Color TREE_SELECTION_FOREGROUND = LookAndFeelUtil.getUiColor("Tree.selectionForeground");
+    private static final Color TREE_SELECTION_BACKGROUND = LookAndFeelUtil.getUiColor("Tree.selectionBackground");
+    private static final Color TREE_TEXT_BACKGROUND = LookAndFeelUtil.getUiColor("Tree.textBackground");
+    private static final Color TREE_TEXT_FOREGROUND = LookAndFeelUtil.getUiColor("Tree.textForeground");
 
     public TreeCellRendererAllSystemDirectories() {
         setOpaque(true);
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-            boolean sel, boolean expanded, boolean leaf, int row,
-            boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                                           row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
+            boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
         if (value == tree.getModel().getRoot()) {
             setIcon(rootIcon);
             setText(DISPLAY_NAME_ROOT);
         } else if (value instanceof DefaultMutableTreeNode) {
-            File   file       = null;
-            Object userObject =
-                ((DefaultMutableTreeNode) value).getUserObject();
+            File file = null;
+            Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
 
             if (userObject instanceof File) {
                 file = (File) userObject;
@@ -74,9 +62,8 @@ public final class TreeCellRendererAllSystemDirectories
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        Logger.getLogger(
-                            TreeCellRendererAllSystemDirectories.class
-                                .getName()).log(Level.WARNING, null, ex);
+                        Logger.getLogger(TreeCellRendererAllSystemDirectories.class.getName()).log(Level.WARNING, null,
+                                         ex);
                     }
                 }
 
@@ -110,7 +97,7 @@ public final class TreeCellRendererAllSystemDirectories
 
     private void renderSelectionPopup(int row, boolean selected) {
         boolean tempSelExists = tempSelRow >= 0;
-        boolean isTempSelRow  = row == tempSelRow;
+        boolean isTempSelRow = row == tempSelRow;
 
         setForeground((isTempSelRow || (selected &&!tempSelExists))
                       ? TREE_SELECTION_FOREGROUND

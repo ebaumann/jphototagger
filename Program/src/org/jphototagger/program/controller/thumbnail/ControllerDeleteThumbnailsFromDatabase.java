@@ -21,15 +21,13 @@ import java.util.List;
  *
  * @author Elmar Baumann
  */
-public final class ControllerDeleteThumbnailsFromDatabase
-        implements ActionListener {
+public final class ControllerDeleteThumbnailsFromDatabase implements ActionListener {
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemDeleteImageFromDatabase()
-            .addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemDeleteImageFromDatabase().addActionListener(this);
     }
 
     @Override
@@ -42,10 +40,9 @@ public final class ControllerDeleteThumbnailsFromDatabase
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    List<File> selFiles   = GUI.getSelectedImageFiles();
-                    int        countFiles = selFiles.size();
-                    int        countDeleted =
-                        DatabaseImageFiles.INSTANCE.delete(selFiles);
+                    List<File> selFiles = GUI.getSelectedImageFiles();
+                    int countFiles = selFiles.size();
+                    int countDeleted = DatabaseImageFiles.INSTANCE.delete(selFiles);
 
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
@@ -59,8 +56,8 @@ public final class ControllerDeleteThumbnailsFromDatabase
     }
 
     private void repaint(final List<File> files) {
-        List<File>         deleted = new ArrayList<File>(files.size());
-        DatabaseImageFiles db      = DatabaseImageFiles.INSTANCE;
+        List<File> deleted = new ArrayList<File>(files.size());
+        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
         for (File file : files) {
             if (!db.exists(file)) {
@@ -72,17 +69,13 @@ public final class ControllerDeleteThumbnailsFromDatabase
     }
 
     private boolean confirmDelete() {
-        return MessageDisplayer.confirmYesNo(
-            null,
-            "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
-            GUI.getThumbnailsPanel().getSelectionCount());
+        return MessageDisplayer.confirmYesNo(null,
+                "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
+                GUI.getThumbnailsPanel().getSelectionCount());
     }
 
-    private void errorMessageDeleteImageFiles(int countFiles,
-            int countDeleted) {
-        MessageDisplayer.error(
-            null,
-            "ControllerDeleteThumbnailsFromDatabase.Error.DeleteSelectedFiles",
-            countFiles, countDeleted);
+    private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
+        MessageDisplayer.error(null, "ControllerDeleteThumbnailsFromDatabase.Error.DeleteSelectedFiles", countFiles,
+                               countDeleted);
     }
 }

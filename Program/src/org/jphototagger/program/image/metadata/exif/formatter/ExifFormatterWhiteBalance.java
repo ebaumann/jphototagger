@@ -14,10 +14,8 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifFormatterWhiteBalance extends ExifFormatter {
-    public static final ExifFormatterWhiteBalance INSTANCE =
-        new ExifFormatterWhiteBalance();
-    private static final Map<Integer, String> EXIF_KEY_OF_WHITE_BALANCE =
-        new HashMap<Integer, String>();
+    public static final ExifFormatterWhiteBalance INSTANCE = new ExifFormatterWhiteBalance();
+    private static final Map<Integer, String> EXIF_KEY_OF_WHITE_BALANCE = new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_WHITE_BALANCE.put(0, "WhiteBalanceAutomatic");
@@ -35,13 +33,11 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.WHITE_BALANCE);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
             int value = es.value();
 
             if (EXIF_KEY_OF_WHITE_BALANCE.containsKey(value)) {
-                return translate(IfdType.EXIF,
-                                 EXIF_KEY_OF_WHITE_BALANCE.get(value));
+                return translate(IfdType.EXIF, EXIF_KEY_OF_WHITE_BALANCE.get(value));
             }
         }
 

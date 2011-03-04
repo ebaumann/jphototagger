@@ -74,22 +74,15 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
         if (panelThumbnails.isFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
 
-            GUI.getAppPanel().setStatusbarText(getPopupMessage(pick),
-                                               MessageLabel.MessageType.INFO,
-                                               1000);
+            GUI.getAppPanel().setStatusbarText(getPopupMessage(pick), MessageLabel.MessageType.INFO, 1000);
             addToCollection(pick
-                            ? ListModelImageCollections
-                                .NAME_IMAGE_COLLECTION_PICKED
-                            : ListModelImageCollections
-                                .NAME_IMAGE_COLLECTION_REJECTED, selFiles);
+                            ? ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED
+                            : ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED, selFiles);
 
-            if ((pick && isRejectCollection())
-                    || (!pick && isPickCollection())) {
+            if ((pick && isRejectCollection()) || (!pick && isPickCollection())) {
                 deleteFromCollection(pick
-                                     ? ListModelImageCollections
-                                         .NAME_IMAGE_COLLECTION_REJECTED
-                                     : ListModelImageCollections
-                                     .NAME_IMAGE_COLLECTION_PICKED, selFiles);
+                                     ? ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED
+                                     : ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED, selFiles);
                 panelThumbnails.remove(selFiles);
             }
         }
@@ -98,23 +91,19 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     private String getPopupMessage(boolean pick) {
         return pick
                ? JptBundle.INSTANCE.getString("ControllerPickReject.Info.Pick")
-               : JptBundle.INSTANCE.getString(
-                   "ControllerPickReject.Info.Reject");
+               : JptBundle.INSTANCE.getString("ControllerPickReject.Info.Reject");
     }
 
     private boolean isPickCollection() {
-        return isCollection(
-            ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED);
+        return isCollection(ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED);
     }
 
     private boolean isRejectCollection() {
-        return isCollection(
-            ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED);
+        return isCollection(ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED);
     }
 
     private boolean isCollection(String collection) {
-        if (!GUI.getThumbnailsPanel().getContent().equals(
-                Content.IMAGE_COLLECTION)) {
+        if (!GUI.getThumbnailsPanel().getContent().equals(Content.IMAGE_COLLECTION)) {
             return false;
         }
 

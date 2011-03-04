@@ -23,8 +23,7 @@ public final class RegexUtil {
      * @param pattern   pattern
      * @return All matching strings
      */
-    public static List<String> getMatches(Collection<String> strings,
-            String pattern) {
+    public static List<String> getMatches(Collection<String> strings, String pattern) {
         if (strings == null) {
             throw new NullPointerException("strings == null");
         }
@@ -57,8 +56,7 @@ public final class RegexUtil {
      *         is invalid (as long as the elements in the list of string
      *         patterns don't match)
      */
-    public static boolean containsMatch(Collection<String> patterns,
-            String string) {
+    public static boolean containsMatch(Collection<String> patterns, String string) {
         if (patterns == null) {
             throw new NullPointerException("patterns == null");
         }

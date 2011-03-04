@@ -13,8 +13,7 @@ import javax.swing.Action;
  * @author Elmar Baumann
  */
 public class ActionMap {
-    private final Map<Class<? extends Action>, Action> ACTION_OF =
-        new HashMap<Class<? extends Action>, Action>();
+    private final Map<Class<? extends Action>, Action> ACTION_OF = new HashMap<Class<? extends Action>, Action>();
 
     /**
      * Returns an action of a specific class.
@@ -63,13 +62,11 @@ public class ActionMap {
         ACTION_OF.put(action.getClass(), action);
     }
 
-    private synchronized Action createAction(
-            Class<? extends Action> actionClass) {
+    private synchronized Action createAction(Class<? extends Action> actionClass) {
         try {
             return actionClass.newInstance();
         } catch (Exception ex) {
-            Logger.getLogger(ActionMap.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(ActionMap.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

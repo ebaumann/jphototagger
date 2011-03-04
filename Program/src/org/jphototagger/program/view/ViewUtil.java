@@ -51,8 +51,7 @@ public class ViewUtil {
             Object o = path.getLastPathComponent();
 
             if (o instanceof DefaultMutableTreeNode) {
-                Object userObject =
-                    ((DefaultMutableTreeNode) o).getUserObject();
+                Object userObject = ((DefaultMutableTreeNode) o).getUserObject();
 
                 if (userObject instanceof File) {
                     return (File) userObject;
@@ -65,8 +64,7 @@ public class ViewUtil {
         return null;
     }
 
-    public static void setDisplayedMnemonicsToLabels(Container container,
-            Character... exclude) {
+    public static void setDisplayedMnemonicsToLabels(Container container, Character... exclude) {
         if (container == null) {
             throw new NullPointerException("container == null");
         }
@@ -75,17 +73,14 @@ public class ViewUtil {
             throw new NullPointerException("exclude == null");
         }
 
-        List<JLabel>    labels = ComponentUtil.getAllOf(container,
-                                     JLabel.class);
+        List<JLabel> labels = ComponentUtil.getAllOf(container, JLabel.class);
         List<Character> mnemonics = new ArrayList<Character>(labels.size());
-        final char      invalidMn = '\0';
+        final char invalidMn = '\0';
 
         Collections.addAll(mnemonics, exclude);
 
         for (JLabel label : labels) {
-            char mnemonic =
-                MnemonicUtil.getNotExistingMnemonicChar(label.getText(),
-                    mnemonics);
+            char mnemonic = MnemonicUtil.getNotExistingMnemonicChar(label.getText(), mnemonics);
 
             if (mnemonic != invalidMn) {
                 label.setDisplayedMnemonic(mnemonic);
@@ -101,17 +96,14 @@ public class ViewUtil {
      * @param  parent        can be null
      * @return               choosed file or null
      */
-    public static File chooseFile(String keyCurrentDir, FileFilter filter,
-                                  Component parent) {
+    public static File chooseFile(String keyCurrentDir, FileFilter filter, Component parent) {
         if (keyCurrentDir == null) {
             throw new NullPointerException("keyCurrentDir == null");
         }
 
-        String prevCurrentDir =
-            UserSettings.INSTANCE.getSettings().getString(keyCurrentDir);
+        String prevCurrentDir = UserSettings.INSTANCE.getSettings().getString(keyCurrentDir);
         File currentDir = new File(prevCurrentDir.isEmpty()
-                                   ? UserSettings.INSTANCE
-                                       .getSettingsDirectoryName()
+                                   ? UserSettings.INSTANCE.getSettingsDirectoryName()
                                    : prevCurrentDir);
         JFileChooser fc = new JFileChooser(currentDir);
 
@@ -128,8 +120,7 @@ public class ViewUtil {
         if (fc.showOpenDialog(parentComp) == JFileChooser.APPROVE_OPTION) {
             File selFile = fc.getSelectedFile();
 
-            UserSettings.INSTANCE.getSettings().set(selFile.getAbsolutePath(),
-                    keyCurrentDir);
+            UserSettings.INSTANCE.getSettings().set(selFile.getAbsolutePath(), keyCurrentDir);
 
             return selFile;
         }

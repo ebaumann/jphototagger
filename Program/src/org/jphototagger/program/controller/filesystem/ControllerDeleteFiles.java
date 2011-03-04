@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.controller.imagecollection
-    .ControllerDeleteFromImageCollection;
+import org.jphototagger.program.controller.imagecollection.ControllerDeleteFromImageCollection;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.helper.DeleteImageFiles;
 import org.jphototagger.program.resource.GUI;
@@ -29,23 +28,20 @@ import java.util.List;
  * @author Elmar Baumann
  * @see     ControllerDeleteFromImageCollection
  */
-public final class ControllerDeleteFiles
-        implements ActionListener, KeyListener {
+public final class ControllerDeleteFiles implements ActionListener, KeyListener {
     public ControllerDeleteFiles() {
         listen();
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemFileSystemDeleteFiles()
-            .addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemDeleteFiles().addActionListener(this);
         GUI.getThumbnailsPanel().addKeyListener(this);
     }
 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            if (GUI.getThumbnailsPanel().getContent().equals(
-                    Content.IMAGE_COLLECTION)) {
+            if (GUI.getThumbnailsPanel().getContent().equals(Content.IMAGE_COLLECTION)) {
                 return;
             }
 
@@ -61,8 +57,7 @@ public final class ControllerDeleteFiles
     private void delete() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        if ((tnPanel.isFileSelected())
-                && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
+        if ((tnPanel.isFileSelected()) && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -73,10 +68,8 @@ public final class ControllerDeleteFiles
     }
 
     private void deleteSelectedFiles() {
-        List<File> deletedImageFiles =
-            DeleteImageFiles.delete(GUI.getSelectedImageFiles(),
-                                    DeleteOption.CONFIRM_DELETE,
-                                    DeleteOption.MESSAGES_ON_FAILURES);
+        List<File> deletedImageFiles = DeleteImageFiles.delete(GUI.getSelectedImageFiles(),
+                                           DeleteOption.CONFIRM_DELETE, DeleteOption.MESSAGES_ON_FAILURES);
 
         if (!deletedImageFiles.isEmpty()) {
             DatabaseImageFiles.INSTANCE.delete(deletedImageFiles);

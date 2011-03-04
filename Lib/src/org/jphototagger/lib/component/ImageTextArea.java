@@ -25,10 +25,10 @@ import javax.swing.JTextArea;
  */
 public final class ImageTextArea extends JTextArea implements KeyListener {
     private static final long serialVersionUID = -3386009175292905714L;
-    private boolean           consumeEnter;
-    private Image             image;
-    private String            imagePath;
-    private boolean           paintImage;
+    private boolean consumeEnter;
+    private Image image;
+    private String imagePath;
+    private boolean paintImage;
 
     public ImageTextArea() {
         addKeyListener(this);
@@ -64,8 +64,8 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
         }
 
         this.imagePath = imagePath;
-        image          = IconUtil.getIconImage(imagePath);
-        paintImage     = image != null;
+        image = IconUtil.getIconImage(imagePath);
+        paintImage = image != null;
         setOpaque(false);
     }
 
@@ -75,8 +75,8 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
      * @param image image, can be null
      */
     public void setImage(Image image) {
-        paintImage     = image != null;
-        this.image     = image;
+        paintImage = image != null;
+        this.image = image;
         this.imagePath = null;
         setOpaque(false);
     }
@@ -89,12 +89,11 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
 
     private void drawImage(Graphics g) {
         if (paintImage) {
-            int imgHeight  = image.getHeight(this);
+            int imgHeight = image.getHeight(this);
             int thisHeight = getHeight();
-            int imgY       = (imgHeight >= thisHeight)
-                             ? 0
-                             : (int) (((double) (thisHeight - imgHeight)) / 2.0
-                                      + 0.5);
+            int imgY = (imgHeight >= thisHeight)
+                       ? 0
+                       : (int) (((double) (thisHeight - imgHeight)) / 2.0 + 0.5);
 
             g.drawImage(image, 0, imgY, this);
         }
@@ -108,8 +107,7 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent evt) {
-        paintImage = (getDocument().getLength() <= 0)
-                     && (evt.getKeyChar() < 20);
+        paintImage = (getDocument().getLength() <= 0) && (evt.getKeyChar() < 20);
         setOpaque(!paintImage);
     }
 
@@ -121,8 +119,7 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
 
     @Override
     protected void processComponentKeyEvent(KeyEvent evt) {
-        if (consumeEnter && (evt.getID() == KeyEvent.KEY_PRESSED)
-                && (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+        if (consumeEnter && (evt.getID() == KeyEvent.KEY_PRESSED) && (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
             evt.consume();
         } else {
             super.processComponentKeyEvent(evt);

@@ -39,8 +39,7 @@ public final class NetVersion {
      *                                   4 integer numbers
      */
     public static Version getOverHttp(String httpUrl, String versionDelimiter)
-            throws MalformedURLException, IOException, NumberFormatException,
-                   IllegalArgumentException {
+            throws MalformedURLException, IOException, NumberFormatException, IllegalArgumentException {
         if (httpUrl == null) {
             throw new NullPointerException("httpUrl == null");
         }
@@ -49,13 +48,13 @@ public final class NetVersion {
             throw new NullPointerException("versionDelimiter == null");
         }
 
-        URL                   url = new URL(httpUrl);
-        ByteArrayOutputStream os  = new ByteArrayOutputStream(10 * 1024);
+        URL url = new URL(httpUrl);
+        ByteArrayOutputStream os = new ByteArrayOutputStream(10 * 1024);
 
         HttpUtil.write(url, os, null);
 
-        String content    = os.toString();
-        int    beginIndex = content.indexOf("<span class=\"version\">");
+        String content = os.toString();
+        int beginIndex = content.indexOf("<span class=\"version\">");
 
         if (beginIndex >= 0) {
             int endIndex = content.indexOf("</span>", beginIndex + 1);

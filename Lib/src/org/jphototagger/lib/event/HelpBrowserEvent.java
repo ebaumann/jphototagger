@@ -13,8 +13,8 @@ import java.net.URL;
  */
 public final class HelpBrowserEvent {
     private final Object source;
-    private final Type   type;
-    private final URL    url;
+    private final Type type;
+    private final URL url;
 
     public HelpBrowserEvent(Object source, Type type, URL url) {
         if (source == null) {
@@ -30,8 +30,8 @@ public final class HelpBrowserEvent {
         }
 
         this.source = source;
-        this.type   = type;
-        this.url    = url;
+        this.type = type;
+        this.url = url;
     }
 
     public enum Type {

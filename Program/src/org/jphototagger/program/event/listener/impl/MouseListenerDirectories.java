@@ -1,8 +1,8 @@
 package org.jphototagger.program.event.listener.impl;
 
-import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 
 import java.awt.event.MouseEvent;
 
@@ -20,8 +20,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class MouseListenerDirectories extends MouseListenerTree {
-    private final PopupMenuDirectories popupMenu =
-        PopupMenuDirectories.INSTANCE;
+    private final PopupMenuDirectories popupMenu = PopupMenuDirectories.INSTANCE;
 
     public MouseListenerDirectories() {
         listenExpandAllSubItems(popupMenu.getItemExpandAllSubitems(), true);
@@ -43,9 +42,7 @@ public final class MouseListenerDirectories extends MouseListenerTree {
                 Object lastPathComponent = path.getLastPathComponent();
 
                 if (lastPathComponent instanceof DefaultMutableTreeNode) {
-                    Object usrOb =
-                        ((DefaultMutableTreeNode) lastPathComponent)
-                            .getUserObject();
+                    Object usrOb = ((DefaultMutableTreeNode) lastPathComponent).getUserObject();
 
                     if (usrOb instanceof File) {
                         File dir = (File) usrOb;

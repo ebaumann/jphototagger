@@ -24,10 +24,8 @@ import javax.swing.text.JTextComponent;
  *
  * @author Elmar Baumann
  */
-public final class InputVerifierNumber extends InputVerifier
-        implements Serializable {
-    public static final InputVerifierNumber INSTANCE =
-        new InputVerifierNumber();
+public final class InputVerifierNumber extends InputVerifier implements Serializable {
+    public static final InputVerifierNumber INSTANCE = new InputVerifierNumber();
     private static final long serialVersionUID = -7544590339781154133L;
 
     private InputVerifierNumber() {}
@@ -52,25 +50,22 @@ public final class InputVerifierNumber extends InputVerifier
     }
 
     private void errorMessage() throws HeadlessException {
-        JOptionPane
-            .showMessageDialog(ComponentUtil.getFrameWithIcon(), JslBundle
-                .INSTANCE.getString("InputVerifierNumber.Error.NaN"), JslBundle
-                .INSTANCE
-                .getString("InputVerifierNumber.Error.NaN.Title"), JOptionPane
-                .ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
+                                      JslBundle.INSTANCE.getString("InputVerifierNumber.Error.NaN"),
+                                      JslBundle.INSTANCE.getString("InputVerifierNumber.Error.NaN.Title"),
+                                      JOptionPane.ERROR_MESSAGE);
     }
 
     private boolean isValid(JTextComponent textComponent) {
-        String       text = textComponent.getText().trim();
-        NumberFormat nf   = NumberFormat.getInstance();
+        String text = textComponent.getText().trim();
+        NumberFormat nf = NumberFormat.getInstance();
 
         try {
             nf.parse(text);
 
             return true;
         } catch (ParseException ex) {
-            Logger.getLogger(InputVerifierNumber.class.getName()).log(
-                Level.FINEST, ex.toString());
+            Logger.getLogger(InputVerifierNumber.class.getName()).log(Level.FINEST, ex.toString());
         }
 
         return false;

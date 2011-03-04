@@ -24,8 +24,7 @@ import java.util.List;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailsPanelPersistence
-        implements ThumbnailsPanelListener, AppExitListener {
+public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPanelListener, AppExitListener {
     private static final String KEY_SELECTED_FILES =
         "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
     private static final String KEY_SORT =
@@ -33,7 +32,7 @@ public final class ControllerThumbnailsPanelPersistence
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
         "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private volatile boolean propertiesRead;
-    private List<File>       persistentSelectedFiles = new ArrayList<File>();
+    private List<File> persistentSelectedFiles = new ArrayList<File>();
 
     public ControllerThumbnailsPanelPersistence() {
         listen();
@@ -75,14 +74,13 @@ public final class ControllerThumbnailsPanelPersistence
 
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringCollection(
-            FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()),
-            KEY_SELECTED_FILES);
+            FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()), KEY_SELECTED_FILES);
         UserSettings.INSTANCE.writeToFile();
     }
 
     private void readSelectedFilesFromProperties() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-        List<Integer>   indices = new ArrayList<Integer>();
+        List<Integer> indices = new ArrayList<Integer>();
 
         for (File file : persistentSelectedFiles) {
             int index = tnPanel.getIndexOf(file);
@@ -96,9 +94,8 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void readProperties() {
-        persistentSelectedFiles = FileUtil.getAsFiles(
-            UserSettings.INSTANCE.getSettings().getStringCollection(
-                KEY_SELECTED_FILES));
+        persistentSelectedFiles =
+            FileUtil.getAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 
@@ -111,8 +108,7 @@ public final class ControllerThumbnailsPanelPersistence
         Class<?> sortClass = cmp.getClass();
 
         if (!sortClass.equals(ComparatorFilesNoSort.class)) {
-            UserSettings.INSTANCE.getSettings().set(sortClass.getName(),
-                    KEY_SORT);
+            UserSettings.INSTANCE.getSettings().set(sortClass.getName(), KEY_SORT);
         }
     }
 
@@ -126,14 +122,11 @@ public final class ControllerThumbnailsPanelPersistence
     public static Comparator<File> getFileSortComparator() {
         if (UserSettings.INSTANCE.getProperties().containsKey(KEY_SORT)) {
             try {
-                String className =
-                    UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
+                String className = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
 
-                return (Comparator<File>) Class.forName(
-                    className).newInstance();
+                return (Comparator<File>) Class.forName(className).newInstance();
             } catch (Exception ex) {
-                AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class,
-                                    ex);
+                AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
             }
         }
 
@@ -170,9 +163,8 @@ public final class ControllerThumbnailsPanelPersistence
     }
 
     private void writeViewportViewPositionToProperties() {
-        UserSettings.INSTANCE.getSettings().set(
-            GUI.getAppPanel().getScrollPaneThumbnailsPanel(),
-            KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
+        UserSettings.INSTANCE.getSettings().set(GUI.getAppPanel().getScrollPaneThumbnailsPanel(),
+                KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
         UserSettings.INSTANCE.writeToFile();
     }
 }

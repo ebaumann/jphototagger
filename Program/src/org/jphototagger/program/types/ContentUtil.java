@@ -9,8 +9,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ContentUtil {
-    private static final List<Content> CONTENT_IS_A_FILESYSTEM_DIRECTORY =
-        new ArrayList<Content>();
+    private static final List<Content> CONTENT_IS_A_FILESYSTEM_DIRECTORY = new ArrayList<Content>();
 
     static {
         CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(Content.DIRECTORY);

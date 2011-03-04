@@ -25,8 +25,7 @@ import javax.swing.JMenuItem;
  *
  * @author Elmar Baumann
  */
-public final class ControllerCopyPasteMetadata
-        implements ActionListener, KeyListener, ThumbnailsPanelListener {
+public final class ControllerCopyPasteMetadata implements ActionListener, KeyListener, ThumbnailsPanelListener {
     private Xmp xmp;
 
     public ControllerCopyPasteMetadata() {
@@ -52,8 +51,7 @@ public final class ControllerCopyPasteMetadata
     public void keyPressed(KeyEvent evt) {
         if (KeyEventUtil.isMenuShortcutWithShiftDown(evt, KeyEvent.VK_C)) {
             copy();
-        } else if (KeyEventUtil.isMenuShortcutWithShiftDown(evt,
-                KeyEvent.VK_V)) {
+        } else if (KeyEventUtil.isMenuShortcutWithShiftDown(evt, KeyEvent.VK_V)) {
             paste();
         }
     }
@@ -77,8 +75,7 @@ public final class ControllerCopyPasteMetadata
             return;
         }
 
-        EditMetadataPanels editPanel =
-            GUI.getAppPanel().getEditMetadataPanels();
+        EditMetadataPanels editPanel = GUI.getAppPanel().getEditMetadataPanels();
 
         if (!checkSelected() ||!checkCanEdit(editPanel)) {
             return;
@@ -93,8 +90,7 @@ public final class ControllerCopyPasteMetadata
         int selCount = GUI.getThumbnailsPanel().getSelectionCount();
 
         if (selCount <= 0) {
-            MessageDisplayer.error(
-                null, "ControllerCopyPasteMetadata.Error.NoSelection");
+            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NoSelection");
 
             return false;
         }
@@ -104,8 +100,7 @@ public final class ControllerCopyPasteMetadata
 
     private boolean checkCanEdit(EditMetadataPanels editPanel) {
         if (!editPanel.isEditable()) {
-            MessageDisplayer.error(
-                null, "ControllerCopyPasteMetadata.Error.NotEditable");
+            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NotEditable");
 
             return false;
         }
@@ -118,8 +113,7 @@ public final class ControllerCopyPasteMetadata
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                getCopyItem().setEnabled(
-                    GUI.getThumbnailsPanel().isFileSelected());
+                getCopyItem().setEnabled(GUI.getThumbnailsPanel().isFileSelected());
             }
         });
     }

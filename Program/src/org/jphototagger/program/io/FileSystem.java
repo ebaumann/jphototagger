@@ -15,10 +15,8 @@ import java.io.File;
  * @author Elmar Baumann
  */
 public class FileSystem {
-    private final FileSystemListenerSupport fsListenerSupport =
-        new FileSystemListenerSupport();
-    private final ProgressListenerSupport pListenerSupport =
-        new ProgressListenerSupport();
+    private final FileSystemListenerSupport fsListenerSupport = new FileSystemListenerSupport();
+    private final ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
 
     protected FileSystem() {}
 
@@ -86,8 +84,7 @@ public class FileSystem {
         fsListenerSupport.notifyMoved(src, target);
     }
 
-    protected void notifyFileSystemListenersRenamed(File fromFile,
-            File toFile) {
+    protected void notifyFileSystemListenersRenamed(File fromFile, File toFile) {
         if (fromFile == null) {
             throw new NullPointerException("fromFile == null");
         }

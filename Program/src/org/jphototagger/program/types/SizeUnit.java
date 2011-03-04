@@ -6,14 +6,13 @@ package org.jphototagger.program.types;
  * @author Elmar Baumann
  */
 public enum SizeUnit {
-    BYTE(1, "B"), KILO_BYTE(1024, "KB"), MEGA_BYTE(1024 * 1024, "MB"),
-    GIGA_BYTE(1024 * 1024 * 1024, "GB");
+    BYTE(1, "B"), KILO_BYTE(1024, "KB"), MEGA_BYTE(1024 * 1024, "MB"), GIGA_BYTE(1024 * 1024 * 1024, "GB");
 
-    private final long   bytes;
+    private final long bytes;
     private final String string;
 
     private SizeUnit(long bytes, String string) {
-        this.bytes  = bytes;
+        this.bytes = bytes;
         this.string = string;
     }
 

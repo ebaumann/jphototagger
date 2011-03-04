@@ -6,7 +6,7 @@ package org.jphototagger.program.database.metadata.selections;
  * @author Elmar Baumann
  */
 public final class EditHints {
-    private final boolean       repeatable;
+    private final boolean repeatable;
     private final SizeEditField sizeEditField;
 
     /**
@@ -41,7 +41,7 @@ public final class EditHints {
             throw new NullPointerException("sizeEditField == null");
         }
 
-        this.repeatable    = repeatable;
+        this.repeatable = repeatable;
         this.sizeEditField = sizeEditField;
     }
 

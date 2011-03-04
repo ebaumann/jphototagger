@@ -5,8 +5,7 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.exporter.SavedSearchesExporter;
-import org.jphototagger.program.exporter.SavedSearchesExporter
-    .CollectionWrapper;
+import org.jphototagger.program.exporter.SavedSearchesExporter.CollectionWrapper;
 
 import java.io.File;
 
@@ -19,8 +18,7 @@ import javax.swing.Icon;
  * @author Elmar Baumann
  */
 public final class SavedSearchesImporter implements Importer {
-    public static final SavedSearchesImporter INSTANCE =
-        new SavedSearchesImporter();
+    public static final SavedSearchesImporter INSTANCE = new SavedSearchesImporter();
 
     @Override
     public void importFile(File file) {
@@ -29,14 +27,11 @@ public final class SavedSearchesImporter implements Importer {
         }
 
         try {
-            SavedSearchesExporter.CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
-                    SavedSearchesExporter.CollectionWrapper.class);
+            SavedSearchesExporter.CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
+                                                                  SavedSearchesExporter.CollectionWrapper.class);
 
             for (SavedSearch savedSearch : wrapper.getCollection()) {
-                if (savedSearch.isValid()
-                        &&!DatabaseSavedSearches.INSTANCE.exists(
-                            savedSearch.getName())) {
+                if (savedSearch.isValid() &&!DatabaseSavedSearches.INSTANCE.exists(savedSearch.getName())) {
                     DatabaseSavedSearches.INSTANCE.insert(savedSearch);
                 }
             }

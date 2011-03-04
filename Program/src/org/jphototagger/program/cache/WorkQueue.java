@@ -26,7 +26,7 @@ public class WorkQueue<E> {
         }
 
         queue.remove(e);    // maybe remove ...
-        queue.push(e);      // and insert at head again
+        queue.push(e);    // and insert at head again
         notify();
     }
 

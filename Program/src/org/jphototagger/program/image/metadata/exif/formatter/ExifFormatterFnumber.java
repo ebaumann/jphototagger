@@ -14,8 +14,7 @@ import java.text.NumberFormat;
  * @author Elmar Baumann
  */
 public final class ExifFormatterFnumber extends ExifFormatter {
-    public static final ExifFormatterFnumber INSTANCE =
-        new ExifFormatterFnumber();
+    public static final ExifFormatterFnumber INSTANCE = new ExifFormatterFnumber();
 
     private ExifFormatterFnumber() {}
 
@@ -28,8 +27,7 @@ public final class ExifFormatterFnumber extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.F_NUMBER);
 
         if (ExifRational.byteCount() == exifTag.rawValue().length) {
-            ExifRational fNumer = new ExifRational(exifTag.rawValue(),
-                                      exifTag.byteOrder());
+            ExifRational fNumer = new ExifRational(exifTag.rawValue(), exifTag.byteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.#");

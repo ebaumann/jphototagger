@@ -19,13 +19,11 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 final class Support {
-    private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS =
-        new HashMap<Class<?>, List<Object>>();
+    private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS = new HashMap<Class<?>, List<Object>>();
 
     @SuppressWarnings("unchecked")
     synchronized <T> List<T> getAll(Class<T> clazz) {
-        return Collections.unmodifiableList(
-            (List<T>) OBJECT_INSTANCES_OF_CLASS.get(clazz));
+        return Collections.unmodifiableList((List<T>) OBJECT_INSTANCES_OF_CLASS.get(clazz));
     }
 
     @SuppressWarnings("unchecked")
@@ -38,8 +36,7 @@ final class Support {
     }
 
     synchronized void add(Object instance) {
-        List<Object> instances =
-            OBJECT_INSTANCES_OF_CLASS.get(instance.getClass());
+        List<Object> instances = OBJECT_INSTANCES_OF_CLASS.get(instance.getClass());
 
         if (instances == null) {
             instances = new ArrayList<Object>();
@@ -53,9 +50,8 @@ final class Support {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GUI.getAppPanel().setStatusbarText(
-                    JptBundle.INSTANCE.getString(propertyKey),
-                    MessageLabel.MessageType.INFO, 2000);
+                GUI.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString(propertyKey),
+                                                   MessageLabel.MessageType.INFO, 2000);
             }
         });
     }
@@ -70,9 +66,7 @@ final class Support {
      */
     static boolean checkInit(Class<?> c, boolean init) {
         if (init) {
-            AppLogger.logWarning(Support.class,
-                                 "Support.Error.InitCalledMoreThanOneTimes",
-                                 c.getName());
+            AppLogger.logWarning(Support.class, "Support.Error.InitCalledMoreThanOneTimes", c.getName());
 
             return false;
         }

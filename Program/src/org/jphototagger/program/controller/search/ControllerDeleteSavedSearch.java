@@ -2,6 +2,7 @@ package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.helper.SavedSearchesHelper;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 
 import java.awt.event.ActionEvent;
@@ -10,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Deletes a saved search when the
@@ -22,8 +22,7 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerDeleteSavedSearch
-        implements ActionListener, KeyListener {
+public final class ControllerDeleteSavedSearch implements ActionListener, KeyListener {
     public ControllerDeleteSavedSearch() {
         listen();
     }
@@ -37,8 +36,7 @@ public final class ControllerDeleteSavedSearch
     public void keyPressed(KeyEvent evt) {
         JList list = GUI.getSavedSearchesList();
 
-        if ((evt.getKeyCode() == KeyEvent.VK_DELETE)
-                &&!list.isSelectionEmpty()) {
+        if ((evt.getKeyCode() == KeyEvent.VK_DELETE) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
 
             if (value instanceof SavedSearch) {

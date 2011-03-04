@@ -5,6 +5,7 @@ import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.resource.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -14,15 +15,13 @@ import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
-import org.jphototagger.program.resource.GUI;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public abstract class ControllerMiscMetadata extends Controller
-        implements PopupMenuTree.Listener {
+public abstract class ControllerMiscMetadata extends Controller implements PopupMenuTree.Listener {
     protected ControllerMiscMetadata() {
         listenToKeyEventsOf(GUI.getMiscMetadataTree());
     }
@@ -60,12 +59,10 @@ public abstract class ControllerMiscMetadata extends Controller
             throw new NullPointerException("evt == null");
         }
 
-        TreePath[] selPaths =
-            GUI.getMiscMetadataTree().getSelectionPaths();
+        TreePath[] selPaths = GUI.getMiscMetadataTree().getSelectionPaths();
 
         if (selPaths != null) {
-            action(MiscMetadataHelper.getColValuesFrom(
-                Arrays.asList(selPaths)));
+            action(MiscMetadataHelper.getColValuesFrom(Arrays.asList(selPaths)));
         }
     }
 }

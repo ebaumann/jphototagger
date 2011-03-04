@@ -1,6 +1,5 @@
 package org.jphototagger.program.tasks;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -14,10 +13,11 @@ import org.jphototagger.program.view.dialogs.SettingsDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EnumMap;
+import java.awt.EventQueue;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.EnumMap;
 import java.util.Map;
 
 import javax.swing.Icon;
@@ -31,19 +31,15 @@ import javax.swing.JButton;
  *
  * @author Elmar Baumann
  */
-public final class ScheduledTasks
-        implements ActionListener, UpdateMetadataCheckListener {
-    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE =
-        new EnumMap<ButtonState, Icon>(ButtonState.class);
-    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE =
-        new EnumMap<ButtonState, String>(ButtonState.class);
+public final class ScheduledTasks implements ActionListener, UpdateMetadataCheckListener {
+    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE = new EnumMap<ButtonState,
+                                                                           Icon>(ButtonState.class);
+    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE = new EnumMap<ButtonState,
+                                                                                     String>(ButtonState.class);
     public static final ScheduledTasks INSTANCE = new ScheduledTasks();
-    private final SerialExecutor       executor =
-        new SerialExecutor(Executors.newCachedThreadPool());
-    private final JButton button =
-        SettingsDialog.INSTANCE.getButtonScheduledTasks();
-    private final long MINUTES_WAIT_BEFORE_PERFORM =
-        UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
+    private final SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
+    private final JButton button = SettingsDialog.INSTANCE.getButtonScheduledTasks();
+    private final long MINUTES_WAIT_BEFORE_PERFORM = UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
     private volatile boolean isRunning;
     private volatile boolean runnedManual;
 
@@ -55,15 +51,12 @@ public final class ScheduledTasks
     }
 
     private static void init() {
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(
-            ButtonState.START,
-            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(
-            ButtonState.CANCEL,
-            JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Cancel"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START,
+                                         JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.CANCEL,
+                                         JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Cancel"));
         ICON_OF_BUTTON_STATE.put(ButtonState.START, AppLookAndFeel.ICON_START);
-        ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL,
-                                 AppLookAndFeel.ICON_CANCEL);
+        ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL, AppLookAndFeel.ICON_CANCEL);
     }
 
     /**
@@ -125,8 +118,7 @@ public final class ScheduledTasks
         new Thread(new Runnable() {
             @Override
             public void run() {
-                InsertImageFilesIntoDatabase inserter =
-                    ScheduledTaskInsertImageFilesIntoDatabase.getThread();
+                InsertImageFilesIntoDatabase inserter = ScheduledTaskInsertImageFilesIntoDatabase.getThread();
 
                 if (inserter != null) {
                     inserter.addUpdateMetadataCheckListener(INSTANCE);
@@ -166,12 +158,11 @@ public final class ScheduledTasks
 
     private void setButtonState(final ButtonState state) {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-        button.setIcon(ICON_OF_BUTTON_STATE.get(state));
-        button.setToolTipText(TOOLTIP_TEXT_OF_BUTTON_STATE.get(state));
-    }
+                button.setIcon(ICON_OF_BUTTON_STATE.get(state));
+                button.setToolTipText(TOOLTIP_TEXT_OF_BUTTON_STATE.get(state));
+            }
         });
-}
+    }
 }

@@ -27,8 +27,7 @@ public final class Cleanup {
         AutomaticTask.INSTANCE.cancelCurrentTask();
         UserTasks.INSTANCE.cancelCurrentTasks();
 
-        boolean sleep = (ScheduledTasks.INSTANCE.getCount() > 0)
-                        || (UserTasks.INSTANCE.getCount() > 0);
+        boolean sleep = (ScheduledTasks.INSTANCE.getCount() > 0) || (UserTasks.INSTANCE.getCount() > 0);
 
         if (sleep) {
             sleep();

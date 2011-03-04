@@ -33,16 +33,12 @@ public final class IptcMetadata {
 
         if ((imageFile != null) && imageFile.exists()) {
             try {
-                AppLogger.logInfo(IptcMetadata.class,
-                                  "IptcMetadata.Info.GetMetadata", imageFile);
+                AppLogger.logInfo(IptcMetadata.class, "IptcMetadata.Info.GetMetadata", imageFile);
 
-                IPTCEntryCollection collection =
-                    MetadataUtils.getIPTC(imageFile);
+                IPTCEntryCollection collection = MetadataUtils.getIPTC(imageFile);
 
                 if (collection != null) {
-                    addEntries(
-                        collection.getEntries(
-                            IPTCConstants.RECORD_APPLICATION), metadata);
+                    addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
                 }
             } catch (Exception ex) {
                 AppLogger.logSevere(IptcMetadata.class, ex);
@@ -52,8 +48,7 @@ public final class IptcMetadata {
         return metadata;
     }
 
-    private static void addEntries(IPTCEntry[][] entries,
-                                   List<IptcEntry> metadata) {
+    private static void addEntries(IPTCEntry[][] entries, List<IptcEntry> metadata) {
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 addEntries(entries[i], metadata);
@@ -61,8 +56,7 @@ public final class IptcMetadata {
         }
     }
 
-    private static void addEntries(IPTCEntry[] entries,
-                                   List<IptcEntry> metadata) {
+    private static void addEntries(IPTCEntry[] entries, List<IptcEntry> metadata) {
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 IPTCEntry currentEntry = entries[i];
@@ -83,8 +77,7 @@ public final class IptcMetadata {
     }
 
     private static boolean isVersionInfo(IPTCEntry entry) {
-        return (entry.getRecordNumber() == 2)
-               && (entry.getDataSetNumber() == 0);
+        return (entry.getRecordNumber() == 2) && (entry.getDataSetNumber() == 0);
     }
 
     /**
@@ -94,11 +87,11 @@ public final class IptcMetadata {
      * @param  filter  filter
      * @return         filtered entries
      */
-    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries,
-            IPTCEntryMeta filter) {
+    public static List<IptcEntry> getFilteredEntries(List<IptcEntry> entries, IPTCEntryMeta filter) {
         if (entries == null) {
             throw new NullPointerException("entries == null");
         }
+
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
@@ -122,7 +115,7 @@ public final class IptcMetadata {
      *                   IPTC metadata or when errors occur
      */
     public static Iptc getIptc(File imageFile) {
-        Iptc            iptc        = null;
+        Iptc iptc = null;
         List<IptcEntry> iptcEntries = getIptcEntries(imageFile);
 
         if (iptcEntries.size() > 0) {

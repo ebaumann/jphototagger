@@ -22,8 +22,7 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
     }
 
     private void listen() {
-        GUI.getAppFrame().getMenuItemExtractEmbeddedXmp()
-            .addActionListener(this);
+        GUI.getAppFrame().getMenuItemExtractEmbeddedXmp().addActionListener(this);
     }
 
     @Override
@@ -32,21 +31,15 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
     }
 
     private void showDialog() {
-        FileEditorDialog dlg   = new FileEditorDialog();
-        FileEditorPanel  panel = dlg.getFileEditorPanel();
+        FileEditorDialog dlg = new FileEditorDialog();
+        FileEditorPanel panel = dlg.getFileEditorPanel();
 
         panel.setEditor(new ExtractEmbeddedXmp());
-        panel.setTitle(
-            JptBundle.INSTANCE.getString(
-                "ControllerExtractEmbeddedXmp.Panel.Title"));
-        panel.setDescription(
-            JptBundle.INSTANCE.getString(
-                "ControllerExtractEmbeddedXmp.Panel.Description"));
-        panel.setDirChooserFileFilter(
-            AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
+        panel.setTitle(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Title"));
+        panel.setDescription(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Description"));
+        panel.setDirChooserFileFilter(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
         panel.setSelectDirs(true);
-        dlg.setHelpPageUrl(
-            JptBundle.INSTANCE.getString("Help.Url.ExtractEmbeddedXmp"));
+        dlg.setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ExtractEmbeddedXmp"));
         dlg.setVisible(true);
     }
 }

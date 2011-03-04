@@ -12,13 +12,11 @@ import java.util.Comparator;
  *
  * @author Elmar Baumann
  */
-public final class ComparatorFilesPathsAscCs extends ClassEquality
-        implements Comparator<File>, Serializable {
+public final class ComparatorFilesPathsAscCs extends ClassEquality implements Comparator<File>, Serializable {
     private static final long serialVersionUID = 8731853438844814710L;
 
     @Override
     public int compare(File leftFile, File rightFile) {
-        return leftFile.getAbsolutePath().compareTo(
-            rightFile.getAbsolutePath());
+        return leftFile.getAbsolutePath().compareTo(rightFile.getAbsolutePath());
     }
 }

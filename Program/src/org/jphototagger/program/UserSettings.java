@@ -37,25 +37,16 @@ public final class UserSettings {
 
     // When changing see comment for AppInfo.PROJECT_NAME
     private static final String DOMAIN_NAME = "de.elmar_baumann";
-    private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES =
-        "UserSettings.IsAcceptHiddenDirectories";
-    private static final String KEY_AUTO_DOWNLOAD_NEWER_VERSIONS =
-        "UserSettings.AutoDownloadNewerVersions";
-    private static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES =
-        "UserSettings.IsAutoscanIncludeSubdirectories";
-    private static final String KEY_DATABASE_BACKUP_DIRECTORY =
-        "UserSettings.DatabaseBackupDirectoryName";
-    private static final String KEY_DATABASE_BACKUP_INTERVAL =
-        "UserSettings.DbBackupInterval";
-    private static final String KEY_DATABASE_DIRECTORY =
-        "UserSettings.DatabaseDirectoryName";
-    private static final String KEY_DATABASE_SCHEDULED_BACKUP =
-        "UserSettings.DbScheduledBackup";
+    private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
+    private static final String KEY_AUTO_DOWNLOAD_NEWER_VERSIONS = "UserSettings.AutoDownloadNewerVersions";
+    private static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
+    private static final String KEY_DATABASE_BACKUP_DIRECTORY = "UserSettings.DatabaseBackupDirectoryName";
+    private static final String KEY_DATABASE_BACKUP_INTERVAL = "UserSettings.DbBackupInterval";
+    private static final String KEY_DATABASE_DIRECTORY = "UserSettings.DatabaseDirectoryName";
+    private static final String KEY_DATABASE_SCHEDULED_BACKUP = "UserSettings.DbScheduledBackup";
     private static final String KEY_DISPLAY_IPTC = "UserSettings.DisplayIptc";
-    private static final String KEY_DISPLAY_SEARCH_BUTTON =
-        "UserSettings.DisplaySearchButton";
-    private static final String KEY_ENABLE_AUTOCOMPLETE =
-        "UserSettings.EnableAutoComplete";
+    private static final String KEY_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
+    private static final String KEY_ENABLE_AUTOCOMPLETE = "UserSettings.EnableAutoComplete";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS =
         "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP =
@@ -66,26 +57,16 @@ public final class UserSettings {
     private static final String KEY_LOG_LEVEL = "UserSettings.LogLevel";
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
         "UserSettings.MaximumSecondsToTerminateExternalPrograms";
-    private static final String KEY_MAX_THUMBNAIL_WIDTH =
-        "UserSettings.MaxThumbnailWidth";
-    private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS =
-        "UserSettings.MinutesToStartScheduledTasks";
-    private static final String KEY_OPTIONS_COPY_MOVE_FILES =
-        "UserSettings.CopyMoveFiles";
-    private static final String KEY_SAVE_INPUT_EARLY =
-        "UserSettings.SaveInputEarly";
-    private static final String KEY_SCAN_FOR_EMBEDDED_XMP =
-        "UserSettings.ScanForEmbeddedXmp";
-    private static final String KEY_THUMBNAIL_CREATOR =
-        "UserSettings.ThumbnailCreator";
-    private static final String KEY_UPDATE_AUTOCOMPLETE =
-        "UserSettings.UpdateAutocomplete";
-    private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT =
-        "UserSettings.AddFilenameToGpsLocationExport";
-    private static final String KEY_EXPERIMENTAL_FILE_FORMATS =
-            "UserSettings.ExperimentalFileFormats";
-    private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE =
-            "UserSettings.Autocomplete.IgnoreCase";
+    private static final String KEY_MAX_THUMBNAIL_WIDTH = "UserSettings.MaxThumbnailWidth";
+    private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
+    private static final String KEY_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
+    private static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
+    private static final String KEY_SCAN_FOR_EMBEDDED_XMP = "UserSettings.ScanForEmbeddedXmp";
+    private static final String KEY_THUMBNAIL_CREATOR = "UserSettings.ThumbnailCreator";
+    private static final String KEY_UPDATE_AUTOCOMPLETE = "UserSettings.UpdateAutocomplete";
+    private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
+    private static final String KEY_EXPERIMENTAL_FILE_FORMATS = "UserSettings.ExperimentalFileFormats";
+    private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
     public static final int MIN_THUMBNAIL_WIDTH = 50;
     public static final int MAX_THUMBNAIL_WIDTH = 400;
     public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
@@ -98,15 +79,12 @@ public final class UserSettings {
         new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
 
     /** Field description */
-    public static final UserSettings INSTANCE   = new UserSettings();
-    private final Properties         properties = new Properties();
-    private final PropertiesFile     propertiesFile =
-        new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME,
-                           PROPERTIES_FILENAME, properties);
-    private final Settings                    settings =
-        new Settings(properties);
-    private final UserSettingsListenerSupport listenerSupport =
-        new UserSettingsListenerSupport();
+    public static final UserSettings INSTANCE = new UserSettings();
+    private final Properties properties = new Properties();
+    private final PropertiesFile propertiesFile = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME,
+                                                      PROPERTIES_FILENAME, properties);
+    private final Settings settings = new Settings(properties);
+    private final UserSettingsListenerSupport listenerSupport = new UserSettingsListenerSupport();
 
     private UserSettings() {
         propertiesFile.readFromFile();
@@ -247,14 +225,11 @@ public final class UserSettings {
             throw new NullPointerException("name == null");
         }
 
-        assert name.equals(Filename.FULL_PATH)
-               || name.equals(Filename.FULL_PATH_NO_SUFFIX) :
-               name;
+        assert name.equals(Filename.FULL_PATH) || name.equals(Filename.FULL_PATH_NO_SUFFIX) : name;
 
-        return getDatabaseDirectoryName() + File.separator
-               + getDatabaseBasename() + (name.equals(Filename.FULL_PATH)
-                                          ? ".data"
-                                          : "");
+        return getDatabaseDirectoryName() + File.separator + getDatabaseBasename() + (name.equals(Filename.FULL_PATH)
+                ? ".data"
+                : "");
     }
 
     /**
@@ -276,8 +251,7 @@ public final class UserSettings {
      * @return directory name
      */
     public String getThumbnailsDirectoryName() {
-        return getDatabaseDirectoryName() + File.separator
-               + getThumbnailDirBasename();
+        return getDatabaseDirectoryName() + File.separator + getThumbnailDirBasename();
     }
 
     /**
@@ -339,8 +313,7 @@ public final class UserSettings {
      */
     public ThumbnailCreator getThumbnailCreator() {
         return properties.containsKey(KEY_THUMBNAIL_CREATOR)
-               ? ThumbnailCreator.valueOf(
-                   properties.getProperty(KEY_THUMBNAIL_CREATOR))
+               ? ThumbnailCreator.valueOf(properties.getProperty(KEY_THUMBNAIL_CREATOR))
                : ThumbnailCreator.JAVA_IMAGE_IO;
     }
 
@@ -478,8 +451,7 @@ public final class UserSettings {
      */
     public CopyFiles.Options getCopyMoveFilesOptions() {
         return properties.containsKey(KEY_OPTIONS_COPY_MOVE_FILES)
-               ? CopyFiles.Options.fromInt(
-                   settings.getInt(KEY_OPTIONS_COPY_MOVE_FILES))
+               ? CopyFiles.Options.fromInt(settings.getInt(KEY_OPTIONS_COPY_MOVE_FILES))
                : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
@@ -492,9 +464,7 @@ public final class UserSettings {
      */
     public void setExecuteActionsAfterImageChangeInDbAlways(boolean set) {
         settings.set(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-        settings.set(
-            !set,
-            KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        settings.set(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
     }
 
@@ -507,10 +477,8 @@ public final class UserSettings {
      * @see    #isExecuteActionsAfterImageChangeInDbIfImageHasXmp()
      */
     public boolean isExecuteActionsAfterImageChangeInDbAlways() {
-        return properties.containsKey(
-            KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
-               ? settings.getBoolean(
-                   KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+        return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+               ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
                : false;
     }
 
@@ -521,11 +489,9 @@ public final class UserSettings {
      * @param set true when the actions shall be executed if the modified image
      *            has embedded XMP metadata
      */
-    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
-            boolean set) {
+    public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean set) {
         settings.set(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-        settings.set(
-            set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        settings.set(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
         writeToFile();
     }
 
@@ -538,10 +504,8 @@ public final class UserSettings {
      * @see    #isExecuteActionsAfterImageChangeInDbAlways()
      */
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
-        return properties.containsKey(
-            KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
-               ? settings.getBoolean(
-                KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+        return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+               ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
                : false;
     }
 
@@ -625,8 +589,7 @@ public final class UserSettings {
      * @param minutes minutes
      */
     public void setMinutesToStartScheduledTasks(int minutes) {
-        settings.set(Integer.toString(minutes),
-                     KEY_MINUTES_TO_START_SCHEDULED_TASKS);
+        settings.set(Integer.toString(minutes), KEY_MINUTES_TO_START_SCHEDULED_TASKS);
         writeToFile();
     }
 
@@ -681,8 +644,7 @@ public final class UserSettings {
         }
 
         if (seconds.intValue() < 0) {
-            throw new IllegalArgumentException("Invalid time: "
-                                               + seconds.intValue());
+            throw new IllegalArgumentException("Invalid time: " + seconds.intValue());
         }
 
         settings.set(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
@@ -695,8 +657,7 @@ public final class UserSettings {
      * @return time in seconds. Default: 60.
      */
     public int getMaxSecondsToTerminateExternalPrograms() {
-        return properties.containsKey(
-            KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+        return properties.containsKey(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                ? settings.getInt(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                : 60;
     }
@@ -882,8 +843,8 @@ public final class UserSettings {
      */
     public boolean isUseExperimentalFileFormats() {
         return settings.containsKey(KEY_EXPERIMENTAL_FILE_FORMATS)
-                ? settings.getBoolean(KEY_EXPERIMENTAL_FILE_FORMATS)
-                : false;
+               ? settings.getBoolean(KEY_EXPERIMENTAL_FILE_FORMATS)
+               : false;
     }
 
     public void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
@@ -893,8 +854,8 @@ public final class UserSettings {
 
     public boolean isAutocompleteFastSearchIgnoreCase() {
         return settings.containsKey(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                ? settings.getBoolean(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                : false;
+               ? settings.getBoolean(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+               : false;
     }
 
     /**

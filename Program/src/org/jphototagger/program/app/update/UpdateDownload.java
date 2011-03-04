@@ -32,23 +32,19 @@ import javax.swing.JProgressBar;
  *
  * @author Elmar Baumann
  */
-public final class UpdateDownload extends Thread
-        implements CancelRequest, Cancelable {
+public final class UpdateDownload extends Thread implements CancelRequest, Cancelable {
     private static final String FILENAME_WINDOWS = "JPhotoTagger-Setup.exe";
     private static final String FILENAME_ZIP = "JPhotoTagger.zip";
-    private static final String URL_VERSION_CHECK_FILE =
-        "http://www.jphototagger.org/jphototagger-version.txt";
-    private static final String URL_WIN_INSTALLER =
-        "http://www.jphototagger.org/dist/JPhotoTagger-setup.exe";
-    private static final String URL_ZIP =
-        "http://www.jphototagger.org/dist/JPhotoTagger.zip";
+    private static final String URL_VERSION_CHECK_FILE = "http://www.jphototagger.org/jphototagger-version.txt";
+    private static final String URL_WIN_INSTALLER = "http://www.jphototagger.org/dist/JPhotoTagger-setup.exe";
+    private static final String URL_ZIP = "http://www.jphototagger.org/dist/JPhotoTagger.zip";
     private static final String VERSION_DELIMITER = ".";
-    private Version             currentVersion;
-    private Version             netVersion;
-    private JProgressBar        progressBar;
-    private volatile boolean    cancel;
-    private static boolean      checkPending;
-    private final Object        pBarOwner = this;
+    private Version currentVersion;
+    private Version netVersion;
+    private JProgressBar progressBar;
+    private volatile boolean cancel;
+    private static boolean checkPending;
+    private final Object pBarOwner = this;
 
     public UpdateDownload() {
         super("JPhotoTagger: Checking for and downloading newer version");
@@ -80,8 +76,7 @@ public final class UpdateDownload extends Thread
         new UpdateDownload().start();
     }
 
-    private static final String KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION =
-        "UpdateDownload.CheckForNewerVersion";
+    private static final String KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION = "UpdateDownload.CheckForNewerVersion";
 
     /**
      * Asks via a confirmation dialog exactly once whether to check
@@ -94,18 +89,14 @@ public final class UpdateDownload extends Thread
      * {@link UserSettings#setAutoDownloadNewerVersions(boolean)}-
      */
     public static void askOnceCheckForNewerVersion() {
-        if (!DatabaseApplicationProperties.INSTANCE.getBoolean(
-                KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION)) {
+        if (!DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION)) {
             try {
                 EventQueue.invokeAndWait(new Runnable() {
-    @Override
-    public void run() {
-                        UserSettings.INSTANCE.setAutoDownloadNewerVersions(
-                            MessageDisplayer.confirmYesNo(
-                                null,
+                    @Override
+                    public void run() {
+                        UserSettings.INSTANCE.setAutoDownloadNewerVersions(MessageDisplayer.confirmYesNo(null,
                                 "UpdateDownload.Confirm.CheckForNewerVersion"));
-                        DatabaseApplicationProperties.INSTANCE.setBoolean(
-                            KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
+                        DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
                     }
                 });
             } catch (Exception ex) {
@@ -120,8 +111,7 @@ public final class UpdateDownload extends Thread
 
         try {
             if (hasNewerVersion()
-                    && MessageDisplayer.confirmYesNo(null,
-                        "UpdateDownload.Confirm.Download",
+                    && MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download",
                         currentVersion.toString3(), netVersion.toString3())) {
                 progressBarDownloadInfo();
                 download();
@@ -130,17 +120,12 @@ public final class UpdateDownload extends Thread
 
                 if (cancel && downloadFile.exists()) {
                     if (!downloadFile.delete()) {
-                        AppLogger.logWarning(
-                            getClass(),
-                            "UpdateDownload.Error.DeleteDownloadFile",
-                            downloadFile);
+                        AppLogger.logWarning(getClass(), "UpdateDownload.Error.DeleteDownloadFile", downloadFile);
                     }
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logInfo(UpdateDownload.class,
-                              "UpdateDownload.Error.Compare",
-                              ex.getLocalizedMessage());
+            AppLogger.logInfo(UpdateDownload.class, "UpdateDownload.Error.Compare", ex.getLocalizedMessage());
         } finally {
             releaseProgressBar();
 
@@ -151,17 +136,15 @@ public final class UpdateDownload extends Thread
     }
 
     private Version currentVersion() {
-        currentVersion = Version.parseVersion(AppInfo.APP_VERSION,
-                VERSION_DELIMITER);
+        currentVersion = Version.parseVersion(AppInfo.APP_VERSION, VERSION_DELIMITER);
 
         return currentVersion;
     }
 
     private void download() {
         try {
-            File                 downloadFile = getDownloadFile();
-            BufferedOutputStream os =
-                new BufferedOutputStream(new FileOutputStream(downloadFile));
+            File downloadFile = getDownloadFile();
+            BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(downloadFile));
 
             HttpUtil.write(new URL(getDownloadUrl()), os, this);
 
@@ -172,9 +155,7 @@ public final class UpdateDownload extends Thread
             if (SystemUtil.isWindows()) {
                 setFinalExecutable(downloadFile);
             } else {
-                MessageDisplayer.information(null,
-                                             "UpdateDownload.Info.Success",
-                                             downloadFile);
+                MessageDisplayer.information(null, "UpdateDownload.Info.Success", downloadFile);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(UpdateDownload.class, ex);
@@ -182,11 +163,8 @@ public final class UpdateDownload extends Thread
     }
 
     private void setFinalExecutable(File downloadFile) {
-        if (MessageDisplayer.confirmYesNo(
-                null, "UpdateDownload.Confirm.SetFinalExecutable",
-                downloadFile)) {
-            FinalExecutable exec =
-                new FinalExecutable(downloadFile.getAbsolutePath());
+        if (MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.SetFinalExecutable", downloadFile)) {
+            FinalExecutable exec = new FinalExecutable(downloadFile.getAbsolutePath());
 
             AppLifeCycle.INSTANCE.addFinalTask(exec);
         }
@@ -199,8 +177,7 @@ public final class UpdateDownload extends Thread
     }
 
     private File getDownloadFile() {
-        String dirname = UserSettings.INSTANCE.getSettingsDirectoryName()
-                         + File.separator;
+        String dirname = UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator;
         String filename = SystemUtil.isWindows()
                           ? FILENAME_WINDOWS
                           : FILENAME_ZIP;
@@ -216,9 +193,7 @@ public final class UpdateDownload extends Thread
                 if (progressBar != null) {
                     progressBar.setIndeterminate(true);
                     progressBar.setStringPainted(true);
-                    progressBar.setString(
-                        JptBundle.INSTANCE.getString(
-                            "UpdateDownload.Info.ProgressBar"));
+                    progressBar.setString(JptBundle.INSTANCE.getString("UpdateDownload.Info.ProgressBar"));
                 }
             }
         });
@@ -229,9 +204,7 @@ public final class UpdateDownload extends Thread
             @Override
             public void run() {
                 if (progressBar != null) {
-                    progressBar.setString(
-                        JptBundle.INSTANCE.getString(
-                            "UpdateDownload.Info.ProgressBarDownload"));
+                    progressBar.setString(JptBundle.INSTANCE.getString("UpdateDownload.Info.ProgressBarDownload"));
                 }
             }
         });
@@ -253,8 +226,7 @@ public final class UpdateDownload extends Thread
     }
 
     private boolean hasNewerVersion() throws Exception {
-        netVersion = NetVersion.getOverHttp(URL_VERSION_CHECK_FILE,
-                VERSION_DELIMITER);
+        netVersion = NetVersion.getOverHttp(URL_VERSION_CHECK_FILE, VERSION_DELIMITER);
 
         return currentVersion().compareTo(netVersion) < 0;
     }

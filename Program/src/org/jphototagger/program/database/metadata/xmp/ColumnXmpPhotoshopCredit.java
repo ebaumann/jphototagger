@@ -10,17 +10,12 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnXmpPhotoshopCredit extends Column {
-    public static final ColumnXmpPhotoshopCredit INSTANCE =
-        new ColumnXmpPhotoshopCredit();
+    public static final ColumnXmpPhotoshopCredit INSTANCE = new ColumnXmpPhotoshopCredit();
 
     private ColumnXmpPhotoshopCredit() {
         super("credit", "photoshop_credits", DataType.STRING);
         setLength(32);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpPhotoshopCredit.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpPhotoshopCredit.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCredit.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCredit.LongerDescription"));
     }
 }

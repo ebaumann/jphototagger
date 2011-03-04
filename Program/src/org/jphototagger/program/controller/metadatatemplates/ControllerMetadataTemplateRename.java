@@ -17,8 +17,7 @@ import javax.swing.JButton;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMetadataTemplateRename
-        extends ControllerMetadataTemplate {
+public final class ControllerMetadataTemplateRename extends ControllerMetadataTemplate {
     public ControllerMetadataTemplateRename() {
         listen();
     }
@@ -29,14 +28,12 @@ public final class ControllerMetadataTemplateRename
     }
 
     private JButton getRenameButton() {
-        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonRename();
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonRename();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == getRenameButton())
-                && isInputHelperListItemSelected()) {
+        if ((evt.getSource() == getRenameButton()) && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {
             super.actionPerformed(evt);
@@ -58,8 +55,7 @@ public final class ControllerMetadataTemplateRename
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuMetadataTemplates.INSTANCE.getItemRename();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemRename();
     }
 
     @Override
@@ -69,13 +65,11 @@ public final class ControllerMetadataTemplateRename
         }
 
         String fromName = template.getName();
-        String toName   = MetadataTemplateHelper.getNewTemplateName(fromName);
+        String toName = MetadataTemplateHelper.getNewTemplateName(fromName);
 
         if (toName != null) {
-            if (!DatabaseMetadataTemplates.INSTANCE.updateRename(fromName,
-                    toName)) {
-                MessageDisplayer.error(
-                    null, "ControllerMetadataTemplateRename.Error", fromName);
+            if (!DatabaseMetadataTemplates.INSTANCE.updateRename(fromName, toName)) {
+                MessageDisplayer.error(null, "ControllerMetadataTemplateRename.Error", fromName);
             }
         }
 

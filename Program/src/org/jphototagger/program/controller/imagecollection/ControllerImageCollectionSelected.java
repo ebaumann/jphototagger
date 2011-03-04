@@ -27,16 +27,14 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Elmar Baumann
  */
-public final class ControllerImageCollectionSelected
-        implements ListSelectionListener, RefreshListener {
+public final class ControllerImageCollectionSelected implements ListSelectionListener, RefreshListener {
     public ControllerImageCollectionSelected() {
         listen();
     }
 
     private void listen() {
         GUI.getImageCollectionsList().addListSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this,
-                Content.IMAGE_COLLECTION);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.IMAGE_COLLECTION);
     }
 
     @Override
@@ -57,15 +55,13 @@ public final class ControllerImageCollectionSelected
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Object selValue =
-                    GUI.getImageCollectionsList().getSelectedValue();
+                Object selValue = GUI.getImageCollectionsList().getSelectedValue();
 
                 if (selValue != null) {
                     showImageCollection(selValue.toString(), settings);
                 } else {
-                    AppLogger.logWarning(
-                        ControllerImageCollectionSelected.class,
-                        "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
+                    AppLogger.logWarning(ControllerImageCollectionSelected.class,
+                                         "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
                 }
 
                 setMetadataEditable();
@@ -75,16 +71,13 @@ public final class ControllerImageCollectionSelected
         thread.start();
     }
 
-    private void showImageCollection(final String collectionName,
-                                     final ThumbnailsPanel.Settings settings) {
+    private void showImageCollection(final String collectionName, final ThumbnailsPanel.Settings settings) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();
 
-                List<File> imageFiles =
-                    DatabaseImageCollections.INSTANCE.getImageFilesOf(
-                        collectionName);
+                List<File> imageFiles = DatabaseImageCollections.INSTANCE.getImageFilesOf(collectionName);
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 setTitle();
@@ -96,8 +89,7 @@ public final class ControllerImageCollectionSelected
             private void setTitle() {
                 GUI.getAppFrame().setTitle(
                     JptBundle.INSTANCE.getString(
-                        "ControllerImageCollectionSelected.AppFrame.Title.Collection",
-                        collectionName));
+                        "ControllerImageCollectionSelected.AppFrame.Title.Collection", collectionName));
             }
         });
     }

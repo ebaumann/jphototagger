@@ -46,7 +46,7 @@ public final class ComponentUtil {
         }
 
         Dimension screenDimension = window.getToolkit().getScreenSize();
-        Rectangle frameBounds     = window.getBounds();
+        Rectangle frameBounds = window.getBounds();
 
         window.setLocation((screenDimension.width - frameBounds.width) / 2,
                            (screenDimension.height - frameBounds.height) / 2);
@@ -60,8 +60,8 @@ public final class ComponentUtil {
      * @see    #getFrameWithIcon()
      */
     public static List<Frame> findFramesWithIcons() {
-        List<Frame> frames    = new ArrayList<Frame>();
-        Frame[]     allFrames = Frame.getFrames();
+        List<Frame> frames = new ArrayList<Frame>();
+        Frame[] allFrames = Frame.getFrames();
 
         for (Frame frame : allFrames) {
             if (frame.getIconImage() != null) {
@@ -117,8 +117,7 @@ public final class ComponentUtil {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> void addAllOf(Container container, Class<T> clazz,
-                                     List<T> all) {
+    private static <T> void addAllOf(Container container, Class<T> clazz, List<T> all) {
         int count = container.getComponentCount();
 
         if (container.getClass().equals(clazz)) {

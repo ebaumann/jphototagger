@@ -24,21 +24,17 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Elmar Baumann
  */
-public final class TableCellRendererXmp extends FormatterLabelMetadata
-        implements TableCellRenderer {
-    private static final String      DELIMITER_PATH      = "/";
-    private static final String      DELIMITER_NAMESPACE = ":";
-    private static final Translation TRANSLATION_XMP =
-        new Translation("XmpPropertyTranslations");
-    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID =
-        new Translation("XmpPropertyExifTagIdTranslations");
-    private static final Translation TRANSLATION_EXIF =
-        new Translation("ExifTagIdTagNameTranslations");
+public final class TableCellRendererXmp extends FormatterLabelMetadata implements TableCellRenderer {
+    private static final String DELIMITER_PATH = "/";
+    private static final String DELIMITER_NAMESPACE = ":";
+    private static final Translation TRANSLATION_XMP = new Translation("XmpPropertyTranslations");
+    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation("XmpPropertyExifTagIdTranslations");
+    private static final Translation TRANSLATION_EXIF = new Translation("ExifTagIdTagNameTranslations");
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
-        JLabel          cellLabel       = new JLabel();
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+            int row, int column) {
+        JLabel cellLabel = new JLabel();
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
 
         setDefaultCellColors(cellLabel, isSelected);
@@ -49,46 +45,39 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
 
             String xmpPath = xmpPropertyInfo.getPath();
 
-            TableUtil.embedTableCellTextInHtml(
-                table, row, cellLabel, translate(xmpPath, xmpPath),
-                AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                AppLookAndFeel.TABLE_ROW_HEADER_CSS);
+            TableUtil.embedTableCellTextInHtml(table, row, cellLabel, translate(xmpPath, xmpPath),
+                                               AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
+                                               AppLookAndFeel.TABLE_ROW_HEADER_CSS);
         } else {
             assert column < 2 : column;
             setContentFont(cellLabel);
-            TableUtil.embedTableCellTextInHtml(
-                table, row, cellLabel, xmpPropertyInfo.getValue().toString(),
-                AppLookAndFeel.TABLE_MAX_CHARS_CELL,
-                AppLookAndFeel.TABLE_CELL_CSS);
+            TableUtil.embedTableCellTextInHtml(table, row, cellLabel, xmpPropertyInfo.getValue().toString(),
+                                               AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
         }
 
         return cellLabel;
     }
 
-    private void setIsStoredInDatabaseColor(JLabel cellLabel,
-            XMPPropertyInfo xmpPropertyInfo, boolean isSel) {
+    private void setIsStoredInDatabaseColor(JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo, boolean isSel) {
         if (XmpInDatabase.isInDatabase(xmpPropertyInfo.getPath())) {
             setIsStoredInDatabaseColors(cellLabel, isSel);
         }
     }
 
     private static String translate(String path, String alternate) {
-        StringBuilder newPath             = new StringBuilder();
-        List<String>  pathComponents      = getPathComponents(path);
-        int           pathComponentsCount = pathComponents.size();
+        StringBuilder newPath = new StringBuilder();
+        List<String> pathComponents = getPathComponents(path);
+        int pathComponentsCount = pathComponents.size();
 
         for (int i = 0; i < pathComponentsCount; i++) {
             String pathComponent = pathComponents.get(i);
-            String withoutIndex  = getWithoutIndex(pathComponent);
-            String translated    = (isExifNamespace(pathComponent)
-                                    ? TRANSLATION_EXIF.translate(
-                                        TRANSLATION_XMP_EXIF_TAG_ID.translate(
-                                            withoutIndex, alternate))
-                                    : TRANSLATION_XMP.translate(withoutIndex,
-                                        alternate));
+            String withoutIndex = getWithoutIndex(pathComponent);
+            String translated = (isExifNamespace(pathComponent)
+                                 ? TRANSLATION_EXIF.translate(TRANSLATION_XMP_EXIF_TAG_ID.translate(withoutIndex,
+                                     alternate))
+                                 : TRANSLATION_XMP.translate(withoutIndex, alternate));
 
-            newPath.append(getWithoutNamespace(translated)).append(
-                getIndexString(pathComponent)).append(
+            newPath.append(getWithoutNamespace(translated)).append(getIndexString(pathComponent)).append(
                 ((pathComponentsCount > 1) && (i < pathComponentsCount - 1))
                 ? DELIMITER_PATH
                 : "");
@@ -98,8 +87,8 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
     }
 
     private static List<String> getPathComponents(String path) {
-        List<String>    components = new ArrayList<String>();
-        StringTokenizer tokenizer  = new StringTokenizer(path, DELIMITER_PATH);
+        List<String> components = new ArrayList<String>();
+        StringTokenizer tokenizer = new StringTokenizer(path, DELIMITER_PATH);
 
         while (tokenizer.hasMoreTokens()) {
             components.add(tokenizer.nextToken());
@@ -146,8 +135,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata
         int indexDelim = string.indexOf(DELIMITER_NAMESPACE);
 
         if (indexDelim > 0) {
-            return XmpMetadata.isKnownNamespace(string.substring(0,
-                    indexDelim));
+            return XmpMetadata.isKnownNamespace(string.substring(0, indexDelim));
         }
 
         return false;

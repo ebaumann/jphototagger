@@ -28,20 +28,16 @@ public final class FormatterFactory {
 
             integerFormat.setGroupingUsed(false);
 
-            NumberFormatter integerFormatter =
-                new NumberFormatter(integerFormat);
+            NumberFormatter integerFormatter = new NumberFormatter(integerFormat);
 
             integerFormatter.setAllowsInvalid(false);
 
             MaskFormatter doubleFormatter = new MaskFormatter("####.##");
 
             doubleFormatter.setAllowsInvalid(false);
-            integerFormatterFactory =
-                new DefaultFormatterFactory(integerFormatter);
-            doubleFormatterFactory =
-                new DefaultFormatterFactory(doubleFormatter);
-            dateFormatterFactory =
-                new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
+            integerFormatterFactory = new DefaultFormatterFactory(integerFormatter);
+            doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
+            dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
         } catch (Exception ex) {
             AppLogger.logSevere(FormatterFactory.class, ex);
         }
@@ -56,9 +52,7 @@ public final class FormatterFactory {
 
         if (type.equals(DataType.DATE)) {
             return dateFormatterFactory;
-        } else if (type.equals(DataType.BIGINT)
-                   || type.equals(DataType.INTEGER)
-                   || type.equals(DataType.SMALLINT)) {
+        } else if (type.equals(DataType.BIGINT) || type.equals(DataType.INTEGER) || type.equals(DataType.SMALLINT)) {
             return integerFormatterFactory;
         } else if (type.equals(DataType.REAL)) {
             return doubleFormatterFactory;

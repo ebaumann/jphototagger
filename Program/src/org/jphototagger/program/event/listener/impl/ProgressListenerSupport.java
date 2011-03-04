@@ -4,7 +4,6 @@ import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 
 import java.awt.Component;
-
 import java.awt.EventQueue;
 
 /**
@@ -12,8 +11,7 @@ import java.awt.EventQueue;
  *
  * @author Elmar Baumann
  */
-public final class ProgressListenerSupport
-        extends ListenerSupport<ProgressListener> {
+public final class ProgressListenerSupport extends ListenerSupport<ProgressListener> {
 
     /**
      * Calls on every added progress listener

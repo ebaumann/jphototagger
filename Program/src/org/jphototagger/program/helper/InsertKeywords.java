@@ -1,10 +1,11 @@
 package org.jphototagger.program.helper;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.GUI;
+
+import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,7 @@ public final class InsertKeywords extends Thread {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                TreeModelKeywords model =
-                    ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
                 Object root = model.getRoot();
 
                 if (root instanceof DefaultMutableTreeNode) {
@@ -51,10 +51,9 @@ public final class InsertKeywords extends Thread {
         });
     }
 
-    private void insertKeywords(DefaultMutableTreeNode rootHk,
-                                TreeModelKeywords modelHk) {
-        DatabaseKeywords db       = DatabaseKeywords.INSTANCE;
-        boolean          inserted = false;
+    private void insertKeywords(DefaultMutableTreeNode rootHk, TreeModelKeywords modelHk) {
+        DatabaseKeywords db = DatabaseKeywords.INSTANCE;
+        boolean inserted = false;
 
         for (String keyword : keywords) {
             if (!db.existsRootKeyword(keyword)) {
@@ -69,10 +68,9 @@ public final class InsertKeywords extends Thread {
     }
 
     private void expandRoot() {
-        JTree  tree = GUI.getAppPanel().getTreeSelKeywords();
+        JTree tree = GUI.getAppPanel().getTreeSelKeywords();
         Object root = tree.getModel().getRoot();
 
-        tree.expandPath(
-            new TreePath(((DefaultMutableTreeNode) root).getPath()));
+        tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
     }
 }

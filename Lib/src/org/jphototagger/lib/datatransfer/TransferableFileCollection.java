@@ -19,15 +19,13 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class TransferableFileCollection implements Transferable {
-    private static final DataFlavor FILE_LIST_FLAVOR =
-        DataFlavor.javaFileListFlavor;
-    private static final DataFlavor URI_LIST_FLAVOR =
-        TransferUtil.getUriListFlavor();
+    private static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
+    private static final DataFlavor URI_LIST_FLAVOR = TransferUtil.getUriListFlavor();
     private static final DataFlavor[] FLAVORS;
-    private static final String       FILE_PROTOCOL   = "file://";
-    private static final String       TOKEN_DELIMITER = "\r\n";
-    private final Collection<File>    files;
-    private String                    fileUris;
+    private static final String FILE_PROTOCOL = "file://";
+    private static final String TOKEN_DELIMITER = "\r\n";
+    private final Collection<File> files;
+    private String fileUris;
 
     static {
         FLAVORS = new DataFlavor[] { FILE_LIST_FLAVOR, URI_LIST_FLAVOR };
@@ -46,8 +44,7 @@ public final class TransferableFileCollection implements Transferable {
         StringBuilder sb = new StringBuilder();
 
         for (File file : files) {
-            sb.append(FILE_PROTOCOL).append(file.getAbsolutePath()).append(
-                TOKEN_DELIMITER);
+            sb.append(FILE_PROTOCOL).append(file.getAbsolutePath()).append(TOKEN_DELIMITER);
         }
 
         fileUris = sb.toString();
@@ -78,8 +75,7 @@ public final class TransferableFileCollection implements Transferable {
             throw new NullPointerException("flavor == null");
         }
 
-        return flavor.equals(FILE_LIST_FLAVOR)
-               || flavor.equals(URI_LIST_FLAVOR);
+        return flavor.equals(FILE_LIST_FLAVOR) || flavor.equals(URI_LIST_FLAVOR);
     }
 
     /**
@@ -95,8 +91,7 @@ public final class TransferableFileCollection implements Transferable {
      * @throws        UnsupportedFlavorException if the flavor is not supported
      */
     @Override
-    public Object getTransferData(DataFlavor flavor)
-            throws UnsupportedFlavorException {
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
         if (flavor == null) {
             throw new NullPointerException("flavor == null");
         }

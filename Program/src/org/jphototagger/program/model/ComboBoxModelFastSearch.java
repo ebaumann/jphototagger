@@ -17,7 +17,7 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class ComboBoxModelFastSearch extends DefaultComboBoxModel {
     public static final String ALL_DEFINED_COLUMNS = "AllDefined";
-    private static final long  serialVersionUID    = -705435864208734028L;
+    private static final long serialVersionUID = -705435864208734028L;
 
     public ComboBoxModelFastSearch() {
         addElements();

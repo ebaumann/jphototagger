@@ -20,15 +20,12 @@ import javax.swing.JOptionPane;
 public final class ControllerAboutApp implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
-        ImageIcon icon  = AppLookAndFeel.getIcon("icon_logo.png");
-        String    key   = "ControllerAboutApp.Info.About";
-        String    title = "JPhotoTagger";
+        ImageIcon icon = AppLookAndFeel.getIcon("icon_logo.png");
+        String key = "ControllerAboutApp.Info.About";
+        String title = "JPhotoTagger";
 
         JOptionPane.showMessageDialog(GUI.getAppFrame(),
-                                      JptBundle.INSTANCE.getString(key,
-                                          AppInfo.APP_NAME,
-                                          AppInfo.APP_VERSION), title,
-                                      JOptionPane.INFORMATION_MESSAGE,
-                                                  icon);
+                                      JptBundle.INSTANCE.getString(key, AppInfo.APP_NAME, AppInfo.APP_VERSION), title,
+                                      JOptionPane.INFORMATION_MESSAGE, icon);
     }
 }

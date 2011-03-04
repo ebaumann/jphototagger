@@ -7,13 +7,13 @@ package org.jphototagger.program.event;
  */
 public final class ProgressEvent {
     private final Object source;
-    private int          maximum;
-    private int          minimum;
-    private boolean      indeterminate;
-    private int          value;
-    private long         milliSecondsRemaining;
-    private Object       info;
-    private boolean      cancel;
+    private int maximum;
+    private int minimum;
+    private boolean indeterminate;
+    private int value;
+    private long milliSecondsRemaining;
+    private Object info;
+    private boolean cancel;
 
     /**
      * Konstruktor für Ereignisse mit bekanntem Umfang (Minimum, Maximum und
@@ -31,17 +31,16 @@ public final class ProgressEvent {
      *                Ereignisanzahl)
      * @param info    Beliebige Information
      */
-    public ProgressEvent(Object source, int minimum, int maximum, int value,
-                         Object info) {
+    public ProgressEvent(Object source, int minimum, int maximum, int value, Object info) {
         if (source == null) {
             throw new NullPointerException("source == null");
         }
 
-        this.source  = source;
+        this.source = source;
         this.minimum = minimum;
         this.maximum = maximum;
-        this.value   = value;
-        this.info    = info;
+        this.value = value;
+        this.info = info;
     }
 
     /**
@@ -58,18 +57,17 @@ public final class ProgressEvent {
      * @param milliSecondsRemaining  Verbleibende Zeit in Millisekunden
      * @param info                   Beliebige Information
      */
-    public ProgressEvent(Object source, int minimum, int maximum, int value,
-                         long milliSecondsRemaining, Object info) {
+    public ProgressEvent(Object source, int minimum, int maximum, int value, long milliSecondsRemaining, Object info) {
         if (source == null) {
             throw new NullPointerException("source == null");
         }
 
-        this.source                = source;
-        this.minimum               = minimum;
-        this.maximum               = maximum;
-        this.value                 = value;
+        this.source = source;
+        this.minimum = minimum;
+        this.maximum = maximum;
+        this.value = value;
         this.milliSecondsRemaining = milliSecondsRemaining;
-        this.info                  = info;
+        this.info = info;
     }
 
     /**
@@ -88,8 +86,8 @@ public final class ProgressEvent {
             throw new NullPointerException("source == null");
         }
 
-        this.source   = source;
-        this.info     = info;
+        this.source = source;
+        this.info = info;
         indeterminate = true;
     }
 

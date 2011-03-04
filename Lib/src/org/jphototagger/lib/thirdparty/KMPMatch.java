@@ -26,7 +26,7 @@ public final class KMPMatch {
         }
 
         int[] failure = computeFailure(pattern);
-        int   j       = 0;
+        int j = 0;
 
         if (data.length == 0) {
             return -1;
@@ -55,7 +55,7 @@ public final class KMPMatch {
      */
     private static int[] computeFailure(byte[] pattern) {
         int[] failure = new int[pattern.length];
-        int   j       = 0;
+        int j = 0;
 
         for (int i = 1; i < pattern.length; i++) {
             while ((j > 0) && (pattern[j] != pattern[i])) {

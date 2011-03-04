@@ -2,6 +2,7 @@ package org.jphototagger.program.controller.filesystem;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
@@ -11,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.util.List;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Ausgewählte Dateien in ein Verzeichnis kopieren.
@@ -24,8 +24,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemFileSystemCopyToDirectory()
-            .addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemCopyToDirectory().addActionListener(this);
     }
 
     @Override
@@ -40,13 +39,11 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
 
             dlg.setSourceFiles(selFiles);
-            dlg.addFileSystemActionListener(
-                new FilesystemDatabaseUpdater(true));
+            dlg.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
             dlg.setVisible(true);
         } else {
-            AppLogger.logWarning(
-                ControllerCopyFilesToDirectory.class,
-                "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
+            AppLogger.logWarning(ControllerCopyFilesToDirectory.class,
+                                 "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
         }
     }
 }

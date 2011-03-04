@@ -28,19 +28,17 @@ import java.util.logging.Logger;
  */
 public final class Xmp {
     public enum Namespace {
-        CAMERA_RAW(XMPConst.NS_CAMERARAW, "crs"),
-        DUBLIN_CORE(XMPConst.NS_DC, "dc"), EXIF(XMPConst.NS_EXIF, "exif"),
-        IPTC_CORE(XMPConst.NS_IPTCCORE, "Iptc4xmpCore"),
-        LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
-        PHOTOSHOP(XMPConst.NS_PHOTOSHOP, "photoshop"),
-        TIFF(XMPConst.NS_TIFF, "tiff"), XMP_BASIC(XMPConst.NS_XMP, "xap"),
+        CAMERA_RAW(XMPConst.NS_CAMERARAW, "crs"), DUBLIN_CORE(XMPConst.NS_DC, "dc"), EXIF(XMPConst.NS_EXIF, "exif"),
+        IPTC_CORE(XMPConst.NS_IPTCCORE, "Iptc4xmpCore"), LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
+        PHOTOSHOP(XMPConst.NS_PHOTOSHOP, "photoshop"), TIFF(XMPConst.NS_TIFF, "tiff"),
+        XMP_BASIC(XMPConst.NS_XMP, "xap"),
         ;
 
         private final String uri;
         private final String prefix;
 
         private Namespace(String uri, String prefix) {
-            this.uri    = uri;
+            this.uri = uri;
             this.prefix = prefix;
         }
 
@@ -54,10 +52,8 @@ public final class Xmp {
     }
 
     public enum PropertyValueType {
-        BAG_TEXT, BOOLEAN, CLOSED_CHOICE, COLORANT, DATE, DIMENSIONS, FONT,
-        INTEGER, LANG_ALT, LOCALE, MIME_TYPE, PROPER_NAME, REAL,
-        SEQ_PROPER_NAME,
-        TEXT, THUMBNAIL, URI, URL, XPATH,
+        BAG_TEXT, BOOLEAN, CLOSED_CHOICE, COLORANT, DATE, DIMENSIONS, FONT, INTEGER, LANG_ALT, LOCALE, MIME_TYPE,
+        PROPER_NAME, REAL, SEQ_PROPER_NAME, TEXT, THUMBNAIL, URI, URL, XPATH,
         ;
 
         public boolean isBagText() {
@@ -81,8 +77,7 @@ public final class Xmp {
         }
 
         public boolean isArray() {
-            return this.equals(BAG_TEXT) || this.equals(SEQ_PROPER_NAME)
-                   || this.equals(LANG_ALT);
+            return this.equals(BAG_TEXT) || this.equals(SEQ_PROPER_NAME) || this.equals(LANG_ALT);
         }
 
         public PropertyOptions getArrayPropertyOptions() {
@@ -103,60 +98,36 @@ public final class Xmp {
     }
 
     public enum PropertyValue {
-        DC_CREATOR(Namespace.DUBLIN_CORE, "dc:creator",
-                   PropertyValueType.SEQ_PROPER_NAME),
-        DC_DESCRIPTION(Namespace.DUBLIN_CORE, "dc:description",
-                       PropertyValueType.LANG_ALT),
-        DC_RIGHTS(Namespace.DUBLIN_CORE, "dc:rights",
-                  PropertyValueType.LANG_ALT),
-        DC_SUBJECT(Namespace.DUBLIN_CORE, "dc:subject",
-                   PropertyValueType.BAG_TEXT),
+        DC_CREATOR(Namespace.DUBLIN_CORE, "dc:creator", PropertyValueType.SEQ_PROPER_NAME),
+        DC_DESCRIPTION(Namespace.DUBLIN_CORE, "dc:description", PropertyValueType.LANG_ALT),
+        DC_RIGHTS(Namespace.DUBLIN_CORE, "dc:rights", PropertyValueType.LANG_ALT),
+        DC_SUBJECT(Namespace.DUBLIN_CORE, "dc:subject", PropertyValueType.BAG_TEXT),
         DC_TITLE(Namespace.DUBLIN_CORE, "dc:title", PropertyValueType.LANG_ALT),
-        IPTC4_XMP_CORE_COUNTRY_CODE(Namespace.IPTC_CORE,
-                                    "Iptc4xmpCore:CountryCode",
-                                    PropertyValueType.CLOSED_CHOICE),
-        IPTC4_XMP_CORE_DATE_CREATED(Namespace.IPTC_CORE,
-                                    "Iptc4xmpCore:DateCreated",
-                                    PropertyValueType.DATE),
-        IPTC4_XMP_CORE_LOCATION(Namespace.IPTC_CORE, "Iptc4xmpCore:Location",
-                                PropertyValueType.TEXT),
-        LR_HIERARCHICAL_SUBJECTS(Namespace.LIGHTROOM, "lr:hierarchicalSubject",
-                                 PropertyValueType.BAG_TEXT),
-        PHOTOSHOP_AUTHORS_POSITION(Namespace.PHOTOSHOP,
-                                   "photoshop:AuthorsPosition",
-                                   PropertyValueType.TEXT),
-        PHOTOSHOP_CAPTION_WRITER(Namespace.PHOTOSHOP,
-                                 "photoshop:CaptionWriter",
-                                 PropertyValueType.PROPER_NAME),
-        PHOTOSHOP_CITY(Namespace.PHOTOSHOP, "photoshop:City",
-                       PropertyValueType.TEXT),
-        PHOTOSHOP_COUNTRY(Namespace.PHOTOSHOP, "photoshop:Country",
-                          PropertyValueType.TEXT),
-        PHOTOSHOP_CREDIT(Namespace.PHOTOSHOP, "photoshop:Credit",
-                         PropertyValueType.TEXT),
-        PHOTOSHOP_HEADLINE(Namespace.PHOTOSHOP, "photoshop:Headline",
-                           PropertyValueType.TEXT),
-        PHOTOSHOP_INSTRUCTIONS(Namespace.PHOTOSHOP, "photoshop:Instructions",
-                               PropertyValueType.TEXT),
-        PHOTOSHOP_SOURCE(Namespace.PHOTOSHOP, "photoshop:Source",
-                         PropertyValueType.TEXT),
-        PHOTOSHOP_STATE(Namespace.PHOTOSHOP, "photoshop:State",
-                        PropertyValueType.TEXT),
-        PHOTOSHOP_TRANSMISSION_REFERENCE(
-            Namespace.PHOTOSHOP, "photoshop:TransmissionReference",
-            PropertyValueType.TEXT), XAP_RATING(
-                Namespace.XMP_BASIC, "xap:Rating",
-                PropertyValueType.CLOSED_CHOICE)
+        IPTC4_XMP_CORE_COUNTRY_CODE(Namespace.IPTC_CORE, "Iptc4xmpCore:CountryCode", PropertyValueType.CLOSED_CHOICE),
+        IPTC4_XMP_CORE_DATE_CREATED(Namespace.IPTC_CORE, "Iptc4xmpCore:DateCreated", PropertyValueType.DATE),
+        IPTC4_XMP_CORE_LOCATION(Namespace.IPTC_CORE, "Iptc4xmpCore:Location", PropertyValueType.TEXT),
+        LR_HIERARCHICAL_SUBJECTS(Namespace.LIGHTROOM, "lr:hierarchicalSubject", PropertyValueType.BAG_TEXT),
+        PHOTOSHOP_AUTHORS_POSITION(Namespace.PHOTOSHOP, "photoshop:AuthorsPosition", PropertyValueType.TEXT),
+        PHOTOSHOP_CAPTION_WRITER(Namespace.PHOTOSHOP, "photoshop:CaptionWriter", PropertyValueType.PROPER_NAME),
+        PHOTOSHOP_CITY(Namespace.PHOTOSHOP, "photoshop:City", PropertyValueType.TEXT),
+        PHOTOSHOP_COUNTRY(Namespace.PHOTOSHOP, "photoshop:Country", PropertyValueType.TEXT),
+        PHOTOSHOP_CREDIT(Namespace.PHOTOSHOP, "photoshop:Credit", PropertyValueType.TEXT),
+        PHOTOSHOP_HEADLINE(Namespace.PHOTOSHOP, "photoshop:Headline", PropertyValueType.TEXT),
+        PHOTOSHOP_INSTRUCTIONS(Namespace.PHOTOSHOP, "photoshop:Instructions", PropertyValueType.TEXT),
+        PHOTOSHOP_SOURCE(Namespace.PHOTOSHOP, "photoshop:Source", PropertyValueType.TEXT),
+        PHOTOSHOP_STATE(Namespace.PHOTOSHOP, "photoshop:State", PropertyValueType.TEXT),
+        PHOTOSHOP_TRANSMISSION_REFERENCE(Namespace.PHOTOSHOP, "photoshop:TransmissionReference",
+                                         PropertyValueType.TEXT), XAP_RATING(Namespace.XMP_BASIC, "xap:Rating",
+                                             PropertyValueType.CLOSED_CHOICE)
         ;
 
-        private final String            path;
-        private final Namespace         namesapce;
+        private final String path;
+        private final Namespace namesapce;
         private final PropertyValueType propertyValueType;
 
-        private PropertyValue(Namespace namesapce, String path,
-                              PropertyValueType propertyValueType) {
-            this.path              = path;
-            this.namesapce         = namesapce;
+        private PropertyValue(Namespace namesapce, String path, PropertyValueType propertyValueType) {
+            this.path = path;
+            this.namesapce = namesapce;
             this.propertyValueType = propertyValueType;
         }
 
@@ -175,8 +146,7 @@ public final class Xmp {
         public PropertyOptions getArrayPropertyOptions() {
             if (propertyValueType.equals(PropertyValueType.BAG_TEXT)) {
                 return new PropertyOptions().setArray(true);
-            } else if (propertyValueType.equals(
-                    PropertyValueType.SEQ_PROPER_NAME)) {
+            } else if (propertyValueType.equals(PropertyValueType.SEQ_PROPER_NAME)) {
                 return new PropertyOptions().setArrayOrdered(true);
             } else if (propertyValueType.equals(PropertyValueType.LANG_ALT)) {
                 return new PropertyOptions().setArrayAlternate(true);
@@ -190,8 +160,8 @@ public final class Xmp {
 
     static {
         try {
-            XMPMetaFactory.getSchemaRegistry().registerNamespace(
-                Namespace.LIGHTROOM.getUri(), Namespace.LIGHTROOM.getPrefix());
+            XMPMetaFactory.getSchemaRegistry().registerNamespace(Namespace.LIGHTROOM.getUri(),
+                    Namespace.LIGHTROOM.getPrefix());
         } catch (Exception ex) {
             Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,12 +180,11 @@ public final class Xmp {
             throw new NullPointerException("imageFile == null");
         }
 
-        String imgFilename    = imageFile.getAbsolutePath();
-        int    indexExtension = imgFilename.lastIndexOf('.');
+        String imgFilename = imageFile.getAbsolutePath();
+        int indexExtension = imgFilename.lastIndexOf('.');
 
         if (indexExtension > 0) {
-            File sidecarFile = new File(imgFilename.substring(0,
-                                   indexExtension + 1) + "xmp");
+            File sidecarFile = new File(imgFilename.substring(0, indexExtension + 1) + "xmp");
 
             if (sidecarFile.exists()) {
                 return sidecarFile;
@@ -232,15 +201,13 @@ public final class Xmp {
      * @return          property infos or null on errors
      * @throws          NullPointerException if <code>xmpString</code> is null
      */
-    public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(
-            String xmpString) {
+    public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmpString) {
         try {
             if (xmpString == null) {
                 throw new NullPointerException("xmpString == null");
             }
 
-            List<XMPPropertyInfo> propertyInfos =
-                new ArrayList<XMPPropertyInfo>();
+            List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
             XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpString);
 
             if (xmpMeta == null) {
@@ -269,8 +236,7 @@ public final class Xmp {
      *                     have a sidecar file or on errors
      * @throws             NullPointerException if <code>sidecarFile</code> is null
      */
-    public static List<XMPPropertyInfo> getPropertyInfosOfSidecarFile(
-            File sidecarFile) {
+    public static List<XMPPropertyInfo> getPropertyInfosOfSidecarFile(File sidecarFile) {
         if (sidecarFile == null) {
             throw new NullPointerException("sidecarFile == null");
         }
@@ -280,7 +246,7 @@ public final class Xmp {
         }
 
         List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
-        FileInputStream       fis           = null;
+        FileInputStream fis = null;
 
         try {
             fis = new FileInputStream(sidecarFile);
@@ -305,8 +271,7 @@ public final class Xmp {
                 try {
                     fis.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE,
-                                     null, ex);
+                    Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -330,8 +295,7 @@ public final class Xmp {
      *                          or an empty list if the property infos do not
      *                          contain that value
      */
-    public static List<String> getPropertyValuesFrom(
-            Collection<? extends XMPPropertyInfo> xmpPropertyInfos,
+    public static List<String> getPropertyValuesFrom(Collection<? extends XMPPropertyInfo> xmpPropertyInfos,
             PropertyValue propertyValue) {
         if (xmpPropertyInfos == null) {
             throw new NullPointerException("xmpPropertyInfos == null");
@@ -344,19 +308,16 @@ public final class Xmp {
         List<String> values = new ArrayList<String>();
 
         for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
-            Object value       = xmpPropertyInfo.getValue();
+            Object value = xmpPropertyInfo.getValue();
             String stringValue = (value == null)
                                  ? null
                                  : value.toString().trim();
 
-            if ((xmpPropertyInfo.getNamespace() != null) && (xmpPropertyInfo
-                    .getPath() != null) &&!xmpPropertyInfo.getOptions()
-                        .isQualifier() && xmpPropertyInfo.getNamespace()
-                            .equals(propertyValue.getNamespace()
-                                .getUri()) && xmpPropertyInfo.getPath()
-                                    .startsWith(propertyValue
-                                        .getPath()) && (stringValue != null) &&!stringValue
-                                            .isEmpty()) {
+            if ((xmpPropertyInfo.getNamespace() != null) && (xmpPropertyInfo.getPath() != null)
+                    &&!xmpPropertyInfo.getOptions().isQualifier()
+                    && xmpPropertyInfo.getNamespace().equals(propertyValue.getNamespace().getUri())
+                    && xmpPropertyInfo.getPath().startsWith(propertyValue.getPath()) && (stringValue != null)
+                    &&!stringValue.isEmpty()) {
                 values.add(stringValue);
             }
         }
@@ -380,8 +341,7 @@ public final class Xmp {
      * @param propertyValue    value to retrieve
      * @return                 first value or empty string
      */
-    public static String getPropertyValueFrom(
-            Collection<? extends XMPPropertyInfo> xmpPropertyInfos,
+    public static String getPropertyValueFrom(Collection<? extends XMPPropertyInfo> xmpPropertyInfos,
             PropertyValue propertyValue) {
         if (xmpPropertyInfos == null) {
             throw new NullPointerException("xmpPropertyInfos == null");
@@ -391,8 +351,7 @@ public final class Xmp {
             throw new NullPointerException("propertyValue == null");
         }
 
-        List<String> values = getPropertyValuesFrom(xmpPropertyInfos,
-                                  propertyValue);
+        List<String> values = getPropertyValuesFrom(xmpPropertyInfos, propertyValue);
 
         return values.isEmpty()
                ? ""

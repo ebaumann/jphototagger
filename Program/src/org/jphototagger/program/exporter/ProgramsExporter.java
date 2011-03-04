@@ -1,11 +1,11 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -28,9 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 public final class ProgramsExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "ProgramsExporter.DisplayName.FileFilter"), "xml");
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("ProgramsExporter.DisplayName.FileFilter"), "xml");
     public static final ProgramsExporter INSTANCE = new ProgramsExporter();
 
     @Override
@@ -42,12 +40,9 @@ public final class ProgramsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<Program> programs =
-                DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
+            List<Program> programs = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
 
-            programs.addAll(
-                DatabasePrograms.INSTANCE.getAll(
-                    DatabasePrograms.Type.PROGRAM));
+            programs.addAll(DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.PROGRAM));
             XmlObjectExporter.export(new CollectionWrapper(programs), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(ProgramsExporter.class, ex);

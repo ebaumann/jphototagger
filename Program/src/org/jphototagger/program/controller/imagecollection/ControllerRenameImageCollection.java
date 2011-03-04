@@ -3,7 +3,9 @@ package org.jphototagger.program.controller.imagecollection;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.model.ListModelImageCollections;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
 
 import java.awt.event.ActionEvent;
@@ -14,8 +16,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JList;
 import javax.swing.JTree;
-import org.jphototagger.program.helper.ImageCollectionsHelper;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Renames the selected image collection when the
@@ -27,15 +27,13 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerRenameImageCollection
-        implements ActionListener, KeyListener {
+public final class ControllerRenameImageCollection implements ActionListener, KeyListener {
     public ControllerRenameImageCollection() {
         listen();
     }
 
     private void listen() {
-        PopupMenuImageCollections.INSTANCE.getItemRename().addActionListener(
-            this);
+        PopupMenuImageCollections.INSTANCE.getItemRename().addActionListener(this);
         GUI.getImageCollectionsList().addKeyListener(this);
     }
 
@@ -54,9 +52,7 @@ public final class ControllerRenameImageCollection
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        renameImageCollection(
-            ListUtil.getItemString(
-                GUI.getImageCollectionsList(),
+        renameImageCollection(ListUtil.getItemString(GUI.getImageCollectionsList(),
                 PopupMenuImageCollections.INSTANCE.getItemIndex()));
     }
 
@@ -74,22 +70,19 @@ public final class ControllerRenameImageCollection
                         return;
                     }
 
-                    final String toName =
-                        ImageCollectionsHelper.renameImageCollection(fromName);
+                    final String toName = ImageCollectionsHelper.renameImageCollection(fromName);
 
                     if (toName != null) {
                         ListModelImageCollections model =
-                            ModelFactory.INSTANCE.getModel(
-                                ListModelImageCollections.class);
+                            ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
 
                         model.rename(fromName, toName);
                     }
                 }
             });
         } else {
-            AppLogger.logWarning(
-                ControllerRenameImageCollection.class,
-                "ControllerRenameImageCollection.Error.NameIsNull");
+            AppLogger.logWarning(ControllerRenameImageCollection.class,
+                                 "ControllerRenameImageCollection.Error.NameIsNull");
         }
     }
 

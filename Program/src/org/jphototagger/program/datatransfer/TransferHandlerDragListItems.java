@@ -15,13 +15,12 @@ import javax.swing.TransferHandler;
  * @author Elmar Baumann
  */
 public final class TransferHandlerDragListItems extends TransferHandler {
-    private static final long  serialVersionUID = 2228155163708066205L;
+    private static final long serialVersionUID = 2228155163708066205L;
     private final DataFlavor[] dataFlavors;
 
     public TransferHandlerDragListItems(DataFlavor... dataFlavors) {
         this.dataFlavors = new DataFlavor[dataFlavors.length];
-        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0,
-                         dataFlavors.length);
+        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0, dataFlavors.length);
     }
 
     /**
@@ -32,8 +31,7 @@ public final class TransferHandlerDragListItems extends TransferHandler {
      */
     @Override
     protected Transferable createTransferable(JComponent c) {
-        return new TransferableObject(((JList) c).getSelectedValues(),
-                                      dataFlavors);
+        return new TransferableObject(((JList) c).getSelectedValues(), dataFlavors);
     }
 
     @Override

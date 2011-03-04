@@ -1,8 +1,9 @@
 package org.jphototagger.program.filefilter;
 
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+
 import java.io.File;
 import java.io.FileFilter;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 
 /**
  * Accepts files with no sidecar files
@@ -11,7 +12,6 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class NoXmpFileFilter implements FileFilter {
-
     public static final NoXmpFileFilter INSTANCE = new NoXmpFileFilter();
 
     @Override
@@ -23,7 +23,5 @@ public final class NoXmpFileFilter implements FileFilter {
         return !XmpMetadata.hasImageASidecarFile(imageFile);
     }
 
-    private NoXmpFileFilter() {
-    }
-
+    private NoXmpFileFilter() {}
 }

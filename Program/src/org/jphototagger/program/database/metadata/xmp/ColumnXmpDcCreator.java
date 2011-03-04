@@ -15,10 +15,7 @@ public final class ColumnXmpDcCreator extends Column {
     private ColumnXmpDcCreator() {
         super("creator", "dc_creators", DataType.STRING);
         setLength(128);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnXmpDcCreator.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpDcCreator.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpDcCreator.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpDcCreator.LongerDescription"));
     }
 }

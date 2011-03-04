@@ -65,9 +65,7 @@ public final class FavoritesHelper {
                             GUI.refreshThumbnailsPanel();
                         }
                     } else {
-                        MessageDisplayer.error(null,
-                                               "FavoritesHelper.Error.Update",
-                                               favorite);
+                        MessageDisplayer.error(null, "FavoritesHelper.Error.Update", favorite);
 
                         return;
                     }
@@ -85,16 +83,14 @@ public final class FavoritesHelper {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    ModelFactory.INSTANCE.getModel(
-                        TreeModelFavorites.class).delete(favorite);
+                    ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).delete(favorite);
                 }
             });
         }
     }
 
     private static boolean confirmDelete(String favoriteName) {
-        return MessageDisplayer.confirmYesNo(null,
-                "FavoritesHelper.Confirm.Delete", favoriteName);
+        return MessageDisplayer.confirmYesNo(null, "FavoritesHelper.Confirm.Delete", favoriteName);
     }
 
     /**
@@ -118,8 +114,8 @@ public final class FavoritesHelper {
      * @return directory or null if no node is selected
      */
     public static File getSelectedDir() {
-        DefaultMutableTreeNode selNode    = getSelectedNode();
-        Object                 userObject = selNode.getUserObject();
+        DefaultMutableTreeNode selNode = getSelectedNode();
+        Object userObject = selNode.getUserObject();
 
         if (userObject instanceof Favorite) {
             Favorite favoriteDirectory = (Favorite) userObject;
@@ -142,9 +138,8 @@ public final class FavoritesHelper {
         TreePath path = GUI.getAppPanel().getTreeFavorites().getSelectionPath();
 
         if (path != null) {
-            File                   dir = null;
-            DefaultMutableTreeNode node =
-                (DefaultMutableTreeNode) path.getLastPathComponent();
+            File dir = null;
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
             Object userObject = node.getUserObject();
 
             if (userObject instanceof Favorite) {
@@ -169,12 +164,12 @@ public final class FavoritesHelper {
      * @return directory or null if no directory is selected
      */
     public static File getSelectedFavorite() {
-        JTree  tree = GUI.getAppPanel().getTreeFavorites();
-        Object o    = tree.getLastSelectedPathComponent();
+        JTree tree = GUI.getAppPanel().getTreeFavorites();
+        Object o = tree.getLastSelectedPathComponent();
 
         if (o instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode node       = (DefaultMutableTreeNode) o;
-            Object                 userObject = node.getUserObject();
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+            Object userObject = node.getUserObject();
 
             if (userObject instanceof Favorite) {
                 Favorite favorite = (Favorite) userObject;
@@ -193,8 +188,7 @@ public final class FavoritesHelper {
      * @param files
      * @param settings can be null
      */
-    public static void setFilesToThumbnailPanel(List<File> files,
-            ThumbnailsPanel.Settings settings) {
+    public static void setFilesToThumbnailPanel(List<File> files, ThumbnailsPanel.Settings settings) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
@@ -203,12 +197,10 @@ public final class FavoritesHelper {
     }
 
     private static class SetFiles implements Runnable {
-        private final AppPanel           appPanel = GUI.getAppPanel();
-        private final ThumbnailsPanel    tnPanel =
-            appPanel.getPanelThumbnails();
-        private final EditMetadataPanels editPanels =
-            appPanel.getEditMetadataPanels();
-        private final List<File>               files;
+        private final AppPanel appPanel = GUI.getAppPanel();
+        private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
+        private final EditMetadataPanels editPanels = appPanel.getEditMetadataPanels();
+        private final List<File> files;
         private final ThumbnailsPanel.Settings tnPanelSettings;
 
         SetFiles(List<File> files, Settings settings) {
@@ -216,7 +208,7 @@ public final class FavoritesHelper {
                 throw new NullPointerException("files == null");
             }
 
-            this.files           = files;    // No copy due performance
+            this.files = files;    // No copy due performance
             this.tnPanelSettings = settings;
         }
 
@@ -234,9 +226,7 @@ public final class FavoritesHelper {
         private void setTitle() {
             File dir = FavoritesHelper.getSelectedDir();
 
-            GUI.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString(
-                    "FavoritesHelper.AppFrame.Title.FavoriteDirectory",
+            GUI.getAppFrame().setTitle(JptBundle.INSTANCE.getString("FavoritesHelper.AppFrame.Title.FavoriteDirectory",
                     (dir == null)
                     ? "?"
                     : dir));

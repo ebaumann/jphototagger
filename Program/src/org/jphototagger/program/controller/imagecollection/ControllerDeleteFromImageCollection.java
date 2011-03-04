@@ -2,6 +2,7 @@ package org.jphototagger.program.controller.imagecollection;
 
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
@@ -10,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the
@@ -20,15 +20,13 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  * @see     ControllerDeleteFiles
  */
-public final class ControllerDeleteFromImageCollection
-        implements ActionListener, KeyListener {
+public final class ControllerDeleteFromImageCollection implements ActionListener, KeyListener {
     public ControllerDeleteFromImageCollection() {
         listen();
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemDeleteFromImageCollection()
-            .addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemDeleteFromImageCollection().addActionListener(this);
         GUI.getThumbnailsPanel().addKeyListener(this);
     }
 
@@ -47,8 +45,7 @@ public final class ControllerDeleteFromImageCollection
     private void delete() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        if (tnPanel.getContent().equals(Content.IMAGE_COLLECTION)
-                && (tnPanel.isFileSelected())) {
+        if (tnPanel.getContent().equals(Content.IMAGE_COLLECTION) && (tnPanel.isFileSelected())) {
             ImageCollectionsHelper.deleteSelectedFiles();
         }
     }

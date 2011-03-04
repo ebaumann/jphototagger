@@ -4,6 +4,7 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelFavorites;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
@@ -17,7 +18,6 @@ import java.awt.EventQueue;
 import java.io.File;
 
 import javax.swing.JTree;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to the {@link PopupMenuFavorites} and inserts a
@@ -28,17 +28,14 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerInsertFavorite
-        implements ActionListener, KeyListener {
+public final class ControllerInsertFavorite implements ActionListener, KeyListener {
     public ControllerInsertFavorite() {
         listen();
     }
 
     private void listen() {
-        PopupMenuFavorites.INSTANCE.getItemInsertFavorite().addActionListener(
-            this);
-        PopupMenuDirectories.INSTANCE.getItemAddToFavorites().addActionListener(
-            this);
+        PopupMenuFavorites.INSTANCE.getItemInsertFavorite().addActionListener(this);
+        PopupMenuDirectories.INSTANCE.getItemAddToFavorites().addActionListener(this);
         GUI.getFavoritesTree().addKeyListener(this);
     }
 
@@ -55,9 +52,8 @@ public final class ControllerInsertFavorite
     }
 
     private File getDirectory(Object o) {
-        File    directory = null;
-        boolean isAddToFavorites =
-            PopupMenuDirectories.INSTANCE.getItemAddToFavorites().equals(o);
+        File directory = null;
+        boolean isAddToFavorites = PopupMenuDirectories.INSTANCE.getItemAddToFavorites().equals(o);
 
         if (isAddToFavorites) {
             directory = PopupMenuDirectories.INSTANCE.getDirectory();
@@ -80,8 +76,7 @@ public final class ControllerInsertFavorite
                 dlg.setVisible(true);
 
                 if (dlg.isAccepted()) {
-                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(
-                                                   TreeModelFavorites.class);
+                    TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
                     Favorite favorite = new Favorite();
 
                     favorite.setName(dlg.getFavoriteName());

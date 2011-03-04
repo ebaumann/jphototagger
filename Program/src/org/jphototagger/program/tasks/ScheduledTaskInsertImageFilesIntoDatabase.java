@@ -24,8 +24,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ScheduledTaskInsertImageFilesIntoDatabase {
-    private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS =
-        new ArrayList<String>();
+    private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS = new ArrayList<String>();
 
     static {
         SYSTEM_DIRECTORIES_SUBSTRINGS.add("System Volume Information");
@@ -42,7 +41,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
      */
     static InsertImageFilesIntoDatabase getThread() {
         List<File> directories = getDirectories();
-        List<File> imageFiles  = new ArrayList<File>(directories.size());
+        List<File> imageFiles = new ArrayList<File>(directories.size());
 
         if (!directories.isEmpty()) {
             for (File directory : directories) {
@@ -52,14 +51,11 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
             }
         }
 
-        InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(imageFiles, Insert.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, Insert.OUT_OF_DATE);
         String pBarString =
-            JptBundle.INSTANCE.getString(
-                "ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
+            JptBundle.INSTANCE.getString("ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
 
-        inserter.addProgressListener(new ProgressBarUpdater(inserter,
-                pBarString));
+        inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
 
         return inserter;
     }
@@ -91,8 +87,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     }
 
     private static List<File> getAllSubdirectories(File directory) {
-        return FileUtil.getSubDirsRecursive(directory,
-                UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
+        return FileUtil.getSubDirsRecursive(directory, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
     }
 
     private static boolean isSystemDirectory(String directoryName) {

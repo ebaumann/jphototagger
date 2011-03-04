@@ -17,14 +17,14 @@ import java.util.Collection;
  * @author Elmar Baumann
  */
 public final class RuntimeUtil {
-    private static final String QUOTE                = "\"";
-    private static final String SEPARATOR            = " ";
-    private static final String EMPTY                = "";
-    public static final String  PATTERN_FS_PATH      = "%s";
-    public static final String  PATTERN_FS_ROOT      = "%d";
-    public static final String  PATTERN_FS_DIR_PATH  = "%p";
-    public static final String  PATTERN_FS_FILE_NAME = "%n";
-    public static final String  PATTERN_FS_FILE_EXT  = "%x";
+    private static final String QUOTE = "\"";
+    private static final String SEPARATOR = " ";
+    private static final String EMPTY = "";
+    public static final String PATTERN_FS_PATH = "%s";
+    public static final String PATTERN_FS_ROOT = "%d";
+    public static final String PATTERN_FS_DIR_PATH = "%p";
+    public static final String PATTERN_FS_FILE_NAME = "%n";
+    public static final String PATTERN_FS_FILE_EXT = "%x";
 
     /**
      * Executes an application and desplays a message dialog on errors.
@@ -44,14 +44,11 @@ public final class RuntimeUtil {
         }
 
         if (!appPath.isEmpty()) {
-            String openCommand = appPath + getDefaultCommandLineSeparator()
-                                 + arguments;
+            String openCommand = appPath + getDefaultCommandLineSeparator() + arguments;
 
             try {
-                AppLogger.logInfo(RuntimeUtil.class, "IoUtil.Info.Execute",
-                                  openCommand);
-                Runtime.getRuntime().exec(
-                    External.parseQuotedCommandLine(openCommand));
+                AppLogger.logInfo(RuntimeUtil.class, "IoUtil.Info.Execute", openCommand);
+                Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (Exception ex) {
                 AppLogger.logSevere(RuntimeUtil.class, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
@@ -104,11 +101,10 @@ public final class RuntimeUtil {
             throw new NullPointerException("file == null");
         }
 
-        String quote     = getDefaultCommandlineQuote();
+        String quote = getDefaultCommandlineQuote();
         String separator = getDefaultCommandLineSeparator();
 
-        return quote + string + quote + separator + quote
-               + file.getAbsolutePath() + quote;
+        return quote + string + quote + separator + quote + file.getAbsolutePath() + quote;
     }
 
     /**
@@ -123,8 +119,7 @@ public final class RuntimeUtil {
             throw new NullPointerException("files == null");
         }
 
-        return getQuotedForCommandLine(Arrays.asList(files),
-                                       getDefaultCommandLineSeparator(),
+        return getQuotedForCommandLine(Arrays.asList(files), getDefaultCommandLineSeparator(),
                                        getDefaultCommandlineQuote());
     }
 
@@ -140,8 +135,7 @@ public final class RuntimeUtil {
             throw new NullPointerException("files == null");
         }
 
-        return getQuotedForCommandLine(files, getDefaultCommandLineSeparator(),
-                                       getDefaultCommandlineQuote());
+        return getQuotedForCommandLine(files, getDefaultCommandLineSeparator(), getDefaultCommandlineQuote());
     }
 
     /**
@@ -167,30 +161,26 @@ public final class RuntimeUtil {
             throw new NullPointerException("pattern == null");
         }
 
-        String path      = file.getAbsolutePath();
-        String root      = FileUtil.getRootName(path);
-        String dirPath   = FileUtil.getDirPath(file);
-        String name      = FileUtil.getPrefix(file.getName());
+        String path = file.getAbsolutePath();
+        String root = FileUtil.getRootName(path);
+        String dirPath = FileUtil.getDirPath(file);
+        String name = FileUtil.getPrefix(file.getName());
         String extension = FileUtil.getSuffix(file.getName());
 
-        return pattern.replace(PATTERN_FS_DIR_PATH,
-                               dirPath).replace(PATTERN_FS_FILE_EXT,
-                                   extension).replace(PATTERN_FS_FILE_NAME,
-                                       name).replace(PATTERN_FS_PATH,
-                                           path).replace(PATTERN_FS_ROOT, root)
+        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath).replace(PATTERN_FS_FILE_EXT,
+                               extension).replace(PATTERN_FS_FILE_NAME, name).replace(PATTERN_FS_PATH,
+                                   path).replace(PATTERN_FS_ROOT, root)
         ;
     }
 
-    private static String getQuotedForCommandLine(
-            Collection<? extends File> files, String separator, String quote) {
-        StringBuilder sb    = new StringBuilder();
-        int           index = 0;
+    private static String getQuotedForCommandLine(Collection<? extends File> files, String separator, String quote) {
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
 
         for (File file : files) {
             sb.append((index++ == 0)
                       ? EMPTY
-                      : separator).append(quote).append(
-                          file.getAbsolutePath()).append(quote);
+                      : separator).append(quote).append(file.getAbsolutePath()).append(quote);
         }
 
         return sb.toString();
@@ -222,8 +212,7 @@ public final class RuntimeUtil {
         }
 
         if (!FileLock.INSTANCE.lock(file, owner)) {
-            AppLogger.logWarning(owner.getClass(), "IoUtil.Error.lock", file,
-                                 owner, FileLock.INSTANCE.getOwner(file));
+            AppLogger.logWarning(owner.getClass(), "IoUtil.Error.lock", file, owner, FileLock.INSTANCE.getOwner(file));
 
             return false;
         }

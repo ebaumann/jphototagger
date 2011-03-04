@@ -22,10 +22,9 @@ import javax.swing.DefaultListModel;
  *
  * @author Elmar Baumann
  */
-public final class ListModelPrograms extends DefaultListModel
-        implements DatabaseProgramsListener {
+public final class ListModelPrograms extends DefaultListModel implements DatabaseProgramsListener {
     private static final long serialVersionUID = 1107244876982338977L;
-    private Type              type;
+    private Type type;
 
     public ListModelPrograms(Type type) {
         if (type == null) {
@@ -50,24 +49,20 @@ public final class ListModelPrograms extends DefaultListModel
     }
 
     private boolean isAppropriateProgramType(Program program) {
-        return (program.isAction() && type.equals(Type.ACTION))
-               || (!program.isAction() && type.equals(Type.PROGRAM));
+        return (program.isAction() && type.equals(Type.ACTION)) || (!program.isAction() && type.equals(Type.PROGRAM));
     }
 
-    private void updateProgram(Program program)
-            throws IllegalArgumentException {
+    private void updateProgram(Program program) throws IllegalArgumentException {
         int index = indexOf(program);
 
         if (index >= 0) {
-            int     sequenceNumber = program.getSequenceNumber();
-            boolean validSeqNumber = (sequenceNumber >= 0)
-                                     && (sequenceNumber <= getSize());
+            int sequenceNumber = program.getSequenceNumber();
+            boolean validSeqNumber = (sequenceNumber >= 0) && (sequenceNumber <= getSize());
 
             if (!validSeqNumber) {
-                throw new IllegalArgumentException(
-                    "Invalid sequence number. Size: " + getSize()
-                    + ". Sequence number: " + sequenceNumber);
-        }
+                throw new IllegalArgumentException("Invalid sequence number. Size: " + getSize()
+                                                   + ". Sequence number: " + sequenceNumber);
+            }
 
             if (index == sequenceNumber) {
                 set(index, program);
@@ -109,7 +104,7 @@ public final class ListModelPrograms extends DefaultListModel
                 @Override
                 public void run() {
                     updateProgram(program);
-                        }
+                }
             });
         }
     }

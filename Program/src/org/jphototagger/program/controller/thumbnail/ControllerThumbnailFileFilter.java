@@ -23,12 +23,10 @@ import javax.swing.JComboBox;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailFileFilter
-        implements ActionListener, ItemListener {
+public final class ControllerThumbnailFileFilter implements ActionListener, ItemListener {
     public ControllerThumbnailFileFilter() {
         getFileFilterComboBox().addItemListener(this);
-        GUI.getAppFrame().getMenuItemUserDefinedFileFilter().addActionListener(
-            this);
+        GUI.getAppFrame().getMenuItemUserDefinedFileFilter().addActionListener(this);
     }
 
     private JComboBox getFileFilterComboBox() {
@@ -42,7 +40,7 @@ public final class ControllerThumbnailFileFilter
 
     @Override
     public void itemStateChanged(ItemEvent evt) {
-        Object          item    = evt.getItem();
+        Object item = evt.getItem();
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         WaitDisplay.show();
@@ -50,8 +48,7 @@ public final class ControllerThumbnailFileFilter
         if (item instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) item);
         } else if (item instanceof UserDefinedFileFilter) {
-            tnPanel.setFileFilter(
-                ((UserDefinedFileFilter) item).getFileFilter());
+            tnPanel.setFileFilter(((UserDefinedFileFilter) item).getFileFilter());
         }
 
         writeSettings();
@@ -61,8 +58,7 @@ public final class ControllerThumbnailFileFilter
     private void writeSettings() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(getFileFilterComboBox().getSelectedIndex(),
-                     ComboBoxModelFileFilters.SETTINGS_KEY_SEL_INDEX);
+        settings.set(getFileFilterComboBox().getSelectedIndex(), ComboBoxModelFileFilters.SETTINGS_KEY_SEL_INDEX);
         UserSettings.INSTANCE.writeToFile();
     }
 }

@@ -25,8 +25,7 @@ import javax.swing.JLabel;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailSelectionEditMetadata
-        implements ThumbnailsPanelListener {
+public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {
     public ControllerThumbnailSelectionEditMetadata() {
         listen();
     }
@@ -50,14 +49,13 @@ public final class ControllerThumbnailSelectionEditMetadata
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                boolean         canEdit = false;
+                boolean canEdit = false;
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 if (tnPanel.isFileSelected()) {
                     canEdit = canEdit();
                     setEnabled(canEdit);
-                    GUI.getEditPanel().setImageFiles(
-                        tnPanel.getSelectedFiles());
+                    GUI.getEditPanel().setImageFiles(tnPanel.getSelectedFiles());
                 } else {
                     GUI.getEditPanel().emptyPanels(false);
                     setEnabled(false);
@@ -79,11 +77,11 @@ public final class ControllerThumbnailSelectionEditMetadata
         labelEditable.setText(canEdit
                               ? multipleThumbnailsSelected()
                                 ? JptBundle.INSTANCE.getString(
-                                "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
+                                    "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
                                 : JptBundle.INSTANCE.getString(
-                                "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
+                                    "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
                               : JptBundle.INSTANCE.getString(
-                              "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
+                                  "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {

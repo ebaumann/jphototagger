@@ -41,9 +41,9 @@ public final class TransferHandlerDropList extends TransferHandler {
             return false;
         }
 
-        JList            list         = (JList) support.getComponent();
-        DefaultListModel listModel    = (DefaultListModel) list.getModel();
-        Transferable     transferable = support.getTransferable();
+        JList list = (JList) support.getComponent();
+        DefaultListModel listModel = (DefaultListModel) list.getModel();
+        Transferable transferable = support.getTransferable();
 
         if (Flavor.hasKeywordsFromList(support)) {
             return importKeywords(transferable, listModel);
@@ -60,10 +60,8 @@ public final class TransferHandlerDropList extends TransferHandler {
         return false;
     }
 
-    private boolean importColumnData(DefaultListModel listModel,
-                                     Transferable transferable) {
-        Collection<? extends ColumnData> columnData =
-            Support.getColumnData(transferable);
+    private boolean importColumnData(DefaultListModel listModel, Transferable transferable) {
+        Collection<? extends ColumnData> columnData = Support.getColumnData(transferable);
 
         if (columnData != null) {
             for (ColumnData data : columnData) {
@@ -74,8 +72,7 @@ public final class TransferHandlerDropList extends TransferHandler {
         return false;
     }
 
-    private boolean importKeywords(Transferable transferable,
-                                   DefaultListModel listModel) {
+    private boolean importKeywords(Transferable transferable, DefaultListModel listModel) {
         Object[] keywords = Support.getKeywords(transferable);
 
         if (keywords == null) {
@@ -85,8 +82,7 @@ public final class TransferHandlerDropList extends TransferHandler {
         return importStringArray(listModel, keywords);
     }
 
-    private boolean importStringArray(DefaultListModel listModel,
-                                      Object[] array) {
+    private boolean importStringArray(DefaultListModel listModel, Object[] array) {
         for (Object o : array) {
             listModel.addElement(o);
         }
@@ -94,10 +90,8 @@ public final class TransferHandlerDropList extends TransferHandler {
         return true;
     }
 
-    private boolean importKeywords(DefaultListModel listModel,
-                                   Transferable transferable) {
-        List<DefaultMutableTreeNode> nodes =
-            Support.getKeywordNodes(transferable);
+    private boolean importKeywords(DefaultListModel listModel, Transferable transferable) {
+        List<DefaultMutableTreeNode> nodes = Support.getKeywordNodes(transferable);
 
         for (DefaultMutableTreeNode node : nodes) {
             importKeywords(node, listModel);
@@ -106,8 +100,7 @@ public final class TransferHandlerDropList extends TransferHandler {
         return true;
     }
 
-    private void importKeywords(DefaultMutableTreeNode node,
-                                DefaultListModel listModel) {
+    private void importKeywords(DefaultMutableTreeNode node, DefaultListModel listModel) {
         for (String keyword : KeywordsHelper.getKeywordStrings(node, true)) {
             if (!listModel.contains(keyword)) {
                 listModel.addElement(keyword);

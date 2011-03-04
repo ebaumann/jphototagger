@@ -34,9 +34,9 @@ public final class ProgramsHelper {
             throw new NullPointerException("listPrograms == null");
         }
 
-        int              selIndex        = listPrograms.getSelectedIndex();
-        int              upIndex         = selIndex - 1;
-        boolean          programSelected = listPrograms.getSelectedIndex() >= 0;
+        int selIndex = listPrograms.getSelectedIndex();
+        int upIndex = selIndex - 1;
+        boolean programSelected = listPrograms.getSelectedIndex() >= 0;
         DefaultListModel model = (DefaultListModel) listPrograms.getModel();
 
         if (programSelected && (upIndex >= 0)) {
@@ -62,10 +62,10 @@ public final class ProgramsHelper {
         }
 
         DefaultListModel model = (DefaultListModel) listPrograms.getModel();
-        int              size            = model.getSize();
-        int              selIndex        = listPrograms.getSelectedIndex();
-        int              downIndex       = selIndex + 1;
-        boolean          programSelected = listPrograms.getSelectedIndex() >= 0;
+        int size = model.getSize();
+        int selIndex = listPrograms.getSelectedIndex();
+        int downIndex = selIndex + 1;
+        boolean programSelected = listPrograms.getSelectedIndex() >= 0;
 
         if (programSelected && (downIndex < size)) {
             ListUtil.swapModelElements(model, downIndex, selIndex);
@@ -85,7 +85,7 @@ public final class ProgramsHelper {
             throw new NullPointerException("model == null");
         }
 
-        int           size     = model.getSize();
+        int size = model.getSize();
         List<Program> programs = new ArrayList<Program>(size);
 
         for (int sequenceNo = 0; sequenceNo < size; sequenceNo++) {
@@ -101,7 +101,7 @@ public final class ProgramsHelper {
     }
 
     public static class ReorderListener implements ListDataListener {
-        private volatile boolean       listenToModel = true;
+        private volatile boolean listenToModel = true;
         private final DefaultListModel model;
 
         public ReorderListener(DefaultListModel model) {

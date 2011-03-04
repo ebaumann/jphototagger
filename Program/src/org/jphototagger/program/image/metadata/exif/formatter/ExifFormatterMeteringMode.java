@@ -14,10 +14,8 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifFormatterMeteringMode extends ExifFormatter {
-    public static final ExifFormatterMeteringMode INSTANCE =
-        new ExifFormatterMeteringMode();
-    private static final Map<Integer, String> EXIF_KEY_OF_METERING_MODE =
-        new HashMap<Integer, String>();
+    public static final ExifFormatterMeteringMode INSTANCE = new ExifFormatterMeteringMode();
+    private static final Map<Integer, String> EXIF_KEY_OF_METERING_MODE = new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_METERING_MODE.put(0, "MeteringModeUnknown");
@@ -40,13 +38,11 @@ public final class ExifFormatterMeteringMode extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.METERING_MODE);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
             int value = es.value();
 
             if (EXIF_KEY_OF_METERING_MODE.containsKey(value)) {
-                return translate(IfdType.EXIF,
-                                 EXIF_KEY_OF_METERING_MODE.get(value));
+                return translate(IfdType.EXIF, EXIF_KEY_OF_METERING_MODE.get(value));
             }
         }
 

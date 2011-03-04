@@ -17,8 +17,7 @@ import javax.xml.bind.Unmarshaller;
  * @author Elmar Baumann
  */
 public final class XmlObjectImporter {
-    public static Object importObject(File file, Class<?> clazz)
-            throws JAXBException, FileNotFoundException {
+    public static Object importObject(File file, Class<?> clazz) throws JAXBException, FileNotFoundException {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -32,7 +31,7 @@ public final class XmlObjectImporter {
         try {
             fis = new FileInputStream(file);
 
-            JAXBContext  context      = JAXBContext.newInstance(clazz);
+            JAXBContext context = JAXBContext.newInstance(clazz);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             return unmarshaller.unmarshal(fis);

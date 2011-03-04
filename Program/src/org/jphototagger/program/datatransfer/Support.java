@@ -3,6 +3,7 @@ package org.jphototagger.program.datatransfer;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.ColumnData;
+import org.jphototagger.program.io.ImageFileFilterer;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -14,7 +15,6 @@ import java.util.List;
 
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
-import org.jphototagger.program.io.ImageFileFilterer;
 
 /**
  * Support for data transfer.
@@ -38,8 +38,7 @@ public final class Support {
         }
 
         try {
-            return (Object[]) transferable.getTransferData(
-                Flavor.KEYWORDS_LIST);
+            return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
@@ -54,15 +53,13 @@ public final class Support {
      * @return              collection or null on errors
      */
     @SuppressWarnings("unchecked")
-    public static Collection<? extends ColumnData> getColumnData(
-            Transferable transferable) {
+    public static Collection<? extends ColumnData> getColumnData(Transferable transferable) {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
 
         try {
-            return (Collection<? extends ColumnData>) transferable
-                .getTransferData(Flavor.COLUMN_DATA);
+            return (Collection<? extends ColumnData>) transferable.getTransferData(Flavor.COLUMN_DATA);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
@@ -79,15 +76,13 @@ public final class Support {
      * @return              keyword node or null on errors
      */
     @SuppressWarnings("unchecked")
-    public static List<DefaultMutableTreeNode> getKeywordNodes(
-            Transferable transferable) {
+    public static List<DefaultMutableTreeNode> getKeywordNodes(Transferable transferable) {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
 
         try {
-            return (List<DefaultMutableTreeNode>) transferable.getTransferData(
-                Flavor.KEYWORDS_TREE);
+            return (List<DefaultMutableTreeNode>) transferable.getTransferData(Flavor.KEYWORDS_TREE);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
@@ -100,11 +95,10 @@ public final class Support {
      * @param  columnData can be null
      * @return            string, can be empty
      */
-    public static String getStringFromColumnData(
-            Collection<? extends ColumnData> columnData) {
+    public static String getStringFromColumnData(Collection<? extends ColumnData> columnData) {
         if (columnData != null) {
-            StringBuilder sb    = new StringBuilder();
-            int           index = 0;
+            StringBuilder sb = new StringBuilder();
+            int index = 0;
 
             for (ColumnData data : columnData) {
                 sb.append((index++ == 0)
@@ -133,8 +127,7 @@ public final class Support {
         }
 
         try {
-            return (String) transferable.getTransferData(
-                DataFlavor.stringFlavor);
+            return (String) transferable.getTransferData(DataFlavor.stringFlavor);
         } catch (Exception ex) {
             AppLogger.logSevere(Flavor.class, ex);
         }
@@ -143,8 +136,7 @@ public final class Support {
     }
 
     public static List<File> getImageFiles(TransferSupport support) {
-        List<File> files = TransferUtil.getFiles(support.getTransferable(),
-                               TransferUtil.FilenameDelimiter.NEWLINE);
+        List<File> files = TransferUtil.getFiles(support.getTransferable(), TransferUtil.FilenameDelimiter.NEWLINE);
 
         return ImageFileFilterer.getImageFiles(files);
     }

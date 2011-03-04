@@ -16,20 +16,20 @@ public final class RenameTemplate {
 
     // On updates change set()!
     @XmlTransient
-    private Long     id;
-    private String   name;
-    private Integer  startNumber;
-    private Integer  stepWidth;
-    private Integer  numberCount;
-    private String   dateDelimiter;
+    private Long id;
+    private String name;
+    private Integer startNumber;
+    private Integer stepWidth;
+    private Integer numberCount;
+    private String dateDelimiter;
     private Class<?> formatClassAtBegin;
-    private String   delimiter1;
+    private String delimiter1;
     private Class<?> formatClassInTheMiddle;
-    private String   delimiter2;
+    private String delimiter2;
     private Class<?> formatClassAtEnd;
-    private String   textAtBegin;
-    private String   textInTheMiddle;
-    private String   textAtEnd;
+    private String textAtBegin;
+    private String textInTheMiddle;
+    private String textAtEnd;
 
     public RenameTemplate() {}
 
@@ -46,20 +46,20 @@ public final class RenameTemplate {
             throw new NullPointerException("other == null");
         }
 
-        id                     = other.id;
-        name                   = other.name;
-        startNumber            = other.startNumber;
-        stepWidth              = other.stepWidth;
-        numberCount            = other.numberCount;
-        dateDelimiter          = other.dateDelimiter;
-        formatClassAtBegin     = other.formatClassAtBegin;
-        delimiter1             = other.delimiter1;
+        id = other.id;
+        name = other.name;
+        startNumber = other.startNumber;
+        stepWidth = other.stepWidth;
+        numberCount = other.numberCount;
+        dateDelimiter = other.dateDelimiter;
+        formatClassAtBegin = other.formatClassAtBegin;
+        delimiter1 = other.delimiter1;
         formatClassInTheMiddle = other.formatClassInTheMiddle;
-        delimiter2             = other.delimiter2;
-        formatClassAtEnd       = other.formatClassAtEnd;
-        textAtBegin            = other.textAtBegin;
-        textInTheMiddle        = other.textInTheMiddle;
-        textAtEnd              = other.textAtEnd;
+        delimiter2 = other.delimiter2;
+        formatClassAtEnd = other.formatClassAtEnd;
+        textAtBegin = other.textAtBegin;
+        textInTheMiddle = other.textInTheMiddle;
+        textAtEnd = other.textAtEnd;
     }
 
     public Long getId() {
@@ -191,8 +191,7 @@ public final class RenameTemplate {
 
         final RenameTemplate other = (RenameTemplate) obj;
 
-        if ((this.id != other.id)
-                && ((this.id == null) ||!this.id.equals(other.id))) {
+        if ((this.id != other.id) && ((this.id == null) ||!this.id.equals(other.id))) {
             return false;
         }
 

@@ -1,11 +1,11 @@
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.program.event.listener
-    .DatabaseMetadataTemplatesListener;
+import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
+
+import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
 
@@ -15,8 +15,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Elmar Baumann
  */
-public final class ListModelMetadataTemplates extends DefaultListModel
-        implements DatabaseMetadataTemplatesListener {
+public final class ListModelMetadataTemplates extends DefaultListModel implements DatabaseMetadataTemplatesListener {
     private static final long serialVersionUID = -1726658041913008196L;
 
     public ListModelMetadataTemplates() {
@@ -69,7 +68,7 @@ public final class ListModelMetadataTemplates extends DefaultListModel
         }
     }
 
-            @Override
+    @Override
     public void templateDeleted(final MetadataTemplate template) {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -90,13 +89,12 @@ public final class ListModelMetadataTemplates extends DefaultListModel
     }
 
     @Override
-    public void templateUpdated(final MetadataTemplate oldTemplate,
-                                MetadataTemplate updatedTemplate) {
+    public void templateUpdated(final MetadataTemplate oldTemplate, MetadataTemplate updatedTemplate) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateTemplate(oldTemplate);
-                }
+            }
         });
     }
 
@@ -106,7 +104,7 @@ public final class ListModelMetadataTemplates extends DefaultListModel
             @Override
             public void run() {
                 renameTemplate(fromName, toName);
-                }
+            }
         });
     }
 }

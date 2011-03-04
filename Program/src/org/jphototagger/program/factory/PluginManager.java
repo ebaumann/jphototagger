@@ -13,10 +13,8 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class PluginManager {
-    private static final LinkedHashSet<Plugin> ALL_PLUGINS =
-        new LinkedHashSet<Plugin>();
-    private static final LinkedHashSet<Plugin> PLUGINS =
-        new LinkedHashSet<Plugin>();
+    private static final LinkedHashSet<Plugin> ALL_PLUGINS = new LinkedHashSet<Plugin>();
+    private static final LinkedHashSet<Plugin> PLUGINS = new LinkedHashSet<Plugin>();
     public static final PluginManager INSTANCE = new PluginManager();
 
     /**
@@ -67,7 +65,7 @@ public final class PluginManager {
         }
 
         Properties properties = UserSettings.INSTANCE.getProperties();
-        String     key        = plugin.getClass().getName();
+        String key = plugin.getClass().getName();
 
         if (exclude) {
             PLUGINS.remove(plugin);
@@ -97,7 +95,7 @@ public final class PluginManager {
 
     private boolean isExclude(Plugin plugin) {
         Properties properties = UserSettings.INSTANCE.getProperties();
-        String     key        = plugin.getClass().getName();
+        String key = plugin.getClass().getName();
 
         if (!properties.containsKey(key)) {
             return false;

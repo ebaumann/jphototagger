@@ -16,8 +16,7 @@ import javax.swing.JMenu;
  *
  * @author Elmar Baumann
  */
-public final class ActionsMenuUpdater
-        implements DatabaseProgramsListener {
+public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     public ActionsMenuUpdater() {
         setMenuItemEnabled();
         listen();
@@ -31,8 +30,7 @@ public final class ActionsMenuUpdater
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JMenu actionMenu =
-                    PopupMenuThumbnails.INSTANCE.getMenuActions();
+                JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
 
                 actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
             }
@@ -45,8 +43,7 @@ public final class ActionsMenuUpdater
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    JMenu actionMenu =
-                        PopupMenuThumbnails.INSTANCE.getMenuActions();
+                    JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
 
                     ActionsHelper.removeAction(actionMenu, program);
                 }
@@ -60,8 +57,7 @@ public final class ActionsMenuUpdater
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    JMenu actionMenu =
-                        PopupMenuThumbnails.INSTANCE.getMenuActions();
+                    JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
 
                     ActionsHelper.addAction(actionMenu, program);
                 }
@@ -75,8 +71,7 @@ public final class ActionsMenuUpdater
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    JMenu actionMenu =
-                        PopupMenuThumbnails.INSTANCE.getMenuActions();
+                    JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
 
                     ActionsHelper.updateAction(actionMenu, program);
                 }
