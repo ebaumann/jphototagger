@@ -38,7 +38,9 @@ public class TableModelExt extends DefaultTableModel {
         Vector rows = getDataVector();
         int size = rows.size();
 
-        rows.clear();
-        fireTableRowsDeleted(0, size - 1);
+        if (size > 0) {
+            rows.clear();
+            fireTableRowsDeleted(0, size - 1);
+        }
     }
 }
