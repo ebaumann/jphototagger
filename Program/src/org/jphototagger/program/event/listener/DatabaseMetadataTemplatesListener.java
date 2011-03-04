@@ -33,8 +33,7 @@ public interface DatabaseMetadataTemplatesListener {
      * @param oldTemplate     old template before update
      * @param updatedTemplate updated template
      */
-    void templateUpdated(MetadataTemplate oldTemplate,
-                                MetadataTemplate updatedTemplate);
+    void templateUpdated(MetadataTemplate oldTemplate, MetadataTemplate updatedTemplate);
 
     /**
      * Called if a template was renamed in

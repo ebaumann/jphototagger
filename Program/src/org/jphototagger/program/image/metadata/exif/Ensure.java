@@ -16,8 +16,7 @@ public final class Ensure {
      * @param  id      tag id
      * @throws         IllegalArgumentException if the tag doesn't have that ID
      */
-    public static void exifTagId(ExifTag exifTag, ExifTag.Id id)
-            throws IllegalArgumentException {
+    public static void exifTagId(ExifTag exifTag, ExifTag.Id id) throws IllegalArgumentException {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
@@ -27,9 +26,7 @@ public final class Ensure {
         }
 
         if (exifTag.idValue() != id.value()) {
-            throw new IllegalArgumentException("Wrong tag: "
-                                               + exifTag.idValue()
-                                               + ". Expected: " + id.value());
+            throw new IllegalArgumentException("Wrong tag: " + exifTag.idValue() + ". Expected: " + id.value());
         }
     }
 
@@ -40,8 +37,7 @@ public final class Ensure {
      * @param  dataType dataType
      * @throws          IllegalArgumentException if the tag doesn't have that dataType
      */
-    public static void exifDataType(ExifTag exifTag, ExifDataType dataType)
-            throws IllegalArgumentException {
+    public static void exifDataType(ExifTag exifTag, ExifDataType dataType) throws IllegalArgumentException {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
@@ -51,9 +47,7 @@ public final class Ensure {
         }
 
         if (!exifTag.dataType().equals(dataType)) {
-            throw new IllegalArgumentException("Wrong type: "
-                                               + exifTag.dataType()
-                                               + ". Expected: " + dataType);
+            throw new IllegalArgumentException("Wrong type: " + exifTag.dataType() + ". Expected: " + dataType);
         }
     }
 
@@ -76,14 +70,11 @@ public final class Ensure {
      * @param  denominator denominator
      * @throws             IllegalArgumentException if the fraction is negative
      */
-    public static void zeroOrPositive(long numerator, long denominator)
-            throws IllegalArgumentException {
-        boolean negative = ((numerator < 0) && (denominator > 0))
-                           || ((numerator > 0) && (denominator < 0));
+    public static void zeroOrPositive(long numerator, long denominator) throws IllegalArgumentException {
+        boolean negative = ((numerator < 0) && (denominator > 0)) || ((numerator > 0) && (denominator < 0));
 
         if (negative) {
-            throw new IllegalArgumentException("Negative fraction: "
-                                               + numerator + "/" + denominator);
+            throw new IllegalArgumentException("Negative fraction: " + numerator + "/" + denominator);
         }
     }
 
@@ -94,8 +85,7 @@ public final class Ensure {
      * @throws             IllegalArgumentException if the denominator is equals
      *                     to zero
      */
-    public static void noDivisionByZero(long denominator)
-            throws IllegalArgumentException {
+    public static void noDivisionByZero(long denominator) throws IllegalArgumentException {
         if (denominator == 0) {
             throw new IllegalArgumentException("Zero division");
         }
@@ -109,16 +99,13 @@ public final class Ensure {
      * @throws        IllegalArgumentException if the array length is not equals
      *                to <code>length</code>
      */
-    public static void length(byte[] bytes, int length)
-            throws IllegalArgumentException {
+    public static void length(byte[] bytes, int length) throws IllegalArgumentException {
         if (bytes == null) {
             throw new NullPointerException("bytes == null");
         }
 
         if (bytes.length != length) {
-            throw new IllegalArgumentException("Illegal length: "
-                                               + bytes.length + ". Required: "
-                                               + length);
+            throw new IllegalArgumentException("Illegal length: " + bytes.length + ". Required: " + length);
         }
     }
 

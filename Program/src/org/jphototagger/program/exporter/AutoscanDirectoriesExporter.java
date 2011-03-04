@@ -1,10 +1,10 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -27,11 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 public final class AutoscanDirectoriesExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
-    public static final AutoscanDirectoriesExporter INSTANCE =
-        new AutoscanDirectoriesExporter();
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("AutoscanDirectoriesExporter.DisplayName.FileFilter"),
+                                    "xml");
+    public static final AutoscanDirectoriesExporter INSTANCE = new AutoscanDirectoriesExporter();
 
     private AutoscanDirectoriesExporter() {}
 
@@ -44,13 +42,9 @@ public final class AutoscanDirectoriesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<String> directories =
-                FileUtil.getAbsolutePathnames(
-                    DatabaseAutoscanDirectories.INSTANCE.getAll());
+            List<String> directories = FileUtil.getAbsolutePathnames(DatabaseAutoscanDirectories.INSTANCE.getAll());
 
-            XmlObjectExporter.export(
-                new CollectionWrapper(
-                    StringWrapper.getWrappedStrings(directories)), xmlFile);
+            XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(directories)), xmlFile);
         } catch (Exception ex) {
             AppLogger.logSevere(AutoscanDirectoriesExporter.class, ex);
         }
@@ -63,8 +57,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "AutoscanDirectoriesExporter.DisplayName");
+        return JptBundle.INSTANCE.getString("AutoscanDirectoriesExporter.DisplayName");
     }
 
     @Override
@@ -81,8 +74,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
     public static class CollectionWrapper {
         @XmlElementWrapper(name = "AutoscanDirectories")
         @XmlElement(type = StringWrapper.class)
-        private final ArrayList<StringWrapper> collection =
-            new ArrayList<StringWrapper>();
+        private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
 
         public CollectionWrapper() {}
 

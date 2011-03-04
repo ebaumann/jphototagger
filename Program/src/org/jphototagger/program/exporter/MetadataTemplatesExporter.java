@@ -36,24 +36,21 @@ import javax.xml.transform.TransformerFactory;
  * @author Elmar Baumann
  */
 public final class MetadataTemplatesExporter implements Exporter {
-    private static final long       serialVersionUID = 1L;
-    private static final FileFilter FILE_FILTER      =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "MetadataTemplatesExporter.DisplayName.FileFilter"), "xml");
-    public static final MetadataTemplatesExporter INSTANCE =
-        new MetadataTemplatesExporter();
-    public static final String DTD                     =
-        "metadatatemplates.dtd";
-    public static final String TAGNAME_ROOT            = "templates";
-    public static final String TAGNAME_TEMPLATE        = "template";
-    public static final String TAGNAME_ENTRY           = "entry";
+    private static final long serialVersionUID = 1L;
+    private static final FileFilter FILE_FILTER =
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("MetadataTemplatesExporter.DisplayName.FileFilter"),
+                                    "xml");
+    public static final MetadataTemplatesExporter INSTANCE = new MetadataTemplatesExporter();
+    public static final String DTD = "metadatatemplates.dtd";
+    public static final String TAGNAME_ROOT = "templates";
+    public static final String TAGNAME_TEMPLATE = "template";
+    public static final String TAGNAME_ENTRY = "entry";
     public static final String ATTR_NAME_TEMPLATE_NAME = "name";
-    public static final String ATTR_NAME_COLUMN        = "column";
-    public static final String ATTR_NAME_VALUE_TYPE    = "valuetype";
-    public static final String ATTR_NAME_VALUE         = "value";
-    public static final String COLLECTION_DELIM        = "|";
-    public static final String NULL                    = "null";
+    public static final String ATTR_NAME_COLUMN = "column";
+    public static final String ATTR_NAME_VALUE_TYPE = "valuetype";
+    public static final String ATTR_NAME_VALUE = "value";
+    public static final String COLLECTION_DELIM = "|";
+    public static final String NULL = "null";
 
     @Override
     public void exportFile(File file) {
@@ -62,11 +59,11 @@ public final class MetadataTemplatesExporter implements Exporter {
         }
 
         try {
-            Document           doc   = getDoc();
-            DOMSource          ds    = new DOMSource(doc);
-            StreamResult       sr    = new StreamResult(file);
-            TransformerFactory tf    = TransformerFactory.newInstance();
-            Transformer        trans = tf.newTransformer();
+            Document doc = getDoc();
+            DOMSource ds = new DOMSource(doc);
+            StreamResult sr = new StreamResult(file);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer trans = tf.newTransformer();
 
             insertTemplates(doc);
             initTransformer(trans);
@@ -81,18 +78,15 @@ public final class MetadataTemplatesExporter implements Exporter {
 
         doc.appendChild(rootElement);
 
-        for (MetadataTemplate template :
-                DatabaseMetadataTemplates.INSTANCE.getAll()) {
+        for (MetadataTemplate template : DatabaseMetadataTemplates.INSTANCE.getAll()) {
             Element templateElement = doc.createElement(TAGNAME_TEMPLATE);
 
-            templateElement.setAttribute(ATTR_NAME_TEMPLATE_NAME,
-                                         template.getName());
+            templateElement.setAttribute(ATTR_NAME_TEMPLATE_NAME, template.getName());
 
             for (Column column : template.getColumns()) {
                 Element entryElement = doc.createElement(TAGNAME_ENTRY);
 
-                entryElement.setAttribute(ATTR_NAME_COLUMN,
-                                          column.getClass().getName());
+                entryElement.setAttribute(ATTR_NAME_COLUMN, column.getClass().getName());
                 setEntryValue(template.getValueOfColumn(column), entryElement);
                 templateElement.appendChild(entryElement);
             }
@@ -101,11 +95,10 @@ public final class MetadataTemplatesExporter implements Exporter {
         }
     }
 
-    private void setEntryValue(Object value, Element entryElement)
-            throws DOMException {
+    private void setEntryValue(Object value, Element entryElement) throws DOMException {
         if (value instanceof Collection<?>) {
-            int           index = 0;
-            StringBuilder sb    = new StringBuilder();
+            int index = 0;
+            StringBuilder sb = new StringBuilder();
 
             for (Object o : (Collection<?>) value) {
                 assert o instanceof String : o;
@@ -115,8 +108,7 @@ public final class MetadataTemplatesExporter implements Exporter {
                 sb.append(o.toString());
             }
 
-            entryElement.setAttribute(ATTR_NAME_VALUE_TYPE,
-                                      Collection.class.getName());
+            entryElement.setAttribute(ATTR_NAME_VALUE_TYPE, Collection.class.getName());
             entryElement.setAttribute(ATTR_NAME_VALUE, sb.toString());
         } else {
             entryElement.setAttribute(ATTR_NAME_VALUE_TYPE, (value == null)
@@ -130,20 +122,18 @@ public final class MetadataTemplatesExporter implements Exporter {
 
     private Document getDoc() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder        builder = factory.newDocumentBuilder();
-        DOMImplementation      impl    = builder.getDOMImplementation();
-        Document               doc     = impl.createDocument(null, null, null);
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        DOMImplementation impl = builder.getDOMImplementation();
+        Document doc = impl.createDocument(null, null, null);
 
         return doc;
     }
 
-    private void initTransformer(Transformer trans)
-            throws IllegalArgumentException {
+    private void initTransformer(Transformer trans) throws IllegalArgumentException {
         trans.setOutputProperty(OutputKeys.METHOD, "xml");
         trans.setOutputProperty(OutputKeys.ENCODING, CharEncoding.JPT_KEYWORDS);
         trans.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, DTD);
-        trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
-                                "4");
+        trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         trans.setOutputProperty(OutputKeys.INDENT, "yes");
         trans.setOutputProperty(OutputKeys.STANDALONE, "no");
     }
@@ -155,8 +145,7 @@ public final class MetadataTemplatesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "MetadataTemplatesExporter.DisplayName");
+        return JptBundle.INSTANCE.getString("MetadataTemplatesExporter.DisplayName");
     }
 
     @Override

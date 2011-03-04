@@ -28,9 +28,9 @@ public class PluginEvent {
         FINISHED_ERRORS,
     }
 
-    private final Type       type;
+    private final Type type;
     private final List<File> processedFiles = new ArrayList<File>();
-    private final List<File> changedFiles   = new ArrayList<File>();
+    private final List<File> changedFiles = new ArrayList<File>();
 
     public PluginEvent(Type type) {
         if (type == null) {

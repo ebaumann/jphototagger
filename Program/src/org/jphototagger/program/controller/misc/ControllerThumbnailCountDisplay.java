@@ -16,8 +16,7 @@ import javax.swing.JSlider;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailCountDisplay
-        implements ThumbnailsPanelListener, ChangeListener {
+public final class ControllerThumbnailCountDisplay implements ThumbnailsPanelListener, ChangeListener {
     private int thumbnailZoom;
     private int thumbnailCount;
     private int selectionCount;
@@ -67,10 +66,8 @@ public final class ControllerThumbnailCountDisplay
             @Override
             public void run() {
                 JLabel label = GUI.getAppPanel().getLabelThumbnailInfo();
-                String info = JptBundle.INSTANCE.getString(
-                                  "ControllerThumbnailCountDisplay.Info",
-                                  thumbnailCount, selectionCount,
-                                  thumbnailZoom);
+                String info = JptBundle.INSTANCE.getString("ControllerThumbnailCountDisplay.Info", thumbnailCount,
+                                  selectionCount, thumbnailZoom);
 
                 label.setText(info);
                 label.setToolTipText(info);

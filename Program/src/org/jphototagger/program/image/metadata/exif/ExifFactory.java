@@ -25,7 +25,7 @@ final class ExifFactory {
      * @return           EXIF metadata or null if errors occured
      */
     static Exif getExif(File imageFile) {
-        Exif     exif     = new Exif();
+        Exif exif = new Exif();
         ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
 
         if (exifTags == null) {
@@ -33,15 +33,11 @@ final class ExifFactory {
         }
 
         try {
-            ExifTag dateTimeOriginal =
-                exifTags.exifTagById(ExifTag.Id.DATE_TIME_ORIGINAL.value());
-            ExifTag focalLength =
-                exifTags.exifTagById(ExifTag.Id.FOCAL_LENGTH.value());
-            ExifTag isoSpeedRatings =
-                exifTags.exifTagById(ExifTag.Id.ISO_SPEED_RATINGS.value());
+            ExifTag dateTimeOriginal = exifTags.exifTagById(ExifTag.Id.DATE_TIME_ORIGINAL.value());
+            ExifTag focalLength = exifTags.exifTagById(ExifTag.Id.FOCAL_LENGTH.value());
+            ExifTag isoSpeedRatings = exifTags.exifTagById(ExifTag.Id.ISO_SPEED_RATINGS.value());
             ExifTag model = exifTags.exifTagById(ExifTag.Id.MODEL.value());
-            ExifTag lens  =
-                exifTags.exifTagById(ExifTag.Id.MAKER_NOTE_LENS.value());
+            ExifTag lens = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE_LENS.value());
 
             if (dateTimeOriginal != null) {
                 setExifDateTimeOriginal(exif, dateTimeOriginal);
@@ -74,17 +70,13 @@ final class ExifFactory {
 
         if ((datestring != null) && (datestring.trim().length() >= 11)) {
             try {
-                int      year     = new Integer(datestring.substring(0,
-                                        4)).intValue();
-                int      month    = new Integer(datestring.substring(5,
-                                        7)).intValue();
-                int      day      = new Integer(datestring.substring(8,
-                                        10)).intValue();
+                int year = new Integer(datestring.substring(0, 4)).intValue();
+                int month = new Integer(datestring.substring(5, 7)).intValue();
+                int day = new Integer(datestring.substring(8, 10)).intValue();
                 Calendar calendar = new GregorianCalendar();
 
                 if (year < 1839) {
-                    AppLogger.logInfo(ExifFactory.class,
-                                      "ExifFactory.Info.TooOldYear");
+                    AppLogger.logInfo(ExifFactory.class, "ExifFactory.Info.TooOldYear");
 
                     return;
                 }
@@ -92,8 +84,7 @@ final class ExifFactory {
                 calendar.set(year, month - 1, day);
 
                 try {
-                    exif.setDateTimeOriginal(
-                        new Date(calendar.getTimeInMillis()));
+                    exif.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
                 } catch (Exception ex) {
                     AppLogger.logSevere(ExifMetadata.class, ex);
                 }
@@ -111,12 +102,12 @@ final class ExifFactory {
 
     private static void setExifFocalLength(Exif exif, ExifTag exifTag) {
         try {
-            String          length    = exifTag.stringValue().trim();
+            String length = exifTag.stringValue().trim();
             StringTokenizer tokenizer = new StringTokenizer(length, "/:");
 
             if (tokenizer.countTokens() >= 1) {
                 String denominatorString = tokenizer.nextToken();
-                String numeratorString   = null;
+                String numeratorString = null;
 
                 if (tokenizer.hasMoreTokens()) {
                     numeratorString = tokenizer.nextToken();
@@ -140,8 +131,7 @@ final class ExifFactory {
 
     private static void setExifIsoSpeedRatings(Exif exif, ExifTag exifTag) {
         try {
-            exif.setIsoSpeedRatings(
-                new Short(exifTag.stringValue().trim()).shortValue());
+            exif.setIsoSpeedRatings(new Short(exifTag.stringValue().trim()).shortValue());
         } catch (Exception ex) {
             AppLogger.logSevere(ExifMetadata.class, ex);
         }

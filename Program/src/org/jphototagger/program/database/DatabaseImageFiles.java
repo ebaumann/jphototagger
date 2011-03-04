@@ -14,29 +14,21 @@ import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopCaptionwriter;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopHeadline;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopInstructions;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopTransmissionReference;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
@@ -70,10 +62,8 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class DatabaseImageFiles extends Database {
-    public static final DatabaseImageFiles                    INSTANCE =
-        new DatabaseImageFiles();
-    private final ListenerSupport<DatabaseImageFilesListener> ls =
-        new ListenerSupport<DatabaseImageFilesListener>();
+    public static final DatabaseImageFiles INSTANCE = new DatabaseImageFiles();
+    private final ListenerSupport<DatabaseImageFilesListener> ls = new ListenerSupport<DatabaseImageFilesListener>();
 
     public enum DcSubjectOption { INCLUDE_SYNONYMS }
 
@@ -95,22 +85,20 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("toImageFile == null");
         }
 
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            stmt = con.prepareStatement(
-                "UPDATE files SET filename = ? WHERE filename = ?");
+            stmt = con.prepareStatement("UPDATE files SET filename = ? WHERE filename = ?");
             stmt.setString(1, getFilePath(toImageFile));
             stmt.setString(2, getFilePath(fromImageFile));
             logFiner(stmt);
             count = stmt.executeUpdate();
 
-            if (PersistentThumbnails.renameThumbnail(fromImageFile,
-                    toImageFile)) {
+            if (PersistentThumbnails.renameThumbnail(fromImageFile, toImageFile)) {
                 notifyImageFileRenamed(fromImageFile, toImageFile);
             }
         } catch (Exception ex) {
@@ -125,9 +113,9 @@ public final class DatabaseImageFiles extends Database {
 
     public List<File> getAllImageFiles() {
         List<File> files = new ArrayList<File>();
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -151,13 +139,11 @@ public final class DatabaseImageFiles extends Database {
         return files;
     }
 
-    private long getFileCountNameStartingWith(Connection con, String start)
-            throws SQLException {
-        long              count = 0;
-        String            sql =
-            "SELECT COUNT(*) FROM files WHERE filename LIKE ?";
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+    private long getFileCountNameStartingWith(Connection con, String start) throws SQLException {
+        long count = 0;
+        String sql = "SELECT COUNT(*) FROM files WHERE filename LIKE ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.prepareStatement(sql);
@@ -189,8 +175,7 @@ public final class DatabaseImageFiles extends Database {
      *                         (no rollback).
      * @return                 count of renamed files
      */
-    public synchronized int updateRenameFilenamesStartingWith(
-            final String before, final String after,
+    public synchronized int updateRenameFilenamesStartingWith(final String before, final String after,
             final ProgressListener progressListener) {
         if (before == null) {
             throw new NullPointerException("before == null");
@@ -204,37 +189,32 @@ public final class DatabaseImageFiles extends Database {
             return 0;
         }
 
-        int               countRenamed  = 0;
-        int               startLength   = before.length();
-        Connection        con           = null;
-        PreparedStatement stmt          = null;
-        ResultSet         rs            = null;
-        ProgressEvent     progressEvent = new ProgressEvent(this, 0, 0, 0,
-                                              null);
+        int countRenamed = 0;
+        int startLength = before.length();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ProgressEvent progressEvent = new ProgressEvent(this, 0, 0, 0, null);
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            stmt = con.prepareStatement(
-                "SELECT filename FROM files WHERE filename LIKE ?");
+            stmt = con.prepareStatement("SELECT filename FROM files WHERE filename LIKE ?");
             stmt.setString(1, before + "%");
             logFinest(stmt);
             rs = stmt.executeQuery();
-            progressEvent.setMaximum((int) getFileCountNameStartingWith(con,
-                    before));
+            progressEvent.setMaximum((int) getFileCountNameStartingWith(con, before));
 
-            boolean cancel = notifyProgressListenerStart(progressListener,
-                                 progressEvent);
+            boolean cancel = notifyProgressListenerStart(progressListener, progressEvent);
 
             while (!cancel && rs.next()) {
                 String from = rs.getString(1);
-                String to   = after + from.substring(startLength);
+                String to = after + from.substring(startLength);
 
                 updateImageFilename(con, getFile(from), getFile(to));
                 countRenamed++;
                 progressEvent.setValue(countRenamed);
-                cancel = notifyProgressListenerPerformed(progressListener,
-                        progressEvent);
+                cancel = notifyProgressListenerPerformed(progressListener, progressEvent);
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -248,9 +228,7 @@ public final class DatabaseImageFiles extends Database {
         return countRenamed;
     }
 
-    private void updateImageFilename(Connection con, File fromImageFile,
-                                     File toImageFile)
-            throws SQLException {
+    private void updateImageFilename(Connection con, File fromImageFile, File toImageFile) throws SQLException {
         if (fromImageFile.equals(toImageFile)) {
             return;
         }
@@ -273,8 +251,8 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private int deleteRowWithFilename(Connection con, File imageFile) {
-        int               countDeleted = 0;
-        PreparedStatement stmt         = null;
+        int countDeleted = 0;
+        PreparedStatement stmt = null;
 
         try {
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
@@ -343,11 +321,9 @@ public final class DatabaseImageFiles extends Database {
             }
 
             insertOrUpdateXmp(con, imageFile, idFile, xmp);
-            setLastModifiedXmp(imageFile,
-                               xmp.contains(ColumnXmpLastModified.INSTANCE)
-                               ? (Long) xmp.getValue(
-                                   ColumnXmpLastModified.INSTANCE)
-                               : -1);
+            setLastModifiedXmp(imageFile, xmp.contains(ColumnXmpLastModified.INSTANCE)
+                                          ? (Long) xmp.getValue(ColumnXmpLastModified.INSTANCE)
+                                          : -1);
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
             rollback(con);
@@ -385,20 +361,16 @@ public final class DatabaseImageFiles extends Database {
             return update(imageFile);
         }
 
-        Connection        con  = null;
+        Connection con = null;
         PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
 
-            String sqlWithXmpLastModified =
-                "INSERT INTO files"
-                + " (filename, lastmodified, xmp_lastmodified)"
-                + " VALUES (?, ?, ?)";
-            String sqlWithoutXmpLastModified = "INSERT INTO files"
-                                               + " (filename, lastmodified)"
-                                               + " VALUES (?, ?)";
+            String sqlWithXmpLastModified = "INSERT INTO files" + " (filename, lastmodified, xmp_lastmodified)"
+                                            + " VALUES (?, ?, ?)";
+            String sqlWithoutXmpLastModified = "INSERT INTO files" + " (filename, lastmodified)" + " VALUES (?, ?)";
 
             stmt = con.prepareStatement(imageFile.isInsertXmpIntoDb()
                                         ? sqlWithXmpLastModified
@@ -492,26 +464,23 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        boolean           success = false;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
+        boolean success = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
 
-            String sqlWithXmpLastModified =
-                "UPDATE files SET lastmodified = ?, xmp_lastmodified = ?"
-                + " WHERE id = ?";
-            String sqlWithoutXmpLastModified =
-                "UPDATE files SET lastmodified = ? WHERE id = ?";
+            String sqlWithXmpLastModified = "UPDATE files SET lastmodified = ?, xmp_lastmodified = ?" + " WHERE id = ?";
+            String sqlWithoutXmpLastModified = "UPDATE files SET lastmodified = ? WHERE id = ?";
 
             stmt = con.prepareStatement(imageFile.isInsertXmpIntoDb()
                                         ? sqlWithXmpLastModified
                                         : sqlWithoutXmpLastModified);
 
             File imgFile = imageFile.getFile();
-            long idFile  = findIdImageFile(con, imgFile);
+            long idFile = findIdImageFile(con, imgFile);
 
             stmt.setLong(1, imageFile.getLastmodified());
 
@@ -559,16 +528,14 @@ public final class DatabaseImageFiles extends Database {
      * @return          count of updated thumbnails
      */
     public int updateAllThumbnails(ProgressListener listener) {
-        int        updated = 0;
-        Connection con     = null;
-        Statement  stmt    = null;
-        ResultSet  rs      = null;
+        int updated = 0;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            int           filecount =
-                DatabaseStatistics.INSTANCE.getFileCount();
-            ProgressEvent progressEvent = new ProgressEvent(this, 0, filecount,
-                                              0, "");
+            int filecount = DatabaseStatistics.INSTANCE.getFileCount();
+            ProgressEvent progressEvent = new ProgressEvent(this, 0, filecount, 0, "");
 
             con = getConnection();
             con.setAutoCommit(true);
@@ -586,8 +553,7 @@ public final class DatabaseImageFiles extends Database {
             while (!progressEvent.isCancel() && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
 
-                updateThumbnailFile(imgFile,
-                                    PersistentThumbnails.getThumbnail(imgFile));
+                updateThumbnailFile(imgFile, PersistentThumbnails.getThumbnail(imgFile));
                 updated++;
                 progressEvent.setValue(++count);
                 progressEvent.setInfo(imgFile);
@@ -657,15 +623,14 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        long              lastModified = -1;
-        Connection        con          = null;
-        PreparedStatement stmt         = null;
-        ResultSet         rs           = null;
+        long lastModified = -1;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT lastmodified FROM files WHERE filename = ?");
+            stmt = con.prepareStatement("SELECT lastmodified FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -694,15 +659,14 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM files WHERE filename = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -730,9 +694,9 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("files == null");
         }
 
-        int               countDeleted = 0;
-        Connection        con          = null;
-        PreparedStatement stmt         = null;
+        int countDeleted = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
@@ -748,7 +712,7 @@ public final class DatabaseImageFiles extends Database {
                 countDeleted += countAffectedRows;
 
                 if (countAffectedRows > 0) {
-                    Xmp  xmp  = getXmpOfImageFile(imageFile);
+                    Xmp xmp = getXmpOfImageFile(imageFile);
                     Exif exif = getExifOfImageFile(imageFile);
 
                     PersistentThumbnails.deleteThumbnail(imageFile);
@@ -790,13 +754,11 @@ public final class DatabaseImageFiles extends Database {
      * @return         Anzahl gelöschter Datensätze
      */
     public int deleteNotExistingImageFiles(ProgressListener listener) {
-        int           countDeleted = 0;
-        ProgressEvent event = new ProgressEvent(this, 0,
-                                  DatabaseStatistics.INSTANCE.getFileCount(),
-                                  0, null);
-        Connection con  = null;
-        Statement  stmt = null;
-        ResultSet  rs   = null;
+        int countDeleted = 0;
+        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount(), 0, null);
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -814,9 +776,9 @@ public final class DatabaseImageFiles extends Database {
                 File imgFile = getFile(rs.getString(1));
 
                 if (!imgFile.exists()) {
-                    Xmp  xmp         = getXmpOfImageFile(imgFile);
-                    Exif exif        = getExifOfImageFile(imgFile);
-                    int  deletedRows = deleteRowWithFilename(con, imgFile);
+                    Xmp xmp = getXmpOfImageFile(imgFile);
+                    Exif exif = getExifOfImageFile(imgFile);
+                    int deletedRows = deleteRowWithFilename(con, imgFile);
 
                     countDeleted += deletedRows;
 
@@ -851,11 +813,10 @@ public final class DatabaseImageFiles extends Database {
         return countDeleted;
     }
 
-    private long findIdXmpOfIdFile(Connection con, long idFile)
-            throws SQLException {
-        long              id   = -1;
+    private long findIdXmpOfIdFile(Connection con, long idFile) throws SQLException {
+        long id = -1;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.prepareStatement("SELECT id FROM xmp WHERE id_file = ?");
@@ -885,15 +846,14 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        long              lastModified = -1;
-        Connection        con          = null;
-        PreparedStatement stmt         = null;
-        ResultSet         rs           = null;
+        long lastModified = -1;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT xmp_lastmodified FROM files WHERE filename = ?");
+            stmt = con.prepareStatement("SELECT xmp_lastmodified FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -923,15 +883,14 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        boolean           set  = false;
-        Connection        con  = null;
+        boolean set = false;
+        Connection con = null;
         PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            stmt = con.prepareStatement(
-                "UPDATE files SET xmp_lastmodified = ? WHERE filename = ?");
+            stmt = con.prepareStatement("UPDATE files SET xmp_lastmodified = ? WHERE filename = ?");
             stmt.setLong(1, time);
             stmt.setString(2, getFilePath(imageFile));
             logFiner(stmt);
@@ -960,9 +919,7 @@ public final class DatabaseImageFiles extends Database {
     }
 
     @SuppressWarnings("unchecked")
-    private void insertXmp(Connection con, File imageFile, long idImageFile,
-                           Xmp xmp)
-            throws SQLException {
+    private void insertXmp(Connection con, File imageFile, long idImageFile, Xmp xmp) throws SQLException {
         if ((xmp != null) &&!xmp.isEmpty()) {
             PreparedStatement stmt = null;
 
@@ -975,10 +932,7 @@ public final class DatabaseImageFiles extends Database {
                 long idXmp = findIdXmpOfIdFile(con, idImageFile);
 
                 if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                    insertXmpDcSubjects(
-                        con, idXmp,
-                        (List<String>) xmp.getValue(
-                            ColumnXmpDcSubjectsSubject.INSTANCE));
+                    insertXmpDcSubjects(con, idXmp, (List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
                 }
 
                 notifyXmpInserted(imageFile, xmp);
@@ -988,9 +942,7 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private void insertXmpDcSubjects(Connection con, long idXmp,
-                                     List<String> dcSubjects)
-            throws SQLException {
+    private void insertXmpDcSubjects(Connection con, long idXmp, List<String> dcSubjects) throws SQLException {
         for (String dcSubject : dcSubjects) {
             Long idDcSubject = ensureDcSubjectExists(con, dcSubject);
 
@@ -1004,15 +956,11 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private void insertXmpDcSubjectsLink(Connection con, long idXmp,
-            long idDcSubject)
-            throws SQLException {
+    private void insertXmpDcSubjectsLink(Connection con, long idXmp, long idDcSubject) throws SQLException {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement(
-                "INSERT INTO xmp_dc_subject"
-                + " (id_xmp, id_dc_subject) VALUES (?, ?)");
+            stmt = con.prepareStatement("INSERT INTO xmp_dc_subject" + " (id_xmp, id_dc_subject) VALUES (?, ?)");
             stmt.setLong(1, idXmp);
             stmt.setLong(2, idDcSubject);
             logFiner(stmt);
@@ -1022,8 +970,7 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private Long ensureDcSubjectExists(Connection con, String dcSubject)
-            throws SQLException {
+    private Long ensureDcSubjectExists(Connection con, String dcSubject) throws SQLException {
         Long idDcSubject = getIdDcSubject(dcSubject);
 
         if (idDcSubject == null) {
@@ -1034,14 +981,12 @@ public final class DatabaseImageFiles extends Database {
         return idDcSubject;
     }
 
-    private int insertDcSubject(Connection con, String dcSubject)
-            throws SQLException {
-        PreparedStatement stmt  = null;
-        int               count = 0;
+    private int insertDcSubject(Connection con, String dcSubject) throws SQLException {
+        PreparedStatement stmt = null;
+        int count = 0;
 
         try {
-            stmt = con.prepareStatement(
-                "INSERT INTO dc_subjects (subject) VALUES (?)");
+            stmt = con.prepareStatement("INSERT INTO dc_subjects (subject) VALUES (?)");
             stmt.setString(1, dcSubject);
             logFiner(stmt);
             count = stmt.executeUpdate();
@@ -1067,8 +1012,8 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("dcSubject == null");
         }
 
-        boolean    inserted = false;
-        Connection con      = null;
+        boolean inserted = false;
+        Connection con = null;
 
         try {
             con = getConnection();
@@ -1091,116 +1036,82 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private String getUpdateXmpStatement() {
-        return "UPDATE xmp SET id_file = ?"                 // --  1 --
-               + ", id_dc_creator = ?"                      // --  2 --
-               + ", dc_description = ?"                     // --  3 --
-               + ", id_dc_rights = ?"                       // --  4 --
-               + ", dc_title = ?"                           // --  5 --
-               + ", id_iptc4xmpcore_location = ?"           // --  6 --
-               + ", id_photoshop_authorsposition = ?"       // --  7 --
-               + ", id_photoshop_captionwriter = ?"         // --  8 --
-               + ", id_photoshop_city = ?"                  // --  9 --
-               + ", id_photoshop_country = ?"               // -- 10 --
-               + ", id_photoshop_credit = ?"                // -- 11 --
-               + ", photoshop_headline = ?"                 // -- 12 --
-               + ", photoshop_instructions = ?"             // -- 13 --
-               + ", id_photoshop_source = ?"                // -- 14 --
-               + ", id_photoshop_state = ?"                 // -- 15 --
+        return "UPDATE xmp SET id_file = ?"    // --  1 --
+               + ", id_dc_creator = ?"    // --  2 --
+               + ", dc_description = ?"    // --  3 --
+               + ", id_dc_rights = ?"    // --  4 --
+               + ", dc_title = ?"    // --  5 --
+               + ", id_iptc4xmpcore_location = ?"    // --  6 --
+               + ", id_photoshop_authorsposition = ?"    // --  7 --
+               + ", id_photoshop_captionwriter = ?"    // --  8 --
+               + ", id_photoshop_city = ?"    // --  9 --
+               + ", id_photoshop_country = ?"    // -- 10 --
+               + ", id_photoshop_credit = ?"    // -- 11 --
+               + ", photoshop_headline = ?"    // -- 12 --
+               + ", photoshop_instructions = ?"    // -- 13 --
+               + ", id_photoshop_source = ?"    // -- 14 --
+               + ", id_photoshop_state = ?"    // -- 15 --
                + ", photoshop_transmissionReference = ?"    // -- 16 --
-               + ", rating = ?"                             // -- 17 --
-               + ", iptc4xmpcore_datecreated = ?"           // -- 18 --
-               + " WHERE id = ?";                           // -- 19 --
+               + ", rating = ?"    // -- 17 --
+               + ", iptc4xmpcore_datecreated = ?"    // -- 18 --
+               + " WHERE id = ?";    // -- 19 --
     }
 
     private String getInsertIntoXmpStatement() {
-        return "INSERT INTO xmp (id_file"               // --  1 --
-               + ", id_dc_creator"                      // --  2 --
-               + ", dc_description"                     // --  3 --
-               + ", id_dc_rights"                       // --  4 --
-               + ", dc_title"                           // --  5 --
-               + ", id_iptc4xmpcore_location"           // --  6 --
-               + ", id_photoshop_authorsposition"       // --  7 --
-               + ", id_photoshop_captionwriter"         // --  8 --
-               + ", id_photoshop_city"                  // --  9 --
-               + ", id_photoshop_country"               // -- 10 --
-               + ", id_photoshop_credit"                // -- 11 --
-               + ", photoshop_headline"                 // -- 12 --
-               + ", photoshop_instructions"             // -- 13 --
-               + ", id_photoshop_source"                // -- 14 --
-               + ", id_photoshop_state"                 // -- 15 --
+        return "INSERT INTO xmp (id_file"    // --  1 --
+               + ", id_dc_creator"    // --  2 --
+               + ", dc_description"    // --  3 --
+               + ", id_dc_rights"    // --  4 --
+               + ", dc_title"    // --  5 --
+               + ", id_iptc4xmpcore_location"    // --  6 --
+               + ", id_photoshop_authorsposition"    // --  7 --
+               + ", id_photoshop_captionwriter"    // --  8 --
+               + ", id_photoshop_city"    // --  9 --
+               + ", id_photoshop_country"    // -- 10 --
+               + ", id_photoshop_credit"    // -- 11 --
+               + ", photoshop_headline"    // -- 12 --
+               + ", photoshop_instructions"    // -- 13 --
+               + ", id_photoshop_source"    // -- 14 --
+               + ", id_photoshop_state"    // -- 15 --
                + ", photoshop_transmissionReference"    // -- 16 --
-               + ", rating"                             // -- 17 --
-               + ", iptc4xmpcore_datecreated"           // -- 18 --
-               + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
-               + ", ?, ?, ?, ?, ?, ?, ?, ?)";
+               + ", rating"    // -- 17 --
+               + ", iptc4xmpcore_datecreated"    // -- 18 --
+               + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + ", ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    private void setXmpValues(PreparedStatement stmt, long idImageFile, Xmp xmp)
-            throws SQLException {
+    private void setXmpValues(PreparedStatement stmt, long idImageFile, Xmp xmp) throws SQLException {
         stmt.setLong(1, idImageFile);
-        setLong(
-            ensureValueExists(
-                "dc_creators", "creator",
-                (String) xmp.getValue(ColumnXmpDcCreator.INSTANCE)), stmt, 2);
+        setLong(ensureValueExists("dc_creators", "creator", (String) xmp.getValue(ColumnXmpDcCreator.INSTANCE)), stmt,
+                2);
         setString(xmp.getValue(ColumnXmpDcDescription.INSTANCE), stmt, 3);
-        setLong(
-            ensureValueExists(
-                "dc_rights", "rights",
-                (String) xmp.getValue(ColumnXmpDcRights.INSTANCE)), stmt, 4);
+        setLong(ensureValueExists("dc_rights", "rights", (String) xmp.getValue(ColumnXmpDcRights.INSTANCE)), stmt, 4);
         setString(xmp.getValue(ColumnXmpDcTitle.INSTANCE), stmt, 5);
-        setLong(
-            ensureValueExists(
-                "iptc4xmpcore_locations", "location", (String) xmp.getValue(
-                    ColumnXmpIptc4xmpcoreLocation.INSTANCE)), stmt, 6);
-        setLong(
-            ensureValueExists(
-                "photoshop_authorspositions", "authorsposition",
-                (String) xmp.getValue(
-                    ColumnXmpPhotoshopAuthorsposition.INSTANCE)), stmt, 7);
-        setLong(
-            ensureValueExists(
-                "photoshop_captionwriters", "captionwriter",
-                (String) xmp.getValue(
-                    ColumnXmpPhotoshopCaptionwriter.INSTANCE)), stmt, 8);
-        setLong(
-            ensureValueExists(
-                "photoshop_cities", "city",
-                (String) xmp.getValue(ColumnXmpPhotoshopCity.INSTANCE)), stmt,
-                    9);
-        setLong(
-            ensureValueExists(
-                "photoshop_countries", "country", (String) xmp.getValue(
-                    ColumnXmpPhotoshopCountry.INSTANCE)), stmt, 10);
-        setLong(
-            ensureValueExists(
-                "photoshop_credits", "credit", (String) xmp.getValue(
-                    ColumnXmpPhotoshopCredit.INSTANCE)), stmt, 11);
+        setLong(ensureValueExists("iptc4xmpcore_locations", "location",
+                                  (String) xmp.getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE)), stmt, 6);
+        setLong(ensureValueExists("photoshop_authorspositions", "authorsposition",
+                                  (String) xmp.getValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE)), stmt, 7);
+        setLong(ensureValueExists("photoshop_captionwriters", "captionwriter",
+                                  (String) xmp.getValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE)), stmt, 8);
+        setLong(ensureValueExists("photoshop_cities", "city", (String) xmp.getValue(ColumnXmpPhotoshopCity.INSTANCE)),
+                stmt, 9);
+        setLong(ensureValueExists("photoshop_countries", "country",
+                                  (String) xmp.getValue(ColumnXmpPhotoshopCountry.INSTANCE)), stmt, 10);
+        setLong(ensureValueExists("photoshop_credits", "credit",
+                                  (String) xmp.getValue(ColumnXmpPhotoshopCredit.INSTANCE)), stmt, 11);
         setString(xmp.getValue(ColumnXmpPhotoshopHeadline.INSTANCE), stmt, 12);
-        setString(xmp.getValue(ColumnXmpPhotoshopInstructions.INSTANCE), stmt,
-                  13);
-        setLong(
-            ensureValueExists(
-                "photoshop_sources", "source", (String) xmp.getValue(
-                    ColumnXmpPhotoshopSource.INSTANCE)), stmt, 14);
-        setLong(
-            ensureValueExists(
-                "photoshop_states", "state",
-                (String) xmp.getValue(ColumnXmpPhotoshopState.INSTANCE)), stmt,
-                    15);
-        setString(
-            xmp.getValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE),
-            stmt, 16);
-        setLongMinMax(xmp.getValue(ColumnXmpRating.INSTANCE),
-                      ColumnXmpRating.getMinValue(),
+        setString(xmp.getValue(ColumnXmpPhotoshopInstructions.INSTANCE), stmt, 13);
+        setLong(ensureValueExists("photoshop_sources", "source",
+                                  (String) xmp.getValue(ColumnXmpPhotoshopSource.INSTANCE)), stmt, 14);
+        setLong(ensureValueExists("photoshop_states", "state",
+                                  (String) xmp.getValue(ColumnXmpPhotoshopState.INSTANCE)), stmt, 15);
+        setString(xmp.getValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE), stmt, 16);
+        setLongMinMax(xmp.getValue(ColumnXmpRating.INSTANCE), ColumnXmpRating.getMinValue(),
                       ColumnXmpRating.getMaxValue(), stmt, 17);
-        setString(xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE),
-                  stmt, 18);
+        setString(xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE), stmt, 18);
     }
 
     @SuppressWarnings("unchecked")
-    private void insertOrUpdateXmp(Connection con, File imageFile, long idFile,
-                                   Xmp xmp)
-            throws SQLException {
+    private void insertOrUpdateXmp(Connection con, File imageFile, long idFile, Xmp xmp) throws SQLException {
         if (xmp != null) {
             long idXmp = findIdXmpOfIdFile(con, idFile);
 
@@ -1218,10 +1129,8 @@ public final class DatabaseImageFiles extends Database {
                     deleteXmpDcSubjects(con, idXmp);
 
                     if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                        insertXmpDcSubjects(
-                            con, idXmp,
-                            (List<String>) xmp.getValue(
-                                ColumnXmpDcSubjectsSubject.INSTANCE));
+                        insertXmpDcSubjects(con, idXmp,
+                                            (List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
                     }
 
                     notifyXmpUpdated(imageFile, oldXmp, xmp);
@@ -1234,13 +1143,11 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private void deleteXmpDcSubjects(Connection con, long idXmp)
-            throws SQLException {
+    private void deleteXmpDcSubjects(Connection con, long idXmp) throws SQLException {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement(
-                "DELETE FROM xmp_dc_subject WHERE id_xmp = ?");
+            stmt = con.prepareStatement("DELETE FROM xmp_dc_subject WHERE id_xmp = ?");
             stmt.setLong(1, idXmp);
             logFiner(stmt);
             stmt.executeUpdate();
@@ -1257,29 +1164,24 @@ public final class DatabaseImageFiles extends Database {
      * @return           count of deleted XMP data (one per image file)
      */
     public int deleteOrphanedXmp(ProgressListener listener) {
-        int           countDeleted = 0;
-        ProgressEvent progressEvent =
-            new ProgressEvent(this, 0,
-                              DatabaseStatistics.INSTANCE.getXmpCount(), 0,
-                              null);
-        Connection con  = null;
-        Statement  stmt = null;
-        ResultSet  rs   = null;
+        int countDeleted = 0;
+        ProgressEvent progressEvent = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
 
-            String sql = "SELECT files.filename FROM files, xmp"
-                         + " WHERE files.id = xmp.id_file";
+            String sql = "SELECT files.filename FROM files, xmp" + " WHERE files.id = xmp.id_file";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
-            File    imageFile = null;
-            boolean cancel = notifyProgressListenerStart(listener,
-                                 progressEvent);
+            File imageFile = null;
+            boolean cancel = notifyProgressListenerStart(listener, progressEvent);
 
             while (!cancel && rs.next()) {
                 imageFile = getFile(rs.getString(1));
@@ -1306,14 +1208,12 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private int deleteXmpOfImageFile(Connection con, File imageFile) {
-        int               count = 0;
-        PreparedStatement stmt  = null;
+        int count = 0;
+        PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement(
-                "DELETE FROM xmp WHERE xmp.id_file in"
-                + " (SELECT xmp.id_file FROM xmp, files"
-                + " WHERE xmp.id_file = files.id AND files.filename = ?)");
+            stmt = con.prepareStatement("DELETE FROM xmp WHERE xmp.id_file in" + " (SELECT xmp.id_file FROM xmp, files"
+                                        + " WHERE xmp.id_file = files.id AND files.filename = ?)");
             stmt.setString(1, getFilePath(imageFile));
             logFiner(stmt);
             count = stmt.executeUpdate();
@@ -1327,49 +1227,40 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private String getXmpOfImageFilesStatement(int fileCount) {
-        return " SELECT files.filename"                            // --  1 --
-               + ", dc_creators.creator"                           // --  2 --
-               + ", xmp.dc_description"                            // --  3 --
-               + ", dc_rights.rights"                              // --  4 --
-               + ", xmp.dc_title"                                  // --  5 --
-               + ", iptc4xmpcore_locations.location"               // --  6  --
+        return " SELECT files.filename"    // --  1 --
+               + ", dc_creators.creator"    // --  2 --
+               + ", xmp.dc_description"    // --  3 --
+               + ", dc_rights.rights"    // --  4 --
+               + ", xmp.dc_title"    // --  5 --
+               + ", iptc4xmpcore_locations.location"    // --  6  --
                + ", photoshop_authorspositions.authorsposition"    // --  7 --
-               + ", photoshop_captionwriters.captionwriter"        // --  8 --
-               + ", photoshop_cities.city"                         // --  9 --
-               + ", photoshop_countries.country"                   // -- 10 --
-               + ", photoshop_credits.credit"                      // -- 11 --
-               + ", xmp.photoshop_headline"                        // -- 12 --
-               + ", xmp.photoshop_instructions"                    // -- 13 --
-               + ", photoshop_sources.source"                      // -- 14 --
-               + ", photoshop_states.state"                        // -- 15 --
-               + ", xmp.photoshop_transmissionReference"           // -- 16 --
-               + ", dc_subjects.subject"                           // -- 17 --
-               + ", xmp.rating"                                    // -- 18 --
-               + ", xmp.iptc4xmpcore_datecreated"                  // -- 19 --
+               + ", photoshop_captionwriters.captionwriter"    // --  8 --
+               + ", photoshop_cities.city"    // --  9 --
+               + ", photoshop_countries.country"    // -- 10 --
+               + ", photoshop_credits.credit"    // -- 11 --
+               + ", xmp.photoshop_headline"    // -- 12 --
+               + ", xmp.photoshop_instructions"    // -- 13 --
+               + ", photoshop_sources.source"    // -- 14 --
+               + ", photoshop_states.state"    // -- 15 --
+               + ", xmp.photoshop_transmissionReference"    // -- 16 --
+               + ", dc_subjects.subject"    // -- 17 --
+               + ", xmp.rating"    // -- 18 --
+               + ", xmp.iptc4xmpcore_datecreated"    // -- 19 --
                + " FROM files LEFT JOIN xmp ON files.id = xmp.id_file"
                + " LEFT JOIN dc_creators ON xmp.id_dc_creator = dc_creators.id"
-               + " LEFT JOIN dc_rights ON xmp.id_dc_rights = dc_rights.id"
-               + " LEFT JOIN iptc4xmpcore_locations"
+               + " LEFT JOIN dc_rights ON xmp.id_dc_rights = dc_rights.id" + " LEFT JOIN iptc4xmpcore_locations"
                + " ON xmp.id_iptc4xmpcore_location = iptc4xmpcore_locations.id"
-               + " LEFT JOIN photoshop_authorspositions"
-               + " ON xmp.id_photoshop_authorsposition"
-               + " = photoshop_authorspositions.id"
-               + " LEFT JOIN photoshop_captionwriters"
-               + " ON xmp.id_photoshop_captionwriter"
-               + " = photoshop_captionwriters.id LEFT JOIN photoshop_cities"
-               + " ON xmp.id_photoshop_city = photoshop_cities.id"
-               + " LEFT JOIN photoshop_countries"
-               + " ON xmp.id_photoshop_country = photoshop_countries.id"
-               + " LEFT JOIN photoshop_credits"
-               + " ON xmp.id_photoshop_credit = photoshop_credits.id"
-               + " LEFT JOIN photoshop_sources"
-               + " ON xmp.id_photoshop_source = photoshop_sources.id"
-               + " LEFT JOIN photoshop_states"
+               + " LEFT JOIN photoshop_authorspositions" + " ON xmp.id_photoshop_authorsposition"
+               + " = photoshop_authorspositions.id" + " LEFT JOIN photoshop_captionwriters"
+               + " ON xmp.id_photoshop_captionwriter" + " = photoshop_captionwriters.id LEFT JOIN photoshop_cities"
+               + " ON xmp.id_photoshop_city = photoshop_cities.id" + " LEFT JOIN photoshop_countries"
+               + " ON xmp.id_photoshop_country = photoshop_countries.id" + " LEFT JOIN photoshop_credits"
+               + " ON xmp.id_photoshop_credit = photoshop_credits.id" + " LEFT JOIN photoshop_sources"
+               + " ON xmp.id_photoshop_source = photoshop_sources.id" + " LEFT JOIN photoshop_states"
                + " ON xmp.id_photoshop_state = photoshop_states.id"
-               + " LEFT JOIN xmp_dc_subject ON xmp.id = xmp_dc_subject.id_xmp"
-               + " LEFT JOIN dc_subjects"
-               + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id"
-               + " WHERE files.filename IN (" + getPlaceholder(fileCount) + ")";
+               + " LEFT JOIN xmp_dc_subject ON xmp.id = xmp_dc_subject.id_xmp" + " LEFT JOIN dc_subjects"
+               + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id" + " WHERE files.filename IN ("
+               + getPlaceholder(fileCount) + ")";
     }
 
     /**
@@ -1380,16 +1271,15 @@ public final class DatabaseImageFiles extends Database {
      *                   image file and the second the XMP metadata of that
      *                   file
      */
-    public List<Pair<File, Xmp>> getXmpOfImageFiles(
-            Collection<? extends File> imageFiles) {
+    public List<Pair<File, Xmp>> getXmpOfImageFiles(Collection<? extends File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
 
         List<Pair<File, Xmp>> list = new ArrayList<Pair<File, Xmp>>();
-        Connection            con  = null;
-        PreparedStatement     stmt = null;
-        ResultSet             rs   = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -1402,7 +1292,7 @@ public final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             String prevFilepath = "";
-            Xmp    xmp          = new Xmp();
+            Xmp xmp = new Xmp();
 
             while (rs.next()) {
                 String filepath = rs.getString(1);
@@ -1415,41 +1305,27 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setValue(ColumnXmpDcDescription.INSTANCE, getString(rs, 3));
                 xmp.setValue(ColumnXmpDcRights.INSTANCE, getString(rs, 4));
                 xmp.setValue(ColumnXmpDcTitle.INSTANCE, getString(rs, 5));
-                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                             getString(rs, 6));
-                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
-                             getString(rs, 7));
-                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
-                             getString(rs, 8));
+                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE, getString(rs, 6));
+                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE, getString(rs, 7));
+                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE, getString(rs, 8));
                 xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE, getString(rs, 9));
-                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE,
-                             getString(rs, 10));
-                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE,
-                             getString(rs, 11));
-                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE,
-                             getString(rs, 12));
-                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE,
-                             getString(rs, 13));
-                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE,
-                             getString(rs, 14));
-                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE,
-                             getString(rs, 15));
-                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-                             getString(rs, 16));
+                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE, getString(rs, 10));
+                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE, getString(rs, 11));
+                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE, getString(rs, 12));
+                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE, getString(rs, 13));
+                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE, getString(rs, 14));
+                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE, getString(rs, 15));
+                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE, getString(rs, 16));
 
                 String dcSubject = getString(rs, 17);
 
                 if (dcSubject != null) {
-                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                 dcSubject);
+                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
                 }
 
                 xmp.setValue(ColumnXmpRating.INSTANCE,
-                             getLongMinMax(rs, 18,
-                                           ColumnXmpRating.getMinValue(),
-                                           ColumnXmpRating.getMaxValue()));
-                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
-                             getString(rs, 19));
+                             getLongMinMax(rs, 18, ColumnXmpRating.getMinValue(), ColumnXmpRating.getMaxValue()));
+                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, getString(rs, 19));
 
                 if (!filepath.equals(prevFilepath)) {
                     list.add(new Pair<File, Xmp>(getFile(filepath), xmp));
@@ -1467,13 +1343,10 @@ public final class DatabaseImageFiles extends Database {
         return list;
     }
 
-    private void setStrings(PreparedStatement stmt, File[] files,
-                            int startIndex)
-            throws SQLException {
-        assert startIndex >= 1 :
-               "Invalid SQL statement position: " + startIndex;
+    private void setStrings(PreparedStatement stmt, File[] files, int startIndex) throws SQLException {
+        assert startIndex >= 1 : "Invalid SQL statement position: " + startIndex;
 
-        int endIndex    = startIndex + files.length;
+        int endIndex = startIndex + files.length;
         int stringIndex = 0;
 
         for (int i = startIndex; i < endIndex; i++) {
@@ -1494,48 +1367,38 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private String getXmpOfStatement() {
-        return " SELECT dc_creators.creator"                       // --  1 --
-               + ", xmp.dc_description"                            // --  2 --
-               + ", dc_rights.rights"                              // --  3 --
-               + ", xmp.dc_title"                                  // --  4 --
-               + ", iptc4xmpcore_locations.location"               // --  5  --
+        return " SELECT dc_creators.creator"    // --  1 --
+               + ", xmp.dc_description"    // --  2 --
+               + ", dc_rights.rights"    // --  3 --
+               + ", xmp.dc_title"    // --  4 --
+               + ", iptc4xmpcore_locations.location"    // --  5  --
                + ", photoshop_authorspositions.authorsposition"    // --  6 --
-               + ", photoshop_captionwriters.captionwriter"        // --  7 --
-               + ", photoshop_cities.city"                         // --  8 --
-               + ", photoshop_countries.country"                   // --  9 --
-               + ", photoshop_credits.credit"                      // -- 10 --
-               + ", xmp.photoshop_headline"                        // -- 11 --
-               + ", xmp.photoshop_instructions"                    // -- 12 --
-               + ", photoshop_sources.source"                      // -- 13 --
-               + ", photoshop_states.state"                        // -- 14 --
-               + ", xmp.photoshop_transmissionReference"           // -- 15 --
-               + ", dc_subjects.subject"                           // -- 16 --
-               + ", xmp.rating"                                    // -- 17 --
-               + ", xmp.iptc4xmpcore_datecreated"                  // -- 18 --
+               + ", photoshop_captionwriters.captionwriter"    // --  7 --
+               + ", photoshop_cities.city"    // --  8 --
+               + ", photoshop_countries.country"    // --  9 --
+               + ", photoshop_credits.credit"    // -- 10 --
+               + ", xmp.photoshop_headline"    // -- 11 --
+               + ", xmp.photoshop_instructions"    // -- 12 --
+               + ", photoshop_sources.source"    // -- 13 --
+               + ", photoshop_states.state"    // -- 14 --
+               + ", xmp.photoshop_transmissionReference"    // -- 15 --
+               + ", dc_subjects.subject"    // -- 16 --
+               + ", xmp.rating"    // -- 17 --
+               + ", xmp.iptc4xmpcore_datecreated"    // -- 18 --
                + " FROM files INNER JOIN xmp ON files.id = xmp.id_file"
                + " LEFT JOIN dc_creators ON xmp.id_dc_creator = dc_creators.id"
-               + " LEFT JOIN dc_rights ON xmp.id_dc_rights = dc_rights.id"
-               + " LEFT JOIN iptc4xmpcore_locations"
+               + " LEFT JOIN dc_rights ON xmp.id_dc_rights = dc_rights.id" + " LEFT JOIN iptc4xmpcore_locations"
                + " ON xmp.id_iptc4xmpcore_location = iptc4xmpcore_locations.id"
-               + " LEFT JOIN photoshop_authorspositions"
-               + " ON xmp.id_photoshop_authorsposition"
-               + " = photoshop_authorspositions.id"
-               + " LEFT JOIN photoshop_captionwriters"
-               + " ON xmp.id_photoshop_captionwriter"
-               + " = photoshop_captionwriters.id LEFT JOIN photoshop_cities"
-               + " ON xmp.id_photoshop_city = photoshop_cities.id"
-               + " LEFT JOIN photoshop_countries"
-               + " ON xmp.id_photoshop_country = photoshop_countries.id"
-               + " LEFT JOIN photoshop_credits"
-               + " ON xmp.id_photoshop_credit = photoshop_credits.id"
-               + " LEFT JOIN photoshop_sources"
-               + " ON xmp.id_photoshop_source = photoshop_sources.id"
-               + " LEFT JOIN photoshop_states"
+               + " LEFT JOIN photoshop_authorspositions" + " ON xmp.id_photoshop_authorsposition"
+               + " = photoshop_authorspositions.id" + " LEFT JOIN photoshop_captionwriters"
+               + " ON xmp.id_photoshop_captionwriter" + " = photoshop_captionwriters.id LEFT JOIN photoshop_cities"
+               + " ON xmp.id_photoshop_city = photoshop_cities.id" + " LEFT JOIN photoshop_countries"
+               + " ON xmp.id_photoshop_country = photoshop_countries.id" + " LEFT JOIN photoshop_credits"
+               + " ON xmp.id_photoshop_credit = photoshop_credits.id" + " LEFT JOIN photoshop_sources"
+               + " ON xmp.id_photoshop_source = photoshop_sources.id" + " LEFT JOIN photoshop_states"
                + " ON xmp.id_photoshop_state = photoshop_states.id"
-               + " LEFT JOIN xmp_dc_subject ON xmp.id = xmp_dc_subject.id_xmp"
-               + " LEFT JOIN dc_subjects"
-               + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id"
-               + " WHERE files.filename = ?";
+               + " LEFT JOIN xmp_dc_subject ON xmp.id = xmp_dc_subject.id_xmp" + " LEFT JOIN dc_subjects"
+               + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id" + " WHERE files.filename = ?";
     }
 
     public Xmp getXmpOfImageFile(File imageFile) {
@@ -1543,13 +1406,13 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        Xmp               xmp  = new Xmp();
-        Connection        con  = null;
+        Xmp xmp = new Xmp();
+        Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(getXmpOfStatement());
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
@@ -1560,41 +1423,27 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setValue(ColumnXmpDcDescription.INSTANCE, getString(rs, 2));
                 xmp.setValue(ColumnXmpDcRights.INSTANCE, getString(rs, 3));
                 xmp.setValue(ColumnXmpDcTitle.INSTANCE, getString(rs, 4));
-                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                             getString(rs, 5));
-                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE,
-                             getString(rs, 6));
-                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
-                             getString(rs, 7));
+                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE, getString(rs, 5));
+                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE, getString(rs, 6));
+                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE, getString(rs, 7));
                 xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE, getString(rs, 8));
-                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE,
-                             getString(rs, 9));
-                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE,
-                             getString(rs, 10));
-                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE,
-                             getString(rs, 11));
-                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE,
-                             getString(rs, 12));
-                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE,
-                             getString(rs, 13));
-                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE,
-                             getString(rs, 14));
-                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-                             getString(rs, 15));
+                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE, getString(rs, 9));
+                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE, getString(rs, 10));
+                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE, getString(rs, 11));
+                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE, getString(rs, 12));
+                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE, getString(rs, 13));
+                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE, getString(rs, 14));
+                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE, getString(rs, 15));
 
                 String dcSubject = getString(rs, 16);
 
                 if (dcSubject != null) {
-                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                 dcSubject);
+                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
                 }
 
                 xmp.setValue(ColumnXmpRating.INSTANCE,
-                             getLongMinMax(rs, 17,
-                                           ColumnXmpRating.getMinValue(),
-                                           ColumnXmpRating.getMaxValue()));
-                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
-                             getString(rs, 18));
+                             getLongMinMax(rs, 17, ColumnXmpRating.getMinValue(), ColumnXmpRating.getMaxValue()));
+                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, getString(rs, 18));
             }
         } catch (Exception ex) {
             AppLogger.logSevere(DatabaseImageFiles.class, ex);
@@ -1613,17 +1462,15 @@ public final class DatabaseImageFiles extends Database {
      */
     public Set<String> getNotReferencedDcSubjects() {
         Set<String> dcSubjects = new LinkedHashSet<String>();
-        Connection  con        = null;
-        Statement   stmt       = null;
-        ResultSet   rs         = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql =
-                "SELECT subject FROM dc_subjects WHERE ID NOT in"
-                + " (SELECT DISTINCT id_dc_subject from xmp_dc_subject)"
-                + "ORDER BY 1";
+            String sql = "SELECT subject FROM dc_subjects WHERE ID NOT in"
+                         + " (SELECT DISTINCT id_dc_subject from xmp_dc_subject)" + "ORDER BY 1";
 
             stmt = con.createStatement();
             logFinest(sql);
@@ -1654,7 +1501,7 @@ public final class DatabaseImageFiles extends Database {
         }
 
         Connection con = null;
-        boolean    ref = false;
+        boolean ref = false;
 
         try {
             con = getConnection();
@@ -1680,9 +1527,9 @@ public final class DatabaseImageFiles extends Database {
      */
     public Set<String> getAllDcSubjects() {
         Set<String> dcSubjects = new LinkedHashSet<String>();
-        Connection  con        = null;
-        Statement   stmt       = null;
-        ResultSet   rs         = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -1717,22 +1564,18 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        List<String>      dcSubjects = new ArrayList<String>();
-        Connection        con        = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        List<String> dcSubjects = new ArrayList<String>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql = "SELECT DISTINCT dc_subjects.subject FROM"
-                         + " files INNER JOIN xmp ON files.id = xmp.id_file"
-                         + " INNER JOIN xmp_dc_subject"
-                         + " ON xmp.id = xmp_dc_subject.id_xmp"
-                         + " INNER JOIN dc_subjects"
-                         + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id"
-                         + " WHERE files.filename = ? "
-                         + " ORDER BY dc_subjects.subject ASC";
+            String sql = "SELECT DISTINCT dc_subjects.subject FROM" + " files INNER JOIN xmp ON files.id = xmp.id_file"
+                         + " INNER JOIN xmp_dc_subject" + " ON xmp.id = xmp_dc_subject.id_xmp"
+                         + " INNER JOIN dc_subjects" + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id"
+                         + " WHERE files.filename = ? " + " ORDER BY dc_subjects.subject ASC";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(imageFile));
@@ -1759,8 +1602,7 @@ public final class DatabaseImageFiles extends Database {
      * @param options    options
      * @return           filenames
      */
-    public Set<File> getImageFilesOfDcSubject(String dcSubject,
-            DcSubjectOption... options) {
+    public Set<File> getImageFilesOfDcSubject(String dcSubject, DcSubjectOption... options) {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
@@ -1769,19 +1611,17 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("options == null");
         }
 
-        Set<File>            imageFiles = new LinkedHashSet<File>();
-        Connection           con        = null;
-        PreparedStatement    stmt       = null;
-        ResultSet            rs         = null;
+        Set<File> imageFiles = new LinkedHashSet<File>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         Set<DcSubjectOption> opts = ((options == null) || (options.length == 0))
                                     ? EnumSet.noneOf(DcSubjectOption.class)
-                                    : EnumSet.<DcSubjectOption>copyOf(
-                                        Arrays.asList(options));
+                                    : EnumSet.<DcSubjectOption>copyOf(Arrays.asList(options));
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                getGetFilenamesOfDcSubjectSql(dcSubject, opts));
+            stmt = con.prepareStatement(getGetFilenamesOfDcSubjectSql(dcSubject, opts));
             setDcSubjectSynonyms(dcSubject, opts, stmt);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -1799,36 +1639,28 @@ public final class DatabaseImageFiles extends Database {
         return imageFiles;
     }
 
-    private void setDcSubjectSynonyms(String dcSubject,
-                                      Set<DcSubjectOption> options,
-                                      PreparedStatement stmt)
+    private void setDcSubjectSynonyms(String dcSubject, Set<DcSubjectOption> options, PreparedStatement stmt)
             throws SQLException {
         stmt.setString(1, dcSubject);
 
         if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
             int paramIndex = 2;
 
-            for (String synonym :
-                    DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject)) {
+            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject)) {
                 stmt.setString(paramIndex++, synonym);
             }
         }
     }
 
-    private String getGetFilenamesOfDcSubjectSql(String dcSubject,
-            Set<DcSubjectOption> options) {
-        StringBuilder sql =
-            new StringBuilder(
-                " SELECT DISTINCT files.filename FROM"
-                + " dc_subjects INNER JOIN xmp_dc_subject"
-                + " ON dc_subjects.id = xmp_dc_subject.id_dc_subject"
-                + " INNER JOIN xmp ON xmp_dc_subject.id_xmp = xmp.id"
-                + " INNER JOIN files ON xmp.id_file = files.id"
-                + " WHERE dc_subjects.subject = ?");
+    private String getGetFilenamesOfDcSubjectSql(String dcSubject, Set<DcSubjectOption> options) {
+        StringBuilder sql = new StringBuilder(" SELECT DISTINCT files.filename FROM"
+                                + " dc_subjects INNER JOIN xmp_dc_subject"
+                                + " ON dc_subjects.id = xmp_dc_subject.id_dc_subject"
+                                + " INNER JOIN xmp ON xmp_dc_subject.id_xmp = xmp.id"
+                                + " INNER JOIN files ON xmp.id_file = files.id" + " WHERE dc_subjects.subject = ?");
 
         if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
-            int size =
-                DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject).size();
+            int size = DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject).size();
 
             for (int i = 0; i < size; i++) {
                 sql.append(" OR dc_subjects.subject = ?");
@@ -1851,30 +1683,25 @@ public final class DatabaseImageFiles extends Database {
      * @param  dcSubjects subjects
      * @return            images containing all of these subjects
      */
-    public Set<File> getImageFilesOfAllDcSubjects(
-            List<? extends String> dcSubjects) {
+    public Set<File> getImageFilesOfAllDcSubjects(List<? extends String> dcSubjects) {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
 
-        Set<File>         imageFiles = new LinkedHashSet<File>();
-        Connection        con        = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Set<File> imageFiles = new LinkedHashSet<File>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            int    count = dcSubjects.size();
-            String sql = " SELECT files.filename FROM"
-                         + " dc_subjects INNER JOIN xmp_dc_subject"
+            int count = dcSubjects.size();
+            String sql = " SELECT files.filename FROM" + " dc_subjects INNER JOIN xmp_dc_subject"
                          + " ON dc_subjects.id = xmp_dc_subject.id_dc_subject"
                          + " INNER JOIN xmp ON xmp_dc_subject.id_xmp = xmp.id"
-                         + " INNER JOIN files ON xmp.id_file = files.id"
-                         + " WHERE dc_subjects.subject IN "
-                         + Util.getParamsInParentheses(count)
-                         + " GROUP BY files.filename HAVING COUNT(*) = "
-                         + count;
+                         + " INNER JOIN files ON xmp.id_file = files.id" + " WHERE dc_subjects.subject IN "
+                         + Util.getParamsInParentheses(count) + " GROUP BY files.filename HAVING COUNT(*) = " + count;
 
             stmt = con.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
@@ -1904,28 +1731,26 @@ public final class DatabaseImageFiles extends Database {
      * @param  dcSubjects subjects
      * @return            images containing one or more of these subjects
      */
-    public Set<File> getImageFilesOfDcSubjects(
-            List<? extends String> dcSubjects) {
+    public Set<File> getImageFilesOfDcSubjects(List<? extends String> dcSubjects) {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
 
-        Set<File>         imageFiles = new LinkedHashSet<File>();
-        Connection        con        = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Set<File> imageFiles = new LinkedHashSet<File>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            int    count = dcSubjects.size();
-            String sql =
-                " SELECT DISTINCT files.filename FROM dc_subjects"
-                + " INNER JOIN xmp_dc_subject ON dc_subjects.id"
-                + " = xmp_dc_subject.id_dc_subject INNER JOIN xmp"
-                + " ON xmp_dc_subject.id_xmp = xmp.id INNER JOIN files"
-                + " ON xmp.id_file = files.id WHERE dc_subjects.subject IN "
-                + Util.getParamsInParentheses(count);
+            int count = dcSubjects.size();
+            String sql = " SELECT DISTINCT files.filename FROM dc_subjects"
+                         + " INNER JOIN xmp_dc_subject ON dc_subjects.id"
+                         + " = xmp_dc_subject.id_dc_subject INNER JOIN xmp"
+                         + " ON xmp_dc_subject.id_xmp = xmp.id INNER JOIN files"
+                         + " ON xmp.id_file = files.id WHERE dc_subjects.subject IN "
+                         + Util.getParamsInParentheses(count);
 
             stmt = con.prepareStatement(sql);
             Util.setStringParams(stmt, dcSubjects, 0);
@@ -1957,8 +1782,7 @@ public final class DatabaseImageFiles extends Database {
      *                through a column <code>id_file</code>!
      * @return        images containing all of these terms in that column
      */
-    public Set<File> getImageFilesOfAll(Column column,
-            List<? extends String> words) {
+    public Set<File> getImageFilesOfAll(Column column, List<? extends String> words) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -1967,23 +1791,20 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("words == null");
         }
 
-        Set<File>         imageFiles = new LinkedHashSet<File>();
-        Connection        con        = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        Set<File> imageFiles = new LinkedHashSet<File>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String tableName  = column.getTablename();
+            String tableName = column.getTablename();
             String columnName = column.getName();
-            int    count      = words.size();
-            String sql = " SELECT files.filename FROM files"
-                         + Join.getJoinToFiles(tableName, Type.INNER)
-                         + " WHERE " + tableName + "." + columnName + " IN "
-                         + Util.getParamsInParentheses(count)
-                         + " GROUP BY files.filename" + " HAVING COUNT(*) = "
-                         + count;
+            int count = words.size();
+            String sql = " SELECT files.filename FROM files" + Join.getJoinToFiles(tableName, Type.INNER) + " WHERE "
+                         + tableName + "." + columnName + " IN " + Util.getParamsInParentheses(count)
+                         + " GROUP BY files.filename" + " HAVING COUNT(*) = " + count;
 
             stmt = con.prepareStatement(sql);
             Util.setStringParams(stmt, words, 0);
@@ -2004,18 +1825,16 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private String getUpdateExifStatement() {
-        return "UPDATE exif SET id_file = ?"            // -- 1 --
+        return "UPDATE exif SET id_file = ?"    // -- 1 --
                + ", id_exif_recording_equipment = ?"    // -- 2 --
-               + ", exif_date_time_original = ?"        // -- 3 --
-               + ", exif_focal_length = ?"              // -- 4 --
-               + ", exif_iso_speed_ratings = ?"         // -- 5 --
-               + ", id_exif_lens = ?"                   // -- 6 --
-               + " WHERE id_file = ?";                  // -- 7 --
+               + ", exif_date_time_original = ?"    // -- 3 --
+               + ", exif_focal_length = ?"    // -- 4 --
+               + ", exif_iso_speed_ratings = ?"    // -- 5 --
+               + ", id_exif_lens = ?"    // -- 6 --
+               + " WHERE id_file = ?";    // -- 7 --
     }
 
-    private void insertOrUpdateExif(Connection con, File imageFile,
-                                    long idFile, Exif exif)
-            throws SQLException {
+    private void insertOrUpdateExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
         if (exif != null) {
             long idExif = findIdExifOfIdFile(con, idFile);
 
@@ -2045,18 +1864,16 @@ public final class DatabaseImageFiles extends Database {
     }
 
     private String getInsertIntoExifStatement() {
-        return "INSERT INTO exif (id_file"          // -- 1 --
+        return "INSERT INTO exif (id_file"    // -- 1 --
                + ", id_exif_recording_equipment"    // -- 2 --
-               + ", exif_date_time_original"        // -- 3 --
-               + ", exif_focal_length"              // -- 4 --
-               + ", exif_iso_speed_ratings"         // -- 5 --
-               + ", id_exif_lens"                   // -- 6 --
+               + ", exif_date_time_original"    // -- 3 --
+               + ", exif_focal_length"    // -- 4 --
+               + ", exif_iso_speed_ratings"    // -- 5 --
+               + ", id_exif_lens"    // -- 6 --
                + ") VALUES (?, ?, ?, ?, ?, ?)";
     }
 
-    private void insertExif(Connection con, File imageFile, long idFile,
-                            Exif exif)
-            throws SQLException {
+    private void insertExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
         if ((exif != null) &&!exif.isEmpty()) {
             PreparedStatement stmt = null;
 
@@ -2072,27 +1889,22 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private void setExifValues(PreparedStatement stmt, long idFile, Exif exif)
-            throws SQLException {
+    private void setExifValues(PreparedStatement stmt, long idFile, Exif exif) throws SQLException {
         stmt.setLong(1, idFile);
-        setLong(ensureValueExists("exif_recording_equipment", "equipment",
-                                  exif.getRecordingEquipment()), stmt, 2);
+        setLong(ensureValueExists("exif_recording_equipment", "equipment", exif.getRecordingEquipment()), stmt, 2);
         setDate(exif.getDateTimeOriginal(), stmt, 3);
         setDouble(exif.getFocalLength(), stmt, 4);
         setShort(exif.getIsoSpeedRatings(), stmt, 5);
-        setLong(ensureValueExists("exif_lenses", "lens", exif.getLens()), stmt,
-                6);
+        setLong(ensureValueExists("exif_lenses", "lens", exif.getLens()), stmt, 6);
     }
 
-    private long findIdExifOfIdFile(Connection con, long idFile)
-            throws SQLException {
-        long              id   = -1;
+    private long findIdExifOfIdFile(Connection con, long idFile) throws SQLException {
+        long id = -1;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement(
-                "SELECT id FROM exif WHERE id_file = ?");
+            stmt = con.prepareStatement("SELECT id FROM exif WHERE id_file = ?");
             stmt.setLong(1, idFile);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -2114,16 +1926,15 @@ public final class DatabaseImageFiles extends Database {
      * @return timeline
      */
     public Timeline getTimeline() {
-        Timeline   timeline = new Timeline();
-        Connection con      = null;
-        Statement  stmt     = null;
-        ResultSet  rs       = null;
+        Timeline timeline = new Timeline();
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql = "SELECT exif_date_time_original FROM exif"
-                         + " WHERE exif_date_time_original IS NOT NULL"
+            String sql = "SELECT exif_date_time_original FROM exif" + " WHERE exif_date_time_original IS NOT NULL"
                          + " ORDER BY exif_date_time_original ASC";
 
             stmt = con.createStatement();
@@ -2149,12 +1960,10 @@ public final class DatabaseImageFiles extends Database {
         return timeline;
     }
 
-    private void addXmpDateCreated(Connection con, Timeline timeline)
-            throws SQLException {
+    private void addXmpDateCreated(Connection con, Timeline timeline) throws SQLException {
         Statement stmt = null;
-        ResultSet rs   = null;
-        String    sql = "SELECT iptc4xmpcore_datecreated FROM xmp"
-                        + " WHERE iptc4xmpcore_datecreated IS NOT NULL";
+        ResultSet rs = null;
+        String sql = "SELECT iptc4xmpcore_datecreated FROM xmp" + " WHERE iptc4xmpcore_datecreated IS NOT NULL";
 
         try {
             stmt = con.createStatement();
@@ -2186,22 +1995,18 @@ public final class DatabaseImageFiles extends Database {
      * @return       image files taken on that date
      */
     public Set<File> getFilesOf(int year, int month, int day) {
-        Set<File>         files = new HashSet<File>();
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+        Set<File> files = new HashSet<File>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql = "SELECT files.filename FROM exif LEFT JOIN files"
-                         + " ON exif.id_file = files.id"
-                         + " WHERE exif.exif_date_time_original LIKE ?"
-                         + " UNION SELECT files.filename"
-                         + " FROM xmp LEFT JOIN files"
-                         + " ON xmp.id_file = files.id"
-                         + " WHERE xmp.iptc4xmpcore_datecreated LIKE ?"
-                         + " ORDER BY files.filename ASC";
+            String sql = "SELECT files.filename FROM exif LEFT JOIN files" + " ON exif.id_file = files.id"
+                         + " WHERE exif.exif_date_time_original LIKE ?" + " UNION SELECT files.filename"
+                         + " FROM xmp LEFT JOIN files" + " ON xmp.id_file = files.id"
+                         + " WHERE xmp.iptc4xmpcore_datecreated LIKE ?" + " ORDER BY files.filename ASC";
 
             stmt = con.prepareStatement(sql);
 
@@ -2261,20 +2066,18 @@ public final class DatabaseImageFiles extends Database {
      */
     public List<File> getFilesOfUnknownDate() {
         List<File> files = new ArrayList<File>();
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql =
-                "SELECT files.filename FROM files LEFT JOIN exif"
-                + " ON files.id = exif.id_file"
-                + " LEFT JOIN xmp ON files.id = xmp.id_file"
-                + " WHERE (exif.id IS NOT NULL AND exif.exif_date_time_original IS NULL)"
-                + " AND (xmp.id IS NOT NULL AND xmp.iptc4xmpcore_datecreated IS NULL)"
-                + " ORDER BY files.filename ASC"
+            String sql = "SELECT files.filename FROM files LEFT JOIN exif" + " ON files.id = exif.id_file"
+                         + " LEFT JOIN xmp ON files.id = xmp.id_file"
+                         + " WHERE (exif.id IS NOT NULL AND exif.exif_date_time_original IS NULL)"
+                         + " AND (xmp.id IS NOT NULL AND xmp.iptc4xmpcore_datecreated IS NULL)"
+                         + " ORDER BY files.filename ASC"
             ;
 
             stmt = con.createStatement();
@@ -2300,16 +2103,15 @@ public final class DatabaseImageFiles extends Database {
         }
 
         Set<String> values = new LinkedHashSet<String>();
-        Connection  con    = null;
-        Statement   stmt   = null;
-        ResultSet   rs     = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql = "SELECT DISTINCT " + column.getName() + " FROM "
-                         + column.getTablename() + " WHERE " + column.getName()
-                         + " IS NOT NULL ORDER BY " + column.getName();
+            String sql = "SELECT DISTINCT " + column.getName() + " FROM " + column.getTablename() + " WHERE "
+                         + column.getName() + " IS NOT NULL ORDER BY " + column.getName();
 
             stmt = con.createStatement();
             logFinest(sql);
@@ -2333,9 +2135,8 @@ public final class DatabaseImageFiles extends Database {
 
         return isLink
                ? Join.getNotNullSqlOf(tablename)
-               : "SELECT DISTINCT files.filename FROM " + tablename
-                 + " INNER JOIN files ON " + tablename + ".id_file = files.id"
-                 + " WHERE " + tablename + "." + columnName + " IS NOT NULL"
+               : "SELECT DISTINCT files.filename FROM " + tablename + " INNER JOIN files ON " + tablename
+                 + ".id_file = files.id" + " WHERE " + tablename + "." + columnName + " IS NOT NULL"
                  + " ORDER BY files.filename ASC";
     }
 
@@ -2354,16 +2155,16 @@ public final class DatabaseImageFiles extends Database {
         }
 
         List<File> files = new ArrayList<File>();
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String tablename  = column.getTablename();
+            String tablename = column.getTablename();
             String columnName = column.getName();
-            String sql        = getFilesNotNullInSql(tablename, columnName);
+            String sql = getFilesNotNullInSql(tablename, columnName);
 
             stmt = con.createStatement();
             logFinest(sql);
@@ -2400,26 +2201,23 @@ public final class DatabaseImageFiles extends Database {
      * @param  exactValue exact value of the column content
      * @return            files
      */
-    public List<File> getImageFilesWithColumnContent(Column column,
-            String exactValue) {
+    public List<File> getImageFilesWithColumnContent(Column column, String exactValue) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
 
-        List<File>        files      = new ArrayList<File>();
-        Connection        con        = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
-        String            tableName  = column.getTablename();
-        String            columnName = column.getName();
+        List<File> files = new ArrayList<File>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String tableName = column.getTablename();
+        String columnName = column.getName();
 
         try {
             con = getConnection();
 
-            String sql = "SELECT files.filename FROM files"
-                         + Join.getJoinToFiles(tableName, Type.INNER)
-                         + " WHERE " + tableName + "." + columnName + " = ?"
-                         + " ORDER BY files.filename ASC";
+            String sql = "SELECT files.filename FROM files" + Join.getJoinToFiles(tableName, Type.INNER) + " WHERE "
+                         + tableName + "." + columnName + " = ?" + " ORDER BY files.filename ASC";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, exactValue);
@@ -2441,16 +2239,13 @@ public final class DatabaseImageFiles extends Database {
 
     private String getExifOfStatement() {
         return "SELECT exif_recording_equipment.equipment"    // -- 1 --
-               + ", exif.exif_date_time_original"             // -- 2 --
-               + ", exif.exif_focal_length"                   // -- 3 --
-               + ", exif.exif_iso_speed_ratings"              // -- 4 --
-               + ", exif_lenses.lens"                         // -- 5 --
-               + " FROM files INNER JOIN exif ON files.id = exif.id_file"
-               + " LEFT JOIN exif_recording_equipment ON"
-               + " exif.id_exif_recording_equipment"
-               + " = exif_recording_equipment.id LEFT JOIN exif_lenses"
-               + " ON exif.id_exif_lens = exif_lenses.id"
-               + " WHERE files.filename = ?";
+               + ", exif.exif_date_time_original"    // -- 2 --
+               + ", exif.exif_focal_length"    // -- 3 --
+               + ", exif.exif_iso_speed_ratings"    // -- 4 --
+               + ", exif_lenses.lens"    // -- 5 --
+               + " FROM files INNER JOIN exif ON files.id = exif.id_file" + " LEFT JOIN exif_recording_equipment ON"
+               + " exif.id_exif_recording_equipment" + " = exif_recording_equipment.id LEFT JOIN exif_lenses"
+               + " ON exif.id_exif_lens = exif_lenses.id" + " WHERE files.filename = ?";
     }
 
     /**
@@ -2465,13 +2260,13 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("imageFile == null");
         }
 
-        Exif              exif = null;
-        Connection        con  = null;
+        Exif exif = null;
+        Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(getExifOfStatement());
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
@@ -2500,10 +2295,10 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("date == null");
         }
 
-        boolean    exists = false;
-        Connection con    = null;
-        Statement  stmt   = null;
-        ResultSet  rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -2512,13 +2307,11 @@ public final class DatabaseImageFiles extends Database {
 
             cal.setTime(date);
 
-            int    year  = cal.get(Calendar.YEAR);
-            int    month = cal.get(Calendar.MONTH) + 1;
-            int    day   = cal.get(Calendar.DAY_OF_MONTH);
-            String sql = "SELECT COUNT(*) FROM exif"
-                         + " WHERE exif_date_time_original LIKE '" + year + "-"
-                         + getMonthDayPrefix(month) + month + "-"
-                         + getMonthDayPrefix(day) + day + "%'";
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH) + 1;
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            String sql = "SELECT COUNT(*) FROM exif" + " WHERE exif_date_time_original LIKE '" + year + "-"
+                         + getMonthDayPrefix(month) + month + "-" + getMonthDayPrefix(day) + day + "%'";
 
             stmt = con.createStatement();
             logFinest(sql);
@@ -2542,16 +2335,15 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("date == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql = "SELECT COUNT(*) FROM xmp"
-                         + " WHERE iptc4xmpcore_datecreated = ?";
+            String sql = "SELECT COUNT(*) FROM xmp" + " WHERE iptc4xmpcore_datecreated = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, date);
@@ -2583,16 +2375,15 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("column == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getTablename()
-                         + " WHERE " + column.getName() + " = ?";
+            String sql = "SELECT COUNT(*) FROM " + column.getTablename() + " WHERE " + column.getName() + " = ?";
 
             stmt = con.prepareStatement(sql);
             logFinest(stmt);
@@ -2612,17 +2403,14 @@ public final class DatabaseImageFiles extends Database {
         return exists;
     }
 
-    private String getFilenamesWithoutMetadataInSql(String tablename,
-            String columnName) {
+    private String getFilenamesWithoutMetadataInSql(String tablename, String columnName) {
         boolean isLink = !tablename.equals("xmp") &&!tablename.equals("exif");
 
         return isLink
                ? Join.getNullSqlOf(tablename)
-               : "SELECT files.filename FROM files INNER JOIN " + tablename
-                 + " ON files.id = " + tablename + ".id_file WHERE "
-                 + tablename + "." + columnName + " IS NULL"
-                 + " UNION SELECT files.filename FROM files "
-                 + Join.getUnjoinedFilesSqlWhere(tablename);
+               : "SELECT files.filename FROM files INNER JOIN " + tablename + " ON files.id = " + tablename
+                 + ".id_file WHERE " + tablename + "." + columnName + " IS NULL"
+                 + " UNION SELECT files.filename FROM files " + Join.getUnjoinedFilesSqlWhere(tablename);
     }
 
     /**
@@ -2637,18 +2425,17 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("column == null");
         }
 
-        List<File>        imageFiles = new ArrayList<File>();
-        Connection        con        = null;
-        PreparedStatement stmt       = null;
-        ResultSet         rs         = null;
+        List<File> imageFiles = new ArrayList<File>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
 
             String columnName = column.getName();
-            String tablename  = column.getTablename();
-            String sql = getFilenamesWithoutMetadataInSql(tablename,
-                             columnName);
+            String tablename = column.getTablename();
+            String sql = getFilenamesWithoutMetadataInSql(tablename, columnName);
 
             stmt = con.prepareStatement(sql);
             logFinest(stmt);
@@ -2678,13 +2465,12 @@ public final class DatabaseImageFiles extends Database {
      * @throws      SQLException on SQL errors
      */
     long findIdImageFile(Connection con, File file) throws SQLException {
-        long              id   = -1;
+        long id = -1;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement(
-                "SELECT id FROM files WHERE filename = ?");
+            stmt = con.prepareStatement("SELECT id FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(file));
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -2705,10 +2491,10 @@ public final class DatabaseImageFiles extends Database {
      * @return files
      */
     public Set<File> getAllThumbnailFiles() {
-        Set<File>  tnFiles = new HashSet<File>();
-        Connection con     = null;
-        Statement  stmt    = null;
-        ResultSet  rs      = null;
+        Set<File> tnFiles = new HashSet<File>();
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -2722,8 +2508,7 @@ public final class DatabaseImageFiles extends Database {
             File tnFile = null;
 
             while (rs.next()) {
-                tnFile = PersistentThumbnails.getThumbnailFile(
-                    getFile(rs.getString(1)));
+                tnFile = PersistentThumbnails.getThumbnailFile(getFile(rs.getString(1)));
 
                 if (tnFile != null) {
                     tnFiles.add(tnFile);
@@ -2748,8 +2533,8 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("value == null");
         }
 
-        String            sql  = Join.getDeleteSql(column.getTablename());
-        Connection        con  = null;
+        String sql = Join.getDeleteSql(column.getTablename());
+        Connection con = null;
         PreparedStatement stmt = null;
 
         try {
@@ -2779,14 +2564,13 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("dcSubject == null");
         }
 
-        Connection        con  = null;
+        Connection con = null;
         PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "DELETE FROM dc_subjects WHERE subject = ?");
+            stmt = con.prepareStatement("DELETE FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, dcSubject);
             logFiner(stmt);
 
@@ -2811,15 +2595,14 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("subject == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM dc_subjects WHERE subject = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, subject);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -2842,15 +2625,14 @@ public final class DatabaseImageFiles extends Database {
             throw new NullPointerException("subject == null");
         }
 
-        Long              id   = null;
-        Connection        con  = null;
+        Long id = null;
+        Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT id FROM dc_subjects WHERE subject = ?");
+            stmt = con.prepareStatement("SELECT id FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, subject);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -2869,16 +2651,15 @@ public final class DatabaseImageFiles extends Database {
     }
 
     public boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject) {
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM xmp_dc_subject"
-                + " WHERE id_xmp = ? AND id_dc_subject = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM xmp_dc_subject"
+                                        + " WHERE id_xmp = ? AND id_dc_subject = ?");
             stmt.setLong(1, idXmp);
             stmt.setLong(2, idDcSubject);
             logFinest(stmt);
@@ -2949,8 +2730,7 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    private void notifyExifUpdated(File imageFile, Exif oldExif,
-                                   Exif updatedExif) {
+    private void notifyExifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
         for (DatabaseImageFilesListener listener : ls.get()) {
             listener.exifUpdated(imageFile, oldExif, updatedExif);
         }

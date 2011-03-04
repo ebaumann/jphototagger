@@ -1,10 +1,10 @@
 package org.jphototagger.program.database.metadata;
 
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.lib.inputverifier.InputVerifierAlwaysTrue;
 import org.jphototagger.lib.inputverifier.InputVerifierDate;
 import org.jphototagger.lib.inputverifier.InputVerifierMaxLength;
 import org.jphototagger.lib.inputverifier.InputVerifierNumber;
+import org.jphototagger.program.app.AppLogger;
 
 import java.text.DateFormat;
 
@@ -17,11 +17,11 @@ import javax.swing.InputVerifier;
  */
 public class Column {
     private final DataType dataType;
-    private String         description;
-    private int            length;
-    private String         longerDescription;
-    private final String   name;
-    private final String   tablename;
+    private String description;
+    private int length;
+    private String longerDescription;
+    private final String name;
+    private final String tablename;
 
     /**
      * Creates an instances.
@@ -43,9 +43,9 @@ public class Column {
             throw new NullPointerException("dataType == null");
         }
 
-        this.name      = name;
+        this.name = name;
         this.tablename = tablename;
-        this.dataType  = dataType;
+        this.dataType = dataType;
     }
 
     /**
@@ -117,8 +117,7 @@ public class Column {
 
         private Object string2date(String s) {
             try {
-                return new java.sql.Date(
-                    DateFormat.getInstance().parse(s).getTime());
+                return new java.sql.Date(DateFormat.getInstance().parse(s).getTime());
             } catch (Exception ex) {
                 AppLogger.logSevere(Column.class, ex);
             }

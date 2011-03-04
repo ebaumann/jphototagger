@@ -16,14 +16,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearchPanel {
-    private int     columnId     = -1;
-    private int     comparatorId = -1;
-    private int     operatorId   = -1;
-    private int     panelIndex   = Integer.MIN_VALUE;
+    private int columnId = -1;
+    private int comparatorId = -1;
+    private int operatorId = -1;
+    private int panelIndex = Integer.MIN_VALUE;
     private boolean bracketLeft1Selected;
     private boolean bracketLeft2Selected;
     private boolean bracketRightSelected;
-    private String  value;
+    private String value;
 
     public SavedSearchPanel() {}
 
@@ -40,14 +40,14 @@ public final class SavedSearchPanel {
             throw new NullPointerException("other == null");
         }
 
-        panelIndex           = other.panelIndex;
+        panelIndex = other.panelIndex;
         bracketLeft1Selected = other.bracketLeft1Selected;
         bracketLeft2Selected = other.bracketLeft2Selected;
         bracketRightSelected = other.bracketRightSelected;
-        operatorId           = other.operatorId;
-        columnId             = other.columnId;
-        comparatorId         = other.comparatorId;
-        value                = other.value;
+        operatorId = other.operatorId;
+        columnId = other.columnId;
+        comparatorId = other.comparatorId;
+        value = other.value;
     }
 
     public int getPanelIndex() {
@@ -142,10 +142,10 @@ public final class SavedSearchPanel {
 
     public String getSqlString(boolean isFirst) {
         if (hasSql(isFirst)) {
-            Operator     operator   = getOperator();
-            Column       column     = getColumn();
-            Comparator   comparator = getComparator();
-            StringBuilder sb        = new StringBuilder();
+            Operator operator = getOperator();
+            Column column = getColumn();
+            Comparator comparator = getComparator();
+            StringBuilder sb = new StringBuilder();
 
             if (!isFirst) {
                 sb.append(bracketLeft1Selected
@@ -183,7 +183,6 @@ public final class SavedSearchPanel {
     }
 
     public boolean hasSql(boolean isFirst) {
-        return (isFirst || hasOperator()) && hasColumn() && hasComperator()
-               && (value != null) &&!value.isEmpty();
+        return (isFirst || hasOperator()) && hasColumn() && hasComperator() && (value != null) &&!value.isEmpty();
     }
 }

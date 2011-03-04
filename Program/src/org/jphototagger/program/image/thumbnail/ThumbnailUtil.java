@@ -62,21 +62,15 @@ public final class ThumbnailUtil {
         }
 
         ThumbnailCreator creator = UserSettings.INSTANCE.getThumbnailCreator();
-        int              maxLength =
-            UserSettings.INSTANCE.getMaxThumbnailWidth();
-        boolean          isRawImage = FileType.isRawFile(file.getName());
-        boolean          canCreateImage =
-            !isRawImage
-            || (isRawImage && creator.equals(ThumbnailCreator.EXTERNAL_APP));
+        int maxLength = UserSettings.INSTANCE.getMaxThumbnailWidth();
+        boolean isRawImage = FileType.isRawFile(file.getName());
+        boolean canCreateImage = !isRawImage || (isRawImage && creator.equals(ThumbnailCreator.EXTERNAL_APP));
         Image thumbnail = null;
 
         if (creator.equals(ThumbnailCreator.EXTERNAL_APP)) {    // has to be 1st.
-            thumbnail = getThumbnailFromExternalApplication(
-                file,
-                UserSettings.INSTANCE.getExternalThumbnailCreationCommand(),
-                maxLength);
-        } else if (!canCreateImage
-                   || creator.equals(ThumbnailCreator.EMBEDDED)) {
+            thumbnail = getThumbnailFromExternalApplication(file,
+                    UserSettings.INSTANCE.getExternalThumbnailCreationCommand(), maxLength);
+        } else if (!canCreateImage || creator.equals(ThumbnailCreator.EMBEDDED)) {
             thumbnail = ThumbnailUtil.getEmbeddedThumbnailRotated(file);
         } else if (creator.equals(ThumbnailCreator.IMAGERO)) {
             thumbnail = getScaledImageImagero(file, maxLength);
@@ -122,11 +116,9 @@ public final class ThumbnailUtil {
             throw new IllegalArgumentException("Invalid length: " + maxLength);
         }
 
-        AppLogger.logInfo(ThumbnailUtil.class,
-                          "ThumbnailUtil.CreateImage.Information.JavaIo", file,
-                          maxLength);
+        AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.CreateImage.Information.JavaIo", file, maxLength);
 
-        BufferedImage image       = loadImage(file);
+        BufferedImage image = loadImage(file);
         BufferedImage scaledImage = null;
 
         if (image != null) {
@@ -150,15 +142,12 @@ public final class ThumbnailUtil {
         return getEmbeddedThumbnailRotated(file);
     }
 
-    private static Pair<Image,
-                        ImageReader> getEmbeddedThumbnailWithReader(File file) {
-        Image       thumbnail = null;
-        ImageReader reader    = null;
+    private static Pair<Image, ImageReader> getEmbeddedThumbnailWithReader(File file) {
+        Image thumbnail = null;
+        ImageReader reader = null;
 
         try {
-            AppLogger.logInfo(ThumbnailUtil.class,
-                              "ThumbnailUtil.GetFileEmbeddedThumbnail.Info",
-                              file);
+            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file);
             reader = ReaderFactory.createReader(file);
 
             if (reader instanceof JpegReader) {
@@ -170,8 +159,7 @@ public final class ThumbnailUtil {
                 TiffReader tiffReader = (TiffReader) reader;
 
                 if (tiffReader.getThumbnailCount() > 0) {
-                    thumbnail = Toolkit.getDefaultToolkit().createImage(
-                        tiffReader.getThumbnail(0));
+                    thumbnail = Toolkit.getDefaultToolkit().createImage(tiffReader.getThumbnail(0));
                 }
             }
         } catch (Exception ex) {
@@ -185,12 +173,10 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
-            AppLogger.logInfo(ThumbnailUtil.class,
-                              "ThumbnailUtil.GetScaledImageImagero.Info", file,
-                              maxLength);
+            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
 
             IOParameterBlock ioParamBlock = new IOParameterBlock();
-            ImageProcOptions procOptions  = new ImageProcOptions();
+            ImageProcOptions procOptions = new ImageProcOptions();
 
             ioParamBlock.setSource(file);
             procOptions.setSource(ioParamBlock);
@@ -209,37 +195,31 @@ public final class ThumbnailUtil {
     }
 
     private static void logExternalAppCommand(String cmd) {
-        AppLogger.logFinest(ThumbnailUtil.class,
-                            "ThumbnailUtil.Info.ExternalAppCreationCommand",
-                            cmd);
+        AppLogger.logFinest(ThumbnailUtil.class, "ThumbnailUtil.Info.ExternalAppCreationCommand", cmd);
     }
 
     private static Image getEmbeddedThumbnailRotated(File file) {
         Pair<Image, ImageReader> pair = getEmbeddedThumbnailWithReader(file);
-        Image                    thumbnail        = pair.getFirst();
-        Image                    rotatedThumbnail = thumbnail;
+        Image thumbnail = pair.getFirst();
+        Image rotatedThumbnail = thumbnail;
 
         if (thumbnail != null) {
-            ExifTags exifTags    = ExifMetadata.getExifTags(file);
-            double   rotateAngle = 0.0;
+            ExifTags exifTags = ExifMetadata.getExifTags(file);
+            double rotateAngle = 0.0;
 
             if (exifTags != null) {
                 ExifTag exifTag = exifTags.exifTagById(274);
 
                 if (exifTag != null) {
-                    rotateAngle =
-                        ExifThumbnailUtil.getThumbnailRotationAngle(exifTag);
+                    rotateAngle = ExifThumbnailUtil.getThumbnailRotationAngle(exifTag);
                 }
             }
 
-            AppLogger.logInfo(ThumbnailUtil.class,
-                              "ThumbnailUtil.GetRotatedThumbnail.Information",
-                              file);
+            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
             rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
         }
 
-        closeReader(pair
-            .getSecond());    // Needs to be open for calling ImageTransform.rotate()
+        closeReader(pair.getSecond());    // Needs to be open for calling ImageTransform.rotate()
 
         return rotatedThumbnail;
     }
@@ -252,8 +232,7 @@ public final class ThumbnailUtil {
      * @param maxLength maximum length of the image in pixel
      * @return          thumbnail or null if errors occured
      */
-    public static Image getThumbnailFromExternalApplication(File file,
-            String command, int maxLength) {
+    public static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -270,22 +249,16 @@ public final class ThumbnailUtil {
             return null;
         }
 
-        AppLogger.logInfo(
-            ThumbnailUtil.class,
-            "ThumbnailUtil.GetThumbnailFromExternalApplication.Information",
-            file, maxLength);
+        AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file,
+                          maxLength);
 
-        String cmd = command.replace("%s",
-                                     file.getAbsolutePath()).replace("%i",
-                                         Integer.toString(maxLength));
+        String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", Integer.toString(maxLength));
         Image image = null;
 
         logExternalAppCommand(cmd);
 
-        Pair<byte[], byte[]> output =
-            External
-                .executeGetOutput(cmd, UserSettings.INSTANCE
-                    .getMaxSecondsToTerminateExternalPrograms() * 1000);
+        Pair<byte[], byte[]> output = External.executeGetOutput(cmd,
+                                          UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
 
         if (output == null) {
             return null;
@@ -295,11 +268,9 @@ public final class ThumbnailUtil {
 
         if (stdout != null) {
             try {
-                image = javax.imageio.ImageIO.read(
-                    new ByteArrayInputStream(stdout));
+                image = javax.imageio.ImageIO.read(new ByteArrayInputStream(stdout));
             } catch (Exception ex) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -341,23 +312,19 @@ public final class ThumbnailUtil {
      * @param qfactor Ein Wert zwichen 0 und 1. Je kleiner die Zahl, desto mehr Duchgänge wird der Skalierungsprozess machen. Empfohlener Wert ist 0.5.
      * @return Das skalierte Bild.
      */
-    private static BufferedImage stepScaleImage(BufferedImage image,
-            int minWidth, double qfactor) {
+    private static BufferedImage stepScaleImage(BufferedImage image, int minWidth, double qfactor) {
 
         // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
-        assert qfactor < 1.0 :
-               "qfactor must be < 1.0";    // wir wollen nur verkleinern! :-)
+        assert qfactor < 1.0 : "qfactor must be < 1.0";    // wir wollen nur verkleinern! :-)
 
         BufferedImage scaledImage = null;
 
         try {
-            int    origHeight = image.getHeight();    // Orignalhöhe
-            int    origWidth  = image.getWidth();     // Originalbreite
-            double factor =
-                getScaleFactor(
-                    origWidth, origHeight,
-                    minWidth);    // Skalierungsfaktor von Originalgröße auf Zielgröße
-            int scaledWidth  = (int) (origWidth / factor);     // Zielbreite
+            int origHeight = image.getHeight();    // Orignalhöhe
+            int origWidth = image.getWidth();    // Originalbreite
+            double factor = getScaleFactor(origWidth, origHeight,
+                                           minWidth);    // Skalierungsfaktor von Originalgröße auf Zielgröße
+            int scaledWidth = (int) (origWidth / factor);    // Zielbreite
             int scaledHeight = (int) (origHeight / factor);    // Zielhöhe
             int pass = 1;    // Zähler für die Durchläufe - nur für Debugging
 
@@ -366,21 +333,15 @@ public final class ThumbnailUtil {
             // gestartet und wieder ein wenig skaliert.
             // In jedem Schleifendurchlauf werden origHeight und origWidth auf die aktuelle Größe gesetzt.
             BufferedImage img = image;
-            while (((origWidth * qfactor) > scaledWidth)
-                    || ((origHeight * qfactor) > scaledHeight)) {
-                int width =
-                    (int) (origWidth
-                        * qfactor);    // Die Breite in diesesm Skalierungsschritt
-                int height =
-                    (int) (origHeight
-                           * qfactor);    // Die Höhe in diesem Skalierungsschritt
+
+            while (((origWidth * qfactor) > scaledWidth) || ((origHeight * qfactor) > scaledHeight)) {
+                int width = (int) (origWidth * qfactor);    // Die Breite in diesesm Skalierungsschritt
+                int height = (int) (origHeight * qfactor);    // Die Höhe in diesem Skalierungsschritt
 
                 // Skalierungsschritt
                 img = scaleImage(width, height, img);
-                origWidth = img
-                    .getWidth();    // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
-                origHeight = img
-                    .getHeight();    // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
+                origWidth = img.getWidth();    // Die neue Ausgangsbreite füre denm nächsten Skalierungsschritt
+                origHeight = img.getHeight();    // Die neue Ausgangshöhe für den nächsten Skalierungsschritt
                 pass++;
             }
 
@@ -409,19 +370,13 @@ public final class ThumbnailUtil {
      * @param image Das zu skalierende Image.
      * @return Das skalierte Image.
      */
-    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight,
-            BufferedImage image) {
-        BufferedImage scaledImage = new BufferedImage(scaledWidth,
-                                        scaledHeight,
-                                        BufferedImage.TYPE_INT_RGB);
+    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight, BufferedImage image) {
+        BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = scaledImage.createGraphics();
 
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                                    RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,
-                                    RenderingHints.VALUE_RENDER_QUALITY);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
 
         return scaledImage;
@@ -457,15 +412,13 @@ public final class ThumbnailUtil {
     }
 
     private static void logStderr(File imageFile, Pair<byte[], byte[]> output) {
-        byte[] stderr   = output.getSecond();
+        byte[] stderr = output.getSecond();
         String errorMsg = ((stderr == null)
                            ? ""
                            : new String(stderr).trim());
 
         if (!errorMsg.isEmpty()) {
-            AppLogger.logWarning(ThumbnailUtil.class,
-                                 "ThumbnailUtil.Error.ExternalProgram",
-                                 imageFile, errorMsg);
+            AppLogger.logWarning(ThumbnailUtil.class, "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg);
         }
     }
 

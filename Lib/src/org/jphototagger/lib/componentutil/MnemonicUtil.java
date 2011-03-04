@@ -23,8 +23,7 @@ import javax.swing.JTabbedPane;
  * @author Elmar Baumann
  */
 public final class MnemonicUtil {
-    private static final Map<Character, Integer> MNEMONIC_OF_CHAR =
-        new HashMap<Character, Integer>();
+    private static final Map<Character, Integer> MNEMONIC_OF_CHAR = new HashMap<Character, Integer>();
 
     static {
         MNEMONIC_OF_CHAR.put('0', KeyEvent.VK_0);
@@ -75,8 +74,7 @@ public final class MnemonicUtil {
      */
     public static int getMnemonicOf(char c) {
         if (!isInRange(c)) {
-            throw new IllegalArgumentException("Character is not in Range: "
-                                               + c);
+            throw new IllegalArgumentException("Character is not in Range: " + c);
         }
 
         return MNEMONIC_OF_CHAR.get(c);
@@ -107,42 +105,38 @@ public final class MnemonicUtil {
             throw new NullPointerException("string == null");
         }
 
-        Pair<Integer, String> noMnemonicPair = new Pair<Integer, String>(-1,
-                                                   string);
+        Pair<Integer, String> noMnemonicPair = new Pair<Integer, String>(-1, string);
 
         if (string.length() < 2) {
             return noMnemonicPair;
         }
 
-        int strlen         = string.length();
+        int strlen = string.length();
         int ampersandIndex = string.indexOf('&');
 
         if (ampersandIndex < 0) {
             return noMnemonicPair;
         }
 
-        if ((strlen < 2) || (ampersandIndex < 0)
-                || (ampersandIndex > strlen - 2)) {
+        if ((strlen < 2) || (ampersandIndex < 0) || (ampersandIndex > strlen - 2)) {
             return noMnemonicPair;
         }
 
-        char mnemonicChar = string.substring(ampersandIndex + 1,
-                                ampersandIndex + 2).toUpperCase().charAt(0);
+        char mnemonicChar = string.substring(ampersandIndex + 1, ampersandIndex + 2).toUpperCase().charAt(0);
         boolean isInRange = MnemonicUtil.isInRange(mnemonicChar);
 
         assert isInRange : "Not in Range: " + mnemonicChar + " of " + string;
 
         if (isInRange) {
-            int    mnemonic     = MnemonicUtil.getMnemonicOf(mnemonicChar);
-            String titlePrefix  = (ampersandIndex == 0)
-                                  ? ""
-                                  : string.substring(0, ampersandIndex);
+            int mnemonic = MnemonicUtil.getMnemonicOf(mnemonicChar);
+            String titlePrefix = (ampersandIndex == 0)
+                                 ? ""
+                                 : string.substring(0, ampersandIndex);
             String titlePostfix = (ampersandIndex == strlen - 1)
                                   ? ""
                                   : string.substring(ampersandIndex + 1);
 
-            return new Pair<Integer, String>(mnemonic,
-                            titlePrefix + titlePostfix);
+            return new Pair<Integer, String>(mnemonic, titlePrefix + titlePostfix);
         }
 
         return noMnemonicPair;
@@ -177,17 +171,16 @@ public final class MnemonicUtil {
             throw new IllegalArgumentException("Empty string!");
         }
 
-        int     len       = string.length();
-        int     index     = 0;
+        int len = string.length();
+        int index = 0;
         boolean doesExist = true;
-        boolean inRange   = false;
-        char    mnemonic  = '\0';
+        boolean inRange = false;
+        char mnemonic = '\0';
 
         while ((!inRange || doesExist) && (index < len)) {
-            mnemonic = string.substring(index,
-                                        index + 1).toUpperCase().charAt(0);
+            mnemonic = string.substring(index, index + 1).toUpperCase().charAt(0);
             doesExist = existingMnemonicChars.contains(mnemonic);
-            inRange   = MnemonicUtil.isInRange(mnemonic);
+            inRange = MnemonicUtil.isInRange(mnemonic);
             index++;
         }
 
@@ -260,7 +253,7 @@ public final class MnemonicUtil {
 
         if (component instanceof JLabel) {
             JLabel label = (JLabel) component;
-            String text  = label.getText();
+            String text = label.getText();
 
             if (text != null) {
                 mnPair = getMnemonic(text);
@@ -272,7 +265,7 @@ public final class MnemonicUtil {
             }
         } else if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
-            String         text   = button.getText();
+            String text = button.getText();
 
             if (text != null) {
                 mnPair = getMnemonic(text);
@@ -297,8 +290,7 @@ public final class MnemonicUtil {
      * @param  components {@link JButton}s and {@link JLabel} will be queried
      * @return            mnemonics
      */
-    public static List<Character> getMnemonicCharsOf(
-            Collection<? extends Component> components) {
+    public static List<Character> getMnemonicCharsOf(Collection<? extends Component> components) {
         if (components == null) {
             throw new NullPointerException("components == null");
         }

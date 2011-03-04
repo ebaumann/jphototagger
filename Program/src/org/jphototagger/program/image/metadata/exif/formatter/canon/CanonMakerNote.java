@@ -1,10 +1,10 @@
 package org.jphototagger.program.image.metadata.exif.formatter.canon;
 
+import org.jphototagger.lib.thirdparty.KMPMatch;
+import org.jphototagger.lib.util.ByteUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.types.FileType;
-import org.jphototagger.lib.thirdparty.KMPMatch;
-import org.jphototagger.lib.util.ByteUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,18 +18,15 @@ import java.nio.ByteOrder;
  * @author Elmar Baumann
  */
 public final class CanonMakerNote {
-    private static final byte[] JPEG_MAGIC_BYTES      = { (byte) 0xFF,
-            (byte) 0xD8 };
+    private static final byte[] JPEG_MAGIC_BYTES = { (byte) 0xFF, (byte) 0xD8 };
     private static final byte[] JPEG_EXIF_MAGIC_BYTES = {
         0x45, 0x78, 0x69, 0x66, 0x00, 0x00
-    };                        // "Exif" + 0x00, 0x00
+    };    // "Exif" + 0x00, 0x00
     private static final byte[] JPEG_TIFF_MAGIC_BYTES = {
         0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00
     };
-    private static final byte[] JPEG_APP1_MARKER      = { (byte) 0xFF,
-            (byte) 0xE1 };
-    private static final byte[] JPEG_SOS_MARKER       = { (byte) 0xFF,
-            (byte) 0xDA };    // Start Of (image) Stream
+    private static final byte[] JPEG_APP1_MARKER = { (byte) 0xFF, (byte) 0xE1 };
+    private static final byte[] JPEG_SOS_MARKER = { (byte) 0xFF, (byte) 0xDA };    // Start Of (image) Stream
     private static final ByteOrder JPEG_BYTE_ORDER = ByteOrder.BIG_ENDIAN;
 
     static byte[] getRawValueOfTag(File file, int tag, CanonIfd ifd) {
@@ -69,7 +66,7 @@ public final class CanonMakerNote {
                 return null;
             }
 
-            byte[]     app1Data    = new byte[app1DataSize - 2];
+            byte[] app1Data = new byte[app1DataSize - 2];
             final long app1DataPos = raf.getFilePointer();
 
             raf.seek(app1DataPos + 2);    // +2: Data size info
@@ -90,8 +87,7 @@ public final class CanonMakerNote {
                 return null;
             }
 
-            long valueOffset = app1DataPos + 2 + tiffStart
-                               + entry.getValueOffset();
+            long valueOffset = app1DataPos + 2 + tiffStart + entry.getValueOffset();
             int valueByteCount = entry.getValueByteCount();
 
             return rawValue(file, valueOffset, valueByteCount);
@@ -108,11 +104,10 @@ public final class CanonMakerNote {
         return KMPMatch.indexOf(raw, JPEG_EXIF_MAGIC_BYTES) >= 0;
     }
 
-    private static boolean seekToJpegApp1Marker(RandomAccessFile raf)
-            throws Exception {
-        boolean found        = false;
-        long    markerOffset = 2;
-        byte[]  marker       = new byte[2];
+    private static boolean seekToJpegApp1Marker(RandomAccessFile raf) throws Exception {
+        boolean found = false;
+        long markerOffset = 2;
+        byte[] marker = new byte[2];
 
         do {
             if (!isSeekOk(raf, markerOffset)) {
@@ -140,49 +135,44 @@ public final class CanonMakerNote {
             }
 
             if (!found) {
-                markerOffset = raf.getFilePointer()
-                               + getJpegMarkerDataSize(raf);
+                markerOffset = raf.getFilePointer() + getJpegMarkerDataSize(raf);
             }
         } while (!found);
 
         return found;
     }
 
-    private static boolean isSeekOk(RandomAccessFile raf, long offset)
-            throws Exception {
-        long    pos        = raf.getFilePointer();
-        long    fileLength = raf.length();
-        boolean ok         = (offset >= 0) && (pos + offset < fileLength);
+    private static boolean isSeekOk(RandomAccessFile raf, long offset) throws Exception {
+        long pos = raf.getFilePointer();
+        long fileLength = raf.length();
+        boolean ok = (offset >= 0) && (pos + offset < fileLength);
 
         assert ok :
-               "Invalid seek! Current pos: " + pos + ", will seek to offset: "
-               + offset + ", file length: " + fileLength;
+               "Invalid seek! Current pos: " + pos + ", will seek to offset: " + offset + ", file length: "
+               + fileLength;
 
         return ok;
     }
 
-    private static boolean isReadLengthOk(RandomAccessFile raf, long length)
-            throws Exception {
-        long    pos        = raf.getFilePointer();
-        long    fileLength = raf.length();
-        boolean ok         = (length > 0) && (pos + length < fileLength);
+    private static boolean isReadLengthOk(RandomAccessFile raf, long length) throws Exception {
+        long pos = raf.getFilePointer();
+        long fileLength = raf.length();
+        boolean ok = (length > 0) && (pos + length < fileLength);
 
         assert ok :
-               "Invalid read! Current pos: " + pos + ", will read: " + length
-               + " bytes, file length: " + fileLength;
+               "Invalid read! Current pos: " + pos + ", will read: " + length + " bytes, file length: " + fileLength;
 
         return ok;
     }
 
-    private static short getJpegMarkerDataSize(RandomAccessFile raf)
-            throws Exception {
+    private static short getJpegMarkerDataSize(RandomAccessFile raf) throws Exception {
         if (!isReadLengthOk(raf, 2)) {
             return -1;
         }
 
         byte[] size = new byte[2];
-        long   pos  = raf.getFilePointer();
-        int    read = raf.read(size, 0, 2);
+        long pos = raf.getFilePointer();
+        int read = raf.read(size, 0, 2);
 
         if (read != 2) {
             throw new IOException("Size read != 2");
@@ -208,16 +198,15 @@ public final class CanonMakerNote {
     }
 
     private static byte[] rawValueFromTiff(File file, CanonIfd.Entry entry) {
-        int valueOffset    = entry.getValueOffset();
+        int valueOffset = entry.getValueOffset();
         int valueByteCount = entry.getValueByteCount();
 
         return rawValue(file, valueOffset, valueByteCount);
     }
 
-    private static byte[] rawValue(File file, long valueOffset,
-                                   int valueByteCount) {
+    private static byte[] rawValue(File file, long valueOffset, int valueByteCount) {
         long minFileLength = valueOffset + valueByteCount + 1;
-        long fileLength    = file.length();
+        long fileLength = file.length();
 
         assert fileLength >= minFileLength;
 
@@ -285,9 +274,7 @@ public final class CanonMakerNote {
 
         System.arraycopy(raw, 0, rawValueLen, 0, 2);
 
-        short valueCount =
-            (short) (ExifDatatypeUtil.shortFromRawValue(rawValueLen, byteOrder)
-                     / 2 - 1);
+        short valueCount = (short) (ExifDatatypeUtil.shortFromRawValue(rawValueLen, byteOrder) / 2 - 1);
 
         if (valueCount <= 0) {
             return null;
@@ -299,8 +286,8 @@ public final class CanonMakerNote {
             return null;
         }
 
-        short[] values   = new short[valueCount];
-        byte[]  rawValue = new byte[2];
+        short[] values = new short[valueCount];
+        byte[] rawValue = new byte[2];
 
         for (int i = 0; i < valueCount; i++) {
             System.arraycopy(raw, 2 + 2 * i, rawValue, 0, 2);

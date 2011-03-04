@@ -3,6 +3,7 @@ package org.jphototagger.program.controller.thumbnail;
 import org.jphototagger.lib.image.util.ImageTransform;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
@@ -27,8 +27,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public final class ControllerRotateThumbnail implements ActionListener {
-    private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem,
-                                                          Float>();
+    private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
 
     public ControllerRotateThumbnail() {
         initAngleOfItem();
@@ -74,16 +73,14 @@ public final class ControllerRotateThumbnail implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<File>         selFiles = GUI.getSelectedImageFiles();
-                DatabaseImageFiles db       = DatabaseImageFiles.INSTANCE;
+                List<File> selFiles = GUI.getSelectedImageFiles();
+                DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
                 for (File imageFile : selFiles) {
-                    final Image unrotatedTn =
-                        PersistentThumbnails.getThumbnail(imageFile);
+                    final Image unrotatedTn = PersistentThumbnails.getThumbnail(imageFile);
 
                     if (unrotatedTn != null) {
-                        Image rotatedTn = ImageTransform.rotate(unrotatedTn,
-                                              rotateAngle);
+                        Image rotatedTn = ImageTransform.rotate(unrotatedTn, rotateAngle);
 
                         if (rotatedTn != null) {
 

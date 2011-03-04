@@ -41,16 +41,13 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public abstract class PopupMenuTree extends JPopupMenu
-        implements ActionListener, MouseListener {
-    private static final long                          serialVersionUID =
-        378844650671466081L;
-    private final Map<JMenuItem, Collection<Listener>> listenersOfItem =
-        new HashMap<JMenuItem, Collection<Listener>>();
-    private JMenuItem      itemCollapseExpandAllSubItems;
-    private JMenuItem      itemExpandAllSubItems;
+public abstract class PopupMenuTree extends JPopupMenu implements ActionListener, MouseListener {
+    private static final long serialVersionUID = 378844650671466081L;
+    private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<JMenuItem, Collection<Listener>>();
+    private JMenuItem itemCollapseExpandAllSubItems;
+    private JMenuItem itemExpandAllSubItems;
     private List<TreePath> lastSelTreePaths;
-    private final JTree    tree;
+    private final JTree tree;
 
     /**
      * Creates a new instance.

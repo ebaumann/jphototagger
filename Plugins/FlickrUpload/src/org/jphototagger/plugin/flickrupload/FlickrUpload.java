@@ -42,10 +42,8 @@ import javax.swing.JPanel;
  */
 public final class FlickrUpload extends Plugin implements Serializable {
     private static final long serialVersionUID = -2935460271965834936L;
-    private static final Icon icon =
-        IconUtil.getImageIcon(
-            "/org/jphototagger/plugin/flickrupload/flickr.png");
-    private final UploadAction  uploadAction = new UploadAction();
+    private static final Icon icon = IconUtil.getImageIcon("/org/jphototagger/plugin/flickrupload/flickr.png");
+    private final UploadAction uploadAction = new UploadAction();
     private static final String PROGRESS_BAR_STRING =
         FlickrBundle.INSTANCE.getString("FlickrUpload.ProgressBar.String");
 
@@ -108,8 +106,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
 
         Upload(List<File> files) {
             this.files = new ArrayList<File>(files);
-            setName("Uploading images to Flickr  @ "
-                    + FlickrUpload.class.getSimpleName());
+            setName("Uploading images to Flickr  @ " + FlickrUpload.class.getSimpleName());
         }
 
         @Override
@@ -118,9 +115,8 @@ public final class FlickrUpload extends Plugin implements Serializable {
                 return;
             }
 
-            Uploader              uploader = createUploader();
-            FlickrImageInfoDialog dlg =
-                new FlickrImageInfoDialog(getProperties());
+            Uploader uploader = createUploader();
+            FlickrImageInfoDialog dlg = new FlickrImageInfoDialog(getProperties());
 
             addImages(dlg);
             dlg.setVisible(true);
@@ -129,12 +125,12 @@ public final class FlickrUpload extends Plugin implements Serializable {
                 return;
             }
 
-            List<ImageInfo> uploadImages   = dlg.getUploadImages();
-            int             size           = uploadImages.size();
-            int             index          = 0;
-            FileInputStream is             = null;
-            boolean         success        = true;
-            List<File>      processedFiles = new ArrayList<File>(size);
+            List<ImageInfo> uploadImages = dlg.getUploadImages();
+            int size = uploadImages.size();
+            int index = 0;
+            FileInputStream is = null;
+            boolean success = true;
+            List<File> processedFiles = new ArrayList<File>(size);
 
             notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
             progressStarted(0, size, 0, PROGRESS_BAR_STRING);
@@ -144,7 +140,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
             for (ImageInfo imageInfo : uploadImages) {
                 try {
                     imageFile = imageInfo.getImageFile();
-                    is        = new FileInputStream(imageFile);
+                    is = new FileInputStream(imageFile);
                     uploader.upload(is, getUploadMetaData(imageInfo));
                     is.close();
                     processedFiles.add(imageFile);
@@ -163,46 +159,34 @@ public final class FlickrUpload extends Plugin implements Serializable {
         }
 
         private Uploader createUploader() {
-            return new Uploader("1efba3cf4198b683047512bec1429f19",
-                                "b58bc39d8aedd4c5");
+            return new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
         }
 
-        private void uploadFinished(int index, List<File> processedFiles,
-                                    boolean success)
-                throws HeadlessException {
+        private void uploadFinished(int index, List<File> processedFiles, boolean success) throws HeadlessException {
             progressEnded();
-            JOptionPane.showMessageDialog(
-                ComponentUtil.getFrameWithIcon(),
-                FlickrBundle.INSTANCE.getString(
-                    "FlickrUpload.Info.UploadCount", index));
+            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
+                                          FlickrBundle.INSTANCE.getString("FlickrUpload.Info.UploadCount", index));
             notifyFinished(processedFiles, success);
         }
 
-        private void logDisplayUploadException(Exception ex, File imageFile)
-                throws HeadlessException {
-            Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE,
-                             null, ex);
-            JOptionPane.showMessageDialog(
-                ComponentUtil.getFrameWithIcon(),
-                FlickrBundle.INSTANCE.getString(
-                    "FlickrUpload.Error.Upload", imageFile));
+        private void logDisplayUploadException(Exception ex, File imageFile) throws HeadlessException {
+            Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
+                                          FlickrBundle.INSTANCE.getString("FlickrUpload.Error.Upload", imageFile));
         }
 
-        private void notifyFinished(List<File> processedFiles,
-                                    boolean success) {
+        private void notifyFinished(List<File> processedFiles, boolean success) {
             PluginEvent evt = new PluginEvent(success
-                                              ? PluginEvent.Type
-                                                  .FINISHED_SUCCESS
-                                              : PluginEvent.Type
-                                                  .FINISHED_ERRORS);
+                                              ? PluginEvent.Type.FINISHED_SUCCESS
+                                              : PluginEvent.Type.FINISHED_ERRORS);
 
             evt.setProcessedFiles(processedFiles);
             notifyPluginListeners(evt);
         }
 
         private UploadMetaData getUploadMetaData(ImageInfo imageInfo) {
-            UploadMetaData umd         = new UploadMetaData();
-            String         description = imageInfo.getDescription();
+            UploadMetaData umd = new UploadMetaData();
+            String description = imageInfo.getDescription();
 
             if (!description.isEmpty()) {
                 umd.setDescription(description);
@@ -224,32 +208,28 @@ public final class FlickrUpload extends Plugin implements Serializable {
         }
 
         private ImageInfo getImageInfo(File imageFile, Settings settings) {
-            File  sidecarFile = Xmp.getSidecarfileOf(imageFile);
-            Image image = ImageUtil.getScaledInstance(getThumbnail(imageFile),
-                              FlickrImageInfoPanel.IMAGE_WIDTH);
+            File sidecarFile = Xmp.getSidecarfileOf(imageFile);
+            Image image = ImageUtil.getScaledInstance(getThumbnail(imageFile), FlickrImageInfoPanel.IMAGE_WIDTH);
             ImageInfo emptyImageInfo = getEmptyImageInfo(image, imageFile);
 
             if (sidecarFile == null) {
                 return emptyImageInfo;
             }
 
-            List<XMPPropertyInfo> pInfos =
-                Xmp.getPropertyInfosOfSidecarFile(sidecarFile);
+            List<XMPPropertyInfo> pInfos = Xmp.getPropertyInfosOfSidecarFile(sidecarFile);
 
             if (pInfos == null) {
                 return emptyImageInfo;
             }
 
-            List<String> values      = null;
-            String       value       = null;
-            String       description = "";
-            String       title       = "";
-            List<String> tags        = Collections.<String>emptyList();
+            List<String> values = null;
+            String value = null;
+            String description = "";
+            String title = "";
+            List<String> tags = Collections.<String>emptyList();
 
             if (settings.isAddDcDescription()) {
-                value =
-                    Xmp.getPropertyValueFrom(pInfos,
-                                             Xmp.PropertyValue.DC_DESCRIPTION);
+                value = Xmp.getPropertyValueFrom(pInfos, Xmp.PropertyValue.DC_DESCRIPTION);
 
                 if ((value != null) &&!value.isEmpty()) {
                     description = value;
@@ -257,8 +237,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
             }
 
             if (settings.isAddPhotoshopHeadline()) {
-                value = Xmp.getPropertyValueFrom(
-                    pInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
+                value = Xmp.getPropertyValueFrom(pInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
 
                 if ((value != null) &&!value.isEmpty()) {
                     title = value;
@@ -266,9 +245,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
             }
 
             if (settings.isAddDcSubjects()) {
-                values =
-                    Xmp.getPropertyValuesFrom(pInfos,
-                                              Xmp.PropertyValue.DC_SUBJECT);
+                values = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.DC_SUBJECT);
 
                 if (!values.isEmpty()) {
                     tags = values;
@@ -279,8 +256,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
         }
 
         private ImageInfo getEmptyImageInfo(Image image, File imageFile) {
-            return new ImageInfo(image, imageFile, "", "",
-                                 Collections.<String>emptyList());
+            return new ImageInfo(image, imageFile, "", "", Collections.<String>emptyList());
         }
 
         private void addImages(FlickrImageInfoDialog dlg) {

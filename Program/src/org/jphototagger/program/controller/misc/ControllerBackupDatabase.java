@@ -16,8 +16,7 @@ import java.awt.event.KeyEvent;
  */
 public final class ControllerBackupDatabase extends Controller {
     public ControllerBackupDatabase() {
-        listenToActionsOf(
-            GUI.getAppFrame().getMenuItemBackupDatabase());
+        listenToActionsOf(GUI.getAppFrame().getMenuItemBackupDatabase());
     }
 
     @Override
@@ -35,8 +34,7 @@ public final class ControllerBackupDatabase extends Controller {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == GUI.getAppFrame().getMenuItemBackupDatabase();
+        return evt.getSource() == GUI.getAppFrame().getMenuItemBackupDatabase();
     }
 
     @Override
@@ -55,8 +53,7 @@ public final class ControllerBackupDatabase extends Controller {
     }
 
     private void addBackupTask() {
-        MessageDisplayer.information(null,
-                                     "ControllerBackupDatabase.Info.ChooseDir");
+        MessageDisplayer.information(null, "ControllerBackupDatabase.Info.ChooseDir");
         AppLifeCycle.INSTANCE.addFinalTask(BackupDatabase.INSTANCE);
     }
 }

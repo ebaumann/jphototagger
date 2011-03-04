@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public final class SettingsHints {
     private final List<String> excludedKeys = new ArrayList<String>();
-    private final Set<Option>  options;
+    private final Set<Option> options;
 
     public enum Option {
 

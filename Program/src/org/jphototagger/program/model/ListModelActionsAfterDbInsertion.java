@@ -25,8 +25,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Elmar Baumann
  */
-public final class ListModelActionsAfterDbInsertion extends DefaultListModel
-        implements DatabaseProgramsListener {
+public final class ListModelActionsAfterDbInsertion extends DefaultListModel implements DatabaseProgramsListener {
     private static final long serialVersionUID = -6490813457178023686L;
 
     public ListModelActionsAfterDbInsertion() {
@@ -41,9 +40,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
 
         assert action.isAction() : action;
 
-        if (!contains(action)
-                && DatabaseActionsAfterDbInsertion.INSTANCE.insert(action,
-                    getSize())) {
+        if (!contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.insert(action, getSize())) {
             addElement(action);
         } else {
             errorMessageInsert(action);
@@ -71,7 +68,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     private List<Program> getActions() {
-        Object[]      array   = toArray();
+        Object[] array = toArray();
         List<Program> actions = new ArrayList<Program>(array.length);
 
         for (Object o : array) {
@@ -82,13 +79,11 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     private void swapElements(int indexFirstElement, int indexSecondElement) {
-        if (ListUtil.swapModelElements(this, indexFirstElement,
-                                       indexSecondElement)) {
+        if (ListUtil.swapModelElements(this, indexFirstElement, indexSecondElement)) {
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
 
-            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(
-                    getActions(), 0)) {
+            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(getActions(), 0)) {
                 errorMessageSwap(indexFirstElement);
             }
         }
@@ -99,8 +94,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             throw new NullPointerException("action == null");
         }
 
-        if (contains(action)
-                && DatabaseActionsAfterDbInsertion.INSTANCE.delete(action)) {
+        if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.delete(action)) {
             removeElement(action);
         } else {
             errorMessageDelete(action);
@@ -130,8 +124,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             return;
         }
 
-        List<Program> actions =
-            DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
 
         for (Program action : actions) {
             addElement(action);
@@ -139,21 +132,15 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
     }
 
     private void errorMessageDelete(Program action) {
-        MessageDisplayer.error(null,
-                               "ListModelActionsAfterDbInsertion.Error.Remove",
-                               action);
+        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Remove", action);
     }
 
     private void errorMessageSwap(int indexFirstElement) {
-        MessageDisplayer.error(null,
-                               "ListModelActionsAfterDbInsertion.Error.Swap",
-                               (Program) get(indexFirstElement));
+        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Swap", (Program) get(indexFirstElement));
     }
 
     private void errorMessageInsert(Program action) {
-        MessageDisplayer.error(null,
-                               "ListModelActionsAfterDbInsertion.Error.Add",
-                               action);
+        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Add", action);
     }
 
     @Override
@@ -162,7 +149,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             @Override
             public void run() {
                 deleteProgram(program);
-                }
+            }
         });
     }
 
@@ -178,7 +165,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel
             @Override
             public void run() {
                 updateProgram(program);
-                }
+            }
         });
     }
 }

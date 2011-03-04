@@ -39,8 +39,7 @@ import javax.swing.TransferHandler;
  * @author Elmar Baumann
  */
 public final class ControllerPasteFilesFromClipboard
-        implements ActionListener, KeyListener, MenuListener,
-                   ThumbnailsPanelListener {
+        implements ActionListener, KeyListener, MenuListener, ThumbnailsPanelListener {
     public ControllerPasteFilesFromClipboard() {
         listen();
     }
@@ -64,8 +63,7 @@ public final class ControllerPasteFilesFromClipboard
             return;
         }
 
-        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_V)
-                && canPasteFiles()) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_V) && canPasteFiles()) {
             Object source = evt.getSource();
 
             if (source == GUI.getThumbnailsPanel()) {
@@ -86,8 +84,7 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (GUI.getThumbnailsPanel().getContent()
-                .canInsertImagesFromFileSystem()) {
+        if (GUI.getThumbnailsPanel().getContent().canInsertImagesFromFileSystem()) {
             insertFiles(getDirectory());
             getPasteItem().setEnabled(false);
         }
@@ -113,25 +110,20 @@ public final class ControllerPasteFilesFromClipboard
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                List<File> files = ClipboardUtil.getFilesFromSystemClipboard(
-                                       FilenameDelimiter.NEWLINE);
+                List<File> files = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
 
-                TransferHandlerDirectoryTree.handleDroppedFiles(
-                    getEstimatedTransferHandlerAction(), files, file);
+                TransferHandlerDirectoryTree.handleDroppedFiles(getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();
             }
             public int getEstimatedTransferHandlerAction() {
-                Integer action =
-                    GUI.getThumbnailsPanel().getFileAction()
-                        .getTransferHandlerAction();
+                Integer action = GUI.getThumbnailsPanel().getFileAction().getTransferHandlerAction();
 
                 return (action == null)
                        ? TransferHandler.COPY
                        : action;
             }
             private void emptyClipboard() {
-                ClipboardUtil.copyToSystemClipboard(new ArrayList<File>(),
-                        null);
+                ClipboardUtil.copyToSystemClipboard(new ArrayList<File>(), null);
             }
         });
     }
@@ -153,9 +145,8 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     private boolean canPasteFiles() {
-        return GUI.getThumbnailsPanel().getContent()
-            .canInsertImagesFromFileSystem() && TransferUtil
-            .systemClipboardMaybeContainFiles();
+        return GUI.getThumbnailsPanel().getContent().canInsertImagesFromFileSystem()
+               && TransferUtil.systemClipboardMaybeContainFiles();
     }
 
     @Override

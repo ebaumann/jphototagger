@@ -27,45 +27,33 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class UpdateTablesMake1n {
-    private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF =
-        new HashMap<ColumnInfo, ColumnInfo>();
+    private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF = new HashMap<ColumnInfo, ColumnInfo>();
 
     static {
-        TARGET_COL_OF.put(
-            new ColumnInfo("exif", "exif_recording_equipment", null, null),
-            new ColumnInfo(
-                "exif_recording_equipment", "equipment", null, null));
+        TARGET_COL_OF.put(new ColumnInfo("exif", "exif_recording_equipment", null, null),
+                          new ColumnInfo("exif_recording_equipment", "equipment", null, null));
         TARGET_COL_OF.put(new ColumnInfo("exif", "exif_lens", null, null),
                           new ColumnInfo("exif_lenses", "lens", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "dc_creator", null, null),
                           new ColumnInfo("dc_creators", "creator", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "dc_rights", null, null),
                           new ColumnInfo("dc_rights", "rights", null, null));
-        TARGET_COL_OF.put(
-            new ColumnInfo("xmp", "iptc4xmpcore_location", null, null),
-            new ColumnInfo("iptc4xmpcore_locations", "location", null, null));
-        TARGET_COL_OF.put(
-            new ColumnInfo("xmp", "photoshop_authorsposition", null, null),
-            new ColumnInfo(
-                "photoshop_authorspositions", "authorsposition", null, null));
-        TARGET_COL_OF.put(
-            new ColumnInfo("xmp", "photoshop_captionwriter", null, null),
-            new ColumnInfo(
-                "photoshop_captionwriters", "captionwriter", null, null));
+        TARGET_COL_OF.put(new ColumnInfo("xmp", "iptc4xmpcore_location", null, null),
+                          new ColumnInfo("iptc4xmpcore_locations", "location", null, null));
+        TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_authorsposition", null, null),
+                          new ColumnInfo("photoshop_authorspositions", "authorsposition", null, null));
+        TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_captionwriter", null, null),
+                          new ColumnInfo("photoshop_captionwriters", "captionwriter", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_city", null, null),
                           new ColumnInfo("photoshop_cities", "city", null, null));
-        TARGET_COL_OF.put(
-            new ColumnInfo("xmp", "photoshop_country", null, null),
-            new ColumnInfo("photoshop_countries", "country", null, null));
-        TARGET_COL_OF.put(
-            new ColumnInfo("xmp", "photoshop_credit", null, null),
-            new ColumnInfo("photoshop_credits", "credit", null, null));
-        TARGET_COL_OF.put(
-            new ColumnInfo("xmp", "photoshop_source", null, null),
-            new ColumnInfo("photoshop_sources", "source", null, null));
+        TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_country", null, null),
+                          new ColumnInfo("photoshop_countries", "country", null, null));
+        TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_credit", null, null),
+                          new ColumnInfo("photoshop_credits", "credit", null, null));
+        TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_source", null, null),
+                          new ColumnInfo("photoshop_sources", "source", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_state", null, null),
-                          new ColumnInfo("photoshop_states", "state", null,
-                                         null));
+                          new ColumnInfo("photoshop_states", "state", null, null));
     }
 
     UpdateTablesMake1n() {}
@@ -86,20 +74,18 @@ public final class UpdateTablesMake1n {
         boolean compress = false;
 
         for (ColumnInfo source : TARGET_COL_OF.keySet()) {
-            if (DatabaseMetadata.INSTANCE.existsColumn(con,
-                    source.getTableName(), source.getColumnName())) {
+            if (DatabaseMetadata.INSTANCE.existsColumn(con, source.getTableName(), source.getColumnName())) {
                 ColumnInfo target = TARGET_COL_OF.get(source);
-                Statement  stmt   = null;
-                ResultSet  rs     = null;
+                Statement stmt = null;
+                ResultSet rs = null;
 
                 compress = true;
 
                 try {
-                    String sourceTable  = source.getTableName();
+                    String sourceTable = source.getTableName();
                     String sourceColumn = source.getColumnName();
-                    String targetTable  = target.getTableName();
-                    String sql = "SELECT id, " + sourceColumn + " FROM "
-                                 + sourceTable;
+                    String targetTable = target.getTableName();
+                    String sql = "SELECT id, " + sourceColumn + " FROM " + sourceTable;
 
                     addLinkColumn(con, sourceTable, targetTable);
                     stmt = con.createStatement();
@@ -107,7 +93,7 @@ public final class UpdateTablesMake1n {
                     rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
-                        Long   sourceId    = rs.getLong(1);
+                        Long sourceId = rs.getLong(1);
                         String sourceValue = rs.getString(2);
 
                         if (!rs.wasNull()) {
@@ -116,8 +102,7 @@ public final class UpdateTablesMake1n {
                     }
 
                     dropColumn(con, sourceTable, sourceColumn);
-                    DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains(
-                        sourceColumn, "!");
+                    DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains(sourceColumn, "!");
                 } finally {
                     Database.close(rs, stmt);
                 }
@@ -129,9 +114,7 @@ public final class UpdateTablesMake1n {
         }
     }
 
-    private void addLinkColumn(Connection con, String sourceTable,
-                               String targetTable)
-            throws SQLException {
+    private void addLinkColumn(Connection con, String sourceTable, String targetTable) throws SQLException {
         Statement stmt = null;
 
         try {
@@ -145,38 +128,29 @@ public final class UpdateTablesMake1n {
         }
     }
 
-    private void addColumn(Connection con, String sourceTable,
-                           String newColumn, String targetTable)
+    private void addColumn(Connection con, String sourceTable, String newColumn, String targetTable)
             throws SQLException {
-        if (!DatabaseMetadata.INSTANCE.existsColumn(con, sourceTable,
-                newColumn)) {
+        if (!DatabaseMetadata.INSTANCE.existsColumn(con, sourceTable, newColumn)) {
             Statement stmt = null;
 
             try {
                 stmt = con.createStatement();
 
-                String sqlAddColumn = "ALTER TABLE " + sourceTable
-                                      + " ADD COLUMN " + newColumn + " BIGINT";
+                String sqlAddColumn = "ALTER TABLE " + sourceTable + " ADD COLUMN " + newColumn + " BIGINT";
 
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
-                                   sqlAddColumn);
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sqlAddColumn);
                 stmt.executeUpdate(sqlAddColumn);
 
-                String sqlAddForeignKey = "ALTER TABLE " + sourceTable
-                                          + " ADD FOREIGN KEY (" + newColumn
-                                          + ") REFERENCES " + targetTable
-                                          + "(id) ON DELETE SET NULL";
+                String sqlAddForeignKey = "ALTER TABLE " + sourceTable + " ADD FOREIGN KEY (" + newColumn
+                                          + ") REFERENCES " + targetTable + "(id) ON DELETE SET NULL";
 
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
-                                   sqlAddForeignKey);
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sqlAddForeignKey);
                 stmt.executeUpdate(sqlAddForeignKey);
 
                 String indexname = "idx_" + sourceTable + "_" + newColumn;
-                String sqlCreateIndex = "CREATE INDEX " + indexname + " ON "
-                                        + sourceTable + " (" + newColumn + ")";
+                String sqlCreateIndex = "CREATE INDEX " + indexname + " ON " + sourceTable + " (" + newColumn + ")";
 
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING,
-                                   sqlCreateIndex);
+                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sqlCreateIndex);
                 stmt.executeUpdate(sqlCreateIndex);
                 con.commit();
             } finally {
@@ -185,8 +159,7 @@ public final class UpdateTablesMake1n {
         }
     }
 
-    private void dropColumn(Connection con, String table, String column)
-            throws SQLException {
+    private void dropColumn(Connection con, String table, String column) throws SQLException {
         if (DatabaseMetadata.INSTANCE.existsColumn(con, table, column)) {
             Statement stmt = null;
 
@@ -207,35 +180,30 @@ public final class UpdateTablesMake1n {
         }
     }
 
-    private void copy(Connection con, ColumnInfo source, Long sourceId,
-                      String sourceValue, ColumnInfo target)
+    private void copy(Connection con, ColumnInfo source, Long sourceId, String sourceValue, ColumnInfo target)
             throws SQLException {
         PreparedStatement stmt = null;
 
         try {
-            String targetTable  = target.getTableName();
+            String targetTable = target.getTableName();
             String targetColumn = target.getColumnName();
-            String sourceTable  = source.getTableName();
-            String linkColumn   = getLinkColumn(targetTable);
+            String sourceTable = source.getTableName();
+            String linkColumn = getLinkColumn(targetTable);
 
-            insertValueIntoTargetTable(con, targetTable, targetColumn,
-                                       sourceValue);
-            createLink(con, sourceTable, linkColumn, targetTable, targetColumn,
-                       sourceValue, sourceId);
+            insertValueIntoTargetTable(con, targetTable, targetColumn, sourceValue);
+            createLink(con, sourceTable, linkColumn, targetTable, targetColumn, sourceValue, sourceId);
         } finally {
             Database.close(stmt);
         }
     }
 
-    private void insertValueIntoTargetTable(Connection con, String targetTable,
-            String targetColumn, String value)
+    private void insertValueIntoTargetTable(Connection con, String targetTable, String targetColumn, String value)
             throws SQLException {
         if (!Database.exists(con, targetTable, targetColumn, value)) {
             PreparedStatement stmt = null;
 
             try {
-                String sql = "INSERT INTO " + targetTable + " (" + targetColumn
-                             + ") VALUES (?)";
+                String sql = "INSERT INTO " + targetTable + " (" + targetColumn + ") VALUES (?)";
 
                 stmt = con.prepareStatement(sql);
                 stmt.setString(1, value);
@@ -247,20 +215,16 @@ public final class UpdateTablesMake1n {
         }
     }
 
-    private void createLink(Connection con, String sourceTable,
-                            String linkColumn, String targetTable,
-                            String targetColumn, String targetValue,
-                            Long sourceId)
+    private void createLink(Connection con, String sourceTable, String linkColumn, String targetTable,
+                            String targetColumn, String targetValue, Long sourceId)
             throws SQLException {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "UPDATE " + sourceTable + " SET " + linkColumn
-                         + " = ? WHERE " + sourceTable + ".id = ?";
+            String sql = "UPDATE " + sourceTable + " SET " + linkColumn + " = ? WHERE " + sourceTable + ".id = ?";
 
             stmt = con.prepareStatement(sql);
-            stmt.setLong(1, Database.getId(con, targetTable, targetColumn,
-                                           targetValue));
+            stmt.setLong(1, Database.getId(con, targetTable, targetColumn, targetValue));
             stmt.setLong(2, sourceId);
             AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
             stmt.executeUpdate();
@@ -270,7 +234,6 @@ public final class UpdateTablesMake1n {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesMake1n.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesMake1n.Info"));
     }
 }

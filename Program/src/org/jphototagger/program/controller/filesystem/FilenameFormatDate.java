@@ -84,8 +84,7 @@ public final class FilenameFormatDate extends FilenameFormat {
     }
 
     private void formatDate(Date date) {
-        name = new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter
-                                    + "dd").format(date);
+        name = new SimpleDateFormat("yyyy" + delimiter + "MM" + delimiter + "dd").format(date);
     }
 
     @Override

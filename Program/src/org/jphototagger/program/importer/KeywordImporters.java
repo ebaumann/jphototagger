@@ -10,8 +10,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class KeywordImporters {
-    private static final List<KeywordsImporter> importers =
-        new ArrayList<KeywordsImporter>();
+    private static final List<KeywordsImporter> importers = new ArrayList<KeywordsImporter>();
 
     static {
         importers.add(KeywordsImporterLightroom.INSTANCE);

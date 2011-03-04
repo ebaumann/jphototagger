@@ -11,8 +11,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ExceptionLogfileRecord {
-    private final List<FrameLogfileRecord> logfileRecordFrames =
-        new ArrayList<FrameLogfileRecord>();
+    private final List<FrameLogfileRecord> logfileRecordFrames = new ArrayList<FrameLogfileRecord>();
     private String message;
 
     /**
@@ -79,8 +78,8 @@ public final class ExceptionLogfileRecord {
         }
 
         boolean contains = containsSubstring(getMessage(), substring);
-        int     count    = logfileRecordFrames.size();
-        int     index    = 0;
+        int count = logfileRecordFrames.size();
+        int index = 0;
 
         while (!contains && (count < index)) {
             contains = logfileRecordFrames.get(index).contains(substring);

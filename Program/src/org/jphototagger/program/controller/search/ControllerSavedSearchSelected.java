@@ -9,6 +9,7 @@ import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -18,15 +19,13 @@ import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import org.jphototagger.program.view.WaitDisplay;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class ControllerSavedSearchSelected
-        implements ListSelectionListener, RefreshListener {
+public final class ControllerSavedSearchSelected implements ListSelectionListener, RefreshListener {
     public ControllerSavedSearchSelected() {
         listen();
     }
@@ -57,8 +56,7 @@ public final class ControllerSavedSearchSelected
     private class ShowThumbnails implements Runnable {
         @Override
         public void run() {
-            Object selectedValue =
-                GUI.getSavedSearchesList().getSelectedValue();
+            Object selectedValue = GUI.getSavedSearchesList().getSelectedValue();
 
             if (selectedValue != null) {
                 WaitDisplay.show();
@@ -95,8 +93,7 @@ public final class ControllerSavedSearchSelected
         private void setTitle(String name) {
             GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
-                    "ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved",
-                    name));
+                    "ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved", name));
         }
 
         private void setMetadataEditable() {

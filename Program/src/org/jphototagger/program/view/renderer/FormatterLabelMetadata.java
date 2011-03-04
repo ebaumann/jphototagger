@@ -12,7 +12,7 @@ import javax.swing.JLabel;
  * @author Elmar Baumann
  */
 public class FormatterLabelMetadata {
-    private Font headerFont  = null;
+    private Font headerFont = null;
     private Font contentFont = null;
 
     /**
@@ -21,8 +21,7 @@ public class FormatterLabelMetadata {
      * @param cellLabel   Label
      * @param isSelected  true, wenn die Zelle selektiert ist
      */
-    protected static void setDefaultCellColors(JLabel cellLabel,
-            boolean isSelected) {
+    protected static void setDefaultCellColors(JLabel cellLabel, boolean isSelected) {
         if (cellLabel == null) {
             throw new NullPointerException("cellLabel == null");
         }
@@ -71,46 +70,38 @@ public class FormatterLabelMetadata {
      * @param cellLabel Label  Label
      * @param isSelected
      */
-    protected void setIsStoredInDatabaseColors(JLabel cellLabel,
-            boolean isSelected) {
+    protected void setIsStoredInDatabaseColors(JLabel cellLabel, boolean isSelected) {
         if (cellLabel == null) {
             throw new NullPointerException("cellLabel == null");
         }
 
         cellLabel.setForeground(isSelected
                                 ? AppLookAndFeel.getTableSelectionForeground()
-                                : AppLookAndFeel
-                                    .getTableStoredInDatabaseForeground());
+                                : AppLookAndFeel.getTableStoredInDatabaseForeground());
         cellLabel.setBackground(isSelected
                                 ? AppLookAndFeel.getTableSelectionBackground()
-                                : AppLookAndFeel
-                                    .getTableStoredInDatabaseBackground());
+                                : AppLookAndFeel.getTableStoredInDatabaseBackground());
     }
 
-    protected void setIsExifMakerNoteColors(JLabel cellLabel,
-            boolean isSelected) {
+    protected void setIsExifMakerNoteColors(JLabel cellLabel, boolean isSelected) {
         if (cellLabel == null) {
             throw new NullPointerException("cellLabel == null");
         }
 
         cellLabel.setForeground(isSelected
                                 ? AppLookAndFeel.getTableSelectionForeground()
-                                : AppLookAndFeel
-                                    .getTableExifMakerNoteForeground());
+                                : AppLookAndFeel.getTableExifMakerNoteForeground());
         cellLabel.setBackground(isSelected
                                 ? AppLookAndFeel.getTableSelectionBackground()
-                                : AppLookAndFeel
-                                    .getTableExifMakerNoteBackground());
+                                : AppLookAndFeel.getTableExifMakerNoteBackground());
     }
 
     private void initFonts(JLabel cellLabel) {
         if (headerFont == null) {
             Font cellFont = cellLabel.getFont();
 
-            headerFont = new Font(cellFont.getName(), Font.BOLD,
-                                  cellFont.getSize());
-            contentFont = new Font(cellFont.getName(), Font.PLAIN,
-                                   cellFont.getSize());
+            headerFont = new Font(cellFont.getName(), Font.BOLD, cellFont.getSize());
+            contentFont = new Font(cellFont.getName(), Font.PLAIN, cellFont.getSize());
         }
     }
 }

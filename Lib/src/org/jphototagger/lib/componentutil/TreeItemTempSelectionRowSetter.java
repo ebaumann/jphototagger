@@ -28,11 +28,9 @@ import javax.swing.tree.TreeCellRenderer;
  *
  * @author Elmar Baumann
  */
-public final class TreeItemTempSelectionRowSetter
-        implements MouseListener, PopupMenuListener {
-    private final JTree         tree;
-    private static final String TEMP_SEL_ROW_METHOD_NAME =
-        "setTempSelectionRow";
+public final class TreeItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
+    private final JTree tree;
+    private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
 
     /**
      * Creates a new instance.
@@ -78,16 +76,12 @@ public final class TreeItemTempSelectionRowSetter
 
         if (hasMethod(renderer)) {
             try {
-                Method m =
-                    renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME,
-                                                  int.class);
+                Method m = renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME, int.class);
 
                 m.invoke(renderer, index);
                 tree.repaint();
             } catch (Exception ex) {
-                Logger.getLogger(
-                    TreeItemTempSelectionRowSetter.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(TreeItemTempSelectionRowSetter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -97,8 +91,7 @@ public final class TreeItemTempSelectionRowSetter
             if (method.getName().equals(TEMP_SEL_ROW_METHOD_NAME)) {
                 Class<?>[] parameterTypes = method.getParameterTypes();
 
-                if ((parameterTypes.length == 1)
-                        && parameterTypes[0].equals(int.class)) {
+                if ((parameterTypes.length == 1) && parameterTypes[0].equals(int.class)) {
                     return true;
                 }
             }

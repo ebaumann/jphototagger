@@ -2,6 +2,7 @@ package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.helper.SavedSearchesHelper;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 
 import java.awt.event.ActionEvent;
@@ -10,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JList;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Renames a selected saved search when the
@@ -22,8 +22,7 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerRenameSavedSearch
-        implements ActionListener, KeyListener {
+public final class ControllerRenameSavedSearch implements ActionListener, KeyListener {
     public ControllerRenameSavedSearch() {
         listen();
     }
@@ -35,8 +34,7 @@ public final class ControllerRenameSavedSearch
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if (isRename(evt)
-                &&!GUI.getSavedSearchesList().isSelectionEmpty()) {
+        if (isRename(evt) &&!GUI.getSavedSearchesList().isSelectionEmpty()) {
             Object value = GUI.getSavedSearchesList().getSelectedValue();
 
             if (value instanceof SavedSearch) {

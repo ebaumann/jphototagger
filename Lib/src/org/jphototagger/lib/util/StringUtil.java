@@ -27,8 +27,7 @@ public final class StringUtil {
         }
 
         if (maxCharsPerLine <= 0) {
-            throw new IllegalArgumentException("maxCharPerLine <= 0: "
-                                               + maxCharsPerLine);
+            throw new IllegalArgumentException("maxCharPerLine <= 0: " + maxCharsPerLine);
         }
 
         return wrapWords(text, maxCharsPerLine, WORD_DELIMITER);
@@ -46,8 +45,7 @@ public final class StringUtil {
      *                        continued at the next line
      * @return                lines
      */
-    public static List<String> wrapWords(String text, int maxCharsPerLine,
-            String wordDelimiter) {
+    public static List<String> wrapWords(String text, int maxCharsPerLine, String wordDelimiter) {
         if (text == null) {
             throw new NullPointerException("text == null");
         }
@@ -57,30 +55,29 @@ public final class StringUtil {
         }
 
         if (maxCharsPerLine <= 0) {
-            throw new IllegalArgumentException("Invalid max chars per line: "
-                                               + maxCharsPerLine);
+            throw new IllegalArgumentException("Invalid max chars per line: " + maxCharsPerLine);
         }
 
         if (wordDelimiter.isEmpty()) {
             throw new IllegalArgumentException("Empty word delimiter string!");
         }
 
-        List<String> lines                     = new ArrayList<String>();
-        int          textLength                = text.length();
-        int          lineBeginIndex            = 0;
-        int          lineEndIndex              = 0;
-        int          currentLineBreakCharIndex = 0;
-        int          prevLineBreakCharIndex    = 0;
-        int          index                     = 0;
-        boolean      end                       = text.isEmpty();
+        List<String> lines = new ArrayList<String>();
+        int textLength = text.length();
+        int lineBeginIndex = 0;
+        int lineEndIndex = 0;
+        int currentLineBreakCharIndex = 0;
+        int prevLineBreakCharIndex = 0;
+        int index = 0;
+        boolean end = text.isEmpty();
 
         while (!end) {
             if (isWordDelimiter(text.charAt(index), wordDelimiter)) {
-                prevLineBreakCharIndex    = currentLineBreakCharIndex;
+                prevLineBreakCharIndex = currentLineBreakCharIndex;
                 currentLineBreakCharIndex = index;
             }
 
-            int lineCount     = lines.size();
+            int lineCount = lines.size();
             int maxBreakIndex = lineCount * maxCharsPerLine + maxCharsPerLine;
 
             if (index == maxBreakIndex) {
@@ -95,8 +92,7 @@ public final class StringUtil {
                 }
 
                 lines.add(text.substring(lineBeginIndex, lineEndIndex));
-                lineBeginIndex = isWordDelimiter(text.charAt((lineEndIndex
-                        < textLength)
+                lineBeginIndex = isWordDelimiter(text.charAt((lineEndIndex < textLength)
                         ? lineEndIndex
                         : textLength - 1), wordDelimiter)
                                  ? lineEndIndex + 1
@@ -118,8 +114,7 @@ public final class StringUtil {
         return wordDelimiter.contains(Character.toString(c));
     }
 
-    public static List<String> getTrimmed(
-            Collection<? extends String> strings) {
+    public static List<String> getTrimmed(Collection<? extends String> strings) {
         if (strings == null) {
             throw new NullPointerException("strings == null");
         }
@@ -138,8 +133,8 @@ public final class StringUtil {
             throw new NullPointerException("string == null");
         }
 
-        List<String>    words = new ArrayList<String>();
-        StringTokenizer st    = new StringTokenizer(string, WORD_DELIMITER);
+        List<String> words = new ArrayList<String>();
+        StringTokenizer st = new StringTokenizer(string, WORD_DELIMITER);
 
         while (st.hasMoreTokens()) {
             words.add(st.nextToken().trim());
@@ -163,8 +158,7 @@ public final class StringUtil {
 
         int len = s.length();
 
-        return (len > 0) && (beginIndex >= 0) && (endIndex >= beginIndex)
-               && (endIndex <= len);
+        return (len > 0) && (beginIndex >= 0) && (endIndex >= beginIndex) && (endIndex <= len);
     }
 
     /**
@@ -187,10 +181,10 @@ public final class StringUtil {
             throw new IllegalArgumentException("Max length < 3: " + maxLength);
         }
 
-        String prefix          = "...";
-        int    stringLength    = s.length();
-        int    prefixLength    = prefix.length();
-        int    substringLength = maxLength - prefixLength;
+        String prefix = "...";
+        int stringLength = s.length();
+        int prefixLength = prefix.length();
+        int substringLength = maxLength - prefixLength;
 
         if (stringLength <= maxLength) {
             return s;
@@ -215,14 +209,22 @@ public final class StringUtil {
         StringBuilder sb = new StringBuilder();
 
         sb.append("[");
+
         for (int index = 0; index < objects.length; index++) {
             Object object = objects[index];
-            sb.append(index == 0 ? "'" : "', '");
-            sb.append(object == null ? "null" : object.toString());
+
+            sb.append((index == 0)
+                      ? "'"
+                      : "', '");
+            sb.append((object == null)
+                      ? "null"
+                      : object.toString());
+
             if (index == objects.length - 1) {
                 sb.append("'");
             }
         }
+
         sb.append("]");
 
         return sb.toString();

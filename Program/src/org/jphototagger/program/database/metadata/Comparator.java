@@ -17,32 +17,27 @@ public enum Comparator {
     LIKE(1, "LIKE", JptBundle.INSTANCE.getString("Comparator.OperatorLike")),
 
     /** SQL-Operator "<>" */
-    NOT_EQUALS(2, "<>",
-               JptBundle.INSTANCE.getString("Comparator.OperatorNotEquals")),
+    NOT_EQUALS(2, "<>", JptBundle.INSTANCE.getString("Comparator.OperatorNotEquals")),
 
     /** SQL-Operator ">" */
-    GREATER(3, ">",
-            JptBundle.INSTANCE.getString("Comparator.OperatorGreaterThan")),
+    GREATER(3, ">", JptBundle.INSTANCE.getString("Comparator.OperatorGreaterThan")),
 
     /** SQL-Operator ">=" */
-    GREATER_EQUALS(
-        4, ">=",
-        JptBundle.INSTANCE.getString("Comparator.OperatorGreaterEquals")),
+    GREATER_EQUALS(4, ">=", JptBundle.INSTANCE.getString("Comparator.OperatorGreaterEquals")),
 
     /** SQL-Operator "<" */
     LOWER(5, "<", JptBundle.INSTANCE.getString("Comparator.OperatorLessThan")),
 
     /** SQL-Operator "<=" */
-    LOWER_EQUALS(6, "<=",
-                 JptBundle.INSTANCE.getString("Comparator.OperatorLessEquals"));
+    LOWER_EQUALS(6, "<=", JptBundle.INSTANCE.getString("Comparator.OperatorLessEquals"));
 
-    private final int    id;
+    private final int id;
     private final String sqlString;
     private final String localizedString;
 
     private Comparator(int id, String sqlString, String localizedString) {
-        this.id              = id;
-        this.sqlString       = sqlString;
+        this.id = id;
+        this.sqlString = sqlString;
         this.localizedString = localizedString;
     }
 

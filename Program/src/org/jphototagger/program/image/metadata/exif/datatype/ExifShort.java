@@ -48,8 +48,7 @@ public final class ExifShort {
     }
 
     public static boolean isZeroOrPositive(byte[] rawValue, ByteOrder byteOrder) {
-        return rawValue.length == byteCount()
-                && ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder) >= 0;
+        return (rawValue.length == byteCount()) && (ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder) >= 0);
     }
 
     /**

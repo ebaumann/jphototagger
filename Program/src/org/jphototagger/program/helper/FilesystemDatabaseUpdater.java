@@ -41,9 +41,8 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
 
     private void insertFileIntoDatabase(File file) {
         if (ImageFileFilterer.isImageFile(file)) {
-            InsertImageFilesIntoDatabase inserter =
-                new InsertImageFilesIntoDatabase(Arrays.asList(file),
-                    Insert.OUT_OF_DATE);
+            InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(Arrays.asList(file),
+                                                        Insert.OUT_OF_DATE);
 
             if (wait) {
                 inserter.run();    // run in this thread!
@@ -79,16 +78,14 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
 
     @Override
     public void fileMoved(File source, File target) {
-        if (ImageFileFilterer.isImageFile(source)
-                && ImageFileFilterer.isImageFile(target)) {
+        if (ImageFileFilterer.isImageFile(source) && ImageFileFilterer.isImageFile(target)) {
             DatabaseImageFiles.INSTANCE.updateRename(source, target);
         }
     }
 
     @Override
     public void fileRenamed(File source, File target) {
-        if (ImageFileFilterer.isImageFile(source)
-                && ImageFileFilterer.isImageFile(target)) {
+        if (ImageFileFilterer.isImageFile(source) && ImageFileFilterer.isImageFile(target)) {
             DatabaseImageFiles.INSTANCE.updateRename(source, target);
         }
     }

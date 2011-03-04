@@ -16,21 +16,21 @@ public final class Version implements Comparable<Version> {
     private final int minor3;
 
     public Version(int major, int minor) {
-        this.major  = major;
+        this.major = major;
         this.minor1 = minor;
         this.minor2 = 0;
         this.minor3 = 0;
     }
 
     public Version(int major, int minor1, int minor2) {
-        this.major  = major;
+        this.major = major;
         this.minor1 = minor1;
         this.minor2 = minor2;
         this.minor3 = 0;
     }
 
     public Version(int major, int minor1, int minor2, int minor3) {
-        this.major  = major;
+        this.major = major;
         this.minor1 = minor1;
         this.minor2 = minor2;
         this.minor3 = minor3;
@@ -65,12 +65,12 @@ public final class Version implements Comparable<Version> {
      */
     public static Version parseVersion(String version, String delimiter)
             throws IllegalArgumentException, NumberFormatException {
-        int             major  = 0;
-        int             minor1 = 0;
-        int             minor2 = 0;
-        int             minor3 = 0;
-        StringTokenizer st     = new StringTokenizer(version, delimiter);
-        int             count  = st.countTokens();
+        int major = 0;
+        int minor1 = 0;
+        int minor2 = 0;
+        int minor3 = 0;
+        StringTokenizer st = new StringTokenizer(version, delimiter);
+        int count = st.countTokens();
 
         if ((count < 2) || (count > 4)) {
             throw new IllegalArgumentException("Invalid count");
@@ -209,8 +209,7 @@ public final class Version implements Comparable<Version> {
      * @return version number <code>1.2.3</code>
      */
     public String toString3() {
-        return MessageFormat.format("{0}.{1}.{2}", new Object[] { major, minor1,
-                minor2 });
+        return MessageFormat.format("{0}.{1}.{2}", new Object[] { major, minor1, minor2 });
     }
 
     /**
@@ -220,7 +219,6 @@ public final class Version implements Comparable<Version> {
      */
     @Override
     public String toString() {
-        return MessageFormat.format("{0}.{1}.{2}.{3}", new Object[] { major,
-                minor1, minor2, minor3 });
+        return MessageFormat.format("{0}.{1}.{2}.{3}", new Object[] { major, minor1, minor2, minor3 });
     }
 }

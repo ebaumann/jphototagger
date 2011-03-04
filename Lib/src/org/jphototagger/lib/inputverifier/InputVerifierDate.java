@@ -25,10 +25,9 @@ import javax.swing.text.JTextComponent;
  *
  * @author Elmar Baumann
  */
-public final class InputVerifierDate extends InputVerifier
-        implements Serializable {
+public final class InputVerifierDate extends InputVerifier implements Serializable {
     private static final long serialVersionUID = 1163686474402473633L;
-    private final String      pattern;
+    private final String pattern;
 
     /**
      * Verifies via {@link DateFormat#getInstance()}.
@@ -67,26 +66,24 @@ public final class InputVerifierDate extends InputVerifier
     }
 
     private void errorMessage() throws HeadlessException {
-        JOptionPane.showMessageDialog(
-            ComponentUtil.getFrameWithIcon(),
-            JslBundle.INSTANCE.getString("InputVerifierDate.Error.NaN"),
-            JslBundle.INSTANCE.getString("InputVerifierDate.Error.NaN.Title"),
-            JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
+                                      JslBundle.INSTANCE.getString("InputVerifierDate.Error.NaN"),
+                                      JslBundle.INSTANCE.getString("InputVerifierDate.Error.NaN.Title"),
+                                      JOptionPane.ERROR_MESSAGE);
     }
 
     private boolean isValid(JTextComponent textComponent) {
-        String     text = textComponent.getText().trim();
-        DateFormat df   = (pattern == null)
-                          ? DateFormat.getInstance()
-                          : new SimpleDateFormat(pattern);
+        String text = textComponent.getText().trim();
+        DateFormat df = (pattern == null)
+                        ? DateFormat.getInstance()
+                        : new SimpleDateFormat(pattern);
 
         try {
             df.parse(text);
 
             return true;
         } catch (ParseException ex) {
-            Logger.getLogger(InputVerifierDate.class.getName()).log(
-                Level.FINEST, ex.toString());
+            Logger.getLogger(InputVerifierDate.class.getName()).log(Level.FINEST, ex.toString());
         }
 
         return false;

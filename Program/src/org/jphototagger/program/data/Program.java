@@ -22,25 +22,25 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Program {
     @XmlTransient
-    private static final String EMPTY  = "";
-    private long                id     = Long.MIN_VALUE;
-    private boolean             action = false;
-    private File                file;
-    private String              alias;
-    private String              parametersBeforeFilename;
-    private String              parametersAfterFilename;
-    private String              pattern;
-    private boolean             usePattern;
-    private boolean             inputBeforeExecute;
-    private boolean             inputBeforeExecutePerFile;
-    private boolean             singleFileProcessing;
-    private boolean             changeFile;
-    private int                 sequenceNumber = Integer.MIN_VALUE;
+    private static final String EMPTY = "";
+    private long id = Long.MIN_VALUE;
+    private boolean action = false;
+    private File file;
+    private String alias;
+    private String parametersBeforeFilename;
+    private String parametersAfterFilename;
+    private String pattern;
+    private boolean usePattern;
+    private boolean inputBeforeExecute;
+    private boolean inputBeforeExecutePerFile;
+    private boolean singleFileProcessing;
+    private boolean changeFile;
+    private int sequenceNumber = Integer.MIN_VALUE;
 
     public Program() {}
 
     public Program(File file, String alias) {
-        this.file  = file;
+        this.file = file;
         this.alias = alias;
     }
 
@@ -58,19 +58,19 @@ public final class Program {
         }
 
         if (other != this) {
-            this.id                        = other.id;
-            this.action                    = other.action;
-            this.alias                     = other.alias;
-            this.changeFile                = other.changeFile;
-            this.file                      = other.file;
-            this.inputBeforeExecute        = other.inputBeforeExecute;
+            this.id = other.id;
+            this.action = other.action;
+            this.alias = other.alias;
+            this.changeFile = other.changeFile;
+            this.file = other.file;
+            this.inputBeforeExecute = other.inputBeforeExecute;
             this.inputBeforeExecutePerFile = other.inputBeforeExecutePerFile;
-            this.parametersAfterFilename   = other.parametersAfterFilename;
-            this.parametersBeforeFilename  = other.parametersBeforeFilename;
-            this.pattern                   = other.pattern;
-            this.sequenceNumber            = other.sequenceNumber;
-            this.singleFileProcessing      = other.singleFileProcessing;
-            this.usePattern                = other.usePattern;
+            this.parametersAfterFilename = other.parametersAfterFilename;
+            this.parametersBeforeFilename = other.parametersBeforeFilename;
+            this.pattern = other.pattern;
+            this.sequenceNumber = other.sequenceNumber;
+            this.singleFileProcessing = other.singleFileProcessing;
+            this.usePattern = other.usePattern;
         }
     }
 
@@ -134,8 +134,7 @@ public final class Program {
         return inputBeforeExecutePerFile;
     }
 
-    public void setInputBeforeExecutePerFile(
-            boolean inputBeforeExecutePerFile) {
+    public void setInputBeforeExecutePerFile(boolean inputBeforeExecutePerFile) {
         this.inputBeforeExecutePerFile = inputBeforeExecutePerFile;
     }
 
@@ -179,8 +178,7 @@ public final class Program {
         this.usePattern = usePattern;
     }
 
-    public String getCommandlineParameters(List<File> files,
-            String additionalParameters,
+    public String getCommandlineParameters(List<File> files, String additionalParameters,
             boolean additionalParametersBeforeFilenames) {
         if (files == null) {
             throw new NullPointerException("files == null");
@@ -190,7 +188,7 @@ public final class Program {
             throw new NullPointerException("additionalParameters == null");
         }
 
-        String sep              = RuntimeUtil.getDefaultCommandLineSeparator();
+        String sep = RuntimeUtil.getDefaultCommandLineSeparator();
         String parametersBefore = ((parametersBeforeFilename == null)
                                    ? EMPTY
                                    : parametersBeforeFilename) + (additionalParametersBeforeFilenames
@@ -202,8 +200,7 @@ public final class Program {
                 ? EMPTY
                 : sep + additionalParameters);
 
-        return parametersBefore + sep + RuntimeUtil.quoteForCommandLine(files) + sep
-               + parametersAfter;
+        return parametersBefore + sep + RuntimeUtil.quoteForCommandLine(files) + sep + parametersAfter;
     }
 
     @Override

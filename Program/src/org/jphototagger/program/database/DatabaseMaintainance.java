@@ -17,8 +17,7 @@ import static java.text.MessageFormat.format;
  * @author Elmar Baumann
  */
 public final class DatabaseMaintainance extends Database {
-    public static final DatabaseMaintainance INSTANCE =
-        new DatabaseMaintainance();
+    public static final DatabaseMaintainance INSTANCE = new DatabaseMaintainance();
 
     private DatabaseMaintainance() {}
 
@@ -26,15 +25,14 @@ public final class DatabaseMaintainance extends Database {
      * Shuts down the database.
      */
     public void shutdown() {
-        Connection con  = null;
-        Statement  stmt = null;
+        Connection con = null;
+        Statement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
-            AppLogger.logInfo(DatabaseMaintainance.class,
-                              "DatabaseMaintainance.Info.Shutdown");
+            AppLogger.logInfo(DatabaseMaintainance.class, "DatabaseMaintainance.Info.Shutdown");
             stmt.executeUpdate("SHUTDOWN");
         } catch (Exception ex) {
             AppLogger.logSevere(Database.class, ex);
@@ -50,9 +48,9 @@ public final class DatabaseMaintainance extends Database {
      * @return true, wenn die Datenbank erfolgreich komprimiert wurde
      */
     public boolean compressDatabase() {
-        boolean    success = false;
-        Connection con     = null;
-        Statement  stmt    = null;
+        boolean success = false;
+        Connection con = null;
+        Statement stmt = null;
 
         try {
             con = getConnection();
@@ -76,9 +74,9 @@ public final class DatabaseMaintainance extends Database {
         private final String refColumn;
 
         Ref1nInfo(String table, String refTable, String refColumn) {
-            this.table     = table;
+            this.table = table;
             this.refColumn = refColumn;
-            this.refTable  = refTable;
+            this.refTable = refTable;
         }
 
         public String getRefColumn() {
@@ -95,30 +93,20 @@ public final class DatabaseMaintainance extends Database {
     }
 
 
-    private static final List<Ref1nInfo> REF_1_N_INFOS =
-        new ArrayList<Ref1nInfo>();
+    private static final List<Ref1nInfo> REF_1_N_INFOS = new ArrayList<Ref1nInfo>();
 
     static {
         REF_1_N_INFOS.add(new Ref1nInfo("dc_creators", "xmp", "id_dc_creator"));
         REF_1_N_INFOS.add(new Ref1nInfo("dc_rights", "xmp", "id_dc_rights"));
-        REF_1_N_INFOS.add(new Ref1nInfo("iptc4xmpcore_locations", "xmp",
-                                        "id_iptc4xmpcore_location"));
-        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_authorspositions", "xmp",
-                                        "id_photoshop_authorsposition"));
-        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_captionwriters", "xmp",
-                                        "id_photoshop_captionwriter"));
-        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_cities", "xmp",
-                                        "id_photoshop_city"));
-        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_countries", "xmp",
-                                        "id_photoshop_country"));
-        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_credits", "xmp",
-                                        "id_photoshop_credit"));
-        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_sources", "xmp",
-                                        "id_photoshop_source"));
-        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_states", "xmp",
-                                        "id_photoshop_state"));
-        REF_1_N_INFOS.add(new Ref1nInfo("exif_recording_equipment", "exif",
-                                        "id_exif_recording_equipment"));
+        REF_1_N_INFOS.add(new Ref1nInfo("iptc4xmpcore_locations", "xmp", "id_iptc4xmpcore_location"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_authorspositions", "xmp", "id_photoshop_authorsposition"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_captionwriters", "xmp", "id_photoshop_captionwriter"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_cities", "xmp", "id_photoshop_city"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_countries", "xmp", "id_photoshop_country"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_credits", "xmp", "id_photoshop_credit"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_sources", "xmp", "id_photoshop_source"));
+        REF_1_N_INFOS.add(new Ref1nInfo("photoshop_states", "xmp", "id_photoshop_state"));
+        REF_1_N_INFOS.add(new Ref1nInfo("exif_recording_equipment", "exif", "id_exif_recording_equipment"));
         REF_1_N_INFOS.add(new Ref1nInfo("exif_lenses", "exif", "id_exif_lens"));
     }
 
@@ -129,11 +117,10 @@ public final class DatabaseMaintainance extends Database {
      * @return count of deleted records
      */
     public int deleteNotReferenced1n() {
-        String sqlTemplate = "DELETE FROM {0} WHERE ID NOT IN"
-                             + " (SELECT DISTINCT {1} from {2})";
-        Connection con     = null;
-        Statement  stmt    = null;
-        int        deleted = 0;
+        String sqlTemplate = "DELETE FROM {0} WHERE ID NOT IN" + " (SELECT DISTINCT {1} from {2})";
+        Connection con = null;
+        Statement stmt = null;
+        int deleted = 0;
 
         try {
             con = getConnection();
@@ -141,8 +128,7 @@ public final class DatabaseMaintainance extends Database {
             stmt = con.createStatement();
 
             for (Ref1nInfo info : REF_1_N_INFOS) {
-                String sql = format(sqlTemplate, info.getTable(),
-                                    info.getRefColumn(), info.getRefTable());
+                String sql = format(sqlTemplate, info.getTable(), info.getRefColumn(), info.getRefTable());
 
                 logFiner(sql);
                 deleted += stmt.executeUpdate(sql);

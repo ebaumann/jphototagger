@@ -2,8 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.imagecollection
-    .ControllerDeleteFromImageCollection;
+import org.jphototagger.program.controller.imagecollection.ControllerDeleteFromImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
@@ -34,17 +33,15 @@ public final class ImageCollectionsHelper {
                 Object selectedValue = getSelectedCollection();
 
                 if (selectedValue != null) {
-                    ThumbnailsPanel tnPanel       = GUI.getThumbnailsPanel();
-                    List<File>      selectedFiles = tnPanel.getSelectedFiles();
+                    ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
+                    List<File> selectedFiles = tnPanel.getSelectedFiles();
 
-                    if (deleteImagesFromCollection(selectedValue.toString(),
-                                                   selectedFiles)) {
+                    if (deleteImagesFromCollection(selectedValue.toString(), selectedFiles)) {
                         tnPanel.remove(selectedFiles);
                     }
                 } else {
-                    AppLogger.logWarning(
-                        ControllerDeleteFromImageCollection.class,
-                        "ImageCollectionsHelper.Error.NoCollectionSelected");
+                    AppLogger.logWarning(ControllerDeleteFromImageCollection.class,
+                                         "ImageCollectionsHelper.Error.NoCollectionSelected");
                 }
             }
         });
@@ -95,8 +92,7 @@ public final class ImageCollectionsHelper {
      * @param imageFiles     image files to remove
      * @return               true if removed
      */
-    public static boolean deleteImagesFromCollection(String collectionName,
-            List<File> imageFiles) {
+    public static boolean deleteImagesFromCollection(String collectionName, List<File> imageFiles) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
@@ -105,11 +101,9 @@ public final class ImageCollectionsHelper {
             throw new NullPointerException("imageFiles == null");
         }
 
-        if (confirmDelete("ImageCollectionsHelper.Confirm.DeleteSelectedFiles",
-                          collectionName)) {
-            boolean removed =
-                DatabaseImageCollections.INSTANCE.deleteImagesFrom(
-                    collectionName, imageFiles) == imageFiles.size();
+        if (confirmDelete("ImageCollectionsHelper.Confirm.DeleteSelectedFiles", collectionName)) {
+            boolean removed = DatabaseImageCollections.INSTANCE.deleteImagesFrom(collectionName, imageFiles)
+                              == imageFiles.size();
 
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
@@ -134,8 +128,7 @@ public final class ImageCollectionsHelper {
 
         boolean deleted = false;
 
-        if (confirmDelete("ImageCollectionsHelper.Confirm.DeleteCollection",
-                          collectionName)) {
+        if (confirmDelete("ImageCollectionsHelper.Confirm.DeleteCollection", collectionName)) {
             deleted = DatabaseImageCollections.INSTANCE.delete(collectionName);
 
             if (!deleted) {
@@ -153,8 +146,7 @@ public final class ImageCollectionsHelper {
      * @param imageFiles      Hinzuzufügende Bilddateien
      * @return               true bei Erfolg
      */
-    public static boolean addImagesToCollection(String collectionName,
-            List<File> imageFiles) {
+    public static boolean addImagesToCollection(String collectionName, List<File> imageFiles) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
@@ -163,9 +155,7 @@ public final class ImageCollectionsHelper {
             throw new NullPointerException("imageFiles == null");
         }
 
-        boolean added =
-            DatabaseImageCollections.INSTANCE.insertImagesInto(collectionName,
-                imageFiles);
+        boolean added = DatabaseImageCollections.INSTANCE.insertImagesInto(collectionName, imageFiles);
 
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
@@ -189,9 +179,7 @@ public final class ImageCollectionsHelper {
         String newName = inputCollectionName(fromName);
 
         if ((newName != null) &&!newName.isEmpty()) {
-            boolean renamed =
-                DatabaseImageCollections.INSTANCE.updateRename(fromName,
-                    newName) > 0;
+            boolean renamed = DatabaseImageCollections.INSTANCE.updateRename(fromName, newName) > 0;
 
             if (renamed) {
                 return newName;
@@ -218,8 +206,7 @@ public final class ImageCollectionsHelper {
             throw new NullPointerException("name == null");
         }
 
-        return !name.trim().equalsIgnoreCase(
-            ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT);
+        return !name.trim().equalsIgnoreCase(ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT);
     }
 
     private static boolean checkIsValidName(String name) {
@@ -227,59 +214,41 @@ public final class ImageCollectionsHelper {
             return true;
         }
 
-        MessageDisplayer.error(null,
-                               "ImageCollectionsHelper.Error.InvalidName",
-                               name);
+        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.InvalidName", name);
 
         return false;
     }
 
     private static void logAddImageCollection(String name) {
-        AppLogger.logInfo(ImageCollectionsHelper.class,
-                          "ImageCollectionsHelper.Info.StartInsert", name);
+        AppLogger.logInfo(ImageCollectionsHelper.class, "ImageCollectionsHelper.Info.StartInsert", name);
     }
 
-    private static void errorMessageAddImagesToCollection(
-            String collectionName) {
-        MessageDisplayer.error(
-            null, "ImageCollectionsHelper.Error.AddImagesToCollection",
-            collectionName);
+    private static void errorMessageAddImagesToCollection(String collectionName) {
+        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.AddImagesToCollection", collectionName);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
-        MessageDisplayer.error(
-            null, "ImageCollectionsHelper.Error.AddImageCollection",
-            collectionName);
+        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.AddImageCollection", collectionName);
     }
 
-    private static void errorMessageDeleteImageCollection(
-            String collectionName) {
-        MessageDisplayer.error(
-            null, "ImageCollectionsHelper.Error.DeleteImageCollection",
-            collectionName);
+    private static void errorMessageDeleteImageCollection(String collectionName) {
+        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.DeleteImageCollection", collectionName);
     }
 
-    private static void errorMessageDeleteImagesFromCollection(
-            String collectionName) {
-        MessageDisplayer.error(
-            null, "ImageCollectionsHelper.Error.DeleteImagesFromCollection",
-            collectionName);
+    private static void errorMessageDeleteImagesFromCollection(String collectionName) {
+        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.DeleteImagesFromCollection", collectionName);
     }
 
-    private static void errorMessageRenameImageCollection(
-            String collectionName) {
-        MessageDisplayer.error(
-            null, "ImageCollectionsHelper.Error.RenameImageCollection",
-            collectionName);
+    private static void errorMessageRenameImageCollection(String collectionName) {
+        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.RenameImageCollection", collectionName);
     }
 
-    private static boolean confirmDelete(String bundleKey,
-            String collectionName) {
+    private static boolean confirmDelete(String bundleKey, String collectionName) {
         return MessageDisplayer.confirmYesNo(null, bundleKey, collectionName);
     }
 
     private static String inputCollectionName(String defaultName) {
-        String  name    = getCollectionName(defaultName);
+        String name = getCollectionName(defaultName);
         boolean willAdd = name != null;
 
         while ((name != null) && willAdd) {
@@ -287,12 +256,9 @@ public final class ImageCollectionsHelper {
 
             String nameNextTry = name;
 
-            if (DatabaseImageCollections.INSTANCE.exists(name)
-                    ||!checkIsValidName(name)) {
-                willAdd = MessageDisplayer.confirmYesNo(
-                    null,
-                    "ImageCollectionsHelper.Confirm.InputNewCollectionName",
-                    name);
+            if (DatabaseImageCollections.INSTANCE.exists(name) ||!checkIsValidName(name)) {
+                willAdd = MessageDisplayer.confirmYesNo(null, "ImageCollectionsHelper.Confirm.InputNewCollectionName",
+                        name);
                 name = null;
             }
 
@@ -305,9 +271,8 @@ public final class ImageCollectionsHelper {
     }
 
     private static String getCollectionName(String defaultName) {
-        String name = MessageDisplayer.input(
-                          "ImageCollectionsHelper.Input.CollectionName",
-                          defaultName, ImageCollectionsHelper.class.getName());
+        String name = MessageDisplayer.input("ImageCollectionsHelper.Input.CollectionName", defaultName,
+                          ImageCollectionsHelper.class.getName());
 
         if (name != null) {
             name = name.trim();

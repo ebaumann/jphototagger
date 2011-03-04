@@ -12,8 +12,7 @@ import java.util.concurrent.Executors;
  */
 public final class UserTasks {
     public static final UserTasks INSTANCE = new UserTasks();
-    private final SerialExecutor  executor =
-        new SerialExecutor(Executors.newCachedThreadPool());
+    private final SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
 
     /**
      * Adds a new user task.

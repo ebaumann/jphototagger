@@ -1,12 +1,12 @@
 package org.jphototagger.program.controller.imagecollection;
 
 import org.jphototagger.program.helper.ImageCollectionsHelper;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ImageCollectionsDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Füge Bilder einer Bildsammlung hinzu, ausgelöst von
@@ -20,8 +20,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemAddToImageCollection()
-            .addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemAddToImageCollection().addActionListener(this);
     }
 
     @Override
@@ -33,8 +32,7 @@ public final class ControllerAddToImageCollection implements ActionListener {
         String collectionName = selectCollectionName();
 
         if (collectionName != null) {
-            ImageCollectionsHelper.addImagesToCollection(collectionName,
-                    GUI.getSelectedImageFiles());
+            ImageCollectionsHelper.addImagesToCollection(collectionName, GUI.getSelectedImageFiles());
         }
     }
 

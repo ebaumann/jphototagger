@@ -6,24 +6,19 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopCaptionwriter;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopInstructions;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopTransmissionReference;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 
 import java.util.HashMap;
@@ -35,8 +30,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class XmpRepeatableValues {
-    private static final Map<Column, Boolean> IS_REPEATABLE =
-        new HashMap<Column, Boolean>();
+    private static final Map<Column, Boolean> IS_REPEATABLE = new HashMap<Column, Boolean>();
 
     static {
         IS_REPEATABLE.put(ColumnXmpDcCreator.INSTANCE, false);
@@ -55,8 +49,7 @@ public final class XmpRepeatableValues {
         IS_REPEATABLE.put(ColumnXmpPhotoshopInstructions.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpPhotoshopSource.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpPhotoshopState.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-                          false);
+        IS_REPEATABLE.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpLastModified.INSTANCE, false);
         IS_REPEATABLE.put(ColumnXmpRating.INSTANCE, false);
     }

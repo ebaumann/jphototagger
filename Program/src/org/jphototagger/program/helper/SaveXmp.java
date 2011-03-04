@@ -1,6 +1,5 @@
 package org.jphototagger.program.helper;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLifeCycle;
@@ -10,6 +9,8 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBar;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -26,12 +27,11 @@ import javax.swing.JProgressBar;
  * @author Elmar Baumann
  */
 public final class SaveXmp extends Thread implements Cancelable {
-    private static final String PROGRESSBAR_STRING =
-        JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
+    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
     private final Collection<Pair<File, Xmp>> imageFilesXmp;
-    private JProgressBar                      progressBar;
-    private volatile boolean                  cancel;
-    private final Object                      pBarOwner = this;
+    private JProgressBar progressBar;
+    private volatile boolean cancel;
+    private final Object pBarOwner = this;
 
     private SaveXmp(Collection<Pair<File, Xmp>> imageFilesXmp) {
         super("JPhotoTagger: Saving XMP");
@@ -39,8 +39,7 @@ public final class SaveXmp extends Thread implements Cancelable {
         this.imageFilesXmp = new ArrayList<Pair<File, Xmp>>(imageFilesXmp);
     }
 
-    public synchronized static void save(Collection<Pair<File,
-            Xmp>> imageFilesXmp) {
+    public synchronized static void save(Collection<Pair<File, Xmp>> imageFilesXmp) {
         if (imageFilesXmp == null) {
             throw new NullPointerException("imageFilesXmp == null");
         }
@@ -62,8 +61,8 @@ public final class SaveXmp extends Thread implements Cancelable {
                 break;
             }
 
-            File imageFile   = pair.getFirst();
-            Xmp  xmp         = pair.getSecond();
+            File imageFile = pair.getFirst();
+            Xmp xmp = pair.getSecond();
             File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
 
             if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
@@ -78,9 +77,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase updater =
-            new InsertImageFilesIntoDatabase(Arrays.asList(imageFile),
-                Insert.XMP);
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), Insert.XMP);
 
         updater.run();    // run in this thread!
     }

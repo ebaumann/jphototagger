@@ -59,8 +59,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
 
     private Keyword getKeyword() {
         DefaultMutableTreeNode node =
-            (DefaultMutableTreeNode) PopupMenuKeywordsTree.INSTANCE
-                .getTreePath().getLastPathComponent();
+            (DefaultMutableTreeNode) PopupMenuKeywordsTree.INSTANCE.getTreePath().getLastPathComponent();
         Object userObject = node.getUserObject();
 
         if (userObject instanceof Keyword) {
@@ -78,10 +77,8 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
 
                 AppPanel appPanel = GUI.getAppPanel();
 
-                appPanel.displaySelKeywordsTree(
-                    AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
-                KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(),
-                                          keyword);
+                appPanel.displaySelKeywordsTree(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+                KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(), keyword);
                 WaitDisplay.hide();
             }
         });
@@ -95,8 +92,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
 
                 AppPanel appPanel = GUI.getAppPanel();
 
-                appPanel.displaySelKeywordsList(
-                    AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+                appPanel.displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
                 ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
                 WaitDisplay.hide();
             }

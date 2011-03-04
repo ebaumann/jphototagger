@@ -23,8 +23,7 @@ import javax.swing.JRadioButtonMenuItem;
 public final class ControllerSortThumbnails implements ActionListener {
     public ControllerSortThumbnails() {
         listen();
-        GUI.getAppFrame().getMenuItemOfSortCmp(
-            GUI.getThumbnailsPanel().getFileSortComparator()).setSelected(true);
+        GUI.getAppFrame().getMenuItemOfSortCmp(GUI.getThumbnailsPanel().getFileSortComparator()).setSelected(true);
     }
 
     private void listen() {
@@ -39,8 +38,7 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     public static void setLastSort() {
-        Comparator<File> cmp =
-            ControllerThumbnailsPanelPersistence.getFileSortComparator();
+        Comparator<File> cmp = ControllerThumbnailsPanelPersistence.getFileSortComparator();
 
         GUI.getThumbnailsPanel().setFileSortComparator(cmp);
         GUI.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
@@ -52,15 +50,12 @@ public final class ControllerSortThumbnails implements ActionListener {
             public void run() {
                 WaitDisplay.show();
 
-                JRadioButtonMenuItem item =
-                    (JRadioButtonMenuItem) evt.getSource();
-                Comparator<File> sortCmp =
-                    GUI.getAppFrame().getSortCmpOfMenuItem(item);
+                JRadioButtonMenuItem item = (JRadioButtonMenuItem) evt.getSource();
+                Comparator<File> sortCmp = GUI.getAppFrame().getSortCmpOfMenuItem(item);
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-                ControllerFactory.INSTANCE
-                    .getController(ControllerThumbnailsPanelPersistence.class)
-                    .setFileSortComparator(sortCmp);
+                ControllerFactory.INSTANCE.getController(
+                    ControllerThumbnailsPanelPersistence.class).setFileSortComparator(sortCmp);
                 item.setSelected(true);
                 tnPanel.setFileSortComparator(sortCmp);
                 tnPanel.sort();

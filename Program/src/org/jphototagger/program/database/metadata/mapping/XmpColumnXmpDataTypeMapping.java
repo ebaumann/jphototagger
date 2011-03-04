@@ -6,23 +6,18 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopCaptionwriter;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopInstructions;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopTransmissionReference;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 
 import java.util.HashMap;
@@ -36,8 +31,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class XmpColumnXmpDataTypeMapping {
-    private static final Map<Column, XmpValueType> XMP_VALUE_TYPE_OF_COLUMN =
-        new HashMap<Column, XmpValueType>();
+    private static final Map<Column, XmpValueType> XMP_VALUE_TYPE_OF_COLUMN = new HashMap<Column, XmpValueType>();
 
     static {
 
@@ -45,43 +39,24 @@ public final class XmpColumnXmpDataTypeMapping {
         // data org.jphototagger.program.image.metadata.xmp.XmpMetadata when
         // XmpValueType.SEQ_PROPER_NAME
         // XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.SEQ_PROPER_NAME);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE,
-                                     XmpValueType.LANG_ALT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE,
-                                     XmpValueType.LANG_ALT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                     XmpValueType.BAG_TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE,
-                                     XmpValueType.LANG_ALT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(
-            ColumnXmpPhotoshopAuthorsposition.INSTANCE, XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE,
-                                     XmpValueType.PROPER_NAME);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCity.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCountry.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCredit.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopInstructions.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopState.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(
-            ColumnXmpPhotoshopTransmissionReference.INSTANCE,
-            XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpRating.INSTANCE,
-                                     XmpValueType.TEXT);
-        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE,
-                                     XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcCreator.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcDescription.INSTANCE, XmpValueType.LANG_ALT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcRights.INSTANCE, XmpValueType.LANG_ALT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcSubjectsSubject.INSTANCE, XmpValueType.BAG_TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpDcTitle.INSTANCE, XmpValueType.LANG_ALT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, XmpValueType.PROPER_NAME);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCity.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCountry.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopCredit.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopHeadline.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopInstructions.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopSource.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopState.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpRating.INSTANCE, XmpValueType.TEXT);
+        XMP_VALUE_TYPE_OF_COLUMN.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, XmpValueType.TEXT);
     }
 
     /**
@@ -149,8 +124,7 @@ public final class XmpColumnXmpDataTypeMapping {
         XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
 
         if (valueType != null) {
-            return valueType.equals(XmpValueType.BAG_TEXT)
-                   || valueType.equals(XmpValueType.LANG_ALT)
+            return valueType.equals(XmpValueType.BAG_TEXT) || valueType.equals(XmpValueType.LANG_ALT)
                    || valueType.equals(XmpValueType.SEQ_PROPER_NAME);
         }
 
@@ -170,8 +144,7 @@ public final class XmpColumnXmpDataTypeMapping {
             throw new NullPointerException("xmpColumn == null");
         }
 
-        XmpValueType type =
-            XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
+        XmpValueType type = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
 
         return (type != null) && type.equals(XmpValueType.LANG_ALT);
     }
@@ -190,8 +163,7 @@ public final class XmpColumnXmpDataTypeMapping {
         XmpValueType valueType = XMP_VALUE_TYPE_OF_COLUMN.get(column);
 
         if (valueType != null) {
-            return valueType.equals(XmpValueType.TEXT)
-                   || valueType.equals(XmpValueType.PROPER_NAME);
+            return valueType.equals(XmpValueType.TEXT) || valueType.equals(XmpValueType.PROPER_NAME);
         }
 
         return false;

@@ -50,8 +50,7 @@ public final class FileUtil {
      * @return         content
      * @throws         IOException
      */
-    public static String getContentAsString(File file, String encoding)
-            throws IOException {
+    public static String getContentAsString(File file, String encoding) throws IOException {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -71,8 +70,7 @@ public final class FileUtil {
      * @return         content
      * @throws         IOException
      */
-    public static String getContentAsString(String pathname, String encoding)
-            throws IOException {
+    public static String getContentAsString(String pathname, String encoding) throws IOException {
         if (pathname == null) {
             throw new NullPointerException("pathname == null");
         }
@@ -101,8 +99,8 @@ public final class FileUtil {
         try {
             fileInputStream = new FileInputStream(file);
 
-            int    byteCount = fileInputStream.available();
-            byte[] bytes     = new byte[byteCount];
+            int byteCount = fileInputStream.available();
+            byte[] bytes = new byte[byteCount];
 
             fileInputStream.read(bytes);
 
@@ -202,8 +200,7 @@ public final class FileUtil {
      * @param  directory directory
      * @throws           IOException
      */
-    public static void ensureDirectoryExists(File directory)
-            throws IOException {
+    public static void ensureDirectoryExists(File directory) throws IOException {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
@@ -213,8 +210,7 @@ public final class FileUtil {
         }
 
         if (!directory.mkdirs()) {
-            throw new IOException("Directory couldn't be created: "
-                                  + directory);
+            throw new IOException("Directory couldn't be created: " + directory);
         }
     }
 
@@ -224,8 +220,7 @@ public final class FileUtil {
      * @param pathname path name
      * @throws         IOException
      */
-    public static void ensureDirectoryExists(String pathname)
-            throws IOException {
+    public static void ensureDirectoryExists(String pathname) throws IOException {
         if (pathname == null) {
             throw new NullPointerException("pathname == null");
         }
@@ -295,15 +290,15 @@ public final class FileUtil {
             return;
         }
 
-        FileChannel      inChannel  = null;
-        FileChannel      outChannel = null;
-        FileInputStream  fis        = null;
-        FileOutputStream fos        = null;
+        FileChannel inChannel = null;
+        FileChannel outChannel = null;
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
 
         try {
-            fis        = new FileInputStream(source);
-            inChannel  = fis.getChannel();
-            fos        = new FileOutputStream(target);
+            fis = new FileInputStream(source);
+            inChannel = fis.getChannel();
+            fos = new FileOutputStream(target);
             outChannel = fos.getChannel();
             inChannel.transferTo(0, inChannel.size(), outChannel);
         } finally {
@@ -313,8 +308,7 @@ public final class FileUtil {
             close(fos);
 
             if (!target.setLastModified(source.lastModified())) {
-                throw new IOException("Last modified couldn't be set to "
-                                      + target + " from " + source);
+                throw new IOException("Last modified couldn't be set to " + target + " from " + source);
             }
         }
     }
@@ -326,8 +320,7 @@ public final class FileUtil {
      * @param  targetPath path to the target file
      * @throws            IOException
      */
-    public static void copyFile(String sourcePath, String targetPath)
-            throws IOException {
+    public static void copyFile(String sourcePath, String targetPath) throws IOException {
         if (sourcePath == null) {
             throw new NullPointerException("sourcePath == null");
         }
@@ -358,8 +351,8 @@ public final class FileUtil {
             return new Stack<File>();
         }
 
-        Stack<File> path   = new Stack<File>();
-        File        parent = file;
+        Stack<File> path = new Stack<File>();
+        File parent = file;
 
         do {
             parent = path.push(parent).getParentFile();
@@ -389,8 +382,7 @@ public final class FileUtil {
      * @param  options   options
      * @return           subdirectories or empty list
      */
-    public static List<File> getSubDirsRecursive(File directory,
-            DirectoryFilter.Option... options) {
+    public static List<File> getSubDirsRecursive(File directory, DirectoryFilter.Option... options) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
@@ -418,8 +410,7 @@ public final class FileUtil {
         return allSubDirs;
     }
 
-    public static List<File> getSubDirsRecursive(String pathname,
-            DirectoryFilter.Option... options) {
+    public static List<File> getSubDirsRecursive(String pathname, DirectoryFilter.Option... options) {
         if (pathname == null) {
             throw new NullPointerException("pathname == null");
         }
@@ -438,8 +429,7 @@ public final class FileUtil {
      * @param  files files
      * @return        path names of the files
      */
-    public static List<String> getAbsolutePathnames(
-            Collection<? extends File> files) {
+    public static List<String> getAbsolutePathnames(Collection<? extends File> files) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
@@ -459,8 +449,7 @@ public final class FileUtil {
      * @param  pathnames path names
      * @return           files
      */
-    public static List<File> getAsFiles(
-            Collection<? extends String> pathnames) {
+    public static List<File> getAsFiles(Collection<? extends String> pathnames) {
         if (pathnames == null) {
             throw new NullPointerException("pathnames == null");
         }
@@ -502,8 +491,7 @@ public final class FileUtil {
      * @param  files arbitrary files
      * @return       existing directories within <code>files</code>
      */
-    public static List<File> filterDirectories(
-            Collection<? extends File> files) {
+    public static List<File> filterDirectories(Collection<? extends File> files) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
@@ -527,8 +515,7 @@ public final class FileUtil {
      * @return        files where {@link FileFilter#accept(java.io.File)} is
      *                true
      */
-    public static List<File> filter(Collection<? extends File> files,
-                                    FileFilter filter) {
+    public static List<File> filter(Collection<? extends File> files, FileFilter filter) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
@@ -554,8 +541,7 @@ public final class FileUtil {
      * @param  directory directory
      * @throws           IOException
      */
-    public static void deleteDirectoryRecursive(File directory)
-            throws IOException {
+    public static void deleteDirectoryRecursive(File directory) throws IOException {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
@@ -568,16 +554,14 @@ public final class FileUtil {
                     deleteDirectoryRecursive(file);
                 } else {
                     if (!file.delete()) {
-                        throw new IOException("File couldn't be deleted: "
-                                              + file);
+                        throw new IOException("File couldn't be deleted: " + file);
                     }
                 }
             }
         }
 
         if (!directory.delete()) {
-            throw new IOException("Directory couldn't be deleted: "
-                                  + directory);
+            throw new IOException("Directory couldn't be deleted: " + directory);
         }
     }
 
@@ -587,8 +571,7 @@ public final class FileUtil {
      * @param  pathname path name
      * @throws          IOException
      */
-    public static void deleteDirectoryRecursive(String pathname)
-            throws IOException {
+    public static void deleteDirectoryRecursive(String pathname) throws IOException {
         if (pathname == null) {
             throw new NullPointerException("directoryname == null");
         }
@@ -609,18 +592,17 @@ public final class FileUtil {
         }
 
         File newFile = file;
-        int  index   = 0;
+        int index = 0;
 
         while (newFile.exists()) {
-            String pathname  = file.getPath();
-            int    suffixPos = pathname.lastIndexOf('.');
+            String pathname = file.getPath();
+            int suffixPos = pathname.lastIndexOf('.');
 
             if (suffixPos > 0) {
                 String suffix = pathname.substring(suffixPos + 1);
                 String prefix = pathname.substring(0, suffixPos);
 
-                pathname = prefix + "_" + Integer.valueOf(index++) + "."
-                           + suffix;
+                pathname = prefix + "_" + Integer.valueOf(index++) + "." + suffix;
             } else {
                 pathname += "_" + Integer.valueOf(index++);
             }
@@ -662,12 +644,12 @@ public final class FileUtil {
             throw new NullPointerException("file == null");
         }
 
-        File root   = file.getParentFile();
+        File root = file.getParentFile();
         File parent = root;
 
         while (parent != null) {
             if (parent != null) {
-                root   = parent;
+                root = parent;
                 parent = parent.getParentFile();
             }
         }
@@ -788,7 +770,7 @@ public final class FileUtil {
 
     private static boolean hasSuffix(String pathname) {
         int index = pathname.lastIndexOf('.');
-        int len   = pathname.length();
+        int len = pathname.length();
 
         return (index > 0) && (index < len - 1);
     }
@@ -809,7 +791,7 @@ public final class FileUtil {
         }
 
         int index = pathname.lastIndexOf('.');
-        int len   = pathname.length();
+        int len = pathname.length();
 
         if ((index == 0) || (index == len - 1)) {
             return pathname;
@@ -870,8 +852,7 @@ public final class FileUtil {
      * @param  filename        file name without any parents
      * @return                 file
      */
-    public static File getFileOfPackage(Class<?> classInPackgage,
-            String filename) {
+    public static File getFileOfPackage(Class<?> classInPackgage, String filename) {
         if (classInPackgage == null) {
             throw new NullPointerException("classInPackgage == null");
         }
@@ -881,7 +862,7 @@ public final class FileUtil {
         }
 
         String packagePath = classInPackgage.getName();
-        int    index       = packagePath.lastIndexOf('.');
+        int index = packagePath.lastIndexOf('.');
 
         if (index > 0) {
             packagePath = packagePath.substring(0, index);
@@ -894,15 +875,13 @@ public final class FileUtil {
         try {
             dir = new File(getSourceLocation(classInPackgage).toURI());
         } catch (URISyntaxException ex) {
-            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (dir == null) {
             return new File("");
         } else {
-            return new File(dir.getPath() + File.separator + packagePath
-                            + File.separator + filename);
+            return new File(dir.getPath() + File.separator + packagePath + File.separator + filename);
         }
     }
 
@@ -918,8 +897,7 @@ public final class FileUtil {
      *                starts or -1 if <code>search</code> was not found
      * @throws IOException on errors while accessing the file
      */
-    public static long getIndexOf(RandomAccessFile file, byte[] search)
-            throws IOException {
+    public static long getIndexOf(RandomAccessFile file, byte[] search) throws IOException {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -929,9 +907,9 @@ public final class FileUtil {
         }
 
         int matched = 0;
-        int b       = (file.getFilePointer() < file.length() - 1)
-                      ? 0
-                      : -1;
+        int b = (file.getFilePointer() < file.length() - 1)
+                ? 0
+                : -1;
 
         while ((matched < search.length) && (b >= 0)) {
             b = file.read();
@@ -963,8 +941,7 @@ public final class FileUtil {
             try {
                 is.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -982,8 +959,7 @@ public final class FileUtil {
             try {
                 os.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -1001,8 +977,7 @@ public final class FileUtil {
             try {
                 fc.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE,
-                                 null, ex);
+                Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -1049,16 +1024,16 @@ public final class FileUtil {
      * @author Elmar Baumann
      */
     public static final class FileChooserProperties {
-        private String                             propertyKeyPrefix;
-        private Properties                         properties;
-        private Component                          parent;
-        private String                             currentDirectoryPath;
-        private String                             dialogTitle;
+        private String propertyKeyPrefix;
+        private Properties properties;
+        private Component parent;
+        private String currentDirectoryPath;
+        private String dialogTitle;
         private javax.swing.filechooser.FileFilter fileFilter;
-        private boolean                            multiSelectionEnabled;
-        private boolean                            open;
-        private boolean                            confirmOverwrite;
-        private String                             saveFilenameExtension;
+        private boolean multiSelectionEnabled;
+        private boolean open;
+        private boolean confirmOverwrite;
+        private String saveFilenameExtension;
 
         /**
          * Sets the prefix of the key for storing size and current directory
@@ -1067,8 +1042,7 @@ public final class FileUtil {
          * @param  propertyKeyPrefix prefix or null
          * @return                   this instance (for cascade settings)
          */
-        public FileChooserProperties propertyKeyPrefix(
-                String propertyKeyPrefix) {
+        public FileChooserProperties propertyKeyPrefix(String propertyKeyPrefix) {
             this.propertyKeyPrefix = propertyKeyPrefix;
 
             return this;
@@ -1105,8 +1079,7 @@ public final class FileUtil {
          * @param  currentDirectoryPath directory path or null
          * @return                      this instance (for cascade settings)
          */
-        public FileChooserProperties currentDirectoryPath(
-                String currentDirectoryPath) {
+        public FileChooserProperties currentDirectoryPath(String currentDirectoryPath) {
             this.currentDirectoryPath = currentDirectoryPath;
 
             return this;
@@ -1130,8 +1103,7 @@ public final class FileUtil {
          * @param  fileFilter file filter or null
          * @return            this instance (for cascade settings)
          */
-        public FileChooserProperties fileFilter(
-                javax.swing.filechooser.FileFilter fileFilter) {
+        public FileChooserProperties fileFilter(javax.swing.filechooser.FileFilter fileFilter) {
             this.fileFilter = fileFilter;
 
             return this;
@@ -1145,8 +1117,7 @@ public final class FileUtil {
          *                               Default: false.
          * @return                       this instance (for cascade settings)
          */
-        public FileChooserProperties multiSelectionEnabled(
-                boolean multiSelectionEnabled) {
+        public FileChooserProperties multiSelectionEnabled(boolean multiSelectionEnabled) {
             this.multiSelectionEnabled = multiSelectionEnabled;
 
             return this;
@@ -1175,8 +1146,7 @@ public final class FileUtil {
          * @return                  this instance (for cascade settings)
          * @see    FileChooserExt#saveFilenameExtension(java.lang.String)
          */
-        public FileChooserProperties confirmOverwrite(
-                boolean confirmOverwrite) {
+        public FileChooserProperties confirmOverwrite(boolean confirmOverwrite) {
             this.confirmOverwrite = confirmOverwrite;
 
             return this;
@@ -1190,13 +1160,13 @@ public final class FileUtil {
          * @return                        this instance (for cascade settings)
          * @see     FileChooserExt#saveFilenameExtension(java.lang.String)
          */
-        public FileChooserProperties saveFilenameExtension(
-                String saveFilenameExtension) {
+        public FileChooserProperties saveFilenameExtension(String saveFilenameExtension) {
             this.saveFilenameExtension = saveFilenameExtension;
 
             return this;
         }
     }
+
 
     /**
      * Displays a {@link FileChooserExt} for choosing files to open or save.
@@ -1224,8 +1194,8 @@ public final class FileUtil {
      * @return              selected files or empty list
      */
     public static List<File> chooseFiles(FileChooserProperties fcProperties) {
-        List<File>     files = new ArrayList<File>();
-        FileChooserExt fc    = getFileChooser(fcProperties);
+        List<File> files = new ArrayList<File>();
+        FileChooserExt fc = getFileChooser(fcProperties);
 
         applySize(fc, fcProperties);
 
@@ -1286,11 +1256,9 @@ public final class FileUtil {
                : p.open;
     }
 
-    private static void writeCurrentDirectoryPath(List<File> files,
-            FileChooserProperties p) {
+    private static void writeCurrentDirectoryPath(List<File> files, FileChooserProperties p) {
         if (canWriteProperties(p) &&!files.isEmpty()) {
-            p.properties.setProperty(getKeyCurrentDirectoryPath(p),
-                                     files.get(0).getAbsolutePath());
+            p.properties.setProperty(getKeyCurrentDirectoryPath(p), files.get(0).getAbsolutePath());
         }
     }
 
@@ -1323,10 +1291,8 @@ public final class FileUtil {
     private static void applySize(JFileChooser fc, FileChooserProperties p) {
         if (canWriteProperties(p)) {
             Settings settings = new Settings(p.properties);
-            int      width = settings.getInt(p.propertyKeyPrefix
-                                             + Settings.KEY_POSTFIX_WIDTH);
-            int height = settings.getInt(p.propertyKeyPrefix
-                                         + Settings.KEY_POSTFIX_HEIGHT);
+            int width = settings.getInt(p.propertyKeyPrefix + Settings.KEY_POSTFIX_WIDTH);
+            int height = settings.getInt(p.propertyKeyPrefix + Settings.KEY_POSTFIX_HEIGHT);
 
             if ((width > 0) && (height > 0)) {
                 fc.setPreferredSize(new Dimension(width, height));
@@ -1338,16 +1304,13 @@ public final class FileUtil {
         if (canWriteProperties(p)) {
             Settings settings = new Settings(p.properties);
 
-            settings.set(fc.getWidth(),
-                         p.propertyKeyPrefix + Settings.KEY_POSTFIX_WIDTH);
-            settings.set(fc.getHeight(),
-                         p.propertyKeyPrefix + Settings.KEY_POSTFIX_HEIGHT);
+            settings.set(fc.getWidth(), p.propertyKeyPrefix + Settings.KEY_POSTFIX_WIDTH);
+            settings.set(fc.getHeight(), p.propertyKeyPrefix + Settings.KEY_POSTFIX_HEIGHT);
         }
     }
 
     private static boolean canWriteProperties(FileChooserProperties p) {
-        return (p != null) && (p.propertyKeyPrefix != null)
-               && (p.properties != null);
+        return (p != null) && (p.propertyKeyPrefix != null) && (p.properties != null);
     }
 
     /**

@@ -33,8 +33,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     public boolean canImport(TransferHandler.TransferSupport support) {
         return support.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL)
                && support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)
-               && ((JList.DropLocation) support.getDropLocation()).getIndex()
-                  >= 0;
+               && ((JList.DropLocation) support.getDropLocation()).getIndex() >= 0;
     }
 
     @Override
@@ -54,17 +53,14 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
         try {
             Transferable transferable = support.getTransferable();
 
-            imageFiles = getImageFiles(
-                (List<File>) transferable.getTransferData(
-                    DataFlavor.javaFileListFlavor));
+            imageFiles = getImageFiles((List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor));
         } catch (Exception ex) {
             AppLogger.logSevere(TransferHandlerImageCollectionsList.class, ex);
 
             return false;
         }
 
-        int listIndex =
-            ((JList.DropLocation) support.getDropLocation()).getIndex();
+        int listIndex = ((JList.DropLocation) support.getDropLocation()).getIndex();
 
         handleDroppedThumbnails(listIndex, imageFiles);
 
@@ -84,8 +80,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     }
 
     private void addToImageCollection(int itemIndex, List<File> imageFiles) {
-        boolean added = ImageCollectionsHelper.addImagesToCollection(
-                            getImageCollectionName(itemIndex), imageFiles);
+        boolean added = ImageCollectionsHelper.addImagesToCollection(getImageCollectionName(itemIndex), imageFiles);
 
         if (added) {
             GUI.refreshThumbnailsPanel();
@@ -93,12 +88,10 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     }
 
     private void createImageCollection(final List<File> imageFiles) {
-        String newCollectionName =
-            ImageCollectionsHelper.insertImageCollection(imageFiles);
+        String newCollectionName = ImageCollectionsHelper.insertImageCollection(imageFiles);
 
         if (newCollectionName != null) {
-            ModelFactory.INSTANCE.getModel(
-                ListModelImageCollections.class).addElement(newCollectionName);
+            ModelFactory.INSTANCE.getModel(ListModelImageCollections.class).addElement(newCollectionName);
         }
     }
 

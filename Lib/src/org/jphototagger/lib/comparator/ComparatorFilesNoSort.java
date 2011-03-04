@@ -12,8 +12,7 @@ import java.util.Comparator;
  *
  * @author Elmar Baumann
  */
-public final class ComparatorFilesNoSort extends ClassEquality
-        implements Comparator<File>, Serializable {
+public final class ComparatorFilesNoSort extends ClassEquality implements Comparator<File>, Serializable {
     private static final long serialVersionUID = 6632501783143748216L;
 
     /**

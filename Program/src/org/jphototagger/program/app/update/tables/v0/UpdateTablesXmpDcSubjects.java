@@ -27,8 +27,7 @@ final class UpdateTablesXmpDcSubjects {
             populateTableDcSubjects(con);
             populateLinkTable(con);
             Database.execute(con, "DROP TABLE xmp_dc_subjects");
-            DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains(
-                "xmp_dc_subjects", "!");
+            DatabaseSavedSearches.INSTANCE.tagSearchesIfStmtContains("xmp_dc_subjects", "!");
         }
 
         SplashScreen.INSTANCE.removeMessage();
@@ -36,7 +35,7 @@ final class UpdateTablesXmpDcSubjects {
 
     private void populateTableDcSubjects(Connection con) throws SQLException {
         Statement stmt = null;
-        ResultSet rs   = null;
+        ResultSet rs = null;
 
         try {
             con.setAutoCommit(true);
@@ -61,9 +60,8 @@ final class UpdateTablesXmpDcSubjects {
         }
     }
 
-    private void insertSubject(Connection con, String subject)
-            throws SQLException {
-        String            sql  = "INSERT INTO dc_subjects (subject) VALUES (?)";
+    private void insertSubject(Connection con, String subject) throws SQLException {
+        String sql = "INSERT INTO dc_subjects (subject) VALUES (?)";
         PreparedStatement stmt = null;
 
         try {
@@ -77,9 +75,9 @@ final class UpdateTablesXmpDcSubjects {
     }
 
     private void populateLinkTable(Connection con) throws SQLException {
-        String    sql  = "SELECT id_xmp, subject FROM xmp_dc_subjects";
+        String sql = "SELECT id_xmp, subject FROM xmp_dc_subjects";
         Statement stmt = null;
-        ResultSet rs   = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.createStatement();
@@ -87,14 +85,12 @@ final class UpdateTablesXmpDcSubjects {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                long   idXmp     = rs.getLong(1);
+                long idXmp = rs.getLong(1);
                 String dcSubject = rs.getString(2);
-                Long   idDcSubject =
-                    DatabaseImageFiles.INSTANCE.getIdDcSubject(dcSubject);
+                Long idDcSubject = DatabaseImageFiles.INSTANCE.getIdDcSubject(dcSubject);
 
                 if ((idDcSubject != null) && existsIdXmp(con, idXmp)) {
-                    if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(
-                            idXmp, idDcSubject)) {
+                    if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
                         insertIntoLinkTable(con, idXmp, idDcSubject);
                     }
                 }
@@ -105,13 +101,12 @@ final class UpdateTablesXmpDcSubjects {
     }
 
     private boolean existsIdXmp(Connection con, long id) throws SQLException {
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
-        boolean           exists = false;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean exists = false;
 
         try {
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM xmp WHERE id = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM xmp WHERE id = ?");
             stmt.setLong(1, id);
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt);
             rs = stmt.executeQuery();
@@ -126,13 +121,9 @@ final class UpdateTablesXmpDcSubjects {
         return false;
     }
 
-    private void insertIntoLinkTable(Connection con, long idXmp,
-                                     long idDcSubject)
-            throws SQLException {
-        if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(idXmp,
-                idDcSubject)) {
-            String sql = "INSERT INTO xmp_dc_subject (id_xmp, id_dc_subject)"
-                         + " VALUES (?, ?)";
+    private void insertIntoLinkTable(Connection con, long idXmp, long idDcSubject) throws SQLException {
+        if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
+            String sql = "INSERT INTO xmp_dc_subject (id_xmp, id_dc_subject)" + " VALUES (?, ?)";
             PreparedStatement stmt = null;
 
             try {
@@ -148,7 +139,6 @@ final class UpdateTablesXmpDcSubjects {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesXmpDcSubjects.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesXmpDcSubjects.Info"));
     }
 }

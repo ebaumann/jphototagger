@@ -22,14 +22,11 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * @author Elmar Baumann
  */
 public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
-    private static final Icon ICON_REAL =
-        AppLookAndFeel.getIcon("icon_keyword.png");
-    private static final Icon ICON_IMG_HAS_KEYWORD =
-        AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
-    private static final Icon ICON_HELPER =
-        AppLookAndFeel.getIcon("icon_folder.png");
-    private static final long  serialVersionUID  = -1948927991470364757L;
-    private int                tempSelectionRow  = -1;
+    private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png");
+    private static final Icon ICON_IMG_HAS_KEYWORD = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
+    private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png");
+    private static final long serialVersionUID = -1948927991470364757L;
+    private int tempSelectionRow = -1;
     private final List<String> highLightKeywords = new ArrayList<String>();
 
     public TreeCellRendererKeywords() {
@@ -37,11 +34,9 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-            boolean sel, boolean expanded, boolean leaf, int row,
-            boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                                           row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
+            boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
         render(((DefaultMutableTreeNode) value).getUserObject(), row);
 
         return this;
@@ -49,20 +44,20 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
 
     private void render(Object userObject, int row) {
         boolean selImgHasKeyword = false;
-        boolean real             = false;
-        boolean helper           = false;    // to know whether to render root item
+        boolean real = false;
+        boolean helper = false;    // to know whether to render root item
 
         if (userObject instanceof Keyword) {
             Keyword keyword = (Keyword) userObject;
 
-            real             = keyword.isReal();
-            helper           = !real;
+            real = keyword.isReal();
+            helper = !real;
             selImgHasKeyword = real && isKeyword(keyword.getName());
             setText(keyword.getName());
         }
 
         boolean tempSelExists = tempSelectionRow >= 0;
-        boolean isTempSelRow  = row == tempSelectionRow;
+        boolean isTempSelRow = row == tempSelectionRow;
 
         setIcon(selImgHasKeyword
                 ? ICON_IMG_HAS_KEYWORD

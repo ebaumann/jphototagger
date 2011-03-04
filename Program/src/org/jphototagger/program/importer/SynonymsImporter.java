@@ -33,9 +33,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * @author Elmar Baumann
  */
 public final class SynonymsImporter implements Importer, EntityResolver {
-    public static final SynonymsImporter INSTANCE         =
-        new SynonymsImporter();
-    private static final long            serialVersionUID = 1L;
+    public static final SynonymsImporter INSTANCE = new SynonymsImporter();
+    private static final long serialVersionUID = 1L;
 
     @Override
     public void importFile(File file) {
@@ -44,8 +43,7 @@ public final class SynonymsImporter implements Importer, EntityResolver {
         }
 
         try {
-            DocumentBuilderFactory docFactory =
-                DocumentBuilderFactory.newInstance();
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
             docBuilder.setEntityResolver(this);
@@ -59,32 +57,27 @@ public final class SynonymsImporter implements Importer, EntityResolver {
     }
 
     private void importSynonyms(Document doc) {
-        NodeList entries =
-            doc.getElementsByTagName(SynonymsExporter.TAGNAME_ENTRY);
+        NodeList entries = doc.getElementsByTagName(SynonymsExporter.TAGNAME_ENTRY);
         int entryCount = entries.getLength();
 
         for (int i = 0; i < entryCount; i++) {
-            Node     entryNode = entries.item(i);
+            Node entryNode = entries.item(i);
             NodeList entryElts = entryNode.getChildNodes();
-            int      eltCount  = entryElts.getLength();
+            int eltCount = entryElts.getLength();
 
             assert eltCount >= 2 : eltCount;
 
             if (eltCount >= 2) {
                 List<String> synonyms = new ArrayList<String>();
-                String       word     = "";
+                String word = "";
 
                 for (int j = 0; j < eltCount; j++) {
-                    Node   node = entryElts.item(j);
+                    Node node = entryElts.item(j);
                     String text = node.getTextContent();
 
-                    if ((text != null)
-                            && node.getNodeName().equals(
-                                SynonymsExporter.TAGNAME_WORD)) {
+                    if ((text != null) && node.getNodeName().equals(SynonymsExporter.TAGNAME_WORD)) {
                         word = text.trim();
-                    } else if ((text != null)
-                               && node.getNodeName().equals(
-                                   SynonymsExporter.TAGNAME_SYNONYM)) {
+                    } else if ((text != null) && node.getNodeName().equals(SynonymsExporter.TAGNAME_SYNONYM)) {
                         synonyms.add(text.trim());
                     }
                 }
@@ -97,15 +90,13 @@ public final class SynonymsImporter implements Importer, EntityResolver {
     }
 
     @Override
-    public InputSource resolveEntity(String publicId, String systemId)
-            throws SAXException, IOException {
-
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         if (systemId == null) {
             throw new NullPointerException("systemId == null");
         }
 
         InputStream stream = null;
-        String      dtd    = SynonymsExporter.DTD;
+        String dtd = SynonymsExporter.DTD;
 
         if (systemId.endsWith(dtd)) {
             String name = "/org/jphototagger/program/resource/dtd/" + dtd;

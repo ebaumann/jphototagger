@@ -13,23 +13,18 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopCaptionwriter;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopInstructions;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopTransmissionReference;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 
 import java.util.HashMap;
@@ -44,10 +39,8 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class ColumnIds {
-    private static final Map<Integer, Column> COLUMN_OF_ID =
-        new HashMap<Integer, Column>();
-    private static final Map<Column, Integer> ID_OF_COLUMN =
-        new HashMap<Column, Integer>();
+    private static final Map<Integer, Column> COLUMN_OF_ID = new HashMap<Integer, Column>();
+    private static final Map<Column, Integer> ID_OF_COLUMN = new HashMap<Column, Integer>();
 
     static {
 

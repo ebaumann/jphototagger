@@ -12,8 +12,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author Elmar Baumann
  */
-public final class ExecutableFileChooserFileFilter extends FileFilter
-        implements Serializable {
+public final class ExecutableFileChooserFileFilter extends FileFilter implements Serializable {
     private static final long serialVersionUID = 8245956226000329520L;
 
     @Override
@@ -23,7 +22,6 @@ public final class ExecutableFileChooserFileFilter extends FileFilter
 
     @Override
     public String getDescription() {
-        return JslBundle.INSTANCE.getString(
-            "ExecutableFileChooserFileFilter.Description");
+        return JslBundle.INSTANCE.getString("ExecutableFileChooserFileFilter.Description");
     }
 }

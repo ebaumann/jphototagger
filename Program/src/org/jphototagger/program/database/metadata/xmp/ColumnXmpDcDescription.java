@@ -10,16 +10,12 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnXmpDcDescription extends Column {
-    public static final ColumnXmpDcDescription INSTANCE =
-        new ColumnXmpDcDescription();
+    public static final ColumnXmpDcDescription INSTANCE = new ColumnXmpDcDescription();
 
     private ColumnXmpDcDescription() {
         super("dc_description", "xmp", DataType.STRING);
         setLength(2000);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnXmpDcDescription.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpDcDescription.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpDcDescription.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpDcDescription.LongerDescription"));
     }
 }

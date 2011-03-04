@@ -19,8 +19,7 @@ import javax.swing.DefaultListModel;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ListModelImageCollections extends DefaultListModel {
-    private static final List<String> SPECIAL_COLLECTIONS =
-        new ArrayList<String>();
+    private static final List<String> SPECIAL_COLLECTIONS = new ArrayList<String>();
     private static final long serialVersionUID = -929229489709109467L;
 
     /**
@@ -28,22 +27,19 @@ public final class ListModelImageCollections extends DefaultListModel {
      * image files
      */
     public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT =
-        JptBundle.INSTANCE.getString(
-            "ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
+        JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
 
     /**
      * Name of the image collection which contains picked images
      */
     public static final String NAME_IMAGE_COLLECTION_PICKED =
-        JptBundle.INSTANCE.getString(
-            "ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
+        JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
 
     /**
      * Name of the image collection which contains rejected images
      */
     public static final String NAME_IMAGE_COLLECTION_REJECTED =
-        JptBundle.INSTANCE.getString(
-            "ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
+        JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
 
     static {
 
@@ -66,9 +62,7 @@ public final class ListModelImageCollections extends DefaultListModel {
             throw new NullPointerException("toName == null");
         }
 
-        if (!checkIsNotSpecialCollection(
-                toName,
-                "ListModelImageCollections.Error.RenameSpecialCollection")) {
+        if (!checkIsNotSpecialCollection(toName, "ListModelImageCollections.Error.RenameSpecialCollection")) {
             return;
         }
 
@@ -76,9 +70,8 @@ public final class ListModelImageCollections extends DefaultListModel {
 
         if (index >= 0) {
             remove(index);
-            ListUtil.insertSorted(this, toName,
-                                  ComparatorStringAscending.INSTANCE,
-                                  getSpecialCollectionCount(), getSize() - 1);
+            ListUtil.insertSorted(this, toName, ComparatorStringAscending.INSTANCE, getSpecialCollectionCount(),
+                                  getSize() - 1);
         }
     }
 
@@ -87,9 +80,8 @@ public final class ListModelImageCollections extends DefaultListModel {
             return;
         }
 
-        DatabaseImageCollections db          =
-            DatabaseImageCollections.INSTANCE;
-        List<String>             collections = db.getAll();
+        DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
+        List<String> collections = db.getAll();
 
         addSpecialCollections();
 
@@ -145,8 +137,7 @@ public final class ListModelImageCollections extends DefaultListModel {
      * @return                true if everything is ok: the image collection is
      *                        <em>not</em> a special collection
      */
-    public static boolean checkIsNotSpecialCollection(String collectionName,
-            String propertyKey) {
+    public static boolean checkIsNotSpecialCollection(String collectionName, String propertyKey) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }

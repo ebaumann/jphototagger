@@ -30,10 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public final class UserDefinedFileFilterExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
         new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "UserDefinedFileFilterExporter.DisplayName.FileFilter"), "xml");
-    public static final UserDefinedFileFilterExporter INSTANCE =
-        new UserDefinedFileFilterExporter();
+            JptBundle.INSTANCE.getString("UserDefinedFileFilterExporter.DisplayName.FileFilter"), "xml");
+    public static final UserDefinedFileFilterExporter INSTANCE = new UserDefinedFileFilterExporter();
 
     @Override
     public void exportFile(File file) {
@@ -44,8 +42,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
         File xmpFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            Set<UserDefinedFileFilter> filter =
-                DatabaseUserDefinedFileFilters.INSTANCE.getAll();
+            Set<UserDefinedFileFilter> filter = DatabaseUserDefinedFileFilters.INSTANCE.getAll();
 
             XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
         } catch (Exception ex) {
@@ -60,8 +57,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "UserDefinedFileFilter.DisplayName");
+        return JptBundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName");
     }
 
     @Override
@@ -78,8 +74,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
     public static class CollectionWrapper {
         @XmlElementWrapper(name = "FileFilter")
         @XmlElement(type = UserDefinedFileFilter.class)
-        private final ArrayList<UserDefinedFileFilter> collection =
-            new ArrayList<UserDefinedFileFilter>();
+        private final ArrayList<UserDefinedFileFilter> collection = new ArrayList<UserDefinedFileFilter>();
 
         public CollectionWrapper() {}
 

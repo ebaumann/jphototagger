@@ -78,8 +78,7 @@ public final class TreeModelHelpContents implements TreeModel {
     }
 
     private void parse(String url) {
-        HelpNode rootNode =
-            HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
+        HelpNode rootNode = HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
 
         if (rootNode != null) {
             root = rootNode;

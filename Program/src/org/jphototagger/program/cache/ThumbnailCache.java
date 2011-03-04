@@ -1,6 +1,5 @@
 package org.jphototagger.program.cache;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Exif;
@@ -11,28 +10,24 @@ import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;
 
+import java.awt.EventQueue;
 import java.awt.Image;
 
 import java.io.File;
-
 
 /**
  *
  * @author Martin Pohlack
  */
-public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
-        implements DatabaseImageFilesListener {
+public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> implements DatabaseImageFilesListener {
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
-    private Image                      noPreviewThumbnail =
-        IconUtil.getIconImage(
-            JptBundle.INSTANCE.getString(
-                "ThumbnailCache.Path.NoPreviewThumbnail"));
+    private Image noPreviewThumbnail =
+        IconUtil.getIconImage(JptBundle.INSTANCE.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private ThumbnailCache() {
         db.addListener(this);
-        new Thread(new ThumbnailFetcher(workQueue, this),
-                   "JPhotoTagger: ThumbnailFetcher").start();
+        new Thread(new ThumbnailFetcher(workQueue, this), "JPhotoTagger: ThumbnailFetcher").start();
     }
 
     @Override
@@ -200,18 +195,16 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.thumbnailUpdated(new ThumbnailUpdateEvent(file,
-                    ThumbnailUpdateEvent.Type.THUMBNAIL_UPDATE));
+            l.thumbnailUpdated(new ThumbnailUpdateEvent(file, ThumbnailUpdateEvent.Type.THUMBNAIL_UPDATE));
         }
     }
 
     private static class ThumbnailFetcher implements Runnable {
-        private final ThumbnailCache                 cache;
+        private final ThumbnailCache cache;
         private WorkQueue<ThumbnailCacheIndirection> wq;
 
-        ThumbnailFetcher(WorkQueue<ThumbnailCacheIndirection> imageWQ,
-                         ThumbnailCache _cache) {
-            wq    = imageWQ;
+        ThumbnailFetcher(WorkQueue<ThumbnailCacheIndirection> imageWQ, ThumbnailCache _cache) {
+            wq = imageWQ;
             cache = _cache;
         }
 
@@ -226,19 +219,14 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection>
                     Image image = null;
 
                     if (imageFile == null) {
-                        AppLogger.logWarning(ThumbnailFetcher.class,
-                                             "ThumbnailCache.Info.FileIsNull");
+                        AppLogger.logWarning(ThumbnailFetcher.class, "ThumbnailCache.Info.FileIsNull");
                     } else {
-                        File tnFile =
-                            PersistentThumbnails.getThumbnailFile(imageFile);
+                        File tnFile = PersistentThumbnails.getThumbnailFile(imageFile);
 
                         if (tnFile == null) {
-                            AppLogger.logWarning(
-                                ThumbnailFetcher.class,
-                                "ThumbnailCache.Info.NoTnFilename", imageFile);
+                            AppLogger.logWarning(ThumbnailFetcher.class, "ThumbnailCache.Info.NoTnFilename", imageFile);
                         } else {
-                            image =
-                                PersistentThumbnails.getThumbnail(imageFile);
+                            image = PersistentThumbnails.getThumbnail(imageFile);
                         }
                     }
 

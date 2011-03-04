@@ -22,7 +22,7 @@ public final class ImageCollection {
     @XmlElementWrapper(name = "Filenames")
     @XmlElement(type = String.class)
     private List<File> imageFiles;
-    private String     name;
+    private String name;
 
     public ImageCollection() {}
 
@@ -35,7 +35,7 @@ public final class ImageCollection {
             throw new NullPointerException("imageFiles == null");
         }
 
-        this.name       = name;
+        this.name = name;
         this.imageFiles = new ArrayList<File>(imageFiles);
     }
 

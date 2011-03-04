@@ -16,8 +16,7 @@ import java.util.Date;
  * @author Elmar Baumann
  */
 public final class ExifFormatterGpsDateStamp extends ExifFormatter {
-    public static final ExifFormatterGpsDateStamp INSTANCE =
-        new ExifFormatterGpsDateStamp();
+    public static final ExifFormatterGpsDateStamp INSTANCE = new ExifFormatterGpsDateStamp();
 
     private ExifFormatterGpsDateStamp() {}
 
@@ -29,7 +28,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_DATE_STAMP);
 
-        byte[] rawValue  = exifTag.rawValue();
+        byte[] rawValue = exifTag.rawValue();
         String rawString = new String(rawValue);
 
         if (rawString.length() != 11) {
@@ -37,8 +36,8 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
         }
 
         try {
-            DateFormat df   = new SimpleDateFormat("yyyy:MM:dd");
-            Date       date = df.parse(rawString.substring(0, 10));
+            DateFormat df = new SimpleDateFormat("yyyy:MM:dd");
+            Date date = df.parse(rawString.substring(0, 10));
 
             return DateFormat.getDateInstance(DateFormat.FULL).format(date);
         } catch (Exception ex) {

@@ -1,10 +1,10 @@
 package org.jphototagger.program.controller.thumbnail;
 
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Thumbnailspanelanzeige aktualisieren.
@@ -12,7 +12,6 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public final class ControllerRefreshThumbnailsPanel implements ActionListener {
-
     public ControllerRefreshThumbnailsPanel() {
         listen();
     }

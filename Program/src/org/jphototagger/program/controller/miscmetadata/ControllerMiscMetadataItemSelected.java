@@ -26,46 +26,40 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMiscMetadataItemSelected
-        implements TreeSelectionListener, RefreshListener {
+public final class ControllerMiscMetadataItemSelected implements TreeSelectionListener, RefreshListener {
     public ControllerMiscMetadataItemSelected() {
         listen();
     }
 
     private void listen() {
         GUI.getMiscMetadataTree().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this,
-                Content.MISC_METADATA);
+        GUI.getThumbnailsPanel().addRefreshListener(this, Content.MISC_METADATA);
     }
 
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
         if (evt.isAddedPath()) {
-            EventQueue.invokeLater(
-                new ShowThumbnails(evt.getNewLeadSelectionPath(), null));
+            EventQueue.invokeLater(new ShowThumbnails(evt.getNewLeadSelectionPath(), null));
         }
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
         if (GUI.getMiscMetadataTree().getSelectionCount() == 1) {
-            EventQueue.invokeLater(
-                new ShowThumbnails(
-                    GUI.getMiscMetadataTree().getSelectionPath(),
-                    evt.getSettings()));
+            EventQueue.invokeLater(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getSettings()));
         }
     }
 
     private class ShowThumbnails implements Runnable {
         private final ThumbnailsPanel.Settings tnPanelSettings;
-        private final TreePath                 treePath;
+        private final TreePath treePath;
 
         ShowThumbnails(TreePath treePath, ThumbnailsPanel.Settings settings) {
             if (treePath == null) {
                 throw new NullPointerException("treePath == null");
             }
 
-            this.treePath   = treePath;
+            this.treePath = treePath;
             tnPanelSettings = settings;
         }
 
@@ -79,30 +73,25 @@ public final class ControllerMiscMetadataItemSelected
             WaitDisplay.hide();
         }
 
-        private void setFilesOfPossibleNodeToThumbnailsPanel(
-                Object lastPathComponent) {
+        private void setFilesOfPossibleNodeToThumbnailsPanel(Object lastPathComponent) {
             if (lastPathComponent instanceof DefaultMutableTreeNode) {
-                setFilesOfNodeToThumbnailsPanel(
-                    (DefaultMutableTreeNode) lastPathComponent);
+                setFilesOfNodeToThumbnailsPanel((DefaultMutableTreeNode) lastPathComponent);
             }
         }
 
-        private void setFilesOfNodeToThumbnailsPanel(
-                DefaultMutableTreeNode node) {
-            Object          userObject = node.getUserObject();
-            ThumbnailsPanel tnPanel    = GUI.getThumbnailsPanel();
+        private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
+            Object userObject = node.getUserObject();
+            ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             if (node.isLeaf()) {
-                Object parentUserObject =
-                    ((DefaultMutableTreeNode) node.getParent()).getUserObject();
+                Object parentUserObject = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
 
                 if (parentUserObject instanceof Column) {
                     Column column = (Column) parentUserObject;
 
                     setTitle(column, userObject);
                     ControllerSortThumbnails.setLastSort();
-                    tnPanel.setFiles(DatabaseImageFiles.INSTANCE
-                        .getImageFilesWithColumnContent(column,
+                    tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getImageFilesWithColumnContent(column,
                             userObject.toString()), Content.MISC_METADATA);
                     tnPanel.apply(tnPanelSettings);
                 } else {
@@ -113,9 +102,7 @@ public final class ControllerMiscMetadataItemSelected
 
                 setTitle(column);
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(
-                    DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column),
-                    Content.MISC_METADATA);
+                tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column), Content.MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
             } else {
                 ControllerSortThumbnails.setLastSort();
@@ -128,15 +115,13 @@ public final class ControllerMiscMetadataItemSelected
         // 1 path where tnPanel.apply(tnPanelSettings) is not to call
         private void setTitle() {
             GUI.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString(
-                    "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
+                JptBundle.INSTANCE.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
         }
 
         private void setTitle(Column column) {
             GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
-                    "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column",
-                    column.getDescription()));
+                    "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column", column.getDescription()));
         }
 
         private void setTitle(Column column, Object userObject) {

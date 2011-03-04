@@ -36,9 +36,7 @@ public final class FileSystemDirectories {
         if (directory.isDirectory()) {
             if (TreeFileSystemDirectories.confirmDelete(directory.getName())) {
                 try {
-                    List<File> imageFiles =
-                        ImageFileFilterer.getImageFilesOfDirAndSubDirs(
-                            directory);
+                    List<File> imageFiles = ImageFileFilterer.getImageFilesOfDirAndSubDirs(directory);
 
                     FileUtil.deleteDirectoryRecursive(directory);
 
@@ -48,8 +46,7 @@ public final class FileSystemDirectories {
 
                     return true;
                 } catch (Exception ex) {
-                    TreeFileSystemDirectories.errorMessageDelete(
-                        directory.getName());
+                    TreeFileSystemDirectories.errorMessageDelete(directory.getName());
                     AppLogger.logSevere(FileSystemDirectories.class, ex);
                 }
             }
@@ -72,25 +69,18 @@ public final class FileSystemDirectories {
         }
 
         if (directory.isDirectory()) {
-            String newDirectoryName =
-                TreeFileSystemDirectories.getNewName(directory);
+            String newDirectoryName = TreeFileSystemDirectories.getNewName(directory);
 
-            if ((newDirectoryName != null)
-                    &&!newDirectoryName.trim().isEmpty()) {
-                File newDirectory = new File(directory.getParentFile(),
-                                             newDirectoryName);
+            if ((newDirectoryName != null) &&!newDirectoryName.trim().isEmpty()) {
+                File newDirectory = new File(directory.getParentFile(), newDirectoryName);
 
                 if (TreeFileSystemDirectories.checkDoesNotExist(newDirectory)) {
                     try {
                         if (directory.renameTo(newDirectory)) {
-                            String oldParentDir = directory.getAbsolutePath()
-                                                  + File.separator;
-                            String newParentDir =
-                                newDirectory.getAbsolutePath() + File.separator;
-                            int dbCount =
-                                DatabaseImageFiles.INSTANCE
-                                    .updateRenameFilenamesStartingWith(
-                                        oldParentDir, newParentDir, null);
+                            String oldParentDir = directory.getAbsolutePath() + File.separator;
+                            String newParentDir = newDirectory.getAbsolutePath() + File.separator;
+                            int dbCount = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(oldParentDir,
+                                              newParentDir, null);
 
                             logInfoRenamed(directory, newDirectory, dbCount);
 
@@ -107,15 +97,12 @@ public final class FileSystemDirectories {
     }
 
     private static void logDelete(File directory, int countDeletedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class,
-                          "FileSystemDirectories.Info.Delete", directory,
+        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Delete", directory,
                           countDeletedInDatabase);
     }
 
-    private static void logInfoRenamed(File directory, File newDirectory,
-                                       int countRenamedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class,
-                          "FileSystemDirectories.Info.Rename", directory,
-                          newDirectory, countRenamedInDatabase);
+    private static void logInfoRenamed(File directory, File newDirectory, int countRenamedInDatabase) {
+        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Rename", directory, newDirectory,
+                          countRenamedInDatabase);
     }
 }

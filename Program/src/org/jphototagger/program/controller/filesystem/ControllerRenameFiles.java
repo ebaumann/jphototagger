@@ -29,16 +29,14 @@ import java.util.List;
  *
  * @author Elmar Baumann
  */
-public final class ControllerRenameFiles
-        implements ActionListener, KeyListener, FileSystemListener {
+public final class ControllerRenameFiles implements ActionListener, KeyListener, FileSystemListener {
     public ControllerRenameFiles() {
         listen();
     }
 
     private void listen() {
         GUI.getThumbnailsPanel().addKeyListener(this);
-        PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles()
-            .addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles().addActionListener(this);
     }
 
     @Override
@@ -50,16 +48,13 @@ public final class ControllerRenameFiles
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(
-                PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles())) {
+        if (evt.getSource().equals(PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles())) {
             renameSelectedFiles();
         }
     }
 
     private void renameFile(final File fromFile, final File toFile) {
-        AppLogger.logInfo(ControllerRenameFiles.class,
-                          "ControllerRenameFiles.Info.Rename", fromFile,
-                          toFile);
+        AppLogger.logInfo(ControllerRenameFiles.class, "ControllerRenameFiles.Info.Rename", fromFile, toFile);
         DatabaseImageFiles.INSTANCE.updateRename(fromFile, toFile);
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -81,8 +76,7 @@ public final class ControllerRenameFiles
             Collections.sort(selFiles);
             dlg.setImageFiles(selFiles);
             dlg.addFileSystemListener(this);
-            dlg.setEnabledTemplates(GUI.getThumbnailsPanel().getContent()
-                .isUniqueFileSystemDirectory());
+            dlg.setEnabledTemplates(GUI.getThumbnailsPanel().getContent().isUniqueFileSystemDirectory());
             dlg.setVisible(true);
         }
     }

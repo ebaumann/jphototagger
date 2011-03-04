@@ -9,8 +9,7 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Elmar Baumann
  */
-public final class ComboBoxModelScheduledTaskBackupDatabase
-        extends DefaultComboBoxModel {
+public final class ComboBoxModelScheduledTaskBackupDatabase extends DefaultComboBoxModel {
     private static final long serialVersionUID = -5248869581490789742L;
 
     public ComboBoxModelScheduledTaskBackupDatabase() {

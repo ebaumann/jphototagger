@@ -34,8 +34,7 @@ public interface DatabaseSynonymsListener {
      * @param oldSynonymName old name of the synonym
      * @param newSynonymName new name of the synonym
      */
-    void synonymOfWordRenamed(String word, String oldSynonymName,
-                                     String newSynonymName);
+    void synonymOfWordRenamed(String word, String oldSynonymName, String newSynonymName);
 
     /**
      * Called if a synonym was renamed in

@@ -30,10 +30,8 @@ import javax.swing.tree.TreeModel;
  * @author Elmar Baumann
  */
 public final class KeywordsExporterLightroom implements Exporter {
-    public static final KeywordsExporterLightroom INSTANCE =
-        new KeywordsExporterLightroom();
-    private static final Icon ICON =
-        AppLookAndFeel.getIcon("icon_lightroom.png");
+    public static final KeywordsExporterLightroom INSTANCE = new KeywordsExporterLightroom();
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_lightroom.png");
 
     /**
      * Lightroom exports keywords within {} - constant if changed in later
@@ -55,16 +53,14 @@ public final class KeywordsExporterLightroom implements Exporter {
 
             try {
                 File outFile = file;
+
                 if (!outFile.getName().endsWith(suffix)) {
                     outFile = new File(file.getAbsolutePath() + suffix);
                 }
 
-                writer = new BufferedWriter(
-                    new OutputStreamWriter(
-                        new FileOutputStream(outFile.getAbsolutePath()),
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile.getAbsolutePath()),
                         CharEncoding.LIGHTROOM_KEYWORDS));
-                addChildrenToRoot((DefaultMutableTreeNode) tm.getRoot(),
-                                  writer);
+                addChildrenToRoot((DefaultMutableTreeNode) tm.getRoot(), writer);
             } catch (Exception ex) {
                 AppLogger.logSevere(getClass(), ex);
             } finally {
@@ -77,8 +73,7 @@ public final class KeywordsExporterLightroom implements Exporter {
         }
     }
 
-    private void addChildrenToRoot(DefaultMutableTreeNode root, Writer writer)
-            throws IOException {
+    private void addChildrenToRoot(DefaultMutableTreeNode root, Writer writer) throws IOException {
         for (Enumeration<?> e = root.children(); e.hasMoreElements(); ) {
             Object el = e.nextElement();
 
@@ -89,11 +84,9 @@ public final class KeywordsExporterLightroom implements Exporter {
     }
 
     @SuppressWarnings("unchecked")
-    private void addChildren(DefaultMutableTreeNode node, int level,
-                             Writer writer)
-            throws IOException {
-        Object  userObject = node.getUserObject();
-        boolean appended   = false;
+    private void addChildren(DefaultMutableTreeNode node, int level, Writer writer) throws IOException {
+        Object userObject = node.getUserObject();
+        boolean appended = false;
 
         if (userObject instanceof Keyword) {
             Keyword hkw = (Keyword) userObject;
@@ -104,8 +97,7 @@ public final class KeywordsExporterLightroom implements Exporter {
             }
         }
 
-        for (Enumeration<DefaultMutableTreeNode> e = node.children();
-                e.hasMoreElements(); ) {
+        for (Enumeration<DefaultMutableTreeNode> e = node.children(); e.hasMoreElements(); ) {
             addChildren(e.nextElement(), appended
                                          ? level + 1
                                          : level, writer);    // recursive
@@ -128,8 +120,7 @@ public final class KeywordsExporterLightroom implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString(
-            "KeywordExporterLightroom.DisplayName");
+        return JptBundle.INSTANCE.getString("KeywordExporterLightroom.DisplayName");
     }
 
     @Override
@@ -139,8 +130,7 @@ public final class KeywordsExporterLightroom implements Exporter {
 
     @Override
     public FileFilter getFileFilter() {
-        return new FileNameExtensionFilter(getDisplayName(),
-                                           FilenameSuffixes.LIGHTROOM_KEYWORDS);
+        return new FileNameExtensionFilter(getDisplayName(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
     }
 
     @Override

@@ -52,8 +52,7 @@ public final class ExifTags {
     }
 
     public int tagCount() {
-        return exifTags.size() + gpsTags.size() + interoperabilityTags.size()
-               + makerNoteTags.size();
+        return exifTags.size() + gpsTags.size() + interoperabilityTags.size() + makerNoteTags.size();
     }
 
     public List<ExifTag> asList() {

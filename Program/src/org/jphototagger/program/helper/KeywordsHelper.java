@@ -10,8 +10,7 @@ import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
@@ -63,8 +62,7 @@ public final class KeywordsHelper {
      * @param node node with keyword. <em>All parents of that node have to be an
      *             instance of {@link DefaultMutableTreeNode}!</em>
      */
-    public static void addKeywordsToEditPanel(
-            final DefaultMutableTreeNode node) {
+    public static void addKeywordsToEditPanel(final DefaultMutableTreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
@@ -72,13 +70,11 @@ public final class KeywordsHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                EditMetadataPanels editPanels =
-                    GUI.getAppPanel().getEditMetadataPanels();
+                EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
                 List<String> keywordStrings = getKeywordStrings(node, true);
 
                 for (String keyword : keywordStrings) {
-                    editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                       keyword);
+                    editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
                 }
 
                 if (keywordStrings.size() > 1) {
@@ -106,33 +102,27 @@ public final class KeywordsHelper {
      * Inserts into the Database a Dublin Core keyword via user input.
      */
     public static void insertDcSubject() {
-        String dcSubject = MessageDisplayer.input(
-                               "KeywordsHelper.Input.InsertDcSubject", "",
+        String dcSubject = MessageDisplayer.input("KeywordsHelper.Input.InsertDcSubject", "",
                                "KeywordsHelper.Input.InsertDcSubject.Settings");
 
         if ((dcSubject != null) && checkExistsDcSubject(dcSubject)) {
             if (DatabaseImageFiles.INSTANCE.insertDcSubject(dcSubject)) {
                 insertDcSubjectAsKeyword(dcSubject);
             } else {
-                MessageDisplayer.error(null,
-                                       "KeywordsHelper.Error.InsertDcSubject",
-                                       dcSubject);
+                MessageDisplayer.error(null, "KeywordsHelper.Error.InsertDcSubject", dcSubject);
             }
         }
     }
 
     private static void insertDcSubjectAsKeyword(String keyword) {
         if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
-            DatabaseKeywords.INSTANCE.insert(new Keyword(null, null, keyword,
-                    true));
+            DatabaseKeywords.INSTANCE.insert(new Keyword(null, null, keyword, true));
         }
     }
 
     private static boolean checkExistsDcSubject(String dcSubject) {
         if (DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
-            MessageDisplayer.error(null,
-                                   "KeywordsHelper.Error.DcSubjectExists",
-                                   dcSubject);
+            MessageDisplayer.error(null, "KeywordsHelper.Error.DcSubjectExists", dcSubject);
 
             return false;
         }
@@ -140,8 +130,7 @@ public final class KeywordsHelper {
         return true;
     }
 
-    public static void saveKeywordsToImageFile(List<String> keywordStrings,
-            File imageFile) {
+    public static void saveKeywordsToImageFile(List<String> keywordStrings, File imageFile) {
         if (keywordStrings == null) {
             throw new NullPointerException("keywordStrings == null");
         }
@@ -159,8 +148,7 @@ public final class KeywordsHelper {
         try {
             xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
         } catch (IOException ex) {
-            Logger.getLogger(KeywordsHelper.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(KeywordsHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (xmp == null) {
@@ -168,8 +156,7 @@ public final class KeywordsHelper {
         }
 
         for (String keyword : keywordStrings) {
-            if (!xmp.containsValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                   keyword)) {
+            if (!xmp.containsValue(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
                 xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
             }
         }
@@ -189,10 +176,9 @@ public final class KeywordsHelper {
      * @param real true if only real keywords shall be added
      * @return     all keywords or empty list
      */
-    public static List<Keyword> getKeywords(DefaultMutableTreeNode node,
-            boolean real) {
-        List<Keyword>          list = new ArrayList<Keyword>();
-        DefaultMutableTreeNode n    = node;
+    public static List<Keyword> getKeywords(DefaultMutableTreeNode node, boolean real) {
+        List<Keyword> list = new ArrayList<Keyword>();
+        DefaultMutableTreeNode n = node;
 
         while (n != null) {
             Object userObject = n.getUserObject();
@@ -224,8 +210,7 @@ public final class KeywordsHelper {
      * @param real true if only real keywords shall be added
      * @return     all keywords as strings
      */
-    public static List<String> getKeywordStrings(DefaultMutableTreeNode node,
-            boolean real) {
+    public static List<String> getKeywordStrings(DefaultMutableTreeNode node, boolean real) {
         List<String> list = new ArrayList<String>();
 
         for (Keyword keyword : getKeywords(node, real)) {
@@ -256,17 +241,14 @@ public final class KeywordsHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                TreeModelKeywords model =
-                    ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-                DefaultMutableTreeNode root =
-                    (DefaultMutableTreeNode) model.getRoot();
+                TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
                 DefaultMutableTreeNode selNode = null;
 
-                for (Enumeration<DefaultMutableTreeNode> e =
-                        root.breadthFirstEnumeration();
+                for (Enumeration<DefaultMutableTreeNode> e = root.breadthFirstEnumeration();
                         (selNode == null) && e.hasMoreElements(); ) {
-                    DefaultMutableTreeNode node       = e.nextElement();
-                    Object                 userObject = node.getUserObject();
+                    DefaultMutableTreeNode node = e.nextElement();
+                    Object userObject = node.getUserObject();
 
                     if (userObject instanceof Keyword) {
                         Keyword hkw = (Keyword) userObject;
@@ -291,9 +273,8 @@ public final class KeywordsHelper {
      * @param  real    true if only real keyword names shall be added
      * @return         parent names
      */
-    public static List<String> getParentKeywordNames(Keyword keyword,
-            boolean real) {
-        List<String>  names   = new ArrayList<String>();
+    public static List<String> getParentKeywordNames(Keyword keyword, boolean real) {
+        List<String> names = new ArrayList<String>();
         List<Keyword> parents = DatabaseKeywords.INSTANCE.getParents(keyword);
 
         for (Keyword parent : parents) {
@@ -334,8 +315,7 @@ public final class KeywordsHelper {
     }
 
     private static List<TreeCellRendererKeywords> getCellRenderer() {
-        List<TreeCellRendererKeywords> renderer =
-            new ArrayList<TreeCellRendererKeywords>();
+        List<TreeCellRendererKeywords> renderer = new ArrayList<TreeCellRendererKeywords>();
 
         for (JTree tree : getKeywordTrees()) {
             TreeCellRenderer r = tree.getCellRenderer();
@@ -349,8 +329,7 @@ public final class KeywordsHelper {
     }
 
     private static List<JTree> getKeywordTrees() {
-        return Arrays.<JTree>asList(GUI.getAppPanel().getTreeEditKeywords(),
-                       GUI.getAppPanel().getTreeSelKeywords(),
+        return Arrays.<JTree>asList(GUI.getAppPanel().getTreeEditKeywords(), GUI.getAppPanel().getTreeSelKeywords(),
                        InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
@@ -365,12 +344,10 @@ public final class KeywordsHelper {
                 JList selKeywordsList = GUI.getAppPanel().getListSelKeywords();
 
                 selKeywordsList.clearSelection();
-                GUI.getAppPanel().displaySelKeywordsList(
-                    AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
+                GUI.getAppPanel().displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
 
                 if (!indices.isEmpty()) {
-                    selKeywordsList.setSelectedIndices(
-                        ArrayUtil.toIntArray(indices));
+                    selKeywordsList.setSelectedIndices(ArrayUtil.toIntArray(indices));
                     selKeywordsList.ensureIndexIsVisible(indices.get(0));
                 }
             }
@@ -433,8 +410,7 @@ public final class KeywordsHelper {
 
             imageFile.setFile(imgFile);
             imageFile.setLastmodified(imgFile.lastModified());
-            xmp.setValue(ColumnXmpLastModified.INSTANCE,
-                         sidecarFile.lastModified());
+            xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
             DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
@@ -442,7 +418,7 @@ public final class KeywordsHelper {
     }
 
     private static class DeleteDcSubject extends HelperThread {
-        private final String     dcSubject;
+        private final String dcSubject;
         private volatile boolean cancel;
 
         DeleteDcSubject(String keyword) {
@@ -454,32 +430,27 @@ public final class KeywordsHelper {
         @Override
         public void run() {
             List<File> imageFiles =
-                new ArrayList<File>(
-                    DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
-                        dcSubject));
+                new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(dcSubject));
 
             logStartDelete(dcSubject);
             progressStarted(0, 0, imageFiles.size(), null);
 
-            int size  = imageFiles.size();
+            int size = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !cancel &&!isInterrupted() && (index < size);
-                    index++) {
-                File imageFile   = imageFiles.get(index);
+            for (index = 0; !cancel &&!isInterrupted() && (index < size); index++) {
+                File imageFile = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
-                Xmp  xmp         = null;
+                Xmp xmp = null;
 
                 try {
                     xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
                 } catch (IOException ex) {
-                    Logger.getLogger(KeywordsHelper.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(KeywordsHelper.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 if (xmp != null) {
-                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                    dcSubject);
+                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
                     updateXmp(xmp, imageFile, sidecarFile);
                 }
 
@@ -491,8 +462,7 @@ public final class KeywordsHelper {
         }
 
         private static void logStartDelete(String keyword) {
-            AppLogger.logInfo(KeywordsHelper.class,
-                              "KeywordsHelper.Info.StartDelete", keyword);
+            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartDelete", keyword);
         }
 
         @Override
@@ -509,46 +479,40 @@ public final class KeywordsHelper {
 
 
     private static class RenameDcSubject extends HelperThread {
-        private final String     toName;
-        private final String     fromName;
+        private final String toName;
+        private final String fromName;
         private volatile boolean cancel;
 
         RenameDcSubject(String fromName, String toName) {
             super("JPhotoTagger: Renaming DC subject");
             this.fromName = fromName;
-            this.toName   = toName;
+            this.toName = toName;
             setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Rename"));
         }
 
         @Override
         public void run() {
-            List<File> imageFiles =
-                new ArrayList<File>(
-                    DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
-                        fromName));
+            List<File> imageFiles = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(fromName));
 
             logStartRename(fromName, toName);
             progressStarted(0, 0, imageFiles.size(), null);
 
-            int size  = imageFiles.size();
+            int size = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !cancel &&!isInterrupted() && (index < size);
-                    index++) {
-                File imageFile   = imageFiles.get(index);
+            for (index = 0; !cancel &&!isInterrupted() && (index < size); index++) {
+                File imageFile = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
-                Xmp  xmp         = null;
+                Xmp xmp = null;
 
                 try {
                     xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
                 } catch (IOException ex) {
-                    Logger.getLogger(KeywordsHelper.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(KeywordsHelper.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 if (xmp != null) {
-                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE,
-                                    fromName);
+                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, fromName);
                     xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, toName);
                     updateXmp(xmp, imageFile, sidecarFile);
                 }
@@ -569,9 +533,7 @@ public final class KeywordsHelper {
         }
 
         private static void logStartRename(String fromName, String toName) {
-            AppLogger.logInfo(KeywordsHelper.class,
-                              "KeywordsHelper.Info.StartRename", fromName,
-                              toName);
+            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartRename", fromName, toName);
         }
 
         @Override

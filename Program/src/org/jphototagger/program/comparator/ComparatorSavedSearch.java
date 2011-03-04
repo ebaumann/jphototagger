@@ -12,8 +12,7 @@ import java.util.Comparator;
  * @author Elmar Baumann
  */
 public final class ComparatorSavedSearch implements Comparator<SavedSearch> {
-    public static final ComparatorSavedSearch INSTANCE =
-        new ComparatorSavedSearch();
+    public static final ComparatorSavedSearch INSTANCE = new ComparatorSavedSearch();
 
     @Override
     public int compare(SavedSearch o1, SavedSearch o2) {

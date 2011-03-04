@@ -1,9 +1,9 @@
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import org.jphototagger.lib.componentutil.TreeUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +24,7 @@ import javax.swing.tree.TreePath;
  *
  * @author  Martin Pohlack
  */
-public abstract class ControllerKeywords
-        implements ActionListener, KeyListener {
+public abstract class ControllerKeywords implements ActionListener, KeyListener {
     private final KeywordsPanel panel;
 
     abstract protected boolean myKey(KeyEvent evt);
@@ -59,8 +58,7 @@ public abstract class ControllerKeywords
         if (myKey(evt)) {
             List<DefaultMutableTreeNode> selNodes = getSelNodes(evt);
 
-            if ((selNodes != null) &&!selNodes.isEmpty()
-                    && checkNodeCount(selNodes)) {
+            if ((selNodes != null) &&!selNodes.isEmpty() && checkNodeCount(selNodes)) {
                 localAction(selNodes);
             }
         }
@@ -70,8 +68,7 @@ public abstract class ControllerKeywords
     public void actionPerformed(ActionEvent evt) {
         List<DefaultMutableTreeNode> selNodes = getSelNodes(evt);
 
-        if ((selNodes != null) &&!selNodes.isEmpty()
-                && checkNodeCount(selNodes)) {
+        if ((selNodes != null) &&!selNodes.isEmpty() && checkNodeCount(selNodes)) {
             localAction(selNodes);
         }
     }
@@ -87,8 +84,7 @@ public abstract class ControllerKeywords
             return null;
         }
 
-        List<DefaultMutableTreeNode> selNodes =
-            new ArrayList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
 
         for (TreePath selPath : selPaths) {
             Object node = selPath.getLastPathComponent();
@@ -113,8 +109,7 @@ public abstract class ControllerKeywords
                 return null;
             }
 
-            List<DefaultMutableTreeNode> selNodes =
-                new ArrayList<DefaultMutableTreeNode>();
+            List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
 
             for (TreePath selPath : tree.getSelectionPaths()) {
                 Object node = selPath.getLastPathComponent();
@@ -161,9 +156,7 @@ public abstract class ControllerKeywords
                     DefaultMutableTreeNode node = nodes.get(j);
 
                     if (TreeUtil.isAbove(parent, node)) {
-                        MessageDisplayer.error(
-                            null,
-                            "ControllerDeleteKeywords.Tree.Error.IsChild");
+                        MessageDisplayer.error(null, "ControllerDeleteKeywords.Tree.Error.IsChild");
 
                         return false;
                     }
@@ -176,8 +169,7 @@ public abstract class ControllerKeywords
 
     private boolean checkNodeCount(Collection<DefaultMutableTreeNode> coll) {
         if (!canHandleMultipleNodes() && (coll.size() > 1)) {
-            MessageDisplayer.error(null,
-                                   "ControllerKeywords.Error.MultiSelection");
+            MessageDisplayer.error(null, "ControllerKeywords.Error.MultiSelection");
 
             return false;
         }

@@ -30,18 +30,14 @@ import javax.swing.JPanel;
  * @author Elmar Baumann
  */
 public final class SelectObjectsPanel extends JPanel implements ActionListener {
-    private static final long            serialVersionUID =
-        -273547657004917436L;
-    private static final String          DELIM_SEL_INDICES = ",";
-    private final List<JCheckBox>        checkBoxes =
-        new ArrayList<JCheckBox>();
-    private final Map<JCheckBox, Object> objectOfCheckBox =
-        new LinkedHashMap<JCheckBox, Object>();
-    private final Set<SelectionListener> listeners =
-        new CopyOnWriteArraySet<SelectionListener>();
-    private String     keySelIndices;
+    private static final long serialVersionUID = -273547657004917436L;
+    private static final String DELIM_SEL_INDICES = ",";
+    private final List<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
+    private final Map<JCheckBox, Object> objectOfCheckBox = new LinkedHashMap<JCheckBox, Object>();
+    private final Set<SelectionListener> listeners = new CopyOnWriteArraySet<SelectionListener>();
+    private String keySelIndices;
     private Properties properties;
-    private int        componentCount;
+    private int componentCount;
 
     public SelectObjectsPanel() {
         init();
@@ -68,7 +64,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
             throw new NullPointerException("keySelIndices == null");
         }
 
-        this.properties    = properties;
+        this.properties = properties;
         this.keySelIndices = keySelIndices;
         init();
     }
@@ -79,7 +75,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     public static class SelectionEvent {
         private final Object selectedObject;
-        private final int    selectionCount;
+        private final int selectionCount;
 
         public SelectionEvent(Object selectedObject, int selectionCount) {
             this.selectedObject = selectedObject;
@@ -171,7 +167,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * @see                 #applyPropertiesSelectedIndices()
      */
     public void setProperties(Properties properties, String keySelIndices) {
-        this.properties    = properties;
+        this.properties = properties;
         this.keySelIndices = keySelIndices;
     }
 
@@ -215,10 +211,10 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private GridBagConstraints getGbcCheckBox() {
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridx   = GridBagConstraints.REMAINDER;
-        gbc.gridy   = GridBagConstraints.RELATIVE;
-        gbc.anchor  = GridBagConstraints.NORTHWEST;
-        gbc.fill    = GridBagConstraints.NONE;
+        gbc.gridx = GridBagConstraints.REMAINDER;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 1;
 
         if ((componentCount > 0) && (checkBoxes.size() == componentCount)) {
@@ -229,8 +225,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     public List<Object> getSelectedObjects() {
-        List<Object> selObjects =
-            new ArrayList<Object>(objectOfCheckBox.size());
+        List<Object> selObjects = new ArrayList<Object>(objectOfCheckBox.size());
 
         for (JCheckBox checkBox : objectOfCheckBox.keySet()) {
             if (checkBox.isSelected()) {
@@ -250,18 +245,15 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
             return;
         }
 
-        StringTokenizer st =
-            new StringTokenizer(properties.getProperty(keySelIndices),
-                                DELIM_SEL_INDICES);
+        StringTokenizer st = new StringTokenizer(properties.getProperty(keySelIndices), DELIM_SEL_INDICES);
         int[] indices = new int[st.countTokens()];
-        int   i       = 0;
+        int i = 0;
 
         while (st.hasMoreElements()) {
             try {
                 indices[i++] = Integer.parseInt(st.nextToken());
             } catch (NumberFormatException ex) {
-                Logger.getLogger(SelectObjectsPanel.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(SelectObjectsPanel.class.getName()).log(Level.SEVERE, null, ex);
 
                 return;
             }
@@ -304,8 +296,8 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
             return;
         }
 
-        int           size = checkBoxes.size();
-        StringBuilder sb   = new StringBuilder();
+        int size = checkBoxes.size();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < size; i++) {
             if (checkBoxes.get(i).isSelected()) {

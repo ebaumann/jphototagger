@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jphototagger.program.controller.keywords.tree
-    .ControllerDeleteKeywordFromEditPanel;
+import org.jphototagger.program.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -19,8 +18,7 @@ import javax.swing.JMenuItem;
  *
  * @author Elmar Baumann
  */
-public final class ControllerDeleteKeywordsFromEditPanel
-        extends ControllerKeywords {
+public final class ControllerDeleteKeywordsFromEditPanel extends ControllerKeywords {
     public ControllerDeleteKeywordsFromEditPanel() {
         listenToActionsOf(getMenuItem());
     }
@@ -35,13 +33,11 @@ public final class ControllerDeleteKeywordsFromEditPanel
             throw new NullPointerException("keywords == null");
         }
 
-        EditMetadataPanels editPanels =
-            GUI.getAppPanel().getEditMetadataPanels();
+        EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
 
         if (editPanels.isEditable()) {
             ControllerDeleteKeywordFromEditPanel ctrl =
-                ControllerFactory.INSTANCE.getController(
-                    ControllerDeleteKeywordFromEditPanel.class);
+                ControllerFactory.INSTANCE.getController(ControllerDeleteKeywordFromEditPanel.class);
 
             for (String keyword : keywords) {
                 ctrl.removeFromEditPanel(keyword);

@@ -33,17 +33,17 @@ public final class DatabaseStatistics extends Database {
             throw new NullPointerException("column == null");
         }
 
-        int        count = -1;
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        int count = -1;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getTablename()
-                         + " WHERE " + column.getName() + " IS NOT NULL";
+            String sql = "SELECT COUNT(*) FROM " + column.getTablename() + " WHERE " + column.getName()
+                         + " IS NOT NULL";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -67,13 +67,13 @@ public final class DatabaseStatistics extends Database {
      * @return Dateianzahl oder -1 bei Fehlern
      */
     public int getFileCount() {
-        int        count = -1;
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        int count = -1;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
             String sql = "SELECT COUNT(*) FROM files";
@@ -100,18 +100,16 @@ public final class DatabaseStatistics extends Database {
      * @return Dateianzahl oder -1 bei Fehlern
      */
     public int getXmpCount() {
-        int        count = -1;
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        int count = -1;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
-            String sql =
-                "SELECT COUNT(*)"
-                + " FROM xmp LEFT JOIN files ON xmp.id_file = files.id";
+            String sql = "SELECT COUNT(*)" + " FROM xmp LEFT JOIN files ON xmp.id_file = files.id";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -141,10 +139,10 @@ public final class DatabaseStatistics extends Database {
             throw new NullPointerException("columns == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -154,8 +152,7 @@ public final class DatabaseStatistics extends Database {
             for (int i = 0; !exists && (i < size); i++) {
                 Column column = columns.get(i);
 
-                stmt = con.prepareStatement("SELECT COUNT(*) FROM "
-                                            + column.getTablename() + " WHERE "
+                stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() + " WHERE "
                                             + column.getName() + " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
@@ -190,16 +187,15 @@ public final class DatabaseStatistics extends Database {
             throw new NullPointerException("column == null");
         }
 
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM "
-                                        + column.getTablename() + " WHERE "
-                                        + column.getName() + " = ?");
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() + " WHERE " + column.getName()
+                                        + " = ?");
             stmt.setString(1, value);
             logFinest(stmt);
             rs = stmt.executeQuery();

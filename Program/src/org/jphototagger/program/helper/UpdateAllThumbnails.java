@@ -21,12 +21,10 @@ import java.util.Set;
  *
  * @author Elmar Baumann
  */
-public final class UpdateAllThumbnails
-        implements Runnable, ProgressListener, ActionListener {
-    private ProgressDialog            progressDialog;
-    private boolean                   cancel;
-    private final Set<ActionListener> actionListeners =
-        new HashSet<ActionListener>();
+public final class UpdateAllThumbnails implements Runnable, ProgressListener, ActionListener {
+    private ProgressDialog progressDialog;
+    private boolean cancel;
+    private final Set<ActionListener> actionListeners = new HashSet<ActionListener>();
 
     /**
      * Adds an action listener. It will be notified when the work is done.
@@ -48,11 +46,8 @@ public final class UpdateAllThumbnails
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(GUI.getAppFrame());
-        progressDialog.setTitle(
-            JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.Title"));
-        progressDialog.setInfoText(
-            JptBundle.INSTANCE.getString(
-                "UpdateAllThumbnails.Dialog.InfoText"));
+        progressDialog.setTitle(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.Title"));
+        progressDialog.setInfoText(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);
         progressDialog.addWindowListener(new SizeAndLocationController());
         progressDialog.setVisible(true);
@@ -67,24 +62,22 @@ public final class UpdateAllThumbnails
     @Override
     public void progressStarted(final ProgressEvent evt) {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-        setProgressDialogStarted(evt);
-        checkCancel(evt);
-    }
+                setProgressDialogStarted(evt);
+                checkCancel(evt);
+            }
         });
     }
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-        setProgressDialogPerformed(evt);
-        checkCancel(evt);
-    }
+                setProgressDialogPerformed(evt);
+                checkCancel(evt);
+            }
         });
     }
 
@@ -98,10 +91,10 @@ public final class UpdateAllThumbnails
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        progressDialog.setValue(evt.getValue());
-        progressDialog.setVisible(false);
-        progressDialog.dispose();
-    }
+                progressDialog.setValue(evt.getValue());
+                progressDialog.setVisible(false);
+                progressDialog.dispose();
+            }
         });
     }
 
@@ -109,10 +102,9 @@ public final class UpdateAllThumbnails
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        progressDialog.setValue(evt.getValue());
-                progressDialog.setCurrentProgressInfoText(
-                    evt.getInfo().toString());
-    }
+                progressDialog.setValue(evt.getValue());
+                progressDialog.setCurrentProgressInfoText(evt.getInfo().toString());
+            }
         });
     }
 
@@ -120,10 +112,10 @@ public final class UpdateAllThumbnails
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        progressDialog.setMinimum(evt.getMinimum());
-        progressDialog.setMaximum(evt.getMaximum());
-        progressDialog.setValue(evt.getValue());
-    }
+                progressDialog.setMinimum(evt.getMinimum());
+                progressDialog.setMaximum(evt.getMaximum());
+                progressDialog.setValue(evt.getValue());
+            }
         });
     }
 
@@ -133,8 +125,7 @@ public final class UpdateAllThumbnails
     }
 
     private void logUpdateAllThumbnails() {
-        AppLogger.logInfo(UpdateAllThumbnails.class,
-                          "UpdateAllThumbnails.Info.StartUpdate");
+        AppLogger.logInfo(UpdateAllThumbnails.class, "UpdateAllThumbnails.Info.StartUpdate");
     }
 
     private synchronized void notifyActionPerformed() {

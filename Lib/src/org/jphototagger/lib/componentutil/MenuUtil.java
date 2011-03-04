@@ -88,9 +88,9 @@ public final class MenuUtil {
             throw new NullPointerException("item == null");
         }
 
-        String itemText       = item.getText();
-        int    itemTextLength = itemText.length();
-        int    ampersandIndex = itemText.indexOf(AMPERSAND);
+        String itemText = item.getText();
+        int itemTextLength = itemText.length();
+        int ampersandIndex = itemText.indexOf(AMPERSAND);
 
         if ((ampersandIndex >= 0) && (ampersandIndex < itemTextLength - 1)) {
             if (SystemUtil.isMac()) {
@@ -101,24 +101,20 @@ public final class MenuUtil {
         }
     }
 
-    private static void removeAmpersandSetMnemonic(JMenuItem item,
-            String itemText, int ampersandIndex) {
-        char   mnemonic       = itemText.charAt(ampersandIndex + 1);
-        int    itemTextLength = itemText.length();
-        String text = itemText.substring(0, ampersandIndex)
-                      + itemText.substring(ampersandIndex + 1, itemTextLength);
+    private static void removeAmpersandSetMnemonic(JMenuItem item, String itemText, int ampersandIndex) {
+        char mnemonic = itemText.charAt(ampersandIndex + 1);
+        int itemTextLength = itemText.length();
+        String text = itemText.substring(0, ampersandIndex) + itemText.substring(ampersandIndex + 1, itemTextLength);
 
         item.setText(text);
         item.setMnemonic(mnemonic);
     }
 
-    private static void removeAmpersand(JMenuItem item, String itemText,
-            int ampersandIndex) {
+    private static void removeAmpersand(JMenuItem item, String itemText, int ampersandIndex) {
         if (ampersandIndex == 0) {
             item.setText(itemText.substring(1));
         } else {
-            item.setText(itemText.substring(0, ampersandIndex)
-                         + itemText.substring(ampersandIndex + 1));
+            item.setText(itemText.substring(0, ampersandIndex) + itemText.substring(ampersandIndex + 1));
         }
     }
 }

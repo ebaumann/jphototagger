@@ -25,7 +25,7 @@ import java.io.FileFilter;
  */
 public final class TerminateFactory {
     static final TerminateFactory INSTANCE = new TerminateFactory();
-    private volatile boolean      init     = false;
+    private volatile boolean init = false;
 
     void init() {
         synchronized (this) {
@@ -55,18 +55,16 @@ public final class TerminateFactory {
 
     private void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
-            ControllerFactory.INSTANCE.getController(
-                ControllerFastSearch.class).setAutocomplete(true);
+            ControllerFactory.INSTANCE.getController(ControllerFastSearch.class).setAutocomplete(true);
         }
     }
 
     private void checkImportImageFiles() {
-        AppCommandLineOptions cmdLineOptions =
-            AppInit.INSTANCE.getCommandLineOptions();
+        AppCommandLineOptions cmdLineOptions = AppInit.INSTANCE.getCommandLineOptions();
 
         if (cmdLineOptions.isImportImageFiles()) {
             String dirName = cmdLineOptions.getFileImportDir();
-            File   dir     = null;
+            File dir = null;
 
             if ((dirName != null) && FileUtil.existsDirectory(dirName)) {
                 dir = new File(dirName);
@@ -77,16 +75,14 @@ public final class TerminateFactory {
     }
 
     private void setTnPanelFileFilter() {
-        ComboBoxModelFileFilters model =
-            ModelFactory.INSTANCE.getModel(ComboBoxModelFileFilters.class);
-        Object          selItem = model.getSelectedItem();
+        ComboBoxModelFileFilters model = ModelFactory.INSTANCE.getModel(ComboBoxModelFileFilters.class);
+        Object selItem = model.getSelectedItem();
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (selItem instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) selItem);
         } else if (selItem instanceof UserDefinedFileFilter) {
-            tnPanel.setFileFilter(
-                ((UserDefinedFileFilter) selItem).getFileFilter());
+            tnPanel.setFileFilter(((UserDefinedFileFilter) selItem).getFileFilter());
         }
     }
 }

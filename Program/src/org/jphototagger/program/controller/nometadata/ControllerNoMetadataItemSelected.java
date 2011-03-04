@@ -24,8 +24,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Elmar Baumann Elmar Baumann
  */
-public final class ControllerNoMetadataItemSelected
-        implements ListSelectionListener {
+public final class ControllerNoMetadataItemSelected implements ListSelectionListener {
     public ControllerNoMetadataItemSelected() {
         listen();
     }
@@ -47,9 +46,7 @@ public final class ControllerNoMetadataItemSelected
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
         if (selValue instanceof Column) {
-            List<File> imageFiles =
-                DatabaseImageFiles.INSTANCE.getImageFilesWithoutMetadataIn(
-                    (Column) selValue);
+            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWithoutMetadataIn((Column) selValue);
 
             setTitle((Column) selValue);
 
@@ -64,7 +61,6 @@ public final class ControllerNoMetadataItemSelected
     private void setTitle(Column column) {
         GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
-                "ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata",
-                column.getDescription()));
+                "ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", column.getDescription()));
     }
 }

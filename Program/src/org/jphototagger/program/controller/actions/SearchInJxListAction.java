@@ -1,11 +1,14 @@
 package org.jphototagger.program.controller.actions;
 
+import org.jdesktop.swingx.JXList;
+
+import org.jphototagger.program.resource.JptBundle;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
-import org.jdesktop.swingx.JXList;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Performs the action "find" of a {@link JXList}'s action map.
@@ -14,7 +17,6 @@ import org.jphototagger.program.resource.JptBundle;
  */
 public final class SearchInJxListAction extends AbstractAction {
     private static final long serialVersionUID = -1674416888249161901L;
-
     private final JXList list;
 
     public SearchInJxListAction(JXList list) {
@@ -36,5 +38,4 @@ public final class SearchInJxListAction extends AbstractAction {
             action.actionPerformed(new ActionEvent(list, 0, "find"));
         }
     }
-
 }

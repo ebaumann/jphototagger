@@ -21,8 +21,7 @@ public final class Util {
      *              collection
      * @throws      NullPointerException if pairs is null
      */
-    public static <A, B> List<? extends A> firstOfPairs(
-            Collection<Pair<? extends A, ? extends B>> pairs) {
+    public static <A, B> List<? extends A> firstOfPairs(Collection<Pair<? extends A, ? extends B>> pairs) {
         if (pairs == null) {
             throw new NullPointerException("pairs == null");
         }
@@ -46,8 +45,7 @@ public final class Util {
      *              collection
      * @throws      NullPointerException if pairs is null
      */
-    public static <A, B> List<? extends B> secondOfPairs(
-            Collection<Pair<? extends A, ? extends B>> pairs) {
+    public static <A, B> List<? extends B> secondOfPairs(Collection<Pair<? extends A, ? extends B>> pairs) {
         if (pairs == null) {
             throw new NullPointerException("pairs == null");
         }

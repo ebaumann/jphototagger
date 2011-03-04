@@ -11,8 +11,8 @@ import javax.swing.DefaultListModel;
  * @author Elmar Baumann
  */
 public final class ListModelWait extends DefaultListModel {
-    private static final long         serialVersionUID = 1363478529337093293L;
-    public static final ListModelWait INSTANCE         = new ListModelWait();
+    private static final long serialVersionUID = 1363478529337093293L;
+    public static final ListModelWait INSTANCE = new ListModelWait();
 
     public ListModelWait() {
         addElement(JptBundle.INSTANCE.getString("ListModelWait.ItemText"));

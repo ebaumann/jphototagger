@@ -1,8 +1,8 @@
 package org.jphototagger.program.importer;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.exporter.KeywordsExporterJpt;
-import org.jphototagger.lib.generics.Pair;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -34,10 +34,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
  *
  * @author Elmar Baumann
  */
-public final class KeywordsImporterJpt extends KeywordsImporter
-        implements EntityResolver {
-    public static final KeywordsImporterJpt INSTANCE =
-        new KeywordsImporterJpt();
+public final class KeywordsImporterJpt extends KeywordsImporter implements EntityResolver {
+    public static final KeywordsImporterJpt INSTANCE = new KeywordsImporterJpt();
 
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
@@ -46,15 +44,13 @@ public final class KeywordsImporterJpt extends KeywordsImporter
         }
 
         try {
-            DocumentBuilderFactory docFactory =
-                DocumentBuilderFactory.newInstance();
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
             docBuilder.setEntityResolver(this);
 
             Document doc = docBuilder.parse(file);
-            NodeList nl  =
-                doc.getElementsByTagName(KeywordsExporterJpt.TAGNAME_ROOT);
+            NodeList nl = doc.getElementsByTagName(KeywordsExporterJpt.TAGNAME_ROOT);
 
             if (nl.getLength() > 0) {
                 return getPaths(nl.item(0));
@@ -67,9 +63,8 @@ public final class KeywordsImporterJpt extends KeywordsImporter
     }
 
     private List<List<Pair<String, Boolean>>> getPaths(Node rootNode) {
-        List<List<Pair<String, Boolean>>> paths =
-            new ArrayList<List<Pair<String, Boolean>>>();
-        List<Node>        leafs      = getAllLeafs(rootNode);
+        List<List<Pair<String, Boolean>>> paths = new ArrayList<List<Pair<String, Boolean>>>();
+        List<Node> leafs = getAllLeafs(rootNode);
         List<Stack<Node>> pathStacks = new ArrayList<Stack<Node>>();
 
         for (Node leaf : leafs) {
@@ -81,8 +76,7 @@ public final class KeywordsImporterJpt extends KeywordsImporter
         }
 
         for (Stack<Node> stack : pathStacks) {
-            List<Pair<String, Boolean>> path = new ArrayList<Pair<String,
-                                                   Boolean>>(stack.size());
+            List<Pair<String, Boolean>> path = new ArrayList<Pair<String, Boolean>>(stack.size());
 
             while (!stack.isEmpty()) {
                 path.add(getKeyword(stack.pop()));
@@ -96,13 +90,9 @@ public final class KeywordsImporterJpt extends KeywordsImporter
 
     private Pair<String, Boolean> getKeyword(Node node) {
         NamedNodeMap attr = node.getAttributes();
-        String       name =
-            attr.getNamedItem(
-                KeywordsExporterJpt.ATTRIBUTE_NAME).getNodeValue();
-        Boolean real =
-            attr.getNamedItem(
-                KeywordsExporterJpt.ATTRIBUTE_TYPE).getNodeValue().equals(
-                KeywordsExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
+        String name = attr.getNamedItem(KeywordsExporterJpt.ATTRIBUTE_NAME).getNodeValue();
+        Boolean real = attr.getNamedItem(KeywordsExporterJpt.ATTRIBUTE_TYPE).getNodeValue().equals(
+                           KeywordsExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
 
         return new Pair<String, Boolean>(name, real);
     }
@@ -110,18 +100,16 @@ public final class KeywordsImporterJpt extends KeywordsImporter
     private void pushParents(Stack<Node> nodes, Node node) {
         Node parent = node.getParentNode();
 
-        if ((parent != null)
-                &&!parent.getNodeName().equals(
-                    KeywordsExporterJpt.TAGNAME_ROOT)) {
+        if ((parent != null) &&!parent.getNodeName().equals(KeywordsExporterJpt.TAGNAME_ROOT)) {
             nodes.push(parent);
             pushParents(nodes, parent);    // recursive
         }
     }
 
     private List<Node> getAllLeafs(Node rootNode) {
-        List<Node> leafs  = new ArrayList<Node>();
-        NodeList   nl     = rootNode.getChildNodes();
-        int        length = nl.getLength();
+        List<Node> leafs = new ArrayList<Node>();
+        NodeList nl = rootNode.getChildNodes();
+        int length = nl.getLength();
 
         for (int i = 0; i < length; i++) {
             addLeaf(leafs, nl.item(i));
@@ -135,8 +123,8 @@ public final class KeywordsImporterJpt extends KeywordsImporter
             return;
         }
 
-        NodeList nl     = node.getChildNodes();
-        int      length = nl.getLength();
+        NodeList nl = node.getChildNodes();
+        int length = nl.getLength();
 
         if (length <= 0) {
             leafs.add(node);
@@ -170,15 +158,13 @@ public final class KeywordsImporterJpt extends KeywordsImporter
     }
 
     @Override
-    public InputSource resolveEntity(String publicId, String systemId)
-            throws SAXException, IOException {
-
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         if (systemId == null) {
             throw new NullPointerException("systemId == null");
         }
 
         InputStream stream = null;
-        String      dtd    = KeywordsExporterJpt.DTD;
+        String dtd = KeywordsExporterJpt.DTD;
 
         if (systemId.endsWith(dtd)) {
             String name = "/org/jphototagger/program/resource/dtd/" + dtd;

@@ -1,5 +1,8 @@
 package org.jphototagger.program.image.metadata.exif.formatter.nikon;
 
+import org.jphototagger.lib.generics.Pair;
+import org.jphototagger.lib.util.ArrayUtil;
+import org.jphototagger.lib.util.RegexUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifLong;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
@@ -7,9 +10,6 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifShort;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.formatter.ExifRawValueFormatter;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.util.ArrayUtil;
-import org.jphototagger.lib.util.RegexUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -39,16 +39,14 @@ import java.util.StringTokenizer;
  * @author Elmar Baumann
  */
 public final class NikonMakerNote {
-    private final String                 description;
-    private final String                 exifTagMatchPattern;
-    private final int                    exifMatchTagId;
-    private final ResourceBundle         bundle;
-    private final int                    byteOffsetToTiffHeader;
-    private final byte[][]               magicBytePatterns;
-    private final List<MakerNoteTagInfo> makerNoteTagInfos =
-        new ArrayList<MakerNoteTagInfo>();
-    private final List<Pair<Integer, Integer>> equalTagIdsInExifIfd =
-        new ArrayList<Pair<Integer, Integer>>();
+    private final String description;
+    private final String exifTagMatchPattern;
+    private final int exifMatchTagId;
+    private final ResourceBundle bundle;
+    private final int byteOffsetToTiffHeader;
+    private final byte[][] magicBytePatterns;
+    private final List<MakerNoteTagInfo> makerNoteTagInfos = new ArrayList<MakerNoteTagInfo>();
+    private final List<Pair<Integer, Integer>> equalTagIdsInExifIfd = new ArrayList<Pair<Integer, Integer>>();
 
     /**
      *
@@ -66,16 +64,13 @@ public final class NikonMakerNote {
      *                                  be formatted into an integer value
      */
     NikonMakerNote(ResourceBundle bundle) throws MissingResourceException {
-        this.bundle                 = bundle;
-        this.description            = bundle.getString("Description");
-        this.exifTagMatchPattern    = bundle.getString("MatchTagPattern");
-        this.exifMatchTagId         =
-            Integer.parseInt(bundle.getString("MatchTag"));
-        this.byteOffsetToTiffHeader =
-            Integer.parseInt(bundle.getString("ByteOffsetToTiffHeader"));
+        this.bundle = bundle;
+        this.description = bundle.getString("Description");
+        this.exifTagMatchPattern = bundle.getString("MatchTagPattern");
+        this.exifMatchTagId = Integer.parseInt(bundle.getString("MatchTag"));
+        this.byteOffsetToTiffHeader = Integer.parseInt(bundle.getString("ByteOffsetToTiffHeader"));
 
-        StringTokenizer tokenizerAllPatterns =
-            new StringTokenizer(bundle.getString("MagicBytePatterns"), ";");
+        StringTokenizer tokenizerAllPatterns = new StringTokenizer(bundle.getString("MagicBytePatterns"), ";");
         int countMagicBytePatterns = tokenizerAllPatterns.countTokens();
 
         if (countMagicBytePatterns > 0) {
@@ -93,22 +88,19 @@ public final class NikonMakerNote {
         int indexMagicBytePatterns = 0;
 
         while (tokenizerAllPatterns.hasMoreTokens()) {
-            StringTokenizer tokenizer =
-                new StringTokenizer(tokenizerAllPatterns.nextToken(), ",");
-            int    tokenCount = tokenizer.countTokens();
-            int    tokenIndex = 0;
-            byte[] byteArray  = null;
+            StringTokenizer tokenizer = new StringTokenizer(tokenizerAllPatterns.nextToken(), ",");
+            int tokenCount = tokenizer.countTokens();
+            int tokenIndex = 0;
+            byte[] byteArray = null;
 
             if (tokenCount <= 0) {
-                throw new IllegalArgumentException(
-                    "Ivalid magic byte pattern definition!");
+                throw new IllegalArgumentException("Ivalid magic byte pattern definition!");
             }
 
             byteArray = new byte[tokenCount];
 
             while (tokenizer.hasMoreTokens()) {
-                byteArray[tokenIndex++] = Byte.parseByte(tokenizer.nextToken(),
-                        16);
+                byteArray[tokenIndex++] = Byte.parseByte(tokenizer.nextToken(), 16);
             }
 
             magicBytePatterns[indexMagicBytePatterns++] = byteArray;
@@ -141,8 +133,7 @@ public final class NikonMakerNote {
 
             if (makerNoteRawValue.length > bytes.length) {
                 cmpBytes = new byte[bytes.length];
-                System.arraycopy(makerNoteRawValue, 0, cmpBytes, 0,
-                                 bytes.length);
+                System.arraycopy(makerNoteRawValue, 0, cmpBytes, 0, bytes.length);
             }
 
             if (ArrayUtil.byteArraysEquals(bytes, cmpBytes)) {
@@ -174,8 +165,7 @@ public final class NikonMakerNote {
 
     @SuppressWarnings("unchecked")
     List<ExifTag> getDisplayableMakerNotesOf(List<ExifTag> makerNoteTags)
-            throws NoSuchMethodException, InstantiationException,
-                   IllegalAccessException, IllegalArgumentException,
+            throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException,
                    InvocationTargetException {
         List<ExifTag> displayableTags = new ArrayList<ExifTag>();
 
@@ -183,49 +173,34 @@ public final class NikonMakerNote {
             int pos = indexOf(exifTag.idValue(), makerNoteTagInfos);
 
             if (pos >= 0) {
-                MakerNoteTagInfo info              = makerNoteTagInfos.get(pos);
-                byte[]           rawValue          = exifTag.rawValue();
-                int              offset            = info.rawValueOffset;
-                int              bytesToRead       = info.readAllBytes()
-                        ? rawValue.length - offset
-                        : info.bytesToRead;
-                byte[]           rawValueMakerNote = new byte[bytesToRead];
+                MakerNoteTagInfo info = makerNoteTagInfos.get(pos);
+                byte[] rawValue = exifTag.rawValue();
+                int offset = info.rawValueOffset;
+                int bytesToRead = info.readAllBytes()
+                                  ? rawValue.length - offset
+                                  : info.bytesToRead;
+                byte[] rawValueMakerNote = new byte[bytesToRead];
 
-                System.arraycopy(rawValue, offset, rawValueMakerNote, 0,
-                                 bytesToRead);
+                System.arraycopy(rawValue, offset, rawValueMakerNote, 0, bytesToRead);
 
                 Class<?> dataTypeClass = info.exifDataTypeClass;
-                Object   dataType      = null;
+                Object dataType = null;
 
                 if (requiresByteOrder(dataTypeClass)) {
-                    Constructor<?> c =
-                        dataTypeClass.getConstructor(byte[].class,
-                                                     ByteOrder.class);
+                    Constructor<?> c = dataTypeClass.getConstructor(byte[].class, ByteOrder.class);
 
-                    dataType = c.newInstance(rawValueMakerNote,
-                                             exifTag.byteOrder());
+                    dataType = c.newInstance(rawValueMakerNote, exifTag.byteOrder());
                 } else {
-                    Constructor<?> c =
-                        dataTypeClass.getConstructor(byte[].class);
+                    Constructor<?> c = dataTypeClass.getConstructor(byte[].class);
 
                     dataType = c.newInstance(rawValueMakerNote);
                 }
 
-                ExifTag makerNoteTag = new ExifTag(exifTag.idValue(),
-                                                   exifTag.dataType().value(),
-                                                   exifTag.valueCount(),
-                                                   exifTag.valueOffset(),
-                                                   rawValueMakerNote,
-                                                   info.hasFormatterClass()
-                                                   ? format(
-                                                       info.exifFormatterClass,
-                                                       exifTag)
-                                                   : dataType.toString()
-                                                       .trim(), exifTag
-                                                           .byteOrderId(), bundle
-                                                           .getString(info
-                                                               .tagNameBundleKey), exifTag
-                                                                   .ifdType());
+                ExifTag makerNoteTag = new ExifTag(exifTag.idValue(), exifTag.dataType().value(), exifTag.valueCount(),
+                                                   exifTag.valueOffset(), rawValueMakerNote, info.hasFormatterClass()
+                        ? format(info.exifFormatterClass, exifTag)
+                        : dataType.toString().trim(), exifTag.byteOrderId(), bundle.getString(info.tagNameBundleKey),
+                            exifTag.ifdType());
 
                 displayableTags.add(makerNoteTag);
             }
@@ -250,8 +225,7 @@ public final class NikonMakerNote {
 
     private String format(Class<?> formatterClass, ExifTag exifTag)
             throws InstantiationException, IllegalAccessException {
-        ExifRawValueFormatter formatter =
-            (ExifRawValueFormatter) formatterClass.newInstance();
+        ExifRawValueFormatter formatter = (ExifRawValueFormatter) formatterClass.newInstance();
 
         return formatter.format(exifTag);
     }
@@ -275,16 +249,14 @@ public final class NikonMakerNote {
 
         for (String key : keys) {
             try {
-                makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key),
-                        bundle.getString(key)));
+                makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key), bundle.getString(key)));
             } catch (Exception ex) {
                 AppLogger.logSevere(NikonMakerNote.class, ex);
             }
         }
     }
 
-    private static final Collection<Class<?>> BYTE_ORDER_CLASSES =
-        new HashSet<Class<?>>();
+    private static final Collection<Class<?>> BYTE_ORDER_CLASSES = new HashSet<Class<?>>();
 
     static {
         BYTE_ORDER_CLASSES.add(ExifShort.class);
@@ -299,33 +271,29 @@ public final class NikonMakerNote {
     private void setTagIdsEqualInExifIfd() {
         for (MakerNoteTagInfo info : makerNoteTagInfos) {
             if (info.equalsToExifTag()) {
-                equalTagIdsInExifIfd.add(new Pair<Integer,
-                                                  Integer>(info.tagIdValue,
-                                                      info.equalsToExifTagId));
+                equalTagIdsInExifIfd.add(new Pair<Integer, Integer>(info.tagIdValue, info.equalsToExifTagId));
             }
         }
     }
 
     private static class MakerNoteTagInfo {
         private final int tagIdValue;
-        private int       rawValueOffset;
-        private int       bytesToRead = -1;
-        private Class<?>  exifDataTypeClass;
-        private Class<?>  exifFormatterClass;
-        private String    tagNameBundleKey;
-        private int       equalsToExifTagId = -1;
+        private int rawValueOffset;
+        private int bytesToRead = -1;
+        private Class<?> exifDataTypeClass;
+        private Class<?> exifFormatterClass;
+        private String tagNameBundleKey;
+        private int equalsToExifTagId = -1;
 
-        public MakerNoteTagInfo(int tagIndex, String propertyValue)
-                throws ClassNotFoundException {
-            this.tagIdValue  = tagIndex;
-            tagNameBundleKey = "Tag" + Integer.toString(tagIndex)
-                               + "DisplayName";
+        public MakerNoteTagInfo(int tagIndex, String propertyValue) throws ClassNotFoundException {
+            this.tagIdValue = tagIndex;
+            tagNameBundleKey = "Tag" + Integer.toString(tagIndex) + "DisplayName";
             init(propertyValue);
         }
 
         private void init(String propertyValue) throws ClassNotFoundException {
-            StringTokenizer st    = new StringTokenizer(propertyValue, ";");
-            int             index = 0;
+            StringTokenizer st = new StringTokenizer(propertyValue, ";");
+            int index = 0;
 
             while (st.hasMoreTokens()) {
                 String token = st.nextToken().trim();

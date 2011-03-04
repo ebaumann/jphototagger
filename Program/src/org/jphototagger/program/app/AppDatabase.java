@@ -1,12 +1,12 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseTables;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.IOException;
 
@@ -45,8 +45,7 @@ public final class AppDatabase {
 
     private static void checkDatabaseVersion() {
         if (DatabaseMetadata.isDatabaseOfNewerVersion()) {
-            MessageDisplayer.error(null, "AppDatabase.Error.NewerDbVersion",
-                                   DatabaseMetadata.getDatabaseAppVersion(),
+            MessageDisplayer.error(null, "AppDatabase.Error.NewerDbVersion", DatabaseMetadata.getDatabaseAppVersion(),
                                    AppInfo.APP_VERSION);
             AppLifeCycle.quitBeforeGuiWasCreated();
         }
@@ -65,7 +64,6 @@ public final class AppDatabase {
     }
 
     private static void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("AppDatabase.Info.ConnectToDatabase"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("AppDatabase.Info.ConnectToDatabase"));
     }
 }

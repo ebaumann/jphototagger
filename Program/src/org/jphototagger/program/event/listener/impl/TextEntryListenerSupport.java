@@ -8,8 +8,7 @@ import org.jphototagger.program.event.listener.TextEntryListener;
  *
  * @author Elmar Baumann
  */
-public final class TextEntryListenerSupport
-        extends ListenerSupport<TextEntryListener> {
+public final class TextEntryListenerSupport extends ListenerSupport<TextEntryListener> {
     public void notifyTextRemoved(Column column, String removedText) {
         if (column == null) {
             throw new NullPointerException("column == null");
@@ -38,8 +37,7 @@ public final class TextEntryListenerSupport
         }
     }
 
-    public void notifyTextChanged(Column column, String oldText,
-                                  String newText) {
+    public void notifyTextChanged(Column column, String oldText, String newText) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }

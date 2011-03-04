@@ -33,12 +33,13 @@ public final class ThumbnailUpdateEvent {
         if (_file == null) {
             throw new NullPointerException("_file == null");
         }
+
         if (_type == null) {
             throw new NullPointerException("_type == null");
         }
 
         source = _file;
-        type   = _type;
+        type = _type;
     }
 
     /**

@@ -17,13 +17,10 @@ import javax.swing.JPanel;
  */
 public class ImagePanel extends JPanel {
     private static final long serialVersionUID = 6103175417678650145L;
-    private Image             image;
-    private Align             align            = Align.CENTER;
+    private Image image;
+    private Align align = Align.CENTER;
 
-    public static enum Align {
-        CENTER,
-        LEFT_TOP,
-    }
+    public static enum Align { CENTER, LEFT_TOP, }
 
     /**
      * Sets the image.
@@ -46,18 +43,18 @@ public class ImagePanel extends JPanel {
     public void paint(Graphics g) {
         g.setColor(getBackground());
 
-        int width  = getWidth();
+        int width = getWidth();
         int height = getHeight();
 
         if (image != null) {
             int imgHeight = image.getHeight(this);
-            int imgWidth  = image.getWidth(this);
-            int x         = ((imgWidth < width) && align.equals(Align.CENTER)
-                             ? (width - imgWidth) / 2
-                             : 0);
-            int y         = ((imgHeight < height) && align.equals(Align.CENTER)
-                             ? (height - imgHeight) / 2
-                             : 0);
+            int imgWidth = image.getWidth(this);
+            int x = ((imgWidth < width) && align.equals(Align.CENTER)
+                     ? (width - imgWidth) / 2
+                     : 0);
+            int y = ((imgHeight < height) && align.equals(Align.CENTER)
+                     ? (height - imgHeight) / 2
+                     : 0);
 
             g.fillRect(0, 0, width, height);
             g.drawImage(image, x, y, this);

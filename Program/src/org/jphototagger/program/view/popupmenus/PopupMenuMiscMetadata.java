@@ -31,14 +31,14 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class PopupMenuMiscMetadata extends PopupMenuTree {
-    private static final long         serialVersionUID = 3228757281030616972L;
-    private static final List<Column> XMP_COLUMNS      = XmpColumns.get();
-    private JMenuItem                 itemAddToEditPanel;
-    private JMenuItem                 itemCollapseAllSubitems;
-    private JMenuItem                 itemDelete;
-    private JMenuItem                 itemExpandAllSubitems;
-    private JMenuItem                 itemRemoveFromEditPanel;
-    private JMenuItem                 itemRename;
+    private static final long serialVersionUID = 3228757281030616972L;
+    private static final List<Column> XMP_COLUMNS = XmpColumns.get();
+    private JMenuItem itemAddToEditPanel;
+    private JMenuItem itemCollapseAllSubitems;
+    private JMenuItem itemDelete;
+    private JMenuItem itemExpandAllSubitems;
+    private JMenuItem itemRemoveFromEditPanel;
+    private JMenuItem itemRename;
 
     public PopupMenuMiscMetadata(JTree tree) {
         super(tree);
@@ -48,27 +48,16 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
     }
 
     private void createMenuItems() {
-        itemDelete = new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuMiscMetadata.DisplayName.ItemDelete"), AppLookAndFeel
-                        .ICON_DELETE);
-        itemExpandAllSubitems = new JMenuItem(
-            JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-        itemRename = new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuMiscMetadata.DisplayName.ItemRename"), AppLookAndFeel
-                        .ICON_RENAME);
-        itemCollapseAllSubitems = new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "MouseListenerTreeExpand.ItemCollapse"));
-        itemAddToEditPanel = new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuMiscMetadata.DisplayName.ActionAddToEditPanel"));
-        itemRemoveFromEditPanel = new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuMiscMetadata.DisplayName.ActionRemoveFromEditPanel"));
+        itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemDelete"),
+                                   AppLookAndFeel.ICON_DELETE);
+        itemExpandAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+        itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemRename"),
+                                   AppLookAndFeel.ICON_RENAME);
+        itemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
+        itemAddToEditPanel =
+            new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionAddToEditPanel"));
+        itemRemoveFromEditPanel =
+            new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionRemoveFromEditPanel"));
     }
 
     @Override
@@ -78,7 +67,7 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
         }
 
         boolean xmpValues = allNodesXmpValues(selTreePaths);
-        boolean editable  = isEditable();
+        boolean editable = isEditable();
 
         itemDelete.setEnabled(xmpValues);
         itemRename.setEnabled(xmpValues);
@@ -87,8 +76,7 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
     }
 
     private boolean isEditable() {
-        EditMetadataPanels editPanels =
-            GUI.getAppPanel().getEditMetadataPanels();
+        EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
 
         return editPanels.isEditable();
     }
@@ -104,11 +92,9 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
     }
 
     private boolean isNodeXmpValue(TreePath treePath) {
-        DefaultMutableTreeNode node =
-            (DefaultMutableTreeNode) treePath.getLastPathComponent();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
 
-        return MiscMetadataHelper.isParentUserObjectAColumnOf(node,
-                XMP_COLUMNS);
+        return MiscMetadataHelper.isParentUserObjectAColumnOf(node, XMP_COLUMNS);
     }
 
     public JMenuItem getItemDelete() {
@@ -142,30 +128,24 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
     }
 
     private void addActionsToTree() {
-        JTree     tree            =
-            GUI.getAppPanel().getTreeMiscMetadata();
-        InputMap  inputMap        = tree.getInputMap();
-        ActionMap actionMap       = tree.getActionMap();
-        Action    actionRename    = itemRename.getAction();
-        Action    actionDelete    = itemDelete.getAction();
-        String    keyActionRename = "actionRename";
-        String    keyActionDelete = "actionDelete";
+        JTree tree = GUI.getAppPanel().getTreeMiscMetadata();
+        InputMap inputMap = tree.getInputMap();
+        ActionMap actionMap = tree.getActionMap();
+        Action actionRename = itemRename.getAction();
+        Action actionDelete = itemDelete.getAction();
+        String keyActionRename = "actionRename";
+        String keyActionDelete = "actionDelete";
 
-        inputMap.put(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2),
-                     keyActionRename);
+        inputMap.put(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2), keyActionRename);
         actionMap.put(keyActionRename, actionRename);
-        inputMap.put(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE),
-                     keyActionDelete);
+        inputMap.put(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE), keyActionDelete);
         actionMap.put(keyActionDelete, actionDelete);
     }
 
     private void setAccelerators() {
-        itemDelete.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemDelete.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
-        itemAddToEditPanel.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
-        itemRemoveFromEditPanel.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
+        itemAddToEditPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
+        itemRemoveFromEditPanel.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
     }
 }

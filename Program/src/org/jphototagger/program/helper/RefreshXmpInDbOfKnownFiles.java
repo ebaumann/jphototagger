@@ -24,15 +24,14 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     public RefreshXmpInDbOfKnownFiles() {
         super("JPhotoTagger: Refreshing XMP in the database of known files");
-        setInfo(
-            JptBundle.INSTANCE.getString("RefreshXmpInDbOfKnownFiles.Info"));
+        setInfo(JptBundle.INSTANCE.getString("RefreshXmpInDbOfKnownFiles.Info"));
     }
 
     @Override
     public void run() {
-        DatabaseImageFiles db         = DatabaseImageFiles.INSTANCE;
-        List<File>         imageFiles = db.getAllImageFiles();
-        int                fileCount  = imageFiles.size();
+        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+        List<File> imageFiles = db.getAllImageFiles();
+        int fileCount = imageFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
                                          ? imageFiles.get(0)
@@ -40,7 +39,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
         for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
-            Xmp  xmp       = null;
+            Xmp xmp = null;
 
             try {
                 xmp = XmpMetadata.hasImageASidecarFile(imageFile)
@@ -49,9 +48,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
                         ? XmpMetadata.getEmbeddedXmp(imageFile)
                         : null;
             } catch (IOException ex) {
-                Logger.getLogger(
-                    RefreshXmpInDbOfKnownFiles.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(RefreshXmpInDbOfKnownFiles.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (xmp != null) {

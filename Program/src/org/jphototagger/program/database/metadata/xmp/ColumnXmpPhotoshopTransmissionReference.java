@@ -16,11 +16,7 @@ public final class ColumnXmpPhotoshopTransmissionReference extends Column {
     private ColumnXmpPhotoshopTransmissionReference() {
         super("photoshop_transmissionReference", "xmp", DataType.STRING);
         setLength(32);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpPhotoshopTransmissionReference.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpPhotoshopTransmissionReference.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopTransmissionReference.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopTransmissionReference.LongerDescription"));
     }
 }

@@ -39,8 +39,8 @@ import javax.swing.tree.TreeModel;
  */
 public final class ModelFactory {
     public static final ModelFactory INSTANCE = new ModelFactory();
-    private final Support            support  = new Support();
-    private volatile boolean         init;
+    private final Support support = new Support();
+    private volatile boolean init;
 
     void init() {
         synchronized (this) {
@@ -79,17 +79,13 @@ public final class ModelFactory {
     }
 
     private void setComboBoxModelMetadataTemplates(AppPanel appPanel) {
-        Support.setStatusbarInfo(
-            "ModelFactory.Starting.ComboBoxModelMetadataTemplates");
+        Support.setStatusbarInfo("ModelFactory.Starting.ComboBoxModelMetadataTemplates");
 
-        ComboBoxModelMetadataTemplates model =
-            new ComboBoxModelMetadataTemplates();
+        ComboBoxModelMetadataTemplates model = new ComboBoxModelMetadataTemplates();
 
         support.add(model);
-        appPanel.getPanelEditMetadataActions().getComboBoxMetadataTemplates()
-            .setModel(model);
-        Support.setStatusbarInfo(
-            "ModelFactory.Finished.ComboBoxModelMetadataTemplates");
+        appPanel.getPanelEditMetadataActions().getComboBoxMetadataTemplates().setModel(model);
+        Support.setStatusbarInfo("ModelFactory.Finished.ComboBoxModelMetadataTemplates");
     }
 
     private void setListModels(AppPanel appPanel) {
@@ -103,14 +99,11 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.ListModelSavedSearches");
+                Support.setStatusbarInfo("ModelFactory.Starting.ListModelSavedSearches");
 
-                final JList                  list =
-                    appPanel.getListSavedSearches();
-                final Cursor                 listCursor = setWaitCursor(list);
-                final ListModelSavedSearches model =
-                    new ListModelSavedSearches();
+                final JList list = appPanel.getListSavedSearches();
+                final Cursor listCursor = setWaitCursor(list);
+                final ListModelSavedSearches model = new ListModelSavedSearches();
 
                 support.add(model);
                 EventQueue.invokeLater(new Runnable() {
@@ -119,8 +112,7 @@ public final class ModelFactory {
                         list.setModel(model);
                         AppWindowPersistence.readListSavedSearches();
                         list.setCursor(listCursor);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.ListModelSavedSearches");
+                        Support.setStatusbarInfo("ModelFactory.Finished.ListModelSavedSearches");
                     }
                 });
             }
@@ -131,15 +123,11 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.ListModelImageCollections");
+                Support.setStatusbarInfo("ModelFactory.Starting.ListModelImageCollections");
 
-                final JList                     list =
-                    appPanel.getListImageCollections();
-                final Cursor                    listCursor =
-                    setWaitCursor(list);
-                final ListModelImageCollections model =
-                    new ListModelImageCollections();
+                final JList list = appPanel.getListImageCollections();
+                final Cursor listCursor = setWaitCursor(list);
+                final ListModelImageCollections model = new ListModelImageCollections();
 
                 support.add(model);
                 EventQueue.invokeLater(new Runnable() {
@@ -148,8 +136,7 @@ public final class ModelFactory {
                         list.setModel(model);
                         AppWindowPersistence.readListImageCollections();
                         list.setCursor(listCursor);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.ListModelImageCollections");
+                        Support.setStatusbarInfo("ModelFactory.Finished.ListModelImageCollections");
                     }
                 });
             }
@@ -160,16 +147,12 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.ListModelKeywords");
+                Support.setStatusbarInfo("ModelFactory.Starting.ListModelKeywords");
 
-                final JList       listSelKeywords =
-                    appPanel.getListSelKeywords();
-                final Cursor      listCursor    =
-                    setWaitCursor(listSelKeywords);
+                final JList listSelKeywords = appPanel.getListSelKeywords();
+                final Cursor listCursor = setWaitCursor(listSelKeywords);
                 ListModelKeywords modelKeywords = new ListModelKeywords();
-                final ListModel   sortedModel =
-                    new SortedListModel(modelKeywords);
+                final ListModel sortedModel = new SortedListModel(modelKeywords);
 
                 support.add(modelKeywords);
                 EventQueue.invokeLater(new Runnable() {
@@ -177,12 +160,10 @@ public final class ModelFactory {
                     public void run() {
                         listSelKeywords.setModel(sortedModel);
                         appPanel.getListEditKeywords().setModel(sortedModel);
-                        InputHelperDialog.INSTANCE.setModelKeywords(
-                            sortedModel);
+                        InputHelperDialog.INSTANCE.setModelKeywords(sortedModel);
                         AppWindowPersistence.readListSelKeywords();
                         listSelKeywords.setCursor(listCursor);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.ListModelKeywords");
+                        Support.setStatusbarInfo("ModelFactory.Finished.ListModelKeywords");
                     }
                 });
             }
@@ -203,14 +184,14 @@ public final class ModelFactory {
         Support.setStatusbarInfo("ModelFactory.Starting.TableModels");
 
         TableModelIptc modelIptc = new TableModelIptc();
-        TableModelXmp  modelXmp1 = new TableModelXmp();
-        TableModelXmp  modelXmp2 = new TableModelXmp();
-        TableModelXmp  modelXmp3 = new TableModelXmp();
-        TableModelXmp  modelXmp4 = new TableModelXmp();
-        TableModelXmp  modelXmp5 = new TableModelXmp();
-        TableModelXmp  modelXmp6 = new TableModelXmp();
-        TableModelXmp  modelXmp7 = new TableModelXmp();
-        TableModelXmp  modelXmp8 = new TableModelXmp();
+        TableModelXmp modelXmp1 = new TableModelXmp();
+        TableModelXmp modelXmp2 = new TableModelXmp();
+        TableModelXmp modelXmp3 = new TableModelXmp();
+        TableModelXmp modelXmp4 = new TableModelXmp();
+        TableModelXmp modelXmp5 = new TableModelXmp();
+        TableModelXmp modelXmp6 = new TableModelXmp();
+        TableModelXmp modelXmp7 = new TableModelXmp();
+        TableModelXmp modelXmp8 = new TableModelXmp();
         TableModelExif modelExif = new TableModelExif();
 
         support.add(modelIptc);
@@ -248,13 +229,10 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.TreeModelKeywords");
+                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelKeywords");
 
-                final TreeModel                  treeModelKeywords =
-                    new TreeModelKeywords();
-                final ListModelMetadataTemplates listModelTemplates =
-                    new ListModelMetadataTemplates();
+                final TreeModel treeModelKeywords = new TreeModelKeywords();
+                final ListModelMetadataTemplates listModelTemplates = new ListModelMetadataTemplates();
 
                 support.add(treeModelKeywords);
                 support.add(listModelTemplates);
@@ -270,12 +248,9 @@ public final class ModelFactory {
 
                         treeEditKeywords.setModel(treeModelKeywords);
                         AppWindowPersistence.readTreeEditKeywords();
-                        InputHelperDialog.INSTANCE.getPanelKeywords().getTree()
-                            .setModel(treeModelKeywords);
-                        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-                            .getList().setModel(listModelTemplates);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.TreeModelKeywords");
+                        InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(treeModelKeywords);
+                        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().setModel(listModelTemplates);
+                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelKeywords");
                     }
                 });
             }
@@ -286,27 +261,23 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.TreeModelMiscMetadata");
+                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelMiscMetadata");
 
-                final JTree     tree = appPanel.getTreeMiscMetadata();
-                final Cursor    treeCursor = setWaitCursor(tree);
+                final JTree tree = appPanel.getTreeMiscMetadata();
+                final Cursor treeCursor = setWaitCursor(tree);
                 final TreeModel modelApp = new TreeModelMiscMetadata(false);
-                final TreeModel modelInputHelper =
-                    new TreeModelMiscMetadata(true);
+                final TreeModel modelInputHelper = new TreeModelMiscMetadata(true);
 
                 support.add(modelApp);
                 support.add(modelInputHelper);
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata()
-                            .getTree().setModel(modelInputHelper);
+                        InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree().setModel(modelInputHelper);
                         tree.setModel(modelApp);
                         AppWindowPersistence.readTreeMiscMetadata();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.TreeModelMiscMetadata");
+                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelMiscMetadata");
                     }
                 });
             }
@@ -317,12 +288,11 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.TreeModelTimeline");
+                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelTimeline");
 
-                final JTree     tree       = appPanel.getTreeTimeline();
-                final Cursor    treeCursor = setWaitCursor(tree);
-                final TreeModel model      = new TreeModelTimeline();
+                final JTree tree = appPanel.getTreeTimeline();
+                final Cursor treeCursor = setWaitCursor(tree);
+                final TreeModel model = new TreeModelTimeline();
 
                 support.add(model);
                 EventQueue.invokeLater(new Runnable() {
@@ -331,8 +301,7 @@ public final class ModelFactory {
                         tree.setModel(model);
                         AppWindowPersistence.readTreeTimeline();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.TreeModelTimeline");
+                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelTimeline");
                     }
                 });
             }
@@ -343,11 +312,10 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.TreeModelFavorites");
+                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelFavorites");
 
-                final JTree              tree = appPanel.getTreeFavorites();
-                final Cursor             treeCursor = setWaitCursor(tree);
+                final JTree tree = appPanel.getTreeFavorites();
+                final Cursor treeCursor = setWaitCursor(tree);
                 final TreeModelFavorites model = new TreeModelFavorites(tree);
 
                 EventQueue.invokeLater(new Runnable() {
@@ -357,8 +325,7 @@ public final class ModelFactory {
                         tree.setModel(model);
                         model.readFromProperties();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.TreeModelFavorites");
+                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelFavorites");
                     }
                 });
             }
@@ -369,15 +336,12 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo(
-                    "ModelFactory.Starting.TreeModelDirectories");
+                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelDirectories");
 
-                final JTree     tree       = appPanel.getTreeDirectories();
-                final Cursor    treeCursor = setWaitCursor(tree);
-                final TreeModel model =
-                    new TreeModelAllSystemDirectories(tree,
-                        UserSettings.INSTANCE
-                            .getDirFilterOptionShowHiddenFiles());
+                final JTree tree = appPanel.getTreeDirectories();
+                final Cursor treeCursor = setWaitCursor(tree);
+                final TreeModel model = new TreeModelAllSystemDirectories(tree,
+                                            UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);
                 EventQueue.invokeLater(new Runnable() {
@@ -386,8 +350,7 @@ public final class ModelFactory {
                         tree.setModel(model);
                         AppWindowPersistence.readTreeDirectories();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo(
-                            "ModelFactory.Finished.TreeModelDirectories");
+                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelDirectories");
                     }
                 });
             }

@@ -4,6 +4,7 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
@@ -18,7 +19,6 @@ import java.util.Map;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.JMenuItem;
-import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -26,12 +26,10 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public final class ControllerMenuItemEnabler
-        implements DatabaseProgramsListener, ThumbnailsPanelListener,
-                   PopupMenuListener {
-    private final Map<JMenuItem, List<Content>> contentsOfItemsRequiresSelImages =
-        new HashMap<JMenuItem, List<Content>>();
-    private final List<JMenuItem> itemsRequiresSelImages =
-        new ArrayList<JMenuItem>();
+        implements DatabaseProgramsListener, ThumbnailsPanelListener, PopupMenuListener {
+    private final Map<JMenuItem, List<Content>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem,
+                                                                                       List<Content>>();
+    private final List<JMenuItem> itemsRequiresSelImages = new ArrayList<JMenuItem>();
 
     public ControllerMenuItemEnabler() {
         init();
@@ -45,49 +43,36 @@ public final class ControllerMenuItemEnabler
     }
 
     private void init() {
-        List<Content>       contents        = new ArrayList<Content>();
+        List<Content> contents = new ArrayList<Content>();
         PopupMenuThumbnails popupThumbnails = PopupMenuThumbnails.INSTANCE;
 
         contents.add(Content.DIRECTORY);
         contents.add(Content.FAVORITE);
-        contentsOfItemsRequiresSelImages.put(
-            PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles(),
-            contents);
+        contentsOfItemsRequiresSelImages.put(PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles(), contents);
         contents = new ArrayList<Content>();
         contents.add(Content.IMAGE_COLLECTION);
-        contentsOfItemsRequiresSelImages.put(
-            popupThumbnails.getItemDeleteFromImageCollection(), contents);
+        contentsOfItemsRequiresSelImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateThumbnail());
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateMetadata());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemDeleteImageFromDatabase());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemCreateImageCollection());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemAddToImageCollection());
+        itemsRequiresSelImages.add(popupThumbnails.getItemDeleteImageFromDatabase());
+        itemsRequiresSelImages.add(popupThumbnails.getItemCreateImageCollection());
+        itemsRequiresSelImages.add(popupThumbnails.getItemAddToImageCollection());
         itemsRequiresSelImages.add(popupThumbnails.getItemRotateThumbnail90());
         itemsRequiresSelImages.add(popupThumbnails.getItemRotateThumbnai180());
         itemsRequiresSelImages.add(popupThumbnails.getItemRotateThumbnail270());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemFileSystemCopyToDirectory());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemFileSystemDeleteFiles());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemFileSystemRenameFiles());
+        itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemCopyToDirectory());
+        itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemDeleteFiles());
+        itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemRenameFiles());
         itemsRequiresSelImages.add(popupThumbnails.getItemIptcToXmp());
         itemsRequiresSelImages.add(popupThumbnails.getItemExifToXmp());
         itemsRequiresSelImages.add(popupThumbnails.getItemPick());
         itemsRequiresSelImages.add(popupThumbnails.getItemCopyMetadata());
         itemsRequiresSelImages.add(popupThumbnails.getItemCopyToClipboard());
         itemsRequiresSelImages.add(popupThumbnails.getItemCutToClipboard());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemFileSystemCopyToDirectory());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemFileSystemDeleteFiles());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemFileSystemMoveFiles());
-        itemsRequiresSelImages.add(
-            popupThumbnails.getItemFileSystemRenameFiles());
+        itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemCopyToDirectory());
+        itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemDeleteFiles());
+        itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemMoveFiles());
+        itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemRenameFiles());
         itemsRequiresSelImages.add(popupThumbnails.getItemPasteMetadata());
         itemsRequiresSelImages.add(popupThumbnails.getItemReject());
         itemsRequiresSelImages.add(popupThumbnails.getMenuImageCollection());
@@ -103,31 +88,24 @@ public final class ControllerMenuItemEnabler
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ThumbnailsPanel tnPanel      = GUI.getThumbnailsPanel();
-                Content         content      = tnPanel.getContent();
-                boolean         fileSelected = tnPanel.isFileSelected();
+                ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
+                Content content = tnPanel.getContent();
+                boolean fileSelected = tnPanel.isFileSelected();
 
                 for (JMenuItem item : itemsRequiresSelImages) {
                     item.setEnabled(fileSelected);
                 }
 
-                for (JMenuItem item :
-                        contentsOfItemsRequiresSelImages.keySet()) {
-                    item.setEnabled(
-                        fileSelected
-                        && contentsOfItemsRequiresSelImages.get(item).contains(
-                            content));
+                for (JMenuItem item : contentsOfItemsRequiresSelImages.keySet()) {
+                    item.setEnabled(fileSelected && contentsOfItemsRequiresSelImages.get(item).contains(content));
                 }
 
-                PopupMenuThumbnails.INSTANCE.getItemOpenFilesWithStandardApp()
-                    .setEnabled(fileSelected
-                                && (DatabasePrograms.INSTANCE
-                                    .getDefaultImageOpenProgram() != null));
+                PopupMenuThumbnails.INSTANCE.getItemOpenFilesWithStandardApp().setEnabled(fileSelected
+                        && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram() != null));
 
                 boolean hasProgram = DatabasePrograms.INSTANCE.hasProgram();
 
-                PopupMenuThumbnails.INSTANCE.getMenuPrograms().setEnabled(
-                    fileSelected && hasProgram);
+                PopupMenuThumbnails.INSTANCE.getMenuPrograms().setEnabled(fileSelected && hasProgram);
             }
         });
     }
@@ -142,12 +120,11 @@ public final class ControllerMenuItemEnabler
     }
 
     private void popupMenuThumbnailsBecomeVisible() {
-        ThumbnailsPanel     tnPanel         = GUI.getThumbnailsPanel();
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
         PopupMenuThumbnails popupThumbnails = PopupMenuThumbnails.INSTANCE;
 
         popupThumbnails.getItemSelectAll().setEnabled(tnPanel.hasFiles());
-        popupThumbnails.getItemSelectNothing().setEnabled(
-            tnPanel.isFileSelected());
+        popupThumbnails.getItemSelectNothing().setEnabled(tnPanel.isFileSelected());
     }
 
     @Override

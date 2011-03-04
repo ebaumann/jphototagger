@@ -23,8 +23,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  *
  * @author Elmar Baumann
  */
-public final class ControllerCreateMetadataOfDisplayedThumbnails
-        implements ThumbnailsPanelListener {
+public final class ControllerCreateMetadataOfDisplayedThumbnails implements ThumbnailsPanelListener {
     public ControllerCreateMetadataOfDisplayedThumbnails() {
         listen();
     }
@@ -39,19 +38,14 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails
     }
 
     private synchronized void updateMetadata() {
-        AppLogger.logInfo(
-            getClass(),
-            "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
+        AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
 
-        InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(
-                GUI.getThumbnailsPanel().getFiles(), Insert.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getFiles(),
+                                                    Insert.OUT_OF_DATE);
         String pBarString =
-            JptBundle.INSTANCE.getString(
-                "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
+            JptBundle.INSTANCE.getString("ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
 
-        inserter.addProgressListener(new ProgressBarUpdater(inserter,
-                pBarString));
+        inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
         AutomaticTask.INSTANCE.setTask(inserter);
     }
 

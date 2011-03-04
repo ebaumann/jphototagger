@@ -35,23 +35,16 @@ import javax.swing.table.TableModel;
  *
  * @author Elmar Baumann
  */
-public final class AppWindowPersistence
-        implements ComponentListener, AppExitListener, UserSettingsListener {
+public final class AppWindowPersistence implements ComponentListener, AppExitListener, UserSettingsListener {
 
     // Strings has to be equals to that in AppPanel!
-    private static final String KEY_DIVIDER_LOCATION_MAIN =
-        "AppPanel.DividerLocationMain";
-    private static final String KEY_DIVIDER_LOCATION_THUMBNAILS =
-        "AppPanel.DividerLocationThumbnails";
+    private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
+    private static final String KEY_DIVIDER_LOCATION_THUMBNAILS = "AppPanel.DividerLocationThumbnails";
     private static final String KEY_KEYWORDS_VIEW = "AppPanel.KeywordsView";
-    private final Component     cardSelKeywordsList =
-        GUI.getAppPanel().getCardSelKeywordsList();
-    private final Component cardSelKeywordsTree =
-        GUI.getAppPanel().getCardSelKeywordsTree();
-    private final Map<Component, String> NAME_OF_CARD = new HashMap<Component,
-                                                            String>(2);
-    private final Map<String, Component> CARD_OF_NAME = new HashMap<String,
-                                                            Component>(2);
+    private final Component cardSelKeywordsList = GUI.getAppPanel().getCardSelKeywordsList();
+    private final Component cardSelKeywordsTree = GUI.getAppPanel().getCardSelKeywordsTree();
+    private final Map<Component, String> NAME_OF_CARD = new HashMap<Component, String>(2);
+    private final Map<String, Component> CARD_OF_NAME = new HashMap<String, Component>(2);
 
     // Not a singleton: init() gets cards of AppPanel that is not static
     public AppWindowPersistence() {
@@ -80,15 +73,14 @@ public final class AppWindowPersistence
 
     @Override
     public void componentShown(ComponentEvent evt) {
-        Component c                 = evt.getComponent();
-        boolean   isSelKeywordsCard = isSelKeywordsCard(c);
-        boolean   knownCardName     = NAME_OF_CARD.containsKey(c);
+        Component c = evt.getComponent();
+        boolean isSelKeywordsCard = isSelKeywordsCard(c);
+        boolean knownCardName = NAME_OF_CARD.containsKey(c);
 
         assert isSelKeywordsCard && knownCardName : c;
 
         if (isSelKeywordsCard && knownCardName) {
-            UserSettings.INSTANCE.getSettings().set(NAME_OF_CARD.get(c),
-                    KEY_KEYWORDS_VIEW);
+            UserSettings.INSTANCE.getSettings().set(NAME_OF_CARD.get(c), KEY_KEYWORDS_VIEW);
             UserSettings.INSTANCE.writeToFile();
         }
     }
@@ -115,10 +107,8 @@ public final class AppWindowPersistence
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
 
-                UserSettings.INSTANCE.getSettings().applySettings(appPanel,
-                        getAppPanelSettingsHints());
-                appPanel.setEnabledIptcTab(
-                    UserSettings.INSTANCE.isDisplayIptc());
+                UserSettings.INSTANCE.getSettings().applySettings(appPanel, getAppPanelSettingsHints());
+                appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
                 setInitKeywordsView(appPanel);
                 selectFastSearch(appPanel);
             }
@@ -129,8 +119,7 @@ public final class AppWindowPersistence
         SettingsHints hints = new SettingsHints();
 
         // Lists set by readList...() / writeListProperties() or other classes
-        hints.addKeyToExclude(
-            AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
+        hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
@@ -162,10 +151,8 @@ public final class AppWindowPersistence
         // (errors on renamings)!
         String name = "keywordsTree";
 
-        if (UserSettings.INSTANCE.getProperties().containsKey(
-                KEY_KEYWORDS_VIEW)) {
-            String s = UserSettings.INSTANCE.getSettings().getString(
-                           KEY_KEYWORDS_VIEW);
+        if (UserSettings.INSTANCE.getProperties().containsKey(KEY_KEYWORDS_VIEW)) {
+            String s = UserSettings.INSTANCE.getSettings().getString(KEY_KEYWORDS_VIEW);
 
             if (s.equals("flatKeywords") || s.equals("keywordsTree")) {
                 name = s;
@@ -193,11 +180,8 @@ public final class AppWindowPersistence
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.set(appPanel, getAppPanelSettingsHints());
-        settings.set(appPanel.getSplitPaneMain().getDividerLocation(),
-                     KEY_DIVIDER_LOCATION_MAIN);
-        settings.set(
-            appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(),
-            KEY_DIVIDER_LOCATION_THUMBNAILS);
+        settings.set(appPanel.getSplitPaneMain().getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
+        settings.set(appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
         appPanel.getPanelEditKeywords().writeProperties();
 
         // Later than settings.set(appPanel, null)!
@@ -210,24 +194,21 @@ public final class AppWindowPersistence
      * To after the model has been created.
      */
     public static void readTreeSelKeywords() {
-        read(GUI.getSelKeywordsTree(),
-             AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
+        read(GUI.getSelKeywordsTree(), AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
     }
 
     /**
      * To after the model has been created.
      */
     public static void readTreeEditKeywords() {
-        read(GUI.getEditKeywordsTree(),
-             AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
+        read(GUI.getEditKeywordsTree(), AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
     }
 
     /**
      * To after the model has been created.
      */
     public static void readTreeMiscMetadata() {
-        read(GUI.getMiscMetadataTree(),
-             AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
+        read(GUI.getMiscMetadataTree(), AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
     }
 
     /**
@@ -241,40 +222,35 @@ public final class AppWindowPersistence
      * To after the model has been created.
      */
     public static void readTreeDirectories() {
-        read(GUI.getDirectoriesTree(),
-             AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
+        read(GUI.getDirectoriesTree(), AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
     }
 
     /**
      * To after the model has been created.
      */
     public static void readListSavedSearches() {
-        read(GUI.getSavedSearchesList(),
-             AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
+        read(GUI.getSavedSearchesList(), AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
     }
 
     /**
      * To after the model has been created.
      */
     public static void readListImageCollections() {
-        read(GUI.getImageCollectionsList(),
-             AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
+        read(GUI.getImageCollectionsList(), AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
     }
 
     /**
      * To after the model has been created.
      */
     public static void readListSelKeywords() {
-        read(GUI.getSelKeywordsList(),
-             AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
+        read(GUI.getSelKeywordsList(), AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
     }
 
     /**
      * To after the model has been created.
      */
     public static void readListNoMetadata() {
-        read(GUI.getNoMetadataList(),
-             AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
+        read(GUI.getNoMetadataList(), AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
     }
 
     private static void read(JTree tree, String key) {
@@ -287,30 +263,20 @@ public final class AppWindowPersistence
 
     // Independent from renamings
     private void writeTreeProperties(AppPanel appPanel) {
-        write(appPanel.getTreeSelKeywords(),
-              AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
-        write(appPanel.getTreeEditKeywords(),
-              AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
-        write(appPanel.getTreeMiscMetadata(),
-              AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
-        write(appPanel.getTreeTimeline(),
-              AppPersistenceKeys.APP_PANEL_TREE_TIMELINE);
-        write(appPanel.getTreeDirectories(),
-              AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
-        write(appPanel.getTreeFavorites(),
-              AppPersistenceKeys.APP_PANEL_TREE_FAVORITES);
+        write(appPanel.getTreeSelKeywords(), AppPersistenceKeys.APP_PANEL_TREE_SEL_KEYWORDS);
+        write(appPanel.getTreeEditKeywords(), AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
+        write(appPanel.getTreeMiscMetadata(), AppPersistenceKeys.APP_PANEL_TREE_MISC_METADATA);
+        write(appPanel.getTreeTimeline(), AppPersistenceKeys.APP_PANEL_TREE_TIMELINE);
+        write(appPanel.getTreeDirectories(), AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
+        write(appPanel.getTreeFavorites(), AppPersistenceKeys.APP_PANEL_TREE_FAVORITES);
     }
 
     // Independent from renamings
     private void writeListProperties(AppPanel appPanel) {
-        write(appPanel.getListSavedSearches(),
-              AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
-        write(appPanel.getListImageCollections(),
-              AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
-        write(appPanel.getListSelKeywords(),
-              AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
-        write(appPanel.getListNoMetadata(),
-              AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
+        write(appPanel.getListSavedSearches(), AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
+        write(appPanel.getListImageCollections(), AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
+        write(appPanel.getListSelKeywords(), AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
+        write(appPanel.getListNoMetadata(), AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
     }
 
     private void write(JTree tree, String key) {
@@ -344,8 +310,8 @@ public final class AppWindowPersistence
     }
 
     private void displayIptc() {
-        AppPanel        appPanel = GUI.getAppPanel();
-        ThumbnailsPanel tnPanel  = appPanel.getPanelThumbnails();
+        AppPanel appPanel = GUI.getAppPanel();
+        ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
 
         if (tnPanel.getSelectionCount() == 1) {
             final TableModel model = appPanel.getTableIptc().getModel();

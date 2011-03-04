@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.program.view.dialogs.UpdateMetadataOfDirectoriesDialog;
 import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.program.view.dialogs.UpdateMetadataOfDirectoriesDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +11,7 @@ import java.awt.event.ActionListener;
  *
  * @author Elmar Baumann
  */
-public final class ControllerShowUpdateMetadataDialog
-        implements ActionListener {
+public final class ControllerShowUpdateMetadataDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         showDialog();

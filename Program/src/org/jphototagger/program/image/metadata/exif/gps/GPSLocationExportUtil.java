@@ -31,8 +31,7 @@ import javax.swing.JFileChooser;
  * @author Elmar Baumann
  */
 public final class GPSLocationExportUtil {
-    private static final String KEY_CURRENT_DIR =
-        "GPSLocationExportUtil.CurrentDir";
+    private static final String KEY_CURRENT_DIR = "GPSLocationExportUtil.CurrentDir";
 
     /**
      * Returns the filename depending on
@@ -55,18 +54,15 @@ public final class GPSLocationExportUtil {
     }
 
     private static class Exporter extends HelperThread {
-        private volatile boolean           cancel;
-        private final GPSLocationExporter  exporter;
+        private volatile boolean cancel;
+        private final GPSLocationExporter exporter;
         private final List<? extends File> imageFiles;
 
-        Exporter(GPSLocationExporter exporter,
-                 Collection<? extends File> imageFiles) {
+        Exporter(GPSLocationExporter exporter, Collection<? extends File> imageFiles) {
             super("JPhotoTagger: Exporting GPS locations");
-            this.exporter   = exporter;
+            this.exporter = exporter;
             this.imageFiles = new ArrayList<File>(imageFiles);
-            setInfo(
-                JptBundle.INSTANCE.getString(
-                    "GPSLocationExportUtil.Exporter.Info"));
+            setInfo(JptBundle.INSTANCE.getString("GPSLocationExportUtil.Exporter.Info"));
         }
 
         @Override
@@ -82,13 +78,11 @@ public final class GPSLocationExportUtil {
                                              ? imageFiles.get(0)
                                              : null);
 
-            List<GPSImageInfo> imageInfos =
-                new ArrayList<GPSImageInfo>(fileCount);
+            List<GPSImageInfo> imageInfos = new ArrayList<GPSImageInfo>(fileCount);
 
-            for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount);
-                    i++) {
-                File     imageFile = imageFiles.get(i);
-                ExifTags et        = ExifMetadata.getExifTags(imageFile);
+            for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
+                File imageFile = imageFiles.get(i);
+                ExifTags et = ExifMetadata.getExifTags(imageFile);
 
                 if (et != null) {
                     ExifGpsMetadata gpsMetadata = ExifGpsUtil.gpsMetadata(et);
@@ -112,8 +106,7 @@ public final class GPSLocationExportUtil {
      * @param imageFiles image files with EXIF metadata containing GPS
      *                   information
      */
-    public static void export(GPSLocationExporter exporter,
-                              Collection<? extends File> imageFiles) {
+    public static void export(GPSLocationExporter exporter, Collection<? extends File> imageFiles) {
         if (exporter == null) {
             throw new NullPointerException("exporter == null");
         }
@@ -125,8 +118,7 @@ public final class GPSLocationExportUtil {
         UserTasks.INSTANCE.add(new Exporter(exporter, imageFiles));
     }
 
-    private static void export(GPSLocationExporter exporter,
-                               List<GPSImageInfo> gpsImageInfos) {
+    private static void export(GPSLocationExporter exporter, List<GPSImageInfo> gpsImageInfos) {
         File exportFile = getFile(exporter);
 
         if (exportFile != null) {
@@ -138,9 +130,7 @@ public final class GPSLocationExportUtil {
                 fos.flush();
             } catch (Exception ex) {
                 AppLogger.logSevere(GPSLocationExportUtil.class, ex);
-                MessageDisplayer.error(null,
-                                       "GPSLocationExportUtil.Error.Export",
-                                       exportFile);
+                MessageDisplayer.error(null, "GPSLocationExportUtil.Error.Export", exportFile);
             } finally {
                 FileUtil.close(fos);
             }

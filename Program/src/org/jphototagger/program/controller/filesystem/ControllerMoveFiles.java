@@ -3,6 +3,7 @@ package org.jphototagger.program.controller.filesystem;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.FileSystemListener;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
@@ -12,22 +13,19 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import java.util.List;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Renames files in the file system.
  *
  * @author Elmar Baumann
  */
-public final class ControllerMoveFiles
-        implements ActionListener, FileSystemListener {
+public final class ControllerMoveFiles implements ActionListener, FileSystemListener {
     public ControllerMoveFiles() {
         listen();
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles()
-            .addActionListener(this);
+        PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles().addActionListener(this);
     }
 
     @Override
@@ -45,9 +43,7 @@ public final class ControllerMoveFiles
             dlg.addFileSystemListener(this);
             dlg.setVisible(true);
         } else {
-            AppLogger.logWarning(
-                ControllerMoveFiles.class,
-                "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
+            AppLogger.logWarning(ControllerMoveFiles.class, "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
         }
     }
 

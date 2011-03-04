@@ -13,8 +13,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifMakerNotesFactory {
-    private static final Map<String, ExifMakerNotes> makerNotesOfMake =
-        new HashMap<String, ExifMakerNotes>();
+    private static final Map<String, ExifMakerNotes> makerNotesOfMake = new HashMap<String, ExifMakerNotes>();
 
     static {
         makerNotesOfMake.put("nikon", new NikonMakerNotes());
@@ -22,12 +21,11 @@ public final class ExifMakerNotesFactory {
     }
 
     static void add(File file, ExifTags exifTags) {
-        ExifTag makerNoteTag =
-            exifTags.exifTagById(ExifTag.Id.MAKER_NOTE.value());
+        ExifTag makerNoteTag = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE.value());
         ExifTag makeTag = exifTags.exifTagById(ExifTag.Id.MAKE.value());
-        String  make    = (makeTag == null)
-                          ? null
-                          : makeTag.stringValue().toLowerCase();
+        String make = (makeTag == null)
+                      ? null
+                      : makeTag.stringValue().toLowerCase();
 
         if ((makeTag != null) && (makerNoteTag != null)) {
             for (String mk : makerNotesOfMake.keySet()) {

@@ -1,10 +1,11 @@
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.data.RenameTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
+
+import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
 
@@ -27,8 +28,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
             return;
         }
 
-        for (RenameTemplate template :
-                DatabaseRenameTemplates.INSTANCE.getAll()) {
+        for (RenameTemplate template : DatabaseRenameTemplates.INSTANCE.getAll()) {
             addElement(template);
         }
     }
@@ -51,7 +51,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
         removeElement(template);
     }
 
-            @Override
+    @Override
     public void templateDeleted(final RenameTemplate template) {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -77,7 +77,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
             @Override
             public void run() {
                 updateTemplate(template);
-                }
+            }
         });
     }
 }

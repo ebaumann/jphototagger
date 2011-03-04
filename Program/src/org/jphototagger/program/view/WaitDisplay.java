@@ -16,12 +16,11 @@ import java.awt.EventQueue;
 public final class WaitDisplay {
     private static final MouseAdapter ma = new MouseAdapter() {}
     ;
-    private static final Cursor       WAIT_CURSOR =
-        Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-    private static final Cursor     DEFAULT_CURSOR = Cursor.getDefaultCursor();
+    private static final Cursor WAIT_CURSOR = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
+    private static final Cursor DEFAULT_CURSOR = Cursor.getDefaultCursor();
     private static volatile boolean mlAdded;
     private static volatile boolean isShow;
-    private static final Object     LOCK = new Object();
+    private static final Object LOCK = new Object();
 
     /**
      * Shows the wait symbol (sets the wait cursor).

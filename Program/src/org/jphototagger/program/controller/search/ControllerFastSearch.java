@@ -9,11 +9,9 @@ import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.selections
-    .AutoCompleteDataOfColumn;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
@@ -46,18 +44,17 @@ import javax.swing.JComboBox;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFastSearch
-        implements ActionListener, RefreshListener, DatabaseImageFilesListener {
+public final class ControllerFastSearch implements ActionListener, RefreshListener, DatabaseImageFilesListener {
     private static final String DELIMITER_SEARCH_WORDS = ";";
-    private final Autocomplete  autocomplete;
-    private boolean             isAutocomplete;
+    private final Autocomplete autocomplete;
+    private boolean isAutocomplete;
 
     public ControllerFastSearch() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
             autocomplete = new Autocomplete(UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase());
             autocomplete.setTransferFocusForward(false);
         } else {
-            autocomplete   = null;
+            autocomplete = null;
             isAutocomplete = false;
         }
 
@@ -105,8 +102,7 @@ public final class ControllerFastSearch
     public void actionPerformed(ActionEvent evt) {
         JComboBox cb = getSearchComboBox();
 
-        if (isAutocomplete && (evt.getSource() == cb)
-                && (cb.getSelectedIndex() >= 0)) {
+        if (isAutocomplete && (evt.getSource() == cb) && (cb.getSelectedIndex() >= 0)) {
             decorateTextFieldSearch();
         } else if (evt.getSource() == getSearchButton()) {
             search();
@@ -121,12 +117,9 @@ public final class ControllerFastSearch
         new Thread(new Runnable() {
             @Override
             public void run() {
-                autocomplete.decorate(GUI.getSearchTextArea(),
-                                      isSearchAllDefinedColumns()
-                                      ? AutoCompleteDataOfColumn.INSTANCE
-                                          .getFastSearchData().get()
-                                      : AutoCompleteDataOfColumn.INSTANCE.get(
-                                          getSearchColumn()).get(), true);
+                autocomplete.decorate(GUI.getSearchTextArea(), isSearchAllDefinedColumns()
+                        ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().get()
+                        : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).get(), true);
             }
         }, "JPhotoTagger: Updating autocomplete for search text field").start();
     }
@@ -157,8 +150,7 @@ public final class ControllerFastSearch
                         setTitle(userInput);
                         GUI.getAppFrame().selectMenuItemUnsorted();
                         ControllerSortThumbnails.setLastSort();
-                        GUI.getThumbnailsPanel().setFiles(imageFiles,
-                                                          Content.SAVED_SEARCH);
+                        GUI.getThumbnailsPanel().setFiles(imageFiles, Content.SAVED_SEARCH);
                     }
 
                     WaitDisplay.hide();
@@ -166,46 +158,36 @@ public final class ControllerFastSearch
             }
             private void setTitle(String userInput) {
                 GUI.getAppFrame().setTitle(
-                    JptBundle.INSTANCE.getString(
-                        "ControllerFastSearch.AppFrame.Title.FastSearch",
-                        userInput));
+                    JptBundle.INSTANCE.getString("ControllerFastSearch.AppFrame.Title.FastSearch", userInput));
             }
             private List<File> searchFiles(String userInput) {
                 if (isSearchAllDefinedColumns()) {
-                    return DatabaseFind.INSTANCE.findImageFilesLikeOr(
-                        FastSearchColumns.get(), userInput);
+                    return DatabaseFind.INSTANCE.findImageFilesLikeOr(FastSearchColumns.get(), userInput);
                 } else {
-                    List<String> searchWords  = getSearchWords(userInput);
-                    Column       searchColumn = getSearchColumn();
+                    List<String> searchWords = getSearchWords(userInput);
+                    Column searchColumn = getSearchColumn();
 
                     if (searchColumn == null) {
                         return null;
                     }
 
-                    boolean isKeywordSearch =
-                        searchColumn.equals(
-                            ColumnXmpDcSubjectsSubject.INSTANCE);
+                    boolean isKeywordSearch = searchColumn.equals(ColumnXmpDcSubjectsSubject.INSTANCE);
 
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(DatabaseImageFiles
-                                .INSTANCE
-                                .getImageFilesOfDcSubject(searchWords
-                                    .get(0), DatabaseImageFiles.DcSubjectOption
-                                    .INCLUDE_SYNONYMS));
+                            return new ArrayList<File>(
+                                DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
+                                    searchWords.get(0), DatabaseImageFiles.DcSubjectOption.INCLUDE_SYNONYMS));
                         } else {
-                            return DatabaseFind.INSTANCE.findImageFilesLikeOr(
-                                Arrays.asList(searchColumn), userInput);
+                            return DatabaseFind.INSTANCE.findImageFilesLikeOr(Arrays.asList(searchColumn), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(DatabaseImageFiles
-                                .INSTANCE
-                                .getImageFilesOfAllDcSubjects(searchWords));
-                        } else {
                             return new ArrayList<File>(
-                                DatabaseImageFiles.INSTANCE.getImageFilesOfAll(
-                                    searchColumn, searchWords));
+                                DatabaseImageFiles.INSTANCE.getImageFilesOfAllDcSubjects(searchWords));
+                        } else {
+                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfAll(searchColumn,
+                                    searchWords));
                         }
                     } else {
                         return null;
@@ -216,9 +198,8 @@ public final class ControllerFastSearch
     }
 
     private List<String> getSearchWords(String userInput) {
-        List<String>    words = new ArrayList<String>();
-        StringTokenizer st = new StringTokenizer(userInput,
-                                 DELIMITER_SEARCH_WORDS);
+        List<String> words = new ArrayList<String>();
+        StringTokenizer st = new StringTokenizer(userInput, DELIMITER_SEARCH_WORDS);
 
         while (st.hasMoreTokens()) {
             words.add(st.nextToken().trim());
@@ -253,8 +234,7 @@ public final class ControllerFastSearch
     private boolean isSearchAllDefinedColumns() {
         Object selItem = getSearchComboBox().getSelectedItem();
 
-        return (selItem != null)
-               && selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
+        return (selItem != null) && selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
     }
 
     private void addAutocompleteWordsOf(Xmp xmp) {
@@ -265,8 +245,7 @@ public final class ControllerFastSearch
         if (isSearchAllDefinedColumns()) {
             AutocompleteHelper.addFastSearchAutocompleteData(autocomplete, xmp);
         } else {
-            AutocompleteHelper.addAutocompleteData(getSearchColumn(),
-                    autocomplete, xmp);
+            AutocompleteHelper.addAutocompleteData(getSearchColumn(), autocomplete, xmp);
         }
     }
 

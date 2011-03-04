@@ -10,8 +10,7 @@ import org.jphototagger.program.image.metadata.exif.tag.ExifCopyright;
  * @author Elmar Baumann
  */
 public final class ExifFormatterCopyright extends ExifFormatter {
-    public static final ExifFormatterCopyright INSTANCE =
-        new ExifFormatterCopyright();
+    public static final ExifFormatterCopyright INSTANCE = new ExifFormatterCopyright();
 
     private ExifFormatterCopyright() {}
 

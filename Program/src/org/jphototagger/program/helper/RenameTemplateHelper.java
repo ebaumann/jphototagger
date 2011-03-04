@@ -1,11 +1,11 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.RenameTemplate;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.dialog.InputDialog;
 
 /**
  *
@@ -32,9 +32,7 @@ public final class RenameTemplateHelper {
             template.setName(name);
 
             if (!DatabaseRenameTemplates.INSTANCE.insert(template)) {
-                MessageDisplayer.error(null,
-                                       "RenameTemplateHelper.Error.Insert",
-                                       template);
+                MessageDisplayer.error(null, "RenameTemplateHelper.Error.Insert", template);
             }
         }
     }
@@ -47,8 +45,7 @@ public final class RenameTemplateHelper {
         assert template.getId() != null : template.getId();
 
         if (!DatabaseRenameTemplates.INSTANCE.update(template)) {
-            MessageDisplayer.error(null, "RenameTemplateHelper.Error.Update",
-                                   template);
+            MessageDisplayer.error(null, "RenameTemplateHelper.Error.Update", template);
         }
     }
 
@@ -74,25 +71,19 @@ public final class RenameTemplateHelper {
 
         assert template.getId() != null : template.getId();
 
-        if (MessageDisplayer.confirmYesNo(
-                null, "RenameTemplateHelper.Confirm.Delete", template)) {
-            if (DatabaseRenameTemplates.INSTANCE.delete(template.getName())
-                    != 1) {
-                MessageDisplayer.error(null,
-                                       "RenameTemplateHelper.Error.Delete",
-                                       template);
+        if (MessageDisplayer.confirmYesNo(null, "RenameTemplateHelper.Confirm.Delete", template)) {
+            if (DatabaseRenameTemplates.INSTANCE.delete(template.getName()) != 1) {
+                MessageDisplayer.error(null, "RenameTemplateHelper.Error.Delete", template);
             }
         }
     }
 
     private static String getUniqueName(String suggest) {
-        InputDialog dlg = new InputDialog(
-                              JptBundle.INSTANCE.getString(
-                                  "RenameTemplateHelper.Input.Name"), (suggest
-                                      == null)
-                ? ""
-                : suggest, UserSettings.INSTANCE.getProperties(),
-                           "RenameTemplateHelper.Input.Name");
+        InputDialog dlg = new InputDialog(JptBundle.INSTANCE.getString("RenameTemplateHelper.Input.Name"),
+                                          (suggest == null)
+                                          ? ""
+                                          : suggest, UserSettings.INSTANCE.getProperties(),
+                                              "RenameTemplateHelper.Input.Name");
 
         dlg.setVisible(true);
 
@@ -107,9 +98,7 @@ public final class RenameTemplateHelper {
 
             unique = !DatabaseRenameTemplates.INSTANCE.exists(name);
 
-            if (!unique
-                    && MessageDisplayer.confirmYesNo(null,
-                        "RenameTemplateHelper.Confirm.InputUniqueName", name)) {
+            if (!unique && MessageDisplayer.confirmYesNo(null, "RenameTemplateHelper.Confirm.InputUniqueName", name)) {
                 dlg.setVisible(true);
             } else if (unique) {
                 return name;

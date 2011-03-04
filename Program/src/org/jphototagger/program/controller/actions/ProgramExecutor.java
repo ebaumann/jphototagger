@@ -3,10 +3,10 @@ package org.jphototagger.program.controller.actions;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.event.listener.ProgramExecutionListener;
 import org.jphototagger.program.helper.StartPrograms;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import javax.swing.JProgressBar;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Executes {@link Program}s.

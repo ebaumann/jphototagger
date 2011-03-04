@@ -25,9 +25,7 @@ public final class HttpUtil {
      *                      returns true
      * @throws IOException on read/write errors
      */
-    public static void write(URL source, OutputStream target,
-                             CancelRequest cancelRequest)
-            throws IOException {
+    public static void write(URL source, OutputStream target, CancelRequest cancelRequest) throws IOException {
         if (source == null) {
             throw new NullPointerException("source == null");
         }
@@ -36,7 +34,7 @@ public final class HttpUtil {
             throw new NullPointerException("target == null");
         }
 
-        HttpURLConnection   connection  = null;
+        HttpURLConnection connection = null;
         BufferedInputStream inputStream = null;
 
         try {
@@ -47,9 +45,7 @@ public final class HttpUtil {
 
             boolean cancel = false;
 
-            for (int singleByte = inputStream.read();
-                    !cancel && (singleByte != -1);
-                    singleByte = inputStream.read()) {
+            for (int singleByte = inputStream.read(); !cancel && (singleByte != -1); singleByte = inputStream.read()) {
                 target.write(singleByte);
                 cancel = (cancelRequest == null)
                          ? false

@@ -22,24 +22,25 @@ import javax.swing.TransferHandler;
  * @author Elmar Baumann
  */
 public final class TransferHandlerReorderListItems extends TransferHandler {
-    private static final long       serialVersionUID = -5420770026801383911L;
-    private static final DataFlavor INDICES_FLAVOR = new DataFlavor(LIST.class,
-                                                         null);
+    private static final long serialVersionUID = -5420770026801383911L;
+    private static final DataFlavor INDICES_FLAVOR = new DataFlavor(LIST.class, null);
     private final JList list;
 
     /**
      * Usage in DataFlavor in order that importData() will be called
      */
     private final class LIST {
+
         // Empty
     }
+
 
     private final class IndexInfo {
         private final JList source;
         private final int[] selIndices;
 
         IndexInfo(JList source, int[] selIndices) {
-            this.source     = source;
+            this.source = source;
             this.selIndices = selIndices;
         }
     }
@@ -53,8 +54,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
         boolean modelOk = list.getModel() instanceof DefaultListModel;
 
         if (!modelOk) {
-            throw new IllegalArgumentException("Not a DefaultListModel: "
-                                               + list.getModel());
+            throw new IllegalArgumentException("Not a DefaultListModel: " + list.getModel());
         }
 
         this.list = list;
@@ -64,8 +64,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
     public boolean canImport(TransferSupport support) {
         JList sourceList = getSourceList(support);
 
-        return support.isDrop() && (list == sourceList)
-               && support.isDataFlavorSupported(INDICES_FLAVOR);
+        return support.isDrop() && (list == sourceList) && support.isDataFlavorSupported(INDICES_FLAVOR);
     }
 
     @Override
@@ -77,8 +76,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
             return null;
         }
 
-        return new TransferableObject(new IndexInfo(sourceList, selIndices),
-                                      INDICES_FLAVOR);
+        return new TransferableObject(new IndexInfo(sourceList, selIndices), INDICES_FLAVOR);
     }
 
     @Override
@@ -86,8 +84,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
         IndexInfo indexInfo = null;
 
         try {
-            Object td =
-                support.getTransferable().getTransferData(INDICES_FLAVOR);
+            Object td = support.getTransferable().getTransferData(INDICES_FLAVOR);
 
             if (td instanceof IndexInfo) {
                 indexInfo = (IndexInfo) td;
@@ -98,7 +95,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
 
         if (indexInfo != null) {
             DropLocation dl = (JList.DropLocation) support.getDropLocation();
-            int          dropIndex = list.locationToIndex(dl.getDropPoint());
+            int dropIndex = list.locationToIndex(dl.getDropPoint());
 
             if (dropIndex >= 0) {
                 reorder(dropIndex, indexInfo.selIndices);
@@ -117,8 +114,8 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
 
         Arrays.sort(selIndices);
 
-        DefaultListModel model     = (DefaultListModel) list.getModel();
-        List<Object>     selValues = new ArrayList<Object>(selIndices.length);
+        DefaultListModel model = (DefaultListModel) list.getModel();
+        List<Object> selValues = new ArrayList<Object>(selIndices.length);
 
         for (int index : selIndices) {
             try {
@@ -150,8 +147,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
 
     private JList getSourceList(TransferSupport support) {
         try {
-            Object td =
-                support.getTransferable().getTransferData(INDICES_FLAVOR);
+            Object td = support.getTransferable().getTransferData(INDICES_FLAVOR);
 
             if (td instanceof IndexInfo) {
                 return ((IndexInfo) td).source;

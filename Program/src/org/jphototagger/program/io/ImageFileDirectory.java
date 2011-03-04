@@ -11,7 +11,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ImageFileDirectory {
-    private final File       directory;
+    private final File directory;
     private final List<File> imageFiles;
 
     public ImageFileDirectory(File directory) {

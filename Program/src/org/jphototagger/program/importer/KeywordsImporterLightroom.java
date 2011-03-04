@@ -1,9 +1,9 @@
 package org.jphototagger.program.importer;
 
+import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.exporter.KeywordsExporterLightroom;
 import org.jphototagger.program.io.CharEncoding;
-import org.jphototagger.lib.generics.Pair;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,17 +26,15 @@ import javax.swing.Icon;
  * @author Elmar Baumann
  */
 public final class KeywordsImporterLightroom extends KeywordsImporter {
-    public static final KeywordsImporterLightroom INSTANCE =
-        new KeywordsImporterLightroom();
+    public static final KeywordsImporterLightroom INSTANCE = new KeywordsImporterLightroom();
 
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
      */
-    private static final String SYNONYM_START_CHAR     = "{";
+    private static final String SYNONYM_START_CHAR = "{";
     private static final String ONE_LEVEL_INDENT_CHILD = "\t";
-    private final Node          root                   = new Node(null, -1,
-                                                             "ROOT");
+    private final Node root = new Node(null, -1, "ROOT");
 
     @Override
     public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
@@ -50,7 +48,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
             for (String line : readLines(file)) {
                 if (!isSynonym(line) && (node != null)) {
                     String keyword = removeBrackets(line.trim());
-                    int    level   = levelOfLine(line);
+                    int level = levelOfLine(line);
 
                     node = node.addNode(level, keyword);
                 }
@@ -78,10 +76,8 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
     }
 
-    private Collection<List<Pair<String, Boolean>>> pathsOfNodes(
-            Collection<? extends Node> nodes) {
-        List<List<Pair<String, Boolean>>> paths =
-            new ArrayList<List<Pair<String, Boolean>>>();
+    private Collection<List<Pair<String, Boolean>>> pathsOfNodes(Collection<? extends Node> nodes) {
+        List<List<Pair<String, Boolean>>> paths = new ArrayList<List<Pair<String, Boolean>>>();
 
         for (Node node : nodes) {
             paths.add(pathOfNode(node));
@@ -91,8 +87,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
     }
 
     private List<Pair<String, Boolean>> pathOfNode(Node node) {
-        List<Pair<String, Boolean>> path = new ArrayList<Pair<String,
-                                               Boolean>>();
+        List<Pair<String, Boolean>> path = new ArrayList<Pair<String, Boolean>>();
         Node parent = node;
 
         while (parent != root) {
@@ -110,14 +105,12 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
             return 0;
         }
 
-        int     length        = line.length();
+        int length = line.length();
         boolean isLevelIndent = true;
-        int     index         = 0;
+        int index = 0;
 
         for (index = 0; isLevelIndent && (index < length); index++) {
-            isLevelIndent = line.substring(index,
-                                           index
-                                           + 1).equals(ONE_LEVEL_INDENT_CHILD);
+            isLevelIndent = line.substring(index, index + 1).equals(ONE_LEVEL_INDENT_CHILD);
         }
 
         return index - 1;
@@ -129,7 +122,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
 
     private String removeBrackets(String line) {
         boolean hasStartBracket = line.startsWith("[");
-        boolean hasEndBracket   = line.endsWith("]");
+        boolean hasEndBracket = line.endsWith("]");
 
         // proably more efficient than calculating start and end index and
         // returning a substring in one call
@@ -142,17 +135,15 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
                    : line;
     }
 
-    private List<String> readLines(File file)
-            throws FileNotFoundException, IOException {
-        List<String>      lines  = new ArrayList<String>();
-        BufferedReader    reader = null;
-        FileInputStream   fis    = null;
-        InputStreamReader isr    = null;
+    private List<String> readLines(File file) throws FileNotFoundException, IOException {
+        List<String> lines = new ArrayList<String>();
+        BufferedReader reader = null;
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
 
         try {
-            fis    = new FileInputStream(file.getAbsolutePath());
-            isr    = new InputStreamReader(fis,
-                                           CharEncoding.LIGHTROOM_KEYWORDS);
+            fis = new FileInputStream(file.getAbsolutePath());
+            isr = new InputStreamReader(fis, CharEncoding.LIGHTROOM_KEYWORDS);
             reader = new BufferedReader(isr);
 
             String line = null;
@@ -207,10 +198,10 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
     }
 
     private class Node {
-        private final int        level;
-        private final Node       parent;
+        private final int level;
+        private final Node parent;
         private final List<Node> children = new ArrayList<Node>();
-        private final String     string;
+        private final String string;
 
         Node(Node parent, int level, String string) {
             if (string == null) {
@@ -218,7 +209,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
             }
 
             this.parent = parent;
-            this.level  = level;
+            this.level = level;
             this.string = string;
         }
 
@@ -239,7 +230,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
 
         public Node getChildAt(int index) {
-            assert (index >= 0) && (index < children.size()) : index;
+            assert(index >= 0) && (index < children.size()) : index;
 
             return ((index >= 0) && (index < children.size()))
                    ? children.get(index)

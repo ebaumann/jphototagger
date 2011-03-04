@@ -14,16 +14,12 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class UpdateUserSettings {
-    private static final Map<String, String> NEW_PATHNAME_START =
-        new HashMap<String, String>();
-    private static final List<String> REMOVE_KEY_PATTERNS =
-        new ArrayList<String>();
+    private static final Map<String, String> NEW_PATHNAME_START = new HashMap<String, String>();
+    private static final List<String> REMOVE_KEY_PATTERNS = new ArrayList<String>();
 
     static {
-        NEW_PATHNAME_START.put("de.elmar_baumann.imv.",
-                               "org.jphototagger.program.");
-        NEW_PATHNAME_START.put("de.elmar_bauman.cpfntc.",
-                               "org.jphototagger.plugin.");
+        NEW_PATHNAME_START.put("de.elmar_baumann.imv.", "org.jphototagger.program.");
+        NEW_PATHNAME_START.put("de.elmar_bauman.cpfntc.", "org.jphototagger.plugin.");
         REMOVE_KEY_PATTERNS.add("^InputHelperDialog.ListKeywords.[0-9]+");
     }
 
@@ -35,13 +31,13 @@ public final class UpdateUserSettings {
 
     private static void renamePathKeysAndValues(Properties properties) {
         for (String className : NEW_PATHNAME_START.keySet()) {
-            String       replace       = NEW_PATHNAME_START.get(className);
-            List<String> replaceKeys   = new ArrayList<String>();
+            String replace = NEW_PATHNAME_START.get(className);
+            List<String> replaceKeys = new ArrayList<String>();
             List<String> replaceValues = new ArrayList<String>();
 
             for (Object objectKey : properties.keySet()) {
                 if (objectKey instanceof String) {
-                    String key   = (String) objectKey;
+                    String key = (String) objectKey;
                     String value = properties.getProperty(key);
 
                     if (key.startsWith(className)) {
@@ -59,9 +55,8 @@ public final class UpdateUserSettings {
         }
     }
 
-    private static void renamePathKeys(Properties properties,
-                                       List<String> replaceKeys,
-                                       String pathStart, String replace) {
+    private static void renamePathKeys(Properties properties, List<String> replaceKeys, String pathStart,
+                                       String replace) {
         for (String key : replaceKeys) {
             String renamedKey = replace + key.substring(pathStart.length());
 
@@ -70,11 +65,10 @@ public final class UpdateUserSettings {
         }
     }
 
-    private static void renamePathValues(Properties properties,
-            List<String> replaceKeys, String pathStart, String replace) {
+    private static void renamePathValues(Properties properties, List<String> replaceKeys, String pathStart,
+            String replace) {
         for (String key : replaceKeys) {
-            String renamedValue =
-                properties.getProperty(key).replaceAll(pathStart, replace);    // Dirty
+            String renamedValue = properties.getProperty(key).replaceAll(pathStart, replace);    // Dirty
 
             properties.put(key, renamedValue);
         }
@@ -102,10 +96,8 @@ public final class UpdateUserSettings {
 
     private static final String KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP =
         "UserSettings.IsCreateThumbnailsWithExternalApp";
-    private static final String KEY_USE_EMBEDDED_THUMBNAILS =
-        "UserSettings.IsUseEmbeddedThumbnails";
-    private static final String KEY_THUMBNAIL_CREATOR =
-        "UserSettings.ThumbnailCreator";
+    private static final String KEY_USE_EMBEDDED_THUMBNAILS = "UserSettings.IsUseEmbeddedThumbnails";
+    private static final String KEY_THUMBNAIL_CREATOR = "UserSettings.ThumbnailCreator";
 
     private static void setThumbnailCreator(Properties properties) {
         if (!properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
@@ -113,15 +105,12 @@ public final class UpdateUserSettings {
             return;
         }
 
-        boolean externalApp =
-            properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
-            ? properties.getProperty(
-                KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP).equals("1")
-            : false;
-        boolean useEmbedded =
-            properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)
-            ? properties.getProperty(KEY_USE_EMBEDDED_THUMBNAILS).equals("1")
-            : false;
+        boolean externalApp = properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
+                              ? properties.getProperty(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP).equals("1")
+                              : false;
+        boolean useEmbedded = properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)
+                              ? properties.getProperty(KEY_USE_EMBEDDED_THUMBNAILS).equals("1")
+                              : false;
 
         if (externalApp && useEmbedded) {    // Should never be the case!
             useEmbedded = false;

@@ -10,16 +10,12 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnXmpPhotoshopCity extends Column {
-    public static final ColumnXmpPhotoshopCity INSTANCE =
-        new ColumnXmpPhotoshopCity();
+    public static final ColumnXmpPhotoshopCity INSTANCE = new ColumnXmpPhotoshopCity();
 
     private ColumnXmpPhotoshopCity() {
         super("city", "photoshop_cities", DataType.STRING);
         setLength(32);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCity.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpPhotoshopCity.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCity.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopCity.LongerDescription"));
     }
 }

@@ -68,8 +68,7 @@ public class Bundle {
 
             return MessageFormat.format(s, params);
         } catch (Exception ex) {
-            Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(Bundle.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return "?" + key + "?";

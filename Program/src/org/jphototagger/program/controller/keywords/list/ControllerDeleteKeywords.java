@@ -35,8 +35,7 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuKeywordsList.INSTANCE.getItemDelete();
+        return evt.getSource() == PopupMenuKeywordsList.INSTANCE.getItemDelete();
     }
 
     @Override
@@ -50,16 +49,13 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
         if (size == 1) {
             String keyword = keywords.get(0);
 
-            if (MessageDisplayer.confirmYesNo(
-                    InputHelperDialog.INSTANCE,
-                    "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
+            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE,
+                                              "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
                 KeywordsHelper.deleteDcSubject(keyword);
             }
         } else if (size > 1) {
-            if (MessageDisplayer.confirmYesNo(
-                    InputHelperDialog.INSTANCE,
-                    "ControllerDeleteKeywords.List.Confirm.DeleteMultiple",
-                    size)) {
+            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE,
+                                              "ControllerDeleteKeywords.List.Confirm.DeleteMultiple", size)) {
                 for (String keyword : keywords) {
                     KeywordsHelper.deleteDcSubject(keyword);
                 }

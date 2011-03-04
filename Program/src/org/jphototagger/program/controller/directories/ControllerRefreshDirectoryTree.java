@@ -39,8 +39,7 @@ public final class ControllerRefreshDirectoryTree extends ControllerDirectory {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuDirectories.INSTANCE.getItemRefresh();
+        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemRefresh();
     }
 
     @Override
@@ -49,7 +48,6 @@ public final class ControllerRefreshDirectoryTree extends ControllerDirectory {
             throw new NullPointerException("node == null");
         }
 
-        ModelFactory.INSTANCE.getModel(
-            TreeModelAllSystemDirectories.class).update();
+        ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).update();
     }
 }

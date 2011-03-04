@@ -31,18 +31,15 @@ import javax.xml.transform.TransformerFactory;
  * @author Elmar Baumann
  */
 public final class SynonymsExporter implements Exporter {
-    private static final long       serialVersionUID = 1L;
-    private static final FileFilter FILE_FILTER      =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "SynonymsExporter.DisplayName.FileFilter"), "xml");
-    public static final SynonymsExporter INSTANCE        =
-        new SynonymsExporter();
-    public static final String           DTD             = "synonyms.dtd";
-    public static final String           TAGNAME_ROOT    = "synonyms";
-    public static final String           TAGNAME_ENTRY   = "entry";
-    public static final String           TAGNAME_WORD    = "word";
-    public static final String           TAGNAME_SYNONYM = "synonym";
+    private static final long serialVersionUID = 1L;
+    private static final FileFilter FILE_FILTER =
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("SynonymsExporter.DisplayName.FileFilter"), "xml");
+    public static final SynonymsExporter INSTANCE = new SynonymsExporter();
+    public static final String DTD = "synonyms.dtd";
+    public static final String TAGNAME_ROOT = "synonyms";
+    public static final String TAGNAME_ENTRY = "entry";
+    public static final String TAGNAME_WORD = "word";
+    public static final String TAGNAME_SYNONYM = "synonym";
 
     @Override
     public void exportFile(File file) {
@@ -51,11 +48,11 @@ public final class SynonymsExporter implements Exporter {
         }
 
         try {
-            Document           doc   = getDoc();
-            DOMSource          ds    = new DOMSource(doc);
-            StreamResult       sr    = new StreamResult(file);
-            TransformerFactory tf    = TransformerFactory.newInstance();
-            Transformer        trans = tf.newTransformer();
+            Document doc = getDoc();
+            DOMSource ds = new DOMSource(doc);
+            StreamResult sr = new StreamResult(file);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer trans = tf.newTransformer();
 
             insertSynonyms(doc);
             initTransformer(trans);
@@ -72,13 +69,12 @@ public final class SynonymsExporter implements Exporter {
 
         for (String word : DatabaseSynonyms.INSTANCE.getAllWords()) {
             Element entryElement = doc.createElement(TAGNAME_ENTRY);
-            Element wordElement  = doc.createElement(TAGNAME_WORD);
+            Element wordElement = doc.createElement(TAGNAME_WORD);
 
             wordElement.setTextContent(word);
             entryElement.appendChild(wordElement);
 
-            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(
-                    word)) {
+            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(word)) {
                 Element synonymElement = doc.createElement(TAGNAME_SYNONYM);
 
                 synonymElement.setTextContent(synonym);
@@ -91,20 +87,18 @@ public final class SynonymsExporter implements Exporter {
 
     private Document getDoc() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder        builder = factory.newDocumentBuilder();
-        DOMImplementation      impl    = builder.getDOMImplementation();
-        Document               doc     = impl.createDocument(null, null, null);
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        DOMImplementation impl = builder.getDOMImplementation();
+        Document doc = impl.createDocument(null, null, null);
 
         return doc;
     }
 
-    private void initTransformer(Transformer trans)
-            throws IllegalArgumentException {
+    private void initTransformer(Transformer trans) throws IllegalArgumentException {
         trans.setOutputProperty(OutputKeys.METHOD, "xml");
         trans.setOutputProperty(OutputKeys.ENCODING, CharEncoding.JPT_KEYWORDS);
         trans.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, DTD);
-        trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
-                                "4");
+        trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         trans.setOutputProperty(OutputKeys.INDENT, "yes");
         trans.setOutputProperty(OutputKeys.STANDALONE, "no");
     }

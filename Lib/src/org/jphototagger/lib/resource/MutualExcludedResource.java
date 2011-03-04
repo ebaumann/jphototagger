@@ -26,11 +26,10 @@ import java.util.logging.Logger;
  * @author    Elmar Baumann
  */
 public class MutualExcludedResource<T> {
-    private T                   resource = null;
-    private boolean             locked   = false;
-    private Object              owner    = null;
-    private static final Logger logger =
-        Logger.getLogger(MutualExcludedResource.class.getName());
+    private T resource = null;
+    private boolean locked = false;
+    private Object owner = null;
+    private static final Logger logger = Logger.getLogger(MutualExcludedResource.class.getName());
 
     /**
      * Returns, whether a resource can be used: It exists (is not null)
@@ -62,13 +61,10 @@ public class MutualExcludedResource<T> {
         if (isAvailable()) {
             setLocked(true);
             setOwner(owner);
-            logger.log(
-                Level.FINEST,
-                JslBundle.INSTANCE.getString(
-                    "MutualExcludedResource.Info.Get",
-                    resource.getClass().getSimpleName(),
-                    owner.getClass().getSimpleName(), owner.hashCode(),
-                    owner.toString()));
+            logger.log(Level.FINEST,
+                       JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get",
+                           resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode(),
+                           owner.toString()));
 
             return resource;
         }
@@ -92,13 +88,10 @@ public class MutualExcludedResource<T> {
         if (isLocked() && (owner != null) && (owner == getOwner())) {
             this.owner = null;
             setLocked(false);
-            logger.log(
-                Level.FINEST,
-                JslBundle.INSTANCE.getString(
-                    "MutualExcludedResource.Info.Release",
-                    resource.getClass().getSimpleName(),
-                    owner.getClass().getSimpleName(), owner.hashCode(),
-                    owner.toString()));
+            logger.log(Level.FINEST,
+                       JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release",
+                           resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode(),
+                           owner.toString()));
 
             return true;
         }

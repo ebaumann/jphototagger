@@ -18,8 +18,7 @@ import javax.swing.Icon;
  * @author Elmar Baumann
  */
 public final class RenameTemplatesImporter implements Importer {
-    public static final RenameTemplatesImporter INSTANCE =
-        new RenameTemplatesImporter();
+    public static final RenameTemplatesImporter INSTANCE = new RenameTemplatesImporter();
 
     @Override
     public void importFile(File file) {
@@ -33,8 +32,7 @@ public final class RenameTemplatesImporter implements Importer {
                     RenameTemplatesExporter.CollectionWrapper.class);
 
             for (RenameTemplate template : wrapper.getCollection()) {
-                if (!DatabaseRenameTemplates.INSTANCE.exists(
-                        template.getName())) {
+                if (!DatabaseRenameTemplates.INSTANCE.exists(template.getName())) {
                     DatabaseRenameTemplates.INSTANCE.insert(template);
                 }
             }

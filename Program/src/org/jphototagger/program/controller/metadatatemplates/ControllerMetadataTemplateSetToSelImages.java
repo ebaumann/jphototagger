@@ -15,27 +15,23 @@ import javax.swing.JButton;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMetadataTemplateSetToSelImages
-        extends ControllerMetadataTemplate {
+public final class ControllerMetadataTemplateSetToSelImages extends ControllerMetadataTemplate {
     public ControllerMetadataTemplateSetToSelImages() {
         listen();
     }
 
     private void listen() {
-        listenToActionsOf(
-            PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages());
+        listenToActionsOf(PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages());
         getAddButton().addActionListener(this);
     }
 
     private JButton getAddButton() {
-        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonAddToSelImages();
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonAddToSelImages();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if ((evt.getSource() == getAddButton())
-                && isInputHelperListItemSelected()) {
+        if ((evt.getSource() == getAddButton()) && isInputHelperListItemSelected()) {
             action(getTemplateOfInputHelperList());
         } else {
             super.actionPerformed(evt);
@@ -57,8 +53,7 @@ public final class ControllerMetadataTemplateSetToSelImages
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages();
     }
 
     @Override

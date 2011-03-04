@@ -7,7 +7,7 @@ package org.jphototagger.program.event;
  */
 public final class UserSettingsEvent {
     private Object source;
-    private Type   type;
+    private Type type;
 
     public enum Type {
         DISPLAY_IPTC, LOG_LEVEL, MAX_THUMBNAIL_WIDTH, CHECK_FOR_UPDATES
@@ -22,7 +22,7 @@ public final class UserSettingsEvent {
             throw new NullPointerException("source == null");
         }
 
-        this.type   = type;
+        this.type = type;
         this.source = source;
     }
 

@@ -18,14 +18,12 @@ import java.awt.event.WindowEvent;
 public final class SizeAndLocationController extends WindowAdapter {
     @Override
     public void windowOpened(WindowEvent evt) {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(
-            evt.getComponent());
+        UserSettings.INSTANCE.getSettings().applySizeAndLocation(evt.getComponent());
     }
 
     @Override
     public void windowClosing(WindowEvent evt) {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(
-                evt.getComponent());
+        UserSettings.INSTANCE.getSettings().setSizeAndLocation(evt.getComponent());
         UserSettings.INSTANCE.writeToFile();
     }
 }

@@ -10,17 +10,12 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnXmpPhotoshopSource extends Column {
-    public static final ColumnXmpPhotoshopSource INSTANCE =
-        new ColumnXmpPhotoshopSource();
+    public static final ColumnXmpPhotoshopSource INSTANCE = new ColumnXmpPhotoshopSource();
 
     private ColumnXmpPhotoshopSource() {
         super("source", "photoshop_sources", DataType.STRING);
         setLength(32);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpPhotoshopSource.Description"));
-        setLongerDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnXmpPhotoshopSource.LongerDescription"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopSource.Description"));
+        setLongerDescription(JptBundle.INSTANCE.getString("ColumnXmpPhotoshopSource.LongerDescription"));
     }
 }

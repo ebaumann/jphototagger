@@ -6,6 +6,7 @@ import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.model.TreeModelFavorites;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 
 import java.awt.event.ActionEvent;
@@ -18,7 +19,6 @@ import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to {@link PopupMenuFavorites#getItemRenameFilesystemFolder()} and
@@ -30,15 +30,13 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFavoritesRenameFilesystemFolder
-        implements ActionListener, KeyListener {
+public final class ControllerFavoritesRenameFilesystemFolder implements ActionListener, KeyListener {
     public ControllerFavoritesRenameFilesystemFolder() {
         listen();
     }
 
     private void listen() {
-        PopupMenuFavorites.INSTANCE.getItemRenameFilesystemFolder()
-            .addActionListener(this);
+        PopupMenuFavorites.INSTANCE.getItemRenameFilesystemFolder().addActionListener(this);
         GUI.getFavoritesTree().addKeyListener(this);
     }
 
@@ -61,8 +59,7 @@ public final class ControllerFavoritesRenameFilesystemFolder
             @Override
             public void run() {
                 renameDirectory(
-                    TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                        PopupMenuFavorites.INSTANCE.getTreePath()));
+                    TreeFileSystemDirectories.getNodeOfLastPathComponent(PopupMenuFavorites.INSTANCE.getTreePath()));
             }
         });
     }
@@ -78,13 +75,11 @@ public final class ControllerFavoritesRenameFilesystemFolder
             File newDir = FileSystemDirectories.rename(dir);
 
             if (newDir != null) {
-                TreeModelFavorites model =
-                    ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
+                TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
 
                 node.setUserObject(newDir);
                 TreeFileSystemDirectories.updateInTreeModel(model, node);
-                ControllerFactory.INSTANCE.getController(
-                    ControllerRefreshFavorites.class).refresh();
+                ControllerFactory.INSTANCE.getController(ControllerRefreshFavorites.class).refresh();
             }
         }
     }

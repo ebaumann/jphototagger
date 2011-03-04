@@ -18,8 +18,7 @@ import javax.swing.JButton;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMetadataTemplateAdd
-        extends ControllerMetadataTemplate {
+public final class ControllerMetadataTemplateAdd extends ControllerMetadataTemplate {
     public ControllerMetadataTemplateAdd() {
         listen();
     }
@@ -35,8 +34,7 @@ public final class ControllerMetadataTemplateAdd
     }
 
     private JButton getAddButtonInputHelper() {
-        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates()
-            .getButtonAdd();
+        return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getButtonAdd();
     }
 
     @Override
@@ -52,8 +50,7 @@ public final class ControllerMetadataTemplateAdd
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
 
-        if ((source == getAddButtonEditPanel())
-                || (source == getAddButtonInputHelper())) {
+        if ((source == getAddButtonEditPanel()) || (source == getAddButtonInputHelper())) {
             action((MetadataTemplate) null);
         } else {
             super.actionPerformed(evt);
@@ -66,14 +63,13 @@ public final class ControllerMetadataTemplateAdd
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuMetadataTemplates.INSTANCE.getItemAdd();
+        return evt.getSource() == PopupMenuMetadataTemplates.INSTANCE.getItemAdd();
     }
 
     @Override
     protected void action(MetadataTemplate template) {
         EditMetaDataTemplateDialog dlg = new EditMetaDataTemplateDialog();
-        MetadataTemplate           t   = new MetadataTemplate();
+        MetadataTemplate t = new MetadataTemplate();
 
         dlg.setTemplate(t);
         ComponentUtil.show(dlg);

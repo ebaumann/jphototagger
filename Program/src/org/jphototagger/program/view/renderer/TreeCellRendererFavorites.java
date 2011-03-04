@@ -20,9 +20,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  * @author Elmar Baumann
  */
 public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
-    private static final long    serialVersionUID = 4280765256503091379L;
-    private final FileSystemView fileSystemView   =
-        FileSystemView.getFileSystemView();
+    private static final long serialVersionUID = 4280765256503091379L;
+    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private int tempSelRow = -1;
 
     public TreeCellRendererFavorites() {
@@ -30,14 +29,12 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value,
-            boolean sel, boolean expanded, boolean leaf, int row,
-            boolean hasFocus) {
-        super.getTreeCellRendererComponent(tree, value, sel, expanded, false,
-                                           row, hasFocus);
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
+            boolean leaf, int row, boolean hasFocus) {
+        super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
-        DefaultMutableTreeNode node       = (DefaultMutableTreeNode) value;
-        Object                 userObject = node.getUserObject();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+        Object userObject = node.getUserObject();
 
         render(userObject, row);
 
@@ -63,15 +60,14 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        AppLogger.logSevere(TreeCellRendererFavorites.class,
-                                            ex);
+                        AppLogger.logSevere(TreeCellRendererFavorites.class, ex);
                     }
                 }
             }
         }
 
         boolean tempSelExists = tempSelRow >= 0;
-        boolean isTempSelRow  = row == tempSelRow;
+        boolean isTempSelRow = row == tempSelRow;
 
         setForeground((isTempSelRow || (selected &&!tempSelExists))
                       ? AppLookAndFeel.getTreeSelectionForeground()

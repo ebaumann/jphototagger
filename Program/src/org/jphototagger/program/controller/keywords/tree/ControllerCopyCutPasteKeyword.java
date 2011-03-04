@@ -3,8 +3,7 @@ package org.jphototagger.program.controller.keywords.tree;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.keywords.tree
-    .KeywordTreeNodesClipboard.Action;
+import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard.Action;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.factory.ModelFactory;
@@ -41,8 +40,7 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public class ControllerCopyCutPasteKeyword
-        implements ActionListener, KeyListener {
+public class ControllerCopyCutPasteKeyword implements ActionListener, KeyListener {
     private final KeywordsPanel panel;
 
     public ControllerCopyCutPasteKeyword(KeywordsPanel panel) {
@@ -76,10 +74,8 @@ public class ControllerCopyCutPasteKeyword
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
-        Object lastPathComponent =
-            PopupMenuKeywordsTree.INSTANCE.getTreePath().getLastPathComponent();
-        DefaultMutableTreeNode node =
-            (DefaultMutableTreeNode) lastPathComponent;
+        Object lastPathComponent = PopupMenuKeywordsTree.INSTANCE.getTreePath().getLastPathComponent();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPathComponent;
 
         if (source == getCutItem()) {
             KeywordTreeNodesClipboard.INSTANCE.setContent(node, Action.MOVE);
@@ -101,11 +97,9 @@ public class ControllerCopyCutPasteKeyword
         }
 
         if (KeyEventUtil.isCopy(evt)) {
-            KeywordTreeNodesClipboard.INSTANCE.setContent(
-                getFirstSelectedNode(tree), Action.COPY);
+            KeywordTreeNodesClipboard.INSTANCE.setContent(getFirstSelectedNode(tree), Action.COPY);
         } else if (KeyEventUtil.isCut(evt)) {
-            KeywordTreeNodesClipboard.INSTANCE.setContent(
-                getFirstSelectedNode(tree), Action.MOVE);
+            KeywordTreeNodesClipboard.INSTANCE.setContent(getFirstSelectedNode(tree), Action.MOVE);
         } else if (isPasteCopyFromClipBoard(evt)) {
             pasteCopy(tree);
         }
@@ -114,8 +108,7 @@ public class ControllerCopyCutPasteKeyword
     private DefaultMutableTreeNode getFirstSelectedNode(JTree tree) {
         assert !tree.isSelectionEmpty();
 
-        return (DefaultMutableTreeNode) tree.getSelectionPath()
-            .getLastPathComponent();
+        return (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
     }
 
     private void pasteMenuAction(DefaultMutableTreeNode node) {
@@ -127,15 +120,12 @@ public class ControllerCopyCutPasteKeyword
     }
 
     private void move(DefaultMutableTreeNode node) {
-        Transferable trans =
-            new TransferableObject(
-                new ArrayList<DefaultMutableTreeNode>(
-                    KeywordTreeNodesClipboard.INSTANCE.getContent()), Flavor
-                        .KEYWORDS_TREE);
+        Transferable trans = new TransferableObject(
+                                 new ArrayList<DefaultMutableTreeNode>(
+                                     KeywordTreeNodesClipboard.INSTANCE.getContent()), Flavor.KEYWORDS_TREE);
 
-        TransferHandlerKeywordsTree.moveKeywords(
-            new TransferSupport(panel, trans),
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), node);
+        TransferHandlerKeywordsTree.moveKeywords(new TransferSupport(panel, trans),
+                ModelFactory.INSTANCE.getModel(TreeModelKeywords.class), node);
         KeywordTreeNodesClipboard.INSTANCE.empty();
     }
 
@@ -151,15 +141,11 @@ public class ControllerCopyCutPasteKeyword
                     return;
                 }
 
-                TreeModelKeywords model =
-                    ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
-                for (DefaultMutableTreeNode node :
-                        KeywordTreeNodesClipboard.INSTANCE.getContent()) {
+                for (DefaultMutableTreeNode node : KeywordTreeNodesClipboard.INSTANCE.getContent()) {
                     for (TreePath selPath : selPaths) {
-                        model.copySubtree(node,
-                                          (DefaultMutableTreeNode) selPath
-                                              .getLastPathComponent());
+                        model.copySubtree(node, (DefaultMutableTreeNode) selPath.getLastPathComponent());
                     }
                 }
 
@@ -177,23 +163,19 @@ public class ControllerCopyCutPasteKeyword
             return true;
         }
 
-        return MessageDisplayer.confirmYesNo(null,
-                "ControllerCopyCutPasteKeyword.Confirm.CopyToAllSelected");
+        return MessageDisplayer.confirmYesNo(null, "ControllerCopyCutPasteKeyword.Confirm.CopyToAllSelected");
     }
 
     private boolean isCopyFromClipBoard() {
-        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
-               && KeywordTreeNodesClipboard.INSTANCE.isCopy();
+        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty() && KeywordTreeNodesClipboard.INSTANCE.isCopy();
     }
 
     private boolean isMoveFromClipBoard() {
-        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
-               && KeywordTreeNodesClipboard.INSTANCE.isMove();
+        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty() && KeywordTreeNodesClipboard.INSTANCE.isMove();
     }
 
     private boolean isPasteCopyFromClipBoard(KeyEvent evt) {
-        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty()
-               && KeyEventUtil.isPaste(evt)
+        return !KeywordTreeNodesClipboard.INSTANCE.isEmpty() && KeyEventUtil.isPaste(evt)
                && KeywordTreeNodesClipboard.INSTANCE.isCopy();
     }
 

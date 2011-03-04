@@ -30,12 +30,10 @@ public final class ControllerThumbnailDoubleklick {
 
     private void openImage(int index) {
         if (panel.isIndex(index)) {
-            Program program =
-                DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
+            Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
             if (program != null) {
-                new StartPrograms(null).startProgram(program,
-                                  Arrays.asList(panel.getFile(index)));
+                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFile(index)));
             }
         }
     }

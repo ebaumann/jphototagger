@@ -13,7 +13,7 @@ public enum Namespace {
     private final String prefix;
 
     private Namespace(String uri, String prefix) {
-        this.uri    = uri;
+        this.uri = uri;
         this.prefix = prefix;
     }
 

@@ -13,15 +13,14 @@ import java.util.Arrays;
  * @author Elmar Baumann
  */
 public final class ExifFormatterUserComment extends ExifFormatter {
-    public static final ExifFormatterUserComment INSTANCE =
-        new ExifFormatterUserComment();
-    private static final byte[] CODE_ASCII     = {
+    public static final ExifFormatterUserComment INSTANCE = new ExifFormatterUserComment();
+    private static final byte[] CODE_ASCII = {
         0x41, 0x53, 0x43, 0x49, 0x49, 0x00, 0x00, 0x00
     };
-    private static final byte[] CODE_JIS       = {
+    private static final byte[] CODE_JIS = {
         0x4A, 0x49, 0x53, 0x00, 0x00, 0x00, 0x00, 0x00
     };
-    private static final byte[] CODE_UNICODE   = {
+    private static final byte[] CODE_UNICODE = {
         0x55, 0x4E, 0x49, 0x43, 0x4F, 0x44, 0x45, 0x00
     };
     private static final byte[] CODE_UNDEFINED = {
@@ -29,8 +28,7 @@ public final class ExifFormatterUserComment extends ExifFormatter {
     };
 
     private enum CharCode {
-        ASCII("US-ASCII"), JIS("JISAutoDetect"), UNICODE("UTF-8"),
-        UNDEFINED(""), UNREGOGNIZED(""),
+        ASCII("US-ASCII"), JIS("JISAutoDetect"), UNICODE("UTF-8"), UNDEFINED(""), UNREGOGNIZED(""),
         ;
 
         private final String charsetName;

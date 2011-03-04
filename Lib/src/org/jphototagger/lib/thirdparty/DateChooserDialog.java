@@ -82,18 +82,18 @@ import javax.swing.JPanel;
  * @author Knute Johnson, Elmar Baumann
  */
 public final class DateChooserDialog extends JComponent {
-    private static final long        serialVersionUID = 6639100896711582088L;
-    private final String[]           dayStr;
-    private final String[]           monthStr;
-    private final JButton            previousButton, nextButton;
-    private final JLabel[]           dayOfWeekLabels  = new JLabel[7];
-    private final JLabel[]           dayOfMonthLabels = new JLabel[42];
-    private final JLabel             monthYearLabel;
-    private final Locale             locale;
-    private GregorianCalendar        gc;
-    private int                      thisYear, thisMonth, today;
-    private int                      selectedDay;
-    private static JDialog           dialog;
+    private static final long serialVersionUID = 6639100896711582088L;
+    private final String[] dayStr;
+    private final String[] monthStr;
+    private final JButton previousButton, nextButton;
+    private final JLabel[] dayOfWeekLabels = new JLabel[7];
+    private final JLabel[] dayOfMonthLabels = new JLabel[42];
+    private final JLabel monthYearLabel;
+    private final Locale locale;
+    private GregorianCalendar gc;
+    private int thisYear, thisMonth, today;
+    private int selectedDay;
+    private static JDialog dialog;
     private static GregorianCalendar retcod;
 
     private DateChooserDialog() {
@@ -101,10 +101,10 @@ public final class DateChooserDialog extends JComponent {
     }
 
     private DateChooserDialog(GregorianCalendar calendar, Locale locale) {
-        gc          = calendar;
-        thisYear    = gc.get(Calendar.YEAR);
-        thisMonth   = gc.get(Calendar.MONTH);
-        today       = selectedDay = gc.get(Calendar.DAY_OF_MONTH);
+        gc = calendar;
+        thisYear = gc.get(Calendar.YEAR);
+        thisMonth = gc.get(Calendar.MONTH);
+        today = selectedDay = gc.get(Calendar.DAY_OF_MONTH);
         this.locale = locale;
 
         DateFormatSymbols dfs = DateFormatSymbols.getInstance(locale);
@@ -114,14 +114,12 @@ public final class DateChooserDialog extends JComponent {
 
         GridBagConstraints c = new GridBagConstraints();
 
-        c.gridx        = c.gridy = 0;
-        c.insets       = new Insets(2, 2, 2, 2);
-        c.weightx      = 1.0;
-        c.anchor       = GridBagConstraints.WEST;
+        c.gridx = c.gridy = 0;
+        c.insets = new Insets(2, 2, 2, 2);
+        c.weightx = 1.0;
+        c.anchor = GridBagConstraints.WEST;
         previousButton = new JButton();
-        previousButton.setIcon(
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_datechooser_prev.png"));
+        previousButton.setIcon(IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_datechooser_prev.png"));
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.setPreferredSize(new Dimension(16, 16));
         previousButton.addActionListener(new ActionListener() {
@@ -138,15 +136,13 @@ public final class DateChooserDialog extends JComponent {
         });
         add(previousButton, c);
         ++c.gridx;
-        c.anchor       = GridBagConstraints.CENTER;
+        c.anchor = GridBagConstraints.CENTER;
         monthYearLabel = new JLabel("           ", JLabel.CENTER);
         add(monthYearLabel, c);
         ++c.gridx;
-        c.anchor   = GridBagConstraints.EAST;
+        c.anchor = GridBagConstraints.EAST;
         nextButton = new JButton();
-        nextButton.setIcon(
-            IconUtil.getImageIcon(
-                "/org/jphototagger/lib/resource/icons/icon_datechooser_next.png"));
+        nextButton.setIcon(IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_datechooser_next.png"));
         nextButton.setBorder(BorderFactory.createEmptyBorder());
         nextButton.setPreferredSize(new Dimension(16, 16));
         nextButton.addActionListener(new ActionListener() {
@@ -167,7 +163,7 @@ public final class DateChooserDialog extends JComponent {
             @Override
             public void mouseClicked(MouseEvent me) {
                 JLabel dayLabel = (JLabel) me.getSource();
-                String str      = dayLabel.getText();
+                String str = dayLabel.getText();
 
                 try {
                     int num = Integer.parseInt(str);
@@ -176,8 +172,7 @@ public final class DateChooserDialog extends JComponent {
                     selectedDay = num;
                     drawCalendar();
                 } catch (Exception nfe) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-                                     null, nfe);
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, nfe);
                 }
             }
         };
@@ -185,7 +180,7 @@ public final class DateChooserDialog extends JComponent {
         c.gridx = 0;
         ++c.gridy;
         c.gridwidth = 3;
-        c.anchor    = GridBagConstraints.CENTER;
+        c.anchor = GridBagConstraints.CENTER;
 
         JPanel panel = new JPanel(new GridLayout(7, 7, 1, 1));
 
@@ -202,8 +197,7 @@ public final class DateChooserDialog extends JComponent {
                     : Calendar.SATURDAY;
             }
 
-            dayOfWeekLabels[i] = new JLabel(dayStr[x].toUpperCase(),
-                                            JLabel.CENTER);
+            dayOfWeekLabels[i] = new JLabel(dayStr[x].toUpperCase(), JLabel.CENTER);
             panel.add(dayOfWeekLabels[i]);
         }
 
@@ -220,10 +214,9 @@ public final class DateChooserDialog extends JComponent {
 
     private void drawCalendar() {
         int month = gc.get(Calendar.MONTH);
-        int year  = gc.get(Calendar.YEAR);
+        int year = gc.get(Calendar.YEAR);
 
-        monthYearLabel.setText(monthStr[month].toUpperCase() + " "
-                               + Integer.toString(year));
+        monthYearLabel.setText(monthStr[month].toUpperCase() + " " + Integer.toString(year));
         gc.set(Calendar.DAY_OF_MONTH, 1);
 
         int firstDayOfMonth = gc.get(Calendar.DAY_OF_WEEK);
@@ -238,12 +231,10 @@ public final class DateChooserDialog extends JComponent {
 
         for (int i = 0; i < 42; i++) {
             if ((i >= (firstDayOfMonth - 1))
-                    && (i < (gc.getActualMaximum(Calendar.DAY_OF_MONTH)
-                             + firstDayOfMonth - 1))) {
+                    && (i < (gc.getActualMaximum(Calendar.DAY_OF_MONTH) + firstDayOfMonth - 1))) {
                 dayOfMonthLabels[i].setText(Integer.toString(day));
 
-                if ((day == today) && (month == thisMonth)
-                        && (year == thisYear)) {
+                if ((day == today) && (month == thisMonth) && (year == thisYear)) {
                     dayOfMonthLabels[i].setForeground(Color.RED);
                 } else {
                     dayOfMonthLabels[i].setForeground(Color.BLACK);
@@ -264,8 +255,7 @@ public final class DateChooserDialog extends JComponent {
     }
 
     public GregorianCalendar getCalendar() {
-        return new GregorianCalendar(gc.get(Calendar.YEAR),
-                                     gc.get(Calendar.MONTH), selectedDay);
+        return new GregorianCalendar(gc.get(Calendar.YEAR), gc.get(Calendar.MONTH), selectedDay);
     }
 
     public void setCalendar(GregorianCalendar calendar) {
@@ -285,10 +275,8 @@ public final class DateChooserDialog extends JComponent {
      * @return      Kalender mit ausgewähltem Datum oder null, wenn keines
      *              ausgewählt wurde
      */
-    public static GregorianCalendar showDialog(Component comp,
-            java.util.List<? extends Image> icons) {
-        return showDialog(comp, new GregorianCalendar(), Locale.getDefault(),
-                          icons);
+    public static GregorianCalendar showDialog(Component comp, java.util.List<? extends Image> icons) {
+        return showDialog(comp, new GregorianCalendar(), Locale.getDefault(), icons);
     }
 
     /**
@@ -301,19 +289,17 @@ public final class DateChooserDialog extends JComponent {
      * @return         Kalender mit ausgewähltem Datum oder null, wenn keines
      *                 ausgewählt wurde
      */
-    public static GregorianCalendar showDialog(Component comp,
-            GregorianCalendar calendar, Locale locale,
+    public static GregorianCalendar showDialog(Component comp, GregorianCalendar calendar, Locale locale,
             java.util.List<? extends Image> icons) {
         GridBagConstraints c = new GridBagConstraints();
 
-        c.gridx     = c.gridy = 0;
-        c.insets    = new Insets(2, 2, 2, 2);
+        c.gridx = c.gridy = 0;
+        c.insets = new Insets(2, 2, 2, 2);
         c.gridwidth = 2;
 
         JFrame f = new JFrame();
 
-        dialog = new JDialog(
-            f, JslBundle.INSTANCE.getString("DateChooserDialog.title"), true);
+        dialog = new JDialog(f, JslBundle.INSTANCE.getString("DateChooserDialog.title"), true);
 
         if (icons != null) {
             dialog.setIconImages(icons);
@@ -332,11 +318,9 @@ public final class DateChooserDialog extends JComponent {
         dialog.add(dc, c);
         ++c.gridy;
         c.gridwidth = 1;
-        c.anchor    = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.WEST;
 
-        JButton okButton = new JButton(
-                               JslBundle.INSTANCE.getString(
-                                   "DateChooserDialog.okButton"));
+        JButton okButton = new JButton(JslBundle.INSTANCE.getString("DateChooserDialog.okButton"));
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -349,9 +333,7 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
 
-        JButton cancelButton = new JButton(
-                                   JslBundle.INSTANCE.getString(
-                                       "DateChooserDialog.cancelButton"));
+        JButton cancelButton = new JButton(JslBundle.INSTANCE.getString("DateChooserDialog.cancelButton"));
 
         cancelButton.addActionListener(new ActionListener() {
             @Override

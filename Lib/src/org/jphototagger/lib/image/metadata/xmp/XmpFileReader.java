@@ -25,15 +25,14 @@ import java.util.logging.Logger;
  * @author Elmar Baumann
  */
 public final class XmpFileReader {
-    private static final byte[] XMP_BEGIN_MARKER  = {
+    private static final byte[] XMP_BEGIN_MARKER = {
         0x3C, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61
     };    // "<x:xmpmeta"
-    private static final byte[] XMP_END_MARKER    = {
+    private static final byte[] XMP_END_MARKER = {
         0x3C, 0x2F, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61, 0x3E
     };    // "</x:xmpmeta>"
     private static final byte[] XMP_PACKET_MARKER = {
-        0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65,
-        0x67, 0x69, 0x6E, 0x3D
+        0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65, 0x67, 0x69, 0x6E, 0x3D
     };    // "<?xpacket begin="
 
     private XmpFileReader() {}
@@ -68,16 +67,11 @@ public final class XmpFileReader {
             int xmpPacketStartIndex = getMatchIndex(raf, 0, XMP_PACKET_MARKER);
 
             if (xmpPacketStartIndex >= 0) {
-                int xmpStartIndex =
-                    getMatchIndex(raf,
-                                  xmpPacketStartIndex
-                                  + XMP_PACKET_MARKER.length, XMP_BEGIN_MARKER);
+                int xmpStartIndex = getMatchIndex(raf, xmpPacketStartIndex + XMP_PACKET_MARKER.length,
+                                                  XMP_BEGIN_MARKER);
 
                 if (xmpStartIndex > 0) {
-                    int xmpEndIndex =
-                        getMatchIndex(raf,
-                                      xmpStartIndex + XMP_BEGIN_MARKER.length,
-                                      XMP_END_MARKER);
+                    int xmpEndIndex = getMatchIndex(raf, xmpStartIndex + XMP_BEGIN_MARKER.length, XMP_END_MARKER);
 
                     if (xmpEndIndex > 0) {
 
@@ -87,8 +81,7 @@ public final class XmpFileReader {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeFile(raf);
         }
@@ -96,10 +89,8 @@ public final class XmpFileReader {
         return null;
     }
 
-    private static String getXmp(File file, int xmpStartIndex,
-                                 int xmpEndIndex) {
-        assert(xmpStartIndex >= 0) && (xmpStartIndex <= xmpEndIndex) :
-              xmpStartIndex;
+    private static String getXmp(File file, int xmpStartIndex, int xmpEndIndex) {
+        assert(xmpStartIndex >= 0) && (xmpStartIndex <= xmpEndIndex) : xmpStartIndex;
         assert xmpEndIndex >= xmpStartIndex : xmpEndIndex;
 
         RandomAccessFile raf = null;
@@ -108,16 +99,14 @@ public final class XmpFileReader {
             raf = new RandomAccessFile(file, "r");
             raf.seek(xmpStartIndex);
 
-            int    count     = xmpEndIndex - xmpStartIndex
-                               + XMP_END_MARKER.length;
-            byte[] bytes     = new byte[count];
-            int    bytesRead = raf.read(bytes, 0, count);
+            int count = xmpEndIndex - xmpStartIndex + XMP_END_MARKER.length;
+            byte[] bytes = new byte[count];
+            int bytesRead = raf.read(bytes, 0, count);
 
             // file will be closed in finally
             return new String(bytes, 0, bytesRead, "UTF-8");
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeFile(raf);
         }
@@ -153,8 +142,7 @@ public final class XmpFileReader {
                 }
             } while (line != null);
         } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeReader(bufferedReader);
         }
@@ -162,19 +150,17 @@ public final class XmpFileReader {
         return false;
     }
 
-    private static int getMatchIndex(RandomAccessFile raf, int startAtOffset,
-                                     byte[] pattern)
-            throws IOException {
+    private static int getMatchIndex(RandomAccessFile raf, int startAtOffset, byte[] pattern) throws IOException {
         assert startAtOffset >= 0;
 
-        long    fileLength     = raf.length();
-        byte    byteRead       = 0;
-        int     startOffset    = -1;
-        int     matchCount     = 0;
+        long fileLength = raf.length();
+        byte byteRead = 0;
+        int startOffset = -1;
+        int matchCount = 0;
         boolean patternMatches = false;
-        int     bufferSize     = 1024 * 512;
-        byte[]  buffer         = new byte[bufferSize];
-        long    bytesToRead    = fileLength - startAtOffset + 1;
+        int bufferSize = 1024 * 512;
+        byte[] buffer = new byte[bufferSize];
+        long bytesToRead = fileLength - startAtOffset + 1;
 
         for (int offset = startAtOffset; offset < fileLength; ) {
             bytesToRead = (offset + bufferSize > fileLength)
@@ -187,20 +173,18 @@ public final class XmpFileReader {
             for (int index = 0; index < bytesRead; index++) {
                 byteRead = buffer[index];
 
-                if (!patternMatches && (matchCount <= 0)
-                        && (byteRead == pattern[0])) {
-                    matchCount     = 1;
-                    startOffset    = offset;
+                if (!patternMatches && (matchCount <= 0) && (byteRead == pattern[0])) {
+                    matchCount = 1;
+                    startOffset = offset;
                     patternMatches = matchCount == pattern.length;
                 }
 
-                if (!patternMatches && (matchCount > 0)
-                        && (offset > startOffset)) {
+                if (!patternMatches && (matchCount > 0) && (offset > startOffset)) {
                     if (byteRead == pattern[matchCount]) {
                         matchCount++;
                         patternMatches = matchCount == pattern.length;
                     } else {
-                        matchCount  = -1;
+                        matchCount = -1;
                         startOffset = -1;
                     }
                 }
@@ -221,8 +205,7 @@ public final class XmpFileReader {
             try {
                 file.close();
             } catch (Exception ex) {
-                Logger.getLogger(XmpFileReader.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -232,8 +215,7 @@ public final class XmpFileReader {
             try {
                 bufferedReader.close();
             } catch (Exception ex) {
-                Logger.getLogger(XmpFileReader.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

@@ -38,9 +38,8 @@ final class UpdateTablesDropCategories {
     void update(Connection con) throws SQLException {
         startMessage();
 
-        if (DatabaseMetadata.INSTANCE.existsTable(
-                con, "xmp_photoshop_supplementalcategories") &&!categoriesAlreadyDropped(
-                    con) && saveCategoriesToFile(con)) {
+        if (DatabaseMetadata.INSTANCE.existsTable(con, "xmp_photoshop_supplementalcategories")
+                &&!categoriesAlreadyDropped(con) && saveCategoriesToFile(con)) {
             updateDatabase(con);
             fixSavedSearches(con);
         }
@@ -48,30 +47,22 @@ final class UpdateTablesDropCategories {
         SplashScreen.INSTANCE.removeMessage();
     }
 
-    private boolean categoriesAlreadyDropped(Connection con)
-            throws SQLException {
-        return !DatabaseMetadata.INSTANCE.existsColumn(
-            con, "xmp",
-            "photoshop_category") ||!DatabaseMetadata.INSTANCE.existsColumn(
-                con, "xmp_photoshop_supplementalcategories",
-                "supplementalcategory");
+    private boolean categoriesAlreadyDropped(Connection con) throws SQLException {
+        return !DatabaseMetadata.INSTANCE.existsColumn(con, "xmp", "photoshop_category")
+               ||!DatabaseMetadata.INSTANCE.existsColumn(con, "xmp_photoshop_supplementalcategories",
+                   "supplementalcategory");
     }
 
     private boolean saveCategoriesToFile(Connection con) throws SQLException {
-        String sql = " SELECT DISTINCT photoshop_category FROM xmp"
-                     + " WHERE photoshop_category IS NOT NULL UNION ALL"
-                     + " SELECT DISTINCT supplementalcategory"
-                     + " FROM xmp_photoshop_supplementalcategories"
-                     + " WHERE supplementalcategory IS NOT NULL"
-                     + " ORDER BY 1 ASC";
-        Writer    writer = null;
-        Statement stmt   = null;
-        ResultSet rs     = null;
+        String sql = " SELECT DISTINCT photoshop_category FROM xmp" + " WHERE photoshop_category IS NOT NULL UNION ALL"
+                     + " SELECT DISTINCT supplementalcategory" + " FROM xmp_photoshop_supplementalcategories"
+                     + " WHERE supplementalcategory IS NOT NULL" + " ORDER BY 1 ASC";
+        Writer writer = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            writer = new BufferedWriter(
-                new OutputStreamWriter(
-                    new FileOutputStream(getFilename()),
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getFilename()),
                     CharEncoding.LIGHTROOM_KEYWORDS));
             stmt = con.createStatement();
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
@@ -100,14 +91,12 @@ final class UpdateTablesDropCategories {
     }
 
     private String getFilename() {
-        return UserSettings.INSTANCE.getSettingsDirectoryName()
-               + File.separator + "SavedCategories."
+        return UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "SavedCategories."
                + FilenameSuffixes.LIGHTROOM_KEYWORDS;
     }
 
     private void fixSavedSearches(Connection con) throws SQLException {
-        String sql = "UPDATE saved_searches_panels SET column_id = 24"
-                     + " WHERE column_id = 25 OR column_id = 14";
+        String sql = "UPDATE saved_searches_panels SET column_id = 24" + " WHERE column_id = 25 OR column_id = 14";
 
         // Now as keyword
         Database.execute(con, sql);
@@ -138,8 +127,7 @@ final class UpdateTablesDropCategories {
     }
 
     private boolean errorSave(Exception ex) {
-        MessageDisplayer.error(null, "UpdateTablesDropCategories.Error.Save",
-                               ex.getLocalizedMessage());
+        MessageDisplayer.error(null, "UpdateTablesDropCategories.Error.Save", ex.getLocalizedMessage());
 
         return false;
     }
@@ -147,18 +135,15 @@ final class UpdateTablesDropCategories {
     private void importCategories() {
         String filename = getFilename();
 
-        if (MessageDisplayer.confirmYesNo(
-                null, "UpdateTablesDropCategories.Confirm.Import", filename)) {
+        if (MessageDisplayer.confirmYesNo(null, "UpdateTablesDropCategories.Confirm.Import", filename)) {
             BufferedReader reader = null;
 
             try {
-                reader = new BufferedReader(
-                    new InputStreamReader(
-                        new FileInputStream(new File(filename)),
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename)),
                         CharEncoding.LIGHTROOM_KEYWORDS));
 
-                DatabaseKeywords db   = DatabaseKeywords.INSTANCE;
-                String           line = null;
+                DatabaseKeywords db = DatabaseKeywords.INSTANCE;
+                String line = null;
 
                 while ((line = reader.readLine()) != null) {
                     String kw = line.trim();
@@ -169,9 +154,7 @@ final class UpdateTablesDropCategories {
                     }
                 }
             } catch (Exception ex) {
-                MessageDisplayer.error(
-                    null, "UpdateTablesDropCategories.Import.Error",
-                    ex.getLocalizedMessage());
+                MessageDisplayer.error(null, "UpdateTablesDropCategories.Import.Error", ex.getLocalizedMessage());
             } finally {
                 try {
                     reader.close();
@@ -181,7 +164,6 @@ final class UpdateTablesDropCategories {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
     }
 }

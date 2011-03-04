@@ -44,10 +44,8 @@ public final class IconUtil {
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(
-                Level.SEVERE, null,
-                JslBundle.INSTANCE.getString(
-                    "IconUtil.GetIconImage.Error.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
+                             JslBundle.INSTANCE.getString("IconUtil.GetIconImage.Error.FileNotFound") + path);
         }
 
         return null;
@@ -96,10 +94,8 @@ public final class IconUtil {
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(
-                Level.SEVERE, null,
-                JslBundle.INSTANCE.getString(
-                    "IconUtil.GetImageIcon.Error.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
+                             JslBundle.INSTANCE.getString("IconUtil.GetImageIcon.Error.FileNotFound") + path);
         }
 
         return null;
@@ -142,7 +138,7 @@ public final class IconUtil {
             throw new NullPointerException("file == null");
         }
 
-        Icon           icon           = null;
+        Icon icon = null;
         FileSystemView fileSystemView = FileSystemView.getFileSystemView();
 
         if (file.exists()) {
@@ -150,8 +146,7 @@ public final class IconUtil {
                 try {
                     icon = fileSystemView.getSystemIcon(file);
                 } catch (Exception ex) {
-                    Logger.getLogger(IconUtil.class.getName()).log(
-                        Level.SEVERE, null, ex);
+                    Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

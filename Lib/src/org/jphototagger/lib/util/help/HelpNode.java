@@ -16,9 +16,9 @@ import java.util.Stack;
  * @author Elmar Baumann
  */
 public final class HelpNode {
-    private String       title;
+    private String title;
     private List<Object> children = new ArrayList<Object>();
-    private HelpNode     parent;
+    private HelpNode parent;
 
     /**
      * Rerturns the chapter's title.
@@ -93,8 +93,7 @@ public final class HelpNode {
         int count = children.size();
 
         if ((index < 0) || (index >= count)) {
-            throw new IndexOutOfBoundsException("invalid index" + index
-                    + ", size: " + count);
+            throw new IndexOutOfBoundsException("invalid index" + index + ", size: " + count);
         }
 
         return children.get(index);

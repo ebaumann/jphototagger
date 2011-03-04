@@ -20,8 +20,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabaseAutoscanDirectories extends Database {
-    public static final DatabaseAutoscanDirectories INSTANCE =
-        new DatabaseAutoscanDirectories();
+    public static final DatabaseAutoscanDirectories INSTANCE = new DatabaseAutoscanDirectories();
     private final ListenerSupport<DatabaseAutoscanDirectoriesListener> ls =
         new ListenerSupport<DatabaseAutoscanDirectoriesListener>();
 
@@ -35,14 +34,13 @@ public final class DatabaseAutoscanDirectories extends Database {
         boolean inserted = false;
 
         if (!exists(directory)) {
-            Connection        con  = null;
+            Connection con = null;
             PreparedStatement stmt = null;
 
             try {
                 con = getConnection();
                 con.setAutoCommit(true);
-                stmt = con.prepareStatement(
-                    "INSERT INTO autoscan_directories (directory) VALUES (?)");
+                stmt = con.prepareStatement("INSERT INTO autoscan_directories (directory) VALUES (?)");
                 stmt.setString(1, getFilePath(directory));
                 logFiner(stmt);
 
@@ -69,15 +67,14 @@ public final class DatabaseAutoscanDirectories extends Database {
             throw new NullPointerException("directory == null");
         }
 
-        boolean           deleted = false;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
+        boolean deleted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            stmt = con.prepareStatement(
-                "DELETE FROM autoscan_directories WHERE directory = ?");
+            stmt = con.prepareStatement("DELETE FROM autoscan_directories WHERE directory = ?");
             stmt.setString(1, getFilePath(directory));
             logFiner(stmt);
 
@@ -103,16 +100,14 @@ public final class DatabaseAutoscanDirectories extends Database {
             throw new NullPointerException("directory == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM autoscan_directories"
-                + " WHERE directory = ?");
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM autoscan_directories" + " WHERE directory = ?");
             stmt.setString(1, getFilePath(directory));
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -132,16 +127,15 @@ public final class DatabaseAutoscanDirectories extends Database {
 
     public List<File> getAll() {
         List<File> directories = new ArrayList<File>();
-        Connection con         = null;
-        Statement  stmt        = null;
-        ResultSet  rs          = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT directory FROM autoscan_directories"
-                         + " ORDER BY directory ASC";
+            String sql = "SELECT directory FROM autoscan_directories" + " ORDER BY directory ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);

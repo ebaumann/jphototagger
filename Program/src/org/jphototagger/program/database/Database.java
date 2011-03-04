@@ -26,19 +26,16 @@ public class Database {
     public static void errorMessageSqlException(SQLException ex) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
 
-        dlg.setTitle(
-            JptBundle.INSTANCE.getString("DatabaseTables.Error.Title"));
+        dlg.setTitle(JptBundle.INSTANCE.getString("DatabaseTables.Error.Title"));
         dlg.setLongMessage(getExceptionMessage(ex));
         dlg.setVisible(true);
     }
 
     private static String getExceptionMessage(SQLException ex) {
-        return JptBundle.INSTANCE.getString("DatabaseTables.Error",
-                ex.getLocalizedMessage());
+        return JptBundle.INSTANCE.getString("DatabaseTables.Error", ex.getLocalizedMessage());
     }
 
-    public static boolean execute(Connection con, String sql)
-            throws SQLException {
+    public static boolean execute(Connection con, String sql) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -47,8 +44,8 @@ public class Database {
             throw new NullPointerException("sql == null");
         }
 
-        Statement stmt        = null;
-        boolean   isResultSet = false;
+        Statement stmt = null;
+        boolean isResultSet = false;
 
         try {
             stmt = con.createStatement();
@@ -193,9 +190,7 @@ public class Database {
         }
     }
 
-    public static Long getId(Connection con, String tablename,
-                             String columnName, String value)
-            throws SQLException {
+    public static Long getId(Connection con, String tablename, String columnName, String value) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -209,16 +204,15 @@ public class Database {
         }
 
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
-        Long              id   = null;
+        ResultSet rs = null;
+        Long id = null;
 
         if (value == null) {
             return null;
         }
 
         try {
-            String sql = "SELECT id FROM " + tablename + " WHERE " + columnName
-                         + " = ?";
+            String sql = "SELECT id FROM " + tablename + " WHERE " + columnName + " = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
@@ -235,8 +229,7 @@ public class Database {
         return id;
     }
 
-    protected Long getId(String tablename, String columnName, String value)
-            throws SQLException {
+    protected Long getId(String tablename, String columnName, String value) throws SQLException {
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
@@ -245,20 +238,19 @@ public class Database {
             throw new NullPointerException("columnName == null");
         }
 
-        Connection        con  = null;
+        Connection con = null;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
-        Long              id   = null;
+        ResultSet rs = null;
+        Long id = null;
 
         if (value == null) {
             return null;
         }
 
         try {
-            String sql = "SELECT id FROM " + tablename + " WHERE " + columnName
-                         + " = ?";
+            String sql = "SELECT id FROM " + tablename + " WHERE " + columnName + " = ?";
 
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
             logFinest(stmt);
@@ -275,9 +267,7 @@ public class Database {
         return id;
     }
 
-    protected Long ensureValueExists(String tablename, String columnName,
-                                     String value)
-            throws SQLException {
+    protected Long ensureValueExists(String tablename, String columnName, String value) throws SQLException {
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
@@ -294,11 +284,10 @@ public class Database {
 
         if (id == null) {
             PreparedStatement stmt = null;
-            Connection        con  = null;
+            Connection con = null;
 
             try {
-                String sql = "INSERT INTO " + tablename + " (" + columnName
-                             + ") VALUES (?)";
+                String sql = "INSERT INTO " + tablename + " (" + columnName + ") VALUES (?)";
 
                 con = getConnection();
                 con.setAutoCommit(true);
@@ -316,9 +305,7 @@ public class Database {
         return id;
     }
 
-    public static long getCount(Connection con, String tablename,
-                                String columnName, String value)
-            throws SQLException {
+    public static long getCount(Connection con, String tablename, String columnName, String value) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -331,13 +318,12 @@ public class Database {
             throw new NullPointerException("columnName == null");
         }
 
-        long              count = 0;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+        long count = 0;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename
-                                        + " WHERE " + columnName + " = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename + " WHERE " + columnName + " = ?");
             stmt.setString(1, value);
             AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
             rs = stmt.executeQuery();
@@ -352,9 +338,7 @@ public class Database {
         return count;
     }
 
-    public static long getCount(Connection con, String tablename,
-                                String columnName, long value)
-            throws SQLException {
+    public static long getCount(Connection con, String tablename, String columnName, long value) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
@@ -367,13 +351,12 @@ public class Database {
             throw new NullPointerException("columnName == null");
         }
 
-        long              count = 0;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+        long count = 0;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename
-                                        + " WHERE " + columnName + " = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename + " WHERE " + columnName + " = ?");
             stmt.setLong(1, value);
             AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
             rs = stmt.executeQuery();
@@ -388,8 +371,7 @@ public class Database {
         return count;
     }
 
-    public static boolean exists(Connection con, String tablename,
-                                 String columnName, String value)
+    public static boolean exists(Connection con, String tablename, String columnName, String value)
             throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
@@ -462,8 +444,7 @@ public class Database {
         return l;
     }
 
-    protected Long getLongMinMax(ResultSet rs, int colIndex, long min, long max)
-            throws SQLException {
+    protected Long getLongMinMax(ResultSet rs, int colIndex, long min, long max) throws SQLException {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
@@ -499,8 +480,7 @@ public class Database {
         return s;
     }
 
-    protected Class<?> getClassFromName(ResultSet rs, int colIndex)
-            throws SQLException {
+    protected Class<?> getClassFromName(ResultSet rs, int colIndex) throws SQLException {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
@@ -534,9 +514,7 @@ public class Database {
         return d;
     }
 
-    protected void setBoolean(Boolean value, PreparedStatement stmt,
-                              int paramIndex)
-            throws SQLException {
+    protected void setBoolean(Boolean value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -548,9 +526,7 @@ public class Database {
         }
     }
 
-    protected void setDouble(Double value, PreparedStatement stmt,
-                             int paramIndex)
-            throws SQLException {
+    protected void setDouble(Double value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -562,8 +538,7 @@ public class Database {
         }
     }
 
-    protected void setShort(Short value, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setShort(Short value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -575,8 +550,7 @@ public class Database {
         }
     }
 
-    protected void setInt(Integer value, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setInt(Integer value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -588,8 +562,7 @@ public class Database {
         }
     }
 
-    protected void setLong(Long value, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setLong(Long value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -601,9 +574,7 @@ public class Database {
         }
     }
 
-    protected void setString(String value, PreparedStatement stmt,
-                             int paramIndex)
-            throws SQLException {
+    protected void setString(String value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -615,9 +586,7 @@ public class Database {
         }
     }
 
-    protected void setClassname(Class<?> clazz, PreparedStatement stmt,
-                                int paramIndex)
-            throws SQLException {
+    protected void setClassname(Class<?> clazz, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -629,8 +598,7 @@ public class Database {
         }
     }
 
-    protected void setDate(Date value, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setDate(Date value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -642,9 +610,7 @@ public class Database {
         }
     }
 
-    protected void setBoolean(Object value, PreparedStatement stmt,
-                              int paramIndex)
-            throws SQLException {
+    protected void setBoolean(Object value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -662,9 +628,7 @@ public class Database {
         }
     }
 
-    protected void setDouble(Object value, PreparedStatement stmt,
-                             int paramIndex)
-            throws SQLException {
+    protected void setDouble(Object value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -682,9 +646,7 @@ public class Database {
         }
     }
 
-    protected void setShort(Object value, PreparedStatement stmt,
-                            int paramIndex)
-            throws SQLException {
+    protected void setShort(Object value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -702,8 +664,7 @@ public class Database {
         }
     }
 
-    protected void setInt(Object value, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setInt(Object value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -721,8 +682,7 @@ public class Database {
         }
     }
 
-    protected void setLong(Object value, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setLong(Object value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -740,8 +700,7 @@ public class Database {
         }
     }
 
-    protected void setLongMinMax(Object value, long min, long max,
-                                 PreparedStatement stmt, int paramIndex)
+    protected void setLongMinMax(Object value, long min, long max, PreparedStatement stmt, int paramIndex)
             throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
@@ -770,9 +729,7 @@ public class Database {
         }
     }
 
-    protected void setString(Object value, PreparedStatement stmt,
-                             int paramIndex)
-            throws SQLException {
+    protected void setString(Object value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -790,8 +747,7 @@ public class Database {
         }
     }
 
-    protected void setDate(Object value, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setDate(Object value, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
@@ -816,8 +772,7 @@ public class Database {
      * @param  event     event
      * @return          {@link ProgressEvent#isCancel()}
      */
-    protected boolean notifyProgressListenerStart(ProgressListener listener,
-            ProgressEvent event) {
+    protected boolean notifyProgressListenerStart(ProgressListener listener, ProgressEvent event) {
         if (listener != null) {
             listener.progressStarted(event);
 
@@ -834,8 +789,7 @@ public class Database {
      * @param  event     event
      * @return          {@link ProgressEvent#isCancel()}
      */
-    protected boolean notifyProgressListenerPerformed(
-            ProgressListener listener, ProgressEvent event) {
+    protected boolean notifyProgressListenerPerformed(ProgressListener listener, ProgressEvent event) {
         if (listener != null) {
             listener.progressPerformed(event);
 
@@ -851,8 +805,7 @@ public class Database {
      * @param  listener listener, can be null
      * @param  event     event
      */
-    protected void notifyProgressListenerEnd(ProgressListener listener,
-            ProgressEvent event) {
+    protected void notifyProgressListenerEnd(ProgressListener listener, ProgressEvent event) {
         if (listener != null) {
             listener.progressEnded(event);
         }

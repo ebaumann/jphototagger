@@ -36,12 +36,9 @@ public final class ExifDegrees {
         }
 
         Ensure.length(rawValue, byteCount());
-        degrees = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8),
-                                   byteOrder);
-        minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16),
-                                   byteOrder);
-        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24),
-                                   byteOrder);
+        degrees = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
+        minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16), byteOrder);
+        seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
     }
 
     /**

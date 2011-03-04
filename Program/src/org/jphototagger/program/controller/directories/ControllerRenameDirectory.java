@@ -26,8 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class ControllerRenameDirectory extends ControllerDirectory {
     public ControllerRenameDirectory() {
-        listenToActionsOf(
-            PopupMenuDirectories.INSTANCE.getItemRenameDirectory());
+        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemRenameDirectory());
     }
 
     @Override
@@ -45,8 +44,7 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuDirectories.INSTANCE.getItemRenameDirectory();
+        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemRenameDirectory();
     }
 
     @Override
@@ -66,8 +64,7 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
                     public void run() {
                         node.setUserObject(newDir);
                         TreeFileSystemDirectories.updateInTreeModel(
-                            ModelFactory.INSTANCE.getModel(
-                                TreeModelAllSystemDirectories.class), node);
+                            ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class), node);
                     }
                 });
             }

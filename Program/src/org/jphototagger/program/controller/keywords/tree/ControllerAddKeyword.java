@@ -32,8 +32,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author Elmar Baumann
  */
-public class ControllerAddKeyword extends ControllerKeywords
-        implements ActionListener, KeyListener {
+public class ControllerAddKeyword extends ControllerKeywords implements ActionListener, KeyListener {
     public ControllerAddKeyword(KeywordsPanel panel) {
         super(panel);
     }
@@ -58,13 +57,12 @@ public class ControllerAddKeyword extends ControllerKeywords
             @Override
             public void run() {
                 addKeyword(nodes.get(0));
-        }
+            }
         });
     }
 
     private boolean isRootNode(Object node) {
-        return ModelFactory.INSTANCE.getModel(
-            TreeModelKeywords.class).getRoot().equals(node);
+        return ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).getRoot().equals(node);
     }
 
     private void addKeyword(DefaultMutableTreeNode node) {
@@ -81,42 +79,34 @@ public class ControllerAddKeyword extends ControllerKeywords
         Keyword newKeyword = new Keyword(null, (parentKeyword == null)
                 ? null
                 : parentKeyword.getId(), "", true);
-        JTree  tree = getHKPanel().getTree();
+        JTree tree = getHKPanel().getTree();
         String name = getName(newKeyword, tree);
 
         if ((name != null) &&!name.trim().isEmpty()) {
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(
-                parentNode, name, true, true);
+            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(parentNode, name, true, true);
             KeywordsTreePathExpander.expand(getHKPanel().getTree(), parentNode);
         }
     }
 
     static String getName(Keyword keyword, JTree tree) {
-        String           newName = null;
-        boolean          input   = true;
-        DatabaseKeywords db      = DatabaseKeywords.INSTANCE;
-        InputDialog      dlg =
-            new InputDialog(
-                InputHelperDialog.INSTANCE,
-                JptBundle.INSTANCE.getString(
-                    "ControllerAddKeyword.Input.Name"), "",
-                        UserSettings.INSTANCE.getProperties(),
-                        ControllerAddKeyword.class.getName());
+        String newName = null;
+        boolean input = true;
+        DatabaseKeywords db = DatabaseKeywords.INSTANCE;
+        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE,
+                                          JptBundle.INSTANCE.getString("ControllerAddKeyword.Input.Name"), "",
+                                          UserSettings.INSTANCE.getProperties(), ControllerAddKeyword.class.getName());
 
         while (input && (newName == null)) {
             dlg.setVisible(true);
             newName = dlg.getInput();
-            input   = false;
+            input = false;
 
-            if (dlg.isAccepted() && (newName != null)
-                    &&!newName.trim().isEmpty()) {
-                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(),
-                                        newName.trim(), keyword.isReal());
+            if (dlg.isAccepted() && (newName != null) &&!newName.trim().isEmpty()) {
+                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(), newName.trim(), keyword.isReal());
 
                 if (db.hasParentChildWithEqualName(s)) {
                     newName = null;
-                    input = MessageDisplayer.confirmYesNo(null,
-                            "ControllerAddKeyword.Confirm.Exists", s);
+                    input = MessageDisplayer.confirmYesNo(null, "ControllerAddKeyword.Confirm.Exists", s);
                 }
             }
         }

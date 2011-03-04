@@ -3,8 +3,7 @@ package org.jphototagger.program.controller.keywords.tree;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -34,8 +33,7 @@ import javax.swing.tree.TreeNode;
  *
  * @author Elmar Baumann
  */
-public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
-        implements ActionListener, KeyListener {
+public class ControllerAddKeywordsToEditPanel extends ControllerKeywords implements ActionListener, KeyListener {
     public ControllerAddKeywordsToEditPanel(KeywordsPanel panel) {
         super(panel);
     }
@@ -56,27 +54,24 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
 
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
-        final DefaultMutableTreeNode node         = nodes.get(0);
-        final List<String>           keywordNames = new ArrayList<String>();
+        final DefaultMutableTreeNode node = nodes.get(0);
+        final List<String> keywordNames = new ArrayList<String>();
 
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        addParentKeywords(node, keywordNames);
-        addToEditPanel(keywordNames);
-    }
+                addParentKeywords(node, keywordNames);
+                addToEditPanel(keywordNames);
+            }
         });
     }
 
     private void addToEditPanel(List<String> keywordNames) {
-        EditMetadataPanels editPanels =
-            GUI.getAppPanel().getEditMetadataPanels();
-        JPanel panel =
-            editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
+        JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
-            EditRepeatableTextEntryPanel editPanel =
-                (EditRepeatableTextEntryPanel) panel;
+            EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
 
             if (editPanel.isEditable()) {
                 for (String keywordName : keywordNames) {
@@ -86,18 +81,14 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
                 KeywordsHelper.addHighlightKeywords(keywordNames);
                 editPanels.checkSaveOnChanges();
             } else {
-                MessageDisplayer.error(
-                    null,
-                    "ControllerAddKeywordsToEditPanel.Error.EditDisabled");
+                MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.EditDisabled");
             }
         } else {
-            MessageDisplayer.error(
-                null, "ControllerAddKeywordsToEditPanel.Error.NoEditPanel");
+            MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.NoEditPanel");
         }
     }
 
-    private void addParentKeywords(DefaultMutableTreeNode node,
-                                   List<String> keywords) {
+    private void addParentKeywords(DefaultMutableTreeNode node, List<String> keywords) {
         Object userObject = node.getUserObject();
 
         if (userObject instanceof Keyword) {
@@ -110,8 +101,7 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords
 
         TreeNode parent = node.getParent();
 
-        if ((parent == null)
-                || getHKPanel().getTree().getModel().getRoot().equals(parent)) {
+        if ((parent == null) || getHKPanel().getTree().getModel().getRoot().equals(parent)) {
             return;
         }
 

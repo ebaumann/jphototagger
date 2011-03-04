@@ -1,6 +1,5 @@
 package org.jphototagger.program.importer;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
@@ -9,6 +8,8 @@ import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -27,8 +28,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public abstract class KeywordsImporter implements Importer {
-    private static final String PROGRESSBAR_STRING =
-        JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
+    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
 
     /**
      * Returns all keyword paths to the leaf nodes.
@@ -78,11 +78,10 @@ public abstract class KeywordsImporter implements Importer {
 
     private static class ImportTask extends Thread implements Cancelable {
         private final Collection<List<Pair<String, Boolean>>> paths;
-        private final TreeModel                               treeModel =
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
-        private JProgressBar     progressBar;
+        private final TreeModel treeModel = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        private JProgressBar progressBar;
         private volatile boolean cancel;
-        private final Object     pBarOwner = this;
+        private final Object pBarOwner = this;
 
         ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
             super("JPhotoTagger: Importing keywords");
@@ -124,25 +123,21 @@ public abstract class KeywordsImporter implements Importer {
                 updateProgressBar(0);
 
                 int progressValue = 0;
-                int importCount   = 0;
+                int importCount = 0;
 
                 for (List<Pair<String, Boolean>> path : paths) {
                     if (cancel || isInterrupted()) {
                         break;
                     }
 
-                    DefaultMutableTreeNode node =
-                        (DefaultMutableTreeNode) model.getRoot();
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) model.getRoot();
 
                     for (Pair<String, Boolean> keyword : path) {
-                        DefaultMutableTreeNode existingNode =
-                            model.findChildByName(node, keyword.getFirst());
+                        DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getFirst());
 
                         if (existingNode == null) {
-                            model.insert(node, keyword.getFirst(),
-                                         keyword.getSecond(), false);
-                            node = model.findChildByName(node,
-                                                         keyword.getFirst());
+                            model.insert(node, keyword.getFirst(), keyword.getSecond(), false);
+                            node = model.findChildByName(node, keyword.getFirst());
                             importCount++;
                         } else {
                             node = existingNode;
@@ -159,11 +154,10 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void expandRootSelHk() {
-            JTree  tree = GUI.getAppPanel().getTreeSelKeywords();
+            JTree tree = GUI.getAppPanel().getTreeSelKeywords();
             Object root = tree.getModel().getRoot();
 
-            tree.expandPath(
-                new TreePath(((DefaultMutableTreeNode) root).getPath()));
+            tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
         }
 
         private void updateProgressBar(final int value) {
@@ -180,8 +174,7 @@ public abstract class KeywordsImporter implements Importer {
                             progressBar.setStringPainted(true);
                         }
 
-                        if (!PROGRESSBAR_STRING.equals(
-                                progressBar.getString())) {
+                        if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
                             progressBar.setString(PROGRESSBAR_STRING);
                         }
                     }
@@ -208,12 +201,9 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void messageImported(int importCount) {
-            String message =
-                JptBundle.INSTANCE.getString("ImportTask.Info.Imported",
-                                             importCount);
+            String message = JptBundle.INSTANCE.getString("ImportTask.Info.Imported", importCount);
 
-            GUI.getAppPanel().setStatusbarText(message,
-                    MessageType.INFO, 2000);
+            GUI.getAppPanel().setStatusbarText(message, MessageType.INFO, 2000);
         }
     }
 }

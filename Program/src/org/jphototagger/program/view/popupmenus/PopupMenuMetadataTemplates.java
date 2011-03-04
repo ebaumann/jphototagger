@@ -18,42 +18,25 @@ import javax.swing.JPopupMenu.Separator;
  * @author Elmar Baumann
  */
 public final class PopupMenuMetadataTemplates extends JPopupMenu {
-    private static final long                      serialVersionUID =
-        5476440706471574353L;
-    public static final PopupMenuMetadataTemplates INSTANCE         =
-        new PopupMenuMetadataTemplates();
+    private static final long serialVersionUID = 5476440706471574353L;
+    public static final PopupMenuMetadataTemplates INSTANCE = new PopupMenuMetadataTemplates();
     private final JMenuItem itemSetToSelImages =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuMetadataTemplates.DisplayName.Action.SetToSelImages"), AppLookAndFeel
-                        .getIcon("icon_image.png"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMetadataTemplates.DisplayName.Action.SetToSelImages"),
+                      AppLookAndFeel.getIcon("icon_image.png"));
     private final JMenuItem itemRename =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuMetadataTemplates.DisplayName.Action.Rename"), AppLookAndFeel
-                        .ICON_RENAME);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMetadataTemplates.DisplayName.Action.Rename"),
+                      AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemEdit =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuMetadataTemplates.DisplayName.Action.Edit"), AppLookAndFeel
-                        .ICON_EDIT);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMetadataTemplates.DisplayName.Action.Edit"),
+                      AppLookAndFeel.ICON_EDIT);
     private final JMenuItem itemDelete =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuMetadataTemplates.DisplayName.Action.Delete"), AppLookAndFeel
-                        .ICON_DELETE);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMetadataTemplates.DisplayName.Action.Delete"),
+                      AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemAdd =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuMetadataTemplates.DisplayName.Action.Add"), AppLookAndFeel
-                        .ICON_NEW);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMetadataTemplates.DisplayName.Action.Add"),
+                      AppLookAndFeel.ICON_NEW);
     private JList list;
-    private int   selIndex;
+    private int selIndex;
 
     private PopupMenuMetadataTemplates() {
         addItems();
@@ -107,14 +90,10 @@ public final class PopupMenuMetadataTemplates extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemSetToSelImages.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_INSERT));
-        itemAdd.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
-        itemEdit.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
+        itemSetToSelImages.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_INSERT));
+        itemAdd.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
         itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
-        itemDelete.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemDelete.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
     }
 }

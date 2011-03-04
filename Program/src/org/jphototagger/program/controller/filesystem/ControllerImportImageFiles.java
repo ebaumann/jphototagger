@@ -16,8 +16,7 @@ public final class ControllerImportImageFiles implements ActionListener {
     }
 
     private void listen() {
-        GUI.getAppFrame().getMenuItemImportImageFiles()
-            .addActionListener(this);
+        GUI.getAppFrame().getMenuItemImportImageFiles().addActionListener(this);
     }
 
     @Override

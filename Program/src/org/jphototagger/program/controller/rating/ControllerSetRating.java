@@ -26,8 +26,7 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class ControllerSetRating implements ActionListener, KeyListener {
-    private static final Map<Integer, Long> RATING_OF_KEY_CODE =
-        new HashMap<Integer, Long>();
+    private static final Map<Integer, Long> RATING_OF_KEY_CODE = new HashMap<Integer, Long>();
 
     static {
         RATING_OF_KEY_CODE.put(KeyEvent.VK_0, Long.valueOf(0));
@@ -56,9 +55,7 @@ public final class ControllerSetRating implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        setRating(
-            PopupMenuThumbnails.INSTANCE.getRatingOfItem(
-                (JMenuItem) evt.getSource()));
+        setRating(PopupMenuThumbnails.INSTANCE.getRatingOfItem((JMenuItem) evt.getSource()));
     }
 
     @Override

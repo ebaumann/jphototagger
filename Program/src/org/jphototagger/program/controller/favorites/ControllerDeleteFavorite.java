@@ -39,8 +39,7 @@ public final class ControllerDeleteFavorite extends ControllerFavorite {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuFavorites.INSTANCE.getItemDeleteFavorite();
+        return evt.getSource() == PopupMenuFavorites.INSTANCE.getItemDeleteFavorite();
     }
 
     @Override

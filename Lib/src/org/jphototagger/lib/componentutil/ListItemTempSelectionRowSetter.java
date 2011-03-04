@@ -29,11 +29,9 @@ import javax.swing.ListCellRenderer;
  *
  * @author Elmar Baumann
  */
-public final class ListItemTempSelectionRowSetter
-        implements MouseListener, PopupMenuListener {
-    private final JList         list;
-    private static final String TEMP_SEL_ROW_METHOD_NAME =
-        "setTempSelectionRow";
+public final class ListItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
+    private final JList list;
+    private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
 
     /**
      * Creates a new instance.
@@ -78,16 +76,12 @@ public final class ListItemTempSelectionRowSetter
 
         if (hasMethod(renderer)) {
             try {
-                Method m =
-                    renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME,
-                                                  int.class);
+                Method m = renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME, int.class);
 
                 m.invoke(renderer, index);
                 list.repaint();
             } catch (Exception ex) {
-                Logger.getLogger(
-                    ListItemTempSelectionRowSetter.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                Logger.getLogger(ListItemTempSelectionRowSetter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -97,8 +91,7 @@ public final class ListItemTempSelectionRowSetter
             if (method.getName().equals(TEMP_SEL_ROW_METHOD_NAME)) {
                 Class<?>[] parameterTypes = method.getParameterTypes();
 
-                if ((parameterTypes.length == 1)
-                        && parameterTypes[0].equals(int.class)) {
+                if ((parameterTypes.length == 1) && parameterTypes[0].equals(int.class)) {
                     return true;
                 }
             }

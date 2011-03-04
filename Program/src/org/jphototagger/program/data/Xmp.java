@@ -1,17 +1,17 @@
 package org.jphototagger.program.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import java.awt.EventQueue;
 
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.program.database.metadata.mapping.XmpRepeatableValues;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.event.listener.TextEntryListener;
+
+import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,8 +27,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class Xmp implements TextEntryListener {
-    private final Map<Column, Object> valueOfColumn = new HashMap<Column,
-                                                          Object>();
+    private final Map<Column, Object> valueOfColumn = new HashMap<Column, Object>();
 
     public Xmp() {}
 
@@ -59,47 +58,46 @@ public final class Xmp implements TextEntryListener {
     @Override
     public void textRemoved(final Column column, final String removedText) {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-        removeValue(column, removedText);
-    }
+                removeValue(column, removedText);
+            }
         });
     }
 
     @Override
     public void textAdded(final Column column, final String addedText) {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-        setValue(column, addedText);
-    }
+                setValue(column, addedText);
+            }
         });
     }
 
     @Override
-    public void textChanged(final Column xmpColumn, final String oldText,
-            final String newText) {
+    public void textChanged(final Column xmpColumn, final String oldText, final String newText) {
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 changeText(xmpColumn, newText, oldText);
-        }
+            }
         });
-        }
+    }
 
     private void changeText(Column xmpColumn, String newText, String oldText) {
         if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
             Object o = valueOfColumn.get(xmpColumn);
+
             if (o == null) {
                 Collection<Object> collection = new ArrayList<Object>();
+
                 collection.add(newText);
                 valueOfColumn.put(xmpColumn, collection);
             } else if (o instanceof Collection<?>) {
-                @SuppressWarnings(value = "unchecked")
-                Collection<? super Object> collection = (Collection<? super Object>) o;
+                @SuppressWarnings(
+                    value = "unchecked") Collection<? super Object> collection = (Collection<? super Object>) o;
+
                 collection.remove(oldText);
                 collection.add(newText);
             }
@@ -170,38 +168,32 @@ public final class Xmp implements TextEntryListener {
             clear();
         }
 
-        List<Pair<IPTCEntryMeta, Column>> mappings =
-            IptcXmpMapping.getAllPairs();
+        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getAllPairs();
 
         for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
-            Column        xmpColumn = mappingPair.getSecond();
-            IPTCEntryMeta iptcEntryMeta =
-                IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
+            Column xmpColumn = mappingPair.getSecond();
+            IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
 
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
-                    String  iptcString = (String) iptcValue;
-                    boolean isSet =
-                        options.equals(SetIptc.REPLACE_EXISTING_VALUES)
-                        || (getValue(xmpColumn) == null);
+                    String iptcString = (String) iptcValue;
+                    boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) || (getValue(xmpColumn) == null);
 
                     if (isSet) {
                         iptcString = formatIptcDate(xmpColumn, iptcString);
                         setValue(xmpColumn, iptcString);
                     }
                 } else if (iptcValue instanceof Collection<?>) {
-                    @SuppressWarnings("unchecked") Collection<?> collection =
-                        (Collection<?>) iptcValue;
+                    @SuppressWarnings("unchecked") Collection<?> collection = (Collection<?>) iptcValue;
 
                     if (XmpRepeatableValues.isRepeatable(xmpColumn)) {
                         for (Object o : collection) {
                             setValue(xmpColumn, o);
                         }
                     } else if (!collection.isEmpty()) {
-                        boolean isSet =
-                            options.equals(SetIptc.REPLACE_EXISTING_VALUES)
-                            || (getValue(xmpColumn) == null);
+                        boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES)
+                                        || (getValue(xmpColumn) == null);
 
                         if (isSet) {
                             int i = 0;
@@ -214,8 +206,7 @@ public final class Xmp implements TextEntryListener {
                         }
                     }
                 } else {
-                    AppLogger.logWarning(Xmp.class, "Xmp.Error.SetIptc",
-                                         iptcValue, xmpColumn);
+                    AppLogger.logWarning(Xmp.class, "Xmp.Error.SetIptc", iptcValue, xmpColumn);
                 }
             }
         }
@@ -226,14 +217,12 @@ public final class Xmp implements TextEntryListener {
             return null;
         }
 
-        if (xmpColumn.equals(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)
-                && (iptcString.length() == 8)) {
+        if (xmpColumn.equals(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) && (iptcString.length() == 8)) {
             if (iptcString.contains("-")) {
                 return iptcString;
             }
 
-            return iptcString.substring(0, 4) + "-"
-                   + iptcString.substring(4, 6) + "-" + iptcString.substring(6);
+            return iptcString.substring(0, 4) + "-" + iptcString.substring(4, 6) + "-" + iptcString.substring(6);
         }
 
         return iptcString;
@@ -287,12 +276,11 @@ public final class Xmp implements TextEntryListener {
             throw new NullPointerException("value == null");
         }
 
-        Object  o      = valueOfColumn.get(xmpColumn);
+        Object o = valueOfColumn.get(xmpColumn);
         boolean remove = true;
 
         if (o instanceof Collection<?>) {
-            @SuppressWarnings("unchecked") Collection<?> collection =
-                (Collection<?>) o;
+            @SuppressWarnings("unchecked") Collection<?> collection = (Collection<?>) o;
 
             collection.remove(value);
             remove = collection.isEmpty();

@@ -3,6 +3,7 @@ package org.jphototagger.program.controller.thumbnail;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
@@ -16,7 +17,6 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to {@link PopupMenuThumbnails#getItemCopyToClipboard()},
@@ -27,10 +27,9 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerCopyOrCutFilesToClipboard
-        implements ActionListener, KeyListener, ThumbnailsPanelListener {
-    private final ThumbnailsPanel     tnPanel = GUI.getThumbnailsPanel();
-    private final PopupMenuThumbnails popup   = PopupMenuThumbnails.INSTANCE;
+public final class ControllerCopyOrCutFilesToClipboard implements ActionListener, KeyListener, ThumbnailsPanelListener {
+    private final ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
+    private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
 
     public ControllerCopyOrCutFilesToClipboard() {
         listen();
@@ -92,8 +91,7 @@ public final class ControllerCopyOrCutFilesToClipboard
     private void transferSelectedFiles() {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
-        ClipboardUtil.copyToClipboard(tnPanel.getSelectedFiles(), clipboard,
-                                      null);
+        ClipboardUtil.copyToClipboard(tnPanel.getSelectedFiles(), clipboard, null);
     }
 
     @Override
@@ -101,13 +99,13 @@ public final class ControllerCopyOrCutFilesToClipboard
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        final boolean imagesSelected = tnPanel.isFileSelected();
+                final boolean imagesSelected = tnPanel.isFileSelected();
 
                 getCopyItem().setEnabled(imagesSelected);
 
-        // ignore possibility of write protected files
+                // ignore possibility of write protected files
                 getCutItem().setEnabled(imagesSelected);
-    }
+            }
         });
     }
 

@@ -26,27 +26,23 @@ public final class ExifTag {
     public enum Id {
 
         // Ordered by tag ID
-        UNKNOWN(Integer.MIN_VALUE), GPS_VERSION_ID(0), GPS_LATITUDE_REF(1),
-        GPS_LATITUDE(2), GPS_LONGITUDE_REF(3), GPS_LONGITUDE(4),
-        GPS_ALTITUDE_REF(5), GPS_ALTITUDE(6), GPS_TIME_STAMP(7),
-        GPS_SATELLITES(8), GPS_DATE_STAMP(29), IMAGE_WIDTH(256),
-        IMAGE_LENGTH(257), BITS_PER_SAMPLE(258), IMAGE_DESCRIPTION(270),
-        MAKE(271), MODEL(272), SOFTWARE(305), DATE_TIME(306), ARTIST(315),
-        COPYRIGHT(33432), EXPOSURE_TIME(33434), F_NUMBER(33437),
-        EXPOSURE_PROGRAM(34850), SPECTRAL_SENSITIVITY(34852),
-        ISO_SPEED_RATINGS(34855), DATE_TIME_ORIGINAL(36867),
+        UNKNOWN(Integer.MIN_VALUE), GPS_VERSION_ID(0), GPS_LATITUDE_REF(1), GPS_LATITUDE(2), GPS_LONGITUDE_REF(3),
+        GPS_LONGITUDE(4), GPS_ALTITUDE_REF(5), GPS_ALTITUDE(6), GPS_TIME_STAMP(7), GPS_SATELLITES(8),
+        GPS_DATE_STAMP(29),
+        IMAGE_WIDTH(256), IMAGE_LENGTH(257), BITS_PER_SAMPLE(258), IMAGE_DESCRIPTION(270), MAKE(271), MODEL(272),
+        SOFTWARE(305), DATE_TIME(306), ARTIST(315), COPYRIGHT(33432), EXPOSURE_TIME(33434), F_NUMBER(33437),
+        EXPOSURE_PROGRAM(34850), SPECTRAL_SENSITIVITY(34852), ISO_SPEED_RATINGS(34855), DATE_TIME_ORIGINAL(36867),
         DATE_TIME_DIGITIZED(36868), MAKER_NOTE(37500),
 
         /**
          * Maker note that shall be displayed. Alle maker notes equals to or
          * grater than this value will be displayed.
          */
-        MAKER_NOTE_LENS(3750010), MAKER_NOTE_CANON_START(3751000),
-        MAKER_NOTE_NIKON_START(3752000), METERING_MODE(37383), FLASH(37385),
-        FOCAL_LENGTH(37386), USER_COMMENT(37510), FILE_SOURCE(41728),
-        EXPOSURE_MODE(41986), WHITE_BALANCE(41987),
-        FOCAL_LENGTH_IN_35_MM_FILM(41989), CONTRAST(41992), SATURATION(41993),
-        SHARPNESS(41994), SUBJECT_DISTANCE_RANGE(41996), IMAGE_UNIQUE_ID(42016),
+        MAKER_NOTE_LENS(3750010), MAKER_NOTE_CANON_START(3751000), MAKER_NOTE_NIKON_START(3752000),
+        METERING_MODE(37383),
+        FLASH(37385), FOCAL_LENGTH(37386), USER_COMMENT(37510), FILE_SOURCE(41728), EXPOSURE_MODE(41986),
+        WHITE_BALANCE(41987), FOCAL_LENGTH_IN_35_MM_FILM(41989), CONTRAST(41992), SATURATION(41993), SHARPNESS(41994),
+        SUBJECT_DISTANCE_RANGE(41996), IMAGE_UNIQUE_ID(42016),
         ;
 
         /**
@@ -84,8 +80,7 @@ public final class ExifTag {
         }
     }
 
-    private static final Map<Integer, ExifDataType> DATA_TYPE_OF_TAG_ID =
-        new HashMap<Integer, ExifDataType>();
+    private static final Map<Integer, ExifDataType> DATA_TYPE_OF_TAG_ID = new HashMap<Integer, ExifDataType>();
 
     static {
         for (ExifDataType type : ExifDataType.values()) {
@@ -121,11 +116,11 @@ public final class ExifTag {
      * IFD entry. If the value fits in 4 bytes the value itself, starting from
      * left.
      */
-    private final long   valueOffset;
-    private byte[]       rawValue;
+    private final long valueOffset;
+    private byte[] rawValue;
     private final String stringValue;
     private final String name;
-    private final int    byteOrderId;
+    private final int byteOrderId;
 
     public ExifTag(IFDEntry entry, ExifMetadata.IfdType ifdType) {
         if (entry == null) {
@@ -136,14 +131,14 @@ public final class ExifTag {
             throw new NullPointerException("ifdType == null");
         }
 
-        idValue      = entry.getTag();
-        valueCount   = entry.getCount();
-        valueOffset  = entry.getValueOffset();
-        dataTypeId   = entry.getType();
-        name         = entry.getEntryMeta().getName();
-        byteOrderId  = entry.parent.getByteOrder();
-        rawValue     = rawValueDeepCopy(entry);
-        stringValue  = entry.toString();
+        idValue = entry.getTag();
+        valueCount = entry.getCount();
+        valueOffset = entry.getValueOffset();
+        dataTypeId = entry.getType();
+        name = entry.getEntryMeta().getName();
+        byteOrderId = entry.parent.getByteOrder();
+        rawValue = rawValueDeepCopy(entry);
+        stringValue = entry.toString();
         this.ifdType = ifdType;
     }
 
@@ -157,22 +152,21 @@ public final class ExifTag {
      * @param stringValue can be null
      * @param byteOrderId
      * @param name        can be null
-     * @param ifdType     
+     * @param ifdType
      */
-    public ExifTag(int tagId, int dataTypeId, int valueCount, long valueOffset,
-                   byte[] rawValue, String stringValue, int byteOrderId,
-                   String name, ExifMetadata.IfdType ifdType) {
-        this.idValue     = tagId;
-        this.dataTypeId  = dataTypeId;
-        this.valueCount  = valueCount;
+    public ExifTag(int tagId, int dataTypeId, int valueCount, long valueOffset, byte[] rawValue, String stringValue,
+                   int byteOrderId, String name, ExifMetadata.IfdType ifdType) {
+        this.idValue = tagId;
+        this.dataTypeId = dataTypeId;
+        this.valueCount = valueCount;
         this.valueOffset = valueOffset;
-        this.rawValue    = (rawValue == null)
-                           ? null
-                           : Arrays.copyOf(rawValue, rawValue.length);
+        this.rawValue = (rawValue == null)
+                        ? null
+                        : Arrays.copyOf(rawValue, rawValue.length);
         this.stringValue = stringValue;
-        this.name        = name;
+        this.name = name;
         this.byteOrderId = byteOrderId;
-        this.ifdType     = ifdType;
+        this.ifdType = ifdType;
     }
 
     public ByteOrder byteOrder() {
@@ -229,8 +223,7 @@ public final class ExifTag {
 
     private byte[] rawValueDeepCopy(IFDEntry entry) {
         try {
-            return Arrays.copyOf(entry.getRawValue(),
-                                 entry.getRawValue().length);
+            return Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
         } catch (Exception ex) {
             AppLogger.logSevere(ExifMetadata.class, ex);
         }
@@ -267,7 +260,7 @@ public final class ExifTag {
 
         final ExifTag other = (ExifTag) obj;
 
-        assert (ifdType != null) && (other.ifdType != null);
+        assert(ifdType != null) && (other.ifdType != null);
 
         return ifdType.equals(other.ifdType) && (idValue == other.idValue);
     }
@@ -287,17 +280,13 @@ public final class ExifTag {
     public String info() {
         return "EXIF Tag [ID: " + idValue + ", Name: " + ((name == null)
                 ? " Undefined "
-                : name) + ", Number of values: " + valueCount
-                        + ", Value offset: " + valueOffset + ", Data type: "
-                        + dataType().toString() + ", Raw value byte count: "
-                        + ((rawValue == null)
-                           ? 0
-                           : rawValue.length) + ", Byte order: "
-                           + byteOrder().toString() + ", String Value: "
-                           + ((stringValue == null)
-                              ? ""
-                              : stringValue) + ", IFD Type: "
-                              + ifdType.toString() + "]"
+                : name) + ", Number of values: " + valueCount + ", Value offset: " + valueOffset + ", Data type: "
+                        + dataType().toString() + ", Raw value byte count: " + ((rawValue == null)
+                ? 0
+                : rawValue.length) + ", Byte order: " + byteOrder().toString() + ", String Value: "
+                                   + ((stringValue == null)
+                                      ? ""
+                                      : stringValue) + ", IFD Type: " + ifdType.toString() + "]"
         ;
     }
 }

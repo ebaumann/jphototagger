@@ -28,8 +28,7 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public final class ControllerDirectorySelected
-        implements TreeSelectionListener, RefreshListener {
+public final class ControllerDirectorySelected implements TreeSelectionListener, RefreshListener {
     public ControllerDirectorySelected() {
         listen();
     }
@@ -41,8 +40,7 @@ public final class ControllerDirectorySelected
 
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
-        if (evt.isAddedPath()
-                &&!PopupMenuDirectories.INSTANCE.isTreeSelected()) {
+        if (evt.isAddedPath() &&!PopupMenuDirectories.INSTANCE.isTreeSelected()) {
             setFilesToThumbnailsPanel(null);
         }
     }
@@ -77,10 +75,8 @@ public final class ControllerDirectorySelected
             if (GUI.getDirectoriesTree().getSelectionCount() > 0) {
                 WaitDisplay.show();
 
-                File       selectedDirectory =
-                    new File(getDirectorynameFromTree());
-                List<File> files = ImageFileFilterer.getImageFilesOfDirectory(
-                                       selectedDirectory);
+                File selectedDirectory = new File(getDirectorynameFromTree());
+                List<File> files = ImageFileFilterer.getImageFilesOfDirectory(selectedDirectory);
 
                 setTitle(selectedDirectory);
                 ControllerSortThumbnails.setLastSort();
@@ -94,16 +90,14 @@ public final class ControllerDirectorySelected
         private void setTitle(File selectedDirectory) {
             GUI.getAppFrame().setTitle(
                 JptBundle.INSTANCE.getString(
-                    "ControllerDirectorySelected.AppFrame.Title.Directory",
-                    selectedDirectory));
+                    "ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory));
         }
 
         private String getDirectorynameFromTree() {
             TreePath treePath = GUI.getDirectoriesTree().getSelectionPath();
 
             if (treePath.getLastPathComponent() instanceof File) {
-                return ((File) treePath.getLastPathComponent())
-                    .getAbsolutePath();
+                return ((File) treePath.getLastPathComponent()).getAbsolutePath();
             } else {
                 return treePath.getLastPathComponent().toString();
             }

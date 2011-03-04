@@ -32,8 +32,7 @@ abstract class ControllerDirectory extends Controller {
         }
 
         DefaultMutableTreeNode node =
-            TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                PopupMenuDirectories.INSTANCE.getTreePath());
+            TreeFileSystemDirectories.getNodeOfLastPathComponent(PopupMenuDirectories.INSTANCE.getTreePath());
 
         if (node != null) {
             action(node);

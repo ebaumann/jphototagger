@@ -32,9 +32,9 @@ public final class DatabaseContent extends Database {
         }
 
         Set<String> content = new LinkedHashSet<String>();
-        Connection  con     = null;
-        Statement   stmt    = null;
-        ResultSet   rs      = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -43,8 +43,7 @@ public final class DatabaseContent extends Database {
 
             stmt = con.createStatement();
 
-            String sql = "SELECT DISTINCT " + columnName + " FROM "
-                         + column.getTablename() + " WHERE " + columnName
+            String sql = "SELECT DISTINCT " + columnName + " FROM " + column.getTablename() + " WHERE " + columnName
                          + " IS NOT NULL ORDER BY 1 ASC";
 
             logFinest(sql);

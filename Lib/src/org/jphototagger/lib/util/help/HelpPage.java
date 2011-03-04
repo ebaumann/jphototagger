@@ -10,8 +10,8 @@ package org.jphototagger.lib.util.help;
  * @author Elmar Baumann
  */
 public final class HelpPage {
-    private String   url;
-    private String   title;
+    private String url;
+    private String title;
     private HelpNode parent;
 
     /**

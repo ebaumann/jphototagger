@@ -1,8 +1,8 @@
 package org.jphototagger.plugin;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.generics.Pair;
 
+import java.awt.EventQueue;
 import java.awt.Image;
 
 import java.io.File;
@@ -26,12 +26,10 @@ import javax.swing.JProgressBar;
  * @author Elmar Baumann
  */
 public abstract class Plugin {
-    private Properties             properties;
-    private JProgressBar           progressBar;
-    private final Map<File, Image> thumbnailOfFile = new LinkedHashMap<File,
-                                                         Image>();
-    private final Set<PluginListener> pluginListeners =
-        new CopyOnWriteArraySet<PluginListener>();
+    private Properties properties;
+    private JProgressBar progressBar;
+    private final Map<File, Image> thumbnailOfFile = new LinkedHashMap<File, Image>();
+    private final Set<PluginListener> pluginListeners = new CopyOnWriteArraySet<PluginListener>();
     private boolean pBarStringPainted;
 
     /**
@@ -96,8 +94,8 @@ public abstract class Plugin {
             thumbnailOfFile.clear();
 
             for (Pair<File, Image> tnOfFile : files) {
-                File  file = tnOfFile.getFirst();
-                Image tn   = tnOfFile.getSecond();
+                File file = tnOfFile.getFirst();
+                Image tn = tnOfFile.getSecond();
 
                 if (file == null) {
                     throw new IllegalArgumentException("File is null!");
@@ -266,8 +264,7 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    public void progressStarted(int minimum, int maximum, int value,
-                                String string) {
+    public void progressStarted(int minimum, int maximum, int value, String string) {
         setProgressBar(0, maximum, value, string);
     }
 
@@ -279,8 +276,7 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    public void progressPerformed(int minimum, int maximum, int value,
-                                  String string) {
+    public void progressPerformed(int minimum, int maximum, int value, String string) {
         setProgressBar(minimum, maximum, value, string);
     }
 
@@ -302,8 +298,7 @@ public abstract class Plugin {
         });
     }
 
-    private void setProgressBar(final int minimum, final int maximum,
-                                final int value, final String string) {
+    private void setProgressBar(final int minimum, final int maximum, final int value, final String string) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 if (progressBar != null) {

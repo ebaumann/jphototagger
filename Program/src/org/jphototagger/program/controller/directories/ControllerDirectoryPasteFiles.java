@@ -49,15 +49,13 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     private void copyOrMovePastedFilesTo(JTree targetTree) {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        if (isSingleDirectory(tnPanel.getContent())
-                && filesWereCopiedOrCutted(tnPanel.getFileAction())) {
+        if (isSingleDirectory(tnPanel.getContent()) && filesWereCopiedOrCutted(tnPanel.getFileAction())) {
             insertFilesIntoSelectedDirectoryOf(targetTree);
         }
     }
 
     private void insertFilesIntoSelectedDirectoryOf(JTree targetTree) {
-        List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard(
-                                     FilenameDelimiter.NEWLINE);
+        List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
         File targetDirectory = ViewUtil.getSelectedFile(targetTree);
 
         if ((targetDirectory != null) &&!sourceFiles.isEmpty()) {
@@ -67,12 +65,11 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
 
     private void copyOrMoveFiles(List<File> sourceFiles, File targetDirectory) {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-        FileAction      action  = tnPanel.getFileAction();
+        FileAction action = tnPanel.getFileAction();
 
         if (filesWereCopiedOrCutted(action)) {
-            TransferHandlerDirectoryTree.handleDroppedFiles(
-                action.getTransferHandlerAction(), sourceFiles,
-                targetDirectory);
+            TransferHandlerDirectoryTree.handleDroppedFiles(action.getTransferHandlerAction(), sourceFiles,
+                    targetDirectory);
             tnPanel.setFileAction(FileAction.UNDEFINED);
         }
     }
@@ -82,8 +79,7 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
     }
 
     private boolean isSingleDirectory(Content content) {
-        return content.equals(Content.DIRECTORY)
-               || content.equals(Content.FAVORITE);
+        return content.equals(Content.DIRECTORY) || content.equals(Content.FAVORITE);
     }
 
     @Override

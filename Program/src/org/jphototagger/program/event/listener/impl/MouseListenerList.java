@@ -15,7 +15,7 @@ import javax.swing.JList;
  * @author Elmar Baumann
  */
 public abstract class MouseListenerList extends MouseAdapter {
-    private int     index;
+    private int index;
     private boolean popupAlways;
 
     @Override

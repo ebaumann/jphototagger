@@ -30,8 +30,8 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class TransferHandlerMiscMetadataTree extends TransferHandler {
-    private static final long         serialVersionUID = -260820309332646425L;
-    private static final List<Column> XMP_COLS         = XmpColumns.get();
+    private static final long serialVersionUID = -260820309332646425L;
+    private static final List<Column> XMP_COLS = XmpColumns.get();
 
     @Override
     public boolean canImport(TransferSupport support) {
@@ -45,9 +45,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
         DefaultMutableTreeNode dropNode = TransferUtil.getTreeDropNode(support);
 
-        return (dropNode != null)
-               && MiscMetadataHelper.isParentUserObjectAColumnOf(dropNode,
-                   XMP_COLS);
+        return (dropNode != null) && MiscMetadataHelper.isParentUserObjectAColumnOf(dropNode, XMP_COLS);
     }
 
     @Override
@@ -62,21 +60,19 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
             return false;
         }
 
-        Pair<Column, String> colValue =
-            MiscMetadataHelper.getColValueFrom(dropNode);
+        Pair<Column, String> colValue = MiscMetadataHelper.getColValueFrom(dropNode);
 
         if (colValue == null) {
             return false;
         }
 
         List<File> imageFiles = Support.getImageFiles(support);
-        String     value      = colValue.getSecond();
+        String value = colValue.getSecond();
 
         if (!imageFiles.isEmpty() && confirmImport(value, imageFiles.size())) {
             ColumnData cd = new ColumnData(colValue.getFirst(), value);
 
-            MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd),
-                    imageFiles);
+            MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd), imageFiles);
 
             return true;
         }
@@ -85,19 +81,16 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
     }
 
     private boolean confirmImport(Object value, int fileCount) {
-        return MessageDisplayer.confirmYesNo(null,
-                "TransferHandlerMiscMetadataTree.Confirm.Import", value,
-                fileCount);
+        return MessageDisplayer.confirmYesNo(null, "TransferHandlerMiscMetadataTree.Confirm.Import", value, fileCount);
     }
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        JTree      t        = (JTree) c;
+        JTree t = (JTree) c;
         TreePath[] selPaths = t.getSelectionPaths();
 
         if (selPaths != null) {
-            List<ColumnData> colData =
-                new ArrayList<ColumnData>(selPaths.length);
+            List<ColumnData> colData = new ArrayList<ColumnData>(selPaths.length);
 
             for (TreePath selPath : selPaths) {
                 Object lpc = selPath.getLastPathComponent();
@@ -105,15 +98,12 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
                 if (lpc instanceof DefaultMutableTreeNode) {
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) lpc;
 
-                    if (MiscMetadataHelper.isParentUserObjectAColumnOf(node,
-                            XMP_COLS)) {
-                        Object   nodeUserObject = node.getUserObject();
-                        TreeNode parent         = node.getParent();
-                        Object   parentUserObject =
-                            ((DefaultMutableTreeNode) parent).getUserObject();
+                    if (MiscMetadataHelper.isParentUserObjectAColumnOf(node, XMP_COLS)) {
+                        Object nodeUserObject = node.getUserObject();
+                        TreeNode parent = node.getParent();
+                        Object parentUserObject = ((DefaultMutableTreeNode) parent).getUserObject();
 
-                        colData.add(new ColumnData((Column) parentUserObject,
-                                                   nodeUserObject));
+                        colData.add(new ColumnData((Column) parentUserObject, nodeUserObject));
                     }
                 }
             }

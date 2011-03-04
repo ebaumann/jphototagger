@@ -50,9 +50,7 @@ public final class Util {
      *                be the parameter <code>1 + offset</code>.
      * @throws        SQLException
      */
-    static void setStringParams(PreparedStatement stmt,
-                                List<? extends String> params, int offset)
-            throws SQLException {
+    static void setStringParams(PreparedStatement stmt, List<? extends String> params, int offset) throws SQLException {
         assert offset >= 0 : "Negative offset: " + offset;
 
         if (offset < 0) {

@@ -9,15 +9,13 @@ import java.io.Serializable;
  *
  * @author Elmar Baumann
  */
-public final class FileChooserFilter extends javax.swing.filechooser.FileFilter
-        implements Serializable {
-    private static final long        serialVersionUID = 4872224829528009592L;
+public final class FileChooserFilter extends javax.swing.filechooser.FileFilter implements Serializable {
+    private static final long serialVersionUID = 4872224829528009592L;
     private final java.io.FileFilter fileFilter;
-    private final String             description;
+    private final String description;
 
-    public FileChooserFilter(java.io.FileFilter fileFilter,
-                             String description) {
-        this.fileFilter  = fileFilter;
+    public FileChooserFilter(java.io.FileFilter fileFilter, String description) {
+        this.fileFilter = fileFilter;
         this.description = description;
     }
 

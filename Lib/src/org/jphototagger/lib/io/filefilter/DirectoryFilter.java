@@ -22,16 +22,13 @@ public final class DirectoryFilter implements java.io.FileFilter, Serializable {
     /**
      * Instance which accepts hidden files.
      */
-    public static final DirectoryFilter ACCEPT_HIDDEN_FILES =
-        new DirectoryFilter(Option.ACCEPT_HIDDEN_FILES);
+    public static final DirectoryFilter ACCEPT_HIDDEN_FILES = new DirectoryFilter(Option.ACCEPT_HIDDEN_FILES);
 
     /**
      * Instance which rejects hidden files.
      */
-    public static final DirectoryFilter NO_OPTIONS =
-        new DirectoryFilter(Option.NO_OPTION);
-    private static final FileSystemView FILE_SYSTEM_VIEW =
-        FileSystemView.getFileSystemView();
+    public static final DirectoryFilter NO_OPTIONS = new DirectoryFilter(Option.NO_OPTION);
+    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
     private static final long serialVersionUID = 5618213820669639267L;
     private final List<Option> options;
 
@@ -72,8 +69,7 @@ public final class DirectoryFilter implements java.io.FileFilter, Serializable {
      * @param  description  description
      * @return file filter
      */
-    public javax.swing.filechooser.FileFilter forFileChooser(
-            String description) {
+    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
         return new FileChooserFilter(this, description);
     }
 }

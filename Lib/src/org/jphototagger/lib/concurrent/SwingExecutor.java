@@ -1,6 +1,7 @@
 package org.jphototagger.lib.concurrent;
 
 import java.awt.EventQueue;
+
 import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.List;
@@ -37,8 +38,7 @@ public final class SwingExecutor extends AbstractExecutorService {
     }
 
     @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit)
-            throws InterruptedException {
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
         throw new UnsupportedOperationException();
     }
 

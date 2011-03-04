@@ -41,28 +41,24 @@ public final class ControllerPlugins implements ActionListener {
     }
 
     private void listen() {
-        for (JMenuItem item :
-                PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
+        for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
             item.addActionListener(this);
 
             Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
 
-            PopupMenuThumbnails.INSTANCE.getPluginOfItem(
-                item).addPluginListener(new Listener(plugin, pBarOwner));
+            PopupMenuThumbnails.INSTANCE.getPluginOfItem(item).addPluginListener(new Listener(plugin, pBarOwner));
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        Object     src      = evt.getSource();
+        Object src = evt.getSource();
         List<File> selFiles = GUI.getSelectedImageFiles();
 
         if (selFiles.size() > 0) {
             JMenuItem item = (JMenuItem) src;
-            Action    action =
-                PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
-            Plugin    plugin =
-                PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
+            Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
+            Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
 
             plugin.setFiles(getFiles(selFiles));
             plugin.setProperties(UserSettings.INSTANCE.getProperties());
@@ -72,13 +68,11 @@ public final class ControllerPlugins implements ActionListener {
     }
 
     private static List<Pair<File, Image>> getFiles(List<File> selFiles) {
-        List<Pair<File, Image>> files = new ArrayList<Pair<File,
-                                            Image>>(selFiles.size());
+        List<Pair<File, Image>> files = new ArrayList<Pair<File, Image>>(selFiles.size());
 
         for (File file : selFiles) {
             assert file != null;
-            files.add(new Pair<File, Image>(file,
-                               ThumbnailCache.INSTANCE.getThumbnail(file)));
+            files.add(new Pair<File, Image>(file, ThumbnailCache.INSTANCE.getThumbnail(file)));
         }
 
         return files;
@@ -97,7 +91,7 @@ public final class ControllerPlugins implements ActionListener {
                 throw new NullPointerException("progressBarOwner == null");
             }
 
-            this.plugin    = plugin;
+            this.plugin = plugin;
             this.pBarOwner = progressBarOwner;
         }
 

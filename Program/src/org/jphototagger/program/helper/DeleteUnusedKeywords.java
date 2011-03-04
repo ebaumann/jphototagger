@@ -17,9 +17,9 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DeleteUnusedKeywords implements Runnable, Cancelable {
-    private volatile boolean              cancel;
+    private volatile boolean cancel;
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
-    private volatile int                  countDeleted = 0;
+    private volatile int countDeleted = 0;
 
     public synchronized void addProgressListener(ProgressListener listener) {
         if (listener == null) {
@@ -36,8 +36,7 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
     @Override
     public void run() {
         DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-        List<String>       keywords =
-            new ArrayList<String>(db.getNotReferencedDcSubjects());
+        List<String> keywords = new ArrayList<String>(db.getNotReferencedDcSubjects());
         int size = keywords.size();
 
         notifyProgressStarted(size);
@@ -59,11 +58,9 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
     }
 
     public void notifyProgressStarted(int count) {
-        ProgressEvent evt = new ProgressEvent(this, 0, count, 0,
-                                getStartMessage());
+        ProgressEvent evt = new ProgressEvent(this, 0, count, 0, getStartMessage());
 
-        AppLogger.logInfo(DeleteUnusedKeywords.class,
-                          "DeleteUnusedKeywords.Info.Start");
+        AppLogger.logInfo(DeleteUnusedKeywords.class, "DeleteUnusedKeywords.Info.Start");
 
         // Catching cancellation request
         for (ProgressListener listener : ls.get()) {
@@ -78,10 +75,8 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
         }
     }
 
-    private void notifyProgressPerformed(int count, int countDeleted,
-            String keyword) {
-        ProgressEvent evt = new ProgressEvent(this, 0, count, countDeleted,
-                                keyword);
+    private void notifyProgressPerformed(int count, int countDeleted, String keyword) {
+        ProgressEvent evt = new ProgressEvent(this, 0, count, countDeleted, keyword);
 
         // Catching cancellation request
         for (ProgressListener listener : ls.get()) {
@@ -97,15 +92,13 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
     }
 
     public void notifyProgressEnded(int count, int countDeleted) {
-        ProgressEvent evt = new ProgressEvent(this, 0, count, countDeleted,
-                                getEndMessage(count, countDeleted));
+        ProgressEvent evt = new ProgressEvent(this, 0, count, countDeleted, getEndMessage(count, countDeleted));
 
         ls.notifyEnded(evt);
     }
 
     private Object getEndMessage(int count, int countDeleted) {
-        return JptBundle.INSTANCE.getString(
-            "DeleteUnusedKeywords.Info.Finished", count, countDeleted);
+        return JptBundle.INSTANCE.getString("DeleteUnusedKeywords.Info.Finished", count, countDeleted);
     }
 
     private Object getStartMessage() {

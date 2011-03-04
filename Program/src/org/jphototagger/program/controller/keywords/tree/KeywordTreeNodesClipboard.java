@@ -14,11 +14,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public final class KeywordTreeNodesClipboard {
     public enum Action { COPY, MOVE, UNKNOWN }
 
-    public static final KeywordTreeNodesClipboard INSTANCE =
-        new KeywordTreeNodesClipboard();
-    private Action                             action = Action.UNKNOWN;
-    private final List<DefaultMutableTreeNode> nodes  =
-        new ArrayList<DefaultMutableTreeNode>();
+    public static final KeywordTreeNodesClipboard INSTANCE = new KeywordTreeNodesClipboard();
+    private Action action = Action.UNKNOWN;
+    private final List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>();
 
     public boolean isEmpty() {
         return nodes.size() <= 0;

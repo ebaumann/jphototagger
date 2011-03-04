@@ -15,7 +15,7 @@ import java.util.Arrays;
  * @author Elmar Baumann
  */
 public final class TransferableObject implements Transferable {
-    private final Object       data;
+    private final Object data;
     private final DataFlavor[] dataFlavors;
 
     /**
@@ -40,12 +40,10 @@ public final class TransferableObject implements Transferable {
             throw new NullPointerException("dataFlavors == null");
         }
 
-        this.data        = data;
+        this.data = data;
         this.dataFlavors = new DataFlavor[dataFlavors.length + 1];
-        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0,
-                         dataFlavors.length);
-        this.dataFlavors[dataFlavors.length] = new DataFlavor(data.getClass(),
-                null);
+        System.arraycopy(dataFlavors, 0, this.dataFlavors, 0, dataFlavors.length);
+        this.dataFlavors[dataFlavors.length] = new DataFlavor(data.getClass(), null);
     }
 
     @Override

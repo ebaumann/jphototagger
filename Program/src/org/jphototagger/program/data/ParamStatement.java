@@ -3,15 +3,14 @@ package org.jphototagger.program.data;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ParamStatement {
-    private String       sql;
+    private String sql;
     private List<String> values = new ArrayList<String>();
-    private boolean      query;
+    private boolean query;
 
     public ParamStatement() {}
 
@@ -28,9 +27,9 @@ public final class ParamStatement {
             throw new NullPointerException("stmt == null");
         }
 
-        sql    = stmt.sql;
+        sql = stmt.sql;
         values = new ArrayList<String>(stmt.values);
-        query  = stmt.query;
+        query = stmt.query;
     }
 
     public String getSql() {

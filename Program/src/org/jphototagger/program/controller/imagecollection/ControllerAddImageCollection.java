@@ -27,17 +27,14 @@ import javax.swing.JList;
  *
  * @author Elmar Baumann
  */
-public final class ControllerAddImageCollection
-        implements ActionListener, KeyListener {
+public final class ControllerAddImageCollection implements ActionListener, KeyListener {
     public ControllerAddImageCollection() {
         listen();
     }
 
     private void listen() {
-        PopupMenuThumbnails.INSTANCE.getItemCreateImageCollection()
-            .addActionListener(this);
-        PopupMenuImageCollections.INSTANCE.getItemCreate().addActionListener(
-            this);
+        PopupMenuThumbnails.INSTANCE.getItemCreateImageCollection().addActionListener(this);
+        PopupMenuImageCollections.INSTANCE.getItemCreate().addActionListener(this);
         GUI.getImageCollectionsList().addKeyListener(this);
     }
 
@@ -54,9 +51,7 @@ public final class ControllerAddImageCollection
     }
 
     private void createImageCollectionOfSelectedFiles() {
-        final String collectionName =
-            ImageCollectionsHelper.insertImageCollection(
-                GUI.getSelectedImageFiles());
+        final String collectionName = ImageCollectionsHelper.insertImageCollection(GUI.getSelectedImageFiles());
 
         if (collectionName != null) {
             EventQueue.invokeLater(new Runnable() {
@@ -69,13 +64,10 @@ public final class ControllerAddImageCollection
     }
 
     private void insertImageCollection(String collectionName) {
-        ListModelImageCollections model =
-            ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
+        ListModelImageCollections model = ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
 
-        ListUtil.insertSorted(
-            model, collectionName, ComparatorStringAscending.INSTANCE,
-            ListModelImageCollections.getSpecialCollectionCount(),
-            model.getSize() - 1);
+        ListUtil.insertSorted(model, collectionName, ComparatorStringAscending.INSTANCE,
+                              ListModelImageCollections.getSpecialCollectionCount(), model.getSize() - 1);
     }
 
     @Override

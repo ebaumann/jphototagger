@@ -14,10 +14,8 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifFormatterExposureProgram extends ExifFormatter {
-    public static final ExifFormatterExposureProgram INSTANCE =
-        new ExifFormatterExposureProgram();
-    private static final Map<Integer, String> EXIF_KEY_OF_EXPOSURE_PROGRAM =
-        new HashMap<Integer, String>();
+    public static final ExifFormatterExposureProgram INSTANCE = new ExifFormatterExposureProgram();
+    private static final Map<Integer, String> EXIF_KEY_OF_EXPOSURE_PROGRAM = new HashMap<Integer, String>();
 
     static {
         EXIF_KEY_OF_EXPOSURE_PROGRAM.put(0, "ExposureProgramUnkonwn");
@@ -42,13 +40,11 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.EXPOSURE_PROGRAM);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
             int value = es.value();
 
             if (EXIF_KEY_OF_EXPOSURE_PROGRAM.containsKey(value)) {
-                return translate(IfdType.EXIF,
-                                 EXIF_KEY_OF_EXPOSURE_PROGRAM.get(value));
+                return translate(IfdType.EXIF, EXIF_KEY_OF_EXPOSURE_PROGRAM.get(value));
             }
         }
 

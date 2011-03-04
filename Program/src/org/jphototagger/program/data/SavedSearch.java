@@ -4,8 +4,7 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Util;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +94,7 @@ public final class SavedSearch {
 
         if (other != this) {
             panels = other.getDeepCopyPanels();
-            type   = other.type;
+            type = other.type;
         }
     }
 
@@ -254,8 +253,7 @@ public final class SavedSearch {
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {
-        List<SavedSearchPanel> copy =
-            new ArrayList<SavedSearchPanel>(panels.size());
+        List<SavedSearchPanel> copy = new ArrayList<SavedSearchPanel>(panels.size());
 
         for (SavedSearchPanel panel : panels) {
             copy.add(new SavedSearchPanel(panel));
@@ -309,7 +307,7 @@ public final class SavedSearch {
     }
 
     private ParamStatement createParamStmtFromPanels() {
-        StringBuilder  sb   = getStartSelectFrom();
+        StringBuilder sb = getStartSelectFrom();
         ParamStatement stmt = new ParamStatement();
 
         setType(Type.KEYWORDS_AND_PANELS);
@@ -327,8 +325,7 @@ public final class SavedSearch {
     }
 
     private void setValues(ParamStatement stmt) {
-        List<String> values = new ArrayList<String>(panels.size()
-                                  + keywords.size());
+        List<String> values = new ArrayList<String>(panels.size() + keywords.size());
 
         for (SavedSearchPanel panel : panels) {
             values.add(panel.getValue());
@@ -360,17 +357,12 @@ public final class SavedSearch {
             return;
         }
 
-        String paramsInParentheses =
-            org.jphototagger.program.database.Util.getParamsInParentheses(
-                count);
+        String paramsInParentheses = org.jphototagger.program.database.Util.getParamsInParentheses(count);
 
         statement.append(and
                          ? " AND"
-                         : "").append(" dc_subjects.subject IN ").append(
-                             paramsInParentheses).append(
-                             " GROUP BY files.filename"
-                             + " HAVING COUNT(*) = ").append(
-                                 Integer.toString(count));
+                         : "").append(" dc_subjects.subject IN ").append(paramsInParentheses).append(
+                             " GROUP BY files.filename" + " HAVING COUNT(*) = ").append(Integer.toString(count));
     }
 
     private void appendToFrom(StringBuilder statement) {
@@ -378,8 +370,7 @@ public final class SavedSearch {
 
         int index = 0;
 
-        for (String tablename :
-                Util.getDistinctTablenamesOfColumns(getColumns())) {
+        for (String tablename : Util.getDistinctTablenamesOfColumns(getColumns())) {
             statement.append((index++ == 0)
                              ? ""
                              : " ");
@@ -388,17 +379,16 @@ public final class SavedSearch {
     }
 
     private StringBuilder getStartSelectFrom() {
-        Column columnFilename     = ColumnFilesFilename.INSTANCE;
+        Column columnFilename = ColumnFilesFilename.INSTANCE;
         String columnNameFilename = columnFilename.getName();
-        String tableNameFiles     = columnFilename.getTablename();
+        String tableNameFiles = columnFilename.getTablename();
 
-        return new StringBuilder("SELECT DISTINCT " + tableNameFiles + "."
-                                 + columnNameFilename + " FROM");
+        return new StringBuilder("SELECT DISTINCT " + tableNameFiles + "." + columnNameFilename + " FROM");
     }
 
     private synchronized List<Column> getColumns() {
         List<Column> columns = new ArrayList<Column>();
-        int          index   = 0;
+        int index = 0;
 
         if (panels != null) {
             for (SavedSearchPanel panel : panels) {

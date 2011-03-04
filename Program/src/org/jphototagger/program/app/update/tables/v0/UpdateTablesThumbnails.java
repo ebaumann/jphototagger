@@ -35,7 +35,7 @@ import javax.swing.ImageIcon;
  * @author Elmar Baumann
  */
 final class UpdateTablesThumbnails extends Database {
-    private static final int    FETCH_MAX_ROWS = 1000;
+    private static final int FETCH_MAX_ROWS = 1000;
     private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
         "Updated_Thumbnails_Names_Hash_1";    // Never change this!
     private int count;
@@ -47,8 +47,7 @@ final class UpdateTablesThumbnails extends Database {
         SplashScreen.INSTANCE.removeMessage();
     }
 
-    public void writeThumbnailsFromTableIntoFilesystem(Connection con)
-            throws SQLException {
+    public void writeThumbnailsFromTableIntoFilesystem(Connection con) throws SQLException {
         count = getCount(con);
 
         int current = 1;
@@ -62,12 +61,10 @@ final class UpdateTablesThumbnails extends Database {
         }
     }
 
-    private int updateRows(Connection con, int current, int cnt)
-            throws SQLException {
-        String sql = "SELECT TOP " + FETCH_MAX_ROWS + " "
-                     + "id, thumbnail FROM files WHERE thumbnail IS NOT NULL";
+    private int updateRows(Connection con, int current, int cnt) throws SQLException {
+        String sql = "SELECT TOP " + FETCH_MAX_ROWS + " " + "id, thumbnail FROM files WHERE thumbnail IS NOT NULL";
         Statement stmt = null;
-        ResultSet rs   = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.createStatement();
@@ -75,7 +72,7 @@ final class UpdateTablesThumbnails extends Database {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                long        id          = rs.getInt(1);
+                long id = rs.getInt(1);
                 InputStream inputStream = rs.getBinaryStream(2);
 
                 setThumbnailNull(con, id);
@@ -92,8 +89,7 @@ final class UpdateTablesThumbnails extends Database {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement(
-                "UPDATE files SET thumbnail = NULL WHERE id = ?");
+            stmt = con.prepareStatement("UPDATE files SET thumbnail = NULL WHERE id = ?");
             stmt.setLong(1, id);
             AppLogger.logFiner(UpdateTablesThumbnails.class, stmt.toString());
             stmt.executeUpdate();
@@ -105,13 +101,13 @@ final class UpdateTablesThumbnails extends Database {
     private void writeThumbnail(InputStream inputStream, long id) {
         if (inputStream != null) {
             try {
-                int    bytecount = inputStream.available();
-                byte[] bytes     = new byte[bytecount];
+                int bytecount = inputStream.available();
+                byte[] bytes = new byte[bytecount];
 
                 inputStream.read(bytes, 0, bytecount);
 
-                ImageIcon icon      = new ImageIcon(bytes);
-                Image     thumbnail = icon.getImage();
+                ImageIcon icon = new ImageIcon(bytes);
+                Image thumbnail = icon.getImage();
 
                 writeThumbnail(thumbnail, id);
             } catch (Exception ex) {
@@ -121,8 +117,8 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     public void writeThumbnail(Image thumbnail, long id) {
-        FileOutputStream fos    = null;
-        File             tnFile = getOldThumbnailFile(id);
+        FileOutputStream fos = null;
+        File tnFile = getOldThumbnailFile(id);
 
         if (tnFile == null) {
             return;
@@ -136,8 +132,7 @@ final class UpdateTablesThumbnails extends Database {
             fos = new FileOutputStream(tnFile);
             fos.getChannel().lock();
 
-            ByteArrayInputStream is =
-                ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
+            ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
 
             if (is != null) {
                 int nextByte;
@@ -169,16 +164,15 @@ final class UpdateTablesThumbnails extends Database {
      */
     private void convertThumbnailIdNamesIntoHashNames(Connection con) {
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
-            if (DatabaseApplicationProperties.INSTANCE.getBoolean(
-                    KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) {
+            if (DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) {
                 return;
             }
 
             File[] thumbnailFiles = getThumbnailFiles();
-            int    filecount      = thumbnailFiles.length;
+            int filecount = thumbnailFiles.length;
 
             count = filecount;
 
@@ -191,8 +185,7 @@ final class UpdateTablesThumbnails extends Database {
                     long id = Long.parseLong(file.getName());
 
                     stmt.setLong(1, id);
-                    AppLogger.logFinest(UpdateTablesThumbnails.class,
-                                        AppLogger.USE_STRING, sql);
+                    AppLogger.logFinest(UpdateTablesThumbnails.class, AppLogger.USE_STRING, sql);
                     rs = stmt.executeQuery();
 
                     if (rs.next()) {
@@ -201,10 +194,7 @@ final class UpdateTablesThumbnails extends Database {
                         convertThumbnail(id, imageFile);
                     } else {
                         if (!file.delete()) {    // orphaned thumbnail
-                            AppLogger.logWarning(
-                                getClass(),
-                                "UpdateTablesThumbnails.Error.DeleteThumbnail",
-                                file);
+                            AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.DeleteThumbnail", file);
                         }
                     }
                 } catch (Exception ex) {
@@ -212,8 +202,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
 
-            DatabaseApplicationProperties.INSTANCE.setBoolean(
-                KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
+            DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (Exception ex) {
             AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
         } finally {
@@ -260,29 +249,24 @@ final class UpdateTablesThumbnails extends Database {
 
         if ((newTnFile != null) && newTnFile.exists()) {
             if (!oldTnFile.delete()) {
-                AppLogger.logWarning(getClass(),
-                                     "UpdateTablesThumbnails.Error.DeleteOld",
-                                     oldTnFile);
+                AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.DeleteOld", oldTnFile);
             }
         } else {
             if (!oldTnFile.renameTo(newTnFile)) {
-                AppLogger.logWarning(getClass(),
-                                     "UpdateTablesThumbnails.Error.Rename",
-                                     oldTnFile, newTnFile);
+                AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.Rename", oldTnFile, newTnFile);
             }
         }
     }
 
     private int getCount(Connection con) throws SQLException {
-        int       cnt  = 0;
+        int cnt = 0;
         Statement stmt = null;
-        ResultSet rs   = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.createStatement();
 
-            String sql =
-                "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
+            String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
 
             AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
             rs = stmt.executeQuery(sql);
@@ -298,7 +282,6 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesThumbnails.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesThumbnails.Info"));
     }
 }

@@ -16,32 +16,27 @@ import javax.swing.event.TreeSelectionListener;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFavoriteSelected
-        implements TreeSelectionListener, RefreshListener {
+public final class ControllerFavoriteSelected implements TreeSelectionListener, RefreshListener {
     public ControllerFavoriteSelected() {
         listen();
     }
 
     private void listen() {
-        GUI.getFavoritesTree().getSelectionModel().addTreeSelectionListener(
-            this);
+        GUI.getFavoritesTree().getSelectionModel().addTreeSelectionListener(this);
         GUI.getThumbnailsPanel().addRefreshListener(this, Content.FAVORITE);
     }
 
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
         if (evt.isAddedPath()) {
-            FavoritesHelper.setFilesToThumbnailPanel(
-                FavoritesHelper.getFilesOfSelectedtDirectory(), null);
+            FavoritesHelper.setFilesToThumbnailPanel(FavoritesHelper.getFilesOfSelectedtDirectory(), null);
         }
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
         if (GUI.getFavoritesTree().getSelectionCount() > 0) {
-            FavoritesHelper.setFilesToThumbnailPanel(
-                FavoritesHelper.getFilesOfSelectedtDirectory(),
-                evt.getSettings());
+            FavoritesHelper.setFilesToThumbnailPanel(FavoritesHelper.getFilesOfSelectedtDirectory(), evt.getSettings());
         }
     }
 }

@@ -10,8 +10,7 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
  * @author Elmar Baumann
  */
 public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
-    public static final ExifFormatterIsoSpeedRatings INSTANCE =
-        new ExifFormatterIsoSpeedRatings();
+    public static final ExifFormatterIsoSpeedRatings INSTANCE = new ExifFormatterIsoSpeedRatings();
     private static final String POSTFIX = " ISO";
 
     private ExifFormatterIsoSpeedRatings() {}
@@ -25,8 +24,7 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
         Ensure.exifTagId(exifTag, ExifTag.Id.ISO_SPEED_RATINGS);
 
         if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(),
-                                         exifTag.byteOrder());
+            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
 
             return Integer.toString(es.value()) + POSTFIX;
         }

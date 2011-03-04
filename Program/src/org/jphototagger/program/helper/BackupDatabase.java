@@ -28,13 +28,12 @@ import java.util.regex.Pattern;
  *
  * @author Elmar Baumann
  */
-public final class BackupDatabase extends AppLifeCycle.FinalTask
-        implements Runnable, Cancelable {
-    public static final BackupDatabase INSTANCE         = new BackupDatabase();
-    private volatile int               currentFileIndex = 0;
-    private volatile int               filecount        = 0;
-    private volatile boolean           cancel;
-    private ProgressBarUpdater         progressBarUpdater;
+public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runnable, Cancelable {
+    public static final BackupDatabase INSTANCE = new BackupDatabase();
+    private volatile int currentFileIndex = 0;
+    private volatile int filecount = 0;
+    private volatile boolean cancel;
+    private ProgressBarUpdater progressBarUpdater;
 
     private BackupDatabase() {}
 
@@ -51,8 +50,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
 
     @Override
     public void execute() {
-        Thread thread = new Thread(INSTANCE,
-                "JPhotoTagger: Backing up database");
+        Thread thread = new Thread(INSTANCE, "JPhotoTagger: Backing up database");
 
         thread.start();
     }
@@ -68,14 +66,12 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
                 return;
             }
 
-            File tnBackupDir =
-                new File(backupDir.getAbsolutePath() + File.separator
-                         + UserSettings.getThumbnailDirBasename());
-            String pBarString = JptBundle.INSTANCE.getString(
-                                    "BackupDatabase.ProgressBar.String");
+            File tnBackupDir = new File(backupDir.getAbsolutePath() + File.separator
+                                        + UserSettings.getThumbnailDirBasename());
+            String pBarString = JptBundle.INSTANCE.getString("BackupDatabase.ProgressBar.String");
 
             progressBarUpdater = new ProgressBarUpdater(this, pBarString);
-            filecount          = dbFiles.size() + tnFiles.size();
+            filecount = dbFiles.size() + tnFiles.size();
             notifyProgressStarted();
 
             if (backup(dbFiles, backupDir) &&!cancel) {
@@ -91,9 +87,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
     private boolean backup(List<File> files, File toDir) {
         for (File file : files) {
             try {
-                FileUtil.copyFile(file,
-                                  new File(toDir + File.separator
-                                           + file.getName()));
+                FileUtil.copyFile(file, new File(toDir + File.separator + file.getName()));
                 currentFileIndex++;
                 notifyProgressPerformed();
 
@@ -102,8 +96,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
                 }
             } catch (IOException ex) {
                 AppLogger.logSevere(BackupDatabase.class, ex);
-                MessageDisplayer.error(null, "BackupDatabase.Error.Copy", file,
-                                       toDir);
+                MessageDisplayer.error(null, "BackupDatabase.Error.Copy", file, toDir);
 
                 return false;
             }
@@ -113,12 +106,9 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
     }
 
     private List<File> getDbFiles() {
-        File dbDir =
-            new File(UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
-        String dbPattern = Pattern.quote(UserSettings.getDatabaseBasename())
-                           + ".*";
-        File[] dbFileArray = dbDir.listFiles(new RegexFileFilter(dbPattern,
-                                 ""));
+        File dbDir = new File(UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
+        String dbPattern = Pattern.quote(UserSettings.getDatabaseBasename()) + ".*";
+        File[] dbFileArray = dbDir.listFiles(new RegexFileFilter(dbPattern, ""));
 
         if (dbFileArray == null) {
             return new ArrayList<File>();
@@ -129,10 +119,8 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
 
     private List<File> getTnFiles() {
         String tnPattern = ".*\\.jpeg";
-        File   tnDir =
-            new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
-        File[] tnFileArray = tnDir.listFiles(new RegexFileFilter(tnPattern,
-                                 ""));
+        File tnDir = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
+        File[] tnFileArray = tnDir.listFiles(new RegexFileFilter(tnPattern, ""));
 
         if (tnFileArray == null) {
             return new ArrayList<File>();
@@ -143,12 +131,10 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
 
     private File getBackupDir() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd_kk-mm-ss");
-        String     dirname =
-            UserSettings.INSTANCE.getDatabaseBackupDirectoryName()
-            + File.separator + df.format(new Date());
+        String dirname = UserSettings.INSTANCE.getDatabaseBackupDirectoryName() + File.separator
+                         + df.format(new Date());
         File dir = new File(dirname);
-        File tnDir = new File(dirname + File.separator
-                              + UserSettings.getThumbnailDirBasename());
+        File tnDir = new File(dirname + File.separator + UserSettings.getThumbnailDirBasename());
 
         if (dir.mkdir() && tnDir.mkdir()) {
             return dir;
@@ -166,15 +152,13 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask
     }
 
     private void notifyProgressPerformed() {
-        ProgressEvent evt = new ProgressEvent(this, 0, filecount,
-                                currentFileIndex, null);
+        ProgressEvent evt = new ProgressEvent(this, 0, filecount, currentFileIndex, null);
 
         progressBarUpdater.progressPerformed(evt);
     }
 
     private void notifyProgressEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, filecount,
-                                currentFileIndex, null);
+        ProgressEvent evt = new ProgressEvent(this, 0, filecount, currentFileIndex, null);
 
         progressBarUpdater.progressEnded(evt);
     }

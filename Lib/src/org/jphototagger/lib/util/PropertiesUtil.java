@@ -21,8 +21,7 @@ public final class PropertiesUtil {
      *                   will be set. If the file is null, nothing will be set.
      * @return           true if the directory path name was set
      */
-    public static boolean setDirectory(Properties properties, String key,
-                                       File file) {
+    public static boolean setDirectory(Properties properties, String key, File file) {
         if (properties == null) {
             throw new NullPointerException("properties == null");
         }

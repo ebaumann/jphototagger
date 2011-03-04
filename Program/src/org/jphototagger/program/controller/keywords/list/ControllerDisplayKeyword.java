@@ -21,8 +21,7 @@ import javax.swing.ListModel;
  */
 public final class ControllerDisplayKeyword extends ControllerKeywords {
     public ControllerDisplayKeyword() {
-        listenToActionsOf(
-            PopupMenuKeywordsList.INSTANCE.getItemDisplayImages());
+        listenToActionsOf(PopupMenuKeywordsList.INSTANCE.getItemDisplayImages());
     }
 
     @Override
@@ -40,8 +39,7 @@ public final class ControllerDisplayKeyword extends ControllerKeywords {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource().equals(
-            PopupMenuKeywordsList.INSTANCE.getItemDisplayImages());
+        return evt.getSource().equals(PopupMenuKeywordsList.INSTANCE.getItemDisplayImages());
     }
 
     @Override
@@ -52,8 +50,7 @@ public final class ControllerDisplayKeyword extends ControllerKeywords {
 
         WaitDisplay.show();
 
-        ListModel model =
-            ModelFactory.INSTANCE.getModel(ListModelKeywords.class);
+        ListModel model = ModelFactory.INSTANCE.getModel(ListModelKeywords.class);
         List<Integer> indices = ListUtil.getIndicesOfItems(model, keywords);
 
         if (!indices.isEmpty()) {

@@ -13,9 +13,8 @@ import java.util.Set;
  * @author    Elmar Baumann
  */
 public class Content<T> {
-    private T                      content;
-    private final Set<Listener<T>> listeners =
-        new CopyOnWriteArraySet<Listener<T>>();
+    private T content;
+    private final Set<Listener<T>> listeners = new CopyOnWriteArraySet<Listener<T>>();
 
     private enum Type { ADDED, REMOVED }
 
@@ -73,8 +72,7 @@ public class Content<T> {
             throw new NullPointerException("content == null");
         }
 
-        Logger.getLogger(getClass().getName()).log(Level.FINEST,
-                         content.toString());
+        Logger.getLogger(getClass().getName()).log(Level.FINEST, content.toString());
         this.content = content;
         notifyListeners(Type.ADDED);
     }

@@ -14,16 +14,14 @@ import javax.swing.JButton;
  *
  * @author Elmar Baumann
  */
-public final class ControllerEnableInsertMetadataTemplate
-        implements EditMetadataPanelsListener, ActionListener {
+public final class ControllerEnableInsertMetadataTemplate implements EditMetadataPanelsListener, ActionListener {
     public ControllerEnableInsertMetadataTemplate() {
         listen();
     }
 
     private void listen() {
         GUI.getEditPanel().addEditMetadataPanelsListener(this);
-        GUI.getAppPanel().getComboBoxMetadataTemplates().addActionListener(
-            this);
+        GUI.getAppPanel().getComboBoxMetadataTemplates().addActionListener(this);
     }
 
     @Override
@@ -32,10 +30,9 @@ public final class ControllerEnableInsertMetadataTemplate
     }
 
     private void setButtonEnabled() {
-        boolean  editable = GUI.getEditPanel().isEditable();
+        boolean editable = GUI.getEditPanel().isEditable();
         AppPanel appPanel = GUI.getAppPanel();
-        boolean  selected =
-            appPanel.getComboBoxMetadataTemplates().getSelectedIndex() >= 0;
+        boolean selected = appPanel.getComboBoxMetadataTemplates().getSelectedIndex() >= 0;
         JButton button = appPanel.getButtonMetadataTemplateInsert();
 
         button.setEnabled(editable && (selected));

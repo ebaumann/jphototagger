@@ -55,8 +55,8 @@ public final class TransferHandlerDropTextComponent extends TransferHandler {
 
     @Override
     public boolean importData(TransferHandler.TransferSupport support) {
-        Component    component    = support.getComponent();
-        String       string       = null;
+        Component component = support.getComponent();
+        String string = null;
         Transferable transferable = support.getTransferable();
 
         if (support.isDataFlavorSupported(DataFlavor.stringFlavor)) {
@@ -66,8 +66,7 @@ public final class TransferHandlerDropTextComponent extends TransferHandler {
         } else if (Flavor.hasKeywordsFromTree(support)) {
             string = getStrings(Support.getKeywordNodes(transferable));
         } else if (Flavor.hasColumnData(support)) {
-            string = Support.getStringFromColumnData(
-                Support.getColumnData(transferable));
+            string = Support.getStringFromColumnData(Support.getColumnData(transferable));
         } else if (Flavor.hasMetadataTemplate(support)) {
             MetadataTemplateSupport.setTemplate(support);
 
@@ -94,8 +93,8 @@ public final class TransferHandlerDropTextComponent extends TransferHandler {
             return null;
         }
 
-        StringBuilder sb    = new StringBuilder();
-        int           index = 0;
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
 
         for (Object o : array) {
             sb.append((index++ == 0)
@@ -122,8 +121,8 @@ public final class TransferHandlerDropTextComponent extends TransferHandler {
             return null;
         }
 
-        StringBuilder sb    = new StringBuilder();
-        int           index = 0;
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
 
         for (String keyword : keywords) {
             sb.append((index++ == 0)

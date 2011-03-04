@@ -25,37 +25,26 @@ import java.util.logging.Logger;
  * @author Elmar Baumann
  */
 public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
-    public static final String                      CHARSET_INFO_FILE = "ASCII";
-    private static final String                     DATE_FORMAT = "yyyy-MM-dd";
-    private static final String                     FILENAME_LAST_BACKUP =
-        "LastBackup";
-    private static final long                       MILLISECONDS_PER_DAY =
-        86400000;
-    public static final ScheduledTaskBackupDatabase INSTANCE =
-        new ScheduledTaskBackupDatabase();
+    public static final String CHARSET_INFO_FILE = "ASCII";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String FILENAME_LAST_BACKUP = "LastBackup";
+    private static final long MILLISECONDS_PER_DAY = 86400000;
+    public static final ScheduledTaskBackupDatabase INSTANCE = new ScheduledTaskBackupDatabase();
 
     private ScheduledTaskBackupDatabase() {}
 
     public enum Interval {
-        PER_SESSION(
-            0, JptBundle.INSTANCE.getString(
-                "ScheduledTaskBackupDatabase.Interval.Session")),
-        PER_DAY(
-            1, JptBundle.INSTANCE.getString(
-                "ScheduledTaskBackupDatabase.Interval.Day")),
-        PER_WEEK(
-            7, JptBundle.INSTANCE.getString(
-                "ScheduledTaskBackupDatabase.Interval.Week")), PER_MONTH(
-                    30,
-                    JptBundle.INSTANCE.getString(
-                        "ScheduledTaskBackupDatabase.Interval.Month")),
+        PER_SESSION(0, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Session")),
+        PER_DAY(1, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Day")),
+        PER_WEEK(7, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Week")),
+        PER_MONTH(30, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Month")),
         ;
 
-        private final int    days;
+        private final int days;
         private final String displayName;
 
         private Interval(int days, String displayName) {
-            this.days        = days;
+            this.days = days;
             this.displayName = displayName;
         }
 
@@ -99,10 +88,10 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
     }
 
     private void createInfoFile() {
-        String           infoFileName = getInfoFileName();
-        DateFormat       df           = new SimpleDateFormat(DATE_FORMAT);
-        String           dateString   = df.format(new Date());
-        FileOutputStream fos          = null;
+        String infoFileName = getInfoFileName();
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+        String dateString = df.format(new Date());
+        FileOutputStream fos = null;
 
         try {
             fos = new FileOutputStream(infoFileName);
@@ -129,16 +118,14 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
         String infoFileName = getInfoFileName();
 
         if (FileUtil.existsFile(infoFileName)) {
-            return getDaysEllapsed(new File(infoFileName))
-                   >= UserSettings.INSTANCE.getScheduledBackupDbInterval();
+            return getDaysEllapsed(new File(infoFileName)) >= UserSettings.INSTANCE.getScheduledBackupDbInterval();
         } else {
             return true;
         }
     }
 
     private static String getInfoFileName() {
-        return UserSettings.INSTANCE.getDatabaseDirectoryName()
-               + File.separator + FILENAME_LAST_BACKUP;
+        return UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + FILENAME_LAST_BACKUP;
     }
 
     // Whole days ellapsed
@@ -146,11 +133,9 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
         String dateString = null;
 
         try {
-            dateString = FileUtil.getContentAsString(infoFile,
-                    CHARSET_INFO_FILE);
+            dateString = FileUtil.getContentAsString(infoFile, CHARSET_INFO_FILE);
         } catch (IOException ex) {
-            Logger.getLogger(ScheduledTaskBackupDatabase.class.getName()).log(
-                Level.SEVERE, null, ex);
+            Logger.getLogger(ScheduledTaskBackupDatabase.class.getName()).log(Level.SEVERE, null, ex);
 
             return -1;
         }
@@ -163,8 +148,8 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
 
         try {
             Date lastBackup = df.parse(dateString);
-            Date today      = new Date();
-            long diff       = today.getTime() - lastBackup.getTime();
+            Date today = new Date();
+            long diff = today.getTime() - lastBackup.getTime();
 
             return diff / MILLISECONDS_PER_DAY;
         } catch (Exception ex) {

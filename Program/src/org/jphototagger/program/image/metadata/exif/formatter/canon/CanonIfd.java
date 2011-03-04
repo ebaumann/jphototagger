@@ -13,27 +13,25 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class CanonIfd {
-    private final byte[]              rawValue;
-    private final ByteOrder           byteOrder;
-    private final int                 entryCount;
-    private final Entry[]             entries;
-    private final Map<Integer, Entry> entryOfTag = new HashMap<Integer,
-                                                       Entry>();
+    private final byte[] rawValue;
+    private final ByteOrder byteOrder;
+    private final int entryCount;
+    private final Entry[] entries;
+    private final Map<Integer, Entry> entryOfTag = new HashMap<Integer, Entry>();
 
     public static class Entry {
-        private final int    tag;
-        private final int    fieldType;
-        private final int    valueNumber;
-        private final int    valueOffset;
+        private final int tag;
+        private final int fieldType;
+        private final int valueNumber;
+        private final int valueOffset;
         private final byte[] raw;
 
-        public Entry(int tag, int fieldType, int valueNumber, int valueOffset,
-                     byte[] raw) {
-            this.tag         = tag;
-            this.fieldType   = fieldType;
+        public Entry(int tag, int fieldType, int valueNumber, int valueOffset, byte[] raw) {
+            this.tag = tag;
+            this.fieldType = fieldType;
             this.valueNumber = valueNumber;
             this.valueOffset = valueOffset;
-            this.raw         = copy(raw);
+            this.raw = copy(raw);
         }
 
         public int getFieldType() {
@@ -79,12 +77,12 @@ public final class CanonIfd {
             throw new NullPointerException("byteOrder == null");
         }
 
-        this.rawValue   = copy(rawValue);
-        this.byteOrder  = byteOrder;
+        this.rawValue = copy(rawValue);
+        this.byteOrder = byteOrder;
         this.entryCount = entryCountFromRaw();
-        this.entries    = (entryCount > 0)
-                          ? new Entry[entryCount]
-                          : null;
+        this.entries = (entryCount > 0)
+                       ? new Entry[entryCount]
+                       : null;
 
         if (canSetEntries()) {
             setEntries();
@@ -153,8 +151,8 @@ public final class CanonIfd {
             return null;
         }
 
-        byte[] tagBytes         = new byte[2];
-        byte[] fieldTypeBytes   = new byte[2];
+        byte[] tagBytes = new byte[2];
+        byte[] fieldTypeBytes = new byte[2];
         byte[] valueNumberBytes = new byte[4];
         byte[] valueOffsetBytes = new byte[4];
 
@@ -164,14 +162,11 @@ public final class CanonIfd {
         System.arraycopy(raw, 8, valueOffsetBytes, 0, 4);
 
         int tag = ExifDatatypeUtil.shortFromRawValue(tagBytes, byteOrder);
-        int fieldType = ExifDatatypeUtil.shortFromRawValue(fieldTypeBytes,
-                            byteOrder);
+        int fieldType = ExifDatatypeUtil.shortFromRawValue(fieldTypeBytes, byteOrder);
         ExifDataType dataType = ExifDataType.fromType(fieldType);
-        int          valueNumber =
-            ExifDatatypeUtil.intFromRawValue(valueNumberBytes, byteOrder);
+        int valueNumber = ExifDatatypeUtil.intFromRawValue(valueNumberBytes, byteOrder);
         int offsetBytes = (dataType.bitCount() * valueNumber > 32)
-                          ? ExifDatatypeUtil.intFromRawValue(valueOffsetBytes,
-                              byteOrder)
+                          ? ExifDatatypeUtil.intFromRawValue(valueOffsetBytes, byteOrder)
                           : -1;
 
         return new Entry(tag, fieldType, valueNumber, offsetBytes, raw);
@@ -197,8 +192,7 @@ public final class CanonIfd {
         }
 
         int byteOffset = entry.getValueOffset();
-        int byteCount = entry.getValueNumber() * entry.dataType().bitCount()
-                        / 8;
+        int byteCount = entry.getValueNumber() * entry.dataType().bitCount() / 8;
 
         if (rawValue.length < byteOffset + byteCount) {
             return null;

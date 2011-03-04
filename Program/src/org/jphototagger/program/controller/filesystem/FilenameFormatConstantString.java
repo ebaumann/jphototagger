@@ -35,8 +35,7 @@ public final class FilenameFormatConstantString extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString(
-            "FilenameFormatConstantString.String");
+        return JptBundle.INSTANCE.getString("FilenameFormatConstantString.String");
     }
 
     private FilenameFormatConstantString() {}

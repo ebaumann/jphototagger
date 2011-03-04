@@ -2,6 +2,7 @@ package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
@@ -14,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,
@@ -25,10 +25,8 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerCreateMetadataOfSelectedThumbnails
-        implements ActionListener {
-    private final Map<JMenuItem, Insert[]> databaseUpdateOfMenuItem =
-        new HashMap<JMenuItem, Insert[]>();
+public final class ControllerCreateMetadataOfSelectedThumbnails implements ActionListener {
+    private final Map<JMenuItem, Insert[]> databaseUpdateOfMenuItem = new HashMap<JMenuItem, Insert[]>();
 
     /**
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
@@ -41,11 +39,8 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
     private void initDatabaseUpdateOfMenuItem() {
         PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
 
-        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateMetadata(),
-                                     new Insert[] { Insert.EXIF,
-                Insert.XMP });
-        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateThumbnail(),
-                                     new Insert[] { Insert.THUMBNAIL });
+        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateMetadata(), new Insert[] { Insert.EXIF, Insert.XMP });
+        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateThumbnail(), new Insert[] { Insert.THUMBNAIL });
     }
 
     private Insert[] getMetadataToInsertIntoDatabase(Object o) {
@@ -72,14 +67,11 @@ public final class ControllerCreateMetadataOfSelectedThumbnails
 
     private void updateMetadata(Insert[] what) {
         InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(
-                GUI.getThumbnailsPanel().getSelectedFiles(), what);
+            new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getSelectedFiles(), what);
         String pBarString =
-            JptBundle.INSTANCE.getString(
-                "ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String");
+            JptBundle.INSTANCE.getString("ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String");
 
-        inserter.addProgressListener(new ProgressBarUpdater(inserter,
-                pBarString));
+        inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
         UserTasks.INSTANCE.add(inserter);
     }
 }

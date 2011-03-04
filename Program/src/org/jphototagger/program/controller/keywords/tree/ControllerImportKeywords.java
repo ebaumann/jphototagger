@@ -20,8 +20,7 @@ public final class ControllerImportKeywords implements ActionListener {
     }
 
     private void listen() {
-        GUI.getAppFrame().getMenuItemImportKeywords()
-            .addActionListener(this);
+        GUI.getAppFrame().getMenuItemImportKeywords().addActionListener(this);
     }
 
     @Override

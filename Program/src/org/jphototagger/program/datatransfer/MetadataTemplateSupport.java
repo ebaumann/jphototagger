@@ -21,22 +21,19 @@ final class MetadataTemplateSupport {
     @SuppressWarnings({ "unchecked", "unchecked" })
     public static void setTemplate(TransferSupport support) {
         try {
-            Object[] selTemplates =
-                (Object[]) support.getTransferable().getTransferData(
-                    Flavor.METADATA_TEMPLATES);
+            Object[] selTemplates = (Object[]) support.getTransferable().getTransferData(Flavor.METADATA_TEMPLATES);
             TextEntry textEntry = findParentTextEntry(support.getComponent());
 
             if ((selTemplates != null) && (textEntry != null)) {
-                Column           column   = textEntry.getColumn();
+                Column column = textEntry.getColumn();
                 MetadataTemplate template = (MetadataTemplate) selTemplates[0];
-                Object           value    = template.getValueOfColumn(column);
+                Object value = template.getValueOfColumn(column);
 
                 if (value instanceof String) {
                     textEntry.setText((String) value);
                     textEntry.setDirty(true);
                 } else if (value instanceof Collection<?>) {
-                    EditRepeatableTextEntryPanel panel =
-                        findRepeatableTextEntryPanel(support.getComponent());
+                    EditRepeatableTextEntryPanel panel = findRepeatableTextEntryPanel(support.getComponent());
 
                     if (panel == null) {
                         return;
@@ -51,8 +48,7 @@ final class MetadataTemplateSupport {
         }
     }
 
-    private static EditRepeatableTextEntryPanel findRepeatableTextEntryPanel(
-            Component c) {
+    private static EditRepeatableTextEntryPanel findRepeatableTextEntryPanel(Component c) {
         Component parent = c.getParent();
 
         while (parent != null) {

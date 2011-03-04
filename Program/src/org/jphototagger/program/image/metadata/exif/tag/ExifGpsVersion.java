@@ -9,27 +9,27 @@ import org.jphototagger.lib.util.ByteUtil;
  * @author Elmar Baumann
  */
 public final class ExifGpsVersion {
-    private int first  = Integer.MIN_VALUE;
+    private int first = Integer.MIN_VALUE;
     private int second = Integer.MIN_VALUE;
-    private int third  = Integer.MIN_VALUE;
+    private int third = Integer.MIN_VALUE;
     private int fourth = Integer.MIN_VALUE;
 
     public ExifGpsVersion(int first, int second, int third, int fourth) {
-        this.first  = first;
+        this.first = first;
         this.second = second;
-        this.third  = third;
+        this.third = third;
         this.fourth = fourth;
     }
 
     /**
-     * 
+     *
      * @param rawValue can be null
      */
     public ExifGpsVersion(byte[] rawValue) {
         if ((rawValue != null) && byteCountOk(rawValue)) {
-            first  = ByteUtil.toInt(rawValue[0]);
+            first = ByteUtil.toInt(rawValue[0]);
             second = ByteUtil.toInt(rawValue[1]);
-            third  = ByteUtil.toInt(rawValue[2]);
+            third = ByteUtil.toInt(rawValue[2]);
             fourth = ByteUtil.toInt(rawValue[3]);
         }
     }

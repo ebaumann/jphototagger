@@ -5,8 +5,7 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter;
-import org.jphototagger.program.exporter.UserDefinedFileFilterExporter
-    .CollectionWrapper;
+import org.jphototagger.program.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
 
 import java.io.File;
 
@@ -19,8 +18,7 @@ import javax.swing.Icon;
  * @author Elmar Baumann
  */
 public final class UserDefinedFileFilterImporter implements Importer {
-    public static final UserDefinedFileFilterImporter INSTANCE =
-        new UserDefinedFileFilterImporter();
+    public static final UserDefinedFileFilterImporter INSTANCE = new UserDefinedFileFilterImporter();
 
     @Override
     public void importFile(File file) {
@@ -29,13 +27,11 @@ public final class UserDefinedFileFilterImporter implements Importer {
         }
 
         try {
-            CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
-                    UserDefinedFileFilterExporter.CollectionWrapper.class);
+            CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
+                                            UserDefinedFileFilterExporter.CollectionWrapper.class);
 
             for (UserDefinedFileFilter filter : wrapper.getCollection()) {
-                if (!DatabaseUserDefinedFileFilters.INSTANCE.exists(
-                        filter.getName())) {
+                if (!DatabaseUserDefinedFileFilters.INSTANCE.exists(filter.getName())) {
                     DatabaseUserDefinedFileFilters.INSTANCE.insert(filter);
                 }
             }

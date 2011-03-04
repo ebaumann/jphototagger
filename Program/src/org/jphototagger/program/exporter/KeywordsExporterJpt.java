@@ -39,8 +39,7 @@ import javax.xml.transform.TransformerFactory;
  * @author Elmar Baumann
  */
 public final class KeywordsExporterJpt implements Exporter {
-    public static final KeywordsExporterJpt INSTANCE =
-        new KeywordsExporterJpt();
+    public static final KeywordsExporterJpt INSTANCE = new KeywordsExporterJpt();
 
     /**
      * DTD of the exported file
@@ -70,8 +69,7 @@ public final class KeywordsExporterJpt implements Exporter {
      * <code>true</code> for a real keyword and <code>false</code> for a helper
      * keyword
      */
-    public static final Map<Boolean, String> VALUE_OF_ATTRIBUTE_TYPE =
-        new HashMap<Boolean, String>();
+    public static final Map<Boolean, String> VALUE_OF_ATTRIBUTE_TYPE = new HashMap<Boolean, String>();
 
     /**
      * Name of the attribute containing the keyword name within the keyword tag
@@ -81,12 +79,9 @@ public final class KeywordsExporterJpt implements Exporter {
     /**
      * Icon returned by {@link #getIcon()}
      */
-    private static final Icon ICON =
-        AppLookAndFeel.getIcon("icon_app_small.png");
-    private static final String DISPLAY_NAME =
-        JptBundle.INSTANCE.getString("KeywordExporterJpt.DisplayName");
-    private static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(DISPLAY_NAME, "xml");
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
+    private static final String DISPLAY_NAME = JptBundle.INSTANCE.getString("KeywordExporterJpt.DisplayName");
+    private static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DISPLAY_NAME, "xml");
 
     static {
         VALUE_OF_ATTRIBUTE_TYPE.put(true, "real");
@@ -100,11 +95,11 @@ public final class KeywordsExporterJpt implements Exporter {
         }
 
         try {
-            Document           doc   = getXml();
-            DOMSource          ds    = new DOMSource(doc);
-            StreamResult       sr    = new StreamResult(checkSuffix(file));
-            TransformerFactory tf    = TransformerFactory.newInstance();
-            Transformer        trans = tf.newTransformer();
+            Document doc = getXml();
+            DOMSource ds = new DOMSource(doc);
+            StreamResult sr = new StreamResult(checkSuffix(file));
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer trans = tf.newTransformer();
 
             initTransformer(trans);
             trans.transform(ds, sr);
@@ -124,12 +119,11 @@ public final class KeywordsExporterJpt implements Exporter {
     }
 
     private Document getXml() throws ParserConfigurationException {
-        DocumentBuilderFactory factory  = DocumentBuilderFactory.newInstance();
-        DocumentBuilder        builder  = factory.newDocumentBuilder();
-        DOMImplementation      impl     = builder.getDOMImplementation();
-        Document               doc      = impl.createDocument(null, null, null);
-        Object                 rootNode =
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).getRoot();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        DOMImplementation impl = builder.getDOMImplementation();
+        Document doc = impl.createDocument(null, null, null);
+        Object rootNode = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).getRoot();
         Element rootElement = doc.createElement(TAGNAME_ROOT);
 
         doc.appendChild(rootElement);
@@ -138,13 +132,11 @@ public final class KeywordsExporterJpt implements Exporter {
         return doc;
     }
 
-    private void appendChildren(Document doc, Element element,
-                                DefaultMutableTreeNode node) {
+    private void appendChildren(Document doc, Element element, DefaultMutableTreeNode node) {
         int childCount = node.getChildCount();
 
         for (int i = 0; i < childCount; i++) {
-            DefaultMutableTreeNode childNode =
-                (DefaultMutableTreeNode) node.getChildAt(i);
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
             Element childElement = doc.createElement(TAGNAME_KEYWORD);
 
             setElementAttributes(childElement, getKeyword(childNode));
@@ -157,20 +149,16 @@ public final class KeywordsExporterJpt implements Exporter {
         return (Keyword) parentNode.getUserObject();
     }
 
-    private void setElementAttributes(Element el, Keyword keyword)
-            throws DOMException {
+    private void setElementAttributes(Element el, Keyword keyword) throws DOMException {
         el.setAttribute(ATTRIBUTE_NAME, keyword.getName());
-        el.setAttribute(ATTRIBUTE_TYPE,
-                        VALUE_OF_ATTRIBUTE_TYPE.get(keyword.isReal()));
+        el.setAttribute(ATTRIBUTE_TYPE, VALUE_OF_ATTRIBUTE_TYPE.get(keyword.isReal()));
     }
 
-    private void initTransformer(Transformer trans)
-            throws IllegalArgumentException {
+    private void initTransformer(Transformer trans) throws IllegalArgumentException {
         trans.setOutputProperty(OutputKeys.METHOD, "xml");
         trans.setOutputProperty(OutputKeys.ENCODING, CharEncoding.JPT_KEYWORDS);
         trans.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, DTD);
-        trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
-                                "4");
+        trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         trans.setOutputProperty(OutputKeys.INDENT, "yes");
         trans.setOutputProperty(OutputKeys.STANDALONE, "no");
     }

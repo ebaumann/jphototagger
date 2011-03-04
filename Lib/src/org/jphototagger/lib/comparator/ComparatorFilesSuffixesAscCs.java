@@ -13,14 +13,12 @@ import java.util.Comparator;
  *
  * @author Elmar Baumann
  */
-public final class ComparatorFilesSuffixesAscCs extends ClassEquality
-        implements Comparator<File>, Serializable {
+public final class ComparatorFilesSuffixesAscCs extends ClassEquality implements Comparator<File>, Serializable {
     private static final long serialVersionUID = 332879468887099729L;
 
     @Override
     public int compare(File leftFile, File rightFile) {
-        Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile,
-                                            rightFile, false);
+        Pair<String, String> suffixes = Util.getCmpSuffixes(leftFile, rightFile, false);
 
         return suffixes.getFirst().compareTo(suffixes.getSecond());
     }

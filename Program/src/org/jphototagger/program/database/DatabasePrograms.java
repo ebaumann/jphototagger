@@ -24,10 +24,8 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabasePrograms extends Database {
-    public static final DatabasePrograms                    INSTANCE =
-        new DatabasePrograms();
-    private final ListenerSupport<DatabaseProgramsListener> ls =
-        new ListenerSupport<DatabaseProgramsListener>();
+    public static final DatabasePrograms INSTANCE = new DatabasePrograms();
+    private final ListenerSupport<DatabaseProgramsListener> ls = new ListenerSupport<DatabaseProgramsListener>();
 
     /**
      *
@@ -49,24 +47,24 @@ public final class DatabasePrograms extends Database {
             throw new NullPointerException("program == null");
         }
 
-        int               countAffectedRows = 0;
-        Connection        con               = null;
-        PreparedStatement stmt              = null;
+        int countAffectedRows = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
-            String sql = "INSERT INTO programs (id"             // --  1 --
-                         + ", action"                           // --  2 --
-                         + ", filename"                         // --  3 --
-                         + ", alias"                            // --  4 --
-                         + ", parameters_before_filename"       // --  5 --
-                         + ", parameters_after_filename"        // --  6 --
-                         + ", input_before_execute"             // --  7 --
+            String sql = "INSERT INTO programs (id"    // --  1 --
+                         + ", action"    // --  2 --
+                         + ", filename"    // --  3 --
+                         + ", alias"    // --  4 --
+                         + ", parameters_before_filename"    // --  5 --
+                         + ", parameters_after_filename"    // --  6 --
+                         + ", input_before_execute"    // --  7 --
                          + ", input_before_execute_per_file"    // --  8 --
-                         + ", single_file_processing"           // --  9 --
-                         + ", change_file"                      // -- 10 --
-                         + ", sequence_number"                  // -- 11 --
-                         + ", use_pattern"                      // -- 12 --
-                         + ", pattern"                          // -- 13 --
+                         + ", single_file_processing"    // --  9 --
+                         + ", change_file"    // -- 10 --
+                         + ", sequence_number"    // -- 11 --
+                         + ", use_pattern"    // -- 12 --
+                         + ", pattern"    // -- 13 --
                          + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             con = getConnection();
@@ -90,8 +88,7 @@ public final class DatabasePrograms extends Database {
         return countAffectedRows == 1;
     }
 
-    private void setValuesInsert(PreparedStatement stmt, Program program)
-            throws SQLException {
+    private void setValuesInsert(PreparedStatement stmt, Program program) throws SQLException {
         stmt.setLong(1, program.getId());
         stmt.setBoolean(2, program.isAction());
         stmt.setString(3, program.getFile().getAbsolutePath());
@@ -124,7 +121,7 @@ public final class DatabasePrograms extends Database {
 
     private void setId(Connection con, Program program) throws SQLException {
         Statement stmt = null;
-        ResultSet rs   = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.createStatement();
@@ -153,24 +150,24 @@ public final class DatabasePrograms extends Database {
             throw new NullPointerException("program == null");
         }
 
-        int               countAffectedRows = 0;
-        Connection        con               = null;
-        PreparedStatement stmt              = null;
+        int countAffectedRows = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
-            String sql = "UPDATE programs SET action = ?"           // --  1 --
-                         + ", filename = ?"                         // --  2 --
-                         + ", alias = ?"                            // --  3 --
-                         + ", parameters_before_filename = ?"       // --  4 --
-                         + ", parameters_after_filename = ?"        // --  5 --
-                         + ", input_before_execute = ?"             // --  6 --
+            String sql = "UPDATE programs SET action = ?"    // --  1 --
+                         + ", filename = ?"    // --  2 --
+                         + ", alias = ?"    // --  3 --
+                         + ", parameters_before_filename = ?"    // --  4 --
+                         + ", parameters_after_filename = ?"    // --  5 --
+                         + ", input_before_execute = ?"    // --  6 --
                          + ", input_before_execute_per_file = ?"    // --  7 --
-                         + ", single_file_processing = ?"           // --  8 --
-                         + ", change_file = ?"                      // --  9 --
-                         + ", sequence_number = ?"                  // -- 10 --
-                         + ", use_pattern = ?"                      // -- 11 --
-                         + ", pattern = ?"                          // -- 12 --
-                         + " WHERE id = ?";                         // -- 13 --
+                         + ", single_file_processing = ?"    // --  8 --
+                         + ", change_file = ?"    // --  9 --
+                         + ", sequence_number = ?"    // -- 10 --
+                         + ", use_pattern = ?"    // -- 11 --
+                         + ", pattern = ?"    // -- 12 --
+                         + " WHERE id = ?";    // -- 13 --
 
             con = getConnection();
             con.setAutoCommit(false);
@@ -193,8 +190,7 @@ public final class DatabasePrograms extends Database {
         return countAffectedRows == 1;
     }
 
-    private void setValuesUpdate(PreparedStatement stmt, Program program)
-            throws SQLException {
+    private void setValuesUpdate(PreparedStatement stmt, Program program) throws SQLException {
         stmt.setBoolean(1, program.isAction());
         stmt.setString(2, program.getFile().getAbsolutePath());
         stmt.setString(3, program.getAlias());
@@ -235,9 +231,9 @@ public final class DatabasePrograms extends Database {
             throw new NullPointerException("program == null");
         }
 
-        int               countAffectedRows = 0;
-        Connection        con               = null;
-        PreparedStatement stmt              = null;
+        int countAffectedRows = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
@@ -273,15 +269,14 @@ public final class DatabasePrograms extends Database {
             throw new NullPointerException("type == null");
         }
 
-        List<Program>     programs = new LinkedList<Program>();
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
-        ResultSet         rs       = null;
+        List<Program> programs = new LinkedList<Program>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
-            stmt = con.prepareStatement(
-                getSelectProgramSql(WhereFilter.ACTION));
+            con = getConnection();
+            stmt = con.prepareStatement(getSelectProgramSql(WhereFilter.ACTION));
             stmt.setBoolean(1, type.equals(Type.ACTION));
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -300,19 +295,19 @@ public final class DatabasePrograms extends Database {
     }
 
     private String getSelectProgramSql(WhereFilter filter) {
-        return "SELECT id"                            // --  1 --
-               + ", action"                           // --  2 --
-               + ", filename"                         // --  3 --
-               + ", alias"                            // --  4 --
-               + ", parameters_before_filename"       // --  5 --
-               + ", parameters_after_filename"        // --  6 --
-               + ", input_before_execute"             // --  7 --
+        return "SELECT id"    // --  1 --
+               + ", action"    // --  2 --
+               + ", filename"    // --  3 --
+               + ", alias"    // --  4 --
+               + ", parameters_before_filename"    // --  5 --
+               + ", parameters_after_filename"    // --  6 --
+               + ", input_before_execute"    // --  7 --
                + ", input_before_execute_per_file"    // --  8 --
-               + ", single_file_processing"           // --  9 --
-               + ", change_file"                      // -- 10 --
-               + ", sequence_number"                  // -- 11 --
-               + ", use_pattern"                      // -- 12 --
-               + ", pattern"                          // -- 13 --
+               + ", single_file_processing"    // --  9 --
+               + ", change_file"    // -- 10 --
+               + ", sequence_number"    // -- 11 --
+               + ", use_pattern"    // -- 12 --
+               + ", pattern"    // -- 13 --
                + " FROM programs" + (filter.equals(WhereFilter.ACTION)
                                      ? " WHERE action = ?"
                                      : filter.equals(WhereFilter.ID)
@@ -320,12 +315,11 @@ public final class DatabasePrograms extends Database {
                                        : "") + " ORDER BY sequence_number, alias";
     }
 
-    private Program createProgramOfCurrentRecord(ResultSet rs)
-            throws SQLException {
-        byte[]  parametersBeforeFilename = rs.getBytes(5);
-        byte[]  parametersAfterFilename  = rs.getBytes(6);
-        byte[]  pattern                  = rs.getBytes(13);
-        Program program                  = new Program();
+    private Program createProgramOfCurrentRecord(ResultSet rs) throws SQLException {
+        byte[] parametersBeforeFilename = rs.getBytes(5);
+        byte[] parametersAfterFilename = rs.getBytes(6);
+        byte[] pattern = rs.getBytes(13);
+        Program program = new Program();
 
         program.setId(rs.getLong(1));
         program.setAction(rs.getBoolean(2));
@@ -336,8 +330,7 @@ public final class DatabasePrograms extends Database {
                 : new String(parametersBeforeFilename));
         program.setParametersAfterFilename((parametersAfterFilename == null)
                                            ? null
-                                           : new String(
-                                           parametersAfterFilename));
+                                           : new String(parametersAfterFilename));
         program.setInputBeforeExecute(rs.getBoolean(7));
         program.setInputBeforeExecutePerFile(rs.getBoolean(8));
         program.setSingleFileProcessing(rs.getBoolean(9));
@@ -352,19 +345,19 @@ public final class DatabasePrograms extends Database {
     }
 
     private String getDefaultImageOpenProgramSql() {
-        return "SELECT id"                            // --  1 --
-               + ", action"                           // --  2 --
-               + ", filename"                         // --  3 --
-               + ", alias"                            // --  4 --
-               + ", parameters_before_filename"       // --  5 --
-               + ", parameters_after_filename"        // --  6 --
-               + ", input_before_execute"             // --  7 --
+        return "SELECT id"    // --  1 --
+               + ", action"    // --  2 --
+               + ", filename"    // --  3 --
+               + ", alias"    // --  4 --
+               + ", parameters_before_filename"    // --  5 --
+               + ", parameters_after_filename"    // --  6 --
+               + ", input_before_execute"    // --  7 --
                + ", input_before_execute_per_file"    // --  8 --
-               + ", single_file_processing"           // --  9 --
-               + ", change_file"                      // -- 10 --
-               + ", sequence_number"                  // -- 11 --
-               + ", use_pattern"                      // -- 12 --
-               + ", pattern"                          // -- 13 --
+               + ", single_file_processing"    // --  9 --
+               + ", change_file"    // -- 10 --
+               + ", sequence_number"    // -- 11 --
+               + ", use_pattern"    // -- 12 --
+               + ", pattern"    // -- 13 --
                + " FROM programs WHERE action = FALSE AND sequence_number = 0";
     }
 
@@ -375,10 +368,10 @@ public final class DatabasePrograms extends Database {
      * @return program or null if the database has no program or on errors
      */
     public Program getDefaultImageOpenProgram() {
-        Program    program = null;
-        Connection con     = null;
-        Statement  stmt    = null;
-        ResultSet  rs      = null;
+        Program program = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -415,16 +408,15 @@ public final class DatabasePrograms extends Database {
             throw new NullPointerException("program == null");
         }
 
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
-        boolean           exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean exists = false;
 
         try {
-            String sql = "SELECT COUNT(*) FROM programs"
-                         + " WHERE alias = ? AND filename = ?";
+            String sql = "SELECT COUNT(*) FROM programs" + " WHERE alias = ? AND filename = ?";
 
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(sql);
             setString(program.getAlias(), stmt, 1);
             setString(program.getFile().getAbsolutePath(), stmt, 2);
@@ -451,13 +443,13 @@ public final class DatabasePrograms extends Database {
      * @return Program or null if no program has this ID
      */
     public Program find(long id) {
-        Program           program = null;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
-        ResultSet         rs      = null;
+        Program program = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(getSelectProgramSql(WhereFilter.ID));
             stmt.setLong(1, id);
             logFinest(stmt);
@@ -497,15 +489,14 @@ public final class DatabasePrograms extends Database {
     }
 
     private boolean has(boolean action) {
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM programs WHERE action = " + (action
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM programs WHERE action = " + (action
                     ? "TRUE"
                     : "FALSE"));
             logFinest(stmt);
@@ -566,15 +557,15 @@ public final class DatabasePrograms extends Database {
      * @return         number of programs or actions
      */
     public int getCount(boolean actions) {
-        int               count = 0;
-        Connection        con   = null;
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
+        int count = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             String sql = "SELECT COUNT(*) FROM programs WHERE action = ?";
 
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setBoolean(1, actions);
             logFinest(stmt);
@@ -592,8 +583,7 @@ public final class DatabasePrograms extends Database {
         return count;
     }
 
-    private void ensureSequenceNumber(Connection con, Program program)
-            throws SQLException {
+    private void ensureSequenceNumber(Connection con, Program program) throws SQLException {
         if (program.getSequenceNumber() >= 0) {
             return;
         }
@@ -607,11 +597,10 @@ public final class DatabasePrograms extends Database {
         }
 
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
-            String sql =
-                "SELECT MAX(sequence_number) FROM programs WHERE action = ?";
+            String sql = "SELECT MAX(sequence_number) FROM programs WHERE action = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setBoolean(1, program.isAction());

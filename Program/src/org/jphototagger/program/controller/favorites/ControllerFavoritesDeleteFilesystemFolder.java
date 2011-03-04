@@ -4,6 +4,7 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.model.TreeModelFavorites;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 
 import java.awt.event.ActionEvent;
@@ -16,7 +17,6 @@ import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to {@link PopupMenuFavorites#getItemDeleteFilesystemFolder()} and
@@ -27,15 +27,13 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFavoritesDeleteFilesystemFolder
-        implements ActionListener, KeyListener {
+public final class ControllerFavoritesDeleteFilesystemFolder implements ActionListener, KeyListener {
     public ControllerFavoritesDeleteFilesystemFolder() {
         listen();
     }
 
     private void listen() {
-        PopupMenuFavorites.INSTANCE.getItemDeleteFilesystemFolder()
-            .addActionListener(this);
+        PopupMenuFavorites.INSTANCE.getItemDeleteFilesystemFolder().addActionListener(this);
         GUI.getFavoritesTree().addKeyListener(this);
     }
 
@@ -43,8 +41,7 @@ public final class ControllerFavoritesDeleteFilesystemFolder
     public void keyPressed(KeyEvent evt) {
         JTree tree = GUI.getFavoritesTree();
 
-        if ((evt.getKeyCode() == KeyEvent.VK_DELETE)
-                &&!tree.isSelectionEmpty()) {
+        if ((evt.getKeyCode() == KeyEvent.VK_DELETE) &&!tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
 
             if (node instanceof DefaultMutableTreeNode) {
@@ -59,8 +56,7 @@ public final class ControllerFavoritesDeleteFilesystemFolder
             @Override
             public void run() {
                 deleteDirectory(
-                    TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                        PopupMenuFavorites.INSTANCE.getTreePath()));
+                    TreeFileSystemDirectories.getNodeOfLastPathComponent(PopupMenuFavorites.INSTANCE.getTreePath()));
             }
         });
     }
@@ -72,9 +68,8 @@ public final class ControllerFavoritesDeleteFilesystemFolder
 
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
-                TreeFileSystemDirectories.removeFromTreeModel(
-                    ModelFactory.INSTANCE.getModel(TreeModelFavorites.class),
-                    node);
+                TreeFileSystemDirectories.removeFromTreeModel(ModelFactory.INSTANCE.getModel(TreeModelFavorites.class),
+                        node);
             }
         }
     }

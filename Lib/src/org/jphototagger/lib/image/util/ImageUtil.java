@@ -36,8 +36,7 @@ public final class ImageUtil {
      * @param formatName a String containg the informal name of the format
      * @return           stream oder null on errors
      */
-    public static ByteArrayInputStream getByteArrayInputStream(Image image,
-            String formatName) {
+    public static ByteArrayInputStream getByteArrayInputStream(Image image, String formatName) {
         if (image == null) {
             throw new NullPointerException("image == null");
         }
@@ -49,9 +48,8 @@ public final class ImageUtil {
         ByteArrayInputStream stream = null;
 
         try {
-            BufferedImage bufferedImage =
-                new BufferedImage(image.getWidth(null), image.getHeight(null),
-                                  BufferedImage.TYPE_INT_RGB);
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
+                                              BufferedImage.TYPE_INT_RGB);
             Graphics graphics = bufferedImage.getGraphics();
 
             graphics.drawImage(image, 0, 0, null);
@@ -65,8 +63,7 @@ public final class ImageUtil {
 
             stream = new ByteArrayInputStream(byteArray);
         } catch (Exception ex) {
-            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return stream;
@@ -88,30 +85,28 @@ public final class ImageUtil {
             throw new IllegalArgumentException("Negative width: " + maxWidth);
         }
 
-        int width  = img.getWidth();
+        int width = img.getWidth();
         int height = img.getHeight();
 
-        assert(width > 0) && (height > 0) :
-              "Width " + width + " height " + height + " have to be > 0!";
+        assert(width > 0) && (height > 0) : "Width " + width + " height " + height + " have to be > 0!";
 
         if ((width <= 0) || (height <= 0)) {
             return null;
         }
 
-        boolean isLandscape  = width > height;
-        double  aspectRatio  = (double) width / (double) height;
-        int     lenOtherSide = isLandscape
-                               ? (int) ((double) maxWidth / aspectRatio + 0.5)
-                               : (int) ((double) maxWidth * aspectRatio + 0.5);
-        int     newWidth     = isLandscape
-                               ? maxWidth
-                               : lenOtherSide;
-        int     newHeight    = isLandscape
-                               ? lenOtherSide
-                               : maxWidth;
+        boolean isLandscape = width > height;
+        double aspectRatio = (double) width / (double) height;
+        int lenOtherSide = isLandscape
+                           ? (int) ((double) maxWidth / aspectRatio + 0.5)
+                           : (int) ((double) maxWidth * aspectRatio + 0.5);
+        int newWidth = isLandscape
+                       ? maxWidth
+                       : lenOtherSide;
+        int newHeight = isLandscape
+                        ? lenOtherSide
+                        : maxWidth;
 
-        assert(newWidth > 0) && (newHeight > 0) :
-              "Width " + newWidth + " height " + newHeight + " have to be > 0!";
+        assert(newWidth > 0) && (newHeight > 0) : "Width " + newWidth + " height " + newHeight + " have to be > 0!";
 
         if ((newWidth <= 0) || (newHeight <= 0)) {
             return null;
@@ -123,7 +118,7 @@ public final class ImageUtil {
     /**
      * Returns a scaled instance of an image with a maximum length of the longer
      * image dimension.
-     * 
+     *
      * @param image     image
      * @param maxLength maximum length of the maximum dimension
      * @return          scaled instance
@@ -137,15 +132,14 @@ public final class ImageUtil {
             throw new IllegalArgumentException("Illegal length: " + maxLength);
         }
 
-        int    width       = image.getWidth(null);
-        int    height      = image.getHeight(null);
+        int width = image.getWidth(null);
+        int height = image.getHeight(null);
         double scaleFactor = getScaleFactor(width, height, maxLength);
 
-        if (scaleFactor == 1 || scaleFactor == 0) {
+        if ((scaleFactor == 1) || (scaleFactor == 0)) {
             return image;
         } else {
-            return image.getScaledInstance((int) (width / scaleFactor + 0.5),
-                                           (int) (height / scaleFactor + 0.5),
+            return image.getScaledInstance((int) (width / scaleFactor + 0.5), (int) (height / scaleFactor + 0.5),
                                            Image.SCALE_DEFAULT);
         }
     }
@@ -167,7 +161,7 @@ public final class ImageUtil {
             throw new IllegalArgumentException("Illegal length: " + maxLength);
         }
 
-        BufferedImage image       = loadImage(imageFile);
+        BufferedImage image = loadImage(imageFile);
         BufferedImage scaledImage = null;
 
         if (image != null) {
@@ -177,36 +171,33 @@ public final class ImageUtil {
         return scaledImage;
     }
 
-    private static BufferedImage stepScaleImage(BufferedImage image,
-            int minWidth, double qfactor) {
+    private static BufferedImage stepScaleImage(BufferedImage image, int minWidth, double qfactor) {
         assert qfactor < 1.0 : "qfactor must be < 1.0";
 
         BufferedImage scaledImage = null;
 
         try {
-            int    origHeight   = image.getHeight();
-            int    origWidth    = image.getWidth();
+            int origHeight = image.getHeight();
+            int origWidth = image.getWidth();
             double factor = getScaleFactor(origWidth, origHeight, minWidth);
-            int    scaledWidth  = (int) (origWidth / factor);
-            int    scaledHeight = (int) (origHeight / factor);
-            int    pass         = 1;
-
+            int scaledWidth = (int) (origWidth / factor);
+            int scaledHeight = (int) (origHeight / factor);
+            int pass = 1;
             BufferedImage img = image;
-            while (((origWidth * qfactor) > scaledWidth)
-                    || ((origHeight * qfactor) > scaledHeight)) {
-                int width  = (int) (origWidth * qfactor);
+
+            while (((origWidth * qfactor) > scaledWidth) || ((origHeight * qfactor) > scaledHeight)) {
+                int width = (int) (origWidth * qfactor);
                 int height = (int) (origHeight * qfactor);
 
-                img      = scaleImage(width, height, img);
-                origWidth  = img.getWidth();
+                img = scaleImage(width, height, img);
+                origWidth = img.getWidth();
                 origHeight = img.getHeight();
                 pass++;
             }
 
             scaledImage = scaleImage(scaledWidth, scaledHeight, img);
         } catch (Exception ex) {
-            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return scaledImage;
@@ -220,19 +211,13 @@ public final class ImageUtil {
         return longer / (double) maxWidth;
     }
 
-    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight,
-            BufferedImage image) {
-        BufferedImage scaledImage = new BufferedImage(scaledWidth,
-                                        scaledHeight,
-                                        BufferedImage.TYPE_INT_RGB);
+    private static BufferedImage scaleImage(int scaledWidth, int scaledHeight, BufferedImage image) {
+        BufferedImage scaledImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = scaledImage.createGraphics();
 
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                                    RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,
-                                    RenderingHints.VALUE_RENDER_QUALITY);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         graphics2D.drawImage(image, 0, 0, scaledWidth, scaledHeight, null);
 
         return scaledImage;
@@ -249,8 +234,7 @@ public final class ImageUtil {
             mediaTracker.addImage(image, 0);
             mediaTracker.waitForID(0);
         } catch (Exception ex) {
-            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null,
-                             ex);
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return image;

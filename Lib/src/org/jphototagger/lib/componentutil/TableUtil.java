@@ -37,8 +37,8 @@ public final class TableUtil {
      * @param style           a CSS style, e.g.
      *                        <code>"padding-left:5px;padding-right:3px;"</code>
      */
-    public static void embedTableCellTextInHtml(JTable table, int row,
-            JLabel label, String text, int maxCharsPerLine, String style) {
+    public static void embedTableCellTextInHtml(JTable table, int row, JLabel label, String text, int maxCharsPerLine,
+            String style) {
         if (table == null) {
             throw new NullPointerException("table == null");
         }
@@ -56,14 +56,12 @@ public final class TableUtil {
         }
 
         if (maxCharsPerLine <= 0) {
-            throw new IllegalArgumentException("Negative max chars: "
-                                               + maxCharsPerLine);
+            throw new IllegalArgumentException("Negative max chars: " + maxCharsPerLine);
         }
 
-        List<String>  lines = StringUtil.wrapWords(text, maxCharsPerLine);
-        StringBuilder sb =
-            new StringBuilder("<html><style type=\"text/css\">body { " + style
-                              + " }</style></head><body>");
+        List<String> lines = StringUtil.wrapWords(text, maxCharsPerLine);
+        StringBuilder sb = new StringBuilder("<html><style type=\"text/css\">body { " + style
+                               + " }</style></head><body>");
         int lineCount = lines.size();
 
         for (int i = 0; i < lineCount; i++) {
@@ -95,10 +93,10 @@ public final class TableUtil {
             throw new NullPointerException("table == null");
         }
 
-        TableModel       model       = table.getModel();
-        TableColumnModel colModel    = table.getColumnModel();
-        int              columnCount = model.getColumnCount();
-        int              longestCell = 0;
+        TableModel model = table.getModel();
+        TableColumnModel colModel = table.getColumnModel();
+        int columnCount = model.getColumnCount();
+        int longestCell = 0;
 
         for (int colIndex = 0; colIndex < columnCount; colIndex++) {
             TableColumn column = colModel.getColumn(colIndex);
@@ -111,10 +109,8 @@ public final class TableUtil {
                 }
 
                 Component cell =
-                    table.getDefaultRenderer(
-                        model.getColumnClass(
-                            colIndex)).getTableCellRendererComponent(
-                                table, value, false, false, rowIndex, colIndex);
+                    table.getDefaultRenderer(model.getColumnClass(colIndex)).getTableCellRendererComponent(table,
+                                             value, false, false, rowIndex, colIndex);
                 int width = cell.getPreferredSize().width;
 
                 if (width > longestCell) {

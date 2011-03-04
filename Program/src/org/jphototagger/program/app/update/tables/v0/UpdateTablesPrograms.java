@@ -21,10 +21,8 @@ import java.util.List;
  * @author Elmar Baumann
  */
 final class UpdateTablesPrograms extends Database {
-    private static final String KEY_OTHER_IMAGE_OPEN_APPS =
-        "UserSettings.OtherImageOpenApps";
-    private static final String KEY_DEFAULT_IMAGE_OPEN_APP =
-        "UserSettings.DefaultImageOpenApp";
+    private static final String KEY_OTHER_IMAGE_OPEN_APPS = "UserSettings.OtherImageOpenApps";
+    private static final String KEY_DEFAULT_IMAGE_OPEN_APP = "UserSettings.DefaultImageOpenApp";
 
     UpdateTablesPrograms() {}
 
@@ -39,11 +37,10 @@ final class UpdateTablesPrograms extends Database {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         if (settings.containsKey(KEY_DEFAULT_IMAGE_OPEN_APP)) {
-            String defaultApp =
-                settings.getString(KEY_DEFAULT_IMAGE_OPEN_APP).trim();
+            String defaultApp = settings.getString(KEY_DEFAULT_IMAGE_OPEN_APP).trim();
 
             if (!defaultApp.isEmpty()) {
-                File    file         = new File(defaultApp);
+                File file = new File(defaultApp);
                 Program defaultIoApp = new Program(file, file.getName());
 
                 defaultIoApp.setSequenceNumber(0);
@@ -52,8 +49,7 @@ final class UpdateTablesPrograms extends Database {
                     settings.removeKey(KEY_DEFAULT_IMAGE_OPEN_APP);
                     UserSettings.INSTANCE.writeToFile();
 
-                    List<Program> programs = DatabasePrograms.INSTANCE.getAll(
-                                                 DatabasePrograms.Type.PROGRAM);
+                    List<Program> programs = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.PROGRAM);
                     int sequenceNo = 0;
 
                     for (Program program : programs) {
@@ -70,9 +66,7 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void moveOtherImageOpenApps() {
-        List<String> filepaths =
-            UserSettings.INSTANCE.getSettings().getStringCollection(
-                KEY_OTHER_IMAGE_OPEN_APPS);
+        List<String> filepaths = UserSettings.INSTANCE.getSettings().getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
 
         if (filepaths.size() > 0) {
             DatabasePrograms db = DatabasePrograms.INSTANCE;
@@ -83,14 +77,12 @@ final class UpdateTablesPrograms extends Database {
                 db.insert(new Program(file, file.getName()));
             }
 
-            UserSettings.INSTANCE.getSettings().removeStringCollection(
-                KEY_OTHER_IMAGE_OPEN_APPS);
+            UserSettings.INSTANCE.getSettings().removeStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
             UserSettings.INSTANCE.writeToFile();
         }
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(
-            JptBundle.INSTANCE.getString("UpdateTablesPrograms.Info"));
+        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesPrograms.Info"));
     }
 }

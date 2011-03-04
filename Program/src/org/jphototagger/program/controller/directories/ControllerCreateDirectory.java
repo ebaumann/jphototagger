@@ -2,8 +2,7 @@ package org.jphototagger.program.controller.directories;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
-import org.jphototagger.program.controller.favorites
-    .ControllerFavoritesAddFilesystemFolder;
+import org.jphototagger.program.controller.favorites.ControllerFavoritesAddFilesystemFolder;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
@@ -28,8 +27,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public final class ControllerCreateDirectory extends ControllerDirectory {
     public ControllerCreateDirectory() {
-        listenToActionsOf(
-            PopupMenuDirectories.INSTANCE.getItemCreateDirectory());
+        listenToActionsOf(PopupMenuDirectories.INSTANCE.getItemCreateDirectory());
     }
 
     @Override
@@ -47,8 +45,7 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuDirectories.INSTANCE.getItemCreateDirectory();
+        return evt.getSource() == PopupMenuDirectories.INSTANCE.getItemCreateDirectory();
     }
 
     @Override
@@ -60,15 +57,11 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                File dir =
-                    ModelFactory.INSTANCE.getModel(
-                        TreeModelAllSystemDirectories.class).createDirectoryIn(
-                        node);
+                File dir = ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).createDirectoryIn(node);
 
                 if (dir != null) {
                     ControllerFavoritesAddFilesystemFolder ctrl =
-                        ControllerFactory.INSTANCE.getController(
-                            ControllerFavoritesAddFilesystemFolder.class);
+                        ControllerFactory.INSTANCE.getController(ControllerFavoritesAddFilesystemFolder.class);
 
                     if (ctrl != null) {
                         ctrl.confirmMoveSelFilesInto(dir);

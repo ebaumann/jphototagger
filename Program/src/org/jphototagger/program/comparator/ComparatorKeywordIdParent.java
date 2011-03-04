@@ -10,8 +10,7 @@ import java.util.Comparator;
  * @author Elmar Baumann
  */
 public final class ComparatorKeywordIdParent implements Comparator<Keyword> {
-    public static final ComparatorKeywordIdParent INSTANCE =
-        new ComparatorKeywordIdParent();
+    public static final ComparatorKeywordIdParent INSTANCE = new ComparatorKeywordIdParent();
 
     @Override
     public int compare(Keyword o1, Keyword o2) {

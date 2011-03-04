@@ -1,6 +1,5 @@
 package org.jphototagger.program.controller.filesystem;
 
-
 import java.io.File;
 
 import java.util.ArrayList;
@@ -12,8 +11,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class FilenameFormatArray {
-    private final List<FilenameFormat> formats =
-        new ArrayList<FilenameFormat>();
+    private final List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
 
     /**
      * Adds a format. {@link #format()} returns the filename built in the

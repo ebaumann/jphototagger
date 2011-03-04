@@ -9,8 +9,7 @@ import java.awt.EventQueue;
  *
  * @author Elmar Baumann
  */
-public final class ControllerEnableCreateMetadataTemplate
-        implements ThumbnailsPanelListener {
+public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsPanelListener {
     public ControllerEnableCreateMetadataTemplate() {
         listen();
     }

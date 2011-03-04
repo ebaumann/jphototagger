@@ -20,10 +20,8 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabaseFavorites extends Database {
-    public static final DatabaseFavorites                    INSTANCE =
-        new DatabaseFavorites();
-    private final ListenerSupport<DatabaseFavoritesListener> ls =
-        new ListenerSupport<DatabaseFavoritesListener>();
+    public static final DatabaseFavorites INSTANCE = new DatabaseFavorites();
+    private final ListenerSupport<DatabaseFavoritesListener> ls = new ListenerSupport<DatabaseFavoritesListener>();
 
     private DatabaseFavorites() {}
 
@@ -32,9 +30,9 @@ public final class DatabaseFavorites extends Database {
             throw new NullPointerException("favorite == null");
         }
 
-        boolean           inserted = false;
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
+        boolean inserted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             if (exists(favorite.getName())) {
@@ -43,10 +41,8 @@ public final class DatabaseFavorites extends Database {
 
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "INSERT INTO favorite_directories"
-                + " (favorite_name, directory_name, favorite_index)"
-                + " VALUES (?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO favorite_directories"
+                                        + " (favorite_name, directory_name, favorite_index)" + " VALUES (?, ?, ?)");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
@@ -76,17 +72,16 @@ public final class DatabaseFavorites extends Database {
             throw new NullPointerException("favoriteName == null");
         }
 
-        boolean           deleted = false;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
+        boolean deleted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             Favorite delFavorite = find(favoriteName);
 
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "DELETE FROM favorite_directories WHERE favorite_name = ?");
+            stmt = con.prepareStatement("DELETE FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFiner(stmt);
 
@@ -109,8 +104,7 @@ public final class DatabaseFavorites extends Database {
         return deleted;
     }
 
-    public boolean updateRename(String fromFavoriteName,
-                                String toFavoriteName) {
+    public boolean updateRename(String fromFavoriteName, String toFavoriteName) {
         if (fromFavoriteName == null) {
             throw new NullPointerException("fromFavoriteName == null");
         }
@@ -119,18 +113,17 @@ public final class DatabaseFavorites extends Database {
             throw new NullPointerException("toFavoriteName == null");
         }
 
-        PreparedStatement stmt  = null;
-        ResultSet         rs    = null;
-        int               count = 0;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int count = 0;
 
         try {
-            Favorite   oldFavorite = find(fromFavoriteName);
-            Connection con         = getConnection();
+            Favorite oldFavorite = find(fromFavoriteName);
+            Connection con = getConnection();
 
             con.setAutoCommit(true);
 
-            String sql = "UPDATE favorite_directories SET favorite_name = ?"
-                         + " WHERE favorite_name = ?";
+            String sql = "UPDATE favorite_directories SET favorite_name = ?" + " WHERE favorite_name = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, toFavoriteName);
@@ -165,9 +158,9 @@ public final class DatabaseFavorites extends Database {
             throw new NullPointerException("favorite == null");
         }
 
-        boolean           updated = false;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
+        boolean updated = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
@@ -175,10 +168,9 @@ public final class DatabaseFavorites extends Database {
 
             Favorite oldFavorite = find(favorite.getId());
 
-            stmt = con.prepareStatement(
-                "UPDATE favorite_directories SET"
-                + " favorite_name = ?, directory_name = ?, favorite_index = ?"
-                + " WHERE id = ?");
+            stmt = con.prepareStatement("UPDATE favorite_directories SET"
+                                        + " favorite_name = ?, directory_name = ?, favorite_index = ?"
+                                        + " WHERE id = ?");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
@@ -206,17 +198,16 @@ public final class DatabaseFavorites extends Database {
 
     public List<Favorite> getAll() {
         List<Favorite> favorites = new ArrayList<Favorite>();
-        Connection     con       = null;
-        Statement      stmt      = null;
-        ResultSet      rs        = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
-            String sql =
-                "SELECT id, favorite_name, directory_name, favorite_index"
-                + " FROM favorite_directories ORDER BY favorite_index ASC";
+            String sql = "SELECT id, favorite_name, directory_name, favorite_index"
+                         + " FROM favorite_directories ORDER BY favorite_index ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -242,16 +233,15 @@ public final class DatabaseFavorites extends Database {
     }
 
     private Favorite find(Long id) {
-        Favorite          favorite = null;
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
-        ResultSet         rs       = null;
+        Favorite favorite = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT id, favorite_name, directory_name, favorite_index"
-                + " FROM favorite_directories WHERE id = ?");
+            stmt = con.prepareStatement("SELECT id, favorite_name, directory_name, favorite_index"
+                                        + " FROM favorite_directories WHERE id = ?");
             stmt.setLong(1, id);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -274,16 +264,15 @@ public final class DatabaseFavorites extends Database {
     }
 
     private Favorite find(String favoriteName) {
-        Favorite          favorite = null;
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
-        ResultSet         rs       = null;
+        Favorite favorite = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT id, favorite_name, directory_name, favorite_index"
-                + " FROM favorite_directories WHERE favorite_name = ?");
+            stmt = con.prepareStatement("SELECT id, favorite_name, directory_name, favorite_index"
+                                        + " FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -310,16 +299,14 @@ public final class DatabaseFavorites extends Database {
             throw new NullPointerException("favoriteName == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement(
-                "SELECT COUNT(*) FROM favorite_directories"
-                + " WHERE favorite_name = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM favorite_directories" + " WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFinest(stmt);
             rs = stmt.executeQuery();

@@ -14,11 +14,9 @@ import javax.swing.text.JTextComponent;
  *
  * @author Elmar Baumann
  */
-public final class InputVerifierForbiddenCharacters extends InputVerifier
-        implements Serializable {
-    private static final long     serialVersionUID = -137243048239784843L;
-    private final List<Character> forbiddenCharacters =
-        new ArrayList<Character>();
+public final class InputVerifierForbiddenCharacters extends InputVerifier implements Serializable {
+    private static final long serialVersionUID = -137243048239784843L;
+    private final List<Character> forbiddenCharacters = new ArrayList<Character>();
 
     public InputVerifierForbiddenCharacters(Character... forbidden) {
         forbiddenCharacters.addAll(Arrays.asList(forbidden));

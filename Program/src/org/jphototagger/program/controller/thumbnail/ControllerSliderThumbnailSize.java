@@ -23,15 +23,13 @@ import javax.swing.JSlider;
  * @author Elmar Baumann
  */
 public final class ControllerSliderThumbnailSize
-        implements AWTEventListener, ChangeListener, ThumbnailsPanelListener,
-                   UserSettingsListener {
-    private static final int    STEP_WIDTH                = 1;
-    private static final int    LARGER_STEP_WIDTH         = 10;
-    private static final int    MIN_MAGINFICATION_PERCENT = 10;
-    private static final int    MAX_MAGINFICATION_PERCENT = 100;
+        implements AWTEventListener, ChangeListener, ThumbnailsPanelListener, UserSettingsListener {
+    private static final int STEP_WIDTH = 1;
+    private static final int LARGER_STEP_WIDTH = 10;
+    private static final int MIN_MAGINFICATION_PERCENT = 10;
+    private static final int MAX_MAGINFICATION_PERCENT = 100;
     private static final String KEY_SLIDER_VALUE =
-        "org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize."
-        + "SliderValue";
+        "org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
     private int currentValue = 100;
 
     public ControllerSliderThumbnailSize() {
@@ -43,8 +41,7 @@ public final class ControllerSliderThumbnailSize
         GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         getSlider().addChangeListener(this);
         UserSettings.INSTANCE.addUserSettingsListener(this);
-        Toolkit.getDefaultToolkit().addAWTEventListener(this,
-                AWTEvent.KEY_EVENT_MASK);
+        Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK);
     }
 
     private JSlider getSlider() {
@@ -100,10 +97,8 @@ public final class ControllerSliderThumbnailSize
 
     private void addToSliderValue(int increment) {
         JSlider slider = getSlider();
-        int     value  = slider.getValue();
-        int     newValue =
-            Math.min(Math.max(value + increment, MIN_MAGINFICATION_PERCENT),
-                     MAX_MAGINFICATION_PERCENT);
+        int value = slider.getValue();
+        int newValue = Math.min(Math.max(value + increment, MIN_MAGINFICATION_PERCENT), MAX_MAGINFICATION_PERCENT);
 
         slider.setValue(newValue);
     }
@@ -138,8 +133,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void readProperties() {
-        Integer value =
-            UserSettings.INSTANCE.getSettings().getInt(KEY_SLIDER_VALUE);
+        Integer value = UserSettings.INSTANCE.getSettings().getInt(KEY_SLIDER_VALUE);
 
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
@@ -150,8 +144,7 @@ public final class ControllerSliderThumbnailSize
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int width = (int) ((double) getMaxTnWidth()
-                                   * ((double) currentValue / 100.0));
+                int width = (int) ((double) getMaxTnWidth() * ((double) currentValue / 100.0));
 
                 GUI.getThumbnailsPanel().setThumbnailWidth(width);
             }

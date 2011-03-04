@@ -15,8 +15,7 @@ import java.util.Map;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class Iptc {
-    private final Map<IPTCEntryMeta, Object> valueOfEntryMeta =
-        new HashMap<IPTCEntryMeta, Object>();
+    private final Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
 
     public Object getValue(IPTCEntryMeta iptcEntry) {
         if (iptcEntry == null) {
@@ -28,8 +27,7 @@ public final class Iptc {
         return (value == null)
                ? null
                : (value instanceof Collection<?>)
-                 ? new ArrayList<Object>(
-                     (Collection<?>) value)    // Returning a copy
+                 ? new ArrayList<Object>((Collection<?>) value)    // Returning a copy
                  : value;
     }
 

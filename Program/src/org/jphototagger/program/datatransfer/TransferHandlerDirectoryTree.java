@@ -33,8 +33,7 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
             return false;
         }
 
-        JTree.DropLocation dropLocation =
-            (JTree.DropLocation) support.getDropLocation();
+        JTree.DropLocation dropLocation = (JTree.DropLocation) support.getDropLocation();
 
         return dropLocation.getPath() != null;
     }
@@ -55,14 +54,11 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
             return false;
         }
 
-        File       targetDirectory = getTargetDirectory(support);
-        List<File> sourceFiles =
-            TransferUtil.getFiles(support.getTransferable(),
-                                  FilenameDelimiter.EMPTY);
+        File targetDirectory = getTargetDirectory(support);
+        List<File> sourceFiles = TransferUtil.getFiles(support.getTransferable(), FilenameDelimiter.EMPTY);
 
         if ((targetDirectory != null) &&!sourceFiles.isEmpty()) {
-            handleDroppedFiles(support.getUserDropAction(), sourceFiles,
-                               targetDirectory);
+            handleDroppedFiles(support.getUserDropAction(), sourceFiles, targetDirectory);
         }
 
         return true;
@@ -82,8 +78,7 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
      * @param sourceFiles
      * @param targetDirectory  target directory
      */
-    public static void handleDroppedFiles(int dropAction,
-            List<File> sourceFiles, File targetDirectory) {
+    public static void handleDroppedFiles(int dropAction, List<File> sourceFiles, File targetDirectory) {
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
@@ -99,22 +94,18 @@ public final class TransferHandlerDirectoryTree extends TransferHandler {
         }
 
         if (dropAction == COPY) {
-            ImageUtil.copyImageFiles(imageFiles, targetDirectory,
-                                     ConfirmOverwrite.YES);
+            ImageUtil.copyImageFiles(imageFiles, targetDirectory, ConfirmOverwrite.YES);
         } else if (dropAction == MOVE) {
-            ImageUtil.moveImageFiles(imageFiles, targetDirectory,
-                                     ConfirmOverwrite.YES);
+            ImageUtil.moveImageFiles(imageFiles, targetDirectory, ConfirmOverwrite.YES);
         }
     }
 
     private File getTargetDirectory(TransferSupport support) {
-        TreePath path =
-            ((JTree.DropLocation) support.getDropLocation()).getPath();
+        TreePath path = ((JTree.DropLocation) support.getDropLocation()).getPath();
         Object selNode = path.getLastPathComponent();
 
         if (selNode instanceof DefaultMutableTreeNode) {
-            Object userObject =
-                ((DefaultMutableTreeNode) selNode).getUserObject();
+            Object userObject = ((DefaultMutableTreeNode) selNode).getUserObject();
 
             if (userObject instanceof File) {
                 return (File) userObject;

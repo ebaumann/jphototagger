@@ -5,8 +5,7 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.ColumnData;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
@@ -35,8 +34,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport support) {
-        return Flavor.hasFiles(support.getTransferable())
-               && (TransferUtil.getListDropIndex(support) >= 0);
+        return Flavor.hasFiles(support.getTransferable()) && (TransferUtil.getListDropIndex(support) >= 0);
     }
 
     @Override
@@ -47,20 +45,18 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
             return false;
         }
 
-        JList  list  = (JList) support.getComponent();
+        JList list = (JList) support.getComponent();
         Object value = list.getModel().getElementAt(index);
 
         if (value instanceof String) {
-            String     keyword    = (String) value;
+            String keyword = (String) value;
             List<File> imageFiles = Support.getImageFiles(support);
-            int        fileCount  = imageFiles.size();
+            int fileCount = imageFiles.size();
 
             if ((fileCount > 0) && confirmImport(keyword, fileCount)) {
-                ColumnData cd =
-                    new ColumnData(ColumnXmpDcSubjectsSubject.INSTANCE, value);
+                ColumnData cd = new ColumnData(ColumnXmpDcSubjectsSubject.INSTANCE, value);
 
-                MiscMetadataHelper.saveToImageFiles(
-                    Collections.singletonList(cd), imageFiles);
+                MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd), imageFiles);
 
                 return true;
             }
@@ -70,9 +66,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
     }
 
     private boolean confirmImport(String keyword, int fileCount) {
-        return MessageDisplayer.confirmYesNo(null,
-                "TransferHandlerKeywordsList.Confirm.Import", keyword,
-                fileCount);
+        return MessageDisplayer.confirmYesNo(null, "TransferHandlerKeywordsList.Confirm.Import", keyword, fileCount);
     }
 
     /**
@@ -90,8 +84,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
         }
 
         try {
-            return (Object[]) transferable.getTransferData(
-                Flavor.KEYWORDS_LIST);
+            return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
         } catch (Exception ex) {
             AppLogger.logSevere(TransferHandlerKeywordsList.class, ex);
         }
@@ -101,7 +94,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        JList    list      = (JList) c;
+        JList list = (JList) c;
         Object[] selValues = list.getSelectedValues();
 
         return new TransferableObject(selValues, Flavor.KEYWORDS_LIST);

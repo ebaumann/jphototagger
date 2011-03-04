@@ -14,8 +14,7 @@ import javax.swing.JMenuItem;
  *
  * @author Elmar Baumann
  */
-public final class ControllerAddMetadataToSelImages
-        extends ControllerMiscMetadata {
+public final class ControllerAddMetadataToSelImages extends ControllerMiscMetadata {
     private final JMenuItem itemAdd;
 
     public ControllerAddMetadataToSelImages(PopupMenuMiscMetadata popup) {

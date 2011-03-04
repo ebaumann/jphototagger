@@ -15,13 +15,13 @@ public enum Operator {
     /** Verknüpfung zweier Spalten mit OR */
     OR(1, "OR", JptBundle.INSTANCE.getString("Operator.Or")),;
 
-    private final int    id;
+    private final int id;
     private final String sqlString;
     private final String localizedString;
 
     private Operator(int id, String sqlString, String localizedString) {
-        this.id              = id;
-        this.sqlString       = sqlString;
+        this.id = id;
+        this.sqlString = sqlString;
         this.localizedString = localizedString;
     }
 

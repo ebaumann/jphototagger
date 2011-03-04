@@ -2,8 +2,7 @@ package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Program;
-import org.jphototagger.program.event.listener
-    .DatabaseActionsAfterDbInsertionListener;
+import org.jphototagger.program.event.listener.DatabaseActionsAfterDbInsertionListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 
 import java.sql.Connection;
@@ -23,8 +22,7 @@ import java.util.List;
 public final class DatabaseActionsAfterDbInsertion extends Database {
     private final ListenerSupport<DatabaseActionsAfterDbInsertionListener> ls =
         new ListenerSupport<DatabaseActionsAfterDbInsertionListener>();
-    public static final DatabaseActionsAfterDbInsertion INSTANCE =
-        new DatabaseActionsAfterDbInsertion();
+    public static final DatabaseActionsAfterDbInsertion INSTANCE = new DatabaseActionsAfterDbInsertion();
 
     private DatabaseActionsAfterDbInsertion() {}
 
@@ -41,16 +39,15 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             throw new NullPointerException("action == null");
         }
 
-        int               countAffectedRows = 0;
-        Connection        con               = null;
-        PreparedStatement stmt              = null;
+        int countAffectedRows = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "INSERT INTO actions_after_db_insertion"
-                + " (id_program, action_order) VALUES (?, ?)");
+            stmt = con.prepareStatement("INSERT INTO actions_after_db_insertion"
+                                        + " (id_program, action_order) VALUES (?, ?)");
             stmt.setLong(1, program.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
@@ -82,15 +79,14 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             throw new NullPointerException("action == null");
         }
 
-        int               countAffectedRows = 0;
-        Connection        con               = null;
-        PreparedStatement stmt              = null;
+        int countAffectedRows = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "DELETE FROM actions_after_db_insertion WHERE id_program = ?");
+            stmt = con.prepareStatement("DELETE FROM actions_after_db_insertion WHERE id_program = ?");
             stmt.setLong(1, program.getId());
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
@@ -117,29 +113,25 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      */
     public List<Program> getAll() {
         List<Program> programs = new LinkedList<Program>();
-        Connection    con      = null;
-        Statement     stmt     = null;
-        ResultSet     rs       = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT id_program FROM actions_after_db_insertion"
-                         + " ORDER BY action_order ASC";
+            String sql = "SELECT id_program FROM actions_after_db_insertion" + " ORDER BY action_order ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                long    idProgram = rs.getLong(1);
-                Program program   = DatabasePrograms.INSTANCE.find(idProgram);
+                long idProgram = rs.getLong(1);
+                Program program = DatabasePrograms.INSTANCE.find(idProgram);
 
                 if (program == null) {
-                    AppLogger.logWarning(
-                        getClass(),
-                        "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist",
-                        idProgram);
+                    AppLogger.logWarning(getClass(), "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist", idProgram);
                 } else {
                     programs.add(program);
                 }
@@ -165,15 +157,14 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             throw new NullPointerException("action == null");
         }
 
-        boolean           exists = false;
-        Connection        con    = null;
-        PreparedStatement stmt   = null;
-        ResultSet         rs     = null;
+        boolean exists = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) "
-                                        + " FROM actions_after_db_insertion"
+            stmt = con.prepareStatement("SELECT COUNT(*) " + " FROM actions_after_db_insertion"
                                         + " WHERE id_program = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
@@ -193,10 +184,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     }
 
     public int getCount() {
-        int        count = 0;
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        int count = 0;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
             con = getConnection();
@@ -234,18 +225,17 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             throw new NullPointerException("actions == null");
         }
 
-        Connection        con          = null;
-        boolean           allReordered = false;
-        PreparedStatement stmt         = null;
+        Connection con = null;
+        boolean allReordered = false;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "UPDATE actions_after_db_insertion SET action_order = ?"
-                + " WHERE id_program = ?");
+            stmt = con.prepareStatement("UPDATE actions_after_db_insertion SET action_order = ?"
+                                        + " WHERE id_program = ?");
 
-            int index         = startIndex;
+            int index = startIndex;
             int countAffected = 0;
 
             for (Program action : actions) {
@@ -276,8 +266,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         ls.add(listener);
     }
 
-    public void removeListener(
-            DatabaseActionsAfterDbInsertionListener listener) {
+    public void removeListener(DatabaseActionsAfterDbInsertionListener listener) {
         ls.remove(listener);
     }
 

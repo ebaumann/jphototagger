@@ -36,7 +36,7 @@ public abstract class ControllerFavorite extends Controller {
         }
 
         DefaultMutableTreeNode node = getSelectedNodeFromTree();
-        Object                 o    = node.getUserObject();
+        Object o = node.getUserObject();
 
         if (o instanceof Favorite) {
             action((Favorite) o);
@@ -59,7 +59,7 @@ public abstract class ControllerFavorite extends Controller {
     }
 
     protected DefaultMutableTreeNode getSelectedNodeFromTree() {
-        JTree  tree = GUI.getAppPanel().getTreeFavorites();
+        JTree tree = GUI.getAppPanel().getTreeFavorites();
         Object node = tree.getSelectionPath().getLastPathComponent();
 
         if (node instanceof DefaultMutableTreeNode) {

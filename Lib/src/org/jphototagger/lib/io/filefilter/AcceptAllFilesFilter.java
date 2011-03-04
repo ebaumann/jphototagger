@@ -12,8 +12,7 @@ import java.io.Serializable;
  * @author Elmar Baumann
  */
 public final class AcceptAllFilesFilter implements FileFilter, Serializable {
-    public static final AcceptAllFilesFilter INSTANCE =
-        new AcceptAllFilesFilter();
+    public static final AcceptAllFilesFilter INSTANCE = new AcceptAllFilesFilter();
     private static final long serialVersionUID = 6297923800725402735L;
 
     private AcceptAllFilesFilter() {}
@@ -31,8 +30,6 @@ public final class AcceptAllFilesFilter implements FileFilter, Serializable {
      * @return file filter
      */
     public javax.swing.filechooser.FileFilter forFileChooser() {
-        return new FileChooserFilter(
-            this,
-            JslBundle.INSTANCE.getString("AcceptAllFilesFilter.Description"));
+        return new FileChooserFilter(this, JslBundle.INSTANCE.getString("AcceptAllFilesFilter.Description"));
     }
 }

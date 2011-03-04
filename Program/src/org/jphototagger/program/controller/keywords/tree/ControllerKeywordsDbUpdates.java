@@ -1,15 +1,15 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import java.awt.EventQueue;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
+
+import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -24,8 +24,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author Elmar Baumann
  */
-public final class ControllerKeywordsDbUpdates
-        implements DatabaseImageFilesListener {
+public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesListener {
     public ControllerKeywordsDbUpdates() {
         listen();
     }
@@ -55,12 +54,10 @@ public final class ControllerKeywordsDbUpdates
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-        TreeModelKeywords model =
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
-                model.insert((DefaultMutableTreeNode) model.getRoot(), keyword,
-                             true, false);
-    }
+                model.insert((DefaultMutableTreeNode) model.getRoot(), keyword, true, false);
+            }
         });
     }
 

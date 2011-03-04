@@ -22,7 +22,7 @@ final class CanonMakerNoteTag4Formatter {
     }
 
     private static void addSubjectDistance(short[] values, ExifTags exifTags) {
-        final int offset     = 19;
+        final int offset = 19;
         final int valueIndex = offset - 1;
 
         if (valueIndex >= values.length) {
@@ -35,20 +35,18 @@ final class CanonMakerNoteTag4Formatter {
             return;
         }
 
-        double        factor     = (distance / 1000 >= 1)
-                                   ? 1000
-                                   : 100;    // Don't know plausibility of that
-        double        distanceM  = distance / factor;
-        double        distanceCm = distance / factor / 100;
-        DecimalFormat dfCm       = new DecimalFormat("#.## cm");
-        DecimalFormat dfM        = new DecimalFormat("#.# m");
-        String        d          = (distanceM >= 1)
-                                   ? dfM.format(distanceM)
-                                   : dfCm.format(distanceCm);
+        double factor = (distance / 1000 >= 1)
+                        ? 1000
+                        : 100;    // Don't know plausibility of that
+        double distanceM = distance / factor;
+        double distanceCm = distance / factor / 100;
+        DecimalFormat dfCm = new DecimalFormat("#.## cm");
+        DecimalFormat dfM = new DecimalFormat("#.# m");
+        String d = (distanceM >= 1)
+                   ? dfM.format(distanceM)
+                   : dfCm.format(distanceCm);
 
-        CanonMakerNotes.addTag(exifTags,
-                               CanonMakerNotes.tagId(CANON_TAG, offset),
-                               "SubjectDistance", d);
+        CanonMakerNotes.addTag(exifTags, CanonMakerNotes.tagId(CANON_TAG, offset), "SubjectDistance", d);
     }
 
     private CanonMakerNoteTag4Formatter() {}

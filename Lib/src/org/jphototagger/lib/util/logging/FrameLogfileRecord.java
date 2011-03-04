@@ -95,8 +95,7 @@ public final class FrameLogfileRecord {
             throw new NullPointerException("substring == null");
         }
 
-        return containsSubstring(getLine(), substring)
-               || containsSubstring(getClassName(), substring)
+        return containsSubstring(getLine(), substring) || containsSubstring(getClassName(), substring)
                || containsSubstring(getMethodName(), substring);
     }
 

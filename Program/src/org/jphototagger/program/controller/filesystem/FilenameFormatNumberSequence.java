@@ -10,18 +10,17 @@ import java.text.DecimalFormat;
  * @author Elmar Baumann
  */
 public final class FilenameFormatNumberSequence extends FilenameFormat {
-    private int           current;
-    private int           start;
-    private int           increment;
-    private int           countDigits;
+    private int current;
+    private int start;
+    private int increment;
+    private int countDigits;
     private DecimalFormat decimalFormat;
 
-    public FilenameFormatNumberSequence(int start, int increment,
-            int countDigits) {
-        this.start       = start;
-        this.increment   = increment;
+    public FilenameFormatNumberSequence(int start, int increment, int countDigits) {
+        this.start = start;
+        this.increment = increment;
         this.countDigits = countDigits;
-        current          = start;
+        current = start;
         createDecimalFormat();
     }
 
@@ -58,7 +57,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     public void setStart(int start) {
         this.start = start;
-        current    = start;
+        current = start;
     }
 
     @Override
@@ -73,8 +72,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString(
-            "FilenameFormatNumberSequence.String");
+        return JptBundle.INSTANCE.getString("FilenameFormatNumberSequence.String");
     }
 
     private FilenameFormatNumberSequence() {}

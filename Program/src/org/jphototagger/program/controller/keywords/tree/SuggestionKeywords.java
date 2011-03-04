@@ -23,30 +23,23 @@ public class SuggestionKeywords implements Suggest {
             throw new NullPointerException("keywordName == null");
         }
 
-        List<String>                    parentKeywordNames =
-            new ArrayList<String>();
-        Collection<Collection<Keyword>> parentKeywords     =
-            DatabaseKeywords.INSTANCE.getParents(keywordName,
-                DatabaseKeywords.Select.REAL_KEYWORDS);
+        List<String> parentKeywordNames = new ArrayList<String>();
+        Collection<Collection<Keyword>> parentKeywords = DatabaseKeywords.INSTANCE.getParents(keywordName,
+                                                             DatabaseKeywords.Select.REAL_KEYWORDS);
 
-        parentKeywordNames.addAll(chooseParentKeywords(keywordName,
-                toStringCollection(parentKeywords)));
+        parentKeywordNames.addAll(chooseParentKeywords(keywordName, toStringCollection(parentKeywords)));
 
         return new HashSet<String>(parentKeywordNames);    // make them unique
     }
 
-    private Collection<String> chooseParentKeywords(String keywordName,
-            Collection<Collection<String>> parentKeywords) {
+    private Collection<String> chooseParentKeywords(String keywordName, Collection<Collection<String>> parentKeywords) {
         List<String> keywords = new ArrayList<String>();
 
         if (parentKeywords.size() > 0) {
-            PathSelectionDialog dlg =
-                new PathSelectionDialog(
-                    parentKeywords, PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
+            PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords,
+                                          PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
 
-            dlg.setInfoMessage(
-                JptBundle.INSTANCE.getString(
-                    "SuggestKeywords.Info", keywordName));
+            dlg.setInfoMessage(JptBundle.INSTANCE.getString("SuggestKeywords.Info", keywordName));
             dlg.setVisible(true);
 
             if (dlg.isAccepted()) {
@@ -57,20 +50,17 @@ public class SuggestionKeywords implements Suggest {
         return keywords;
     }
 
-    private void addToKeywords(Collection<String> keywords,
-                               Collection<Collection<String>> parentKeywords) {
+    private void addToKeywords(Collection<String> keywords, Collection<Collection<String>> parentKeywords) {
         for (Collection<String> collection : parentKeywords) {
             keywords.addAll(collection);
         }
     }
 
-    private Collection<Collection<String>> toStringCollection(
-            Collection<Collection<Keyword>> keywordCollection) {
+    private Collection<Collection<String>> toStringCollection(Collection<Collection<Keyword>> keywordCollection) {
         List<Collection<String>> strings = new ArrayList<Collection<String>>();
 
         for (Collection<Keyword> keywords : keywordCollection) {
-            List<String> keywordStrings =
-                new ArrayList<String>(keywords.size());
+            List<String> keywordStrings = new ArrayList<String>(keywords.size());
 
             for (Keyword keyword : keywords) {
                 keywordStrings.add(keyword.getName());

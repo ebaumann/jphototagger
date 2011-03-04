@@ -1,10 +1,11 @@
 package org.jphototagger.program.helper;
 
-import java.awt.EventQueue;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.view.panels.ProgressBar;
+
+import java.awt.EventQueue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,17 +19,16 @@ import javax.swing.JProgressBar;
  * @author Elmar Baumann
  */
 public abstract class HelperThread extends Thread implements Cancelable {
-    private String                      info;
+    private String info;
     private final Set<ProgressListener> prLs = new HashSet<ProgressListener>();
-    private JProgressBar                progressBar;
-    private volatile boolean            customProgressBar;
-    private volatile boolean            infoChanged;
-    private volatile int                minimum;
-    private volatile int                maximum;
-    private final Object                pBarOwner = this;
+    private JProgressBar progressBar;
+    private volatile boolean customProgressBar;
+    private volatile boolean infoChanged;
+    private volatile int minimum;
+    private volatile int maximum;
+    private final Object pBarOwner = this;
 
-    public HelperThread() {
-    }
+    public HelperThread() {}
 
     public HelperThread(String name) {
         super(name);
@@ -69,7 +69,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
             throw new NullPointerException("progressBar == null");
         }
 
-        this.progressBar  = progressBar;
+        this.progressBar = progressBar;
         customProgressBar = true;
     }
 
@@ -85,7 +85,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
             throw new NullPointerException("info == null");
         }
 
-        this.info   = info;
+        this.info = info;
         infoChanged = true;
     }
 
@@ -190,8 +190,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
      * @param info    null or object set as
      *                {@link ProgressEvent#setInfo(Object)}
      */
-    protected void progressStarted(int minimum, int value, int maximum,
-                                   Object info) {
+    protected void progressStarted(int minimum, int value, int maximum, Object info) {
         this.minimum = minimum;
         this.maximum = maximum;
         notifyProgressStarted(progressEvent(value, info));

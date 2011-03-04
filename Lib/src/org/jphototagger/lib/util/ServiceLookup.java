@@ -58,8 +58,7 @@ public final class ServiceLookup {
                 result.add(service);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ServiceLookup.class.getName()).log(Level.SEVERE,
-                             null, ex);
+            Logger.getLogger(ServiceLookup.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return result;

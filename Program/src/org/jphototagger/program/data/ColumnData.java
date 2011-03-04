@@ -17,7 +17,7 @@ public final class ColumnData {
         }
 
         this.column = column;
-        this.data   = data;
+        this.data = data;
     }
 
     public Column getColumn() {

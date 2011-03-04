@@ -25,75 +25,42 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class PopupMenuKeywordsTree extends JPopupMenu {
-    private static final long                 serialVersionUID =
-        2140903704744267916L;
-    public static final PopupMenuKeywordsTree INSTANCE =
-        new PopupMenuKeywordsTree();
+    private static final long serialVersionUID = 2140903704744267916L;
+    public static final PopupMenuKeywordsTree INSTANCE = new PopupMenuKeywordsTree();
     private final JMenuItem itemAdd =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsTree.DisplayName.ActionAddKeyword"), AppLookAndFeel
-                        .ICON_NEW);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddKeyword"),
+                      AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemAddToEditPanel =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsTree.DisplayName.ActionAddToEditPanel"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddToEditPanel"));
     private final JMenuItem itemRemove =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword"), AppLookAndFeel
-                        .ICON_DELETE);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword"),
+                      AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemRename =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"), AppLookAndFeel
-                        .ICON_RENAME);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"),
+                      AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemToggleReal =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsTree.DisplayName.ActionToggleReal"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionToggleReal"));
     private final JMenuItem itemRemoveFromEditPanel =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsTree.DisplayName.ActionRemoveFromEditPanel"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveFromEditPanel"));
     private final JMenuItem itemPaste =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsTree.DisplayName.ActionPaste"), AppLookAndFeel
-                        .ICON_PASTE);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionPaste"),
+                      AppLookAndFeel.ICON_PASTE);
     private final JMenuItem itemExpandAllSubitems =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
     private final JMenuItem itemDisplayImagesKw =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsTree.DisplayName.ActionDisplayImagesKw"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImagesKw"));
     private final JMenuItem itemDisplayImages =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "PopupMenuKeywordsTree.DisplayName.ActionDisplayImages"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImages"));
     private final JMenuItem itemCut =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsTree.DisplayName.ActionCut"), AppLookAndFeel
-                        .ICON_CUT);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCut"),
+                      AppLookAndFeel.ICON_CUT);
     private final JMenuItem itemCopy =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuKeywordsTree.DisplayName.ActionCopy"), AppLookAndFeel
-                        .ICON_COPY);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy"),
+                      AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemCollapseAllSubitems =
-        new JMenuItem(
-            JptBundle.INSTANCE.getString(
-                "MouseListenerTreeExpand.ItemCollapse"));
-    private JTree      tree;
-    private TreePath   treePath;
+        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private JTree tree;
+    private TreePath treePath;
     private TreePath[] treePaths;
 
     private PopupMenuKeywordsTree() {
@@ -197,9 +164,7 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
         add(itemAddToEditPanel);
         add(itemRemoveFromEditPanel);
 
-        JMenu menuEdit = new JMenu(
-                             JptBundle.INSTANCE.getString(
-                                 "PopupMenuKeywordsTree.DisplayName.MenuEdit"));
+        JMenu menuEdit = new JMenu(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.MenuEdit"));
 
         menuEdit.add(itemAdd);
         menuEdit.add(itemRemove);
@@ -220,22 +185,14 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemAdd.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
-        itemRemove.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
+        itemAdd.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemRemove.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
-        itemToggleReal.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_R));
-        itemAddToEditPanel.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
-        itemRemoveFromEditPanel.setAccelerator(
-            KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
-        itemCopy.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_C));
-        itemCut.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_X));
-        itemPaste.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_V));
+        itemToggleReal.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_R));
+        itemAddToEditPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_B));
+        itemRemoveFromEditPanel.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_BACK_SPACE));
+        itemCopy.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_C));
+        itemCut.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_X));
+        itemPaste.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_V));
     }
 }

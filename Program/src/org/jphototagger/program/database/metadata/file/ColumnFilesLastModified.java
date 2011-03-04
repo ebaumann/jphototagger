@@ -10,13 +10,10 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnFilesLastModified extends Column {
-    public static final ColumnFilesLastModified INSTANCE =
-        new ColumnFilesLastModified();
+    public static final ColumnFilesLastModified INSTANCE = new ColumnFilesLastModified();
 
     private ColumnFilesLastModified() {
         super("lastmodified", "files", DataType.DATE);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnFilesLastModified.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnFilesLastModified.Description"));
     }
 }

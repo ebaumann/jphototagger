@@ -49,8 +49,7 @@ public final class ListUtil {
      * @param  model list model
      * @return list item or null if not found
      */
-    public static Object getFirstItemWithText(String text,
-            DefaultListModel model) {
+    public static Object getFirstItemWithText(String text, DefaultListModel model) {
         if (text == null) {
             throw new NullPointerException("text == null");
         }
@@ -60,7 +59,7 @@ public final class ListUtil {
         }
 
         Object item = null;
-        int    size = model.size();
+        int size = model.size();
 
         for (int i = 0; i < size; i++) {
             Object itemOfModel = model.get(i);
@@ -80,8 +79,7 @@ public final class ListUtil {
      * @param delim  delimiter between the tokens in <code>string</code>
      * @param model  model
      */
-    public static void setToken(String str, String delim,
-                                DefaultListModel model) {
+    public static void setToken(String str, String delim, DefaultListModel model) {
         if (str == null) {
             throw new NullPointerException("str == null");
         }
@@ -120,7 +118,7 @@ public final class ListUtil {
         }
 
         StringBuilder buffer = new StringBuilder();
-        int           size   = model.getSize();
+        int size = model.getSize();
 
         for (int i = 0; i < size; i++) {
             buffer.append(model.get(i).toString()).append((i < size - 1)
@@ -142,8 +140,7 @@ public final class ListUtil {
      * @param endIndex   end index. List items behind ignored.
      */
     @SuppressWarnings("unchecked")
-    static public <T> void insertSorted(DefaultListModel model, T o,
-            Comparator<T> c, int startIndex, int endIndex) {
+    static public <T> void insertSorted(DefaultListModel model, T o, Comparator<T> c, int startIndex, int endIndex) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
@@ -158,11 +155,10 @@ public final class ListUtil {
 
         synchronized (model) {
             if (!model.contains(o)) {
-                int     size     = model.getSize();
+                int size = model.getSize();
                 boolean inserted = false;
 
-                for (int i = startIndex;
-                        !inserted && (i <= endIndex) && (i < size); i++) {
+                for (int i = startIndex; !inserted && (i <= endIndex) && (i < size); i++) {
                     if (c.compare(o, (T) model.get(i)) < 0) {
                         model.add(i, o);
                         inserted = true;
@@ -184,24 +180,20 @@ public final class ListUtil {
      * @param  indexSecondElement  index of the second element
      * @return true if swapped
      */
-    static public boolean swapModelElements(DefaultListModel model,
-            int indexFirstElement, int indexSecondElement) {
+    static public boolean swapModelElements(DefaultListModel model, int indexFirstElement, int indexSecondElement) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
 
-        int     size = model.getSize();
-        boolean canSwap = (indexFirstElement >= 0)
-                          && (indexFirstElement < size)
-                          && (indexSecondElement >= 0)
-                          && (indexSecondElement < size)
-                          && (indexSecondElement != indexFirstElement);
+        int size = model.getSize();
+        boolean canSwap = (indexFirstElement >= 0) && (indexFirstElement < size) && (indexSecondElement >= 0)
+                          && (indexSecondElement < size) && (indexSecondElement != indexFirstElement);
 
         if (!canSwap) {
             return false;
         }
 
-        Object firstElement  = model.get(indexFirstElement);
+        Object firstElement = model.get(indexFirstElement);
         Object secondElement = model.get(indexSecondElement);
 
         model.set(indexFirstElement, secondElement);
@@ -258,8 +250,7 @@ public final class ListUtil {
             int mousePosX = evt.getX();
             int mousePosY = evt.getY();
 
-            return ((JList) source).locationToIndex(new Point(mousePosX,
-                    mousePosY));
+            return ((JList) source).locationToIndex(new Point(mousePosX, mousePosY));
         }
 
         return -1;
@@ -301,7 +292,7 @@ public final class ListUtil {
             throw new NullPointerException("model == null");
         }
 
-        int          size = model.getSize();
+        int size = model.getSize();
         List<String> list = new ArrayList<String>(size);
 
         for (int i = 0; i < size; i++) {
@@ -330,9 +321,9 @@ public final class ListUtil {
             throw new NullPointerException("element == null");
         }
 
-        int       selIndex = -1;
-        ListModel model    = list.getModel();
-        int       size     = model.getSize();
+        int selIndex = -1;
+        ListModel model = list.getModel();
+        int size = model.getSize();
 
         for (int i = startIndex; (selIndex == -1) && (i < size); i++) {
             Object o = model.getElementAt(i);
@@ -357,8 +348,7 @@ public final class ListUtil {
      * @param  list    list
      * @return         valid indices
      */
-    public static List<Integer> getExistingIndicesOf(int[] indices,
-            JList list) {
+    public static List<Integer> getExistingIndicesOf(int[] indices, JList list) {
         if (indices == null) {
             throw new NullPointerException("indices == null");
         }
@@ -368,7 +358,7 @@ public final class ListUtil {
         }
 
         List<Integer> existingIndices = new ArrayList<Integer>(indices.length);
-        int           elementCount    = list.getModel().getSize();
+        int elementCount = list.getModel().getSize();
 
         for (int index : indices) {
             if ((index >= 0) && (index < elementCount)) {
@@ -388,8 +378,7 @@ public final class ListUtil {
      *                  model's objects
      * @return          all indices or empty list
      */
-    public static List<Integer> getIndicesOfItems(ListModel model,
-            Collection<? extends String> toStrings) {
+    public static List<Integer> getIndicesOfItems(ListModel model, Collection<? extends String> toStrings) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
@@ -399,7 +388,7 @@ public final class ListUtil {
         }
 
         List<Integer> indices = new ArrayList<Integer>(toStrings.size());
-        int           size    = model.getSize();
+        int size = model.getSize();
 
         for (int i = 0; i < size; i++) {
             Object element = model.getElementAt(i);

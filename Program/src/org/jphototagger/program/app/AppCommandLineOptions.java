@@ -8,9 +8,9 @@ import org.jphototagger.lib.util.CommandLineParser;
  * @author Elmar Baumann
  */
 public final class AppCommandLineOptions {
-    private static final String     OPTION_NO_SPLASH_SCREEN   = "nosplash";
-    private static final String     OPTION_NO_OUTPUT_CAPTURE  = "nocapture";
-    private static final String     OPTION_IMPORT_IMAGE_FILES = "import";
+    private static final String OPTION_NO_SPLASH_SCREEN = "nosplash";
+    private static final String OPTION_NO_OUTPUT_CAPTURE = "nocapture";
+    private static final String OPTION_IMPORT_IMAGE_FILES = "import";
     private final CommandLineParser commandLineParser;
 
     AppCommandLineOptions(CommandLineParser commandLineParser) {
@@ -34,8 +34,7 @@ public final class AppCommandLineOptions {
     }
 
     public String getFileImportDir() {
-        CommandLineParser.Option option =
-            commandLineParser.getOption(OPTION_IMPORT_IMAGE_FILES);
+        CommandLineParser.Option option = commandLineParser.getOption(OPTION_IMPORT_IMAGE_FILES);
 
         return (option == null)
                ? null

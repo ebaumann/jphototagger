@@ -13,13 +13,10 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnExifDateTimeOriginal extends Column {
-    public static final ColumnExifDateTimeOriginal INSTANCE =
-        new ColumnExifDateTimeOriginal();
+    public static final ColumnExifDateTimeOriginal INSTANCE = new ColumnExifDateTimeOriginal();
 
     private ColumnExifDateTimeOriginal() {
         super("exif_date_time_original", "exif", DataType.DATE);
-        setDescription(
-            JptBundle.INSTANCE.getString(
-                "ColumnExifDateTimeOriginal.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnExifDateTimeOriginal.Description"));
     }
 }

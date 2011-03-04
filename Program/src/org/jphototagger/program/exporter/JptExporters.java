@@ -9,7 +9,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class JptExporters {
-    public static final JptExporters    INSTANCE  = new JptExporters();
+    public static final JptExporters INSTANCE = new JptExporters();
     private static final List<Exporter> EXPORTERS = new ArrayList<Exporter>();
 
     static {

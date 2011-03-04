@@ -2,8 +2,7 @@ package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -31,8 +30,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author  Martin Pohlack
  */
-public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords
-        implements ActionListener, KeyListener {
+public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords implements ActionListener, KeyListener {
     public ControllerDeleteKeywordFromEditPanel(KeywordsPanel panel) {
         super(panel);
     }
@@ -57,7 +55,7 @@ public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords
             @Override
             public void run() {
                 remove(nodes.get(0));
-        }
+            }
         });
     }
 
@@ -70,27 +68,21 @@ public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords
     }
 
     public void removeFromEditPanel(String keyword) {
-        EditMetadataPanels editPanels =
-            GUI.getAppPanel().getEditMetadataPanels();
-        JPanel panel =
-            editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
+        JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
-            EditRepeatableTextEntryPanel editPanel =
-                (EditRepeatableTextEntryPanel) panel;
+            EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
 
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
                 editPanels.checkSaveOnChanges();
                 KeywordsHelper.removeHighlightKeyword(keyword);
             } else {
-                MessageDisplayer.error(
-                    null,
-                    "ControllerDeleteKeywordFromEditPanel.Error.EditDisabled");
+                MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.EditDisabled");
             }
         } else {
-            MessageDisplayer.error(
-                null, "ControllerDeleteKeywordFromEditPanel.Error.NoEditPanel");
+            MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.NoEditPanel");
         }
     }
 

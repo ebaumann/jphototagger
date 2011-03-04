@@ -6,6 +6,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.EventQueue;
 
@@ -14,7 +15,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.jphototagger.program.view.WaitDisplay;
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails with specific keywords.
@@ -22,7 +22,7 @@ import org.jphototagger.program.view.WaitDisplay;
  * @author Elmar Baumann
  */
 public final class ShowThumbnailsContainingKeywords implements Runnable {
-    private final List<String>             keywords;
+    private final List<String> keywords;
     private final ThumbnailsPanel.Settings tnPanelSettings;
 
     /**
@@ -31,13 +31,12 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
      * @param keywords one of that keywords a image must have to be displayed
      * @param settings
      */
-    public ShowThumbnailsContainingKeywords(List<String> keywords,
-            ThumbnailsPanel.Settings settings) {
+    public ShowThumbnailsContainingKeywords(List<String> keywords, ThumbnailsPanel.Settings settings) {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
 
-        this.keywords   = new ArrayList<String>(keywords);
+        this.keywords = new ArrayList<String>(keywords);
         tnPanelSettings = settings;
     }
 
@@ -55,8 +54,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     }
 
     private void setFilesToThumbnailsPanel() {
-        List<File> imageFiles =
-            new ArrayList<File>(getImageFilesOfSelectedKeywords());
+        List<File> imageFiles = new ArrayList<File>(getImageFilesOfSelectedKeywords());
 
         if (imageFiles != null) {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
@@ -88,15 +86,12 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     private void setTitle(List<String> keywords) {
         GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
-                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path",
-                Util.keywordPathString(keywords)));
+                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
         GUI.getAppFrame().setTitle(
-            JptBundle.INSTANCE.getString(
-                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword",
-                keyword));
+            JptBundle.INSTANCE.getString("ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword", keyword));
     }
 
     private void setMetadataEditable() {

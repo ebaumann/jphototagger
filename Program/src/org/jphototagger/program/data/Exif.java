@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat;
  * @author Elmar Baumann
  */
 public final class Exif {
-    private Date   dateTimeOriginal;
-    private double focalLength     = -1;
-    private short  isoSpeedRatings = -1;
+    private Date dateTimeOriginal;
+    private double focalLength = -1;
+    private short isoSpeedRatings = -1;
     private String recordingEquipment;
     private String lens;
 
@@ -89,8 +89,7 @@ public final class Exif {
     public void setRecordingEquipment(String recordingEquipment) {
 
         // Bugfix imagero: If first byte of RAW data is 0, then the returned string is "0"
-        this.recordingEquipment = ((recordingEquipment == null)
-                                   || recordingEquipment.equals("0"))
+        this.recordingEquipment = ((recordingEquipment == null) || recordingEquipment.equals("0"))
                                   ? null
                                   : recordingEquipment;
     }
@@ -112,7 +111,6 @@ public final class Exif {
     }
 
     public boolean isEmpty() {
-        return (dateTimeOriginal == null) && (focalLength < 0)
-               && (isoSpeedRatings < 0) && (recordingEquipment == null);
+        return (dateTimeOriginal == null) && (focalLength < 0) && (isoSpeedRatings < 0) && (recordingEquipment == null);
     }
 }

@@ -34,15 +34,13 @@ import javax.swing.tree.TreePath;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFavoritesAddFilesystemFolder
-        implements ActionListener, KeyListener {
+public final class ControllerFavoritesAddFilesystemFolder implements ActionListener, KeyListener {
     public ControllerFavoritesAddFilesystemFolder() {
         listen();
     }
 
     private void listen() {
-        PopupMenuFavorites.INSTANCE.getItemAddFilesystemFolder()
-            .addActionListener(this);
+        PopupMenuFavorites.INSTANCE.getItemAddFilesystemFolder().addActionListener(this);
         GUI.getFavoritesTree().addKeyListener(this);
     }
 
@@ -50,17 +48,14 @@ public final class ControllerFavoritesAddFilesystemFolder
     public void keyPressed(KeyEvent evt) {
         final JTree tree = GUI.getFavoritesTree();
 
-        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N)
-                &&!tree.isSelectionEmpty()) {
+        if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N) &&!tree.isSelectionEmpty()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Object node =
-                        tree.getSelectionPath().getLastPathComponent();
+                    Object node = tree.getSelectionPath().getLastPathComponent();
 
                     if (node instanceof DefaultMutableTreeNode) {
-                        DefaultMutableTreeNode pathNode =
-                            (DefaultMutableTreeNode) node;
+                        DefaultMutableTreeNode pathNode = (DefaultMutableTreeNode) node;
 
                         createDirectory(new TreePath(pathNode.getPath()));
                     }
@@ -75,11 +70,8 @@ public final class ControllerFavoritesAddFilesystemFolder
     }
 
     private void createDirectory(TreePath path) {
-        TreeModelFavorites model =
-            ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
-        File dir = model.createNewDirectory(
-                       TreeFileSystemDirectories.getNodeOfLastPathComponent(
-                           path));
+        TreeModelFavorites model = ModelFactory.INSTANCE.getModel(TreeModelFavorites.class);
+        File dir = model.createNewDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(path));
 
         if (dir != null) {
             confirmMoveSelFilesInto(dir);
@@ -100,9 +92,7 @@ public final class ControllerFavoritesAddFilesystemFolder
             List<File> selFiles = GUI.getSelectedImageFiles();
 
             if (!selFiles.isEmpty() && isMoveSelFiles()) {
-                ControllerMoveFiles ctrl =
-                    ControllerFactory.INSTANCE.getController(
-                        ControllerMoveFiles.class);
+                ControllerMoveFiles ctrl = ControllerFactory.INSTANCE.getController(ControllerMoveFiles.class);
 
                 if (ctrl != null) {
                     ctrl.moveFiles(selFiles, dir);
@@ -112,8 +102,7 @@ public final class ControllerFavoritesAddFilesystemFolder
     }
 
     private boolean isMoveSelFiles() {
-        return MessageDisplayer.confirmYesNo(null,
-                "ControllerFavoritesAddFilesystemFolder.Confirm.MoveSelFiles");
+        return MessageDisplayer.confirmYesNo(null, "ControllerFavoritesAddFilesystemFolder.Confirm.MoveSelFiles");
     }
 
     @Override

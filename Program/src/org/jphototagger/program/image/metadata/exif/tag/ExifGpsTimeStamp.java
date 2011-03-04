@@ -14,8 +14,7 @@ public final class ExifGpsTimeStamp {
     private ExifRational minutes;
     private ExifRational seconds;
 
-    public ExifGpsTimeStamp(ExifRational hours, ExifRational minutes,
-                            ExifRational seconds) {
+    public ExifGpsTimeStamp(ExifRational hours, ExifRational minutes, ExifRational seconds) {
         if (hours == null) {
             throw new NullPointerException("hours == null");
         }
@@ -28,7 +27,7 @@ public final class ExifGpsTimeStamp {
             throw new NullPointerException("seconds == null");
         }
 
-        this.hours   = hours;
+        this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
     }

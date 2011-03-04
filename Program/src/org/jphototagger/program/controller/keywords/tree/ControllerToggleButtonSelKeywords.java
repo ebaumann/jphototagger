@@ -1,9 +1,9 @@
 package org.jphototagger.program.controller.keywords.tree;
 
+import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.lib.componentutil.TreeUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,8 +17,7 @@ import javax.swing.JToggleButton;
  * @author Elmar Baumann
  */
 public final class ControllerToggleButtonSelKeywords implements ActionListener {
-    private final JToggleButton toggleButtonExpandAllNodesSelKeywords =
-        GUI.getAppPanel().getToggleButtonSelKeywords();
+    private final JToggleButton toggleButtonExpandAllNodesSelKeywords = GUI.getAppPanel().getToggleButtonSelKeywords();
 
     public ControllerToggleButtonSelKeywords() {
         listen();
@@ -32,12 +31,9 @@ public final class ControllerToggleButtonSelKeywords implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         boolean selected = toggleButtonExpandAllNodesSelKeywords.isSelected();
 
-        TreeUtil.expandAll(GUI.getAppPanel().getTreeSelKeywords(),
-                           selected);
+        TreeUtil.expandAll(GUI.getAppPanel().getTreeSelKeywords(), selected);
         toggleButtonExpandAllNodesSelKeywords.setText(selected
-                ? JptBundle.INSTANCE.getString(
-                    "KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : JptBundle.INSTANCE.getString(
-                    "KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 }

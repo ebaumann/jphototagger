@@ -33,8 +33,7 @@ public final class ArrayUtil {
 
         for (int i = 0; i < objectArray.length; i++) {
             if (objectArray[i] == null) {
-                throw new IllegalArgumentException("Element at index " + i
-                                                   + " is null");
+                throw new IllegalArgumentException("Element at index " + i + " is null");
             }
 
             Object object = objectArray[i];
@@ -58,7 +57,7 @@ public final class ArrayUtil {
         }
 
         int[] array = new int[c.size()];
-        int   index = 0;
+        int index = 0;
 
         for (int el : c) {
             array[index++] = el;

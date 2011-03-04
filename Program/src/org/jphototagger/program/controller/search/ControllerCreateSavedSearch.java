@@ -2,6 +2,7 @@ package org.jphototagger.program.controller.search;
 
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 
@@ -9,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JList;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Creates a saved search when the
@@ -29,8 +29,7 @@ public final class ControllerCreateSavedSearch extends Controller {
 
     public void displayEmptySearchDialog() {
         AdvancedSearchDialog.INSTANCE.getPanel().empty();
-        ControllerFactory.INSTANCE.getController(
-            ControllerShowAdvancedSearchDialog.class).showDialog();
+        ControllerFactory.INSTANCE.getController(ControllerShowAdvancedSearchDialog.class).showDialog();
     }
 
     @Override
@@ -48,8 +47,7 @@ public final class ControllerCreateSavedSearch extends Controller {
             throw new NullPointerException("evt == null");
         }
 
-        return evt.getSource()
-               == PopupMenuSavedSearches.INSTANCE.getItemCreate();
+        return evt.getSource() == PopupMenuSavedSearches.INSTANCE.getItemCreate();
     }
 
     @Override

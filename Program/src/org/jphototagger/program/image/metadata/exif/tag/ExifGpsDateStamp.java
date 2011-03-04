@@ -9,10 +9,10 @@ import org.jphototagger.program.app.AppLogger;
  */
 public final class ExifGpsDateStamp {
     private static final int UNDEFINED = Integer.MIN_VALUE;
-    private final String     stringValue;
-    private int              year  = UNDEFINED;
-    private int              month = UNDEFINED;
-    private int              day   = UNDEFINED;
+    private final String stringValue;
+    private int year = UNDEFINED;
+    private int month = UNDEFINED;
+    private int day = UNDEFINED;
 
     /**
      * Constructor
@@ -27,8 +27,7 @@ public final class ExifGpsDateStamp {
         }
 
         if (rawValue.length != 11) {
-            throw new IllegalArgumentException("length of raw value != 11: "
-                                               + rawValue.length);
+            throw new IllegalArgumentException("length of raw value != 11: " + rawValue.length);
         }
 
         this.stringValue = new String(rawValue).substring(0, 10);
@@ -36,20 +35,20 @@ public final class ExifGpsDateStamp {
     }
 
     private void unsetIntegerValues() {
-        year  = UNDEFINED;
+        year = UNDEFINED;
         month = UNDEFINED;
-        day   = UNDEFINED;
+        day = UNDEFINED;
     }
 
     private void setIntegerValues() {
-        String yearString  = stringValue.substring(0, 4);
+        String yearString = stringValue.substring(0, 4);
         String monthString = stringValue.substring(5, 7);
-        String dayString   = stringValue.substring(8, 10);
+        String dayString = stringValue.substring(8, 10);
 
         try {
-            year  = Integer.parseInt(yearString);
+            year = Integer.parseInt(yearString);
             month = Integer.parseInt(monthString);
-            day   = Integer.parseInt(dayString);
+            day = Integer.parseInt(dayString);
         } catch (Exception ex) {
             AppLogger.logSevere(ExifGpsDateStamp.class, ex);
             unsetIntegerValues();
@@ -107,8 +106,7 @@ public final class ExifGpsDateStamp {
      * @return true if the date is valid
      */
     public boolean isValid() {
-        return (year != UNDEFINED) && (month != UNDEFINED)
-               && (day != UNDEFINED);
+        return (year != UNDEFINED) && (month != UNDEFINED) && (day != UNDEFINED);
     }
 
     @Override

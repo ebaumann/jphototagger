@@ -1,11 +1,11 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.io.FileUtil;
 
 import java.io.File;
 
@@ -28,9 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 public final class FavoritesExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(
-            JptBundle.INSTANCE.getString(
-                "FavoritesExporter.DisplayName.FileFilter"), "xml");
+        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("FavoritesExporter.DisplayName.FileFilter"), "xml");
     public static final FavoritesExporter INSTANCE = new FavoritesExporter();
 
     @Override
@@ -74,8 +72,7 @@ public final class FavoritesExporter implements Exporter {
     public static class CollectionWrapper {
         @XmlElementWrapper(name = "Favorites")
         @XmlElement(type = Favorite.class)
-        private final ArrayList<Favorite> collection =
-            new ArrayList<Favorite>();
+        private final ArrayList<Favorite> collection = new ArrayList<Favorite>();
 
         public CollectionWrapper() {}
 

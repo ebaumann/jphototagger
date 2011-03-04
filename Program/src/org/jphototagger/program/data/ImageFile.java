@@ -15,13 +15,12 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class ImageFile {
-    private long                                     lastmodified = -1;
-    private Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb =
-        new HashSet<InsertImageFilesIntoDatabase.Insert>();
-    private Exif  exif;
-    private File  file;
+    private long lastmodified = -1;
+    private Set<InsertImageFilesIntoDatabase.Insert> insertIntoDb = new HashSet<InsertImageFilesIntoDatabase.Insert>();
+    private Exif exif;
+    private File file;
     private Image thumbnail;
-    private Xmp   xmp;
+    private Xmp xmp;
 
     public File getFile() {
         return file;
@@ -94,8 +93,7 @@ public final class ImageFile {
     }
 
     public boolean isInsertThumbnailIntoDb() {
-        return insertIntoDb.contains(
-            InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
+        return insertIntoDb.contains(InsertImageFilesIntoDatabase.Insert.THUMBNAIL);
     }
 
     public Set<Insert> getInsertIntoDb() {
@@ -133,8 +131,7 @@ public final class ImageFile {
 
         final ImageFile other = (ImageFile) obj;
 
-        if ((this.file != other.file)
-                && ((this.file == null) ||!this.file.equals(other.file))) {
+        if ((this.file != other.file) && ((this.file == null) ||!this.file.equals(other.file))) {
             return false;
         }
 

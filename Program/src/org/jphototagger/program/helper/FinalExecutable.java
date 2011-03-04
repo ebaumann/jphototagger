@@ -1,8 +1,8 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLifeCycle.FinalTask;
-import org.jphototagger.lib.runtime.External;
 
 /**
  * Executable command that can be called before JPhotoTaggers quits.

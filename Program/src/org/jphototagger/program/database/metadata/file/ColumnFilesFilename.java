@@ -10,13 +10,11 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ColumnFilesFilename extends Column {
-    public static final ColumnFilesFilename INSTANCE =
-        new ColumnFilesFilename();
+    public static final ColumnFilesFilename INSTANCE = new ColumnFilesFilename();
 
     private ColumnFilesFilename() {
         super("filename", "files", DataType.STRING);
         setLength(512);
-        setDescription(
-            JptBundle.INSTANCE.getString("ColumnFilesFilename.Description"));
+        setDescription(JptBundle.INSTANCE.getString("ColumnFilesFilename.Description"));
     }
 }

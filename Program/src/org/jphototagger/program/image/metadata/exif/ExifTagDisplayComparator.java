@@ -12,14 +12,10 @@ import java.util.Map;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
-    private static final Map<Integer, Integer> ORDER_OF_TAG_ID_VALUE =
-        new HashMap<Integer, Integer>();
-    private static final List<Integer> EXIF_IFD_TAG_ID_VALUES =
-        new ArrayList<Integer>(30);
-    private static final List<Integer> GPS_IFD_TAG_ID_VALUES =
-        new ArrayList<Integer>(30);
-    public static final ExifTagDisplayComparator INSTANCE =
-        new ExifTagDisplayComparator();
+    private static final Map<Integer, Integer> ORDER_OF_TAG_ID_VALUE = new HashMap<Integer, Integer>();
+    private static final List<Integer> EXIF_IFD_TAG_ID_VALUES = new ArrayList<Integer>(30);
+    private static final List<Integer> GPS_IFD_TAG_ID_VALUES = new ArrayList<Integer>(30);
+    public static final ExifTagDisplayComparator INSTANCE = new ExifTagDisplayComparator();
 
     static {
 
@@ -29,8 +25,7 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MAKE.value());
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MODEL.value());
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH.value());
-        EXIF_IFD_TAG_ID_VALUES.add(
-            ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM.value());
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SUBJECT_DISTANCE_RANGE.value());
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_TIME.value());
         EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.F_NUMBER.value());
@@ -71,28 +66,24 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
         int size = EXIF_IFD_TAG_ID_VALUES.size();
 
         for (int index = 0; index < size; index++) {
-            ORDER_OF_TAG_ID_VALUE.put(EXIF_IFD_TAG_ID_VALUES.get(index),
-                                      order++);
+            ORDER_OF_TAG_ID_VALUE.put(EXIF_IFD_TAG_ID_VALUES.get(index), order++);
         }
 
         // 2. GPS IFD
         size = GPS_IFD_TAG_ID_VALUES.size();
 
         for (int index = 0; index < size; index++) {
-            ORDER_OF_TAG_ID_VALUE.put(GPS_IFD_TAG_ID_VALUES.get(index),
-                                      order++);
+            ORDER_OF_TAG_ID_VALUE.put(GPS_IFD_TAG_ID_VALUES.get(index), order++);
         }
     }
 
     @Override
     public int compare(ExifTag exifTagLeft, ExifTag exifTagRight) {
-        int tagIdLeft  = exifTagLeft.idValue();
+        int tagIdLeft = exifTagLeft.idValue();
         int tagIdRight = exifTagRight.idValue();
 
-        if (ORDER_OF_TAG_ID_VALUE.containsKey(tagIdLeft)
-                && ORDER_OF_TAG_ID_VALUE.containsKey(tagIdRight)) {
-            return ORDER_OF_TAG_ID_VALUE.get(tagIdLeft)
-                   - ORDER_OF_TAG_ID_VALUE.get(tagIdRight);
+        if (ORDER_OF_TAG_ID_VALUE.containsKey(tagIdLeft) && ORDER_OF_TAG_ID_VALUE.containsKey(tagIdRight)) {
+            return ORDER_OF_TAG_ID_VALUE.get(tagIdLeft) - ORDER_OF_TAG_ID_VALUE.get(tagIdRight);
         }
 
         return tagIdLeft - tagIdRight;

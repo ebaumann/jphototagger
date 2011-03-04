@@ -12,8 +12,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ExifInDatabase {
-    private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD =
-        new ArrayList<ExifTag.Id>();
+    private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD = new ArrayList<ExifTag.Id>();
 
     static {
         STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.DATE_TIME_ORIGINAL);

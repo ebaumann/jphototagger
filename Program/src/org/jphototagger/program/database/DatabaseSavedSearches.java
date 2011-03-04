@@ -22,8 +22,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabaseSavedSearches extends Database {
-    public static final DatabaseSavedSearches INSTANCE =
-        new DatabaseSavedSearches();
+    public static final DatabaseSavedSearches INSTANCE = new DatabaseSavedSearches();
     private final ListenerSupport<DatabaseSavedSearchesListener> ls =
         new ListenerSupport<DatabaseSavedSearchesListener>();
 
@@ -31,8 +30,8 @@ public final class DatabaseSavedSearches extends Database {
 
     private String getInsertSql() {
         return "INSERT INTO saved_searches (name"    // -- 1 --
-               + ", custom_sql"                      // -- 2 --
-               + ", search_type"                     // -- 3 --
+               + ", custom_sql"    // -- 2 --
+               + ", search_type"    // -- 3 --
                + ") VALUES (?, ?, ?)";
     }
 
@@ -41,9 +40,9 @@ public final class DatabaseSavedSearches extends Database {
             throw new NullPointerException("savedSearch == null");
         }
 
-        boolean           inserted = false;
-        Connection        con      = null;
-        PreparedStatement stmt     = null;
+        boolean inserted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         if (!savedSearch.isValid()) {
             assert false : savedSearch;
@@ -67,10 +66,9 @@ public final class DatabaseSavedSearches extends Database {
             logFiner(stmt);
             stmt.executeUpdate();
 
-            long                   id       = findId(con,
-                                                  savedSearch.getName());
-            List<SavedSearchPanel> panels   = savedSearch.getPanels();
-            List<String>           keywords = savedSearch.getKeywords();
+            long id = findId(con, savedSearch.getName());
+            List<SavedSearchPanel> panels = savedSearch.getPanels();
+            List<String> keywords = savedSearch.getKeywords();
 
             insertSavedSearchPanels(con, id, panels);
             insertSavedSearchKeywords(con, id, keywords);
@@ -88,9 +86,7 @@ public final class DatabaseSavedSearches extends Database {
         return inserted;
     }
 
-    private void setSearchType(PreparedStatement stmt, int parameterIndex,
-                               SavedSearch search)
-            throws SQLException {
+    private void setSearchType(PreparedStatement stmt, int parameterIndex, SavedSearch search) throws SQLException {
         if ((search == null) ||!search.isValid()) {
             return;
         }
@@ -100,19 +96,18 @@ public final class DatabaseSavedSearches extends Database {
 
     private String getInsertSavedSearchPanelsSql() {
         return "INSERT INTO saved_searches_panels (id_saved_search"    // 1
-               + ", panel_index"                                       // 2
-               + ", bracket_left_1"                                    // 3
-               + ", operator_id"                                       // 4
-               + ", bracket_left_2"                                    // 5
-               + ", column_id"                                         // 6
-               + ", comparator_id"                                     // 7
-               + ", value"                                             // 8
-               + ", bracket_right)"                                    // 9
+               + ", panel_index"    // 2
+               + ", bracket_left_1"    // 3
+               + ", operator_id"    // 4
+               + ", bracket_left_2"    // 5
+               + ", column_id"    // 6
+               + ", comparator_id"    // 7
+               + ", value"    // 8
+               + ", bracket_right)"    // 9
                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    private void insertSavedSearchPanels(Connection con, long idSavedSearch,
-            List<SavedSearchPanel> panels)
+    private void insertSavedSearchPanels(Connection con, long idSavedSearch, List<SavedSearchPanel> panels)
             throws SQLException {
         if ((idSavedSearch > 0) && (panels != null)) {
             PreparedStatement stmt = null;
@@ -140,12 +135,10 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getInsertSavedSearchKeywordsSql() {
-        return "INSERT INTO saved_searches_keywords "
-               + "(id_saved_search, keyword) VALUES (?, ?)";
+        return "INSERT INTO saved_searches_keywords " + "(id_saved_search, keyword) VALUES (?, ?)";
     }
 
-    private void insertSavedSearchKeywords(Connection con, long idSavedSearch,
-            List<String> keywords)
+    private void insertSavedSearchKeywords(Connection con, long idSavedSearch, List<String> keywords)
             throws SQLException {
         if ((idSavedSearch > 0) && (keywords != null)) {
             PreparedStatement stmt = null;
@@ -166,13 +159,12 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private long findId(Connection con, String name) throws SQLException {
-        long              id   = -1;
+        long id = -1;
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement(
-                "SELECT id FROM saved_searches WHERE name = ?");
+            stmt = con.prepareStatement("SELECT id FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -193,13 +185,13 @@ public final class DatabaseSavedSearches extends Database {
      * @return Anzahl oder -1 bei Fehlern.
      */
     public int getCount() {
-        int        count = -1;
-        Connection con   = null;
-        Statement  stmt  = null;
-        ResultSet  rs    = null;
+        int count = -1;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
             String sql = "SELECT COUNT(*) FROM saved_searches";
@@ -247,15 +239,14 @@ public final class DatabaseSavedSearches extends Database {
             throw new NullPointerException("name == null");
         }
 
-        boolean           deleted = false;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
+        boolean deleted = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                "DELETE FROM saved_searches WHERE name = ?");
+            stmt = con.prepareStatement("DELETE FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
             logFiner(stmt);
 
@@ -287,15 +278,14 @@ public final class DatabaseSavedSearches extends Database {
             throw new NullPointerException("toName == null");
         }
 
-        boolean           renamed = false;
-        Connection        con     = null;
-        PreparedStatement stmt    = null;
+        boolean renamed = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
 
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            stmt = con.prepareStatement(
-                "UPDATE saved_searches SET name = ? WHERE name = ?");
+            stmt = con.prepareStatement("UPDATE saved_searches SET name = ? WHERE name = ?");
             stmt.setString(1, toName);
             stmt.setString(2, fromName);
             logFiner(stmt);
@@ -340,8 +330,7 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getFindSql() {
-        return "SELECT name, custom_sql, search_type"
-               + " FROM saved_searches WHERE name = ?";
+        return "SELECT name, custom_sql, search_type" + " FROM saved_searches WHERE name = ?";
     }
 
     public SavedSearch find(String name) {
@@ -349,13 +338,13 @@ public final class DatabaseSavedSearches extends Database {
             throw new NullPointerException("name == null");
         }
 
-        SavedSearch       savedSearch = null;
-        Connection        con         = null;
-        PreparedStatement stmt        = null;
-        ResultSet         rs          = null;
+        SavedSearch savedSearch = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.prepareStatement(getFindSql());
             stmt.setString(1, name);
             logFinest(stmt);
@@ -380,20 +369,17 @@ public final class DatabaseSavedSearches extends Database {
         return savedSearch;
     }
 
-    private void setSearchType(ResultSet rs, int columnIndex,
-                               SavedSearch search)
-            throws SQLException {
-        short            value = rs.getShort(columnIndex);
-        SavedSearch.Type type  = rs.wasNull()
-                                 ? SavedSearch.Type.KEYWORDS_AND_PANELS
-                                 : SavedSearch.Type.fromValue(value);
+    private void setSearchType(ResultSet rs, int columnIndex, SavedSearch search) throws SQLException {
+        short value = rs.getShort(columnIndex);
+        SavedSearch.Type type = rs.wasNull()
+                                ? SavedSearch.Type.KEYWORDS_AND_PANELS
+                                : SavedSearch.Type.fromValue(value);
 
         search.setType(type);
     }
 
     private String getGetAllSql() {
-        return "SELECT name, custom_sql, search_type"
-               + " FROM saved_searches ORDER BY name";
+        return "SELECT name, custom_sql, search_type" + " FROM saved_searches ORDER BY name";
     }
 
     /**
@@ -403,12 +389,12 @@ public final class DatabaseSavedSearches extends Database {
      */
     public List<SavedSearch> getAll() {
         List<SavedSearch> searches = new ArrayList<SavedSearch>();
-        Connection        con      = null;
-        Statement         stmt     = null;
-        ResultSet         rs       = null;
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try {
-            con  = getConnection();
+            con = getConnection();
             stmt = con.createStatement();
 
             String sql = getGetAllSql();
@@ -464,22 +450,19 @@ public final class DatabaseSavedSearches extends Database {
     private String getSetSavedSearchPanelsSql() {
         return "SELECT saved_searches_panels.panel_index"    // -- 1 --
                + ", saved_searches_panels.bracket_left_1"    // -- 2 --
-               + ", saved_searches_panels.operator_id"       // -- 3 --
+               + ", saved_searches_panels.operator_id"    // -- 3 --
                + ", saved_searches_panels.bracket_left_2"    // -- 4 --
-               + ", saved_searches_panels.column_id"         // -- 5 --
-               + ", saved_searches_panels.comparator_id"     // -- 6 --
-               + ", saved_searches_panels.value"             // -- 7 --
-               + ", saved_searches_panels.bracket_right"     // -- 8 --
-               + " FROM saved_searches_panels INNER JOIN saved_searches"
-               + " ON saved_searches_panels.id_saved_search"
-               + " = saved_searches.id AND saved_searches.name = ?"
-               + " ORDER BY saved_searches_panels.panel_index ASC";
+               + ", saved_searches_panels.column_id"    // -- 5 --
+               + ", saved_searches_panels.comparator_id"    // -- 6 --
+               + ", saved_searches_panels.value"    // -- 7 --
+               + ", saved_searches_panels.bracket_right"    // -- 8 --
+               + " FROM saved_searches_panels INNER JOIN saved_searches" + " ON saved_searches_panels.id_saved_search"
+               + " = saved_searches.id AND saved_searches.name = ?" + " ORDER BY saved_searches_panels.panel_index ASC";
     }
 
-    private void setSavedSearchPanels(Connection con, SavedSearch savedSearch)
-            throws SQLException {
+    private void setSavedSearchPanels(Connection con, SavedSearch savedSearch) throws SQLException {
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.prepareStatement(getSetSavedSearchPanelsSql());
@@ -512,15 +495,13 @@ public final class DatabaseSavedSearches extends Database {
     private String getSetSavedSearchKeywordsSql() {
         return "SELECT keyword"    // -- 1 --
                + " FROM saved_searches_keywords INNER JOIN saved_searches"
-               + " ON saved_searches_keywords.id_saved_search"
-               + " = saved_searches.id AND saved_searches.name = ?"
+               + " ON saved_searches_keywords.id_saved_search" + " = saved_searches.id AND saved_searches.name = ?"
                + " ORDER BY keyword ASC";
     }
 
-    private void setSavedSearchKeywords(Connection con, SavedSearch savedSearch)
-            throws SQLException {
+    private void setSavedSearchKeywords(Connection con, SavedSearch savedSearch) throws SQLException {
         PreparedStatement stmt = null;
-        ResultSet         rs   = null;
+        ResultSet rs = null;
 
         try {
             stmt = con.prepareStatement(getSetSavedSearchKeywordsSql());

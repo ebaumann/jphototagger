@@ -5,10 +5,8 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopCaptionwriter;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;

@@ -13,16 +13,11 @@ import javax.swing.Icon;
  * @author Elmar Baumann
  */
 public final class TableIcons {
-    private static final Icon ICON_UNDEFINED =
-        AppLookAndFeel.getIcon("icon_table_undefined.png");
-    private static final Icon ICON_FILES =
-        AppLookAndFeel.getIcon("icon_file.png");
-    private static final Icon ICON_EXIF =
-        AppLookAndFeel.getIcon("icon_exif.png");
-    private static final Icon ICON_XMP          =
-        AppLookAndFeel.getIcon("icon_xmp.png");
-    private static final Map<String, Icon> ICON_OF_TABLENAME =
-        new HashMap<String, Icon>();
+    private static final Icon ICON_UNDEFINED = AppLookAndFeel.getIcon("icon_table_undefined.png");
+    private static final Icon ICON_FILES = AppLookAndFeel.getIcon("icon_file.png");
+    private static final Icon ICON_EXIF = AppLookAndFeel.getIcon("icon_exif.png");
+    private static final Icon ICON_XMP = AppLookAndFeel.getIcon("icon_xmp.png");
+    private static final Map<String, Icon> ICON_OF_TABLENAME = new HashMap<String, Icon>();
 
     static {
         ICON_OF_TABLENAME.put("exif", ICON_EXIF);

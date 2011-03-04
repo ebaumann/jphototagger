@@ -21,17 +21,15 @@ import javax.swing.JList;
  * @see     org.jphototagger.program.view.dialogs.UpdateMetadataOfDirectoriesDialog
  */
 public final class ListCellRendererDirectories extends DefaultListCellRenderer {
-    private static final FileSystemView FILE_SYSTEM_VIEW =
-        FileSystemView.getFileSystemView();
+    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
     private static final long serialVersionUID = 1443237617540897116L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value,
-                           index, isSelected, cellHasFocus);
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus) {
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         ImageFileDirectory directoryInfo = (ImageFileDirectory) value;
-        File          dir           = directoryInfo.getDirectory();
+        File dir = directoryInfo.getDirectory();
 
         if (dir.exists()) {
             synchronized (FILE_SYSTEM_VIEW) {
@@ -49,9 +47,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
     }
 
     private static String getLabelText(ImageFileDirectory directoryInfo) {
-        return JptBundle.INSTANCE.getString(
-            "ListCellRendererDirectories.LabelText",
-            directoryInfo.getDirectory().getAbsolutePath(),
-            directoryInfo.getImageFileCount());
+        return JptBundle.INSTANCE.getString("ListCellRendererDirectories.LabelText",
+                directoryInfo.getDirectory().getAbsolutePath(), directoryInfo.getImageFileCount());
     }
 }

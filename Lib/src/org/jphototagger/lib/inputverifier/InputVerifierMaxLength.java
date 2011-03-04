@@ -15,11 +15,10 @@ import javax.swing.text.JTextComponent;
  *
  * @author Elmar Baumann
  */
-public final class InputVerifierMaxLength extends InputVerifier
-        implements Serializable {
+public final class InputVerifierMaxLength extends InputVerifier implements Serializable {
     private static final long serialVersionUID = 3511123914461892781L;
-    private final int         maxLength;
-    private boolean           message = true;
+    private final int maxLength;
+    private boolean message = true;
 
     /**
      * Constructor.
@@ -72,15 +71,9 @@ public final class InputVerifierMaxLength extends InputVerifier
             return;
         }
 
-        JOptionPane
-            .showMessageDialog(
-                input,
-                JslBundle.INSTANCE
-                    .getString(
-                        "InputVerifierMaxLength.ErrorMessage",
-                        maxLength), JslBundle.INSTANCE
-                            .getString(
-                                "InputVerifierMaxLength.Error.Title"), JOptionPane
-                                    .ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(input,
+                                      JslBundle.INSTANCE.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
+                                      JslBundle.INSTANCE.getString("InputVerifierMaxLength.Error.Title"),
+                                      JOptionPane.ERROR_MESSAGE);
     }
 }

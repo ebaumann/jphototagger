@@ -3,6 +3,7 @@ package org.jphototagger.program.helper;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -15,7 +16,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -24,11 +24,8 @@ import org.jphototagger.program.resource.GUI;
  */
 public final class ActionsHelper {
     public static JMenu actionsAsMenu() {
-        List<Program> actions =
-            DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
-        JMenu menu = new JMenu(
-                         JptBundle.INSTANCE.getString(
-                             "ActionsHelper.ActionMenu.DisplayName"));
+        List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
+        JMenu menu = new JMenu(JptBundle.INSTANCE.getString("ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
             menu.add(new JMenuItem(new ActionStarter(action, action)));
@@ -40,8 +37,7 @@ public final class ActionsHelper {
     private static void reorderActions(JMenu actionsMenu) {
         actionsMenu.removeAll();
 
-        List<Program> actions =
-            DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
+        List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
 
         for (Program action : actions) {
             actionsMenu.add(new JMenuItem(new ActionStarter(action, action)));
@@ -120,8 +116,7 @@ public final class ActionsHelper {
         action.putValue(Action.NAME, ap.getAlias());
 
         if (ap.getFile().exists()) {
-            action.putValue(Action.SMALL_ICON,
-                            IconUtil.getSystemIcon(ap.getFile()));
+            action.putValue(Action.SMALL_ICON, IconUtil.getSystemIcon(ap.getFile()));
         }
     }
 
@@ -144,12 +139,12 @@ public final class ActionsHelper {
     }
 
     private static class ActionStarter extends AbstractAction {
-        private static final long       serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
         private final transient Program action;
-        private final Object            pBarOwner;
+        private final Object pBarOwner;
 
         ActionStarter(Program action, Object progressBarOwner) {
-            this.action           = action;
+            this.action = action;
             this.pBarOwner = progressBarOwner;
             setNameAndIcon(this, action);
         }
@@ -166,9 +161,7 @@ public final class ActionsHelper {
                 return;
             }
 
-            StartPrograms starter = new StartPrograms(
-                                        ProgressBar.INSTANCE.getResource(
-                                            pBarOwner));
+            StartPrograms starter = new StartPrograms(ProgressBar.INSTANCE.getResource(pBarOwner));
 
             starter.startProgram(action, tnPanel.getSelectedFiles());
             ProgressBar.INSTANCE.releaseResource(pBarOwner);

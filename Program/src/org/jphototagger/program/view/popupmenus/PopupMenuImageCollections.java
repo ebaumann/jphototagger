@@ -16,28 +16,17 @@ import javax.swing.JPopupMenu;
  * @author Elmar Baumann
  */
 public final class PopupMenuImageCollections extends JPopupMenu {
-    private static final long                     serialVersionUID =
-        -3446852358941591602L;
-    public static final PopupMenuImageCollections INSTANCE         =
-        new PopupMenuImageCollections();
+    private static final long serialVersionUID = -3446852358941591602L;
+    public static final PopupMenuImageCollections INSTANCE = new PopupMenuImageCollections();
     private final JMenuItem itemDelete =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuImageCollections.DisplayName.Action.Delete"), AppLookAndFeel
-                        .ICON_DELETE);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Delete"),
+                      AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemRename =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuImageCollections.DisplayName.Action.Rename"), AppLookAndFeel
-                        .ICON_RENAME);
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Rename"),
+                      AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemCreate =
-        new JMenuItem(
-            JptBundle.INSTANCE
-                .getString(
-                    "PopupMenuImageCollections.DisplayName.Action.Create"), AppLookAndFeel
-                        .getIcon("icon_imagecollection.png"));
+        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuImageCollections.DisplayName.Action.Create"),
+                      AppLookAndFeel.getIcon("icon_imagecollection.png"));
     private int itemIndex;
 
     private PopupMenuImageCollections() {
@@ -76,10 +65,8 @@ public final class PopupMenuImageCollections extends JPopupMenu {
     }
 
     private void setAccelerators() {
-        itemDelete.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DELETE));
+        itemDelete.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DELETE));
         itemRename.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
-        itemCreate.setAccelerator(
-            KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        itemCreate.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
     }
 }

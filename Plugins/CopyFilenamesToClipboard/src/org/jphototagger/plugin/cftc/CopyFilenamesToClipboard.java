@@ -24,17 +24,13 @@ import javax.swing.JPanel;
  *
  * @author Elmar Baumann
  */
-public final class CopyFilenamesToClipboard extends Plugin
-        implements Serializable {
-    private static final long  serialVersionUID = 526527636923496736L;
-    public static final String KEY_FILENAME_DELIMITER =
-        CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
-    public static final String            DEFAULT_FILENAME_DELIMITER = "\n";
-    private final CopyAction              copyAction = new CopyAction();
-    private String                        fileNameDelimiter =
-        DEFAULT_FILENAME_DELIMITER;
-    private static final transient Bundle BUNDLE =
-        new Bundle("org/jphototagger/plugin/cftc/Bundle");
+public final class CopyFilenamesToClipboard extends Plugin implements Serializable {
+    private static final long serialVersionUID = 526527636923496736L;
+    public static final String KEY_FILENAME_DELIMITER = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
+    public static final String DEFAULT_FILENAME_DELIMITER = "\n";
+    private final CopyAction copyAction = new CopyAction();
+    private String fileNameDelimiter = DEFAULT_FILENAME_DELIMITER;
+    private static final transient Bundle BUNDLE = new Bundle("org/jphototagger/plugin/cftc/Bundle");
 
     public CopyFilenamesToClipboard() {}
 
@@ -75,8 +71,8 @@ public final class CopyFilenamesToClipboard extends Plugin
             notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
             setDelimiter();
 
-            StringBuilder sb    = new StringBuilder();
-            int           index = 0;
+            StringBuilder sb = new StringBuilder();
+            int index = 0;
 
             for (File file : getFiles()) {
                 sb.append((index++ == 0)
@@ -84,14 +80,12 @@ public final class CopyFilenamesToClipboard extends Plugin
                           : fileNameDelimiter).append(file.getAbsolutePath());
             }
 
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
-                new StringSelection(sb.toString()), null);
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
             notifyFinished();
         }
 
         private void notifyFinished() {
-            PluginEvent evt =
-                new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
+            PluginEvent evt = new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
 
             evt.setProcessedFiles(getFiles());
             notifyPluginListeners(evt);
@@ -101,8 +95,7 @@ public final class CopyFilenamesToClipboard extends Plugin
             Properties properties = getProperties();
 
             if (properties != null) {
-                String delimiter =
-                    properties.getProperty(KEY_FILENAME_DELIMITER);
+                String delimiter = properties.getProperty(KEY_FILENAME_DELIMITER);
 
                 if (delimiter != null) {
                     fileNameDelimiter = delimiter;

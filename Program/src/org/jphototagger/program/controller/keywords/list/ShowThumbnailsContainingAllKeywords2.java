@@ -29,8 +29,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
      *
      * @param keywordLists all keywords a image must have to be displayed
      */
-    public ShowThumbnailsContainingAllKeywords2(
-            List<List<String>> keywordLists) {
+    public ShowThumbnailsContainingAllKeywords2(List<List<String>> keywordLists) {
         if (keywordLists == null) {
             throw new NullPointerException("keywordLists == null");
         }
@@ -81,15 +80,12 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     private void setTitle(List<String> keywords) {
         GUI.getAppFrame().setTitle(
             JptBundle.INSTANCE.getString(
-                "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keywords.Path",
-                Util.keywordPathString(keywords)));
+                "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
         GUI.getAppFrame().setTitle(
-            JptBundle.INSTANCE.getString(
-                "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keyword",
-                keyword));
+            JptBundle.INSTANCE.getString("ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keyword", keyword));
     }
 
     private void setMetadataEditable() {

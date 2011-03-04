@@ -22,7 +22,7 @@ public final class TextEntryContent implements TextEntry {
             throw new NullPointerException("column == null");
         }
 
-        this.text   = text;
+        this.text = text;
         this.column = column;
     }
 

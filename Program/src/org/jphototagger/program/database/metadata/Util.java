@@ -24,18 +24,16 @@ public final class Util {
      * @return         columns separated by tables: The collection of a
      *                 tablename are (only) columns within this table
      */
-    public static Map<String, List<Column>> getColumnsSeparatedByTables(
-            Collection<? extends Column> columns) {
+    public static Map<String, List<Column>> getColumnsSeparatedByTables(Collection<? extends Column> columns) {
         if (columns == null) {
             throw new NullPointerException("columns == null");
         }
 
-        Map<String, List<Column>> columnsOfTable = new HashMap<String,
-                                                       List<Column>>();
+        Map<String, List<Column>> columnsOfTable = new HashMap<String, List<Column>>();
 
         for (Column col : columns) {
-            String       tablename = col.getTablename();
-            List<Column> cols      = columnsOfTable.get(tablename);
+            String tablename = col.getTablename();
+            List<Column> cols = columnsOfTable.get(tablename);
 
             if (cols == null) {
                 cols = new ArrayList<Column>();
@@ -54,8 +52,7 @@ public final class Util {
      * @param columns Spalten
      * @return        Tabellen
      */
-    public static Set<String> getDistinctTablenamesOfColumns(
-            Collection<? extends Column> columns) {
+    public static Set<String> getDistinctTablenamesOfColumns(Collection<? extends Column> columns) {
         if (columns == null) {
             throw new NullPointerException("columns == null");
         }

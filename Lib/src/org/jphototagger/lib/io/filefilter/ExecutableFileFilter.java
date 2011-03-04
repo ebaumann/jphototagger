@@ -8,8 +8,7 @@ import java.io.Serializable;
  *
  * @author Elmar Baumann
  */
-public final class ExecutableFileFilter
-        implements java.io.FileFilter, Serializable {
+public final class ExecutableFileFilter implements java.io.FileFilter, Serializable {
     private static final long serialVersionUID = -3143807596793335212L;
 
     @Override
@@ -23,8 +22,7 @@ public final class ExecutableFileFilter
      * @param  description  description
      * @return file filter
      */
-    public javax.swing.filechooser.FileFilter forFileChooser(
-            String description) {
+    public javax.swing.filechooser.FileFilter forFileChooser(String description) {
         return new FileChooserFilter(this, description);
     }
 }

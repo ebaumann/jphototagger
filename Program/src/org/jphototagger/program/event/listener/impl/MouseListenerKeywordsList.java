@@ -27,8 +27,7 @@ public final class MouseListenerKeywordsList extends MouseListenerList {
     }
 
     private void setEnabled() {
-        boolean editable =
-            GUI.getAppPanel().getEditMetadataPanels().isEditable();
+        boolean editable = GUI.getAppPanel().getEditMetadataPanels().isEditable();
 
         popup.getItemAddToEditPanel().setEnabled(editable);
         popup.getItemRemoveFromEditPanel().setEnabled(editable);
