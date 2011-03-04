@@ -36,14 +36,12 @@ import javax.swing.JPanel;
  */
 public final class EditTextEntryPanel extends JPanel
         implements TextEntry, DocumentListener, DatabaseImageFilesListener {
-    private static final Color                 EDITABLE_COLOR   = Color.WHITE;
-    private static final long                  serialVersionUID =
-        -6455550547873630461L;
-    private transient Column                   column;
-    private boolean                            dirty = false;
-    private boolean                            editable;
-    private transient TextEntryListenerSupport textEntryListenerSupport =
-        new TextEntryListenerSupport();
+    private static final Color EDITABLE_COLOR = Color.WHITE;
+    private static final long serialVersionUID = -6455550547873630461L;
+    private transient Column column;
+    private boolean dirty = false;
+    private boolean editable;
+    private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private Autocomplete autocomplete;
 
     public EditTextEntryPanel() {
@@ -127,10 +125,9 @@ public final class EditTextEntryPanel extends JPanel
                     return;
                 }
             }
+
             autocomplete = new Autocomplete(false);
-            autocomplete.decorate(
-                textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get(),
-                    true);
+            autocomplete.decorate(textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get(), true);
         }
     }
 
@@ -211,8 +208,7 @@ public final class EditTextEntryPanel extends JPanel
     @Override
     public void dcSubjectInserted(String dcSubject) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(column, autocomplete,
-                    Collections.singleton(dcSubject));
+            AutocompleteHelper.addAutocompleteData(column, autocomplete, Collections.singleton(dcSubject));
         }
     }
 
@@ -275,8 +271,7 @@ public final class EditTextEntryPanel extends JPanel
         textEntryListenerSupport.remove(listener);
     }
 
-    private void notifyTextChanged(Column column, String oldText,
-                                   String newText) {
+    private void notifyTextChanged(Column column, String oldText, String newText) {
         textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
     }
 
@@ -286,8 +281,7 @@ public final class EditTextEntryPanel extends JPanel
     }
 
     @Override
-    public synchronized void addMouseListenerToInputComponents(
-            MouseListener l) {
+    public synchronized void addMouseListenerToInputComponents(MouseListener l) {
         if (l == null) {
             throw new NullPointerException("l == null");
         }
@@ -300,8 +294,7 @@ public final class EditTextEntryPanel extends JPanel
     }
 
     @Override
-    public synchronized void removeMouseListenerFromInputComponents(
-            MouseListener l) {
+    public synchronized void removeMouseListenerFromInputComponents(MouseListener l) {
         if (l == null) {
             throw new NullPointerException("l == null");
         }

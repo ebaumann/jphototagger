@@ -23,14 +23,11 @@ import javax.swing.event.ListSelectionListener;
  */
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         implements ProgressListener, Persistence, ListSelectionListener {
-    private static final long                           serialVersionUID =
-        -3083582823254767001L;
-    private final transient DatabaseFileExcludePatterns db               =
-        DatabaseFileExcludePatterns.INSTANCE;
-    private final ListModelFileExcludePatterns model =
-        new ListModelFileExcludePatterns();
+    private static final long serialVersionUID = -3083582823254767001L;
+    private final transient DatabaseFileExcludePatterns db = DatabaseFileExcludePatterns.INSTANCE;
+    private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
-    private boolean cancel           = false;
+    private boolean cancel = false;
 
     public SettingsFileExcludePatternsPanel() {
         initComponents();
@@ -41,7 +38,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            cancel             = false;
+            cancel = false;
             isUpdateDatabase = false;
             setEnabled();
         } else {
@@ -109,7 +106,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     }
 
     private void setEnabled() {
-        int     size         = model.getSize();
+        int size = model.getSize();
         boolean itemSelected = list.getSelectedIndex() >= 0;
 
         setEnabledButtonInsertPattern();
@@ -132,7 +129,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
         if (patterns.size() > 0) {
             isUpdateDatabase = true;
-            cancel           = false;
+            cancel = false;
             setEnabled();
             db.deleteMatchingFiles(patterns, this);
         }
@@ -154,11 +151,11 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
             @Override
             public void run() {
-        progressBarUpdateDatabase.setMinimum(evt.getMinimum());
-        progressBarUpdateDatabase.setMaximum(evt.getMaximum());
-        progressBarUpdateDatabase.setValue(evt.getValue());
-        checkCancel(evt);
-    }
+                progressBarUpdateDatabase.setMinimum(evt.getMinimum());
+                progressBarUpdateDatabase.setMaximum(evt.getMaximum());
+                progressBarUpdateDatabase.setValue(evt.getValue());
+                checkCancel(evt);
+            }
         });
     }
 
@@ -168,9 +165,9 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
             @Override
             public void run() {
-        progressBarUpdateDatabase.setValue(evt.getValue());
-        checkCancel(evt);
-    }
+                progressBarUpdateDatabase.setValue(evt.getValue());
+                checkCancel(evt);
+            }
         });
     }
 
@@ -180,11 +177,11 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
             @Override
             public void run() {
-        progressBarUpdateDatabase.setValue(evt.getValue());
-        isUpdateDatabase = false;
-        cancel           = false;
-        setEnabled();
-    }
+                progressBarUpdateDatabase.setValue(evt.getValue());
+                isUpdateDatabase = false;
+                cancel = false;
+                setEnabled();
+            }
         });
     }
 

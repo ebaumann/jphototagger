@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
@@ -27,7 +28,7 @@ import org.jphototagger.program.factory.ControllerFactory;
  */
 public final class SettingsMiscPanel extends javax.swing.JPanel
         implements Persistence, UserSettingsListener {
-    private static final long   serialVersionUID = 479354601163285718L;
+    private static final long serialVersionUID = 479354601163285718L;
 
     public SettingsMiscPanel() {
         initComponents();
@@ -36,14 +37,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     }
 
     private File chooseDirectory(File startDirectory) {
-        File             dir    = null;
-        DirectoryChooser dlg =
-            new DirectoryChooser(
-                GUI.getAppFrame(), startDirectory,
-                UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        File dir = null;
+        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDirectory, showHiddenDirs);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
-                           "SettingsMiscPanel.DirChooser");
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "SettingsMiscPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
@@ -54,13 +52,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     }
 
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
-        UserSettings.INSTANCE.setAcceptHiddenDirectories(
-            checkBoxIsAcceptHiddenDirectories.isSelected());
+        UserSettings.INSTANCE.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
     }
 
     private void handleActionPerformedChooseDatabaseDirectory(boolean backupDir) {
-        File file = chooseDirectory(
-                        new File(backupDir
+        File file = chooseDirectory(new File(
+                            backupDir
                             ? UserSettings.INSTANCE.getDatabaseBackupDirectoryName()
                             : UserSettings.INSTANCE.getDatabaseDirectoryName()));
 
@@ -118,23 +115,19 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     }
 
     private void handleActionPerformedAutoDownload() {
-        UserSettings.INSTANCE.setAutoDownloadNewerVersions(
-            checkBoxAutoDownloadCheck.isSelected());
+        UserSettings.INSTANCE.setAutoDownloadNewerVersions(checkBoxAutoDownloadCheck.isSelected());
     }
 
     private void handleActionComboBoxIptcCharset() {
-        UserSettings.INSTANCE.setIptcCharset(
-            comboBoxIptcCharset.getSelectedItem().toString());
+        UserSettings.INSTANCE.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
     }
 
     private void handleActionPerformedCheckBoxAddFilenameToGpsLocationExport() {
-        UserSettings.INSTANCE.setAddFilenameToGpsLocationExport(
-                checkBoxAddFilenameToGpsLocationExport.isSelected());
+        UserSettings.INSTANCE.setAddFilenameToGpsLocationExport(checkBoxAddFilenameToGpsLocationExport.isSelected());
     }
 
     private void setExperimentalFileFormats() {
-        UserSettings.INSTANCE.setUseExperimentalFileFormats(
-                checkBoxExperimentalFileFormats.isSelected());
+        UserSettings.INSTANCE.setUseExperimentalFileFormats(checkBoxExperimentalFileFormats.isSelected());
     }
 
     private void checkLogLevel() {
@@ -146,8 +139,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
     @Override
     public void applySettings(UserSettingsEvent evt) {
         if (evt.getType().equals(UserSettingsEvent.Type.CHECK_FOR_UPDATES)) {
-            checkBoxAutoDownloadCheck.setSelected(
-                UserSettings.INSTANCE.isAutoDownloadNewerVersions());
+            checkBoxAutoDownloadCheck.setSelected(UserSettings.INSTANCE.isAutoDownloadNewerVersions());
         }
     }
 
@@ -157,30 +149,17 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
         UserSettings settings = UserSettings.INSTANCE;
 
-        checkBoxAutoDownloadCheck.setSelected(
-            settings.isAutoDownloadNewerVersions());
-        checkBoxDisplaySearchButton.setSelected(
-            UserSettings.INSTANCE.isDisplaySearchButton());
-        checkBoxIsAcceptHiddenDirectories.setSelected(
-            settings.isAcceptHiddenDirectories());
-        checkBoxAddFilenameToGpsLocationExport.setSelected(
-                settings.isAddFilenameToGpsLocationExport());
-        checkBoxExperimentalFileFormats.setSelected(
-                settings.isUseExperimentalFileFormats());
-        comboBoxIptcCharset.getModel().setSelectedItem(
-            UserSettings.INSTANCE.getIptcCharset());
-        comboBoxLogLevel.setSelectedItem(
-            settings.getLogLevel().getLocalizedName());
-        labelDatabaseDirectory.setText(
-            UserSettings.INSTANCE.getDatabaseDirectoryName());
-        labelDatabaseBackupDirectory.setText(
-            UserSettings.INSTANCE.getDatabaseBackupDirectoryName());
-        radioButtonCopyMoveFileConfirmOverwrite.setSelected(
-            settings.getCopyMoveFilesOptions().equals(
-                CopyFiles.Options.CONFIRM_OVERWRITE));
-        radioButtonCopyMoveFileRenameIfExists.setSelected(
-            settings.getCopyMoveFilesOptions().equals(
-                CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
+        checkBoxAutoDownloadCheck.setSelected(settings.isAutoDownloadNewerVersions());
+        checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
+        checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
+        checkBoxAddFilenameToGpsLocationExport.setSelected(settings.isAddFilenameToGpsLocationExport());
+        checkBoxExperimentalFileFormats.setSelected(settings.isUseExperimentalFileFormats());
+        comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
+        comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
+        labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
+        labelDatabaseBackupDirectory.setText(UserSettings.INSTANCE.getDatabaseBackupDirectoryName());
+        radioButtonCopyMoveFileConfirmOverwrite.setSelected(settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
+        radioButtonCopyMoveFileRenameIfExists.setSelected(settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         setIconDatabaseDirectory(true);
         setIconDatabaseDirectory(false);
     }

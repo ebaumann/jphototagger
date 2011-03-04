@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
@@ -30,18 +31,15 @@ import javax.swing.filechooser.FileSystemView;
  * @author Elmar Baumann
  */
 public final class IptcToXmpDialog extends Dialog implements ProgressListener {
-    private static final String KEY_DIRECTORY_NAME =
-        "org.jphototagger.program.view.dialogs.IptcToXmpDialog.LastDirectory";
-    private static final String KEY_INCLUDE_SUBDIRS =
-        "org.jphototagger.program.view.dialogs.IptcToXmpDialog.IncludeSubdirectories";
+    private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.LastDirectory";
+    private static final String KEY_INCLUDE_SUBDIRS = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.IncludeSubdirectories";
     private static final long serialVersionUID = 873528245237986989L;
-    private File              directory        = new File("");
-    private boolean           cancel           = true;
-    private List<File>        files;
+    private File directory = new File("");
+    private boolean cancel = true;
+    private List<File> files;
 
     public IptcToXmpDialog() {
-        super(GUI.getAppFrame(), false,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         MnemonicUtil.setMnemonics((Container) this);
@@ -49,8 +47,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString("Help.Url.IptcToXmpDialog"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.IptcToXmpDialog"));
     }
 
     /**
@@ -77,13 +74,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dlg =
-            new DirectoryChooser(
-                GUI.getAppFrame(), directory,
-                UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
-                           "IptcToXmpDialog.DirChooser");
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
@@ -121,10 +114,8 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-        checkBoxIncludeSubdirectories.setSelected(
-            settings.getBoolean(KEY_INCLUDE_SUBDIRS));
-        directory = new File(
-            UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
+        checkBoxIncludeSubdirectories.setSelected(settings.getBoolean(KEY_INCLUDE_SUBDIRS));
+        directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
         setIconToDirectoryLabel();
     }
 
@@ -133,15 +124,13 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
         settings.set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         settings.set(directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
-        settings.set(checkBoxIncludeSubdirectories.isSelected(),
-                     KEY_INCLUDE_SUBDIRS);
+        settings.set(checkBoxIncludeSubdirectories.isSelected(), KEY_INCLUDE_SUBDIRS);
         UserSettings.INSTANCE.writeToFile();
     }
 
     private void setIconToDirectoryLabel() {
         if ((directory != null) && directory.isDirectory()) {
-            labelDirectoryName.setIcon(
-                FileSystemView.getFileSystemView().getSystemIcon(directory));
+            labelDirectoryName.setIcon(FileSystemView.getFileSystemView().getSystemIcon(directory));
         }
     }
 
@@ -166,8 +155,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
         converter.addProgressListener(this);
 
-        Thread thread = new Thread(converter,
-                "JPhotoTagger: Writing IPTC to XMP sidecar files");
+        Thread thread = new Thread(converter, "JPhotoTagger: Writing IPTC to XMP sidecar files");
 
         thread.start();
         buttonCancel.setEnabled(true);
@@ -185,12 +173,11 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             directories.add(directory);
 
             if (checkBoxIncludeSubdirectories.isSelected()) {
-                directories.addAll(FileUtil.getSubDirsRecursive(directory,
-                    UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
+                Option showHiddenFiles = UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles();
+                directories.addAll(FileUtil.getSubDirsRecursive(directory, showHiddenFiles));
             }
 
-            return ImageFileFilterer.getImageFilesOfDirectories(
-                directories);
+            return ImageFileFilterer.getImageFilesOfDirectories(directories);
         } else {
             return Collections.unmodifiableList(files);
         }
@@ -214,11 +201,11 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
             @Override
             public void run() {
-        progressBar.setMinimum(evt.getMinimum());
-        progressBar.setMaximum(evt.getMaximum());
-        progressBar.setValue(evt.getValue());
-        checkCancel(evt);
-    }
+                progressBar.setMinimum(evt.getMinimum());
+                progressBar.setMaximum(evt.getMaximum());
+                progressBar.setValue(evt.getValue());
+                checkCancel(evt);
+            }
         });
     }
 
@@ -228,9 +215,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
             @Override
             public void run() {
-        progressBar.setValue(evt.getValue());
-        checkCancel(evt);
-    }
+                progressBar.setValue(evt.getValue());
+                checkCancel(evt);
+            }
         });
     }
 
@@ -240,11 +227,11 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
             @Override
             public void run() {
-        progressBar.setValue(evt.getValue());
-        cancel = true;
-        setEnabledButtons();
-        setVisible(false);
-    }
+                progressBar.setValue(evt.getValue());
+                cancel = true;
+                setEnabledButtons();
+                setVisible(false);
+            }
         });
     }
 

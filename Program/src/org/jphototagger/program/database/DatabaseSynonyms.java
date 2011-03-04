@@ -41,7 +41,8 @@ public final class DatabaseSynonyms extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("UPDATE synonyms SET synonym = ?" + " WHERE word = ? AND synonym = ?");
+            stmt = con.prepareStatement("UPDATE synonyms SET synonym = ?"
+                                        + " WHERE word = ? AND synonym = ?");
             stmt.setString(1, newSynonym);
             stmt.setString(2, word);
             stmt.setString(3, oldSynonym);
@@ -335,8 +336,9 @@ public final class DatabaseSynonyms extends Database {
     }
 
     private String getGetSynonymsOfSql() {
-        return "SELECT synonym FROM synonyms WHERE word = ?" + " UNION SELECT word FROM synonyms WHERE synonym = ?"
-               + " ORDER BY 1";
+        return "SELECT synonym FROM synonyms WHERE word = ?"
+                + " UNION SELECT word FROM synonyms WHERE synonym = ?"
+                + " ORDER BY 1";
     }
 
     /**

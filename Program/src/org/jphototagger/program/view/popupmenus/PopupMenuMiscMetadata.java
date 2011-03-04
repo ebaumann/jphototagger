@@ -48,16 +48,12 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
     }
 
     private void createMenuItems() {
-        itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemDelete"),
-                                   AppLookAndFeel.ICON_DELETE);
+        itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemDelete"), AppLookAndFeel.ICON_DELETE);
         itemExpandAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-        itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemRename"),
-                                   AppLookAndFeel.ICON_RENAME);
+        itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemRename"), AppLookAndFeel.ICON_RENAME);
         itemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
-        itemAddToEditPanel =
-            new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionAddToEditPanel"));
-        itemRemoveFromEditPanel =
-            new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionRemoveFromEditPanel"));
+        itemAddToEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionAddToEditPanel"));
+        itemRemoveFromEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionRemoveFromEditPanel"));
     }
 
     @Override

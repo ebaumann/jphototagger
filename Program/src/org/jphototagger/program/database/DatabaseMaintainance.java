@@ -117,7 +117,7 @@ public final class DatabaseMaintainance extends Database {
      * @return count of deleted records
      */
     public int deleteNotReferenced1n() {
-        String sqlTemplate = "DELETE FROM {0} WHERE ID NOT IN" + " (SELECT DISTINCT {1} from {2})";
+        String sqlTemplate = "DELETE FROM {0} WHERE ID NOT IN (SELECT DISTINCT {1} from {2})";
         Connection con = null;
         Statement stmt = null;
         int deleted = 0;

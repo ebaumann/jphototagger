@@ -12,13 +12,11 @@ import org.jphototagger.lib.dialog.Dialog;
  * @author Elmar Baumann
  */
 public class ExportImportDialog extends Dialog implements ExportImportListener {
-    private static final long               serialVersionUID =
-        8937656035473070405L;
+    private static final long serialVersionUID = 8937656035473070405L;
     private final ExportImportPanel.Context context;
 
     public ExportImportDialog(ExportImportPanel.Context context) {
-        super(GUI.getAppFrame(), UserSettings.INSTANCE.getSettings(),
-              "ExportImportDialog");
+        super(GUI.getAppFrame(), UserSettings.INSTANCE.getSettings(), "ExportImportDialog");
 
         if (context == null) {
             throw new NullPointerException("context == null");
@@ -31,16 +29,12 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
 
     private void postInitComponents() {
         setTitle(context.equals(ExportImportPanel.Context.EXPORT)
-                 ? JptBundle.INSTANCE.getString(
-                     "ExportImportDialog.Title.Export")
-                 : JptBundle.INSTANCE.getString(
-                     "ExportImportDialog.Title.Import"));
+                 ? JptBundle.INSTANCE.getString("ExportImportDialog.Title.Export")
+                 : JptBundle.INSTANCE.getString("ExportImportDialog.Title.Import"));
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
         setHelpPageUrl(context.equals(ExportImportPanel.Context.EXPORT)
-                       ? JptBundle.INSTANCE.getString(
-                           "Help.Url.ExportImportDialog.Export")
-                       : JptBundle.INSTANCE.getString(
-                           "Help.Url.ExportImportDialog.Import"));
+                       ? JptBundle.INSTANCE.getString("Help.Url.ExportImportDialog.Export")
+                       : JptBundle.INSTANCE.getString("Help.Url.ExportImportDialog.Import"));
         panelExportImport.setContext(context);
         panelExportImport.addListener(this);
     }

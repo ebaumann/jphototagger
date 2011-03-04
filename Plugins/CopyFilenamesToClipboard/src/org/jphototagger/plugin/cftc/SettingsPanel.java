@@ -18,10 +18,10 @@ import javax.swing.JList;
  * @author Elmar Baumann
  */
 public class SettingsPanel extends javax.swing.JPanel {
-    private static final long       serialVersionUID = -8198418342037889703L;
-    private final DelimiterModel    model            = new DelimiterModel();
-    private final DelimiterRenderer renderer         = new DelimiterRenderer();
-    private final Properties        properties;
+    private static final long serialVersionUID = -8198418342037889703L;
+    private final DelimiterModel model = new DelimiterModel();
+    private final DelimiterRenderer renderer = new DelimiterRenderer();
+    private final Properties properties;
 
     public SettingsPanel(Properties properties) {
         this.properties = properties;
@@ -31,8 +31,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void setPersistentModelValue() {
         if (properties != null) {
-            String delim = properties.getProperty(
-                               CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER);
+            String delim = properties.getProperty(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER);
 
             if (delim == null) {
                 delim = CopyFilenamesToClipboard.DEFAULT_FILENAME_DELIMITER;
@@ -43,27 +42,20 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private static class DelimiterModel extends DefaultComboBoxModel {
-        private static final long    serialVersionUID = 78207540460538249L;
-        private final ResourceBundle rb               =
-            ResourceBundle.getBundle("org/jphototagger/plugin/cftc/Bundle");
-        private final Map<String, String> descriptionOfDelimiter =
-            new LinkedHashMap<String, String>();
+        private static final long serialVersionUID = 78207540460538249L;
+        private final ResourceBundle rb = ResourceBundle.getBundle("org/jphototagger/plugin/cftc/Bundle");
+        private final Map<String, String> descriptionOfDelimiter = new LinkedHashMap<String, String>();
 
         DelimiterModel() {
             addElements();
         }
 
         private void addElements() {
-            descriptionOfDelimiter.put(
-                "\n", rb.getString("DelimiterModel.Description.Newline"));
-            descriptionOfDelimiter.put(
-                " ", rb.getString("DelimiterModel.Description.Space"));
-            descriptionOfDelimiter.put(
-                "\t", rb.getString("DelimiterModel.Description.Tab"));
-            descriptionOfDelimiter.put(
-                ";", rb.getString("DelimiterModel.Description.Semicolon"));
-            descriptionOfDelimiter.put(
-                ":", rb.getString("DelimiterModel.Description.Colon"));
+            descriptionOfDelimiter.put("\n", rb.getString("DelimiterModel.Description.Newline"));
+            descriptionOfDelimiter.put(" ", rb.getString("DelimiterModel.Description.Space"));
+            descriptionOfDelimiter.put("\t", rb.getString("DelimiterModel.Description.Tab"));
+            descriptionOfDelimiter.put(";", rb.getString("DelimiterModel.Description.Semicolon"));
+            descriptionOfDelimiter.put(":", rb.getString("DelimiterModel.Description.Colon"));
 
             for (String key : descriptionOfDelimiter.keySet()) {
                 addElement(key);
@@ -78,9 +70,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private void writeDelimiter() {
         if (properties != null) {
-            properties.setProperty(
-                CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER,
-                model.getSelectedItem().toString());
+            properties.setProperty(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER, model.getSelectedItem().toString());
         }
     }
 
@@ -88,17 +78,14 @@ public class SettingsPanel extends javax.swing.JPanel {
         private static final long serialVersionUID = -2721860017412493615L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value,
-                int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list,
-                               value, index, isSelected, cellHasFocus);
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof String) {
-                String delimiter   = (String) value;
+                String delimiter = (String) value;
                 String description = model.getDescription(delimiter);
 
-                assert description != null :
-                       "No description of delimiter " + delimiter;
+                assert description != null : "No description of delimiter " + delimiter;
 
                 if (description != null) {
                     label.setText(description);

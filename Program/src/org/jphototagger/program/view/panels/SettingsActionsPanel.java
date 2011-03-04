@@ -32,13 +32,10 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
  * @author Elmar Baumann
  */
 public class SettingsActionsPanel extends javax.swing.JPanel
-        implements DatabaseProgramsListener, ListSelectionListener,
-                   Persistence {
-    private static final long                      serialVersionUID =
-        6440789488453905704L;
-    private final ListModelActionsAfterDbInsertion model            =
-        new ListModelActionsAfterDbInsertion();
-    private volatile boolean listenToModel                          = true;
+        implements DatabaseProgramsListener, ListSelectionListener, Persistence {
+    private static final long serialVersionUID = 6440789488453905704L;
+    private final ListModelActionsAfterDbInsertion model = new ListModelActionsAfterDbInsertion();
+    private volatile boolean listenToModel = true;
 
     public SettingsActionsPanel() {
         initComponents();
@@ -55,18 +52,15 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void addAccelerators() {
-        menuItemAddAction.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
-        menuItemMoveDownAction.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
-        menuItemMoveUpAction.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
+        menuItemAddAction.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        menuItemMoveDownAction.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
+        menuItemMoveUpAction.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
     }
 
     private void setEnabled() {
         boolean actionSelected = isActionSelected();
-        boolean canMoveUp      = canMoveUp();
-        boolean canMoveDown    = canMoveDown();
+        boolean canMoveUp = canMoveUp();
+        boolean canMoveDown = canMoveDown();
 
         setEnabledAddAction();
         buttonDeleteAction.setEnabled(actionSelected);
@@ -164,8 +158,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void executeActionsIfXmpExists() {
-        UserSettings.INSTANCE
-            .setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
+        UserSettings.INSTANCE.setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
                 radioButtonExecuteIfImageHasXmp.isSelected());
     }
 
@@ -173,11 +166,9 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
 
-        radioButtonExecuteAlways.setSelected(
-            settings.isExecuteActionsAfterImageChangeInDbAlways());
-        radioButtonExecuteIfImageHasXmp
-            .setSelected(settings
-                .isExecuteActionsAfterImageChangeInDbIfImageHasXmp());
+        radioButtonExecuteAlways.setSelected(settings.isExecuteActionsAfterImageChangeInDbAlways());
+        radioButtonExecuteIfImageHasXmp.setSelected(
+                settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp());
     }
 
     @Override
@@ -230,7 +221,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         }
     }
     private void reorderPrograms() {
-        int           size     = model.getSize();
+        int size = model.getSize();
         List<Program> programs = new ArrayList<Program>(size);
 
         for (int i = 0; i < size; i++) {
@@ -247,8 +238,8 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
                 @Override
                 public void run() {
-            setEnabledAddAction();
-        }
+                    setEnabledAddAction();
+                }
             });
     }
     }
@@ -260,8 +251,8 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
                 @Override
                 public void run() {
-            setEnabledAddAction();
-        }
+                    setEnabledAddAction();
+                }
             });
     }
     }

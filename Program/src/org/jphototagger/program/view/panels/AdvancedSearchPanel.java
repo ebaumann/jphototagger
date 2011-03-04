@@ -40,26 +40,18 @@ import org.jphototagger.program.helper.SavedSearchesHelper;
  *
  * @author Elmar Baumann
  */
-public final class AdvancedSearchPanel extends javax.swing.JPanel
-        implements Persistence {
-    private static final String KEY_SELECTED_TAB_INDEX =
-        "AdvancedSearchPanel.SelectedTabIndex";
-    private static final long             serialVersionUID   =
-        -4036432653670374380L;
-    private final List<SearchColumnPanel> searchColumnPanels =
-        new LinkedList<SearchColumnPanel>();
-    private final Map<Component, Component> defaultInputOfComponent =
-        new HashMap<Component, Component>();
-    private final Map<JButton, SearchColumnPanel> searchPanelOfRemoveButton =
-        new HashMap<JButton, SearchColumnPanel>();
-    private String                                searchName      =
-            JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName");
-    private boolean                               isSavedSearch;
-    private boolean                               columnRemoved;
-    private boolean                               customSqlChanged;
-    private final transient ListenerSupport<NameListener> ls =
-        new ListenerSupport<NameListener>();
-    private final JPanel                          panelPadding    = new JPanel();
+public final class AdvancedSearchPanel extends javax.swing.JPanel implements Persistence {
+    private static final String KEY_SELECTED_TAB_INDEX = "AdvancedSearchPanel.SelectedTabIndex";
+    private static final long serialVersionUID = -4036432653670374380L;
+    private final List<SearchColumnPanel> searchColumnPanels = new LinkedList<SearchColumnPanel>();
+    private final Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
+    private final Map<JButton, SearchColumnPanel> searchPanelOfRemoveButton = new HashMap<JButton, SearchColumnPanel>();
+    private String searchName = JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName");
+    private boolean isSavedSearch;
+    private boolean columnRemoved;
+    private boolean customSqlChanged;
+    private final transient ListenerSupport<NameListener> ls = new ListenerSupport<NameListener>();
+    private final JPanel panelPadding = new JPanel();
 
     public interface NameListener {
         void nameChanged(String newName);
@@ -74,8 +66,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         panelPadding.setSize(10, 2);
         listenToSearchPanels();
         setAutocomplete();
-        panelKeywordsInput.setBundleKeyPosRenameDialog(
-            "AdvancedSearchPanel.Keywords.RenameDialog.Pos");
+        panelKeywordsInput.setBundleKeyPosRenameDialog("AdvancedSearchPanel.Keywords.RenameDialog.Pos");
         setDefaultInputOfComponent();
         setFocusToInputInTab(tabbedPane.getSelectedComponent());
         MnemonicUtil.setMnemonics((Container) this);
@@ -88,22 +79,21 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void setDefaultInputOfComponent() {
-        defaultInputOfComponent.put(panelKeywords,
-                                    panelKeywordsInput.textAreaInput);
+        defaultInputOfComponent.put(panelKeywords, panelKeywordsInput.textAreaInput);
         defaultInputOfComponent.put(panelCustomSql, textAreaCustomSqlQuery);
     }
 
     private void addPanelPadding() {
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridx      = 0;
-        gbc.gridy      = GridBagConstraints.RELATIVE;
-        gbc.weightx    = 1;
-        gbc.weighty    = 1;
-        gbc.gridwidth  = 1;
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridwidth = 1;
         gbc.gridheight = GridBagConstraints.REMAINDER;
-        gbc.anchor     = GridBagConstraints.NORTHWEST;
-        gbc.fill       = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.fill = GridBagConstraints.BOTH;
 
         panelColumns.add(panelPadding, gbc);
     }
@@ -154,27 +144,22 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     public void willDispose() {
         checkChanged();
-        isSavedSearch    = false;
-        columnRemoved    = false;
+        isSavedSearch = false;
+        columnRemoved = false;
         customSqlChanged = false;
-        setSearchName(JptBundle.INSTANCE.getString(
-                                          "AdvancedSearchPanel.UndefinedName"));
+        setSearchName(JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName"));
     }
 
     @Override
     public void readProperties() {
-        if (UserSettings.INSTANCE.getProperties().containsKey(
-                KEY_SELECTED_TAB_INDEX)) {
-            tabbedPane.setSelectedIndex(
-                UserSettings.INSTANCE.getSettings().getInt(
-                    KEY_SELECTED_TAB_INDEX));
+        if (UserSettings.INSTANCE.getProperties().containsKey(KEY_SELECTED_TAB_INDEX)) {
+            tabbedPane.setSelectedIndex(UserSettings.INSTANCE.getSettings().getInt(KEY_SELECTED_TAB_INDEX));
         }
     }
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(tabbedPane.getSelectedIndex(),
-                KEY_SELECTED_TAB_INDEX);
+        UserSettings.INSTANCE.getSettings().set(tabbedPane.getSelectedIndex(), KEY_SELECTED_TAB_INDEX);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -186,9 +171,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
             return true;
         }
 
-        boolean valid       = existsKeywords();
-        int     columnCount = searchColumnPanels.size();
-        int     index = 0;
+        boolean valid = existsKeywords();
+        int columnCount = searchColumnPanels.size();
+        int index = 0;
 
         while (!valid && (index < columnCount)) {
             valid = !searchColumnPanels.get(index++).getValue().isEmpty();
@@ -197,29 +182,27 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         valid = valid && checkBrackets();
 
         if (!valid) {
-            MessageDisplayer.error(this,
-                                   "AdvancedSearchPanel.Error.InvalidQuery");
+            MessageDisplayer.error(this, "AdvancedSearchPanel.Error.InvalidQuery");
         }
 
         return valid;
     }
 
     private boolean checkConsistent() {
-        if (existsCustomSqlText() &&
-                (existsKeywords() || existsSimpleSqlValue())) {
-            MessageDisplayer.error(
-                    this, "AdvancedSearchPanel.Error.Inconsistent");
+        if (existsCustomSqlText() && (existsKeywords() || existsSimpleSqlValue())) {
+            MessageDisplayer.error(this, "AdvancedSearchPanel.Error.Inconsistent");
             return false;
         }
+
         return true;
     }
 
     private boolean checkBrackets() {
-        int countOpenBrackets   = 0;
+        int countOpenBrackets = 0;
         int countClosedBrackets = 0;
 
         for (SearchColumnPanel panel : searchColumnPanels) {
-            countOpenBrackets   += panel.getCountOpenBrackets();
+            countOpenBrackets += panel.getCountOpenBrackets();
             countClosedBrackets += panel.getCountClosedBrackets();
         }
 
@@ -228,8 +211,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private void search() {
         if (checkIsSearchValid()) {
-            ControllerFactory.INSTANCE.getController(
-                    ControllerAdvancedSearch.class).actionPerformed(null);
+            ControllerFactory.INSTANCE.getController(ControllerAdvancedSearch.class).actionPerformed(null);
         }
     }
 
@@ -269,18 +251,21 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         }
 
         if (!search.isValid()) {
-            assert false : search;
             return;
         }
+
         clearInput(true);
         isSavedSearch = true;
         setSearchName(search.getName());
+
         if (search.hasPanels()) {
             setSavedSearchPanels(search.getPanels());
         }
+
         if (search.hasKeywords()) {
             setKeywordsToPanel(search);
         }
+
         setCustomSqlToPanel(search);
 
         JPanel selPanel = existsCustomSqlText()
@@ -370,8 +355,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void addColumn() {
-        GridBagConstraints gbc     =  getColumnGridBagConstraints();
-        SearchColumnPanel  scPanel = new SearchColumnPanel();
+        GridBagConstraints gbc =  getColumnGridBagConstraints();
+        SearchColumnPanel scPanel = new SearchColumnPanel();
 
         panelColumns.remove(panelPadding);
         panelColumns.add(scPanel, gbc);
@@ -387,14 +372,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     private GridBagConstraints getColumnGridBagConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.gridx      = 0;
-        gbc.gridy      = GridBagConstraints.RELATIVE;
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.gridwidth  = GridBagConstraints.REMAINDER;
         gbc.gridheight = 1;
-        gbc.weightx    = 1.0;
-        gbc.weighty    = 0;
-        gbc.fill       = GridBagConstraints.HORIZONTAL;
-        gbc.anchor     = GridBagConstraints.NORTHWEST;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
         return gbc;
     }
@@ -405,8 +390,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         public void actionPerformed(ActionEvent evt) {
             assert evt.getSource() instanceof JButton : evt.getSource();
 
-            SearchColumnPanel panel =
-                    searchPanelOfRemoveButton.get((JButton) evt.getSource());
+            SearchColumnPanel panel = searchPanelOfRemoveButton.get((JButton) evt.getSource());
 
             if (panel != null) {
                 removeColumn(panel);
@@ -420,9 +404,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
         addPanelPadding();
         searchColumnPanels.remove(scPanel);
         searchPanelOfRemoveButton.remove(scPanel.buttonRemoveColumn);
+
         if (scPanel.canCreateSql()) {
             columnRemoved = true;
         }
+
         setFirstColumn();
         ComponentUtil.forceRepaint(this);
     }
@@ -448,11 +434,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private void checkChanged() {
-        if (columnRemoved || columnChanged() || customSqlChanged
-                || panelKeywordsInput.isDirty()) {
+        if (columnRemoved || columnChanged() || customSqlChanged || panelKeywordsInput.isDirty()) {
 
-            if (MessageDisplayer.confirmYesNo(
-                    this, "AdvancedSearchPanel.Confirm.SaveChanges")) {
+            if (MessageDisplayer.confirmYesNo(this, "AdvancedSearchPanel.Confirm.SaveChanges")) {
                 save(createSavedSearch(), true);
             }
         }
@@ -526,12 +510,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
 
     private void setSavedSearchPanels(SavedSearch search) {
         List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
-        int                    size   = searchColumnPanels.size();
-        int                    pIndex = 0;
+        int size = searchColumnPanels.size();
+        int pIndex = 0;
 
         for (int index = 0; index < size; index++) {
-            SearchColumnPanel panel            = searchColumnPanels.get(index);
-            SavedSearchPanel  savedSearchPanel = panel.getSavedSearchPanel();
+            SearchColumnPanel panel = searchColumnPanels.get(index);
+            SavedSearchPanel savedSearchPanel = panel.getSavedSearchPanel();
 
             if (savedSearchPanel.hasValue()) {
                 savedSearchPanel.setPanelIndex(pIndex++);
@@ -573,10 +557,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel
     }
 
     private List<String> getKeywords() {
-        String             textFieldText = panelKeywordsInput.getText();
-        Collection<String> listText      =
-                                         panelKeywordsInput.getRepeatableText();
-        List<String>       keywords      = new ArrayList<String>(listText);
+        String textFieldText = panelKeywordsInput.getText();
+        Collection<String> listText = panelKeywordsInput.getRepeatableText();
+        List<String> keywords = new ArrayList<String>(listText);
 
         if (!textFieldText.isEmpty()) {
             keywords.add(textFieldText);

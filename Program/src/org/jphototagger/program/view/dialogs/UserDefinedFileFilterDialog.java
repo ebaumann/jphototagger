@@ -14,16 +14,14 @@ public class UserDefinedFileFilterDialog extends Dialog {
     private static final long serialVersionUID = -1671508580095511987L;
 
     public UserDefinedFileFilterDialog() {
-        super(GUI.getAppFrame(), true,
-                UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString(
-                "Help.Url.UserDefinedFileFilter"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UserDefinedFileFilter"));
     }
 
     /** This method is called from within the constructor to

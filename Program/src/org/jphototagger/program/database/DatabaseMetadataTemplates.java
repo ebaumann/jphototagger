@@ -71,7 +71,8 @@ public class DatabaseMetadataTemplates extends Database {
             con = getConnection();
             con.setAutoCommit(false);
 
-            String sql = "INSERT INTO metadata_edit_templates (" + "name"    // --  1 --
+            String sql = "INSERT INTO metadata_edit_templates ("
+                         + "name"    // --  1 --
                          + ", dcSubjects"    // --  2 --
                          + ", dcTitle"    // --  3 --
                          + ", photoshopHeadline"    // --  4 --
@@ -534,7 +535,7 @@ public class DatabaseMetadataTemplates extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*)" + " FROM metadata_edit_templates WHERE name = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
             logFinest(stmt);
             rs = stmt.executeQuery();

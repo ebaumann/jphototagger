@@ -135,7 +135,7 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getInsertSavedSearchKeywordsSql() {
-        return "INSERT INTO saved_searches_keywords " + "(id_saved_search, keyword) VALUES (?, ?)";
+        return "INSERT INTO saved_searches_keywords (id_saved_search, keyword) VALUES (?, ?)";
     }
 
     private void insertSavedSearchKeywords(Connection con, long idSavedSearch, List<String> keywords)
@@ -330,7 +330,7 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getFindSql() {
-        return "SELECT name, custom_sql, search_type" + " FROM saved_searches WHERE name = ?";
+        return "SELECT name, custom_sql, search_type FROM saved_searches WHERE name = ?";
     }
 
     public SavedSearch find(String name) {
@@ -379,7 +379,7 @@ public final class DatabaseSavedSearches extends Database {
     }
 
     private String getGetAllSql() {
-        return "SELECT name, custom_sql, search_type" + " FROM saved_searches ORDER BY name";
+        return "SELECT name, custom_sql, search_type FROM saved_searches ORDER BY name";
     }
 
     /**
@@ -456,8 +456,10 @@ public final class DatabaseSavedSearches extends Database {
                + ", saved_searches_panels.comparator_id"    // -- 6 --
                + ", saved_searches_panels.value"    // -- 7 --
                + ", saved_searches_panels.bracket_right"    // -- 8 --
-               + " FROM saved_searches_panels INNER JOIN saved_searches" + " ON saved_searches_panels.id_saved_search"
-               + " = saved_searches.id AND saved_searches.name = ?" + " ORDER BY saved_searches_panels.panel_index ASC";
+               + " FROM saved_searches_panels INNER JOIN saved_searches"
+               + " ON saved_searches_panels.id_saved_search"
+               + " = saved_searches.id AND saved_searches.name = ?"
+               + " ORDER BY saved_searches_panels.panel_index ASC";
     }
 
     private void setSavedSearchPanels(Connection con, SavedSearch savedSearch) throws SQLException {
@@ -495,7 +497,8 @@ public final class DatabaseSavedSearches extends Database {
     private String getSetSavedSearchKeywordsSql() {
         return "SELECT keyword"    // -- 1 --
                + " FROM saved_searches_keywords INNER JOIN saved_searches"
-               + " ON saved_searches_keywords.id_saved_search" + " = saved_searches.id AND saved_searches.name = ?"
+               + " ON saved_searches_keywords.id_saved_search"
+               + " = saved_searches.id AND saved_searches.name = ?"
                + " ORDER BY keyword ASC";
     }
 

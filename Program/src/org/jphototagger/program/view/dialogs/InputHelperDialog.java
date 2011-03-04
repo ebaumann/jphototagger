@@ -19,16 +19,13 @@ import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
  * @author Elmar Baumann
  */
 public class InputHelperDialog extends Dialog {
-    public static final InputHelperDialog INSTANCE                  =
-        new InputHelperDialog();
-    private static final String           KEY_SEL_INDEX_TABBED_PANE =
-        "InputHelperDialog.SelIndexTabbedPane";
-    private static final String KEY_TREE_MISC_XMP = "InputHelperDialog.TreeMiscXmpMetadata";
     private static final long serialVersionUID = 38960516048549937L;
+    public static final InputHelperDialog INSTANCE = new InputHelperDialog();
+    private static final String KEY_SEL_INDEX_TABBED_PANE = "InputHelperDialog.SelIndexTabbedPane";
+    private static final String KEY_TREE_MISC_XMP = "InputHelperDialog.TreeMiscXmpMetadata";
 
     public InputHelperDialog() {
-        super(GUI.getAppFrame(), false,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
         TabbedPaneUtil.setMnemonics(tabbedPane);
@@ -61,13 +58,11 @@ public class InputHelperDialog extends Dialog {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         panelKeywords.readProperties();
-        settings.applySettings(panelMiscXmpMetadata.getTree(),
-                KEY_TREE_MISC_XMP);
+        settings.applySettings(panelMiscXmpMetadata.getTree(), KEY_TREE_MISC_XMP);
 
         int selIndexTabbedPane = settings.getInt(KEY_SEL_INDEX_TABBED_PANE);
 
-        if ((selIndexTabbedPane >= 0)
-                && (selIndexTabbedPane < tabbedPane.getTabCount())) {
+        if ((selIndexTabbedPane >= 0) && (selIndexTabbedPane < tabbedPane.getTabCount())) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
         }
     }

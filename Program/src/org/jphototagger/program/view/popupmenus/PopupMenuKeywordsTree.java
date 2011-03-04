@@ -27,38 +27,19 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuKeywordsTree extends JPopupMenu {
     private static final long serialVersionUID = 2140903704744267916L;
     public static final PopupMenuKeywordsTree INSTANCE = new PopupMenuKeywordsTree();
-    private final JMenuItem itemAdd =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddKeyword"),
-                      AppLookAndFeel.ICON_NEW);
-    private final JMenuItem itemAddToEditPanel =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddToEditPanel"));
-    private final JMenuItem itemRemove =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword"),
-                      AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemRename =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"),
-                      AppLookAndFeel.ICON_RENAME);
-    private final JMenuItem itemToggleReal =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionToggleReal"));
-    private final JMenuItem itemRemoveFromEditPanel =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveFromEditPanel"));
-    private final JMenuItem itemPaste =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionPaste"),
-                      AppLookAndFeel.ICON_PASTE);
-    private final JMenuItem itemExpandAllSubitems =
-        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final JMenuItem itemDisplayImagesKw =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImagesKw"));
-    private final JMenuItem itemDisplayImages =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImages"));
-    private final JMenuItem itemCut =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCut"),
-                      AppLookAndFeel.ICON_CUT);
-    private final JMenuItem itemCopy =
-        new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy"),
-                      AppLookAndFeel.ICON_COPY);
-    private final JMenuItem itemCollapseAllSubitems =
-        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private final JMenuItem itemAdd = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddKeyword"), AppLookAndFeel.ICON_NEW);
+    private final JMenuItem itemAddToEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionAddToEditPanel"));
+    private final JMenuItem itemRemove = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveKeyword"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRenameKeyword"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemToggleReal = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionToggleReal"));
+    private final JMenuItem itemRemoveFromEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionRemoveFromEditPanel"));
+    private final JMenuItem itemPaste = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionPaste"), AppLookAndFeel.ICON_PASTE);
+    private final JMenuItem itemExpandAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
+    private final JMenuItem itemDisplayImagesKw = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImagesKw"));
+    private final JMenuItem itemDisplayImages = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionDisplayImages"));
+    private final JMenuItem itemCut = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCut"), AppLookAndFeel.ICON_CUT);
+    private final JMenuItem itemCopy = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy"), AppLookAndFeel.ICON_COPY);
+    private final JMenuItem itemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
     private JTree tree;
     private TreePath treePath;
     private TreePath[] treePaths;

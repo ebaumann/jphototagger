@@ -28,24 +28,20 @@ import org.jphototagger.lib.componentutil.LookAndFeelUtil;
  * @author Elmar Baumann
  */
 public final class ProgramPropertiesDialog extends Dialog {
-    private static final long   serialVersionUID = 5953007101307866505L;
-    private transient Program   program          = new Program();
-    private static final String KEY_LAST_DIR     =
-        "ProgramPropertiesDialog.LastDirectory";
-    private File lastDir =
-        new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIR));
-    private File               file;
-    private boolean            accecpted = false;
-    private boolean            action;
+    private static final long serialVersionUID = 5953007101307866505L;
+    private transient Program program = new Program();
+    private static final String KEY_LAST_DIR = "ProgramPropertiesDialog.LastDirectory";
+    private File lastDir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIR));
+    private File file;
+    private boolean accecpted = false;
+    private boolean action;
     private static final Color FG_COLOR_LABEL_FILE_EXISTS = Color.BLUE;
-    private static final Color BG_COLOR_LABEL_FILE_EXISTS =
-        LookAndFeelUtil.getUiColor("Label.background");
+    private static final Color BG_COLOR_LABEL_FILE_EXISTS = LookAndFeelUtil.getUiColor("Label.background");
     private static final Color FG_COLOR_LABEL_FILE_NOT_EXISTS = Color.WHITE;
     private static final Color BG_COLOR_LABEL_FILE_NOT_EXISTS = Color.RED;
 
     public ProgramPropertiesDialog(boolean action) {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         this.action = action;
         program.setAction(action);
         initComponents();
@@ -89,9 +85,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         if (exists) {
             labelErrorFileDoesNotExist.setText("<html> </html>");
         } else {
-            labelErrorFileDoesNotExist.setText(
-                JptBundle.INSTANCE.getString(
-                    "ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
+            labelErrorFileDoesNotExist.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
         }
 
         labelFile.setForeground(exists
@@ -108,10 +102,10 @@ public final class ProgramPropertiesDialog extends Dialog {
         }
 
         this.program = program;
-        file         = program.getFile();
+        file = program.getFile();
 
         String parametersBeforeFilename = program.getParametersBeforeFilename();
-        String parametersAfterFilename  = program.getParametersAfterFilename();
+        String parametersAfterFilename = program.getParametersAfterFilename();
 
         labelFile.setText(file.getAbsolutePath());
         textFieldAlias.setText(program.getAlias());
@@ -124,14 +118,10 @@ public final class ProgramPropertiesDialog extends Dialog {
                 ? ""
                 : parametersAfterFilename);
         checkBoxInputBeforeExecute.setSelected(program.isInputBeforeExecute());
-        checkBoxInputBeforeExecutePerFile.setSelected(
-            program.isInputBeforeExecutePerFile());
-        checkBoxInputBeforeExecutePerFile.setEnabled(
-            program.isInputBeforeExecute());
-        radioButtonSingleFileProcessingYes.setSelected(
-            program.isSingleFileProcessing());
-        radioButtonSingleFileProcessingNo.setSelected(
-            !program.isSingleFileProcessing());
+        checkBoxInputBeforeExecutePerFile.setSelected(program.isInputBeforeExecutePerFile());
+        checkBoxInputBeforeExecutePerFile.setEnabled(program.isInputBeforeExecute());
+        radioButtonSingleFileProcessingYes.setSelected(program.isSingleFileProcessing());
+        radioButtonSingleFileProcessingNo.setSelected(!program.isSingleFileProcessing());
         checkBoxChangeFile.setSelected(program.isChangeFile());
         checkBoxUsePattern.setSelected(program.isUsePattern());
 
@@ -147,15 +137,9 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void setActionTexts() {
-        setTitle(
-            JptBundle.INSTANCE.getString(
-                "ProgramPropertiesDialog.title.Action"));
-        labelFilePrompt.setText(
-            JptBundle.INSTANCE.getString(
-                "ProgramPropertiesDialog.labelFilePrompt.text.Action"));
-        labelAlias.setText(
-            JptBundle.INSTANCE.getString(
-                "ProgramPropertiesDialog.labelAlias.text.Action"));
+        setTitle(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.title.Action"));
+        labelFilePrompt.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action"));
+        labelAlias.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelAlias.text.Action"));
     }
 
     private void setProgramIcon() {
@@ -174,10 +158,8 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void accept() {
         if (inputsValid()) {
-            String parametersBeforeFilename =
-                textAreaParametersBeforeFilename.getText().trim();
-            String parametersAfterFilename =
-                textAreaParametersAfterFilename.getText().trim();
+            String parametersBeforeFilename = textAreaParametersBeforeFilename.getText().trim();
+            String parametersAfterFilename = textAreaParametersAfterFilename.getText().trim();
             String pattern = textAreaUsePattern.getText().trim();
 
             program.setAction(action);
@@ -190,12 +172,9 @@ public final class ProgramPropertiesDialog extends Dialog {
             program.setParametersAfterFilename(parametersAfterFilename.isEmpty()
                                                ? null
                                                : parametersAfterFilename);
-            program.setInputBeforeExecute(
-                checkBoxInputBeforeExecute.isSelected());
-            program.setInputBeforeExecutePerFile(
-                checkBoxInputBeforeExecutePerFile.isSelected());
-            program.setSingleFileProcessing(
-                radioButtonSingleFileProcessingYes.isSelected());
+            program.setInputBeforeExecute(checkBoxInputBeforeExecute.isSelected());
+            program.setInputBeforeExecutePerFile(checkBoxInputBeforeExecutePerFile.isSelected());
+            program.setSingleFileProcessing(radioButtonSingleFileProcessingYes.isSelected());
             program.setChangeFile(checkBoxChangeFile.isSelected());
             program.setUsePattern(checkBoxUsePattern.isSelected());
             program.setPattern(pattern.isEmpty()
@@ -204,8 +183,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             accecpted = true;
             setVisible(false);
         } else {
-            MessageDisplayer.error(this,
-                                   "ProgramPropertiesDialog.Error.MissingData");
+            MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.MissingData");
         }
     }
 
@@ -255,8 +233,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             return;
         }
 
-        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(),
-                KEY_LAST_DIR);
+        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(), KEY_LAST_DIR);
         UserSettings.INSTANCE.writeToFile();
         lastDir = dir;
     }
@@ -304,8 +281,7 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void showPatternHelp() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        help(JptBundle.INSTANCE.getString(
-            "Help.Url.Contents.ParameterSubstitution"));
+        help(JptBundle.INSTANCE.getString("Help.Url.Contents.ParameterSubstitution"));
     }
 
     /**

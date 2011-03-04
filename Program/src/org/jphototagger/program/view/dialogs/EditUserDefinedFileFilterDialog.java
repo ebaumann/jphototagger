@@ -24,15 +24,13 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     private final UserDefinedFileFilter udf = new UserDefinedFileFilter();
 
     public EditUserDefinedFileFilterDialog() {
-        super(GUI.getAppFrame(), true,
-                UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
 
     public EditUserDefinedFileFilterDialog(UserDefinedFileFilter filter) {
-        super(GUI.getAppFrame(), true,
-                UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
@@ -44,8 +42,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
 
     private void postInitComponents() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString(
-            "Help.Url.UserDefinedFileFilter.Edit"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UserDefinedFileFilter.Edit"));
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -64,17 +61,16 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
                 setVisible(false);
             }
         } else {
-            MessageDisplayer.error(this,
-                    "EditUserDefinedFileFilterDialog.Error.Valid");
+            MessageDisplayer.error(this, "EditUserDefinedFileFilterDialog.Error.Valid");
         }
     }
 
     private boolean checkName(String name) {
         if (DatabaseUserDefinedFileFilters.INSTANCE.exists(name)) {
-            MessageDisplayer.error(this,
-                    "EditUserDefinedFileFilterDialog.Error.NameExists", name);
+            MessageDisplayer.error(this, "EditUserDefinedFileFilterDialog.Error.NameExists", name);
             return false;
         }
+
         return true;
     }
 

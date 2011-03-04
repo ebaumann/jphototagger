@@ -25,12 +25,10 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
     private JTextArea textArea;
     private static final Color ERROR_BG = Color.RED;
     private final Color textFieldBg;
-    private final transient Highlighter                  hilit   =
-            new DefaultHighlighter();
-    private final transient Highlighter.HighlightPainter painter =
-            new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
-    private final List<Integer> foundIndices      = new ArrayList<Integer>();
-    private int                 currentFoundIndex = -1;
+    private final transient Highlighter hilit = new DefaultHighlighter();
+    private final transient Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+    private final List<Integer> foundIndices = new ArrayList<Integer>();
+    private int currentFoundIndex = -1;
 
     public TextAreaSearchPanel() {
         initComponents();
@@ -72,8 +70,7 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
                     textField.setBackground(textFieldBg);
                     return index;
                 } catch (BadLocationException ex) {
-                    Logger.getLogger(TextAreaSearchPanel.class.getName()).log(
-                            Level.SEVERE, null, ex);
+                    Logger.getLogger(TextAreaSearchPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (foundIndices.isEmpty()) {
                 textField.setBackground(ERROR_BG);
@@ -135,8 +132,8 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
             return;
         }
 
-        int     foundIndex = search(currentFoundIndex + 1);
-        boolean found      = foundIndex > 0;
+        int foundIndex = search(currentFoundIndex + 1);
+        boolean found = foundIndex > 0;
 
         synchronized (foundIndices) {
             if (found) {
@@ -146,6 +143,7 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
                         foundIndices.add(foundIndex);
                     }
             }
+
             buttonDown.setEnabled(found);
             buttonUp.setEnabled(found || !found && !foundIndices.isEmpty());
         }
@@ -158,7 +156,7 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
             }
 
             int indexCurFoundIndex = foundIndices.indexOf(currentFoundIndex);
-            int prevFoundIndex     = -1;
+            int prevFoundIndex = -1;
 
             if (indexCurFoundIndex > 0) {
                 prevFoundIndex = search(foundIndices.get(indexCurFoundIndex - 1));
@@ -167,6 +165,7 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
                 if (found) {
                     currentFoundIndex = prevFoundIndex;
                 }
+
                 buttonUp.setEnabled(foundIndices.indexOf(prevFoundIndex) > 0);
                 buttonDown.setEnabled(found);
             }

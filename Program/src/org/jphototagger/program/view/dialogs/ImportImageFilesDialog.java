@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -28,30 +29,21 @@ import javax.swing.JLabel;
  * @author Elmar Baumann
  */
 public class ImportImageFilesDialog extends Dialog {
-    private static final long   serialVersionUID = -8291157139781240235L;
-    private static final String KEY_LAST_SRC_DIR =
-        "ImportImageFiles.LastSrcDir";
-    private static final String KEY_LAST_TARGET_DIR =
-        "ImportImageFiles.LastTargetDir";
-    private static final String KEY_DEL_SRC_AFTER_COPY =
-        "ImportImageFiles.DelSrcAfterCopy";
-    private final FileSystemView fileSystemView =
-        FileSystemView.getFileSystemView();
-    private File sourceDir = new File(
-                                 UserSettings.INSTANCE.getSettings().getString(
-                                     KEY_LAST_SRC_DIR));
-    private File targetDir = new File(
-                                 UserSettings.INSTANCE.getSettings().getString(
-                                     KEY_LAST_TARGET_DIR));
+    private static final long serialVersionUID = -8291157139781240235L;
+    private static final String KEY_LAST_SRC_DIR = "ImportImageFiles.LastSrcDir";
+    private static final String KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
+    private static final String KEY_DEL_SRC_AFTER_COPY = "ImportImageFiles.DelSrcAfterCopy";
+    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private File sourceDir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_SRC_DIR));
+    private File targetDir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_TARGET_DIR));
     private final List<File> sourceFiles = new ArrayList<File>();
-    private boolean          filesChoosed;
-    private boolean          accepted;
-    private boolean          deleteSrcFilesAfterCopying;
-    private boolean          listenToCheckBox = true;
+    private boolean filesChoosed;
+    private boolean accepted;
+    private boolean deleteSrcFilesAfterCopying;
+    private boolean listenToCheckBox = true;
 
     public ImportImageFilesDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         init();
@@ -59,8 +51,7 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString("Help.Url.ImportImageFiles"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ImportImageFiles"));
     }
 
     private void init() {
@@ -79,11 +70,9 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void initDeleteSrcFilesAfterCopying() {
         listenToCheckBox = false;
-        checkBoxDeleteAfterCopy.setSelected(
-            UserSettings.INSTANCE.getSettings().getBoolean(
-                KEY_DEL_SRC_AFTER_COPY));
+        checkBoxDeleteAfterCopy.setSelected(UserSettings.INSTANCE.getSettings().getBoolean(KEY_DEL_SRC_AFTER_COPY));
         deleteSrcFilesAfterCopying = checkBoxDeleteAfterCopy.isSelected();
-        listenToCheckBox           = true;
+        listenToCheckBox = true;
     }
 
     public boolean isDeleteSourceFilesAfterCopying() {
@@ -150,7 +139,7 @@ public class ImportImageFilesDialog extends Dialog {
         }
 
         if (!targetDir.exists() || checkDirsDifferent(dir, targetDir)) {
-            sourceDir    = dir;
+            sourceDir = dir;
             filesChoosed = false;
             sourceFiles.clear();
             toSettings(KEY_LAST_SRC_DIR, dir);
@@ -162,8 +151,8 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void chooseSourceFiles() {
-        JFileChooser      fileChooser = new JFileChooser(sourceDir);
-        ImagePreviewPanel imgPanel    = new ImagePreviewPanel();
+        JFileChooser fileChooser = new JFileChooser(sourceDir);
+        ImagePreviewPanel imgPanel = new ImagePreviewPanel();
 
         fileChooser.setAccessory(imgPanel);
         fileChooser.addPropertyChangeListener(imgPanel);
@@ -230,20 +219,16 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void toSettings(String key, File dir) {
-        UserSettings.INSTANCE.getProperties().setProperty(key,
-                dir.getAbsolutePath());
+        UserSettings.INSTANCE.getProperties().setProperty(key, dir.getAbsolutePath());
         UserSettings.INSTANCE.writeToFile();
     }
 
     private File chooseDir(File startDir) {
-        DirectoryChooser dlg =
-            new DirectoryChooser(
-                GUI.getAppFrame(), startDir,
-                UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDir, showHiddenDirs);
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
-                        "ImportImageFilesDialog.DirChooser");
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "ImportImageFilesDialog.DirChooser");
         dlg.setVisible(true);
 
         return dlg.isAccepted()
@@ -258,8 +243,8 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void setFileLabel(File file, boolean multipleFiles) {
         labelChoosedFiles.setIcon(fileSystemView.getSystemIcon(file));
-        labelChoosedFiles.setText(StringUtil.getPrefixDotted(file.getName(),
-                20) + (multipleFiles
+        labelChoosedFiles.setText(StringUtil.getPrefixDotted(file.getName(), 20) +
+                (multipleFiles
                        ? ", ..."
                        : ""));
     }
@@ -280,8 +265,7 @@ public class ImportImageFilesDialog extends Dialog {
 
     private boolean dirsValid() {
         if (filesChoosed) {
-            return !sourceFiles.isEmpty()
-                   && targetDir.isDirectory() && dirsDifferent();
+            return !sourceFiles.isEmpty() && targetDir.isDirectory() && dirsDifferent();
         } else {
             return existsBothDirs() && dirsDifferent();
         }
@@ -297,8 +281,7 @@ public class ImportImageFilesDialog extends Dialog {
 
     private boolean checkDirsDifferent(File src, File tgt) {
         if (src.equals(tgt)) {
-            MessageDisplayer.error(this,
-                                   "ImportImageFilesDialog.Error.DirsEquals");
+            MessageDisplayer.error(this, "ImportImageFilesDialog.Error.DirsEquals");
 
             return false;
         }
@@ -314,18 +297,16 @@ public class ImportImageFilesDialog extends Dialog {
         boolean selected = checkBoxDeleteAfterCopy.isSelected();
 
         if (selected) {
-            if (!MessageDisplayer.confirmYesNo(
-                    this, "ImportImageFilesDialog.Confirm.DeleteAfterCopy")) {
+            if (!MessageDisplayer.confirmYesNo(this, "ImportImageFilesDialog.Confirm.DeleteAfterCopy")) {
                 listenToCheckBox = false;
-                selected         = false;
+                selected = false;
                 checkBoxDeleteAfterCopy.setSelected(false);
                 listenToCheckBox = true;
             }
         }
 
         deleteSrcFilesAfterCopying = selected;
-        UserSettings.INSTANCE.getSettings().set(deleteSrcFilesAfterCopying,
-                KEY_DEL_SRC_AFTER_COPY);
+        UserSettings.INSTANCE.getSettings().set(deleteSrcFilesAfterCopying, KEY_DEL_SRC_AFTER_COPY);
         UserSettings.INSTANCE.writeToFile();
     }
 

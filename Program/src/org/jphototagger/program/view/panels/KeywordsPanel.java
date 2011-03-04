@@ -27,9 +27,8 @@ import org.jphototagger.program.model.TreeModelWait;
  */
 public class KeywordsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 5968799511284000903L;
-    private String            keyTree          =
-        "KeywordsPanel.Tree.SelectedNode";
-    private String            keyCard          = "KeywordsPanel.Card";
+    private String keyTree = "KeywordsPanel.Tree.SelectedNode";
+    private String keyCard = "KeywordsPanel.Card";
 
     public KeywordsPanel() {
         initComponents();
@@ -37,8 +36,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
     }
 
     private void postInitComponents() {
-        tree.getSelectionModel().setSelectionMode(
-            TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -132,10 +130,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         TreeUtil.expandAll(tree, selected);
         buttonToggleExpandAllNodes.setText(selected
-                                           ? JptBundle.INSTANCE.getString(
-                                           "KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                                           : JptBundle.INSTANCE.getString(
-                                           "KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                                           ? JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                                           : JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     /**

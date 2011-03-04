@@ -121,7 +121,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT id_program FROM actions_after_db_insertion" + " ORDER BY action_order ASC";
+            String sql = "SELECT id_program FROM actions_after_db_insertion ORDER BY action_order ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -164,7 +164,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) " + " FROM actions_after_db_insertion"
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM actions_after_db_insertion"
                                         + " WHERE id_program = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);

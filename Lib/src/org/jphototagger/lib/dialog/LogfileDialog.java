@@ -47,20 +47,17 @@ import javax.swing.text.html.HTMLDocument;
  *
  * @author Elmar Baumann
  */
-public final class LogfileDialog extends Dialog
-        implements ListSelectionListener, ActionListener {
-    private static final long           serialVersionUID  = 1L;
-    public static final long            DEFAULT_MAX_BYTES = 10 * 1024 * 1024;
-    private long                        maxBytes          = DEFAULT_MAX_BYTES;
-    private final Map<JCheckBox, Level> levelOfCheckBox   =
-        new HashMap<JCheckBox, Level>();
-    private final Map<Class<?>, Integer> paneIndexOfFormatterClass =
-        new HashMap<Class<?>, Integer>();
-    private final List<Level>   visibleLevels = new ArrayList<Level>();
-    private String              filterString;
+public final class LogfileDialog extends Dialog implements ListSelectionListener, ActionListener {
+    private static final long serialVersionUID  = 1L;
+    public static final long  DEFAULT_MAX_BYTES = 10 * 1024 * 1024;
+    private long maxBytes = DEFAULT_MAX_BYTES;
+    private final Map<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
+    private final Map<Class<?>, Integer> paneIndexOfFormatterClass = new HashMap<Class<?>, Integer>();
+    private final List<Level> visibleLevels = new ArrayList<Level>();
+    private String filterString;
     private List<LogfileRecord> logfileRecords;
-    private Class<?>            formatterClass;
-    private String              logfilename;
+    private Class<?> formatterClass;
+    private String logfilename;
 
     private void initPaneIndexOfLogfileType() {
         paneIndexOfFormatterClass.put(XMLFormatter.class, 0);
@@ -74,8 +71,7 @@ public final class LogfileDialog extends Dialog
      * @param logfilename     Name der anzuzeigenden Logdatei
      * @param formatterClass  Formatierer der Logdatei
      */
-    public LogfileDialog(Frame parent, String logfilename,
-                         Class<?> formatterClass) {
+    public LogfileDialog(Frame parent, String logfilename, Class<?> formatterClass) {
         super(parent, false);
 
         if (logfilename == null) {
@@ -107,10 +103,8 @@ public final class LogfileDialog extends Dialog
 
     private void initTableLogfileRecords() {
         tableLogfileRecords.getSelectionModel().addListSelectionListener(this);
-        tableLogfileRecords.getColumnModel().getSelectionModel()
-            .addListSelectionListener(this);
-        tableLogfileRecords.setDefaultRenderer(Object.class,
-                new TableCellRendererLogfileDialog());
+        tableLogfileRecords.getColumnModel().getSelectionModel().addListSelectionListener(this);
+        tableLogfileRecords.setDefaultRenderer(Object.class, new TableCellRendererLogfileDialog());
     }
 
     private void initLevelOfCheckbox() {
@@ -138,11 +132,9 @@ public final class LogfileDialog extends Dialog
 
         if (simple) {
             try {
-                textAreaSimple.setText(FileUtil.getContentAsString(
-                        new File(logfilename), "UTF-8"));
+                textAreaSimple.setText(FileUtil.getContentAsString(new File(logfilename), "UTF-8"));
             } catch (IOException ex) {
-                Logger.getLogger(LogfileDialog.class.getName())
-                        .log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogfileDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             readLogfileRecords();
@@ -183,19 +175,17 @@ public final class LogfileDialog extends Dialog
     }
 
     private void errorMessageEmpty() throws HeadlessException {
-        JOptionPane.showMessageDialog(this, JslBundle.INSTANCE.getString(
-                "LogfileDialog.Error.LogfileIsEmpty"),
-                    JslBundle.INSTANCE.getString(
-                        "LogfileDialog.Error.LogfileIsEmpty.Title"),
-                 JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                    JslBundle.INSTANCE.getString("LogfileDialog.Error.LogfileIsEmpty"),
+                    JslBundle.INSTANCE.getString("LogfileDialog.Error.LogfileIsEmpty.Title"),
+                    JOptionPane.ERROR_MESSAGE);
     }
 
     private void errorMessageMaxBytes(long logfileBytes) {
-        JOptionPane.showMessageDialog(this, JslBundle.INSTANCE.getString(
-                "LogfileDialog.Error.MaximumSizeExceeded",
-                    Math.round((float) logfileBytes / (float) maxBytes)),
-                JslBundle.INSTANCE.getString(
-                    "LogfileDialog.Error.MaximumSizeExceeded.Title"),
+        JOptionPane.showMessageDialog(this,
+                JslBundle.INSTANCE.getString("LogfileDialog.Error.MaximumSizeExceeded",
+                Math.round((float) logfileBytes / (float) maxBytes)),
+                JslBundle.INSTANCE.getString("LogfileDialog.Error.MaximumSizeExceeded.Title"),
                 JOptionPane.ERROR_MESSAGE);
     }
 
@@ -226,24 +216,20 @@ public final class LogfileDialog extends Dialog
     }
 
     private void setColumnWidths() {
-        int width        = getWidth() - 20;
+        int width = getWidth() - 20;
         int widthColumn0 = 20;
         int widthColumn1 = 150;
         int widthColumn2 = width - widthColumn0 - widthColumn1;
 
         if (widthColumn2 > 0) {
-            tableLogfileRecords.getColumnModel().getColumn(0).setPreferredWidth(
-                widthColumn0);
-            tableLogfileRecords.getColumnModel().getColumn(1).setPreferredWidth(
-                widthColumn1);
-            tableLogfileRecords.getColumnModel().getColumn(2).setPreferredWidth(
-                widthColumn2);
+            tableLogfileRecords.getColumnModel().getColumn(0).setPreferredWidth(widthColumn0);
+            tableLogfileRecords.getColumnModel().getColumn(1).setPreferredWidth(widthColumn1);
+            tableLogfileRecords.getColumnModel().getColumn(2).setPreferredWidth(widthColumn2);
         }
     }
 
     private void showDetails() {
-        TableModelLogfiles model =
-            (TableModelLogfiles) tableLogfileRecords.getModel();
+        TableModelLogfiles model = (TableModelLogfiles) tableLogfileRecords.getModel();
         int selectedRowIndex = tableLogfileRecords.getSelectedRow();
 
         if (selectedRowIndex >= 0) {
@@ -306,12 +292,17 @@ public final class LogfileDialog extends Dialog
             List<FrameLogfileRecord> frames = ex.getFrames();
 
             for (FrameLogfileRecord frame : frames) {
-                stringBuffer.append("\n").append(frame.getClassName())
+                stringBuffer
+                        .append("\n")
+                        .append(frame.getClassName())
                         .append(":");
-                stringBuffer.append(" ").append(frame.getMethodName());
-                stringBuffer.append(JslBundle.INSTANCE.getString(
-                        "LogfileDialog.Info.StartLineNumber"))
-                        .append(frame.getLine()).append(")");
+                stringBuffer
+                        .append(" ")
+                        .append(frame.getMethodName());
+                stringBuffer
+                        .append(JslBundle.INSTANCE.getString("LogfileDialog.Info.StartLineNumber"))
+                        .append(frame.getLine())
+                        .append(")");
             }
 
             stringBuffer.append("\n</pre>");
@@ -323,21 +314,21 @@ public final class LogfileDialog extends Dialog
         String message = exception.getMessage();
 
         if (message != null) {
-            stringBuffer.append("\n<br /><font color=\"ff0000\">")
-                    .append(message).append("</font>");
+            stringBuffer
+                    .append("\n<br /><font color=\"ff0000\">")
+                    .append(message)
+                    .append("</font>");
         }
     }
 
     private void setTable() {
         if ((logfilename != null) &&!logfilename.isEmpty()) {
-            TableModelLogfiles model = new TableModelLogfiles(filterString,
-                                           visibleLevels);
+            TableModelLogfiles model = new TableModelLogfiles(filterString, visibleLevels);
 
             tableLogfileRecords.setModel(model);
             model.setRecords(logfileRecords);
             setColumnWidths();
-            scrollPaneTableLogfileRecords.getViewport().setViewPosition(
-                new Point(0, 0));
+            scrollPaneTableLogfileRecords.getViewport().setViewPosition(new Point(0, 0));
         }
     }
 
@@ -377,7 +368,7 @@ public final class LogfileDialog extends Dialog
     public void setVisible(boolean visible) {
         if (visible && checkFileSize()) {
             boolean simpleFormatter = formatterClass.equals(SimpleFormatter.class);
-            boolean xmlFormatter    = formatterClass.equals(XMLFormatter.class);
+            boolean xmlFormatter = formatterClass.equals(XMLFormatter.class);
 
             panelSearchSimple.setEnabled(simpleFormatter);
 

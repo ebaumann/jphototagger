@@ -36,33 +36,21 @@ import org.jphototagger.program.helper.DeleteUnusedKeywords;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseMaintainancePanel extends JPanel
-        implements ProgressListener {
-    private static final Icon ICON_FINISHED =
-        AppLookAndFeel.getIcon("icon_finished.png");
-    private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES =
-        "DatabaseMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
-    private static final String KEY_COMPRESS_DB =
-        "DatabaseMaintainancePanel.CheckBox.CompressDb";
-    private static final String KEY_DEL_ORPHANED_THUMBS =
-        "DatabaseMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
-    private String KEY_DEL_UNUSED_KEYWORDS =
-        "DatabaseMaintainancePanel.CheckBox.DeleteUnusedKeywords";
-    private static final String KEY_DEL_NOT_REF_1_N =
-        "DatabaseMaintainancePanel.CheckBox.DeleteNotRef1n";
-    private static final long           serialVersionUID        =
-        -4557401822534070313L;
-    private final Stack<Runnable>       runnables               =
-        new Stack<Runnable>();
-    private final Map<Class<?>, JLabel> finishedLabelOfRunnable =
-        new HashMap<Class<?>, JLabel>();
-    private final Set<JCheckBox>         checkBoxes      =
-        new HashSet<JCheckBox>();
-    private final Map<JCheckBox, JLabel> labelOfCheckBox =
-        new HashMap<JCheckBox, JLabel>();
+public final class DatabaseMaintainancePanel extends JPanel implements ProgressListener {
+    private static final long serialVersionUID = -4557401822534070313L;
+    private static final Icon ICON_FINISHED = AppLookAndFeel.getIcon("icon_finished.png");
+    private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES = "DatabaseMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
+    private static final String KEY_COMPRESS_DB = "DatabaseMaintainancePanel.CheckBox.CompressDb";
+    private static final String KEY_DEL_ORPHANED_THUMBS = "DatabaseMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
+    private String KEY_DEL_UNUSED_KEYWORDS = "DatabaseMaintainancePanel.CheckBox.DeleteUnusedKeywords";
+    private static final String KEY_DEL_NOT_REF_1_N = "DatabaseMaintainancePanel.CheckBox.DeleteNotRef1n";
+    private final Stack<Runnable> runnables = new Stack<Runnable>();
+    private final Map<Class<?>, JLabel> finishedLabelOfRunnable = new HashMap<Class<?>, JLabel>();
+    private final Set<JCheckBox> checkBoxes = new HashSet<JCheckBox>();
+    private final Map<JCheckBox, JLabel> labelOfCheckBox = new HashMap<JCheckBox, JLabel>();
     private volatile Runnable currentRunnable;
-    private volatile boolean  cancel;
-    private volatile boolean  canClose = true;
+    private volatile boolean cancel;
+    private volatile boolean canClose = true;
 
     public DatabaseMaintainancePanel() {
         initComponents();
@@ -70,19 +58,12 @@ public final class DatabaseMaintainancePanel extends JPanel
     }
 
     private void postInitComponents() {
-        finishedLabelOfRunnable.put(CompressDatabase.class,
-                                    labelFinishedCompressDatabase);
-        finishedLabelOfRunnable.put(
-            DatabaseImageFiles.class,
-            labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
-        finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class,
-                                    labelFinishedDeleteOrphanedThumbnails);
-        finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class,
-                                    labelFinishedDeleteOrphanedThumbnails);
-        finishedLabelOfRunnable.put(DeleteUnusedKeywords.class,
-                                    labelFinishedDeleteUnusedKeywords);
-        finishedLabelOfRunnable.put(DeleteNotReferenced1n.class,
-                                    labelFinishedDeleteNotReferenced1n);
+        finishedLabelOfRunnable.put(CompressDatabase.class, labelFinishedCompressDatabase);
+        finishedLabelOfRunnable.put(DatabaseImageFiles.class, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
+        finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
+        finishedLabelOfRunnable.put(DeleteUnusedKeywords.class, labelFinishedDeleteUnusedKeywords);
+        finishedLabelOfRunnable.put(DeleteNotReferenced1n.class, labelFinishedDeleteNotReferenced1n);
         initCheckBoxes();
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -93,30 +74,19 @@ public final class DatabaseMaintainancePanel extends JPanel
         checkBoxes.add(checkBoxDeleteRecordsOfNotExistingFilesInDatabase);
         checkBoxes.add(checkBoxDeleteUnusedKeywords);
         checkBoxes.add(checkBoxDeleteNotReferenced1n);
-        labelOfCheckBox.put(checkBoxCompressDatabase,
-                            labelFinishedCompressDatabase);
-        labelOfCheckBox.put(checkBoxDeleteOrphanedThumbnails,
-                            labelFinishedDeleteOrphanedThumbnails);
-        labelOfCheckBox.put(
-            checkBoxDeleteRecordsOfNotExistingFilesInDatabase,
-            labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
-        labelOfCheckBox.put(checkBoxDeleteUnusedKeywords,
-                            labelFinishedDeleteUnusedKeywords);
-        labelOfCheckBox.put(checkBoxDeleteNotReferenced1n,
-                            labelFinishedDeleteNotReferenced1n);
+        labelOfCheckBox.put(checkBoxCompressDatabase, labelFinishedCompressDatabase);
+        labelOfCheckBox.put(checkBoxDeleteOrphanedThumbnails, labelFinishedDeleteOrphanedThumbnails);
+        labelOfCheckBox.put(checkBoxDeleteRecordsOfNotExistingFilesInDatabase, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        labelOfCheckBox.put(checkBoxDeleteUnusedKeywords, labelFinishedDeleteUnusedKeywords);
+        labelOfCheckBox.put(checkBoxDeleteNotReferenced1n, labelFinishedDeleteNotReferenced1n);
 
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        checkBoxCompressDatabase.setSelected(
-            settings.getBoolean(KEY_COMPRESS_DB));
-        checkBoxDeleteOrphanedThumbnails.setSelected(
-            settings.getBoolean(KEY_DEL_ORPHANED_THUMBS));
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(
-            settings.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
-        checkBoxDeleteUnusedKeywords.setSelected(
-            settings.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
-        checkBoxDeleteNotReferenced1n.setSelected(
-            settings.getBoolean(KEY_DEL_NOT_REF_1_N));
+        checkBoxCompressDatabase.setSelected(settings.getBoolean(KEY_COMPRESS_DB));
+        checkBoxDeleteOrphanedThumbnails.setSelected(settings.getBoolean(KEY_DEL_ORPHANED_THUMBS));
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(settings.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
+        checkBoxDeleteUnusedKeywords.setSelected(settings.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
+        checkBoxDeleteNotReferenced1n.setSelected(settings.getBoolean(KEY_DEL_NOT_REF_1_N));
     }
 
     private void setProgressbarStart(ProgressEvent evt) {
@@ -187,8 +157,7 @@ public final class DatabaseMaintainancePanel extends JPanel
             currentRunnable = runnables.pop();
 
             Thread thread = new Thread(currentRunnable,
-                    "JPhotoTagger: Database maintainance next task @ "
-                    + currentRunnable.getClass().getSimpleName());
+                    "JPhotoTagger: Database maintainance next task @ " + currentRunnable.getClass().getSimpleName());
 
             thread.start();
         }
@@ -286,13 +255,12 @@ public final class DatabaseMaintainancePanel extends JPanel
 
             @Override
             public void run() {
-        appendMessage(evt.getInfo().toString());
-        buttonDeleteMessages.setEnabled(false);
-        setProgressbarStart(evt);
-        buttonCancelAction.setEnabled(!(evt.getSource()
-                                       instanceof CompressDatabase));
-        checkCancel(evt);
-    }
+                appendMessage(evt.getInfo().toString());
+                buttonDeleteMessages.setEnabled(false);
+                setProgressbarStart(evt);
+                buttonCancelAction.setEnabled(!(evt.getSource() instanceof CompressDatabase));
+                checkCancel(evt);
+            }
         });
     }
 
@@ -302,9 +270,9 @@ public final class DatabaseMaintainancePanel extends JPanel
 
             @Override
             public void run() {
-        progressBar.setValue(evt.getValue());
-        checkCancel(evt);
-    }
+                progressBar.setValue(evt.getValue());
+                checkCancel(evt);
+            }
         });
     }
 
@@ -314,29 +282,27 @@ public final class DatabaseMaintainancePanel extends JPanel
 
             @Override
             public void run() {
-        setProgressbarEnd(evt);
-        appendMessage(evt.getInfo().toString());
+                setProgressbarEnd(evt);
+                appendMessage(evt.getInfo().toString());
 
-        Object source = evt.getSource();
+                Object source = evt.getSource();
 
-        assert source != null;
+                Class<?> sourceClass = source.getClass();
+                JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
 
-        Class<?> sourceClass   = source.getClass();
-        JLabel   labelFinished = finishedLabelOfRunnable.get(sourceClass);
+                progressBar.setValue(0);
 
-        progressBar.setValue(0);
+                if (labelFinished != null) {
+                    labelFinished.setIcon(ICON_FINISHED);
+                }
 
-        if (labelFinished != null) {
-            labelFinished.setIcon(ICON_FINISHED);
-        }
-
-        if (runnables.size() > 0) {
-            startNextThread();
-        } else {
-            currentRunnable = null;
-            setRunnablesAreRunning(false);
-        }
-    }
+                if (runnables.size() > 0) {
+                    startNextThread();
+                } else {
+                    currentRunnable = null;
+                    setRunnablesAreRunning(false);
+                }
+            }
         });
     }
 

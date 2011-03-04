@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 import org.jphototagger.program.exporter.Exporter;
@@ -28,26 +29,20 @@ import java.util.List;
  */
 public class ExportImportPanel extends javax.swing.JPanel
         implements SelectObjectsPanel.SelectionListener {
-    private static final long   serialVersionUID = -4556829908393776160L;
-    private static final String TEXT_EXPORT      =
-        JptBundle.INSTANCE.getString(
-            "ExportImportPanel.Button.DisplayName.Export");
-    private static final String TEXT_IMPORT =
-        JptBundle.INSTANCE.getString(
-            "ExportImportPanel.Button.DisplayName.Import");
-    private static final String KEY_SEL_INDICES_EXPORT =
-        "ExportImportPanel.Export.SelIndices";
-    private static final String KEY_SEL_INDICES_IMPORT =
-        "ExportImportPanel.Import.SelIndices";
-    private static final String KEY_LAST_DIR =
-        "ExportImportPanel.LastDirectory";
-    private Context                                               context =
-        Context.EXPORT;
-    private File                                                  dir;
-    private final transient ListenerSupport<ExportImportListener> ls =
-        new ListenerSupport<ExportImportListener>();
+    private static final long serialVersionUID = -4556829908393776160L;
+    private static final String TEXT_EXPORT = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Export");
+    private static final String TEXT_IMPORT = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Import");
+    private static final String KEY_SEL_INDICES_EXPORT = "ExportImportPanel.Export.SelIndices";
+    private static final String KEY_SEL_INDICES_IMPORT = "ExportImportPanel.Import.SelIndices";
+    private static final String KEY_LAST_DIR = "ExportImportPanel.LastDirectory";
+    private Context context = Context.EXPORT;
+    private File dir;
+    private final transient ListenerSupport<ExportImportListener> ls = new ListenerSupport<ExportImportListener>();
 
-    public enum Context { EXPORT, IMPORT }
+    public enum Context {
+        EXPORT,
+        IMPORT
+    }
 
     public ExportImportPanel() {
         initComponents();
@@ -82,10 +77,8 @@ public class ExportImportPanel extends javax.swing.JPanel
 
     private void setInfoLabel() {
         labelSelectInfo.setText(isExport()
-                                ? JptBundle.INSTANCE.getString(
-                                "ExportImportPanel.LabelSelectInfo.Text.Export")
-                                : JptBundle.INSTANCE.getString(
-                                "ExportImportPanel.LabelSelectInfo.Text.Import"));
+                                ? JptBundle.INSTANCE.getString("ExportImportPanel.LabelSelectInfo.Text.Export")
+                                : JptBundle.INSTANCE.getString("ExportImportPanel.LabelSelectInfo.Text.Import"));
     }
 
     public void setContext(Context context) {
@@ -144,19 +137,15 @@ public class ExportImportPanel extends javax.swing.JPanel
     }
 
     private void selectDirectory() {
-        DirectoryChooser dlg =
-            new DirectoryChooser(
-                GUI.getAppFrame(), new File(""),
-                UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(""), showHiddenDirs);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
-                        "ExportImportPanel.DirChooser");
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "ExportImportPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);
-            UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(),
-                    KEY_LAST_DIR);
+            UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(), KEY_LAST_DIR);
             UserSettings.INSTANCE.writeToFile();
             setDirLabel();
             setEnabledButtons();
@@ -185,14 +174,10 @@ public class ExportImportPanel extends javax.swing.JPanel
 
         for (Object o : selectedObjects) {
             if (o instanceof Exporter) {
-                Exporter exporter   = (Exporter) o;
-                File     exportFile = new File(dir.getAbsolutePath()
-                                               + File.separator
-                                               + exporter.getDefaultFilename());
+                Exporter exporter = (Exporter) o;
+                File exportFile = new File(dir.getAbsolutePath() + File.separator + exporter.getDefaultFilename());
 
-                AppLogger.logInfo(ExportImportPanel.class,
-                                  "ExportImportPanel.Info.ExportFile",
-                                  exporter.getDisplayName(), exportFile);
+                AppLogger.logInfo(ExportImportPanel.class, "ExportImportPanel.Info.ExportFile", exporter.getDisplayName(), exportFile);
                 exporter.exportFile(exportFile);
                 exportedFiles.add(exportFile);
             }
@@ -200,27 +185,21 @@ public class ExportImportPanel extends javax.swing.JPanel
     }
 
     private void importFiles() {
-        List<File>   importedFiles   = new ArrayList<File>();
-        List<File>   missingFiles    = new ArrayList<File>();
+        List<File> importedFiles = new ArrayList<File>();
+        List<File> missingFiles = new ArrayList<File>();
         List<Object> selectedObjects = panelSelectObjects.getSelectedObjects();
 
         for (Object o : selectedObjects) {
             if (o instanceof Importer) {
-                Importer importer   = (Importer) o;
-                File     importFile = new File(dir.getAbsolutePath()
-                                               + File.separator
-                                               + importer.getDefaultFilename());
+                Importer importer = (Importer) o;
+                File importFile = new File(dir.getAbsolutePath() + File.separator + importer.getDefaultFilename());
 
                 if (importFile.exists()) {
-                    AppLogger.logInfo(ExportImportPanel.class,
-                                      "ExportImportPanel.Info.ImportFile",
-                                      importer.getDisplayName(), importFile);
+                    AppLogger.logInfo(ExportImportPanel.class, "ExportImportPanel.Info.ImportFile", importer.getDisplayName(), importFile);
                     importer.importFile(importFile);
                     importedFiles.add(importFile);
                 } else {
-                    AppLogger.logWarning(ExportImportPanel.class,
-                                         "ExportImportPanel.Error.ImportFile",
-                                         importer.getDisplayName(), importFile);
+                    AppLogger.logWarning(ExportImportPanel.class,"ExportImportPanel.Error.ImportFile", importer.getDisplayName(), importFile);
                     missingFiles.add(importFile);
                 }
             }
@@ -228,13 +207,11 @@ public class ExportImportPanel extends javax.swing.JPanel
     }
 
     private void setEnabledButtons() {
-        int selCount    = panelSelectObjects.getSelectionCount();
+        int selCount = panelSelectObjects.getSelectionCount();
         int objectCount = panelSelectObjects.getObjectCount();
 
-        buttonExportImport.setEnabled((dir != null) && dir.isDirectory()
-                                      && (selCount > 0));
-        buttonSelectAll.setEnabled((objectCount > 0)
-                                   && (objectCount > selCount));
+        buttonExportImport.setEnabled((dir != null) && dir.isDirectory() && (selCount > 0));
+        buttonSelectAll.setEnabled((objectCount > 0) && (objectCount > selCount));
         buttonSelectNone.setEnabled(selCount > 0);
     }
 

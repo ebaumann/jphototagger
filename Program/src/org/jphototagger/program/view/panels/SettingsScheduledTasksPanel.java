@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.panels;
 
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.model.ListModelAutoscanDirectories;
@@ -28,16 +29,11 @@ import javax.swing.SpinnerNumberModel;
  *
  * @author Elmar Baumann
  */
-public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
-        implements Persistence {
-    private static final String KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY =
-        "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
-    private static final long                           serialVersionUID =
-        -5964543997343669428L;
-    private final transient DatabaseAutoscanDirectories db               =
-        DatabaseAutoscanDirectories.INSTANCE;
-    private ListModelAutoscanDirectories modelAutoscanDirectories =
-        new ListModelAutoscanDirectories();
+public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implements Persistence {
+    private static final long serialVersionUID = -5964543997343669428L;
+    private static final String KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY = "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
+    private final transient DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.INSTANCE;
+    private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = "";
 
     public SettingsScheduledTasksPanel() {
@@ -53,8 +49,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     public void setEnabled() {
-        buttonRemoveAutoscanDirectories.setEnabled(
-            listAutoscanDirectories.getSelectedIndex() >= 0);
+        buttonRemoveAutoscanDirectories.setEnabled(listAutoscanDirectories.getSelectedIndex() >= 0);
         setEnabledCheckBoxSubdirs();
     }
 
@@ -62,12 +57,9 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     public void readProperties() {
         UserSettings settings = UserSettings.INSTANCE;
 
-        spinnerMinutesToStartScheduledTasks.setValue(
-            settings.getMinutesToStartScheduledTasks());
-        checkBoxIsAutoscanIncludeSubdirectories.setSelected(
-            settings.isAutoscanIncludeSubdirectories());
-        lastSelectedAutoscanDirectory = settings.getSettings().getString(
-            KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
+        spinnerMinutesToStartScheduledTasks.setValue(settings.getMinutesToStartScheduledTasks());
+        checkBoxIsAutoscanIncludeSubdirectories.setSelected(settings.isAutoscanIncludeSubdirectories());
+        lastSelectedAutoscanDirectory = settings.getSettings().getString(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
         checkBoxScheduledBackupDb.setSelected(UserSettings.INSTANCE.isScheduledBackupDb());
 
         Interval interval = Interval.fromDays(UserSettings.INSTANCE.getScheduledBackupDbInterval());
@@ -86,20 +78,15 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(lastSelectedAutoscanDirectory,
-                KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().set(lastSelectedAutoscanDirectory, KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
         UserSettings.INSTANCE.writeToFile();
     }
 
     private void addAutoscanDirectories() {
-        DirectoryChooser dlg =
-            new DirectoryChooser(
-                GUI.getAppFrame(),
-                new File(lastSelectedAutoscanDirectory),
-                UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(lastSelectedAutoscanDirectory), showHiddenDirs);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(),
-                           "SettingsScheduledTasksPanel.DirChooser");
+        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "SettingsScheduledTasksPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
@@ -138,15 +125,11 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     private void errorMessageInsertAutoscanDirectory(File directory) {
-        MessageDisplayer.error(
-            this, "SettingsScheduledTasksPanel.Error.InsertAutoscanDirectory",
-            directory);
+        MessageDisplayer.error(this, "SettingsScheduledTasksPanel.Error.InsertAutoscanDirectory", directory);
     }
 
     private void errorMessageDeleteAutoscanDirectory(File directory) {
-        MessageDisplayer.error(
-            this, "SettingsScheduledTasksPanel.Error.DeleteAutoscanDirectory",
-            directory);
+        MessageDisplayer.error(this, "SettingsScheduledTasksPanel.Error.DeleteAutoscanDirectory", directory);
     }
 
     private void handleKeyEventListTasksAutoscanDirectories(KeyEvent evt) {
@@ -161,13 +144,11 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel
     }
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
-        UserSettings.INSTANCE.setAutoscanIncludeSubdirectories(
-            checkBoxIsAutoscanIncludeSubdirectories.isSelected());
+        UserSettings.INSTANCE.setAutoscanIncludeSubdirectories(checkBoxIsAutoscanIncludeSubdirectories.isSelected());
     }
 
     private void setEnabledButtonRemoveAutoscanDirectory() {
-        buttonRemoveAutoscanDirectories.setEnabled(
-            listAutoscanDirectories.getSelectedIndices().length > 0);
+        buttonRemoveAutoscanDirectories.setEnabled(listAutoscanDirectories.getSelectedIndices().length > 0);
     }
 
     public JButton getButtonScheduledTasks() {

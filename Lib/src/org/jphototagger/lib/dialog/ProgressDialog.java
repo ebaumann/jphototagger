@@ -14,10 +14,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Elmar Baumann
  */
 public final class ProgressDialog extends javax.swing.JDialog {
-    private static final long         serialVersionUID = 4604786111382584915L;
-    private final Set<ActionListener> actionListeners  =
-        new CopyOnWriteArraySet<ActionListener>();
-    private boolean                   closeEnabled     = true;
+    private static final long serialVersionUID = 4604786111382584915L;
+    private final Set<ActionListener> actionListeners = new CopyOnWriteArraySet<ActionListener>();
+    private boolean closeEnabled = true;
 
     /**
      * Konstruktor.

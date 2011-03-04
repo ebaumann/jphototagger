@@ -22,13 +22,10 @@ import javax.swing.JPanel;
  *
  * @author Elmar Baumann
  */
-public class RenameFilenamesInDbPanel extends JPanel
-        implements ProgressListener, Persistence {
-    private static final long   serialVersionUID = -4207218985613254920L;
-    private static final String KEY_SEARCH       =
-        "RenameFilenamesInDbPanel.Search";
-    private static final String KEY_REPLACEMENT  =
-        "RenameFilenamesInDbPanel.Replacement";
+public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener, Persistence {
+    private static final long serialVersionUID = -4207218985613254920L;
+    private static final String KEY_SEARCH = "RenameFilenamesInDbPanel.Search";
+    private static final String KEY_REPLACEMENT = "RenameFilenamesInDbPanel.Replacement";
     private volatile boolean runs;
 
     public RenameFilenamesInDbPanel() {
@@ -54,14 +51,11 @@ public class RenameFilenamesInDbPanel extends JPanel
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    int count =
-                        DatabaseImageFiles.INSTANCE
-                            .updateRenameFilenamesStartingWith(textFieldSearch
-                                .getText(), textFieldReplacement.getText(),
-                                            progressListener);
+                    String searchText = textFieldSearch.getText();
+                    String replacementText = textFieldReplacement.getText();
+                    int count = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(searchText, replacementText, progressListener);
 
-                    MessageDisplayer.information(
-                        null, "RenameFilenamesInDbPanel.Info.Count", count);
+                    MessageDisplayer.information(null, "RenameFilenamesInDbPanel.Info.Count", count);
                     runs = false;
                 }
             }, "JPhotoTagger: Renaming files in database");
@@ -76,10 +70,10 @@ public class RenameFilenamesInDbPanel extends JPanel
 
             @Override
             public void run() {
-        progressBar.setMinimum(evt.getMinimum());
-        progressBar.setMaximum(evt.getMaximum());
-        progressBar.setValue(evt.getValue());
-    }
+                progressBar.setMinimum(evt.getMinimum());
+                progressBar.setMaximum(evt.getMaximum());
+                progressBar.setValue(evt.getValue());
+            }
         });
     }
 
@@ -89,8 +83,8 @@ public class RenameFilenamesInDbPanel extends JPanel
 
             @Override
             public void run() {
-        progressBar.setValue(evt.getValue());
-    }
+                progressBar.setValue(evt.getValue());
+            }
         });
     }
 
@@ -100,9 +94,9 @@ public class RenameFilenamesInDbPanel extends JPanel
 
             @Override
             public void run() {
-        progressBar.setValue(0);
-        setInputEnabled(true);
-    }
+                progressBar.setValue(0);
+                setInputEnabled(true);
+            }
         });
     }
 
@@ -113,18 +107,18 @@ public class RenameFilenamesInDbPanel extends JPanel
     }
 
     private void setButtonReplaceEnabled() {
-        String  searchText      = textFieldSearch.getText().trim();
-        String  replacementText = textFieldReplacement.getText().trim();
-        boolean textsEquals     = searchText.equals(replacementText);
+        String searchText = textFieldSearch.getText().trim();
+        String replacementText = textFieldReplacement.getText().trim();
+        boolean textsEquals = searchText.equals(replacementText);
 
-        buttonReplace.setEnabled(!searchText.isEmpty()
-                                 &&!replacementText.isEmpty() &&!textsEquals);
+        buttonReplace.setEnabled(!searchText.isEmpty() &&!replacementText.isEmpty() &&!textsEquals);
     }
 
     private boolean confirmReplace() {
-        return MessageDisplayer.confirmYesNo(this,
-                "RenameFilenamesInDbPanel.Confirm.Replace",
-                textFieldSearch.getText(), textFieldReplacement.getText());
+        String searchText = textFieldSearch.getText();
+        String replacementText = textFieldReplacement.getText();
+
+        return MessageDisplayer.confirmYesNo(this, "RenameFilenamesInDbPanel.Confirm.Replace", searchText, replacementText);
     }
 
     @Override

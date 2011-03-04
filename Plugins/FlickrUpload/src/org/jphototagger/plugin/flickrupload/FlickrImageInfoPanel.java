@@ -20,23 +20,20 @@ import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
  * @author Elmar Baumann
  */
 public class FlickrImageInfoPanel extends javax.swing.JPanel {
-    public static final int      IMAGE_WIDTH      = 150;
-    private static final long    serialVersionUID = 9219933749046808577L;
-    private static final String  TAGS_DELIM       = ";";
-    private final ResourceBundle bundle           =
-            ResourceBundle.getBundle(
-                "org/jphototagger/plugin/flickrupload/Bundle");
-    private File                 imageFile;
+    public static final int IMAGE_WIDTH = 150;
+    private static final long serialVersionUID = 9219933749046808577L;
+    private static final String TAGS_DELIM = ";";
+    private final ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle");
+    private File imageFile;
 
     public static class ImageInfo {
-        private final Image        image;
-        private final File         imageFile;
-        private final String       title;
-        private final String       description;
+        private final Image image;
+        private final File imageFile;
+        private final String title;
+        private final String description;
         private final List<String> tags;
 
-        public ImageInfo(Image image, File imageFile, String title,
-                String description, List<String> tags) {
+        public ImageInfo(Image image, File imageFile, String title, String description, List<String> tags) {
             if (imageFile == null) {
                 throw new NullPointerException("imageFile == null");
             }
@@ -53,11 +50,11 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
                 throw new NullPointerException("tags == null");
             }
 
-            this.image       = image;
-            this.imageFile   = imageFile;
-            this.title       = title;
+            this.image = image;
+            this.imageFile = imageFile;
+            this.title = title;
             this.description = description;
-            this.tags        = tags;
+            this.tags = tags;
         }
 
         public Image getImage() {
@@ -106,8 +103,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
     }
 
     public ImageInfo getImageInfo() {
-        return new ImageInfo(null, imageFile, getTitle(), getDescription(),
-                             getTags());
+        return new ImageInfo(null, imageFile, getTitle(), getDescription(), getTags());
     }
 
     public void setImageFile(File imageFile) {
@@ -150,9 +146,8 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
     }
 
     public List<String> getTags() {
-        List<String>    tags = new ArrayList<String>();
-        StringTokenizer st   = new StringTokenizer(
-                                     textAreaTags.getText().trim(), TAGS_DELIM);
+        List<String> tags = new ArrayList<String>();
+        StringTokenizer st = new StringTokenizer(textAreaTags.getText().trim(), TAGS_DELIM);
 
         while (st.hasMoreTokens()) {
             tags.add(st.nextToken().trim());

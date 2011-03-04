@@ -21,11 +21,10 @@ import javax.swing.ListModel;
  */
 public final class ImageCollectionsDialog extends Dialog {
     private static final long serialVersionUID = 1314098937293915298L;
-    private boolean           ok               = false;
+    private boolean ok = false;
 
     public ImageCollectionsDialog() {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         setHelpPages();
         MnemonicUtil.setMnemonics((Container) this);
@@ -33,8 +32,7 @@ public final class ImageCollectionsDialog extends Dialog {
 
     private void setHelpPages() {
         setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(
-            JptBundle.INSTANCE.getString("Help.Url.ImageCollectionsDialog"));
+        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ImageCollectionsDialog"));
     }
 
     public boolean isCollectionSelected() {
@@ -51,10 +49,9 @@ public final class ImageCollectionsDialog extends Dialog {
 
     private void checkDoubleClick(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
-            int       index =
-                listImageCollectionNames.locationToIndex(evt.getPoint());
+            int index = listImageCollectionNames.locationToIndex(evt.getPoint());
             ListModel model = listImageCollectionNames.getModel();
-            Object    item  = model.getElementAt(index);
+            Object item  = model.getElementAt(index);
 
             if (item != null) {
                 ok = true;

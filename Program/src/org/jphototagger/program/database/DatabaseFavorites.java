@@ -42,7 +42,8 @@ public final class DatabaseFavorites extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("INSERT INTO favorite_directories"
-                                        + " (favorite_name, directory_name, favorite_index)" + " VALUES (?, ?, ?)");
+                                        + " (favorite_name, directory_name, favorite_index)"
+                                        + " VALUES (?, ?, ?)");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
@@ -123,7 +124,7 @@ public final class DatabaseFavorites extends Database {
 
             con.setAutoCommit(true);
 
-            String sql = "UPDATE favorite_directories SET favorite_name = ?" + " WHERE favorite_name = ?";
+            String sql = "UPDATE favorite_directories SET favorite_name = ? WHERE favorite_name = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, toFavoriteName);
@@ -306,7 +307,7 @@ public final class DatabaseFavorites extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM favorite_directories" + " WHERE favorite_name = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFinest(stmt);
             rs = stmt.executeQuery();

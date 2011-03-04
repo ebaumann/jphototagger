@@ -17,14 +17,12 @@ import org.jphototagger.program.view.panels.ActionsPanel;
  *
  * @author Elmar Baumann
  */
-public final class ActionsDialog extends Dialog
-        implements DatabaseProgramsListener {
-    public static final ActionsDialog INSTANCE         = new ActionsDialog();
-    private static final long         serialVersionUID = -2671488119703014515L;
+public final class ActionsDialog extends Dialog implements DatabaseProgramsListener {
+    public static final ActionsDialog INSTANCE = new ActionsDialog();
+    private static final long serialVersionUID = -2671488119703014515L;
 
     private ActionsDialog() {
-        super(GUI.getAppFrame(), false,
-              UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
@@ -70,8 +68,8 @@ public final class ActionsDialog extends Dialog
 
             @Override
             public void run() {
-        toFrontIfVisible();
-    }
+                toFrontIfVisible();
+            }
         });
     }
 
@@ -81,8 +79,8 @@ public final class ActionsDialog extends Dialog
 
             @Override
             public void run() {
-        toFrontIfVisible();
-    }
+                toFrontIfVisible();
+            }
         });
     }
 

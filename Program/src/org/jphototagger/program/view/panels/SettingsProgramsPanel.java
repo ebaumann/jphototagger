@@ -28,13 +28,10 @@ import org.jphototagger.program.helper.ProgramsHelper;
  *
  * @author Elmar Baumann
  */
-public final class SettingsProgramsPanel extends javax.swing.JPanel
-        implements Persistence {
-    private static final long       serialVersionUID = 6156362511361451187L;
-    private final ListModelPrograms model            =
-        new ListModelPrograms(Type.PROGRAM);
-    private final ReorderListener   reorderListener  =
-        new ProgramsHelper.ReorderListener(model);
+public final class SettingsProgramsPanel extends javax.swing.JPanel implements Persistence {
+    private static final long serialVersionUID = 6156362511361451187L;
+    private final ListModelPrograms model = new ListModelPrograms(Type.PROGRAM);
+    private final ReorderListener reorderListener  = new ProgramsHelper.ReorderListener(model);
 
     public SettingsProgramsPanel() {
         initComponents();
@@ -48,12 +45,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private void setAccelerators() {
-        menuItemAddProgram.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
-        menuItemMoveProgramUp.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
-        menuItemMoveProgramDown.setAccelerator(
-                KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
+        menuItemAddProgram.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
+        menuItemMoveProgramUp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
+        menuItemMoveProgramDown.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
     }
 
     @Override
@@ -97,17 +91,15 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel
     }
 
     private boolean askRemove(String otherImageOpenApp) {
-        return MessageDisplayer.confirmYesNo(this,
-                "SettingsProgramsPanel.Confirm.RemoveImageOpenApp",
-                otherImageOpenApp);
+        return MessageDisplayer.confirmYesNo(this, "SettingsProgramsPanel.Confirm.RemoveImageOpenApp", otherImageOpenApp);
     }
 
     private void setEnabled() {
         boolean programSelected = isProgramSelected();
-        int     selIndex        = listPrograms.getSelectedIndex();
-        int     size            = listPrograms.getModel().getSize();
-        boolean canMoveDown     = programSelected && selIndex < size - 1;
-        boolean canMoveUp       = programSelected && selIndex > 0;
+        int selIndex = listPrograms.getSelectedIndex();
+        int size = listPrograms.getModel().getSize();
+        boolean canMoveDown = programSelected && selIndex < size - 1;
+        boolean canMoveUp = programSelected && selIndex > 0;
 
         buttonEditProgram.setEnabled(programSelected);
         menuItemEditProgram.setEnabled(programSelected);

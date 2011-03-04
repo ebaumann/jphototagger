@@ -8,9 +8,9 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public class SettingsPanel extends javax.swing.JPanel {
-    private static final long  serialVersionUID = -7766362003081534388L;
+    private static final long serialVersionUID = -7766362003081534388L;
     private transient Settings settings;
-    private Properties         properties;
+    private Properties properties;
 
     public SettingsPanel() {
         initComponents();
@@ -22,7 +22,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         }
 
         this.properties = properties;
-        settings        = new Settings(properties);
+        settings = new Settings(properties);
         readProperties();
     }
 
@@ -34,8 +34,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void readProperties() {
         checkBoxDcDescription.setSelected(settings.isAddDcDescription());
         checkBoxDcSubjects.setSelected(settings.isAddDcSubjects());
-        checkBoxPhotoshopHeadline.setSelected(
-            settings.isAddPhotoshopHeadline());
+        checkBoxPhotoshopHeadline.setSelected(settings.isAddPhotoshopHeadline());
     }
 
     /**

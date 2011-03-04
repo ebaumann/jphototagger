@@ -7,8 +7,7 @@ import org.jphototagger.program.data.TextEntry;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.selections
-    .AutoCompleteDataOfColumn;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.impl.TextEntryListenerSupport;
@@ -59,23 +58,18 @@ import javax.swing.JTextArea;
  * @author Elmar Baumann
  */
 public final class EditRepeatableTextEntryPanel extends JPanel
-        implements TextEntry, ActionListener, DocumentListener,
-                   ListDataListener, DatabaseImageFilesListener {
-    private static final long                  serialVersionUID =
-        -5581799743101447535L;
-    private String                             bundleKeyPosRenameDialog;
-    private final DefaultListModel             model    =
-        new DefaultListModel();
-    private transient Column                   column   =
-        ColumnXmpDcSubjectsSubject.INSTANCE;
-    private boolean                            editable = true;
-    private boolean                            dirty    = false;
-    private Suggest                            suggest;
-    private boolean                            ignoreIntervalAdded;
-    private transient TextEntryListenerSupport textEntryListenerSupport =
-        new TextEntryListenerSupport();
+        implements TextEntry, ActionListener, DocumentListener, ListDataListener, DatabaseImageFilesListener {
+    private static final long serialVersionUID = -5581799743101447535L;
+    private String bundleKeyPosRenameDialog;
+    private final DefaultListModel model = new DefaultListModel();
+    private transient Column column = ColumnXmpDcSubjectsSubject.INSTANCE;
+    private boolean editable = true;
+    private boolean dirty = false;
+    private Suggest suggest;
+    private boolean ignoreIntervalAdded;
+    private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private Autocomplete autocomplete;
-    private Color        editBackground;
+    private Color editBackground;
 
     public EditRepeatableTextEntryPanel() {
         initComponents();
@@ -126,9 +120,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             }
             autocomplete = new Autocomplete(false);
             autocomplete.setTransferFocusForward(false);
-            autocomplete.decorate(
-                textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get(),
-                    true);
+            autocomplete.decorate(textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get(), true);
         }
     }
 
@@ -149,7 +141,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
      */
     public Collection<String> getRepeatableText() {
         List<String> texts = new ArrayList<String>(model.size());
-        int          size  = model.getSize();
+        int size  = model.getSize();
 
         for (int i = 0; i < size; i++) {
             texts.add(model.get(i).toString());
@@ -285,8 +277,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     private void handleTextFieldKeyReleased(KeyEvent evt) {
         JComponent component = (JComponent) evt.getSource();
 
-        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)
-                && component.getInputVerifier().verify(component)) {
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER) && component.getInputVerifier().verify(component)) {
             addInputToList();
         } else {
             setEnabledButtons();
@@ -336,8 +327,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private boolean confirmRemoveSelectedItems() {
-        return MessageDisplayer.confirmYesNo(this,
-                "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
+        return MessageDisplayer.confirmYesNo(this, "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
     }
 
     @Override
@@ -389,10 +379,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private void setEnabledButtons() {
-        buttonAddInput.setEnabled(editable
-                                  &&!textAreaInput.getText().isEmpty());
-        buttonRemoveSelection.setEnabled(editable
-                                         && (list.getSelectedIndex() >= 0));
+        buttonAddInput.setEnabled(editable &&!textAreaInput.getText().isEmpty());
+        buttonRemoveSelection.setEnabled(editable && (list.getSelectedIndex() >= 0));
     }
 
     @Override
@@ -499,8 +487,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             }
 
             if (autocomplete != null && UserSettings.INSTANCE.isAutocomplete()) {
-                AutocompleteHelper.addAutocompleteData(column, autocomplete,
-                        texts);
+                AutocompleteHelper.addAutocompleteData(column, autocomplete, texts);
             }
         }
 
@@ -522,30 +509,23 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private void renameListItem(int index) {
-        boolean ready    = false;
-        String  fromName = model.getElementAt(index).toString();
-        String  toName   = null;
+        boolean ready = false;
+        String fromName = model.getElementAt(index).toString();
+        String toName = null;
 
         do {
             bundleKeyPosRenameDialog = getClass().getName();
-            toName                   = MessageDisplayer.input(
-                "EditRepeatableTextEntryPanel.Input.RenameListItem", fromName,
-                bundleKeyPosRenameDialog);
+            toName = MessageDisplayer.input("EditRepeatableTextEntryPanel.Input.RenameListItem", fromName, bundleKeyPosRenameDialog);
             ready = toName == null;
 
             if ((toName != null) && toName.trim().equalsIgnoreCase(fromName)) {
-                ready = !MessageDisplayer.confirmYesNo(list,
-                        "EditRepeatableTextEntryPanel.Confirm.SameNames");
+                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.SameNames");
                 toName = null;
-            } else if ((toName != null)
-                       && ListUtil.containsString(list.getModel(),
-                           toName.trim())) {
-                ready = !MessageDisplayer.confirmYesNo(list,
-                        "EditRepeatableTextEntryPanel.Confirm.NameExists",
-                        toName);
+            } else if ((toName != null) && ListUtil.containsString(list.getModel(), toName.trim())) {
+                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.NameExists", toName);
                 toName = null;
             } else if ((toName != null) &&!toName.trim().isEmpty()) {
-                ready   = true;
+                ready = true;
                 toName = toName.trim();
             }
         } while (!ready);
@@ -559,8 +539,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error(this,
-                                   "EditRepeatableTextEntryPanel.Error.Select");
+            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select");
 
             return false;
         }
@@ -592,8 +571,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         textEntryListenerSupport.notifyTextAdded(column, addedText);
     }
 
-    private void notifyTextChanged(Column column, String oldText,
-                                   String newText) {
+    private void notifyTextChanged(Column column, String oldText, String newText) {
         textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
     }
 
@@ -633,8 +611,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     @Override
-    public synchronized void addMouseListenerToInputComponents(
-            MouseListener l) {
+    public synchronized void addMouseListenerToInputComponents(MouseListener l) {
         if (l == null) {
             throw new NullPointerException("l == null");
         }
@@ -647,8 +624,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     @Override
-    public synchronized void removeMouseListenerFromInputComponents(
-            MouseListener l) {
+    public synchronized void removeMouseListenerFromInputComponents(MouseListener l) {
         if (l == null) {
             throw new NullPointerException("l == null");
         }
@@ -745,9 +721,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     @Override
     public void dcSubjectInserted(String dcSubject) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(
-                    ColumnXmpDcSubjectsSubject.INSTANCE, autocomplete,
-                    Collections.singleton(dcSubject));
+            AutocompleteHelper.addAutocompleteData(ColumnXmpDcSubjectsSubject.INSTANCE, autocomplete, Collections.singleton(dcSubject));
         }
     }
 

@@ -127,7 +127,8 @@ public final class DatabaseImageCollections extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT files.filename FROM" + " collections INNER JOIN collection_names"
+            stmt = con.prepareStatement("SELECT files.filename FROM"
+                                        + " collections INNER JOIN collection_names"
                                         + " ON collections.id_collectionnname = collection_names.id"
                                         + " INNER JOIN files ON collections.id_file = files.id"
                                         + " WHERE collection_names.name = ?"
@@ -193,7 +194,8 @@ public final class DatabaseImageCollections extends Database {
             con.setAutoCommit(false);
             stmtName = con.prepareStatement("INSERT INTO collection_names (name) VALUES (?)");
             stmtColl = con.prepareStatement("INSERT INTO collections"
-                                            + " (id_collectionnname, id_file, sequence_number)" + " VALUES (?, ?, ?)");
+                                            + " (id_collectionnname, id_file, sequence_number)"
+                                            + " VALUES (?, ?, ?)");
             stmtName.setString(1, collectionName);
             logFiner(stmtName);
             stmtName.executeUpdate();
@@ -288,7 +290,7 @@ public final class DatabaseImageCollections extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("DELETE FROM collections" + " WHERE id_collectionnname = ? AND id_file = ?");
+            stmt = con.prepareStatement("DELETE FROM collections WHERE id_collectionnname = ? AND id_file = ?");
 
             List<File> deletedFiles = new ArrayList<File>(imageFiles.size());
 
@@ -349,7 +351,8 @@ public final class DatabaseImageCollections extends Database {
                 con = getConnection();
                 con.setAutoCommit(false);
                 stmt = con.prepareStatement("INSERT INTO collections"
-                                            + " (id_file, id_collectionnname, sequence_number)" + " VALUES (?, ?, ?)");
+                                            + " (id_file, id_collectionnname, sequence_number)"
+                                            + " VALUES (?, ?, ?)");
 
                 long idCollectionNames = findId(con, collectionName);
                 int sequence_number = getMaxSequenceNumber(con, collectionName) + 1;
@@ -556,7 +559,8 @@ public final class DatabaseImageCollections extends Database {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM" + " collections INNER JOIN collection_names"
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM"
+                                        + " collections INNER JOIN collection_names"
                                         + " ON collections.id_collectionnname = collection_names.id"
                                         + " INNER JOIN files on collections.id_file = files.id"
                                         + " WHERE collection_names.name = ? AND files.filename = ?");

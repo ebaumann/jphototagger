@@ -496,7 +496,8 @@ public final class DatabasePrograms extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM programs WHERE action = " + (action
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM programs WHERE action = "
+                    + (action
                     ? "TRUE"
                     : "FALSE"));
             logFinest(stmt);

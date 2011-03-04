@@ -58,7 +58,7 @@ public final class DatabaseKeywords extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT id, id_parent, subject, real" + " FROM hierarchical_subjects";
+            String sql = "SELECT id, id_parent, subject, real FROM hierarchical_subjects";
 
             stmt = con.createStatement();
             logFinest(sql);
@@ -104,7 +104,8 @@ public final class DatabaseKeywords extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(true);
-            stmt = con.prepareStatement("UPDATE hierarchical_subjects" + " SET id_parent = ?, subject = ?, real = ?"
+            stmt = con.prepareStatement("UPDATE hierarchical_subjects"
+                                        + " SET id_parent = ?, subject = ?, real = ?"
                                         + " WHERE id = ?");
 
             if (keyword.getIdParent() == null) {
@@ -165,7 +166,8 @@ public final class DatabaseKeywords extends Database {
             con = getConnection();
             con.setAutoCommit(true);
 
-            String sql = "INSERT INTO hierarchical_subjects" + " (id, id_parent, subject, real) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO hierarchical_subjects"
+                         + " (id, id_parent, subject, real) VALUES (?, ?, ?, ?)";
 
             stmt = con.prepareStatement(sql);
 
@@ -278,7 +280,8 @@ public final class DatabaseKeywords extends Database {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT id, id_parent, subject, real" + " FROM hierarchical_subjects WHERE id = ?";
+            String sql = "SELECT id, id_parent, subject, real"
+                         + " FROM hierarchical_subjects WHERE id = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
@@ -351,7 +354,8 @@ public final class DatabaseKeywords extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT id, id_parent, subject, real" + " FROM hierarchical_subjects"
+            String sql = "SELECT id, id_parent, subject, real"
+                         + " FROM hierarchical_subjects"
                          + " WHERE id_parent = ? ORDER BY subject ASC";
 
             stmt = con.prepareStatement(sql);
@@ -392,7 +396,8 @@ public final class DatabaseKeywords extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT id, id_parent, subject, real" + " FROM hierarchical_subjects"
+            String sql = "SELECT id, id_parent, subject, real"
+                         + " FROM hierarchical_subjects"
                          + " WHERE id_parent IS NULL ORDER BY subject ASC";
 
             stmt = con.prepareStatement(sql);
@@ -470,8 +475,8 @@ public final class DatabaseKeywords extends Database {
             con = getConnection();
 
             String sql = parentIsRoot
-                         ? "SELECT COUNT(*) FROM hierarchical_subjects" + " WHERE id_parent IS NULL AND subject = ?"
-                         : "SELECT COUNT(*) FROM hierarchical_subjects" + " WHERE id_parent = ? AND subject = ?";
+                         ? "SELECT COUNT(*) FROM hierarchical_subjects WHERE id_parent IS NULL AND subject = ?"
+                         : "SELECT COUNT(*) FROM hierarchical_subjects WHERE id_parent = ? AND subject = ?";
 
             stmt = con.prepareStatement(sql);
 
@@ -517,7 +522,7 @@ public final class DatabaseKeywords extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT COUNT(*) FROM hierarchical_subjects" + " WHERE  subject = ? AND id_parent IS NULL";
+            String sql = "SELECT COUNT(*) FROM hierarchical_subjects WHERE  subject = ? AND id_parent IS NULL";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, keyword);
@@ -550,7 +555,7 @@ public final class DatabaseKeywords extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT COUNT(*) FROM hierarchical_subjects" + " WHERE subject = ?";
+            String sql = "SELECT COUNT(*) FROM hierarchical_subjects WHERE subject = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, keyword);
@@ -595,7 +600,7 @@ public final class DatabaseKeywords extends Database {
             con = getConnection();
             con.setAutoCommit(true);
 
-            String sql = "UPDATE hierarchical_subjects SET subject = ?" + " WHERE subject = ? AND real = TRUE";
+            String sql = "UPDATE hierarchical_subjects SET subject = ? WHERE subject = ? AND real = TRUE";
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, toName);

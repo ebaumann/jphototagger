@@ -28,21 +28,20 @@ import javax.swing.JList;
  *
  * @author Elmar Baumann
  */
-public class PathSelectionDialog extends Dialog
-        implements ListSelectionListener {
-    private static final long                    serialVersionUID =
-        -5988292432590183296L;
-    private boolean                              accepted;
+public class PathSelectionDialog extends Dialog implements ListSelectionListener {
+    private static final long serialVersionUID = -5988292432590183296L;
+    private boolean accepted;
     private final Collection<Collection<String>> paths;
-    private Collection<Collection<String>>       selPaths;
-    private final Mode                           mode;
+    private Collection<Collection<String>> selPaths;
+    private final Mode mode;
 
-    public enum Mode { PATHS, DISTINCT_ELEMENTS, }
+    public enum Mode {
+        PATHS,
+        DISTINCT_ELEMENTS,
+    }
 
-    public PathSelectionDialog(Collection<Collection<String>> paths,
-                               Mode mode) {
-        super(GUI.getAppFrame(), true,
-              UserSettings.INSTANCE.getSettings(), null);
+    public PathSelectionDialog(Collection<Collection<String>> paths, Mode mode) {
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         if (paths == null) {
             throw new NullPointerException("paths == null");
         }
@@ -103,9 +102,8 @@ public class PathSelectionDialog extends Dialog
     private void handleButtonSelectSelectedActionPerformed() {
         accepted = true;
 
-        List<Collection<String>> sel       =
-            new ArrayList<Collection<String>>();
-        Object[]                 selValues = list.getSelectedValues();
+        List<Collection<String>> sel = new ArrayList<Collection<String>>();
+        Object[] selValues = list.getSelectedValues();
 
         for (Object selValue : selValues) {
             if (selValue instanceof Collection<?>) {
@@ -113,8 +111,7 @@ public class PathSelectionDialog extends Dialog
 
                 sel.add(collection);
             } else if (selValue instanceof String) {
-                Collection<String> collection =
-                    Collections.singletonList((String) selValue);
+                Collection<String> collection = Collections.singletonList((String) selValue);
 
                 sel.add(collection);
             }
@@ -164,14 +161,11 @@ public class PathSelectionDialog extends Dialog
 
     private static class Renderer extends DefaultListCellRenderer {
         private static final long serialVersionUID = -3753515545397949621L;
-        private final Icon        ICON             =
-            AppLookAndFeel.getIcon("icon_keyword.png");
+        private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value,
-                int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list,
-                               value, index, isSelected, cellHasFocus);
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof Collection<?>) {
                 renderCollection(value, label);
@@ -187,11 +181,10 @@ public class PathSelectionDialog extends Dialog
         }
 
         private void renderCollection(Object value, JLabel label) {
-            Collection<? extends Object> collection =
-                (Collection<? extends Object>) value;
-            StringBuilder sb        = new StringBuilder();
-            String        pathDelim = " > ";
-            int           i         = 0;
+            Collection<? extends Object> collection = (Collection<? extends Object>) value;
+            StringBuilder sb = new StringBuilder();
+            String pathDelim = " > ";
+            int i = 0;
 
             for (Object element : collection) {
                 sb.append((i++ == 0)
