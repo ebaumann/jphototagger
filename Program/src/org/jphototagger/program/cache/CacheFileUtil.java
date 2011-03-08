@@ -1,13 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
+/*
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+ */
 package org.jphototagger.program.cache;
 
-import java.io.File;
-import java.security.MessageDigest;
 import org.jphototagger.program.app.AppLogger;
+
+import java.io.File;
+
+import java.security.MessageDigest;
 
 /**
  *
@@ -15,9 +17,9 @@ import org.jphototagger.program.app.AppLogger;
  * @author Elmar Baumann
  */
 final public class CacheFileUtil {
-
     public static void ensureCacheDirectoriesExists() {
         ExifCache.ensureCacheDiretoryExists();
+        EmbeddedXmpCache.ensureCacheDiretoryExists();
     }
 
     /**
@@ -55,6 +57,5 @@ final public class CacheFileUtil {
         return hex.toString();
     }
 
-    private CacheFileUtil() {
-    }
+    private CacheFileUtil() {}
 }

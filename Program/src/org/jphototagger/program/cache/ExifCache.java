@@ -1,6 +1,5 @@
 package org.jphototagger.program.cache;
 
-import java.io.IOException;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.adapter.DatabaseImageFilesListenerAdapter;
@@ -41,7 +40,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
                        new Object[] { imageFile,
                                       cacheFile });
             exifTags.writeToFile(cacheFile);
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             AppLogger.logSevere(ExifCache.class, ex);
             cacheFile.delete();
         }
@@ -75,7 +74,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         long timestampImageFile = imageFile.lastModified();
         long timestampCachedFile = cacheFile.lastModified();
 
-        return timestampImageFile == timestampCachedFile;
+        return timestampCachedFile >= timestampImageFile;
     }
 
     public static boolean containsExifTags(File imageFile) {
@@ -109,7 +108,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
                                       cacheFile });
 
             return ExifTags.readFromFile(cacheFile);
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             AppLogger.logSevere(ExifCache.class, ex);
         }
 
@@ -180,7 +179,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         if (!CACHE_DIR.isDirectory()) {
             try {
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
-            } catch (IOException ex) {
+            } catch (Throwable ex) {
                 AppLogger.logSevere(ExifCache.class, ex);
             }
         }
