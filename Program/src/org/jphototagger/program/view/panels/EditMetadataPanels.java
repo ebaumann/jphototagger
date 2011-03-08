@@ -520,8 +520,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 ((EditRepeatableTextEntryPanel) textEntry).setText(strings);
             }
         }
-
-        checkSaveOnChanges();
     }
 
     /**
