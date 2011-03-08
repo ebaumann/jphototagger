@@ -7,15 +7,22 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifDataType;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 
 import java.nio.ByteOrder;
+import java.text.MessageFormat;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Elmar Baumann
  */
+@XmlRootElement(name = "exiftag")
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class ExifTag {
 
     /**
@@ -26,23 +33,63 @@ public final class ExifTag {
     public enum Id {
 
         // Ordered by tag ID
-        UNKNOWN(Integer.MIN_VALUE), GPS_VERSION_ID(0), GPS_LATITUDE_REF(1), GPS_LATITUDE(2), GPS_LONGITUDE_REF(3),
-        GPS_LONGITUDE(4), GPS_ALTITUDE_REF(5), GPS_ALTITUDE(6), GPS_TIME_STAMP(7), GPS_SATELLITES(8),
+        UNKNOWN(Integer.MIN_VALUE),
+        GPS_VERSION_ID(0),
+        GPS_LATITUDE_REF(1),
+        GPS_LATITUDE(2),
+        GPS_LONGITUDE_REF(3),
+        GPS_LONGITUDE(4),
+        GPS_ALTITUDE_REF(5),
+        GPS_ALTITUDE(6),
+        GPS_TIME_STAMP(7),
+        GPS_SATELLITES(8),
         GPS_DATE_STAMP(29),
-        IMAGE_WIDTH(256), IMAGE_LENGTH(257), BITS_PER_SAMPLE(258), IMAGE_DESCRIPTION(270), MAKE(271), MODEL(272),
-        SOFTWARE(305), DATE_TIME(306), ARTIST(315), COPYRIGHT(33432), EXPOSURE_TIME(33434), F_NUMBER(33437),
-        EXPOSURE_PROGRAM(34850), SPECTRAL_SENSITIVITY(34852), ISO_SPEED_RATINGS(34855), DATE_TIME_ORIGINAL(36867),
-        DATE_TIME_DIGITIZED(36868), MAKER_NOTE(37500),
+        IMAGE_WIDTH(256),
+        IMAGE_LENGTH(257),
+        BITS_PER_SAMPLE(258),
+        IMAGE_DESCRIPTION(270),
+        MAKE(271),
+        MODEL(272),
+        SOFTWARE(305),
+        DATE_TIME(306),
+        ARTIST(315),
+        COPYRIGHT(33432),
+        EXPOSURE_TIME(33434),
+        F_NUMBER(33437),
+
+        EXPOSURE_PROGRAM(34850),
+        SPECTRAL_SENSITIVITY(34852),
+        ISO_SPEED_RATINGS(34855),
+        DATE_TIME_ORIGINAL(36867),
+
+        DATE_TIME_DIGITIZED(36868),
+        MAKER_NOTE(37500),
+
 
         /**
          * Maker note that shall be displayed. Alle maker notes equals to or
          * grater than this value will be displayed.
          */
-        MAKER_NOTE_LENS(3750010), MAKER_NOTE_CANON_START(3751000), MAKER_NOTE_NIKON_START(3752000),
+        MAKER_NOTE_LENS(3750010),
+        MAKER_NOTE_CANON_START(3751000),
+        MAKER_NOTE_NIKON_START(3752000),
+
         METERING_MODE(37383),
-        FLASH(37385), FOCAL_LENGTH(37386), USER_COMMENT(37510), FILE_SOURCE(41728), EXPOSURE_MODE(41986),
-        WHITE_BALANCE(41987), FOCAL_LENGTH_IN_35_MM_FILM(41989), CONTRAST(41992), SATURATION(41993), SHARPNESS(41994),
-        SUBJECT_DISTANCE_RANGE(41996), IMAGE_UNIQUE_ID(42016),
+
+        FLASH(37385),
+        FOCAL_LENGTH(37386),
+        USER_COMMENT(37510),
+        FILE_SOURCE(41728),
+        EXPOSURE_MODE(41986),
+
+        WHITE_BALANCE(41987),
+        FOCAL_LENGTH_IN_35_MM_FILM(41989),
+        CONTRAST(41992),
+        SATURATION(41993),
+        SHARPNESS(41994),
+
+        SUBJECT_DISTANCE_RANGE(41996),
+        IMAGE_UNIQUE_ID(42016),
         ;
 
         /**
@@ -80,6 +127,7 @@ public final class ExifTag {
         }
     }
 
+    @XmlTransient
     private static final Map<Integer, ExifDataType> DATA_TYPE_OF_TAG_ID = new HashMap<Integer, ExifDataType>();
 
     static {
@@ -121,6 +169,21 @@ public final class ExifTag {
     private final String stringValue;
     private final String name;
     private final int byteOrderId;
+
+    /**
+     * Only for JAXB!
+     */
+    public ExifTag() {
+        valueOffset = -1;
+        rawValue = new byte[]{};
+        stringValue = "";
+        name = "";
+        byteOrderId = -1;
+        valueCount = -1;
+        idValue = -1;
+        dataTypeId = -1;
+        ifdType = IfdType.UNDEFINED;
+    }
 
     public ExifTag(IFDEntry entry, ExifMetadata.IfdType ifdType) {
         if (entry == null) {
@@ -278,15 +341,27 @@ public final class ExifTag {
     }
 
     public String info() {
-        return "EXIF Tag [ID: " + idValue + ", Name: " + ((name == null)
-                ? " Undefined "
-                : name) + ", Number of values: " + valueCount + ", Value offset: " + valueOffset + ", Data type: "
-                        + dataType().toString() + ", Raw value byte count: " + ((rawValue == null)
-                ? 0
-                : rawValue.length) + ", Byte order: " + byteOrder().toString() + ", String Value: "
-                                   + ((stringValue == null)
-                                      ? ""
-                                      : stringValue) + ", IFD Type: " + ifdType.toString() + "]"
-        ;
+        String pattern = "EXIF Tag ["
+                + "ID: {0}"
+                + ", Name: {1}"
+                + ", Number of values: {2}"
+                + ", Value offset: {3}"
+                + ", Data type: {4}"
+                + ", Raw value byte count: {5}"
+                + ", Byte order: {6}"
+                + ", String Value: {7}"
+                + ", IFD Type: {8}"
+                + "]";
+
+        return MessageFormat.format(pattern,
+                idValue,
+                (name == null) ? " Undefined " : name,
+                valueCount,
+                valueOffset,
+                dataType(),
+                (rawValue == null) ? 0 : rawValue.length,
+                byteOrder(),
+                (stringValue == null) ? "" : stringValue,
+                ifdType);
     }
 }

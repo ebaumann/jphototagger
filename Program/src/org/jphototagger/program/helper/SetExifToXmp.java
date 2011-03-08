@@ -114,7 +114,7 @@ public final class SetExifToXmp extends HelperThread {
             throw new NullPointerException("imgFile == null");
         }
 
-        Exif exif = ExifMetadata.getExif(imgFile);
+        Exif exif = ExifMetadata.getCachedExif(imgFile);
         Xmp xmp = null;
 
         try {

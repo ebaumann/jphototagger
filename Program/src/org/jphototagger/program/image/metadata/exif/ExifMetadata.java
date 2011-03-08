@@ -15,6 +15,7 @@ import org.jphototagger.program.types.FileType;
 
 import java.io.File;
 import java.io.IOException;
+import org.jphototagger.program.cache.ExifCache;
 
 /**
  * Extracts EXIF metadata from images as {@link ExifTag} and
@@ -180,6 +181,14 @@ public final class ExifMetadata {
         return ExifFactory.getExif(imageFile);
     }
 
+    public static Exif getCachedExif(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        return ExifFactory.getExif(ExifCache.getExifTags(imageFile));
+    }
+
     /**
      * Returns the milliseconds since 1970 of the time when the image was taken.
      * <p>
@@ -195,7 +204,7 @@ public final class ExifMetadata {
             throw new NullPointerException("imageFile == null");
         }
 
-        Exif exif = getExif(imageFile);
+        Exif exif = getCachedExif(imageFile);
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
             return imageFile.lastModified();

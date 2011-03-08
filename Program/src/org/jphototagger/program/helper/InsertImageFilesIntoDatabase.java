@@ -257,7 +257,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private void setExif(ImageFile imageFile) {
-        Exif exif = ExifMetadata.getExif(imageFile.getFile());
+        Exif exif = ExifMetadata.getCachedExif(imageFile.getFile());
 
         if ((exif != null) &&!exif.isEmpty()) {
             imageFile.setExif(exif);
