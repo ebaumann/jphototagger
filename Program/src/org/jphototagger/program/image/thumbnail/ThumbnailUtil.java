@@ -209,7 +209,7 @@ public final class ThumbnailUtil {
         Image rotatedThumbnail = thumbnail;
 
         if (thumbnail != null) {
-            ExifTags exifTags = ExifCache.getExifTags(file);
+            ExifTags exifTags = ExifCache.INSTANCE.getExifTags(file);
             double rotateAngle = 0.0;
 
             if (exifTags != null) {

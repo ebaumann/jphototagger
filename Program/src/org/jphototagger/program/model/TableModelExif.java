@@ -86,7 +86,7 @@ public final class TableModelExif extends TableModelExt {
     }
 
     private void setExifTags() {
-        exifTags = ExifCache.getExifTags(file);
+        exifTags = ExifCache.INSTANCE.getExifTags(file);
 
         if (exifTags == null) {
             return;

@@ -1,5 +1,12 @@
 package org.jphototagger.lib.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -228,6 +235,39 @@ public final class StringUtil {
         sb.append("]");
 
         return sb.toString();
+    }
+
+    /**
+     * Reads the input stream into a string and finally closes the input stream.
+     *
+     * @param  is          input stream
+     * @param  charsetName encoding of the characters in the stream
+     * @return
+     * @throws IOException
+     */
+    public static String convertStreamToString(InputStream is, String charsetName) throws IOException {
+        if (is == null) {
+            throw new NullPointerException("is == null");
+        }
+
+        if (charsetName == null) {
+            throw new NullPointerException("encoding == null");
+        }
+
+        Writer writer = new StringWriter();
+
+        char[] buffer = new char[1024];
+        try {
+            Reader br = new BufferedReader(new InputStreamReader(is, charsetName));
+            int n;
+            while ((n = br.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+        } finally {
+            is.close();
+        }
+
+        return writer.toString();
     }
 
     private StringUtil() {}

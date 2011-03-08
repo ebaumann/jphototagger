@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.59 2011-03-09
+-----------------
+* EXIF-Daten einmal gelesener Bilder werden für die Anzeige zwischengespeichert.
+  Dies sollte die Anzeige der EXIF-Daten großer Bilddateien nach erneuter
+  Auswahl beschleunigen.
+
 0.8.58 2011-03-04
 -----------------
 * Interna modifiziert

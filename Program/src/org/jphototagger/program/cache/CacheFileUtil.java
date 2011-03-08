@@ -18,8 +18,8 @@ import java.security.MessageDigest;
  */
 final public class CacheFileUtil {
     public static void ensureCacheDirectoriesExists() {
-        ExifCache.ensureCacheDiretoryExists();
-        EmbeddedXmpCache.ensureCacheDiretoryExists();
+        ExifCache.INSTANCE.ensureCacheDiretoryExists();
+        EmbeddedXmpCache.INSTANCE.ensureCacheDiretoryExists();
     }
 
     /**

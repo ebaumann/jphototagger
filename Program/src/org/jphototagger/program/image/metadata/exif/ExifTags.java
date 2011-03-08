@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.exporter.XmlObjectExporter;
 import org.jphototagger.program.importer.XmlObjectImporter;
 
@@ -192,6 +193,13 @@ public final class ExifTags {
         }
 
         XmlObjectExporter.export(this, file);
+
+        // Fixing [org.xml.sax.SAXParseException: An invalid XML character (Unicode: 0x0) was found in the element content of the document.]
+        // JAXB writes zero bytes
+        String fileContent = FileUtil.getContentAsString(file, "UTF-8");
+        fileContent = fileContent.replace("\000", "");
+        FileUtil.writeStringAsFile(file, fileContent);
+
     }
 
     public static ExifTags readFromFile(File file) throws Exception {

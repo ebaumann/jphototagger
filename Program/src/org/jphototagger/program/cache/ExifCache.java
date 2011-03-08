@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.database.DatabaseImageFiles;
 
 /**
  *
@@ -20,11 +21,12 @@ import org.jphototagger.lib.io.FileUtil;
  * @author Elmar Baumann
  */
 public final class ExifCache extends DatabaseImageFilesListenerAdapter {
-    private static final File CACHE_DIR = new File(UserSettings.getDatabaseBasename() + File.separator + "ExifCache");
+    private final File CACHE_DIR = new File(UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + "ExifCache");
     private static final Logger LOGGER = Logger.getLogger(ExifCache.class.getName());
-    private static final SerialExecutor SERIAL_EXECUTOR = new SerialExecutor(Executors.newCachedThreadPool());
+    private final SerialExecutor SERIAL_EXECUTOR = new SerialExecutor(Executors.newCachedThreadPool());
+    public static final ExifCache INSTANCE = new ExifCache();
 
-    public static void cacheExifTags(File imageFile, ExifTags exifTags) {
+    public void cacheExifTags(File imageFile, ExifTags exifTags) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -36,9 +38,8 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         File cacheFile = getExifTagsCacheFile(imageFile);
 
         try {
-            LOGGER.log(Level.FINEST, "Caching EXIF of image file ''{0}'' into cache file ''{1}''",
-                       new Object[] { imageFile,
-                                      cacheFile });
+            LOGGER.log(Level.INFO, "Caching EXIF of image file ''{0}'' into cache file ''{1}''",
+                       new Object[] { imageFile, cacheFile });
             exifTags.writeToFile(cacheFile);
         } catch (Throwable ex) {
             AppLogger.logSevere(ExifCache.class, ex);
@@ -46,7 +47,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
     }
 
-    public static void cacheExifTagsIfNotUpToDate(File imageFile, ExifTags exifTags) {
+    public void cacheExifTagsIfNotUpToDate(File imageFile, ExifTags exifTags) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -56,12 +57,12 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
 
         if (!containsUpToDateExifTags(imageFile)) {
-            LOGGER.log(Level.FINEST, "Updating EXIF cache file of image file ''{0}''", new Object[] { imageFile });
+            LOGGER.log(Level.INFO, "Updating EXIF cache file of image file ''{0}''", new Object[] { imageFile });
             cacheExifTags(imageFile, exifTags);
         }
     }
 
-    public static boolean containsUpToDateExifTags(File imageFile) {
+    public boolean containsUpToDateExifTags(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -77,7 +78,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         return timestampCachedFile >= timestampImageFile;
     }
 
-    public static boolean containsExifTags(File imageFile) {
+    public boolean containsExifTags(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -91,7 +92,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
      * @return           Cached ExifTags or null if the cache does not contain
      *                   tags for that image file or on errors
      */
-    public static ExifTags getCachedExifTags(File imageFile) {
+    public ExifTags getCachedExifTags(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -103,9 +104,8 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
 
         try {
-            LOGGER.log(Level.FINEST, "Reading EXIF cache file of image file ''{0}'' from cache file ''{1}''",
-                       new Object[] { imageFile,
-                                      cacheFile });
+            LOGGER.log(Level.INFO, "Reading EXIF cache file of image file ''{0}'' from cache file ''{1}''",
+                       new Object[] { imageFile, cacheFile });
 
             return ExifTags.readFromFile(cacheFile);
         } catch (Throwable ex) {
@@ -115,7 +115,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         return null;
     }
 
-    public static void deleteCachedExifTags(File imageFile) {
+    public void deleteCachedExifTags(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -123,13 +123,13 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         File cacheFile = getExifTagsCacheFile(imageFile);
 
         if (cacheFile.isFile()) {
-            LOGGER.log(Level.FINEST, "Deleting EXIF cache file ''{0}'' of image file ''{1}''", new Object[] { cacheFile,
-                    imageFile });
+            LOGGER.log(Level.INFO, "Deleting EXIF cache file ''{0}'' of image file ''{1}''",
+                    new Object[] { cacheFile, imageFile });
             cacheFile.delete();
         }
     }
 
-    public static void renameCachedExifTags(File oldImageFile, File newImageFile) {
+    public void renameCachedExifTags(File oldImageFile, File newImageFile) {
         if (!containsExifTags(oldImageFile)) {
             SERIAL_EXECUTOR.execute(new ExifTagsCreator(newImageFile));
         } else {
@@ -137,7 +137,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
             File newCacheFile = getExifTagsCacheFile(newImageFile);
 
             LOGGER.log(
-                Level.FINEST,
+                Level.INFO,
                 "Renaming EXIF cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
                 new Object[] { oldCacheFile, oldImageFile, newCacheFile, newImageFile });
 
@@ -157,7 +157,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
      * @return           tags or null if the tags neither in the cache nor could be
      *                   created from the image file
      */
-    public static ExifTags getExifTags(File imageFile) {
+    public ExifTags getExifTags(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -167,7 +167,9 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         } else {
             ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
 
-            if (exifTags != null) {
+            if (exifTags == null) {
+                cacheExifTags(imageFile, new ExifTags());
+            } else {
                 cacheExifTags(imageFile, exifTags);
             }
 
@@ -175,7 +177,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
     }
 
-    public static void ensureCacheDiretoryExists() {
+    public void ensureCacheDiretoryExists() {
         if (!CACHE_DIR.isDirectory()) {
             try {
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
@@ -185,7 +187,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
     }
 
-    private static File getExifTagsCacheFile(File imageFile) {
+    private File getExifTagsCacheFile(File imageFile) {
         return new File(CACHE_DIR + File.separator + CacheFileUtil.getMd5Filename(imageFile) + ".xml");
     }
 
@@ -199,12 +201,14 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
 
         @Override
         public void run() {
-            LOGGER.log(Level.FINEST, "Reading EXIF of image file ''{0}'' and creating EXIF cache", imageFile);
+            LOGGER.log(Level.INFO, "Reading EXIF of image file ''{0}'' and creating EXIF cache", imageFile);
 
             ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
 
-            if (exifTags != null) {
-                cacheExifTags(imageFile, exifTags);
+            if (exifTags == null) {
+                INSTANCE.cacheExifTags(imageFile, new ExifTags());
+            } else {
+                INSTANCE.cacheExifTags(imageFile, exifTags);
             }
         }
     }
@@ -224,5 +228,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         deleteCachedExifTags(imageFile);
     }
 
-    private ExifCache() {}
+    private ExifCache() {
+        DatabaseImageFiles.INSTANCE.addListener(this);
+    }
 }

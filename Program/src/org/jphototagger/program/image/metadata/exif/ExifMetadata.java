@@ -198,7 +198,7 @@ public final class ExifMetadata {
             throw new NullPointerException("imageFile == null");
         }
 
-        return ExifFactory.getExif(ExifCache.getExifTags(imageFile));
+        return ExifFactory.getExif(ExifCache.INSTANCE.getExifTags(imageFile));
     }
 
     /**

@@ -5,6 +5,7 @@ import com.adobe.xmp.XMPConst;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
+import org.jphototagger.program.cache.EmbeddedXmpCache;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -351,7 +352,7 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
                 allInfos = (sidecarFile != null)
                            ? XmpMetadata.getPropertyInfosOfSidecarFile(sidecarFile)
                            : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                             ? XmpMetadata.getEmbeddedPropertyInfos(imageFile)
+                             ? EmbeddedXmpCache.INSTANCE.getXmpPropertyInfos(imageFile)
                              : null;
             } catch (IOException ex) {
                 Logger.getLogger(ControllerShowMetadata.class.getName()).log(Level.SEVERE, null, ex);
