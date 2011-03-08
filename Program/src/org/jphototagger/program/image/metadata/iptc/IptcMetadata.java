@@ -13,6 +13,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * IPTC metadata of an image file.
@@ -21,7 +23,9 @@ import java.util.List;
  */
 public final class IptcMetadata {
 
-    /**
+    private static final Logger LOGGER = Logger.getLogger(IptcMetadata.class.getName());
+
+   /**
      * Returns {@link IptcEntry} instances of an image file.
      *
      * @param  imageFile image file or null
@@ -34,6 +38,7 @@ public final class IptcMetadata {
         if ((imageFile != null) && imageFile.exists()) {
             try {
                 AppLogger.logInfo(IptcMetadata.class, "IptcMetadata.Info.GetMetadata", imageFile);
+                LOGGER.log(Level.INFO, "Reading IPTC from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});
 
                 IPTCEntryCollection collection = MetadataUtils.getIPTC(imageFile);
 

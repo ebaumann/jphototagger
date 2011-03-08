@@ -42,6 +42,8 @@ import org.jphototagger.program.cache.ExifCache;
  */
 public final class ThumbnailUtil {
 
+    private static final Logger LOGGER = Logger.getLogger(ThumbnailUtil.class.getName());
+
     /**
      * Returns a thumbnail created with
      * {@link UserSettings#setThumbnailCreator(org.jphototagger.program.image.thumbnail.ThumbnailCreator)}.
@@ -117,6 +119,7 @@ public final class ThumbnailUtil {
         }
 
         AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.CreateImage.Information.JavaIo", file, maxLength);
+        LOGGER.log(Level.INFO, "Creating thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
 
         BufferedImage image = loadImage(file);
         BufferedImage scaledImage = null;
@@ -148,6 +151,7 @@ public final class ThumbnailUtil {
 
         try {
             AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file);
+            LOGGER.log(Level.INFO, "Reading embedded thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
             reader = ReaderFactory.createReader(file);
 
             if (reader instanceof JpegReader) {
@@ -174,6 +178,7 @@ public final class ThumbnailUtil {
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
             AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
+            LOGGER.log(Level.INFO, "Creating thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
 
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions procOptions = new ImageProcOptions();

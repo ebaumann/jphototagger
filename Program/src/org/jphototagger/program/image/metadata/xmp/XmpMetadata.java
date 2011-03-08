@@ -38,6 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Gets and sets XMP metadata from image files and XMP sidecar files and to
@@ -46,6 +48,8 @@ import java.util.Set;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class XmpMetadata {
+
+    private static final Logger LOGGER = Logger.getLogger(XmpMetadata.class.getName());
     private static final List<String> KNOWN_NAMESPACES = new ArrayList<String>();
 
     static {
@@ -242,6 +246,7 @@ public final class XmpMetadata {
         }
 
         AppLogger.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp", imageFile);
+        LOGGER.log(Level.INFO, "Reading embedded XMP from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});
 
         return XmpFileReader.readFile(imageFile);
     }
