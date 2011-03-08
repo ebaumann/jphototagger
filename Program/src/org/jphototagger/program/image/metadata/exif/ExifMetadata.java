@@ -15,6 +15,8 @@ import org.jphototagger.program.types.FileType;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jphototagger.program.cache.ExifCache;
 
 /**
@@ -24,8 +26,15 @@ import org.jphototagger.program.cache.ExifCache;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ExifMetadata {
+
+    private static final Logger LOGGER = Logger.getLogger(ExifMetadata.class.getName());
+
     public enum IfdType {
-        EXIF, GPS, INTEROPERABILITY, MAKER_NOTE, UNDEFINED,
+        EXIF,
+        GPS,
+        INTEROPERABILITY,
+        MAKER_NOTE,
+        UNDEFINED,
         ;
     }
 
@@ -45,6 +54,7 @@ public final class ExifMetadata {
         ExifTags exifTags = new ExifTags();
 
         try {
+            LOGGER.log(Level.INFO, "Reading EXIF from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});
             addExifTags(imageFile, exifTags);
         } catch (Exception ex) {
             AppLogger.logSevere(ExifMetadata.class, ex);
