@@ -25,14 +25,19 @@ final class ExifFactory {
      * @return           EXIF metadata or null if errors occured
      */
     static Exif getExif(File imageFile) {
-        Exif exif = new Exif();
         ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
 
+        return getExif(exifTags);
+    }
+
+    static Exif getExif(ExifTags exifTags) {
         if (exifTags == null) {
             return null;
         }
 
         try {
+            Exif exif = new Exif();
+
             ExifTag dateTimeOriginal = exifTags.exifTagById(ExifTag.Id.DATE_TIME_ORIGINAL.value());
             ExifTag focalLength = exifTags.exifTagById(ExifTag.Id.FOCAL_LENGTH.value());
             ExifTag isoSpeedRatings = exifTags.exifTagById(ExifTag.Id.ISO_SPEED_RATINGS.value());

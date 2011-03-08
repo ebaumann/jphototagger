@@ -1,17 +1,27 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import org.jphototagger.program.exporter.XmlObjectExporter;
+import org.jphototagger.program.importer.XmlObjectImporter;
 
 /**
  * EXIF tags separated by their TIFF IFD (image file directory).
  *
  * @author Elmar Baumann
  */
+@XmlRootElement(name = "exiftags")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso(ExifTag.class)
 public final class ExifTags {
     private String makerNoteDescription;
 
@@ -174,5 +184,17 @@ public final class ExifTags {
         }
 
         return null;
+    }
+
+    public void writeToFile(File file) throws Exception {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        XmlObjectExporter.export(this, file);
+    }
+
+    public static ExifTags readFromFile(File file) throws Exception {
+        return (ExifTags) XmlObjectImporter.importObject(file, ExifTags.class);
     }
 }

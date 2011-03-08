@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import java.security.MessageDigest;
 
 import javax.swing.ImageIcon;
 
@@ -144,7 +143,7 @@ public final class PersistentThumbnails {
             throw new NullPointerException("imageFile == null");
         }
 
-        String md5Filename = getMd5Filename(imageFile);
+        String md5Filename = CacheFileUtil.getMd5Filename(imageFile);
 
         return getThumbnail(md5Filename);
     }
@@ -161,7 +160,7 @@ public final class PersistentThumbnails {
             throw new NullPointerException("imageFile == null");
         }
 
-        String md5Filename = getMd5Filename(imageFile);
+        String md5Filename = CacheFileUtil.getMd5Filename(imageFile);
 
         return (md5Filename == null)
                ? null
@@ -207,7 +206,7 @@ public final class PersistentThumbnails {
             throw new NullPointerException("toImageFile == null");
         }
 
-        final String fromMd5Filename = getMd5Filename(fromImageFile);
+        final String fromMd5Filename = CacheFileUtil.getMd5Filename(fromImageFile);
 
         if (fromMd5Filename == null) {
             return false;
@@ -219,7 +218,7 @@ public final class PersistentThumbnails {
             return false;
         }
 
-        File toTnFile = getThumbnailfile(getMd5Filename(toImageFile));
+        File toTnFile = getThumbnailfile(CacheFileUtil.getMd5Filename(toImageFile));
 
         if (!fromTnFile.renameTo(toTnFile)) {
             AppLogger.logWarning(PersistentThumbnails.class, "PersistentThumbnails.Error.Rename", fromImageFile,
@@ -231,37 +230,4 @@ public final class PersistentThumbnails {
         return true;
     }
 
-    /*
-     *  Compute an MD5 hash from a fully canonicalized filename.
-     * @return MD5 filename or null on errors
-     */
-    private static String getMd5Filename(File file) {
-        MessageDigest md5;
-
-        try {
-            md5 = MessageDigest.getInstance("MD5");
-        } catch (Exception ex) {
-            AppLogger.logSevere(PersistentThumbnails.class, ex);
-
-            return null;
-        }
-
-        md5.reset();
-        md5.update(("file://" + file.getAbsolutePath()).getBytes());
-
-        byte[] result = md5.digest();
-        StringBuilder hex = new StringBuilder();
-
-        for (int i = 0; i < result.length; i++) {
-            if ((result[i] & 0xff) == 0) {
-                hex.append("00");
-            } else if ((result[i] & 0xff) < 0x10) {
-                hex.append("0" + Integer.toHexString(0xFF & result[i]));
-            } else {
-                hex.append(Integer.toHexString(0xFF & result[i]));
-            }
-        }
-
-        return hex.toString();
-    }
 }

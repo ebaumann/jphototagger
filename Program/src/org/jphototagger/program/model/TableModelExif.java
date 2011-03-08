@@ -2,6 +2,7 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.cache.ExifCache;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTagDisplayComparator;
@@ -85,7 +86,7 @@ public final class TableModelExif extends TableModelExt {
     }
 
     private void setExifTags() {
-        exifTags = ExifMetadata.getExifTags(file);
+        exifTags = ExifCache.getExifTags(file);
 
         if (exifTags == null) {
             return;

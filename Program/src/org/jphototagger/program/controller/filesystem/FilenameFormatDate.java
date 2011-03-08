@@ -59,7 +59,7 @@ public final class FilenameFormatDate extends FilenameFormat {
      * @param file file
      */
     private void formatDate(File file) {
-        Exif exif = ExifMetadata.getExif(file);
+        Exif exif = ExifMetadata.getCachedExif(file);
 
         if (exif == null) {
             setFromFilesystem(file);

@@ -6,7 +6,6 @@ import org.jphototagger.lib.util.PropertiesUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.HelperThread;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.GPSImageInfo;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JFileChooser;
+import org.jphototagger.program.cache.ExifCache;
 
 /**
  * Utils for exporting GPS metadata.
@@ -82,7 +82,7 @@ public final class GPSLocationExportUtil {
 
             for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
                 File imageFile = imageFiles.get(i);
-                ExifTags et = ExifMetadata.getExifTags(imageFile);
+                ExifTags et = ExifCache.getExifTags(imageFile);
 
                 if (et != null) {
                     ExifGpsMetadata gpsMetadata = ExifGpsUtil.gpsMetadata(et);
@@ -97,7 +97,6 @@ public final class GPSLocationExportUtil {
             progressEnded(null);
         }
     }
-
 
     /**
      * Exports GPS metadata in image files into a file.
