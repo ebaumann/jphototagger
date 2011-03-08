@@ -1,5 +1,6 @@
 package org.jphototagger.program.cache;
 
+import java.io.IOException;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.adapter.DatabaseImageFilesListenerAdapter;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.io.FileUtil;
 
 /**
  *
@@ -174,6 +176,16 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
     }
 
+    public static void ensureCacheDiretoryExists() {
+        if (!CACHE_DIR.isDirectory()) {
+            try {
+                FileUtil.ensureDirectoryExists(CACHE_DIR);
+            } catch (IOException ex) {
+                AppLogger.logSevere(ExifCache.class, ex);
+            }
+        }
+    }
+
     private static File getExifTagsCacheFile(File imageFile) {
         return new File(CACHE_DIR + File.separator + CacheFileUtil.getMd5Filename(imageFile) + ".xml");
     }
@@ -197,7 +209,6 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
             }
         }
     }
-
 
     @Override
     public void imageFileInserted(File imageFile) {
