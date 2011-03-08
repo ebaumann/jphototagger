@@ -19,17 +19,8 @@ import java.util.StringTokenizer;
 final class ExifFactory {
 
     /**
-     * Returns EXIF metadata of a image file.
-     *
-     * @param  imageFile image file
-     * @return           EXIF metadata or null if errors occured
+     * @return EXIF metadata or null
      */
-    static Exif getExif(File imageFile) {
-        ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
-
-        return getExif(exifTags);
-    }
-
     static Exif getExif(ExifTags exifTags) {
         if (exifTags == null) {
             return null;
