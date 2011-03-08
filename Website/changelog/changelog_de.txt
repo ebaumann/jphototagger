@@ -3,6 +3,10 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.60 2011-03-09
+-----------------
+* Das Einfügen von Vorlagen sollte wieder funktionieren
+
 0.8.59 2011-03-09
 -----------------
 * EXIF-Daten einmal gelesener Bilder werden für die Anzeige zwischengespeichert.
